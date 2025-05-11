@@ -1,0 +1,6 @@
+{
+    "parent": "unusualprehistory2:block/templates/wide_cross",
+    "textures": {
+        "base": "unusualprehistory2:block/calamophyton_top"
+    }
+}
