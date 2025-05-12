@@ -2,6 +2,6 @@
   "parent": "minecraft:block/flower_pot_cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "plant": "unusual_prehistory:block/sarracenia"
+    "plant": "unusual_prehistory:block/trumpet_pitcher"
   }
 }

@@ -25,12 +25,19 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
+        this.pillar(FROZEN_MEAT_BLOCK);
+
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);
+        this.pottedPlant(HORSETAIL, POTTED_HORSETAIL);
         this.pottedPlant(QUILLWORTS, POTTED_QUILLWORTS);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
-        this.pottedPlant(SARRACENIA, POTTED_SARRACENIA);
+        this.pottedPlant(TRUMPET_PITCHER, POTTED_TRUMPET_PITCHER);
+
+        this.tallPlant(LARGE_HORSETAIL);
+        this.tallPlant(TALL_TRUMPET_PITCHER);
+        this.tallPlant(RAIGUENRAYUN);
 
         this.cubeAllBlock(ANOSTYLOSTROMA);
         this.cubeAllBlock(PETRIFIED_ANOSTYLOSTROMA);
@@ -74,6 +81,11 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     private void wall(RegistryObject<Block> wall, ResourceLocation texture) {
         this.wallBlock((WallBlock) wall.get(), texture);
         this.itemModels().wallInventory(getItemName(wall.get()), texture);
+    }
+
+    private void pillar(RegistryObject<Block> pillar) {
+        this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + getItemName(pillar.get()) + "_top"));
+        this.itemModel(pillar);
     }
 
     private void simpleCross(RegistryObject<Block> block) {

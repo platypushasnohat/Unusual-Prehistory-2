@@ -25,8 +25,8 @@ import javax.annotation.Nullable;
 public class CalamophytonBlock extends AncientPlantBlock implements BonemealableBlock {
 
     public static final IntegerProperty LAYER = IntegerProperty.create("layer", 0, 2);
-    protected static final VoxelShape BOTTOM_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 12.0D, 16.0D, 12.0D);
-    protected static final VoxelShape TOP_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 12.0D, 14.0D, 12.0D);
+    protected static final VoxelShape BOTTOM_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    protected static final VoxelShape TOP_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 14.0D, 12.0D);
 
     public CalamophytonBlock(Block.Properties properties) {
         super(properties);

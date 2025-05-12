@@ -14,18 +14,23 @@ public class UP2CreativeTabs {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusualprehistory2",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.SARRACENIA.get()))
-                    .title(Component.translatable("itemGroup.unusualprehistory2"))
+    public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.TRUMPET_PITCHER.get()))
+                    .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
 
+                        tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
                         tabOutput.accept(UP2Blocks.CALAMOPHYTON.get());
                         tabOutput.accept(UP2Blocks.CLADOPHLEBIS.get());
                         tabOutput.accept(UP2Blocks.COOKSONIA.get());
-                        tabOutput.accept(UP2Blocks.QUILLWORTS.get());
+                        tabOutput.accept(UP2Blocks.HORSETAIL.get());
+                        tabOutput.accept(UP2Blocks.LARGE_HORSETAIL.get());
                         tabOutput.accept(UP2Blocks.LEEFRUCTUS.get());
+                        tabOutput.accept(UP2Blocks.QUILLWORTS.get());
+                        tabOutput.accept(UP2Blocks.RAIGUENRAYUN.get());
                         tabOutput.accept(UP2Blocks.RHYNIA.get());
-                        tabOutput.accept(UP2Blocks.SARRACENIA.get());
+                        tabOutput.accept(UP2Blocks.TRUMPET_PITCHER.get());
+                        tabOutput.accept(UP2Blocks.TALL_TRUMPET_PITCHER.get());
                         tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA_CLOVERS.get());

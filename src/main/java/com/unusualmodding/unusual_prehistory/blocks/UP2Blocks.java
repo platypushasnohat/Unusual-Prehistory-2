@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.blocks;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.custom.*;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
+import com.unusualmodding.unusual_prehistory.sounds.UP2SoundTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -27,6 +28,8 @@ public class UP2Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
 
+    public static final RegistryObject<Block> FROZEN_MEAT_BLOCK = registerBlock("frozen_meat_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(UP2SoundTypes.FROZEN_MEAT)));
+
     public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(SoundType.GRAVEL)));
 
     public static final RegistryObject<Block> CALAMOPHYTON = registerBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
@@ -40,17 +43,24 @@ public class UP2Blocks {
     public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
     public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> QUILLWORTS = registerBlock("quillworts", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
+
+    public static final RegistryObject<Block> QUILLWORTS = registerBlock("quillworts", () -> new QuillwortBlock(UP2Properties.PLANT_PROPERTIES));
     public static final RegistryObject<Block> POTTED_QUILLWORTS = registerBlockWithoutItem("potted_quillworts", () -> new FlowerPotBlock(UP2Blocks.QUILLWORTS.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new AncientFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2Properties.PLANT_PROPERTIES));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
 
+    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
+
     public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new AncientPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> SARRACENIA = registerBlock("sarracenia", () -> new AncientFlowerBlock(() -> MobEffects.HEALTH_BOOST, 9, UP2Properties.PLANT_PROPERTIES));
-    public static final RegistryObject<Block> POTTED_SARRACENIA = registerBlockWithoutItem("potted_sarracenia", () -> new FlowerPotBlock(UP2Blocks.SARRACENIA.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> TRUMPET_PITCHER = registerBlock("trumpet_pitcher", () -> new AncientFlowerBlock(() -> MobEffects.HEALTH_BOOST, 9, UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> POTTED_TRUMPET_PITCHER = registerBlockWithoutItem("potted_trumpet_pitcher", () -> new FlowerPotBlock(UP2Blocks.TRUMPET_PITCHER.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> TALL_TRUMPET_PITCHER = registerBlock("tall_trumpet_pitcher", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
 
     public static final RegistryObject<Block> QUEREUXIA = registerBlock("quereuxia", () -> new QuereuxiaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().randomTicks().noCollission().noOcclusion().sound(SoundType.WET_GRASS).noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> QUEREUXIA_PLANT = registerBlockWithoutItem("quereuxia_plant", () -> new QuereuxiaPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().randomTicks().noCollission().noOcclusion().sound(SoundType.WET_GRASS).noOcclusion().pushReaction(PushReaction.DESTROY)));
@@ -74,6 +84,7 @@ public class UP2Blocks {
     public static final class UP2Properties {
 
         public static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
+        public static final BlockBehaviour.Properties TALL_PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().ignitedByLava().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
 
         public static final BlockBehaviour.Properties DEAD_CORAL_BLOCK_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
         public static final BlockBehaviour.Properties DEAD_CORAL_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().noCollission().instabreak();
