@@ -2,7 +2,9 @@ package com.unusualmodding.unusualprehistory2;
 
 import com.unusualmodding.unusualprehistory2.blocks.UP2Blocks;
 import com.unusualmodding.unusualprehistory2.data.UP2BlockTagProvider;
+import com.unusualmodding.unusualprehistory2.data.UP2BlockstateProvider;
 import com.unusualmodding.unusualprehistory2.data.UP2LangProvider;
+import com.unusualmodding.unusualprehistory2.items.UP2Items;
 import com.unusualmodding.unusualprehistory2.tab.UP2CreativeTabs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -31,7 +33,8 @@ public class UnusualPrehistory2 {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
-        UP2CreativeTabs.TABS.register(bus);
+        UP2CreativeTabs.CREATIVE_TABS.register(bus);
+        UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
 
         bus.addListener(this::commonSetup);
@@ -48,6 +51,7 @@ public class UnusualPrehistory2 {
         ExistingFileHelper helper = data.getExistingFileHelper();
 
         boolean client = data.includeClient();
+        generator.addProvider(client, new UP2BlockstateProvider(data));
         generator.addProvider(client, new UP2LangProvider(data));
 
         boolean server = data.includeServer();

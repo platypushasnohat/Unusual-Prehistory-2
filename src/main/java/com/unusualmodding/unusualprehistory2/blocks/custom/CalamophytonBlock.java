@@ -22,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class CalamophytonBlock extends UP2PlantBlock implements BonemealableBlock {
+public class CalamophytonBlock extends AncientPlantBlock implements BonemealableBlock {
 
     public static final IntegerProperty LAYER = IntegerProperty.create("layer", 0, 2);
     protected static final VoxelShape BOTTOM_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 12.0D, 16.0D, 12.0D);
@@ -120,6 +120,6 @@ public class CalamophytonBlock extends UP2PlantBlock implements BonemealableBloc
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(UP2BlockTags.CALAMOPHYTON_PLACEABLES);
+        return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
     }
 }

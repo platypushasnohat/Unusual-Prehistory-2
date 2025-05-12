@@ -18,6 +18,9 @@ import org.slf4j.Logger;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import static com.unusualmodding.unusualprehistory2.blocks.UP2Blocks.*;
+import static com.unusualmodding.unusualprehistory2.items.UP2Items.*;
+
 public class UP2LangProvider extends LanguageProvider {
 
     public UP2LangProvider(GatherDataEvent event) {
@@ -30,7 +33,7 @@ public class UP2LangProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UP2CreativeTabs.UP2_CREATIVE_TAB.get(), "Unusual Prehistory 2");
+        creativeTab(UP2CreativeTabs.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
 
         // blocks
         UP2Blocks.AUTO_TRANSLATE.forEach(this::forBlock);

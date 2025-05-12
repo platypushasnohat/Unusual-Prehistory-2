@@ -5,29 +5,35 @@ import com.unusualmodding.unusualprehistory2.blocks.UP2Blocks;
 import com.unusualmodding.unusualprehistory2.items.UP2Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class UP2CreativeTabs {
 
-    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
-    private static final CreativeModeTab UP2_TAB = new CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 9)
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .title(Component.translatable("itemGroup.unusual_prehistory_2"))
-            .icon(() -> new ItemStack(Items.GLASS_BOTTLE))
-            .displayItems((d, entries) ->{
+    public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusualprehistory2",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.SARRACENIA.get()))
+                    .title(Component.translatable("itemGroup.unusualprehistory2"))
+                    .displayItems((pParameters, tabOutput) -> {
 
+                        tabOutput.accept(UP2Blocks.CALAMOPHYTON.get());
+                        tabOutput.accept(UP2Blocks.CLADOPHLEBIS.get());
+                        tabOutput.accept(UP2Blocks.COOKSONIA.get());
+                        tabOutput.accept(UP2Blocks.ISOETES_BEESTONII.get());
+                        tabOutput.accept(UP2Blocks.LEEFRUCTUS.get());
+                        tabOutput.accept(UP2Blocks.RHYNIA.get());
+                        tabOutput.accept(UP2Blocks.SARRACENIA.get());
+                        tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
+                        tabOutput.accept(UP2Blocks.ANOSTYLOSTROMA.get());
+                        tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL_BLOCK.get());
+                        tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL.get());
+                        tabOutput.accept(UP2Items.CLATHRODICTYON_CORAL_FAN.get());
+                        tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
+                        tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL.get());
+                        tabOutput.accept(UP2Items.DEAD_CLATHRODICTYON_CORAL_FAN.get());
 
-                for(RegistryObject<Item> item : UP2Items.ITEMS.getEntries()){
-
-                        entries.accept(UP2Blocks.CALAMOPHYTON.get());
-
-                    }
-            })
-            .build();
-
-    public static final RegistryObject<CreativeModeTab> UP2_CREATIVE_TAB = TABS.register("unusual_prehistory", () -> UP2_TAB);
-
+                    }).build());
 }

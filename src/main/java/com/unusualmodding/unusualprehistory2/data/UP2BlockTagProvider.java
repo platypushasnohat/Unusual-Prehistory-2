@@ -21,10 +21,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
     @Override
     protected void addTags(@NotNull Provider pProvider) {
 
-        // UP2 Tags
-        this.tag(UP2BlockTags.CALAMOPHYTON_PLACEABLES)
-                .addTag(BlockTags.SAND)
-                .addTag(BlockTags.DIRT)
-                .add(Blocks.GRAVEL);
+        // UP2 tags
+        this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);
     }
 }
