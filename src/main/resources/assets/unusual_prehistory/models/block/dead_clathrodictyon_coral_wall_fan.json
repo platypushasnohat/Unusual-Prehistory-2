@@ -1,0 +1,7 @@
+{
+  "parent": "block/coral_wall_fan",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "fan": "unusual_prehistory:block/dead_clathrodictyon_coral_fan"
+  }
+}

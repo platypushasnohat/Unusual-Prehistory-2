@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusual_prehistory:block/quereuxia_clovers"
+      },
+      {
+        "model": "unusual_prehistory:block/quereuxia_clovers",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/quereuxia_clovers",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/quereuxia_clovers",
+        "y": 270
+      }
+    ]
+  }
+}

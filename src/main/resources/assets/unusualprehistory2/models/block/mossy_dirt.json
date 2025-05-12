@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "minecraft:block/dirt",
-    "side": "unusualprehistory2:block/mossy_dirt_side",
-    "top": "unusualprehistory2:block/mossy_dirt_top"
-  }
-}

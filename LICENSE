@@ -1,10 +1,10 @@
 The following directories, their subdirectories, and any files inside said directories or subdirectories are subject to
 the license below:
 
-/src/main/resources/assets/unusualprehistory2/textures/
-/src/main/resources/assets/unusualprehistory2/geo/
-/src/main/resources/assets/unusualprehistory2/animations/
-/src/main/resources/assets/unusualprehistory2/sounds/music/ 
+/src/main/resources/assets/unusual_prehistory/textures/
+/src/main/resources/assets/unusual_prehistory/geo/
+/src/main/resources/assets/unusual_prehistory/animations/
+/src/main/resources/assets/unusual_prehistory/sounds/music/
 
 All Rights Reserved
 Copyright (c) 2025 Unusual Modding

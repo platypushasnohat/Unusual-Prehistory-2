@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.unusualmodding.unusual_prehistory.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "unusual_prehistory.refmap.json",
+  "mixins": [],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

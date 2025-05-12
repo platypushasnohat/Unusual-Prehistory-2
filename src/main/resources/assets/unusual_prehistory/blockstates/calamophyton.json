@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "layer=0": { "model": "unusual_prehistory:block/calamophyton_bottom" },
+		"layer=1": { "model": "unusual_prehistory:block/calamophyton_middle" },
+		"layer=2": { "model": "unusual_prehistory:block/calamophyton_top" }
+    }
+}
