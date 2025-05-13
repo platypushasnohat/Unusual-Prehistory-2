@@ -6,11 +6,18 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public class UP2Properties {
+
+    public static final WoodType GINKGO = WoodType.register(new WoodType("ginkgo", BlockSetType.CHERRY));
+
+    public static final BlockBehaviour.Properties DRYO_LOG_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PINK).strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD).instrument(NoteBlockInstrument.BASS);
+
 
     public static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
     public static final BlockBehaviour.Properties TALL_PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().ignitedByLava().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
@@ -20,6 +27,10 @@ public class UP2Properties {
 
     public static BlockBehaviour.Properties leavesProperties(MapColor color, SoundType sound) {
         return BlockBehaviour.Properties.of().mapColor(color).strength(0.2F).randomTicks().sound(sound).noOcclusion().isValidSpawn(UP2Properties::ocelotOrParrot).isSuffocating(UP2Properties::never).isViewBlocking(UP2Properties::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2Properties::never);
+    }
+
+    public static BlockBehaviour.Properties logProperties(MapColor color, SoundType sound, NoteBlockInstrument instrument) {
+        return BlockBehaviour.Properties.of().mapColor(color).strength(2.0F, 3.0F).sound(sound).instrument(instrument);
     }
 
     public static BlockBehaviour.Properties coralProperties(MapColor color) {

@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
@@ -82,6 +83,9 @@ public class UP2Blocks {
 
     public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
     public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
+
+    public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new UP2WoodBlocks(UP2Properties.logProperties(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new UP2WoodBlocks(UP2Properties.logProperties(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

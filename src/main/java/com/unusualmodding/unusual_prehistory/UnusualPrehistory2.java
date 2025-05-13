@@ -16,6 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -40,10 +41,14 @@ public class UnusualPrehistory2 {
         UP2Particles.PARTICLE_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
         bus.addListener(this::dataSetup);
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
+    }
+
+    private void clientSetup(FMLClientSetupEvent event) {
     }
 
     private void dataSetup(GatherDataEvent data) {
