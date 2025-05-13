@@ -49,6 +49,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 GOLDEN_GINKGO_LEAVES.get()
         );
 
+        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
+                MOSSY_DIRT.get()
+        );
+
         this.tag(BlockTags.REPLACEABLE).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get()

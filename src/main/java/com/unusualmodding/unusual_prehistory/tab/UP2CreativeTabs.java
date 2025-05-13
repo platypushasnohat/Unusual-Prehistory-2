@@ -34,6 +34,7 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.RHYNIA.get());
                         tabOutput.accept(UP2Blocks.SARRACENIA.get());
                         tabOutput.accept(UP2Blocks.TALL_SARRACENIA.get());
+                        tabOutput.accept(UP2Blocks.MOSS_LAYER.get());
                         tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA_CLOVERS.get());

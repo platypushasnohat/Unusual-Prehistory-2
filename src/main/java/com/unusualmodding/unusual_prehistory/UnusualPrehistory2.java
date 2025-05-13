@@ -2,10 +2,7 @@ package com.unusualmodding.unusual_prehistory;
 
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.compat.UP2Compat;
-import com.unusualmodding.unusual_prehistory.data.UP2BlockTagProvider;
-import com.unusualmodding.unusual_prehistory.data.UP2BlockstateProvider;
-import com.unusualmodding.unusual_prehistory.data.UP2ItemTagProvider;
-import com.unusualmodding.unusual_prehistory.data.UP2LangProvider;
+import com.unusualmodding.unusual_prehistory.data.*;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
@@ -70,6 +67,7 @@ public class UnusualPrehistory2 {
         UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
+        generator.addProvider(server, UP2LootProvider.register(output));
     }
 
     public static ResourceLocation modPrefix(String name) {
