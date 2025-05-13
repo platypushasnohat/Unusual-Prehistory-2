@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "unusual_prehistory:block/ginkgo_planks",
+    "side": "unusual_prehistory:block/ginkgo_planks",
+    "top": "unusual_prehistory:block/ginkgo_planks"
+  }
+}

@@ -1,0 +1,17 @@
+// 1.20.1	2025-05-13T11:46:30.2812654	Tags for minecraft:item mod id unusual_prehistory
+72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates.json
+72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates/wooden.json
+72636ee54e006e2033d8a65513800fad81eb0bdc data/minecraft/tags/items/fence_gates.json
+2f577fb3423523ef4d1f4a41b11dce258bef04f8 data/minecraft/tags/items/leaves.json
+a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/minecraft/tags/items/logs_that_burn.json
+36980e55732fc4fe30b447bb00c3196a69e9a29e data/minecraft/tags/items/planks.json
+8bd8ebe906f10166b591038dcb1afe6c99dc128d data/minecraft/tags/items/small_flowers.json
+353e9f8692f2b38314910a40184780c396865ff0 data/minecraft/tags/items/tall_flowers.json
+8ae5d538069934bc63e8bdfbb1968e26b6fd2004 data/minecraft/tags/items/wooden_buttons.json
+7633b9674ee58d81e3ae2b21dffa9005eef4f705 data/minecraft/tags/items/wooden_doors.json
+b0781f98d89b34e8416bc4e1a9e14bbea72a49ad data/minecraft/tags/items/wooden_fences.json
+c7519f14d45f9512e72af0dd34cdfd9c4efd27dd data/minecraft/tags/items/wooden_pressure_plates.json
+50ec16893485abe8f39bcf21d5e745f4c1ca4940 data/minecraft/tags/items/wooden_slabs.json
+3d30132ad9b76ccdc7e7d57bfeb465e5e54b3353 data/minecraft/tags/items/wooden_stairs.json
+5ca46a047cd77e001f401028e7c79c259b82d3b5 data/minecraft/tags/items/wooden_trapdoors.json
+a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json

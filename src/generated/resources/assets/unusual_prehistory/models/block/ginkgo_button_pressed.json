@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "unusual_prehistory:block/ginkgo_planks"
+  }
+}

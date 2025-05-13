@@ -4,7 +4,7 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.custom.*;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
-import com.unusualmodding.unusual_prehistory.sounds.UP2SoundTypes;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -29,39 +30,46 @@ public class UP2Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
 
-    public static final RegistryObject<Block> FROZEN_MEAT_BLOCK = registerBlock("frozen_meat_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(UP2SoundTypes.FROZEN_MEAT)));
+    public static final RegistryObject<Block> FROZEN_MEAT_BLOCK = registerBlock("frozen_meat_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(SoundType.GLASS)));
 
     public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(SoundType.GRAVEL)));
 
+    public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () -> new ArchaefructusBlock(UP2Properties.PLANT));
+
+    public static final RegistryObject<Block> ARCHAEOSIGILLARIA = registerBlock("archaeosigillaria", () -> new AncientPlantBlock(UP2Properties.PLANT));
+    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILLARIA = registerBlockWithoutItem("potted_archaeosigillaria", () -> new FlowerPotBlock(UP2Blocks.ARCHAEOSIGILLARIA.get(), registerFlowerPot()));
+
     public static final RegistryObject<Block> CALAMOPHYTON = registerBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new AncientPlantBlock(UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutItem("potted_bennettitales", () -> new FlowerPotBlock(UP2Blocks.BENNETTITALES.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new AncientFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new AncientFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_COOKSONIA = registerBlockWithoutItem("potted_cooksonia", () -> new FlowerPotBlock(UP2Blocks.COOKSONIA.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new AncientPlantBlock(UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new AncientPlantBlock(UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new AncientPlantBlock(UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
-    public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
+    public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT));
 
-    public static final RegistryObject<Block> QUILLWORTS = registerBlock("quillworts", () -> new QuillwortBlock(UP2Properties.PLANT_PROPERTIES));
-    public static final RegistryObject<Block> POTTED_QUILLWORTS = registerBlockWithoutItem("potted_quillworts", () -> new FlowerPotBlock(UP2Blocks.QUILLWORTS.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> ISOETES = registerBlock("isoetes", () -> new IsoetesBlock(UP2Properties.PLANT));
+    public static final RegistryObject<Block> POTTED_ISOETES = registerBlockWithoutItem("potted_isoetes", () -> new FlowerPotBlock(UP2Blocks.ISOETES.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new AncientFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2Properties.PLANT_PROPERTIES));
+    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new AncientFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
+    public static final Supplier<Block> NELUMBITES = registerBlockWithItem("nelumbites", () -> new WaterlilyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().noOcclusion().sound(SoundType.LILY_PAD).noOcclusion().pushReaction(PushReaction.DESTROY)), block -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT));
 
     public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new AncientPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> TRUMPET_PITCHER = registerBlock("trumpet_pitcher", () -> new AncientFlowerBlock(() -> MobEffects.HEALTH_BOOST, 9, UP2Properties.PLANT_PROPERTIES));
-    public static final RegistryObject<Block> POTTED_TRUMPET_PITCHER = registerBlockWithoutItem("potted_trumpet_pitcher", () -> new FlowerPotBlock(UP2Blocks.TRUMPET_PITCHER.get(), registerFlowerPot()));
-    public static final RegistryObject<Block> TALL_TRUMPET_PITCHER = registerBlock("tall_trumpet_pitcher", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT_PROPERTIES));
+    public static final RegistryObject<Block> SARRACENIA = registerBlock("sarracenia", () -> new AncientFlowerBlock(() -> MobEffects.HEALTH_BOOST, 9, UP2Properties.PLANT));
+    public static final RegistryObject<Block> POTTED_SARRACENIA = registerBlockWithoutItem("potted_sarracenia", () -> new FlowerPotBlock(UP2Blocks.SARRACENIA.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> TALL_SARRACENIA = registerBlock("tall_sarracenia", () -> new AncientTallPlantBlock(UP2Properties.TALL_PLANT));
 
     public static final RegistryObject<Block> QUEREUXIA = registerBlock("quereuxia", () -> new QuereuxiaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().randomTicks().noCollission().noOcclusion().sound(SoundType.WET_GRASS).noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> QUEREUXIA_PLANT = registerBlockWithoutItem("quereuxia_plant", () -> new QuereuxiaPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().randomTicks().noCollission().noOcclusion().sound(SoundType.WET_GRASS).noOcclusion().pushReaction(PushReaction.DESTROY)));
@@ -71,21 +79,33 @@ public class UP2Blocks {
     public static final RegistryObject<Block> PETRIFIED_ANOSTYLOSTROMA = registerBlock("petrified_anostylostroma", () -> new PetrifiedAnostylostromaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(1.0F).sound(SoundType.STONE)));
 
     // coral
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_BLOCK = registerBlock("dead_clathrodictyon_coral_block", () -> new Block(UP2Properties.DEAD_CORAL_BLOCK_PROPERTIES));
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL = registerBlock("dead_clathrodictyon_coral", () -> new BaseCoralPlantBlock(UP2Properties.DEAD_CORAL_PROPERTIES));
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_WALL_FAN = registerBlockWithoutItem("dead_clathrodictyon_coral_wall_fan", () -> new BaseCoralWallFanBlock(UP2Properties.DEAD_CORAL_PROPERTIES));
-    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_FAN = registerBlockWithoutItem("dead_clathrodictyon_coral_fan", () -> new BaseCoralFanBlock(UP2Properties.DEAD_CORAL_PROPERTIES));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_BLOCK = registerBlock("dead_clathrodictyon_coral_block", () -> new Block(UP2Properties.DEAD_CORAL_BLOCK));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL = registerBlock("dead_clathrodictyon_coral", () -> new BaseCoralPlantBlock(UP2Properties.DEAD_CORAL));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_WALL_FAN = registerBlockWithoutItem("dead_clathrodictyon_coral_wall_fan", () -> new BaseCoralWallFanBlock(UP2Properties.DEAD_CORAL));
+    public static final RegistryObject<Block> DEAD_CLATHRODICTYON_CORAL_FAN = registerBlockWithoutItem("dead_clathrodictyon_coral_fan", () -> new BaseCoralFanBlock(UP2Properties.DEAD_CORAL));
 
-    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_BLOCK = registerBlock("clathrodictyon_coral_block", () -> new CoralBlock(DEAD_CLATHRODICTYON_CORAL_BLOCK.get(), UP2Properties.coralBlockProperties(MapColor.COLOR_CYAN)));
-    public static final RegistryObject<Block> CLATHRODICTYON_CORAL = registerBlock("clathrodictyon_coral", () -> new CoralPlantBlock(DEAD_CLATHRODICTYON_CORAL.get(), UP2Properties.coralProperties(MapColor.COLOR_CYAN)));
-    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_WALL_FAN = registerBlockWithoutItem("clathrodictyon_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), UP2Properties.coralProperties(MapColor.COLOR_CYAN)));
-    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_FAN = registerBlockWithoutItem("clathrodictyon_coral_fan", () -> new CoralFanBlock(DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Properties.coralProperties(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_BLOCK = registerBlock("clathrodictyon_coral_block", () -> new CoralBlock(DEAD_CLATHRODICTYON_CORAL_BLOCK.get(), UP2Properties.coralBlock(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> CLATHRODICTYON_CORAL = registerBlock("clathrodictyon_coral", () -> new CoralPlantBlock(DEAD_CLATHRODICTYON_CORAL.get(), UP2Properties.coral(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_WALL_FAN = registerBlockWithoutItem("clathrodictyon_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), UP2Properties.coral(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> CLATHRODICTYON_CORAL_FAN = registerBlockWithoutItem("clathrodictyon_coral_fan", () -> new CoralFanBlock(DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Properties.coral(MapColor.COLOR_CYAN)));
 
-    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
-    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
+    // ginkgo
+    public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new UP2WoodBlocks(UP2Properties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new UP2WoodBlocks(UP2Properties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new RotatedPillarBlock(UP2Properties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new RotatedPillarBlock(UP2Properties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(UP2Properties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(() -> GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
+    public static final RegistryObject<Block> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
+    public static final RegistryObject<Block> GINKGO_FENCE = registerBlock("ginkgo_fence", () -> new FenceBlock(UP2Properties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate", () -> new FenceGateBlock(UP2Properties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> GINKGO_DOOR = registerBlock("ginkgo_door", () -> new DoorBlock(UP2Properties.woodenDoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(UP2Properties.woodenTrapdoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2Properties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(UP2Properties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
 
-    public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new UP2WoodBlocks(UP2Properties.logProperties(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new UP2WoodBlocks(UP2Properties.logProperties(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
+    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

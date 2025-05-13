@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.blocks.custom;
 
-import com.unusualmodding.unusual_prehistory.data.tags.UP2BlockTags;
+import com.unusualmodding.unusual_prehistory.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

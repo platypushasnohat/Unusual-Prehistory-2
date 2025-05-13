@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "unusual_prehistory:block/tall_sarracenia_bottom"
+    },
+    "half=upper": {
+      "model": "unusual_prehistory:block/tall_sarracenia_top"
+    }
+  }
+}

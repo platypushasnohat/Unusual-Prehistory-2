@@ -1,8 +1,10 @@
 package com.unusualmodding.unusual_prehistory;
 
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.compat.UP2Compat;
 import com.unusualmodding.unusual_prehistory.data.UP2BlockTagProvider;
 import com.unusualmodding.unusual_prehistory.data.UP2BlockstateProvider;
+import com.unusualmodding.unusual_prehistory.data.UP2ItemTagProvider;
 import com.unusualmodding.unusual_prehistory.data.UP2LangProvider;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
@@ -46,6 +48,9 @@ public class UnusualPrehistory2 {
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            UP2Compat.registerCompat();
+        });
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -64,6 +69,7 @@ public class UnusualPrehistory2 {
         boolean server = data.includeServer();
         UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);
         generator.addProvider(server, blockTags);
+        generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
     }
 
     public static ResourceLocation modPrefix(String name) {

@@ -27,16 +27,20 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.pillar(FROZEN_MEAT_BLOCK);
 
+        this.simpleCross(ARCHAEFRUCTUS);
+        this.generatedItem(ARCHAEFRUCTUS.get(), TextureFolder.BLOCK);
+
+        this.pottedPlant(ARCHAEOSIGILLARIA, POTTED_ARCHAEOSIGILLARIA);
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);
         this.pottedPlant(HORSETAIL, POTTED_HORSETAIL);
-        this.pottedPlant(QUILLWORTS, POTTED_QUILLWORTS);
+        this.pottedPlant(ISOETES, POTTED_ISOETES);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
-        this.pottedPlant(TRUMPET_PITCHER, POTTED_TRUMPET_PITCHER);
+        this.pottedPlant(SARRACENIA, POTTED_SARRACENIA);
 
         this.tallPlant(LARGE_HORSETAIL);
-        this.tallPlant(TALL_TRUMPET_PITCHER);
+        this.tallPlant(TALL_SARRACENIA);
         this.tallPlant(RAIGUENRAYUN);
 
         this.cubeAllBlock(ANOSTYLOSTROMA);
@@ -50,6 +54,20 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.simpleCross(CLATHRODICTYON_CORAL);
         this.generatedItem(CLATHRODICTYON_CORAL.get(), TextureFolder.BLOCK);
+
+        this.pillar(GINKGO_LOG);
+        this.wood(GINKGO_WOOD, this.blockTexture(GINKGO_LOG.get()));
+        this.pillar(STRIPPED_GINKGO_LOG);
+        this.wood(STRIPPED_GINKGO_WOOD, this.blockTexture(STRIPPED_GINKGO_LOG.get()));
+        this.cubeAllBlock(GINKGO_PLANKS);
+        this.stairs(GINKGO_STAIRS, this.blockTexture(GINKGO_PLANKS.get()));
+        this.slab(GINKGO_SLAB, this.blockTexture(GINKGO_PLANKS.get()));
+        this.fence(GINKGO_FENCE, this.blockTexture(GINKGO_PLANKS.get()));
+        this.fenceGate(GINKGO_FENCE_GATE, this.blockTexture(GINKGO_PLANKS.get()));
+        this.doorCutout(GINKGO_DOOR);
+        this.trapdoorCutout(GINKGO_TRAPDOOR);
+        this.pressurePlate(GINKGO_PRESSURE_PLATE, this.blockTexture(GINKGO_PLANKS.get()));
+        this.button(GINKGO_BUTTON, this.blockTexture(GINKGO_PLANKS.get()));
 
         this.leaves(GINKGO_LEAVES);
         this.leaves(GOLDEN_GINKGO_LEAVES);
@@ -91,6 +109,53 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.itemModel(pillar);
     }
 
+    private void wood(RegistryObject<Block> log, ResourceLocation texture) {
+        this.axisBlock((RotatedPillarBlock) log.get(), texture, texture);
+        this.itemModel(log);
+    }
+
+    private void fence(RegistryObject<Block> fence, ResourceLocation texture) {
+        this.fenceBlock((FenceBlock) fence.get(), texture);
+        this.itemModels().fenceInventory(getItemName(fence.get()), texture);
+    }
+
+    private void fenceGate(RegistryObject<Block> gate, ResourceLocation texture) {
+        this.fenceGateBlock((FenceGateBlock) gate.get(), texture);
+        this.itemModel(gate);
+    }
+
+    private void trapdoor(RegistryObject<Block> trapdoor) {
+        this.trapdoorBlock((TrapDoorBlock) trapdoor.get(), this.blockTexture(trapdoor.get()), true);
+        this.itemModels().withExistingParent(getItemName(trapdoor.get()), this.modLoc("block/" + getItemName(trapdoor.get()) + "_bottom"));
+    }
+
+    private void trapdoorCutout(RegistryObject<Block> trapdoor) {
+        this.trapdoorBlockWithRenderType((TrapDoorBlock) trapdoor.get(), this.blockTexture(trapdoor.get()), true, "cutout");
+        this.itemModels().withExistingParent(getItemName(trapdoor.get()), this.modLoc("block/" + getItemName(trapdoor.get()) + "_bottom"));
+    }
+
+    private void door(RegistryObject<Block> door) {
+        String name = getItemName(door.get());
+        this.doorBlock((DoorBlock) door.get(), name.replace("_door", ""), this.modLoc("block/" + name + "_bottom"), this.modLoc("block/" + name + "_top"));
+        this.generatedItem(door.get(), TextureFolder.ITEM);
+    }
+
+    private void doorCutout(RegistryObject<Block> door) {
+        String name = getItemName(door.get());
+        this.doorBlockWithRenderType((DoorBlock) door.get(), name.replace("_door", ""), this.modLoc("block/" + name + "_bottom"), this.modLoc("block/" + name + "_top"), "cutout");
+        this.generatedItem(door.get(), TextureFolder.ITEM);
+    }
+
+    private void button(RegistryObject<Block> button, ResourceLocation texture) {
+        this.buttonBlock((ButtonBlock) button.get(), texture);
+        this.itemModels().buttonInventory(getItemName(button.get()), texture);
+    }
+
+    private void pressurePlate(RegistryObject<Block> pressurePlate, ResourceLocation texture) {
+        this.pressurePlateBlock((PressurePlateBlock) pressurePlate.get(), texture);
+        this.itemModel(pressurePlate);
+    }
+
     private void leaves(RegistryObject<Block> leaves) {
         this.simpleBlock(leaves.get(), this.models().withExistingParent(getItemName(leaves.get()), "block/leaves").texture("all", this.blockTexture(leaves.get())));
         this.itemModel(leaves);
@@ -105,9 +170,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         Function<String, ModelFile> model = s -> this.models().cross(name + "_" + s, this.modLoc("block/" + name + "_" + s)).renderType("cutout");
 
         this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc("block/" + name + "_top"));
-        this.getVariantBuilder(flower.get())
-                .partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(model.apply("top")))
-                .partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(model.apply("bottom")));
+        this.getVariantBuilder(flower.get()).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(model.apply("top"))).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(model.apply("bottom")));
     }
 
     private void pot(RegistryObject<Block> pot, ResourceLocation texture) {

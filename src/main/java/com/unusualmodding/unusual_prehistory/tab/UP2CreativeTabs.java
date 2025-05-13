@@ -15,33 +15,49 @@ public class UP2CreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.TRUMPET_PITCHER.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.SARRACENIA.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
 
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
+                        tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
+                        tabOutput.accept(UP2Blocks.ARCHAEOSIGILLARIA.get());
                         tabOutput.accept(UP2Blocks.CALAMOPHYTON.get());
                         tabOutput.accept(UP2Blocks.CLADOPHLEBIS.get());
                         tabOutput.accept(UP2Blocks.COOKSONIA.get());
                         tabOutput.accept(UP2Blocks.HORSETAIL.get());
                         tabOutput.accept(UP2Blocks.LARGE_HORSETAIL.get());
+                        tabOutput.accept(UP2Blocks.ISOETES.get());
                         tabOutput.accept(UP2Blocks.LEEFRUCTUS.get());
-                        tabOutput.accept(UP2Blocks.QUILLWORTS.get());
+                        tabOutput.accept(UP2Blocks.NELUMBITES.get());
                         tabOutput.accept(UP2Blocks.RAIGUENRAYUN.get());
                         tabOutput.accept(UP2Blocks.RHYNIA.get());
-                        tabOutput.accept(UP2Blocks.TRUMPET_PITCHER.get());
-                        tabOutput.accept(UP2Blocks.TALL_TRUMPET_PITCHER.get());
+                        tabOutput.accept(UP2Blocks.SARRACENIA.get());
+                        tabOutput.accept(UP2Blocks.TALL_SARRACENIA.get());
                         tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA_CLOVERS.get());
-                        tabOutput.accept(UP2Blocks.ANOSTYLOSTROMA.get());
                         tabOutput.accept(UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get());
+                        tabOutput.accept(UP2Blocks.ANOSTYLOSTROMA.get());
                         tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL_BLOCK.get());
                         tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL.get());
                         tabOutput.accept(UP2Items.CLATHRODICTYON_CORAL_FAN.get());
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL.get());
                         tabOutput.accept(UP2Items.DEAD_CLATHRODICTYON_CORAL_FAN.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_LOG.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_WOOD.get());
+                        tabOutput.accept(UP2Blocks.STRIPPED_GINKGO_LOG.get());
+                        tabOutput.accept(UP2Blocks.STRIPPED_GINKGO_WOOD.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_PLANKS.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_STAIRS.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_SLAB.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_FENCE.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_FENCE_GATE.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_DOOR.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_TRAPDOOR.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_PRESSURE_PLATE.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_BUTTON.get());
                         tabOutput.accept(UP2Blocks.GINKGO_LEAVES.get());
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_LEAVES.get());
 
