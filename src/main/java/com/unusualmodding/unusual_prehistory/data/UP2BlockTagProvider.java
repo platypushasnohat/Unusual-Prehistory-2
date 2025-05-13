@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.unusualmodding.unusual_prehistory.blocks.UP2Blocks.*;
+
 public class UP2BlockTagProvider extends BlockTagsProvider {
 
     public UP2BlockTagProvider(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
@@ -20,6 +22,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(@NotNull Provider pProvider) {
+
+        // minecraft tags
+        this.tag(BlockTags.DIRT).add(MOSSY_DIRT.get());
 
         // UP2 tags
         this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);

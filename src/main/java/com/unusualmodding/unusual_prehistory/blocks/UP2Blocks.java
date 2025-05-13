@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.blocks;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.custom.*;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
+import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
 import com.unusualmodding.unusual_prehistory.sounds.UP2SoundTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -11,7 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
@@ -80,23 +80,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> CLATHRODICTYON_CORAL_WALL_FAN = registerBlockWithoutItem("clathrodictyon_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), UP2Properties.coralProperties(MapColor.COLOR_CYAN)));
     public static final RegistryObject<Block> CLATHRODICTYON_CORAL_FAN = registerBlockWithoutItem("clathrodictyon_coral_fan", () -> new CoralFanBlock(DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Properties.coralProperties(MapColor.COLOR_CYAN)));
 
-    // block properties
-    public static final class UP2Properties {
-
-        public static final BlockBehaviour.Properties PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
-        public static final BlockBehaviour.Properties TALL_PLANT_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().ignitedByLava().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
-
-        public static final BlockBehaviour.Properties DEAD_CORAL_BLOCK_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F);
-        public static final BlockBehaviour.Properties DEAD_CORAL_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().noCollission().instabreak();
-
-        public static BlockBehaviour.Properties coralProperties(MapColor color) {
-            return BlockBehaviour.Properties.of().mapColor(color).noCollission().instabreak().sound(SoundType.WET_GRASS).pushReaction(PushReaction.DESTROY);
-        }
-
-        public static BlockBehaviour.Properties coralBlockProperties(MapColor color) {
-            return BlockBehaviour.Properties.of().mapColor(color).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK);
-        }
-    }
+    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
+    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2Properties.leavesProperties(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

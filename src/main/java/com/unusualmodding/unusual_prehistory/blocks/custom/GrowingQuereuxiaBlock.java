@@ -17,7 +17,6 @@ public abstract class GrowingQuereuxiaBlock extends GrowingPlantHeadBlock {
     protected GrowingQuereuxiaBlock(Properties properties, Direction direction, VoxelShape shape, boolean fluidTicks, double growPerTickProbability) {
         super(properties, direction, shape, fluidTicks, growPerTickProbability);
         this.growPerTickProbability = growPerTickProbability;
-
     }
 
     @Override

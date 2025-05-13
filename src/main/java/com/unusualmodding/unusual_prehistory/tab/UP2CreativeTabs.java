@@ -42,6 +42,8 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL.get());
                         tabOutput.accept(UP2Items.DEAD_CLATHRODICTYON_CORAL_FAN.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_LEAVES.get());
+                        tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_LEAVES.get());
 
                     }).build());
 }

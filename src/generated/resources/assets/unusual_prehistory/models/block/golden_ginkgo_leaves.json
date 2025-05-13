@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "unusual_prehistory:block/golden_ginkgo_leaves"
+  }
+}

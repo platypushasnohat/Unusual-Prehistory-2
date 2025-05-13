@@ -50,6 +50,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.simpleCross(CLATHRODICTYON_CORAL);
         this.generatedItem(CLATHRODICTYON_CORAL.get(), TextureFolder.BLOCK);
+
+        this.leaves(GINKGO_LEAVES);
+        this.leaves(GOLDEN_GINKGO_LEAVES);
     }
 
     // item
@@ -86,6 +89,11 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     private void pillar(RegistryObject<Block> pillar) {
         this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + getItemName(pillar.get()) + "_top"));
         this.itemModel(pillar);
+    }
+
+    private void leaves(RegistryObject<Block> leaves) {
+        this.simpleBlock(leaves.get(), this.models().withExistingParent(getItemName(leaves.get()), "block/leaves").texture("all", this.blockTexture(leaves.get())));
+        this.itemModel(leaves);
     }
 
     private void simpleCross(RegistryObject<Block> block) {

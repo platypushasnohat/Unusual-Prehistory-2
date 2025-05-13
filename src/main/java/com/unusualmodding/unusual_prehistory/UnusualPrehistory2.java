@@ -5,6 +5,7 @@ import com.unusualmodding.unusual_prehistory.data.UP2BlockTagProvider;
 import com.unusualmodding.unusual_prehistory.data.UP2BlockstateProvider;
 import com.unusualmodding.unusual_prehistory.data.UP2LangProvider;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
+import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -36,6 +37,7 @@ public class UnusualPrehistory2 {
         UP2CreativeTabs.CREATIVE_TABS.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
+        UP2Particles.PARTICLE_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::dataSetup);
