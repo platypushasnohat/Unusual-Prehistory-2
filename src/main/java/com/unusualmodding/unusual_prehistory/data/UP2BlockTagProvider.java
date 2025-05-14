@@ -34,6 +34,15 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);
 
         // minecraft
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                PETRIFIED_ANOSTYLOSTROMA.get(),
+                CLATHRODICTYON_CORAL_BLOCK.get(),
+                DEAD_CLATHRODICTYON_CORAL.get(),
+                DEAD_CLATHRODICTYON_CORAL_BLOCK.get(),
+                DEAD_CLATHRODICTYON_CORAL_FAN.get(),
+                DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get()
+        );
+
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
@@ -45,6 +54,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
                 FROZEN_MEAT_BLOCK.get(),
+                ANOSTYLOSTROMA.get(),
+                MOSS_LAYER.get(),
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get()
         );

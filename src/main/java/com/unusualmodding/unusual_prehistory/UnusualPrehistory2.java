@@ -61,6 +61,7 @@ public class UnusualPrehistory2 {
 
         boolean client = data.includeClient();
         generator.addProvider(client, new UP2BlockstateProvider(data));
+        generator.addProvider(client, new UP2ItemModelProvider(data));
         generator.addProvider(client, new UP2LangProvider(data));
 
         boolean server = data.includeServer();

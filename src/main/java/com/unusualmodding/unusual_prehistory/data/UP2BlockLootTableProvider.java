@@ -1,10 +1,13 @@
 package com.unusualmodding.unusual_prehistory.data;
 
+import com.unusualmodding.unusual_prehistory.blocks.custom.CalamophytonBlock;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -13,6 +16,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -43,9 +47,9 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     }
 
     @Override
-    protected void add(@NotNull Block pBlock, LootTable.@NotNull Builder pBuilder) {
-        super.add(pBlock, pBuilder);
-        knownBlocks.add(pBlock);
+    protected void add(@NotNull Block block, LootTable.@NotNull Builder builder) {
+        super.add(block, builder);
+        knownBlocks.add(block);
     }
 
     @Override
@@ -57,6 +61,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
+
+        this.add(CALAMOPHYTON.get(), block -> layeredPlantDrops(CALAMOPHYTON.get()));
 
         this.dropSelf(COOKSONIA.get());
         this.dropPottedContents(POTTED_COOKSONIA.get());
@@ -90,6 +96,16 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(PETRIFIED_ANOSTYLOSTROMA.get());
         this.dropSelf(ANOSTYLOSTROMA.get());
 
+        this.add(CLATHRODICTYON_CORAL_BLOCK.get(), (block) -> createSingleItemTableWithSilkTouch(block, DEAD_CLATHRODICTYON_CORAL_BLOCK.get()));
+        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL.get());
+        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL_FAN.get());
+        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL_WALL_FAN.get());
+
+        this.dropSelf(DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
+        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get());
+
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());
 
@@ -119,5 +135,10 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     protected static LootTable.Builder doublePlantDrops(Block large, Block big) {
         LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(big).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)));
         return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).build()).build()), new BlockPos(0, 1, 0)))).withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).build()).build()), new BlockPos(0, -1, 0))));
+    }
+
+    protected static LootTable.Builder layeredPlantDrops(Block block) {
+        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+        return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CalamophytonBlock.LAYER, 0))));
     }
 }

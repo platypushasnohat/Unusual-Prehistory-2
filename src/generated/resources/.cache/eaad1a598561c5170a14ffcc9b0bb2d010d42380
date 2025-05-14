@@ -1,6 +1,10 @@
-// 1.20.1	2025-05-13T11:46:30.2812654	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-05-14T13:29:46.115357	Tags for minecraft:item mod id unusual_prehistory
+fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
+fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates/wooden.json
+f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
+1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/forge/tags/items/fruits/ginkgo.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/minecraft/tags/items/fence_gates.json
 2f577fb3423523ef4d1f4a41b11dce258bef04f8 data/minecraft/tags/items/leaves.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/minecraft/tags/items/logs_that_burn.json
@@ -14,4 +18,10 @@ c7519f14d45f9512e72af0dd34cdfd9c4efd27dd data/minecraft/tags/items/wooden_pressu
 50ec16893485abe8f39bcf21d5e745f4c1ca4940 data/minecraft/tags/items/wooden_slabs.json
 3d30132ad9b76ccdc7e7d57bfeb465e5e54b3353 data/minecraft/tags/items/wooden_stairs.json
 5ca46a047cd77e001f401028e7c79c259b82d3b5 data/minecraft/tags/items/wooden_trapdoors.json
+cf2eff04ae42d29ffdcfc83a550150d36209b832 data/unusual_prehistory/tags/items/aquatic_plant_dna_bottles.json
+eb97c0cb92e0dc68cbd9a127aeb7d51880b170e3 data/unusual_prehistory/tags/items/cenozoic_dna_bottles.json
+15a261ba1f62ed4d5bbc543caf639bcc5de6a12c data/unusual_prehistory/tags/items/dna_bottles.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
+63f7c4ad65e59d36c6379208a22dfa01b16275a6 data/unusual_prehistory/tags/items/mesozoic_dna_bottles.json
+e12860c9c0eaa36908cfaf5cd63124f4b53f41ca data/unusual_prehistory/tags/items/paleozoic_dna_bottles.json
+7d25be0ad96e63b2292a17c442f72f0f426fea60 data/unusual_prehistory/tags/items/plant_dna_bottles.json

@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.compat;
 
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,6 +16,8 @@ public class UP2Compat {
     }
 
     public static void registerCompostables() {
+        registerCompostable(UP2Items.GINKGO_FRUIT.get(), 0.65F);
+
         registerCompostable(UP2Blocks.ARCHAEFRUCTUS.get(), 0.65F);
         registerCompostable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 0.65F);
         registerCompostable(UP2Blocks.CALAMOPHYTON.get(), 0.65F);

@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import static com.unusualmodding.unusual_prehistory.items.UP2Items.*;
+
 public class UP2CreativeTabs {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
@@ -19,7 +21,47 @@ public class UP2CreativeTabs {
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
 
+                        tabOutput.accept(FROZEN_MEAT.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
+
+                        tabOutput.accept(GINKGO_FRUIT.get());
+
+                        // paleo dna
+                        tabOutput.accept(DIPLOCAULUS_DNA.get());
+                        tabOutput.accept(DUNKLEOSTEUS_DNA.get());
+                        tabOutput.accept(JAWLESS_FISH_DNA.get());
+                        tabOutput.accept(SCAUMENACIA_DNA.get());
+                        tabOutput.accept(STETHACANTHUS_DNA.get());
+
+                        // meso dna
+                        tabOutput.accept(KENTROSAURUS_DNA.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
+                        tabOutput.accept(MAJUNGASAURUS_DNA.get());
+
+                        // ceno dna
+                        tabOutput.accept(MEGALANIA_DNA.get());
+                        tabOutput.accept(TELECREX_DNA.get());
+
+                        // plant dna
+                        tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
+                        tabOutput.accept(BENNETTITALES_DNA.get());
+                        tabOutput.accept(CALAMOPHYTON_DNA.get());
+                        tabOutput.accept(CLADOPHLEBIS_DNA.get());
+                        tabOutput.accept(GINKGO_DNA.get());
+                        tabOutput.accept(HORSETAIL_DNA.get());
+                        tabOutput.accept(ISOETES_DNA.get());
+                        tabOutput.accept(LEEFRUCTUS_DNA.get());
+                        tabOutput.accept(RAIGUENRAYUN_DNA.get());
+                        tabOutput.accept(SARRACENIA_DNA.get());
+
+                        // water plant dna
+                        tabOutput.accept(ARCHAEFRUCTUS_DNA.get());
+                        tabOutput.accept(NELUMBITES_DNA.get());
+                        tabOutput.accept(QUEREUXIA_DNA.get());
+                        tabOutput.accept(ANOSTYLOSTROMA_DNA.get());
+                        tabOutput.accept(CLATHRODICTYON_CORAL_DNA.get());
+
+                        // plants
                         tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
                         tabOutput.accept(UP2Blocks.ARCHAEOSIGILLARIA.get());
                         tabOutput.accept(UP2Blocks.CALAMOPHYTON.get());
@@ -36,6 +78,8 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.TALL_SARRACENIA.get());
                         tabOutput.accept(UP2Blocks.MOSS_LAYER.get());
                         tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
+
+                        // water plants
                         tabOutput.accept(UP2Blocks.QUEREUXIA.get());
                         tabOutput.accept(UP2Blocks.QUEREUXIA_CLOVERS.get());
                         tabOutput.accept(UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get());
@@ -46,6 +90,8 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
                         tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL.get());
                         tabOutput.accept(UP2Items.DEAD_CLATHRODICTYON_CORAL_FAN.get());
+
+                        // trees
                         tabOutput.accept(UP2Blocks.GINKGO_LOG.get());
                         tabOutput.accept(UP2Blocks.GINKGO_WOOD.get());
                         tabOutput.accept(UP2Blocks.STRIPPED_GINKGO_LOG.get());

@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.data;
 import com.mojang.logging.LogUtils;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -15,6 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -36,7 +38,36 @@ public class UP2LangProvider extends LanguageProvider {
         UP2Blocks.AUTO_TRANSLATE.forEach(this::forBlock);
 
         // items
-//        UP2Blocks.AUTO_TRANSLATE.forEach(this::forItem);
+        UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
+
+        // creature dna
+        dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
+        dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
+        dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
+        dnaItem(UP2Items.KENTROSAURUS_DNA.get());
+        dnaItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
+        dnaItem(UP2Items.MAJUNGASAURUS_DNA.get());
+        dnaItem(UP2Items.MEGALANIA_DNA.get());
+        dnaItem(UP2Items.SCAUMENACIA_DNA.get());
+        dnaItem(UP2Items.STETHACANTHUS_DNA.get());
+        dnaItem(UP2Items.TELECREX_DNA.get());
+
+        // plant dna
+        dnaItem(UP2Items.ANOSTYLOSTROMA_DNA.get());
+        dnaItem(UP2Items.ARCHAEFRUCTUS_DNA.get());
+        dnaItem(UP2Items.ARCHAEOSIGILLARIA_DNA.get());
+        dnaItem(UP2Items.BENNETTITALES_DNA.get());
+        dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
+        dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
+        dnaItem(UP2Items.CLATHRODICTYON_CORAL_DNA.get());
+        dnaItem(UP2Items.GINKGO_DNA.get());
+        dnaItem(UP2Items.HORSETAIL_DNA.get());
+        dnaItem(UP2Items.ISOETES_DNA.get());
+        dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
+        dnaItem(UP2Items.NELUMBITES_DNA.get());
+        dnaItem(UP2Items.QUEREUXIA_DNA.get());
+        dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
+        dnaItem(UP2Items.SARRACENIA_DNA.get());
 
     }
 
@@ -69,5 +100,9 @@ public class UP2LangProvider extends LanguageProvider {
 
     public void creativeTab(CreativeModeTab key, String name){
         add(key.getDisplayName().getString(), name);
+    }
+
+    private void dnaItem(Item... items) {
+        List.of(items).forEach((item -> this.add(item, "Bottle of " + format(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item))).replace(" Dna Bottle", "") + " DNA")));
     }
 }
