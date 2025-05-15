@@ -31,6 +31,21 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP,
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/flap_0"))
         );
+
+        this.sound(UP2Sounds.UNICORN_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/hurt_0"))
+        );
+
+        this.sound(UP2Sounds.UNICORN_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/death_0"))
+        );
+
+        this.sound(UP2Sounds.UNICORN_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle_0")),
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle_1")),
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle_2")),
+                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle_3"))
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

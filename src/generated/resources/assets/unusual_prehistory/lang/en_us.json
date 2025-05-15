@@ -141,5 +141,8 @@
   "unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.9": "Magenta Wings",
   "unusual_prehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_death": "Kimmeridgebrachypteraeschnidium dies",
   "unusual_prehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_flap": "Kimmeridgebrachypteraeschnidium buzzes",
-  "unusual_prehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_hurt": "Kimmeridgebrachypteraeschnidium hurts"
+  "unusual_prehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_hurt": "Kimmeridgebrachypteraeschnidium hurts",
+  "unusual_prehistory.sound.subtitle.unicorn_death": "Unicorn dies",
+  "unusual_prehistory.sound.subtitle.unicorn_hurt": "Unicorn hurts",
+  "unusual_prehistory.sound.subtitle.unicorn_idle": "Unicorn grunts"
 }

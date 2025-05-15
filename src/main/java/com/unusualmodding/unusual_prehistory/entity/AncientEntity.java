@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -15,6 +18,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 
 public abstract class AncientEntity extends AgeableMob implements GeoEntity, GeoAnimatable {
+
+    private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(AncientEntity.class, EntityDataSerializers.BOOLEAN);
 
     protected AncientEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -56,9 +61,14 @@ public abstract class AncientEntity extends AgeableMob implements GeoEntity, Geo
         return prev;
     }
 
+    public boolean isStillEnough() {
+        return this.getDeltaMovement().horizontalDistance() < 0.05;
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(RUNNING, false);
     }
 
     @Override
@@ -74,6 +84,14 @@ public abstract class AncientEntity extends AgeableMob implements GeoEntity, Geo
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+    }
+
+    public boolean isRunning() {
+        return this.entityData.get(RUNNING);
+    }
+
+    public void setRunning(boolean bool) {
+        this.entityData.set(RUNNING, bool);
     }
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);

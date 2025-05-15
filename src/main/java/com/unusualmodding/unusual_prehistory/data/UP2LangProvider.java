@@ -78,6 +78,10 @@ public class UP2LangProvider extends LanguageProvider {
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
 
+        sound(UP2Sounds.UNICORN_HURT, "Unicorn hurts");
+        sound(UP2Sounds.UNICORN_DEATH, "Unicorn dies");
+        sound(UP2Sounds.UNICORN_IDLE, "Unicorn grunts");
+
         // kimmeridgebrachypteraeschnidium bottle
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.1", "Blue Body");

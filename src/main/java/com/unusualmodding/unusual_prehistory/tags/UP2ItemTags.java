@@ -18,6 +18,8 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
 
+    public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
+
     // UP2 forge tags
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");
     public static final TagKey<Item> FRUITS_GINKGO = forgeItemTag("fruits/ginkgo");

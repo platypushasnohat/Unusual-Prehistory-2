@@ -17,5 +17,26 @@
       "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1"
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_hurt"
+  },
+  "unicorn_death": {
+    "sounds": [
+      "unusual_prehistory:entity/unicorn/death_0"
+    ],
+    "subtitle": "subtitles.unicorn_death"
+  },
+  "unicorn_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/unicorn/hurt_0"
+    ],
+    "subtitle": "subtitles.unicorn_hurt"
+  },
+  "unicorn_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/unicorn/idle_0",
+      "unusual_prehistory:entity/unicorn/idle_1",
+      "unusual_prehistory:entity/unicorn/idle_2",
+      "unusual_prehistory:entity/unicorn/idle_3"
+    ],
+    "subtitle": "subtitles.unicorn_idle"
   }
 }

@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.events;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Properties;
 import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
+import com.unusualmodding.unusual_prehistory.entity.models.*;
 import com.unusualmodding.unusual_prehistory.entity.renders.*;
 import com.unusualmodding.unusual_prehistory.items.UP2ItemProperties;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
@@ -33,5 +34,6 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
+        event.registerEntityRenderer(UP2Entities.UNICORN.get(), e -> new AncientRenderer<>(e, new UnicornModel()));
     }
 }

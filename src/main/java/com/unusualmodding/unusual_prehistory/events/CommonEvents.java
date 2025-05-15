@@ -13,5 +13,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
+        event.put(UP2Entities.UNICORN.get(), UnicornEntity.createAttributes().build());
+
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -66,6 +67,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CLATHRODICTYON_CORAL_DNA.get(),
                 NELUMBITES_DNA.get(),
                 QUEREUXIA_DNA.get()
+        );
+
+        this.tag(UP2ItemTags.UNICORN_FOOD).add(
+                Items.COOKIE,
+                Items.PUMPKIN_PIE,
+                Items.CAKE
         );
 
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);

@@ -15,5 +15,6 @@ public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<EntityType<KimmeridgebrachypteraeschnidiumEntity>> KIMMERIDGEBRACHYPTERAESCHNIDIUM = ENTITY_TYPE.register("kimmeridgebrachypteraeschnidium", () -> EntityType.Builder.of(KimmeridgebrachypteraeschnidiumEntity::new, MobCategory.CREATURE).sized(0.5F, 0.5F).build("kimmeridgebrachypteraeschnidium"));
+    public static final RegistryObject<EntityType<UnicornEntity>> UNICORN = ENTITY_TYPE.register("unicorn", () -> EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE).sized(1.2F, 3.0F).build("unicorn"));
 
 }
