@@ -1,0 +1,21 @@
+{
+  "kimmeridgebrachypteraeschnidium_death": {
+    "sounds": [
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0"
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_death"
+  },
+  "kimmeridgebrachypteraeschnidium_flap": {
+    "sounds": [
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/flap_0"
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_flap"
+  },
+  "kimmeridgebrachypteraeschnidium_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1"
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_hurt"
+  }
+}

@@ -2,10 +2,15 @@ package com.unusualmodding.unusual_prehistory.items;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
+import com.unusualmodding.unusual_prehistory.items.custom.MobCaptureItem;
+import com.unusualmodding.unusual_prehistory.items.custom.FrozenMeatItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -24,6 +29,8 @@ public class UP2Items {
 
     // foods
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
+
+    public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new MobCaptureItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // paleo dna
     public static final RegistryObject<Item> DIPLOCAULUS_DNA = registerDnaItem("diplocaulus");
@@ -62,6 +69,9 @@ public class UP2Items {
     public static final RegistryObject<Item> DEAD_CLATHRODICTYON_CORAL_FAN = registerItemNoLang("dead_clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> CLATHRODICTYON_CORAL_FAN = registerItemNoLang("clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
+    // spawn eggs
+    public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG = registerSpawnEggItem("kimmeridgebrachypteraeschnidium", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM, 0xf77efc, 0x44b0ef);
+
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
         AUTO_TRANSLATE.add(item);
@@ -71,6 +81,10 @@ public class UP2Items {
     private static <I extends Item> RegistryObject<I> registerItemNoLang(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
         return item;
+    }
+
+    private static RegistryObject<Item> registerSpawnEggItem(String name, RegistryObject type, int baseColor, int spotColor) {
+        return registerItem(name + "_spawn_egg", () -> new ForgeSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
     }
 
     private static RegistryObject<Item> registerDnaItem(String name) {

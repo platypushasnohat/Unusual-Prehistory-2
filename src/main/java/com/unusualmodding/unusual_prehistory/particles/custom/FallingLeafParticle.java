@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.particles;
+package com.unusualmodding.unusual_prehistory.particles.custom;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;

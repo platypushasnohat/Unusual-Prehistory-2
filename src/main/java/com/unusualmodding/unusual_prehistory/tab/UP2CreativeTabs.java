@@ -17,14 +17,19 @@ public class UP2CreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.SARRACENIA.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(FROZEN_MEAT.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
+
+                        // spawn eggs
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
 
                         tabOutput.accept(FROZEN_MEAT.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
 
                         tabOutput.accept(GINKGO_FRUIT.get());
+
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
 
                         // paleo dna
                         tabOutput.accept(DIPLOCAULUS_DNA.get());

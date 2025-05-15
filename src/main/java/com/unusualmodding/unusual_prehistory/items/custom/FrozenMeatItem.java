@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.items;
+package com.unusualmodding.unusual_prehistory.items.custom;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;

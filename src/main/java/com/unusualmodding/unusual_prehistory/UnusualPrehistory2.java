@@ -3,8 +3,10 @@ package com.unusualmodding.unusual_prehistory;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.compat.UP2Compat;
 import com.unusualmodding.unusual_prehistory.data.*;
+import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
+import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -37,6 +39,8 @@ public class UnusualPrehistory2 {
         UP2CreativeTabs.CREATIVE_TABS.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
+        UP2Entities.ENTITY_TYPE.register(bus);
+        UP2Sounds.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
@@ -62,6 +66,7 @@ public class UnusualPrehistory2 {
         boolean client = data.includeClient();
         generator.addProvider(client, new UP2BlockstateProvider(data));
         generator.addProvider(client, new UP2ItemModelProvider(data));
+        generator.addProvider(client, new UP2SoundDefinitionsProvider(output, helper));
         generator.addProvider(client, new UP2LangProvider(data));
 
         boolean server = data.includeServer();

@@ -1,11 +1,16 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Objects;
 
 import static com.unusualmodding.unusual_prehistory.items.UP2Items.*;
 
@@ -19,6 +24,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         this.item(FROZEN_MEAT);
         this.item(GINKGO_FRUIT);
+
+        this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
 
         // paleo dna
         this.dnaItem(DIPLOCAULUS_DNA);
@@ -54,6 +61,13 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(CLATHRODICTYON_CORAL_DNA);
         this.dnaItem(NELUMBITES_DNA);
         this.dnaItem(QUEREUXIA_DNA);
+
+        // spawn eggs
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getNamespace().equals(UnusualPrehistory2.MOD_ID)) {
+                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath()).parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
+            }
+        }
     }
 
     // item
