@@ -19,13 +19,34 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+        this.sound(UP2Sounds.DUNKLEOSTEUS_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.DUNKLEOSTEUS_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.DUNKLEOSTEUS_FLOP,
+                sound("entity/fish/flop1").volume(0.3D),
+                sound("entity/fish/flop2").volume(0.3D),
+                sound("entity/fish/flop3").volume(0.3D),
+                sound("entity/fish/flop4").volume(0.3D)
+        );
+
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")),
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1"))
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")).pitch(1.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1")).pitch(1.4F)
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death_0"))
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death_0")).pitch(1.4F)
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP,

@@ -9,6 +9,8 @@ import net.minecraft.world.item.Item;
 public class UP2ItemTags {
 
     // UP2 tags
+    public static final TagKey<Item> FOSSILS = modItemTag("fossils");
+
     public static final TagKey<Item> DNA_BOTTLES = modItemTag("dna_bottles");
     public static final TagKey<Item> PALEOZOIC_DNA_BOTTLES = modItemTag("paleozoic_dna_bottles");
     public static final TagKey<Item> MESOZOIC_DNA_BOTTLES = modItemTag("mesozoic_dna_bottles");
@@ -16,7 +18,15 @@ public class UP2ItemTags {
     public static final TagKey<Item> PLANT_DNA_BOTTLES = modItemTag("plant_dna_bottles");
     public static final TagKey<Item> WATER_PLANT_DNA_BOTTLES = modItemTag("aquatic_plant_dna_bottles");
 
+    public static final TagKey<Item> EXTRACTOR_INPUT = modItemTag("extractor_input");
+    public static final TagKey<Item> CULTIVATOR_FUEL = modItemTag("cultivator_fuel");
+
+    public static final TagKey<Item> ORGANIC_OOZE = modItemTag("organic_ooze");
+
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
+
+    public static final TagKey<Item> DUNKLEOSTEUS_FOOD = modItemTag("dunkleosteus_food");
+    public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");
 
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 

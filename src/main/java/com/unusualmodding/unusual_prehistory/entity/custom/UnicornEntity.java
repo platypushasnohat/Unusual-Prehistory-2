@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -90,12 +91,13 @@ public class UnicornEntity extends AncientEntity {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(6, new LargePanicGoal(this, 1.5D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.UNICORN_FOOD), false));
-        this.goalSelector.addGoal(5, new AgeableFollowParentGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F));
+        this.goalSelector.addGoal(5, new AgeableFollowParentGoal(this, 1.25D));
+        this.goalSelector.addGoal(6, new LargePanicGoal(this, 1.5D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(9, new HurtByTargetGoal(this));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.tags.UP2BlockTags;
 import com.unusualmodding.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +28,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         // unusual prehistory
+        this.tag(UP2ItemTags.FOSSILS).add(
+                FROZEN_MEAT.get()
+        );
+
+        this.tag(UP2ItemTags.ORGANIC_OOZE).add(
+                ORGANIC_OOZE.get()
+        );
+
         this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES).addTag(UP2ItemTags.WATER_PLANT_DNA_BOTTLES);
 
         this.tag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).add(
@@ -68,6 +77,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 NELUMBITES_DNA.get(),
                 QUEREUXIA_DNA.get()
         );
+
+        this.tag(UP2ItemTags.EXTRACTOR_INPUT).addTag(UP2ItemTags.FOSSILS);
+
+        this.tag(UP2ItemTags.CULTIVATOR_FUEL).addTag(UP2ItemTags.ORGANIC_OOZE);
+
+        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).addTag(ItemTags.FISHES);
+
+        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).add(Items.GOLDEN_APPLE);
 
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
                 Items.COOKIE,

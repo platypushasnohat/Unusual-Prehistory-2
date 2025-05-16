@@ -1,0 +1,9 @@
+{
+	"parent": "block/cube_all",
+	"ambientocclusion": false,
+	"render_type": "minecraft:translucent",
+	"textures": {
+		"all": "unusual_prehistory:block/no_texture_block",
+		"particle": "unusual_prehistory:block/particle/cultivator_particle"
+	}
+}

@@ -23,6 +23,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         this.item(FROZEN_MEAT);
+        this.item(ORGANIC_OOZE);
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);

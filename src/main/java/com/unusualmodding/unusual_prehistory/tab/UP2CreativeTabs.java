@@ -22,10 +22,16 @@ public class UP2CreativeTabs {
                     .displayItems((pParameters, tabOutput) -> {
 
                         // spawn eggs
+                        tabOutput.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
 
                         tabOutput.accept(FROZEN_MEAT.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
+
+                        tabOutput.accept(ORGANIC_OOZE.get());
+
+                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
+                        tabOutput.accept(UP2Blocks.CULTIVATOR.get());
 
                         tabOutput.accept(GINKGO_FRUIT.get());
 

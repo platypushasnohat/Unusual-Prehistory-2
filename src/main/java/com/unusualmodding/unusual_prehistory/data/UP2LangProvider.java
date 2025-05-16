@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.data;
 import com.mojang.logging.LogUtils;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
 import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
@@ -42,6 +43,11 @@ public class UP2LangProvider extends LanguageProvider {
         // items
         UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
 
+        // entities
+        forEntity(UP2Entities.DUNKLEOSTEUS);
+        forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
+        forEntity(UP2Entities.UNICORN);
+
         // creature dna
         dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
         dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
@@ -74,6 +80,10 @@ public class UP2LangProvider extends LanguageProvider {
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
 
         // sounds
+        sound(UP2Sounds.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
+        sound(UP2Sounds.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
+        sound(UP2Sounds.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
+
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
@@ -141,6 +151,12 @@ public class UP2LangProvider extends LanguageProvider {
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
+
+        // Block entities
+        blockEntity("extractor", "                          Extractor");
+        blockEntity("extractor_jei", "Extractor");
+        blockEntity("cultivator", "Cultivator");
+        blockEntity("cultivator_jei", "Cultivator");
     }
 
     private void forBlock(Supplier<? extends Block> block) {
@@ -175,7 +191,11 @@ public class UP2LangProvider extends LanguageProvider {
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
-        add(UnusualPrehistory2.MOD_ID + ".sound.subtitle." + key.get().getLocation().getPath(), subtitle);
+        add("subtitles." + key.get().getLocation().getPath(), subtitle);
+    }
+
+    public void blockEntity(String beName,String name){
+        add(UnusualPrehistory2.MOD_ID + ".blockentity." + beName, name);
     }
 
     private void dnaItem(Item... items) {

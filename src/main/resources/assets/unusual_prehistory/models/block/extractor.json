@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "down": "unusual_prehistory:block/extractor_bottom",
+    "east": "unusual_prehistory:block/extractor_left",
+    "north": "unusual_prehistory:block/extractor_front",
+    "particle": "unusual_prehistory:block/extractor_front",
+    "south": "unusual_prehistory:block/extractor_back",
+    "up": "unusual_prehistory:block/extractor_top",
+    "west": "unusual_prehistory:block/extractor_right"
+  }
+}

@@ -1,0 +1,25 @@
+package com.unusualmodding.unusual_prehistory.blocks;
+
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.blocks.custom.blockentity.CultivatorBlockEntity;
+import com.unusualmodding.unusual_prehistory.blocks.custom.blockentity.ExtractorBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class UP2BlockEntities {
+
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
+
+    public static final RegistryObject<BlockEntityType<ExtractorBlockEntity>> EXTRACTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("extractor", () -> BlockEntityType.Builder.of(ExtractorBlockEntity::new, UP2Blocks.EXTRACTOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<CultivatorBlockEntity>> CULTIVATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("cultivator", () -> BlockEntityType.Builder.of(CultivatorBlockEntity::new, UP2Blocks.CULTIVATOR.get()).build(null));
+
+    public static void register(IEventBus eventBus) {
+        BLOCK_ENTITIES.register(eventBus);
+    }
+
+    public static void expandVanillaDefinitions() {
+    }
+}

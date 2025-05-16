@@ -1,7 +1,49 @@
 {
+  "dunkleosteus_death": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.dunkleosteus_death"
+  },
+  "dunkleosteus_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop2",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop3",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop4",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.dunkleosteus_flop"
+  },
+  "dunkleosteus_hurt": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.dunkleosteus_hurt"
+  },
   "kimmeridgebrachypteraeschnidium_death": {
     "sounds": [
-      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0"
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0",
+        "pitch": 1.4
+      }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_death"
   },
@@ -13,8 +55,14 @@
   },
   "kimmeridgebrachypteraeschnidium_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
-      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1"
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+        "pitch": 1.4
+      },
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1",
+        "pitch": 1.4
+      }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_hurt"
   },

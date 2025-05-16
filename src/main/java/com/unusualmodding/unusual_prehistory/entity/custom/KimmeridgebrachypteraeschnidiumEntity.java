@@ -438,11 +438,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         return 0.25F;
     }
 
-    @Override
-    public float getVoicePitch() {
-        return 1.4F;
-    }
-
     // flight
     public boolean isFlying() {
         return this.entityData.get(FLYING);

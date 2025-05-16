@@ -27,6 +27,8 @@ public class UP2Items {
     // fossils
     public static final RegistryObject<Item> FROZEN_MEAT = registerItem("frozen_meat", () -> new FrozenMeatItem(registerFoodValue(UP2FoodValues.FROZEN_MEAT)));
 
+    public static final RegistryObject<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
+
     // foods
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
@@ -70,6 +72,7 @@ public class UP2Items {
     public static final RegistryObject<Item> CLATHRODICTYON_CORAL_FAN = registerItemNoLang("clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
     // spawn eggs
+    public static final RegistryObject<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x417a69, 0x825147);
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG = registerSpawnEggItem("kimmeridgebrachypteraeschnidium", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM, 0xf77efc, 0x44b0ef);
 
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {
