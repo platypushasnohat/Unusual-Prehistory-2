@@ -1,21 +1,17 @@
 package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.blocks.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Properties;
-import com.unusualmodding.unusual_prehistory.blocks.renders.*;
 import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.models.*;
 import com.unusualmodding.unusual_prehistory.entity.renders.*;
 import com.unusualmodding.unusual_prehistory.items.UP2ItemProperties;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
 import com.unusualmodding.unusual_prehistory.particles.custom.FallingLeafParticle;
-import com.unusualmodding.unusual_prehistory.screens.CultivatorScreen;
 import com.unusualmodding.unusual_prehistory.screens.ExtractorScreen;
 import com.unusualmodding.unusual_prehistory.screens.UP2MenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -33,20 +29,14 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void clientSetup(final FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event) {
         MenuScreens.register(UP2MenuTypes.EXTRACTOR_MENU.get(), ExtractorScreen::new);
-        MenuScreens.register(UP2MenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
     }
 
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(UP2Particles.GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
-    }
-
-    @SubscribeEvent
-    public static void registerBER(EntityRenderersEvent.RegisterRenderers event){
-        BlockEntityRenderers.register(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

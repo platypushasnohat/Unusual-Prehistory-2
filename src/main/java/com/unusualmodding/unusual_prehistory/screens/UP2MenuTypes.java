@@ -13,11 +13,9 @@ public class UP2MenuTypes {
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, UnusualPrehistory2.MOD_ID);
 
-    public static final RegistryObject<MenuType<ExtractorMenu>> EXTRACTOR_MENU = registerMenuType(ExtractorMenu::new, "extractor_menu");
+    public static final RegistryObject<MenuType<ExtractorMenu>> EXTRACTOR_MENU = registerMenuType("extractor_menu", ExtractorMenu::new);
 
-    public static final RegistryObject<MenuType<CultivatorMenu>> CULTIVATOR_MENU = registerMenuType(CultivatorMenu::new, "cultivator_menu");
-    
-    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
+    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 }

@@ -6,9 +6,8 @@ import com.unusualmodding.unusual_prehistory.compat.UP2Compat;
 import com.unusualmodding.unusual_prehistory.data.*;
 import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
 import com.unusualmodding.unusual_prehistory.items.UP2Items;
-import com.unusualmodding.unusual_prehistory.messages.UP2Messages;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
-import com.unusualmodding.unusual_prehistory.recipes.UP2Recipes;
+import com.unusualmodding.unusual_prehistory.recipes.UP2RecipeTypes;
 import com.unusualmodding.unusual_prehistory.screens.UP2MenuTypes;
 import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
 import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
@@ -41,14 +40,17 @@ public class UnusualPrehistory2 {
         MinecraftForge.EVENT_BUS.register(this);
 
         UP2CreativeTabs.CREATIVE_TABS.register(bus);
+
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
-        UP2Sounds.SOUND_EVENTS.register(bus);
-        UP2Particles.PARTICLE_TYPES.register(bus);
+
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
-        UP2Recipes.SERIALIZERS.register(bus);
+        UP2RecipeTypes.register(bus);
+
+        UP2Sounds.SOUND_EVENTS.register(bus);
+        UP2Particles.PARTICLE_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
@@ -59,7 +61,6 @@ public class UnusualPrehistory2 {
         event.enqueueWork(() -> {
             UP2Compat.registerCompat();
         });
-        UP2Messages.register();
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -83,6 +84,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
         generator.addProvider(server, UP2LootProvider.register(output));
+        generator.addProvider(server, new UP2RecipeProvider(output));
     }
 
     public static ResourceLocation modPrefix(String name) {

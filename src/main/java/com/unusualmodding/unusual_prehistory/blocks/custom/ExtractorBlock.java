@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.blocks.custom;
 
 import com.unusualmodding.unusual_prehistory.blocks.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.blocks.custom.blockentity.ExtractorBlockEntity;
+import com.unusualmodding.unusual_prehistory.blocks.blockentity.ExtractorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,18 +23,18 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtractorBlock extends BaseEntityBlock {
 
-    public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public ExtractorBlock(Properties properties) {
-        super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    public ExtractorBlock(Properties pProperties) {
+        super(pProperties);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 
-    // block entity
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
+
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
@@ -54,7 +54,7 @@ public class ExtractorBlock extends BaseEntityBlock {
             if(entity instanceof ExtractorBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer)pPlayer), (ExtractorBlockEntity)entity, pPos);
             } else {
-                throw new IllegalStateException("Container provider is missing!");
+                throw new IllegalStateException("Our Container provider is missing!");
             }
         }
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
@@ -66,12 +66,12 @@ public class ExtractorBlock extends BaseEntityBlock {
         return new ExtractorBlockEntity(pPos, pState);
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, UP2BlockEntities.EXTRACTOR_BLOCK_ENTITY.get(), ExtractorBlockEntity::tick);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
+    @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
@@ -80,11 +80,14 @@ public class ExtractorBlock extends BaseEntityBlock {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return createTickerHelper(pBlockEntityType, UP2BlockEntities.EXTRACTOR_BLOCK_ENTITY.get(), ExtractorBlockEntity::tick);
     }
 }
