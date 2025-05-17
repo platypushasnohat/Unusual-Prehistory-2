@@ -1,0 +1,51 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.furcacauda",
+				"texture_width": 32,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "swim_control",
+					"parent": "root",
+					"pivot": [0.25, 3, -1.5]
+				},
+				{
+					"name": "body",
+					"parent": "swim_control",
+					"pivot": [0.25, 4, -3],
+					"cubes": [
+						{"origin": [-1.5, 1, -4], "size": [3, 4, 5], "uv": [0, 0]},
+						{"origin": [0, -1, -2], "size": [0, 8, 1], "inflate": 0.001, "uv": [20, -1]}
+					]
+				},
+				{
+					"name": "tail1",
+					"parent": "body",
+					"pivot": [-0.25, 3, 0],
+					"cubes": [
+						{"origin": [0, 0, 0], "size": [0, 6, 5], "uv": [0, 5]}
+					]
+				},
+				{
+					"name": "tail2",
+					"parent": "tail1",
+					"pivot": [0, 3, 1],
+					"cubes": [
+						{"origin": [0, 1, 1], "size": [0, 4, 4], "uv": [10, 6]}
+					]
+				}
+			]
+		}
+	]
+}

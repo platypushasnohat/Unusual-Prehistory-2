@@ -45,7 +45,10 @@ public class UP2LangProvider extends LanguageProvider {
 
         // entities
         forEntity(UP2Entities.DUNKLEOSTEUS);
+        forEntity(UP2Entities.JAWLESS_FISH);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
+        forEntity(UP2Entities.SCAUMENACIA);
+        forEntity(UP2Entities.STETHACANTHUS);
         forEntity(UP2Entities.UNICORN);
 
         // creature dna
@@ -84,9 +87,21 @@ public class UP2LangProvider extends LanguageProvider {
         sound(UP2Sounds.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
         sound(UP2Sounds.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
 
+        sound(UP2Sounds.JAWLESS_FISH_HURT, "Jawless Fish hurts");
+        sound(UP2Sounds.JAWLESS_FISH_DEATH, "Jawless Fish dies");
+        sound(UP2Sounds.JAWLESS_FISH_FLOP, "Jawless Fish flops");
+
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
+
+        sound(UP2Sounds.SCAUMENACIA_HURT, "Scaumenacia hurts");
+        sound(UP2Sounds.SCAUMENACIA_DEATH, "Scaumenacia dies");
+        sound(UP2Sounds.SCAUMENACIA_FLOP, "Scaumenacia flops");
+
+        sound(UP2Sounds.STETHACANTHUS_HURT, "Stethacanthus hurts");
+        sound(UP2Sounds.STETHACANTHUS_DEATH, "Stethacanthus dies");
+        sound(UP2Sounds.STETHACANTHUS_FLOP, "Stethacanthus flops");
 
         sound(UP2Sounds.UNICORN_HURT, "Unicorn hurts");
         sound(UP2Sounds.UNICORN_DEATH, "Unicorn dies");

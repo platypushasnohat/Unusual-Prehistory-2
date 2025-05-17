@@ -22,7 +22,7 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<K
 
     @Override
     public ResourceLocation getTextureLocation(KimmeridgebrachypteraeschnidiumEntity kimmer) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_"+kimmer.getBaseColor()+".png");
+        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + kimmer.getBaseColor() + ".png");
     }
 
     @Override

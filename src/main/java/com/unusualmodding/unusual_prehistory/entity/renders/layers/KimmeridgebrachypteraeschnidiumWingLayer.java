@@ -21,7 +21,7 @@ public class KimmeridgebrachypteraeschnidiumWingLayer extends GeoRenderLayer<Kim
     @Override
     public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entity, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
         if (!entity.isInvisible()) {
-            RenderType cameo = RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/wings/" + "/wings_" + entity.getWingColor()+".png"));
+            RenderType cameo = RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/wings/" + "/wings_" + entity.getWingColor() + ".png"));
             ResourceLocation model = new ResourceLocation(UnusualPrehistory2.MOD_ID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
             this.getRenderer().reRender(this.getGeoModel().getBakedModel(model), poseStack, bufferSource, entity, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }

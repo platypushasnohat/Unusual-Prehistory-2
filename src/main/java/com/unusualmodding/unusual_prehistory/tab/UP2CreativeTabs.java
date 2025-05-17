@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -22,8 +23,11 @@ public class UP2CreativeTabs {
                     .displayItems((pParameters, tabOutput) -> {
 
                         // spawn eggs
-                        tabOutput.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
+                        UP2Items.ITEMS.getEntries().forEach(spawnEgg -> {
+                            if ((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
+                                tabOutput.accept(spawnEgg.get());
+                            }
+                        });
 
                         tabOutput.accept(FROZEN_MEAT.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());

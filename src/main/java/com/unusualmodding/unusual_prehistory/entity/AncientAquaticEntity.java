@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,6 +25,7 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
 
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(AncientAquaticEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AncientAquaticEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AncientAquaticEntity.class, EntityDataSerializers.INT);
 
     protected AncientAquaticEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -82,7 +84,7 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
     public void tick() {
         super.tick();
 
-        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % 200 == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
     }
@@ -109,25 +111,36 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
     }
 
     @Override
+    public float getScale() {
+        return 1.0F;
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(RUNNING, false);
         this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("variant", this.getVariant());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setVariant(compound.getInt("variant"));
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     public boolean isRunning() {
@@ -144,6 +157,30 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
 
     public void setAttackState(int attackState) {
         this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    public void determineVariant(int variantChange) {
+    }
+
+    public void handleEntityEvent(byte id) {
+        if (id == 20) {
+            for(int i = 0; i < 9; ++i) {
+                double d0 = this.random.nextGaussian() * 0.02;
+                double d1 = this.random.nextGaussian() * 0.02;
+                double d2 = this.random.nextGaussian() * 0.02;
+                this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0F), this.getRandomY() + (double) 0.5F, this.getRandomZ(1.0F), d0, d1, d2);
+            }
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);

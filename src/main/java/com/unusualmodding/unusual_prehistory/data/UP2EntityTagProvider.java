@@ -23,14 +23,20 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
 
         tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
+                JAWLESS_FISH.get(),
+                SCAUMENACIA.get(),
+                STETHACANTHUS.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH,
                 EntityType.DOLPHIN,
-                EntityType.TURTLE
+                EntityType.TURTLE,
+                EntityType.DROWNED
         );
 
         tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
+                JAWLESS_FISH.get(),
+                SCAUMENACIA.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH,
@@ -38,9 +44,25 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(
+                JAWLESS_FISH.get(),
+                SCAUMENACIA.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH
+        );
+
+        tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
+                JAWLESS_FISH.get(),
+                SCAUMENACIA.get(),
+                EntityType.COD,
+                EntityType.SALMON,
+                EntityType.TROPICAL_FISH
+        );
+
+        tag(UP2EntityTags.STETHACANTHUS_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
         );
 
     }

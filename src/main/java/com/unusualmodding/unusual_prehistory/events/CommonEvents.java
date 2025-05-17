@@ -13,8 +13,10 @@ public class CommonEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusEntity.createAttributes().build());
+        event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFishEntity.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
+        event.put(UP2Entities.SCAUMENACIA.get(), ScaumenaciaEntity.createAttributes().build());
+        event.put(UP2Entities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), UnicornEntity.createAttributes().build());
-
     }
 }

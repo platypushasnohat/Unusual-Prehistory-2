@@ -27,11 +27,13 @@ public class AncientAquaticRenderer<T extends AncientAquaticEntity> extends GeoE
     }
 
     @Override
-    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, T animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
-        super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+    public void render(T animatable, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
         if (animatable.isBaby()) {
             poseStack.scale(0.5F, 0.5F, 0.5F);
+        } else {
+            poseStack.scale(1.0F, 1.0F, 1.0F);
         }
+        super.render(animatable, entityYaw, partialTicks, poseStack, bufferSource, packedLightIn);
     }
 
     @Override

@@ -617,10 +617,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
 //        );
 //    }
 
-    // movement animations
     private static final RawAnimation KIMMER_FLY = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.fly");
-
-    // idle animations
     private static final RawAnimation KIMMER_IDLE = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.idle1");
     private static final RawAnimation KIMMER_HOVER = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.hover");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");

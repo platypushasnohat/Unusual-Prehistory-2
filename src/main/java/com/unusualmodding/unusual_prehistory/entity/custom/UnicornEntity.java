@@ -52,14 +52,6 @@ public class UnicornEntity extends AncientEntity {
     private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(UnicornEntity.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
 
-    // Movement animations
-    private static final RawAnimation UNICORN_WALK = RawAnimation.begin().thenLoop("animation.unicorn.walk");
-    private static final RawAnimation UNICORN_RUN = RawAnimation.begin().thenLoop("animation.unicorn.run");
-    private static final RawAnimation UNICORN_SWIM = RawAnimation.begin().thenLoop("animation.unicorn.swim");
-
-    // Idle animations
-    private static final RawAnimation UNICORN_IDLE = RawAnimation.begin().thenLoop("animation.unicorn.idle");
-
     // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
@@ -94,10 +86,9 @@ public class UnicornEntity extends AncientEntity {
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.UNICORN_FOOD), false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F));
         this.goalSelector.addGoal(5, new AgeableFollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(6, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(6, new LargePanicGoal(this, 2.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(9, new HurtByTargetGoal(this));
     }
 
     @Override
@@ -110,7 +101,7 @@ public class UnicornEntity extends AncientEntity {
         super.customServerAiStep();
     }
 
-    // Mob interactions
+    // mob interactions
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -187,7 +178,7 @@ public class UnicornEntity extends AncientEntity {
         return 150;
     }
 
-    // Save data
+    // save data
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -200,7 +191,7 @@ public class UnicornEntity extends AncientEntity {
         this.setSkeletal(compound.getBoolean("skeletal"));
     }
 
-    // Synched data
+    // synched data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -224,7 +215,13 @@ public class UnicornEntity extends AncientEntity {
         }
     }
 
-    // Animation control
+    // animations
+    private static final RawAnimation UNICORN_WALK = RawAnimation.begin().thenLoop("animation.unicorn.walk");
+    private static final RawAnimation UNICORN_RUN = RawAnimation.begin().thenLoop("animation.unicorn.run");
+    private static final RawAnimation UNICORN_SWIM = RawAnimation.begin().thenLoop("animation.unicorn.swim");
+    private static final RawAnimation UNICORN_IDLE = RawAnimation.begin().thenLoop("animation.unicorn.idle");
+
+    // animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         AnimationController<UnicornEntity> controller = new AnimationController<>(this, "controller", 8, this::predicate);
@@ -232,9 +229,8 @@ public class UnicornEntity extends AncientEntity {
     }
 
     protected <E extends UnicornEntity> PlayState predicate(final AnimationState<E> event) {
-
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
-            if (this.isSprinting()) {
+            if (this.isRunning()) {
                 event.setAndContinue(UNICORN_RUN);
                 event.getController().setAnimationSpeed(1.0D);
             } else {
@@ -243,11 +239,9 @@ public class UnicornEntity extends AncientEntity {
             }
             return PlayState.CONTINUE;
         }
-
         if (this.isInWater()) {
             return event.setAndContinue(UNICORN_SWIM);
         }
-
         if (this.isStillEnough() && !this.isInWater() && !this.isSwimming()) {
             return event.setAndContinue(UNICORN_IDLE);
         }

@@ -14,7 +14,7 @@ public class KimmeridgebrachypteraeschnidiumModel extends GeoModel<Kimmeridgebra
 
     @Override
     public ResourceLocation getTextureResource(KimmeridgebrachypteraeschnidiumEntity kimmer) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base_"+kimmer.getBaseColor()+".png");
+        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base_" + kimmer.getBaseColor() + ".png");
     }
 
     @Override

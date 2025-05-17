@@ -42,7 +42,10 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), e -> new AncientAquaticRenderer<>(e, new DunkleosteusModel()));
+        event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), e -> new AncientAquaticRenderer<>(e, new JawlessFishModel()));
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
+        event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), e -> new AncientAquaticRenderer<>(e, new ScaumenaciaModel()));
+        event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), e -> new AncientAquaticRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), e -> new AncientRenderer<>(e, new UnicornModel()));
     }
 }

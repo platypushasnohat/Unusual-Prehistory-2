@@ -39,7 +39,7 @@ public abstract class AncientEntity extends AgeableMob implements GeoEntity, Geo
     public void tick() {
         super.tick();
 
-        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % 200 == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
     }

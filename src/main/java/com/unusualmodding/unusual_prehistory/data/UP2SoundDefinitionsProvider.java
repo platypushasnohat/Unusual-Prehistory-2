@@ -40,6 +40,27 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3D)
         );
 
+        this.sound(UP2Sounds.JAWLESS_FISH_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.JAWLESS_FISH_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.JAWLESS_FISH_FLOP,
+                sound("entity/fish/flop1").volume(0.3D),
+                sound("entity/fish/flop2").volume(0.3D),
+                sound("entity/fish/flop3").volume(0.3D),
+                sound("entity/fish/flop4").volume(0.3D)
+        );
+
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")).pitch(1.4F),
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1")).pitch(1.4F)
@@ -51,6 +72,48 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP,
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/flap_0"))
+        );
+
+        this.sound(UP2Sounds.SCAUMENACIA_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.SCAUMENACIA_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.SCAUMENACIA_FLOP,
+                sound("entity/fish/flop1").volume(0.3D),
+                sound("entity/fish/flop2").volume(0.3D),
+                sound("entity/fish/flop3").volume(0.3D),
+                sound("entity/fish/flop4").volume(0.3D)
+        );
+
+        this.sound(UP2Sounds.STETHACANTHUS_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.STETHACANTHUS_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+
+        this.sound(UP2Sounds.STETHACANTHUS_FLOP,
+                sound("entity/fish/flop1").volume(0.3D),
+                sound("entity/fish/flop2").volume(0.3D),
+                sound("entity/fish/flop3").volume(0.3D),
+                sound("entity/fish/flop4").volume(0.3D)
         );
 
         this.sound(UP2Sounds.UNICORN_HURT,

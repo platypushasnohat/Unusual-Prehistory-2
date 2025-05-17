@@ -1,9 +1,13 @@
 {
   "values": [
+    "unusual_prehistory:jawless_fish",
+    "unusual_prehistory:scaumenacia",
+    "unusual_prehistory:stethacanthus",
     "minecraft:cod",
     "minecraft:salmon",
     "minecraft:tropical_fish",
     "minecraft:dolphin",
-    "minecraft:turtle"
+    "minecraft:turtle",
+    "minecraft:drowned"
   ]
 }
