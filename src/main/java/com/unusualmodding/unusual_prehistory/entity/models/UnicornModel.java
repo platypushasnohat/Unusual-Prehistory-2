@@ -45,7 +45,7 @@ public class UnicornModel extends GeoModel<UnicornEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
 
-        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone head = this.getAnimationProcessor().getBone("Neck");
 
         if (animatable.isBaby()) {
@@ -58,7 +58,7 @@ public class UnicornModel extends GeoModel<UnicornEntity> {
             head.setScaleZ(1.0F);
         }
 
-        head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
-        head.setRotX(extraDataOfType.headPitch() * Mth.DEG_TO_RAD);
+        head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+        head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
     }
 }

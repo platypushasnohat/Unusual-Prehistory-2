@@ -9,6 +9,7 @@ import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
 import com.unusualmodding.unusual_prehistory.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,12 +17,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -65,12 +67,12 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     public DunkleosteusEntity(EntityType<? extends AncientAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 32, 4, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 2);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 24, 6, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.MOVEMENT_SPEED, 0.9F).add(Attributes.ARMOR, 2.0D).add(Attributes.FOLLOW_RANGE, 16.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.ATTACK_DAMAGE, 2.0D).add(Attributes.MOVEMENT_SPEED, 1.0F).add(Attributes.ARMOR, 2.0D).add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
     protected void registerGoals() {
@@ -162,7 +164,8 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
-                this.heal(this.getMaxHealth());
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 1));
+                this.level().broadcastEntityEvent(this, (byte) 20);
                 this.setPassive(true);
                 this.gameEvent(GameEvent.EAT, this);
                 this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
@@ -180,6 +183,19 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             }
         }
         return InteractionResult.PASS;
+    }
+
+    public void handleEntityEvent(byte pId) {
+        if (pId == 20) {
+            for(int i = 0; i < 9; ++i) {
+                double d0 = this.random.nextGaussian() * 0.02;
+                double d1 = this.random.nextGaussian() * 0.02;
+                double d2 = this.random.nextGaussian() * 0.02;
+                this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0F), this.getRandomY() + (double) 0.5F, this.getRandomZ(1.0F), d0, d1, d2);
+            }
+        } else {
+            super.handleEntityEvent(pId);
+        }
     }
 
     @Override
@@ -230,6 +246,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10F * this.getDunkSize() + 10F);
             this.getAttribute(Attributes.ARMOR).setBaseValue(2F * this.getDunkSize() + 6F);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2F * this.getDunkSize() + 6F);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.0F - this.getDunkSize() * 0.1F);
             this.heal(50F);
         }
         super.onSyncedDataUpdated(accessor);
@@ -310,13 +327,12 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     protected <E extends DunkleosteusEntity> PlayState predicate(final AnimationState<E> event) {
         if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            if(this.isRunning()){
+            if (this.isRunning()){
                 event.setAndContinue(DUNK_SWIM_SPRINT);
-                event.getController().setAnimationSpeed(1.0F);
             } else {
                 event.setAndContinue(DUNK_SWIM);
-                event.getController().setAnimationSpeed(1.0F);
             }
+            event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;
         }
         if (!this.isInWater()) {
@@ -391,6 +407,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             if (animTime == 8) {
                 if (DunkleosteusEntity.this.distanceTo(Objects.requireNonNull(DunkleosteusEntity.this.getTarget())) < 1.4F * DunkleosteusEntity.this.getDunkSize() + 1.4F) {
                     DunkleosteusEntity.this.doHurtTarget(DunkleosteusEntity.this.getTarget());
+                    DunkleosteusEntity.this.swing(InteractionHand.MAIN_HAND);
                 }
             }
             if (animTime >= 10) {

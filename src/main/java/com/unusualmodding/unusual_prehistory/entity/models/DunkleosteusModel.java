@@ -57,10 +57,10 @@ public class DunkleosteusModel extends GeoModel<DunkleosteusEntity> {
         super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
 
-        EntityModelData extraData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
 
-        swimControl.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
+        swimControl.setRotX(entityData.headPitch() * (Mth.DEG_TO_RAD));
     }
 }
 

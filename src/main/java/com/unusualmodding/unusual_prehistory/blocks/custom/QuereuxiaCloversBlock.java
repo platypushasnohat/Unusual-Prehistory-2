@@ -7,11 +7,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class QuereuxiaCloversBlock extends WaterlilyBlock {
+public class QuereuxiaCloversBlock extends PlaceableOnWaterBlock {
 
     public QuereuxiaCloversBlock(Properties properties) {
         super(properties);

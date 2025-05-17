@@ -64,7 +64,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new AncientFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2Properties.PLANT));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
 
-    public static final Supplier<Block> NELUMBITES = registerBlockWithItem("nelumbites", () -> new WaterlilyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().noOcclusion().sound(SoundType.LILY_PAD).noOcclusion().pushReaction(PushReaction.DESTROY)), block -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
+    public static final Supplier<Block> NELUMBITES = registerBlockWithItem("nelumbites", () -> new PlaceableOnWaterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().noOcclusion().sound(SoundType.LILY_PAD).noOcclusion().pushReaction(PushReaction.DESTROY)), block -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new AncientTallFlowerBlock(UP2Properties.TALL_PLANT));
 
