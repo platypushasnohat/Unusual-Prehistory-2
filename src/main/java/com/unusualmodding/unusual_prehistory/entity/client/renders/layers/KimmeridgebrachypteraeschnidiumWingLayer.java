@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.renders.layers;
+package com.unusualmodding.unusual_prehistory.entity.client.renders.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.models;
+package com.unusualmodding.unusual_prehistory.entity.client.models;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.custom.ScaumenaciaEntity;

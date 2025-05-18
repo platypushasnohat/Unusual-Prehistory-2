@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.models;
+package com.unusualmodding.unusual_prehistory.entity.client.models;
 
 import com.unusualmodding.unusual_prehistory.entity.custom.UnicornEntity;
 import net.minecraft.resources.ResourceLocation;

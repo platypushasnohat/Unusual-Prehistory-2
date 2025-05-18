@@ -1,12 +1,12 @@
-package com.unusualmodding.unusual_prehistory.entity.renders;
+package com.unusualmodding.unusual_prehistory.entity.client.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.custom.KimmeridgebrachypteraeschnidiumEntity;
-import com.unusualmodding.unusual_prehistory.entity.models.KimmeridgebrachypteraeschnidiumModel;
-import com.unusualmodding.unusual_prehistory.entity.renders.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
-import com.unusualmodding.unusual_prehistory.entity.renders.layers.KimmeridgebrachypteraeschnidiumWingLayer;
+import com.unusualmodding.unusual_prehistory.entity.client.models.KimmeridgebrachypteraeschnidiumModel;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.layers.KimmeridgebrachypteraeschnidiumWingLayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

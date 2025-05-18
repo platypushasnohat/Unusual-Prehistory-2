@@ -3,8 +3,12 @@ package com.unusualmodding.unusual_prehistory.events;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.UP2Properties;
 import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.models.*;
-import com.unusualmodding.unusual_prehistory.entity.renders.*;
+import com.unusualmodding.unusual_prehistory.entity.client.UP2ModelLayers;
+import com.unusualmodding.unusual_prehistory.entity.client.models.*;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.AncientAquaticRenderer;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.AncientRenderer;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.KimmeridgebrachypteraeschnidiumRenderer;
+import com.unusualmodding.unusual_prehistory.entity.client.renders.StethacanthusRenderer;
 import com.unusualmodding.unusual_prehistory.items.UP2ItemProperties;
 import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
 import com.unusualmodding.unusual_prehistory.particles.custom.FallingLeafParticle;
@@ -45,7 +49,14 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), e -> new AncientAquaticRenderer<>(e, new JawlessFishModel()));
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), e -> new AncientAquaticRenderer<>(e, new ScaumenaciaModel()));
-        event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), e -> new AncientAquaticRenderer<>(e, new StethacanthusModel()));
+//        event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), e -> new AncientAquaticRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), e -> new AncientRenderer<>(e, new UnicornModel()));
+
+        event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(UP2ModelLayers.STETHACANTHUS_LAYER, StethacanthusModel2::createBodyLayer);
     }
 }

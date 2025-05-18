@@ -1,8 +1,8 @@
-package com.unusualmodding.unusual_prehistory.entity.renders;
+package com.unusualmodding.unusual_prehistory.entity.client.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.entity.AncientEntity;
+import com.unusualmodding.unusual_prehistory.entity.AncientAquaticEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,11 +13,11 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
-public class AncientRenderer<T extends AncientEntity> extends GeoEntityRenderer<T> {
+public class AncientAquaticRenderer<T extends AncientAquaticEntity> extends GeoEntityRenderer<T> {
 
     private int currentTick = -1;
 
-    public AncientRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
+    public AncientAquaticRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
     }
 
