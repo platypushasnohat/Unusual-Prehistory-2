@@ -2,14 +2,14 @@ package com.unusualmodding.unusual_prehistory.entity.client.models;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.entity.client.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.client.animations.StethacanthusAnimations;
 import com.unusualmodding.unusual_prehistory.entity.custom.StethacanthusEntityTest;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class StethacanthusModel2<T extends StethacanthusEntityTest> extends UP2Model<T> {
+public class StethacanthusModel2<T extends StethacanthusEntityTest> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -25,7 +25,6 @@ public class StethacanthusModel2<T extends StethacanthusEntityTest> extends UP2M
 	private final ModelPart tail2;
 
 	public StethacanthusModel2(ModelPart root) {
-		super(0.6F, 0.6F);
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
 		this.body = this.swim_control.getChild("body");
