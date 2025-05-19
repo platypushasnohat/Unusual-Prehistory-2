@@ -111,11 +111,6 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
     }
 
     @Override
-    public float getScale() {
-        return 1.0F;
-    }
-
-    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(RUNNING, false);

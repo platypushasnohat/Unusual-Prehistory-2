@@ -42,10 +42,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -121,6 +117,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
             if (this.getTarget() == null) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             }
+            this.calculateEntityAnimation(true);
         } else {
             super.travel(pTravelVector);
         }
@@ -145,6 +142,13 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         } else {
             super.customServerAiStep();
         }
+    }
+
+    public void tick () {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        super.tick();
     }
 
     // sounds
@@ -271,56 +275,20 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
     }
 
     // animations
-    private static final RawAnimation STETHA_SWIM = RawAnimation.begin().thenLoop("animation.stethacanthus.swim");
-    private static final RawAnimation STETHA_FLOP = RawAnimation.begin().thenLoop("animation.stethacanthus.flop");
-    private static final RawAnimation STETHA_IDLE = RawAnimation.begin().thenLoop("animation.stethacanthus.idle");
-    private static final RawAnimation STETHA_ATTACK = RawAnimation.begin().thenLoop("animation.stethacanthus.attack");
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
 
-    // animation control
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+    }
+
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<StethacanthusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-
-        AnimationController<StethacanthusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
-        controllers.add(attack);
-    }
-
-    protected <E extends StethacanthusEntity> PlayState predicate(final AnimationState<E> event) {
-        if (this.getAttackState() != 1) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                if (this.isRunning()) {
-                    event.setAndContinue(STETHA_SWIM);
-                    event.getController().setAnimationSpeed(1.6F);
-                } else {
-                    event.setAndContinue(STETHA_SWIM);
-                    event.getController().setAnimationSpeed(1.0F);
-                }
-                return PlayState.CONTINUE;
-            } else if (this.isInWater()) {
-                event.setAndContinue(STETHA_IDLE);
-                return PlayState.CONTINUE;
-            }
-        }
-        if (!this.isInWater()) {
-            event.setAndContinue(STETHA_FLOP);
-            return PlayState.CONTINUE;
-        }
-        return PlayState.CONTINUE;
-    }
-
-    // attack animations
-    protected <E extends StethacanthusEntity> PlayState attackPredicate(final AnimationState<E> event) {
-        int animState = this.getAttackState();
-        if (animState == 1) {
-            event.setAndContinue(STETHA_ATTACK);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 0) {
-            event.getController().forceAnimationReset();
-            return PlayState.STOP;
-        }
-        else return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
     // goals
@@ -383,7 +351,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
 
     class StethacanthusFleeGoal extends LargePanicGoal {
         public StethacanthusFleeGoal() {
-            super(StethacanthusEntity.this, 1.4D);
+            super(StethacanthusEntity.this, 1.5D);
         }
 
         @Override

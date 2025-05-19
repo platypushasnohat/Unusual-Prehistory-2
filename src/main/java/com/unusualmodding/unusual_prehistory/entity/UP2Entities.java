@@ -18,7 +18,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<JawlessFishEntity>> JAWLESS_FISH = ENTITY_TYPE.register("jawless_fish", () -> EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_CREATURE).sized(0.36F, 0.36F).build("jawless_fish"));
     public static final RegistryObject<EntityType<KimmeridgebrachypteraeschnidiumEntity>> KIMMERIDGEBRACHYPTERAESCHNIDIUM = ENTITY_TYPE.register("kimmeridgebrachypteraeschnidium", () -> EntityType.Builder.of(KimmeridgebrachypteraeschnidiumEntity::new, MobCategory.CREATURE).sized(0.5F, 0.5F).build("kimmeridgebrachypteraeschnidium"));
     public static final RegistryObject<EntityType<ScaumenaciaEntity>> SCAUMENACIA = ENTITY_TYPE.register("scaumenacia", () -> EntityType.Builder.of(ScaumenaciaEntity::new, MobCategory.WATER_CREATURE).sized(0.7F, 0.6F).build("scaumenacia"));
-    public static final RegistryObject<EntityType<StethacanthusEntityTest>> STETHACANTHUS = ENTITY_TYPE.register("stethacanthus", () -> EntityType.Builder.of(StethacanthusEntityTest::new, MobCategory.WATER_CREATURE).sized(0.7F, 0.7F).build("stethacanthus"));
+    public static final RegistryObject<EntityType<StethacanthusEntity>> STETHACANTHUS = ENTITY_TYPE.register("stethacanthus", () -> EntityType.Builder.of(StethacanthusEntity::new, MobCategory.WATER_CREATURE).sized(0.7F, 0.7F).build("stethacanthus"));
     public static final RegistryObject<EntityType<UnicornEntity>> UNICORN = ENTITY_TYPE.register("unicorn", () -> EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE).sized(1.2F, 3.0F).build("unicorn"));
 
 }
