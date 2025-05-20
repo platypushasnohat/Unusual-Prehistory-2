@@ -51,6 +51,20 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH
         );
 
+        tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                STETHACANTHUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
+        tag(UP2EntityTags.SCAUMENACIA_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                STETHACANTHUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
         tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 SCAUMENACIA.get(),

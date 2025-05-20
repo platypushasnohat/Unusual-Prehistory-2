@@ -7,10 +7,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 import java.util.function.Function;
 
+@OnlyIn(Dist.CLIENT)
 public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
 
     private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();

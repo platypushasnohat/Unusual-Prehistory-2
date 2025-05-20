@@ -31,12 +31,16 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -67,18 +71,10 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new DunkleosteusAttackGoal());
-        this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 20, 60, 60, 3));
+        this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 10, 70, 70, 3));
         this.goalSelector.addGoal(5, new DunkleosteusFleeGoal());
         this.goalSelector.addGoal(7, new AquaticLeapGoal(this, 20));
-        this.targetSelector.addGoal(8, new HurtByTargetGoal(this) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
-                if (dunkleosteus.getDunkSize() == 0 || dunkleosteus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 400, true, true, this::canAttack) {
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 500, true, true, this::canAttack) {
         @Override
         public boolean canUse() {
             if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
@@ -86,30 +82,8 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             }
             return super.canUse();
         }});
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS)) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
-                if (dunkleosteus.getDunkSize() != 2 || dunkleosteus.isPassive() || dunkleosteus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS)) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
-                if (dunkleosteus.getDunkSize() != 1 || dunkleosteus.isPassive() || dunkleosteus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS)) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
-                if (dunkleosteus.getDunkSize() != 0 || dunkleosteus.isPassive() || dunkleosteus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
+        this.targetSelector.addGoal(4, new DunkleosteusNearestAttackableTargetGoal());
+        this.targetSelector.addGoal(8, new DunkleosteusHurtByTargetGoal());
     }
 
     public void travel(Vec3 pTravelVector) {
@@ -320,7 +294,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     }
 
     // goals
-    public class DunkleosteusAttackGoal extends Goal {
+    private class DunkleosteusAttackGoal extends Goal {
         private int animTime = 0;
 
         public DunkleosteusAttackGoal() {
@@ -353,7 +327,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
                 if (attackState == 1) {
                     tickBiteAttack();
                 } else {
-                    DunkleosteusEntity.this.getNavigation().moveTo(target, 1.35D);
+                    DunkleosteusEntity.this.getNavigation().moveTo(target, 1.45D);
                     if (distance <= 5 + (double) DunkleosteusEntity.this.getDunkSize() * 2) {
                         DunkleosteusEntity.this.setAttackState(1);
                     }
@@ -376,9 +350,9 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         }
     }
 
-    class DunkleosteusFleeGoal extends LargePanicGoal {
+    private class DunkleosteusFleeGoal extends LargePanicGoal {
         public DunkleosteusFleeGoal() {
-            super(DunkleosteusEntity.this, 1.5D);
+            super(DunkleosteusEntity.this, 2.0D);
         }
 
         @Override
@@ -397,6 +371,80 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
                 this.posZ = vec3.z;
                 return true;
             }
+        }
+    }
+
+    private class DunkleosteusHurtByTargetGoal extends HurtByTargetGoal {
+
+        private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
+
+        private int timestamp;
+
+        public DunkleosteusHurtByTargetGoal() {
+            super(DunkleosteusEntity.this);
+            this.setFlags(EnumSet.of(Flag.TARGET));
+        }
+
+        public boolean canUse() {
+            int time = this.mob.getLastHurtByMobTimestamp();
+            LivingEntity entity = this.mob.getLastHurtByMob();
+            if (time != this.timestamp && entity != null) {
+                if (entity.getType() == EntityType.PLAYER && this.mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) || DunkleosteusEntity.this.getDunkSize() == 0 || this.mob.isBaby()) {
+                    return false;
+                }
+                else {
+                    return this.canAttack(entity, HURT_BY_TARGETING);
+                }
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    private class DunkleosteusNearestAttackableTargetGoal extends TargetGoal {
+
+        protected final int randomInterval;
+        @Nullable
+        protected LivingEntity target;
+        protected TargetingConditions targetConditions;
+
+        public DunkleosteusNearestAttackableTargetGoal() {
+            super(DunkleosteusEntity.this, true, true);
+            this.randomInterval = reducedTickDelay(500);
+            this.setFlags(EnumSet.of(Flag.TARGET));
+        }
+
+        public boolean canUse() {
+            if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0 || DunkleosteusEntity.this.isPassive() || DunkleosteusEntity.this.isBaby()) {
+                return false;
+            } else {
+                this.findTarget();
+                return this.target != null;
+            }
+        }
+
+        protected AABB getTargetSearchArea(double pTargetDistance) {
+            return this.mob.getBoundingBox().inflate(pTargetDistance, 4.0F, pTargetDistance);
+        }
+
+        protected void findTarget() {
+            if (DunkleosteusEntity.this.getDunkSize() == 0) {
+                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            }
+            else if (DunkleosteusEntity.this.getDunkSize() == 1) {
+                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            }
+            else if (DunkleosteusEntity.this.getDunkSize() == 2) {
+                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            } else {
+                this.target = this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            }
+        }
+
+        public void start() {
+            this.mob.setTarget(this.target);
+            super.start();
         }
     }
 }

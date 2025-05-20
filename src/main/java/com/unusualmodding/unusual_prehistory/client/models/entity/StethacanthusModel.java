@@ -47,33 +47,19 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-
 		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, -1.0F));
-
 		PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -5.5F, -5.5F, 7.0F, 9.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, 1.0F));
-
 		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(4, 21).addBox(2.5F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(1, 26).addBox(1.0F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(34, 0).addBox(-3.5F, -4.0F, -5.0F, 7.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(26, 2).addBox(3.5F, -4.0F, -4.0F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(26, 2).mirror().addBox(-4.5F, -4.0F, -4.0F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(4, 21).mirror().addBox(-2.5F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false).texOffs(1, 26).mirror().addBox(-1.0F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false).texOffs(11, 25).addBox(-3.5F, 0.0F, -5.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 2.5F, -5.5F));
-
 		PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(11, 20).addBox(-3.5F, 0.99F, -5.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(25, 35).addBox(-3.5F, 0.0F, -5.0F, 7.0F, 1.0F, 5.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-
 		PartDefinition dorsal = body.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(0, 45).mirror().addBox(-3.5F, -5.0F, -3.5F, 7.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(21, 45).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(28, 41).addBox(-1.5F, -5.0F, -1.5F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(30, 20).addBox(-3.5F, -4.0F, -3.5F, 7.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)).texOffs(16, 38).addBox(-1.5F, -2.0F, -1.5F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -5.5F, -1.0F));
-
 		PartDefinition left_front_fin = body.addOrReplaceChild("left_front_fin", CubeListBuilder.create().texOffs(28, 29).addBox(0.0F, 0.0F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(3.5F, 1.5F, -3.5F));
-
 		PartDefinition right_front_fin = body.addOrReplaceChild("right_front_fin", CubeListBuilder.create().texOffs(28, 29).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-3.5F, 1.5F, -3.5F));
-
 		PartDefinition left_back_fin = body.addOrReplaceChild("left_back_fin", CubeListBuilder.create().texOffs(1, 39).addBox(0.0F, 0.0F, -1.0F, 4.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offset(3.5F, 1.5F, 4.5F));
-
 		PartDefinition right_back_fin = body.addOrReplaceChild("right_back_fin", CubeListBuilder.create().texOffs(1, 39).mirror().addBox(-4.0F, 0.0F, -1.0F, 4.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-3.5F, 1.5F, 4.5F));
-
 		PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(38, 11).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(0, 43).addBox(0.0F, -3.5F, 1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 5.5F));
-
 		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 5.0F));
-
 		PartDefinition tail2_r1 = tail2.addOrReplaceChild("tail2_r1", CubeListBuilder.create().texOffs(0, 20).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 13.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, -0.5F, -1.0F, 0.5236F, 0.0F, 0.0F));
-
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 

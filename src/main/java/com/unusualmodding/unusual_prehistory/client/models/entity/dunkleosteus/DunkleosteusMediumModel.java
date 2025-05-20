@@ -89,7 +89,7 @@ public class DunkleosteusMediumModel<T extends DunkleosteusEntity> extends UP2Mo
 	public void setupAnim(DunkleosteusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, DunkleosteusMediumAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
+		this.animate(entity.swimAnimationState, DunkleosteusMediumAnimations.SWIM, ageInTicks, limbSwingAmount * 2.5F);
 		this.animateIdle(entity.idleAnimationState, DunkleosteusMediumAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
 		this.animate(entity.flopAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks, 1.0F);
 		this.animate(entity.attackAnimationState, DunkleosteusMediumAnimations.ATTACK, ageInTicks, 1.0F);

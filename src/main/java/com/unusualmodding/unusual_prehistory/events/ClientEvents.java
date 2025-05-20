@@ -1,10 +1,10 @@
 package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.client.models.entity.JawlessFishModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.ScaumenaciaModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.UnicornModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockProperties;
 import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
@@ -49,18 +49,23 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), e -> new AncientAquaticRenderer<>(e, new JawlessFishModel()));
+        event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), JawlessFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
-        event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), e -> new AncientAquaticRenderer<>(e, new ScaumenaciaModel()));
+        event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), e -> new AncientRenderer<>(e, new UnicornModel()));
     }
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS_LAYER, CephalaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DORYASPIS_LAYER, DoryaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_LARGE_LAYER, DunkleosteusLargeModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_SMALL_LAYER, DunkleosteusSmallModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.FURACACAUDA_LAYER, FurcacaudaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
     }
 }

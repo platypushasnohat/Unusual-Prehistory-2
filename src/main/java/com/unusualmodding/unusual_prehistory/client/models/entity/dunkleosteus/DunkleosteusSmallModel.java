@@ -87,7 +87,7 @@ public class DunkleosteusSmallModel<T extends DunkleosteusEntity> extends UP2Mod
 	public void setupAnim(DunkleosteusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, DunkleosteusSmallAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
+		this.animate(entity.swimAnimationState, DunkleosteusSmallAnimations.SWIM, ageInTicks, limbSwingAmount * 2.5F);
 		this.animateIdle(entity.idleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
 		this.animate(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks, 1.0F);
 		this.animate(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK, ageInTicks, 1.0F);

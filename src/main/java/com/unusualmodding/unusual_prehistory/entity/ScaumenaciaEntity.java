@@ -1,10 +1,12 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.CustomRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,7 +22,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,9 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
@@ -40,6 +41,10 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ScaumenaciaEntity.class, EntityDataSerializers.BOOLEAN);
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
+
     public ScaumenaciaEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.02F, 0.1F, true);
@@ -47,16 +52,18 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.MOVEMENT_SPEED, 0.8F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.8F);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.SCAUMENACIA_AVOIDS)));
         this.goalSelector.addGoal(4, new CustomRandomSwimGoal(this, 1, 1, 32, 32, 3));
+        this.goalSelector.addGoal(4, new ScaumenaciaFleeGoal());
     }
 
-    // Schooling
+    // schooling
     public int getMaxSchoolSize() {
         return 8;
     }
@@ -89,6 +96,19 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
         } else {
             super.travel(pTravelVector);
         }
+    }
+
+    public void tick () {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -193,24 +213,27 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
         }
     }
 
-    private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.swim");
-    private static final RawAnimation SCAU_IDLE = RawAnimation.begin().thenLoop("animation.scaumenacia.idle");
-    private static final RawAnimation SCAU_FLOP = RawAnimation.begin().thenLoop("animation.scaumenacia.flop");
-
-    // animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
     }
 
-    protected <E extends ScaumenaciaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isInWater()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
-                event.setAndContinue(SCAU_SWIM);
-            }
-            else event.setAndContinue(SCAU_IDLE);
+    // goals
+    private class ScaumenaciaFleeGoal extends LargePanicGoal {
+        public ScaumenaciaFleeGoal() {
+            super(ScaumenaciaEntity.this, 2.0D);
         }
-        else event.setAndContinue(SCAU_FLOP);
-        return PlayState.CONTINUE;
+
+        @Override
+        protected boolean findRandomPosition() {
+            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 8);
+            if (vec3 == null) {
+                return false;
+            } else {
+                this.posX = vec3.x;
+                this.posY = vec3.y;
+                this.posZ = vec3.z;
+                return true;
+            }
+        }
     }
 }

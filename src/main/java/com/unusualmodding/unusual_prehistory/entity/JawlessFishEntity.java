@@ -1,10 +1,12 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.GroundseekingRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,7 +22,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,17 +33,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketable, GeoAnimatable {
+public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public JawlessFishEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
@@ -56,7 +59,9 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1, 20, 8, 12, 0.01));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(8, new JawlessFishFleeGoal());
     }
 
     // Schooling
@@ -93,6 +98,18 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
         } else {
             super.travel(pTravelVector);
         }
+    }
+
+    public void tick () {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -197,8 +214,8 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
         }
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
+    public String getVariantName() {
+        return switch (this.getVariant()) {
             case 1 -> "doryaspis";
             case 2 -> "furcacauda";
             case 3 -> "sacabambaspis";
@@ -206,27 +223,27 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
         };
     }
 
-    // animations
-    private static final RawAnimation JAWLESS_FISH_SWIM = RawAnimation.begin().thenLoop("animation.jawless_fish.swim");
-    private static final RawAnimation JAWLESS_FISH_FLOP = RawAnimation.begin().thenLoop("animation.jawless_fish.flop");
-
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
-    // animation control
-    protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAndContinue(JAWLESS_FISH_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
+    // goals
+    private class JawlessFishFleeGoal extends LargePanicGoal {
+        public JawlessFishFleeGoal() {
+            super(JawlessFishEntity.this, 2.0D);
         }
-        else if (!this.isInWater()) {
-            event.setAndContinue(JAWLESS_FISH_FLOP);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
+
+        @Override
+        protected boolean findRandomPosition() {
+            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 8);
+            if (vec3 == null) {
+                return false;
+            } else {
+                this.posX = vec3.x;
+                this.posY = vec3.y;
+                this.posZ = vec3.z;
+                return true;
+            }
         }
-        return PlayState.CONTINUE;
     }
 }

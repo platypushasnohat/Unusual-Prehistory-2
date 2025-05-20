@@ -17,7 +17,7 @@ public class StethacanthusRenderer extends MobRenderer<StethacanthusEntity, Stet
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/stethacanthus.png");
 
     public StethacanthusRenderer(EntityRendererProvider.Context context) {
-        super(context, new StethacanthusModel<>(context.bakeLayer(UP2ModelLayers.STETHACANTHUS_LAYER)), 0.5f);
+        super(context, new StethacanthusModel<>(context.bakeLayer(UP2ModelLayers.STETHACANTHUS_LAYER)), 0.5F);
     }
 
     @Override

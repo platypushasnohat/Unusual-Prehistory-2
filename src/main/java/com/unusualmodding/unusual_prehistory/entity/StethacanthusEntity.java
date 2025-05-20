@@ -51,6 +51,11 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+
     public StethacanthusEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
@@ -69,8 +74,8 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
         this.goalSelector.addGoal(1, new StethacanthusAttackGoal());
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.5D, 1.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.5D, 1.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
         this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 3, 30, 30, 3));
         this.goalSelector.addGoal(6, new AquaticLeapGoal(this, 15));
         this.goalSelector.addGoal(7, new StethacanthusFleeGoal());
@@ -139,6 +144,13 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
             this.setupAnimationStates();
         }
         super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
     }
 
     // sounds
@@ -264,25 +276,12 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         return UP2Entities.STETHACANTHUS.get().create(serverLevel);
     }
 
-    // animations
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState = new AnimationState();
-
-    private void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-    }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
     // goals
-    class StethacanthusAttackGoal extends Goal {
+    private class StethacanthusAttackGoal extends Goal {
         private int attackTime = 0;
 
         public StethacanthusAttackGoal() {
@@ -316,7 +315,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
                     tickBiteAttack();
                     StethacanthusEntity.this.getNavigation().moveTo(target, 0.75D);
                 } else {
-                    StethacanthusEntity.this.getNavigation().moveTo(target, 1.4D);
+                    StethacanthusEntity.this.getNavigation().moveTo(target, 1.75D);
                     if (distance <= 4) {
                         StethacanthusEntity.this.setAttackState(1);
                     }
@@ -339,9 +338,9 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         }
     }
 
-    class StethacanthusFleeGoal extends LargePanicGoal {
+    private class StethacanthusFleeGoal extends LargePanicGoal {
         public StethacanthusFleeGoal() {
-            super(StethacanthusEntity.this, 1.5D);
+            super(StethacanthusEntity.this, 2.0D);
         }
 
         @Override
