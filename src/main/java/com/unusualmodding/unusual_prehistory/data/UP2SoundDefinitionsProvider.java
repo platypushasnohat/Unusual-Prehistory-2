@@ -34,10 +34,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.DUNKLEOSTEUS_FLOP,
-                sound("entity/fish/flop1").volume(0.3D),
-                sound("entity/fish/flop2").volume(0.3D),
-                sound("entity/fish/flop3").volume(0.3D),
-                sound("entity/fish/flop4").volume(0.3D)
+                sound("entity/fish/flop1").volume(0.3f),
+                sound("entity/fish/flop2").volume(0.3f),
+                sound("entity/fish/flop3").volume(0.3f),
+                sound("entity/fish/flop4").volume(0.3f)
         );
 
         this.sound(UP2Sounds.JAWLESS_FISH_HURT,
@@ -55,15 +55,15 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.JAWLESS_FISH_FLOP,
-                sound("entity/fish/flop1").volume(0.3D),
-                sound("entity/fish/flop2").volume(0.3D),
-                sound("entity/fish/flop3").volume(0.3D),
-                sound("entity/fish/flop4").volume(0.3D)
+                sound("entity/fish/flop1").volume(0.3f),
+                sound("entity/fish/flop2").volume(0.3f),
+                sound("entity/fish/flop3").volume(0.3f),
+                sound("entity/fish/flop4").volume(0.3f)
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")).pitch(1.4F),
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1")).pitch(1.4F)
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")).pitch(1.4f),
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1")).pitch(1.4f)
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH,
@@ -71,7 +71,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/flap_0"))
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/flap_0")).volume(0.3f)
         );
 
         this.sound(UP2Sounds.SCAUMENACIA_HURT,
@@ -89,10 +89,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.SCAUMENACIA_FLOP,
-                sound("entity/fish/flop1").volume(0.3D),
-                sound("entity/fish/flop2").volume(0.3D),
-                sound("entity/fish/flop3").volume(0.3D),
-                sound("entity/fish/flop4").volume(0.3D)
+                sound("entity/fish/flop1").volume(0.3f),
+                sound("entity/fish/flop2").volume(0.3f),
+                sound("entity/fish/flop3").volume(0.3f),
+                sound("entity/fish/flop4").volume(0.3f)
         );
 
         this.sound(UP2Sounds.STETHACANTHUS_HURT,
@@ -110,10 +110,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.STETHACANTHUS_FLOP,
-                sound("entity/fish/flop1").volume(0.3D),
-                sound("entity/fish/flop2").volume(0.3D),
-                sound("entity/fish/flop3").volume(0.3D),
-                sound("entity/fish/flop4").volume(0.3D)
+                sound("entity/fish/flop1").volume(0.3f),
+                sound("entity/fish/flop2").volume(0.3f),
+                sound("entity/fish/flop3").volume(0.3f),
+                sound("entity/fish/flop4").volume(0.3f)
         );
 
         this.sound(UP2Sounds.UNICORN_HURT,

@@ -32,7 +32,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
@@ -211,10 +210,6 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
         } else {
             this.setVariant(0);
         }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
     }
 
     // goals

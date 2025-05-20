@@ -14,14 +14,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class AncientAquaticEntity extends AgeableMob implements GeoEntity, GeoAnimatable {
+public abstract class AncientAquaticEntity extends AgeableMob {
 
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(AncientAquaticEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AncientAquaticEntity.class, EntityDataSerializers.INT);
@@ -174,12 +170,5 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
         } else {
             super.handleEntityEvent(id);
         }
-    }
-
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.geoCache;
     }
 }

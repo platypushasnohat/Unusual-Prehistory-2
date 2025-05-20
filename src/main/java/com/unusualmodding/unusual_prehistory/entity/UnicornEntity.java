@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import java.util.UUID;
 
@@ -204,9 +203,5 @@ public class UnicornEntity extends AncientEntity {
             this.lastLightningBoltUUID = uuid;
             this.playSound(SoundEvents.SKELETON_DEATH, 2.0F, 1.0F);
         }
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
     }
 }

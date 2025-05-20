@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.ScaumenaciaModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
@@ -64,6 +65,7 @@ public class ClientEvents {
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_SMALL_LAYER, DunkleosteusSmallModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.FURACACAUDA_LAYER, FurcacaudaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);

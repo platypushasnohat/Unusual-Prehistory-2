@@ -41,15 +41,9 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity implements Bucketable {
 
@@ -207,7 +201,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(PREEN, false);
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(FLYING, false);
         this.entityData.define(BASE_COLOR, 0);
@@ -563,75 +556,5 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
             z = 0;
             super.stop();
         }
-    }
-
-    // idle states
-    private static final EntityDataAccessor<Boolean> PREEN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private static final Predicate<LivingEntity> KIMMER_STARTING_PREDICATE = (e -> {
-        if(e instanceof KimmeridgebrachypteraeschnidiumEntity entity) {
-            return !entity.isInWater() && !entity.isFlying();
-        }
-        return false;
-    });
-
-//    private static final EntityAction KIMMER_PREEN_ACTION = new EntityAction(0, (e) -> {}, 1);
-//    private static final StateHelper KIMMER_PREEN_STATE =
-//            StateHelper.Builder.state(PREEN, "kimmeridgebrachypteraeschnidium_preen")
-//                    .playTime(60)
-//                    .stopTime(130)
-//                    .startingPredicate(KIMMER_STARTING_PREDICATE)
-//                    .affectsAI(true)
-//                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-//                    .entityAction(KIMMER_PREEN_ACTION)
-//                    .build();
-//
-//    @Override
-//    public ImmutableMap<String, StateHelper> getStates() {
-//        return ImmutableMap.of(
-//                KIMMER_PREEN_STATE.getName(), KIMMER_PREEN_STATE
-//        );
-//    }
-//
-//    @Override
-//    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-//        return ImmutableList.of(
-//                WeightedState.of(KIMMER_PREEN_STATE, 10)
-//        );
-//    }
-
-    private static final RawAnimation KIMMER_FLY = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.fly");
-    private static final RawAnimation KIMMER_IDLE = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.idle1");
-    private static final RawAnimation KIMMER_HOVER = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.hover");
-    private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
-
-    // animation control
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<KimmeridgebrachypteraeschnidiumEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-
-        AnimationController<KimmeridgebrachypteraeschnidiumEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
-        controllers.add(idle);
-    }
-
-    protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState predicate(final AnimationState<E> event) {
-        if (event.isMoving() && this.onGround()) {
-            return event.setAndContinue(KIMMER_HOVER);
-        }
-        if (!event.isMoving() && this.onGround() && !this.isFlying()) {
-            return event.setAndContinue(KIMMER_IDLE);
-        }
-        return event.setAndContinue(KIMMER_FLY);
-    }
-
-    // idle animations
-    protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState idlePredicate(final AnimationState<E> event) {
-//        if (getBooleanState(PREEN)) {
-//            event.getController().setAnimation(KIMMER_PREEN);
-//            return PlayState.CONTINUE;
-//        }
-        event.getController().forceAnimationReset();
-        return PlayState.STOP;
     }
 }

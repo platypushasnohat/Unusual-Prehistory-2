@@ -85,7 +85,10 @@
   },
   "kimmeridgebrachypteraeschnidium_flap": {
     "sounds": [
-      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/flap_0"
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/flap_0",
+        "volume": 0.3
+      }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_flap"
   },

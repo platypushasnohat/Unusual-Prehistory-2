@@ -13,14 +13,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class AncientEntity extends AgeableMob implements GeoEntity, GeoAnimatable {
+public abstract class AncientEntity extends AgeableMob {
 
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(AncientEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -99,12 +95,5 @@ public abstract class AncientEntity extends AgeableMob implements GeoEntity, Geo
 
     public void setRunning(boolean bool) {
         this.entityData.set(RUNNING, bool);
-    }
-
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.geoCache;
     }
 }

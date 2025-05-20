@@ -41,7 +41,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -326,10 +325,6 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         if (this.getAttackState() == 1) {
             this.yawnAnimationState.stop();
         }
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
     // goals

@@ -33,7 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animation.AnimatableManager;
 
 import javax.annotation.Nonnull;
 
@@ -221,10 +220,6 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
             case 3 -> "sacabambaspis";
             default -> "cephalaspis";
         };
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
     }
 
     // goals

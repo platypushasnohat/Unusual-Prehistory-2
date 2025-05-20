@@ -37,7 +37,7 @@ public class KimmeridgebrachypteraeschnidiumSoundInstance extends AbstractTickab
         float horizontalDistance = (float) this.entity.getDeltaMovement().horizontalDistance();
         if (horizontalDistance >= 0.01F) {
             this.pitch = Mth.lerp(Mth.clamp(horizontalDistance, 1.5F, 1.75F), 1.5F, 1.75F);
-            this.volume = Mth.lerp(Mth.clamp(horizontalDistance, 0.0F, 0.15F), 0.1F, 0.4F);
+            this.volume = Mth.lerp(Mth.clamp(horizontalDistance, 0.0F, 0.2F), 0.1F, 0.2F);
         } else {
             this.pitch = 0.0F;
             this.volume = 0.0F;

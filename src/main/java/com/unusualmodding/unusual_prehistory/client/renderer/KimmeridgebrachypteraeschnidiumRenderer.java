@@ -1,28 +1,35 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
 import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumModel;
+import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumWingLayer;
+import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
+import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
-public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<KimmeridgebrachypteraeschnidiumEntity> {
+@OnlyIn(Dist.CLIENT)
+public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<KimmeridgebrachypteraeschnidiumEntity, KimmeridgebrachypteraeschnidiumModel<KimmeridgebrachypteraeschnidiumEntity>> {
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumModel());
-        this.addRenderLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
-        this.addRenderLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
+        super(context, new KimmeridgebrachypteraeschnidiumModel<>(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER)), 0.3F);
+        this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
+        this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
+        this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KimmeridgebrachypteraeschnidiumEntity kimmer) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + kimmer.getBaseColor() + ".png");
+    public ResourceLocation getTextureLocation(KimmeridgebrachypteraeschnidiumEntity entity) {
+        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
     }
 
     @Override
@@ -31,10 +38,7 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<K
     }
 
     @Override
-    protected void applyRotations(KimmeridgebrachypteraeschnidiumEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
-        if (animatable.isFlying() && !animatable.onGround()){
-            poseStack.mulPose(Axis.ZP.rotationDegrees(animatable.currentRoll * 180 / 4));
-        }
+    protected @Nullable RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutout(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png"));
     }
 }

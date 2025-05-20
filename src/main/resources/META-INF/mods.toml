@@ -27,10 +27,3 @@ issueTrackerURL = "https://github.com/PlatypusOfHats/Unusual-Prehistory-2/issues
     versionRange = "[47.1.3,)"
     ordering = "NONE"
     side = "BOTH"
-
-[[dependencies.unusual_prehistory]]
-    modId = "geckolib"
-    mandatory = true
-    versionRange="[4.2,)"
-    ordering = "NONE"
-    side = "BOTH"
