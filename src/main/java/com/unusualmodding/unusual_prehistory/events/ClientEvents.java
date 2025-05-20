@@ -3,8 +3,8 @@ package com.unusualmodding.unusual_prehistory.events;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.ScaumenaciaModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.UnicornModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
+import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockProperties;
 import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
@@ -53,7 +53,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.UNICORN.get(), e -> new AncientRenderer<>(e, new UnicornModel()));
+        event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
     }
 
     @SubscribeEvent
@@ -67,5 +67,7 @@ public class ClientEvents {
         event.registerLayerDefinition(UP2ModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.UNICORN_LAYER, UnicornModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON_LAYER, UnicornSkeletonModel::createBodyLayer);
     }
 }

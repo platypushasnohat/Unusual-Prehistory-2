@@ -17,10 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -32,17 +29,11 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.UUID;
 
@@ -50,6 +41,10 @@ public class UnicornEntity extends AncientEntity {
 
     private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(UnicornEntity.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
+
+    public final AnimationState walkAnimationState = new AnimationState();
+    public final AnimationState runAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
 
     @Override
     protected @NotNull PathNavigation createNavigation(Level level) {
@@ -83,6 +78,18 @@ public class UnicornEntity extends AncientEntity {
             this.setRunning(false);
         }
         super.customServerAiStep();
+    }
+
+    public void tick () {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.walkAnimationState.animateWhen(this.walkAnimation.isMoving(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     // mob interactions
@@ -199,36 +206,7 @@ public class UnicornEntity extends AncientEntity {
         }
     }
 
-    // animations
-    private static final RawAnimation UNICORN_WALK = RawAnimation.begin().thenLoop("animation.unicorn.walk");
-    private static final RawAnimation UNICORN_RUN = RawAnimation.begin().thenLoop("animation.unicorn.run");
-    private static final RawAnimation UNICORN_SWIM = RawAnimation.begin().thenLoop("animation.unicorn.swim");
-    private static final RawAnimation UNICORN_IDLE = RawAnimation.begin().thenLoop("animation.unicorn.idle");
-
-    // animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<UnicornEntity> controller = new AnimationController<>(this, "controller", 8, this::predicate);
-        controllers.add(controller);
-    }
-
-    protected <E extends UnicornEntity> PlayState predicate(final AnimationState<E> event) {
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isSwimming()) {
-            if (this.isRunning()) {
-                event.setAndContinue(UNICORN_RUN);
-                event.getController().setAnimationSpeed(1.0D);
-            } else {
-                event.setAndContinue(UNICORN_WALK);
-                event.getController().setAnimationSpeed(1.0D);
-            }
-            return PlayState.CONTINUE;
-        }
-        if (this.isInWater()) {
-            return event.setAndContinue(UNICORN_SWIM);
-        }
-        if (this.isStillEnough() && !this.isInWater() && !this.isSwimming()) {
-            return event.setAndContinue(UNICORN_IDLE);
-        }
-        return PlayState.CONTINUE;
     }
 }

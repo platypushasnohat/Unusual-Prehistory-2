@@ -18,6 +18,8 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation SACABAMBASPIS_LAYER = main("sacabambaspis");
     public static final ModelLayerLocation SCAMENACIA_LAYER = main("scaumenacia");
     public static final ModelLayerLocation STETHACANTHUS_LAYER = main("stethacanthus");
+    public static final ModelLayerLocation UNICORN_LAYER = main("unicorn");
+    public static final ModelLayerLocation UNICORN_SKELETON_LAYER = main("unicorn_skeleton");
 
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(new ResourceLocation(UnusualPrehistory2.MOD_ID, id), name);
