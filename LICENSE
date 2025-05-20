@@ -2,8 +2,6 @@ The following directories, their subdirectories, and any files inside said direc
 the license below:
 
 /src/main/resources/assets/unusual_prehistory/textures/
-/src/main/resources/assets/unusual_prehistory/geo/
-/src/main/resources/assets/unusual_prehistory/animations/
 /src/main/resources/assets/unusual_prehistory/sounds/music/
 
 All Rights Reserved
