@@ -2,11 +2,11 @@ package com.unusualmodding.unusual_prehistory.data;
 
 import com.mojang.logging.LogUtils;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
-import com.unusualmodding.unusual_prehistory.items.UP2Items;
-import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
-import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
+import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
+import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.UP2CreativeTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;

@@ -1,16 +1,15 @@
 package com.unusualmodding.unusual_prehistory;
 
-import com.unusualmodding.unusual_prehistory.blocks.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.blocks.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.compat.UP2Compat;
+import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
+import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.registry.UP2Compat;
 import com.unusualmodding.unusual_prehistory.data.*;
-import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
-import com.unusualmodding.unusual_prehistory.items.UP2Items;
-import com.unusualmodding.unusual_prehistory.particles.UP2Particles;
-import com.unusualmodding.unusual_prehistory.recipes.UP2RecipeTypes;
-import com.unusualmodding.unusual_prehistory.screens.UP2MenuTypes;
-import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
-import com.unusualmodding.unusual_prehistory.tab.UP2CreativeTabs;
+import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
+import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.registry.UP2MenuTypes;
+import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -23,8 +22,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -33,22 +30,18 @@ import java.util.concurrent.CompletableFuture;
 public class UnusualPrehistory2 {
 
     public static final String MOD_ID = "unusual_prehistory";
-    public static final Logger LOGGER = LogManager.getLogger();
 
     public UnusualPrehistory2() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
         UP2CreativeTabs.CREATIVE_TABS.register(bus);
-
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
-
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
         UP2RecipeTypes.register(bus);
-
         UP2Sounds.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
 

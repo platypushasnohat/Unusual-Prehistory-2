@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goal;
 
 import com.mojang.datafixers.DataFixUtils;
-import com.unusualmodding.unusual_prehistory.entity.SchoolingAquaticEntity;
+import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.List;

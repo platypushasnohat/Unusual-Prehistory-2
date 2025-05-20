@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
-import com.unusualmodding.unusual_prehistory.items.UP2Items;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.recipes.ExtractingRecipeBuilder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;

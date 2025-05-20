@@ -1,10 +1,10 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
-import com.unusualmodding.unusual_prehistory.blocks.UP2BlockEntities;
+import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.recipes.ExtractingRecipe;
-import com.unusualmodding.unusual_prehistory.recipes.UP2RecipeTypes;
-import com.unusualmodding.unusual_prehistory.screens.ExtractorMenu;
-import com.unusualmodding.unusual_prehistory.tags.UP2ItemTags;
+import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.client.screens.ExtractorMenu;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

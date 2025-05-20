@@ -1,8 +1,8 @@
 package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.entity.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.custom.*;
+import com.unusualmodding.unusual_prehistory.entity.*;
+import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +16,6 @@ public class CommonEvents {
         event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFishEntity.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
         event.put(UP2Entities.SCAUMENACIA.get(), ScaumenaciaEntity.createAttributes().build());
-//        event.put(UP2Entities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), UnicornEntity.createAttributes().build());
     }

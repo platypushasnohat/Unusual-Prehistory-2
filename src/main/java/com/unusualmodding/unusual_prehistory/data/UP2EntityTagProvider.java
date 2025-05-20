@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.tags.UP2EntityTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.unusualmodding.unusual_prehistory.entity.UP2Entities.*;
+import static com.unusualmodding.unusual_prehistory.registry.UP2Entities.*;
 
 public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 

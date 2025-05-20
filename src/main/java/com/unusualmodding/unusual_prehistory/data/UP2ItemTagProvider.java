@@ -1,9 +1,8 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.items.UP2Items;
-import com.unusualmodding.unusual_prehistory.tags.UP2BlockTags;
-import com.unusualmodding.unusual_prehistory.tags.UP2ItemTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -17,7 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.unusualmodding.unusual_prehistory.items.UP2Items.*;
+import static com.unusualmodding.unusual_prehistory.registry.UP2Items.*;
 
 public class UP2ItemTagProvider extends ItemTagsProvider {
 

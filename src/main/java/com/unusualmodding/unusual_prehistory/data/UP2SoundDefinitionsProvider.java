@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.sounds.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -67,7 +67,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death_0")).pitch(1.4F)
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death_0"))
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP,

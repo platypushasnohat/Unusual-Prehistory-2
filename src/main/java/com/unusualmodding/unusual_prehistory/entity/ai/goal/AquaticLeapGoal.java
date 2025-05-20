@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goal;
 
-import com.unusualmodding.unusual_prehistory.entity.AncientAquaticEntity;
+import com.unusualmodding.unusual_prehistory.entity.base.AncientAquaticEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

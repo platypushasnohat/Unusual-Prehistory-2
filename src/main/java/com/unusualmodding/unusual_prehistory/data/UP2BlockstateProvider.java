@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
-import static com.unusualmodding.unusual_prehistory.blocks.UP2Blocks.*;
+import static com.unusualmodding.unusual_prehistory.registry.UP2Blocks.*;
 
 public class UP2BlockstateProvider extends BlockStateProvider {
 

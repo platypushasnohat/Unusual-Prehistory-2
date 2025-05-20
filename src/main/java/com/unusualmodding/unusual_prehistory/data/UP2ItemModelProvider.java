@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
-import static com.unusualmodding.unusual_prehistory.items.UP2Items.*;
+import static com.unusualmodding.unusual_prehistory.registry.UP2Items.*;
 
 public class UP2ItemModelProvider extends ItemModelProvider {
 

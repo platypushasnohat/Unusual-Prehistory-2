@@ -79,10 +79,7 @@
   },
   "kimmeridgebrachypteraeschnidium_death": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0",
-        "pitch": 1.4
-      }
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0"
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_death"
   },
