@@ -89,7 +89,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         }});
     }
 
-    // Schooling
+    // schooling
     public int getMaxSchoolSize() {
         return 3;
     }

@@ -47,8 +47,8 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
 
     public ScaumenaciaEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 2);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
