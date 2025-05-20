@@ -117,13 +117,15 @@ public abstract class AncientAquaticEntity extends AgeableMob implements GeoEnti
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("variant", this.getVariant());
+        compound.putInt("Variant", this.getVariant());
+        compound.putInt("AttackState", this.getAttackState());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("variant"));
+        this.setVariant(compound.getInt("Variant"));
+        this.setAttackState(compound.getInt("AttackState"));
     }
 
     @Nullable

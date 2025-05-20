@@ -93,6 +93,7 @@ public class DunkleosteusMediumModel<T extends DunkleosteusEntity> extends UP2Mo
 		this.animateIdle(entity.idleAnimationState, DunkleosteusMediumAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
 		this.animate(entity.flopAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks, 1.0F);
 		this.animate(entity.attackAnimationState, DunkleosteusMediumAnimations.ATTACK, ageInTicks, 1.0F);
+		this.animate(entity.yawnAnimationState, DunkleosteusMediumAnimations.YAWN, ageInTicks, 1.0F);
 
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

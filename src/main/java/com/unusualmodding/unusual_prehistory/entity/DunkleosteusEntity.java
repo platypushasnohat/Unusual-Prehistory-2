@@ -29,8 +29,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -53,6 +51,8 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> YAWN_COOLDOWN = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> YAWN_TIMER = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
@@ -70,20 +70,13 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new DunkleosteusAttackGoal());
+        this.goalSelector.addGoal(1, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 10, 70, 70, 3));
+        this.goalSelector.addGoal(4, new DunkleosteusYawnGoal(this));
         this.goalSelector.addGoal(5, new DunkleosteusFleeGoal());
         this.goalSelector.addGoal(7, new AquaticLeapGoal(this, 20));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 500, true, true, this::canAttack) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof DunkleosteusEntity dunkleosteus) {
-                if (dunkleosteus.getDunkSize() == 0 || dunkleosteus.isPassive() || dunkleosteus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
-        this.targetSelector.addGoal(4, new DunkleosteusNearestAttackableTargetGoal());
-        this.targetSelector.addGoal(8, new DunkleosteusHurtByTargetGoal());
+        this.targetSelector.addGoal(6, new DunkleosteusNearestAttackableTargetGoal(this));
+        this.targetSelector.addGoal(8, new DunkleosteusHurtByTargetGoal(this));
     }
 
     public void travel(Vec3 pTravelVector) {
@@ -122,15 +115,34 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     }
 
     public void tick () {
+        super.tick();
         if (this.level().isClientSide()){
             this.setupAnimationStates();
         }
-        super.tick();
+        if (this.getYawnCooldown() > 0) {
+            this.setYawnCooldown(this.getYawnCooldown() - 1);
+        }
+        if (this.getYawnTimer() > 0) {
+            this.setYawnTimer(this.getYawnTimer() - 1);
+            if (this.getYawnTimer() == 0) {
+                this.yawnCooldown();
+            }
+        }
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
         return size.height * 0.5F;
+    }
+
+    private boolean isTarget(Entity entity) {
+        if (this.getDunkSize() == 1) {
+            return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS) && entity instanceof Player;
+        } else if (this.getDunkSize() == 2) {
+            return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS) && entity instanceof Player;
+        } else {
+            return entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS);
+        }
     }
 
     // mob interactions
@@ -191,18 +203,24 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         super.defineSynchedData();
         this.entityData.define(DUNK_SIZE, 0);
         this.entityData.define(PASSIVE, false);
+        this.entityData.define(YAWN_COOLDOWN, 2 * 20 + random.nextInt(12 * 20));
+        this.entityData.define(YAWN_TIMER, 0);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Passive", this.isPassive());
-        compound.putFloat("Size", this.getDunkSize());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Passive", this.isPassive());
+        compoundTag.putFloat("Size", this.getDunkSize());
+        compoundTag.putInt("YawnCooldown", this.getYawnCooldown());
+        compoundTag.putInt("YawnTimer", this.getYawnTimer());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setPassive(compound.getBoolean("Passive"));
-        this.setDunkSize(compound.getInt("Size"));
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setPassive(compoundTag.getBoolean("Passive"));
+        this.setDunkSize(compoundTag.getInt("Size"));
+        this.setYawnCooldown(compoundTag.getInt("YawnCooldown"));
+        this.setYawnTimer(compoundTag.getInt("YawnTimer"));
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
@@ -220,9 +238,25 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     public int getDunkSize() {
         return Mth.clamp(this.entityData.get(DUNK_SIZE), 0, 2);
     }
-
     public void setDunkSize(int dunkSize) {
         this.entityData.set(DUNK_SIZE, dunkSize);
+    }
+
+    public int getYawnTimer() {
+        return this.entityData.get(YAWN_TIMER);
+    }
+    public void setYawnTimer(int timer) {
+        this.entityData.set(YAWN_TIMER, timer);
+    }
+
+    public int getYawnCooldown() {
+        return this.entityData.get(YAWN_COOLDOWN);
+    }
+    public void setYawnCooldown(int cooldown) {
+        this.entityData.set(YAWN_COOLDOWN, cooldown);
+    }
+    public void yawnCooldown() {
+        this.entityData.set(YAWN_COOLDOWN, 6 * 20 + random.nextInt(60 * 2 * 20));
     }
 
     @Override
@@ -277,16 +311,21 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     }
 
     // animations
-    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState flopAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new AnimationState();
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new AnimationState();
+    public final net.minecraft.world.entity.AnimationState flopAnimationState = new AnimationState();
     public final net.minecraft.world.entity.AnimationState attackAnimationState = new AnimationState();
+    public final net.minecraft.world.entity.AnimationState yawnAnimationState = new AnimationState();
 
     private void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
         this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        this.yawnAnimationState.animateWhen(this.getYawnCooldown() == 0, this.tickCount);
+        if (this.getAttackState() == 1) {
+            this.yawnAnimationState.stop();
+        }
     }
 
     @Override
@@ -294,42 +333,44 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     }
 
     // goals
-    private class DunkleosteusAttackGoal extends Goal {
+    private static class DunkleosteusAttackGoal extends Goal {
         private int animTime = 0;
+        DunkleosteusEntity dunkleosteus;
 
-        public DunkleosteusAttackGoal() {
+        public DunkleosteusAttackGoal(DunkleosteusEntity dunkleosteus) {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.dunkleosteus = dunkleosteus;
         }
 
         public boolean canUse() {
-            return DunkleosteusEntity.this.getTarget() != null && DunkleosteusEntity.this.getTarget().isAlive();
+            return this.dunkleosteus.getTarget() != null && this.dunkleosteus.getTarget().isAlive();
         }
 
         public void start() {
-            DunkleosteusEntity.this.setRunning(true);
-            DunkleosteusEntity.this.setAttackState(0);
+            this.dunkleosteus.setRunning(true);
+            this.dunkleosteus.setAttackState(0);
             this.animTime = 0;
         }
 
         public void stop() {
-            DunkleosteusEntity.this.setRunning(false);
-            DunkleosteusEntity.this.setAttackState(0);
+            this.dunkleosteus.setRunning(false);
+            this.dunkleosteus.setAttackState(0);
         }
 
         public void tick() {
-            LivingEntity target = DunkleosteusEntity.this.getTarget();
+            LivingEntity target = this.dunkleosteus.getTarget();
             if (target != null) {
-                DunkleosteusEntity.this.lookAt(DunkleosteusEntity.this.getTarget(), 30F, 30F);
-                DunkleosteusEntity.this.getLookControl().setLookAt(DunkleosteusEntity.this.getTarget(), 30F, 30F);
-                double distance = DunkleosteusEntity.this.distanceToSqr(target.getX(), target.getY(), target.getZ());
-                int attackState = DunkleosteusEntity.this.getAttackState();
+                this.dunkleosteus.lookAt(this.dunkleosteus.getTarget(), 30F, 30F);
+                this.dunkleosteus.getLookControl().setLookAt(this.dunkleosteus.getTarget(), 30F, 30F);
+                double distance = this.dunkleosteus.distanceToSqr(target.getX(), target.getY(), target.getZ());
+                int attackState = this.dunkleosteus.getAttackState();
 
                 if (attackState == 1) {
                     tickBiteAttack();
                 } else {
-                    DunkleosteusEntity.this.getNavigation().moveTo(target, 1.45D);
-                    if (distance <= 5 + (double) DunkleosteusEntity.this.getDunkSize() * 2) {
-                        DunkleosteusEntity.this.setAttackState(1);
+                    this.dunkleosteus.getNavigation().moveTo(target, 1.45D);
+                    if (distance <= 5 + (double) this.dunkleosteus.getDunkSize() * 1.6) {
+                        this.dunkleosteus.setAttackState(1);
                     }
                 }
             }
@@ -337,15 +378,15 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
         protected void tickBiteAttack() {
             animTime++;
-            if (animTime == 6) {
-                if (DunkleosteusEntity.this.distanceTo(Objects.requireNonNull(DunkleosteusEntity.this.getTarget())) < 1.4F * DunkleosteusEntity.this.getDunkSize() + 1.4F) {
-                    DunkleosteusEntity.this.doHurtTarget(DunkleosteusEntity.this.getTarget());
-                    DunkleosteusEntity.this.swing(InteractionHand.MAIN_HAND);
+            if (animTime == 5) {
+                if (this.dunkleosteus.distanceTo(Objects.requireNonNull(this.dunkleosteus.getTarget())) < 1.25F * this.dunkleosteus.getDunkSize() + 1.25F) {
+                    this.dunkleosteus.doHurtTarget(this.dunkleosteus.getTarget());
+                    this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                 }
             }
-            if (animTime >= 7) {
+            if (animTime >= 8) {
                 animTime = 0;
-                DunkleosteusEntity.this.setAttackState(0);
+                this.dunkleosteus.setAttackState(0);
             }
         }
     }
@@ -374,14 +415,16 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         }
     }
 
-    private class DunkleosteusHurtByTargetGoal extends HurtByTargetGoal {
+    private static class DunkleosteusHurtByTargetGoal extends TargetGoal {
 
         private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
+        DunkleosteusEntity dunkleosteus;
         private int timestamp;
 
-        public DunkleosteusHurtByTargetGoal() {
-            super(DunkleosteusEntity.this);
+        public DunkleosteusHurtByTargetGoal(DunkleosteusEntity dunkleosteus) {
+            super(dunkleosteus, true);
+            this.dunkleosteus = dunkleosteus;
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
@@ -389,7 +432,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             int time = this.mob.getLastHurtByMobTimestamp();
             LivingEntity entity = this.mob.getLastHurtByMob();
             if (time != this.timestamp && entity != null) {
-                if (entity.getType() == EntityType.PLAYER && this.mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) || DunkleosteusEntity.this.getDunkSize() == 0 || this.mob.isBaby()) {
+                if (entity.getType() == EntityType.PLAYER && this.mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) || this.dunkleosteus.getDunkSize() == 0 || this.dunkleosteus.isBaby()) {
                     return false;
                 }
                 else {
@@ -400,23 +443,32 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
                 return false;
             }
         }
+
+        public void start() {
+            this.mob.setTarget(this.mob.getLastHurtByMob());
+            this.targetMob = this.mob.getTarget();
+            this.timestamp = this.mob.getLastHurtByMobTimestamp();
+            this.unseenMemoryTicks = 300;
+            super.start();
+        }
     }
 
-    private class DunkleosteusNearestAttackableTargetGoal extends TargetGoal {
+    private static class DunkleosteusNearestAttackableTargetGoal extends TargetGoal {
 
+        DunkleosteusEntity dunkleosteus;
         protected final int randomInterval;
         @Nullable
         protected LivingEntity target;
-        protected TargetingConditions targetConditions;
 
-        public DunkleosteusNearestAttackableTargetGoal() {
-            super(DunkleosteusEntity.this, true, true);
-            this.randomInterval = reducedTickDelay(500);
+        public DunkleosteusNearestAttackableTargetGoal(DunkleosteusEntity dunkleosteus) {
+            super(dunkleosteus, true, true);
+            this.dunkleosteus = dunkleosteus;
+            this.randomInterval = reducedTickDelay(10);
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 
         public boolean canUse() {
-            if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0 || DunkleosteusEntity.this.isPassive() || DunkleosteusEntity.this.isBaby()) {
+            if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0 || this.dunkleosteus.isPassive() || this.dunkleosteus.isBaby()) {
                 return false;
             } else {
                 this.findTarget();
@@ -425,26 +477,52 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         }
 
         protected AABB getTargetSearchArea(double pTargetDistance) {
-            return this.mob.getBoundingBox().inflate(pTargetDistance, 4.0F, pTargetDistance);
+            return this.mob.getBoundingBox().inflate(pTargetDistance, 6.0F, pTargetDistance);
         }
 
         protected void findTarget() {
-            if (DunkleosteusEntity.this.getDunkSize() == 0) {
-                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
-            }
-            else if (DunkleosteusEntity.this.getDunkSize() == 1) {
-                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
-            }
-            else if (DunkleosteusEntity.this.getDunkSize() == 2) {
-                this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
-            } else {
-                this.target = this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
-            }
+            this.target = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(LivingEntity.class, this.getTargetSearchArea(this.getFollowDistance()), (entity) -> true), TargetingConditions.forCombat().range(this.getFollowDistance()).selector(entity -> this.dunkleosteus.isTarget(entity)), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
         }
 
         public void start() {
             this.mob.setTarget(this.target);
             super.start();
+        }
+    }
+
+    private static class DunkleosteusYawnGoal extends Goal {
+
+        DunkleosteusEntity dunkleosteus;
+
+        public DunkleosteusYawnGoal(DunkleosteusEntity dunkleosteus) {
+            this.dunkleosteus = dunkleosteus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.dunkleosteus.getYawnCooldown() == 0 && this.dunkleosteus.isInWater();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.dunkleosteus.getYawnTimer() > 0 && this.dunkleosteus.isInWater();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.dunkleosteus.setYawnTimer(40);
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.dunkleosteus.yawnCooldown();
         }
     }
 }
