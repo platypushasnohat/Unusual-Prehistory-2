@@ -57,6 +57,12 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(2.2F, 2.1F);
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState yawnAnimationState = new AnimationState();
+
     public DunkleosteusEntity(EntityType<? extends AncientAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 4, 0.02F, 0.1F, true);
@@ -126,6 +132,17 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
             if (this.getYawnTimer() == 0) {
                 this.yawnCooldown();
             }
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        this.yawnAnimationState.animateWhen(this.getYawnCooldown() == 0, this.tickCount);
+        if (this.getAttackState() == 1) {
+            this.yawnAnimationState.stop();
         }
     }
 
@@ -307,24 +324,6 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         DunkleosteusEntity dunkleosteus = UP2Entities.DUNKLEOSTEUS.get().create(serverLevel);
         dunkleosteus.setDunkSize(this.getDunkSize());
         return dunkleosteus;
-    }
-
-    // animations
-    public final net.minecraft.world.entity.AnimationState idleAnimationState = new AnimationState();
-    public final net.minecraft.world.entity.AnimationState swimAnimationState = new AnimationState();
-    public final net.minecraft.world.entity.AnimationState flopAnimationState = new AnimationState();
-    public final net.minecraft.world.entity.AnimationState attackAnimationState = new AnimationState();
-    public final net.minecraft.world.entity.AnimationState yawnAnimationState = new AnimationState();
-
-    private void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        this.yawnAnimationState.animateWhen(this.getYawnCooldown() == 0, this.tickCount);
-        if (this.getAttackState() == 1) {
-            this.yawnAnimationState.stop();
-        }
     }
 
     // goals

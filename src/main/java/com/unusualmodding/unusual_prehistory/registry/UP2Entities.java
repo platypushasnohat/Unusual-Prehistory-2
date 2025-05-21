@@ -25,6 +25,7 @@ public class UP2Entities {
             "jawless_fish", () ->
                     EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_CREATURE)
                             .sized(0.36F, 0.36F)
+                            .clientTrackingRange(10)
                             .build("jawless_fish")
     );
 
@@ -32,6 +33,7 @@ public class UP2Entities {
             "kimmeridgebrachypteraeschnidium", () ->
                     EntityType.Builder.of(KimmeridgebrachypteraeschnidiumEntity::new, MobCategory.CREATURE)
                             .sized(0.5F, 0.5F)
+                            .clientTrackingRange(10)
                             .build("kimmeridgebrachypteraeschnidium")
     );
 
@@ -39,6 +41,7 @@ public class UP2Entities {
             "scaumenacia", () ->
                     EntityType.Builder.of(ScaumenaciaEntity::new, MobCategory.WATER_CREATURE)
                             .sized(0.7F, 0.6F)
+                            .clientTrackingRange(10)
                             .build("scaumenacia")
     );
 
@@ -46,6 +49,7 @@ public class UP2Entities {
             "stethacanthus", () ->
                     EntityType.Builder.of(StethacanthusEntity::new, MobCategory.WATER_CREATURE)
                             .sized(0.7F, 0.7F)
+                            .clientTrackingRange(10)
                             .build("stethacanthus")
     );
 
@@ -53,6 +57,7 @@ public class UP2Entities {
             "unicorn", () ->
                     EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE)
                             .sized(1.2F, 3.0F)
+                            .clientTrackingRange(10)
                             .build("unicorn")
     );
 }

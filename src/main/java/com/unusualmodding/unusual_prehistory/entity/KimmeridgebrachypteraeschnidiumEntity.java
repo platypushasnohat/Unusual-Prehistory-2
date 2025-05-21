@@ -35,9 +35,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -56,6 +54,9 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
 
+    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PREEN_TIMER = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final float[] ringBuffer = new float[64];
@@ -69,14 +70,13 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     public float prevTilt;
     public float tilt;
 
+    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState preenAnimationState = new AnimationState();
+
     public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends AncientEntity> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0F);
-        this.setPathfindingMalus(BlockPathTypes.COCOA, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -84,9 +84,9 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     }
 
     protected void registerGoals() {
-        super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KimmerFlightGoal());
+        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+        this.goalSelector.addGoal(2, new KimmeridgebrachypteraeschnidiumFlightGoal(this));
     }
 
     private void switchNavigator(boolean onLand) {
@@ -95,7 +95,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
             this.navigation = new GroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new FlyingMoveController(this, 0.6F, false, true);
+            this.moveControl = new FlyingMoveController(this, 0.9f, true, true);
             this.navigation = new FlyingPathNavigation(this, level()) {
                 public boolean isStableDestination(BlockPos pos) {
                     return !this.level.getBlockState(pos.below(2)).isAir();
@@ -106,8 +106,18 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         }
     }
 
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+        return size.height * 0.6F;
+    }
+
     public void tick() {
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+
         this.prevFlyProgress = flyProgress;
         if (this.isFlying() && flyProgress < 5F) {
             flyProgress++;
@@ -170,6 +180,25 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
         targetRoll = -targetRoll;
         this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
+
+        if (this.getPreenCooldown() > 0) {
+            this.setPreenCooldown(this.getPreenCooldown() - 1);
+        }
+        if (this.getPreenTimer() > 0) {
+            this.setPreenTimer(this.getPreenTimer() - 1);
+            if (this.getPreenTimer() == 0) {
+                this.preenCooldown();
+            }
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(!this.isFlying(), this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying(), this.tickCount);
+        this.preenAnimationState.animateWhen(this.getPreenCooldown() == 0, this.tickCount);
+        if (this.getPreenTimer() > 0) {
+            this.idleAnimationState.stop();
+        }
     }
 
     // mob interactions
@@ -208,40 +237,46 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         this.entityData.define(PATTERN_COLOR, 0);
         this.entityData.define(HAS_PATTERN, false);
         this.entityData.define(WING_COLOR, 0);
+        this.entityData.define(PREEN_COOLDOWN, 2 * 20 + random.nextInt(12 * 20));
+        this.entityData.define(PREEN_TIMER, 0);
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Flying", this.isFlying());
-        compound.putInt("BaseColor", this.getBaseColor());
-        compound.putInt("Pattern", this.getPattern());
-        compound.putInt("PatternColor", this.getPatternColor());
-        compound.putInt("WingColor", this.getWingColor());
-        compound.putBoolean("HasPattern", this.getHasPattern());
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Flying", this.isFlying());
+        compoundTag.putInt("BaseColor", this.getBaseColor());
+        compoundTag.putInt("Pattern", this.getPattern());
+        compoundTag.putInt("PatternColor", this.getPatternColor());
+        compoundTag.putInt("WingColor", this.getWingColor());
+        compoundTag.putBoolean("HasPattern", this.getHasPattern());
+        compoundTag.putInt("PreenCooldown", this.getPreenCooldown());
+        compoundTag.putInt("PreenTimer", this.getPreenTimer());
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFlying(compound.getBoolean("Flying"));
-        this.setBaseColor(compound.getInt("BaseColor"));
-        this.setPattern(compound.getInt("Pattern"));
-        this.setPatternColor(compound.getInt("PatternColor"));
-        this.setWingColor(compound.getInt("WingColor"));
-        this.setHasPattern(compound.getBoolean("HasPattern"));
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setFlying(compoundTag.getBoolean("Flying"));
+        this.setBaseColor(compoundTag.getInt("BaseColor"));
+        this.setPattern(compoundTag.getInt("Pattern"));
+        this.setPatternColor(compoundTag.getInt("PatternColor"));
+        this.setWingColor(compoundTag.getInt("WingColor"));
+        this.setHasPattern(compoundTag.getBoolean("HasPattern"));
+        this.setPreenCooldown(compoundTag.getInt("PreenCooldown"));
+        this.setPreenTimer(compoundTag.getInt("PreenTimer"));
     }
 
     @Override
     public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        CompoundTag compoundTag = bucket.getOrCreateTag();
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
 
-        compoundnbt.putFloat("Health", this.getHealth());
-        compoundnbt.putInt("BaseColor", this.getBaseColor());
-        compoundnbt.putInt("Pattern", this.getPattern());
-        compoundnbt.putInt("PatternColor", this.getPatternColor());
-        compoundnbt.putInt("WingColor", this.getWingColor());
-        compoundnbt.putBoolean("HasPattern", this.getHasPattern());
-        compoundnbt.putInt("Age", this.getAge());
+        compoundTag.putFloat("Health", this.getHealth());
+        compoundTag.putInt("BaseColor", this.getBaseColor());
+        compoundTag.putInt("Pattern", this.getPattern());
+        compoundTag.putInt("PatternColor", this.getPatternColor());
+        compoundTag.putInt("WingColor", this.getWingColor());
+        compoundTag.putBoolean("HasPattern", this.getHasPattern());
+        compoundTag.putInt("Age", this.getAge());
 
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
@@ -249,13 +284,13 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     }
 
     private void setBucketData(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putFloat("Health", this.getHealth());
-        compoundnbt.putInt("BaseColor", this.getBaseColor());
-        compoundnbt.putInt("Pattern", this.getPattern());
-        compoundnbt.putInt("PatternColor", this.getPatternColor());
-        compoundnbt.putBoolean("HasPattern", this.getHasPattern());
-        compoundnbt.putInt("WingColor", this.getWingColor());
+        CompoundTag compoundTag = bucket.getOrCreateTag();
+        compoundTag.putFloat("Health", this.getHealth());
+        compoundTag.putInt("BaseColor", this.getBaseColor());
+        compoundTag.putInt("Pattern", this.getPattern());
+        compoundTag.putInt("PatternColor", this.getPatternColor());
+        compoundTag.putBoolean("HasPattern", this.getHasPattern());
+        compoundTag.putInt("WingColor", this.getWingColor());
 
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
@@ -355,6 +390,23 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         this.entityData.set(FROM_BUCKET, pFromBucket);
     }
 
+    public int getPreenTimer() {
+        return this.entityData.get(PREEN_TIMER);
+    }
+    public void setPreenTimer(int timer) {
+        this.entityData.set(PREEN_TIMER, timer);
+    }
+
+    public int getPreenCooldown() {
+        return this.entityData.get(PREEN_COOLDOWN);
+    }
+    public void setPreenCooldown(int cooldown) {
+        this.entityData.set(PREEN_COOLDOWN, cooldown);
+    }
+    public void preenCooldown() {
+        this.entityData.set(PREEN_COOLDOWN, 6 * 20 + random.nextInt(30 * 2 * 20));
+    }
+
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL) || super.isInvulnerableTo(source);
@@ -426,16 +478,16 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
         this.entityData.set(FLYING, flying);
     }
 
-    public Vec3 getBlockGrounding(Vec3 fleePos) {
-        final float radius = 3.15F * -3 - this.getRandom().nextInt(24);
+    public Vec3 getBlockGrounding(Vec3 pos) {
+        final float radius = 10 + this.getRandom().nextInt(24);
         float neg = this.getRandom().nextBoolean() ? 1 : -1;
         float renderYawOffset = this.yBodyRot;
-        float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
+        float angle = (0.01745329251f * renderYawOffset) + 3.15f + (this.getRandom().nextFloat() * neg);
         final double extraX = radius * Mth.sin(Mth.PI + angle);
         final double extraZ = radius * Mth.cos(angle);
-        final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
+        final BlockPos radialPos = new BlockPos((int) (pos.x() + extraX), (int) getY(), (int) (pos.z() + extraZ));
         BlockPos ground = this.getGround(radialPos);
-        if (ground.getY() == -64) {
+        if (ground.getY() == 0) {
             return this.position();
         } else {
             ground = this.blockPosition();
@@ -451,24 +503,21 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
 
     public boolean isTargetBlocked(Vec3 target) {
         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
-
         return this.level().clip(new ClipContext(Vector3d, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() != HitResult.Type.MISS;
     }
 
     public Vec3 getBlockInViewAway(Vec3 fleePos, float radiusAdd) {
-        float radius = 5 + radiusAdd + this.getRandom().nextInt(5);
-        float neg = this.getRandom().nextBoolean() ? 1 : -1;
-        float renderYawOffset = this.yBodyRot;
-        float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
-        double extraX = radius * Mth.sin((float) (Math.PI + angle));
-        double extraZ = radius * Mth.cos(angle);
-        final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
+        final float radius = 5 + radiusAdd + this.getRandom().nextInt(5);
+        final float neg = this.getRandom().nextBoolean() ? 1 : -1;
+        final float renderYawOffset = this.yBodyRot;
+        final float angle = (0.0174532925f * renderYawOffset) + 3.15f + (this.getRandom().nextFloat() * neg);
+        final double extraX = radius * Mth.sin(Mth.PI + angle);
+        final double extraZ = radius * Mth.cos(angle);
+        BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), 0, (int) (fleePos.z() + extraZ));
         BlockPos ground = getGround(radialPos);
-        int distFromGround = (int) this.getY() - ground.getY();
-        int flightHeight = 5 + this.getRandom().nextInt(5);
-        int j = this.getRandom().nextInt(5) + 5;
-
-        BlockPos newPos = ground.above(distFromGround > 5 ? flightHeight : j);
+        final int distFromGround = (int) this.getY() - ground.getY();
+        final int flightHeight = 6 + this.getRandom().nextInt(4);
+        BlockPos newPos = ground.above(distFromGround > 3 ? flightHeight : this.getRandom().nextInt(4) + 8);
         if (!this.isTargetBlocked(Vec3.atCenterOf(newPos)) && this.distanceToSqr(Vec3.atCenterOf(newPos)) > 1) {
             return Vec3.atCenterOf(newPos);
         }
@@ -477,10 +526,10 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
 
     private boolean isOverWaterOrVoid() {
         BlockPos position = this.blockPosition();
-        while (position.getY() > -65 && level().isEmptyBlock(position)) {
+        while (position.getY() > -64 && level().isEmptyBlock(position)) {
             position = position.below();
         }
-        return !level().getFluidState(position).isEmpty() || level().getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
+        return !level().getFluidState(position).isEmpty() || position.getY() <= -64;
     }
 
     public BlockPos getGround(BlockPos in) {
@@ -492,69 +541,113 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     }
 
     // goals
-    private class KimmerFlightGoal extends Goal {
+    private class KimmeridgebrachypteraeschnidiumFlightGoal extends Goal {
+
+        protected final KimmeridgebrachypteraeschnidiumEntity dragonfly;
+
         protected double x;
         protected double y;
         protected double z;
 
-        public KimmerFlightGoal() {
+        public KimmeridgebrachypteraeschnidiumFlightGoal(KimmeridgebrachypteraeschnidiumEntity dragonfly) {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
+            this.dragonfly = dragonfly;
         }
 
         @Override
         public boolean canUse() {
-            if (KimmeridgebrachypteraeschnidiumEntity.this.isVehicle() || (KimmeridgebrachypteraeschnidiumEntity.this.getTarget() != null && KimmeridgebrachypteraeschnidiumEntity.this.getTarget().isAlive()) || KimmeridgebrachypteraeschnidiumEntity.this.isPassenger()) {
+            if (this.dragonfly.isVehicle() || (this.dragonfly.getTarget() != null && this.dragonfly.getTarget().isAlive()) || this.dragonfly.isPassenger() && this.dragonfly.getPreenTimer() == 0) {
                 return false;
             } else {
-                if (KimmeridgebrachypteraeschnidiumEntity.this.getRandom().nextInt(45) != 0 && !KimmeridgebrachypteraeschnidiumEntity.this.isFlying()) {
+                if (this.dragonfly.getRandom().nextInt(16) != 0 && !this.dragonfly.isFlying()) {
                     return false;
                 }
 
-                Vec3 lvt_1_1_ = this.getPosition();
-                if (lvt_1_1_ == null) {
+                Vec3 vec3 = this.getPosition();
+                if (vec3 == null) {
                     return false;
                 } else {
-                    this.x = lvt_1_1_.x;
-                    this.y = lvt_1_1_.y;
-                    this.z = lvt_1_1_.z;
+                    this.x = vec3.x;
+                    this.y = vec3.y;
+                    this.z = vec3.z;
                     return true;
                 }
             }
         }
 
         public void tick() {
-            KimmeridgebrachypteraeschnidiumEntity.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
-            if (isFlying() && KimmeridgebrachypteraeschnidiumEntity.this.onGround() && KimmeridgebrachypteraeschnidiumEntity.this.timeFlying > 10) {
-                KimmeridgebrachypteraeschnidiumEntity.this.setFlying(false);
+            this.dragonfly.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1f);
+            if (isFlying() && this.dragonfly.onGround() && this.dragonfly.timeFlying > 10) {
+                this.dragonfly.setFlying(false);
+            }
+            if (this.dragonfly.horizontalCollision && !this.dragonfly.onGround()) {
+                stop();
             }
         }
 
         @Nullable
         protected Vec3 getPosition() {
-            Vec3 vector3d = KimmeridgebrachypteraeschnidiumEntity.this.position();
-            if (KimmeridgebrachypteraeschnidiumEntity.this.timeFlying < 200 || KimmeridgebrachypteraeschnidiumEntity.this.isOverWaterOrVoid()) {
-                return KimmeridgebrachypteraeschnidiumEntity.this.getBlockInViewAway(vector3d, 0);
-            } else {
-                return KimmeridgebrachypteraeschnidiumEntity.this.getBlockGrounding(vector3d);
+            Vec3 vector3d = this.dragonfly.position();
+            if (this.dragonfly.timeFlying < 340 || this.dragonfly.isOverWaterOrVoid()) {
+                return this.dragonfly.getBlockInViewAway(vector3d, 0);
+            }
+            else {
+                return this.dragonfly.getBlockGrounding(vector3d);
             }
         }
 
         public boolean canContinueToUse() {
-            return KimmeridgebrachypteraeschnidiumEntity.this.isFlying() && KimmeridgebrachypteraeschnidiumEntity.this.distanceToSqr(x, y, z) > 5F;
+            return this.dragonfly.isFlying() && this.dragonfly.distanceToSqr(x, y, z) > 5f;
         }
 
         public void start() {
-            KimmeridgebrachypteraeschnidiumEntity.this.setFlying(true);
-            KimmeridgebrachypteraeschnidiumEntity.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
+            this.dragonfly.setFlying(true);
+            this.dragonfly.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1f);
         }
 
         public void stop() {
-            KimmeridgebrachypteraeschnidiumEntity.this.getNavigation().stop();
+            this.dragonfly.getNavigation().stop();
             x = 0;
             y = 0;
             z = 0;
             super.stop();
+        }
+    }
+
+    private static class KimmeridgebrachypteraeschnidiumPreenGoal extends Goal {
+
+        KimmeridgebrachypteraeschnidiumEntity dragonfly;
+
+        public KimmeridgebrachypteraeschnidiumPreenGoal(KimmeridgebrachypteraeschnidiumEntity dragonfly) {
+            this.dragonfly = dragonfly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.dragonfly.getPreenCooldown() == 0 && this.dragonfly.onGround();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.dragonfly.getPreenTimer() > 0 && this.dragonfly.onGround();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.dragonfly.setPreenTimer(60);
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.dragonfly.preenCooldown();
         }
     }
 }

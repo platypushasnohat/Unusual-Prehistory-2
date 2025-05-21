@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumModel;
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
@@ -40,5 +41,11 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
     @Override
     protected @Nullable RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutout(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png"));
+    }
+
+    @Override
+    protected void setupRotations(KimmeridgebrachypteraeschnidiumEntity pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+        super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks);
+        pPoseStack.mulPose(Axis.ZP.rotationDegrees(pEntityLiving.currentRoll * 360 / 4));
     }
 }

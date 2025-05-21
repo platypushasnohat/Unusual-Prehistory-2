@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
 import net.minecraft.client.model.geom.ModelPart;
@@ -74,7 +75,10 @@ public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypter
 
 	@Override
 	public void setupAnim(KimmeridgebrachypteraeschnidiumEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumMovementAnimations.FLY, ageInTicks, 1f);
+		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumIdleAnimations.IDLE, ageInTicks, 1f, 1f - Math.abs(limbSwingAmount));
+		this.animateIdle(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumIdleAnimations.PREEN, ageInTicks, 1f, 1f - Math.abs(limbSwingAmount));
 	}
 
 	@Override

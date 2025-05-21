@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "unusual_prehistory:ginkgo_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:ginkgo_planks"
+  }
+}
