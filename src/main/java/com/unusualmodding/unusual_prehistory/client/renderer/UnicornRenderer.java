@@ -51,7 +51,7 @@ public class UnicornRenderer extends MobRenderer<UnicornEntity, UP2Model<Unicorn
 
     @Override
     protected void scale(UnicornEntity entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.5f, 0.5f, 0.5f);
+        if (entity.isBaby()) matrices.scale(0.6f, 0.6f, 0.6f);
         else super.scale(entity, matrices, amount);
     }
 

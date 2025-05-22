@@ -1,8 +1,10 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
+import com.unusualmodding.unusual_prehistory.entity.StethacanthusEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.entity.DunkleosteusEntity;
@@ -48,7 +50,7 @@ public class DunkleosteusRenderer extends MobRenderer<DunkleosteusEntity, UP2Mod
 
     @Override
     protected void scale(DunkleosteusEntity entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.5F, 0.5F, 0.5F);
+        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
         else super.scale(entity, matrices, amount);
     }
 
@@ -59,6 +61,6 @@ public class DunkleosteusRenderer extends MobRenderer<DunkleosteusEntity, UP2Mod
 
     @Override
     protected @Nullable RenderType getRenderType(DunkleosteusEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutout(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/dunkleosteus/dunkleosteus_" + entity.getVariantName() + ".png"));
+        return RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/dunkleosteus/dunkleosteus_" + entity.getVariantName() + ".png"));
     }
 }

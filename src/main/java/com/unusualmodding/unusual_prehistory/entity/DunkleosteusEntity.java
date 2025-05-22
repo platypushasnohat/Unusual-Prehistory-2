@@ -57,8 +57,10 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(2.2F, 2.1F);
 
+    public float prevTilt;
+    public float tilt;
+
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
@@ -133,11 +135,30 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
                 this.yawnCooldown();
             }
         }
+
+        prevTilt = tilt;
+        if (this.isInWater() && !this.onGround()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else {
+            tilt = 0;
+        }
     }
 
     private void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
         this.yawnAnimationState.animateWhen(this.getYawnCooldown() == 0, this.tickCount);
@@ -457,7 +478,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         public DunkleosteusNearestAttackableTargetGoal(DunkleosteusEntity dunkleosteus) {
             super(dunkleosteus, true, true);
             this.dunkleosteus = dunkleosteus;
-            this.randomInterval = reducedTickDelay(10);
+            this.randomInterval = reducedTickDelay(500);
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 

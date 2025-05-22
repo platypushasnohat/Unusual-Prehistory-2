@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.client.models.entity;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
@@ -11,6 +12,8 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -26,7 +29,9 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 	private final ModelPart right_front_fin;
 	private final ModelPart left_back_fin;
 	private final ModelPart right_back_fin;
+	private final ModelPart tailRot;
 	private final ModelPart tail1;
+	private final ModelPart tailFinRot;
 	private final ModelPart tail2;
 
 	public StethacanthusModel(ModelPart root) {
@@ -40,16 +45,18 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 		this.right_front_fin = this.body.getChild("right_front_fin");
 		this.left_back_fin = this.body.getChild("left_back_fin");
 		this.right_back_fin = this.body.getChild("right_back_fin");
-		this.tail1 = this.body.getChild("tail1");
-		this.tail2 = this.tail1.getChild("tail2");
+		this.tailRot = this.body.getChild("tailRot");
+		this.tail1 = this.tailRot.getChild("tail1");
+		this.tailFinRot = this.tail1.getChild("tailFinRot");
+		this.tail2 = this.tailFinRot.getChild("tail2");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, -1.0F));
-		PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -5.5F, -5.5F, 7.0F, 9.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, 1.0F));
+		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -4.5F, 0.0F));
+		PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -5.5F, -5.5F, 7.0F, 9.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(4, 21).addBox(2.5F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(1, 26).addBox(1.0F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(34, 0).addBox(-3.5F, -4.0F, -5.0F, 7.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(26, 2).addBox(3.5F, -4.0F, -4.0F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(26, 2).mirror().addBox(-4.5F, -4.0F, -4.0F, 1.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(4, 21).mirror().addBox(-2.5F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false).texOffs(1, 26).mirror().addBox(-1.0F, -5.0F, -5.0F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false).texOffs(11, 25).addBox(-3.5F, 0.0F, -5.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 2.5F, -5.5F));
 		PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(11, 20).addBox(-3.5F, 0.99F, -5.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)).texOffs(25, 35).addBox(-3.5F, 0.0F, -5.0F, 7.0F, 1.0F, 5.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition dorsal = body.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(0, 45).mirror().addBox(-3.5F, -5.0F, -3.5F, 7.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(21, 45).addBox(-2.5F, -5.0F, -2.5F, 5.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(28, 41).addBox(-1.5F, -5.0F, -1.5F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(30, 20).addBox(-3.5F, -4.0F, -3.5F, 7.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)).texOffs(16, 38).addBox(-1.5F, -2.0F, -1.5F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -5.5F, -1.0F));
@@ -57,9 +64,11 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 		PartDefinition right_front_fin = body.addOrReplaceChild("right_front_fin", CubeListBuilder.create().texOffs(28, 29).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-3.5F, 1.5F, -3.5F));
 		PartDefinition left_back_fin = body.addOrReplaceChild("left_back_fin", CubeListBuilder.create().texOffs(1, 39).addBox(0.0F, 0.0F, -1.0F, 4.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offset(3.5F, 1.5F, 4.5F));
 		PartDefinition right_back_fin = body.addOrReplaceChild("right_back_fin", CubeListBuilder.create().texOffs(1, 39).mirror().addBox(-4.0F, 0.0F, -1.0F, 4.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-3.5F, 1.5F, 4.5F));
-		PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(38, 11).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(0, 43).addBox(0.0F, -3.5F, 1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 5.5F));
-		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 5.0F));
-		PartDefinition tail2_r1 = tail2.addOrReplaceChild("tail2_r1", CubeListBuilder.create().texOffs(0, 20).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 13.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, -0.5F, -1.0F, 0.5236F, 0.0F, 0.0F));
+		PartDefinition tailRot = body.addOrReplaceChild("tailRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 5.5F));
+		PartDefinition tail1 = tailRot.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(38, 11).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(0, 43).addBox(0.0F, -3.5F, 1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition tailFinRot = tail1.addOrReplaceChild("tailFinRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 5.0F));
+		PartDefinition tail2 = tailFinRot.addOrReplaceChild("tail2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition tailfin_r1 = tail2.addOrReplaceChild("tailfin_r1", CubeListBuilder.create().texOffs(0, 20).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 13.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, -0.5F, -1.0F, 0.5236F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
@@ -67,12 +76,27 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 	public void setupAnim(StethacanthusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, StethacanthusAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
-		this.animateIdle(entity.idleAnimationState, StethacanthusAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
-		this.animate(entity.flopAnimationState, StethacanthusAnimations.FLOP, ageInTicks, 1.0F);
-		this.animate(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks, 1.0F);
+		if (entity.isInWater()) {
+			this.animateWalk(StethacanthusAnimations.SWIM, limbSwing, limbSwingAmount, 2f, 2f);
+		}
+
+		this.animateIdle(entity.idleAnimationState, StethacanthusAnimations.IDLE, ageInTicks, 1.0f, 1.0f - Math.abs(limbSwingAmount));
+		this.animate(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks, 1.0f);
+		this.animate(entity.flopAnimationState, StethacanthusAnimations.FLOP, ageInTicks, 1.0f);
 
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+		this.swim_control.zRot = netHeadYaw * ((Mth.DEG_TO_RAD) / 2);
+
+		if (entity.isInWaterOrBubble()){
+			this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+			this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+			this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+			this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+		}
+	}
+
+	public List<ModelPart> getAllParts() {
+		return ImmutableList.of(this.root, this.swim_control, this.body, this.head, this.jaw, this.dorsal, this.tailRot, this.left_front_fin, this.right_front_fin, this.left_back_fin, this.right_back_fin, this.tailRot, this.tail1, this.tailFinRot, this.tail2);
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFishEntity, UP2Model
 
     @Override
     protected void scale(JawlessFishEntity entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.5F, 0.5F, 0.5F);
+        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
         else super.scale(entity, matrices, amount);
     }
 

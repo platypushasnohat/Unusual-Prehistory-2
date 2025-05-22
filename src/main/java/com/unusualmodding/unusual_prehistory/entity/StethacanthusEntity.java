@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -50,10 +51,12 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
 
+    public float prevTilt;
+    public float tilt;
+
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public StethacanthusEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
@@ -139,17 +142,37 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
     }
 
     public void tick () {
+        prevTilt = tilt;
+        if (this.isInWater() && !this.onGround()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else {
+            tilt = 0;
+        }
+
         if (this.level().isClientSide()){
             this.setupAnimationStates();
         }
+
         super.tick();
     }
 
     private void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     // sounds
@@ -320,13 +343,13 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
 
         protected void tickBiteAttack() {
             attackTime++;
-            if (attackTime == 9) {
-                if (StethacanthusEntity.this.distanceTo(Objects.requireNonNull(StethacanthusEntity.this.getTarget())) < 2F) {
+            if (attackTime == 6) {
+                if (StethacanthusEntity.this.distanceTo(Objects.requireNonNull(StethacanthusEntity.this.getTarget())) < 2.1F) {
                     StethacanthusEntity.this.doHurtTarget(StethacanthusEntity.this.getTarget());
                     StethacanthusEntity.this.swing(InteractionHand.MAIN_HAND);
                 }
             }
-            if (attackTime >= 15) {
+            if (attackTime >= 9) {
                 attackTime = 0;
                 StethacanthusEntity.this.setAttackState(0);
             }

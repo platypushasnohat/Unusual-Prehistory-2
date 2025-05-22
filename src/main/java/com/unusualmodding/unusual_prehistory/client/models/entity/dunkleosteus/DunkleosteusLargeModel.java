@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.StethacanthusAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.animations.dunkleosteus.DunkleosteusLargeAnimations;
 import com.unusualmodding.unusual_prehistory.entity.DunkleosteusEntity;
@@ -31,8 +32,10 @@ public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Mod
 	private final ModelPart right_front_fin;
 	private final ModelPart left_back_fin;
 	private final ModelPart right_back_fin;
+	private final ModelPart tailRot;
 	private final ModelPart tail1_overlay;
 	private final ModelPart tail1;
+	private final ModelPart tailFinRot;
 	private final ModelPart tail2_overlay;
 	private final ModelPart tail2;
 
@@ -52,9 +55,11 @@ public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Mod
 		this.right_front_fin = this.body.getChild("right_front_fin");
 		this.left_back_fin = this.body.getChild("left_back_fin");
 		this.right_back_fin = this.body.getChild("right_back_fin");
-		this.tail1_overlay = this.body.getChild("tail1_overlay");
+		this.tailRot = this.body.getChild("tailRot");
+		this.tail1_overlay = this.tailRot.getChild("tail1_overlay");
 		this.tail1 = this.tail1_overlay.getChild("tail1");
-		this.tail2_overlay = this.tail1.getChild("tail2_overlay");
+		this.tailFinRot = this.tail1.getChild("tailFinRot");
+		this.tail2_overlay = this.tailFinRot.getChild("tail2_overlay");
 		this.tail2 = this.tail2_overlay.getChild("tail2");
 	}
 
@@ -76,10 +81,12 @@ public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Mod
 		PartDefinition right_front_fin = body.addOrReplaceChild("right_front_fin", CubeListBuilder.create().texOffs(56, 134).mirror().addBox(-18.0F, -1.0F, -5.0F, 18.0F, 2.0F, 10.0F, new CubeDeformation(0.1F)).mirror(false).texOffs(0, 134).mirror().addBox(-18.0F, -1.0F, -5.0F, 18.0F, 2.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-12.5F, 16.0F, -2.0F, 0.0F, 0.0F, -0.7854F));
 		PartDefinition left_back_fin = body.addOrReplaceChild("left_back_fin", CubeListBuilder.create().texOffs(52, 146).addBox(0.0F, -1.0F, -1.5F, 6.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(12.5F, 16.0F, 14.5F, 0.0F, 0.0F, 0.7854F));
 		PartDefinition right_back_fin = body.addOrReplaceChild("right_back_fin", CubeListBuilder.create().texOffs(52, 146).mirror().addBox(-6.0F, -1.0F, -1.5F, 6.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-12.5F, 16.0F, 14.5F, 0.0F, 0.0F, -0.7854F));
-		PartDefinition tail1_overlay = body.addOrReplaceChild("tail1_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 16.0F));
+		PartDefinition tailRot = body.addOrReplaceChild("tailRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 16.0F));
+		PartDefinition tail1_overlay = tailRot.addOrReplaceChild("tail1_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition tail1 = tail1_overlay.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(114, 45).addBox(-5.5F, -5.5F, 0.0F, 11.0F, 11.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition fin_r1 = tail1.addOrReplaceChild("fin_r1", CubeListBuilder.create().texOffs(92, 146).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 5.5F, 8.0F, 0.2618F, 0.0F, 0.0F));
-		PartDefinition tail2_overlay = tail1.addOrReplaceChild("tail2_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 19.0F));
+		PartDefinition tailFinRot = tail1.addOrReplaceChild("tailFinRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 19.0F));
+		PartDefinition tail2_overlay = tailFinRot.addOrReplaceChild("tail2_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition tail2 = tail2_overlay.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(114, 0).addBox(-1.5F, -3.0F, 0.0F, 3.0F, 8.0F, 37.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.5236F, 0.0F, 0.0F));
 		PartDefinition fluke_r1 = tail2.addOrReplaceChild("fluke_r1", CubeListBuilder.create().texOffs(30, 146).addBox(-1.0F, -3.0F, -4.5F, 2.0F, 10.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 5.0F, 4.5F, -0.2618F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 256, 256);
@@ -89,13 +96,24 @@ public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Mod
 	public void setupAnim(DunkleosteusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, DunkleosteusLargeAnimations.SWIM, ageInTicks, limbSwingAmount * 2.5F);
-		this.animateIdle(entity.idleAnimationState, DunkleosteusLargeAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
-		this.animate(entity.flopAnimationState, DunkleosteusLargeAnimations.FLOP, ageInTicks, 1.0F);
-		this.animate(entity.attackAnimationState, DunkleosteusLargeAnimations.ATTACK, ageInTicks, 1.0F);
-		this.animate(entity.yawnAnimationState, DunkleosteusLargeAnimations.YAWN, ageInTicks, 1.0F);
+		if (entity.isInWater()) {
+			this.animateWalk(DunkleosteusLargeAnimations.SWIM, limbSwing, limbSwingAmount, 2f, 2f);
+		}
+
+		this.animateIdle(entity.idleAnimationState, DunkleosteusLargeAnimations.IDLE, ageInTicks, 1.0f, 1.0f - Math.abs(limbSwingAmount));
+		this.animate(entity.flopAnimationState, DunkleosteusLargeAnimations.FLOP, ageInTicks, 1.0f);
+		this.animate(entity.attackAnimationState, DunkleosteusLargeAnimations.ATTACK, ageInTicks, 1.0f);
+		this.animate(entity.yawnAnimationState, DunkleosteusLargeAnimations.YAWN, ageInTicks, 1.0f);
 
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+		this.swim_control.zRot = netHeadYaw * ((Mth.DEG_TO_RAD) / 2);
+
+		if (entity.isInWaterOrBubble()){
+			this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+			this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+			this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+			this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+		}
 	}
 
 	@Override

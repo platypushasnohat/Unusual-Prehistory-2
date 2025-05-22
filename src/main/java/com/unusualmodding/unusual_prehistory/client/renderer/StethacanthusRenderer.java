@@ -5,11 +5,13 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
 import com.unusualmodding.unusual_prehistory.entity.StethacanthusEntity;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class StethacanthusRenderer extends MobRenderer<StethacanthusEntity, StethacanthusModel<StethacanthusEntity>> {
@@ -22,12 +24,17 @@ public class StethacanthusRenderer extends MobRenderer<StethacanthusEntity, Stet
 
     @Override
     protected void scale(StethacanthusEntity entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.5F, 0.5F, 0.5F);
+        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
         else super.scale(entity, matrices, amount);
     }
 
     @Override
     public ResourceLocation getTextureLocation(StethacanthusEntity entity) {
         return TEXTURE;
+    }
+
+    @Override
+    protected @Nullable RenderType getRenderType(StethacanthusEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(TEXTURE);
     }
 }

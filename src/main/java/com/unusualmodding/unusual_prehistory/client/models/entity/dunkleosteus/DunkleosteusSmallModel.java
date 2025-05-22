@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.dunkleosteus.DunkleosteusMediumAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.animations.dunkleosteus.DunkleosteusSmallAnimations;
 import com.unusualmodding.unusual_prehistory.entity.DunkleosteusEntity;
@@ -87,13 +88,17 @@ public class DunkleosteusSmallModel<T extends DunkleosteusEntity> extends UP2Mod
 	public void setupAnim(DunkleosteusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, DunkleosteusSmallAnimations.SWIM, ageInTicks, limbSwingAmount * 2.5F);
+		if (entity.isInWater()) {
+			this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 2f, 2f);
+		}
+
 		this.animateIdle(entity.idleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
 		this.animate(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks, 1.0F);
 		this.animate(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK, ageInTicks, 1.0F);
 		this.animate(entity.yawnAnimationState, DunkleosteusSmallAnimations.YAWN, ageInTicks, 1.0F);
 
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+		this.swim_control.zRot = netHeadYaw * ((Mth.DEG_TO_RAD) / 2);
 	}
 
 	@Override

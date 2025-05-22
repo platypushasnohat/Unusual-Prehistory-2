@@ -23,7 +23,7 @@ public class ScaumenaciaRenderer extends MobRenderer<ScaumenaciaEntity, Scaumena
 
     @Override
     protected void scale(ScaumenaciaEntity entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.5F, 0.5F, 0.5F);
+        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
         else super.scale(entity, matrices, amount);
     }
 
