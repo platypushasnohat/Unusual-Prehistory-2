@@ -2,7 +2,7 @@
   "values": [
     "unusual_prehistory:dunkleosteus",
     "unusual_prehistory:stethacanthus",
-    "minecraft:guardian",
-    "minecraft:drowned"
+    "minecraft:drowned",
+    "minecraft:guardian"
   ]
 }

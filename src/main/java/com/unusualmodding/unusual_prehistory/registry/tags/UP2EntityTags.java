@@ -18,6 +18,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> SCAUMENACIA_AVOIDS = modEntityTag("scaumenacia_avoids");
 
+    public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");
+
     public static final TagKey<EntityType<?>> STETHACANTHUS_TARGETS = modEntityTag("stethacanthus_targets");
     public static final TagKey<EntityType<?>> STETHACANTHUS_AVOIDS = modEntityTag("stethacanthus_avoids");
 

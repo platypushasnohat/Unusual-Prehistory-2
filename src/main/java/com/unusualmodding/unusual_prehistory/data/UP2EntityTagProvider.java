@@ -45,6 +45,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
+                KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(),
                 SCAUMENACIA.get(),
                 EntityType.COD,
                 EntityType.SALMON,
@@ -58,11 +59,19 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.DROWNED
         );
 
+        tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                STETHACANTHUS.get(),
+                EntityType.AXOLOTL,
+                EntityType.DROWNED,
+                EntityType.GUARDIAN
+        );
+
         tag(UP2EntityTags.SCAUMENACIA_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 STETHACANTHUS.get(),
-                EntityType.GUARDIAN,
-                EntityType.DROWNED
+                EntityType.DROWNED,
+                EntityType.GUARDIAN
         );
 
         tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
@@ -75,8 +84,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         tag(UP2EntityTags.STETHACANTHUS_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
-                EntityType.GUARDIAN,
-                EntityType.DROWNED
+                EntityType.DROWNED,
+                EntityType.GUARDIAN
         );
 
     }

@@ -55,11 +55,11 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.SCAUMENACIA_AVOIDS)));
         this.goalSelector.addGoal(4, new CustomRandomSwimGoal(this, 1, 1, 32, 32, 3));
-        this.goalSelector.addGoal(4, new ScaumenaciaFleeGoal());
+        this.goalSelector.addGoal(5, new ScaumenaciaFleeGoal());
     }
 
     // schooling
