@@ -56,13 +56,13 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.22F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.15F);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new NymphFindWaterGoal(this));
         this.goalSelector.addGoal(2, new NymphLookoutGoal(this));
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D, 80));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new LargePanicGoal(this, 2.0D));
@@ -72,7 +72,7 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * 0.6F;
+        return size.height * 0.5F;
     }
 
     public boolean canBreatheUnderwater() {
@@ -189,7 +189,6 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
                     dragonfly.setCustomNameVisible(this.isCustomNameVisible());
                 }
                 dragonfly.setPersistenceRequired();
-                this.playSound(SoundEvents.TADPOLE_GROW_UP, 0.15F, 1.0F);
                 serverLevel.addFreshEntityWithPassengers(dragonfly);
                 this.discard();
             }
@@ -206,21 +205,17 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
         return MobType.ARTHROPOD;
     }
 
-    @Override
-    protected @NotNull MovementEmission getMovementEmission() {
-        return MovementEmission.EVENTS;
-    }
-
     // sounds
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT.get();
+        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH.get();
+        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+    protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
+        this.playSound(SoundEvents.SILVERFISH_STEP, 0.05F, 1.8F);
     }
 
     @Override

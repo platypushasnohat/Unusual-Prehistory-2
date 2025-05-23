@@ -25,6 +25,9 @@ public class UP2Sounds {
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_death");
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP = registerSoundEvent("kimmeridgebrachypteraeschnidium_flap");
 
+    public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_hurt");
+    public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_death");
+
     public static final RegistryObject<SoundEvent> SCAUMENACIA_HURT = registerSoundEvent("scaumenacia_hurt");
     public static final RegistryObject<SoundEvent> SCAUMENACIA_DEATH = registerSoundEvent("scaumenacia_death");
     public static final RegistryObject<SoundEvent> SCAUMENACIA_FLOP = registerSoundEvent("scaumenacia_flop");

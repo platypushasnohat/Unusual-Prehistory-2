@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -45,6 +46,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class DunkleosteusEntity extends AncientAquaticEntity {
 
@@ -83,6 +85,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         this.goalSelector.addGoal(5, new DunkleosteusFleeGoal());
         this.goalSelector.addGoal(7, new AquaticLeapGoal(this, 20));
         this.targetSelector.addGoal(6, new DunkleosteusNearestAttackableTargetGoal(this));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
         this.targetSelector.addGoal(8, new DunkleosteusHurtByTargetGoal(this));
     }
 
@@ -174,12 +177,16 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     private boolean isTarget(Entity entity) {
         if (this.getDunkSize() == 1) {
-            return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS) && entity instanceof Player;
+            return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
         } else if (this.getDunkSize() == 2) {
-            return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS) && entity instanceof Player;
+            return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS);
         } else {
             return entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS);
         }
+    }
+
+    public boolean canAttackPlayer(LivingEntity entity) {
+        return this.canAttack(entity) && this.getDunkSize() > 0;
     }
 
     // mob interactions
@@ -478,7 +485,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
         public DunkleosteusNearestAttackableTargetGoal(DunkleosteusEntity dunkleosteus) {
             super(dunkleosteus, true, true);
             this.dunkleosteus = dunkleosteus;
-            this.randomInterval = reducedTickDelay(500);
+            this.randomInterval = reducedTickDelay(300);
             this.setFlags(EnumSet.of(Flag.TARGET));
         }
 

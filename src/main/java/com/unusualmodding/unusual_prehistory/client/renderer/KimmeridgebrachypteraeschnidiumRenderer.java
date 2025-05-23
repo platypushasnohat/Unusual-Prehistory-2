@@ -42,10 +42,4 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
     protected @Nullable RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutout(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png"));
     }
-
-    @Override
-    protected void setupRotations(KimmeridgebrachypteraeschnidiumEntity pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
-        super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks);
-        pPoseStack.mulPose(Axis.ZP.rotationDegrees(pEntityLiving.currentRoll * 360 / 4));
-    }
 }

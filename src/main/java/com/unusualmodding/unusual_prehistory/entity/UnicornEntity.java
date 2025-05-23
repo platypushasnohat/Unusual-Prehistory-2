@@ -52,7 +52,7 @@ public class UnicornEntity extends AncientEntity {
 
     public UnicornEntity(EntityType<? extends AncientEntity> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.25F);
+        this.setMaxUpStep(1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

@@ -95,6 +95,9 @@ public class UP2LangProvider extends LanguageProvider {
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
 
+        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
+        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
+
         sound(UP2Sounds.SCAUMENACIA_HURT, "Scaumenacia hurts");
         sound(UP2Sounds.SCAUMENACIA_DEATH, "Scaumenacia dies");
         sound(UP2Sounds.SCAUMENACIA_FLOP, "Scaumenacia flops");

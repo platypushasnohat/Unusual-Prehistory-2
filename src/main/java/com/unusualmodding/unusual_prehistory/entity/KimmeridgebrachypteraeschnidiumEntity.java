@@ -67,10 +67,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     private boolean isLandNavigator;
     private int timeFlying;
 
-    public float currentRoll = 0.0F;
-    public float prevTilt;
-    public float tilt;
-
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState preenAnimationState = new AnimationState();
@@ -161,31 +157,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
                 this.timeFlying = 0;
             }
         }
-
-        prevTilt = tilt;
-        if (this.isFlying() && !this.onGround()) {
-            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-            if (Math.abs(v) > 1) {
-                if (Math.abs(tilt) < 25) {
-                    tilt -= Math.signum(v);
-                }
-            } else {
-                if (Math.abs(tilt) > 0) {
-                    final float tiltSign = Math.signum(tilt);
-                    tilt -= tiltSign * 0.85F;
-                    if (tilt * tiltSign < 0) {
-                        tilt = 0;
-                    }
-                }
-            }
-        } else {
-            tilt = 0;
-        }
-
-        float prevRoll = this.currentRoll;
-        float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
-        targetRoll = -targetRoll;
-        this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
 
         if (this.getPreenCooldown() > 0) {
             this.setPreenCooldown(this.getPreenCooldown() - 1);

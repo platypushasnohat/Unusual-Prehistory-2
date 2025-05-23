@@ -74,6 +74,15 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/flap_0")).volume(0.3f)
         );
 
+        this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_0")).pitch(2.0f),
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt_1")).pitch(2.0f)
+        );
+
+        this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death_0")).pitch(1.5f)
+        );
+
         this.sound(UP2Sounds.SCAUMENACIA_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),

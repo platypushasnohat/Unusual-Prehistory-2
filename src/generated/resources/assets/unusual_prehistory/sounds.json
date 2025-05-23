@@ -105,6 +105,28 @@
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_hurt"
   },
+  "kimmeridgebrachypteraeschnidium_nymph_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0",
+        "pitch": 1.5
+      }
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_death"
+  },
+  "kimmeridgebrachypteraeschnidium_nymph_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+        "pitch": 2.0
+      },
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1",
+        "pitch": 2.0
+      }
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_hurt"
+  },
   "scaumenacia_death": {
     "sounds": [
       "entity/fish/hurt1",
