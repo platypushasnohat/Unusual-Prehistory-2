@@ -64,7 +64,9 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 	@Override
 	public void setupAnim(KimmeridgebrachypteraeschnidiumNymphEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
+		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 4f, 4f);
+		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
+		this.animate(entity.lookoutAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.LOOKOUT, ageInTicks, 1.0f);
 	}
 
 	@Override
