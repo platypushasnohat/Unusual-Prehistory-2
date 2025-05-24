@@ -10,6 +10,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class UP2ModelLayers {
 
     public static final ModelLayerLocation CEPHALASPIS_LAYER = main("cephalaspis");
+    public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS_LAYER = main("diplocaulus_brevirostris");
+    public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS_LAYER = main("diplocaulus_magnicornis");
+    public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS_LAYER = main("diplocaulus_recurvatis");
+    public static final ModelLayerLocation DIPLOCAULUS_SALAMANDROIDES_LAYER = main("diplocaulus_salamandroides");
     public static final ModelLayerLocation DORYASPIS_LAYER = main("doryaspis");
     public static final ModelLayerLocation DUNKLEOSTEUS_LARGE_LAYER = main("dunkleosteus_large");
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM_LAYER = main("dunkleosteus_medium");

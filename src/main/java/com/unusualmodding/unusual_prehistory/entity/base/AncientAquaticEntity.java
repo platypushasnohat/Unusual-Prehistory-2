@@ -111,17 +111,17 @@ public abstract class AncientAquaticEntity extends AgeableMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putInt("AttackState", this.getAttackState());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant());
+        compoundTag.putInt("AttackState", this.getAttackState());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setAttackState(compound.getInt("AttackState"));
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(compoundTag.getInt("Variant"));
+        this.setAttackState(compoundTag.getInt("AttackState"));
     }
 
     @Nullable

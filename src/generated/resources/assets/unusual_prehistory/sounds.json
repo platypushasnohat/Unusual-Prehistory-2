@@ -1,4 +1,67 @@
 {
+  "diplocaulus_death": {
+    "sounds": [
+      {
+        "name": "mob/frog/death1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/death2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/death3",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.diplocaulus_death"
+  },
+  "diplocaulus_flop": {
+    "sounds": [
+      {
+        "name": "mob/frog/idle2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/idle3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/idle5",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/idle6",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/idle7",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.diplocaulus_flop"
+  },
+  "diplocaulus_hurt": {
+    "sounds": [
+      {
+        "name": "mob/frog/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.diplocaulus_hurt"
+  },
   "dunkleosteus_death": {
     "sounds": [
       "entity/fish/hurt1",

@@ -118,9 +118,6 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
         this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
         this.walkAnimationState.animateWhen(this.walkAnimation.isMoving(), this.tickCount);
         this.lookoutAnimationState.animateWhen(this.getLookoutCooldown() == 0, this.tickCount);
-        if (this.getLookoutTimer() > 0) {
-            this.idleAnimationState.stop();
-        }
     }
 
     @Override

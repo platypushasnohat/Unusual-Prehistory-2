@@ -19,6 +19,27 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+        this.sound(UP2Sounds.DIPLOCAULUS_HURT,
+                sound("mob/frog/hurt1").pitch(0.8f),
+                sound("mob/frog/hurt2").pitch(0.8f),
+                sound("mob/frog/hurt3").pitch(0.8f),
+                sound("mob/frog/hurt4").pitch(0.8f)
+        );
+
+        this.sound(UP2Sounds.DIPLOCAULUS_DEATH,
+                sound("mob/frog/death1").pitch(0.8f),
+                sound("mob/frog/death2").pitch(0.8f),
+                sound("mob/frog/death3").pitch(0.8f)
+        );
+
+        this.sound(UP2Sounds.DIPLOCAULUS_IDLE,
+                sound("mob/frog/idle2").pitch(0.8f),
+                sound("mob/frog/idle3").pitch(0.8f),
+                sound("mob/frog/idle5").pitch(0.8f),
+                sound("mob/frog/idle6").pitch(0.8f),
+                sound("mob/frog/idle7").pitch(0.8f)
+        );
+
         this.sound(UP2Sounds.DUNKLEOSTEUS_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),

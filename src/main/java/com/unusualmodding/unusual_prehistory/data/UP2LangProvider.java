@@ -83,6 +83,10 @@ public class UP2LangProvider extends LanguageProvider {
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
 
         // sounds
+        sound(UP2Sounds.DIPLOCAULUS_HURT, "Diplocaulus hurts");
+        sound(UP2Sounds.DIPLOCAULUS_DEATH, "Diplocaulus dies");
+        sound(UP2Sounds.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
+
         sound(UP2Sounds.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
         sound(UP2Sounds.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
         sound(UP2Sounds.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");

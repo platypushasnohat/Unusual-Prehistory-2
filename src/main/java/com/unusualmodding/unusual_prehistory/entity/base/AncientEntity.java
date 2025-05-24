@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 public abstract class AncientEntity extends AgeableMob {
 
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(AncientEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AncientEntity.class, EntityDataSerializers.INT);
 
     protected AncientEntity(EntityType<? extends AgeableMob> entityType, Level level) {
         super(entityType, level);
@@ -72,21 +73,27 @@ public abstract class AncientEntity extends AgeableMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(RUNNING, false);
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(compoundTag.getInt("Variant"));
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        int variantChange = this.random.nextInt(0, 100);
+        this.determineVariant(variantChange);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     public boolean isRunning() {
@@ -95,5 +102,16 @@ public abstract class AncientEntity extends AgeableMob {
 
     public void setRunning(boolean bool) {
         this.entityData.set(RUNNING, bool);
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    public void determineVariant(int variantChange) {
     }
 }

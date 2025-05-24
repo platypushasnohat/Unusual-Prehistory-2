@@ -13,6 +13,14 @@ import net.minecraftforge.registries.RegistryObject;
 public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
+    public static final RegistryObject<EntityType<DiplocaulusEntity>> DIPLOCAULUS = ENTITY_TYPE.register(
+            "diplocaulus", () ->
+                    EntityType.Builder.of(DiplocaulusEntity::new, MobCategory.CREATURE)
+                            .sized(0.6F, 0.6F)
+                            .clientTrackingRange(10)
+                            .build("diplocaulus")
+    );
+
     public static final RegistryObject<EntityType<DunkleosteusEntity>> DUNKLEOSTEUS = ENTITY_TYPE.register(
             "dunkleosteus", () ->
                     EntityType.Builder.of(DunkleosteusEntity::new, MobCategory.WATER_CREATURE)

@@ -5,6 +5,10 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.Kimmeridgebrac
 import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.ScaumenaciaModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockProperties;
@@ -50,6 +54,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(UP2Entities.DIPLOCAULUS.get(), DiplocaulusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
         event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), JawlessFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
@@ -62,6 +67,10 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS_LAYER, CephalaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER, DiplocaulusBrevirostrisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS_LAYER, DiplocaulusMagnicornisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_RECURVATIS_LAYER, DiplocaulusRecurvatisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_SALAMANDROIDES_LAYER, DiplocaulusSalamandroidesModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DORYASPIS_LAYER, DoryaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_LARGE_LAYER, DunkleosteusLargeModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);

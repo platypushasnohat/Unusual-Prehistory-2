@@ -12,6 +12,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(UP2Entities.DIPLOCAULUS.get(), DiplocaulusEntity.createAttributes().build());
         event.put(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusEntity.createAttributes().build());
         event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFishEntity.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
