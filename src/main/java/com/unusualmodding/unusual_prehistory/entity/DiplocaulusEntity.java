@@ -1,5 +1,6 @@
  package com.unusualmodding.unusual_prehistory.entity;
 
+ import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.base.AncientEntity;
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
  import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
@@ -31,7 +32,6 @@
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
- import net.minecraft.world.level.pathfinder.PathComputationType;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -44,9 +44,7 @@
 
      public boolean isLandNavigator;
 
-     public final AnimationState walkAnimationState = new AnimationState();
      public final AnimationState idleAnimationState = new AnimationState();
-     public final AnimationState swimAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
      public final AnimationState slideAnimationState = new AnimationState();
      public final AnimationState burrowStartAnimationState = new AnimationState();
@@ -61,13 +59,14 @@
      }
 
      public static AttributeSupplier.Builder createAttributes() {
-         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.2F);
+         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.12F);
      }
 
      protected void registerGoals() {
-         this.goalSelector.addGoal(3, new DiplocaulusQuirkGoal(this));
-         this.goalSelector.addGoal(4, new DiplocaulusRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(4, new DiplocaulusSwimGoal(this, 1.5D, 5));
+         this.goalSelector.addGoal(1, new DiplocaulusQuirkGoal(this));
+         this.goalSelector.addGoal(3, new DiplocaulusRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(3, new DiplocaulusSwimGoal(this, 1.25D, 5));
+         this.goalSelector.addGoal(4, new LargePanicGoal(this, 2.0D));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
      }
@@ -130,7 +129,7 @@
 
      private void setupAnimationStates() {
          this.idleAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
          this.quirkAnimationState.animateWhen(this.getQuirkCooldown() == 0, this.tickCount);
      }
 
@@ -284,29 +283,17 @@
 
          @Nullable
          protected Vec3 getPosition() {
-             if(this.mob.hasRestriction() && this.mob.distanceToSqr(Vec3.atCenterOf(this.mob.getRestrictCenter())) > this.mob.getRestrictRadius() * this.mob.getRestrictRadius()){
+             if (this.mob.hasRestriction() && this.mob.distanceToSqr(Vec3.atCenterOf(this.mob.getRestrictCenter())) > this.mob.getRestrictRadius() * this.mob.getRestrictRadius()) {
                  return DefaultRandomPos.getPosTowards(this.mob, 7, 3, Vec3.atBottomCenterOf(this.mob.getRestrictCenter()), 1);
              }
-             if(this.mob.getRandom().nextFloat() < 0.3F){
+             if (this.mob.getRandom().nextFloat() < 0.3F) {
                  Vec3 vector3d = findSurfaceTarget(this.mob, 15, 7);
                  if(vector3d != null){
                      return vector3d;
                  }
              }
              Vec3 vector3d = DefaultRandomPos.getPos(this.mob, 7, 3);
-
-             for(int i = 0; vector3d != null && !this.mob.level().getBlockState(this.fromVec3(vector3d)).isPathfindable(this.mob.level(), fromVec3(vector3d), PathComputationType.WATER) && i++ < 15; vector3d = DefaultRandomPos.getPos(this.mob, 10, 7)) {
-             }
-
              return vector3d;
-         }
-
-         public static BlockPos fromVec3(Vec3 vec3){
-             return fromCoords(vec3.x, vec3.y, vec3.z);
-         }
-
-         public static BlockPos fromCoords(double x, double y, double z){
-             return new BlockPos((int) x, (int) y, (int) z);
          }
 
          private boolean canJumpTo(BlockPos pos, int dx, int dz, int scale) {

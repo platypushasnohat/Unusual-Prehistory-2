@@ -97,22 +97,18 @@ public class DiplocaulusSalamandroidesModel<T extends DiplocaulusEntity> extends
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWaterOrBubble()) {
-			this.animateWalk(DiplocaulusSalamandroidesAnimations.SWIM, limbSwing, limbSwingAmount, 2.0f, 1.0f);
-			this.animateIdle(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.SWIM_IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
-		}
+			this.animateWalk(DiplocaulusSalamandroidesAnimations.SWIM, limbSwing, limbSwingAmount, 2.0f, 4.0f);
+			this.animateIdle(entity.swimIdleAnimationState, DiplocaulusSalamandroidesAnimations.SWIM_IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
-		if (!entity.isInWaterOrBubble()) {
-			this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing, limbSwingAmount, 3.0f, 3.0f);
+			this.body_main.resetPose();
+			this.swim_control.xRot = headPitch * ((float) Math.PI / 180f);
+			this.swim_control.yRot = netHeadYaw * ((float) Math.PI / 180f);
+		} else {
+			this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing * 1.3f, limbSwingAmount, 4.0f, 8.0f);
 			this.animateIdle(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 		}
 
 		this.animate(entity.quirkAnimationState, DiplocaulusSalamandroidesAnimations.QUIRK, ageInTicks, 1.0f);
-
-		if (entity.isInWaterOrBubble()) {
-			this.body_main.resetPose();
-			this.swim_control.xRot = headPitch * ((float) Math.PI / 180f);
-			this.swim_control.yRot = netHeadYaw * ((float) Math.PI / 180f);
-		}
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
