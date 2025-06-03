@@ -221,12 +221,17 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 		} else {
 			this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		}
-		this.animate(entity.idleAnimationState, KentrosaurusIdleAnimations.IDLE, ageInTicks, 1);
+
 		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks, 1.25F);
 		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks, 1.25F);
+		this.animate(entity.idleAnimationState, KentrosaurusIdleAnimations.IDLE, ageInTicks);
+		this.animate(entity.layDownIdleAnimationState, KentrosaurusIdleAnimations.LAY_DOWN_IDLE, ageInTicks);
+		this.animate(entity.layDownAnimationState, KentrosaurusIdleAnimations.LAY_DOWN, ageInTicks);
+		this.animate(entity.standUpAnimationState, KentrosaurusIdleAnimations.STAND_UP, ageInTicks);
+		this.animate(entity.grazeAnimationState, KentrosaurusIdleAnimations.GRAZE, ageInTicks);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
+		this.head.xRot += entity.isKentrosaurusLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
+		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
 
 	@Override

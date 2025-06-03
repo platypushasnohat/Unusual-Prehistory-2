@@ -10,7 +10,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -25,7 +25,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -37,18 +36,14 @@ import java.util.function.Supplier;
 public class MobCaptureItem extends BucketItem {
 
     private final Supplier<? extends EntityType<?>> entityType;
-    private final Item item1;
-    private final boolean hasTooltip;
+    private final Item item;
+    private final SoundEvent sound;
 
-    public MobCaptureItem(Supplier<EntityType<?>> entityType, Item item, boolean hasTooltip, Properties properties) {
-        this(entityType, Fluids.EMPTY, item, hasTooltip, properties);
-    }
-
-    public MobCaptureItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, boolean hasTooltip, Properties properties) {
+    public MobCaptureItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, SoundEvent sound, Properties properties) {
         super(fluid, properties);
         this.entityType = entityType;
-        this.item1 = item;
-        this.hasTooltip = hasTooltip;
+        this.item = item;
+        this.sound = sound;
     }
 
     public InteractionResult useOn(UseOnContext context) {
@@ -73,13 +68,13 @@ public class MobCaptureItem extends BucketItem {
                 if (player != null && !player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                     if (context.getItemInHand().isEmpty()) {
-                        player.setItemInHand(context.getHand(), new ItemStack(item1));
+                        player.setItemInHand(context.getHand(), new ItemStack(item));
                     }
                     else {
-                        player.addItem(new ItemStack(item1));
+                        player.addItem(new ItemStack(item));
                     }
                 }
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 0.5F, 1.0F);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), this.sound, SoundSource.NEUTRAL, 0.5F, 1.0F);
             }
         }
         return InteractionResult.SUCCESS;
@@ -91,11 +86,6 @@ public class MobCaptureItem extends BucketItem {
         super.appendHoverText(stack, world, tooltip, flag);
 
         ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-
-        if (hasTooltip && stack.hasTag()) {
-            MutableComponent variant = Component.translatable(getEntityType().getDescriptionId() + "." + stack.getTag().getInt("Variant")).withStyle(ChatFormatting.GRAY);
-            tooltip.add(variant);
-        }
 
         if (getEntityType() == UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get()) {
             CompoundTag compoundtag = stack.getTag();

@@ -4,9 +4,11 @@
   "package": "com.unusualmodding.unusual_prehistory.mixins",
   "compatibilityLevel": "JAVA_17",
   "refmap": "unusual_prehistory.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "PoseMixin"
+  ],
   "client": [
-    "ClientPacketListenerMixin"
+    "client.ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

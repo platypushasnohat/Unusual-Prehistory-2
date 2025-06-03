@@ -90,12 +90,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle3"))
         );
         this.sound(UP2Sounds.KENTROSAURUS_STEP,
-                sound("mob/camel/step1").volume(0.45f).pitch(1.1f),
-                sound("mob/camel/step2").volume(0.45f).pitch(1.1f),
-                sound("mob/camel/step3").volume(0.45f).pitch(1.1f),
-                sound("mob/camel/step4").volume(0.45f).pitch(1.1f),
-                sound("mob/camel/step5").volume(0.45f).pitch(1.1f),
-                sound("mob/camel/step6").volume(0.45f).pitch(1.1f)
+                sound("mob/camel/step1").volume(0.45f).pitch(1.12f),
+                sound("mob/camel/step2").volume(0.45f).pitch(1.12f),
+                sound("mob/camel/step3").volume(0.45f).pitch(1.12f),
+                sound("mob/camel/step4").volume(0.45f).pitch(1.12f),
+                sound("mob/camel/step5").volume(0.45f).pitch(1.12f),
+                sound("mob/camel/step6").volume(0.45f).pitch(1.12f)
+        );
+        this.sound(UP2Sounds.KENTROSAURUS_EAT,
+                sound("mob/goat/eat1").pitch(0.86f),
+                sound("mob/goat/eat2").pitch(0.86f),
+                sound("mob/goat/eat3").pitch(0.86f)
         );
 
         this.sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,

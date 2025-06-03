@@ -27,6 +27,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
+        this.item(SCAUMENACIA_BUCKET);
 
         // paleo dna
         this.dnaItem(DIPLOCAULUS_DNA);

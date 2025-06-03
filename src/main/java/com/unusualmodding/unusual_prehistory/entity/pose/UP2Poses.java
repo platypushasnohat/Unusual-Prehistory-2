@@ -1,0 +1,13 @@
+package com.unusualmodding.unusual_prehistory.entity.pose;
+
+import net.minecraft.world.entity.Pose;
+
+public enum UP2Poses {
+
+    LAYING_DOWN,
+    GRAZING;
+
+    public Pose get() {
+        return Pose.valueOf(this.name());
+    }
+}

@@ -84,6 +84,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         dnaItem(UP2Items.SARRACENIA_DNA.get());
 
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
+        addItem(UP2Items.SCAUMENACIA_BUCKET, "Bucket of Scaumenacia");
 
         // sounds
         sound(UP2Sounds.DIPLOCAULUS_HURT, "Diplocaulus hurts");
@@ -101,7 +102,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         sound(UP2Sounds.KENTROSAURUS_HURT, "Kentrosaurus hurts");
         sound(UP2Sounds.KENTROSAURUS_DEATH, "Kentrosaurus dies");
         sound(UP2Sounds.KENTROSAURUS_IDLE, "Kentrosaurus groans");
-        sound(UP2Sounds.KENTROSAURUS_STEP, "Footsteps");
+        sound(UP2Sounds.KENTROSAURUS_STEP, "Kentrosaurus steps");
+        sound(UP2Sounds.KENTROSAURUS_EAT, "Kentrosaurus eats");
 
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");

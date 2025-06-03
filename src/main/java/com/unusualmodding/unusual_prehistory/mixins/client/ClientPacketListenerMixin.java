@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.mixins;
+package com.unusualmodding.unusual_prehistory.mixins.client;
 
 import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.unusualmodding.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSoundInstance;

@@ -38,6 +38,7 @@ public class UP2CreativeTabs {
                         tabOutput.accept(GINKGO_FRUIT.get());
 
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        tabOutput.accept(SCAUMENACIA_BUCKET.get());
 
                         // paleo dna
                         tabOutput.accept(DIPLOCAULUS_DNA.get());
