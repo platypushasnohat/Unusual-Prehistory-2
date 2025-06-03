@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumNymphEntity;
+import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumNymph;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumNymphModel<T extends KimmeridgebrachypteraeschnidiumNymphEntity> extends UP2Model<T> {
+public class KimmeridgebrachypteraeschnidiumNymphModel<T extends KimmeridgebrachypteraeschnidiumNymph> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -62,7 +62,7 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 	}
 
 	@Override
-	public void setupAnim(KimmeridgebrachypteraeschnidiumNymphEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(KimmeridgebrachypteraeschnidiumNymph entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 4f, 4f);
 		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));

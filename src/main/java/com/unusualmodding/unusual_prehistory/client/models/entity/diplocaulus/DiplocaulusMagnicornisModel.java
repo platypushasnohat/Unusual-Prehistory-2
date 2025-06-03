@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.DiplocaulusMagnicornisAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.unusualmodding.unusual_prehistory.entity.DiplocaulusEntity;
+import com.unusualmodding.unusual_prehistory.entity.Diplocaulus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DiplocaulusMagnicornisModel<T extends DiplocaulusEntity> extends UP2Model<T> {
+public class DiplocaulusMagnicornisModel<T extends Diplocaulus> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -90,7 +90,7 @@ public class DiplocaulusMagnicornisModel<T extends DiplocaulusEntity> extends UP
 	}
 
 	@Override
-	public void setupAnim(DiplocaulusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Diplocaulus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWaterOrBubble()) {

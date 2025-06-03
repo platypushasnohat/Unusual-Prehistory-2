@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-23T22:14:55.7999268	Item Models: unusual_prehistory
+// 1.20.1	2025-06-02T17:53:10.9861117	Item Models: unusual_prehistory
 03e72d050082792b3c3e4c8720a645acac997c16 assets/unusual_prehistory/models/item/anostylostroma_dna_bottle.json
 9ddb41005c0f45c73e4bb6baa3ac9f7297c6ed91 assets/unusual_prehistory/models/item/archaefructus_dna_bottle.json
 a2f5720c8ca8b441d7ae1ddbf6e02609970fca23 assets/unusual_prehistory/models/item/archaeosigillaria_dna_bottle.json
@@ -18,6 +18,7 @@ f1c7747deae477d24bd6fe342377a67517ee18cf assets/unusual_prehistory/models/item/h
 8a6ccafaa5a32288eb11c7e54e0662b32e558d79 assets/unusual_prehistory/models/item/jawless_fish_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/jawless_fish_spawn_egg.json
 8b72cea1d00600f26224144a9514552d642b75fe assets/unusual_prehistory/models/item/kentrosaurus_dna_bottle.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/kentrosaurus_spawn_egg.json
 f9e719a03688633a23ec17dcd8b51d1a0fa94f17 assets/unusual_prehistory/models/item/kimmeridgebrachypteraeschnidium_bottle.json
 e3939815ad49ba05cf1100a4aca79a386acd0610 assets/unusual_prehistory/models/item/kimmeridgebrachypteraeschnidium_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/kimmeridgebrachypteraeschnidium_nymph_spawn_egg.json

@@ -6,8 +6,8 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.Kimmeridgebrac
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.unusualmodding.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumWingLayer;
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
-import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
+import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,27 +18,27 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<KimmeridgebrachypteraeschnidiumEntity, KimmeridgebrachypteraeschnidiumModel<KimmeridgebrachypteraeschnidiumEntity>> {
+public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel<Kimmeridgebrachypteraeschnidium>> {
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumModel<>(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER)), 0.3F);
+        super(context, new KimmeridgebrachypteraeschnidiumModel<>(context.bakeLayer(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER)), 0.3F);
         this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KimmeridgebrachypteraeschnidiumEntity entity) {
+    public ResourceLocation getTextureLocation(Kimmeridgebrachypteraeschnidium entity) {
         return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
     }
 
     @Override
-    public void render(KimmeridgebrachypteraeschnidiumEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(Kimmeridgebrachypteraeschnidium entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(KimmeridgebrachypteraeschnidiumEntity entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+    protected @Nullable RenderType getRenderType(Kimmeridgebrachypteraeschnidium entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutout(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png"));
     }
 }

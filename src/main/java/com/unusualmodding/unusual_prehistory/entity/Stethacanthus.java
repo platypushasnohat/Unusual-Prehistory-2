@@ -46,10 +46,10 @@ import java.util.EnumSet;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucketable {
+public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Stethacanthus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Stethacanthus.class, EntityDataSerializers.BOOLEAN);
 
     public float prevTilt;
     public float tilt;
@@ -58,7 +58,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public StethacanthusEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
+    public Stethacanthus(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -84,7 +84,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)) {
         @Override
         public boolean canUse() {
-            if (this.mob instanceof StethacanthusEntity stethacanthus) {
+            if (this.mob instanceof Stethacanthus stethacanthus) {
                 if (stethacanthus.isPassive() || stethacanthus.isBaby()) return false;
             }
             return super.canUse();
@@ -307,35 +307,35 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         }
 
         public boolean canUse() {
-            LivingEntity target = StethacanthusEntity.this.getTarget();
+            LivingEntity target = Stethacanthus.this.getTarget();
             return target != null && target.isAlive() && target.isInWater() && !target.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS) && !(target instanceof Player);
         }
 
         public void start() {
-            StethacanthusEntity.this.setAttackState(0);
+            Stethacanthus.this.setAttackState(0);
             this.attackTime = 0;
         }
 
         public void stop() {
-            StethacanthusEntity.this.setAttackState(0);
+            Stethacanthus.this.setAttackState(0);
         }
 
         public void tick() {
-            LivingEntity target = StethacanthusEntity.this.getTarget();
+            LivingEntity target = Stethacanthus.this.getTarget();
             if (target != null && target.isInWater()) {
-                StethacanthusEntity.this.lookAt(StethacanthusEntity.this.getTarget(), 30F, 30F);
-                StethacanthusEntity.this.getLookControl().setLookAt(StethacanthusEntity.this.getTarget(), 30F, 30F);
+                Stethacanthus.this.lookAt(Stethacanthus.this.getTarget(), 30F, 30F);
+                Stethacanthus.this.getLookControl().setLookAt(Stethacanthus.this.getTarget(), 30F, 30F);
 
-                double distance = StethacanthusEntity.this.distanceToSqr(target.getX(), target.getY(), target.getZ());
-                int attackState = StethacanthusEntity.this.getAttackState();
+                double distance = Stethacanthus.this.distanceToSqr(target.getX(), target.getY(), target.getZ());
+                int attackState = Stethacanthus.this.getAttackState();
 
                 if (attackState == 1) {
                     tickBiteAttack();
-                    StethacanthusEntity.this.getNavigation().moveTo(target, 0.75D);
+                    Stethacanthus.this.getNavigation().moveTo(target, 0.75D);
                 } else {
-                    StethacanthusEntity.this.getNavigation().moveTo(target, 1.75D);
+                    Stethacanthus.this.getNavigation().moveTo(target, 1.75D);
                     if (distance <= 4) {
-                        StethacanthusEntity.this.setAttackState(1);
+                        Stethacanthus.this.setAttackState(1);
                     }
                 }
             }
@@ -344,21 +344,21 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         protected void tickBiteAttack() {
             attackTime++;
             if (attackTime == 6) {
-                if (StethacanthusEntity.this.distanceTo(Objects.requireNonNull(StethacanthusEntity.this.getTarget())) < 2.1F) {
-                    StethacanthusEntity.this.doHurtTarget(StethacanthusEntity.this.getTarget());
-                    StethacanthusEntity.this.swing(InteractionHand.MAIN_HAND);
+                if (Stethacanthus.this.distanceTo(Objects.requireNonNull(Stethacanthus.this.getTarget())) < 2.1F) {
+                    Stethacanthus.this.doHurtTarget(Stethacanthus.this.getTarget());
+                    Stethacanthus.this.swing(InteractionHand.MAIN_HAND);
                 }
             }
             if (attackTime >= 9) {
                 attackTime = 0;
-                StethacanthusEntity.this.setAttackState(0);
+                Stethacanthus.this.setAttackState(0);
             }
         }
     }
 
     private class StethacanthusFleeGoal extends LargePanicGoal {
         public StethacanthusFleeGoal() {
-            super(StethacanthusEntity.this, 2.0D);
+            super(Stethacanthus.this, 2.0D);
         }
 
         @Override

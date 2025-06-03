@@ -13,67 +13,75 @@ import net.minecraftforge.registries.RegistryObject;
 public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
-    public static final RegistryObject<EntityType<DiplocaulusEntity>> DIPLOCAULUS = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Diplocaulus>> DIPLOCAULUS = ENTITY_TYPE.register(
             "diplocaulus", () ->
-                    EntityType.Builder.of(DiplocaulusEntity::new, MobCategory.CREATURE)
-                            .sized(0.6F, 0.6F)
-                            .clientTrackingRange(10)
-                            .build("diplocaulus")
+            EntityType.Builder.of(Diplocaulus::new, MobCategory.CREATURE)
+                    .sized(0.6F, 0.6F)
+                    .clientTrackingRange(10)
+                    .build("diplocaulus")
     );
 
-    public static final RegistryObject<EntityType<DunkleosteusEntity>> DUNKLEOSTEUS = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Dunkleosteus>> DUNKLEOSTEUS = ENTITY_TYPE.register(
             "dunkleosteus", () ->
-                    EntityType.Builder.of(DunkleosteusEntity::new, MobCategory.WATER_CREATURE)
-                            .sized(0.75F, 0.6F)
-                            .clientTrackingRange(10)
-                            .build("dunkleosteus")
+            EntityType.Builder.of(Dunkleosteus::new, MobCategory.WATER_CREATURE)
+                    .sized(0.75F, 0.6F)
+                    .clientTrackingRange(10)
+                    .build("dunkleosteus")
     );
 
-    public static final RegistryObject<EntityType<JawlessFishEntity>> JAWLESS_FISH = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<JawlessFish>> JAWLESS_FISH = ENTITY_TYPE.register(
             "jawless_fish", () ->
-                    EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_CREATURE)
-                            .sized(0.36F, 0.36F)
-                            .clientTrackingRange(10)
-                            .build("jawless_fish")
+            EntityType.Builder.of(JawlessFish::new, MobCategory.WATER_CREATURE)
+                    .sized(0.36F, 0.36F)
+                    .clientTrackingRange(10)
+                    .build("jawless_fish")
     );
 
-    public static final RegistryObject<EntityType<KimmeridgebrachypteraeschnidiumEntity>> KIMMERIDGEBRACHYPTERAESCHNIDIUM = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Kentrosaurus>> KENTROSAURUS = ENTITY_TYPE.register(
+            "kentrosaurus", () ->
+                    EntityType.Builder.of(Kentrosaurus::new, MobCategory.CREATURE)
+                            .sized(2.0F, 2.25F)
+                            .clientTrackingRange(10)
+                            .build("kentrosaurus")
+    );
+
+    public static final RegistryObject<EntityType<Kimmeridgebrachypteraeschnidium>> KIMMERIDGEBRACHYPTERAESCHNIDIUM = ENTITY_TYPE.register(
             "kimmeridgebrachypteraeschnidium", () ->
-                    EntityType.Builder.of(KimmeridgebrachypteraeschnidiumEntity::new, MobCategory.CREATURE)
-                            .sized(0.5F, 0.5F)
-                            .clientTrackingRange(10)
-                            .build("kimmeridgebrachypteraeschnidium")
+            EntityType.Builder.of(Kimmeridgebrachypteraeschnidium::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build("kimmeridgebrachypteraeschnidium")
     );
 
-    public static final RegistryObject<EntityType<KimmeridgebrachypteraeschnidiumNymphEntity>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<KimmeridgebrachypteraeschnidiumNymph>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH = ENTITY_TYPE.register(
             "kimmeridgebrachypteraeschnidium_nymph", () ->
-                    EntityType.Builder.of(KimmeridgebrachypteraeschnidiumNymphEntity::new, MobCategory.WATER_CREATURE)
-                            .sized(0.4F, 0.3F)
-                            .clientTrackingRange(10)
-                            .build("kimmeridgebrachypteraeschnidium_nymph")
+            EntityType.Builder.of(KimmeridgebrachypteraeschnidiumNymph::new, MobCategory.WATER_CREATURE)
+                    .sized(0.4F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build("kimmeridgebrachypteraeschnidium_nymph")
     );
 
-    public static final RegistryObject<EntityType<ScaumenaciaEntity>> SCAUMENACIA = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Scaumenacia>> SCAUMENACIA = ENTITY_TYPE.register(
             "scaumenacia", () ->
-                    EntityType.Builder.of(ScaumenaciaEntity::new, MobCategory.WATER_CREATURE)
-                            .sized(0.7F, 0.6F)
-                            .clientTrackingRange(10)
-                            .build("scaumenacia")
+            EntityType.Builder.of(Scaumenacia::new, MobCategory.WATER_CREATURE)
+                    .sized(0.7F, 0.6F)
+                    .clientTrackingRange(10)
+                    .build("scaumenacia")
     );
 
-    public static final RegistryObject<EntityType<StethacanthusEntity>> STETHACANTHUS = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(
             "stethacanthus", () ->
-                    EntityType.Builder.of(StethacanthusEntity::new, MobCategory.WATER_CREATURE)
-                            .sized(0.7F, 0.7F)
-                            .clientTrackingRange(10)
-                            .build("stethacanthus")
+            EntityType.Builder.of(Stethacanthus::new, MobCategory.WATER_CREATURE)
+                    .sized(0.7F, 0.7F)
+                    .clientTrackingRange(10)
+                    .build("stethacanthus")
     );
 
-    public static final RegistryObject<EntityType<UnicornEntity>> UNICORN = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<Unicorn>> UNICORN = ENTITY_TYPE.register(
             "unicorn", () ->
-                    EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE)
-                            .sized(1.2F, 3.0F)
-                            .clientTrackingRange(10)
-                            .build("unicorn")
+            EntityType.Builder.of(Unicorn::new, MobCategory.CREATURE)
+                    .sized(1.2F, 3.0F)
+                    .clientTrackingRange(10)
+                    .build("unicorn")
     );
 }

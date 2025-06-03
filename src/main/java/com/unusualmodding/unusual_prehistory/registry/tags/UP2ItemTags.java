@@ -28,6 +28,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> DUNKLEOSTEUS_FOOD = modItemTag("dunkleosteus_food");
     public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");
 
+    public static final TagKey<Item> KENTROSAURUS_FOOD = modItemTag("kentrosaurus_food");
+
     public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
 

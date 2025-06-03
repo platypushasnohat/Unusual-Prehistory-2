@@ -36,9 +36,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class UnicornEntity extends AncientEntity {
+public class Unicorn extends AncientEntity {
 
-    private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(UnicornEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(Unicorn.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
 
     public final AnimationState walkAnimationState = new AnimationState();
@@ -50,7 +50,7 @@ public class UnicornEntity extends AncientEntity {
         return new GroundPathNavigation(this, level);
     }
 
-    public UnicornEntity(EntityType<? extends AncientEntity> entityType, Level level) {
+    public Unicorn(EntityType<? extends AncientEntity> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.0F);
     }

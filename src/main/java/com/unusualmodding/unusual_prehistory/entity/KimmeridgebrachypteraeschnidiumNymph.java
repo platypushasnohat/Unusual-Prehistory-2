@@ -31,10 +31,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
+public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob {
 
-    public static final EntityDataAccessor<Integer> LOOKOUT_COOLDOWN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymphEntity.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> LOOKOUT_TIMER = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymphEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> LOOKOUT_COOLDOWN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> LOOKOUT_TIMER = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.INT);
 
     @VisibleForTesting
     public static int ticksToBeDragonfly = Math.abs(-24000);
@@ -44,7 +44,7 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState lookoutAnimationState = new AnimationState();
 
-    public KimmeridgebrachypteraeschnidiumNymphEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    public KimmeridgebrachypteraeschnidiumNymph(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -176,7 +176,7 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
     private void ageUp() {
         Level level = this.level();
         if (level instanceof ServerLevel serverLevel) {
-            KimmeridgebrachypteraeschnidiumEntity dragonfly = UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get().create(this.level());
+            Kimmeridgebrachypteraeschnidium dragonfly = UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get().create(this.level());
             if (dragonfly != null) {
                 dragonfly.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
                 dragonfly.finalizeSpawn(serverLevel, this.level().getCurrentDifficultyAt(dragonfly.blockPosition()), MobSpawnType.CONVERSION, null, null);
@@ -223,9 +223,9 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
     // goals
     private static class NymphLookoutGoal extends Goal {
 
-        KimmeridgebrachypteraeschnidiumNymphEntity nymph;
+        KimmeridgebrachypteraeschnidiumNymph nymph;
 
-        public NymphLookoutGoal(KimmeridgebrachypteraeschnidiumNymphEntity nymph) {
+        public NymphLookoutGoal(KimmeridgebrachypteraeschnidiumNymph nymph) {
             this.nymph = nymph;
         }
 
@@ -259,11 +259,11 @@ public class KimmeridgebrachypteraeschnidiumNymphEntity extends PathfinderMob {
 
     private static class NymphFindWaterGoal extends Goal {
 
-        private final KimmeridgebrachypteraeschnidiumNymphEntity nymph;
+        private final KimmeridgebrachypteraeschnidiumNymph nymph;
         private BlockPos targetPos;
         private final int executionChance = 30;
 
-        public NymphFindWaterGoal(KimmeridgebrachypteraeschnidiumNymphEntity creature) {
+        public NymphFindWaterGoal(KimmeridgebrachypteraeschnidiumNymph creature) {
             this.nymph = creature;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }

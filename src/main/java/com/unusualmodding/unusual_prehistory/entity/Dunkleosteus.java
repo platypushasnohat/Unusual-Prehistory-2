@@ -46,14 +46,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Objects;
-import java.util.function.Predicate;
 
-public class DunkleosteusEntity extends AncientAquaticEntity {
+public class Dunkleosteus extends AncientAquaticEntity {
 
-    private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> YAWN_COOLDOWN = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> YAWN_TIMER = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> YAWN_COOLDOWN = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> YAWN_TIMER = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
@@ -67,7 +66,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
 
-    public DunkleosteusEntity(EntityType<? extends AncientAquaticEntity> entityType, Level level) {
+    public Dunkleosteus(EntityType<? extends AncientAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 4, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 2);
@@ -349,7 +348,7 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        DunkleosteusEntity dunkleosteus = UP2Entities.DUNKLEOSTEUS.get().create(serverLevel);
+        Dunkleosteus dunkleosteus = UP2Entities.DUNKLEOSTEUS.get().create(serverLevel);
         dunkleosteus.setDunkSize(this.getDunkSize());
         return dunkleosteus;
     }
@@ -357,9 +356,9 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
     // goals
     private static class DunkleosteusAttackGoal extends Goal {
         private int animTime = 0;
-        DunkleosteusEntity dunkleosteus;
+        Dunkleosteus dunkleosteus;
 
-        public DunkleosteusAttackGoal(DunkleosteusEntity dunkleosteus) {
+        public DunkleosteusAttackGoal(Dunkleosteus dunkleosteus) {
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
             this.dunkleosteus = dunkleosteus;
         }
@@ -415,12 +414,12 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     private class DunkleosteusFleeGoal extends LargePanicGoal {
         public DunkleosteusFleeGoal() {
-            super(DunkleosteusEntity.this, 2.0D);
+            super(Dunkleosteus.this, 2.0D);
         }
 
         @Override
         protected boolean shouldPanic() {
-            return this.mob.getLastHurtByMob() != null && (DunkleosteusEntity.this.getDunkSize() == 0 || DunkleosteusEntity.this.isBaby());
+            return this.mob.getLastHurtByMob() != null && (Dunkleosteus.this.getDunkSize() == 0 || Dunkleosteus.this.isBaby());
         }
 
         @Override
@@ -441,10 +440,10 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
         private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
-        DunkleosteusEntity dunkleosteus;
+        Dunkleosteus dunkleosteus;
         private int timestamp;
 
-        public DunkleosteusHurtByTargetGoal(DunkleosteusEntity dunkleosteus) {
+        public DunkleosteusHurtByTargetGoal(Dunkleosteus dunkleosteus) {
             super(dunkleosteus, true);
             this.dunkleosteus = dunkleosteus;
             this.setFlags(EnumSet.of(Flag.TARGET));
@@ -477,12 +476,12 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     private static class DunkleosteusNearestAttackableTargetGoal extends TargetGoal {
 
-        DunkleosteusEntity dunkleosteus;
+        Dunkleosteus dunkleosteus;
         protected final int randomInterval;
         @Nullable
         protected LivingEntity target;
 
-        public DunkleosteusNearestAttackableTargetGoal(DunkleosteusEntity dunkleosteus) {
+        public DunkleosteusNearestAttackableTargetGoal(Dunkleosteus dunkleosteus) {
             super(dunkleosteus, true, true);
             this.dunkleosteus = dunkleosteus;
             this.randomInterval = reducedTickDelay(300);
@@ -514,9 +513,9 @@ public class DunkleosteusEntity extends AncientAquaticEntity {
 
     private static class DunkleosteusYawnGoal extends Goal {
 
-        DunkleosteusEntity dunkleosteus;
+        Dunkleosteus dunkleosteus;
 
-        public DunkleosteusYawnGoal(DunkleosteusEntity dunkleosteus) {
+        public DunkleosteusYawnGoal(Dunkleosteus dunkleosteus) {
             this.dunkleosteus = dunkleosteus;
         }
 

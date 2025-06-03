@@ -12,13 +12,14 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(UP2Entities.DIPLOCAULUS.get(), DiplocaulusEntity.createAttributes().build());
-        event.put(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusEntity.createAttributes().build());
-        event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFishEntity.createAttributes().build());
-        event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumEntity.createAttributes().build());
-        event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphEntity.createAttributes().build());
-        event.put(UP2Entities.SCAUMENACIA.get(), ScaumenaciaEntity.createAttributes().build());
-        event.put(UP2Entities.STETHACANTHUS.get(), StethacanthusEntity.createAttributes().build());
-        event.put(UP2Entities.UNICORN.get(), UnicornEntity.createAttributes().build());
+        event.put(UP2Entities.DIPLOCAULUS.get(), Diplocaulus.createAttributes().build());
+        event.put(UP2Entities.DUNKLEOSTEUS.get(), Dunkleosteus.createAttributes().build());
+        event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFish.createAttributes().build());
+        event.put(UP2Entities.KENTROSAURUS.get(), Kentrosaurus.createAttributes().build());
+        event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), Kimmeridgebrachypteraeschnidium.createAttributes().build());
+        event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
+        event.put(UP2Entities.SCAUMENACIA.get(), Scaumenacia.createAttributes().build());
+        event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
+        event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
     }
 }

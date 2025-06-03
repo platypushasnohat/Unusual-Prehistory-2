@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.JawlessFishAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.unusualmodding.unusual_prehistory.entity.JawlessFishEntity;
+import com.unusualmodding.unusual_prehistory.entity.JawlessFish;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class CephalaspisModel<T extends JawlessFishEntity> extends UP2Model<T> {
+public class CephalaspisModel<T extends JawlessFish> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -51,7 +51,7 @@ public class CephalaspisModel<T extends JawlessFishEntity> extends UP2Model<T> {
 	}
 
 	@Override
-	public void setupAnim(JawlessFishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(JawlessFish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, JawlessFishAnimations.SWIM, ageInTicks, limbSwingAmount * 3.0F);

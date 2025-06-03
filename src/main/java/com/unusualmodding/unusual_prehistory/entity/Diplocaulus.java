@@ -36,11 +36,11 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class DiplocaulusEntity extends AncientEntity {
+ public class Diplocaulus extends AncientEntity {
 
-     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
-     public static final EntityDataAccessor<Integer> QUIRK_COOLDOWN = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
-     public static final EntityDataAccessor<Integer> QUIRK_TIMER = SynchedEntityData.defineId(DiplocaulusEntity.class, EntityDataSerializers.INT);
+     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
+     public static final EntityDataAccessor<Integer> QUIRK_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
+     public static final EntityDataAccessor<Integer> QUIRK_TIMER = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
 
      public boolean isLandNavigator;
 
@@ -51,7 +51,7 @@
      public final AnimationState burrowHoldAnimationState = new AnimationState();
      public final AnimationState quirkAnimationState = new AnimationState();
 
-     public DiplocaulusEntity(EntityType<? extends AncientEntity> entityType, Level level) {
+     public Diplocaulus(EntityType<? extends AncientEntity> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -151,8 +151,8 @@
      public void readAdditionalSaveData(CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
          this.setVariant(compoundTag.getInt("Variant"));
-         this.setQuirkCooldown(compoundTag.getInt("LookoutCooldown"));
-         this.setQuirkTimer(compoundTag.getInt("LookoutTimer"));
+         this.setQuirkCooldown(compoundTag.getInt("QuirkCooldown"));
+         this.setQuirkTimer(compoundTag.getInt("QuirkTimer"));
      }
 
      public int getQuirkTimer() {
@@ -200,7 +200,7 @@
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-         DiplocaulusEntity diplo = UP2Entities.DIPLOCAULUS.get().create(serverLevel);
+         Diplocaulus diplo = UP2Entities.DIPLOCAULUS.get().create(serverLevel);
          diplo.setVariant(this.getVariant());
          return diplo;
      }
@@ -232,9 +232,9 @@
      // goals
      private static class DiplocaulusRandomStrollGoal extends RandomStrollGoal{
 
-         private final DiplocaulusEntity diplocaulus;
+         private final Diplocaulus diplocaulus;
 
-         public DiplocaulusRandomStrollGoal(DiplocaulusEntity diplocaulus, double speedModifier) {
+         public DiplocaulusRandomStrollGoal(Diplocaulus diplocaulus, double speedModifier) {
              super(diplocaulus, speedModifier);
              this.diplocaulus = diplocaulus;
          }
@@ -252,9 +252,9 @@
 
      private static class DiplocaulusSwimGoal extends RandomStrollGoal {
 
-         private final DiplocaulusEntity diplocaulus;
+         private final Diplocaulus diplocaulus;
 
-         public DiplocaulusSwimGoal(DiplocaulusEntity diplocaulus, double speed, int chance) {
+         public DiplocaulusSwimGoal(Diplocaulus diplocaulus, double speed, int chance) {
              super(diplocaulus, speed, chance, false);
              this.diplocaulus = diplocaulus;
          }
@@ -319,9 +319,9 @@
 
      private static class DiplocaulusQuirkGoal extends Goal {
 
-         DiplocaulusEntity diplocaulus;
+         Diplocaulus diplocaulus;
 
-         public DiplocaulusQuirkGoal(DiplocaulusEntity diplocaulus) {
+         public DiplocaulusQuirkGoal(Diplocaulus diplocaulus) {
              this.diplocaulus = diplocaulus;
          }
 

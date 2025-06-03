@@ -2,10 +2,9 @@ package com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.StethacanthusAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.animations.dunkleosteus.DunkleosteusLargeAnimations;
-import com.unusualmodding.unusual_prehistory.entity.DunkleosteusEntity;
+import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -15,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Model<T> {
+public class DunkleosteusLargeModel<T extends Dunkleosteus> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -93,7 +92,7 @@ public class DunkleosteusLargeModel<T extends DunkleosteusEntity> extends UP2Mod
 	}
 
 	@Override
-	public void setupAnim(DunkleosteusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Dunkleosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWater()) {

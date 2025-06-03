@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UP2ModelLayers {
+public class UP2EntityModelLayers {
 
     public static final ModelLayerLocation CEPHALASPIS_LAYER = main("cephalaspis");
     public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS_LAYER = main("diplocaulus_brevirostris");
@@ -19,6 +19,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM_LAYER = main("dunkleosteus_medium");
     public static final ModelLayerLocation DUNKLEOSTEUS_SMALL_LAYER = main("dunkleosteus_small");
     public static final ModelLayerLocation FURACACAUDA_LAYER = main("furacacauda");
+    public static final ModelLayerLocation KENTROSAURUS_LAYER = main("kentrosaurus");
     public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER = main("kimmeridgebrachypteraeschnidium");
     public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER = main("kimmeridgebrachypteraeschnidium_nymph");
     public static final ModelLayerLocation SACABAMBASPIS_LAYER = main("sacabambaspis");

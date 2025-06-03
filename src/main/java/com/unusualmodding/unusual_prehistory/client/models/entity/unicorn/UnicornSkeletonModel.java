@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.UnicornAnimations;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.unusualmodding.unusual_prehistory.entity.UnicornEntity;
+import com.unusualmodding.unusual_prehistory.entity.Unicorn;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class UnicornSkeletonModel<T extends UnicornEntity> extends UP2Model<T> {
+public class UnicornSkeletonModel<T extends Unicorn> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart body;
@@ -53,7 +53,7 @@ public class UnicornSkeletonModel<T extends UnicornEntity> extends UP2Model<T> {
 	}
 
 	@Override
-	public void setupAnim(UnicornEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float headYaw, float headPitch) {
+	public void setupAnim(Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float headYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		animateWalk(UnicornAnimations.WALK,limbSwing, limbSwingAmount, 4f, 8f);
 		this.animateIdle(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks, 1f, 1f - Math.abs(limbSwingAmount));

@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.items;
 
+import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -109,7 +109,7 @@ public class MobCaptureItem extends BucketItem {
                 Boolean hasPattern = compoundtag.getBoolean("HasPattern");
 
                 String base = "unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color." + base_color;
-                String patterns = "unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern." + KimmeridgebrachypteraeschnidiumEntity.getPatternName(pattern);
+                String patterns = "unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern." + Kimmeridgebrachypteraeschnidium.getPatternName(pattern);
                 String patternColor = "unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color." + pattern_color;
                 String wingColor = "unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color." + wing_color;
 

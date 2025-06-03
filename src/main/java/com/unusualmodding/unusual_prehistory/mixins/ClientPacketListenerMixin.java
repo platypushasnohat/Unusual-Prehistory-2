@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.mixins;
 
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
+import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.unusualmodding.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -15,7 +15,7 @@ public class ClientPacketListenerMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "postAddEntitySoundInstance")
     private void handleAddMob(Entity entity, CallbackInfo ci) {
-        if (entity instanceof KimmeridgebrachypteraeschnidiumEntity kimmer) {
+        if (entity instanceof Kimmeridgebrachypteraeschnidium kimmer) {
             Minecraft.getInstance().getSoundManager().queueTickingSound(new KimmeridgebrachypteraeschnidiumSoundInstance(kimmer));
         }
     }

@@ -1,10 +1,7 @@
 package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumNymphModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.ScaumenaciaModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.StethacanthusModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
@@ -12,7 +9,7 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.Di
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockProperties;
-import com.unusualmodding.unusual_prehistory.registry.UP2ModelLayers;
+import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
@@ -57,6 +54,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.DIPLOCAULUS.get(), DiplocaulusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
         event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), JawlessFishRenderer::new);
+        event.registerEntityRenderer(UP2Entities.KENTROSAURUS.get(), KentrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
@@ -66,22 +64,23 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS_LAYER, CephalaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER, DiplocaulusBrevirostrisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS_LAYER, DiplocaulusMagnicornisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_RECURVATIS_LAYER, DiplocaulusRecurvatisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_SALAMANDROIDES_LAYER, DiplocaulusSalamandroidesModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DORYASPIS_LAYER, DoryaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_LARGE_LAYER, DunkleosteusLargeModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_SMALL_LAYER, DunkleosteusSmallModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.FURACACAUDA_LAYER, FurcacaudaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER, KimmeridgebrachypteraeschnidiumNymphModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.UNICORN_LAYER, UnicornModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON_LAYER, UnicornSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.CEPHALASPIS_LAYER, CephalaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER, DiplocaulusBrevirostrisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS_LAYER, DiplocaulusMagnicornisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS_LAYER, DiplocaulusRecurvatisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES_LAYER, DiplocaulusSalamandroidesModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DORYASPIS_LAYER, DoryaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE_LAYER, DunkleosteusLargeModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL_LAYER, DunkleosteusSmallModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.FURACACAUDA_LAYER, FurcacaudaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KENTROSAURUS_LAYER, KentrosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER, KimmeridgebrachypteraeschnidiumNymphModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_LAYER, UnicornModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_SKELETON_LAYER, UnicornSkeletonModel::createBodyLayer);
     }
 }

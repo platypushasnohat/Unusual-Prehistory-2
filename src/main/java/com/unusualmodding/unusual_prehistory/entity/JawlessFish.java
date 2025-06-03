@@ -3,8 +3,8 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.ai.goal.CustomRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goal.GroundseekingRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.nbt.CompoundTag;
@@ -32,47 +32,48 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.util.stream.Stream;
+import javax.annotation.Nonnull;
 
-public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketable {
+public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ScaumenaciaEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.BOOLEAN);
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public ScaumenaciaEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
+    public JawlessFish(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.8F);
+    // Attributes
+    public static AttributeSupplier.@NotNull Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.9F);
     }
 
+    // Goals
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.SCAUMENACIA_AVOIDS)));
-        this.goalSelector.addGoal(4, new CustomRandomSwimGoal(this, 1, 1, 32, 32, 3));
-        this.goalSelector.addGoal(5, new ScaumenaciaFleeGoal());
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1, 20, 8, 12, 0.01));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
+        this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(8, new JawlessFishFleeGoal());
     }
 
-    // schooling
+    // Schooling
     public int getMaxSchoolSize() {
-        return 8;
+        return 24;
     }
 
     @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticEntity> entity) {
-        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> entity2.startFollowing(this));
+    public boolean isNoGravity() {
+        return this.isInWater();
     }
 
-    // flop
+    // Flop
     @Override
     public void aiStep() {
         super.aiStep();
@@ -84,6 +85,7 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
         }
     }
 
+    @Override
     public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), pTravelVector);
@@ -105,26 +107,45 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
     }
 
     private void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
         this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
-        return pSize.height * 0.6F;
+        return pSize.height * 0.4F;
     }
 
+    public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        ItemStack stack = new ItemStack(Items.SALMON_BUCKET);
+        if (this.hasCustomName()) {
+            stack.setHoverName(this.getCustomName());
+        }
+        return stack;
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.SCAUMENACIA_DEATH.get();
+        return UP2Sounds.JAWLESS_FISH_DEATH.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return UP2Sounds.SCAUMENACIA_HURT.get();
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+        return UP2Sounds.JAWLESS_FISH_HURT.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return UP2Sounds.SCAUMENACIA_FLOP.get();
+        return UP2Sounds.JAWLESS_FISH_FLOP.get();
     }
 
     @Override
@@ -133,16 +154,32 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
         this.entityData.define(FROM_BUCKET, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("FromBucket", this.isFromBucket());
-        compound.putBoolean("Bucketed", this.fromBucket());
+    @Override
+    public void saveToBucketTag(@Nonnull ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    @Override
+    public void loadFromBucketTag(@Nonnull CompoundTag compound) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compound);
+        if (compound.contains("BucketVariantTag", 3)) {
+            this.setVariant(compound.getInt("BucketVariantTag"));
+        }
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("FromBucket", this.fromBucket());
+    }
+
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBoolean("FromBucket"));
-        this.setFromBucket(compound.getBoolean("Bucketed"));
     }
 
     @Override
@@ -151,71 +188,44 @@ public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketa
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putFloat("Health", this.getHealth());
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
-    }
-    public boolean removeWhenFarAway(double distance) {
-        return !this.fromBucket() && !this.hasCustomName();
-    }
-
-    private boolean isFromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag tag) {
-    }
-
-    @Override
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
-    }
-
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-    }
-
-    @Override
-    public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(Items.SALMON_BUCKET);
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
-        }
-        return stack;
+    public void setFromBucket(boolean p_203706_1_) {
+        this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        ScaumenaciaEntity scaumenacia = UP2Entities.SCAUMENACIA.get().create(serverLevel);
-        scaumenacia.setVariant(this.getVariant());
-        return scaumenacia;
+        JawlessFish jawlessFish = UP2Entities.JAWLESS_FISH.get().create(serverLevel);
+        jawlessFish.setVariant(this.getVariant());
+        return jawlessFish;
     }
 
     // variants
-    public void determineVariant(int variantChange){
-        if (variantChange <= 1) {
+    public void determineVariant(int variantChange) {
+        if (variantChange <= 25) {
             this.setVariant(1);
+        } else if (variantChange <= 50) {
+            this.setVariant(2);
+        } else if (variantChange <= 75) {
+            this.setVariant(3);
         } else {
             this.setVariant(0);
         }
     }
 
+    public String getVariantName() {
+        return switch (this.getVariant()) {
+            case 1 -> "doryaspis";
+            case 2 -> "furcacauda";
+            case 3 -> "sacabambaspis";
+            default -> "cephalaspis";
+        };
+    }
+
     // goals
-    private class ScaumenaciaFleeGoal extends LargePanicGoal {
-        public ScaumenaciaFleeGoal() {
-            super(ScaumenaciaEntity.this, 2.0D);
+    private class JawlessFishFleeGoal extends LargePanicGoal {
+        public JawlessFishFleeGoal() {
+            super(JawlessFish.this, 2.0D);
         }
 
         @Override

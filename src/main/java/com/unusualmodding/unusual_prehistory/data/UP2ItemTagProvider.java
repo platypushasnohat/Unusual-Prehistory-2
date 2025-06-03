@@ -85,6 +85,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).add(Items.GOLDEN_APPLE);
 
+        this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
+                Items.MELON_SLICE,
+                Items.APPLE,
+                Items.CARROT,
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES
+        );
+
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTag(ItemTags.FISHES);
 
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).add(Items.GOLDEN_APPLE);

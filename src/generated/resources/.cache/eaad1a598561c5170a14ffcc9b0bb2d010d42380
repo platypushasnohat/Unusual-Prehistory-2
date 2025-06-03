@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-17T12:35:30.2722553	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-06-02T19:14:00.682367	Tags for minecraft:item mod id unusual_prehistory
 fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
 fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates.json
@@ -26,6 +26,7 @@ b38301b8f582f89765cee702f99155ce510f9eeb data/unusual_prehistory/tags/items/cult
 b57e082c366e3b039e464e75e8a293496bacc7ae data/unusual_prehistory/tags/items/extractor_input.json
 3bc0fce590fa88f9e602c34e79d7c6c763962895 data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
+f5d0df09be58f5595f5b00e6faa1c378da2ba2f3 data/unusual_prehistory/tags/items/kentrosaurus_food.json
 63f7c4ad65e59d36c6379208a22dfa01b16275a6 data/unusual_prehistory/tags/items/mesozoic_dna_bottles.json
 30f1477f8902716e21f1b4679f260a7373960bab data/unusual_prehistory/tags/items/organic_ooze.json
 bcd9bd0102fde93168c8184bdcbf4ce6c8bdf7ff data/unusual_prehistory/tags/items/pacifies_dunkleosteus.json

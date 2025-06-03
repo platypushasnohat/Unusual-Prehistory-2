@@ -140,38 +140,95 @@
     ],
     "subtitle": "subtitles.jawless_fish_hurt"
   },
-  "kimmeridgebrachypteraeschnidium_death": {
+  "kentrosaurus_death": {
     "sounds": [
-      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0"
+      "unusual_prehistory:entity/kentrosaurus/death1",
+      "unusual_prehistory:entity/kentrosaurus/death2"
     ],
-    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_death"
+    "subtitle": "subtitles.kentrosaurus_death"
   },
-  "kimmeridgebrachypteraeschnidium_flap": {
+  "kentrosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/kentrosaurus/hurt1",
+      "unusual_prehistory:entity/kentrosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.kentrosaurus_hurt"
+  },
+  "kentrosaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/kentrosaurus/idle1",
+      "unusual_prehistory:entity/kentrosaurus/idle2",
+      "unusual_prehistory:entity/kentrosaurus/idle3"
+    ],
+    "subtitle": "subtitles.kentrosaurus_idle"
+  },
+  "kentrosaurus_step": {
     "sounds": [
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/flap_0",
-        "volume": 0.3
+        "name": "mob/camel/step1",
+        "pitch": 1.1,
+        "volume": 0.45
+      },
+      {
+        "name": "mob/camel/step2",
+        "pitch": 1.1,
+        "volume": 0.45
+      },
+      {
+        "name": "mob/camel/step3",
+        "pitch": 1.1,
+        "volume": 0.45
+      },
+      {
+        "name": "mob/camel/step4",
+        "pitch": 1.1,
+        "volume": 0.45
+      },
+      {
+        "name": "mob/camel/step5",
+        "pitch": 1.1,
+        "volume": 0.45
+      },
+      {
+        "name": "mob/camel/step6",
+        "pitch": 1.1,
+        "volume": 0.45
       }
     ],
-    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_flap"
+    "subtitle": "subtitles.kentrosaurus_step"
+  },
+  "kimmeridgebrachypteraeschnidium_death": {
+    "sounds": [
+      "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1"
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_death"
   },
   "kimmeridgebrachypteraeschnidium_hurt": {
     "sounds": [
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt1",
         "pitch": 1.4
       },
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1",
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt2",
         "pitch": 1.4
       }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_hurt"
   },
+  "kimmeridgebrachypteraeschnidium_loop": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/loop1",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_loop"
+  },
   "kimmeridgebrachypteraeschnidium_nymph_death": {
     "sounds": [
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death_0",
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1",
         "pitch": 1.5
       }
     ],
@@ -180,11 +237,11 @@
   "kimmeridgebrachypteraeschnidium_nymph_hurt": {
     "sounds": [
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt1",
         "pitch": 2.0
       },
       {
-        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1",
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/hurt2",
         "pitch": 2.0
       }
     ],
@@ -270,22 +327,22 @@
   },
   "unicorn_death": {
     "sounds": [
-      "unusual_prehistory:entity/unicorn/death_0"
+      "unusual_prehistory:entity/unicorn/death1"
     ],
     "subtitle": "subtitles.unicorn_death"
   },
   "unicorn_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/unicorn/hurt_0"
+      "unusual_prehistory:entity/unicorn/hurt1"
     ],
     "subtitle": "subtitles.unicorn_hurt"
   },
   "unicorn_idle": {
     "sounds": [
-      "unusual_prehistory:entity/unicorn/idle_0",
-      "unusual_prehistory:entity/unicorn/idle_1",
-      "unusual_prehistory:entity/unicorn/idle_2",
-      "unusual_prehistory:entity/unicorn/idle_3"
+      "unusual_prehistory:entity/unicorn/idle1",
+      "unusual_prehistory:entity/unicorn/idle2",
+      "unusual_prehistory:entity/unicorn/idle3",
+      "unusual_prehistory:entity/unicorn/idle4"
     ],
     "subtitle": "subtitles.unicorn_idle"
   }

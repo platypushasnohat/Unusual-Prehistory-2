@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.animations.StethacanthusAnimations;
-import com.unusualmodding.unusual_prehistory.entity.StethacanthusEntity;
+import com.unusualmodding.unusual_prehistory.entity.Stethacanthus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<T> {
+public class StethacanthusModel<T extends Stethacanthus> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -73,7 +73,7 @@ public class StethacanthusModel<T extends StethacanthusEntity> extends UP2Model<
 	}
 
 	@Override
-	public void setupAnim(StethacanthusEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Stethacanthus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWater()) {

@@ -3,8 +3,8 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumEntity;
+import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumModel<T extends KimmeridgebrachypteraeschnidiumEntity> extends UP2Model<T> {
+public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypteraeschnidium> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -74,11 +74,12 @@ public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypter
 	}
 
 	@Override
-	public void setupAnim(KimmeridgebrachypteraeschnidiumEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumMovementAnimations.FLY, ageInTicks, 1f);
-		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumIdleAnimations.IDLE, ageInTicks, 1f, 1f - Math.abs(limbSwingAmount));
-		this.animateIdle(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumIdleAnimations.PREEN, ageInTicks, 1f, 1f - Math.abs(limbSwingAmount));
+		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks, 1);
+		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
+		this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1);
+		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks, 1);
 	}
 
 	@Override

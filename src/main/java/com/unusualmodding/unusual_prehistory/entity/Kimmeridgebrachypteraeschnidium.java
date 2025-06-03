@@ -44,21 +44,21 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity implements Bucketable {
+public class Kimmeridgebrachypteraeschnidium extends AncientEntity implements Bucketable {
 
     @Nullable
-    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
 
-    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> PREEN_TIMER = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PREEN_TIMER = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
 
     public final float[] ringBuffer = new float[64];
     public float prevFlyProgress;
@@ -71,7 +71,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState preenAnimationState = new AnimationState();
 
-    public KimmeridgebrachypteraeschnidiumEntity(EntityType<? extends AncientEntity> entityType, Level level) {
+    public Kimmeridgebrachypteraeschnidium(EntityType<? extends AncientEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
@@ -520,13 +520,13 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
     // goals
     private class KimmeridgebrachypteraeschnidiumFlightGoal extends Goal {
 
-        protected final KimmeridgebrachypteraeschnidiumEntity dragonfly;
+        protected final Kimmeridgebrachypteraeschnidium dragonfly;
 
         protected double x;
         protected double y;
         protected double z;
 
-        public KimmeridgebrachypteraeschnidiumFlightGoal(KimmeridgebrachypteraeschnidiumEntity dragonfly) {
+        public KimmeridgebrachypteraeschnidiumFlightGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
             this.dragonfly = dragonfly;
@@ -594,9 +594,9 @@ public class KimmeridgebrachypteraeschnidiumEntity extends AncientEntity impleme
 
     private static class KimmeridgebrachypteraeschnidiumPreenGoal extends Goal {
 
-        KimmeridgebrachypteraeschnidiumEntity dragonfly;
+        Kimmeridgebrachypteraeschnidium dragonfly;
 
-        public KimmeridgebrachypteraeschnidiumPreenGoal(KimmeridgebrachypteraeschnidiumEntity dragonfly) {
+        public KimmeridgebrachypteraeschnidiumPreenGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
             this.dragonfly = dragonfly;
         }
 

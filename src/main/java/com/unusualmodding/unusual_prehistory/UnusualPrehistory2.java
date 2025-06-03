@@ -69,7 +69,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(client, new UP2BlockstateProvider(data));
         generator.addProvider(client, new UP2ItemModelProvider(data));
         generator.addProvider(client, new UP2SoundDefinitionsProvider(output, helper));
-        generator.addProvider(client, new UP2LangProvider(data));
+        generator.addProvider(client, new UP2LanguageProvider(data));
 
         boolean server = data.includeServer();
         UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);

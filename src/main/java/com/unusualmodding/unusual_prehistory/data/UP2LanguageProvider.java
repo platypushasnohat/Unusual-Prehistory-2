@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class UP2LangProvider extends LanguageProvider {
+public class UP2LanguageProvider extends LanguageProvider {
 
-    public UP2LangProvider(GatherDataEvent event) {
+    public UP2LanguageProvider(GatherDataEvent event) {
         super(event.getGenerator().getPackOutput(), UnusualPrehistory2.MOD_ID, "en_us");
     }
 
@@ -44,9 +44,12 @@ public class UP2LangProvider extends LanguageProvider {
         UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
 
         // entities
+        forEntity(UP2Entities.DIPLOCAULUS);
         forEntity(UP2Entities.DUNKLEOSTEUS);
         forEntity(UP2Entities.JAWLESS_FISH);
+        forEntity(UP2Entities.KENTROSAURUS);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
+        forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
         forEntity(UP2Entities.SCAUMENACIA);
         forEntity(UP2Entities.STETHACANTHUS);
         forEntity(UP2Entities.UNICORN);
@@ -95,9 +98,14 @@ public class UP2LangProvider extends LanguageProvider {
         sound(UP2Sounds.JAWLESS_FISH_DEATH, "Jawless Fish dies");
         sound(UP2Sounds.JAWLESS_FISH_FLOP, "Jawless Fish flops");
 
+        sound(UP2Sounds.KENTROSAURUS_HURT, "Kentrosaurus hurts");
+        sound(UP2Sounds.KENTROSAURUS_DEATH, "Kentrosaurus dies");
+        sound(UP2Sounds.KENTROSAURUS_IDLE, "Kentrosaurus groans");
+        sound(UP2Sounds.KENTROSAURUS_STEP, "Footsteps");
+
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
+        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
 
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
