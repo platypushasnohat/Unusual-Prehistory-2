@@ -72,18 +72,6 @@ public class Scaumenacia extends SchoolingAquaticEntity implements Bucketable {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> entity2.startFollowing(this));
     }
 
-    // flop
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-    }
-
     public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), pTravelVector);
@@ -100,6 +88,12 @@ public class Scaumenacia extends SchoolingAquaticEntity implements Bucketable {
     public void tick () {
         if (this.level().isClientSide()){
             this.setupAnimationStates();
+        }
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
         super.tick();
     }

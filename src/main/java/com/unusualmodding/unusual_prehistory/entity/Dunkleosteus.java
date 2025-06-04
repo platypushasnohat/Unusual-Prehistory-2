@@ -82,7 +82,7 @@ public class Dunkleosteus extends AncientAquaticEntity {
         this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 10, 70, 70, 3));
         this.goalSelector.addGoal(4, new DunkleosteusYawnGoal(this));
         this.goalSelector.addGoal(5, new DunkleosteusFleeGoal());
-        this.goalSelector.addGoal(7, new AquaticLeapGoal(this, 20));
+        this.goalSelector.addGoal(6, new AquaticLeapGoal(this, 20));
         this.targetSelector.addGoal(6, new DunkleosteusNearestAttackableTargetGoal(this));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
         this.targetSelector.addGoal(8, new DunkleosteusHurtByTargetGoal(this));
@@ -99,18 +99,6 @@ public class Dunkleosteus extends AncientAquaticEntity {
         } else {
             super.travel(pTravelVector);
         }
-    }
-
-    // flop
-    @Override
-    public void aiStep() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-        super.aiStep();
     }
 
     @Override
@@ -136,6 +124,13 @@ public class Dunkleosteus extends AncientAquaticEntity {
             if (this.getYawnTimer() == 0) {
                 this.yawnCooldown();
             }
+        }
+
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
 
         prevTilt = tilt;

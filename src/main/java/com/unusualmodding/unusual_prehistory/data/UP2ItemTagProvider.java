@@ -28,6 +28,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // unusual prehistory
         this.tag(UP2ItemTags.FOSSILS).add(
+                PALEOZOIC_FOSSIL.get(),
+                MESOZOIC_FOSSIL.get(),
                 FROZEN_MEAT.get()
         );
 
@@ -46,6 +48,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).add(
+                CARNOTAURUS_DNA.get(),
                 KENTROSAURUS_DNA.get(),
                 KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(),
                 MAJUNGASAURUS_DNA.get()

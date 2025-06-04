@@ -57,10 +57,10 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1, 20, 8, 12, 0.01));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
-        this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(8, new JawlessFishFleeGoal());
+        this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1, 20, 8, 12, 0.01));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(4, new JawlessFishFleeGoal());
     }
 
     // Schooling
@@ -71,18 +71,6 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
     @Override
     public boolean isNoGravity() {
         return this.isInWater();
-    }
-
-    // Flop
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
     }
 
     @Override
@@ -102,6 +90,12 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
     public void tick () {
         if (this.level().isClientSide()){
             this.setupAnimationStates();
+        }
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
         super.tick();
     }

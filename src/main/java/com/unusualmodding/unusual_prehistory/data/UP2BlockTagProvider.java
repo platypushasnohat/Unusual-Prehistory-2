@@ -35,6 +35,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                DEEPSLATE_FOSSIL.get(),
+                FOSSIL.get(),
                 PETRIFIED_ANOSTYLOSTROMA.get(),
                 CLATHRODICTYON_CORAL_BLOCK.get(),
                 DEAD_CLATHRODICTYON_CORAL.get(),

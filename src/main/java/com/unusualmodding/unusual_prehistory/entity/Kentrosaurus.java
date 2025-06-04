@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehavior;
+import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
@@ -53,8 +53,6 @@ public class Kentrosaurus extends Animal {
     public static final EntityDataAccessor<Integer> GRAZING_TIMER = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
 
-    private int idleAnimationTimeout = 0;
-
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
@@ -62,6 +60,8 @@ public class Kentrosaurus extends Animal {
     public final AnimationState layDownAnimationState = new AnimationState();
     public final AnimationState layDownIdleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
+
+    private int idleAnimationTimeout = 0;
 
     public Kentrosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -100,7 +100,7 @@ public class Kentrosaurus extends Animal {
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * 0.48F;
+        return size.height * 0.65F;
     }
 
     @Override
@@ -157,14 +157,14 @@ public class Kentrosaurus extends Animal {
         }
 
         if (this.getGrazingCooldown() > 0) {
-            if (this.getBehavior().equals(KentrosaurusBehavior.GRAZE.getName())) this.setBehavior(KentrosaurusBehavior.IDLE.getName());
+            if (this.getBehavior().equals(KentrosaurusBehaviors.GRAZE.getName())) this.setBehavior(KentrosaurusBehaviors.IDLE.getName());
             this.setGrazingCooldown(this.getGrazingCooldown() - 1);
         }
         if (this.getGrazingTimer() > 0) {
             this.setGrazingTimer(this.getGrazingTimer() - 1);
             if (this.getGrazingTimer() == 0) {
                 this.setPose(Pose.STANDING);
-                this.setBehavior(KentrosaurusBehavior.IDLE.getName());
+                this.setBehavior(KentrosaurusBehaviors.IDLE.getName());
                 this.grazingCooldown();
             }
         }
@@ -192,6 +192,7 @@ public class Kentrosaurus extends Animal {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
+            this.grazeAnimationState.stop();
 
             if (this.isVisuallyLayingDown()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
@@ -209,7 +210,7 @@ public class Kentrosaurus extends Animal {
 
     @Override
     public EntityDimensions getDimensions(Pose pose) {
-        return (pose == UP2Poses.LAYING_DOWN.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == UP2Poses.RESTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -262,7 +263,7 @@ public class Kentrosaurus extends Animal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
-        this.entityData.define(BEHAVIOR, KentrosaurusBehavior.IDLE.getName());
+        this.entityData.define(BEHAVIOR, KentrosaurusBehaviors.IDLE.getName());
         this.entityData.define(LAY_DOWN_COOLDOWN, 12 * 20 + random.nextInt(30 * 20));
         this.entityData.define(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
         this.entityData.define(GRAZING_TIMER, 0);
@@ -289,13 +290,14 @@ public class Kentrosaurus extends Animal {
         this.setBehavior(compoundTag.getString("Behavior"));
         this.setAttackState(compoundTag.getInt("AttackState"));
         long l = compoundTag.getLong("LastPoseTick");
-        if (l < 0L) this.setPose(UP2Poses.LAYING_DOWN.get());
+        if (l < 0L) this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(l);
     }
 
     public String getBehavior() {
         return this.entityData.get(BEHAVIOR);
     }
+
     public void setBehavior(String behavior) {
         this.entityData.set(BEHAVIOR, behavior);
     }
@@ -303,9 +305,11 @@ public class Kentrosaurus extends Animal {
     public int getLayDownCooldown() {
         return this.entityData.get(LAY_DOWN_COOLDOWN);
     }
+
     public void setLayDownCooldown(int cooldown) {
         this.entityData.set(LAY_DOWN_COOLDOWN, cooldown);
     }
+
     public void layDownCooldown() {
         this.entityData.set(LAY_DOWN_COOLDOWN, 30 * 20 + random.nextInt(60 * 2 * 20));
     }
@@ -317,6 +321,7 @@ public class Kentrosaurus extends Animal {
     public int getGrazingTimer() {
         return this.entityData.get(GRAZING_TIMER);
     }
+
     public void setGrazingTimer(int timer) {
         this.entityData.set(GRAZING_TIMER, timer);
     }
@@ -324,9 +329,11 @@ public class Kentrosaurus extends Animal {
     public int getGrazingCooldown() {
         return this.entityData.get(GRAZING_COOLDOWN);
     }
+
     public void setGrazingCooldown(int cooldown) {
         this.entityData.set(GRAZING_COOLDOWN, cooldown);
     }
+
     public void grazingCooldown() {
         this.entityData.set(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
     }
@@ -352,12 +359,12 @@ public class Kentrosaurus extends Animal {
     }
 
     private boolean isVisuallyLayingDown() {
-        return this.isKentrosaurusLayingDown() && this.getPoseTime() < 40L && this.getPoseTime() >= 0L;
+        return this.isKentrosaurusLayingDown() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
     }
 
     public void layDown() {
         if (this.isKentrosaurusLayingDown()) return;
-        this.setPose(UP2Poses.LAYING_DOWN.get());
+        this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
@@ -555,7 +562,7 @@ public class Kentrosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(KentrosaurusBehavior.IDLE.getName());
+            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(KentrosaurusBehaviors.IDLE.getName());
         }
 
         @Override
@@ -578,16 +585,16 @@ public class Kentrosaurus extends Animal {
     private static class KentrosaurusGrazeGoal extends Goal {
 
         protected final Kentrosaurus kentrosaurus;
-        protected final KentrosaurusBehavior behavior;
+        protected final KentrosaurusBehaviors behavior;
 
         public KentrosaurusGrazeGoal(Kentrosaurus kentrosaurus) {
             this.kentrosaurus = kentrosaurus;
-            this.behavior = KentrosaurusBehavior.GRAZE;
+            this.behavior = KentrosaurusBehaviors.GRAZE;
         }
 
         @Override
         public boolean canUse() {
-            return this.kentrosaurus.getGrazingCooldown() == 0 && this.kentrosaurus.getBehavior().equals(KentrosaurusBehavior.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
+            return this.kentrosaurus.getGrazingCooldown() == 0 && this.kentrosaurus.getBehavior().equals(KentrosaurusBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
         }
 
         @Override

@@ -17,7 +17,6 @@ import java.util.List;
 
 @Mixin(Pose.class)
 public class PoseMixin {
-
     @Shadow
     @Mutable
     @Final

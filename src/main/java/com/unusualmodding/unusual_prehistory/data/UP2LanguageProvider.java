@@ -55,6 +55,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         forEntity(UP2Entities.UNICORN);
 
         // creature dna
+        dnaItem(UP2Items.CARNOTAURUS_DNA.get());
         dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
         dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
         dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
@@ -84,7 +85,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         dnaItem(UP2Items.SARRACENIA_DNA.get());
 
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
+        addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
         addItem(UP2Items.SCAUMENACIA_BUCKET, "Bucket of Scaumenacia");
+        addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
 
         // sounds
         sound(UP2Sounds.DIPLOCAULUS_HURT, "Diplocaulus hurts");

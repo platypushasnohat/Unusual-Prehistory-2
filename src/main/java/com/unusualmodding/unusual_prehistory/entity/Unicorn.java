@@ -42,7 +42,6 @@ public class Unicorn extends AncientEntity {
     private UUID lastLightningBoltUUID;
 
     public final AnimationState walkAnimationState = new AnimationState();
-    public final AnimationState runAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
 
     @Override

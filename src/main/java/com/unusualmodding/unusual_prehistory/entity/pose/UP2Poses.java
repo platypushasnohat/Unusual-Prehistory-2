@@ -4,8 +4,8 @@ import net.minecraft.world.entity.Pose;
 
 public enum UP2Poses {
 
-    LAYING_DOWN,
-    GRAZING;
+    GRAZING,
+    RESTING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

@@ -26,6 +26,8 @@ public class UP2Items {
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
     // fossils
+    public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MESOZOIC_FOSSIL = registerItem("mesozoic_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FROZEN_MEAT = registerItem("frozen_meat", () -> new FrozenMeatItem(registerFoodValue(UP2FoodValues.FROZEN_MEAT)));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
@@ -34,7 +36,9 @@ public class UP2Items {
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new MobCaptureItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM::get, Fluids.EMPTY, Items.GLASS_BOTTLE, SoundEvents.BOTTLE_FILL_DRAGONBREATH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new MobBucketItem(UP2Entities.JAWLESS_FISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCAUMENACIA_BUCKET = registerItemNoLang("scaumenacia_bucket", () -> new MobBucketItem(UP2Entities.SCAUMENACIA, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new MobBucketItem(UP2Entities.STETHACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     // paleo dna
     public static final RegistryObject<Item> DIPLOCAULUS_DNA = registerDnaItem("diplocaulus");
@@ -44,6 +48,7 @@ public class UP2Items {
     public static final RegistryObject<Item> STETHACANTHUS_DNA = registerDnaItem("stethacanthus");
 
     // meso dna
+    public static final RegistryObject<Item> CARNOTAURUS_DNA = registerDnaItem("carnotaurus");
     public static final RegistryObject<Item> KENTROSAURUS_DNA = registerDnaItem("kentrosaurus");
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA = registerDnaItem("kimmeridgebrachypteraeschnidium");
     public static final RegistryObject<Item> MAJUNGASAURUS_DNA = registerDnaItem("majungasaurus");

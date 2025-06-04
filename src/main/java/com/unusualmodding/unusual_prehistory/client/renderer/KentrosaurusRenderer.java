@@ -1,6 +1,5 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.KentrosaurusModel;
 import com.unusualmodding.unusual_prehistory.entity.Kentrosaurus;
@@ -20,12 +19,6 @@ public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, Kentrosaurus
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new KentrosaurusModel<>(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS_LAYER)), 0.9F);
-    }
-
-    @Override
-    protected void scale(Kentrosaurus entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
-        else super.scale(entity, matrices, amount);
     }
 
     @Override

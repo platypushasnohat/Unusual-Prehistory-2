@@ -28,7 +28,11 @@ public class UP2CreativeTabs {
                             }
                         });
 
+                        tabOutput.accept(PALEOZOIC_FOSSIL.get());
+                        tabOutput.accept(MESOZOIC_FOSSIL.get());
                         tabOutput.accept(FROZEN_MEAT.get());
+                        tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
+                        tabOutput.accept(UP2Blocks.FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
 
                         tabOutput.accept(ORGANIC_OOZE.get());
@@ -38,7 +42,9 @@ public class UP2CreativeTabs {
                         tabOutput.accept(GINKGO_FRUIT.get());
 
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        tabOutput.accept(JAWLESS_FISH_BUCKET.get());
                         tabOutput.accept(SCAUMENACIA_BUCKET.get());
+                        tabOutput.accept(STETHACANTHUS_BUCKET.get());
 
                         // paleo dna
                         tabOutput.accept(DIPLOCAULUS_DNA.get());
@@ -48,6 +54,7 @@ public class UP2CreativeTabs {
                         tabOutput.accept(STETHACANTHUS_DNA.get());
 
                         // meso dna
+                        tabOutput.accept(CARNOTAURUS_DNA.get());
                         tabOutput.accept(KENTROSAURUS_DNA.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
                         tabOutput.accept(MAJUNGASAURUS_DNA.get());

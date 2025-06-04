@@ -1,29 +1,26 @@
-modLoader="javafml"
-loaderVersion="[43,)"
-license="MIT"
-issueTrackerURL = "https://github.com/PlatypusOfHats/Unusual-Prehistory-2/issues"
+modLoader = "javafml"
+loaderVersion = "[39,)"
+license = "MIT"
 
 [[mods]]
-    modId = "unusual_prehistory"
-    version = "1.0.0"
-    logoFile = "logo.png"
-    itemIcon = "minecraft:bone"
-    configBackground = "minecraft:textures/block/dark_oak_planks.png"
-    authors = "Unusual Modding"
-    displayURL = "https://github.com/PlatypusOfHats/Unusual-Prehistory-2"
-    displayName = "Unusual Prehistory 2"
-    description = '''A sequel to the Unusual Prehistory mod.'''
+modId = "unusual_prehistory"
+version = "1.0"
+logoFile = "unusual_prehistory.png"
+authors = "Unusual Modding"
+displayName = "Unusual Prehistory 2"
+description = '''
+A Mod that allows you to revive creatures from the ancient past!'''
 
 [[dependencies.unusual_prehistory]]
-    modId = "minecraft"
-    mandatory = true
-    versionRange = "[1.20.1,1.20.2)"
-    ordering = "NONE"
-    side = "BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[39,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.unusual_prehistory]]
-    modId = "forge"
-    mandatory = true
-    versionRange = "[47.1.3,)"
-    ordering = "NONE"
-    side = "BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20,1.21]"
+ordering = "NONE"
+side = "BOTH"

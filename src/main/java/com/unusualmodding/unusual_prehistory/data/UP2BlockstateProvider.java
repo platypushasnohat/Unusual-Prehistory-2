@@ -25,6 +25,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
+        this.cubeAllBlock(DEEPSLATE_FOSSIL);
+        this.cubeAllBlock(FOSSIL);
         this.pillar(FROZEN_MEAT_BLOCK);
 
         this.simpleCross(ARCHAEFRUCTUS);
