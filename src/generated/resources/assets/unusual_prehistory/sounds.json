@@ -264,6 +264,49 @@
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_hurt"
   },
+  "megalania_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/megalania/death1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/death2",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.megalania_death"
+  },
+  "megalania_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/megalania/hurt1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/hurt2",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.megalania_hurt"
+  },
+  "megalania_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/megalania/idle1",
+        "pitch": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/idle2",
+        "pitch": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/idle3",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.megalania_idle"
+  },
   "scaumenacia_death": {
     "sounds": [
       "entity/fish/hurt1",

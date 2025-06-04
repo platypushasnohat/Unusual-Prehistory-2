@@ -18,6 +18,7 @@ public class CommonEvents {
         event.put(UP2Entities.KENTROSAURUS.get(), Kentrosaurus.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), Kimmeridgebrachypteraeschnidium.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
+        event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.SCAUMENACIA.get(), Scaumenacia.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());

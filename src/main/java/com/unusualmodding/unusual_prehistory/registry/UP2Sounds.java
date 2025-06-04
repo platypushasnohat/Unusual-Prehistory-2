@@ -38,6 +38,10 @@ public class UP2Sounds {
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_hurt");
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_death");
 
+    public static final RegistryObject<SoundEvent> MEGALANIA_HURT = registerSoundEvent("megalania_hurt");
+    public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");
+    public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
+
     public static final RegistryObject<SoundEvent> SCAUMENACIA_HURT = registerSoundEvent("scaumenacia_hurt");
     public static final RegistryObject<SoundEvent> SCAUMENACIA_DEATH = registerSoundEvent("scaumenacia_death");
     public static final RegistryObject<SoundEvent> SCAUMENACIA_FLOP = registerSoundEvent("scaumenacia_flop");

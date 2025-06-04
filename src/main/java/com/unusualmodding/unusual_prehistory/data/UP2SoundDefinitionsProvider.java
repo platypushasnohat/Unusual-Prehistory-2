@@ -122,6 +122,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5f)
         );
 
+        this.sound(UP2Sounds.MEGALANIA_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt1")).pitch(0.9f),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt2")).pitch(0.9f)
+        );
+        this.sound(UP2Sounds.MEGALANIA_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/death1")).pitch(0.9f),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/death2")).pitch(0.9f)
+        );
+        this.sound(UP2Sounds.MEGALANIA_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle1")).pitch(0.8f),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle2")).pitch(0.8f),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle3")).pitch(0.8f)
+        );
+
         this.sound(UP2Sounds.SCAUMENACIA_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),

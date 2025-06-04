@@ -22,6 +22,7 @@ public class UP2EntityModelLayers {
     public static final ModelLayerLocation KENTROSAURUS_LAYER = main("kentrosaurus");
     public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER = main("kimmeridgebrachypteraeschnidium");
     public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER = main("kimmeridgebrachypteraeschnidium_nymph");
+    public static final ModelLayerLocation MEGALANIA_LAYER = main("megalania");
     public static final ModelLayerLocation SACABAMBASPIS_LAYER = main("sacabambaspis");
     public static final ModelLayerLocation SCAMENACIA_LAYER = main("scaumenacia");
     public static final ModelLayerLocation STETHACANTHUS_LAYER = main("stethacanthus");

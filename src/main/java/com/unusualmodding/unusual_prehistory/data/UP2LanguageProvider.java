@@ -50,6 +50,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         forEntity(UP2Entities.KENTROSAURUS);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
+        forEntity(UP2Entities.MEGALANIA);
         forEntity(UP2Entities.SCAUMENACIA);
         forEntity(UP2Entities.STETHACANTHUS);
         forEntity(UP2Entities.UNICORN);
@@ -114,6 +115,10 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
         sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
+
+        sound(UP2Sounds.MEGALANIA_HURT, "Megalania hurts");
+        sound(UP2Sounds.MEGALANIA_DEATH, "Megalania dies");
+        sound(UP2Sounds.MEGALANIA_IDLE, "Megalania hisses");
 
         sound(UP2Sounds.SCAUMENACIA_HURT, "Scaumenacia hurts");
         sound(UP2Sounds.SCAUMENACIA_DEATH, "Scaumenacia dies");

@@ -61,6 +61,14 @@ public class UP2Entities {
                     .build("kimmeridgebrachypteraeschnidium_nymph")
     );
 
+    public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
+            "megalania", () ->
+                    EntityType.Builder.of(Megalania::new, MobCategory.CREATURE)
+                            .sized(2.0F, 1.5F)
+                            .clientTrackingRange(10)
+                            .build("megalania")
+    );
+
     public static final RegistryObject<EntityType<Scaumenacia>> SCAUMENACIA = ENTITY_TYPE.register(
             "scaumenacia", () ->
             EntityType.Builder.of(Scaumenacia::new, MobCategory.WATER_CREATURE)

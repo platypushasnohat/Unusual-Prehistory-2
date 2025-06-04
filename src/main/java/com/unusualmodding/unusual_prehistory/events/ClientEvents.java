@@ -57,6 +57,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.KENTROSAURUS.get(), KentrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphRenderer::new);
+        event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
@@ -77,6 +78,7 @@ public class ClientEvents {
         event.registerLayerDefinition(UP2EntityModelLayers.KENTROSAURUS_LAYER, KentrosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER, KimmeridgebrachypteraeschnidiumNymphModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.MEGALANIA_LAYER, MegalaniaModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
