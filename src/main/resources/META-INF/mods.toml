@@ -1,26 +1,27 @@
 modLoader = "javafml"
-loaderVersion = "[39,)"
+loaderVersion = "[32,)"
 license = "MIT"
 
 [[mods]]
-modId = "unusual_prehistory"
-version = "1.0"
-logoFile = "unusual_prehistory.png"
-authors = "Unusual Modding"
-displayName = "Unusual Prehistory 2"
-description = '''
-A Mod that allows you to revive creatures from the ancient past!'''
+    modId = "unusual_prehistory"
+    version = "${file.jarVersion}"
+    logoFile = "unusual_prehistory.png"
+    authors = "Unusual Modding"
+    displayName = "Unusual Prehistory 2"
+    description = '''
+    Revive creatures from the ancient past!
+    '''
 
 [[dependencies.unusual_prehistory]]
-modId = "forge"
-mandatory = true
-versionRange = "[39,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.20.1,1.20.2)"
+    ordering = "AFTER"
+    side = "BOTH"
 
 [[dependencies.unusual_prehistory]]
-modId = "minecraft"
-mandatory = true
-versionRange = "[1.20,1.21]"
-ordering = "NONE"
-side = "BOTH"
+    modId = "forge"
+    mandatory = true
+    versionRange = "[47.1.3,)"
+    ordering = "AFTER"
+    side = "BOTH"
