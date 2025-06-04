@@ -18,7 +18,6 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 	private final ModelPart root;
 	private final ModelPart body_main;
 	private final ModelPart body;
-	private final ModelPart head_overlay;
 	private final ModelPart head;
 	private final ModelPart leg_control;
 	private final ModelPart left_front_leg;
@@ -32,8 +31,7 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 		this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.body = this.body_main.getChild("body");
-		this.head_overlay = this.body.getChild("head_overlay");
-		this.head = this.head_overlay.getChild("head");
+		this.head = this.body.getChild("head");
 		this.leg_control = this.body_main.getChild("leg_control");
 		this.left_front_leg = this.leg_control.getChild("left_front_leg");
 		this.right_front_leg = this.leg_control.getChild("right_front_leg");
@@ -48,17 +46,16 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 22.4F, 0.0F));
 		PartDefinition body_main = root.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(1, 7).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(5, 2).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition head_overlay = body.addOrReplaceChild("head_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -2.0F));
-		PartDefinition head = head_overlay.addOrReplaceChild("head", CubeListBuilder.create().texOffs(17, 9).addBox(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(17, 15).addBox(-0.5F, 0.0F, -3.0F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 9).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(-5, 0).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 5).addBox(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(0, 12).addBox(-0.5F, 0.0F, -3.0F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -2.0F));
 		PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 0.0F));
-		PartDefinition left_front_leg = leg_control.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(1, 15).addBox(0.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, -1.5F, 0.0F, 0.1745F, 0.1309F));
-		PartDefinition right_front_leg = leg_control.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(1, 15).mirror().addBox(-4.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, -1.5F, 0.0F, -0.1745F, -0.1309F));
-		PartDefinition left_middle_leg = leg_control.addOrReplaceChild("left_middle_leg", CubeListBuilder.create().texOffs(16, 13).addBox(0.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, 0.5F, 0.0F, 0.0F, 0.1309F));
-		PartDefinition right_middle_leg = leg_control.addOrReplaceChild("right_middle_leg", CubeListBuilder.create().texOffs(16, 13).mirror().addBox(-4.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.5F, 0.0F, 0.0F, -0.1309F));
-		PartDefinition left_back_leg = leg_control.addOrReplaceChild("left_back_leg", CubeListBuilder.create().texOffs(17, 7).addBox(0.0F, 0.0F, -0.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, 1.5F, 0.0F, -0.1745F, 0.1309F));
-		PartDefinition right_back_leg = leg_control.addOrReplaceChild("right_back_leg", CubeListBuilder.create().texOffs(17, 7).mirror().addBox(-4.0F, 0.0F, -0.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, 1.5F, 0.0F, 0.1745F, -0.1309F));
-		return LayerDefinition.create(meshdefinition, 32, 32);
+		PartDefinition left_front_leg = leg_control.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(6, 5).addBox(0.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, -1.5F, 0.0F, 0.1745F, 0.1309F));
+		PartDefinition right_front_leg = leg_control.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(6, 5).mirror().addBox(-4.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, -1.5F, 0.0F, -0.1745F, -0.1309F));
+		PartDefinition left_middle_leg = leg_control.addOrReplaceChild("left_middle_leg", CubeListBuilder.create().texOffs(6, 2).addBox(0.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, 0.5F, 0.0F, 0.0F, 0.1309F));
+		PartDefinition right_middle_leg = leg_control.addOrReplaceChild("right_middle_leg", CubeListBuilder.create().texOffs(6, 2).mirror().addBox(-4.0F, 0.0F, -1.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.5F, 0.0F, 0.0F, -0.1309F));
+		PartDefinition left_back_leg = leg_control.addOrReplaceChild("left_back_leg", CubeListBuilder.create().texOffs(6, 0).addBox(0.0F, 0.0F, -0.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, 0.0F, 1.5F, 0.0F, -0.1745F, 0.1309F));
+		PartDefinition right_back_leg = leg_control.addOrReplaceChild("right_back_leg", CubeListBuilder.create().texOffs(6, 0).mirror().addBox(-4.0F, 0.0F, -0.5F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 0.0F, 1.5F, 0.0F, 0.1745F, -0.1309F));
+		return LayerDefinition.create(meshdefinition, 16, 16);
 	}
 
 	@Override

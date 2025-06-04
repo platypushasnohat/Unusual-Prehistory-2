@@ -16,14 +16,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class DiplocaulusSalamandroidesModel<T extends Diplocaulus> extends UP2Model<T> {
 
 	private final ModelPart root;
-	private final ModelPart swim_control;
 	private final ModelPart body_main;
 	private final ModelPart body;
 	private final ModelPart neck;
-	private final ModelPart head_overlay;
 	private final ModelPart head;
-	private final ModelPart jaw_overlay;
-	private final ModelPart jaw;
 	private final ModelPart tail;
 	private final ModelPart arm_control;
 	private final ModelPart left_arm1;
@@ -38,14 +34,10 @@ public class DiplocaulusSalamandroidesModel<T extends Diplocaulus> extends UP2Mo
 
 	public DiplocaulusSalamandroidesModel(ModelPart root) {
 		this.root = root.getChild("root");
-		this.swim_control = this.root.getChild("swim_control");
-		this.body_main = this.swim_control.getChild("body_main");
+		this.body_main = this.root.getChild("body_main");
 		this.body = this.body_main.getChild("body");
 		this.neck = this.body.getChild("neck");
-		this.head_overlay = this.neck.getChild("head_overlay");
-		this.head = this.head_overlay.getChild("head");
-		this.jaw_overlay = this.head.getChild("jaw_overlay");
-		this.jaw = this.jaw_overlay.getChild("jaw");
+		this.head = this.neck.getChild("head");
 		this.tail = this.body.getChild("tail");
 		this.arm_control = this.body_main.getChild("arm_control");
 		this.left_arm1 = this.arm_control.getChild("left_arm1");
@@ -63,17 +55,13 @@ public class DiplocaulusSalamandroidesModel<T extends Diplocaulus> extends UP2Mo
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -1.05F, 0.0F));
-		PartDefinition body_main = swim_control.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition body_main = root.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, -1.05F, 0.0F));
 		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -2.0F, -3.5F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.05F)).texOffs(14, 21).addBox(0.0F, -3.0F, -3.5F, 0.0F, 1.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(21, 1).addBox(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, -3.5F));
-		PartDefinition head_overlay = neck.addOrReplaceChild("head_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, -1.5F));
-		PartDefinition head = head_overlay.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, -1.5F));
 		PartDefinition righthead_r1 = head.addOrReplaceChild("righthead_r1", CubeListBuilder.create().texOffs(14, 13).mirror().addBox(-5.0F, -2.0F, 0.0F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.4F, 0.05F, -1.575F, 0.0F, 0.7854F, 0.0F));
 		PartDefinition lefthead_r1 = head.addOrReplaceChild("lefthead_r1", CubeListBuilder.create().texOffs(14, 17).addBox(0.0F, -2.0F, 0.0F, 5.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.4F, 0.05F, -1.575F, 0.0F, -0.7854F, 0.0F));
 		PartDefinition face_r1 = head.addOrReplaceChild("face_r1", CubeListBuilder.create().texOffs(24, 21).addBox(0.0F, -0.5F, 0.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.5F, -3.0F, 0.0F, -0.7854F, 0.0F));
-		PartDefinition jaw_overlay = head.addOrReplaceChild("jaw_overlay", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -1.0F));
-		PartDefinition jaw = jaw_overlay.addOrReplaceChild("jaw", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 10).addBox(0.0F, -3.0F, -1.0F, 0.0F, 4.0F, 7.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 3.5F));
 		PartDefinition arm_control = body_main.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.4F, -2.0F));
 		PartDefinition left_arm1 = arm_control.addOrReplaceChild("left_arm1", CubeListBuilder.create(), PartPose.offset(1.5F, 0.0F, 0.0F));
@@ -101,8 +89,8 @@ public class DiplocaulusSalamandroidesModel<T extends Diplocaulus> extends UP2Mo
 			this.animateIdle(entity.swimIdleAnimationState, DiplocaulusSalamandroidesAnimations.SWIM_IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
 			this.body_main.resetPose();
-			this.swim_control.xRot = headPitch * ((float) Math.PI / 180f);
-			this.swim_control.yRot = netHeadYaw * ((float) Math.PI / 180f);
+			this.root.xRot = headPitch * ((float) Math.PI / 180f);
+			this.root.yRot = netHeadYaw * ((float) Math.PI / 180f);
 		} else {
 			this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing * 1.3f, limbSwingAmount, 4.0f, 8.0f);
 			this.animateIdle(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
