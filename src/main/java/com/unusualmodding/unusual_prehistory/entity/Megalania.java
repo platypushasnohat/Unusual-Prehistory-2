@@ -29,6 +29,7 @@ public class Megalania extends Animal {
 
     public Megalania(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1);
     }
 
     @Override
@@ -59,6 +60,10 @@ public class Megalania extends Animal {
         } else {
             --this.idleAnimationTimeout;
         }
+    }
+
+    public boolean isStillEnough() {
+        return this.getDeltaMovement().horizontalDistance() < 0.01;
     }
 
     @Override

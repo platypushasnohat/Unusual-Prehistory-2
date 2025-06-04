@@ -103,8 +103,10 @@ public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 5, 8);
-		this.animate(entity.idleAnimationState, MegalaniaIdleAnimations.IDLE, ageInTicks);
+		this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 5, 8);
+		if (entity.isStillEnough()) {
+			this.animate(entity.idleAnimationState, MegalaniaIdleAnimations.IDLE, ageInTicks);
+		}
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
