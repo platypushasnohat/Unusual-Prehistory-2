@@ -21,6 +21,7 @@ public class CommonEvents {
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.SCAUMENACIA.get(), Scaumenacia.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
+        event.put(UP2Entities.TELECREX.get(), Telecrex.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
     }
 }

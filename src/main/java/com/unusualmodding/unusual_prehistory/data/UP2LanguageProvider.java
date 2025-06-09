@@ -128,6 +128,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         sound(UP2Sounds.STETHACANTHUS_DEATH, "Stethacanthus dies");
         sound(UP2Sounds.STETHACANTHUS_FLOP, "Stethacanthus flops");
 
+        sound(UP2Sounds.TALPANAS_HURT, "Talpanas hurts");
+        sound(UP2Sounds.TALPANAS_DEATH, "Talpanas dies");
+        sound(UP2Sounds.TALPANAS_IDLE, "Talpanas quacks");
+        sound(UP2Sounds.TALPANAS_PANIC, "Talpanas panics");
+
+        sound(UP2Sounds.TELECREX_HURT, "Telecrex hurts");
+        sound(UP2Sounds.TELECREX_DEATH, "Telecrex dies");
+        sound(UP2Sounds.TELECREX_IDLE, "Telecrex squawks");
+
         sound(UP2Sounds.UNICORN_HURT, "Unicorn hurts");
         sound(UP2Sounds.UNICORN_DEATH, "Unicorn dies");
         sound(UP2Sounds.UNICORN_IDLE, "Unicorn grunts");

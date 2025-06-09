@@ -100,6 +100,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).add(Items.GOLDEN_APPLE);
 
+        this.tag(UP2ItemTags.TELECREX_FOOD).add(
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES
+        );
+
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
                 Items.COOKIE,
                 Items.PUMPKIN_PIE,

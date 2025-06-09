@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -86,6 +87,61 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 DUNKLEOSTEUS.get(),
                 EntityType.DROWNED,
                 EntityType.GUARDIAN
+        );
+
+        tag(UP2EntityTags.SCATTERS_TELECREX).add(
+                KENTROSAURUS.get(),
+                MEGALANIA.get(),
+                EntityType.OCELOT,
+                EntityType.POLAR_BEAR,
+                EntityType.WOLF,
+                EntityType.SPIDER,
+                EntityType.ZOMBIE,
+                EntityType.SKELETON,
+                EntityType.CREEPER,
+                EntityType.PHANTOM,
+                EntityType.STRAY,
+                EntityType.HOGLIN,
+                EntityType.ZOGLIN,
+                EntityType.RAVAGER,
+                EntityType.HORSE,
+                EntityType.SKELETON_HORSE,
+                EntityType.ZOMBIE_HORSE,
+                EntityType.MULE,
+                EntityType.DONKEY,
+                EntityType.DROWNED,
+                EntityType.HUSK,
+                EntityType.GOAT,
+                EntityType.WARDEN,
+                EntityType.WITCH,
+                EntityType.VILLAGER,
+                EntityType.VEX,
+                EntityType.VINDICATOR,
+                EntityType.EVOKER,
+                EntityType.EVOKER_FANGS,
+                EntityType.CAMEL,
+                EntityType.CAT,
+                EntityType.WITHER_SKELETON,
+                EntityType.WITHER,
+                EntityType.ENDER_DRAGON,
+                EntityType.ENDERMAN,
+                EntityType.CAVE_SPIDER,
+                EntityType.FOX,
+                EntityType.IRON_GOLEM,
+                EntityType.TNT,
+                EntityType.SLIME,
+                EntityType.MAGMA_CUBE,
+                EntityType.BLAZE,
+                EntityType.WANDERING_TRADER,
+                EntityType.ZOMBIFIED_PIGLIN,
+                EntityType.PIGLIN,
+                EntityType.PILLAGER,
+                EntityType.PIGLIN_BRUTE,
+                EntityType.ZOMBIE_VILLAGER,
+                EntityType.SHULKER,
+                EntityType.GHAST,
+                EntityType.ILLUSIONER,
+                EntityType.LLAMA
         );
 
     }

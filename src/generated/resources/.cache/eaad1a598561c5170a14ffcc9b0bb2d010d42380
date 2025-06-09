@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-03T19:57:15.3812515	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-06-09T15:40:25.6552227	Tags for minecraft:item mod id unusual_prehistory
 fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
 fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/items/fence_gates.json
@@ -34,4 +34,5 @@ bcd9bd0102fde93168c8184bdcbf4ce6c8bdf7ff data/unusual_prehistory/tags/items/paci
 e12860c9c0eaa36908cfaf5cd63124f4b53f41ca data/unusual_prehistory/tags/items/paleozoic_dna_bottles.json
 7d25be0ad96e63b2292a17c442f72f0f426fea60 data/unusual_prehistory/tags/items/plant_dna_bottles.json
 46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/items/stethacanthus_food.json
+02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/items/telecrex_food.json
 e49193eb8a15f7fba2e1285f234eb0576577c96a data/unusual_prehistory/tags/items/unicorn_food.json

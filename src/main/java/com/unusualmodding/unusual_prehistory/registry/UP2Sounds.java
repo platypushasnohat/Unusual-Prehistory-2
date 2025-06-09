@@ -50,6 +50,15 @@ public class UP2Sounds {
     public static final RegistryObject<SoundEvent> STETHACANTHUS_DEATH = registerSoundEvent("stethacanthus_death");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_FLOP = registerSoundEvent("stethacanthus_flop");
 
+    public static final RegistryObject<SoundEvent> TALPANAS_HURT = registerSoundEvent("talpanas_hurt");
+    public static final RegistryObject<SoundEvent> TALPANAS_DEATH = registerSoundEvent("talpanas_death");
+    public static final RegistryObject<SoundEvent> TALPANAS_IDLE = registerSoundEvent("talpanas_idle");
+    public static final RegistryObject<SoundEvent> TALPANAS_PANIC = registerSoundEvent("talpanas_panic");
+
+    public static final RegistryObject<SoundEvent> TELECREX_HURT = registerSoundEvent("telecrex_hurt");
+    public static final RegistryObject<SoundEvent> TELECREX_DEATH = registerSoundEvent("telecrex_death");
+    public static final RegistryObject<SoundEvent> TELECREX_IDLE = registerSoundEvent("telecrex_idle");
+
     public static final RegistryObject<SoundEvent> UNICORN_HURT = registerSoundEvent("unicorn_hurt");
     public static final RegistryObject<SoundEvent> UNICORN_DEATH = registerSoundEvent("unicorn_death");
     public static final RegistryObject<SoundEvent> UNICORN_IDLE = registerSoundEvent("unicorn_idle");

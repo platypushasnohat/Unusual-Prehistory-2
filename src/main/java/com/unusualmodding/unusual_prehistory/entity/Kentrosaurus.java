@@ -349,6 +349,7 @@ public class Kentrosaurus extends Animal {
     public boolean isKentrosaurusLayingDown() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
     }
+
     public boolean isKentrosaurusVisuallyLayingDown() {
         return this.getPoseTime() < 0L != this.isKentrosaurusLayingDown();
     }

@@ -23,6 +23,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> STETHACANTHUS_TARGETS = modEntityTag("stethacanthus_targets");
     public static final TagKey<EntityType<?>> STETHACANTHUS_AVOIDS = modEntityTag("stethacanthus_avoids");
 
+    public static final TagKey<EntityType<?>> SCATTERS_TELECREX= modEntityTag("scatters_telecrex");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

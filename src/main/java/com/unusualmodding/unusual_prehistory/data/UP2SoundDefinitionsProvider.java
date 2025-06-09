@@ -174,6 +174,38 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3f)
         );
 
+        this.sound(UP2Sounds.TALPANAS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt1")).pitch(1.15f),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt2")).pitch(1.15f)
+        );
+        this.sound(UP2Sounds.TALPANAS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death1")).pitch(1.15f),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death2")).pitch(1.15f)
+        );
+        this.sound(UP2Sounds.TALPANAS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle1")).pitch(1.15f),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle2")).pitch(1.15f),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle3")).pitch(1.15f)
+        );
+        this.sound(UP2Sounds.TALPANAS_PANIC,
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/panic1")).pitch(1.15f)
+        );
+
+        this.sound(UP2Sounds.TELECREX_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt2"))
+        );
+        this.sound(UP2Sounds.TELECREX_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/death1")),
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/death2"))
+        );
+        this.sound(UP2Sounds.TELECREX_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle4"))
+        );
+
         this.sound(UP2Sounds.UNICORN_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/hurt1"))
         );

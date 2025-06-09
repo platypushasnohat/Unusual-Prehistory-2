@@ -385,6 +385,81 @@
     ],
     "subtitle": "subtitles.stethacanthus_hurt"
   },
+  "talpanas_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/talpanas/death1",
+        "pitch": 1.15
+      },
+      {
+        "name": "unusual_prehistory:entity/talpanas/death2",
+        "pitch": 1.15
+      }
+    ],
+    "subtitle": "subtitles.talpanas_death"
+  },
+  "talpanas_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/talpanas/hurt1",
+        "pitch": 1.15
+      },
+      {
+        "name": "unusual_prehistory:entity/talpanas/hurt2",
+        "pitch": 1.15
+      }
+    ],
+    "subtitle": "subtitles.talpanas_hurt"
+  },
+  "talpanas_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/talpanas/idle1",
+        "pitch": 1.15
+      },
+      {
+        "name": "unusual_prehistory:entity/talpanas/idle2",
+        "pitch": 1.15
+      },
+      {
+        "name": "unusual_prehistory:entity/talpanas/idle3",
+        "pitch": 1.15
+      }
+    ],
+    "subtitle": "subtitles.talpanas_idle"
+  },
+  "talpanas_panic": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/talpanas/panic1",
+        "pitch": 1.15
+      }
+    ],
+    "subtitle": "subtitles.talpanas_panic"
+  },
+  "telecrex_death": {
+    "sounds": [
+      "unusual_prehistory:entity/telecrex/death1",
+      "unusual_prehistory:entity/telecrex/death2"
+    ],
+    "subtitle": "subtitles.telecrex_death"
+  },
+  "telecrex_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/telecrex/hurt1",
+      "unusual_prehistory:entity/telecrex/hurt2"
+    ],
+    "subtitle": "subtitles.telecrex_hurt"
+  },
+  "telecrex_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/telecrex/idle1",
+      "unusual_prehistory:entity/telecrex/idle2",
+      "unusual_prehistory:entity/telecrex/idle3",
+      "unusual_prehistory:entity/telecrex/idle4"
+    ],
+    "subtitle": "subtitles.telecrex_idle"
+  },
   "unicorn_death": {
     "sounds": [
       "unusual_prehistory:entity/unicorn/death1"
