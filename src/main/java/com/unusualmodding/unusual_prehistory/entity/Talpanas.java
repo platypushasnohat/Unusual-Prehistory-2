@@ -33,7 +33,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
@@ -282,8 +281,6 @@ public class Talpanas extends Animal {
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        ItemStack itemstack2 = player.getItemInHand(InteractionHand.OFF_HAND);
-        Item item = itemstack.getItem();
         if (!isFood(itemstack) && itemstack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
             if (player.getPassengers().isEmpty()) {
                 this.startRiding(player);
@@ -292,104 +289,6 @@ public class Talpanas extends Animal {
             }
         }
         return super.mobInteract(player, hand);
-    }
-
-    private class TalpanasDigGoal extends Goal {
-
-        private final int searchLength;
-        protected BlockPos destinationBlock;
-        private Talpanas talpanas;
-        private int runDelay = 70;
-        private int maxFeedTime = 200;
-
-        private TalpanasDigGoal(Talpanas talpanas) {
-            this.setFlags(EnumSet.of(Flag.MOVE));
-            this.talpanas = talpanas;
-            this.searchLength = 16;
-        }
-
-        public boolean canContinueToUse() {
-            return destinationBlock != null && isDigBlock(this.talpanas.level(), destinationBlock.mutable()) && isCloseToMoss(16);
-        }
-
-        public boolean isCloseToMoss(double dist) {
-            return destinationBlock == null || this.talpanas.distanceToSqr(Vec3.atCenterOf(destinationBlock)) < dist * dist;
-        }
-
-        @Override
-        public boolean canUse() {
-            if (this.runDelay > 0) {
-                --this.runDelay;
-                return false;
-            } else {
-                this.runDelay = 200 + this.talpanas.random.nextInt(150);
-                return this.searchForDestination();
-            }
-        }
-
-        public void start() {
-            maxFeedTime = 60 + random.nextInt(60);
-        }
-
-        public void tick() {
-            Vec3 vec = Vec3.atCenterOf(destinationBlock);
-            if (vec != null) {
-                this.talpanas.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
-                if (this.talpanas.distanceToSqr(vec) < 1.15F) {
-                    this.talpanas.entityData.set(FEEDING_POS, Optional.of(destinationBlock));
-                    Vec3 face = vec.subtract(this.talpanas.position());
-                    this.talpanas.setDeltaMovement(this.talpanas.getDeltaMovement().add(face.normalize().scale(0.1F)));
-                    this.talpanas.setFeedingTime(this.talpanas.getFeedingTime() + 1);
-                    this.talpanas.playSound(SoundEvents.ROOTED_DIRT_BREAK, this.talpanas.getSoundVolume(), this.talpanas.getVoicePitch());
-                    if (this.talpanas.getFeedingTime() > maxFeedTime) {
-                        destinationBlock = null;
-                        if (random.nextInt(1) == 0) {
-                            List<ItemStack> lootList = getDigLoot(this.talpanas);
-                            if (!lootList.isEmpty()) {
-                                for (ItemStack stack : lootList) {
-                                    ItemEntity item = this.talpanas.spawnAtLocation(stack.copy());
-                                    item.hasImpulse = true;
-                                    item.setDeltaMovement(item.getDeltaMovement().multiply(0.2, 0.2, 0.2));
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    this.talpanas.entityData.set(FEEDING_POS, Optional.empty());
-                }
-            }
-        }
-
-        public void stop() {
-            this.talpanas.entityData.set(FEEDING_POS, Optional.empty());
-            destinationBlock = null;
-            this.talpanas.setFeedingTime(0);
-        }
-
-        protected boolean searchForDestination() {
-            int length = this.searchLength;
-            BlockPos position = this.talpanas.blockPosition();
-            BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
-
-            for (int i = -8; i <= 2; i++) {
-                for (int j = 0; j < length; ++j) {
-                    for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
-                        for (int m = k < j && k > -j ? j : 0; m <= j; m = m > 0 ? -m : 1 - m) {
-                            blockPos.setWithOffset(position, k, i - 1, m);
-                            if (this.isDigBlock(this.talpanas.level(), blockPos) && this.talpanas.canSeeBlock(blockPos)) {
-                                this.destinationBlock = blockPos;
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
-            return world.getBlockState(pos).is(UP2BlockTags.TALPANAS_DIGABLES);
-        }
     }
 
     @Override
@@ -515,13 +414,111 @@ public class Talpanas extends Animal {
             RandomSource randomSource = this.talpanas.getRandom();
             BlockPos blockPos = this.talpanas.blockPosition();
 
-            for (int lvt_3_1_ = 0; lvt_3_1_ < 10; ++lvt_3_1_) {
+            for (int i = 0; i < 10; ++i) {
                 BlockPos blockPos1 = blockPos.offset(randomSource.nextInt(20) - 10, randomSource.nextInt(6) - 3, randomSource.nextInt(20) - 10);
                 if (this.talpanas.level().getMaxLocalRawBrightness(blockPos1) < lightLevel) {
                     return Vec3.atBottomCenterOf(blockPos1);
                 }
             }
             return null;
+        }
+    }
+
+    private class TalpanasDigGoal extends Goal {
+
+        private final int searchLength;
+        protected BlockPos destinationBlock;
+        private Talpanas talpanas;
+        private int runDelay = 70;
+        private int maxFeedTime = 200;
+
+        private TalpanasDigGoal(Talpanas talpanas) {
+            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.talpanas = talpanas;
+            this.searchLength = 16;
+        }
+
+        public boolean canContinueToUse() {
+            return destinationBlock != null && isDigBlock(this.talpanas.level(), destinationBlock.mutable()) && isCloseToMoss(16);
+        }
+
+        public boolean isCloseToMoss(double dist) {
+            return destinationBlock == null || this.talpanas.distanceToSqr(Vec3.atCenterOf(destinationBlock)) < dist * dist;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.runDelay > 0) {
+                --this.runDelay;
+                return false;
+            } else {
+                this.runDelay = 200 + this.talpanas.random.nextInt(150);
+                return this.searchForDestination();
+            }
+        }
+
+        public void start() {
+            maxFeedTime = 60 + random.nextInt(60);
+        }
+
+        public void tick() {
+            Vec3 vec = Vec3.atCenterOf(destinationBlock);
+            if (vec != null) {
+                this.talpanas.getNavigation().moveTo(vec.x, vec.y, vec.z, 1F);
+                if (this.talpanas.distanceToSqr(vec) < 1.15F) {
+                    this.talpanas.entityData.set(FEEDING_POS, Optional.of(destinationBlock));
+                    Vec3 face = vec.subtract(this.talpanas.position());
+                    this.talpanas.setDeltaMovement(this.talpanas.getDeltaMovement().add(face.normalize().scale(0.1F)));
+                    this.talpanas.setFeedingTime(this.talpanas.getFeedingTime() + 1);
+                    this.talpanas.playSound(SoundEvents.ROOTED_DIRT_BREAK, this.talpanas.getSoundVolume(), this.talpanas.getVoicePitch());
+                    if (this.talpanas.getFeedingTime() > maxFeedTime) {
+                        destinationBlock = null;
+                        if (random.nextInt(1) == 0) {
+                            List<ItemStack> lootList = getDigLoot(this.talpanas);
+                            if (!lootList.isEmpty()) {
+                                for (ItemStack stack : lootList) {
+                                    ItemEntity item = this.talpanas.spawnAtLocation(stack.copy());
+                                    item.hasImpulse = true;
+                                    item.setDeltaMovement(item.getDeltaMovement().multiply(0.2, 0.2, 0.2));
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    this.talpanas.entityData.set(FEEDING_POS, Optional.empty());
+                }
+            }
+        }
+
+        public void stop() {
+            this.talpanas.entityData.set(FEEDING_POS, Optional.empty());
+            destinationBlock = null;
+            this.talpanas.setFeedingTime(0);
+        }
+
+        protected boolean searchForDestination() {
+            int length = this.searchLength;
+            BlockPos position = this.talpanas.blockPosition();
+            BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos();
+
+            for (int i = -8; i <= 2; i++) {
+                for (int j = 0; j < length; ++j) {
+                    for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
+                        for (int m = k < j && k > -j ? j : 0; m <= j; m = m > 0 ? -m : 1 - m) {
+                            blockPos.setWithOffset(position, k, i - 1, m);
+                            if (this.isDigBlock(this.talpanas.level(), blockPos) && this.talpanas.canSeeBlock(blockPos)) {
+                                this.destinationBlock = blockPos;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private boolean isDigBlock(Level world, BlockPos.MutableBlockPos pos) {
+            return world.getBlockState(pos).is(UP2BlockTags.TALPANAS_DIGABLES);
         }
     }
 }

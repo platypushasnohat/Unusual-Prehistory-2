@@ -128,6 +128,8 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.GINKGO_BUTTON.get());
                         tabOutput.accept(UP2Blocks.GINKGO_LEAVES.get());
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_LEAVES.get());
+                        tabOutput.accept(UP2Blocks.GINKGO_SAPLING.get());
+                        tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_SAPLING.get());
 
                     }).build());
 }

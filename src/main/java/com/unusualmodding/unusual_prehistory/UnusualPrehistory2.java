@@ -1,15 +1,7 @@
 package com.unusualmodding.unusual_prehistory;
 
-import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Compat;
+import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
-import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
-import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
-import com.unusualmodding.unusual_prehistory.registry.UP2MenuTypes;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -44,6 +36,7 @@ public class UnusualPrehistory2 {
         UP2RecipeTypes.register(bus);
         UP2Sounds.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
+        UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);

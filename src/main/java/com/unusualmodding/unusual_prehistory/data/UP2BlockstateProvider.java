@@ -73,6 +73,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.leaves(GINKGO_LEAVES);
         this.leaves(GOLDEN_GINKGO_LEAVES);
+
+        this.pottedPlant(GINKGO_SAPLING, POTTED_GINKGO_SAPLING);
+        this.pottedPlant(GOLDEN_GINKGO_SAPLING, POTTED_GOLDEN_GINKGO_SAPLING);
     }
 
     // item
