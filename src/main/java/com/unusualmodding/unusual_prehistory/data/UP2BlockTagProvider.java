@@ -33,6 +33,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);
 
+        this.tag(UP2BlockTags.TALPANAS_DIGABLES).add(Blocks.ROOTED_DIRT);
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 DEEPSLATE_FOSSIL.get(),

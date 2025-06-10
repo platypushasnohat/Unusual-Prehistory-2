@@ -60,6 +60,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.TALPANAS.get(), TalpanasRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
     }
@@ -83,6 +84,7 @@ public class ClientEvents {
         event.registerLayerDefinition(UP2EntityModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.TALPANAS_LAYER, TalpanasModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.TELECREX_LAYER, TelecrexModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_LAYER, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_SKELETON_LAYER, UnicornSkeletonModel::createBodyLayer);

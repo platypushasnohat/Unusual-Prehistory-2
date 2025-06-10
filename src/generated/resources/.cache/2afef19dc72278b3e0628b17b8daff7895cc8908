@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-03T19:57:15.3812515	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-06-09T20:04:26.7076134	Tags for minecraft:block mod id unusual_prehistory
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/blocks/fence_gates.json
 72636ee54e006e2033d8a65513800fad81eb0bdc data/forge/tags/blocks/fence_gates/wooden.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/dirt.json
@@ -25,3 +25,4 @@ c7519f14d45f9512e72af0dd34cdfd9c4efd27dd data/minecraft/tags/blocks/wooden_press
 5ca46a047cd77e001f401028e7c79c259b82d3b5 data/minecraft/tags/blocks/wooden_trapdoors.json
 93e83650412bbd4fb2f46139d7b2da9346a9eafc data/unusual_prehistory/tags/blocks/ancient_plant_placeable.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/blocks/ginkgo_logs.json
+d151bd3bdf63b9b9019d27f177f7f5c7f9c357b7 data/unusual_prehistory/tags/blocks/talpanas_digables.json

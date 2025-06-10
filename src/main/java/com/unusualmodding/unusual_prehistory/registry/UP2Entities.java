@@ -85,10 +85,18 @@ public class UP2Entities {
                     .build("stethacanthus")
     );
 
+    public static final RegistryObject<EntityType<Talpanas>> TALPANAS = ENTITY_TYPE.register(
+            "talpanas", () ->
+                    EntityType.Builder.of(Talpanas::new, MobCategory.CREATURE)
+                            .sized(0.75F, 0.9F)
+                            .clientTrackingRange(10)
+                            .build("talpanas")
+    );
+
     public static final RegistryObject<EntityType<Telecrex>> TELECREX = ENTITY_TYPE.register(
             "telecrex", () ->
                     EntityType.Builder.of(Telecrex::new, MobCategory.CREATURE)
-                            .sized(0.75F, 1.15F)
+                            .sized(0.75F, 1.1F)
                             .clientTrackingRange(10)
                             .build("telecrex")
     );

@@ -12,6 +12,8 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> ANCIENT_PLANT_PLACEABLES = modBlockTag("ancient_plant_placeable");
 
+    public static final TagKey<Block> TALPANAS_DIGABLES = modBlockTag("talpanas_digables");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }

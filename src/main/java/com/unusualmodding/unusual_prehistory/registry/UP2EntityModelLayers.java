@@ -26,6 +26,7 @@ public class UP2EntityModelLayers {
     public static final ModelLayerLocation SACABAMBASPIS_LAYER = main("sacabambaspis");
     public static final ModelLayerLocation SCAMENACIA_LAYER = main("scaumenacia");
     public static final ModelLayerLocation STETHACANTHUS_LAYER = main("stethacanthus");
+    public static final ModelLayerLocation TALPANAS_LAYER = main("talpanas");
     public static final ModelLayerLocation TELECREX_LAYER = main("telecrex");
     public static final ModelLayerLocation UNICORN_LAYER = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON_LAYER = main("unicorn_skeleton");
