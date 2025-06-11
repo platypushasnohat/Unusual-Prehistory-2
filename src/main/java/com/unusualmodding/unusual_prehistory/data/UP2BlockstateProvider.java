@@ -76,6 +76,23 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.pottedPlant(GINKGO_SAPLING, POTTED_GINKGO_SAPLING);
         this.pottedPlant(GOLDEN_GINKGO_SAPLING, POTTED_GOLDEN_GINKGO_SAPLING);
+
+        this.pillar(LEPIDODENDRON_LOG);
+        this.wood(LEPIDODENDRON_WOOD, this.blockTexture(LEPIDODENDRON_LOG.get()));
+        this.wood(MOSSY_LEPIDODENDRON_WOOD, this.blockTexture(MOSSY_LEPIDODENDRON_LOG.get()));
+        this.pillar(STRIPPED_LEPIDODENDRON_LOG);
+        this.wood(STRIPPED_LEPIDODENDRON_WOOD, this.blockTexture(STRIPPED_LEPIDODENDRON_LOG.get()));
+        this.cubeAllBlock(LEPIDODENDRON_PLANKS);
+        this.stairs(LEPIDODENDRON_STAIRS, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+        this.slab(LEPIDODENDRON_SLAB, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+        this.fence(LEPIDODENDRON_FENCE, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+        this.fenceGate(LEPIDODENDRON_FENCE_GATE, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+        this.doorCutout(LEPIDODENDRON_DOOR);
+        this.trapdoorCutout(LEPIDODENDRON_TRAPDOOR);
+        this.pressurePlate(LEPIDODENDRON_PRESSURE_PLATE, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+        this.button(LEPIDODENDRON_BUTTON, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
+
+        this.leaves(LEPIDODENDRON_LEAVES);
     }
 
     // item
@@ -110,6 +127,11 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     }
 
     private void pillar(RegistryObject<Block> pillar) {
+        this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + getItemName(pillar.get()) + "_top"));
+        this.itemModel(pillar);
+    }
+
+    private void pillarNoTop(RegistryObject<Block> pillar) {
         this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + getItemName(pillar.get()) + "_top"));
         this.itemModel(pillar);
     }

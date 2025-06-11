@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "unusual_prehistory:block/lepidodendron_planks"
+  }
+}

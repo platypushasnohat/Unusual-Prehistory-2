@@ -26,6 +26,13 @@ public class WoodBlocks extends RotatedPillarBlock {
             if (this == UP2Blocks.GINKGO_WOOD.get()) {
                 return UP2Blocks.STRIPPED_GINKGO_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
             }
+
+            if (this == UP2Blocks.LEPIDODENDRON_LOG.get() || this == UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get()) {
+                return UP2Blocks.STRIPPED_LEPIDODENDRON_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
+            if (this == UP2Blocks.LEPIDODENDRON_WOOD.get() || this == UP2Blocks.MOSSY_LEPIDODENDRON_WOOD.get()) {
+                return UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
         }
         return super.getToolModifiedState(state, context, toolAction, simulate);
     }

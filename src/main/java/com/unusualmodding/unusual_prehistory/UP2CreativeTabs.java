@@ -131,5 +131,23 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.GINKGO_SAPLING.get());
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_SAPLING.get());
 
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_LOG.get());
+                        tabOutput.accept(UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_WOOD.get());
+                        tabOutput.accept(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD.get());
+                        tabOutput.accept(UP2Blocks.STRIPPED_LEPIDODENDRON_LOG.get());
+                        tabOutput.accept(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_PLANKS.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_STAIRS.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_SLAB.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_FENCE.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_FENCE_GATE.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_DOOR.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_TRAPDOOR.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_PRESSURE_PLATE.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_BUTTON.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_SAPLING.get());
+
                     }).build());
 }

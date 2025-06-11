@@ -4,6 +4,7 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.*;
 import com.unusualmodding.unusual_prehistory.worldgen.feature.GinkgoTreeGrower;
 import com.unusualmodding.unusual_prehistory.worldgen.feature.GoldenGinkgoTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.feature.LepidodendronTreeGrower;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -118,6 +119,27 @@ public class UP2Blocks {
 
     public static final RegistryObject<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(new GoldenGinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
     public static final RegistryObject<Block> POTTED_GOLDEN_GINKGO_SAPLING = registerBlockWithoutItem("potted_golden_ginkgo_sapling", () -> new FlowerPotBlock(GOLDEN_GINKGO_SAPLING.get(), registerFlowerPot()));
+
+    // lepidodendron
+    public static final RegistryObject<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_WOOD = registerBlock("lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_WOOD = registerBlock("mossy_lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_LOG = registerBlock("stripped_lepidodendron_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_WOOD = registerBlock("stripped_lepidodendron_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_PLANKS = registerBlock("lepidodendron_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_STAIRS = registerBlock("lepidodendron_stairs", () -> new StairBlock(() -> LEPIDODENDRON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
+    public static final RegistryObject<Block> LEPIDODENDRON_SLAB = registerBlock("lepidodendron_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
+    public static final RegistryObject<Block> LEPIDODENDRON_FENCE = registerBlock("lepidodendron_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_FENCE_GATE = registerBlock("lepidodendron_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> LEPIDODENDRON_DOOR = registerBlock("lepidodendron_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_TRAPDOOR = registerBlock("lepidodendron_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+
+    public static final RegistryObject<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+
+    public static final RegistryObject<Block> LEPIDODENDRON_SAPLING = registerBlock("lepidodendron_sapling", () -> new SaplingBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
