@@ -14,6 +14,19 @@
     "unusual_prehistory:ginkgo_pressure_plate",
     "unusual_prehistory:ginkgo_button",
     "unusual_prehistory:ginkgo_door",
-    "unusual_prehistory:ginkgo_trapdoor"
+    "unusual_prehistory:ginkgo_trapdoor",
+    "unusual_prehistory:lepidodendron_log",
+    "unusual_prehistory:lepidodendron_wood",
+    "unusual_prehistory:stripped_lepidodendron_log",
+    "unusual_prehistory:stripped_lepidodendron_wood",
+    "unusual_prehistory:lepidodendron_planks",
+    "unusual_prehistory:lepidodendron_stairs",
+    "unusual_prehistory:lepidodendron_slab",
+    "unusual_prehistory:lepidodendron_fence",
+    "unusual_prehistory:lepidodendron_fence_gate",
+    "unusual_prehistory:lepidodendron_pressure_plate",
+    "unusual_prehistory:lepidodendron_button",
+    "unusual_prehistory:lepidodendron_door",
+    "unusual_prehistory:lepidodendron_trapdoor"
   ]
 }

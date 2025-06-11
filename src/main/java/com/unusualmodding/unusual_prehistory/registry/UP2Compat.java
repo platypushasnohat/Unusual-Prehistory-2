@@ -35,6 +35,10 @@ public class UP2Compat {
 
         registerCompostable(UP2Blocks.GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 0.3F);
+        registerCompostable(UP2Blocks.GINKGO_SAPLING.get(), 0.3F);
+        registerCompostable(UP2Blocks.GOLDEN_GINKGO_SAPLING.get(), 0.3F);
+
+        registerCompostable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -60,8 +64,21 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.GINKGO_STAIRS.get(), 5, 15);
         registerFlammable(UP2Blocks.GINKGO_FENCE.get(), 5, 15);
         registerFlammable(UP2Blocks.GINKGO_FENCE_GATE.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_LEAVES.get(), 30, 60);
-        registerFlammable(UP2Blocks.GINKGO_LEAVES.get(), 30, 60);
+        registerFlammable(UP2Blocks.GINKGO_LEAVES.get(), 30, 50);
+        registerFlammable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 30, 50);
+
+        registerFlammable(UP2Blocks.LEPIDODENDRON_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_LEPIDODENDRON_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_PLANKS.get(), 5, 20);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_SLAB.get(), 5, 20);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_STAIRS.get(), 5, 20);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE.get(), 5, 20);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE_GATE.get(), 5, 20);
+        registerFlammable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 30, 60);
     }
 
     public static void registerCompostable(ItemLike item, float chance) {

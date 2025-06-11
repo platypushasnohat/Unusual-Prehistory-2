@@ -36,8 +36,7 @@ public class UnusualPrehistory2 {
         UP2RecipeTypes.register(bus);
         UP2Sounds.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
-        UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
-        UP2TrunkPlacers.TRUNK_PLACERS.register(bus);
+        UP2Features.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);

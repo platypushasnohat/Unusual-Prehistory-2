@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=true": {
+      "model": "unusual_prehistory:block/lepidodendron_cone_hanging"
+    },
+    "hanging=false": {
+      "model": "unusual_prehistory:block/lepidodendron_cone"
+    }
+  }
+}

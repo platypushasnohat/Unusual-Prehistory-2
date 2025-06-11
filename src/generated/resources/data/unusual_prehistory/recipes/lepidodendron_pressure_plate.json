@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "unusual_prehistory:lepidodendron_planks"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "item": "unusual_prehistory:lepidodendron_pressure_plate"
+  },
+  "show_notification": true
+}

@@ -112,6 +112,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
+        this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);

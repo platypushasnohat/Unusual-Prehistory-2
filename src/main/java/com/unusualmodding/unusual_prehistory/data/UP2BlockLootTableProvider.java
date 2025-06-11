@@ -120,8 +120,26 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(GINKGO_PRESSURE_PLATE.get());
         this.dropSelf(GINKGO_BUTTON.get());
 
-        this.add(GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, Blocks.SPRUCE_SAPLING, LEAVES_SAPLING_CHANCES));
-        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, Blocks.SPRUCE_SAPLING, LEAVES_SAPLING_CHANCES));
+        this.add(GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+
+        this.dropSelf(LEPIDODENDRON_LOG.get());
+        this.dropSelf(LEPIDODENDRON_WOOD.get());
+        this.dropSelf(MOSSY_LEPIDODENDRON_LOG.get());
+        this.dropSelf(MOSSY_LEPIDODENDRON_WOOD.get());
+        this.dropSelf(STRIPPED_LEPIDODENDRON_LOG.get());
+        this.dropSelf(STRIPPED_LEPIDODENDRON_WOOD.get());
+        this.dropSelf(LEPIDODENDRON_PLANKS.get());
+        this.dropSelf(LEPIDODENDRON_STAIRS.get());
+        this.add(LEPIDODENDRON_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(LEPIDODENDRON_FENCE.get());
+        this.dropSelf(LEPIDODENDRON_FENCE_GATE.get());
+        this.add(LEPIDODENDRON_DOOR.get(), this::createDoorTable);
+        this.dropSelf(LEPIDODENDRON_TRAPDOOR.get());
+        this.dropSelf(LEPIDODENDRON_PRESSURE_PLATE.get());
+        this.dropSelf(LEPIDODENDRON_BUTTON.get());
+
+        this.add(LEPIDODENDRON_LEAVES.get(), (block) -> createLeavesDrops(block, LEPIDODENDRON_CONE.get(), LEAVES_SAPLING_CHANCES));
     }
 
     @Override

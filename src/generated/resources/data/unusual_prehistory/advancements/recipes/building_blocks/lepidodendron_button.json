@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lepidodendron_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:lepidodendron_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:lepidodendron_button"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_lepidodendron_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:lepidodendron_button"
+    ]
+  },
+  "sends_telemetry_event": false
+}

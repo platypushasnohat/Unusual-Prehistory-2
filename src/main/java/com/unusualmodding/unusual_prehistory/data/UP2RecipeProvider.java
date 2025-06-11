@@ -43,6 +43,19 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         planks(UP2Blocks.GINKGO_PLANKS, UP2ItemTags.GINKGO_LOGS).save(consumer);
         wood(UP2Blocks.GINKGO_WOOD, UP2Blocks.GINKGO_LOG).save(consumer);
         wood(UP2Blocks.STRIPPED_GINKGO_WOOD, UP2Blocks.STRIPPED_GINKGO_LOG).save(consumer);
+
+        stairs(UP2Blocks.LEPIDODENDRON_STAIRS, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        slab(UP2Blocks.LEPIDODENDRON_SLAB, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        fence(UP2Blocks.LEPIDODENDRON_FENCE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        fenceGate(UP2Blocks.LEPIDODENDRON_FENCE_GATE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        door(UP2Blocks.LEPIDODENDRON_DOOR, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        trapdoor(UP2Blocks.LEPIDODENDRON_TRAPDOOR, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        button(UP2Blocks.LEPIDODENDRON_BUTTON, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        pressurePlate(UP2Blocks.LEPIDODENDRON_PRESSURE_PLATE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
+        planks(UP2Blocks.LEPIDODENDRON_PLANKS, UP2ItemTags.LEPIDODENDRON_LOGS).save(consumer);
+        wood(UP2Blocks.LEPIDODENDRON_WOOD, UP2Blocks.LEPIDODENDRON_LOG).save(consumer);
+        wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
+        wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {

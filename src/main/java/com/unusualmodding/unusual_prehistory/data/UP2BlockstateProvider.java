@@ -93,6 +93,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.button(LEPIDODENDRON_BUTTON, this.blockTexture(LEPIDODENDRON_PLANKS.get()));
 
         this.leaves(LEPIDODENDRON_LEAVES);
+        this.simpleCross(HANGING_LEPIDODENDRON_LEAVES);
+        this.generatedItem(HANGING_LEPIDODENDRON_LEAVES.get(), TextureFolder.BLOCK);
     }
 
     // item

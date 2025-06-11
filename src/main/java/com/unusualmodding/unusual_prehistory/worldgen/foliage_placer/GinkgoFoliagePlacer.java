@@ -1,8 +1,8 @@
-package com.unusualmodding.unusual_prehistory.worldgen.feature;
+package com.unusualmodding.unusual_prehistory.worldgen.foliage_placer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.unusualmodding.unusual_prehistory.registry.UP2FoliagePlacers;
+import com.unusualmodding.unusual_prehistory.registry.UP2Features;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -22,7 +22,7 @@ public class GinkgoFoliagePlacer extends FoliagePlacer {
     }
 
     protected FoliagePlacerType<?> type() {
-        return UP2FoliagePlacers.GINKGO_FOLIAGE.get();
+        return UP2Features.GINKGO_FOLIAGE.get();
     }
 
     protected void createFoliage(LevelSimulatedReader level, FoliagePlacer.FoliageSetter placer, RandomSource random, TreeConfiguration config, int trunkHeight, FoliagePlacer.FoliageAttachment treeNode, int radius, int foliageHeight, int offset) {

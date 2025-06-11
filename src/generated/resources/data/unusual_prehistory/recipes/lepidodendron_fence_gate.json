@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "M": {
+      "item": "unusual_prehistory:lepidodendron_planks"
+    }
+  },
+  "pattern": [
+    "/M/",
+    "/M/"
+  ],
+  "result": {
+    "item": "unusual_prehistory:lepidodendron_fence_gate"
+  },
+  "show_notification": true
+}

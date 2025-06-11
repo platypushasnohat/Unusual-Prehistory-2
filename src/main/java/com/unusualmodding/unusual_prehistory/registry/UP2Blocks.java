@@ -2,9 +2,9 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.*;
-import com.unusualmodding.unusual_prehistory.worldgen.feature.GinkgoTreeGrower;
-import com.unusualmodding.unusual_prehistory.worldgen.feature.GoldenGinkgoTreeGrower;
-import com.unusualmodding.unusual_prehistory.worldgen.feature.LepidodendronTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.tree.GinkgoTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.tree.GoldenGinkgoTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.tree.LepidodendronTreeGrower;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -137,9 +137,11 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
     public static final RegistryObject<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
 
-    public static final RegistryObject<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LepidodendronLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
+    public static final RegistryObject<Block> LEPIDODENDRON_GROWTHS = registerBlock("lepidodendron_growths", () -> new LepidodendronGrowthsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.MOSS_CARPET).pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<Block> LEPIDODENDRON_SAPLING = registerBlock("lepidodendron_sapling", () -> new SaplingBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

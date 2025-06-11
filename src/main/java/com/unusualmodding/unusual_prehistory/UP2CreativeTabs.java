@@ -147,7 +147,9 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_PRESSURE_PLATE.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_BUTTON.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
-                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_SAPLING.get());
+                        tabOutput.accept(UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_GROWTHS.get());
+                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_CONE.get());
 
                     }).build());
 }

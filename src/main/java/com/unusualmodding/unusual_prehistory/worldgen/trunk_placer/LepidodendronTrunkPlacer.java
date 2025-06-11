@@ -1,9 +1,9 @@
-package com.unusualmodding.unusual_prehistory.worldgen.feature;
+package com.unusualmodding.unusual_prehistory.worldgen.trunk_placer;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.unusualmodding.unusual_prehistory.registry.UP2TrunkPlacers;
+import com.unusualmodding.unusual_prehistory.registry.UP2Features;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -29,7 +29,7 @@ public class LepidodendronTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> type() {
-        return UP2TrunkPlacers.LEPIDODENDRON_TRUNK.get();
+        return UP2Features.LEPIDODENDRON_TRUNK.get();
     }
 
     @Override
@@ -39,7 +39,15 @@ public class LepidodendronTrunkPlacer extends TrunkPlacer {
         int branchStart = trunkHeight - 1;
 
         for (int i = 0; i < trunkHeight; i++) {
+
             placeLog(level, blockSetter, random, startPos.above(i), config);
+
+            if (i == 0) {
+                blockSetter.accept(startPos.above(0).relative(Direction.NORTH, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z))));
+                blockSetter.accept(startPos.above(0).relative(Direction.SOUTH, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z))));
+                blockSetter.accept(startPos.above(0).relative(Direction.EAST, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.X))));
+                blockSetter.accept(startPos.above(0).relative(Direction.WEST, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.X))));
+            }
 
             blockSetter.accept(startPos.above(branchStart).relative(Direction.NORTH, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z))));
             blockSetter.accept(startPos.above(branchStart).relative(Direction.SOUTH, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos).setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z))));

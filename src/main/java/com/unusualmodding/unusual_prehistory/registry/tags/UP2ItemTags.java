@@ -24,6 +24,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> ORGANIC_OOZE = modItemTag("organic_ooze");
 
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
+    public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
 
     public static final TagKey<Item> DUNKLEOSTEUS_FOOD = modItemTag("dunkleosteus_food");
     public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");

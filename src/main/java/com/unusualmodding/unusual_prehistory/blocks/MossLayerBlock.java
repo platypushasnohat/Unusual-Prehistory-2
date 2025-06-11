@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-import java.util.function.ToIntFunction;
-
 public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
 
     private static final BooleanProperty WATERLOGGED;
@@ -29,10 +27,6 @@ public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock,
     public MossLayerBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
-    }
-
-    public static ToIntFunction<BlockState> emission(int light) {
-        return (state) -> MultifaceBlock.hasAnyFace(state) ? light : 0;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> block) {

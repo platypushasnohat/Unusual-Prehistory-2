@@ -1,0 +1,32 @@
+package com.unusualmodding.unusual_prehistory.blocks;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class LepidodendronLeavesBlock extends LeavesBlock implements BonemealableBlock {
+
+    public LepidodendronLeavesBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos blockPos, BlockState state, boolean valid) {
+        return level.getBlockState(blockPos.below()).isAir();
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos blockPos, BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos blockPos, BlockState state) {
+        level.setBlock(blockPos.below(), LepidodendronConeBlock.createHangingCone(), 2);
+    }
+}

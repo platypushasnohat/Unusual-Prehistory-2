@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "unusual_prehistory:lepidodendron_planks"
+    }
+  },
+  "pattern": [
+    "PP",
+    "PP",
+    "PP"
+  ],
+  "result": {
+    "count": 3,
+    "item": "unusual_prehistory:lepidodendron_door"
+  },
+  "show_notification": true
+}
