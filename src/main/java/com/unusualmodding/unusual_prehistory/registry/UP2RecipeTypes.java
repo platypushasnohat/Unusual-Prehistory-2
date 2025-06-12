@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.recipes.ExtractingRecipe;
+import com.unusualmodding.unusual_prehistory.recipes.extractor.ExtractingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -15,8 +15,7 @@ public class UP2RecipeTypes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, UnusualPrehistory2.MOD_ID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, UnusualPrehistory2.MOD_ID);
 
-    public static final RegistryObject<RecipeType<ExtractingRecipe>> EXTRACTING_RECIPE = RECIPE_TYPES.register("extracting_type", () -> new SimpleNamedRecipeType<>("extracting"));
-    public static final RegistryObject<RecipeSerializer<ExtractingRecipe>> EXTRACTING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("extracting", ExtractingRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<ExtractingRecipe>> EXTRACTING_SERIALIZER = RECIPE_SERIALIZERS.register("extracting", () -> ExtractingRecipe.Serializer.INSTANCE);
 
     public record SimpleNamedRecipeType<T extends Recipe<?>>(String name) implements RecipeType<T> {
         @Override

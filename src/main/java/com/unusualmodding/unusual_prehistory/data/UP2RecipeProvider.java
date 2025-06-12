@@ -1,14 +1,11 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.recipes.ExtractingRecipeBuilder;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -25,13 +22,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        ExtractingRecipeBuilder.extracting(UP2Items.FROZEN_MEAT.get(), Items.GLASS_BOTTLE,200)
-                .addOutput(UP2Items.MEGALANIA_DNA.get(), 15)
-                .addOutput(UP2Items.TELECREX_DNA.get(), 15)
-                .addOutput(Items.BEEF, 30)
-                .addOutput(Items.BONE, 30)
-                .build(consumer);
-
         stairs(UP2Blocks.GINKGO_STAIRS, UP2Blocks.GINKGO_PLANKS).save(consumer);
         slab(UP2Blocks.GINKGO_SLAB, UP2Blocks.GINKGO_PLANKS).save(consumer);
         fence(UP2Blocks.GINKGO_FENCE, UP2Blocks.GINKGO_PLANKS).save(consumer);

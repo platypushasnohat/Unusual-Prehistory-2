@@ -1,9 +1,8 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
-import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.recipes.ExtractingRecipe;
-import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import com.unusualmodding.unusual_prehistory.client.screens.ExtractorMenu;
+import com.unusualmodding.unusual_prehistory.recipes.extractor.ExtractorRecipeJsonManager;
+import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,138 +23,112 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
+import javax.annotation.Nonnull;
 
-public class ExtractorBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class ExtractorBlockEntity extends BlockEntity implements MenuProvider {
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(8){
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-    };
+    public ExtractorBlockEntity(BlockPos pos, BlockState state) {
 
-    private static final int INPUT_SLOT = 0;
-    private static final int BOTTLE_SLOT = 1;
-    private static final int[] SLOTS_FOR_UP = new int[] {
-            INPUT_SLOT
-    };
-    private static final int[] SLOTS_FOR_SIDES= new int[] {
-            BOTTLE_SLOT
-    };
-    private static final int[] SLOTS_FOR_DOWN = new int[] {
-            2,3,4,5,6,7
-    };
+        super(UP2BlockEntities.EXTRACTOR_BLOCK_ENTITY.get(), pos, state);
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
-    protected final ContainerData data;
-    private int progress;
-    private int maxProgress;
-
-    public ExtractorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(UP2BlockEntities.EXTRACTOR_BLOCK_ENTITY.get(), pPos, pBlockState);
         this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
+            public int get(int index) {
+                return switch (index) {
                     case 0 -> ExtractorBlockEntity.this.progress;
                     case 1 -> ExtractorBlockEntity.this.maxProgress;
                     default -> 0;
                 };
             }
 
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> ExtractorBlockEntity.this.progress = pValue;
-                    case 1 -> ExtractorBlockEntity.this.maxProgress = pValue;
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0 -> ExtractorBlockEntity.this.progress = value;
+                    case 1 -> ExtractorBlockEntity.this.maxProgress = value;
                 }
             }
-
-            @Override
             public int getCount() {
-                return 2;
+                return 8;
             }
         };
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ExtractorBlockEntity pBlockEntity) {
-        if (pBlockEntity.hasRecipe(pLevel)) {
-            final Container input = pBlockEntity.getContainer(pLevel);
-            ExtractingRecipe recipe = pBlockEntity.getRecipeFor(pLevel, input).get();
-            int processTime = recipe.getProcessTime();
-            pBlockEntity.maxProgress = processTime;
-            pBlockEntity.progress = Math.min(pBlockEntity.progress + 1, processTime);
-            setChanged(pLevel, pPos, pState);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(8) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+        }
+    };
 
-            if (pBlockEntity.progress >= processTime) {
-                pBlockEntity.craftItem(pLevel, recipe);
+    private IItemHandler hopperHandler = new IItemHandler() {
+        @Override
+        public int getSlots() {
+            return itemHandler.getSlots();
+        }
+
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return itemHandler.getStackInSlot(slot);
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (slot != 0 && slot != 1) {
+                return itemHandler.extractItem(slot, amount, simulate);
             }
-        } else {
-            pBlockEntity.resetProgress();
-            setChanged(pLevel, pPos, pState);
+            return ItemStack.EMPTY;
         }
-    }
 
-    protected Optional<ExtractingRecipe> getRecipeFor(Level level, Container input) {
-        return level.getRecipeManager().getRecipeFor(UP2RecipeTypes.EXTRACTING_RECIPE.get(), input, level);
-    }
-
-    private void craftItem(Level level, ExtractingRecipe recipe) {
-
-        ItemStack result = recipe.getOutputItem(level.getRandom());
-
-        this.itemHandler.extractItem(0, 1, false);
-        this.itemHandler.extractItem(1, 1, false);
-
-        boolean success = false;
-        for (int i = 2, n = this.itemHandler.getSlots(); i < n; i++) {
-            if (this.itemHandler.insertItem(i, result, false).isEmpty()) {
-                success = true;
-                break;
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (stack.isEmpty()) {
+                return stack;
             }
+            if (slot == 0 && stack.is(Items.GLASS_BOTTLE)) {
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+
+            if (slot == 1 && stack.is(UP2ItemTags.FOSSILS)) {
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            return stack;
         }
-        this.resetProgress();
-    }
 
-    private void resetProgress() {
-        this.progress = 0;
-    }
-
-    protected boolean hasRecipe(Level level) {
-        final Container input = getContainer(level);
-        Optional<ExtractingRecipe> oRecipe = getRecipeFor(level, input);
-        return oRecipe.isPresent() && canInsertAmountIntoOutputSlot(input);
-    }
-
-    private Container getContainer(Level level) {
-        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        @Override
+        public int getSlotLimit(int slot) {
+            return itemHandler.getSlotLimit(slot);
         }
-        return inventory;
-    }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return itemHandler.isItemValid(slot, stack);
+        }
+    };
+
+    private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+    private LazyOptional<IItemHandler> hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
+
+    protected final ContainerData data;
+    private int progress = 0;
+    private int maxProgress = 144;
 
     @Override
-    public void reviveCaps() {
-        super.reviveCaps();
-        this.handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
+    public Component getDisplayName() {
+        return Component.translatable("block.unusual_prehistory.extractor");
     }
 
-    private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
-
+    @Nonnull
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == null) {
-                return lazyItemHandler.cast();
-            } else{
-                return handlers[side.ordinal()].cast();
+                return lazyItemHandlerOptional.cast();
+            } else {
+                return hopperHandlerOptional.cast();
             }
         }
         return super.getCapability(cap, side);
@@ -164,14 +137,29 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider, W
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
+        hopperHandlerOptional = LazyOptional.of(() -> hopperHandler);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
-        for (int x = 0; x < handlers.length; x++) handlers[x].invalidate();
+        lazyItemHandlerOptional.invalidate();
+        hopperHandlerOptional.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        tag.put("inventory", itemHandler.serializeNBT());
+        tag.putInt("extractor.progress", progress);
+        super.saveAdditional(tag);
+    }
+
+    @Override
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        progress = nbt.getInt("extractor.progress");
     }
 
     public void drops() {
@@ -179,48 +167,77 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider, W
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
+
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.unusual_prehistory.extractor");
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ExtractorBlockEntity pBlockEntity) {
+        if(hasRecipe(pBlockEntity)) {
+            pBlockEntity.progress = Math.min(pBlockEntity.progress + 1, pBlockEntity.maxProgress);
+            setChanged(pLevel, pPos, pState);
+            if(pBlockEntity.progress >= pBlockEntity.maxProgress && !pLevel.isClientSide()) {
+                craftItem(pBlockEntity);
+            }
+        } else {
+            pBlockEntity.resetProgress();
+            setChanged(pLevel, pPos, pState);
+        }
     }
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new ExtractorMenu(pContainerId, pPlayerInventory, this, this.data);
+    private static boolean hasRecipe(ExtractorBlockEntity entity) {
+        Level level = entity.level;
+        if (ExtractorRecipeJsonManager.getRecipes().isEmpty() && !level.isClientSide){
+            ExtractorRecipeJsonManager.populateRecipeMap(level);
+        }
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
+        for (int i = 1; i < entity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        }
+        boolean hasRecipe = ExtractorRecipeJsonManager.containsRecipe(inventory.getItem(1).getItem());
+
+        return hasRecipe && canInsertIntoOutputSlot(inventory) && hasBottleInSlot(entity);
     }
 
-    public boolean canTakeItem(int slot, @NotNull ItemStack stack) {
+    private static boolean hasBottleInSlot(ExtractorBlockEntity entity) {
+        return entity.itemHandler.getStackInSlot(0).getItem() == Items.GLASS_BOTTLE;
+    }
 
-        if (slot == 0 && stack.is(UP2ItemTags.EXTRACTOR_INPUT)) {
-            return true;
+    private static void craftItem(ExtractorBlockEntity entity) {
+        Level level = entity.level;
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
+        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        if (slot == 1 && stack.is(Items.GLASS_BOTTLE)) {
-            return true;
+        boolean hasRecipe = ExtractorRecipeJsonManager.containsRecipe(inventory.getItem(1).getItem());
+
+        if(hasRecipe) {
+            // determine result item
+            ItemStack result = ExtractorRecipeJsonManager.getRandomItemStack(inventory.getItem(1).getItem(), level);
+            // remove first input
+            entity.itemHandler.extractItem(1, 1, false);
+            // attempt to remove flask
+            if(isDnaBottle(result)) {
+                entity.itemHandler.extractItem(0, 1, false);
+            }
+            // attempt to insert result item
+            boolean success = false;
+            for(int i = 2, n = entity.itemHandler.getSlots(); i < n; i++) {
+                if(entity.itemHandler.insertItem(i, result, false).isEmpty()) {
+                    success = true;
+                    break;
+                }
+            }
+            // reset progress
+            entity.resetProgress();
         }
-
-        return false;
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
-        pTag.putInt("extractor.progress", progress);
-        super.saveAdditional(pTag);
+    private void resetProgress() {
+        this.progress = 0;
     }
 
-    @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
-        progress = pTag.getInt("extractor.progress");
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(Container inventory) {
+    private static boolean canInsertIntoOutputSlot(SimpleContainer inventory) {
         for (int slot = 2, n = inventory.getContainerSize(); slot < n; slot++) {
             if (inventory.getItem(slot).isEmpty()) {
                 return true;
@@ -229,79 +246,12 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider, W
         return false;
     }
 
-    @Override
-    public int[] getSlotsForFace(Direction direction) {
-        if (direction == Direction.UP) {
-            return SLOTS_FOR_UP;
-        } else {
-            return direction == Direction.DOWN ? SLOTS_FOR_DOWN : SLOTS_FOR_SIDES;
-        }
+    private static boolean isDnaBottle(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.DNA_BOTTLES);
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction) {
-        return slot == 0 && itemStack.is(UP2ItemTags.EXTRACTOR_INPUT) || slot == 1 && itemStack.is(Items.GLASS_BOTTLE);
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
-        return true;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return this.itemHandler.getSlots();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
-            if(!this.itemHandler.getStackInSlot(i).isEmpty()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public ItemStack getItem(int pSlot) {
-        return this.itemHandler.getStackInSlot(pSlot);
-    }
-
-    @Override
-    public ItemStack removeItem(int pSlot, int pAmount) {
-        if (canRemoveItem(pSlot)) {
-            return this.itemHandler.extractItem(pSlot, pAmount, false);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public boolean canRemoveItem(int slot) {
-        return (slot != 1) && (slot != 0);
-    }
-
-    @Override
-    public ItemStack removeItemNoUpdate(int pSlot) {
-        if (canRemoveItem(pSlot)) {
-            return this.itemHandler.extractItem(pSlot, 0, false);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public void setItem(int pSlot, ItemStack itemStack) {
-        if (canTakeItem(pSlot, itemStack)) {
-            this.itemHandler.setStackInSlot(pSlot, itemStack);
-        }
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return Container.stillValidBlockEntity(this, player);
-    }
-
-    @Override
-    public void clearContent() {
-        this.itemHandler.setSize(8);
+    public AbstractContainerMenu createMenu(int container, Inventory inventory, Player player) {
+        return new ExtractorMenu(container, inventory, this, this.data);
     }
 }

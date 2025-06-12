@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.client.screens;
 
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,11 +11,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ExtractorScreen extends AbstractContainerScreen<ExtractorMenu> {
-
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/extractor.png");
 
-    public ExtractorScreen(ExtractorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+    private static final int SCREEN_WIDTH = 176;
+    private static final int SCREEN_HEIGHT = 166;
+
+    private static final int LEFT_PROGRESS_X = 16;
+    private static final int LEFT_PROGRESS_Y = 25;
+    private static final int RIGHT_PROGRESS_X = 149;
+    private static final int RIGHT_PROGRESS_Y = LEFT_PROGRESS_Y;
+    private static final int PROGRESS_WIDTH = 11;
+    private static final int PROGRESS_HEIGHT = 44;
+
+    public ExtractorScreen(ExtractorMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title);
+        imageWidth = SCREEN_WIDTH;
+        imageHeight = SCREEN_HEIGHT;
     }
 
     @Override
@@ -23,29 +35,28 @@ public class ExtractorScreen extends AbstractContainerScreen<ExtractorMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics gui, float partialTicks, int x, int y) {
+        Lighting.setupForFlatItems();
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        gui.blit(TEXTURE, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        renderProgressArrow(guiGraphics, x, y);
-    }
-
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if (menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 16, y + 25, 176, 0, 11, menu.getScaledProgress());
+            int vHeight = menu.getScaledProgress(PROGRESS_HEIGHT);
+            int blitY = PROGRESS_HEIGHT - vHeight;
+            gui.blit(TEXTURE, leftPos + LEFT_PROGRESS_X, topPos + LEFT_PROGRESS_Y + blitY, 176, blitY, PROGRESS_WIDTH, vHeight);
+            gui.blit(TEXTURE, leftPos + RIGHT_PROGRESS_X, topPos + RIGHT_PROGRESS_Y + blitY, 187, blitY, PROGRESS_WIDTH, vHeight);
         }
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, delta);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+    public void render(GuiGraphics gui, int x, int y, float partialTicks) {
+        renderBackground(gui);
+        super.render(gui, x, y, partialTicks);
+        renderTooltip(gui, x, y);
     }
 }
 

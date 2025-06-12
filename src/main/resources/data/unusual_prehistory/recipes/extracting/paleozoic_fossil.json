@@ -1,0 +1,27 @@
+{
+  "input": [
+    "unusual_prehistory:paleozoic_fossil"
+  ],
+  "entries": [
+    {
+      "weight": 50,
+      "item": "minecraft:coal"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "weight": 50,
+      "item": "minecraft:bone"
+    },
+    {
+      "weight": 5,
+      "item": "unusual_prehistory:stethacanthus_dna_bottle"
+    },
+    {
+      "weight": 5,
+      "item": "unusual_prehistory:scaumenacia_dna_bottle"
+    }
+  ]
+}
