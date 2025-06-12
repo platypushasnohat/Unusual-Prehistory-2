@@ -41,9 +41,15 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider, W
 
     private static final int INPUT_SLOT = 0;
     private static final int BOTTLE_SLOT = 1;
-    private static final int[] SLOTS_FOR_UP = new int[] {INPUT_SLOT};
-    private static final int[] SLOTS_FOR_SIDES= new int[] {BOTTLE_SLOT};
-    private static final int[] SLOTS_FOR_DOWN = new int[] {2,3,4,5,6,7};
+    private static final int[] SLOTS_FOR_UP = new int[] {
+            INPUT_SLOT
+    };
+    private static final int[] SLOTS_FOR_SIDES= new int[] {
+            BOTTLE_SLOT
+    };
+    private static final int[] SLOTS_FOR_DOWN = new int[] {
+            2,3,4,5,6,7
+    };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 

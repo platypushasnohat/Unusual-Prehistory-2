@@ -29,8 +29,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         super(event.getGenerator().getPackOutput(), UnusualPrehistory2.MOD_ID, "en_us");
     }
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     @Override
     protected void addTranslations() {
 
