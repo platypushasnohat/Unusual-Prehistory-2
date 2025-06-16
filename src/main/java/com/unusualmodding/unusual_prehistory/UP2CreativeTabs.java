@@ -37,7 +37,7 @@ public class UP2CreativeTabs {
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
-                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
+//                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
 
                         tabOutput.accept(GINKGO_FRUIT.get());
 
@@ -148,7 +148,6 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_BUTTON.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
                         tabOutput.accept(UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get());
-                        tabOutput.accept(UP2Blocks.LEPIDODENDRON_GROWTHS.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_CONE.get());
 
                     }).build());

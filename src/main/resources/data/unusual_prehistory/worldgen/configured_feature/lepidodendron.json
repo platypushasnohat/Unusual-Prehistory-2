@@ -10,9 +10,6 @@
         "type": "unusual_prehistory:hanging_lepidodendron_leaves"
       },
       {
-        "type": "unusual_prehistory:lepidodendron_growths"
-      },
-      {
         "type": "minecraft:alter_ground",
         "provider": {
           "type": "minecraft:simple_state_provider",
@@ -63,27 +60,13 @@
       "height_rand_b": 0
     },
     "trunk_provider": {
-      "type": "minecraft:weighted_state_provider",
-      "entries": [
-        {
-          "weight": 2,
-          "data": {
-            "Name": "unusual_prehistory:lepidodendron_log",
-            "Properties": {
-              "axis": "y"
-            }
-          }
-        },
-        {
-          "weight": 1,
-          "data": {
-            "Name": "unusual_prehistory:mossy_lepidodendron_log",
-            "Properties": {
-              "axis": "y"
-            }
-          }
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "unusual_prehistory:lepidodendron_log",
+        "Properties": {
+          "axis": "y"
         }
-      ]
+      }
     }
   }
 }

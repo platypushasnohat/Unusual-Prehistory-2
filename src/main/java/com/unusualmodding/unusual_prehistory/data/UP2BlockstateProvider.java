@@ -79,7 +79,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.pillar(LEPIDODENDRON_LOG);
         this.wood(LEPIDODENDRON_WOOD, this.blockTexture(LEPIDODENDRON_LOG.get()));
-        this.wood(MOSSY_LEPIDODENDRON_WOOD, this.blockTexture(MOSSY_LEPIDODENDRON_LOG.get()));
         this.pillar(STRIPPED_LEPIDODENDRON_LOG);
         this.wood(STRIPPED_LEPIDODENDRON_WOOD, this.blockTexture(STRIPPED_LEPIDODENDRON_LOG.get()));
         this.cubeAllBlock(LEPIDODENDRON_PLANKS);

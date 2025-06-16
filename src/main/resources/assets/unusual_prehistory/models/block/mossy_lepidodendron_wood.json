@@ -3,10 +3,9 @@
 	"ambientocclusion": false,
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"particle": "unusual_prehistory:block/mossy_lepidodendron_log",
 		"log": "unusual_prehistory:block/mossy_lepidodendron_log",
-		"log_top": "unusual_prehistory:block/lepidodendron_log_top",
-		"growths": "unusual_prehistory:block/lepidodendron_growths"
+		"growths": "unusual_prehistory:block/lepidodendron_growths",
+		"particle": "unusual_prehistory:block/mossy_lepidodendron_log"
 	},
 	"elements": [
 		{
@@ -17,11 +16,11 @@
 				"east": {"uv": [0, 0, 16, 16], "texture": "#log", "cullface": "east"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#log", "cullface": "south"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#log", "cullface": "west"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#log_top", "cullface": "up"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#log_top", "cullface": "down"}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#log", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#log", "cullface": "down"}
 			}
 		},
-		{
+				{
 			"from": [2.4161, -0.02, -7.20129],
 			"to": [2.4561, 16.02, -2.16129],
 			"shade": false,

@@ -4,7 +4,6 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.worldgen.foliage_placer.GinkgoFoliagePlacer;
 import com.unusualmodding.unusual_prehistory.worldgen.foliage_placer.LepidodendronFoliagePlacer;
 import com.unusualmodding.unusual_prehistory.worldgen.tree_decorator.HangingLepidodendronLeavesDecorator;
-import com.unusualmodding.unusual_prehistory.worldgen.tree_decorator.LepidodendronGrowthsDecorator;
 import com.unusualmodding.unusual_prehistory.worldgen.trunk_placer.LepidodendronTrunkPlacer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -27,8 +26,6 @@ public class UP2Features {
     public static final RegistryObject<TrunkPlacerType<LepidodendronTrunkPlacer>> LEPIDODENDRON_TRUNK = TRUNK_PLACERS.register("lepidodendron_trunk_placer", () -> new TrunkPlacerType<>(LepidodendronTrunkPlacer.CODEC));
 
     public static final RegistryObject<TreeDecoratorType<?>> HANGING_LEPIDODENDRON_LEAVES = TREE_DECORATORS.register("hanging_lepidodendron_leaves", () -> new TreeDecoratorType<>(HangingLepidodendronLeavesDecorator.CODEC));
-    public static final RegistryObject<TreeDecoratorType<?>> LEPIDODENDRON_GROWTHS = TREE_DECORATORS.register("lepidodendron_growths", () -> new TreeDecoratorType<>(LepidodendronGrowthsDecorator.CODEC));
-
 
     public static void register(IEventBus eventBus) {
         FOLIAGE_PLACERS.register(eventBus);

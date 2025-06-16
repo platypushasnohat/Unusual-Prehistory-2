@@ -30,13 +30,13 @@ public class LepidodendronFoliagePlacer extends FoliagePlacer {
         BlockPos blockPos = treeNode.pos().above(offset);
         BlockPos.MutableBlockPos mutable = blockPos.mutable();
 
-        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 1 + treeNode.radiusOffset(), 1, false);
-        this.generateDiamond(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 1, treeNode.doubleTrunk());
+        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 1 + treeNode.radiusOffset(), 3, false);
+        this.generateDiamond(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 3, treeNode.doubleTrunk());
 
-        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 3 + treeNode.radiusOffset(), 2, false);
+        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 3 + treeNode.radiusOffset(), 4, false);
 
-        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 3, false);
-        mutable.setWithOffset(blockPos, 0, 3, 0);
+        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 5, false);
+        mutable.setWithOffset(blockPos, 0, 5, 0);
         tryPlaceLeaf(level, placer, random, config, mutable.offset(-1, 0, -5));
         tryPlaceLeaf(level, placer, random, config, mutable.offset(0, 0, -5));
         tryPlaceLeaf(level, placer, random, config, mutable.offset(1, 0, -5));
@@ -53,8 +53,8 @@ public class LepidodendronFoliagePlacer extends FoliagePlacer {
         tryPlaceLeaf(level, placer, random, config, mutable.offset(-5, 0, 0));
         tryPlaceLeaf(level, placer, random, config, mutable.offset(-5, 0, 1));
 
-        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 1 + treeNode.radiusOffset(), 4, false);
-        this.generateDiamond(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 4, treeNode.doubleTrunk());
+        this.placeLeavesRow(level, placer, random, config, blockPos, radius + 1 + treeNode.radiusOffset(), 6, false);
+        this.generateDiamond(level, placer, random, config, blockPos, radius + 2 + treeNode.radiusOffset(), 6, treeNode.doubleTrunk());
     }
 
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {

@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.network.ExtractorRecipeSyncClient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -30,11 +29,6 @@ public class UP2Network {
 
         INSTANCE = network;
 
-        network.registerMessage(id(), ExtractorRecipeSyncClient.class,
-                ExtractorRecipeSyncClient::encode,
-                ExtractorRecipeSyncClient::decode,
-                ExtractorRecipeSyncClient::onPacketReceived
-        );
     }
 
     public static <MSG> void sendToServer(MSG message) {

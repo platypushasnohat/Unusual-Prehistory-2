@@ -16,7 +16,6 @@ import com.unusualmodding.unusual_prehistory.client.renderer.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2ItemProperties;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import com.unusualmodding.unusual_prehistory.client.particles.FallingLeafParticle;
-import com.unusualmodding.unusual_prehistory.client.screens.ExtractorScreen;
 import com.unusualmodding.unusual_prehistory.registry.UP2MenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
@@ -38,10 +37,10 @@ public class ClientEvents {
         Sheets.addWoodType(UP2BlockProperties.GINKGO);
     }
 
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        MenuScreens.register(UP2MenuTypes.EXTRACTOR_MENU.get(), ExtractorScreen::new);
-    }
+//    @SubscribeEvent
+//    public static void onClientSetup(FMLClientSetupEvent event) {
+//        MenuScreens.register(UP2MenuTypes.EXTRACTOR_MENU.get(), ExtractorScreen::new);
+//    }
 
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
