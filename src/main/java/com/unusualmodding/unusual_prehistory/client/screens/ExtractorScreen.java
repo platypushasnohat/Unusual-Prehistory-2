@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.client.screens;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.menus.CultivatorMenu;
+import com.unusualmodding.unusual_prehistory.menus.ExtractorMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -11,24 +11,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class CultivatorScreen extends AbstractContainerScreen<CultivatorMenu> {
+public class ExtractorScreen extends AbstractContainerScreen<ExtractorMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/cultivator.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/extractor.png");
 
     private static final int SCREEN_WIDTH = 176;
     private static final int SCREEN_HEIGHT = 166;
 
-    private static final int PROGRESS_X = 65;
-    private static final int PROGRESS_Y = 29;
-    private static final int PROGRESS_WIDTH = 48;
-    private static final int PROGRESS_HEIGHT = 20;
+    private static final int LEFT_PROGRESS_X = 16;
+    private static final int LEFT_PROGRESS_Y = 25;
+    private static final int RIGHT_PROGRESS_X = 149;
+    private static final int RIGHT_PROGRESS_Y = LEFT_PROGRESS_Y;
+    private static final int PROGRESS_WIDTH = 11;
+    private static final int PROGRESS_HEIGHT = 44;
 
-    private static final int FUEL_X = 100;
-    private static final int FUEL_Y = 66;
-    private static final int FUEL_WIDTH = 44;
-    private static final int FUEL_HEIGHT = 11;
-
-    public CultivatorScreen(CultivatorMenu menu, Inventory playerInventory, Component title) {
+    public ExtractorScreen(ExtractorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = SCREEN_WIDTH;
         imageHeight = SCREEN_HEIGHT;
@@ -41,8 +38,6 @@ public class CultivatorScreen extends AbstractContainerScreen<CultivatorMenu> {
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-        this.renderBackground(graphics);
-
         Lighting.setupForFlatItems();
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -51,13 +46,12 @@ public class CultivatorScreen extends AbstractContainerScreen<CultivatorMenu> {
 
         graphics.blit(TEXTURE, leftPos, topPos, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        if(menu.isCrafting()) {
-            int width = menu.getScaledProgress(PROGRESS_WIDTH);
-            graphics.blit(TEXTURE, leftPos + PROGRESS_X, topPos + PROGRESS_Y, 176, 0, width, PROGRESS_HEIGHT);
+        if (menu.isCrafting()) {
+            int height = menu.getScaledProgress(PROGRESS_HEIGHT);
+            int blitY = PROGRESS_HEIGHT - height;
+            graphics.blit(TEXTURE, leftPos + LEFT_PROGRESS_X, topPos + LEFT_PROGRESS_Y + blitY, 176, blitY, PROGRESS_WIDTH, height);
+            graphics.blit(TEXTURE, leftPos + RIGHT_PROGRESS_X, topPos + RIGHT_PROGRESS_Y + blitY, 187, blitY, PROGRESS_WIDTH, height);
         }
-
-        int width = menu.getScaledFuel(FUEL_WIDTH);
-        graphics.blit(TEXTURE, leftPos + FUEL_X, topPos + FUEL_Y, 176, 20, width, FUEL_HEIGHT);
     }
 
     @Override

@@ -37,6 +37,7 @@ public class UP2CreativeTabs {
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
+                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
                         tabOutput.accept(UP2Blocks.CULTIVATOR.get());
 
                         tabOutput.accept(GINKGO_FRUIT.get());

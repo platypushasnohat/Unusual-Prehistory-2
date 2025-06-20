@@ -4,24 +4,12 @@
   ],
   "entries": [
     {
-      "weight": 50,
-      "item": "minecraft:coal"
+      "weight": 15,
+      "item": "unusual_prehistory:diplocaulus_dna_bottle"
     },
     {
-      "weight": 50,
-      "item": "minecraft:cobblestone"
-    },
-    {
-      "weight": 50,
-      "item": "minecraft:bone"
-    },
-    {
-      "weight": 5,
-      "item": "unusual_prehistory:stethacanthus_dna_bottle"
-    },
-    {
-      "weight": 5,
-      "item": "unusual_prehistory:scaumenacia_dna_bottle"
+      "weight": 10,
+      "item": "unusual_prehistory:dunkleosteus_dna_bottle"
     }
   ]
 }

@@ -34,6 +34,7 @@ public class ClientEvents {
         Sheets.addWoodType(UP2BlockProperties.GINKGO);
 
         MenuScreens.register(UP2MenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
+        MenuScreens.register(UP2MenuTypes.ANALYZER_MENU.get(), ExtractorScreen::new);
     }
 
     @SubscribeEvent

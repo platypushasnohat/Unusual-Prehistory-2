@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.client.screens;
+package com.unusualmodding.unusual_prehistory.menus;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

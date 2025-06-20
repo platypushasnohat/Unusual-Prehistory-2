@@ -35,7 +35,7 @@ public class CultivatingRecipeCategory implements IRecipeCategory<CultivatingRec
 
     @Override
     public RecipeType<CultivatingRecipe> getRecipeType() {
-        return JEIPlugin.CULTIVATOR_TYPE;
+        return JEIPlugin.CULTIVATING_TYPE;
     }
 
     @Override

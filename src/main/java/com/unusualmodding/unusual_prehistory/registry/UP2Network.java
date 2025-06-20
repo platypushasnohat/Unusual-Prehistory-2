@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.network.ExtractingRecipeS2C;
 import com.unusualmodding.unusual_prehistory.network.SyncItemStackC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,6 +34,11 @@ public class UP2Network {
                 .encoder(SyncItemStackC2SPacket::toBytes)
                 .consumerMainThread(SyncItemStackC2SPacket::handle)
                 .add();
+
+        network.registerMessage(id(), ExtractingRecipeS2C.class,
+                ExtractingRecipeS2C::encode,
+                ExtractingRecipeS2C::decode,
+                ExtractingRecipeS2C::onPacketReceived);
 
         INSTANCE = network;
 

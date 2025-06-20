@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.client.screens.CultivatorMenu;
+import com.unusualmodding.unusual_prehistory.menus.CultivatorMenu;
 import com.unusualmodding.unusual_prehistory.network.SyncItemStackC2SPacket;
 import com.unusualmodding.unusual_prehistory.recipes.CultivatingRecipe;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
@@ -275,7 +275,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     public boolean canTakeItem(int slot, ItemStack stack) {
-        if (slot == 0 && stack.is(UP2ItemTags.DNA_BOTTLES)){
+        if (slot == 0 && stack.is(UP2ItemTags.DNA_BOTTLES)) {
             return true;
         }
         return slot == 1 && stack.is(UP2Items.ORGANIC_OOZE.get());
@@ -360,7 +360,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
             } else {
                 return handlers[direction.ordinal()].cast();
             }
-
         }
         return super.getCapability(capability, direction);
     }
