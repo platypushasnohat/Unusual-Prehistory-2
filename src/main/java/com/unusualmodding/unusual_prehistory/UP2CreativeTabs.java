@@ -37,7 +37,7 @@ public class UP2CreativeTabs {
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
-//                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
+                        tabOutput.accept(UP2Blocks.CULTIVATOR.get());
 
                         tabOutput.accept(GINKGO_FRUIT.get());
 
@@ -68,11 +68,14 @@ public class UP2CreativeTabs {
                         tabOutput.accept(BENNETTITALES_DNA.get());
                         tabOutput.accept(CALAMOPHYTON_DNA.get());
                         tabOutput.accept(CLADOPHLEBIS_DNA.get());
+                        tabOutput.accept(COOKSONIA_DNA.get());
                         tabOutput.accept(GINKGO_DNA.get());
                         tabOutput.accept(HORSETAIL_DNA.get());
                         tabOutput.accept(ISOETES_DNA.get());
                         tabOutput.accept(LEEFRUCTUS_DNA.get());
+                        tabOutput.accept(LEPIDODENDRON_DNA.get());
                         tabOutput.accept(RAIGUENRAYUN_DNA.get());
+                        tabOutput.accept(RHYNIA_DNA.get());
                         tabOutput.accept(SARRACENIA_DNA.get());
 
                         // water plant dna

@@ -65,13 +65,16 @@ public class UP2Items {
     public static final RegistryObject<Item> CALAMOPHYTON_DNA = registerDnaItem("calamophyton");
     public static final RegistryObject<Item> CLADOPHLEBIS_DNA = registerDnaItem("cladophlebis");
     public static final RegistryObject<Item> CLATHRODICTYON_CORAL_DNA = registerDnaItem("clathrodictyon_coral");
+    public static final RegistryObject<Item> COOKSONIA_DNA = registerDnaItem("cooksonia");
     public static final RegistryObject<Item> GINKGO_DNA = registerDnaItem("ginkgo");
     public static final RegistryObject<Item> HORSETAIL_DNA = registerDnaItem("horsetail");
     public static final RegistryObject<Item> ISOETES_DNA = registerDnaItem("isoetes");
     public static final RegistryObject<Item> LEEFRUCTUS_DNA = registerDnaItem("leefructus");
+    public static final RegistryObject<Item> LEPIDODENDRON_DNA = registerDnaItem("lepidodendron");
     public static final RegistryObject<Item> NELUMBITES_DNA = registerDnaItem("nelumbites");
     public static final RegistryObject<Item> QUEREUXIA_DNA = registerDnaItem("quereuxia");
     public static final RegistryObject<Item> RAIGUENRAYUN_DNA = registerDnaItem("raiguenrayun");
+    public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
     public static final RegistryObject<Item> SARRACENIA_DNA = registerDnaItem("sarracenia");
 
     // block items

@@ -74,13 +74,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
         dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
         dnaItem(UP2Items.CLATHRODICTYON_CORAL_DNA.get());
+        dnaItem(UP2Items.COOKSONIA_DNA.get());
         dnaItem(UP2Items.GINKGO_DNA.get());
         dnaItem(UP2Items.HORSETAIL_DNA.get());
         dnaItem(UP2Items.ISOETES_DNA.get());
         dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
+        dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
         dnaItem(UP2Items.NELUMBITES_DNA.get());
         dnaItem(UP2Items.QUEREUXIA_DNA.get());
         dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
+        dnaItem(UP2Items.RHYNIA_DNA.get());
         dnaItem(UP2Items.SARRACENIA_DNA.get());
 
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");

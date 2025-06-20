@@ -8,15 +8,12 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.Di
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
-import com.unusualmodding.unusual_prehistory.registry.UP2BlockProperties;
-import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.unusualmodding.unusual_prehistory.client.renderer.blockentity.*;
+import com.unusualmodding.unusual_prehistory.client.screens.*;
+import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
-import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
-import com.unusualmodding.unusual_prehistory.registry.UP2ItemProperties;
-import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import com.unusualmodding.unusual_prehistory.client.particles.FallingLeafParticle;
-import com.unusualmodding.unusual_prehistory.registry.UP2MenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,12 +32,9 @@ public class ClientEvents {
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UP2ItemProperties::registerItemProperties);
         Sheets.addWoodType(UP2BlockProperties.GINKGO);
-    }
 
-//    @SubscribeEvent
-//    public static void onClientSetup(FMLClientSetupEvent event) {
-//        MenuScreens.register(UP2MenuTypes.EXTRACTOR_MENU.get(), ExtractorScreen::new);
-//    }
+        MenuScreens.register(UP2MenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
+    }
 
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
@@ -62,6 +56,8 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.TALPANAS.get(), TalpanasRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
+
+        event.registerBlockEntityRenderer(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

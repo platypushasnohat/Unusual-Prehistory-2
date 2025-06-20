@@ -55,11 +55,14 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(BENNETTITALES_DNA);
         this.dnaItem(CALAMOPHYTON_DNA);
         this.dnaItem(CLADOPHLEBIS_DNA);
+        this.dnaItem(COOKSONIA_DNA);
         this.dnaItem(GINKGO_DNA);
         this.dnaItem(HORSETAIL_DNA);
         this.dnaItem(ISOETES_DNA);
         this.dnaItem(LEEFRUCTUS_DNA);
+        this.dnaItem(LEPIDODENDRON_DNA);
         this.dnaItem(RAIGUENRAYUN_DNA);
+        this.dnaItem(RHYNIA_DNA);
         this.dnaItem(SARRACENIA_DNA);
 
         // water plant dna

@@ -1,11 +1,14 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.NonNullList;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -13,6 +16,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import static com.unusualmodding.unusual_prehistory.UnusualPrehistory2.modPrefix;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 
@@ -46,6 +51,25 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.LEPIDODENDRON_WOOD, UP2Blocks.LEPIDODENDRON_LOG).save(consumer);
         wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
+
+        cultivating(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());
+        cultivating(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
+        cultivating(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
+        cultivating(consumer, UP2Items.CLADOPHLEBIS_DNA.get(), UP2Blocks.CLADOPHLEBIS.get().asItem());
+        cultivating(consumer, UP2Items.COOKSONIA_DNA.get(), UP2Blocks.COOKSONIA.get().asItem());
+        cultivating(consumer, UP2Items.GINKGO_DNA.get(), UP2Blocks.GINKGO_SAPLING.get().asItem());
+        cultivating(consumer, UP2Items.HORSETAIL_DNA.get(), UP2Blocks.HORSETAIL.get().asItem());
+        cultivating(consumer, UP2Items.ISOETES_DNA.get(), UP2Blocks.ISOETES.get().asItem());
+        cultivating(consumer, UP2Items.LEEFRUCTUS_DNA.get(), UP2Blocks.LEEFRUCTUS.get().asItem());
+        cultivating(consumer, UP2Items.LEPIDODENDRON_DNA.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
+        cultivating(consumer, UP2Items.RAIGUENRAYUN_DNA.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
+        cultivating(consumer, UP2Items.RHYNIA_DNA.get(), UP2Blocks.RHYNIA.get().asItem());
+        cultivating(consumer, UP2Items.SARRACENIA_DNA.get(), UP2Blocks.SARRACENIA.get().asItem());
+        cultivating(consumer, UP2Items.ARCHAEFRUCTUS_DNA.get(), UP2Blocks.ARCHAEFRUCTUS.get().asItem());
+        cultivating(consumer, UP2Items.NELUMBITES_DNA.get(), UP2Blocks.NELUMBITES.get().asItem());
+        cultivating(consumer, UP2Items.QUEREUXIA_DNA.get(), UP2Blocks.QUEREUXIA.get().asItem());
+        cultivating(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.ANOSTYLOSTROMA.get().asItem());
+        cultivating(consumer, UP2Items.CLATHRODICTYON_CORAL_DNA.get(), UP2Blocks.CLATHRODICTYON_CORAL.get().asItem());
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {
@@ -125,5 +149,11 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("MM")
                 .define('M', logIn.get())
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(logIn.get()).getPath(), has(logIn.get()));
+    }
+
+    protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, Item result){
+        Ingredient ingredient = Ingredient.of(ingredients);
+        NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
+        UP2RecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, modPrefix("cultivating/" + getItemName(result)));
     }
 }

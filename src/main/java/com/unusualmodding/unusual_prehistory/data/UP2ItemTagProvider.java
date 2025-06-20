@@ -64,11 +64,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 BENNETTITALES_DNA.get(),
                 CALAMOPHYTON_DNA.get(),
                 CLADOPHLEBIS_DNA.get(),
+                COOKSONIA_DNA.get(),
                 GINKGO_DNA.get(),
                 HORSETAIL_DNA.get(),
                 ISOETES_DNA.get(),
                 LEEFRUCTUS_DNA.get(),
+                LEPIDODENDRON_DNA.get(),
                 RAIGUENRAYUN_DNA.get(),
+                RHYNIA_DNA.get(),
                 SARRACENIA_DNA.get()
         );
 
