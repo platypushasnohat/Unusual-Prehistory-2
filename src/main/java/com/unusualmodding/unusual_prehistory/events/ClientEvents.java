@@ -16,6 +16,7 @@ import com.unusualmodding.unusual_prehistory.client.renderer.*;
 import com.unusualmodding.unusual_prehistory.client.particles.FallingLeafParticle;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -57,6 +58,8 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.TALPANAS.get(), TalpanasRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
+
+        event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
         event.registerBlockEntityRenderer(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
     }

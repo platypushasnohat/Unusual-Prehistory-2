@@ -52,6 +52,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
 
+        cultivating(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
+
         cultivating(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());
         cultivating(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
         cultivating(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
@@ -68,7 +70,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         cultivating(consumer, UP2Items.ARCHAEFRUCTUS_DNA.get(), UP2Blocks.ARCHAEFRUCTUS.get().asItem());
         cultivating(consumer, UP2Items.NELUMBITES_DNA.get(), UP2Blocks.NELUMBITES.get().asItem());
         cultivating(consumer, UP2Items.QUEREUXIA_DNA.get(), UP2Blocks.QUEREUXIA.get().asItem());
-        cultivating(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.ANOSTYLOSTROMA.get().asItem());
+        cultivating(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get().asItem());
         cultivating(consumer, UP2Items.CLATHRODICTYON_CORAL_DNA.get(), UP2Blocks.CLATHRODICTYON_CORAL.get().asItem());
     }
 

@@ -28,6 +28,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         // unusual prehistory
         this.tag(UP2ItemTags.FOSSILS).add(
+                PLANT_FOSSIL.get(),
                 PALEOZOIC_FOSSIL.get(),
                 MESOZOIC_FOSSIL.get(),
                 FROZEN_MEAT.get()

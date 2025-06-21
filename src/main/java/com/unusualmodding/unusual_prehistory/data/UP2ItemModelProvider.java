@@ -22,6 +22,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        this.item(PLANT_FOSSIL);
         this.item(PALEOZOIC_FOSSIL);
         this.item(MESOZOIC_FOSSIL);
         this.item(FROZEN_MEAT);
@@ -71,6 +72,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(CLATHRODICTYON_CORAL_DNA);
         this.dnaItem(NELUMBITES_DNA);
         this.dnaItem(QUEREUXIA_DNA);
+
+        // eggs
+        this.item(TELECREX_EGG);
 
         // spawn eggs
         for (Item item : BuiltInRegistries.ITEM) {

@@ -17,7 +17,7 @@ public class UP2CreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(FROZEN_MEAT.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.EXTRACTOR.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
 
@@ -28,6 +28,7 @@ public class UP2CreativeTabs {
                             }
                         });
 
+                        tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(PALEOZOIC_FOSSIL.get());
                         tabOutput.accept(MESOZOIC_FOSSIL.get());
                         tabOutput.accept(FROZEN_MEAT.get());
@@ -85,6 +86,9 @@ public class UP2CreativeTabs {
                         tabOutput.accept(QUEREUXIA_DNA.get());
                         tabOutput.accept(ANOSTYLOSTROMA_DNA.get());
                         tabOutput.accept(CLATHRODICTYON_CORAL_DNA.get());
+
+                        // eggs
+                        tabOutput.accept(TELECREX_EGG.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
