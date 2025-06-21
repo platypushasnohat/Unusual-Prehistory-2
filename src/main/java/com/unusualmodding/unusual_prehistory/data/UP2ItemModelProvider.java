@@ -74,6 +74,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(QUEREUXIA_DNA);
 
         // eggs
+        this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);
 
         // spawn eggs

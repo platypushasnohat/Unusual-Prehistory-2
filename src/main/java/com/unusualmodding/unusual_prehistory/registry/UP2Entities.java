@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.*;
+import com.unusualmodding.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TelecrexEgg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -111,12 +112,20 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
 
-    public static final RegistryObject<EntityType<TelecrexEgg>> TELECREX_EGG = ENTITY_TYPE.register(
-            "telecrex_egg", () ->
-            EntityType.Builder.<TelecrexEgg>of(TelecrexEgg::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<TalpanasEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
+            "talpanas_egg", () ->
+            EntityType.Builder.<TalpanasEgg>of(TalpanasEgg::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
-                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "talpanas_egg").toString())
+    );
+
+    public static final RegistryObject<EntityType<TelecrexEgg>> TELECREX_EGG = ENTITY_TYPE.register(
+            "telecrex_egg", () ->
+                    EntityType.Builder.<TelecrexEgg>of(TelecrexEgg::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .clientTrackingRange(4)
+                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
     );
 
 }

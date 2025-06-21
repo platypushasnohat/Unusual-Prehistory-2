@@ -89,6 +89,7 @@ public class UP2CreativeTabs {
 
                         // eggs
                         tabOutput.accept(TELECREX_EGG.get());
+                        tabOutput.accept(TALPANAS_EGG.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());

@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.items.MobCaptureItem;
 import com.unusualmodding.unusual_prehistory.items.FrozenMeatItem;
-import com.unusualmodding.unusual_prehistory.items.TelecrexEggItem;
+import com.unusualmodding.unusual_prehistory.items.ThrowableEggItem;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
@@ -79,7 +79,8 @@ public class UP2Items {
     public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
     public static final RegistryObject<Item> SARRACENIA_DNA = registerDnaItem("sarracenia");
 
-    public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new TelecrexEggItem(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
 
     // block items
     public static final RegistryObject<Item> DEAD_CLATHRODICTYON_CORAL_FAN = registerItemNoLang("dead_clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));

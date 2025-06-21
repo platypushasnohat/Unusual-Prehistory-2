@@ -59,6 +59,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
 
+        event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
         event.registerBlockEntityRenderer(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
