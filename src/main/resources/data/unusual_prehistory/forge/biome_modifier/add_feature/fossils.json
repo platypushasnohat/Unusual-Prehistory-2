@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "unusual_prehistory:ore_frozen_meat",
+    "unusual_prehistory:ore_fossil_upper",
+    "unusual_prehistory:ore_fossil_lower"
+  ],
+  "step": "underground_ores"
+}
