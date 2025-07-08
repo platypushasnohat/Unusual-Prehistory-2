@@ -170,28 +170,26 @@ public class Majungasaurus extends Animal {
                 double distanceToTarget = this.majungasaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
                 Pose pose = this.majungasaurus.getPose();
 
-                if (pose != UP2Poses.CHARGING_START.get() && pose != UP2Poses.CHARGING.get() && pose != UP2Poses.CHARGING_END.get()) {
-                    this.majungasaurus.getLookControl().setLookAt(target.getX(), target.getEyeY(), target.getZ());
-                    this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
 
-                    if (this.majungasaurus.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 0.0 || this.majungasaurus.getRandom().nextFloat() < 0.05F)) {
-                        this.pathedTargetX = target.getX();
-                        this.pathedTargetY = target.getY();
-                        this.pathedTargetZ = target.getZ();
-                        this.ticksUntilNextPathRecalculation = 4 + this.majungasaurus.getRandom().nextInt(7);
+                if (this.majungasaurus.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 0.0 || this.majungasaurus.getRandom().nextFloat() < 0.05F)) {
+                    this.pathedTargetX = target.getX();
+                    this.pathedTargetY = target.getY();
+                    this.pathedTargetZ = target.getZ();
+                    this.ticksUntilNextPathRecalculation = 4 + this.majungasaurus.getRandom().nextInt(7);
 
-                        if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
-                        else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
+                    if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
+                    else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
 
-                        if (!this.majungasaurus.getNavigation().moveTo(target, 1.75D))
-                            this.ticksUntilNextPathRecalculation += 15;
+                    if (!this.majungasaurus.getNavigation().moveTo(target, 1.75D))
+                        this.ticksUntilNextPathRecalculation += 15;
 
-                        this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
-                    }
-
-                    this.path = this.majungasaurus.getNavigation().createPath(target, 0);
-                    if (this.getAttackReachSqr(target) > 0) this.majungasaurus.getNavigation().moveTo(this.path, 1.75D);
+                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
                 }
+
+                this.path = this.majungasaurus.getNavigation().createPath(target, 0);
+                if (this.getAttackReachSqr(target) > 0) this.majungasaurus.getNavigation().moveTo(this.path, 1.75D);
 
                 if (pose == UP2Poses.BITING.get()) tickBite();
                 if (pose == UP2Poses.CHARGING_START.get()) tickCharge();
@@ -207,8 +205,8 @@ public class Majungasaurus extends Animal {
         protected void tickBite() {
             attackTime++;
             LivingEntity target = this.majungasaurus.getTarget();
-
             if (attackTime == 11) {
+
                 if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
                     this.majungasaurus.doHurtTarget(target);
                     this.majungasaurus.swing(InteractionHand.MAIN_HAND);
