@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AquaticLeapGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.CustomRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.nbt.CompoundTag;
@@ -221,15 +221,15 @@ public class Dunkleosteus extends AncientAquaticEntity {
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.DUNKLEOSTEUS_HURT.get();
+        return UP2SoundEvents.DUNKLEOSTEUS_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.DUNKLEOSTEUS_DEATH.get();
+        return UP2SoundEvents.DUNKLEOSTEUS_DEATH.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return UP2Sounds.DUNKLEOSTEUS_FLOP.get();
+        return UP2SoundEvents.DUNKLEOSTEUS_FLOP.get();
     }
 
     public float getVoicePitch() {

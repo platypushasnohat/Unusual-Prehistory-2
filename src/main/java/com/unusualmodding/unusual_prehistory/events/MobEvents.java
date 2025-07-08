@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class CommonEvents {
+public class MobEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -18,6 +18,7 @@ public class CommonEvents {
         event.put(UP2Entities.KENTROSAURUS.get(), Kentrosaurus.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), Kimmeridgebrachypteraeschnidium.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
+        event.put(UP2Entities.MAJUNGASAURUS.get(), Majungasaurus.createAttributes().build());
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.SCAUMENACIA.get(), Scaumenacia.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());

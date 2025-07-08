@@ -91,6 +91,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         tag(UP2EntityTags.SCATTERS_TELECREX).add(
                 KENTROSAURUS.get(),
+                MAJUNGASAURUS.get(),
                 MEGALANIA.get(),
                 EntityType.OCELOT,
                 EntityType.POLAR_BEAR,

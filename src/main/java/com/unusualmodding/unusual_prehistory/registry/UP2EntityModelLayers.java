@@ -9,27 +9,28 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class UP2EntityModelLayers {
 
-    public static final ModelLayerLocation CEPHALASPIS_LAYER = main("cephalaspis");
-    public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS_LAYER = main("diplocaulus_brevirostris");
-    public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS_LAYER = main("diplocaulus_magnicornis");
-    public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS_LAYER = main("diplocaulus_recurvatis");
-    public static final ModelLayerLocation DIPLOCAULUS_SALAMANDROIDES_LAYER = main("diplocaulus_salamandroides");
-    public static final ModelLayerLocation DORYASPIS_LAYER = main("doryaspis");
-    public static final ModelLayerLocation DUNKLEOSTEUS_LARGE_LAYER = main("dunkleosteus_large");
-    public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM_LAYER = main("dunkleosteus_medium");
-    public static final ModelLayerLocation DUNKLEOSTEUS_SMALL_LAYER = main("dunkleosteus_small");
-    public static final ModelLayerLocation FURACACAUDA_LAYER = main("furacacauda");
-    public static final ModelLayerLocation KENTROSAURUS_LAYER = main("kentrosaurus");
-    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER = main("kimmeridgebrachypteraeschnidium");
-    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER = main("kimmeridgebrachypteraeschnidium_nymph");
-    public static final ModelLayerLocation MEGALANIA_LAYER = main("megalania");
-    public static final ModelLayerLocation SACABAMBASPIS_LAYER = main("sacabambaspis");
-    public static final ModelLayerLocation SCAMENACIA_LAYER = main("scaumenacia");
-    public static final ModelLayerLocation STETHACANTHUS_LAYER = main("stethacanthus");
-    public static final ModelLayerLocation TALPANAS_LAYER = main("talpanas");
-    public static final ModelLayerLocation TELECREX_LAYER = main("telecrex");
-    public static final ModelLayerLocation UNICORN_LAYER = main("unicorn");
-    public static final ModelLayerLocation UNICORN_SKELETON_LAYER = main("unicorn_skeleton");
+    public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
+    public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS = main("diplocaulus_brevirostris");
+    public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS = main("diplocaulus_magnicornis");
+    public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS = main("diplocaulus_recurvatis");
+    public static final ModelLayerLocation DIPLOCAULUS_SALAMANDROIDES = main("diplocaulus_salamandroides");
+    public static final ModelLayerLocation DORYASPIS = main("doryaspis");
+    public static final ModelLayerLocation DUNKLEOSTEUS_LARGE = main("dunkleosteus_large");
+    public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM = main("dunkleosteus_medium");
+    public static final ModelLayerLocation DUNKLEOSTEUS_SMALL = main("dunkleosteus_small");
+    public static final ModelLayerLocation FURACACAUDA = main("furacacauda");
+    public static final ModelLayerLocation KENTROSAURUS = main("kentrosaurus");
+    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM = main("kimmeridgebrachypteraeschnidium");
+    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH = main("kimmeridgebrachypteraeschnidium_nymph");
+    public static final ModelLayerLocation MAJUNGASAURUS = main("majungasaurus");
+    public static final ModelLayerLocation MEGALANIA = main("megalania");
+    public static final ModelLayerLocation SACABAMBASPIS = main("sacabambaspis");
+    public static final ModelLayerLocation SCAMENACIA = main("scaumenacia");
+    public static final ModelLayerLocation STETHACANTHUS = main("stethacanthus");
+    public static final ModelLayerLocation TALPANAS = main("talpanas");
+    public static final ModelLayerLocation TELECREX = main("telecrex");
+    public static final ModelLayerLocation UNICORN = main("unicorn");
+    public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");
 
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(new ResourceLocation(UnusualPrehistory2.MOD_ID, id), name);

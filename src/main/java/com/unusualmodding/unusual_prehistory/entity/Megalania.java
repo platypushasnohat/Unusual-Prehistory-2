@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -74,19 +74,19 @@ public class Megalania extends Animal {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2Sounds.MEGALANIA_IDLE.get();
+        return UP2SoundEvents.MEGALANIA_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.MEGALANIA_HURT.get();
+        return UP2SoundEvents.MEGALANIA_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.MEGALANIA_DEATH.get();
+        return UP2SoundEvents.MEGALANIA_DEATH.get();
     }
 
     @Override

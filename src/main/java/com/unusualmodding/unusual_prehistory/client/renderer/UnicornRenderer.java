@@ -26,9 +26,9 @@ public class UnicornRenderer extends MobRenderer<Unicorn, UP2Model<Unicorn>> {
     private static final ResourceLocation TEXTURE_SKELETON = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/unicorn/unicorn_skeleton.png");
 
     public UnicornRenderer(EntityRendererProvider.Context context) {
-        super(context, new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN_LAYER)), 1f);
-        this.unicornModel = new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN_LAYER));
-        this.unicornSkeletonModel = new UnicornSkeletonModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN_SKELETON_LAYER));
+        super(context, new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN)), 1f);
+        this.unicornModel = new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN));
+        this.unicornSkeletonModel = new UnicornSkeletonModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN_SKELETON));
     }
 
     @Override

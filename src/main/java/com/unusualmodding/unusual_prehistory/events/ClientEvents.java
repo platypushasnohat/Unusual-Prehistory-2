@@ -52,6 +52,7 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.KENTROSAURUS.get(), KentrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphRenderer::new);
+        event.registerEntityRenderer(UP2Entities.MAJUNGASAURUS.get(), MajungasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.SCAUMENACIA.get(), ScaumenaciaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);
@@ -67,26 +68,27 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(UP2EntityModelLayers.CEPHALASPIS_LAYER, CephalaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER, DiplocaulusBrevirostrisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS_LAYER, DiplocaulusMagnicornisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS_LAYER, DiplocaulusRecurvatisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES_LAYER, DiplocaulusSalamandroidesModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DORYASPIS_LAYER, DoryaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE_LAYER, DunkleosteusLargeModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER, DunkleosteusMediumModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL_LAYER, DunkleosteusSmallModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.FURACACAUDA_LAYER, FurcacaudaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.KENTROSAURUS_LAYER, KentrosaurusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_LAYER, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH_LAYER, KimmeridgebrachypteraeschnidiumNymphModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.MEGALANIA_LAYER, MegalaniaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.SACABAMBASPIS_LAYER, SacabambaspisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.SCAMENACIA_LAYER, ScaumenaciaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.STETHACANTHUS_LAYER, StethacanthusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.TALPANAS_LAYER, TalpanasModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.TELECREX_LAYER, TelecrexModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_LAYER, UnicornModel::createBodyLayer);
-        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_SKELETON_LAYER, UnicornSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.CEPHALASPIS, CephalaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS, DiplocaulusBrevirostrisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS, DiplocaulusMagnicornisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS, DiplocaulusRecurvatisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES, DiplocaulusSalamandroidesModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DORYASPIS, DoryaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE, DunkleosteusLargeModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM, DunkleosteusMediumModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL, DunkleosteusSmallModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.FURACACAUDA, FurcacaudaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KENTROSAURUS, KentrosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM, KimmeridgebrachypteraeschnidiumModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH, KimmeridgebrachypteraeschnidiumNymphModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.MAJUNGASAURUS, MajungasaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.MEGALANIA, MegalaniaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.SACABAMBASPIS, SacabambaspisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.SCAMENACIA, ScaumenaciaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.STETHACANTHUS, StethacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.TALPANAS, TalpanasModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.TELECREX, TelecrexModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN, UnicornModel::createBodyLayer);
+        event.registerLayerDefinition(UP2EntityModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);
     }
 }

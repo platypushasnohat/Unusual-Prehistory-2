@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.GroundseekingRandomSwimGoal;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -130,16 +130,16 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.JAWLESS_FISH_DEATH.get();
+        return UP2SoundEvents.JAWLESS_FISH_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return UP2Sounds.JAWLESS_FISH_HURT.get();
+        return UP2SoundEvents.JAWLESS_FISH_HURT.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return UP2Sounds.JAWLESS_FISH_FLOP.get();
+        return UP2SoundEvents.JAWLESS_FISH_FLOP.get();
     }
 
     @Override

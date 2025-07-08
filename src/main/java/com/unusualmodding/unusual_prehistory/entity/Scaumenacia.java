@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.CustomRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -110,15 +110,15 @@ public class Scaumenacia extends SchoolingAquaticEntity implements Bucketable {
     }
 
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.SCAUMENACIA_DEATH.get();
+        return UP2SoundEvents.SCAUMENACIA_DEATH.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return UP2Sounds.SCAUMENACIA_HURT.get();
+        return UP2SoundEvents.SCAUMENACIA_HURT.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return UP2Sounds.SCAUMENACIA_FLOP.get();
+        return UP2SoundEvents.SCAUMENACIA_FLOP.get();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel<Telecr
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/telecrex.png");
 
     public TelecrexRenderer(EntityRendererProvider.Context context) {
-        super(context, new TelecrexModel<>(context.bakeLayer(UP2EntityModelLayers.TELECREX_LAYER)), 0.4F);
+        super(context, new TelecrexModel<>(context.bakeLayer(UP2EntityModelLayers.TELECREX)), 0.4F);
     }
 
     @Override

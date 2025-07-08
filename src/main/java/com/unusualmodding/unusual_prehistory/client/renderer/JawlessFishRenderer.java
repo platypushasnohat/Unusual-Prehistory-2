@@ -24,11 +24,11 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<Jawle
     private final SacabambaspisModel<JawlessFish> sacabambaspisModel;
 
     public JawlessFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new CephalaspisModel<>(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS_LAYER)), 0.5F);
-        this.cephalaspisModel = new CephalaspisModel<>(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS_LAYER));
-        this.doryaspisModel = new DoryaspisModel<>(context.bakeLayer(UP2EntityModelLayers.DORYASPIS_LAYER));
-        this.furcacaudaModel = new FurcacaudaModel<>(context.bakeLayer(UP2EntityModelLayers.FURACACAUDA_LAYER));
-        this.sacabambaspisModel = new SacabambaspisModel<>(context.bakeLayer(UP2EntityModelLayers.SACABAMBASPIS_LAYER));
+        super(context, new CephalaspisModel<>(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS)), 0.5F);
+        this.cephalaspisModel = new CephalaspisModel<>(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS));
+        this.doryaspisModel = new DoryaspisModel<>(context.bakeLayer(UP2EntityModelLayers.DORYASPIS));
+        this.furcacaudaModel = new FurcacaudaModel<>(context.bakeLayer(UP2EntityModelLayers.FURACACAUDA));
+        this.sacabambaspisModel = new SacabambaspisModel<>(context.bakeLayer(UP2EntityModelLayers.SACABAMBASPIS));
     }
 
     @Override

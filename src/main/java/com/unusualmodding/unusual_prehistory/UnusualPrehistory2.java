@@ -37,7 +37,7 @@ public class UnusualPrehistory2 {
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
         UP2RecipeTypes.register(bus);
-        UP2Sounds.SOUND_EVENTS.register(bus);
+        UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
         UP2Features.register(bus);
 

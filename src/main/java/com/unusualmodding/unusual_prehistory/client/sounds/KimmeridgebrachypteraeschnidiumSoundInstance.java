@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.client.sounds;
 
 import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundSource;
@@ -15,7 +15,7 @@ public class KimmeridgebrachypteraeschnidiumSoundInstance extends AbstractTickab
     protected final Kimmeridgebrachypteraeschnidium entity;
 
     public KimmeridgebrachypteraeschnidiumSoundInstance(Kimmeridgebrachypteraeschnidium entity) {
-        super(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
+        super(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.entity = entity;
         this.x = (float) entity.getX();
         this.y = (float) entity.getY();

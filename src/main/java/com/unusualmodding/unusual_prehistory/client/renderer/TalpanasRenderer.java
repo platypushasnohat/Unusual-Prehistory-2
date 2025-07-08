@@ -18,7 +18,7 @@ public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel<Talpan
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/talpanas.png");
 
     public TalpanasRenderer(EntityRendererProvider.Context context) {
-        super(context, new TalpanasModel<>(context.bakeLayer(UP2EntityModelLayers.TALPANAS_LAYER)), 0.3F);
+        super(context, new TalpanasModel<>(context.bakeLayer(UP2EntityModelLayers.TALPANAS)), 0.3F);
     }
 
     @Override

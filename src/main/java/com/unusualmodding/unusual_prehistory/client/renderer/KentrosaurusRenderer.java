@@ -18,7 +18,7 @@ public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, Kentrosaurus
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kentrosaurus.png");
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new KentrosaurusModel<>(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS_LAYER)), 0.9F);
+        super(context, new KentrosaurusModel<>(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS)), 0.9F);
     }
 
     @Override

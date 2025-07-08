@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DirectPathNavigator;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingMoveController;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
@@ -282,19 +282,19 @@ public class Telecrex extends Animal {
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return UP2Sounds.TELECREX_IDLE.get();
+        return UP2SoundEvents.TELECREX_IDLE.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return UP2Sounds.TELECREX_HURT.get();
+        return UP2SoundEvents.TELECREX_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.TELECREX_DEATH.get();
+        return UP2SoundEvents.TELECREX_DEATH.get();
     }
 
     @Override

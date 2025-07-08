@@ -3,7 +3,7 @@
  import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.base.AncientEntity;
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
- import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+ import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -177,15 +177,15 @@
      }
 
      protected SoundEvent getAmbientSound() {
-         return UP2Sounds.DIPLOCAULUS_IDLE.get();
+         return UP2SoundEvents.DIPLOCAULUS_IDLE.get();
      }
 
      protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-         return UP2Sounds.DIPLOCAULUS_HURT.get();
+         return UP2SoundEvents.DIPLOCAULUS_HURT.get();
      }
 
      protected SoundEvent getDeathSound() {
-         return UP2Sounds.DIPLOCAULUS_DEATH.get();
+         return UP2SoundEvents.DIPLOCAULUS_DEATH.get();
      }
 
      protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {

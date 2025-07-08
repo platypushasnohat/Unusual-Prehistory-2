@@ -23,10 +23,10 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, UP2Model<Dun
     private final DunkleosteusSmallModel<Dunkleosteus> dunkleosteusSmallModel;
 
     public DunkleosteusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE_LAYER)), 0.5F);
-        this.dunkleosteusLargeModel = new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE_LAYER));
-        this.dunkleosteusMediumModel = new DunkleosteusMediumModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM_LAYER));
-        this.dunkleosteusSmallModel = new DunkleosteusSmallModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL_LAYER));
+        super(context, new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE)), 0.5F);
+        this.dunkleosteusLargeModel = new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE));
+        this.dunkleosteusMediumModel = new DunkleosteusMediumModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM));
+        this.dunkleosteusSmallModel = new DunkleosteusSmallModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL));
     }
 
     @Override

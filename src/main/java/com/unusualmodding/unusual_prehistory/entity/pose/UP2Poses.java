@@ -5,7 +5,11 @@ import net.minecraft.world.entity.Pose;
 public enum UP2Poses {
 
     GRAZING,
-    RESTING;
+    RESTING,
+    BITING,
+    CHARGING_START,
+    CHARGING,
+    CHARGING_END;
 
     public Pose get() {
         return Pose.valueOf(this.name());

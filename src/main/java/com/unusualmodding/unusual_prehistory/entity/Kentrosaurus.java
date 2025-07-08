@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -114,11 +114,11 @@ public class Kentrosaurus extends Animal {
         boolean food = this.isFood(itemStack);
         InteractionResult interactionResult = super.mobInteract(player, interactionHand);
         if (interactionResult.consumesAction() && food) {
-            this.level().playSound(null, this, UP2Sounds.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         }
         if (food && this.isKentrosaurusLayingDown()) {
             this.standUp();
-            this.level().playSound(null, this, UP2Sounds.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             this.gameEvent(GameEvent.EAT, this);
             if (!player.getAbilities().instabuild) {
                 itemStack.shrink(1);
@@ -127,7 +127,7 @@ public class Kentrosaurus extends Animal {
         }
         if (this.getHealth() != this.getMaxHealth() && food) {
             this.heal((float) Objects.requireNonNull(itemStack.getFoodProperties(this)).getNutrition());
-            this.level().playSound(null, this, UP2Sounds.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
             this.level().broadcastEntityEvent(this, (byte) 18);
             this.gameEvent(GameEvent.EAT, this);
             if (!player.getAbilities().instabuild) {
@@ -407,24 +407,24 @@ public class Kentrosaurus extends Animal {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2Sounds.KENTROSAURUS_IDLE.get();
+        return UP2SoundEvents.KENTROSAURUS_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.KENTROSAURUS_HURT.get();
+        return UP2SoundEvents.KENTROSAURUS_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.KENTROSAURUS_DEATH.get();
+        return UP2SoundEvents.KENTROSAURUS_DEATH.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2Sounds.KENTROSAURUS_STEP.get(), 1.0F, 1.1F);
+        this.playSound(UP2SoundEvents.KENTROSAURUS_STEP.get(), 1.0F, 1.1F);
     }
 
     @Override
@@ -481,7 +481,7 @@ public class Kentrosaurus extends Animal {
         }
 
         public boolean requiresUpdateEveryTick() {
-            return this.kentrosaurus.getAttackState() > 0;
+            return true;
         }
 
         protected void tickAttack() {

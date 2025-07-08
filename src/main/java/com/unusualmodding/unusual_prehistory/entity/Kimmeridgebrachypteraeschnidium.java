@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.base.AncientEntity;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingMoveController;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -428,11 +428,11 @@ public class Kimmeridgebrachypteraeschnidium extends AncientEntity implements Bu
 
     // sounds
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT.get();
+        return UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH.get();
+        return UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {

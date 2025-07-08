@@ -24,11 +24,11 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, UP2Model<Diplo
     private final DiplocaulusSalamandroidesModel<Diplocaulus> salamandroidesModel;
 
     public DiplocaulusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER)), 0.5F);
-        this.brevirostrisModel = new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS_LAYER));
-        this.magnicornisModel = new DiplocaulusMagnicornisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS_LAYER));
-        this.recurvatisModel = new DiplocaulusRecurvatisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS_LAYER));
-        this.salamandroidesModel = new DiplocaulusSalamandroidesModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES_LAYER));
+        super(context, new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
+        this.brevirostrisModel = new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS));
+        this.magnicornisModel = new DiplocaulusMagnicornisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS));
+        this.recurvatisModel = new DiplocaulusRecurvatisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS));
+        this.salamandroidesModel = new DiplocaulusSalamandroidesModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES));
     }
 
     @Override

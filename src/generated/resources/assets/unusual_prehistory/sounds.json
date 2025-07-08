@@ -264,6 +264,28 @@
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_hurt"
   },
+  "majungasaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/majungasaurus/death1",
+      "unusual_prehistory:entity/majungasaurus/death2"
+    ],
+    "subtitle": "subtitles.majungasaurus_death"
+  },
+  "majungasaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/majungasaurus/hurt1",
+      "unusual_prehistory:entity/majungasaurus/hurt2"
+    ],
+    "subtitle": "subtitles.majungasaurus_hurt"
+  },
+  "majungasaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/majungasaurus/idle1",
+      "unusual_prehistory:entity/majungasaurus/idle2",
+      "unusual_prehistory:entity/majungasaurus/idle3"
+    ],
+    "subtitle": "subtitles.majungasaurus_idle"
+  },
   "megalania_death": {
     "sounds": [
       {

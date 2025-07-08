@@ -4,7 +4,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.AncientEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AgeableFollowParentGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -133,21 +133,21 @@ public class Unicorn extends AncientEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return UP2Sounds.UNICORN_IDLE.get();
+        return UP2SoundEvents.UNICORN_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         if(this.isSkeletal()) {
             return SoundEvents.SKELETON_HURT;
         }
-        else return UP2Sounds.UNICORN_HURT.get();
+        else return UP2SoundEvents.UNICORN_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
         if(this.isSkeletal()) {
             return SoundEvents.SKELETON_DEATH;
         }
-        else return UP2Sounds.UNICORN_DEATH.get();
+        else return UP2SoundEvents.UNICORN_DEATH.get();
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {

@@ -1,11 +1,10 @@
 package com.unusualmodding.unusual_prehistory.data;
 
-import com.mojang.logging.LogUtils;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.UP2CreativeTabs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -17,7 +16,6 @@ import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
-import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,6 +46,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         forEntity(UP2Entities.KENTROSAURUS);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
+        forEntity(UP2Entities.MAJUNGASAURUS);
         forEntity(UP2Entities.MEGALANIA);
         forEntity(UP2Entities.SCAUMENACIA);
         forEntity(UP2Entities.STETHACANTHUS);
@@ -92,55 +91,59 @@ public class UP2LanguageProvider extends LanguageProvider {
         addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
 
         // sounds
-        sound(UP2Sounds.DIPLOCAULUS_HURT, "Diplocaulus hurts");
-        sound(UP2Sounds.DIPLOCAULUS_DEATH, "Diplocaulus dies");
-        sound(UP2Sounds.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
+        sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
+        sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
+        sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
 
-        sound(UP2Sounds.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
-        sound(UP2Sounds.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
-        sound(UP2Sounds.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
+        sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
+        sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
+        sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
 
-        sound(UP2Sounds.JAWLESS_FISH_HURT, "Jawless Fish hurts");
-        sound(UP2Sounds.JAWLESS_FISH_DEATH, "Jawless Fish dies");
-        sound(UP2Sounds.JAWLESS_FISH_FLOP, "Jawless Fish flops");
+        sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
+        sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
+        sound(UP2SoundEvents.JAWLESS_FISH_FLOP, "Jawless Fish flops");
 
-        sound(UP2Sounds.KENTROSAURUS_HURT, "Kentrosaurus hurts");
-        sound(UP2Sounds.KENTROSAURUS_DEATH, "Kentrosaurus dies");
-        sound(UP2Sounds.KENTROSAURUS_IDLE, "Kentrosaurus groans");
-        sound(UP2Sounds.KENTROSAURUS_STEP, "Kentrosaurus steps");
-        sound(UP2Sounds.KENTROSAURUS_EAT, "Kentrosaurus eats");
+        sound(UP2SoundEvents.KENTROSAURUS_HURT, "Kentrosaurus hurts");
+        sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");
+        sound(UP2SoundEvents.KENTROSAURUS_IDLE, "Kentrosaurus groans");
+        sound(UP2SoundEvents.KENTROSAURUS_STEP, "Kentrosaurus steps");
+        sound(UP2SoundEvents.KENTROSAURUS_EAT, "Kentrosaurus eats");
 
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
+        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
+        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
+        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
 
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
-        sound(UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
+        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
+        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
 
-        sound(UP2Sounds.MEGALANIA_HURT, "Megalania hurts");
-        sound(UP2Sounds.MEGALANIA_DEATH, "Megalania dies");
-        sound(UP2Sounds.MEGALANIA_IDLE, "Megalania hisses");
+        sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
+        sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
+        sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
 
-        sound(UP2Sounds.SCAUMENACIA_HURT, "Scaumenacia hurts");
-        sound(UP2Sounds.SCAUMENACIA_DEATH, "Scaumenacia dies");
-        sound(UP2Sounds.SCAUMENACIA_FLOP, "Scaumenacia flops");
+        sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
+        sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
+        sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
 
-        sound(UP2Sounds.STETHACANTHUS_HURT, "Stethacanthus hurts");
-        sound(UP2Sounds.STETHACANTHUS_DEATH, "Stethacanthus dies");
-        sound(UP2Sounds.STETHACANTHUS_FLOP, "Stethacanthus flops");
+        sound(UP2SoundEvents.SCAUMENACIA_HURT, "Scaumenacia hurts");
+        sound(UP2SoundEvents.SCAUMENACIA_DEATH, "Scaumenacia dies");
+        sound(UP2SoundEvents.SCAUMENACIA_FLOP, "Scaumenacia flops");
 
-        sound(UP2Sounds.TALPANAS_HURT, "Talpanas hurts");
-        sound(UP2Sounds.TALPANAS_DEATH, "Talpanas dies");
-        sound(UP2Sounds.TALPANAS_IDLE, "Talpanas quacks");
-        sound(UP2Sounds.TALPANAS_PANIC, "Talpanas panics");
+        sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
+        sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
+        sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
 
-        sound(UP2Sounds.TELECREX_HURT, "Telecrex hurts");
-        sound(UP2Sounds.TELECREX_DEATH, "Telecrex dies");
-        sound(UP2Sounds.TELECREX_IDLE, "Telecrex squawks");
+        sound(UP2SoundEvents.TALPANAS_HURT, "Talpanas hurts");
+        sound(UP2SoundEvents.TALPANAS_DEATH, "Talpanas dies");
+        sound(UP2SoundEvents.TALPANAS_IDLE, "Talpanas quacks");
+        sound(UP2SoundEvents.TALPANAS_PANIC, "Talpanas panics");
 
-        sound(UP2Sounds.UNICORN_HURT, "Unicorn hurts");
-        sound(UP2Sounds.UNICORN_DEATH, "Unicorn dies");
-        sound(UP2Sounds.UNICORN_IDLE, "Unicorn grunts");
+        sound(UP2SoundEvents.TELECREX_HURT, "Telecrex hurts");
+        sound(UP2SoundEvents.TELECREX_DEATH, "Telecrex dies");
+        sound(UP2SoundEvents.TELECREX_IDLE, "Telecrex squawks");
+
+        sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
+        sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
+        sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
 
         // kimmeridgebrachypteraeschnidium bottle
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");

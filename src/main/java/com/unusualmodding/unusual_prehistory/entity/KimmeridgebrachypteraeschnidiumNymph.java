@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -204,11 +204,11 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob {
 
     // sounds
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT.get();
+        return UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH.get();
+        return UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH.get();
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {

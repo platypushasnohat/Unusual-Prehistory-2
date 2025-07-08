@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -151,19 +151,19 @@ public class Talpanas extends Animal {
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return UP2Sounds.TALPANAS_IDLE.get();
+        return UP2SoundEvents.TALPANAS_IDLE.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UP2Sounds.TALPANAS_HURT.get();
+        return UP2SoundEvents.TALPANAS_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.TALPANAS_DEATH.get();
+        return UP2SoundEvents.TALPANAS_DEATH.get();
     }
 
     @Override
@@ -269,7 +269,7 @@ public class Talpanas extends Animal {
 
     private void playPanicSound() {
         if (this.soundTimer <= 0) {
-            this.playSound(UP2Sounds.TALPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
+            this.playSound(UP2SoundEvents.TALPANAS_PANIC.get(), this.getSoundVolume(), (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 1.0F);
             soundTimer = 80;
         }
     }

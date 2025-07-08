@@ -19,7 +19,7 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel<Meg
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
-        super(context, new MegalaniaModel<>(context.bakeLayer(UP2EntityModelLayers.MEGALANIA_LAYER)), 0.9F);
+        super(context, new MegalaniaModel<>(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
     }
 
     @Override

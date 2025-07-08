@@ -64,6 +64,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kimmeridgebrachypteraeschnidium_nymph").toString())
     );
 
+    public static final RegistryObject<EntityType<Majungasaurus>> MAJUNGASAURUS = ENTITY_TYPE.register(
+            "majungasaurus", () ->
+                    EntityType.Builder.of(Majungasaurus::new, MobCategory.CREATURE)
+                            .sized(1.25F, 2.5F)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
+    );
+
     public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
             "megalania", () ->
             EntityType.Builder.of(Megalania::new, MobCategory.CREATURE)

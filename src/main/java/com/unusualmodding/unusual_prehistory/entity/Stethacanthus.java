@@ -6,7 +6,7 @@ import com.unusualmodding.unusual_prehistory.entity.ai.goal.AquaticLeapGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.CustomRandomSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.FollowVariantLeaderGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
-import com.unusualmodding.unusual_prehistory.registry.UP2Sounds;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.nbt.CompoundTag;
@@ -172,15 +172,15 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
 
     // sounds
     protected SoundEvent getDeathSound() {
-        return UP2Sounds.STETHACANTHUS_DEATH.get();
+        return UP2SoundEvents.STETHACANTHUS_DEATH.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource p_28281_) {
-        return UP2Sounds.STETHACANTHUS_HURT.get();
+        return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 
     protected SoundEvent getFlopSound() {
-        return UP2Sounds.STETHACANTHUS_FLOP.get();
+        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
     }
 
     // synched data

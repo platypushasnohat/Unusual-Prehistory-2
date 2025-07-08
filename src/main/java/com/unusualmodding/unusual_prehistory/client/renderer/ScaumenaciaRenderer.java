@@ -18,7 +18,7 @@ public class ScaumenaciaRenderer extends MobRenderer<Scaumenacia, ScaumenaciaMod
     private static final ResourceLocation TEXTURE_GOLDEN = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/scaumenacia/scaumenacia_golden.png");
 
     public ScaumenaciaRenderer(EntityRendererProvider.Context context) {
-        super(context, new ScaumenaciaModel<>(context.bakeLayer(UP2EntityModelLayers.SCAMENACIA_LAYER)), 0.4F);
+        super(context, new ScaumenaciaModel<>(context.bakeLayer(UP2EntityModelLayers.SCAMENACIA)), 0.4F);
     }
 
     @Override
