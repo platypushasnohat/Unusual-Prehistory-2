@@ -192,12 +192,8 @@ public class Majungasaurus extends Animal {
                 if (this.getAttackReachSqr(target) > 0) this.majungasaurus.getNavigation().moveTo(this.path, 1.75D);
 
                 if (pose == UP2Poses.BITING.get()) tickBite();
-                if (pose == UP2Poses.CHARGING_START.get()) tickCharge();
                 else if (distanceToTarget <= this.getAttackReachSqr(target) && pose != UP2Poses.CHARGING_START.get() && pose != UP2Poses.CHARGING.get() && pose != UP2Poses.CHARGING_END.get()) {
                     this.majungasaurus.setPose(UP2Poses.BITING.get());
-                }
-                if (distanceToTarget > 80 && this.majungasaurus.onGround()) {
-                    this.majungasaurus.setPose(UP2Poses.CHARGING_START.get());
                 }
             }
         }
@@ -214,41 +210,6 @@ public class Majungasaurus extends Animal {
             }
             if (attackTime >= 20) {
                 attackTime = 0;
-                this.majungasaurus.setPose(Pose.STANDING);
-            }
-        }
-
-        protected void tickCharge() {
-            attackTime++;
-            this.majungasaurus.getNavigation().stop();
-            LivingEntity target = this.majungasaurus.getTarget();
-            Vec3 targetPos = target.position();
-            DamageSource damageSource = this.majungasaurus.damageSources().mobAttack(this.majungasaurus);
-            double x = -(this.majungasaurus.position().x - targetPos.x);
-            double z = -(this.majungasaurus.position().z - targetPos.z);
-            Vec3 direction = new Vec3(x, this.majungasaurus.getDeltaMovement().y, z).normalize();
-
-            if (this.attackTime == 20) {
-                this.majungasaurus.setPose(UP2Poses.CHARGING.get());
-                this.majungasaurus.lookAt(Objects.requireNonNull(target), 360F, 30F);
-                this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
-            }
-
-            if (this.attackTime > 20 && this.attackTime < 48) {
-                this.majungasaurus.setDeltaMovement(direction.x * 0.16, this.majungasaurus.getDeltaMovement().y, direction.z * 0.16);
-                if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < 1.1F) {
-                    this.majungasaurus.doHurtTarget(target);
-                    this.majungasaurus.swing(InteractionHand.MAIN_HAND);
-                    if (target.isDamageSourceBlocked(damageSource) && target instanceof Player player){
-                        player.disableShield(true);
-                    }
-                }
-            }
-
-            if (this.attackTime == 48) this.majungasaurus.setPose(UP2Poses.CHARGING_END.get());
-
-            if (this.attackTime >= 63 || this.majungasaurus.horizontalCollision) {
-                this.attackTime = 0;
                 this.majungasaurus.setPose(Pose.STANDING);
             }
         }

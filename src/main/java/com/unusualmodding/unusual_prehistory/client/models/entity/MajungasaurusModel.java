@@ -150,6 +150,7 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+
 		this.animate(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.BITE_RIGHT, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.BITE_LEFT, ageInTicks);
