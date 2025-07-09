@@ -12,6 +12,7 @@ public class MobEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(UP2Entities.CARNOTAURUS.get(), Carnotaurus.createAttributes().build());
         event.put(UP2Entities.DIPLOCAULUS.get(), Diplocaulus.createAttributes().build());
         event.put(UP2Entities.DUNKLEOSTEUS.get(), Dunkleosteus.createAttributes().build());
         event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFish.createAttributes().build());

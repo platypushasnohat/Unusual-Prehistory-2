@@ -19,6 +19,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+        this.sound(UP2SoundEvents.CARNOTAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.CARNOTAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.CARNOTAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle4"))
+        );
+
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
                 sound("mob/frog/hurt1").pitch(0.8f),
                 sound("mob/frog/hurt2").pitch(0.8f),

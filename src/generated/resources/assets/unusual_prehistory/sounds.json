@@ -1,4 +1,26 @@
 {
+  "carnotaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/death1"
+    ],
+    "subtitle": "subtitles.carnotaurus_death"
+  },
+  "carnotaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/hurt1",
+      "unusual_prehistory:entity/carnotaurus/hurt2"
+    ],
+    "subtitle": "subtitles.carnotaurus_hurt"
+  },
+  "carnotaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/idle1",
+      "unusual_prehistory:entity/carnotaurus/idle2",
+      "unusual_prehistory:entity/carnotaurus/idle3",
+      "unusual_prehistory:entity/carnotaurus/idle4"
+    ],
+    "subtitle": "subtitles.carnotaurus_idle"
+  },
   "diplocaulus_death": {
     "sounds": [
       {

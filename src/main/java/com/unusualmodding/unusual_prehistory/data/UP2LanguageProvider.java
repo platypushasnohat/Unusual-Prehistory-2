@@ -40,6 +40,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
 
         // entities
+        forEntity(UP2Entities.CARNOTAURUS);
         forEntity(UP2Entities.DIPLOCAULUS);
         forEntity(UP2Entities.DUNKLEOSTEUS);
         forEntity(UP2Entities.JAWLESS_FISH);
@@ -91,6 +92,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
 
         // sounds
+        sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
+        sound(UP2SoundEvents.CARNOTAURUS_DEATH, "Carnotaurus dies");
+        sound(UP2SoundEvents.CARNOTAURUS_IDLE, "Carnotaurus grumbles");
+
         sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
         sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
         sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
