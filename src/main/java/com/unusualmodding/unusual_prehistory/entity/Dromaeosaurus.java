@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -89,7 +90,7 @@ public class Dromaeosaurus extends Animal {
     public void tick () {
         super.tick();
 
-        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.25F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.75F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
 
         if (this.level().isClientSide()) {
@@ -175,7 +176,7 @@ public class Dromaeosaurus extends Animal {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return null;
+        return UP2Entities.DROMAEOSAURUS.get().create(level);
     }
 
     @Override
@@ -378,21 +379,24 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return this.dromaeosaurus.level().isDay();
+            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle();
         }
 
         @Override
-        public void start() {
-            this.dromaeosaurus.setSprinting(true);
+        public boolean canContinueToUse() {
+            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle();
         }
 
         @Override
         public void stop() {
             this.dromaeosaurus.setSprinting(false);
+            this.dromaeosaurus.getNavigation().stop();
         }
 
         @Override
         public void tick() {
+            this.dromaeosaurus.setSprinting(this.dromaeosaurus.getDeltaMovement().horizontalDistance() > 0.05);
+
             if (this.dromaeosaurus.getNavigation().isDone()) {
                 Vec3 vec3 = LandRandomPos.getPos(this.dromaeosaurus, 15, 7);
                 if (vec3 != null) {

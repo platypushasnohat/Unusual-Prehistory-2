@@ -123,7 +123,13 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 	public void setupAnim(Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+		if (this.young) {
+			this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
+			this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 0.5F, 2);
+		} else {
+			this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+		}
+
 		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
 		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.FALL, ageInTicks);
 		this.animate(entity.sleepStartAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
@@ -135,8 +141,18 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+		if (this.young) {
+			float babyScale = 0.6F;
+			float bodyYOffset = 16.0F;
+			poseStack.pushPose();
+			poseStack.scale(babyScale, babyScale, babyScale);
+			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			poseStack.popPose();
+		} else {
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+		}
 	}
 
 	@Override
