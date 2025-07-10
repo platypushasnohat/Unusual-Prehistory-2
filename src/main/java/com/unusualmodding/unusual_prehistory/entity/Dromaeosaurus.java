@@ -2,7 +2,10 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,7 +38,9 @@ import java.util.Objects;
 public class Dromaeosaurus extends Animal {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.LONG);
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1F, 0.5F);
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
+
+    private int eepyTimer;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState biteAnimationState = new AnimationState();
@@ -68,6 +73,7 @@ public class Dromaeosaurus extends Animal {
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new DromaeosaurusSleepGoal(this));
+        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
@@ -82,8 +88,23 @@ public class Dromaeosaurus extends Animal {
     @Override
     public void tick () {
         super.tick();
+
+        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.25F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        Vec3 eyeVec = this.getEyePosition().add(lookVec);
+
         if (this.level().isClientSide()) {
             this.setupAnimationStates();
+
+            if (this.isDromaeosaurusSleeping()) {
+                if (this.eepyTimer == 0) {
+                    this.eepyTimer = 40 + random.nextInt(10);
+                    double d1 = (1.0F - random.nextFloat()) * 0.4F;
+                    double d2 = (1.0F - random.nextFloat()) * 0.3F;
+                    double d3 = (1.0F - random.nextFloat()) * 0.4F;
+                    this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x + d1, eyeVec.y + d2, eyeVec.z + d3, 1, 0, 0);
+                }
+                if (this.eepyTimer > 0) this.eepyTimer--;
+            }
         }
 
         if (this.isDromaeosaurusSleeping() && this.isInWater()) {
@@ -358,6 +379,16 @@ public class Dromaeosaurus extends Animal {
         @Override
         public boolean canUse() {
             return this.dromaeosaurus.level().isDay();
+        }
+
+        @Override
+        public void start() {
+            this.dromaeosaurus.setSprinting(true);
+        }
+
+        @Override
+        public void stop() {
+            this.dromaeosaurus.setSprinting(false);
         }
 
         @Override

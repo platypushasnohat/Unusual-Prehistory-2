@@ -8,6 +8,7 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.Di
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
+import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
 import com.unusualmodding.unusual_prehistory.client.renderer.blockentity.*;
 import com.unusualmodding.unusual_prehistory.client.screens.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
@@ -42,6 +43,7 @@ public class ClientEvents {
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(UP2Particles.GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
+        event.registerSpriteSet(UP2Particles.EEPY.get(), EepyParticle.Provider::new);
     }
 
     @SubscribeEvent
