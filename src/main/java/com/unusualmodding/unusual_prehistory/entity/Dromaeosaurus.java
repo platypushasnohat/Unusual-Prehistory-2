@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
@@ -37,6 +38,7 @@ import java.util.Objects;
 public class Dromaeosaurus extends Animal {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.LONG);
+    public static final EntityDataAccessor<Boolean> PANICKING = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
     private int eepyTimer;
@@ -68,12 +70,13 @@ public class Dromaeosaurus extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new DromaeosaurusSleepGoal(this));
-        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(2, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(3, new DromaeosaurusSleepGoal(this));
+        this.goalSelector.addGoal(4, new DromaeosaurusPanicGoal(this));
+        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -97,10 +100,7 @@ public class Dromaeosaurus extends Animal {
             if (this.isDromaeosaurusSleeping()) {
                 if (this.eepyTimer == 0) {
                     this.eepyTimer = 40 + random.nextInt(10);
-                    double d1 = (1.0F - random.nextFloat()) * 0.4F;
-                    double d2 = (1.0F - random.nextFloat()) * 0.3F;
-                    double d3 = (1.0F - random.nextFloat()) * 0.4F;
-                    this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x + d1, eyeVec.y + d2, eyeVec.z + d3, 1, 0, 0);
+                    this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
                 }
                 if (this.eepyTimer > 0) this.eepyTimer--;
             }
@@ -110,7 +110,10 @@ public class Dromaeosaurus extends Animal {
             this.standUpInstantly();
         }
 
-        if (this.tickCount % 150 == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % 200 == 0 && this.getHealth() < this.getMaxHealth() && !this.isDromaeosaurusSleeping()) {
+            this.heal(2);
+        }
+        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth() && this.isDromaeosaurusSleeping()) {
             this.heal(2);
         }
     }
@@ -156,20 +159,31 @@ public class Dromaeosaurus extends Animal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
+        this.entityData.define(PANICKING, false);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Panicking", this.isPanicking());
         compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setPanicking(compoundTag.getBoolean("Panicking"));
         long l = compoundTag.getLong("LastPoseTick");
         if (l < 0L) this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(l);
+    }
+
+    public void setPanicking(boolean panicked) {
+        this.entityData.set(PANICKING, panicked);
+    }
+
+    public boolean isPanicking() {
+        return this.entityData.get(PANICKING);
     }
 
     @Override
@@ -298,6 +312,16 @@ public class Dromaeosaurus extends Animal {
         }
 
         @Override
+        public boolean canUse() {
+            return super.canUse() && !this.dromaeosaurus.isPanicking() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !this.dromaeosaurus.isPanicking() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+        }
+
+        @Override
         public void start() {
             super.start();
             this.dromaeosaurus.setPose(Pose.STANDING);
@@ -314,7 +338,6 @@ public class Dromaeosaurus extends Animal {
             LivingEntity target = this.dromaeosaurus.getTarget();
             if (target != null) {
                 double distanceToTarget = this.dromaeosaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-                Pose pose = this.dromaeosaurus.getPose();
 
                 this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -328,8 +351,7 @@ public class Dromaeosaurus extends Animal {
                     if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
                     else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
 
-                    if (!this.dromaeosaurus.getNavigation().moveTo(target, 1.75D))
-                        this.ticksUntilNextPathRecalculation += 15;
+                    if (!this.dromaeosaurus.getNavigation().moveTo(target, 1.75D)) this.ticksUntilNextPathRecalculation += 15;
 
                     this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
                 }
@@ -337,8 +359,8 @@ public class Dromaeosaurus extends Animal {
                 this.path = this.dromaeosaurus.getNavigation().createPath(target, 0);
                 if (this.getAttackReachSqr(target) > 0) this.dromaeosaurus.getNavigation().moveTo(this.path, 1.0D);
 
-                if (pose == UP2Poses.BITING.get()) tickBite();
-                else if (distanceToTarget <= this.getAttackReachSqr(target) && pose != UP2Poses.CHARGING_START.get() && pose != UP2Poses.CHARGING.get() && pose != UP2Poses.CHARGING_END.get()) {
+                if (this.dromaeosaurus.getPose() == UP2Poses.BITING.get()) tickBite();
+                else if (distanceToTarget <= this.getAttackReachSqr(target)) {
                     this.dromaeosaurus.setPose(UP2Poses.BITING.get());
                 }
             }
@@ -372,17 +394,17 @@ public class Dromaeosaurus extends Animal {
 
         public DromaeosaurusRunGoal(Dromaeosaurus dromaeosaurus) {
             this.dromaeosaurus = dromaeosaurus;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override
         public boolean canUse() {
-            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle();
+            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.isPanicking();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle();
+            return this.dromaeosaurus.level().isDay() && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.isPanicking();
         }
 
         @Override
@@ -414,12 +436,12 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround();
+            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && !this.dromaeosaurus.isPanicking();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround();
+            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && !this.dromaeosaurus.isPanicking();
         }
 
         @Override
@@ -436,6 +458,31 @@ public class Dromaeosaurus extends Animal {
             if (this.dromaeosaurus.isDromaeosaurusSleeping() && this.dromaeosaurus.level().isDay()) {
                 this.dromaeosaurus.standUp();
             }
+        }
+    }
+
+    static class DromaeosaurusPanicGoal extends LargePanicGoal {
+
+        protected final Dromaeosaurus dromaeosaurus;
+
+        public DromaeosaurusPanicGoal(Dromaeosaurus dromaeosaurus) {
+            super(dromaeosaurus, 1.0D);
+            this.dromaeosaurus = dromaeosaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F;
+        }
+
+        @Override
+        public void start() {
+            this.dromaeosaurus.setPanicking(true);
+        }
+
+        @Override
+        public void stop() {
+            this.dromaeosaurus.setPanicking(false);
         }
     }
 
