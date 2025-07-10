@@ -155,10 +155,6 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.BITE_RIGHT, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.BITE_LEFT, ageInTicks);
 
-		this.animate(entity.chargeStartAnimationState, MajungasaurusStateAnimations.CHARGE_START, ageInTicks);
-		this.animate(entity.chargeAnimationState, MajungasaurusStateAnimations.CHARGE, ageInTicks);
-		this.animate(entity.chargeEndAnimationState, MajungasaurusStateAnimations.CHARGE_END, ageInTicks);
-
 		this.animate(entity.eyesAnimationState, MajungasaurusIdleAnimations.EYES, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;

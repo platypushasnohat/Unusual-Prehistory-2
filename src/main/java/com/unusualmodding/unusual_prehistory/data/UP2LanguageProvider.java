@@ -42,6 +42,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         // entities
         forEntity(UP2Entities.CARNOTAURUS);
         forEntity(UP2Entities.DIPLOCAULUS);
+        forEntity(UP2Entities.DROMAEOSAURUS);
         forEntity(UP2Entities.DUNKLEOSTEUS);
         forEntity(UP2Entities.JAWLESS_FISH);
         forEntity(UP2Entities.KENTROSAURUS);

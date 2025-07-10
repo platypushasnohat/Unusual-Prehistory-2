@@ -32,6 +32,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "diplocaulus").toString())
     );
 
+    public static final RegistryObject<EntityType<Dromaeosaurus>> DROMAEOSAURUS = ENTITY_TYPE.register(
+            "dromaeosaurus", () ->
+                    EntityType.Builder.of(Dromaeosaurus::new, MobCategory.CREATURE)
+                            .sized(1.0F, 1.25F)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus").toString())
+    );
+
     public static final RegistryObject<EntityType<Dunkleosteus>> DUNKLEOSTEUS = ENTITY_TYPE.register(
             "dunkleosteus", () ->
             EntityType.Builder.of(Dunkleosteus::new, MobCategory.WATER_CREATURE)

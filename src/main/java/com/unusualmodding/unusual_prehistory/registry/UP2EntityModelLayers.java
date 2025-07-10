@@ -16,6 +16,7 @@ public class UP2EntityModelLayers {
     public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS = main("diplocaulus_recurvatis");
     public static final ModelLayerLocation DIPLOCAULUS_SALAMANDROIDES = main("diplocaulus_salamandroides");
     public static final ModelLayerLocation DORYASPIS = main("doryaspis");
+    public static final ModelLayerLocation DROMAEOSAURUS = main("dromaeosaurus");
     public static final ModelLayerLocation DUNKLEOSTEUS_LARGE = main("dunkleosteus_large");
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM = main("dunkleosteus_medium");
     public static final ModelLayerLocation DUNKLEOSTEUS_SMALL = main("dunkleosteus_small");

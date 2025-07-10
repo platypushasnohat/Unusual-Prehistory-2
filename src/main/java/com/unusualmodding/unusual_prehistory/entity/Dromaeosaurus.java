@@ -18,25 +18,25 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class Majungasaurus extends Animal {
+public class Dromaeosaurus extends Animal {
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState eyesAnimationState = new AnimationState();
-    public final AnimationState biteRightAnimationState = new AnimationState();
-    public final AnimationState biteLeftAnimationState = new AnimationState();
+    public final AnimationState biteAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
 
-    public Majungasaurus(EntityType<? extends Animal> entityType, Level level) {
+    public Dromaeosaurus(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
     }
@@ -44,8 +44,8 @@ public class Majungasaurus extends Animal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MajungasaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new DromaeosaurusAttackGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 1));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -53,9 +53,9 @@ public class Majungasaurus extends Animal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 32.0D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.19F)
+                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
@@ -74,21 +74,13 @@ public class Majungasaurus extends Animal {
         } else {
             --this.idleAnimationTimeout;
         }
-
-        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
     }
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
         if (DATA_POSE.equals(entityDataAccessor)) {
-            if (this.getPose() == UP2Poses.BITING.get()) {
-                if (this.getRandom().nextBoolean()) this.biteRightAnimationState.start(this.tickCount);
-                this.biteLeftAnimationState.start(this.tickCount);
-            }
-            if (this.getPose() == Pose.STANDING) {
-                this.biteRightAnimationState.stop();
-                this.biteLeftAnimationState.stop();
-            }
+            if (this.getPose() == UP2Poses.BITING.get()) this.biteAnimationState.start(this.tickCount);
+            if (this.getPose() == Pose.STANDING) this.biteAnimationState.stop();
         }
         super.onSyncedDataUpdated(entityDataAccessor);
     }
@@ -98,99 +90,94 @@ public class Majungasaurus extends Animal {
         return null;
     }
 
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2SoundEvents.MAJUNGASAURUS_HURT.get();
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.MAJUNGASAURUS_DEATH.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
-    }
+//    @Nullable
+//    @Override
+//    protected SoundEvent getAmbientSound() {
+//        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+//    }
+//
+//    @Nullable
+//    @Override
+//    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+//        return UP2SoundEvents.MAJUNGASAURUS_HURT.get();
+//    }
+//
+//    @Nullable
+//    @Override
+//    protected SoundEvent getDeathSound() {
+//        return UP2SoundEvents.MAJUNGASAURUS_DEATH.get();
+//    }
 
     // goals
-    static class MajungasaurusAttackGoal extends AttackGoal {
+    static class DromaeosaurusAttackGoal extends AttackGoal {
 
-        protected final Majungasaurus majungasaurus;
+        protected final Dromaeosaurus dromaeosaurus;
 
-        public MajungasaurusAttackGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus);
-            this.majungasaurus = majungasaurus;
+        public DromaeosaurusAttackGoal(Dromaeosaurus dromaeosaurus) {
+            super(dromaeosaurus);
+            this.dromaeosaurus = dromaeosaurus;
         }
 
         @Override
         public void start() {
             super.start();
-            this.majungasaurus.setPose(Pose.STANDING);
+            this.dromaeosaurus.setPose(Pose.STANDING);
         }
 
         @Override
         public void stop() {
             super.stop();
-            this.majungasaurus.setPose(Pose.STANDING);
+            this.dromaeosaurus.setPose(Pose.STANDING);
         }
 
         @Override
         public void tick() {
-            LivingEntity target = this.majungasaurus.getTarget();
+            LivingEntity target = this.dromaeosaurus.getTarget();
             if (target != null) {
-                double distanceToTarget = this.majungasaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-                Pose pose = this.majungasaurus.getPose();
+                double distanceToTarget = this.dromaeosaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
+                Pose pose = this.dromaeosaurus.getPose();
 
-                this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
+                this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
 
-                if (this.majungasaurus.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 0.0 || this.majungasaurus.getRandom().nextFloat() < 0.05F)) {
+                if (this.dromaeosaurus.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 0.0 || this.dromaeosaurus.getRandom().nextFloat() < 0.05F)) {
                     this.pathedTargetX = target.getX();
                     this.pathedTargetY = target.getY();
                     this.pathedTargetZ = target.getZ();
-                    this.ticksUntilNextPathRecalculation = 4 + this.majungasaurus.getRandom().nextInt(7);
+                    this.ticksUntilNextPathRecalculation = 4 + this.dromaeosaurus.getRandom().nextInt(7);
 
                     if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
                     else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
 
-                    if (!this.majungasaurus.getNavigation().moveTo(target, 1.75D))
+                    if (!this.dromaeosaurus.getNavigation().moveTo(target, 1.75D))
                         this.ticksUntilNextPathRecalculation += 15;
 
                     this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
                 }
 
-                this.path = this.majungasaurus.getNavigation().createPath(target, 0);
-                if (this.getAttackReachSqr(target) > 0) this.majungasaurus.getNavigation().moveTo(this.path, 1.75D);
+                this.path = this.dromaeosaurus.getNavigation().createPath(target, 0);
+                if (this.getAttackReachSqr(target) > 0) this.dromaeosaurus.getNavigation().moveTo(this.path, 1.0D);
 
                 if (pose == UP2Poses.BITING.get()) tickBite();
                 else if (distanceToTarget <= this.getAttackReachSqr(target) && pose != UP2Poses.CHARGING_START.get() && pose != UP2Poses.CHARGING.get() && pose != UP2Poses.CHARGING_END.get()) {
-                    this.majungasaurus.setPose(UP2Poses.BITING.get());
+                    this.dromaeosaurus.setPose(UP2Poses.BITING.get());
                 }
             }
         }
 
         protected void tickBite() {
             attackTime++;
-            LivingEntity target = this.majungasaurus.getTarget();
+            LivingEntity target = this.dromaeosaurus.getTarget();
             if (attackTime == 11) {
 
-                if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
-                    this.majungasaurus.doHurtTarget(target);
-                    this.majungasaurus.swing(InteractionHand.MAIN_HAND);
+                if (this.dromaeosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
+                    this.dromaeosaurus.doHurtTarget(target);
+                    this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
                 }
             }
             if (attackTime >= 20) {
                 attackTime = 0;
-                this.majungasaurus.setPose(Pose.STANDING);
+                this.dromaeosaurus.setPose(Pose.STANDING);
             }
         }
 
