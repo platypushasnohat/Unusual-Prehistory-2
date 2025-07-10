@@ -57,6 +57,7 @@ public class UP2CreativeTabs {
 
                         // meso dna
                         tabOutput.accept(CARNOTAURUS_DNA.get());
+                        tabOutput.accept(DROMAEOSAURUS_DNA.get());
                         tabOutput.accept(KENTROSAURUS_DNA.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
                         tabOutput.accept(MAJUNGASAURUS_DNA.get());

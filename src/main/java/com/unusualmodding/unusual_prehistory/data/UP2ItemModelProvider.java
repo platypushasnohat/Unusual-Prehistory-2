@@ -43,6 +43,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // meso dna
         this.dnaItem(CARNOTAURUS_DNA);
+        this.dnaItem(DROMAEOSAURUS_DNA);
         this.dnaItem(KENTROSAURUS_DNA);
         this.dnaItem(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA);
         this.dnaItem(MAJUNGASAURUS_DNA);

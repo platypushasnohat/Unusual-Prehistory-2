@@ -50,6 +50,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).add(
                 CARNOTAURUS_DNA.get(),
+                DROMAEOSAURUS_DNA.get(),
                 KENTROSAURUS_DNA.get(),
                 KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(),
                 MAJUNGASAURUS_DNA.get()

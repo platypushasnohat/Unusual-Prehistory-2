@@ -207,11 +207,11 @@ public class Dromaeosaurus extends Animal {
 
     public boolean isInPoseTransition() {
         long l = this.getPoseTime();
-        return l < (long) (20);
+        return l < (long) (5);
     }
 
     private boolean isVisuallySleeping() {
-        return this.isDromaeosaurusSleeping() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
+        return this.isDromaeosaurusSleeping() && this.getPoseTime() < 5L && this.getPoseTime() >= 0L;
     }
 
     public void sleep() {
@@ -391,7 +391,7 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public void start() {
-            if (this.dromaeosaurus.isDromaeosaurusSleeping()) {
+            if (this.dromaeosaurus.isDromaeosaurusSleeping() && this.dromaeosaurus.level().isDay()) {
                 this.dromaeosaurus.standUp();
             } else {
                 this.dromaeosaurus.sleep();
@@ -400,7 +400,7 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public void stop() {
-            if (this.dromaeosaurus.isDromaeosaurusSleeping()) {
+            if (this.dromaeosaurus.isDromaeosaurusSleeping() && this.dromaeosaurus.level().isDay()) {
                 this.dromaeosaurus.standUp();
             }
         }

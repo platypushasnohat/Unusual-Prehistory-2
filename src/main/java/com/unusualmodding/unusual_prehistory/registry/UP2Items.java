@@ -51,6 +51,7 @@ public class UP2Items {
 
     // meso dna
     public static final RegistryObject<Item> CARNOTAURUS_DNA = registerDnaItem("carnotaurus");
+    public static final RegistryObject<Item> DROMAEOSAURUS_DNA = registerDnaItem("dromaeosaurus");
     public static final RegistryObject<Item> KENTROSAURUS_DNA = registerDnaItem("kentrosaurus");
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA = registerDnaItem("kimmeridgebrachypteraeschnidium");
     public static final RegistryObject<Item> MAJUNGASAURUS_DNA = registerDnaItem("majungasaurus");

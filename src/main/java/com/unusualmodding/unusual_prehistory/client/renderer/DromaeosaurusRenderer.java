@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.DromaeosaurusModel;
 import com.unusualmodding.unusual_prehistory.entity.Dromaeosaurus;
@@ -29,5 +30,13 @@ public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, Dromaeosau
     @Override
     protected @Nullable RenderType getRenderType(Dromaeosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutoutNoCull(TEXTURE);
+    }
+
+    @Override
+    protected void setupRotations(Dromaeosaurus entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        if (entity.isDromaeosaurusVisuallySleeping() || entity.isInPoseTransition()) {
+            poseStack.translate(0, -0.5, 0);
+        }
     }
 }

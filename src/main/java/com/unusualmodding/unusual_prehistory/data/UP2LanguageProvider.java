@@ -56,6 +56,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         // creature dna
         dnaItem(UP2Items.CARNOTAURUS_DNA.get());
+        dnaItem(UP2Items.DROMAEOSAURUS_DNA.get());
         dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
         dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
         dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
