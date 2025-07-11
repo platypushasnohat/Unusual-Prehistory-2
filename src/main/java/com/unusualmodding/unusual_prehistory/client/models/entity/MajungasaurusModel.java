@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.DromaeosaurusAnimations;
 import com.unusualmodding.unusual_prehistory.client.animations.majungasaurus.*;
 import com.unusualmodding.unusual_prehistory.entity.Majungasaurus;
 import net.minecraft.client.model.HierarchicalModel;
@@ -10,6 +11,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalModel<T> {
+
+	private float alpha = 1.0F;
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -149,11 +152,23 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 	public void setupAnim(Majungasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+		if (entity.isMajungasaurusStealthMode()) {
+			this.animateWalk(MajungasaurusStateAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
+		} else {
+			if (this.young) {
+				this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
+				this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2F, 8);
+			} else {
+				this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+			}
+		}
 
 		this.animate(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.BITE_RIGHT, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.BITE_LEFT, ageInTicks);
+
+		this.animate(entity.enterStealthAnimationState, MajungasaurusStateAnimations.CAMOFLAUGE_START, ageInTicks);
+		this.animate(entity.exitStealthAnimationState, MajungasaurusStateAnimations.CAMOFLAUGE_END, ageInTicks);
 
 		this.animate(entity.eyesAnimationState, MajungasaurusIdleAnimations.EYES, ageInTicks);
 
@@ -163,11 +178,27 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
+		if (this.young) {
+			float babyScale = 0.5F;
+			float bodyYOffset = 24.0F;
+			poseStack.pushPose();
+			poseStack.scale(babyScale, babyScale, babyScale);
+			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+			this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
+			poseStack.popPose();
+		} else {
+			poseStack.pushPose();
+			this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
+			poseStack.popPose();
+		}
+    }
 
 	@Override
 	public ModelPart root() {
 		return this.root;
+	}
+
+	public void setAlpha(float alpha) {
+		this.alpha = alpha;
 	}
 }

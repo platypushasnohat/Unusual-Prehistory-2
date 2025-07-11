@@ -18,6 +18,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> JAWLESS_FISH_AVOIDS = modEntityTag("jawless_fish_avoids");
 
+    public static final TagKey<EntityType<?>> MAJUNGASAURUS_TARGETS = modEntityTag("majungasaurus_targets");
+
     public static final TagKey<EntityType<?>> SCAUMENACIA_AVOIDS = modEntityTag("scaumenacia_avoids");
 
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");
