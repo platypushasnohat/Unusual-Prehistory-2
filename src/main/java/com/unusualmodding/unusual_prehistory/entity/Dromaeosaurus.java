@@ -318,7 +318,7 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && !this.dromaeosaurus.isPanicking() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+            return super.canContinueToUse() && !this.dromaeosaurus.isPanicking() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
         }
 
         @Override
@@ -472,16 +472,18 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F;
+            return super.canUse() && this.dromaeosaurus.getHealth() < this.dromaeosaurus.getMaxHealth() * 0.5F;
         }
 
         @Override
         public void start() {
+            super.start();
             this.dromaeosaurus.setPanicking(true);
         }
 
         @Override
         public void stop() {
+            super.stop();
             this.dromaeosaurus.setPanicking(false);
         }
     }
