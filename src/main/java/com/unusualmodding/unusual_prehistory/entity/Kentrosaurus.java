@@ -169,7 +169,7 @@ public class Kentrosaurus extends Animal {
             }
         }
 
-        if (this.tickCount % 200 == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
 

@@ -12,52 +12,58 @@ import net.minecraft.client.model.geom.builders.*;
 public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
+	private final ModelPart body_main;
 	private final ModelPart body;
-	private final ModelPart breathe;
+	private final ModelPart breathing;
 	private final ModelPart neck;
 	private final ModelPart head;
 	private final ModelPart jaw;
-	private final ModelPart armLeft;
+	private final ModelPart left_arm;
+	private final ModelPart right_arm;
 	private final ModelPart tail;
-	private final ModelPart armRight;
-	private final ModelPart legLeft1;
-	private final ModelPart legLeft2;
-	private final ModelPart legLeft3;
-	private final ModelPart legLeft4;
-	private final ModelPart legRight1;
-	private final ModelPart legRight2;
-	private final ModelPart legRight3;
-	private final ModelPart legRight4;
+	private final ModelPart leg_control;
+	private final ModelPart left_leg1;
+	private final ModelPart left_leg2;
+	private final ModelPart left_leg3;
+	private final ModelPart left_claw;
+	private final ModelPart right_leg1;
+	private final ModelPart right_leg2;
+	private final ModelPart right_leg3;
+	private final ModelPart right_claw;
 
 	public DromaeosaurusModel(ModelPart root) {
 		this.root = root.getChild("root");
-		this.body = this.root.getChild("body");
-		this.breathe = this.body.getChild("breathe");
+		this.body_main = this.root.getChild("body_main");
+		this.body = this.body_main.getChild("body");
+		this.breathing = this.body.getChild("breathing");
 		this.neck = this.body.getChild("neck");
 		this.head = this.neck.getChild("head");
 		this.jaw = this.head.getChild("jaw");
-		this.armLeft = this.body.getChild("armLeft");
+		this.left_arm = this.body.getChild("left_arm");
+		this.right_arm = this.body.getChild("right_arm");
 		this.tail = this.body.getChild("tail");
-		this.armRight = this.body.getChild("armRight");
-		this.legLeft1 = this.root.getChild("legLeft1");
-		this.legLeft2 = this.legLeft1.getChild("legLeft2");
-		this.legLeft3 = this.legLeft2.getChild("legLeft3");
-		this.legLeft4 = this.legLeft3.getChild("legLeft4");
-		this.legRight1 = this.root.getChild("legRight1");
-		this.legRight2 = this.legRight1.getChild("legRight2");
-		this.legRight3 = this.legRight2.getChild("legRight3");
-		this.legRight4 = this.legRight3.getChild("legRight4");
+		this.leg_control = this.body_main.getChild("leg_control");
+		this.left_leg1 = this.leg_control.getChild("left_leg1");
+		this.left_leg2 = this.left_leg1.getChild("left_leg2");
+		this.left_leg3 = this.left_leg2.getChild("left_leg3");
+		this.left_claw = this.left_leg3.getChild("left_claw");
+		this.right_leg1 = this.leg_control.getChild("right_leg1");
+		this.right_leg2 = this.right_leg1.getChild("right_leg2");
+		this.right_leg3 = this.right_leg2.getChild("right_leg3");
+		this.right_claw = this.right_leg3.getChild("right_claw");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 12.0F, 0.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, 3.5F));
+		PartDefinition body_main = root.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, -10.0F, 3.5F));
 
-		PartDefinition breathe = body.addOrReplaceChild("breathe", CubeListBuilder.create()
+		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition breathing = body.addOrReplaceChild("breathing", CubeListBuilder.create()
 				.texOffs(0, 39).addBox(-4.0F, -7.0F, -5.0F, 6.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, 2.0F, -3.5F));
 
 		PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create()
@@ -72,11 +78,17 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 		PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create()
 				.texOffs(62, 60).addBox(-1.5F, -0.01F, -4.0F, 3.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, -4.0F));
 
-		PartDefinition armLeft = body.addOrReplaceChild("armLeft", CubeListBuilder.create()
+		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create()
 				.texOffs(64, 39).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(50, 39).addBox(0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F))
 				.texOffs(14, 63).addBox(-1.0F, 2.0F, -3.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
 				.texOffs(44, 64).addBox(-1.0F, 2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, 1.0F, -6.5F));
+
+		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create()
+				.texOffs(64, 39).mirror().addBox(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(50, 39).mirror().addBox(-0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(14, 63).mirror().addBox(-1.0F, 2.0F, -3.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+				.texOffs(44, 64).mirror().addBox(-1.0F, 2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, 1.0F, -6.5F));
 
 		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create(), PartPose.offset(0.0F, -4.0F, 1.5F));
 
@@ -86,34 +98,30 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 		PartDefinition tail_r2 = tail.addOrReplaceChild("tail_r2", CubeListBuilder.create()
 				.texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 7.0F, 0.0F, 39.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.3491F));
 
-		PartDefinition armRight = body.addOrReplaceChild("armRight", CubeListBuilder.create()
-				.texOffs(64, 39).mirror().addBox(-1.0F, -1.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(50, 39).mirror().addBox(-0.99F, 1.0F, -3.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(14, 63).mirror().addBox(-1.0F, 2.0F, -3.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-				.texOffs(44, 64).mirror().addBox(-1.0F, 2.0F, -5.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, 1.0F, -6.5F));
+		PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition legLeft1 = root.addOrReplaceChild("legLeft1", CubeListBuilder.create()
-				.texOffs(32, 39).addBox(-2.0F, -2.0F, -2.5F, 4.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, 2.0F, 3.5F));
+		PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create()
+				.texOffs(32, 39).addBox(-2.0F, -2.0F, -2.5F, 4.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, 0.0F, 0.0F));
 
-		PartDefinition legLeft2 = legLeft1.addOrReplaceChild("legLeft2", CubeListBuilder.create()
+		PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create()
 				.texOffs(26, 63).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, 2.5F));
 
-		PartDefinition legLeft3 = legLeft2.addOrReplaceChild("legLeft3", CubeListBuilder.create()
+		PartDefinition left_leg3 = left_leg2.addOrReplaceChild("left_leg3", CubeListBuilder.create()
 				.texOffs(46, 60).addBox(-1.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 6.9F, 1.0F));
 
-		PartDefinition legLeft4 = legLeft3.addOrReplaceChild("legLeft4", CubeListBuilder.create()
+		PartDefinition left_claw = left_leg3.addOrReplaceChild("left_claw", CubeListBuilder.create()
 				.texOffs(28, 56).addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(-1.0F, 0.0F, -2.0F));
 
-		PartDefinition legRight1 = root.addOrReplaceChild("legRight1", CubeListBuilder.create()
-				.texOffs(32, 39).mirror().addBox(-2.0F, -2.0F, -2.5F, 4.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, 2.0F, 3.5F));
+		PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create()
+				.texOffs(32, 39).mirror().addBox(-2.0F, -2.0F, -2.5F, 4.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, 0.0F, 0.0F));
 
-		PartDefinition legRight2 = legRight1.addOrReplaceChild("legRight2", CubeListBuilder.create()
+		PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create()
 				.texOffs(26, 63).mirror().addBox(-1.0F, -1.0F, 0.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 3.0F, 2.5F));
 
-		PartDefinition legRight3 = legRight2.addOrReplaceChild("legRight3", CubeListBuilder.create()
+		PartDefinition right_leg3 = right_leg2.addOrReplaceChild("right_leg3", CubeListBuilder.create()
 				.texOffs(46, 60).mirror().addBox(-3.0F, 0.09F, -4.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 6.9F, 1.0F));
 
-		PartDefinition legRight4 = legRight3.addOrReplaceChild("legRight4", CubeListBuilder.create()
+		PartDefinition right_claw = right_leg3.addOrReplaceChild("right_claw", CubeListBuilder.create()
 				.texOffs(28, 56).mirror().addBox(0.0F, -2.91F, -1.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(1.0F, 0.0F, -2.0F));
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
@@ -130,14 +138,15 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 			this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
 		}
 
+		this.animate(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
 		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.FALL, ageInTicks);
 		this.animate(entity.sleepStartAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
 		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
 		this.animate(entity.sleepEndAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
 
-		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
-		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
+		this.neck.xRot += entity.isDromaeosaurusSleeping() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
+		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
 
 	@Override
