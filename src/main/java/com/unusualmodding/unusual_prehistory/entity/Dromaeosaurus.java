@@ -4,13 +4,19 @@ import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -21,13 +27,17 @@ import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
 
@@ -38,6 +48,7 @@ public class Dromaeosaurus extends Animal {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> LEAP_COOLDOWN = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> TEMPTED = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
     private int eepyTimer;
@@ -74,22 +85,47 @@ public class Dromaeosaurus extends Animal {
         this.goalSelector.addGoal(4, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
+            public boolean canUse(){
+                return super.canUse() && !Dromaeosaurus.this.isBaby();
+            }
+        });
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 16.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.38F)
-                .add(Attributes.FOLLOW_RANGE, 16.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.38F);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.is(UP2ItemTags.DROMAEOSAURUS_FOOD) && this.getHealth() < this.getMaxHealth()) {
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+            this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+            this.gameEvent(GameEvent.EAT, this);
+            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            for (int i = 0; i < 3; i++) {
+                final double d2 = this.random.nextGaussian() * 0.02D;
+                final double d0 = this.random.nextGaussian() * 0.02D;
+                final double d1 = this.random.nextGaussian() * 0.02D;
+                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
     }
 
     @Override
     public void tick () {
         super.tick();
 
-        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.75F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.7F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
 
         if (this.level().isClientSide()) {
@@ -162,6 +198,7 @@ public class Dromaeosaurus extends Animal {
         super.defineSynchedData();
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
         this.entityData.define(LEAP_COOLDOWN, 50 * 2 + random.nextInt(50 * 2));
+        this.entityData.define(TEMPTED, false);
     }
 
     @Override
@@ -192,9 +229,22 @@ public class Dromaeosaurus extends Animal {
         this.entityData.set(LEAP_COOLDOWN, 50 * 2 + random.nextInt(50 * 2));
     }
 
+    public boolean isTempted() {
+        return this.entityData.get(TEMPTED);
+    }
+
+    public void setTempted(boolean tempted) {
+        this.entityData.set(TEMPTED, tempted);
+    }
+
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         return UP2Entities.DROMAEOSAURUS.get().create(level);
+    }
+
+    @Override
+    public boolean canFallInLove() {
+        return false;
     }
 
     @Override
@@ -319,12 +369,12 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+            return super.canUse() && !this.dromaeosaurus.isBaby() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
         }
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
+            return super.canContinueToUse() && !this.dromaeosaurus.isBaby() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
         }
 
         @Override
@@ -404,12 +454,12 @@ public class Dromaeosaurus extends Animal {
 
         @Override
         public boolean canUse() {
-            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle();
+            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.isTempted();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle();
+            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.isTempted();
         }
 
         @Override
@@ -422,7 +472,7 @@ public class Dromaeosaurus extends Animal {
         public void tick() {
             this.dromaeosaurus.setSprinting(this.dromaeosaurus.getDeltaMovement().horizontalDistance() > 0.05);
 
-            if (this.dromaeosaurus.getNavigation().isDone()) {
+            if (this.dromaeosaurus.getNavigation().isDone() && !this.dromaeosaurus.isTempted()) {
                 Vec3 vec3 = LandRandomPos.getPos(this.dromaeosaurus, 15, 7);
                 if (vec3 != null) {
                     this.dromaeosaurus.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.0F);

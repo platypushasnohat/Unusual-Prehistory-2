@@ -89,6 +89,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.CULTIVATOR_FUEL).addTag(UP2ItemTags.ORGANIC_OOZE);
 
+        this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
+                Items.CHICKEN,
+                Items.COOKED_CHICKEN
+        );
+
         this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).addTag(ItemTags.FISHES);
 
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).add(Items.GOLDEN_APPLE);
