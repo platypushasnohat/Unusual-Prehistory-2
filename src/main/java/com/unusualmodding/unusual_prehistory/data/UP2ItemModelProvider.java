@@ -52,6 +52,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(MEGALANIA_DNA);
         this.dnaItem(TELECREX_DNA);
 
+        // holocene dna
+        this.dnaItem(TALPANAS_DNA);
+
         // plant dna
         this.dnaItem(ARCHAEOSIGILLARIA_DNA);
         this.dnaItem(BENNETTITALES_DNA);

@@ -23,6 +23,12 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
 
+        tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
+                CARNOTAURUS.get(),
+                MAJUNGASAURUS.get(),
+                MEGALANIA.get()
+        );
+
         tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).add(
                 TELECREX.get(),
                 EntityType.CHICKEN

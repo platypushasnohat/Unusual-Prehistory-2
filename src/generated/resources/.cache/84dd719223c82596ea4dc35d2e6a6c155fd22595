@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-11T22:45:59.6544295	Item Models: unusual_prehistory
+// 1.20.1	2025-07-12T14:52:40.084654	Item Models: unusual_prehistory
 03e72d050082792b3c3e4c8720a645acac997c16 assets/unusual_prehistory/models/item/anostylostroma_dna_bottle.json
 9ddb41005c0f45c73e4bb6baa3ac9f7297c6ed91 assets/unusual_prehistory/models/item/archaefructus_dna_bottle.json
 a2f5720c8ca8b441d7ae1ddbf6e02609970fca23 assets/unusual_prehistory/models/item/archaeosigillaria_dna_bottle.json
@@ -51,6 +51,7 @@ da757269ccd3212b32a65b3f02965287e9b816b7 assets/unusual_prehistory/models/item/r
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 a23ec397400d89782cff773156945778cf15533a assets/unusual_prehistory/models/item/stethacanthus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json
+c749feb0d5c1bef9a666aa179adaa0b7a667c4c9 assets/unusual_prehistory/models/item/talpanas_dna_bottle.json
 98c3fcbb4daa1049985090b78782071bd00fc5fe assets/unusual_prehistory/models/item/talpanas_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/talpanas_spawn_egg.json
 23959043274db2de21c7273f275c4b87a2e5cca8 assets/unusual_prehistory/models/item/telecrex_dna_bottle.json

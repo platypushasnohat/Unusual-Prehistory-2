@@ -38,7 +38,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ORGANIC_OOZE.get()
         );
 
-        this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES).addTag(UP2ItemTags.WATER_PLANT_DNA_BOTTLES);
+        this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES).addTag(UP2ItemTags.WATER_PLANT_DNA_BOTTLES);
 
         this.tag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).add(
                 DIPLOCAULUS_DNA.get(),
@@ -59,6 +59,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).add(
                 TELECREX_DNA.get(),
                 MEGALANIA_DNA.get()
+        );
+
+        this.tag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).add(
+                TALPANAS_DNA.get()
         );
 
         this.tag(UP2ItemTags.PLANT_DNA_BOTTLES).add(

@@ -15,6 +15,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PALEOZOIC_DNA_BOTTLES = modItemTag("paleozoic_dna_bottles");
     public static final TagKey<Item> MESOZOIC_DNA_BOTTLES = modItemTag("mesozoic_dna_bottles");
     public static final TagKey<Item> CENOZOIC_DNA_BOTTLES = modItemTag("cenozoic_dna_bottles");
+    public static final TagKey<Item> HOLOCENE_DNA_BOTTLES = modItemTag("holocene_dna_bottles");
     public static final TagKey<Item> PLANT_DNA_BOTTLES = modItemTag("plant_dna_bottles");
     public static final TagKey<Item> WATER_PLANT_DNA_BOTTLES = modItemTag("aquatic_plant_dna_bottles");
 

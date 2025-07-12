@@ -46,6 +46,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.TALPANAS_DIGABLES).add(Blocks.ROOTED_DIRT);
 
+        this.tag(UP2BlockTags.ACCELERATES_EGG_HATCHING).addTag(BlockTags.WOOL).add(
+                Blocks.HAY_BLOCK,
+                Blocks.MOSS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).addTag(BlockTags.ICE);
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 DEEPSLATE_FOSSIL.get(),
@@ -59,8 +66,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
+                FROZEN_MEAT_BLOCK.get(),
+
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
+
                 GINKGO_LOG.get(), GINKGO_WOOD.get(),
                 STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(),
                 GINKGO_PLANKS.get(), GINKGO_STAIRS.get(), GINKGO_SLAB.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), GINKGO_BUTTON.get(),

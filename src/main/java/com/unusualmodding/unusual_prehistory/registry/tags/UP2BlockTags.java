@@ -8,6 +8,9 @@ import net.minecraft.world.level.block.Block;
 
 public class UP2BlockTags {
 
+    public static final TagKey<Block> ACCELERATES_EGG_HATCHING = modBlockTag("accelerates_egg_hatching");
+    public static final TagKey<Block> PREVENTS_EGG_HATCHING = modBlockTag("prevents_egg_hatching");
+
     public static final TagKey<Block> GINKGO_LOGS = modBlockTag("ginkgo_logs");
 
     public static final TagKey<Block> LEPIDODENDRON_LOGS = modBlockTag("lepidodendron_logs");

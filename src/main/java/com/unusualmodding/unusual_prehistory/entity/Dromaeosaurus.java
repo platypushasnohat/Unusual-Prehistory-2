@@ -81,9 +81,10 @@ public class Dromaeosaurus extends Animal {
         this.goalSelector.addGoal(1, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(2, new DromaeosaurusRunGoal(this));
         this.goalSelector.addGoal(3, new DromaeosaurusSleepGoal(this));
-        this.goalSelector.addGoal(4, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.0D, 1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
+        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             public boolean canUse(){
                 return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusSleeping();

@@ -66,6 +66,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         dnaItem(UP2Items.MEGALANIA_DNA.get());
         dnaItem(UP2Items.SCAUMENACIA_DNA.get());
         dnaItem(UP2Items.STETHACANTHUS_DNA.get());
+        dnaItem(UP2Items.TALPANAS_DNA.get());
         dnaItem(UP2Items.TELECREX_DNA.get());
 
         // plant dna

@@ -66,6 +66,9 @@ public class UP2CreativeTabs {
                         tabOutput.accept(MEGALANIA_DNA.get());
                         tabOutput.accept(TELECREX_DNA.get());
 
+                        // holocene dna
+                        tabOutput.accept(TALPANAS_DNA.get());
+
                         // plant dna
                         tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
                         tabOutput.accept(BENNETTITALES_DNA.get());
@@ -90,6 +93,8 @@ public class UP2CreativeTabs {
 
                         // eggs
                         tabOutput.accept(DROMAEOSAURUS_EGG.get());
+                        tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());
+                        tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
                         tabOutput.accept(TALPANAS_EGG.get());
 

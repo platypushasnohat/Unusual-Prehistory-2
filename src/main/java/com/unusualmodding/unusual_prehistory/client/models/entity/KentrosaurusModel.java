@@ -130,7 +130,12 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 	public void setupAnim(Kentrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+		if (this.young) {
+			this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1, 4);
+			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
+		} else {
+			this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+		}
 
 		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks, 1.25F);
 		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks, 1.25F);
@@ -142,20 +147,16 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 
 		this.head.xRot += entity.isKentrosaurusLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
-
-		if (this.young) {
-			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
-		}
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
 		if (this.young) {
-			float babyScale = 0.6f;
-			float bodyYOffset = 16.0f;
+			float babyScale = 0.5F;
+			float bodyYOffset = 24.0F;
 			poseStack.pushPose();
 			poseStack.scale(babyScale, babyScale, babyScale);
-			poseStack.translate(0.0f, bodyYOffset / 16.0f, 0.0f);
+			poseStack.translate(0.0F, bodyYOffset / 16.0f, 0.0F);
 			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
 			poseStack.popPose();
 		} else {

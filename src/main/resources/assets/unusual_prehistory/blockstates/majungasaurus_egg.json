@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "hatch=0": [
+      {
+        "model": "unusual_prehistory:block/majungasaurus_egg"
+      }
+    ],
+    "hatch=1": [
+      {
+        "model": "unusual_prehistory:block/majungasaurus_egg_cracked"
+      }
+    ],
+    "hatch=2": [
+      {
+        "model": "unusual_prehistory:block/majungasaurus_egg_very_cracked"
+      }
+    ]
+  }
+}

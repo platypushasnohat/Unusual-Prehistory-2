@@ -60,21 +60,26 @@ public class TalpanasModel<T extends Talpanas> extends HierarchicalModel<T> {
 	public void setupAnim(Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (entity.isInWaterOrBubble()) {
-            this.animateWalk(TalpanasAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
-        } else {
-            this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
-        }
+		if (this.young) {
+			this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
+			if (entity.isInWaterOrBubble()) {
+				this.animateWalk(TalpanasAnimations.SWIM, limbSwing, limbSwingAmount, 2, 8);
+			} else {
+				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+			}
+		} else {
+			if (entity.isInWaterOrBubble()) {
+				this.animateWalk(TalpanasAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
+			} else {
+				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+			}
+		}
 
         this.animate(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks);
         this.animate(entity.flapAnimationState, TalpanasAnimations.FLAP, ageInTicks);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
-        this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
-
-        if (this.young) {
-            this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
-        }
+		this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
+		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
     }
 
     @Override

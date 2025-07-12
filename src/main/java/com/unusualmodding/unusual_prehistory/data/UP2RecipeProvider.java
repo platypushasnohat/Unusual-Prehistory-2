@@ -60,6 +60,9 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
 
         cultivating(consumer, UP2Items.DROMAEOSAURUS_DNA.get(), UP2Items.DROMAEOSAURUS_EGG.get());
+        cultivating(consumer, UP2Items.KENTROSAURUS_DNA.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
+        cultivating(consumer, UP2Items.MAJUNGASAURUS_DNA.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
+        cultivating(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
         cultivating(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
 
         cultivating(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());

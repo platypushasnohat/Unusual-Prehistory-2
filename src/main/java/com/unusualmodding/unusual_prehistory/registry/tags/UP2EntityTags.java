@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 public class UP2EntityTags {
 
     // UP2 tags
+    public static final TagKey<EntityType<?>> DROMAEOSAURUS_AVOIDS = modEntityTag("dromaeosaurus_avoids");
     public static final TagKey<EntityType<?>> DROMAEOSAURUS_TARGETS = modEntityTag("dromaeosaurus_targets");
 
     public static final TagKey<EntityType<?>> BIG_DUNKLEOSTEUS_TARGETS = modEntityTag("big_dunkleosteus_targets");

@@ -52,8 +52,24 @@
       "item": "minecraft:spider_eye"
     },
     {
-      "weight": 10,
+      "weight": 11,
+      "item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_dna_bottle"
+    },
+    {
+      "weight": 9,
       "item": "unusual_prehistory:dromaeosaurus_dna_bottle"
+    },
+    {
+      "weight": 8,
+      "item": "unusual_prehistory:kentrosaurus_dna_bottle"
+    },
+    {
+      "weight": 7,
+      "item": "unusual_prehistory:majungasaurus_dna_bottle"
+    },
+    {
+      "weight": 5,
+      "item": "unusual_prehistory:carnotaurus_dna_bottle"
     },
     {
       "weight": 3,

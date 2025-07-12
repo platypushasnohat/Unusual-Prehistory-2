@@ -60,6 +60,9 @@ public class UP2Items {
     public static final RegistryObject<Item> MEGALANIA_DNA = registerDnaItem("megalania");
     public static final RegistryObject<Item> TELECREX_DNA = registerDnaItem("telecrex");
 
+    // holocene dna
+    public static final RegistryObject<Item> TALPANAS_DNA = registerDnaItem("talpanas");
+
     // plant dna
     public static final RegistryObject<Item> ANOSTYLOSTROMA_DNA = registerDnaItem("anostylostroma");
     public static final RegistryObject<Item> ARCHAEFRUCTUS_DNA = registerDnaItem("archaefructus");

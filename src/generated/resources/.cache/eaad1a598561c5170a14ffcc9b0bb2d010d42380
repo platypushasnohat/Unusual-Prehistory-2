@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-11T20:03:34.7425223	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-07-12T14:52:40.0836573	Tags for minecraft:item mod id unusual_prehistory
 fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
 fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
@@ -22,12 +22,13 @@ c51a3ba5ec1970e8834eb86e6742cca76f20e869 data/minecraft/tags/items/wooden_slabs.
 cf2eff04ae42d29ffdcfc83a550150d36209b832 data/unusual_prehistory/tags/items/aquatic_plant_dna_bottles.json
 eb97c0cb92e0dc68cbd9a127aeb7d51880b170e3 data/unusual_prehistory/tags/items/cenozoic_dna_bottles.json
 b38301b8f582f89765cee702f99155ce510f9eeb data/unusual_prehistory/tags/items/cultivator_fuel.json
-15a261ba1f62ed4d5bbc543caf639bcc5de6a12c data/unusual_prehistory/tags/items/dna_bottles.json
+ddb4ec2cef5f078f0b635dda537bc325fe31b15d data/unusual_prehistory/tags/items/dna_bottles.json
 61884f4ffc6d4d74bf78255a6219ff5ae67fc376 data/unusual_prehistory/tags/items/dromaeosaurus_food.json
 46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/items/dunkleosteus_food.json
 b57e082c366e3b039e464e75e8a293496bacc7ae data/unusual_prehistory/tags/items/extractor_input.json
 d63a07ab060c024b939962b307bd6b285570574e data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
+4c435518c80369bcc0894fa09f577fc3900d6419 data/unusual_prehistory/tags/items/holocene_dna_bottles.json
 f5d0df09be58f5595f5b00e6faa1c378da2ba2f3 data/unusual_prehistory/tags/items/kentrosaurus_food.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/items/lepidodendron_logs.json
 3dbc521cba4ac5b13c77cb18e4ef4dc034cb69da data/unusual_prehistory/tags/items/majungasaurus_food.json

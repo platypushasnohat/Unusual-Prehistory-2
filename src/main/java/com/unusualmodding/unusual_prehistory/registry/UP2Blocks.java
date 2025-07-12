@@ -39,6 +39,10 @@ public class UP2Blocks {
     public static final RegistryObject<Block> FOSSIL = registerBlock("fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
     public static final RegistryObject<Block> FROZEN_MEAT_BLOCK = registerBlock("frozen_meat_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(SoundType.GLASS)));
 
+    // eggs
+    public static final RegistryObject<Block> KENTROSAURUS_EGG = registerBlock("kentrosaurus_egg", () -> new EggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), UP2Entities.KENTROSAURUS, 5, 7));
+    public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerBlock("majungasaurus_egg", () -> new EggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), UP2Entities.MAJUNGASAURUS, 5, 7));
+
     public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
