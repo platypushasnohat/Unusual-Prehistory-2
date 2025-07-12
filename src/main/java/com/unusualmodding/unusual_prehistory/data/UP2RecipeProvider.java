@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -18,15 +19,21 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.unusualmodding.unusual_prehistory.UnusualPrehistory2.modPrefix;
+import static net.minecraft.data.recipes.RecipeCategory.*;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    public UP2RecipeProvider(PackOutput pOutput) {
-        super(pOutput);
+    public UP2RecipeProvider(PackOutput output) {
+        super(output);
     }
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.EXTRACTOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.FOSSILS).define('Y', Tags.Items.DUSTS_REDSTONE).pattern("###").pattern("#X#").pattern("#Y#").unlockedBy("has_fossil", has(UP2ItemTags.FOSSILS)).save(consumer);
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.CULTIVATOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.ORGANIC_OOZE).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.ORGANIC_OOZE)).save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get()).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
+
         stairs(UP2Blocks.GINKGO_STAIRS, UP2Blocks.GINKGO_PLANKS).save(consumer);
         slab(UP2Blocks.GINKGO_SLAB, UP2Blocks.GINKGO_PLANKS).save(consumer);
         fence(UP2Blocks.GINKGO_FENCE, UP2Blocks.GINKGO_PLANKS).save(consumer);

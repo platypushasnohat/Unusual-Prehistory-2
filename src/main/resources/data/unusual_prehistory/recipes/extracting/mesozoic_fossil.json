@@ -1,0 +1,63 @@
+{
+  "input": [
+    "unusual_prehistory:mesozoic_fossil"
+  ],
+  "entries": [
+    {
+      "weight": 38,
+      "item": "minecraft:coal"
+    },
+    {
+      "weight": 34,
+      "item": "minecraft:flint"
+    },
+    {
+      "weight": 30,
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "weight": 28,
+      "item": "minecraft:gravel"
+    },
+    {
+      "weight": 28,
+      "item": "minecraft:sand"
+    },
+    {
+      "weight": 24,
+      "item": "minecraft:clay"
+    },
+    {
+      "weight": 24,
+      "item": "minecraft:dirt"
+    },
+    {
+      "weight": 20,
+      "item": "minecraft:bone"
+    },
+    {
+      "weight": 20,
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "weight": 16,
+      "item": "minecraft:string"
+    },
+    {
+      "weight": 14,
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "weight": 13,
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "weight": 10,
+      "item": "unusual_prehistory:dromaeosaurus_dna_bottle"
+    },
+    {
+      "weight": 3,
+      "item": "minecraft:nautilus_shell"
+    }
+  ]
+}
