@@ -21,7 +21,7 @@ mixin {
 
 version = "${project.minecraft}-${project.modVersion}"
 group = "com.unusualmodding"
-archivesBaseName = project.modId
+archivesBaseName = "Unusual-Prehistory-2"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
