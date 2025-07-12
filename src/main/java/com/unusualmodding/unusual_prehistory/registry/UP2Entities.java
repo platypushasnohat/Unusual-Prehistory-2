@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.*;
+import com.unusualmodding.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TelecrexEgg;
 import net.minecraft.resources.ResourceLocation;
@@ -134,6 +135,14 @@ public class UP2Entities {
                     .sized(1.25F, 3.0F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
+    );
+
+    public static final RegistryObject<EntityType<DromaeosaurusEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
+            "dromaeosaurus_egg", () ->
+                    EntityType.Builder.<DromaeosaurusEgg>of(DromaeosaurusEgg::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .clientTrackingRange(4)
+                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
     );
 
     public static final RegistryObject<EntityType<TalpanasEgg>> TALPANAS_EGG = ENTITY_TYPE.register(

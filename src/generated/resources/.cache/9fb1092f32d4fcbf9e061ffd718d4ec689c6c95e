@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-20T18:43:55.6754566	Recipes
+// 1.20.1	2025-07-11T22:45:59.6554281	Recipes
 ae37a7ff0b5d35eb3e9f0db2bc3840f2dfadc818 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_button.json
 0c0b4ec888dedb5ed0d4ae1a7e033fad02904150 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_door.json
 fde6109bb7afd7d957ac82a32205ab1492bce107 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_fence.json
@@ -29,6 +29,7 @@ e56a055454328b2defd4a729899e8181bfce22fd data/unusual_prehistory/recipes/cultiva
 4ee77895dbc760347b1b13834bb775fb391b2504 data/unusual_prehistory/recipes/cultivating/cladophlebis.json
 6a2f6470c919ae687f1bc0b749fc32a4e1c6f210 data/unusual_prehistory/recipes/cultivating/clathrodictyon_coral.json
 065232f86686f5d264900be56138e49f93e84d7f data/unusual_prehistory/recipes/cultivating/cooksonia.json
+d83b5fbffabba7033e9a607b89fd2f1d248ef4c5 data/unusual_prehistory/recipes/cultivating/dromaeosaurus_egg.json
 43caf3ebe870406b426cc3747ddc0eccc59908ea data/unusual_prehistory/recipes/cultivating/ginkgo_sapling.json
 a5017ad3f2ce8be2e3f23aacfe4a897d298e794e data/unusual_prehistory/recipes/cultivating/horsetail.json
 37260530523726bad9c89b5d562289050564018e data/unusual_prehistory/recipes/cultivating/isoetes.json

@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.items;
 
+import com.unusualmodding.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TelecrexEgg;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
@@ -34,9 +35,13 @@ public class ThrowableEggItem extends Item {
         if (!level.isClientSide) {
             ThrowableItemProjectile egg;
 
-            if (this == UP2Items.TELECREX_EGG.get()) {
+            if (this == UP2Items.DROMAEOSAURUS_EGG.get()) {
+                egg = new DromaeosaurusEgg(level, player);
+            }
+            else if (this == UP2Items.TELECREX_EGG.get()) {
                 egg = new TelecrexEgg(level, player);
-            } else {
+            }
+            else {
                 egg = new TalpanasEgg(level, player);
             }
 

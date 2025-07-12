@@ -80,6 +80,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
     public static final RegistryObject<Item> SARRACENIA_DNA = registerDnaItem("sarracenia");
 
+    public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerItem("dromaeosaurus_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
 

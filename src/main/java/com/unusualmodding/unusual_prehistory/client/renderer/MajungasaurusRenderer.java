@@ -37,7 +37,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     }
 
     protected void scale(Majungasaurus entity, PoseStack poseStack, float partialTicks) {
-        float alpha = 1.0F - 0.5F * entity.getStealthProgress(partialTicks);
+        float alpha = 1.0F - 0.1F * entity.getStealthProgress(partialTicks);
         this.model.setAlpha(alpha);
     }
 }

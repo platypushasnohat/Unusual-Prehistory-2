@@ -89,6 +89,7 @@ public class UP2CreativeTabs {
                         tabOutput.accept(CLATHRODICTYON_CORAL_DNA.get());
 
                         // eggs
+                        tabOutput.accept(DROMAEOSAURUS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
                         tabOutput.accept(TALPANAS_EGG.get());
 
