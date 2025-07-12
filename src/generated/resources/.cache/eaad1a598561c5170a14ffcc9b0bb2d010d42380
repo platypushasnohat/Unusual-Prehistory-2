@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-11T18:45:36.6832016	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-07-11T20:03:34.7425223	Tags for minecraft:item mod id unusual_prehistory
 fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
 fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
@@ -9,6 +9,7 @@ f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
 6e89dd509d1f7d1b05ae899f2c6e2a2d87e364a3 data/minecraft/tags/items/leaves.json
 8ad98818815a6fcfd7699721d3ecf9cf2e73bdec data/minecraft/tags/items/logs_that_burn.json
 2571ae931a2588cfba6fdc91f30bb75962da3850 data/minecraft/tags/items/planks.json
+1b24751065d6be752153013540eff262b555033c data/minecraft/tags/items/saplings.json
 8bd8ebe906f10166b591038dcb1afe6c99dc128d data/minecraft/tags/items/small_flowers.json
 353e9f8692f2b38314910a40184780c396865ff0 data/minecraft/tags/items/tall_flowers.json
 2b3a88d50eecf2e0839a9d80044cbdc68ef33e9d data/minecraft/tags/items/wooden_buttons.json

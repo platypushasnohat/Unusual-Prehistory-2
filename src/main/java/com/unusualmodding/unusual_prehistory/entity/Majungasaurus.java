@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -48,6 +49,7 @@ public class Majungasaurus extends Animal {
     public final AnimationState biteRightAnimationState = new AnimationState();
     public final AnimationState biteLeftAnimationState = new AnimationState();
     public final AnimationState enterStealthAnimationState = new AnimationState();
+    public final AnimationState stealthIdleAnimationState = new AnimationState();
     public final AnimationState exitStealthAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
@@ -160,14 +162,19 @@ public class Majungasaurus extends Animal {
         this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
 
         if (this.isMajungasaurusVisuallyStealthMode()) {
+            this.exitStealthAnimationState.stop();
+            this.idleAnimationState.stop();
+
             if (this.isVisuallyStealthMode()) {
                 this.enterStealthAnimationState.startIfStopped(this.tickCount);
-                this.idleAnimationState.stop();
+                this.stealthIdleAnimationState.stop();
             } else {
                 this.enterStealthAnimationState.stop();
-                this.idleAnimationState.startIfStopped(this.tickCount);
+                if (this.getDeltaMovement().horizontalDistance() <= 0.0) this.stealthIdleAnimationState.startIfStopped(this.tickCount);
+                this.idleAnimationTimeout = 0;
             }
         } else {
+            this.stealthIdleAnimationState.stop();
             this.enterStealthAnimationState.stop();
             this.exitStealthAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }

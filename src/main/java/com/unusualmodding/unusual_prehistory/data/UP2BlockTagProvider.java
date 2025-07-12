@@ -112,6 +112,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 TALL_SARRACENIA.get()
         );
 
+        this.tag(BlockTags.SAPLINGS).add(
+                GINKGO_SAPLING.get(),
+                GOLDEN_GINKGO_SAPLING.get(),
+                LEPIDODENDRON_CONE.get()
+        );
+
         this.tag(BlockTags.LEAVES).add(
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),
