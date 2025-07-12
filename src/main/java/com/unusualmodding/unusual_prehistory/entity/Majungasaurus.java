@@ -6,7 +6,10 @@ import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,8 +28,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -80,6 +86,27 @@ public class Majungasaurus extends Animal {
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.is(UP2ItemTags.MAJUNGASAURUS_FOOD) && this.getHealth() < this.getMaxHealth()) {
+            if (!player.isCreative()) {
+                itemstack.shrink(1);
+            }
+            this.heal((float) itemstack.getFoodProperties(this).getNutrition());
+            this.gameEvent(GameEvent.EAT, this);
+            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
+            for (int i = 0; i < 3; i++) {
+                final double d2 = this.random.nextGaussian() * 0.02D;
+                final double d0 = this.random.nextGaussian() * 0.02D;
+                final double d1 = this.random.nextGaussian() * 0.02D;
+                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

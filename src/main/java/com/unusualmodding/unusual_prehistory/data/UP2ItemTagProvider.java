@@ -106,6 +106,15 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.GLOW_BERRIES
         );
 
+        this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).add(
+                Items.MUTTON,
+                Items.COOKED_MUTTON,
+                Items.PORKCHOP,
+                Items.COOKED_PORKCHOP,
+                Items.BEEF,
+                Items.COOKED_BEEF
+        );
+
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTag(ItemTags.FISHES);
 
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).add(Items.GOLDEN_APPLE);

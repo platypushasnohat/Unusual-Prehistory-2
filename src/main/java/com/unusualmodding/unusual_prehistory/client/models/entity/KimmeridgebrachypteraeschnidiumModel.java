@@ -56,35 +56,63 @@ public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypter
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 		PartDefinition body_main = root.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, 0.0F));
-		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(14, 16).addBox(-2.0F, -2.0F, -1.5F, 4.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 1.5F));
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(12, 22).addBox(-3.0F, -1.0F, -2.0F, 6.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.5F));
-		PartDefinition left_front_wing = body.addOrReplaceChild("left_front_wing", CubeListBuilder.create().texOffs(-1, 8).mirror().addBox(0.0F, 0.0F, -7.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(1.0F, -2.0F, -0.5F, 0.0F, 0.0F, -0.1745F));
-		PartDefinition right_front_wing = body.addOrReplaceChild("right_front_wing", CubeListBuilder.create().texOffs(-1, 8).addBox(-10.0F, 0.0F, -7.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, -2.0F, -0.5F, 0.0F, 0.0F, 0.1745F));
-		PartDefinition left_back_wing = body.addOrReplaceChild("left_back_wing", CubeListBuilder.create().texOffs(-1, 0).mirror().addBox(0.0F, 0.0F, -1.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.0F, 0.0F, -0.1745F));
-		PartDefinition right_back_wing = body.addOrReplaceChild("right_back_wing", CubeListBuilder.create().texOffs(-1, 0).addBox(-10.0F, 0.0F, -1.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.0F, 0.0F, 0.1745F));
-		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 7).mirror().addBox(0.0F, 0.0F, -3.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(1.0F, 1.0F, -0.5F, -0.48F, 0.0F, 0.0F));
-		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 7).addBox(0.0F, 0.0F, -3.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, 1.0F, -0.5F, -0.48F, 0.0F, 0.0F));
+
+		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create()
+				.texOffs(14, 16).addBox(-2.0F, -2.0F, -1.5F, 4.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create()
+				.texOffs(0, 16).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 1.5F));
+
+		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create()
+				.texOffs(12, 22).addBox(-3.0F, -1.0F, -2.0F, 6.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.5F));
+
+		PartDefinition left_front_wing = body.addOrReplaceChild("left_front_wing", CubeListBuilder.create()
+				.texOffs(-1, 8).mirror().addBox(0.0F, 0.0F, -7.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(1.0F, -2.0F, -0.5F, 0.0F, 0.0F, -0.1745F));
+
+		PartDefinition right_front_wing = body.addOrReplaceChild("right_front_wing", CubeListBuilder.create()
+				.texOffs(-1, 8).addBox(-10.0F, 0.0F, -7.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, -2.0F, -0.5F, 0.0F, 0.0F, 0.1745F));
+
+		PartDefinition left_back_wing = body.addOrReplaceChild("left_back_wing", CubeListBuilder.create()
+				.texOffs(-1, 0).mirror().addBox(0.0F, 0.0F, -1.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.0F, 0.0F, -0.1745F));
+
+		PartDefinition right_back_wing = body.addOrReplaceChild("right_back_wing", CubeListBuilder.create()
+				.texOffs(-1, 0).addBox(-10.0F, 0.0F, -1.0F, 10.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(0.0F, -2.0F, 1.5F, 0.0F, 0.0F, 0.1745F));
+
+		PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create()
+				.texOffs(0, 7).mirror().addBox(0.0F, 0.0F, -3.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(1.0F, 1.0F, -0.5F, -0.48F, 0.0F, 0.0F));
+
+		PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create()
+				.texOffs(0, 7).addBox(0.0F, 0.0F, -3.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, 1.0F, -0.5F, -0.48F, 0.0F, 0.0F));
+
 		PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(1.0F, 1.0F, -0.5F));
-		PartDefinition left_front_leg = leg_control.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(2, -2).mirror().addBox(0.0F, 0.0F, -2.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.7418F));
-		PartDefinition right_front_leg = leg_control.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(2, -2).addBox(0.0F, 0.0F, -2.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7418F));
-		PartDefinition left_back_leg = leg_control.addOrReplaceChild("left_back_leg", CubeListBuilder.create().texOffs(0, 3).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.7418F));
-		PartDefinition right_back_leg = leg_control.addOrReplaceChild("right_back_leg", CubeListBuilder.create().texOffs(0, 3).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7418F));
+
+		PartDefinition left_front_leg = leg_control.addOrReplaceChild("left_front_leg", CubeListBuilder.create()
+				.texOffs(2, -2).mirror().addBox(0.0F, 0.0F, -2.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.7418F));
+
+		PartDefinition right_front_leg = leg_control.addOrReplaceChild("right_front_leg", CubeListBuilder.create()
+				.texOffs(2, -2).addBox(0.0F, 0.0F, -2.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7418F));
+
+		PartDefinition left_back_leg = leg_control.addOrReplaceChild("left_back_leg", CubeListBuilder.create()
+				.texOffs(0, 3).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.7418F));
+
+		PartDefinition right_back_leg = leg_control.addOrReplaceChild("right_back_leg", CubeListBuilder.create()
+				.texOffs(0, 3).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7418F));
+
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
 	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks, 1);
-		this.animate(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
+		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks, 1);
+		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
 		this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1);
 		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks, 1);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

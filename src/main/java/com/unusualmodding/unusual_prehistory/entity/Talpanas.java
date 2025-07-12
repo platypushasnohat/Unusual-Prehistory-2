@@ -330,29 +330,29 @@ public class Talpanas extends Animal {
         double d0 = this.getX() + pDirection.x;
         double d1 = this.getBoundingBox().minY;
         double d2 = this.getZ() + pDirection.z;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
         for(Pose pose : pPassenger.getDismountPoses()) {
-            blockpos$mutableblockpos.set(d0, d1, d2);
+            mutableBlockPos.set(d0, d1, d2);
             double d3 = this.getBoundingBox().maxY + 0.75D;
 
             while(true) {
-                double d4 = this.level().getBlockFloorHeight(blockpos$mutableblockpos);
-                if ((double)blockpos$mutableblockpos.getY() + d4 > d3) {
+                double d4 = this.level().getBlockFloorHeight(mutableBlockPos);
+                if ((double) mutableBlockPos.getY() + d4 > d3) {
                     break;
                 }
 
                 if (DismountHelper.isBlockFloorValid(d4)) {
                     AABB aabb = pPassenger.getLocalBoundsForPose(pose);
-                    Vec3 vec3 = new Vec3(d0, (double)blockpos$mutableblockpos.getY() + d4, d2);
+                    Vec3 vec3 = new Vec3(d0, (double) mutableBlockPos.getY() + d4, d2);
                     if (DismountHelper.canDismountTo(this.level(), pPassenger, aabb.move(vec3))) {
                         pPassenger.setPose(pose);
                         return vec3;
                     }
                 }
 
-                blockpos$mutableblockpos.move(Direction.UP);
-                if (!((double)blockpos$mutableblockpos.getY() < d3)) {
+                mutableBlockPos.move(Direction.UP);
+                if (!((double) mutableBlockPos.getY() < d3)) {
                     break;
                 }
             }
