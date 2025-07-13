@@ -32,7 +32,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.EXTRACTOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.FOSSILS).define('Y', Tags.Items.DUSTS_REDSTONE).pattern("###").pattern("#X#").pattern("#Y#").unlockedBy("has_fossil", has(UP2ItemTags.FOSSILS)).save(consumer);
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.CULTIVATOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.ORGANIC_OOZE).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.ORGANIC_OOZE)).save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get()).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
         stairs(UP2Blocks.GINKGO_STAIRS, UP2Blocks.GINKGO_PLANKS).save(consumer);
         slab(UP2Blocks.GINKGO_SLAB, UP2Blocks.GINKGO_PLANKS).save(consumer);

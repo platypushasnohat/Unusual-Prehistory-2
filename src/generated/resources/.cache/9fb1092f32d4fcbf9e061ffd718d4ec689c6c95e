@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-12T21:34:58.7705142	Recipes
+// 1.20.1	2025-07-12T22:48:32.5211191	Recipes
 ae37a7ff0b5d35eb3e9f0db2bc3840f2dfadc818 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_button.json
 0c0b4ec888dedb5ed0d4ae1a7e033fad02904150 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_door.json
 fde6109bb7afd7d957ac82a32205ab1492bce107 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_fence.json
@@ -77,6 +77,6 @@ cbc931688b96cc8183d73ab49e491aeab1a0f4fd data/unusual_prehistory/recipes/lepidod
 5682362463d98c43fdf0bb497e81d20025f6b875 data/unusual_prehistory/recipes/lepidodendron_trapdoor.json
 c45b33cb63dc22432a87b9f05fad5b679d5a51df data/unusual_prehistory/recipes/lepidodendron_wood.json
 be97fe500b8a61ead68eff84de519b88dc34e551 data/unusual_prehistory/recipes/mossy_lepidodendron_wood.json
-91e03d3143ea0c6a6a78d58d9bc1d1e64e516dc9 data/unusual_prehistory/recipes/organic_ooze.json
+0a034c3489741d01f688a4c1dfc1a093606ab58b data/unusual_prehistory/recipes/organic_ooze.json
 66848e822af63ab2e011372193a621cd847b3d79 data/unusual_prehistory/recipes/stripped_ginkgo_wood.json
 ff9267b4d4d2a3ea431b1d5ebbe60e0db36917c5 data/unusual_prehistory/recipes/stripped_lepidodendron_wood.json
