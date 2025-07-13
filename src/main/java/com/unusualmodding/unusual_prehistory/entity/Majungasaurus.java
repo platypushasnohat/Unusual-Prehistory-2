@@ -32,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -292,7 +291,7 @@ public class Majungasaurus extends Animal {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+        return this.isMajungasaurusStealthMode() ? UP2SoundEvents.MAJUNGASAURUS_IDLE.get() : null;
     }
 
     @Nullable
@@ -309,7 +308,11 @@ public class Majungasaurus extends Animal {
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
+       if (this.isMajungasaurusStealthMode()) {
+           this.playSound(SoundEvents.CAMEL_STEP, 0.25F, 0.9F);
+       } else {
+           this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
+       }
     }
 
     // goals
