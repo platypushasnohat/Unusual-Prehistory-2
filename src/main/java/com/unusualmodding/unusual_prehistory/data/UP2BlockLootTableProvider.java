@@ -51,6 +51,9 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        this.dropSelf(EXTRACTOR.get());
+        this.add(CULTIVATOR.get(), block -> doublePlantDrops(block, CULTIVATOR.get()));
+
         this.dropSelf(ARCHAEFRUCTUS.get());
 
         this.dropSelf(ARCHAEOSIGILLARIA.get());

@@ -1,0 +1,11 @@
+{
+  "type": "unusual_prehistory:cultivating",
+  "ingredients": [
+    {
+      "item": "unusual_prehistory:scaumenacia_dna_bottle"
+    }
+  ],
+  "output": {
+    "item": "unusual_prehistory:scaumenacia_eggs"
+  }
+}

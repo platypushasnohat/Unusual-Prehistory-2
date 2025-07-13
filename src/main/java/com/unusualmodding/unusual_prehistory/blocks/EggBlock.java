@@ -111,13 +111,13 @@ public class EggBlock extends Block {
         level.removeBlock(pos, false);
         for (int j = 0; j < getEntitiesBornFrom(state); ++j) {
             level.levelEvent(2001, pos, Block.getId(state));
-            Entity fromType = hatchedEntity.get().create(level);
-            if (fromType instanceof Animal animal) {
+            Entity entity = hatchedEntity.get().create(level);
+            if (entity instanceof Animal animal) {
                 animal.setAge(-24000);
             }
-            fromType.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
+            entity.moveTo((double) pos.getX() + 0.3D + (double) j * 0.2D, pos.getY(), (double) pos.getZ() + 0.3D, 0.0F, 0.0F);
             if (!level.isClientSide) {
-                level.addFreshEntity(fromType);
+                level.addFreshEntity(entity);
             }
         }
     }

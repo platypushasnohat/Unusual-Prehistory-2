@@ -1,5 +1,7 @@
 {
   "values": [
+    "unusual_prehistory:extractor",
+    "unusual_prehistory:cultivator",
     "unusual_prehistory:deepslate_fossil",
     "unusual_prehistory:fossil",
     "unusual_prehistory:petrified_anostylostroma",

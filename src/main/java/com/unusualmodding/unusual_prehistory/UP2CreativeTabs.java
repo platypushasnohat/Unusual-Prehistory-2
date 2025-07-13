@@ -97,6 +97,12 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
                         tabOutput.accept(TALPANAS_EGG.get());
+                        tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
+                        tabOutput.accept(UP2Blocks.DUNKLEOSTEUS_EGGS.get());
+                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_EGGS.get());
+                        tabOutput.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+                        tabOutput.accept(UP2Blocks.SCAUMENACIA_EGGS.get());
+                        tabOutput.accept(UP2Blocks.STETHACANTHUS_EGGS.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
