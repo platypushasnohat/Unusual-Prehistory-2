@@ -34,7 +34,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 FROZEN_MEAT.get()
         );
 
-        this.tag(UP2ItemTags.ORGANIC_OOZE).add(
+        this.tag(UP2ItemTags.CULTIVATOR_FUEL).add(
                 ORGANIC_OOZE.get()
         );
 
@@ -88,10 +88,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 NELUMBITES_DNA.get(),
                 QUEREUXIA_DNA.get()
         );
-
-        this.tag(UP2ItemTags.EXTRACTOR_INPUT).addTag(UP2ItemTags.FOSSILS);
-
-        this.tag(UP2ItemTags.CULTIVATOR_FUEL).addTag(UP2ItemTags.ORGANIC_OOZE);
 
         this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
                 Items.CHICKEN,

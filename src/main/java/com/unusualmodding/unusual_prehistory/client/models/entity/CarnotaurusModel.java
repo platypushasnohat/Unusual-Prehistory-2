@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.DromaeosaurusAnimations;
 import com.unusualmodding.unusual_prehistory.client.animations.carnotaurus.*;
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
 import net.minecraft.client.model.HierarchicalModel;
@@ -100,10 +101,10 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 		PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 7.0F, 6.0F));
 
 		PartDefinition breathe = body.addOrReplaceChild("breathe", CubeListBuilder.create().texOffs(127, 130).addBox(-2.5F, -13.0F, -1.0F, 5.0F, 2.0F, 16.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(-8.5F, -12.0F, -16.0F, 17.0F, 24.0F, 32.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, -6.0F));
+				.texOffs(0, 0).addBox(-8.5F, -12.0F, -16.0F, 17.0F, 24.0F, 32.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, -6.0F));
 
 		PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(74, 90).addBox(-3.5F, -19.0F, -10.0F, 7.0F, 24.0F, 19.0F, new CubeDeformation(0.0F))
-		.texOffs(126, 90).addBox(-2.5F, -21.0F, -4.0F, 5.0F, 25.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, -18.0F));
+				.texOffs(126, 90).addBox(-2.5F, -21.0F, -4.0F, 5.0F, 25.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, -18.0F));
 
 		PartDefinition head_angry = neck.addOrReplaceChild("head_angry", CubeListBuilder.create(), PartPose.offset(0.0F, -12.6F, -5.1F));
 
@@ -157,7 +158,12 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 	public void setupAnim(Carnotaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+		if (this.young) {
+			this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
+			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+		} else {
+			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+		}
 
 		this.animate(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.biteRightAnimationState, CarnotaurusAnimations.BITE_RIGHT, ageInTicks);
@@ -172,8 +178,18 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+		if (this.young) {
+			float babyScale = 0.5F;
+			float bodyYOffset = 24.0F;
+			poseStack.pushPose();
+			poseStack.scale(babyScale, babyScale, babyScale);
+			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			poseStack.popPose();
+		} else {
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+		}
 	}
 
 	@Override

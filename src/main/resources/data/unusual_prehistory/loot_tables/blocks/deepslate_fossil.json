@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -28,6 +28,7 @@
             },
             {
               "type": "minecraft:item",
+              "weight": 3,
               "functions": [
                 {
                   "enchantment": "minecraft:fortune",
@@ -41,10 +42,43 @@
               "name": "unusual_prehistory:paleozoic_fossil"
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:plant_fossil",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:explosion_decay"
+            },
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "enchantments": [
+                    {
+                      "enchantment": "minecraft:silk_touch",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/deepslate_fossil"
+  "random_sequence": "unusual_prehistory:blocks/fossil"
 }

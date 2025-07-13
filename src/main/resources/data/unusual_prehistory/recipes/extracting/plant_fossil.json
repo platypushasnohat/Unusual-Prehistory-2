@@ -4,35 +4,35 @@
   ],
   "entries": [
     {
-      "weight": 34,
+      "weight": 40,
       "item": "minecraft:flint"
     },
     {
-      "weight": 32,
+      "weight": 40,
       "item": "minecraft:coal"
     },
     {
-      "weight": 30,
+      "weight": 40,
       "item": "minecraft:charcoal"
     },
     {
-      "weight": 30,
+      "weight": 40,
       "item": "minecraft:clay_ball"
     },
     {
-      "weight": 28,
+      "weight": 30,
       "item": "minecraft:gravel"
     },
     {
-      "weight": 28,
+      "weight": 30,
       "item": "minecraft:sand"
     },
     {
-      "weight": 24,
+      "weight": 30,
       "item": "minecraft:clay"
     },
     {
-      "weight": 24,
+      "weight": 30,
       "item": "minecraft:dirt"
     },
     {
@@ -44,11 +44,11 @@
       "item": "minecraft:stick"
     },
     {
-      "weight": 16,
+      "weight": 20,
       "item": "minecraft:fern"
     },
     {
-      "weight": 16,
+      "weight": 20,
       "item": "minecraft:grass"
     },
     {
@@ -56,19 +56,19 @@
       "item": "minecraft:seagrass"
     },
     {
-      "weight": 14,
+      "weight": 15,
       "item": "minecraft:brown_mushroom"
     },
     {
-      "weight": 14,
+      "weight": 15,
       "item": "minecraft:red_mushroom"
     },
     {
-      "weight": 14,
+      "weight": 15,
       "item": "minecraft:dandelion"
     },
     {
-      "weight": 14,
+      "weight": 15,
       "item": "minecraft:poppy"
     },
     {

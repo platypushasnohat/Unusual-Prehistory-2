@@ -4,31 +4,31 @@
   ],
   "entries": [
     {
-      "weight": 38,
+      "weight": 40,
       "item": "minecraft:coal"
     },
     {
-      "weight": 34,
+      "weight": 40,
       "item": "minecraft:flint"
     },
     {
-      "weight": 30,
+      "weight": 40,
       "item": "minecraft:clay_ball"
     },
     {
-      "weight": 28,
+      "weight": 30,
       "item": "minecraft:gravel"
     },
     {
-      "weight": 28,
+      "weight": 30,
       "item": "minecraft:sand"
     },
     {
-      "weight": 24,
+      "weight": 30,
       "item": "minecraft:clay"
     },
     {
-      "weight": 24,
+      "weight": 30,
       "item": "minecraft:dirt"
     },
     {
@@ -40,40 +40,40 @@
       "item": "minecraft:bone_meal"
     },
     {
-      "weight": 16,
+      "weight": 20,
       "item": "minecraft:string"
     },
     {
-      "weight": 14,
+      "weight": 20,
       "item": "minecraft:rotten_flesh"
     },
     {
-      "weight": 13,
+      "weight": 20,
       "item": "minecraft:spider_eye"
-    },
-    {
-      "weight": 11,
-      "item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_dna_bottle"
-    },
-    {
-      "weight": 9,
-      "item": "unusual_prehistory:dromaeosaurus_dna_bottle"
-    },
-    {
-      "weight": 8,
-      "item": "unusual_prehistory:kentrosaurus_dna_bottle"
-    },
-    {
-      "weight": 7,
-      "item": "unusual_prehistory:majungasaurus_dna_bottle"
-    },
-    {
-      "weight": 5,
-      "item": "unusual_prehistory:carnotaurus_dna_bottle"
     },
     {
       "weight": 3,
       "item": "minecraft:nautilus_shell"
+    },
+    {
+      "weight": 7,
+      "item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_dna_bottle"
+    },
+    {
+      "weight": 6,
+      "item": "unusual_prehistory:dromaeosaurus_dna_bottle"
+    },
+    {
+      "weight": 5,
+      "item": "unusual_prehistory:kentrosaurus_dna_bottle"
+    },
+    {
+      "weight": 5,
+      "item": "unusual_prehistory:majungasaurus_dna_bottle"
+    },
+    {
+      "weight": 3,
+      "item": "unusual_prehistory:carnotaurus_dna_bottle"
     }
   ]
 }

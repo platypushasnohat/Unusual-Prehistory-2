@@ -74,12 +74,12 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<ExtractingRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final String ID ="analyzing";
+        public static final String ID ="extracting";
     }
 
     public static class Serializer implements RecipeSerializer<ExtractingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory2.MOD_ID,"analyzing");
+        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory2.MOD_ID,"extracting");
 
         @Override
         public ExtractingRecipe fromJson(ResourceLocation id, JsonObject json) {

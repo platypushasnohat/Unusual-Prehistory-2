@@ -1,12 +1,8 @@
 {
   "input": [
-    "unusual_prehistory:paleozoic_fossil"
+    "unusual_prehistory:frozen_meat"
   ],
   "entries": [
-    {
-      "weight": 40,
-      "item": "minecraft:coal"
-    },
     {
       "weight": 40,
       "item": "minecraft:flint"
@@ -37,43 +33,43 @@
     },
     {
       "weight": 20,
-      "item": "minecraft:bone_meal"
+      "item": "minecraft:beef"
     },
     {
       "weight": 20,
-      "item": "minecraft:string"
+      "item": "minecraft:porkchop"
     },
     {
       "weight": 20,
-      "item": "minecraft:rotten_flesh"
+      "item": "minecraft:chicken"
     },
     {
-      "weight": 20,
-      "item": "minecraft:spider_eye"
+      "weight": 15,
+      "item": "minecraft:cod"
     },
     {
       "weight": 3,
-      "item": "minecraft:nautilus_shell"
+      "item": "minecraft:rabbit_foot"
     },
     {
-      "weight": 10,
-      "item": "unusual_prehistory:jawless_fish_dna_bottle"
+      "weight": 1,
+      "item": "minecraft:skeleton_skull"
     },
     {
-      "weight": 9,
-      "item": "unusual_prehistory:scaumenacia_dna_bottle"
+      "weight": 15,
+      "item": "minecraft:salmon"
     },
     {
       "weight": 7,
-      "item": "unusual_prehistory:diplocaulus_dna_bottle"
+      "item": "unusual_prehistory:talpanas_dna_bottle"
     },
     {
-      "weight": 5,
-      "item": "unusual_prehistory:stethacanthus_dna_bottle"
+      "weight": 6,
+      "item": "unusual_prehistory:telecrex_dna_bottle"
     },
     {
-      "weight": 3,
-      "item": "unusual_prehistory:dunkleosteus_dna_bottle"
+      "weight": 2,
+      "item": "unusual_prehistory:megalania_dna_bottle"
     }
   ]
 }

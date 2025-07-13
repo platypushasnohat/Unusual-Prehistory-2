@@ -19,10 +19,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PLANT_DNA_BOTTLES = modItemTag("plant_dna_bottles");
     public static final TagKey<Item> WATER_PLANT_DNA_BOTTLES = modItemTag("aquatic_plant_dna_bottles");
 
-    public static final TagKey<Item> EXTRACTOR_INPUT = modItemTag("extractor_input");
     public static final TagKey<Item> CULTIVATOR_FUEL = modItemTag("cultivator_fuel");
-
-    public static final TagKey<Item> ORGANIC_OOZE = modItemTag("organic_ooze");
 
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");

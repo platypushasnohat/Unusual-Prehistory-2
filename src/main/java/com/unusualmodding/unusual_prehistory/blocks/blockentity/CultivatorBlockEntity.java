@@ -237,7 +237,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     private int getFuelAmount(final ItemStack fuelStack) {
-        if (!fuelStack.isEmpty() && fuelStack.is(UP2ItemTags.ORGANIC_OOZE)) {
+        if (!fuelStack.isEmpty() && fuelStack.is(UP2ItemTags.CULTIVATOR_FUEL)) {
             return maxFuel;
         }
         return 0;

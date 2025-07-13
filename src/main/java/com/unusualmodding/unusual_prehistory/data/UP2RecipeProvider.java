@@ -30,7 +30,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.EXTRACTOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.FOSSILS).define('Y', Tags.Items.DUSTS_REDSTONE).pattern("###").pattern("#X#").pattern("#Y#").unlockedBy("has_fossil", has(UP2ItemTags.FOSSILS)).save(consumer);
-        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.CULTIVATOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.ORGANIC_OOZE).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.ORGANIC_OOZE)).save(consumer);
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.CULTIVATOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.CULTIVATOR_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.CULTIVATOR_FUEL)).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
@@ -66,9 +66,11 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         cultivating(consumer, UP2Items.SCAUMENACIA_DNA.get(), UP2Blocks.SCAUMENACIA_EGGS.get().asItem());
         cultivating(consumer, UP2Items.STETHACANTHUS_DNA.get(), UP2Blocks.STETHACANTHUS_EGGS.get().asItem());
 
+        cultivating(consumer, UP2Items.CARNOTAURUS_DNA.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
         cultivating(consumer, UP2Items.DROMAEOSAURUS_DNA.get(), UP2Items.DROMAEOSAURUS_EGG.get());
         cultivating(consumer, UP2Items.KENTROSAURUS_DNA.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
         cultivating(consumer, UP2Items.MAJUNGASAURUS_DNA.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
+        cultivating(consumer, UP2Items.MEGALANIA_DNA.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
         cultivating(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
         cultivating(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
 

@@ -139,7 +139,7 @@ public class CultivatorMenu extends AbstractContainerMenu {
 
         @Override
         public boolean mayPlace(ItemStack itemStack) {
-            return super.mayPlace(itemStack) && itemStack.is(UP2ItemTags.ORGANIC_OOZE);
+            return super.mayPlace(itemStack) && itemStack.is(UP2ItemTags.CULTIVATOR_FUEL);
         }
     }
 }
