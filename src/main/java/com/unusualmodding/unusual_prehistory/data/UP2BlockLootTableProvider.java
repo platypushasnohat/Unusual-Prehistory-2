@@ -54,6 +54,18 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(EXTRACTOR.get());
         this.add(CULTIVATOR.get(), block -> doublePlantDrops(block, CULTIVATOR.get()));
 
+        this.dropSelf(CARNOTAURUS_EGG.get());
+        this.dropSelf(KENTROSAURUS_EGG.get());
+        this.dropSelf(MAJUNGASAURUS_EGG.get());
+        this.dropSelf(MEGALANIA_EGG.get());
+        this.dropSelf(DIPLOCAULUS_EGGS.get());
+        this.dropSelf(DUNKLEOSTEUS_EGGS.get());
+        this.dropSelf(JAWLESS_FISH_EGGS.get());
+        this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+        this.dropSelf(SCAUMENACIA_EGGS.get());
+        this.dropSelf(STETHACANTHUS_EGGS.get());
+
+
         this.dropSelf(ARCHAEFRUCTUS.get());
 
         this.dropSelf(ARCHAEOSIGILLARIA.get());
