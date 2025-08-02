@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusual_prehistory:item/organic_ooze_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ooze_shape": 0.2
+      },
+      "model": "unusual_prehistory:item/organic_ooze_1"
+    },
+    {
+      "predicate": {
+        "ooze_shape": 0.4
+      },
+      "model": "unusual_prehistory:item/organic_ooze_2"
+    },
+    {
+      "predicate": {
+        "ooze_shape": 0.6
+      },
+      "model": "unusual_prehistory:item/organic_ooze_3"
+    },
+    {
+      "predicate": {
+        "ooze_shape": 0.8
+      },
+      "model": "unusual_prehistory:item/organic_ooze_4"
+    }
+  ]
+}

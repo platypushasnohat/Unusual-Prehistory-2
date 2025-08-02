@@ -12,12 +12,10 @@ public class UP2ItemProperties {
     public static void registerItemProperties() {
         for (RegistryObject<Item> item : UP2Items.ITEMS.getEntries()) {
             if (item.get() instanceof MobCaptureItem) {
-                registerVariantProperties(item.get());
+                ItemProperties.register(item.get(), new ResourceLocation(UnusualPrehistory2.MOD_ID, "variant"), (stack, level, living, i) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0);
             }
-        }
-    }
 
-    private static void registerVariantProperties(Item item) {
-        ItemProperties.register(item, new ResourceLocation(UnusualPrehistory2.MOD_ID, "variant"), (stack, world, player, i) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0);
+            ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), new ResourceLocation("ooze_shape"), (stack, level, living, j) -> (System.identityHashCode(stack) % 5) / 5F);
+        }
     }
 }
