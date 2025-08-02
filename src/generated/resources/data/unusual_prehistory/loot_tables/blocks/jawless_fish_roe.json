@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:jawless_fish_eggs"
+          "name": "unusual_prehistory:jawless_fish_roe"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/jawless_fish_eggs"
+  "random_sequence": "unusual_prehistory:blocks/jawless_fish_roe"
 }

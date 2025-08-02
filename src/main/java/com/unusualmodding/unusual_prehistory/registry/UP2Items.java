@@ -26,6 +26,8 @@ public class UP2Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
+    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new Item(new Item.Properties()));
+
     // fossils
     public static final RegistryObject<Item> PLANT_FOSSIL = registerItem("plant_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
@@ -37,10 +39,13 @@ public class UP2Items {
     // foods
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
+    public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new MobBucketItem(UP2Entities.JAWLESS_FISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new MobCaptureItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM::get, Fluids.EMPTY, Items.GLASS_BOTTLE, SoundEvents.BOTTLE_FILL_DRAGONBREATH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new MobBucketItem(UP2Entities.JAWLESS_FISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCAUMENACIA_BUCKET = registerItemNoLang("scaumenacia_bucket", () -> new MobBucketItem(UP2Entities.SCAUMENACIA, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new MobBucketItem(UP2Entities.STETHACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new MobBucketItem(UP2Entities.DIPLOCAULUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new MobBucketItem(UP2Entities.DUNKLEOSTEUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     // paleo dna
     public static final RegistryObject<Item> DIPLOCAULUS_DNA = registerDnaItem("diplocaulus");
@@ -82,6 +87,9 @@ public class UP2Items {
     public static final RegistryObject<Item> RAIGUENRAYUN_DNA = registerDnaItem("raiguenrayun");
     public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
     public static final RegistryObject<Item> SARRACENIA_DNA = registerDnaItem("sarracenia");
+
+    public static final RegistryObject<Item> DUNKLEOSTEUS_SAC = registerItem("dunkleosteus_sac", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> STETHACANTHUS_SAC = registerItem("stethacanthus_sac", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerItem("dromaeosaurus_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));

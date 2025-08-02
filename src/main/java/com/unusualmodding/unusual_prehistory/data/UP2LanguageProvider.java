@@ -90,9 +90,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         dnaItem(UP2Items.SARRACENIA_DNA.get());
 
         addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
+        addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
         addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
         addItem(UP2Items.SCAUMENACIA_BUCKET, "Bucket of Scaumenacia");
         addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
+        addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
+        addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
 
         // sounds
         sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");

@@ -17,7 +17,7 @@ public class UP2CreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.EXTRACTOR.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(PALEOPEDIA.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((pParameters, tabOutput) -> {
 
@@ -27,6 +27,8 @@ public class UP2CreativeTabs {
                                 tabOutput.accept(spawnEgg.get());
                             }
                         });
+
+                        tabOutput.accept(PALEOPEDIA.get());
 
                         tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(PALEOZOIC_FOSSIL.get());
@@ -43,8 +45,11 @@ public class UP2CreativeTabs {
 
                         tabOutput.accept(GINKGO_FRUIT.get());
 
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        tabOutput.accept(DIPLOCAULUS_BUCKET.get());
+                        tabOutput.accept(DUNKLEOSTEUS_BUCKET.get());
                         tabOutput.accept(JAWLESS_FISH_BUCKET.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         tabOutput.accept(SCAUMENACIA_BUCKET.get());
                         tabOutput.accept(STETHACANTHUS_BUCKET.get());
 
@@ -93,10 +98,10 @@ public class UP2CreativeTabs {
 
                         // eggs
                         tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
-                        tabOutput.accept(UP2Blocks.DUNKLEOSTEUS_EGGS.get());
-                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_EGGS.get());
-                        tabOutput.accept(UP2Blocks.SCAUMENACIA_EGGS.get());
-                        tabOutput.accept(UP2Blocks.STETHACANTHUS_EGGS.get());
+                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
+                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
+                        tabOutput.accept(UP2Blocks.SCAUMENACIA_ROE.get());
+                        tabOutput.accept(STETHACANTHUS_SAC.get());
                         tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         tabOutput.accept(DROMAEOSAURUS_EGG.get());
                         tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());

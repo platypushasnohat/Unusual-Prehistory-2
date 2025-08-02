@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:block/eggs/scaumenacia_eggs"
+    "layer0": "unusual_prehistory:item/stethacanthus_sac"
   }
 }
