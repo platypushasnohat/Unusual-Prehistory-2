@@ -64,7 +64,7 @@ public class Scaumenacia extends SchoolingAquaticEntity implements Bucketable {
 
     // schooling
     public int getMaxSchoolSize() {
-        return 8;
+        return 12;
     }
 
     @Override
