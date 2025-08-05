@@ -47,11 +47,6 @@ public class LepidodendronTrunkPlacer extends TrunkPlacer {
 
             for (Direction direction : Direction.values()) {
                 if (direction != Direction.UP && direction != Direction.DOWN) {
-
-                    if (i == 0) {
-                        blockSetter.accept(startPos.above(0).relative(direction, 1), ((BlockState) Function.identity().apply(config.trunkProvider.getState(random, startPos))));
-                    }
-
                     blockSetter.accept(startPos.above(trunkHeight).relative(direction, 1), UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get().defaultBlockState());
                     blockSetter.accept(startPos.above(trunkHeight + 1).relative(direction, 2), UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get().defaultBlockState());
                     blockSetter.accept(startPos.above(trunkHeight + 2).relative(direction, 2), UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get().defaultBlockState());
