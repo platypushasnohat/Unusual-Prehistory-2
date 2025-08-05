@@ -102,7 +102,7 @@ public class UP2Items {
     // spawn eggs
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x772b2f, 0x252b33);
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
-    public static final RegistryObject<Item> DROMAEOSAURUS_SPAWN_EGG = registerSpawnEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS, 0xefe24f, 0xe3c347);
+    public static final RegistryObject<Item> DROMAEOSAURUS_SPAWN_EGG = registerSpawnEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS, 0xf9fa5e, 0xebc754);
     public static final RegistryObject<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x417a69, 0x825147);
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = registerSpawnEggItem("jawless_fish", UP2Entities.JAWLESS_FISH, 0x312e38, 0x917388);
     public static final RegistryObject<Item> KENTROSAURUS_SPAWN_EGG = registerSpawnEggItem("kentrosaurus", UP2Entities.KENTROSAURUS, 0x5a6637, 0x1d1f18);

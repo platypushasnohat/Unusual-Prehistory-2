@@ -16,7 +16,8 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel<Majungasaurus>> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/majungasaurus.png");
+    private static final ResourceLocation TEXTURE_DUSKLURKER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MajungasaurusModel<>(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
@@ -24,16 +25,14 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public ResourceLocation getTextureLocation(Majungasaurus entity) {
-        return TEXTURE;
+        if (entity.getVariant() == 1) return TEXTURE_DUSKLURKER;
+        else return TEXTURE;
     }
 
     @Override
     protected @Nullable RenderType getRenderType(Majungasaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        if (entity.getStealthProgress(1.0F) > 0.0F) {
-            return RenderType.entityTranslucent(TEXTURE);
-        } else {
-            return RenderType.entityCutoutNoCull(TEXTURE);
-        }
+        if (entity.getStealthProgress(1.0F) > 0.0F) return RenderType.entityTranslucent(getTextureLocation(entity));
+        else return RenderType.entityCutoutNoCull(getTextureLocation(entity));
     }
 
     protected void scale(Majungasaurus entity, PoseStack poseStack, float partialTicks) {

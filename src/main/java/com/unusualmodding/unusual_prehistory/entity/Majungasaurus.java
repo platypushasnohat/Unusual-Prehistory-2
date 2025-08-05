@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +44,7 @@ public class Majungasaurus extends Animal {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> STEALTH_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState eyesAnimationState = new AnimationState();
@@ -64,10 +67,15 @@ public class Majungasaurus extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MajungasaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new MajungasaurusPanicGoal(this));
+        this.goalSelector.addGoal(2, new MajungasaurusBabyPanicGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, Majungasaurus.class, 12.0F, 2.0D, 2.0D, this::avoidsParents) {
+            public boolean canUse(){
+                return super.canUse() && Majungasaurus.this.isBaby();
+            }
+        });
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Majungasaurus.class, 300, true, true, this::canCannibalize) {
             public boolean canUse(){
                 return super.canUse() && !Majungasaurus.this.isBaby();
@@ -124,6 +132,11 @@ public class Majungasaurus extends Animal {
         return this.canAttack(entity) && (entity.getHealth() < entity.getMaxHealth() * 0.5F || entity.isBaby());
     }
 
+    public boolean avoidsParents(LivingEntity entity) {
+        Majungasaurus majungasaurus = (Majungasaurus) entity;
+        return this.isBaby() && !entity.isBaby() && !majungasaurus.isMajungasaurusStealthMode();
+    }
+
     @Override
     public void tick () {
         super.tick();
@@ -158,7 +171,7 @@ public class Majungasaurus extends Animal {
             --this.idleAnimationTimeout;
         }
 
-        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
+        this.eyesAnimationState.animateWhen(this.isAlive(), this.tickCount);
 
         if (this.isMajungasaurusVisuallyStealthMode()) {
             this.exitStealthAnimationState.stop();
@@ -182,6 +195,7 @@ public class Majungasaurus extends Animal {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(STEALTH_COOLDOWN, 60 + random.nextInt(10));
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
     }
@@ -189,6 +203,7 @@ public class Majungasaurus extends Animal {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putInt("StealthCooldown", this.getStealthCooldown());
         compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
@@ -196,10 +211,19 @@ public class Majungasaurus extends Animal {
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(compoundTag.getInt("Variant"));
         this.setStealthCooldown(compoundTag.getInt("StealthCooldown"));
         long l = compoundTag.getLong("LastPoseTick");
         if (l < 0L) this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(l);
+    }
+
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public int getStealthCooldown() {
@@ -283,9 +307,12 @@ public class Majungasaurus extends Animal {
         super.onSyncedDataUpdated(entityDataAccessor);
     }
 
+    @Nullable
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return UP2Entities.MAJUNGASAURUS.get().create(level);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        Majungasaurus majungasaurus = UP2Entities.MAJUNGASAURUS.get().create(serverLevel);
+        majungasaurus.setVariant(this.getVariant());
+        return majungasaurus;
     }
 
     @Nullable
@@ -313,6 +340,14 @@ public class Majungasaurus extends Animal {
        } else {
            this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
        }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @javax.annotation.Nullable CompoundTag compoundTag) {
+        int variantChange = this.random.nextInt(0, 100);
+        if (variantChange <= 10 && this.level().isNight()) this.setVariant(1);
+        else this.setVariant(0);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 
     // goals
@@ -407,11 +442,11 @@ public class Majungasaurus extends Animal {
         }
     }
 
-    static class MajungasaurusPanicGoal extends LargePanicGoal {
+    static class MajungasaurusBabyPanicGoal extends LargePanicGoal {
 
         protected final Majungasaurus majungasaurus;
 
-        public MajungasaurusPanicGoal(Majungasaurus majungasaurus) {
+        public MajungasaurusBabyPanicGoal(Majungasaurus majungasaurus) {
             super(majungasaurus, 1.7D);
             this.majungasaurus = majungasaurus;
         }

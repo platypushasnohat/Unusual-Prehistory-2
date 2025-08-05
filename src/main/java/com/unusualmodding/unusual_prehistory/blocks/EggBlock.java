@@ -123,7 +123,7 @@ public class EggBlock extends Block {
     }
 
     protected boolean canGrow(Level level, BlockState stateBelow) {
-        return !stateBelow.is(UP2BlockTags.PREVENTS_EGG_HATCHING) && level.random.nextInt(stateBelow.is(UP2BlockTags.ACCELERATES_EGG_HATCHING) ? 10 : 20) == 0;
+        return !stateBelow.is(UP2BlockTags.PREVENTS_EGG_HATCHING) && level.random.nextInt(stateBelow.is(UP2BlockTags.ACCELERATES_EGG_HATCHING) ? 8 : 16) == 0;
     }
 
     protected int getEntitiesBornFrom(BlockState state) {

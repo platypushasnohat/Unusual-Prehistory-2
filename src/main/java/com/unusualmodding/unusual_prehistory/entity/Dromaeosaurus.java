@@ -164,7 +164,7 @@ public class Dromaeosaurus extends Animal {
             --this.idleAnimationTimeout;
         }
 
-        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble(), this.tickCount);
+        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable(), this.tickCount);
 
         if (this.isDromaeosaurusVisuallySleeping()) {
             this.sleepEndAnimationState.stop();
