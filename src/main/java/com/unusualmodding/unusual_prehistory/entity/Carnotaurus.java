@@ -179,8 +179,7 @@ public class Carnotaurus extends Animal {
                     if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
                     else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
 
-                    if (!this.carnotaurus.getNavigation().moveTo(target, 1.75D))
-                        this.ticksUntilNextPathRecalculation += 15;
+                    if (!this.carnotaurus.getNavigation().moveTo(target, 1.75D)) this.ticksUntilNextPathRecalculation += 15;
 
                     this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
                 }
