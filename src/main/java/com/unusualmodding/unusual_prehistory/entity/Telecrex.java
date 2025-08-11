@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.google.common.base.Predicate;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DirectPathNavigator;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingMoveController;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingMoveControl;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -84,7 +84,7 @@ public class Telecrex extends Animal {
             this.navigation = new GroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new FlyingMoveController(this, 1, false);
+            this.moveControl = new FlyingMoveControl(this, 1, false);
             this.navigation = new DirectPathNavigator(this, level());
             this.isLandNavigator = false;
         }

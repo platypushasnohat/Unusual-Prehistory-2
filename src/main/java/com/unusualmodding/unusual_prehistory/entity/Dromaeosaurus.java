@@ -1,6 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothTurningMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
@@ -30,7 +32,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -44,7 +45,7 @@ import org.jetbrains.annotations.VisibleForTesting;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class Dromaeosaurus extends Animal {
+public class Dromaeosaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> LEAP_COOLDOWN = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.INT);
@@ -61,7 +62,7 @@ public class Dromaeosaurus extends Animal {
 
     private int idleAnimationTimeout = 0;
 
-    public Dromaeosaurus(EntityType<? extends Animal> entityType, Level level) {
+    public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
@@ -129,8 +130,6 @@ public class Dromaeosaurus extends Animal {
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
 
         if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-
             if (this.isDromaeosaurusSleeping()) {
                 if (this.eepyTimer == 0) {
                     this.eepyTimer = 40 + random.nextInt(10);
@@ -147,16 +146,9 @@ public class Dromaeosaurus extends Animal {
         if (this.getLeapCooldown() > 0) {
             this.setLeapCooldown(this.getLeapCooldown() - 1);
         }
-
-        if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth() && !this.isDromaeosaurusSleeping()) {
-            this.heal(2);
-        }
-        if (this.tickCount % 300 == 0 && this.getHealth() < this.getMaxHealth() && this.isDromaeosaurusSleeping()) {
-            this.heal(2);
-        }
     }
 
-    private void setupAnimationStates() {
+    public void setupAnimationStates() {
         if (this.idleAnimationTimeout == 0) {
             this.idleAnimationTimeout = 160;
             this.idleAnimationState.start(this.tickCount);
@@ -528,7 +520,7 @@ public class Dromaeosaurus extends Animal {
         }
     }
 
-    private static class DromaeosaurusMoveControl extends MoveControl {
+    private static class DromaeosaurusMoveControl extends SmoothTurningMoveControl {
 
         protected final Dromaeosaurus dromaeosaurus;
 

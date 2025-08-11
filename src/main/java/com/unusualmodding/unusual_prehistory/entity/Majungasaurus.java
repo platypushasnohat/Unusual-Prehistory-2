@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -27,7 +28,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,11 +40,10 @@ import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.Objects;
 
-public class Majungasaurus extends Animal {
+public class Majungasaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> STEALTH_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState eyesAnimationState = new AnimationState();
@@ -54,11 +53,10 @@ public class Majungasaurus extends Animal {
     public final AnimationState stealthIdleAnimationState = new AnimationState();
     public final AnimationState exitStealthAnimationState = new AnimationState();
 
-    private int idleAnimationTimeout = 0;
     private float stealthProgress;
     private float prevStealthProgress;
 
-    public Majungasaurus(EntityType<? extends Animal> entityType, Level level) {
+    public Majungasaurus(EntityType<? extends Majungasaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
     }
@@ -143,10 +141,6 @@ public class Majungasaurus extends Animal {
 
         prevStealthProgress = stealthProgress;
 
-        if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
-
         if (this.isMajungasaurusStealthMode() && stealthProgress < 20F) {
             stealthProgress++;
         }
@@ -161,13 +155,10 @@ public class Majungasaurus extends Animal {
         if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
-
-//        if (this.isMajungasaurusStealthMode() && this.getTarget() == null) {
-//            this.exitStealth();
-//        }
     }
 
-    private void setupAnimationStates() {
+    @Override
+    public void setupAnimationStates() {
         if (this.idleAnimationTimeout == 0) {
             this.idleAnimationTimeout = 160;
             this.idleAnimationState.start(this.tickCount);
@@ -199,7 +190,6 @@ public class Majungasaurus extends Animal {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(STEALTH_COOLDOWN, 60 + random.nextInt(10));
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
     }
@@ -207,7 +197,6 @@ public class Majungasaurus extends Animal {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putInt("StealthCooldown", this.getStealthCooldown());
         compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
@@ -215,19 +204,10 @@ public class Majungasaurus extends Animal {
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setVariant(compoundTag.getInt("Variant"));
         this.setStealthCooldown(compoundTag.getInt("StealthCooldown"));
         long l = compoundTag.getLong("LastPoseTick");
         if (l < 0L) this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(l);
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
     }
 
     public int getStealthCooldown() {
@@ -392,7 +372,7 @@ public class Majungasaurus extends Animal {
 
                 this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
 
-                if (distanceToTarget > 50 && this.majungasaurus.getStealthCooldown() <= 0) {
+                if (distanceToTarget > 50 && this.majungasaurus.getStealthCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
                     this.majungasaurus.enterStealth();
                     this.majungasaurus.getNavigation().moveTo(target, 1.0D);
                 }

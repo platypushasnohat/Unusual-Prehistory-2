@@ -5,11 +5,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class UP2BlockPos {
 
-    public static final BlockPos fromCoords(double x, double y, double z){
+    public static final BlockPos fromCoords(double x, double y, double z) {
         return new BlockPos((int) x, (int) y, (int) z);
     }
 
-    public static final BlockPos fromVec3(Vec3 vec3){
+    public static final BlockPos fromVec3(Vec3 vec3) {
         return fromCoords(vec3.x, vec3.y, vec3.z);
     }
 }

@@ -6,14 +6,14 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class FlyingMoveController extends MoveControl {
+public class FlyingMoveControl extends MoveControl {
 
     private final Mob parentEntity;
     private final float speedGeneral;
     private final boolean shouldLookAtTarget;
     private final boolean needsYSupport;
 
-    public FlyingMoveController(Mob flier, float speedGeneral, boolean shouldLookAtTarget, boolean needsYSupport) {
+    public FlyingMoveControl(Mob flier, float speedGeneral, boolean shouldLookAtTarget, boolean needsYSupport) {
         super(flier);
         this.parentEntity = flier;
         this.shouldLookAtTarget = shouldLookAtTarget;
@@ -21,11 +21,11 @@ public class FlyingMoveController extends MoveControl {
         this.needsYSupport = needsYSupport;
     }
 
-    public FlyingMoveController(Mob flier, float speedGeneral, boolean shouldLookAtTarget) {
+    public FlyingMoveControl(Mob flier, float speedGeneral, boolean shouldLookAtTarget) {
         this(flier, speedGeneral, shouldLookAtTarget, false);
     }
 
-    public FlyingMoveController(Mob flier, float speedGeneral) {
+    public FlyingMoveControl(Mob flier, float speedGeneral) {
         this(flier, speedGeneral, true);
     }
 

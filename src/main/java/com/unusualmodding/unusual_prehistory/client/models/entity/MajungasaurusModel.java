@@ -151,15 +151,26 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 	public void setupAnim(Majungasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.isMajungasaurusVisuallyStealthMode() && !entity.isInPoseTransition()) {
-			this.animateWalk(MajungasaurusStateAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
-		} else {
+		if (entity.isInWaterOrBubble()) {
 			if (this.young) {
-				this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
-				this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2F, 8);
+				this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 8);
 			} else {
-				this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+				this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
 			}
+		} else {
+			if (entity.isMajungasaurusVisuallyStealthMode() && !entity.isInPoseTransition()) {
+				this.animateWalk(MajungasaurusStateAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
+			} else {
+				if (this.young) {
+					this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+				} else {
+					this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+				}
+			}
+		}
+
+		if (this.young) {
+			this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 		}
 
 		this.animate(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks);
