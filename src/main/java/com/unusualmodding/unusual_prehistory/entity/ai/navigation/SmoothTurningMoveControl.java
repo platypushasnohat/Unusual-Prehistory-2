@@ -19,6 +19,10 @@ public class SmoothTurningMoveControl extends MoveControl {
 
     @Override
     public void tick() {
+        PrehistoricMob prehistoricMob = (PrehistoricMob) mob;
+        if (!prehistoricMob.refuseToMove()) {
+            super.tick();
+        }
         if (operation == Operation.MOVE_TO) {
             operation = Operation.WAIT;
             double x = wantedX - mob.getX();

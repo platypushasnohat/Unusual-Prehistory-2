@@ -3,13 +3,15 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
+import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
-import net.minecraft.client.model.HierarchicalModel;
+import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 
-public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
+public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -19,8 +21,11 @@ public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
 	private final ModelPart head;
 	private final ModelPart jaw;
 	private final ModelPart tongue;
+	private final ModelPart tail1_rot;
 	private final ModelPart tail1;
+	private final ModelPart tail2_rot;
 	private final ModelPart tail2;
+	private final ModelPart tail3_rot;
 	private final ModelPart tail3;
 	private final ModelPart arm_control;
 	private final ModelPart left_arm1;
@@ -42,9 +47,12 @@ public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
 		this.head = this.neck.getChild("head");
 		this.jaw = this.head.getChild("jaw");
 		this.tongue = this.jaw.getChild("tongue");
-		this.tail1 = this.body.getChild("tail1");
-		this.tail2 = this.tail1.getChild("tail2");
-		this.tail3 = this.tail2.getChild("tail3");
+		this.tail1_rot = this.body.getChild("tail1_rot");
+		this.tail1 = this.tail1_rot.getChild("tail1");
+		this.tail2_rot = this.tail1.getChild("tail2_rot");
+		this.tail2 = this.tail2_rot.getChild("tail2");
+		this.tail3_rot = this.tail2.getChild("tail3_rot");
+		this.tail3 = this.tail3_rot.getChild("tail3");
 		this.arm_control = this.body_upper.getChild("arm_control");
 		this.left_arm1 = this.arm_control.getChild("left_arm1");
 		this.left_arm2 = this.left_arm1.getChild("left_arm2");
@@ -82,11 +90,17 @@ public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
 
 		PartDefinition tongue = jaw.addOrReplaceChild("tongue", CubeListBuilder.create().texOffs(11, 54).addBox(-1.5F, -0.01F, -9.0F, 3.0F, 0.0F, 9.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 
-		PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 46).addBox(-5.5F, -4.0F, -4.0F, 11.0F, 7.0F, 33.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.5F, 15.5F));
+		PartDefinition tail1_rot = body.addOrReplaceChild("tail1_rot", CubeListBuilder.create(), PartPose.offset(0.0F, 2.5F, 15.5F));
 
-		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(60, 86).addBox(-4.0F, -2.5F, 0.0F, 8.0F, 5.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.5F, 29.0F));
+		PartDefinition tail1 = tail1_rot.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 46).addBox(-5.5F, -4.0F, -4.0F, 11.0F, 7.0F, 33.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition tail3 = tail2.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(0, 86).addBox(-3.0F, -2.0F, 0.0F, 6.0F, 4.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.5F, 20.0F));
+		PartDefinition tail2_rot = tail1.addOrReplaceChild("tail2_rot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 29.0F));
+
+		PartDefinition tail2 = tail2_rot.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(60, 86).addBox(-4.0F, -2.5F, 0.0F, 8.0F, 5.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+		PartDefinition tail3_rot = tail2.addOrReplaceChild("tail3_rot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 20.0F));
+
+		PartDefinition tail3 = tail3_rot.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(0, 86).addBox(-3.0F, -2.0F, 0.0F, 6.0F, 4.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition arm_control = body_upper.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -19.0F));
 
@@ -115,15 +129,23 @@ public class MegalaniaModel<T extends Megalania> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
-			this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 5, 8);
+		if (!(entity.getPose() == UP2Poses.ROARING.get())) {
+			if (!entity.isInWaterOrBubble()) {
+				if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
+					this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 5, 8);
+				}
+				this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1.0F, 1 - Math.abs(limbSwingAmount));
+			} else {
+				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, (limbSwingAmount * 2.0F + 0.8F));
+			}
+			this.head.xRot += headPitch * ((float) Math.PI / 180) - (headPitch * ((float) Math.PI / 180)) / 2;
+			this.head.yRot += netHeadYaw * ((float) Math.PI / 180) - (netHeadYaw * ((float) Math.PI / 180)) / 2;
+			this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
+			this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 		}
-		this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
-		this.neck.xRot += (headPitch * ((float) Math.PI / 180f)) / 2;
-		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180f)) / 2;
+		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
+		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
 	}
 
 	@Override

@@ -10,7 +10,9 @@ public enum UP2Poses {
     CHARGING_START,
     CHARGING,
     CHARGING_END,
-    STEALTH;
+    STEALTH,
+    YAWNING,
+    ROARING;
 
     public Pose get() {
         return Pose.valueOf(this.name());
