@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.MegalaniaModel;
+import com.unusualmodding.unusual_prehistory.client.renderer.layers.MegalaniaTemperatureLayer;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
 import net.minecraft.client.renderer.RenderType;
@@ -17,9 +18,15 @@ import org.jetbrains.annotations.Nullable;
 public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel<Megalania>> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
+    private static final ResourceLocation TEXTURE_COLD = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_cold.png");
+    private static final ResourceLocation TEXTURE_WARM = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_warm.png");
+    private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_nether.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel<>(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
+        this.addLayer(new MegalaniaTemperatureLayer<>(this, TEXTURE_COLD, (entity, temperature, p_234803_) -> entity.getTemperatureChangeCold(temperature)));
+        this.addLayer(new MegalaniaTemperatureLayer<>(this, TEXTURE_WARM, (entity, temperature, p_234803_) -> entity.getTemperatureChangeWarm(temperature)));
+        this.addLayer(new MegalaniaTemperatureLayer<>(this, TEXTURE_NETHER, (entity, temperature, p_234803_) -> entity.getTemperatureChangeNether(temperature)));
     }
 
     @Override

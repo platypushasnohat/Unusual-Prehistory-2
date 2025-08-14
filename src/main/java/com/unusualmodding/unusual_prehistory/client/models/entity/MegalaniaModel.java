@@ -9,7 +9,6 @@ import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 
 public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 
@@ -136,7 +135,7 @@ public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 				}
 				this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1.0F, 1 - Math.abs(limbSwingAmount));
 			} else {
-				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, (limbSwingAmount * 2.0F + 0.8F));
+				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, (0.8F + (limbSwingAmount * 2.0F)));
 			}
 			this.head.xRot += headPitch * ((float) Math.PI / 180) - (headPitch * ((float) Math.PI / 180)) / 2;
 			this.head.yRot += netHeadYaw * ((float) Math.PI / 180) - (netHeadYaw * ((float) Math.PI / 180)) / 2;

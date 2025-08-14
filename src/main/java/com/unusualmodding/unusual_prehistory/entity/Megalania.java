@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -38,6 +39,13 @@ public class Megalania extends PrehistoricMob {
     public final AnimationState yawningAnimationState = new AnimationState();
     public final AnimationState roaringAnimationState = new AnimationState();
 
+    private int tempChangeCold;
+    private int prevTempChangeCold;
+    private int tempChangeWarm;
+    private int prevTempChangeWarm;
+    private int tempChangeNether;
+    private int prevTempChangeNether;
+
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
@@ -46,7 +54,7 @@ public class Megalania extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new MegalaniaYawnGoal(this));
@@ -148,12 +156,62 @@ public class Megalania extends PrehistoricMob {
                 this.yawnCooldown();
             }
         }
+
+        if (this.level().isClientSide()) {
+            changeTemperature();
+        }
     }
 
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble(), this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+    }
+
+    public void changeTemperature() {
+        if (this.level().isClientSide()) {
+            prevTempChangeCold = tempChangeCold;
+            prevTempChangeWarm = tempChangeWarm;
+            prevTempChangeNether = tempChangeNether;
+
+            if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
+                if (this.level().dimension() == Level.NETHER) {
+                    tempChangeNether = 10;
+                    tempChangeCold = 0;
+                    tempChangeWarm = 0;
+                } else {
+                    tempChangeWarm = 10;
+                    tempChangeCold = 0;
+                    tempChangeNether = 0;
+                }
+            } else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
+                tempChangeCold = 10;
+                tempChangeWarm = 0;
+                tempChangeNether = 0;
+            }
+
+            if (tempChangeCold > 0) {
+                tempChangeCold--;
+            }
+            if (tempChangeWarm > 0) {
+                tempChangeWarm--;
+            }
+            if (tempChangeNether > 0) {
+                tempChangeNether--;
+            }
+        }
+    }
+
+    public float getTemperatureChangeCold(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeCold, (float) this.tempChangeCold) / 10.0F;
+    }
+
+    public float getTemperatureChangeWarm(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeWarm, (float) this.tempChangeWarm) / 10.0F;
+    }
+
+    public float getTemperatureChangeNether(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeNether, (float) this.tempChangeNether) / 10.0F;
     }
 
     @Override
@@ -183,7 +241,7 @@ public class Megalania extends PrehistoricMob {
 
     @Override
     protected float getWaterSlowDown() {
-        return 0.96F;
+        return 0.92F;
     }
 
     @Override

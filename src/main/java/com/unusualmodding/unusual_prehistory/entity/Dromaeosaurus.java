@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothTurningMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -520,7 +520,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         }
     }
 
-    private static class DromaeosaurusMoveControl extends SmoothTurningMoveControl {
+    private static class DromaeosaurusMoveControl extends PrehistoricMobMoveControl {
 
         protected final Dromaeosaurus dromaeosaurus;
 

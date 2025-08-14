@@ -3,7 +3,6 @@ package com.unusualmodding.unusual_prehistory.entity.base;
 import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.*;
 import com.unusualmodding.unusual_prehistory.entity.behaviors.BaseBehaviors;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 
 public abstract class PrehistoricMob extends Animal {
 
@@ -27,7 +25,7 @@ public abstract class PrehistoricMob extends Animal {
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothTurningMoveControl(this);
+        this.moveControl = new PrehistoricMobMoveControl(this);
         this.lookControl = new RefuseToMoveLookControl(this);
         setPersistenceRequired();
     }
@@ -55,10 +53,6 @@ public abstract class PrehistoricMob extends Animal {
         if (isInWater() && horizontalCollision) {
             setUseLowerFluidJumpThreshold(true);
         }
-    }
-
-    public float getMaxTurnDistancePerTick() {
-        return Mth.clamp(90 - getBbWidth() * 35, 5, 90);
     }
 
     @Override
