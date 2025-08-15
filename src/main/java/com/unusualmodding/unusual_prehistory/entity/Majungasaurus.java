@@ -405,7 +405,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+            return this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.8 + target.getBbWidth();
         }
     }
 
