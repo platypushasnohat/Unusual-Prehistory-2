@@ -33,17 +33,18 @@ public class Megalania extends PrehistoricMob {
     public static final EntityDataAccessor<Integer> YAWN_TIMER = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ROAR_COOLDOWN = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ROAR_TIMER = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-
-    public TemperatureState localTemperatureState = TemperatureState.TEMPERATE;
-    public float tempProgress = 0F;
-    public float prevTempProgress = 0F;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState yawningAnimationState = new AnimationState();
     public final AnimationState roaringAnimationState = new AnimationState();
+
+    private int tempChangeCold;
+    private int prevTempChangeCold;
+    private int tempChangeWarm;
+    private int prevTempChangeWarm;
+    private int tempChangeNether;
+    private int prevTempChangeNether;
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
@@ -72,8 +73,6 @@ public class Megalania extends PrehistoricMob {
         this.entityData.define(YAWN_TIMER, 0);
         this.entityData.define(ROAR_COOLDOWN, 30 * 40 + random.nextInt(60 * 8 * 40));
         this.entityData.define(ROAR_TIMER, 0);
-        this.entityData.define(TEMPERATURE_STATE, 0);
-        this.entityData.define(PREV_TEMPERATURE_STATE, -1);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -82,7 +81,6 @@ public class Megalania extends PrehistoricMob {
         compoundTag.putInt("YawnTimer", this.getYawnTimer());
         compoundTag.putInt("RoarCooldown", this.getRoarCooldown());
         compoundTag.putInt("RoarTimer", this.getRoarTimer());
-        compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
     }
 
     @Override
@@ -92,7 +90,6 @@ public class Megalania extends PrehistoricMob {
         this.setYawnTimer(compoundTag.getInt("YawnTimer"));
         this.setRoarCooldown(compoundTag.getInt("RoarCooldown"));
         this.setRoarTimer(compoundTag.getInt("RoarTimer"));
-        this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
     }
 
     public int getYawnTimer() {
@@ -129,31 +126,6 @@ public class Megalania extends PrehistoricMob {
         this.entityData.set(ROAR_COOLDOWN, 30 * 40 + random.nextInt(60 * 8 * 40));
     }
 
-    public enum TemperatureState {
-        TEMPERATE,
-        COLD,
-        WARM,
-        NETHER
-    }
-
-    public TemperatureState getTemperatureState() {
-        return TemperatureState.values()[Mth.clamp(entityData.get(TEMPERATURE_STATE), 0, 3)];
-    }
-
-    public void setTemperatureState(TemperatureState state) {
-        if (getTemperatureState() != state) {
-            this.entityData.set(PREV_TEMPERATURE_STATE, this.entityData.get(TEMPERATURE_STATE));
-        }
-        this.entityData.set(TEMPERATURE_STATE, state.ordinal());
-    }
-
-    public TemperatureState getPrevTemperatureState() {
-        if (entityData.get(PREV_TEMPERATURE_STATE) == -1) {
-            return null;
-        }
-        return TemperatureState.values()[Mth.clamp(entityData.get(PREV_TEMPERATURE_STATE), 0, 3)];
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -185,9 +157,9 @@ public class Megalania extends PrehistoricMob {
             }
         }
 
-//        if (this.level().isClientSide()) {
+        if (this.level().isClientSide()) {
             changeTemperature();
-//        }
+        }
     }
 
     @Override
@@ -197,30 +169,49 @@ public class Megalania extends PrehistoricMob {
     }
 
     public void changeTemperature() {
-        if (localTemperatureState != this.getPrevTemperatureState()) {
-            localTemperatureState = this.getPrevTemperatureState();
-            tempProgress = 0.0F;
-        }
+        if (this.level().isClientSide()) {
+            prevTempChangeCold = tempChangeCold;
+            prevTempChangeWarm = tempChangeWarm;
+            prevTempChangeNether = tempChangeNether;
 
-        this.prevTempProgress = tempProgress;
-        if (this.getPrevTemperatureState() != this.getTemperatureState() && tempProgress < 5.0F) {
-            tempProgress += 0.25F;
-        }
-        if (this.getPrevTemperatureState() == this.getTemperatureState() && tempProgress > 0F) {
-            tempProgress -= 0.25F;
-        }
-
-        if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
-            if (this.level().dimension() == Level.NETHER) {
-                this.setTemperatureState(TemperatureState.NETHER);
-            } else {
-                this.setTemperatureState(TemperatureState.WARM);
+            if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
+                if (this.level().dimension() == Level.NETHER) {
+                    tempChangeNether = 10;
+                    tempChangeCold = 0;
+                    tempChangeWarm = 0;
+                } else {
+                    tempChangeWarm = 10;
+                    tempChangeCold = 0;
+                    tempChangeNether = 0;
+                }
+            } else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
+                tempChangeCold = 10;
+                tempChangeWarm = 0;
+                tempChangeNether = 0;
             }
-        } else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
-            this.setTemperatureState(TemperatureState.COLD);
-        } else {
-            this.setTemperatureState(TemperatureState.TEMPERATE);
+
+            if (tempChangeCold > 0) {
+                tempChangeCold--;
+            }
+            if (tempChangeWarm > 0) {
+                tempChangeWarm--;
+            }
+            if (tempChangeNether > 0) {
+                tempChangeNether--;
+            }
         }
+    }
+
+    public float getTemperatureChangeCold(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeCold, (float) this.tempChangeCold) / 10.0F;
+    }
+
+    public float getTemperatureChangeWarm(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeWarm, (float) this.tempChangeWarm) / 10.0F;
+    }
+
+    public float getTemperatureChangeNether(float temperature) {
+        return Mth.lerp(temperature, (float) this.prevTempChangeNether, (float) this.tempChangeNether) / 10.0F;
     }
 
     @Override
