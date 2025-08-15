@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -23,8 +24,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -49,6 +48,8 @@ public class Kentrosaurus extends PrehistoricMob {
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2F, 1.75F);
     public static final EntityDataAccessor<Integer> GRAZING_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> GRAZING_TIMER = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> SHAKE_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> SHAKE_TIMER = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -59,6 +60,7 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState layDownIdleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
+    public final AnimationState shakeAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
 
@@ -79,16 +81,17 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new KentrosaurusGrazeGoal(this));
-        this.goalSelector.addGoal(9, new KentrosaurusLayDownGoal(this));
+        this.goalSelector.addGoal(9, new KentrosaurusShakeGoal(this));
+        this.goalSelector.addGoal(10, new KentrosaurusLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 36.0)
-                .add(Attributes.ATTACK_DAMAGE, 7.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
-                .add(Attributes.MOVEMENT_SPEED, 0.16);
+                .add(Attributes.MAX_HEALTH, 36.0D)
+                .add(Attributes.ATTACK_DAMAGE, 7.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                .add(Attributes.MOVEMENT_SPEED, 0.16F);
     }
 
     @Override
@@ -101,7 +104,7 @@ public class Kentrosaurus extends PrehistoricMob {
         if (useLowerFluidJumpThreshold) {
             return super.getFluidJumpThreshold();
         }
-        return 0.38 * getBbHeight();
+        return 0.35 * getBbHeight();
     }
 
     @Override
@@ -149,15 +152,28 @@ public class Kentrosaurus extends PrehistoricMob {
         }
 
         if (this.getGrazingCooldown() > 0) {
-            if (this.getBehavior().equals(KentrosaurusBehaviors.GRAZE.getName())) this.setBehavior(KentrosaurusBehaviors.IDLE.getName());
+            if (this.getBehavior().equals(KentrosaurusBehaviors.GRAZE.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
             this.setGrazingCooldown(this.getGrazingCooldown() - 1);
         }
         if (this.getGrazingTimer() > 0) {
             this.setGrazingTimer(this.getGrazingTimer() - 1);
             if (this.getGrazingTimer() == 0) {
                 this.setPose(Pose.STANDING);
-                this.setBehavior(KentrosaurusBehaviors.IDLE.getName());
+                this.setBehavior(BaseBehaviors.IDLE.getName());
                 this.grazingCooldown();
+            }
+        }
+
+        if (this.getShakeCooldown() > 0) {
+            if (this.getBehavior().equals(KentrosaurusBehaviors.SHAKE.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
+            this.setShakeCooldown(this.getShakeCooldown() - 1);
+        }
+        if (this.getShakeTimer() > 0) {
+            this.setShakeTimer(this.getShakeTimer() - 1);
+            if (this.getShakeTimer() == 0) {
+                this.setPose(Pose.STANDING);
+                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.shakeCooldown();
             }
         }
 
@@ -183,6 +199,7 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.grazeAnimationState.stop();
+            this.shakeAnimationState.stop();
 
             if (this.isVisuallyLayingDown()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
@@ -207,6 +224,7 @@ public class Kentrosaurus extends PrehistoricMob {
     public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
         if (DATA_POSE.equals(entityDataAccessor)) {
             if (this.getPose() == UP2Poses.GRAZING.get()) this.grazeAnimationState.start(this.tickCount);
+            if (this.getPose() == UP2Poses.SHAKING.get()) this.shakeAnimationState.start(this.tickCount);
         }
         super.onSyncedDataUpdated(entityDataAccessor);
     }
@@ -256,6 +274,8 @@ public class Kentrosaurus extends PrehistoricMob {
         this.entityData.define(LAY_DOWN_COOLDOWN, 12 * 20 + random.nextInt(30 * 20));
         this.entityData.define(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
         this.entityData.define(GRAZING_TIMER, 0);
+        this.entityData.define(SHAKE_COOLDOWN, 70 * 2 * 20 + random.nextInt(70 * 8 * 20));
+        this.entityData.define(SHAKE_TIMER, 0);
         this.entityData.define(ATTACK_STATE, 0);
     }
 
@@ -265,6 +285,8 @@ public class Kentrosaurus extends PrehistoricMob {
         compoundTag.putInt("LayDownCooldown", this.getLayDownCooldown());
         compoundTag.putInt("GrazingCooldown", this.getGrazingCooldown());
         compoundTag.putInt("GrazingTimer", this.getGrazingTimer());
+        compoundTag.putInt("ShakeCooldown", this.getShakeCooldown());
+        compoundTag.putInt("ShakeTimer", this.getShakeTimer());
         compoundTag.putInt("AttackState", this.getAttackState());
     }
 
@@ -274,17 +296,17 @@ public class Kentrosaurus extends PrehistoricMob {
         this.setLayDownCooldown(compoundTag.getInt("LayDownCooldown"));
         this.setGrazingCooldown(compoundTag.getInt("GrazingCooldown"));
         this.setGrazingTimer(compoundTag.getInt("GrazingTimer"));
+        this.setShakeCooldown(compoundTag.getInt("ShakeCooldown"));
+        this.setShakeTimer(compoundTag.getInt("ShakeTimer"));
         this.setAttackState(compoundTag.getInt("AttackState"));
     }
 
     public int getLayDownCooldown() {
         return this.entityData.get(LAY_DOWN_COOLDOWN);
     }
-
     public void setLayDownCooldown(int cooldown) {
         this.entityData.set(LAY_DOWN_COOLDOWN, cooldown);
     }
-
     public void layDownCooldown() {
         this.entityData.set(LAY_DOWN_COOLDOWN, 30 * 20 + random.nextInt(60 * 2 * 20));
     }
@@ -296,7 +318,6 @@ public class Kentrosaurus extends PrehistoricMob {
     public int getGrazingTimer() {
         return this.entityData.get(GRAZING_TIMER);
     }
-
     public void setGrazingTimer(int timer) {
         this.entityData.set(GRAZING_TIMER, timer);
     }
@@ -304,13 +325,28 @@ public class Kentrosaurus extends PrehistoricMob {
     public int getGrazingCooldown() {
         return this.entityData.get(GRAZING_COOLDOWN);
     }
-
     public void setGrazingCooldown(int cooldown) {
         this.entityData.set(GRAZING_COOLDOWN, cooldown);
     }
-
     public void grazingCooldown() {
         this.entityData.set(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
+    }
+
+    public int getShakeTimer() {
+        return this.entityData.get(SHAKE_TIMER);
+    }
+    public void setShakeTimer(int timer) {
+        this.entityData.set(SHAKE_TIMER, timer);
+    }
+
+    public int getShakeCooldown() {
+        return this.entityData.get(SHAKE_COOLDOWN);
+    }
+    public void setShakeCooldown(int cooldown) {
+        this.entityData.set(SHAKE_COOLDOWN, cooldown);
+    }
+    public void shakeCooldown() {
+        this.entityData.set(SHAKE_COOLDOWN, 70 * 2 * 20 + random.nextInt(70 * 8 * 20));
     }
 
     public int getAttackState() {
@@ -405,19 +441,23 @@ public class Kentrosaurus extends PrehistoricMob {
             this.kentrosaurus = kentrosaurus;
         }
 
+        @Override
         public boolean canUse() {
             return !this.kentrosaurus.isBaby() && this.kentrosaurus.getTarget() != null && this.kentrosaurus.getTarget().isAlive();
         }
 
+        @Override
         public void start() {
             this.kentrosaurus.setAttackState(0);
             this.attackTime = 0;
         }
 
+        @Override
         public void stop() {
             this.kentrosaurus.setAttackState(0);
         }
 
+        @Override
         public void tick() {
             LivingEntity target = this.kentrosaurus.getTarget();
             if (target != null) {
@@ -442,6 +482,7 @@ public class Kentrosaurus extends PrehistoricMob {
             }
         }
 
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
@@ -454,7 +495,7 @@ public class Kentrosaurus extends PrehistoricMob {
                 this.kentrosaurus.addDeltaMovement(this.kentrosaurus.getLookAngle().scale(2.0D).multiply(0.15D, 0, 0.15D));
             }
 
-            if (this.attackTime == 16) {
+            if (this.attackTime == 20) {
                 if (this.kentrosaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
                     this.kentrosaurus.swing(InteractionHand.MAIN_HAND);
                     this.kentrosaurus.doHurtTarget(target);
@@ -561,7 +602,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return this.kentrosaurus.getGrazingCooldown() == 0 && this.kentrosaurus.getBehavior().equals(KentrosaurusBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
+            return this.kentrosaurus.getGrazingCooldown() == 0 && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
         }
 
         @Override
@@ -575,7 +616,47 @@ public class Kentrosaurus extends PrehistoricMob {
             this.kentrosaurus.setPose(UP2Poses.GRAZING.get());
             this.kentrosaurus.setGrazingTimer(behavior.getLength());
             this.kentrosaurus.setBehavior(behavior.getName());
-            this.kentrosaurus.playSound(behavior.getSound(), 1.0f, this.kentrosaurus.getVoicePitch());
+            this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+        }
+    }
+
+    private static class KentrosaurusShakeGoal extends Goal {
+
+        protected final Kentrosaurus kentrosaurus;
+        protected final KentrosaurusBehaviors behavior;
+
+        public KentrosaurusShakeGoal(Kentrosaurus kentrosaurus) {
+            this.kentrosaurus = kentrosaurus;
+            this.behavior = KentrosaurusBehaviors.SHAKE;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.kentrosaurus.getShakeCooldown() == 0 && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.kentrosaurus.getShakeTimer() > 0 && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.kentrosaurus.setPose(UP2Poses.SHAKING.get());
+            this.kentrosaurus.setShakeTimer(behavior.getLength());
+            this.kentrosaurus.setBehavior(behavior.getName());
+            this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
         }
 
         @Override

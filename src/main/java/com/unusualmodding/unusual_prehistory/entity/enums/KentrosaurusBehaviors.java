@@ -6,7 +6,8 @@ import net.minecraft.sounds.SoundEvents;
 public enum KentrosaurusBehaviors {
 
     IDLE("Idling", SoundEvents.EMPTY, 0),
-    GRAZE("Grazing", SoundEvents.EMPTY, 41);
+    GRAZE("Grazing", SoundEvents.EMPTY, 41),
+    SHAKE("Shaking", SoundEvents.EMPTY, 40);
 
     private final String name;
     private final SoundEvent sound;

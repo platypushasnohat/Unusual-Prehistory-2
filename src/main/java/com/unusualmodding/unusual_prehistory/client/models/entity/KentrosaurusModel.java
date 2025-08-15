@@ -140,13 +140,14 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 			}
 		}
 
-		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks, 1.25F);
-		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks, 1.25F);
+		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks);
+		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks);
 		this.animate(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.layDownIdleAnimationState, KentrosaurusAnimations.LAY_DOWN_IDLE, ageInTicks);
 		this.animate(entity.layDownAnimationState, KentrosaurusAnimations.LAY_DOWN, ageInTicks);
 		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.STAND_UP, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE, ageInTicks);
+		this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE, ageInTicks);
 
 		if (this.young) {
 			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
