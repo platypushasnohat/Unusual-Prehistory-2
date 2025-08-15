@@ -108,6 +108,14 @@ public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypter
 		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
 		this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1);
 		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks, 1);
+
+		float partialTicks = ageInTicks - entity.tickCount;
+		float flyProgress = entity.getFlyProgress(partialTicks);
+		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
+		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+
+		body_main.xRot += flightPitchAmount;
+		body_main.zRot += rollAmount / 2;
 	}
 
 	@Override

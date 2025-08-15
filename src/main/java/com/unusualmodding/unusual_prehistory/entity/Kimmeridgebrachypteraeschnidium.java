@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,12 +22,11 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.entity.animal.Animal;
@@ -34,10 +35,13 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +61,21 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
+
     public int groundTicks;
+
+    private float flyProgress;
+    private float prevFlyProgress;
+    private float groundProgress = 5.0F;
+    private float prevGroundProgress = 5.0F;
+    public int timeFlying = 0;
+    private float flightPitch = 0;
+    private float prevFlightPitch = 0;
+    private float flightRoll = 0;
+    private float prevFlightRoll = 0;
+    public int groundedFor = 0;
+    private boolean isLandNavigator;
 
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState wingsAnimationState = new AnimationState();
@@ -66,7 +84,7 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
 
     public Kimmeridgebrachypteraeschnidium(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveControl(this, 20, false);
+        switchNavigator(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -79,33 +97,26 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
-        this.goalSelector.addGoal(2, new KimmeridgebrachypteraeschnidiumWanderAroundGoal(this));
+        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumWanderAroundGoal(this));
         this.goalSelector.addGoal(3, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
 
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
-            @Override
-            public boolean isStableDestination(BlockPos blockPos) {
-                return !level().getBlockState(blockPos.below()).isAir();
-            }
-        };
-        flyingPathNavigation.setCanOpenDoors(false);
-        flyingPathNavigation.setCanFloat(false);
-        flyingPathNavigation.setCanPassDoors(true);
-        return flyingPathNavigation;
+    private void switchNavigator(boolean onLand) {
+        if (onLand) {
+            this.moveControl = new MoveControl(this);
+            this.navigation = new GroundPathNavigation(this, level());
+            this.isLandNavigator = true;
+        } else {
+            this.moveControl = new MoveController();
+            this.navigation = new FlyingPathNavigationNoSpin(this, level(), 1.0F);
+            this.isLandNavigator = false;
+        }
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
         return size.height * 0.6F;
-    }
-
-    @Override
-    public boolean isFlying() {
-        return !this.onGround();
     }
 
     @Override
@@ -130,6 +141,45 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
                 this.preenCooldown();
             }
         }
+
+        prevFlyProgress = flyProgress;
+        prevGroundProgress = groundProgress;
+        prevFlightPitch = flightPitch;
+        prevFlightRoll = flightRoll;
+        if (isFlying() && flyProgress < 5F) {
+            flyProgress++;
+        }
+        if (!isFlying() && flyProgress > 0F) {
+            flyProgress--;
+        }
+        if (onGround() && groundProgress < 5F) {
+            groundProgress++;
+        }
+        if (!onGround() && groundProgress > 0F) {
+            groundProgress--;
+        }
+
+        if (this.isFlying()) {
+            timeFlying++;
+            this.setNoGravity(true);
+            if (this.isLandNavigator) {
+                switchNavigator(false);
+            }
+            if (groundedFor > 0) {
+                this.setFlying(false);
+            }
+        } else {
+            timeFlying = 0;
+            this.setNoGravity(false);
+            if (!this.isLandNavigator) {
+                switchNavigator(true);
+            }
+        }
+        if (groundedFor > 0) {
+            groundedFor--;
+        }
+
+        tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
     }
 
     private void setupAnimationStates() {
@@ -140,23 +190,36 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
         }
     }
 
+    private void tickRotation(float yMov) {
+        flightPitch = yMov;
+        float threshold = 1F;
+        boolean flag = false;
+        if (isFlying() && this.yRotO - this.getYRot() > threshold) {
+            flightRoll += 10;
+            flag = true;
+        }
+        if (isFlying() && this.yRotO - this.getYRot() < -threshold) {
+            flightRoll -= 10;
+            flag = true;
+        }
+        if (!flag) {
+            if (flightRoll > 0) {
+                flightRoll = Math.max(flightRoll - 5, 0);
+            }
+            if (flightRoll < 0) {
+                flightRoll = Math.min(flightRoll + 5, 0);
+            }
+        }
+        flightRoll = Mth.clamp(flightRoll, -60, 60);
+    }
+
     @Override
     public void aiStep() {
         super.aiStep();
-        Vec3 vec3d = this.getDeltaMovement();
-        if (!this.onGround() && vec3d.y < 0.0 && this.getTarget() == null) {
-            this.setDeltaMovement(vec3d.multiply(1.0, 0.4, 1.0));
-        }
         if (this.isFlying()) {
-            this.groundTicks = random.nextInt(200) + 20;
             this.setPose(Pose.FALL_FLYING);
         } else {
-            this.groundTicks--;
             this.setPose(Pose.STANDING);
-        }
-
-        if (!this.onGround() && vec3d.y < 0.0) {
-            this.setDeltaMovement(vec3d.multiply(1.0, 0.4, 1.0));
         }
     }
 
@@ -196,6 +259,7 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
         this.entityData.define(WING_COLOR, 0);
         this.entityData.define(PREEN_COOLDOWN, 2 * 20 + random.nextInt(12 * 20));
         this.entityData.define(PREEN_TIMER, 0);
+        this.entityData.define(FLYING, false);
     }
 
     @Override
@@ -237,6 +301,14 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
             }
         }
         super.onSyncedDataUpdated(entityDataAccessor);
+    }
+
+    public boolean isFlying() {
+        return this.entityData.get(FLYING);
+    }
+
+    public void setFlying(boolean flying) {
+        this.entityData.set(FLYING, flying);
     }
 
     @Override
@@ -384,6 +456,22 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
         this.entityData.set(PREEN_COOLDOWN, 6 * 20 + random.nextInt(30 * 2 * 20));
     }
 
+    public float getFlightPitch(float partialTick) {
+        return (prevFlightPitch + (flightPitch - prevFlightPitch) * partialTick);
+    }
+
+    public float getFlightRoll(float partialTick) {
+        return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTick);
+    }
+
+    public float getFlyProgress(float partialTick) {
+        return (prevFlyProgress + (flyProgress - prevFlyProgress) * partialTick) * 0.2F;
+    }
+
+    public float getGroundProgress(float partialTick) {
+        return (prevGroundProgress + (groundProgress - prevGroundProgress) * partialTick) * 0.2F;
+    }
+
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL) || super.isInvulnerableTo(source);
@@ -444,44 +532,6 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
     }
 
     // goals
-    static class KimmeridgebrachypteraeschnidiumWanderAroundGoal extends Goal {
-
-        protected final Kimmeridgebrachypteraeschnidium dragonfly;
-
-        KimmeridgebrachypteraeschnidiumWanderAroundGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
-            this.dragonfly = dragonfly;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            if (this.dragonfly.groundTicks < 0) return true;
-            else if (this.dragonfly.isFlying()) return this.dragonfly.navigation.isDone() && this.dragonfly.random.nextInt(4) == 0;
-            return false;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.dragonfly.navigation.isInProgress();
-        }
-
-        @Override
-        public void start() {
-            Vec3 vec3d = this.getRandomLocation();
-            if (vec3d != null) {
-                this.dragonfly.navigation.moveTo(this.dragonfly.navigation.createPath(BlockPos.containing(vec3d), 1), this.dragonfly.getAttributeValue(Attributes.FLYING_SPEED));
-            }
-        }
-
-        @Nullable
-        private Vec3 getRandomLocation() {
-            Vec3 vec3d2;
-            vec3d2 = this.dragonfly.getViewVector(0.0F);
-            Vec3 vec3d3 = HoverRandomPos.getPos(this.dragonfly, 12, 5, vec3d2.x, vec3d2.z, 1.5707964F, 3, 1);
-            return vec3d3 != null ? vec3d3 : AirAndWaterRandomPos.getPos(this.dragonfly, 12, 2, -2, vec3d2.x, vec3d2.z, 1.5707963705062866);
-        }
-    }
-
     static class KimmeridgebrachypteraeschnidiumLookAroundGoal extends RandomLookAroundGoal {
 
         protected final Kimmeridgebrachypteraeschnidium dragonfly;
@@ -528,6 +578,135 @@ public class Kimmeridgebrachypteraeschnidium extends Animal implements Bucketabl
         @Override
         public void stop() {
             this.dragonfly.preenCooldown();
+        }
+    }
+
+    class MoveController extends MoveControl {
+        private final Mob entity;
+
+        public MoveController() {
+            super(Kimmeridgebrachypteraeschnidium.this);
+            this.entity = Kimmeridgebrachypteraeschnidium.this;
+        }
+
+        public void tick() {
+            if (this.operation == MoveControl.Operation.MOVE_TO) {
+                Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
+                double d0 = vector3d.length();
+                double width = entity.getBoundingBox().getSize();
+                Vec3 vector3d1 = vector3d.scale(this.speedModifier * 0.05D / d0);
+                entity.setDeltaMovement(entity.getDeltaMovement().add(vector3d1).scale(0.95D).add(0, -0.01, 0));
+                if (d0 < width) {
+                    this.operation = Operation.WAIT;
+                } else if (d0 >= width) {
+                    float yaw = -((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI);
+                    entity.setYRot(Mth.approachDegrees(entity.getYRot(), yaw, 8));
+                }
+            }
+        }
+    }
+
+    static class KimmeridgebrachypteraeschnidiumWanderAroundGoal extends Goal {
+
+        private Kimmeridgebrachypteraeschnidium entity;
+        private boolean wantsToLand = false;
+        private double x;
+        private double y;
+        private double z;
+
+        public KimmeridgebrachypteraeschnidiumWanderAroundGoal(Kimmeridgebrachypteraeschnidium entity) {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+            this.entity = entity;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (entity.isVehicle() || (entity.getTarget() != null && entity.getTarget().isAlive()) || entity.isPassenger()) {
+                return false;
+            }
+            if (!entity.isFlying() && entity.getRandom().nextInt(70) != 0) {
+                return false;
+            }
+            Vec3 target = this.getPosition();
+            wantsToLand = entity.timeFlying > 300;
+            if (target == null) {
+                return false;
+            } else {
+                this.x = target.x;
+                this.y = target.y;
+                this.z = target.z;
+                return true;
+            }
+        }
+
+        private Vec3 getPosition() {
+            return findFlightPos();
+        }
+
+        public void start() {
+            this.entity.setFlying(true);
+            entity.getNavigation().moveTo(this.x, this.y, this.z, 1F);
+        }
+
+        public void stop() {
+            if (wantsToLand) {
+                this.entity.getNavigation().stop();
+            }
+            wantsToLand = false;
+        }
+
+        public void tick() {
+            if (entity.isFlying() && entity.onGround() && entity.timeFlying > 40) {
+                entity.setFlying(false);
+            }
+        }
+
+        public boolean canContinueToUse() {
+            if (wantsToLand) {
+                return !entity.getNavigation().isDone() && !entity.onGround() && entity.groundedFor <= 0;
+            } else {
+                return entity.isFlying() && !entity.getNavigation().isDone() && entity.groundedFor <= 0;
+            }
+        }
+
+        private Vec3 findFlightPos() {
+            int range = 13;
+
+            Vec3 heightAdjusted = entity.position().add(entity.getRandom().nextInt(range * 2) - range, 0, entity.getRandom().nextInt(range * 2) - range);
+            if (entity.level().canSeeSky(BlockPos.containing(heightAdjusted))) {
+                Vec3 ground = groundPosition(heightAdjusted);
+                heightAdjusted = new Vec3(heightAdjusted.x, ground.y + 4 + entity.getRandom().nextInt(8), heightAdjusted.z);
+            } else {
+                Vec3 ground = groundPosition(heightAdjusted);
+                BlockPos ceiling = BlockPos.containing(ground).above(2);
+                while (ceiling.getY() < entity.level().getMaxBuildHeight() && !entity.level().getBlockState(ceiling).isSolid()) {
+                    ceiling = ceiling.above();
+                }
+                float randCeilVal = 0.3F + entity.getRandom().nextFloat() * 0.5F;
+                heightAdjusted = new Vec3(heightAdjusted.x, ground.y + (ceiling.getY() - ground.y) * randCeilVal, heightAdjusted.z);
+            }
+
+            BlockHitResult result = entity.level().clip(new ClipContext(entity.getEyePosition(), heightAdjusted, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+            if (result.getType() == HitResult.Type.MISS) {
+                return heightAdjusted;
+            } else {
+                return result.getLocation();
+            }
+        }
+
+        public Vec3 groundPosition(Vec3 airPosition) {
+            BlockPos.MutableBlockPos ground = new BlockPos.MutableBlockPos();
+            ground.set(airPosition.x, airPosition.y, airPosition.z);
+            boolean flag = false;
+            while (ground.getY() < entity.level().getMaxBuildHeight() && !entity.level().getBlockState(ground).isSolid() && entity.level().getFluidState(ground).isEmpty()){
+                ground.move(0, 1, 0);
+                flag = true;
+            }
+            ground.move(0, -1, 0);
+            while (ground.getY() > entity.level().getMinBuildHeight() && !entity.level().getBlockState(ground).isSolid() && entity.level().getFluidState(ground).isEmpty()) {
+                ground.move(0, -1, 0);
+            }
+            return Vec3.atCenterOf(flag ? ground.above() : ground.below());
         }
     }
 }
