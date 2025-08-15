@@ -309,19 +309,6 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.refreshDimensions();
     }
 
-    @VisibleForTesting
-    public void resetLastPoseChangeTick(long l) {
-        this.entityData.set(LAST_POSE_CHANGE_TICK, l);
-    }
-
-    private void resetLastPoseChangeTickToFullStand(long l) {
-        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
-    }
-
-    public long getPoseTime() {
-        return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
-    }
-
 //    @Nullable
 //    @Override
 //    protected SoundEvent getAmbientSound() {

@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -18,7 +19,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class Carnotaurus extends Animal {
+public class Carnotaurus extends PrehistoricMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState biteRightAnimationState = new AnimationState();
@@ -38,7 +38,7 @@ public class Carnotaurus extends Animal {
 
     private int idleAnimationTimeout = 0;
 
-    public Carnotaurus(EntityType<? extends Animal> entityType, Level level) {
+    public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
     }
@@ -62,15 +62,7 @@ public class Carnotaurus extends Animal {
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
-    @Override
-    public void tick () {
-        super.tick();
-        if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
+    public void setupAnimationStates() {
         if (this.idleAnimationTimeout == 0) {
             this.idleAnimationTimeout = 160;
             this.idleAnimationState.start(this.tickCount);

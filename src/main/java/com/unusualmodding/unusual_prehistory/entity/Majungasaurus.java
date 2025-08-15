@@ -222,19 +222,6 @@ public class Majungasaurus extends PrehistoricMob {
         this.entityData.set(STEALTH_COOLDOWN, 60 + random.nextInt(10));
     }
 
-    @VisibleForTesting
-    public void resetLastPoseChangeTick(long l) {
-        this.entityData.set(LAST_POSE_CHANGE_TICK, l);
-    }
-
-    private void resetLastPoseChangeTickToFullStand(long l) {
-        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
-    }
-
-    public long getPoseTime() {
-        return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
-    }
-
     public boolean isMajungasaurusStealthMode() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
     }

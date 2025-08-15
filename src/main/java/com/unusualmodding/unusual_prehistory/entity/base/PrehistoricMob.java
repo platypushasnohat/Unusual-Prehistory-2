@@ -18,7 +18,7 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
 
-    private boolean useLowerFluidJumpThreshold = false;
+    public boolean useLowerFluidJumpThreshold = false;
     private int healCooldown = 600;
     public int idleAnimationTimeout = 0;
 
@@ -146,7 +146,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(LAST_POSE_CHANGE_TICK, l);
     }
 
-    private void resetLastPoseChangeTickToFullStand(long l) {
+    public void resetLastPoseChangeTickToFullStand(long l) {
         this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
     }
 }

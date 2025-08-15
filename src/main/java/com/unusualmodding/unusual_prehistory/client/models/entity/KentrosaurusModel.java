@@ -130,11 +130,14 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 	public void setupAnim(Kentrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (this.young) {
-			this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1, 4);
-			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
+		if (entity.isInWaterOrBubble()) {
+			this.animate(entity.swimmingAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, (0.5F + (limbSwingAmount * 2.0F)));
 		} else {
-			this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+			if (this.young) {
+				this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1, 4);
+			} else {
+				this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+			}
 		}
 
 		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks, 1.25F);
@@ -144,6 +147,10 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 		this.animate(entity.layDownAnimationState, KentrosaurusAnimations.LAY_DOWN, ageInTicks);
 		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.STAND_UP, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE, ageInTicks);
+
+		if (this.young) {
+			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
+		}
 
 		this.head.xRot += entity.isKentrosaurusLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
