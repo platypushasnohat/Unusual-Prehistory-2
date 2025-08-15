@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.renderer.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.MegalaniaModel;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,29 +17,44 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class MegalaniaTemperatureLayer<T extends Megalania, M extends MegalaniaModel<T>> extends RenderLayer<T, M> {
 
-    private final ResourceLocation texture;
-    private final AlphaFunction<T> alphaFunction;
+    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
+    private static final ResourceLocation TEXTURE_COLD = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_cold.png");
+    private static final ResourceLocation TEXTURE_WARM = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_warm.png");
+    private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_nether.png");
 
-    public MegalaniaTemperatureLayer(RenderLayerParent<T, M> parent, ResourceLocation resourceLocation, AlphaFunction<T> alpha) {
+    public MegalaniaTemperatureLayer(RenderLayerParent<T, M> parent) {
         super(parent);
-        this.texture = resourceLocation;
-        this.alphaFunction = alpha;
     }
 
-    public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    @Override
+    public void render (PoseStack matrixStackIn, MultiBufferSource buffer,int packedLightIn, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entity.isInvisible()) {
-            VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(this.texture));
-            this.getParentModel().renderToBuffer(poseStack, vertexconsumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, this.alphaFunction.apply(entity, partialTicks, ageInTicks));
-            this.resetDrawForAllParts();
+            float tempProgress = entity.prevTempProgress + (entity.tempProgress - entity.prevTempProgress) * partialTicks;
+            float a = 1F;
+            if (entity.getPrevTemperatureState() != null) {
+                float alphaPrev = 1 - tempProgress * 0.2F;
+                VertexConsumer prev = buffer.getBuffer(RenderType.entityTranslucent(getTexture(entity.getPrevTemperatureState())));
+                if (entity.getPrevTemperatureState() == entity.getTemperatureState()) {
+                    alphaPrev *= a;
+                }
+                this.getParentModel().renderToBuffer(matrixStackIn, prev, packedLightIn, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, alphaPrev);
+            }
+            float alphaCurrent = tempProgress * 0.2F;
+            VertexConsumer current = buffer.getBuffer(RenderType.entityTranslucent(getTexture(entity.getTemperatureState())));
+            this.getParentModel().renderToBuffer(matrixStackIn, current, packedLightIn, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, a * alphaCurrent);
         }
     }
 
-    private void resetDrawForAllParts() {
-        this.getParentModel().root().getAllParts().forEach((modelPart) -> modelPart.skipDraw = false);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public interface AlphaFunction<T extends Megalania> {
-        float apply(T entity, float partialTicks, float ageInTicks);
+    public ResourceLocation getTexture(Megalania.TemperatureStates state) {
+        if (state == Megalania.TemperatureStates.COLD) {
+            return TEXTURE_COLD;
+        }
+        else if (state == Megalania.TemperatureStates.WARM) {
+            return TEXTURE_WARM;
+        }
+        else if (state == Megalania.TemperatureStates.NETHER) {
+            return TEXTURE_NETHER;
+        }
+        else return TEXTURE;
     }
 }

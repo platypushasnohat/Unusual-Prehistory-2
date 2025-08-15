@@ -1,8 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.behaviors.BaseBehaviors;
-import com.unusualmodding.unusual_prehistory.entity.behaviors.MegalaniaBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.MegalaniaBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -33,18 +35,24 @@ public class Megalania extends PrehistoricMob {
     public static final EntityDataAccessor<Integer> YAWN_TIMER = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ROAR_COOLDOWN = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> ROAR_TIMER = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
+
+    public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
+    public float tempProgress = 0F;
+    public float prevTempProgress = 0F;
+
+    public enum TemperatureStates {
+        TEMPERATE,
+        COLD,
+        WARM,
+        NETHER
+    }
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState yawningAnimationState = new AnimationState();
     public final AnimationState roaringAnimationState = new AnimationState();
-
-    private int tempChangeCold;
-    private int prevTempChangeCold;
-    private int tempChangeWarm;
-    private int prevTempChangeWarm;
-    private int tempChangeNether;
-    private int prevTempChangeNether;
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
@@ -73,6 +81,8 @@ public class Megalania extends PrehistoricMob {
         this.entityData.define(YAWN_TIMER, 0);
         this.entityData.define(ROAR_COOLDOWN, 30 * 40 + random.nextInt(60 * 8 * 40));
         this.entityData.define(ROAR_TIMER, 0);
+        this.entityData.define(TEMPERATURE_STATE, 0);
+        this.entityData.define(PREV_TEMPERATURE_STATE, -1);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
@@ -81,6 +91,7 @@ public class Megalania extends PrehistoricMob {
         compoundTag.putInt("YawnTimer", this.getYawnTimer());
         compoundTag.putInt("RoarCooldown", this.getRoarCooldown());
         compoundTag.putInt("RoarTimer", this.getRoarTimer());
+        compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
     }
 
     @Override
@@ -90,6 +101,7 @@ public class Megalania extends PrehistoricMob {
         this.setYawnTimer(compoundTag.getInt("YawnTimer"));
         this.setRoarCooldown(compoundTag.getInt("RoarCooldown"));
         this.setRoarTimer(compoundTag.getInt("RoarTimer"));
+        this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
     }
 
     public int getYawnTimer() {
@@ -126,6 +138,24 @@ public class Megalania extends PrehistoricMob {
         this.entityData.set(ROAR_COOLDOWN, 30 * 40 + random.nextInt(60 * 8 * 40));
     }
 
+    public TemperatureStates getTemperatureState() {
+        return TemperatureStates.values()[Mth.clamp(entityData.get(TEMPERATURE_STATE), 0, 3)];
+    }
+
+    public void setTemperatureState(TemperatureStates state) {
+        if (getTemperatureState() != state) {
+            this.entityData.set(PREV_TEMPERATURE_STATE, this.entityData.get(TEMPERATURE_STATE));
+        }
+        this.entityData.set(TEMPERATURE_STATE, state.ordinal());
+    }
+
+    public TemperatureStates getPrevTemperatureState() {
+        if (entityData.get(PREV_TEMPERATURE_STATE) == -1) {
+            return null;
+        }
+        return TemperatureStates.values()[Mth.clamp(entityData.get(PREV_TEMPERATURE_STATE), 0, 3)];
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -157,9 +187,7 @@ public class Megalania extends PrehistoricMob {
             }
         }
 
-        if (this.level().isClientSide()) {
-            changeTemperature();
-        }
+        this.changeTemperature();
     }
 
     @Override
@@ -169,49 +197,30 @@ public class Megalania extends PrehistoricMob {
     }
 
     public void changeTemperature() {
-        if (this.level().isClientSide()) {
-            prevTempChangeCold = tempChangeCold;
-            prevTempChangeWarm = tempChangeWarm;
-            prevTempChangeNether = tempChangeNether;
-
-            if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
-                if (this.level().dimension() == Level.NETHER) {
-                    tempChangeNether = 10;
-                    tempChangeCold = 0;
-                    tempChangeWarm = 0;
-                } else {
-                    tempChangeWarm = 10;
-                    tempChangeCold = 0;
-                    tempChangeNether = 0;
-                }
-            } else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
-                tempChangeCold = 10;
-                tempChangeWarm = 0;
-                tempChangeNether = 0;
-            }
-
-            if (tempChangeCold > 0) {
-                tempChangeCold--;
-            }
-            if (tempChangeWarm > 0) {
-                tempChangeWarm--;
-            }
-            if (tempChangeNether > 0) {
-                tempChangeNether--;
-            }
+        if (localTemperatureState != this.getPrevTemperatureState()) {
+            localTemperatureState = this.getPrevTemperatureState();
+            tempProgress = 0.0F;
         }
-    }
 
-    public float getTemperatureChangeCold(float temperature) {
-        return Mth.lerp(temperature, (float) this.prevTempChangeCold, (float) this.tempChangeCold) / 10.0F;
-    }
+        this.prevTempProgress = tempProgress;
+        if (this.getPrevTemperatureState() != this.getTemperatureState() && tempProgress < 5.0F) {
+            tempProgress += 0.05F;
+        }
+        if (this.getPrevTemperatureState() == this.getTemperatureState() && tempProgress > 0F) {
+            tempProgress -= 0.05F;
+        }
 
-    public float getTemperatureChangeWarm(float temperature) {
-        return Mth.lerp(temperature, (float) this.prevTempChangeWarm, (float) this.tempChangeWarm) / 10.0F;
-    }
-
-    public float getTemperatureChangeNether(float temperature) {
-        return Mth.lerp(temperature, (float) this.prevTempChangeNether, (float) this.tempChangeNether) / 10.0F;
+        if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
+            if (this.level().dimension() == Level.NETHER) {
+                this.setTemperatureState(TemperatureStates.NETHER);
+            } else {
+                this.setTemperatureState(TemperatureStates.WARM);
+            }
+        } else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
+            this.setTemperatureState(TemperatureStates.COLD);
+        } else {
+            this.setTemperatureState(TemperatureStates.TEMPERATE);
+        }
     }
 
     @Override
@@ -241,7 +250,7 @@ public class Megalania extends PrehistoricMob {
 
     @Override
     protected float getWaterSlowDown() {
-        return 0.92F;
+        return 0.9F;
     }
 
     @Override
@@ -281,8 +290,15 @@ public class Megalania extends PrehistoricMob {
         this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
     }
 
-    // goals
+    @Override
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag compoundTag) {
+        this.entityData.set(PREV_TEMPERATURE_STATE, 0);
+        this.setTemperatureState(TemperatureStates.TEMPERATE);
+        return super.finalizeSpawn(levelAccessor, difficulty, spawnType, spawnDataIn, compoundTag);
+    }
 
+    // goals
     public static class MegalaniaYawnGoal extends Goal {
 
         protected Megalania megalania;

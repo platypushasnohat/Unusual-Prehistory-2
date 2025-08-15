@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.behaviors;
+package com.unusualmodding.unusual_prehistory.entity.enums;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

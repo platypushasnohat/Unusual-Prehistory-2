@@ -1,18 +1,17 @@
-package com.unusualmodding.unusual_prehistory.entity.behaviors;
+package com.unusualmodding.unusual_prehistory.entity.enums;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-public enum KentrosaurusBehaviors {
+public enum TelecrexBehaviors {
 
-    IDLE("Idling", SoundEvents.EMPTY, 0),
-    GRAZE("Grazing", SoundEvents.EMPTY, 41);
+    IDLE("Idling", SoundEvents.EMPTY, 0);
 
     private final String name;
     private final SoundEvent sound;
     private final int length;
 
-    KentrosaurusBehaviors(String name, SoundEvent sound, int length) {
+    TelecrexBehaviors(String name, SoundEvent sound, int length) {
         this.name = name;
         this.sound = sound;
         this.length = length;

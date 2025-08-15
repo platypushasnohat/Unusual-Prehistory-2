@@ -1,20 +1,18 @@
-package com.unusualmodding.unusual_prehistory.entity.behaviors;
+package com.unusualmodding.unusual_prehistory.entity.enums;
 
-import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
-public enum MegalaniaBehaviors {
+public enum KentrosaurusBehaviors {
 
-    ROAR("Roaring", UP2SoundEvents.MEGALANIA_IDLE.get(), 80),
-    YAWN("Yawning", SoundEvents.EMPTY, 80),
-    TONGUE("Tongue", SoundEvents.EMPTY, 20);
+    IDLE("Idling", SoundEvents.EMPTY, 0),
+    GRAZE("Grazing", SoundEvents.EMPTY, 41);
 
     private final String name;
     private final SoundEvent sound;
     private final int length;
 
-    MegalaniaBehaviors(String name, SoundEvent sound, int length) {
+    KentrosaurusBehaviors(String name, SoundEvent sound, int length) {
         this.name = name;
         this.sound = sound;
         this.length = length;

@@ -2,12 +2,11 @@ package com.unusualmodding.unusual_prehistory.entity.base;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.*;
-import com.unusualmodding.unusual_prehistory.entity.behaviors.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.animal.Animal;

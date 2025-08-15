@@ -34,7 +34,9 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
 
     @Override
     public void render(Kimmeridgebrachypteraeschnidium entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
+        if (!entity.isInvisible()) {
+            super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
+        }
     }
 
     @Override
