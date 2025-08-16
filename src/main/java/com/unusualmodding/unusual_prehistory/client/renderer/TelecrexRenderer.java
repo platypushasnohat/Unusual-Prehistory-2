@@ -1,7 +1,5 @@
 package com.unusualmodding.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.TelecrexModel;
 import com.unusualmodding.unusual_prehistory.entity.Telecrex;
@@ -31,13 +29,5 @@ public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel<Telecr
     @Override
     protected @Nullable RenderType getRenderType(Telecrex entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutoutNoCull(TEXTURE);
-    }
-
-    @Override
-    protected void setupRotations(Telecrex entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
-        if (entity.isFlying()) {
-            poseStack.mulPose(Axis.ZP.rotationDegrees(entity.currentRoll * 360 / 4));
-        }
     }
 }

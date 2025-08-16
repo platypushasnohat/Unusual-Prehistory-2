@@ -9,7 +9,11 @@ import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 
 	private final ModelPart root;

@@ -5,7 +5,9 @@ import net.minecraft.sounds.SoundEvents;
 
 public enum TelecrexBehaviors {
 
-    IDLE("Idling", SoundEvents.EMPTY, 0);
+    LOOKOUT("Lookout", SoundEvents.EMPTY, 40),
+    PREEN("Preening", SoundEvents.EMPTY, 60),
+    PECK("Pecking", SoundEvents.EMPTY, 40);
 
     private final String name;
     private final SoundEvent sound;

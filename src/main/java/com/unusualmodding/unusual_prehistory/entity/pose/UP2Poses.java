@@ -13,7 +13,10 @@ public enum UP2Poses {
     STEALTH,
     YAWNING,
     ROARING,
-    SHAKING;
+    SHAKING,
+    LOOKOUT,
+    PECKING,
+    PREENING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

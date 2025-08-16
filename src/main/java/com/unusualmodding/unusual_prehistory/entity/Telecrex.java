@@ -3,7 +3,10 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.google.common.base.Predicate;
 import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DirectPathNavigator;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.base.FlyingPrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.TelecrexBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -29,7 +32,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -49,22 +51,23 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Telecrex extends Animal {
+public class Telecrex extends FlyingPrehistoricMob {
 
-    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
-
-    public float currentRoll = 0.0F;
-
-    public float prevFlyProgress;
-    public float flyProgress;
-    private boolean isLandNavigator;
-    public int timeFlying;
+    public static final EntityDataAccessor<Integer> LOOKOUT_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> LOOKOUT_TIMER = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PREEN_TIMER = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PECK_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> PECK_TIMER = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState flyingAnimationState = new AnimationState();
+    public final AnimationState lookoutAnimationState = new AnimationState();
+    public final AnimationState preen1AnimationState = new AnimationState();
+    public final AnimationState preen2AnimationState = new AnimationState();
+    public final AnimationState peckAnimationState = new AnimationState();
 
-    public Telecrex(EntityType<? extends Animal> entityType, Level level) {
+    public Telecrex(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
@@ -78,13 +81,14 @@ public class Telecrex extends Animal {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.MOVEMENT_SPEED, 0.16F);
     }
 
-    private void switchNavigator(boolean onLand) {
+    @Override
+    public void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
             this.navigation = new GroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new FlyingMoveControl(this, 1, false);
+            this.moveControl = new TelecrexMoveControl(this, false);
             this.navigation = new DirectPathNavigator(this, level());
             this.isLandNavigator = false;
         }
@@ -92,90 +96,94 @@ public class Telecrex extends Animal {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(3, new TelecrexFlightGoal(this));
-        this.goalSelector.addGoal(4, new TelecrexScatterGoal(this));
+        this.goalSelector.addGoal(1, new TelecrexScatterGoal(this));
+        this.goalSelector.addGoal(2, new TelecrexWanderGoal(this));
+        this.goalSelector.addGoal(3, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(Telecrex.class));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new TelecrexPeckGoal(this));
+        this.goalSelector.addGoal(8, new TelecrexLookoutGoal(this));
+        this.goalSelector.addGoal(9, new TelecrexPreenGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers(Telecrex.class));
     }
 
     @Override
     public void tick() {
-        super.tick();
-
-        this.prevFlyProgress = flyProgress;
-        if (isFlying()) {
-            if (flyProgress < 5F)
-                flyProgress++;
-        } else {
-            if (flyProgress > 0F)
-                flyProgress--;
+        if (this.onGround()) {
+            if (this.getLookoutCooldown() > 0) {
+                if (this.getBehavior().equals(TelecrexBehaviors.LOOKOUT.getName()))
+                    this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.setLookoutCooldown(this.getLookoutCooldown() - 1);
+            }
+            if (this.getPreenCooldown() > 0) {
+                if (this.getBehavior().equals(TelecrexBehaviors.PREEN.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.setPreenCooldown(this.getPreenCooldown() - 1);
+            }
+            if (this.getPeckCooldown() > 0) {
+                if (this.getBehavior().equals(TelecrexBehaviors.PECK.getName()))
+                    this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.setPeckCooldown(this.getPeckCooldown() - 1);
+            }
         }
-        if (!this.level().isClientSide) {
-            final boolean isFlying = isFlying();
-            if (isFlying && this.isLandNavigator) {
-                switchNavigator(false);
+
+        if (this.getLookoutTimer() > 0) {
+            this.setLookoutTimer(this.getLookoutTimer() - 1);
+            if (this.getLookoutTimer() == 0) {
+                this.setPose(Pose.STANDING);
+                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.lookoutCooldown();
             }
-            if (!isFlying && !this.isLandNavigator) {
-                switchNavigator(true);
+        }
+
+        if (this.getPreenTimer() > 0) {
+            this.setPreenTimer(this.getPreenTimer() - 1);
+            if (this.getPreenTimer() == 0) {
+                this.setPose(Pose.STANDING);
+                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.preenCooldown();
             }
-            if (isFlying) {
-                timeFlying++;
-                this.setNoGravity(true);
-                if (this.onGround()) {
-                    this.setFlying(false);
+        }
+
+
+        if (this.getPeckTimer() > 0) {
+            this.setPeckTimer(this.getPeckTimer() - 1);
+            if (this.getPeckTimer() == 0) {
+                this.setPose(Pose.STANDING);
+                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.peckCooldown();
+            }
+        }
+
+        super.tick();
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isAlive() && !this.isFlying(), this.tickCount);
+        this.flyingAnimationState.animateWhen(this.isAlive() && this.isFlying(), this.tickCount);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
+        if (DATA_POSE.equals(entityDataAccessor)) {
+            if (this.getPose() == UP2Poses.LOOKOUT.get()) this.lookoutAnimationState.start(this.tickCount);
+            if (this.getPose() == UP2Poses.PREENING.get()) {
+                this.idleAnimationState.stop();
+                if (this.getRandom().nextBoolean()) {
+                    this.preen1AnimationState.start(this.tickCount);
+                } else {
+                    this.preen2AnimationState.start(this.tickCount);
                 }
             }
-            else {
-                timeFlying = 0;
-                this.setNoGravity(false);
+            if (this.getPose() == UP2Poses.PECKING.get()) {
+                this.idleAnimationState.stop();
+                this.peckAnimationState.start(this.tickCount);
             }
         }
-
-        float prevRoll = this.currentRoll;
-        float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
-        targetRoll = -targetRoll;
-        this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isAlive() && !this.isFlying(), this.tickCount);
-        this.flyAnimationState.animateWhen(this.isAlive() && this.isFlying(), this.tickCount);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FLYING, false);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putBoolean("Flying", this.isFlying());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setFlying(compoundTag.getBoolean("Flying"));
-    }
-
-    public boolean isFlying() {
-        return this.entityData.get(FLYING);
-    }
-
-    public void setFlying(boolean flying) {
-        this.entityData.set(FLYING, flying);
+        super.onSyncedDataUpdated(entityDataAccessor);
     }
 
     @Override
@@ -186,12 +194,12 @@ public class Telecrex extends Animal {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if (!player.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
-            if(!this.level().isClientSide) {
+            if (!this.level().isClientSide) {
                 this.level().broadcastEntityEvent(this, (byte) 7);
             }
             this.playSound(SoundEvents.PARROT_EAT, 0.25F, this.getVoicePitch());
@@ -202,11 +210,110 @@ public class Telecrex extends Animal {
         return InteractionResult.FAIL;
     }
 
+    @Override
     public void travel(Vec3 vec3d) {
         if (this.isInWater() && this.getDeltaMovement().y > 0F) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.5D, 1.0D));
         }
         super.travel(vec3d);
+    }
+
+    @Override
+    public boolean refuseToMove() {
+        return (this.getPose() == UP2Poses.PECKING.get() || this.getPose() == UP2Poses.PREENING.get()) && super.refuseToMove();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LOOKOUT_TIMER, 0);
+        this.entityData.define(LOOKOUT_COOLDOWN, 50 * 2 * 20 + random.nextInt(50 * 8 * 20));
+        this.entityData.define(PREEN_TIMER, 0);
+        this.entityData.define(PREEN_COOLDOWN, 60 * 2 * 20 + random.nextInt(50 * 8 * 90));
+        this.entityData.define(PECK_TIMER, 0);
+        this.entityData.define(PECK_COOLDOWN, 70 * 2 * 20 + random.nextInt(50 * 8 * 90));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("LookoutCooldown", this.getLookoutCooldown());
+        compoundTag.putInt("LookoutTimer", this.getLookoutTimer());
+        compoundTag.putInt("PreenCooldown", this.getPreenCooldown());
+        compoundTag.putInt("PreenTimer", this.getPreenTimer());
+        compoundTag.putInt("PeckCooldown", this.getPeckCooldown());
+        compoundTag.putInt("PeckTimer", this.getPeckTimer());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setLookoutCooldown(compoundTag.getInt("LookoutCooldown"));
+        this.setLookoutTimer(compoundTag.getInt("LookoutTimer"));
+        this.setPreenCooldown(compoundTag.getInt("PreenCooldown"));
+        this.setPreenTimer(compoundTag.getInt("PreenTimer"));
+        this.setPeckCooldown(compoundTag.getInt("PeckCooldown"));
+        this.setPeckTimer(compoundTag.getInt("PeckTimer"));
+    }
+
+    public int getLookoutTimer() {
+        return this.entityData.get(LOOKOUT_TIMER);
+    }
+
+    public void setLookoutTimer(int timer) {
+        this.entityData.set(LOOKOUT_TIMER, timer);
+    }
+
+    public int getLookoutCooldown() {
+        return this.entityData.get(LOOKOUT_COOLDOWN);
+    }
+
+    public void setLookoutCooldown(int cooldown) {
+        this.entityData.set(LOOKOUT_COOLDOWN, cooldown);
+    }
+
+    public void lookoutCooldown() {
+        this.entityData.set(LOOKOUT_COOLDOWN, 50 * 2 * 20 + random.nextInt(50 * 8 * 20));
+    }
+
+    public int getPreenTimer() {
+        return this.entityData.get(PREEN_TIMER);
+    }
+
+    public void setPreenTimer(int timer) {
+        this.entityData.set(PREEN_TIMER, timer);
+    }
+
+    public int getPreenCooldown() {
+        return this.entityData.get(PREEN_COOLDOWN);
+    }
+
+    public void setPreenCooldown(int cooldown) {
+        this.entityData.set(PREEN_COOLDOWN, cooldown);
+    }
+
+    public void preenCooldown() {
+        this.entityData.set(PREEN_COOLDOWN, 60 * 2 * 20 + random.nextInt(50 * 8 * 20));
+    }
+
+    public int getPeckTimer() {
+        return this.entityData.get(PECK_TIMER);
+    }
+
+    public void setPeckTimer(int timer) {
+        this.entityData.set(PECK_TIMER, timer);
+    }
+
+    public int getPeckCooldown() {
+        return this.entityData.get(PECK_COOLDOWN);
+    }
+
+    public void setPeckCooldown(int cooldown) {
+        this.entityData.set(PECK_COOLDOWN, cooldown);
+    }
+
+    public void peckCooldown() {
+        this.entityData.set(PECK_COOLDOWN, 70 * 2 * 20 + random.nextInt(50 * 8 * 20));
     }
 
     public boolean isTargetBlocked(Vec3 target) {
@@ -313,22 +420,25 @@ public class Telecrex extends Animal {
         return source.is(DamageTypes.FALL) || source.is(DamageTypes.IN_WALL);
     }
 
-    public boolean canTrample(BlockState state, BlockPos pos, float fallDistance) {
-        return false;
+    @Override
+    public AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(3, 3, 3);
     }
 
-    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        return Math.sqrt(distance) < 1024.0D;
     }
 
-    private static class TelecrexFlightGoal extends Goal {
+    static class TelecrexWanderGoal extends Goal {
 
-        protected final Telecrex telecrex;
+        private Telecrex telecrex;
         protected double x;
         protected double y;
         protected double z;
         private boolean flightTarget = false;
 
-        public TelecrexFlightGoal(Telecrex telecrex) {
+        public TelecrexWanderGoal(Telecrex telecrex) {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
             this.telecrex = telecrex;
@@ -336,10 +446,10 @@ public class Telecrex extends Animal {
 
         @Override
         public boolean canUse() {
-            if (this.telecrex.isPassenger()  || this.telecrex.isVehicle()) {
+            if (this.telecrex.isPassenger() || this.telecrex.isVehicle() || this.telecrex.refuseToMove()) {
                 return false;
             } else {
-                if (this.telecrex.getRandom().nextInt(30) != 0 && !this.telecrex.isFlying()) {
+                if (this.telecrex.getRandom().nextInt(20) != 0 && !this.telecrex.isFlying()) {
                     return false;
                 }
                 if (this.telecrex.onGround()) {
@@ -347,13 +457,13 @@ public class Telecrex extends Animal {
                 } else {
                     this.flightTarget = this.telecrex.getRandom().nextInt(5) > 0 && this.telecrex.timeFlying < 200;
                 }
-                Vec3 lvt_1_1_ = this.getPosition();
-                if (lvt_1_1_ == null) {
+                Vec3 target = this.getPosition();
+                if (target == null) {
                     return false;
                 } else {
-                    this.x = lvt_1_1_.x;
-                    this.y = lvt_1_1_.y;
-                    this.z = lvt_1_1_.z;
+                    this.x = target.x;
+                    this.y = target.y;
+                    this.z = target.z;
                     return true;
                 }
             }
@@ -436,7 +546,7 @@ public class Telecrex extends Animal {
         @Override
         public boolean canUse() {
             Entity entity = this.telecrex.getTarget();
-            if (this.telecrex.isPassenger()  || this.telecrex.isVehicle() || entity != null && entity.isAlive()) {
+            if (this.telecrex.isPassenger() || this.telecrex.isVehicle() || entity != null && entity.isAlive()) {
                 return false;
             }
             if (!this.mustUpdate) {
@@ -478,7 +588,7 @@ public class Telecrex extends Animal {
             if (this.flightTarget != null) {
                 this.telecrex.setFlying(true);
                 this.telecrex.getMoveControl().setWantedPosition(this.flightTarget.x, this.flightTarget.y, this.flightTarget.z, 1F);
-                if(this.cooldown == 0 && this.telecrex.isTargetBlocked(this.flightTarget)){
+                if (this.cooldown == 0 && this.telecrex.isTargetBlocked(this.flightTarget)) {
                     this.cooldown = 30;
                     this.flightTarget = null;
                 }
@@ -503,7 +613,7 @@ public class Telecrex extends Animal {
 
         protected AABB getTargetableArea(double targetDistance) {
             Vec3 renderCenter = new Vec3(this.telecrex.getX(), this.telecrex.getY() + 0.5, this.telecrex.getZ());
-            AABB aabb = new AABB(-targetDistance, -targetDistance, -targetDistance, targetDistance, targetDistance, targetDistance);
+            AABB aabb = new AABB(-targetDistance * 2F, -targetDistance * 1.5F, -targetDistance * 2F, targetDistance * 2F, targetDistance * 1.5F, targetDistance * 2F);
             return aabb.move(renderCenter);
         }
 
@@ -512,6 +622,132 @@ public class Telecrex extends Animal {
                 final double d0 = this.entity.distanceToSqr(entity1);
                 final double d1 = this.entity.distanceToSqr(entity2);
                 return Double.compare(d0, d1);
+            }
+        }
+    }
+
+    private static class TelecrexLookoutGoal extends Goal {
+
+        protected final Telecrex entity;
+        protected final TelecrexBehaviors behavior;
+
+        public TelecrexLookoutGoal(Telecrex entity) {
+            this.entity = entity;
+            this.behavior = TelecrexBehaviors.LOOKOUT;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.entity.getLookoutCooldown() == 0 && this.entity.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.entity.getLookoutTimer() > 0 && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.entity.setPose(UP2Poses.LOOKOUT.get());
+            this.entity.setLookoutTimer(behavior.getLength());
+            this.entity.setBehavior(behavior.getName());
+            this.entity.playSound(behavior.getSound(), 1.0F, this.entity.getVoicePitch());
+        }
+    }
+
+    private static class TelecrexPeckGoal extends Goal {
+
+        protected final Telecrex entity;
+        protected final TelecrexBehaviors behavior;
+
+        public TelecrexPeckGoal(Telecrex entity) {
+            this.entity = entity;
+            this.behavior = TelecrexBehaviors.PECK;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.entity.getPeckCooldown() == 0 && this.entity.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.entity.getPeckTimer() > 0 && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.entity.setPose(UP2Poses.PECKING.get());
+            this.entity.setPeckTimer(behavior.getLength());
+            this.entity.setBehavior(behavior.getName());
+            this.entity.playSound(behavior.getSound(), 1.0F, this.entity.getVoicePitch());
+        }
+    }
+
+    private static class TelecrexPreenGoal extends Goal {
+
+        protected final Telecrex entity;
+        protected final TelecrexBehaviors behavior;
+
+        public TelecrexPreenGoal(Telecrex entity) {
+            this.entity = entity;
+            this.behavior = TelecrexBehaviors.PREEN;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.entity.getPreenCooldown() == 0 && this.entity.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.entity.getPreenTimer() > 0 && !this.entity.isInWater() && this.entity.onGround();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.entity.setPose(UP2Poses.PREENING.get());
+            this.entity.setPreenTimer(behavior.getLength());
+            this.entity.setBehavior(behavior.getName());
+            this.entity.playSound(behavior.getSound(), 1.0F, this.entity.getVoicePitch());
+        }
+    }
+
+    private static class TelecrexMoveControl extends MoveControl {
+
+        private final Mob entity;
+        private final boolean shouldLookAtTarget;
+
+        public TelecrexMoveControl(Mob flier, boolean shouldLookAtTarget) {
+            super(flier);
+            this.entity = flier;
+            this.shouldLookAtTarget = shouldLookAtTarget;
+        }
+
+        public void tick() {
+            if (this.operation == Operation.MOVE_TO) {
+                Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
+                double d0 = vector3d.length();
+                if (d0 < entity.getBoundingBox().getSize()) {
+                    this.operation = Operation.WAIT;
+                    entity.setDeltaMovement(entity.getDeltaMovement().scale(0.5D));
+                } else {
+                    entity.setDeltaMovement(entity.getDeltaMovement().add(vector3d.scale(this.speedModifier * 1 * 0.05D / d0)));
+                    if (entity.getTarget() == null || !shouldLookAtTarget) {
+                        Vec3 vector3d1 = entity.getDeltaMovement();
+                        entity.setYRot(-((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI));
+                    } else {
+                        double d2 = entity.getTarget().getX() - entity.getX();
+                        double d1 = entity.getTarget().getZ() - entity.getZ();
+                        entity.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                    }
+                    entity.yBodyRot = entity.getYRot();
+                }
+            } else if (this.operation == Operation.STRAFE) {
+                this.operation = Operation.WAIT;
             }
         }
     }

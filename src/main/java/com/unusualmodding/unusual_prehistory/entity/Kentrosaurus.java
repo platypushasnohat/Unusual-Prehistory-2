@@ -570,7 +570,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(KentrosaurusBehaviors.IDLE.getName());
+            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName());
         }
 
         @Override
@@ -618,16 +618,6 @@ public class Kentrosaurus extends PrehistoricMob {
             this.kentrosaurus.setBehavior(behavior.getName());
             this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
         }
-
-        @Override
-        public void tick() {
-            super.tick();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-        }
     }
 
     private static class KentrosaurusShakeGoal extends Goal {
@@ -657,16 +647,6 @@ public class Kentrosaurus extends PrehistoricMob {
             this.kentrosaurus.setShakeTimer(behavior.getLength());
             this.kentrosaurus.setBehavior(behavior.getName());
             this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
-        }
-
-        @Override
-        public void tick() {
-            super.tick();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
         }
     }
 

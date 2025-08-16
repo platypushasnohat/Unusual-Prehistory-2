@@ -60,14 +60,30 @@ public class TelecrexModel<T extends Telecrex> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isFlying()) {
-			this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 3, 8);
+			if (this.young) {
+				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+			} else {
+				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+			}
 		}
 
 		this.animate(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks);
-		this.animate(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks);
+		this.animate(entity.flyingAnimationState, TelecrexAnimations.FLY, ageInTicks);
+		this.animate(entity.lookoutAnimationState, TelecrexAnimations.LOOKOUT, ageInTicks);
+		this.animate(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
+		this.animate(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
+		this.animate(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
+
+		float partialTicks = ageInTicks - entity.tickCount;
+		float flyProgress = entity.getFlyProgress(partialTicks);
+		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
+		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+
+		body_main.xRot += flightPitchAmount;
+		body_main.zRot += rollAmount / 2;
 
 		if (this.young) {
 			this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);

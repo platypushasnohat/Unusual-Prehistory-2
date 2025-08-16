@@ -2,14 +2,17 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.DromaeosaurusAnimations;
 import com.unusualmodding.unusual_prehistory.client.animations.carnotaurus.*;
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
