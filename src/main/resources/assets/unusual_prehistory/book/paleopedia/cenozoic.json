@@ -3,6 +3,14 @@
   "text": "cenozoic.txt",
   "title": "Cenozoic",
   "linked_page_buttons": [
+    {
+      "linked_page": "megalania.json",
+      "text": "Megalania",
+      "x": 290,
+      "y": 20,
+      "page": 0,
+      "item" : "unusual_prehistory:megalania_dna_bottle"
+    }
   ],
   "images": [
   ],
