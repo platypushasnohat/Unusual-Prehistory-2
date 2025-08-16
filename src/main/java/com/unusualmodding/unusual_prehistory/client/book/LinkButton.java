@@ -75,7 +75,7 @@ public class LinkButton extends Button {
         int itemTextOffset = previewStack.isEmpty() ? 0 : 8;
         if (!previewStack.isEmpty()) {
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            guiGraphics.renderItem(previewStack, this.getX() + 2, this.getY() + 1);
+            guiGraphics.renderItem(previewStack, this.getX() + 2, this.getY() + 2);
         }
         drawTextOf(guiGraphics, font, this.getMessage(), this.getX() + itemTextOffset + this.width / 2, this.getY() + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
     }

@@ -7,12 +7,16 @@ import com.mojang.math.Axis;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.book.data.*;
 import com.unusualmodding.unusual_prehistory.client.book.recipe.SpecialRecipeInGuideBook;
+import com.unusualmodding.unusual_prehistory.client.renderer.UP2RenderTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.NonNullList;
@@ -46,9 +50,10 @@ import java.util.*;
 public abstract class GuiBasicBook extends Screen {
 
     private static final ResourceLocation BOOK_PAGE_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/book_pages.png");
-    private static final ResourceLocation BOOK_BINDING_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/book_binding.png");
     private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/widgets.png");
     private static final ResourceLocation BOOK_BUTTONS_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/link_buttons.png");
+
+    private static final RenderType SEPIA_ITEM_RENDER_TYPE = UP2RenderTypes.getBookWidget(TextureAtlas.LOCATION_BLOCKS, true);
 
     protected final List<LineData> lines = new ArrayList<>();
     protected final List<LinkData> links = new ArrayList<>();
@@ -58,6 +63,7 @@ public abstract class GuiBasicBook extends Screen {
     protected final List<EntityLinkData> entityLinks = new ArrayList<>();
     protected final List<ImageData> images = new ArrayList<>();
     protected final List<Whitespace> yIndexesToSkip = new ArrayList<>();
+
     private final Map<String, Entity> renderedEntites = new HashMap<>();
     private final Map<String, ResourceLocation> textureMap = new HashMap<>();
     protected ItemStack bookStack;
@@ -125,12 +131,11 @@ public abstract class GuiBasicBook extends Screen {
         quaternion1.conjugate();
         entityrenderdispatcher.overrideCameraOrientation(quaternion1);
         entityrenderdispatcher.setRenderShadow(false);
-        RenderSystem.runAsFancy(() -> {
-            entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.pose(), bufferSource, 240);
-        });
+        RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.pose(), bufferSource, 240));
         entityrenderdispatcher.setRenderShadow(true);
         entity.setYRot(0);
         entity.setXRot(0);
+
         if (entity instanceof LivingEntity) {
             ((LivingEntity) entity).yBodyRot = 0;
             ((LivingEntity) entity).yHeadRotO = 0;
@@ -226,14 +231,9 @@ public abstract class GuiBasicBook extends Screen {
     public void render(GuiGraphics guiGraphics, int x, int y, float partialTicks) {
         this.mouseX = x;
         this.mouseY = y;
-        int bindingColor = getBindingColor();
-        int bindingR = bindingColor >> 16 & 255;
-        int bindingG = bindingColor >> 8 & 255;
-        int bindingB = bindingColor & 255;
         this.renderBackground(guiGraphics);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
-        BookBlit.blitWithColor(guiGraphics, getBookBindingTexture(), k, l, 0, 0, xSize, ySize, xSize, ySize, bindingR, bindingG, bindingB, 255);
         BookBlit.blitWithColor(guiGraphics, getBookPageTexture(), k, l, 0, 0, xSize, ySize, xSize, ySize, 255, 255, 255, 255);
         if (internalPage == null || currentPageJSON != prevPageJSON || prevPageJSON == null) {
             internalPage = generatePage(currentPageJSON);
@@ -323,11 +323,6 @@ public abstract class GuiBasicBook extends Screen {
     }
 
     private void renderOtherWidgets(GuiGraphics guiGraphics, int x, int y, BookPage page) {
-        int color = getBindingColor();
-        int r = (color & 0xFF0000) >> 16;
-        int g = (color & 0xFF00) >> 8;
-        int b = (color & 0xFF);
-
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
 
@@ -339,7 +334,6 @@ public abstract class GuiBasicBook extends Screen {
                         tex = new ResourceLocation(imageData.getTexture());
                         textureMap.put(imageData.getTexture(), tex);
                     }
-                    // yIndexesToSkip.put(imageData.getPage(), new Whitespace(imageData.getX(), imageData.getY(),(int) (imageData.getScale() * imageData.getWidth()), (int) (imageData.getScale() * imageData.getHeight() * 0.8F)));
                     float scale = (float) imageData.getScale();
                     guiGraphics.pose().pushPose();
                     guiGraphics.pose().translate(k + imageData.getX(), l + imageData.getY(), 0);
@@ -462,7 +456,7 @@ public abstract class GuiBasicBook extends Screen {
         int l = (this.height - this.ySize + 128) / 2;
         for (LineData line : this.lines) {
             if (line.getPage() == this.currentPageCounter) {
-                guiGraphics.drawString(font, line.getText(), k + 10 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false);
+                guiGraphics.drawString(font, line.getText(), k + 12 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false);
             }
         }
         if (this.currentPageCounter == 0 && !writtenTitle.isEmpty()) {
@@ -472,7 +466,7 @@ public abstract class GuiBasicBook extends Screen {
             if (font.width(actualTitle) > 80) {
                 scale = 2.0F - Mth.clamp((font.width(actualTitle) - 80) * 0.011F, 0, 1.95F);
             }
-            guiGraphics.pose().translate(k + 10, l + 10, 0);
+            guiGraphics.pose().translate(k + 20, l + 10, 0);
             guiGraphics.pose().scale(scale, scale, scale);
             guiGraphics.drawString(font, actualTitle, 0, 0, getTitleColor(), false);
             guiGraphics.pose().popPose();
@@ -481,6 +475,7 @@ public abstract class GuiBasicBook extends Screen {
         this.buttonPreviousPage.visible = currentPageCounter > 0 || !currentPageJSON.equals(this.getRootPage());
     }
 
+    @Override
     public boolean isPauseScreen() {
         return false;
     }
@@ -499,11 +494,11 @@ public abstract class GuiBasicBook extends Screen {
     }
 
     protected int getTextColor() {
-        return 0X303030;
+        return 0x303030;
     }
 
     protected int getTitleColor() {
-        return 0XBAAC98;
+        return 0xBAAC98;
     }
 
     public abstract ResourceLocation getRootPage();
@@ -512,10 +507,6 @@ public abstract class GuiBasicBook extends Screen {
 
     protected ResourceLocation getBookPageTexture() {
         return BOOK_PAGE_TEXTURE;
-    }
-
-    protected ResourceLocation getBookBindingTexture() {
-        return BOOK_BINDING_TEXTURE;
     }
 
     protected ResourceLocation getBookWidgetTexture() {

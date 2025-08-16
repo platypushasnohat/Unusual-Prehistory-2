@@ -449,7 +449,7 @@ public class Telecrex extends FlyingPrehistoricMob {
             if (this.telecrex.isPassenger() || this.telecrex.isVehicle() || this.telecrex.refuseToMove()) {
                 return false;
             } else {
-                if (this.telecrex.getRandom().nextInt(20) != 0 && !this.telecrex.isFlying()) {
+                if (this.telecrex.getRandom().nextInt(50) != 0 && !this.telecrex.isFlying()) {
                     return false;
                 }
                 if (this.telecrex.onGround()) {

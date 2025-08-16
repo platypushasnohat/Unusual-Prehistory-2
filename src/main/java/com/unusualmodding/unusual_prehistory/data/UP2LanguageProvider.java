@@ -156,7 +156,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
         sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
 
-        add("item.unusual_prehistory.paleopedia.desc", "By Controversial Scientist, Peeko Noneyah");
+        add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah");
 
         // kimmeridgebrachypteraeschnidium bottle
         add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");

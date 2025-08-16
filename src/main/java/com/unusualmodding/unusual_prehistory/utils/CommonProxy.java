@@ -14,4 +14,7 @@ public class CommonProxy {
 
     public void openPaleopediaGUI(ItemStack book) {
     }
+
+    public void openPaleopediaGUI(ItemStack book, String page) {
+    }
 }

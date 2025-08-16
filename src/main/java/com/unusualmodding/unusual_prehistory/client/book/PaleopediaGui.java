@@ -7,8 +7,13 @@ import net.minecraft.world.item.ItemStack;
 
 public class PaleopediaGui extends GuiBasicBook {
 
-    public PaleopediaGui(ItemStack bookStack) {
-        super(bookStack, Component.translatable("item.unusual_prehistory.paleopedia"));
+    public PaleopediaGui(ItemStack book) {
+        super(book, Component.translatable("item.unusual_prehistory.paleopedia"));
+    }
+
+    public PaleopediaGui(ItemStack book, String page) {
+        super(book, Component.translatable("item.unusual_prehistory.paleopedia"));
+        this.currentPageJSON = new ResourceLocation(this.getTextFileDirectory() + page + ".json");
     }
 
     @Override
