@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.items.MobCaptureItem;
 import com.unusualmodding.unusual_prehistory.items.FrozenMeatItem;
+import com.unusualmodding.unusual_prehistory.items.PaleopediaItem;
 import com.unusualmodding.unusual_prehistory.items.ThrowableEggItem;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -26,7 +27,7 @@ public class UP2Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
-    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new PaleopediaItem(new Item.Properties().stacksTo(1)));
 
     // fossils
     public static final RegistryObject<Item> PLANT_FOSSIL = registerItem("plant_fossil", () -> new Item(new Item.Properties()));

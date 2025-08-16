@@ -1,0 +1,19 @@
+{
+  "parent": "root.json",
+  "text": "dna.txt",
+  "title": "DNA",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "tabula_renders": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory;
 
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
+import com.unusualmodding.unusual_prehistory.utils.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -10,6 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,6 +27,8 @@ public class UnusualPrehistory2 {
 
     public static final String MOD_ID = "unusual_prehistory";
     public static final Logger LOGGER = LogManager.getLogger();
+
+    public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public UnusualPrehistory2() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -51,7 +55,8 @@ public class UnusualPrehistory2 {
         UP2Network.registerNetwork();
     }
 
-    private void clientSetup(FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(PROXY::clientInit);
     }
 
     private void dataSetup(GatherDataEvent data) {

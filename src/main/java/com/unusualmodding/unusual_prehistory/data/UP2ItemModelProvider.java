@@ -28,7 +28,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PALEOZOIC_FOSSIL);
         this.item(MESOZOIC_FOSSIL);
         this.item(FROZEN_MEAT);
-        this.item(ORGANIC_OOZE);
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);

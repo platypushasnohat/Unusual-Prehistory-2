@@ -1,0 +1,28 @@
+{
+  "parent": "",
+  "text": "root.txt",
+  "title": "Paleopedia",
+  "title_locale": "item.unusual_prehistory.paleopedia",
+  "linked_page_buttons": [
+    {
+      "linked_page": "dna.json",
+      "text": "DNA",
+      "x": 290,
+      "y": 42,
+      "page": 0,
+      "item" : "unusual_prehistory:carnotaurus_dna_bottle"
+    }
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "tabula_renders": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}
