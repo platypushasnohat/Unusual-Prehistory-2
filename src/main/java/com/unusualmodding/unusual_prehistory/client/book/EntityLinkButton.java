@@ -75,7 +75,6 @@ public class EntityLinkButton extends Button {
         }
     }
 
-
     public void renderEntityInInventory(GuiGraphics guiGraphics, int xPos, int yPos, float scale, Quaternionf rotation, Entity entity) {
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(xPos, yPos, 50.0D);

@@ -304,7 +304,6 @@ public abstract class GuiBasicBook extends Screen {
             Item item = getItemByRegistryName(itemRenderData.getItem());
             if (item != null) {
                 yIndexesToSkip.add(new Whitespace(itemRenderData.getPage(), itemRenderData.getX(), itemRenderData.getY(), (int) (itemRenderData.getScale() * 17), (int) (itemRenderData.getScale() * 15)));
-
             }
         }
         for (RecipeData recipeData : recipes) {
