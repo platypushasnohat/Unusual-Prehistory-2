@@ -718,36 +718,38 @@ public class Telecrex extends FlyingPrehistoricMob {
 
     private static class TelecrexMoveControl extends MoveControl {
 
-        private final Mob entity;
+        private final Telecrex telecrex;
         private final boolean shouldLookAtTarget;
 
-        public TelecrexMoveControl(Mob flier, boolean shouldLookAtTarget) {
-            super(flier);
-            this.entity = flier;
+        public TelecrexMoveControl(Telecrex telecrex, boolean shouldLookAtTarget) {
+            super(telecrex);
+            this.telecrex = telecrex;
             this.shouldLookAtTarget = shouldLookAtTarget;
         }
 
         public void tick() {
-            if (this.operation == Operation.MOVE_TO) {
-                Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
-                double d0 = vector3d.length();
-                if (d0 < entity.getBoundingBox().getSize()) {
-                    this.operation = Operation.WAIT;
-                    entity.setDeltaMovement(entity.getDeltaMovement().scale(0.5D));
-                } else {
-                    entity.setDeltaMovement(entity.getDeltaMovement().add(vector3d.scale(this.speedModifier * 1 * 0.05D / d0)));
-                    if (entity.getTarget() == null || !shouldLookAtTarget) {
-                        Vec3 vector3d1 = entity.getDeltaMovement();
-                        entity.setYRot(-((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI));
+            if (!telecrex.refuseToMove()) {
+                if (this.operation == Operation.MOVE_TO) {
+                    Vec3 vector3d = new Vec3(this.wantedX - telecrex.getX(), this.wantedY - telecrex.getY(), this.wantedZ - telecrex.getZ());
+                    double d0 = vector3d.length();
+                    if (d0 < telecrex.getBoundingBox().getSize()) {
+                        this.operation = Operation.WAIT;
+                        telecrex.setDeltaMovement(telecrex.getDeltaMovement().scale(0.5D));
                     } else {
-                        double d2 = entity.getTarget().getX() - entity.getX();
-                        double d1 = entity.getTarget().getZ() - entity.getZ();
-                        entity.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                        telecrex.setDeltaMovement(telecrex.getDeltaMovement().add(vector3d.scale(this.speedModifier * 1 * 0.05D / d0)));
+                        if (telecrex.getTarget() == null || !shouldLookAtTarget) {
+                            Vec3 vector3d1 = telecrex.getDeltaMovement();
+                            telecrex.setYRot(-((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI));
+                        } else {
+                            double d2 = telecrex.getTarget().getX() - telecrex.getX();
+                            double d1 = telecrex.getTarget().getZ() - telecrex.getZ();
+                            telecrex.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
+                        }
+                        telecrex.yBodyRot = telecrex.getYRot();
                     }
-                    entity.yBodyRot = entity.getYRot();
+                } else if (this.operation == Operation.STRAFE) {
+                    this.operation = Operation.WAIT;
                 }
-            } else if (this.operation == Operation.STRAFE) {
-                this.operation = Operation.WAIT;
             }
         }
     }
