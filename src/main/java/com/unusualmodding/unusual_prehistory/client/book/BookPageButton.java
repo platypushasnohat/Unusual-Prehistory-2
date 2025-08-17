@@ -51,6 +51,5 @@ public class BookPageButton extends Button {
         if (this.playTurnSound) {
             soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
         }
-
     }
 }

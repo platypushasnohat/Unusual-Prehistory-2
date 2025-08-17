@@ -86,13 +86,10 @@ public class EntityLinkButton extends Button {
         RenderSystem.setShaderLights(light0, light1);
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         entityrenderdispatcher.setRenderShadow(false);
-        RenderSystem.runAsFancy(() -> {
-            entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.pose(), guiGraphics.bufferSource(), 15728880);
-        });
+        RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.pose(), guiGraphics.bufferSource(), 15728880));
         guiGraphics.flush();
         entityrenderdispatcher.setRenderShadow(true);
         guiGraphics.pose().popPose();
         Lighting.setupFor3DItems();
     }
-
 }

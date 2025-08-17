@@ -120,7 +120,6 @@ public class BookPage {
                 title = GsonHelper.getAsString(jsonobject, "title");
             }
 
-
             BookPage page = new BookPage(readParent, readTextFile, Arrays.asList(linkedPageRead), Arrays.asList(linkedEntitesRead), Arrays.asList(itemRendersRead), Arrays.asList(recipesRead), Arrays.asList(entityRendersRead), Arrays.asList(imagesRead), title);
             if (jsonobject.has("title")) {
                 page.translatableTitle = GsonHelper.getAsString(jsonobject, "title");
