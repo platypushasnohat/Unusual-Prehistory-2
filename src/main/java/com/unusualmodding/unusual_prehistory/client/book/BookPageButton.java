@@ -16,8 +16,8 @@ public class BookPageButton extends Button {
     private final boolean playTurnSound;
     private final BasicBookGui bookGUI;
 
-    public BookPageButton(BasicBookGui bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress p_i51079_4_, boolean p_i51079_5_) {
-        super(p_i51079_1_, p_i51079_2_, 23, 13, CommonComponents.EMPTY, p_i51079_4_, DEFAULT_NARRATION);
+    public BookPageButton(BasicBookGui bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress onPress, boolean p_i51079_5_) {
+        super(p_i51079_1_, p_i51079_2_, 23, 13, CommonComponents.EMPTY, onPress, DEFAULT_NARRATION);
         this.isForward = p_i51079_3_;
         this.playTurnSound = p_i51079_5_;
         this.bookGUI = bookGUI;
@@ -36,15 +36,7 @@ public class BookPageButton extends Button {
     }
 
     public void drawNextArrow(GuiGraphics guiGraphics, int p_238474_2_, int p_238474_3_, int p_238474_4_, int p_238474_5_, int p_238474_6_, int p_238474_7_) {
-        if (this.isHovered) {
-            int color = bookGUI.getWidgetColor();
-            int r = (color & 0xFF0000) >> 16;
-            int g = (color & 0xFF00) >> 8;
-            int b = (color & 0xFF);
-            BookBlit.blitWithColor(guiGraphics, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
-        } else {
-            BookBlit.blitWithColor(guiGraphics, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, 255, 255, 255, 255);
-        }
+        BookBlit.blitWithColor(guiGraphics, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, 255, 255, 255, 255);
     }
 
     public void playDownSound(SoundManager soundManager) {

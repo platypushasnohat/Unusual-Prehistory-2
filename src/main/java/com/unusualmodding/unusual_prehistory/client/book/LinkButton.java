@@ -58,17 +58,12 @@ public class LinkButton extends Button {
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
 
-
         guiGraphics.blit(book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
         guiGraphics.blit(book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
         if (this.isHovered) {
-            int color = book.getWidgetColor();
-            int r = (color & 0xFF0000) >> 16;
-            int g = (color & 0xFF00) >> 8;
-            int b = (color & 0xFF);
             i = 3;
-            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
-            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
+            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height, 256, 256, 255, 255, 255, 255);
+            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, 255, 255, 255, 255);
         }
 
         int j = getFGColor();
