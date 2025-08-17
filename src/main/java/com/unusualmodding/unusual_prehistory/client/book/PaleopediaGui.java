@@ -23,7 +23,7 @@ public class PaleopediaGui extends BasicBookGui {
 
     @Override
     protected int getTextColor() {
-        return 9729114;
+        return 0x757575;
     }
 
     @Override

@@ -2,10 +2,7 @@ package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
-import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
@@ -14,7 +11,7 @@ import com.unusualmodding.unusual_prehistory.client.screens.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
-import com.unusualmodding.unusual_prehistory.client.particles.FallingLeafParticle;
+import com.unusualmodding.unusual_prehistory.client.particles.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -69,6 +66,8 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
         event.registerBlockEntityRenderer(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(UP2BlockEntities.LECTERN_BLOCK_ENTITY.get(), UP2LecternRenderer::new);
+
     }
 
     @SubscribeEvent

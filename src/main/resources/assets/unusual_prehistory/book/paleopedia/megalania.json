@@ -1,5 +1,5 @@
 {
-  "parent": "root.json",
+  "parent": "cenozoic.json",
   "text": "cenozoic/megalania.txt",
   "title": "Megalania",
   "linked_page_buttons": [

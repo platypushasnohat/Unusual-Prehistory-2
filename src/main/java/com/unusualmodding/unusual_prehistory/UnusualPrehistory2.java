@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory;
 
+import com.unusualmodding.unusual_prehistory.events.MiscEvents;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
 import com.unusualmodding.unusual_prehistory.utils.*;
@@ -48,6 +49,7 @@ public class UnusualPrehistory2 {
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::dataSetup);
+        MinecraftForge.EVENT_BUS.register(new MiscEvents());
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {

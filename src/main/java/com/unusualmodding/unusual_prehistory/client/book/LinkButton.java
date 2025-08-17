@@ -32,7 +32,7 @@ public class LinkButton extends Button {
 
     @Override
     public int getFGColor() {
-        return this.isHovered ? book.getWidgetColor() : this.active ? 0X94745A : 10526880;
+        return this.isHovered ? 0x525252 : this.active ? 0x757575 : 0x525252;
     }
 
     private int getTextureY() {
@@ -42,7 +42,6 @@ public class LinkButton extends Button {
         } else if (this.isHoveredOrFocused()) {
             i = 2;
         }
-
         return 46 + i * 20;
     }
 
@@ -63,7 +62,7 @@ public class LinkButton extends Button {
         if (this.isHovered) {
             i = 3;
             BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height, 256, 256, 255, 255, 255, 255);
-            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, 255, 255, 255, 255);
+            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2F, 46 + i * 20, this.width / 2, this.height, 256, 256, 255, 255, 255, 255);
         }
 
         int j = getFGColor();

@@ -1,5 +1,5 @@
 {
-  "parent": "root.json",
+  "parent": "eras.json",
   "text": "cenozoic.txt",
   "title": "Cenozoic",
   "linked_page_buttons": [
@@ -9,7 +9,7 @@
       "x": 290,
       "y": 20,
       "page": 0,
-      "item" : "unusual_prehistory:megalania_dna_bottle"
+      "item" : "unusual_prehistory:megalania_egg"
     }
   ],
   "images": [

@@ -1,5 +1,5 @@
 {
-  "parent": "root.json",
+  "parent": "eras.json",
   "text": "paleozoic.txt",
   "title": "Paleozoic",
   "linked_page_buttons": [

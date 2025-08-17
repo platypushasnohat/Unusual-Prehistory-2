@@ -154,6 +154,8 @@ public class UP2Blocks {
 
     public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
 
+    public static final RegistryObject<Block> LECTERN = registerBlock("lectern", () -> new UP2LecternBlock(BlockBehaviour.Properties.copy(Blocks.LECTERN)));
+
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

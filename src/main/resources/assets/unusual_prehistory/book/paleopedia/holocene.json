@@ -1,5 +1,5 @@
 {
-  "parent": "root.json",
+  "parent": "eras.json",
   "text": "holocene.txt",
   "title": "Holocene",
   "linked_page_buttons": [

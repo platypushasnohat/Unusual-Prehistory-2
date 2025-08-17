@@ -463,7 +463,7 @@ public abstract class BasicBookGui extends Screen {
             guiGraphics.pose().translate(225, l + 10, 0);
             guiGraphics.pose().scale(titleScale, titleScale, 1F);
             guiGraphics.pose().translate(-titleLength / 2F, 0, 0);
-            font.drawInBatch8xOutline(title.getVisualOrderText(), 0.0F, 0.0F, 0XFFE7BF, 0XAA977F, guiGraphics.pose().last().pose(), bufferSource, 15728880);
+            font.drawInBatch8xOutline(title.getVisualOrderText(), 0.0F, 0.0F, 0xFFE7BF, 0xAA977F, guiGraphics.pose().last().pose(), bufferSource, 15728880);
             guiGraphics.pose().popPose();
         }
 
@@ -497,11 +497,7 @@ public abstract class BasicBookGui extends Screen {
     }
 
     protected int getTextColor() {
-        return 0x303030;
-    }
-
-    protected int getTitleColor() {
-        return 0xBAAC98;
+        return 0x000000;
     }
 
     public abstract ResourceLocation getRootPage();
