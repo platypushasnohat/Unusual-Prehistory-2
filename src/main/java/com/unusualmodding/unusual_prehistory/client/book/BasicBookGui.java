@@ -450,37 +450,32 @@ public abstract class BasicBookGui extends Screen {
     }
 
     protected void writePageText(GuiGraphics guiGraphics, int x, int y) {
+
         MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         Font font = this.font;
+
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
-        for (LineData line : this.lines) {
-            Component component = Component.translatable(line.getText());
 
-            if (line.getPage() == this.currentPageCounter) {
-                font.drawInBatch(component, k + 10 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false, guiGraphics.pose().last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
-//                guiGraphics.drawString(font, line.getText(), k + 12 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false);
-            }
-        }
         if (this.currentPageCounter == 0 && !writtenTitle.isEmpty()) {
             Component title = Component.translatable(writtenTitle);
-
-            int titleLength = Math.max(font.width(title), 1);
-            float titleScale = Math.min(135F / (float) titleLength, 2F);
-//            String actualTitle = I18n.get(writtenTitle);
-
             guiGraphics.pose().pushPose();
-//            float scale = 2F;
-//            if (font.width(actualTitle) > 80) {
-//                scale = 2.0F - Mth.clamp((font.width(actualTitle) - 80) * 0.011F, 0, 1.95F);
-//            }
-            guiGraphics.pose().translate((k + 20) + (titleLength / 2F), l + 10, 0);
+            int titleLength = Math.max(font.width(title), 1);
+            float titleScale = Math.min(135F / (float) titleLength, 1.8F);
+            guiGraphics.pose().translate(225, l + 10, 0);
             guiGraphics.pose().scale(titleScale, titleScale, 1F);
-//            guiGraphics.drawString(font.self(), actualTitle, 0, 0, getTitleColor(), false);
+            guiGraphics.pose().translate(-titleLength / 2F, 0, 0);
             font.drawInBatch8xOutline(title.getVisualOrderText(), 0.0F, 0.0F, 0XFFE7BF, 0XAA977F, guiGraphics.pose().last().pose(), bufferSource, 15728880);
-
             guiGraphics.pose().popPose();
         }
+
+        for (LineData line : this.lines) {
+            Component component = Component.translatable(line.getText());
+            if (line.getPage() == this.currentPageCounter) {
+                font.drawInBatch(component, k + 10 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false, guiGraphics.pose().last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+            }
+        }
+
         this.buttonNextPage.visible = currentPageCounter < maxPagesFromPrinting;
         this.buttonPreviousPage.visible = currentPageCounter > 0 || !currentPageJSON.equals(this.getRootPage());
     }
