@@ -14,9 +14,9 @@ public class BookPageButton extends Button {
 
     private final boolean isForward;
     private final boolean playTurnSound;
-    private final GuiBasicBook bookGUI;
+    private final BasicBookGui bookGUI;
 
-    public BookPageButton(GuiBasicBook bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress p_i51079_4_, boolean p_i51079_5_) {
+    public BookPageButton(BasicBookGui bookGUI, int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, OnPress p_i51079_4_, boolean p_i51079_5_) {
         super(p_i51079_1_, p_i51079_2_, 23, 13, CommonComponents.EMPTY, p_i51079_4_, DEFAULT_NARRATION);
         this.isForward = p_i51079_3_;
         this.playTurnSound = p_i51079_5_;

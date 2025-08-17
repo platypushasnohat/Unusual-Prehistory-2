@@ -12,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -47,7 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public abstract class GuiBasicBook extends Screen {
+public abstract class BasicBookGui extends Screen {
 
     private static final ResourceLocation BOOK_PAGE_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/book_pages.png");
     private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/widgets.png");
@@ -85,7 +84,7 @@ public abstract class GuiBasicBook extends Screen {
     private int mouseX;
     private int mouseY;
 
-    public GuiBasicBook(ItemStack bookStack, Component title) {
+    public BasicBookGui(ItemStack bookStack, Component title) {
         super(title);
         this.bookStack = bookStack;
         this.currentPageJSON = getRootPage();
@@ -451,24 +450,35 @@ public abstract class GuiBasicBook extends Screen {
     }
 
     protected void writePageText(GuiGraphics guiGraphics, int x, int y) {
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         Font font = this.font;
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize + 128) / 2;
         for (LineData line : this.lines) {
+            Component component = Component.translatable(line.getText());
+
             if (line.getPage() == this.currentPageCounter) {
-                guiGraphics.drawString(font, line.getText(), k + 12 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false);
+                font.drawInBatch(component, k + 10 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false, guiGraphics.pose().last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+//                guiGraphics.drawString(font, line.getText(), k + 12 + line.getxIndex(), l + 10 + line.getyIndex() * 12, getTextColor(), false);
             }
         }
         if (this.currentPageCounter == 0 && !writtenTitle.isEmpty()) {
-            String actualTitle = I18n.get(writtenTitle);
+            Component title = Component.translatable(writtenTitle);
+
+            int titleLength = Math.max(font.width(title), 1);
+            float titleScale = Math.min(135F / (float) titleLength, 2F);
+//            String actualTitle = I18n.get(writtenTitle);
+
             guiGraphics.pose().pushPose();
-            float scale = 2F;
-            if (font.width(actualTitle) > 80) {
-                scale = 2.0F - Mth.clamp((font.width(actualTitle) - 80) * 0.011F, 0, 1.95F);
-            }
-            guiGraphics.pose().translate(k + 20, l + 10, 0);
-            guiGraphics.pose().scale(scale, scale, scale);
-            guiGraphics.drawString(font, actualTitle, 0, 0, getTitleColor(), false);
+//            float scale = 2F;
+//            if (font.width(actualTitle) > 80) {
+//                scale = 2.0F - Mth.clamp((font.width(actualTitle) - 80) * 0.011F, 0, 1.95F);
+//            }
+            guiGraphics.pose().translate((k + 20) + (titleLength / 2F), l + 10, 0);
+            guiGraphics.pose().scale(titleScale, titleScale, 1F);
+//            guiGraphics.drawString(font.self(), actualTitle, 0, 0, getTitleColor(), false);
+            font.drawInBatch8xOutline(title.getVisualOrderText(), 0.0F, 0.0F, 0XFFE7BF, 0XAA977F, guiGraphics.pose().last().pose(), bufferSource, 15728880);
+
             guiGraphics.pose().popPose();
         }
         this.buttonNextPage.visible = currentPageCounter < maxPagesFromPrinting;

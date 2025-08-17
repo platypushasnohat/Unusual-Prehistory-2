@@ -24,9 +24,9 @@ public class EntityLinkButton extends Button {
     private static final Map<String, Entity> renderedEntites = new HashMap<>();
     private static final Quaternionf ENTITY_ROTATION = (new Quaternionf()).rotationXYZ((float) Math.toRadians(30), (float) Math.toRadians(130), (float) Math.PI);
     private final EntityLinkData data;
-    private final GuiBasicBook bookGUI;
+    private final BasicBookGui bookGUI;
 
-    public EntityLinkButton(GuiBasicBook bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
+    public EntityLinkButton(BasicBookGui bookGUI, EntityLinkData linkData, int k, int l, Button.OnPress o) {
         super(k + linkData.getX() - 12, l + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), CommonComponents.EMPTY, o, DEFAULT_NARRATION);
         this.data = linkData;
         this.bookGUI = bookGUI;

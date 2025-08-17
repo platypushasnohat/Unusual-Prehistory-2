@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class PaleopediaGui extends GuiBasicBook {
+public class PaleopediaGui extends BasicBookGui {
 
     public PaleopediaGui(ItemStack book) {
         super(book, Component.translatable("item.unusual_prehistory.paleopedia"));
