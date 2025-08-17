@@ -1,7 +1,7 @@
 {
-  "parent": "cenozoic.json",
-  "text": "cenozoic/megalania.txt",
-  "title": "Megalania",
+  "parent": "mesozoic.json",
+  "text": "entries/mesozoic/kentrosaurus.txt",
+  "title": "entity.unusual_prehistory.kentrosaurus",
   "linked_page_buttons": [
   ],
   "images": [
@@ -9,8 +9,6 @@
   "item_renders": [
   ],
   "recipes": [
-  ],
-  "tabula_renders": [
   ],
   "entity_renders": [
   ],

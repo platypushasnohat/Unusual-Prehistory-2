@@ -52,7 +52,11 @@ public class LinkButton extends Button {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, book.getBookButtonsTexture());
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
+
         int i = this.getTextureY();
+        int textLength = Math.max(font.width(this.getMessage()), 1);
+        float textScale = Math.min(112F / (float) textLength, 1F);
+
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
@@ -68,10 +72,14 @@ public class LinkButton extends Button {
         int j = getFGColor();
         int itemTextOffset = previewStack.isEmpty() ? 0 : 8;
         if (!previewStack.isEmpty()) {
-            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             guiGraphics.renderItem(previewStack, this.getX() + 2, this.getY() + 2);
         }
-        drawTextOf(guiGraphics, font, this.getMessage(), this.getX() + itemTextOffset + this.width / 2, this.getY() + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
+
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(this.getX() + itemTextOffset + this.width / 2F, this.getY() + (this.height - 8) / 2F, 0);
+        guiGraphics.pose().scale(textScale, textScale, 1F);
+        drawTextOf(guiGraphics, font, this.getMessage(), 0, 0, j | Mth.ceil(this.alpha * 255.0F) << 24);
+        guiGraphics.pose().popPose();
     }
 
     public static void drawTextOf(GuiGraphics guiGraphics, Font font, Component component, int x, int y, int color) {

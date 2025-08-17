@@ -17,7 +17,7 @@ public class PaleopediaGui extends BasicBookGui {
     }
 
     @Override
-    protected int getBindingColor() {
+    protected int getWidgetColor() {
         return 0x714420;
     }
 

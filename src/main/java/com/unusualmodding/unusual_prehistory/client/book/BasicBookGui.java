@@ -46,9 +46,9 @@ import java.util.*;
 
 public abstract class BasicBookGui extends Screen {
 
-    private static final ResourceLocation BOOK_PAGE_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/book_pages.png");
-    private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/widgets.png");
-    private static final ResourceLocation BOOK_BUTTONS_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/book/link_buttons.png");
+    private static final ResourceLocation BOOK_PAGE_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/paleopedia/paleopedia_pages.png");
+    private static final ResourceLocation BOOK_WIDGET_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/paleopedia/widgets.png");
+    private static final ResourceLocation BOOK_BUTTONS_TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/paleopedia/link_buttons.png");
 
     private static final RenderType SEPIA_ITEM_RENDER_TYPE = UP2RenderTypes.getBookWidget(TextureAtlas.LOCATION_BLOCKS, true);
 
@@ -88,34 +88,11 @@ public abstract class BasicBookGui extends Screen {
         this.currentPageJSON = getRootPage();
     }
 
-    public void drawEntityOnScreen(GuiGraphics guiGraphics, MultiBufferSource bufferSource, int posX, int posY, float zOff, float scale, boolean follow, double xRot, double yRot, double zRot, float mouseX, float mouseY, Entity entity) {
-        float customYaw = posX - mouseX;
-        float customPitch = posY - mouseY;
-        float f = (float) Math.atan(customYaw / 40.0F);
-        float f1 = (float) Math.atan(customPitch / 40.0F);
-
-        if (follow) {
-            float setX = f1 * 20.0F;
-            float setY = f * 20.0F;
-            entity.setXRot(setX);
-            entity.setYRot(setY);
-            if (entity instanceof LivingEntity) {
-                ((LivingEntity) entity).yBodyRot = setY;
-                ((LivingEntity) entity).yBodyRotO = setY;
-                ((LivingEntity) entity).yHeadRot = setY;
-                ((LivingEntity) entity).yHeadRotO = setY;
-            }
-        } else {
-            f = 0;
-            f1 = 0;
-        }
-
+    public void drawEntityOnScreen(GuiGraphics guiGraphics, MultiBufferSource bufferSource, int posX, int posY, float zOff, float scale, double xRot, double yRot, double zRot, float mouseX, float mouseY, Entity entity) {
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(posX, posY, zOff);
         guiGraphics.pose().mulPoseMatrix((new Matrix4f()).scaling(scale, scale, -scale));
         Quaternionf quaternion = Axis.ZP.rotationDegrees(180F);
-        Quaternionf quaternion1 = Axis.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.mul(quaternion1);
         quaternion.mul(Axis.XN.rotationDegrees((float) xRot));
         quaternion.mul(Axis.YP.rotationDegrees((float) yRot));
         quaternion.mul(Axis.ZP.rotationDegrees((float) zRot));
@@ -125,8 +102,6 @@ public abstract class BasicBookGui extends Screen {
         Vector3f light1 = new Vector3f(-1, 1.0F, 1.0F).normalize();
         RenderSystem.setShaderLights(light0, light1);
         EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        quaternion1.conjugate();
-        entityrenderdispatcher.overrideCameraOrientation(quaternion1);
         entityrenderdispatcher.setRenderShadow(false);
         RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.pose(), bufferSource, 240));
         entityrenderdispatcher.setRenderShadow(true);
@@ -354,13 +329,12 @@ public abstract class BasicBookGui extends Screen {
         for (EntityRenderData data : entityRenders) {
             if (data.getPage() == this.currentPageCounter) {
                 Entity model = null;
-                EntityType type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(data.getEntity()));
+                EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(data.getEntity()));
                 if (type != null) {
                     model = renderedEntites.putIfAbsent(data.getEntity(), type.create(Minecraft.getInstance().level));
                 }
                 if (model != null) {
                     float scale = (float) data.getScale();
-                    model.tickCount = Minecraft.getInstance().player.tickCount;
                     if (data.getEntityData() != null) {
                         try {
                             CompoundTag tag = TagParser.parseTag(data.getEntityData());
@@ -369,7 +343,7 @@ public abstract class BasicBookGui extends Screen {
                             e.printStackTrace();
                         }
                     }
-                    drawEntityOnScreen(guiGraphics, guiGraphics.bufferSource(), k + data.getX(), l + data.getY(), 1050F, 30 * scale, data.isFollow_cursor(), data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, model);
+                    drawEntityOnScreen(guiGraphics, guiGraphics.bufferSource(), k + data.getX(), l + data.getY(), 1050F, 30 * scale, data.getRot_x(), data.getRot_y(), data.getRot_z(), mouseX, mouseY, model);
                 }
             }
         }
@@ -490,10 +464,8 @@ public abstract class BasicBookGui extends Screen {
     protected void playBookClosingSound() {
     }
 
-    protected abstract int getBindingColor();
-
     protected int getWidgetColor() {
-        return getBindingColor();
+        return 0x000000;
     }
 
     protected int getTextColor() {

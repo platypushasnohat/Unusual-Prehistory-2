@@ -1,0 +1,17 @@
+{
+  "parent": "cenozoic.json",
+  "text": "entries/cenozoic/telecrex.txt",
+  "title": "entity.unusual_prehistory.telecrex",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

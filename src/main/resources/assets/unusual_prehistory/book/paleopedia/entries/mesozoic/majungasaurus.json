@@ -1,0 +1,17 @@
+{
+  "parent": "mesozoic.json",
+  "text": "entries/mesozoic/majungasaurus.txt",
+  "title": "entity.unusual_prehistory.majungasaurus",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

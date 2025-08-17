@@ -10,10 +10,9 @@ public class EntityRenderData {
     private double rot_x;
     private double rot_y;
     private double rot_z;
-    private boolean follow_cursor;
     private final String entity_data;
 
-    public EntityRenderData(String entity, int x, int y, double scale, int page, double rot_x, double rot_y, double rot_z, boolean follow_cursor, String entity_data) {
+    public EntityRenderData(String entity, int x, int y, double scale, int page, double rot_x, double rot_y, double rot_z, String entity_data) {
         this.entity = entity;
         this.x = x;
         this.y = y;
@@ -22,7 +21,6 @@ public class EntityRenderData {
         this.rot_x = rot_x;
         this.rot_y = rot_y;
         this.rot_z = rot_z;
-        this.follow_cursor = follow_cursor;
         this.entity_data = entity_data;
     }
 
@@ -88,14 +86,6 @@ public class EntityRenderData {
 
     public void setRot_z(double rot_z) {
         this.rot_z = rot_z;
-    }
-
-    public boolean isFollow_cursor() {
-        return follow_cursor;
-    }
-
-    public void setFollow_cursor(boolean follow_cursor) {
-        this.follow_cursor = follow_cursor;
     }
 
     public String getEntityData() {
