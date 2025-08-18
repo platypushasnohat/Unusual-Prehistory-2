@@ -1,0 +1,161 @@
+{
+  "parent": "root.json",
+  "text": "paleobotany.txt",
+  "title": "Paleobotany",
+  "linked_page_buttons": [
+    {
+      "linked_page": "entries/paleobotany/anostylostroma.json",
+      "text": "Anostylostroma",
+      "x": 290,
+      "y": 20,
+      "page": 0,
+      "item": "unusual_prehistory:anostylostroma"
+    },
+    {
+      "linked_page": "entries/paleobotany/archaefructus.json",
+      "text": "Archaefructus",
+      "x": 290,
+      "y": 42,
+      "page": 0,
+      "item": "unusual_prehistory:archaefructus"
+    },
+    {
+      "linked_page": "entries/paleobotany/archaeosigillaria.json",
+      "text": "Archaeosigillaria",
+      "x": 290,
+      "y": 64,
+      "page": 0,
+      "item": "unusual_prehistory:archaeosigillaria"
+    },
+    {
+      "linked_page": "entries/paleobotany/bennettitales.json",
+      "text": "Bennettitales",
+      "x": 290,
+      "y": 86,
+      "page": 0,
+      "item": "unusual_prehistory:bennettitales"
+    },
+    {
+      "linked_page": "entries/paleobotany/calamophyton.json",
+      "text": "Calamophyton",
+      "x": 290,
+      "y": 108,
+      "page": 0,
+      "item": "unusual_prehistory:calamophyton"
+    },
+    {
+      "linked_page": "entries/paleobotany/cladophlebis.json",
+      "text": "Cladophlebis",
+      "x": 290,
+      "y": 130,
+      "page": 0,
+      "item": "unusual_prehistory:cladophlebis"
+    },
+    {
+      "linked_page": "entries/paleobotany/clathrodictyon.json",
+      "text": "Clathrodictyon Coral",
+      "x": 290,
+      "y": 152,
+      "page": 0,
+      "item": "unusual_prehistory:clathrodictyon_coral"
+    },
+    {
+      "linked_page": "entries/paleobotany/cooksonia.json",
+      "text": "Cooksonia",
+      "x": 90,
+      "y": 22,
+      "page": 1,
+      "item": "unusual_prehistory:cooksonia"
+    },
+    {
+      "linked_page": "entries/paleobotany/ginkgo.json",
+      "text": "Ginkgo",
+      "x": 90,
+      "y": 42,
+      "page": 1,
+      "item": "unusual_prehistory:ginkgo_sapling"
+    },
+    {
+      "linked_page": "entries/paleobotany/horsetail.json",
+      "text": "Horsetail",
+      "x": 90,
+      "y": 64,
+      "page": 1,
+      "item": "unusual_prehistory:horsetail"
+    },
+    {
+      "linked_page": "entries/paleobotany/isoetes.json",
+      "text": "Isoetes",
+      "x": 90,
+      "y": 86,
+      "page": 1,
+      "item": "unusual_prehistory:isoetes"
+    },
+    {
+      "linked_page": "entries/paleobotany/leefructus.json",
+      "text": "Leefructus",
+      "x": 90,
+      "y": 108,
+      "page": 1,
+      "item": "unusual_prehistory:leefructus"
+    },
+    {
+      "linked_page": "entries/paleobotany/lepidodendron.json",
+      "text": "Lepidodendron",
+      "x": 90,
+      "y": 130,
+      "page": 1,
+      "item": "unusual_prehistory:lepidodendron_cone"
+    },
+    {
+      "linked_page": "entries/paleobotany/nelumbites.json",
+      "text": "Nelumbites",
+      "x": 90,
+      "y": 152,
+      "page": 1,
+      "item": "unusual_prehistory:nelumbites"
+    },
+    {
+      "linked_page": "entries/paleobotany/quereuxia.json",
+      "text": "Quereuxia",
+      "x": 290,
+      "y": 22,
+      "page": 1,
+      "item": "unusual_prehistory:quereuxia"
+    },
+    {
+      "linked_page": "entries/paleobotany/raiguenrayun.json",
+      "text": "Raiguenrayun",
+      "x": 290,
+      "y": 42,
+      "page": 1,
+      "item": "unusual_prehistory:raiguenrayun"
+    },
+    {
+      "linked_page": "entries/paleobotany/rhynia.json",
+      "text": "Rhynia",
+      "x": 290,
+      "y": 64,
+      "page": 1,
+      "item": "unusual_prehistory:rhynia"
+    },
+    {
+      "linked_page": "entries/paleobotany/sarracenia.json",
+      "text": "Sarracenia",
+      "x": 290,
+      "y": 86,
+      "page": 1,
+      "item": "unusual_prehistory:sarracenia"
+    }
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

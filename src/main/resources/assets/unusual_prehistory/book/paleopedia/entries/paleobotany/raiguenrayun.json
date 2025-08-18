@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "raiguenrayun.txt",
+  "title": "block.unusual_prehistory.raiguenrayun",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

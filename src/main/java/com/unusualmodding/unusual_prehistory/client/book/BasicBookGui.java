@@ -146,8 +146,10 @@ public abstract class BasicBookGui extends Screen {
         int l = (this.height - this.ySize + 128) / 2;
 
         for (LinkData linkData : links) {
+            int textLength = Math.max(font.width(linkData.getTitleText()), 1);
+            float buttonScale = Math.min(144F / (float) textLength, 1F);
             if (linkData.getPage() == this.currentPageCounter) {
-                int maxLength = Math.max(100, Minecraft.getInstance().font.width(linkData.getTitleText()) + 20);
+                int maxLength = (int) Math.max(100, buttonScale < 1F ? Minecraft.getInstance().font.width(linkData.getTitleText()) * buttonScale : Minecraft.getInstance().font.width(linkData.getTitleText()) + 20);
                 yIndexesToSkip.add(new Whitespace(linkData.getPage(), linkData.getX() - maxLength / 2, linkData.getY(), 100, 20));
                 this.addRenderableWidget(new LinkButton(this, k + linkData.getX() - maxLength / 2, l + linkData.getY(), maxLength, 20, Component.translatable(linkData.getTitleText()), linkData.getDisplayItem(), (p_213021_1_) -> {
                     prevPageJSON = this.currentPageJSON;

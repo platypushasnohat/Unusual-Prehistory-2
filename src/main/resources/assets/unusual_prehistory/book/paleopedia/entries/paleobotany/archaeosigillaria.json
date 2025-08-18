@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "archaeosigillaria.txt",
+  "title": "block.unusual_prehistory.archaeosigillaria",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

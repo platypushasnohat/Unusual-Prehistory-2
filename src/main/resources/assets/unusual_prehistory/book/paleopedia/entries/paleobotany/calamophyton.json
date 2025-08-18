@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "calamophyton.txt",
+  "title": "block.unusual_prehistory.calamophyton",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

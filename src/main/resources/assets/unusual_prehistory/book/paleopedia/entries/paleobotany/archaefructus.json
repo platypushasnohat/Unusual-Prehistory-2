@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "archaefructus.txt",
+  "title": "block.unusual_prehistory.archaefructus",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

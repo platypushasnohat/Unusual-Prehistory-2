@@ -1,0 +1,17 @@
+{
+  "parent": "paleozoic.json",
+  "text": "entries/paleozoic/stethacanthus.txt",
+  "title": "entity.unusual_prehistory.stethacanthus",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "parent": "paleozoic.json",
+  "text": "entries/paleozoic/jawless_fish.txt",
+  "title": "entity.unusual_prehistory.jawless_fish",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

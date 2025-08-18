@@ -1,0 +1,17 @@
+{
+  "parent": "holocene.json",
+  "text": "entries/mesozoic/talpanas.txt",
+  "title": "entity.unusual_prehistory.talpanas",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "ginkgo.txt",
+  "title": "Ginkgo",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}

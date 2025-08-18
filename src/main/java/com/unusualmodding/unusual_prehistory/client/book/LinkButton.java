@@ -6,7 +6,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
@@ -20,13 +19,13 @@ public class LinkButton extends Button {
     public ItemStack previewStack;
     public BasicBookGui book;
 
-    public LinkButton(BasicBookGui book, int x, int y, int width, int height, Component component, ItemStack previewStack, net.minecraft.client.gui.components.Button.OnPress onPress) {
+    public LinkButton(BasicBookGui book, int x, int y, int width, int height, Component component, ItemStack previewStack, Button.OnPress onPress) {
         super(x, y, width + (previewStack.isEmpty() ? 0 : 6), height, component, onPress, Button.DEFAULT_NARRATION);
         this.previewStack = previewStack;
         this.book = book;
     }
 
-    public LinkButton(BasicBookGui book, int x, int y, int width, int height, Component component, net.minecraft.client.gui.components.Button.OnPress onPress) {
+    public LinkButton(BasicBookGui book, int x, int y, int width, int height, Component component, Button.OnPress onPress) {
         this(book, x, y, width, height, component, ItemStack.EMPTY, onPress);
     }
 

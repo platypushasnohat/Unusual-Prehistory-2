@@ -5,12 +5,28 @@
   "title_locale": "item.unusual_prehistory.paleopedia",
   "linked_page_buttons": [
     {
-      "linked_page": "eras.json",
-      "text": "Eras of Time",
+      "linked_page": "revival.json",
+      "text": "Basics of Revival",
       "x": 290,
       "y": 20,
       "page": 0,
+      "item" : "unusual_prehistory:organic_ooze"
+    },
+    {
+      "linked_page": "eras.json",
+      "text": "Eras of Time",
+      "x": 290,
+      "y": 42,
+      "page": 0,
       "item" : "minecraft:clock"
+    },
+    {
+      "linked_page": "paleobotany.json",
+      "text": "Paleobotany",
+      "x": 290,
+      "y": 64,
+      "page": 0,
+      "item" : "unusual_prehistory:plant_fossil"
     }
   ],
   "images": [

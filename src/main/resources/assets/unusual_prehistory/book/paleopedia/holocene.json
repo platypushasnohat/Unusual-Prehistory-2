@@ -3,6 +3,14 @@
   "text": "holocene.txt",
   "title": "Holocene",
   "linked_page_buttons": [
+    {
+      "linked_page": "entries/holocene/talpanas.json",
+      "text": "Talpanas",
+      "x": 290,
+      "y": 20,
+      "page": 0,
+      "item": "unusual_prehistory:talpanas_egg"
+    }
   ],
   "images": [
   ],

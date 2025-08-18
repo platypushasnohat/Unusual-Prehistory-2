@@ -1,0 +1,17 @@
+{
+  "parent": "paleobotany.json",
+  "text": "bennettitales.txt",
+  "title": "block.unusual_prehistory.bennettitales",
+  "linked_page_buttons": [
+  ],
+  "images": [
+  ],
+  "item_renders": [
+  ],
+  "recipes": [
+  ],
+  "entity_renders": [
+  ],
+  "entity_buttons": [
+  ]
+}
