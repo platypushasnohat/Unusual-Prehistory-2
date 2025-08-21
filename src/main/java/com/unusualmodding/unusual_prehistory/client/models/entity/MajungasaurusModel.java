@@ -199,13 +199,11 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 			poseStack.pushPose();
 			poseStack.scale(babyScale, babyScale, babyScale);
 			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-			this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
-			poseStack.popPose();
-		} else {
+        } else {
 			poseStack.pushPose();
-			this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
-			poseStack.popPose();
-		}
+        }
+        this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
+        poseStack.popPose();
     }
 
 	@Override
