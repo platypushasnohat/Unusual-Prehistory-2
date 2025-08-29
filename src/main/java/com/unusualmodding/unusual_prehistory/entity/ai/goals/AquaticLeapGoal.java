@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.ai.goal;
+package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.base.AncientAquaticEntity;
 import net.minecraft.core.BlockPos;

@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.ai.goal;
+package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;

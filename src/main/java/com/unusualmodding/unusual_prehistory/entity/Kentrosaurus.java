@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehaviors;
@@ -24,22 +25,18 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumSet;
 import java.util.Objects;
 
 public class Kentrosaurus extends PrehistoricMob {
@@ -428,245 +425,5 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 150;
-    }
-
-    // goals
-    private static class KentrosaurusAttackGoal extends Goal {
-
-        private int attackTime = 0;
-        private Kentrosaurus kentrosaurus;
-
-        public KentrosaurusAttackGoal(Kentrosaurus kentrosaurus) {
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-            this.kentrosaurus = kentrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return !this.kentrosaurus.isBaby() && this.kentrosaurus.getTarget() != null && this.kentrosaurus.getTarget().isAlive();
-        }
-
-        @Override
-        public void start() {
-            this.kentrosaurus.setAttackState(0);
-            this.attackTime = 0;
-        }
-
-        @Override
-        public void stop() {
-            this.kentrosaurus.setAttackState(0);
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity target = this.kentrosaurus.getTarget();
-            if (target != null) {
-                this.kentrosaurus.lookAt(this.kentrosaurus.getTarget(), 30F, 30F);
-                this.kentrosaurus.getLookControl().setLookAt(this.kentrosaurus.getTarget(), 30F, 30F);
-
-                double distance = this.kentrosaurus.distanceToSqr(target.getX(), target.getY(), target.getZ());
-                int attackState = this.kentrosaurus.getAttackState();
-
-                if (attackState == 1 || attackState == 2) {
-                    tickAttack();
-                } else {
-                    this.kentrosaurus.getNavigation().moveTo(target, 1.75D);
-                    if (distance <= 13) {
-                        if (this.kentrosaurus.random.nextBoolean()) {
-                            this.kentrosaurus.setAttackState(1);
-                        } else {
-                            this.kentrosaurus.setAttackState(2);
-                        }
-                    }
-                }
-            }
-        }
-
-        @Override
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        protected void tickAttack() {
-            this.attackTime++;
-            LivingEntity target = this.kentrosaurus.getTarget();
-
-            if (this.attackTime == 10) {
-                this.kentrosaurus.addDeltaMovement(this.kentrosaurus.getLookAngle().scale(2.0D).multiply(0.15D, 0, 0.15D));
-            }
-
-            if (this.attackTime == 20) {
-                if (this.kentrosaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
-                    this.kentrosaurus.swing(InteractionHand.MAIN_HAND);
-                    this.kentrosaurus.doHurtTarget(target);
-                }
-            }
-            if (this.attackTime >= 40) {
-                this.attackTime = 0;
-                this.kentrosaurus.setAttackState(0);
-            }
-        }
-
-        protected double getAttackReach(LivingEntity target) {
-            return this.kentrosaurus.getBbWidth() * 1.5F * this.kentrosaurus.getBbWidth() * 1.0F + target.getBbWidth();
-        }
-    }
-
-    private static class KentrosaurusPanicGoal extends Goal {
-
-        protected final Kentrosaurus kentrosaurus;
-
-        protected double posX;
-        protected double posY;
-        protected double posZ;
-
-        public KentrosaurusPanicGoal(Kentrosaurus kentrosaurus) {
-            this.kentrosaurus = kentrosaurus;
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            if (!this.shouldPanic()) {
-                return false;
-            } else {
-                return this.findRandomPosition();
-            }
-        }
-
-        protected boolean shouldPanic() {
-            return this.kentrosaurus.getLastHurtByMob() != null && (this.kentrosaurus.getHealth() <= this.kentrosaurus.getMaxHealth() * 0.25F || this.kentrosaurus.isBaby());
-        }
-
-        protected boolean findRandomPosition() {
-            Vec3 vec3 = LandRandomPos.getPos(this.kentrosaurus, 16, 8);
-            if (vec3 == null) {
-                return false;
-            } else {
-                this.posX = vec3.x;
-                this.posY = vec3.y;
-                this.posZ = vec3.z;
-                return true;
-            }
-        }
-
-        public void start() {
-            this.kentrosaurus.getNavigation().moveTo(this.posX, this.posY, this.posZ, 1.75D);
-        }
-
-        public boolean canContinueToUse() {
-            return !this.kentrosaurus.getNavigation().isDone();
-        }
-    }
-
-    private static class KentrosaurusLayDownGoal extends Goal {
-
-        protected final Kentrosaurus kentrosaurus;
-        private final int minimalPoseTicks;
-
-        public KentrosaurusLayDownGoal(Kentrosaurus kentrosaurus) {
-            this.kentrosaurus = kentrosaurus;
-            this.minimalPoseTicks = 20 * 20 + kentrosaurus.getRandom().nextInt(20 * 20);
-        }
-
-        @Override
-        public boolean canUse() {
-            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName());
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return !this.kentrosaurus.isInWater() && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround();
-        }
-
-        @Override
-        public void start() {
-            if (this.kentrosaurus.isKentrosaurusLayingDown()) {
-                this.kentrosaurus.layDownCooldown();
-                this.kentrosaurus.standUp();
-            } else {
-                this.kentrosaurus.standUpCooldown();
-                this.kentrosaurus.layDown();
-            }
-        }
-    }
-
-    private static class KentrosaurusGrazeGoal extends Goal {
-
-        protected final Kentrosaurus kentrosaurus;
-        protected final KentrosaurusBehaviors behavior;
-
-        public KentrosaurusGrazeGoal(Kentrosaurus kentrosaurus) {
-            this.kentrosaurus = kentrosaurus;
-            this.behavior = KentrosaurusBehaviors.GRAZE;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.kentrosaurus.getGrazingCooldown() == 0 && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.kentrosaurus.getGrazingTimer() > 0 && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown() && this.kentrosaurus.level().getBlockState(this.kentrosaurus.blockPosition().below()).is(Blocks.GRASS_BLOCK);
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.kentrosaurus.setPose(UP2Poses.GRAZING.get());
-            this.kentrosaurus.setGrazingTimer(behavior.getLength());
-            this.kentrosaurus.setBehavior(behavior.getName());
-            this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
-        }
-    }
-
-    private static class KentrosaurusShakeGoal extends Goal {
-
-        protected final Kentrosaurus kentrosaurus;
-        protected final KentrosaurusBehaviors behavior;
-
-        public KentrosaurusShakeGoal(Kentrosaurus kentrosaurus) {
-            this.kentrosaurus = kentrosaurus;
-            this.behavior = KentrosaurusBehaviors.SHAKE;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.kentrosaurus.getShakeCooldown() == 0 && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.kentrosaurus.getShakeTimer() > 0 && !this.kentrosaurus.isInWater() && this.kentrosaurus.onGround() && !this.kentrosaurus.isKentrosaurusLayingDown();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.kentrosaurus.setPose(UP2Poses.SHAKING.get());
-            this.kentrosaurus.setShakeTimer(behavior.getLength());
-            this.kentrosaurus.setBehavior(behavior.getName());
-            this.kentrosaurus.playSound(behavior.getSound(), 1.0F, this.kentrosaurus.getVoicePitch());
-        }
-    }
-
-    private static class KentrosaurusMoveControl extends PrehistoricMobMoveControl {
-
-        protected final Kentrosaurus kentrosaurus;
-
-        public KentrosaurusMoveControl(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus);
-            this.kentrosaurus = kentrosaurus;
-        }
-
-        @Override
-        public void tick() {
-            if (!this.kentrosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.kentrosaurus.isLeashed() && this.kentrosaurus.isKentrosaurusLayingDown() && !this.kentrosaurus.isInPoseTransition()) {
-                    this.kentrosaurus.standUp();
-                }
-                super.tick();
-            }
-        }
     }
 }

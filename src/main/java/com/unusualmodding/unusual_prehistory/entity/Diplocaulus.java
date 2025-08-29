@@ -1,6 +1,6 @@
  package com.unusualmodding.unusual_prehistory.entity;
 
- import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
+ import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.base.AncientEntity;
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
  import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;

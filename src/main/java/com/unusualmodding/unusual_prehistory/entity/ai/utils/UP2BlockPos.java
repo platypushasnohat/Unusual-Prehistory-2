@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.ai.navigation;
+package com.unusualmodding.unusual_prehistory.entity.ai.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;

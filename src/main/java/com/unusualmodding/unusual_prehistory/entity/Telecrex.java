@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.google.common.base.Predicate;
-import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DirectPathNavigator;
 import com.unusualmodding.unusual_prehistory.entity.base.FlyingPrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;

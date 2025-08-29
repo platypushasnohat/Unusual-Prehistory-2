@@ -13,7 +13,7 @@ public class FrozenMeatItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        entity.setTicksFrozen(entity.getTicksFrozen() + 120);
+        entity.setTicksFrozen(Math.min(entity.getTicksRequiredToFreeze() * 4, entity.getTicksFrozen() + 120));
         return super.finishUsingItem(stack, level, entity);
     }
 }

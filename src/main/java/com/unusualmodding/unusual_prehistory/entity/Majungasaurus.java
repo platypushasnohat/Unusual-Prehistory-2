@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goal.AttackGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;

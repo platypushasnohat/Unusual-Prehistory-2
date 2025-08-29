@@ -185,7 +185,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     }
 
     private void leaves(RegistryObject<Block> leaves) {
-        this.simpleBlock(leaves.get(), this.models().withExistingParent(getItemName(leaves.get()), "block/leaves").texture("all", this.blockTexture(leaves.get())));
+        this.simpleBlock(leaves.get(), this.models().withExistingParent(getItemName(leaves.get()), "block/leaves").texture("all", this.blockTexture(leaves.get())).renderType("cutout"));
         this.itemModel(leaves);
     }
 

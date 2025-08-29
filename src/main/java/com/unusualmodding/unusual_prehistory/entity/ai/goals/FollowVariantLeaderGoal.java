@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.entity.ai.goal;
+package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;

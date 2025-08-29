@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.google.common.collect.Lists;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.entity.ai.goal.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
