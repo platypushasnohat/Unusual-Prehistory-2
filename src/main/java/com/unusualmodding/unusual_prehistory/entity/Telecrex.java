@@ -83,7 +83,7 @@ public class Telecrex extends FlyingPrehistoricMob {
                 return super.canUse() && !Telecrex.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(2, new TelecrexFlightGoal(this));
+        this.goalSelector.addGoal(2, new RandomFlightGoal(this, 0.75F, 31, 4, 500, 150));
         this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));

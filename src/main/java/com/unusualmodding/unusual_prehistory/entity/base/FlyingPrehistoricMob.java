@@ -157,7 +157,7 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
 
         this.setupAnimationCooldowns();
 
-        tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
+        this.tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
     }
 
     public void tickFlight() {
