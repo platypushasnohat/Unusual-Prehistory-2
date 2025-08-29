@@ -11,14 +11,14 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class KimmeridgebrachypteraeschnidiumFlyGoal extends Goal {
+public class KimmeridgebrachypteraeschnidiumFlightGoal extends Goal {
 
     private Kimmeridgebrachypteraeschnidium dragonfly;
     private double x;
     private double y;
     private double z;
 
-    public KimmeridgebrachypteraeschnidiumFlyGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
+    public KimmeridgebrachypteraeschnidiumFlightGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         this.dragonfly = dragonfly;
     }

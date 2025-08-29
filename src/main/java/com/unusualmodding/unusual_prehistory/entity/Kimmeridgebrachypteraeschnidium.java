@@ -74,7 +74,7 @@ public class Kimmeridgebrachypteraeschnidium extends FlyingPrehistoricMob implem
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumFlyGoal(this));
+        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumFlightGoal(this));
         this.goalSelector.addGoal(3, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
         this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
