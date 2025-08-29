@@ -37,7 +37,7 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     protected float prevFlyProgress;
     protected float groundProgress = 5.0F;
     protected float prevGroundProgress = 5.0F;
-    protected int timeFlying = 0;
+    public int timeFlying = 0;
     protected float flightPitch = 0;
     protected float prevFlightPitch = 0;
     protected float flightRoll = 0;
@@ -48,6 +48,8 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
 
     private int healCooldown = 600;
     public int idleAnimationTimeout = 0;
+
+    public boolean useLowerFluidJumpThreshold = false;
 
     protected FlyingPrehistoricMob(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -87,13 +89,36 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     }
 
     @Override
+    public double getFluidJumpThreshold() {
+        if (useLowerFluidJumpThreshold) {
+            return super.getFluidJumpThreshold();
+        }
+        return 0.6 * getBbHeight();
+    }
+
+    private void setUseLowerFluidJumpThreshold(boolean jumpThreshold) {
+        this.useLowerFluidJumpThreshold = jumpThreshold;
+    }
+
+    @Override
     public void aiStep() {
         super.aiStep();
+        if (isInWater() && horizontalCollision) {
+            setUseLowerFluidJumpThreshold(true);
+        }
         if (this.isFlying()) {
             this.setPose(Pose.FALL_FLYING);
         } else {
             this.setPose(Pose.STANDING);
         }
+    }
+
+    @Override
+    public void travel(Vec3 travelVector) {
+        if (this.isInWaterOrBubble() && !this.isFlying()) {
+            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
+        }
+        super.travel(travelVector);
     }
 
     @Override
@@ -129,6 +154,8 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
         if (this.level().isClientSide()){
             this.setupAnimationStates();
         }
+
+        this.setupAnimationCooldowns();
 
         tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
     }
@@ -180,6 +207,9 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
                 this.setFlying(false);
             }
         }
+    }
+
+    public void setupAnimationCooldowns() {
     }
 
     public void setupAnimationStates() {

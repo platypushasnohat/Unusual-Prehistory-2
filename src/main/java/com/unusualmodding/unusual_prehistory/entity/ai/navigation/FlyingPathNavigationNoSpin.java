@@ -8,14 +8,10 @@ import net.minecraft.world.phys.Vec3;
 
 public class FlyingPathNavigationNoSpin extends FlyingPathNavigation {
 
-    private float distancemodifier = 0.75F;
+    private float distancemodifier;
 
-    public FlyingPathNavigationNoSpin(Mob entitylivingIn, Level worldIn) {
-        super(entitylivingIn, worldIn);
-    }
-
-    public FlyingPathNavigationNoSpin(Mob entitylivingIn, Level worldIn, float distancemodifier) {
-        super(entitylivingIn, worldIn);
+    public FlyingPathNavigationNoSpin(Mob mob, Level level, float distancemodifier) {
+        super(mob, level);
         this.distancemodifier = distancemodifier;
     }
 

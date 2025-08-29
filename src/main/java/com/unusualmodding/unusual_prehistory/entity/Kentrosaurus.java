@@ -3,8 +3,6 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
-import com.unusualmodding.unusual_prehistory.entity.enums.KentrosaurusBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -42,12 +40,10 @@ import java.util.Objects;
 public class Kentrosaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Integer> LAY_DOWN_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2F, 1.75F);
     public static final EntityDataAccessor<Integer> GRAZING_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> GRAZING_TIMER = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> SHAKE_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> SHAKE_TIMER = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2F, 1.75F);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
@@ -140,41 +136,24 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void tick () {
-        if (this.getLayDownCooldown() > 0) {
-            this.setLayDownCooldown(this.getLayDownCooldown() - 1);
-        }
+    public void tick() {
+        super.tick();
         if (this.isKentrosaurusLayingDown() && this.isInWater()) {
             this.standUpInstantly();
         }
+    }
 
+    @Override
+    public void setupAnimationCooldowns() {
+        if (this.getLayDownCooldown() > 0) {
+            this.setLayDownCooldown(this.getLayDownCooldown() - 1);
+        }
         if (this.getGrazingCooldown() > 0) {
-            if (this.getBehavior().equals(KentrosaurusBehaviors.GRAZE.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
             this.setGrazingCooldown(this.getGrazingCooldown() - 1);
         }
-        if (this.getGrazingTimer() > 0) {
-            this.setGrazingTimer(this.getGrazingTimer() - 1);
-            if (this.getGrazingTimer() == 0) {
-                this.setPose(Pose.STANDING);
-                this.setBehavior(BaseBehaviors.IDLE.getName());
-                this.grazingCooldown();
-            }
-        }
-
         if (this.getShakeCooldown() > 0) {
-            if (this.getBehavior().equals(KentrosaurusBehaviors.SHAKE.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
             this.setShakeCooldown(this.getShakeCooldown() - 1);
         }
-        if (this.getShakeTimer() > 0) {
-            this.setShakeTimer(this.getShakeTimer() - 1);
-            if (this.getShakeTimer() == 0) {
-                this.setPose(Pose.STANDING);
-                this.setBehavior(BaseBehaviors.IDLE.getName());
-                this.shakeCooldown();
-            }
-        }
-
-        super.tick();
     }
 
     @Override
@@ -268,11 +247,9 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(LAY_DOWN_COOLDOWN, 12 * 20 + random.nextInt(30 * 20));
-        this.entityData.define(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
-        this.entityData.define(GRAZING_TIMER, 0);
-        this.entityData.define(SHAKE_COOLDOWN, 70 * 2 * 20 + random.nextInt(70 * 8 * 20));
-        this.entityData.define(SHAKE_TIMER, 0);
+        this.entityData.define(LAY_DOWN_COOLDOWN, 12 * 20 + getRandom().nextInt(30 * 20));
+        this.entityData.define(GRAZING_COOLDOWN, 30 * 2 * 20 + getRandom().nextInt(30 * 8 * 20));
+        this.entityData.define(SHAKE_COOLDOWN, 70 * 2 * 20 + getRandom().nextInt(70 * 8 * 20));
         this.entityData.define(ATTACK_STATE, 0);
     }
 
@@ -281,9 +258,7 @@ public class Kentrosaurus extends PrehistoricMob {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("LayDownCooldown", this.getLayDownCooldown());
         compoundTag.putInt("GrazingCooldown", this.getGrazingCooldown());
-        compoundTag.putInt("GrazingTimer", this.getGrazingTimer());
         compoundTag.putInt("ShakeCooldown", this.getShakeCooldown());
-        compoundTag.putInt("ShakeTimer", this.getShakeTimer());
         compoundTag.putInt("AttackState", this.getAttackState());
     }
 
@@ -292,9 +267,7 @@ public class Kentrosaurus extends PrehistoricMob {
         super.readAdditionalSaveData(compoundTag);
         this.setLayDownCooldown(compoundTag.getInt("LayDownCooldown"));
         this.setGrazingCooldown(compoundTag.getInt("GrazingCooldown"));
-        this.setGrazingTimer(compoundTag.getInt("GrazingTimer"));
         this.setShakeCooldown(compoundTag.getInt("ShakeCooldown"));
-        this.setShakeTimer(compoundTag.getInt("ShakeTimer"));
         this.setAttackState(compoundTag.getInt("AttackState"));
     }
 
@@ -312,38 +285,19 @@ public class Kentrosaurus extends PrehistoricMob {
         this.entityData.set(LAY_DOWN_COOLDOWN, 50 * 20 + random.nextInt(50 * 2 * 20));
     }
 
-    public int getGrazingTimer() {
-        return this.entityData.get(GRAZING_TIMER);
-    }
-    public void setGrazingTimer(int timer) {
-        this.entityData.set(GRAZING_TIMER, timer);
-    }
-
     public int getGrazingCooldown() {
         return this.entityData.get(GRAZING_COOLDOWN);
     }
     public void setGrazingCooldown(int cooldown) {
         this.entityData.set(GRAZING_COOLDOWN, cooldown);
     }
-    public void grazingCooldown() {
-        this.entityData.set(GRAZING_COOLDOWN, 30 * 2 * 20 + random.nextInt(30 * 8 * 20));
-    }
-
-    public int getShakeTimer() {
-        return this.entityData.get(SHAKE_TIMER);
-    }
-    public void setShakeTimer(int timer) {
-        this.entityData.set(SHAKE_TIMER, timer);
-    }
 
     public int getShakeCooldown() {
         return this.entityData.get(SHAKE_COOLDOWN);
     }
+
     public void setShakeCooldown(int cooldown) {
         this.entityData.set(SHAKE_COOLDOWN, cooldown);
-    }
-    public void shakeCooldown() {
-        this.entityData.set(SHAKE_COOLDOWN, 70 * 2 * 20 + random.nextInt(70 * 8 * 20));
     }
 
     public int getAttackState() {

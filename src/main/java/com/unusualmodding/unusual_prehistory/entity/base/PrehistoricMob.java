@@ -77,9 +77,14 @@ public abstract class PrehistoricMob extends Animal {
             this.setupAnimationStates();
         }
 
+        this.setupAnimationCooldowns();
+
         if (this.tickCount % healCooldown == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
+    }
+
+    public void setupAnimationCooldowns() {
     }
 
     public void setupAnimationStates() {

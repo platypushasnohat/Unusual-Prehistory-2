@@ -23,7 +23,6 @@ public class AnimationGoal extends Goal {
     @Override
     public void start() {
         this.timer = animationTime;
-        this.mob.getNavigation().stop();
     }
 
     @Override
