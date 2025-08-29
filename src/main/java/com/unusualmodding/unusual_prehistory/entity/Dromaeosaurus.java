@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DromaeosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -24,14 +24,10 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.LookControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,12 +37,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumSet;
-import java.util.Objects;
-
 public class Dromaeosaurus extends PrehistoricMob {
 
-    public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> LEAP_COOLDOWN = SynchedEntityData.defineId(Dromaeosaurus.class, EntityDataSerializers.INT);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
@@ -67,30 +59,25 @@ public class Dromaeosaurus extends PrehistoricMob {
         ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.refreshDimensions();
         this.moveControl = new DromaeosaurusMoveControl(this);
-        this.lookControl = new DromaeosaurusLookControl(this);
-    }
-
-    @Override
-    protected BodyRotationControl createBodyControl() {
-        return new DromaeosaurusBodyRotationControl(this);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(3, new DromaeosaurusSleepGoal(this));
+        this.goalSelector.addGoal(1, new DromaeosaurusSleepGoal(this));
+        this.goalSelector.addGoal(2, new DromaeosaurusLeapGoal(this));
+        this.goalSelector.addGoal(3, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.0D, 1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
-        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
+        this.goalSelector.addGoal(5, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusSleeping();
+                return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusSleeping() && Dromaeosaurus.this.level().isDay();
             }
         });
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -138,6 +125,8 @@ public class Dromaeosaurus extends PrehistoricMob {
             }
         }
 
+        this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
+
         if (this.isDromaeosaurusSleeping() && this.isInWater()) {
             this.standUpInstantly();
         }
@@ -158,7 +147,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable(), this.tickCount);
 
         if (this.isDromaeosaurusVisuallySleeping()) {
-            this.sleepEndAnimationState.stop();
+            this.fallAnimationState.stop();
             this.idleAnimationState.stop();
 
             if (this.isVisuallySleeping()) {
@@ -187,7 +176,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
         this.entityData.define(LEAP_COOLDOWN, 50 * 2 + random.nextInt(50 * 2));
     }
 
@@ -195,16 +183,15 @@ public class Dromaeosaurus extends PrehistoricMob {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("LeapCooldown", this.getLeapCooldown());
-        compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setLeapCooldown(compoundTag.getInt("LeapCooldown"));
-        long l = compoundTag.getLong("LastPoseTick");
-        if (l < 0L) this.setPose(UP2Poses.RESTING.get());
-        this.resetLastPoseChangeTick(l);
+        long lastPoseTick = compoundTag.getLong("LastPoseTick");
+        if (lastPoseTick < 0L) this.setPose(UP2Poses.RESTING.get());
+        this.resetLastPoseChangeTick(lastPoseTick);
     }
 
     public int getLeapCooldown() {
@@ -222,11 +209,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
         return UP2Entities.DROMAEOSAURUS.get().create(level);
-    }
-
-    @Override
-    public boolean canFallInLove() {
-        return false;
     }
 
     @Override
@@ -265,8 +247,9 @@ public class Dromaeosaurus extends PrehistoricMob {
         }
     }
 
+    @Override
     public boolean refuseToMove() {
-        return this.isDromaeosaurusSleeping() || this.isInPoseTransition();
+        return super.refuseToMove() || this.isDromaeosaurusSleeping();
     }
 
     public boolean isDromaeosaurusSleeping() {
@@ -277,6 +260,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         return this.getPoseTime() < 0L != this.isDromaeosaurusSleeping();
     }
 
+    @Override
     public boolean isInPoseTransition() {
         long l = this.getPoseTime();
         return l < (long) (5);
@@ -325,219 +309,4 @@ public class Dromaeosaurus extends PrehistoricMob {
 //    protected SoundEvent getDeathSound() {
 //        return UP2SoundEvents.MAJUNGASAURUS_DEATH.get();
 //    }
-
-    // goals
-    static class DromaeosaurusAttackGoal extends AttackGoal {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusAttackGoal(Dromaeosaurus dromaeosaurus) {
-            super(dromaeosaurus);
-            this.dromaeosaurus = dromaeosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !this.dromaeosaurus.isBaby() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !this.dromaeosaurus.isBaby() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.dromaeosaurus.setPose(Pose.STANDING);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.dromaeosaurus.setPose(Pose.STANDING);
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity target = this.dromaeosaurus.getTarget();
-            if (target != null) {
-                double distanceToTarget = this.dromaeosaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-
-                this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-                if (this.dromaeosaurus.getSensing().hasLineOfSight(target) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 0.0 || this.dromaeosaurus.getRandom().nextFloat() < 0.05F)) {
-                    this.pathedTargetX = target.getX();
-                    this.pathedTargetY = target.getY();
-                    this.pathedTargetZ = target.getZ();
-                    this.ticksUntilNextPathRecalculation = 4 + this.dromaeosaurus.getRandom().nextInt(7);
-
-                    if (distanceToTarget > 1024.0) this.ticksUntilNextPathRecalculation += 10;
-                    else if (distanceToTarget > 256.0) this.ticksUntilNextPathRecalculation += 5;
-
-                    if (!this.dromaeosaurus.getNavigation().moveTo(target, 1.75D)) this.ticksUntilNextPathRecalculation += 15;
-
-                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
-                }
-
-                this.path = this.dromaeosaurus.getNavigation().createPath(target, 0);
-                if (this.getAttackReachSqr(target) > 0) this.dromaeosaurus.getNavigation().moveTo(this.path, 1.0D);
-
-                if (this.dromaeosaurus.getPose() == UP2Poses.BITING.get()) tickBite();
-                else if (distanceToTarget <= this.getAttackReachSqr(target)) {
-                    this.dromaeosaurus.setPose(UP2Poses.BITING.get());
-                }
-            }
-        }
-
-        protected void tickBite() {
-            attackTime++;
-            LivingEntity target = this.dromaeosaurus.getTarget();
-            if (attackTime == 6) {
-                if (this.dromaeosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
-                    this.dromaeosaurus.doHurtTarget(target);
-                    this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
-                }
-            }
-            if (attackTime >= 15) {
-                attackTime = 0;
-                this.dromaeosaurus.setPose(Pose.STANDING);
-            }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
-        }
-    }
-
-    static class DromaeosaurusRunGoal extends Goal {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusRunGoal(Dromaeosaurus dromaeosaurus) {
-            this.dromaeosaurus = dromaeosaurus;
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        @Override
-        public boolean canUse() {
-            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle();
-        }
-
-        @Override
-        public void stop() {
-            this.dromaeosaurus.setSprinting(false);
-            this.dromaeosaurus.getNavigation().stop();
-        }
-
-        @Override
-        public void tick() {
-            this.dromaeosaurus.setSprinting(this.dromaeosaurus.getDeltaMovement().horizontalDistance() > 0.05);
-
-            if (this.dromaeosaurus.getNavigation().isDone()) {
-                Vec3 vec3 = LandRandomPos.getPos(this.dromaeosaurus, 15, 7);
-                if (vec3 != null) {
-                    this.dromaeosaurus.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 1.0F);
-                }
-            }
-
-            if (this.dromaeosaurus.onGround() && this.dromaeosaurus.getLeapCooldown() <= 0) {
-                this.dromaeosaurus.addDeltaMovement(new Vec3(0, 0.8D, 0));
-                this.dromaeosaurus.addDeltaMovement(this.dromaeosaurus.getLookAngle().scale(2.0D).multiply(0.3D, 0, 0.3D));
-                this.dromaeosaurus.leapCooldown();
-            }
-        }
-    }
-
-    static class DromaeosaurusSleepGoal extends Goal {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusSleepGoal(Dromaeosaurus dromaeosaurus) {
-            this.dromaeosaurus = dromaeosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
-        }
-
-        @Override
-        public void start() {
-            if (this.dromaeosaurus.isDromaeosaurusSleeping() && (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.isAggressive() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F)) {
-                this.dromaeosaurus.standUp();
-            } else {
-                this.dromaeosaurus.sleep();
-            }
-        }
-
-        @Override
-        public void stop() {
-            if (this.dromaeosaurus.isDromaeosaurusSleeping() && (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.isAggressive() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F)) {
-                this.dromaeosaurus.standUp();
-            }
-        }
-    }
-
-    private static class DromaeosaurusLookControl extends LookControl {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        DromaeosaurusLookControl(Dromaeosaurus dromaeosaurus) {
-            super(dromaeosaurus);
-            this.dromaeosaurus = dromaeosaurus;
-        }
-
-        @Override
-        public void tick() {
-            if (!this.dromaeosaurus.refuseToMove()) super.tick();
-        }
-    }
-
-    private static class DromaeosaurusMoveControl extends PrehistoricMobMoveControl {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusMoveControl(Dromaeosaurus dromaeosaurus) {
-            super(dromaeosaurus);
-            this.dromaeosaurus = dromaeosaurus;
-        }
-
-        @Override
-        public void tick() {
-            if (!this.dromaeosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusSleeping() && !this.dromaeosaurus.isInPoseTransition()) {
-                    this.dromaeosaurus.standUp();
-                }
-                super.tick();
-            }
-        }
-    }
-
-    private static class DromaeosaurusBodyRotationControl extends BodyRotationControl {
-
-        protected final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusBodyRotationControl(Dromaeosaurus dromaeosaurus) {
-            super(dromaeosaurus);
-            this.dromaeosaurus = dromaeosaurus;
-        }
-
-        @Override
-        public void clientTick() {
-            if (!this.dromaeosaurus.refuseToMove()) super.clientTick();
-        }
-    }
 }

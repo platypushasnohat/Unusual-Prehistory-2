@@ -47,8 +47,7 @@ public class Telecrex extends FlyingPrehistoricMob {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState lookoutAnimationState = new AnimationState();
-    public final AnimationState preen1AnimationState = new AnimationState();
-    public final AnimationState preen2AnimationState = new AnimationState();
+    public final AnimationState preenAnimationState = new AnimationState();
     public final AnimationState peckAnimationState = new AnimationState();
 
     public Telecrex(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
@@ -88,6 +87,9 @@ public class Telecrex extends FlyingPrehistoricMob {
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new TelecrexPeckGoal(this));
+        this.goalSelector.addGoal(7, new TelecrexLookoutGoal(this));
+        this.goalSelector.addGoal(8, new TelecrexPreenGoal(this));
     }
 
     @Override
@@ -121,28 +123,35 @@ public class Telecrex extends FlyingPrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isAlive() && !this.isFlying(), this.tickCount);
-        this.flyingAnimationState.animateWhen(this.isAlive() && this.isFlying(), this.tickCount);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-        if (DATA_POSE.equals(entityDataAccessor)) {
-            if (this.getPose() == UP2Poses.LOOKOUT.get()) this.lookoutAnimationState.start(this.tickCount);
-            if (this.getPose() == UP2Poses.PREENING.get()) {
-                this.idleAnimationState.stop();
-                if (this.getRandom().nextBoolean()) {
-                    this.preen1AnimationState.start(this.tickCount);
-                } else {
-                    this.preen2AnimationState.start(this.tickCount);
-                }
-            }
-            if (this.getPose() == UP2Poses.PECKING.get()) {
-                this.idleAnimationState.stop();
-                this.peckAnimationState.start(this.tickCount);
-            }
+        this.idleAnimationState.animateWhen(!this.isFlying(), this.tickCount);
+        this.flyingAnimationState.animateWhen(this.isFlying(), this.tickCount);
+        if (this.onGround() && !this.isFlying()) {
+            this.peckAnimationState.animateWhen(this.getPeckCooldown() == 0, this.tickCount);
+            this.lookoutAnimationState.animateWhen(this.getLookoutCooldown() == 0, this.tickCount);
+            this.preenAnimationState.animateWhen(this.getPreenCooldown() == 0, this.tickCount);
         }
-        super.onSyncedDataUpdated(entityDataAccessor);
+
+        if (this.getPose() == UP2Poses.PECKING.get()) {
+            this.idleAnimationState.stop();
+            this.lookoutAnimationState.stop();
+            this.preenAnimationState.stop();
+            this.setPreenCooldown(40 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+            this.setLookoutCooldown(50 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+        }
+        if (this.getPose() == UP2Poses.LOOKOUT.get()) {
+            this.idleAnimationState.stop();
+            this.peckAnimationState.stop();
+            this.preenAnimationState.stop();
+            this.setPreenCooldown(40 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+            this.setPeckCooldown(20 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+        }
+        if (this.getPose() == UP2Poses.PREENING.get()) {
+            this.idleAnimationState.stop();
+            this.peckAnimationState.stop();
+            this.lookoutAnimationState.stop();
+            this.setLookoutCooldown(50 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+            this.setPeckCooldown(20 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
+        }
     }
 
     @Override

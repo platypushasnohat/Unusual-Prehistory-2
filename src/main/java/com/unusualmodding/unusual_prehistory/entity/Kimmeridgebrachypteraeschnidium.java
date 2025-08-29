@@ -74,14 +74,24 @@ public class Kimmeridgebrachypteraeschnidium extends FlyingPrehistoricMob implem
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new RandomFlightGoal(this, 1.0F, 13, 5, 50, 600));
-        this.goalSelector.addGoal(2, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
+        this.goalSelector.addGoal(2, new RandomFlightGoal(this, 1.0F, 13, 5, 50, 600));
+        this.goalSelector.addGoal(3, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.6F;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        boolean hurt = super.hurt(source, amount);
+        if (hurt && source.getEntity() != null){
+            this.setFlying(true);
+        }
+        return hurt;
     }
 
     @Override
@@ -310,10 +320,6 @@ public class Kimmeridgebrachypteraeschnidium extends FlyingPrehistoricMob implem
 
     public void setPreenCooldown(int cooldown) {
         this.entityData.set(PREEN_COOLDOWN, cooldown);
-    }
-
-    public void preenCooldown() {
-        this.entityData.set(PREEN_COOLDOWN, 6 * 20 + random.nextInt(30 * 2 * 20));
     }
 
     @Override

@@ -70,8 +70,7 @@ public class TelecrexModel<T extends Telecrex> extends HierarchicalModel<T> {
 		this.animate(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks);
 		this.animate(entity.flyingAnimationState, TelecrexAnimations.FLY, ageInTicks);
 		this.animate(entity.lookoutAnimationState, TelecrexAnimations.LOOKOUT, ageInTicks);
-		this.animate(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
-		this.animate(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
+		this.animate(entity.preenAnimationState, TelecrexAnimations.PREEN1, ageInTicks);
 		this.animate(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;

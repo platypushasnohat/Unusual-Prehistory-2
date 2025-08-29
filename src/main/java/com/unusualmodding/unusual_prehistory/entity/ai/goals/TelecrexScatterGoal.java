@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TelecrexScatterGoal extends Goal {
 
-    private Telecrex telecrex;
+    private final Telecrex telecrex;
 
     public TelecrexScatterGoal(Telecrex telecrex) {
         this.telecrex = telecrex;

@@ -140,7 +140,7 @@ public class DromaeosaurusModel<T extends Dromaeosaurus> extends HierarchicalMod
 
 		this.animate(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks);
 		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
-		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.FALL, ageInTicks);
+		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks);
 		this.animate(entity.sleepStartAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
 		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
 		this.animate(entity.sleepEndAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
