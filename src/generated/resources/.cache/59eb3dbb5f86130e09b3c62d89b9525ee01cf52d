@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-02T13:29:12.0084922	Loot Tables
+// 1.20.1	2025-09-19T22:17:33.4535428	Loot Tables
 b9428445313fa7d03416782031fe8c367dc4b36b data/unusual_prehistory/loot_tables/blocks/anostylostroma.json
 60a2ff95302466f0eadb7127503f7488b30669a9 data/unusual_prehistory/loot_tables/blocks/archaefructus.json
 14a54c323011581bd4a258e5c9a55f45881b03a4 data/unusual_prehistory/loot_tables/blocks/archaeosigillaria.json
@@ -72,7 +72,6 @@ ee91c9cc008fb38acfacf17ee45d669bce6c471d data/unusual_prehistory/loot_tables/blo
 2583b12e16d0f977ca3d5244e9f1af223fbbafda data/unusual_prehistory/loot_tables/blocks/quereuxia_plant.json
 66f2d26921a7190097ff399b813fa5fd47a22048 data/unusual_prehistory/loot_tables/blocks/rhynia.json
 c0cd9276921964cfc5dca873618c67787820da2e data/unusual_prehistory/loot_tables/blocks/sarracenia.json
-a7b96a9cca497ee073f96b4a7e075a78b142ea8b data/unusual_prehistory/loot_tables/blocks/scaumenacia_roe.json
 c782725763e8a1be072678b72cd913198f7f96d7 data/unusual_prehistory/loot_tables/blocks/stripped_ginkgo_log.json
 f50809186ac98e95b9a1f08fd60acbaf1e3bb40f data/unusual_prehistory/loot_tables/blocks/stripped_ginkgo_wood.json
 9cf0d9b25082388d4e8af218d31163d1ca1da3b9 data/unusual_prehistory/loot_tables/blocks/stripped_lepidodendron_log.json

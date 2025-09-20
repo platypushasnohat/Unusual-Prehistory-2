@@ -63,7 +63,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         cultivating(consumer, UP2Items.DUNKLEOSTEUS_DNA.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
         cultivating(consumer, UP2Items.JAWLESS_FISH_DNA.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
         cultivating(consumer, UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
-        cultivating(consumer, UP2Items.SCAUMENACIA_DNA.get(), UP2Blocks.SCAUMENACIA_ROE.get().asItem());
         cultivating(consumer, UP2Items.STETHACANTHUS_DNA.get(), UP2Items.STETHACANTHUS_SAC.get());
 
         cultivating(consumer, UP2Items.CARNOTAURUS_DNA.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());

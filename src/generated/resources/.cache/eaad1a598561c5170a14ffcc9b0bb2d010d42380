@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-17T14:38:17.305059	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-09-19T22:17:33.4511762	Tags for minecraft:item mod id unusual_prehistory
 fa14388a1671cb37e17e538a47de5f4cce9458ab data/forge/tags/items/bottles.json
 fb54f5a207177656660cccb117545e284e03ea5d data/forge/tags/items/bottles/dna.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
@@ -34,7 +34,7 @@ f5d0df09be58f5595f5b00e6faa1c378da2ba2f3 data/unusual_prehistory/tags/items/kent
 2598863eb604fcc4568a0422a388e54a3c57a44a data/unusual_prehistory/tags/items/mesozoic_dna_bottles.json
 bcd9bd0102fde93168c8184bdcbf4ce6c8bdf7ff data/unusual_prehistory/tags/items/pacifies_dunkleosteus.json
 bcd9bd0102fde93168c8184bdcbf4ce6c8bdf7ff data/unusual_prehistory/tags/items/pacifies_stethacanthus.json
-e12860c9c0eaa36908cfaf5cd63124f4b53f41ca data/unusual_prehistory/tags/items/paleozoic_dna_bottles.json
+a027ef4f638fde66043b91582072a31184570141 data/unusual_prehistory/tags/items/paleozoic_dna_bottles.json
 6069c87dfdfb3bb15ce1b31ccdf189b137b08455 data/unusual_prehistory/tags/items/plant_dna_bottles.json
 46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/items/stethacanthus_food.json
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/items/telecrex_food.json

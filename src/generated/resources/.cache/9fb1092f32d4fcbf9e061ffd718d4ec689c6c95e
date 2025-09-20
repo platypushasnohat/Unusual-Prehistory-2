@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-02T13:29:12.0104853	Recipes
+// 1.20.1	2025-09-19T22:17:33.4540458	Recipes
 ae37a7ff0b5d35eb3e9f0db2bc3840f2dfadc818 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_button.json
 0c0b4ec888dedb5ed0d4ae1a7e033fad02904150 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_door.json
 fde6109bb7afd7d957ac82a32205ab1492bce107 data/unusual_prehistory/advancements/recipes/building_blocks/ginkgo_fence.json
@@ -52,7 +52,6 @@ fae8a1ed91e9b71b7bc85d75af5ba2ba8a4728c9 data/unusual_prehistory/recipes/cultiva
 e4270f3e0251d00607175a6cb583b0dfb55bcd2e data/unusual_prehistory/recipes/cultivating/raiguenrayun.json
 04781d0da0a67223ad656cf920d66e0e2c37312a data/unusual_prehistory/recipes/cultivating/rhynia.json
 5f99ff1e5a954275e9f3504257c101313b85f70d data/unusual_prehistory/recipes/cultivating/sarracenia.json
-1fea5b3f631840f6855aa037d3dbf819b9aba6f5 data/unusual_prehistory/recipes/cultivating/scaumenacia_roe.json
 f4b49f6b9a3402c2acd968802d5c1d53728e6e9b data/unusual_prehistory/recipes/cultivating/stethacanthus_sac.json
 16a88a66843a569df24711ef18c37ddbc8bcf81f data/unusual_prehistory/recipes/cultivating/talpanas_egg.json
 59ac0006de8f6e2c3ac23c61692a8ffdf0d7aa3e data/unusual_prehistory/recipes/cultivating/telecrex_egg.json

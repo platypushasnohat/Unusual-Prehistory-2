@@ -1,9 +1,7 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.blocks.blockentity.ExtractorBlockEntity;
-import com.unusualmodding.unusual_prehistory.blocks.blockentity.CultivatorBlockEntity;
-import com.unusualmodding.unusual_prehistory.blocks.blockentity.UP2LecternBlockEntity;
+import com.unusualmodding.unusual_prehistory.blocks.blockentity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,7 +13,5 @@ public class UP2BlockEntities {
 
     public static final RegistryObject<BlockEntityType<CultivatorBlockEntity>> CULTIVATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("cultivator_block_entity", () -> BlockEntityType.Builder.of(CultivatorBlockEntity::new, UP2Blocks.CULTIVATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<ExtractorBlockEntity>> EXTRACTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("extractor_block_entity", () -> BlockEntityType.Builder.of(ExtractorBlockEntity::new, UP2Blocks.EXTRACTOR.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<UP2LecternBlockEntity>> LECTERN_BLOCK_ENTITY = BLOCK_ENTITIES.register("lectern", () -> BlockEntityType.Builder.of(UP2LecternBlockEntity::new, UP2Blocks.LECTERN.get()).build(null));
 
 }

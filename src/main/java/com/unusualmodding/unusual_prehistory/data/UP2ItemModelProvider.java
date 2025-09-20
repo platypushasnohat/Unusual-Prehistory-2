@@ -22,8 +22,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        this.item(PALEOPEDIA);
-
         this.item(PLANT_FOSSIL);
         this.item(PALEOZOIC_FOSSIL);
         this.item(MESOZOIC_FOSSIL);
@@ -33,7 +31,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET);
         this.item(JAWLESS_FISH_BUCKET);
-        this.item(SCAUMENACIA_BUCKET);
         this.item(STETHACANTHUS_BUCKET);
         this.item(DIPLOCAULUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
@@ -42,7 +39,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(DIPLOCAULUS_DNA);
         this.dnaItem(DUNKLEOSTEUS_DNA);
         this.dnaItem(JAWLESS_FISH_DNA);
-        this.dnaItem(SCAUMENACIA_DNA);
         this.dnaItem(STETHACANTHUS_DNA);
 
         // meso dna

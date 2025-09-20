@@ -1,9 +1,7 @@
 package com.unusualmodding.unusual_prehistory;
 
-import com.unusualmodding.unusual_prehistory.events.MiscEvents;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
-import com.unusualmodding.unusual_prehistory.utils.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -12,7 +10,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -29,13 +26,11 @@ public class UnusualPrehistory2 {
     public static final String MOD_ID = "unusual_prehistory";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-
     public UnusualPrehistory2() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
-        UP2CreativeTabs.CREATIVE_TABS.register(bus);
+        UnusualPrehistory2CreativeTab.CREATIVE_TABS.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
@@ -49,7 +44,6 @@ public class UnusualPrehistory2 {
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::dataSetup);
-        MinecraftForge.EVENT_BUS.register(new MiscEvents());
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
@@ -58,7 +52,6 @@ public class UnusualPrehistory2 {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(PROXY::clientInit);
     }
 
     private void dataSetup(GatherDataEvent data) {

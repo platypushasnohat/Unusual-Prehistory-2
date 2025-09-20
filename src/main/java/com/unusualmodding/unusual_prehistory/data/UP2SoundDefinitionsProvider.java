@@ -164,25 +164,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/idle3")).pitch(0.8f)
         );
 
-        this.sound(UP2SoundEvents.SCAUMENACIA_HURT,
-                sound("entity/fish/hurt1"),
-                sound("entity/fish/hurt2"),
-                sound("entity/fish/hurt3"),
-                sound("entity/fish/hurt4")
-        );
-        this.sound(UP2SoundEvents.SCAUMENACIA_DEATH,
-                sound("entity/fish/hurt1"),
-                sound("entity/fish/hurt2"),
-                sound("entity/fish/hurt3"),
-                sound("entity/fish/hurt4")
-        );
-        this.sound(UP2SoundEvents.SCAUMENACIA_FLOP,
-                sound("entity/fish/flop1").volume(0.3f),
-                sound("entity/fish/flop2").volume(0.3f),
-                sound("entity/fish/flop3").volume(0.3f),
-                sound("entity/fish/flop4").volume(0.3f)
-        );
-
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),

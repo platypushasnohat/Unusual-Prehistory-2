@@ -43,7 +43,6 @@ public class UP2Blocks {
     public static final Supplier<Block> DIPLOCAULUS_EGGS = registerBlockWithItem("diplocaulus_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DIPLOCAULUS), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> JAWLESS_FISH_ROE = registerBlockWithItem("jawless_fish_roe", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.JAWLESS_FISH), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerBlockWithItem("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-    public static final Supplier<Block> SCAUMENACIA_ROE = registerBlockWithItem("scaumenacia_roe", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.SCAUMENACIA), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> CARNOTAURUS_EGG = registerBlock("carnotaurus_egg", () -> new EggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), UP2Entities.CARNOTAURUS, 7, 9));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerBlock("kentrosaurus_egg", () -> new EggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), UP2Entities.KENTROSAURUS, 5, 7));
@@ -153,8 +152,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
 
     public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-
-    public static final RegistryObject<Block> LECTERN = registerBlock("lectern", () -> new UP2LecternBlock(BlockBehaviour.Properties.copy(Blocks.LECTERN)));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

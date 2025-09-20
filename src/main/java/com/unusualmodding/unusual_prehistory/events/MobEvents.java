@@ -22,7 +22,6 @@ public class MobEvents {
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
         event.put(UP2Entities.MAJUNGASAURUS.get(), Majungasaurus.createAttributes().build());
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
-        event.put(UP2Entities.SCAUMENACIA.get(), Scaumenacia.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());
         event.put(UP2Entities.TELECREX.get(), Telecrex.createAttributes().build());

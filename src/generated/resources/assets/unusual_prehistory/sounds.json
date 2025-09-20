@@ -351,45 +351,6 @@
     ],
     "subtitle": "subtitles.megalania_idle"
   },
-  "scaumenacia_death": {
-    "sounds": [
-      "entity/fish/hurt1",
-      "entity/fish/hurt2",
-      "entity/fish/hurt3",
-      "entity/fish/hurt4"
-    ],
-    "subtitle": "subtitles.scaumenacia_death"
-  },
-  "scaumenacia_flop": {
-    "sounds": [
-      {
-        "name": "entity/fish/flop1",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop2",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop3",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop4",
-        "volume": 0.3
-      }
-    ],
-    "subtitle": "subtitles.scaumenacia_flop"
-  },
-  "scaumenacia_hurt": {
-    "sounds": [
-      "entity/fish/hurt1",
-      "entity/fish/hurt2",
-      "entity/fish/hurt3",
-      "entity/fish/hurt4"
-    ],
-    "subtitle": "subtitles.scaumenacia_hurt"
-  },
   "stethacanthus_death": {
     "sounds": [
       "entity/fish/hurt1",

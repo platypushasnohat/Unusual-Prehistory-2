@@ -45,7 +45,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 DIPLOCAULUS_DNA.get(),
                 DUNKLEOSTEUS_DNA.get(),
                 JAWLESS_FISH_DNA.get(),
-                SCAUMENACIA_DNA.get(),
                 STETHACANTHUS_DNA.get()
         );
 

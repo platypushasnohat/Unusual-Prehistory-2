@@ -50,10 +50,6 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
 
-    public static final RegistryObject<SoundEvent> SCAUMENACIA_HURT = registerSoundEvent("scaumenacia_hurt");
-    public static final RegistryObject<SoundEvent> SCAUMENACIA_DEATH = registerSoundEvent("scaumenacia_death");
-    public static final RegistryObject<SoundEvent> SCAUMENACIA_FLOP = registerSoundEvent("scaumenacia_flop");
-
     public static final RegistryObject<SoundEvent> STETHACANTHUS_HURT = registerSoundEvent("stethacanthus_hurt");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_DEATH = registerSoundEvent("stethacanthus_death");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_FLOP = registerSoundEvent("stethacanthus_flop");

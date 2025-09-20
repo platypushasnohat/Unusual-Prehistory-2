@@ -19,10 +19,10 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<Carnotaurus>> CARNOTAURUS = ENTITY_TYPE.register(
             "carnotaurus", () ->
-                    EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
-                            .sized(1.75F, 3.0F)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "carnotaurus").toString())
+            EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
+                    .sized(1.75F, 3.0F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "carnotaurus").toString())
     );
 
     public static final RegistryObject<EntityType<Diplocaulus>> DIPLOCAULUS = ENTITY_TYPE.register(
@@ -83,10 +83,10 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<Majungasaurus>> MAJUNGASAURUS = ENTITY_TYPE.register(
             "majungasaurus", () ->
-                    EntityType.Builder.of(Majungasaurus::new, MobCategory.CREATURE)
-                            .sized(1.25F, 2.5F)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
+            EntityType.Builder.of(Majungasaurus::new, MobCategory.CREATURE)
+                    .sized(1.25F, 2.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
     );
 
     public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
@@ -95,14 +95,6 @@ public class UP2Entities {
                     .sized(2.0F, 1.5F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "megalania").toString())
-    );
-
-    public static final RegistryObject<EntityType<Scaumenacia>> SCAUMENACIA = ENTITY_TYPE.register(
-            "scaumenacia", () ->
-            EntityType.Builder.of(Scaumenacia::new, MobCategory.WATER_CREATURE)
-                    .sized(0.7F, 0.6F)
-                    .clientTrackingRange(10)
-                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "scaumenacia").toString())
     );
 
     public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(
@@ -139,10 +131,10 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<DromaeosaurusEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
             "dromaeosaurus_egg", () ->
-                    EntityType.Builder.<DromaeosaurusEgg>of(DromaeosaurusEgg::new, MobCategory.MISC)
-                            .sized(0.25F, 0.25F)
-                            .clientTrackingRange(4)
-                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
+            EntityType.Builder.<DromaeosaurusEgg>of(DromaeosaurusEgg::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
     );
 
     public static final RegistryObject<EntityType<TalpanasEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
@@ -155,10 +147,10 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<TelecrexEgg>> TELECREX_EGG = ENTITY_TYPE.register(
             "telecrex_egg", () ->
-                    EntityType.Builder.<TelecrexEgg>of(TelecrexEgg::new, MobCategory.MISC)
-                            .sized(0.25F, 0.25F)
-                            .clientTrackingRange(4)
-                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
+            EntityType.Builder.<TelecrexEgg>of(TelecrexEgg::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
     );
 
 }

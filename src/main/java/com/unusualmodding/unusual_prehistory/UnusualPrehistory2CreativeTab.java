@@ -6,34 +6,24 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.unusualmodding.unusual_prehistory.registry.UP2Items.*;
 
-public class UP2CreativeTabs {
+public class UnusualPrehistory2CreativeTab {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(PALEOPEDIA.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(MESOZOIC_FOSSIL.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
-                    .displayItems((pParameters, tabOutput) -> {
+                    .displayItems((parameters, tabOutput) -> {
 
-                        // spawn eggs
-                        UP2Items.ITEMS.getEntries().forEach(spawnEgg -> {
-                            if ((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
-                                tabOutput.accept(spawnEgg.get());
-                            }
-                        });
-
-                        tabOutput.accept(PALEOPEDIA.get());
-
-                        tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(PALEOZOIC_FOSSIL.get());
                         tabOutput.accept(MESOZOIC_FOSSIL.get());
                         tabOutput.accept(FROZEN_MEAT.get());
+                        tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
@@ -43,36 +33,61 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.EXTRACTOR.get());
                         tabOutput.accept(UP2Blocks.CULTIVATOR.get());
 
-                        tabOutput.accept(GINKGO_FRUIT.get());
-
+                        // paleozoic
+                        tabOutput.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         tabOutput.accept(DIPLOCAULUS_BUCKET.get());
+                        tabOutput.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         tabOutput.accept(DUNKLEOSTEUS_BUCKET.get());
+                        tabOutput.accept(JAWLESS_FISH_SPAWN_EGG.get());
                         tabOutput.accept(JAWLESS_FISH_BUCKET.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
-                        tabOutput.accept(SCAUMENACIA_BUCKET.get());
+                        tabOutput.accept(STETHACANTHUS_SPAWN_EGG.get());
                         tabOutput.accept(STETHACANTHUS_BUCKET.get());
 
-                        // paleo dna
+                        tabOutput.accept(CARNOTAURUS_SPAWN_EGG.get());
+                        tabOutput.accept(DROMAEOSAURUS_SPAWN_EGG.get());
+                        tabOutput.accept(KENTROSAURUS_SPAWN_EGG.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        tabOutput.accept(MAJUNGASAURUS_SPAWN_EGG.get());
+
+                        tabOutput.accept(MEGALANIA_SPAWN_EGG.get());
+                        tabOutput.accept(TELECREX_SPAWN_EGG.get());
+
+                        tabOutput.accept(TALPANAS_SPAWN_EGG.get());
+
                         tabOutput.accept(DIPLOCAULUS_DNA.get());
                         tabOutput.accept(DUNKLEOSTEUS_DNA.get());
                         tabOutput.accept(JAWLESS_FISH_DNA.get());
-                        tabOutput.accept(SCAUMENACIA_DNA.get());
                         tabOutput.accept(STETHACANTHUS_DNA.get());
 
-                        // meso dna
                         tabOutput.accept(CARNOTAURUS_DNA.get());
                         tabOutput.accept(DROMAEOSAURUS_DNA.get());
                         tabOutput.accept(KENTROSAURUS_DNA.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
                         tabOutput.accept(MAJUNGASAURUS_DNA.get());
 
-                        // ceno dna
                         tabOutput.accept(MEGALANIA_DNA.get());
                         tabOutput.accept(TELECREX_DNA.get());
 
-                        // holocene dna
                         tabOutput.accept(TALPANAS_DNA.get());
+
+                        tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
+                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
+                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
+                        tabOutput.accept(STETHACANTHUS_SAC.get());
+
+                        tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());
+                        tabOutput.accept(DROMAEOSAURUS_EGG.get());
+                        tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());
+                        tabOutput.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+                        tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
+
+                        tabOutput.accept(UP2Blocks.MEGALANIA_EGG.get());
+                        tabOutput.accept(TELECREX_EGG.get());
+
+                        tabOutput.accept(TALPANAS_EGG.get());
 
                         // plant dna
                         tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
@@ -95,21 +110,6 @@ public class UP2CreativeTabs {
                         tabOutput.accept(QUEREUXIA_DNA.get());
                         tabOutput.accept(ANOSTYLOSTROMA_DNA.get());
                         tabOutput.accept(CLATHRODICTYON_CORAL_DNA.get());
-
-                        // eggs
-                        tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
-                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
-                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
-                        tabOutput.accept(UP2Blocks.SCAUMENACIA_ROE.get());
-                        tabOutput.accept(STETHACANTHUS_SAC.get());
-                        tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());
-                        tabOutput.accept(DROMAEOSAURUS_EGG.get());
-                        tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());
-                        tabOutput.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
-                        tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
-                        tabOutput.accept(UP2Blocks.MEGALANIA_EGG.get());
-                        tabOutput.accept(TELECREX_EGG.get());
-                        tabOutput.accept(TALPANAS_EGG.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
@@ -159,6 +159,7 @@ public class UP2CreativeTabs {
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_LEAVES.get());
                         tabOutput.accept(UP2Blocks.GINKGO_SAPLING.get());
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_SAPLING.get());
+                        tabOutput.accept(GINKGO_FRUIT.get());
 
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_LOG.get());
                         tabOutput.accept(UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get());

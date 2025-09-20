@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
-import com.unusualmodding.unusual_prehistory.UP2CreativeTabs;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2CreativeTab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +31,7 @@ public class UP2LanguageProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UP2CreativeTabs.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
+        creativeTab(UnusualPrehistory2CreativeTab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
 
         // blocks
         UP2Blocks.AUTO_TRANSLATE.forEach(this::forBlock);
@@ -40,189 +40,180 @@ public class UP2LanguageProvider extends LanguageProvider {
         UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
 
         // entities
-        forEntity(UP2Entities.CARNOTAURUS);
-        forEntity(UP2Entities.DIPLOCAULUS);
-        forEntity(UP2Entities.DROMAEOSAURUS);
-        forEntity(UP2Entities.DUNKLEOSTEUS);
-        forEntity(UP2Entities.JAWLESS_FISH);
-        forEntity(UP2Entities.KENTROSAURUS);
-        forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
-        forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
-        forEntity(UP2Entities.MAJUNGASAURUS);
-        forEntity(UP2Entities.MEGALANIA);
-        forEntity(UP2Entities.SCAUMENACIA);
-        forEntity(UP2Entities.STETHACANTHUS);
-        forEntity(UP2Entities.UNICORN);
+        this.forEntity(UP2Entities.CARNOTAURUS);
+        this.forEntity(UP2Entities.DIPLOCAULUS);
+        this.forEntity(UP2Entities.DROMAEOSAURUS);
+        this.forEntity(UP2Entities.DUNKLEOSTEUS);
+        this.forEntity(UP2Entities.JAWLESS_FISH);
+        this.forEntity(UP2Entities.KENTROSAURUS);
+        this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
+        this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
+        this.forEntity(UP2Entities.MAJUNGASAURUS);
+        this.forEntity(UP2Entities.MEGALANIA);
+        this.forEntity(UP2Entities.STETHACANTHUS);
+        this.forEntity(UP2Entities.UNICORN);
 
         // creature dna
-        dnaItem(UP2Items.CARNOTAURUS_DNA.get());
-        dnaItem(UP2Items.DROMAEOSAURUS_DNA.get());
-        dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
-        dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
-        dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
-        dnaItem(UP2Items.KENTROSAURUS_DNA.get());
-        dnaItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
-        dnaItem(UP2Items.MAJUNGASAURUS_DNA.get());
-        dnaItem(UP2Items.MEGALANIA_DNA.get());
-        dnaItem(UP2Items.SCAUMENACIA_DNA.get());
-        dnaItem(UP2Items.STETHACANTHUS_DNA.get());
-        dnaItem(UP2Items.TALPANAS_DNA.get());
-        dnaItem(UP2Items.TELECREX_DNA.get());
+        this.dnaItem(UP2Items.CARNOTAURUS_DNA.get());
+        this.dnaItem(UP2Items.DROMAEOSAURUS_DNA.get());
+        this.dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
+        this.dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
+        this.dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
+        this.dnaItem(UP2Items.KENTROSAURUS_DNA.get());
+        this.dnaItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
+        this.dnaItem(UP2Items.MAJUNGASAURUS_DNA.get());
+        this.dnaItem(UP2Items.MEGALANIA_DNA.get());
+        this.dnaItem(UP2Items.STETHACANTHUS_DNA.get());
+        this.dnaItem(UP2Items.TALPANAS_DNA.get());
+        this.dnaItem(UP2Items.TELECREX_DNA.get());
 
         // plant dna
-        dnaItem(UP2Items.ANOSTYLOSTROMA_DNA.get());
-        dnaItem(UP2Items.ARCHAEFRUCTUS_DNA.get());
-        dnaItem(UP2Items.ARCHAEOSIGILLARIA_DNA.get());
-        dnaItem(UP2Items.BENNETTITALES_DNA.get());
-        dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
-        dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
-        dnaItem(UP2Items.CLATHRODICTYON_CORAL_DNA.get());
-        dnaItem(UP2Items.COOKSONIA_DNA.get());
-        dnaItem(UP2Items.GINKGO_DNA.get());
-        dnaItem(UP2Items.HORSETAIL_DNA.get());
-        dnaItem(UP2Items.ISOETES_DNA.get());
-        dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
-        dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
-        dnaItem(UP2Items.NELUMBITES_DNA.get());
-        dnaItem(UP2Items.QUEREUXIA_DNA.get());
-        dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
-        dnaItem(UP2Items.RHYNIA_DNA.get());
-        dnaItem(UP2Items.SARRACENIA_DNA.get());
+        this.dnaItem(UP2Items.ANOSTYLOSTROMA_DNA.get());
+        this.dnaItem(UP2Items.ARCHAEFRUCTUS_DNA.get());
+        this.dnaItem(UP2Items.ARCHAEOSIGILLARIA_DNA.get());
+        this.dnaItem(UP2Items.BENNETTITALES_DNA.get());
+        this.dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
+        this.dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
+        this.dnaItem(UP2Items.CLATHRODICTYON_CORAL_DNA.get());
+        this.dnaItem(UP2Items.COOKSONIA_DNA.get());
+        this.dnaItem(UP2Items.GINKGO_DNA.get());
+        this.dnaItem(UP2Items.HORSETAIL_DNA.get());
+        this.dnaItem(UP2Items.ISOETES_DNA.get());
+        this.dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
+        this.dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
+        this.dnaItem(UP2Items.NELUMBITES_DNA.get());
+        this.dnaItem(UP2Items.QUEREUXIA_DNA.get());
+        this.dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
+        this.dnaItem(UP2Items.RHYNIA_DNA.get());
+        this.dnaItem(UP2Items.SARRACENIA_DNA.get());
 
-        addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
-        addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
-        addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
-        addItem(UP2Items.SCAUMENACIA_BUCKET, "Bucket of Scaumenacia");
-        addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
-        addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
-        addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
+        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
+        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
+        this.addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
+        this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
+        this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
+        this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
 
         // sounds
-        sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
-        sound(UP2SoundEvents.CARNOTAURUS_DEATH, "Carnotaurus dies");
-        sound(UP2SoundEvents.CARNOTAURUS_IDLE, "Carnotaurus grumbles");
+        this.sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
+        this.sound(UP2SoundEvents.CARNOTAURUS_DEATH, "Carnotaurus dies");
+        this.sound(UP2SoundEvents.CARNOTAURUS_IDLE, "Carnotaurus grumbles");
 
-        sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
-        sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
-        sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
+        this.sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
+        this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
+        this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
 
-        sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
-        sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
-        sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
+        this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
+        this.sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
+        this.sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
 
-        sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
-        sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
-        sound(UP2SoundEvents.JAWLESS_FISH_FLOP, "Jawless Fish flops");
+        this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
+        this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
+        this.sound(UP2SoundEvents.JAWLESS_FISH_FLOP, "Jawless Fish flops");
 
-        sound(UP2SoundEvents.KENTROSAURUS_HURT, "Kentrosaurus hurts");
-        sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");
-        sound(UP2SoundEvents.KENTROSAURUS_IDLE, "Kentrosaurus groans");
-        sound(UP2SoundEvents.KENTROSAURUS_STEP, "Kentrosaurus steps");
-        sound(UP2SoundEvents.KENTROSAURUS_EAT, "Kentrosaurus eats");
+        this.sound(UP2SoundEvents.KENTROSAURUS_HURT, "Kentrosaurus hurts");
+        this.sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");
+        this.sound(UP2SoundEvents.KENTROSAURUS_IDLE, "Kentrosaurus groans");
+        this.sound(UP2SoundEvents.KENTROSAURUS_STEP, "Kentrosaurus steps");
+        this.sound(UP2SoundEvents.KENTROSAURUS_EAT, "Kentrosaurus eats");
 
-        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
-        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
-        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
+        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
+        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
+        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
 
-        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
-        sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
+        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
+        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
 
-        sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
-        sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
-        sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
 
-        sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
-        sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
-        sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
+        this.sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
+        this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
+        this.sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
 
-        sound(UP2SoundEvents.SCAUMENACIA_HURT, "Scaumenacia hurts");
-        sound(UP2SoundEvents.SCAUMENACIA_DEATH, "Scaumenacia dies");
-        sound(UP2SoundEvents.SCAUMENACIA_FLOP, "Scaumenacia flops");
+        this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
+        this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
+        this.sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
 
-        sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
-        sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
-        sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
+        this.sound(UP2SoundEvents.TALPANAS_HURT, "Talpanas hurts");
+        this.sound(UP2SoundEvents.TALPANAS_DEATH, "Talpanas dies");
+        this.sound(UP2SoundEvents.TALPANAS_IDLE, "Talpanas quacks");
+        this.sound(UP2SoundEvents.TALPANAS_PANIC, "Talpanas panics");
 
-        sound(UP2SoundEvents.TALPANAS_HURT, "Talpanas hurts");
-        sound(UP2SoundEvents.TALPANAS_DEATH, "Talpanas dies");
-        sound(UP2SoundEvents.TALPANAS_IDLE, "Talpanas quacks");
-        sound(UP2SoundEvents.TALPANAS_PANIC, "Talpanas panics");
+        this.sound(UP2SoundEvents.TELECREX_HURT, "Telecrex hurts");
+        this.sound(UP2SoundEvents.TELECREX_DEATH, "Telecrex dies");
+        this.sound(UP2SoundEvents.TELECREX_IDLE, "Telecrex squawks");
 
-        sound(UP2SoundEvents.TELECREX_HURT, "Telecrex hurts");
-        sound(UP2SoundEvents.TELECREX_DEATH, "Telecrex dies");
-        sound(UP2SoundEvents.TELECREX_IDLE, "Telecrex squawks");
-
-        sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
-        sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
-        sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
-
-        add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah");
+        this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
+        this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
+        this.sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
 
         // kimmeridgebrachypteraeschnidium bottle
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.1", "Blue Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.2", "Brown Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.3", "Cyan Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.4", "Gray Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.5", "Green Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.6", "Light Blue Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.7", "Light Gray Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.8", "Lime Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.9", "Magenta Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.10", "Orange Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.11", "Pink Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.12", "Purple Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.13", "Red Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.14", "White Body");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.15", "Yellow Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.1", "Blue Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.2", "Brown Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.3", "Cyan Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.4", "Gray Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.5", "Green Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.6", "Light Blue Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.7", "Light Gray Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.8", "Lime Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.9", "Magenta Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.10", "Orange Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.11", "Pink Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.12", "Purple Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.13", "Red Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.14", "White Body");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.15", "Yellow Body");
 
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.0", "Black Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.1", "Blue Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.2", "Brown Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.3", "Cyan Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.4", "Gray Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.5", "Green Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.6", "Light Blue Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.7", "Light Gray Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.8", "Lime Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.9", "Magenta Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.10", "Orange Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.11", "Pink Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.12", "Purple Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.13", "Red Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.14", "White Wings");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.15", "Yellow Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.0", "Black Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.1", "Blue Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.2", "Brown Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.3", "Cyan Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.4", "Gray Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.5", "Green Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.6", "Light Blue Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.7", "Light Gray Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.8", "Lime Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.9", "Magenta Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.10", "Orange Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.11", "Pink Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.12", "Purple Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.13", "Red Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.14", "White Wings");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_wing_color.15", "Yellow Wings");
 
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.0", "Black");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.1", "Blue");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.2", "Brown");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.3", "Cyan");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.4", "Gray");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.5", "Green");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.6", "Light Blue");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.7", "Light Gray");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.8", "Lime");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.9", "Magenta");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.10", "Orange");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.11", "Pink");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.12", "Purple");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.13", "Red");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.14", "White");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.15", "Yellow");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.0", "Black");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.1", "Blue");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.2", "Brown");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.3", "Cyan");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.4", "Gray");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.5", "Green");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.6", "Light Blue");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.7", "Light Gray");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.8", "Lime");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.9", "Magenta");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.10", "Orange");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.11", "Pink");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.12", "Purple");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.13", "Red");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.14", "White");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern_color.15", "Yellow");
 
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.stripe", "Stripes");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.tailshade", "Tail");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.topshade", "Back");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.halfshade", "Duality");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
-        add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.stripe", "Stripes");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.tailshade", "Tail");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.topshade", "Back");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.halfshade", "Duality");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
+        this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
 
         // Block entities
-        blockEntity("extractor", "                          Extractor");
-        blockEntity("extractor_jei", "Extractor");
-        blockEntity("cultivator", "Cultivator");
-        blockEntity("cultivator_jei", "Cultivator");
+        this.blockEntity("extractor", "                          Extractor");
+        this.blockEntity("extractor_jei", "Extractor");
+        this.blockEntity("cultivator", "Cultivator");
+        this.blockEntity("cultivator_jei", "Cultivator");
     }
 
     private void forBlock(Supplier<? extends Block> block) {
