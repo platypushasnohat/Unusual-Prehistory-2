@@ -161,16 +161,18 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 	public void setupAnim(Carnotaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (this.young) {
-			if (entity.isSprinting()) {
-				this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+		if (!entity.isCharging()) {
+			if (this.young) {
+				if (entity.isSprinting()) {
+					this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+				}
+				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+			} else {
+				if (entity.isSprinting()) {
+					this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+				}
+				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 			}
-			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
-		} else {
-			if (entity.isSprinting()) {
-				this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-			}
-			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 		}
 
 		if (this.young) {
