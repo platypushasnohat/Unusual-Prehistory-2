@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.carnotaurus.*;
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
+import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -173,6 +174,8 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 				}
 				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 			}
+		} else {
+			this.animateWalk(CarnotaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1, 8);
 		}
 
 		if (this.young) {
@@ -184,7 +187,7 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 		this.animate(entity.biteLeftAnimationState, CarnotaurusAnimations.BITE_LEFT, ageInTicks);
 
 		this.animate(entity.chargeStartAnimationState, CarnotaurusAnimations.CHARGE_START, ageInTicks);
-		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
+//		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
 		this.animate(entity.chargeEndAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;

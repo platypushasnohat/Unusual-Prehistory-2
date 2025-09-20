@@ -11,13 +11,17 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Objects;
+import java.util.List;
 
 public class Carnotaurus extends PrehistoricMob {
 
@@ -37,7 +41,6 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState biteRightAnimationState = new AnimationState();
     public final AnimationState biteLeftAnimationState = new AnimationState();
     public final AnimationState chargeStartAnimationState = new AnimationState();
-    public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState chargeEndAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
@@ -50,7 +53,7 @@ public class Carnotaurus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new CarnotaurusAttackGoal(this));
+        this.goalSelector.addGoal(1, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -75,12 +78,15 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public void setupAnimationStates() {
-        if (this.idleAnimationTimeout == 0) {
-            this.idleAnimationTimeout = 160;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
-        }
+//        this.chargeStartAnimationState.animateWhen(this.getPose() == UP2Poses.CHARGING_START.get() && this.isCharging(), this.tickCount);
+//        this.chargeEndAnimationState.animateWhen(this.getPose() == UP2Poses.CHARGING_END.get() && !this.isCharging(), this.tickCount);
+
+//        if (this.idleAnimationTimeout == 0) {
+//            this.idleAnimationTimeout = 160;
+//            this.idleAnimationState.start(this.tickCount);
+//        } else {
+//            --this.idleAnimationTimeout;
+//        }
     }
 
     @Override
@@ -94,20 +100,14 @@ public class Carnotaurus extends PrehistoricMob {
                 this.idleAnimationState.stop();
                 this.chargeStartAnimationState.start(this.tickCount);
             }
-            if (this.getPose() == UP2Poses.CHARGING.get()) {
-                this.idleAnimationState.stop();
-                this.chargeStartAnimationState.stop();
-                this.chargeAnimationState.start(this.tickCount);
-            }
             if (this.getPose() == UP2Poses.CHARGING_END.get()) {
                 this.idleAnimationState.stop();
-                this.chargeAnimationState.stop();
                 this.chargeStartAnimationState.stop();
-                this.chargeEndAnimationState.start(this.tickCount);
+                this.chargeEndAnimationState.stop();
+                this.chargeEndAnimationState.startIfStopped(this.tickCount);
             }
             if (this.getPose() == Pose.STANDING) {
                 this.chargeStartAnimationState.stop();
-                this.chargeAnimationState.stop();
                 this.chargeEndAnimationState.stop();
                 this.biteRightAnimationState.stop();
                 this.biteLeftAnimationState.stop();
@@ -154,7 +154,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public void chargeCooldown() {
-        this.entityData.set(CHARGE_COOLDOWN, 200);
+        this.entityData.set(CHARGE_COOLDOWN, 100);
     }
 
     @Override
@@ -186,99 +186,101 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     // goals
-    static class CarnotaurusAttackGoal extends Goal {
+    static class CarnotaurusChargeGoal extends Goal {
 
         private final Carnotaurus carnotaurus;
-        private int attackTime = 0;
-        private Vec3 rollMotion = new Vec3(0,0,0);
+        private int attackTime;
+        private Vec3 chargeDirection;
 
-        public CarnotaurusAttackGoal(Carnotaurus carnotaurus) {
+        public CarnotaurusChargeGoal(Carnotaurus carnotaurus) {
             this.carnotaurus = carnotaurus;
+            this.chargeDirection = Vec3.ZERO;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
+        @Override
         public boolean canUse() {
-            return !this.carnotaurus.isVehicle() && this.carnotaurus.getTarget() != null && this.carnotaurus.getTarget().isAlive();
+            return !this.carnotaurus.isVehicle() && this.carnotaurus.getTarget() != null && this.carnotaurus.getTarget().isAlive() && this.carnotaurus.getChargeCooldown() <= 0 && !this.carnotaurus.isInWater();
         }
 
+        @Override
         public void start() {
-            this.carnotaurus.setCharging(false);
-            this.carnotaurus.setSprinting(false);
+            LivingEntity target = this.carnotaurus.getTarget();
+            if (target == null) {
+                return;
+            }
             this.attackTime = 0;
+            this.carnotaurus.setCharging(true);
+            this.carnotaurus.setPose(Pose.STANDING);
         }
 
+        @Override
         public void stop() {
+            this.attackTime = 0;
             this.carnotaurus.setCharging(false);
-            this.carnotaurus.setSprinting(false);
+            this.carnotaurus.setPose(UP2Poses.CHARGING_END.get());
         }
 
+        @Override
         public boolean requiresUpdateEveryTick() {
             return true;
         }
 
+        @Override
         public void tick() {
             LivingEntity target = this.carnotaurus.getTarget();
-            if (target != null) {
-                double distance = this.carnotaurus.distanceToSqr(target.getX(), target.getY(), target.getZ());
+            BlockPos pos = carnotaurus.blockPosition();
+            if (this.carnotaurus.horizontalCollision && this.carnotaurus.onGround()) {
+                this.carnotaurus.jumpFromGround();
+            }
 
-                if (this.carnotaurus.isCharging()) {
-                    tickChargeAttack();
-                } else {
-                    if (distance <= 60 && this.carnotaurus.getChargeCooldown() <= 0 && this.carnotaurus.onGround()) {
-                        this.carnotaurus.setCharging(true);
-                    }
-                    else {
-                        if (distance < 16) {
-                            this.carnotaurus.getNavigation().moveTo(target, 1.0D);
-                        } else {
-                            this.carnotaurus.getNavigation().moveTo(target, 1.4D);
-                        }
-                        this.carnotaurus.lookAt(Objects.requireNonNull(target), 30F, 30F);
-                        this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
-                    }
+            if (target != null) {
+                this.attackTime++;
+                this.carnotaurus.getNavigation().stop();
+
+                if (attackTime < 20) {
+                    this.carnotaurus.getNavigation().stop();
+                    this.carnotaurus.lookAt(target, 360F, 30F);
+                    this.carnotaurus.setPose(UP2Poses.CHARGING_START.get());
+                }
+
+                if (this.attackTime == 20) {
+                    Vec3 targetPos = target.position();
+                    this.chargeDirection = (new Vec3(pos.getX() - targetPos.x(), 0.0D, pos.getZ() - targetPos.z())).normalize();
+                    this.carnotaurus.setPose(Pose.STANDING);
+                }
+
+                if (this.attackTime > 20) {
+                    this.carnotaurus.setDeltaMovement(this.chargeDirection.x * -0.5, this.carnotaurus.getDeltaMovement().y, this.chargeDirection.z * -0.5);
+                    tryToHurt();
+                }
+
+                if (this.attackTime >= 100 || this.carnotaurus.horizontalCollision || this.carnotaurus.isInWater()) {
+                    finishCharging(this.carnotaurus);
                 }
             }
         }
 
-        protected void tickChargeAttack() {
-            this.attackTime++;
-            this.carnotaurus.getNavigation().stop();
-            LivingEntity target = this.carnotaurus.getTarget();
-            DamageSource damageSource = this.carnotaurus.damageSources().mobAttack(this.carnotaurus);
-            carnotaurus.setPose(UP2Poses.CHARGING_START.get());
-
-            if (this.attackTime == 12) {
-                carnotaurus.setPose(UP2Poses.CHARGING.get());
-                Vec3 targetPos = target.position();
-                double x = -(this.carnotaurus.position().x - targetPos.x);
-                double z = -(this.carnotaurus.position().z - targetPos.z);
-                this.rollMotion = new Vec3(x, this.carnotaurus.getDeltaMovement().y, z).normalize();
-                this.carnotaurus.lookAt(Objects.requireNonNull(target), 360F, 30F);
-                this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
-                this.carnotaurus.setSprinting(true);
-            }
-
-            if (this.attackTime > 12 && this.attackTime < 48 + this.carnotaurus.getRandom().nextInt(4)) {
-                this.carnotaurus.setDeltaMovement(this.rollMotion.x * 0.56, this.carnotaurus.getDeltaMovement().y, this.rollMotion.z * 0.56);
-                if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) < 1.1F) {
-                    this.carnotaurus.doHurtTarget(target);
+        private void tryToHurt() {
+            List<LivingEntity> nearbyEntities = this.carnotaurus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this.carnotaurus, this.carnotaurus.getBoundingBox());
+            if (!nearbyEntities.isEmpty()) {
+                LivingEntity entity = nearbyEntities.get(0);
+                if (!(entity instanceof Carnotaurus)) {
+                    int speedFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
+                    int slownessFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
+                    float effectSpeed = 0.25F * (speedFactor - slownessFactor);
+                    float speedForce = Mth.clamp(carnotaurus.getSpeed() * 1.65F, 0.2F, 3.0F) + effectSpeed;
+                    float knockbackForce = entity.isDamageSourceBlocked(carnotaurus.level().damageSources().mobAttack(carnotaurus)) ? 1.5F : 2.5F;
+                    entity.hurt(entity.damageSources().mobAttack(this.carnotaurus), (float) this.carnotaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    entity.knockback((knockbackForce * speedForce) * 2.5F, this.chargeDirection.x(), this.chargeDirection.z());
                     this.carnotaurus.swing(InteractionHand.MAIN_HAND);
-                    if (target.isDamageSourceBlocked(damageSource) && target instanceof Player player){
-                        player.disableShield(true);
-                    }
                 }
             }
+        }
 
-            if (attackTime > 53 || this.carnotaurus.horizontalCollision) {
-                this.carnotaurus.setSprinting(false);
-            }
-
-            if (this.attackTime >= 69 || this.carnotaurus.horizontalCollision) {
-                carnotaurus.setPose(UP2Poses.CHARGING_END.get());
-                this.attackTime = 0;
-                this.carnotaurus.setCharging(false);
-                this.carnotaurus.chargeCooldown();
-            }
+        private void finishCharging(Carnotaurus carnotaurus) {
+            this.attackTime = 0;
+            carnotaurus.chargeCooldown();
         }
     }
 }
