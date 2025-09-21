@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -27,12 +28,12 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        return !recipeItems.isEmpty() && recipeItems.get(0).test(pContainer.getItem(1));
+    public boolean matches(SimpleContainer container, Level level) {
+        return !recipeItems.isEmpty() && recipeItems.get(0).test(container.getItem(1));
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -42,7 +43,7 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -58,7 +59,7 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return UP2RecipeTypes.EXTRACTING_RECIPE.get();
     }
 
     @Override
@@ -71,15 +72,8 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
         return recipeItems;
     }
 
-    public static class Type implements RecipeType<ExtractingRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
-        public static final String ID ="extracting";
-    }
-
     public static class Serializer implements RecipeSerializer<ExtractingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(UnusualPrehistory2.MOD_ID,"extracting");
 
         @Override
         public ExtractingRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -97,9 +91,7 @@ public class ExtractingRecipe implements Recipe<SimpleContainer> {
         public ExtractingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buf));
-            }
+            inputs.replaceAll(ignored -> Ingredient.fromNetwork(buf));
 
             return new ExtractingRecipe(id, inputs);
         }

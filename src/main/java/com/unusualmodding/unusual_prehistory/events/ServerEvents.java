@@ -56,6 +56,4 @@ public class ServerEvents {
     public static void onRegisterReloadListeners(AddReloadListenerEvent event) {
         event.addListener(new ExtractingRecipeJsonManager());
     }
-
-
 }
