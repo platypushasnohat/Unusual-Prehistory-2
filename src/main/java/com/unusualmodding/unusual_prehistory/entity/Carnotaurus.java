@@ -11,7 +11,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -42,8 +41,6 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState biteLeftAnimationState = new AnimationState();
     public final AnimationState chargeStartAnimationState = new AnimationState();
     public final AnimationState chargeEndAnimationState = new AnimationState();
-
-    private int idleAnimationTimeout = 0;
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -78,15 +75,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public void setupAnimationStates() {
-//        this.chargeStartAnimationState.animateWhen(this.getPose() == UP2Poses.CHARGING_START.get() && this.isCharging(), this.tickCount);
-//        this.chargeEndAnimationState.animateWhen(this.getPose() == UP2Poses.CHARGING_END.get() && !this.isCharging(), this.tickCount);
-
-//        if (this.idleAnimationTimeout == 0) {
-//            this.idleAnimationTimeout = 160;
-//            this.idleAnimationState.start(this.tickCount);
-//        } else {
-//            --this.idleAnimationTimeout;
-//        }
+        this.idleAnimationState.animateWhen(!this.isCharging() && this.getPose() == Pose.STANDING, this.tickCount);
     }
 
     @Override
@@ -230,10 +219,6 @@ public class Carnotaurus extends PrehistoricMob {
         public void tick() {
             LivingEntity target = this.carnotaurus.getTarget();
             BlockPos pos = carnotaurus.blockPosition();
-            if (this.carnotaurus.horizontalCollision && this.carnotaurus.onGround()) {
-                this.carnotaurus.jumpFromGround();
-            }
-
             if (target != null) {
                 this.attackTime++;
                 this.carnotaurus.getNavigation().stop();
@@ -279,7 +264,7 @@ public class Carnotaurus extends PrehistoricMob {
         }
 
         private void finishCharging(Carnotaurus carnotaurus) {
-            this.attackTime = 0;
+            this.attackTime++;
             carnotaurus.chargeCooldown();
         }
     }
