@@ -240,7 +240,7 @@ public class Carnotaurus extends PrehistoricMob {
                     tryToHurt();
                 }
 
-                if (this.attackTime >= 100 || this.carnotaurus.horizontalCollision || this.carnotaurus.isInWater()) {
+                if (this.attackTime >= 60 || this.carnotaurus.horizontalCollision || this.carnotaurus.isInWater()) {
                     finishCharging(this.carnotaurus);
                 }
             }
