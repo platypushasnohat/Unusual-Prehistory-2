@@ -7,7 +7,6 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -41,10 +40,10 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        List<CultivatingRecipe> cultivatingRecipes = recipeManager.getAllRecipesFor(UP2RecipeTypes.CULTIVATING_RECIPE.get());
+        List<CultivatingRecipe> cultivatingRecipes = recipeManager.getAllRecipesFor(UP2RecipeTypes.CULTIVATING.get());
         registration.addRecipes(CULTIVATING_TYPE, cultivatingRecipes);
 
-        List<ExtractingRecipe> extractingRecipes = recipeManager.getAllRecipesFor(ExtractingRecipe.Type.INSTANCE);
+        List<ExtractingRecipe> extractingRecipes = recipeManager.getAllRecipesFor(UP2RecipeTypes.EXTRACTING.get());
         registration.addRecipes(EXTRACTING_TYPE, extractingRecipes);
     }
 

@@ -188,7 +188,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<CultivatingRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.CULTIVATING_RECIPE.get(), inventory, level);
+        Optional<CultivatingRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.CULTIVATING.get(), inventory, level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory, level.registryAccess())) && canDiscardFlask(inventory, new ItemStack(Items.GLASS_BOTTLE)) && blockEntity.hasFuel();
     }
@@ -201,7 +201,7 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<CultivatingRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.CULTIVATING_RECIPE.get(), inventory, level);
+        Optional<CultivatingRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.CULTIVATING.get(), inventory, level);
 
         if (match.isPresent()) {
             blockEntity.itemHandler.extractItem(0,1, false);
@@ -365,6 +365,6 @@ public class CultivatorBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     public static RecipeType<? extends CultivatingRecipe> getRecipeType() {
-        return UP2RecipeTypes.CULTIVATING_RECIPE.get();
+        return UP2RecipeTypes.CULTIVATING.get();
     }
 }

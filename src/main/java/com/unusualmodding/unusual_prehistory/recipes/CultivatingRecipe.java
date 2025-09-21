@@ -61,12 +61,12 @@ public class CultivatingRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
+        return UP2RecipeTypes.CULTIVATING_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return UP2RecipeTypes.CULTIVATING_RECIPE.get();
+        return UP2RecipeTypes.CULTIVATING.get();
     }
 
     @Override
@@ -75,28 +75,21 @@ public class CultivatingRecipe implements Recipe<SimpleContainer> {
     }
 
     public static class Serializer implements RecipeSerializer<CultivatingRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-
         @Override
         public CultivatingRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
-
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
-
             return new CultivatingRecipe(resourceLocation, output, inputs);
         }
 
         @Override
         public CultivatingRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf data) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(data.readInt(), Ingredient.EMPTY);
-
             inputs.replaceAll(ignored -> Ingredient.fromNetwork(data));
-
             ItemStack output = data.readItem();
             return new CultivatingRecipe(resourceLocation, output, inputs);
         }

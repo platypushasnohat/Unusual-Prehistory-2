@@ -227,7 +227,7 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider {
 
         boolean hasRecipe = ExtractingRecipeJsonManager.containsRecipe(inventory.getItem(1).getItem());
 
-        if(hasRecipe) {
+        if (hasRecipe) {
             ItemStack result = ExtractingRecipeJsonManager.getRandomItemStack(inventory.getItem(1).getItem(), level);
 
             entity.itemHandler.extractItem(1, 1, false);
@@ -236,10 +236,8 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider {
                 entity.itemHandler.extractItem(0, 1, false);
             }
 
-            boolean success = false;
             for (int i = 2, n = entity.itemHandler.getSlots(); i < n; i++) {
                 if (entity.itemHandler.insertItem(i, result, false).isEmpty()) {
-                    success = true;
                     break;
                 }
             }
