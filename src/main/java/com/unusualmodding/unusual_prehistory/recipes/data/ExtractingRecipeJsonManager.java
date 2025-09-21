@@ -100,11 +100,12 @@ public class ExtractingRecipeJsonManager extends SimpleJsonResourceReloadListene
 
                     for (Holder<Item> tempItemHolder : itemHolder) {
                         Item item = tempItemHolder.get();
-                        if(weightedPairsTemp.containsKey(item)) LOGGER.warn("Item {} for resourceLocation {} already has items assigned, adding more", item, resourceLocation);
+                        if (weightedPairsTemp.containsKey(item)) {
+                            LOGGER.warn("Item {} for resourceLocation {} already has items assigned, adding more", item, resourceLocation);
+                        }
                         List<ItemWeightedPairCodec> weightedPairsList = weightedPairsTemp.getOrDefault(item, new ArrayList<>());
                         weightedPairsList.addAll(analyzerRecipeCodec.getItemWeightedPairs());
                         weightedPairsTemp.put(item, weightedPairsList);
-
                     }
                     if (!itemHolder.iterator().hasNext()) {
                         LOGGER.error("Tag for {} does not have any items!", itemTagKey);

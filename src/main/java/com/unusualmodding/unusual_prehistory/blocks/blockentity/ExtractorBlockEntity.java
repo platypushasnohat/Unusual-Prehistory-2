@@ -241,7 +241,6 @@ public class ExtractorBlockEntity extends BlockEntity implements MenuProvider {
                     break;
                 }
             }
-
             entity.resetProgress();
         }
     }
