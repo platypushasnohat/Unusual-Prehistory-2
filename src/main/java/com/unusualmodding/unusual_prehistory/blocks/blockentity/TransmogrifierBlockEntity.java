@@ -134,15 +134,15 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public ItemStack getRenderStack() {
-        ItemStack stack;
-        if(!itemHandler.getStackInSlot(2).isEmpty()){
-            stack = itemHandler.getStackInSlot(2);
-        } else{
-            stack = itemHandler.getStackInSlot(0);
-        }
-        return stack;
-    }
+//    public ItemStack getRenderStack() {
+//        ItemStack stack;
+//        if(!itemHandler.getStackInSlot(2).isEmpty()){
+//            stack = itemHandler.getStackInSlot(2);
+//        } else{
+//            stack = itemHandler.getStackInSlot(0);
+//        }
+//        return stack;
+//    }
 
     public void setHandler(ItemStackHandler itemStackHandler) {
         for (int i = 0; i < itemStackHandler.getSlots(); i++){
@@ -190,12 +190,12 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<TransmogrificationRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), inventory, level);
+        Optional<TransmogrificationRecipe> recipe = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), inventory, level);
 
-        if (match.isPresent()) {
+        if (recipe.isPresent()) {
             blockEntity.itemHandler.extractItem(0,1, false);
-            blockEntity.itemHandler.insertItem(2, match.get().assemble(inventory, level.registryAccess()), false);
-            blockEntity.itemHandler.insertItem(3, new ItemStack(Items.GLASS_BOTTLE), false);
+            blockEntity.itemHandler.insertItem(2, recipe.get().assemble(inventory, level.registryAccess()), false);
+//            blockEntity.itemHandler.insertItem(3, new ItemStack(Items.GLASS_BOTTLE), false);
             blockEntity.resetProgress();
         }
     }

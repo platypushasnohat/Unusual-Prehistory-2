@@ -71,11 +71,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         return Mth.ceil((float) scale * (float) fuel / (float) maxFuel);
     }
 
-    private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int INVENTORY_ROW_COUNT = 3;
-    private static final int INVENTORY_COLUMN_COUNT = 9;
-    private static final int INVENTORY_SLOT_COUNT = INVENTORY_COLUMN_COUNT * INVENTORY_ROW_COUNT;
-    private static final int SLOT_COUNT = HOTBAR_SLOT_COUNT + INVENTORY_SLOT_COUNT;
+    private static final int SLOT_COUNT = 36;
     private static final int FIRST_SLOT_INDEX = 0;
 
     private static final int CULTIVATOR_SLOT_INDEX = FIRST_SLOT_INDEX + SLOT_COUNT;

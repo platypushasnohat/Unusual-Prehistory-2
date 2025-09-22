@@ -14,8 +14,7 @@ public class UP2ItemProperties {
             if (item.get() instanceof MobCaptureItem) {
                 ItemProperties.register(item.get(), new ResourceLocation(UnusualPrehistory2.MOD_ID, "variant"), (stack, level, living, i) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0);
             }
-
-            ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), new ResourceLocation("ooze_shape"), (stack, level, living, j) -> (System.identityHashCode(stack) % 5) / 5F);
+            ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), new ResourceLocation("ooze_shape"), (stack, level, living, j) -> (stack.getCount() % 5) / 5F);
         }
     }
 }
