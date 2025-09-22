@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.client.jei;
+package com.unusualmodding.unusual_prehistory.compat.jei;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.recipes.*;

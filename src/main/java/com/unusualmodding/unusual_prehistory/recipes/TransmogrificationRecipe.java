@@ -1,6 +1,5 @@
 package com.unusualmodding.unusual_prehistory.recipes;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import net.minecraft.core.NonNullList;
@@ -8,55 +7,64 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-public class TransmogrificationRecipe implements Recipe<SimpleContainer> {
+public class TransmogrificationRecipe implements Recipe<Container> {
 
-    private final ResourceLocation resourceLocation;
-    private final ItemStack output;
-    private final NonNullList<Ingredient> ingredients;
+    protected final ResourceLocation id;
+    protected final Ingredient input;
+    protected final ItemStack result;
+    protected final int processingTime;
+    private final NonNullList<Ingredient> recipeItems = NonNullList.create();
 
-    public TransmogrificationRecipe(ResourceLocation resourceLocation, ItemStack output, NonNullList<Ingredient> ingredients) {
-        this.resourceLocation = resourceLocation;
-        this.output = output;
-        this.ingredients = ingredients;
+    public TransmogrificationRecipe(ResourceLocation id, Ingredient input, ItemStack result, int processingTime) {
+        this.id = id;
+        this.input = input;
+        this.result = result;
+        this.processingTime = processingTime;
+        recipeItems.add(input);
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
-        return !ingredients.isEmpty() && ingredients.get(0).test(container.getItem(0));
+    public boolean matches(Container container, Level level) {
+        return input.test(!container.getItem(0).isEmpty() ? container.getItem(0) : ItemStack.EMPTY);
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
-        return output.copy();
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+        return this.result.copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
+    public boolean canCraftInDimensions(int i, int i1) {
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
-        return output;
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
     }
 
-    public ItemStack getResultItem() {
-        return output;
+    public int getProcessingTime() {
+        return processingTime;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return ingredients;
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return result;
+    }
+
+    public ItemStack getJEIResultItem() {
+        return result;
     }
 
     @Override
     public ResourceLocation getId() {
-        return resourceLocation;
+        return this.id;
     }
 
     @Override
@@ -69,38 +77,28 @@ public class TransmogrificationRecipe implements Recipe<SimpleContainer> {
         return UP2RecipeTypes.TRANSMOGRIFICATION.get();
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
     public static class Serializer implements RecipeSerializer<TransmogrificationRecipe> {
         @Override
-        public TransmogrificationRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
-            return new TransmogrificationRecipe(resourceLocation, output, inputs);
+        public TransmogrificationRecipe fromJson(ResourceLocation resourceLocation, JsonObject pJson) {
+            Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson,"input"));
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "output"));
+            int processingTime = GsonHelper.getAsInt(pJson, "processing_time", 100);
+            return new TransmogrificationRecipe(resourceLocation, input, output, processingTime);
         }
 
         @Override
-        public TransmogrificationRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf data) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(data.readInt(), Ingredient.EMPTY);
-            inputs.replaceAll(ignored -> Ingredient.fromNetwork(data));
-            ItemStack output = data.readItem();
-            return new TransmogrificationRecipe(resourceLocation, output, inputs);
+        public @Nullable TransmogrificationRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf friendlyByteBuf) {
+            Ingredient input = Ingredient.fromNetwork(friendlyByteBuf);
+            ItemStack result = friendlyByteBuf.readItem();
+            int processingTime = friendlyByteBuf.readVarInt();
+            return new TransmogrificationRecipe(resourceLocation, input, result, processingTime);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf data, TransmogrificationRecipe recipe) {
-            data.writeInt(recipe.getIngredients().size());
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.toNetwork(data);
-            }
-            data.writeItemStack(recipe.output, false);
+        public void toNetwork(FriendlyByteBuf friendlyByteBuf, TransmogrificationRecipe recipe) {
+            recipe.input.toNetwork(friendlyByteBuf);
+            friendlyByteBuf.writeItem(recipe.result);
+            friendlyByteBuf.writeVarInt(recipe.processingTime);
         }
     }
 }

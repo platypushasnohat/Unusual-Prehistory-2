@@ -1,11 +1,10 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "ingredients": [
-    {
-      "item": "unusual_prehistory:nelumbites_dna_bottle"
-    }
-  ],
+  "input": {
+    "item": "unusual_prehistory:nelumbites_dna_bottle"
+  },
   "output": {
     "item": "unusual_prehistory:nelumbites"
-  }
+  },
+  "processing_time": 1000
 }

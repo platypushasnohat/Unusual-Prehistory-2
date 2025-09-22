@@ -1,14 +1,10 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
-import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
-import com.unusualmodding.unusual_prehistory.network.SyncItemStackC2SPacket;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.registry.UP2Network;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
-import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,176 +28,120 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
 
     private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_SIDES= new int[]{1};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 3};
+    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2};
 
-    public TransmogrifierBlockEntity(BlockPos pos, BlockState blockstate) {
-        super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, blockstate);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+        }
+    };
+
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> itemHandler);
+    protected final ContainerData data;
+
+    private final RecipeType<TransmogrificationRecipe> recipeType;
+
+    private int progress;
+    private int maxProgress;
+
+    private int fuel = 0;
+    private int maxFuel = 1000;
+
+    public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
+        super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);
+        this.recipeType = UP2RecipeTypes.TRANSMOGRIFICATION.get();
         this.data = new ContainerData() {
-
+            @Override
             public int get(int index) {
                 return switch (index) {
                     case 0 -> TransmogrifierBlockEntity.this.progress;
                     case 1 -> TransmogrifierBlockEntity.this.maxProgress;
                     case 2 -> TransmogrifierBlockEntity.this.fuel;
                     case 3 -> TransmogrifierBlockEntity.this.maxFuel;
-                    case 4 -> TransmogrifierBlockEntity.this.tickCount;
                     default -> 0;
                 };
             }
 
+            @Override
             public void set(int index, int value) {
                 switch (index) {
                     case 0 -> TransmogrifierBlockEntity.this.progress = value;
                     case 1 -> TransmogrifierBlockEntity.this.maxProgress = value;
                     case 2 -> TransmogrifierBlockEntity.this.fuel = value;
                     case 3 -> TransmogrifierBlockEntity.this.maxFuel = value;
-                    case 4 -> TransmogrifierBlockEntity.this.tickCount = value;
                 }
             }
+
+            @Override
             public int getCount() {
-                return 5;
+                return 4;
             }
         };
     }
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-            if (!level.isClientSide) {
-                UP2Network.sendToClients(new SyncItemStackC2SPacket(this, worldPosition));
-            }
-        }
-    };
-
-    private LazyOptional<IItemHandler> lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-
-    protected final ContainerData data;
-    private int progress = 0;
-    private int maxProgress = 1152;
-    private int fuel = 0;
-    private int maxFuel = 790;
-
-    public int tickCount = 0;
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable(UnusualPrehistory2.MOD_ID + ".blockentity.transmogrifier");
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandlerOptional = LazyOptional.of(() -> itemHandler);
-        if (level != null && !level.isClientSide) {
-            UP2Network.sendToClients(new SyncItemStackC2SPacket(this.itemHandler, worldPosition));
-        }
-    }
-
-    @Override
-    public void invalidateCaps()  {
-        super.invalidateCaps();
-        lazyItemHandlerOptional.invalidate();
-        for (LazyOptional<? extends IItemHandler> handler : handlers) handler.invalidate();
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        tag.put("Inventory", itemHandler.serializeNBT());
-        tag.putInt("Progress", progress);
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        itemHandler.deserializeNBT(nbt.getCompound("Inventory"));
-        progress = nbt.getInt("Progress");
-    }
-
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-        Containers.dropContents(this.level, this.worldPosition, inventory);
-    }
-
-//    public ItemStack getRenderStack() {
-//        ItemStack stack;
-//        if(!itemHandler.getStackInSlot(2).isEmpty()){
-//            stack = itemHandler.getStackInSlot(2);
-//        } else{
-//            stack = itemHandler.getStackInSlot(0);
-//        }
-//        return stack;
-//    }
-
-    public void setHandler(ItemStackHandler itemStackHandler) {
-        for (int i = 0; i < itemStackHandler.getSlots(); i++){
-            itemHandler.setStackInSlot(i, itemStackHandler.getStackInSlot(i));
-        }
-    }
-
     public static void tick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
-        blockEntity.tickCount++;
-
-        if (hasRecipe(blockEntity)) {
-            blockEntity.progress++;
-            blockEntity.depleteFuel();
-            setChanged(level, pos, state);
-            if (blockEntity.progress > blockEntity.maxProgress) {
-                craftItem(blockEntity);
-            }
-        } else {
-            blockEntity.resetProgress();
-            if(!blockEntity.hasFuel()) {
+        if (!blockEntity.hasRecipe(blockEntity, level)) {
+            blockEntity.progress = 0;
+            if (!blockEntity.hasFuel()) {
                 blockEntity.refuel();
             }
             setChanged(level, pos, state);
+        } else {
+            final Container input = blockEntity.getContainer(level);
+            TransmogrificationRecipe recipe = blockEntity.getRecipeFor(level, input).get();
+            int processTime = recipe.getProcessingTime();
+            blockEntity.maxProgress = processTime;
+            blockEntity.progress++;
+            blockEntity.depleteFuel();
+            setChanged(level, pos, state);
+            if (blockEntity.progress >= processTime) {
+                blockEntity.progress = 0;
+                blockEntity.assembleRecipe(level, input, recipe);
+            }
         }
     }
 
-    private static boolean hasRecipe(TransmogrifierBlockEntity blockEntity) {
-        Level level = blockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-
-        for (int i = 0; i < blockEntity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
-        }
-
-        Optional<TransmogrificationRecipe> match = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), inventory, level);
-
-        return match.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, match.get().assemble(inventory, level.registryAccess())) && canDiscardFlask(inventory, new ItemStack(Items.GLASS_BOTTLE)) && blockEntity.hasFuel();
+    protected Optional<TransmogrificationRecipe> getRecipeFor(Level level, Container input) {
+        return level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), input, level);
     }
 
-    private static void craftItem(TransmogrifierBlockEntity blockEntity) {
-        Level level = blockEntity.level;
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-
-        for (int i = 0; i < blockEntity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
+    private void assembleRecipe(final Level level, final Container input, TransmogrificationRecipe recipe) {
+        final ItemStack output = recipe.assemble(input, level.registryAccess());
+        if (output.isEmpty()) {
+            return;
         }
-
-        Optional<TransmogrificationRecipe> recipe = level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), inventory, level);
-
-        if (recipe.isPresent()) {
-            blockEntity.itemHandler.extractItem(0,1, false);
-            blockEntity.itemHandler.insertItem(2, recipe.get().assemble(inventory, level.registryAccess()), false);
-//            blockEntity.itemHandler.insertItem(3, new ItemStack(Items.GLASS_BOTTLE), false);
-            blockEntity.resetProgress();
-        }
+        final IItemHandler itemHandler = this.itemHandler;
+        itemHandler.insertItem(2, output, false);
+        itemHandler.extractItem(0, 1, false);
     }
 
-    private void resetProgress() {
-        this.progress = 0;
+    protected boolean hasRecipe(TransmogrifierBlockEntity blockEntity, Level level) {
+        final Container inventory = getContainer(level);
+        Optional<TransmogrificationRecipe> recipe = getRecipeFor(level, inventory);
+        return recipe.isPresent() && blockEntity.hasFuel() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, recipe.get().assemble(inventory, level.registryAccess()));
+    }
+
+    private static boolean canInsertItemIntoOutputSlot(Container inventory, ItemStack output) {
+        return inventory.getItem(2).getItem() == output.getItem() || inventory.getItem(2).isEmpty();
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(Container inventory) {
+        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount() && inventory.getItem(3).getMaxStackSize() > inventory.getItem(3).getCount();
+    }
+
+    private Container getContainer(Level level) {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+        return inventory;
     }
 
     private void depleteFuel() {
@@ -232,22 +172,75 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
         return 0;
     }
 
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(2).getItem() == output.getItem() || inventory.getItem(2).isEmpty();
+    @Override
+    public void reviveCaps() {
+        super.reviveCaps();
+        this.handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
     }
 
-    private static boolean canDiscardFlask(SimpleContainer inventory, ItemStack output) {
-        return inventory.getItem(3).getItem() == output.getItem() || inventory.getItem(3).isEmpty();
-    }
+    private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount() && inventory.getItem(3).getMaxStackSize() > inventory.getItem(3).getCount();
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction direction) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
+            if (direction == null) {
+                return lazyItemHandler.cast();
+            } else {
+                return handlers[direction.ordinal()].cast();
+            }
+        }
+        return super.getCapability(capability, direction);
     }
 
     @Override
-    public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player player) {
-        return new TransmogrifierMenu(containerId, inventory, this, this.data);
+    public void onLoad() {
+        super.onLoad();
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
+    }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    public boolean canRemoveItem(int slot) {
+        return slot == 2;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.unusual_prehistory.transmogrifier");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new TransmogrifierMenu(id, inventory, this, this.data);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compoundTag) {
+        compoundTag.put("inventory", itemHandler.serializeNBT());
+        compoundTag.putInt("transmogrifier.progress", progress);
+        super.saveAdditional(compoundTag);
+    }
+
+    @Override
+    public void load(CompoundTag compoundTag) {
+        super.load(compoundTag);
+        itemHandler.deserializeNBT(compoundTag.getCompound("inventory"));
+        progress = compoundTag.getInt("transmogrifier.progress");
+    }
+
 
     @Override
     public int[] getSlotsForFace(Direction direction) {
@@ -260,22 +253,11 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return canTakeItem(pIndex, pItemStack);
-    }
-
-    public boolean canTakeItem(int slot, ItemStack stack) {
-        if (slot == 0 && stack.is(UP2ItemTags.DNA_BOTTLES)) {
-            return true;
-        }
-        return slot == 1 && stack.is(UP2Items.ORGANIC_OOZE.get());
-    }
-
-    public boolean canRemoveItem(int slot) {
-        return (slot == 2) || (slot == 3);
+        return true;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
+    public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
         return true;
     }
 
@@ -316,10 +298,14 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
-    public void setItem(int slot, ItemStack itemStack) {
-        if (canTakeItem(slot, itemStack)) {
-            this.itemHandler.setStackInSlot(slot, itemStack);
+    public void setItem(int slot, ItemStack stack) {
+        if (canTakeItem(slot, stack)) {
+            this.itemHandler.setStackInSlot(slot, stack);
         }
+    }
+
+    public boolean canTakeItem(int slot, ItemStack stack) {
+        return (slot == 0 || slot == 1) && this.itemHandler.isItemValid(slot, stack);
     }
 
     @Override
@@ -329,27 +315,6 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
 
     @Override
     public void clearContent() {
-        this.itemHandler.setSize(4);
-    }
-
-    @Override
-    public void reviveCaps() {
-        super.reviveCaps();
-        this.handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
-    }
-
-    private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction direction) {
-        if (capability == ForgeCapabilities.ITEM_HANDLER) {
-            if (direction == null) {
-                return lazyItemHandlerOptional.cast();
-            } else {
-                return handlers[direction.ordinal()].cast();
-            }
-        }
-        return super.getCapability(capability, direction);
+        this.itemHandler.setSize(3);
     }
 }

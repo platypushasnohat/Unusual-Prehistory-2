@@ -22,13 +22,13 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
 
     private static final int PROGRESS_X = 65;
     private static final int PROGRESS_Y = 29;
-    private static final int PROGRESS_WIDTH = 48;
-    private static final int PROGRESS_HEIGHT = 20;
+    public static final int PROGRESS_WIDTH = 48;
+    public static final int PROGRESS_HEIGHT = 20;
 
     private static final int FUEL_X = 100;
     private static final int FUEL_Y = 66;
-    private static final int FUEL_WIDTH = 44;
-    private static final int FUEL_HEIGHT = 11;
+    public static final int FUEL_WIDTH = 44;
+    public static final int FUEL_HEIGHT = 11;
 
     public TransmogrifierScreen(TransmogrifierMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

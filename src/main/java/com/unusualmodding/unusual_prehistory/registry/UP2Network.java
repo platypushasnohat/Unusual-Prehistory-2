@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.network.SyncItemStackC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -27,12 +26,6 @@ public class UP2Network {
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
                 .simpleChannel();
-
-        network.messageBuilder(SyncItemStackC2SPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SyncItemStackC2SPacket::new)
-                .encoder(SyncItemStackC2SPacket::toBytes)
-                .consumerMainThread(SyncItemStackC2SPacket::handle)
-                .add();
 
         INSTANCE = network;
 

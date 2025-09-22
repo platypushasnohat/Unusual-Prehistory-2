@@ -208,10 +208,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
-
-        // Block entities
-        this.blockEntity("transmogrifier", "Transmogrifier");
-        this.blockEntity("transmogrifier_jei", "Transmogrifier");
     }
 
     private void forBlock(Supplier<? extends Block> block) {
@@ -247,10 +243,6 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
         add("subtitles." + key.get().getLocation().getPath(), subtitle);
-    }
-
-    public void blockEntity(String beName,String name){
-        add(UnusualPrehistory2.MOD_ID + ".blockentity." + beName, name);
     }
 
     private void dnaItem(Item... items) {

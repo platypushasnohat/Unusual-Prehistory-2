@@ -3,7 +3,6 @@ package com.unusualmodding.unusual_prehistory.data;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.core.NonNullList;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
@@ -58,38 +57,38 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
 
-        cultivating(consumer, UP2Items.DIPLOCAULUS_DNA.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
-        cultivating(consumer, UP2Items.DUNKLEOSTEUS_DNA.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
-        cultivating(consumer, UP2Items.JAWLESS_FISH_DNA.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
-        cultivating(consumer, UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
-        cultivating(consumer, UP2Items.STETHACANTHUS_DNA.get(), UP2Items.STETHACANTHUS_SAC.get());
+        transmogrification(consumer, UP2Items.DIPLOCAULUS_DNA.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
+        transmogrification(consumer, UP2Items.DUNKLEOSTEUS_DNA.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
+        transmogrification(consumer, UP2Items.JAWLESS_FISH_DNA.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
+        transmogrification(consumer, UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
+        transmogrification(consumer, UP2Items.STETHACANTHUS_DNA.get(), UP2Items.STETHACANTHUS_SAC.get());
 
-        cultivating(consumer, UP2Items.CARNOTAURUS_DNA.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
-        cultivating(consumer, UP2Items.DROMAEOSAURUS_DNA.get(), UP2Items.DROMAEOSAURUS_EGG.get());
-        cultivating(consumer, UP2Items.KENTROSAURUS_DNA.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
-        cultivating(consumer, UP2Items.MAJUNGASAURUS_DNA.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
-        cultivating(consumer, UP2Items.MEGALANIA_DNA.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
-        cultivating(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
-        cultivating(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
+        transmogrification(consumer, UP2Items.CARNOTAURUS_DNA.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.DROMAEOSAURUS_DNA.get(), UP2Items.DROMAEOSAURUS_EGG.get());
+        transmogrification(consumer, UP2Items.KENTROSAURUS_DNA.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.MAJUNGASAURUS_DNA.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.MEGALANIA_DNA.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
+        transmogrification(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
 
-        cultivating(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());
-        cultivating(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
-        cultivating(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
-        cultivating(consumer, UP2Items.CLADOPHLEBIS_DNA.get(), UP2Blocks.CLADOPHLEBIS.get().asItem());
-        cultivating(consumer, UP2Items.COOKSONIA_DNA.get(), UP2Blocks.COOKSONIA.get().asItem());
-        cultivating(consumer, UP2Items.GINKGO_DNA.get(), UP2Blocks.GINKGO_SAPLING.get().asItem());
-        cultivating(consumer, UP2Items.HORSETAIL_DNA.get(), UP2Blocks.HORSETAIL.get().asItem());
-        cultivating(consumer, UP2Items.ISOETES_DNA.get(), UP2Blocks.ISOETES.get().asItem());
-        cultivating(consumer, UP2Items.LEEFRUCTUS_DNA.get(), UP2Blocks.LEEFRUCTUS.get().asItem());
-        cultivating(consumer, UP2Items.LEPIDODENDRON_DNA.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
-        cultivating(consumer, UP2Items.RAIGUENRAYUN_DNA.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
-        cultivating(consumer, UP2Items.RHYNIA_DNA.get(), UP2Blocks.RHYNIA.get().asItem());
-        cultivating(consumer, UP2Items.SARRACENIA_DNA.get(), UP2Blocks.SARRACENIA.get().asItem());
-        cultivating(consumer, UP2Items.ARCHAEFRUCTUS_DNA.get(), UP2Blocks.ARCHAEFRUCTUS.get().asItem());
-        cultivating(consumer, UP2Items.NELUMBITES_DNA.get(), UP2Blocks.NELUMBITES.get().asItem());
-        cultivating(consumer, UP2Items.QUEREUXIA_DNA.get(), UP2Blocks.QUEREUXIA.get().asItem());
-        cultivating(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get().asItem());
-        cultivating(consumer, UP2Items.CLATHRODICTYON_CORAL_DNA.get(), UP2Blocks.CLATHRODICTYON_CORAL.get().asItem());
+        transmogrification(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());
+        transmogrification(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
+        transmogrification(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
+        transmogrification(consumer, UP2Items.CLADOPHLEBIS_DNA.get(), UP2Blocks.CLADOPHLEBIS.get().asItem());
+        transmogrification(consumer, UP2Items.COOKSONIA_DNA.get(), UP2Blocks.COOKSONIA.get().asItem());
+        transmogrification(consumer, UP2Items.GINKGO_DNA.get(), UP2Blocks.GINKGO_SAPLING.get().asItem());
+        transmogrification(consumer, UP2Items.HORSETAIL_DNA.get(), UP2Blocks.HORSETAIL.get().asItem());
+        transmogrification(consumer, UP2Items.ISOETES_DNA.get(), UP2Blocks.ISOETES.get().asItem());
+        transmogrification(consumer, UP2Items.LEEFRUCTUS_DNA.get(), UP2Blocks.LEEFRUCTUS.get().asItem());
+        transmogrification(consumer, UP2Items.LEPIDODENDRON_DNA.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
+        transmogrification(consumer, UP2Items.RAIGUENRAYUN_DNA.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
+        transmogrification(consumer, UP2Items.RHYNIA_DNA.get(), UP2Blocks.RHYNIA.get().asItem());
+        transmogrification(consumer, UP2Items.SARRACENIA_DNA.get(), UP2Blocks.SARRACENIA.get().asItem());
+        transmogrification(consumer, UP2Items.ARCHAEFRUCTUS_DNA.get(), UP2Blocks.ARCHAEFRUCTUS.get().asItem());
+        transmogrification(consumer, UP2Items.NELUMBITES_DNA.get(), UP2Blocks.NELUMBITES.get().asItem());
+        transmogrification(consumer, UP2Items.QUEREUXIA_DNA.get(), UP2Blocks.QUEREUXIA.get().asItem());
+        transmogrification(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get().asItem());
+        transmogrification(consumer, UP2Items.CLATHRODICTYON_CORAL_DNA.get(), UP2Blocks.CLATHRODICTYON_CORAL.get().asItem());
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {
@@ -171,9 +170,13 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(logIn.get()).getPath(), has(logIn.get()));
     }
 
-    protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, Item result){
-        Ingredient ingredient = Ingredient.of(ingredients);
-        NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
-        UP2RecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, modPrefix("transmogrification/" + getItemName(result)));
+    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime) {
+        Ingredient ingredient = Ingredient.of(input);
+        UP2RecipeBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+    }
+
+    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result) {
+        Ingredient ingredient = Ingredient.of(input);
+        UP2RecipeBuilder.transmogrification(ingredient, result, 1000).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 }

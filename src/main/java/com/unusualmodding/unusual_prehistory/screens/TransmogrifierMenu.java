@@ -29,7 +29,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
     public TransmogrifierMenu(int containerId, Inventory inventory, BlockEntity blockEntity, ContainerData data) {
         super(UP2MenuTypes.TRANSMOGRIFIER.get(), containerId);
 
-        checkContainerSize(inventory, 4);
+        checkContainerSize(inventory, 3);
 
         this.blockEntity = ((TransmogrifierBlockEntity) blockEntity);
         this.level = inventory.player.level();
@@ -41,9 +41,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new OozeSlot(handler, 1, 80, 64));
             this.addSlot(new SlotItemHandler(handler, 0, 33, 31));
-
             this.addSlot(new UP2ResultSlot(handler, 2, 128, 31));
-            this.addSlot(new UP2ResultSlot(handler, 3, 152, 64));
         });
 
         addDataSlots(data);
@@ -75,7 +73,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
     private static final int FIRST_SLOT_INDEX = 0;
 
     private static final int CULTIVATOR_SLOT_INDEX = FIRST_SLOT_INDEX + SLOT_COUNT;
-    private static final int CULTIVATOR_SLOT_COUNT = 4;
+    private static final int CULTIVATOR_SLOT_COUNT = 3;
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
