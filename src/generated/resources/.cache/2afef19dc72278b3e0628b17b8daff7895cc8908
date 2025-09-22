@@ -1,4 +1,4 @@
-// 1.20.1	2025-07-12T21:44:36.3409681	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-09-21T21:55:27.760664	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/dirt.json
@@ -8,7 +8,7 @@
 8ad98818815a6fcfd7699721d3ecf9cf2e73bdec data/minecraft/tags/blocks/logs_that_burn.json
 ec688788da573a895300c50d59544141459f11c8 data/minecraft/tags/blocks/mineable/axe.json
 bd42d95979bebb9214754695e5414219ef2c7a14 data/minecraft/tags/blocks/mineable/hoe.json
-aff5f2631b8dfc294a0baabc5ba921f34dd67208 data/minecraft/tags/blocks/mineable/pickaxe.json
+8677e6a3237ed254db021a4ca8f6fd02517ab034 data/minecraft/tags/blocks/mineable/pickaxe.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/mineable/shovel.json
 4bbcd7a1bc07c30e1bb94842b865ba6844f521cf data/minecraft/tags/blocks/overworld_natural_logs.json
 2571ae931a2588cfba6fdc91f30bb75962da3850 data/minecraft/tags/blocks/planks.json

@@ -6,12 +6,11 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
-import com.unusualmodding.unusual_prehistory.client.renderer.blockentity.*;
-import com.unusualmodding.unusual_prehistory.client.screens.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
 import com.unusualmodding.unusual_prehistory.client.particles.*;
+import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -31,9 +30,7 @@ public class ClientEvents {
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UP2ItemProperties::registerItemProperties);
         Sheets.addWoodType(UP2BlockProperties.GINKGO);
-
-        MenuScreens.register(UP2MenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
-        MenuScreens.register(UP2MenuTypes.ANALYZER_MENU.get(), ExtractorScreen::new);
+        MenuScreens.register(UP2MenuTypes.TRANSMOGRIFIER.get(), TransmogrifierScreen::new);
     }
 
     @SubscribeEvent
@@ -63,8 +60,6 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
-
-        event.registerBlockEntityRenderer(UP2BlockEntities.CULTIVATOR_BLOCK_ENTITY.get(), CultivatorBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

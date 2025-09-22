@@ -1,0 +1,11 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "ingredients": [
+    {
+      "item": "unusual_prehistory:talpanas_dna_bottle"
+    }
+  ],
+  "output": {
+    "item": "unusual_prehistory:talpanas_egg"
+  }
+}

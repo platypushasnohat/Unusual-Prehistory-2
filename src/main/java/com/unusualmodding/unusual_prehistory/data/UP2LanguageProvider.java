@@ -5,7 +5,7 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
-import com.unusualmodding.unusual_prehistory.UnusualPrehistory2CreativeTab;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2Tab;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +31,7 @@ public class UP2LanguageProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UnusualPrehistory2CreativeTab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
+        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
 
         // blocks
         UP2Blocks.AUTO_TRANSLATE.forEach(this::forBlock);
@@ -210,10 +210,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
 
         // Block entities
-        this.blockEntity("extractor", "                          Extractor");
-        this.blockEntity("extractor_jei", "Extractor");
-        this.blockEntity("cultivator", "Cultivator");
-        this.blockEntity("cultivator_jei", "Cultivator");
+        this.blockEntity("transmogrifier", "Transmogrifier");
+        this.blockEntity("transmogrifier_jei", "Transmogrifier");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

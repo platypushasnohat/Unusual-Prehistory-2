@@ -55,8 +55,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-                EXTRACTOR.get(),
-                CULTIVATOR.get(),
+                TRANSMOGRIFIER.get(),
 
                 DEEPSLATE_FOSSIL.get(),
                 FOSSIL.get(),

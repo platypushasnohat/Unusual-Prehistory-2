@@ -29,8 +29,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.EXTRACTOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.FOSSILS).define('Y', Tags.Items.DUSTS_REDSTONE).pattern("###").pattern("#X#").pattern("#Y#").unlockedBy("has_fossil", has(UP2ItemTags.FOSSILS)).save(consumer);
-        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.CULTIVATOR.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.CULTIVATOR_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.CULTIVATOR_FUEL)).save(consumer);
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.CULTIVATOR_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.CULTIVATOR_FUEL)).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
@@ -175,6 +174,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     protected static void cultivating(Consumer<FinishedRecipe> finishedRecipeConsumer, Item ingredients, Item result){
         Ingredient ingredient = Ingredient.of(ingredients);
         NonNullList<Ingredient> ingredients1 = NonNullList.of(Ingredient.EMPTY, ingredient);
-        UP2RecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, modPrefix("cultivating/" + getItemName(result)));
+        UP2RecipeBuilder.cultivating(ingredients1, result).save(finishedRecipeConsumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 }

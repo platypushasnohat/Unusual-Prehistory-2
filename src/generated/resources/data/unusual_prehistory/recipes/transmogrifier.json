@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "X": {
+      "tag": "unusual_prehistory:cultivator_fuel"
+    },
+    "Y": {
+      "tag": "forge:dusts/redstone"
+    },
+    "Z": {
+      "tag": "forge:glass"
+    }
+  },
+  "pattern": [
+    "###",
+    "ZXZ",
+    "#Y#"
+  ],
+  "result": {
+    "item": "unusual_prehistory:transmogrifier"
+  },
+  "show_notification": true
+}

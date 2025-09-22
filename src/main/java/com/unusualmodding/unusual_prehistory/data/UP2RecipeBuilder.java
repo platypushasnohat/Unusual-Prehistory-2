@@ -37,7 +37,7 @@ public class UP2RecipeBuilder {
     }
 
     public static UP2RecipeBuilder cultivating(NonNullList<Ingredient> ingredients, Item pResult) {
-        return new UP2RecipeBuilder(UP2RecipeTypes.CULTIVATING_SERIALIZER.get(), ingredients, pResult);
+        return new UP2RecipeBuilder(UP2RecipeTypes.TRANSMOGRIFICATION_SERIALIZER.get(), ingredients, pResult);
     }
 
     public void save(Consumer<FinishedRecipe> pRecipeConsumer, String pLocation) {

@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.network;
 
-import com.unusualmodding.unusual_prehistory.blocks.blockentity.CultivatorBlockEntity;
+import com.unusualmodding.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -29,16 +29,14 @@ public class SyncItemStackC2SPacket {
         for (int i = 0; i < collection.size(); i++) {
             itemStackHandler.insertItem(i, collection.get(i), false);
         }
-
         this.pos = buf.readBlockPos();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         Collection<ItemStack> list = new ArrayList<>();
-        for(int i = 0; i < itemStackHandler.getSlots(); i++) {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
             list.add(itemStackHandler.getStackInSlot(i));
         }
-
         buf.writeCollection(list, FriendlyByteBuf::writeItem);
         buf.writeBlockPos(pos);
     }
@@ -46,7 +44,7 @@ public class SyncItemStackC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            if(Minecraft.getInstance().level.getBlockEntity(pos) instanceof CultivatorBlockEntity blockEntity) {
+            if (Minecraft.getInstance().level.getBlockEntity(pos) instanceof TransmogrifierBlockEntity blockEntity) {
                 blockEntity.setHandler(this.itemStackHandler);
             }
         });

@@ -30,7 +30,7 @@ public class UnusualPrehistory2 {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
-        UnusualPrehistory2CreativeTab.CREATIVE_TABS.register(bus);
+        UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
