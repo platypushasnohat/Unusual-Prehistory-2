@@ -208,6 +208,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
+
+        this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

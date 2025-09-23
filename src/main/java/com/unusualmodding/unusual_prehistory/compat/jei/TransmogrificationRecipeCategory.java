@@ -4,12 +4,10 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -27,27 +25,19 @@ public class TransmogrificationRecipeCategory implements IRecipeCategory<Transmo
 
     public final static ResourceLocation UID = new ResourceLocation(UnusualPrehistory2.MOD_ID, "transmogrification");
 
-    public final static ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/jei/transmogrifier_jei.png");
+    public final static ResourceLocation BACKGROUND = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/transmogrifier.png");
 
     private final IDrawable background;
     private final IDrawable icon;
 
-    protected final IDrawableStatic staticFuel;
-    protected final IDrawableAnimated animatedFuel;
-    protected final IDrawableStatic staticProgress;
-    protected final IDrawableAnimated animatedProgress;
+    protected final IDrawableAnimated fuel;
+    protected final IDrawableAnimated progress;
 
     public TransmogrificationRecipeCategory(IGuiHelper guiHelper) {
-        this(guiHelper, 176, 100);
-    }
-
-    public TransmogrificationRecipeCategory(IGuiHelper guiHelper, int width, int height) {
-        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, width, height);
+        this.background = guiHelper.createDrawable(BACKGROUND, 32, 28, 116, 52);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(UP2Blocks.TRANSMOGRIFIER.get()));
-        staticFuel = guiHelper.createDrawable(TEXTURE, 176, 1, TransmogrifierScreen.FUEL_WIDTH, TransmogrifierScreen.FUEL_HEIGHT);
-        animatedFuel = guiHelper.createAnimatedDrawable(staticFuel, 1000, IDrawableAnimated.StartDirection.RIGHT, true);
-        staticProgress = guiHelper.createDrawable(TEXTURE, 176, TransmogrifierScreen.FUEL_HEIGHT, TransmogrifierScreen.PROGRESS_WIDTH, TransmogrifierScreen.PROGRESS_HEIGHT);
-        animatedProgress = guiHelper.createAnimatedDrawable(staticProgress, 300, IDrawableAnimated.StartDirection.LEFT, false);
+        this.fuel = guiHelper.drawableBuilder(BACKGROUND, 176, 20, 44, 11).buildAnimated(1000, IDrawableAnimated.StartDirection.RIGHT, true);
+        this.progress = guiHelper.drawableBuilder(BACKGROUND, 176, 0, 48, 20).buildAnimated(700, IDrawableAnimated.StartDirection.LEFT, false);;
     }
 
     @Override
@@ -57,7 +47,7 @@ public class TransmogrificationRecipeCategory implements IRecipeCategory<Transmo
 
     @Override
     public Component getTitle() {
-        return Component.translatable("block.unusual_prehistory.transmogrifier");
+        return Component.translatable(UnusualPrehistory2.MOD_ID + "." + "jei.transmogrification");
     }
 
     @Override
@@ -85,15 +75,15 @@ public class TransmogrificationRecipeCategory implements IRecipeCategory<Transmo
     @Override
     public void draw(TransmogrificationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-        drawProgress(recipe, guiGraphics, 45);
-        animatedFuel.draw(guiGraphics, 42, 21);
-        animatedProgress.draw(guiGraphics, 38, 6);
+        drawProgress(recipe, guiGraphics, 24);
+        this.fuel.draw(guiGraphics, 68, 38);
+        this.progress.draw(guiGraphics, 33, 1);
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, TransmogrificationRecipe recipe, IFocusGroup foci) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 33, 31).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.INPUT, 80, 64).addItemStack(new ItemStack(UP2Items.ORGANIC_OOZE.get()));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 128, 31).addItemStack(recipe.getJEIResultItem());
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, 3).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 48, 36).addItemStack(new ItemStack(UP2Items.ORGANIC_OOZE.get()));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 3).addItemStack(recipe.getJEIResultItem());
     }
 }

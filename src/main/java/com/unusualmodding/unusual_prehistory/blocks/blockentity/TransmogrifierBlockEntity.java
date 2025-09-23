@@ -52,7 +52,7 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
     private int maxProgress;
 
     private int fuel = 0;
-    private int maxFuel = 1000;
+    private int maxFuel = 700;
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
         super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);
