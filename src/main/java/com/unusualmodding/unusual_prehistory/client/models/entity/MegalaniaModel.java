@@ -1,7 +1,5 @@
 package com.unusualmodding.unusual_prehistory.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
@@ -14,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
+public class MegalaniaModel extends UP2Model<Megalania> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -129,7 +127,7 @@ public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!(entity.getPose() == UP2Poses.ROARING.get())) {
@@ -147,13 +145,12 @@ public class MegalaniaModel<T extends Megalania> extends UP2Model<T> {
 			this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 		}
 
+		if (this.young) {
+			this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
+		}
+
 		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

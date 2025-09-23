@@ -16,13 +16,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel<Megalania>> {
+public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
-        super(context, new MegalaniaModel<>(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
-        this.addLayer(new MegalaniaTemperatureLayer<>(this));
+        super(context, new MegalaniaModel(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
+        this.addLayer(new MegalaniaTemperatureLayer(this));
     }
 
     @Override
@@ -30,12 +30,6 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel<Meg
         if (!entity.isInvisible()) {
             super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
         }
-    }
-
-    @Override
-    protected void scale(Megalania entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
-        else super.scale(entity, matrices, amount);
     }
 
     @Override

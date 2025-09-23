@@ -4,6 +4,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.enums.MegalaniaBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -71,7 +72,7 @@ public class Megalania extends PrehistoricMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 60.0D).add(Attributes.MOVEMENT_SPEED, 0.14F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.14F);
     }
 
     @Override
@@ -263,8 +264,9 @@ public class Megalania extends PrehistoricMob {
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob mob) {
-        return null;
+    @Nullable
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
+        return UP2Entities.MEGALANIA.get().create(level);
     }
 
     @Nullable

@@ -15,19 +15,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MegalaniaTemperatureLayer<T extends Megalania, M extends MegalaniaModel<T>> extends RenderLayer<T, M> {
+public class MegalaniaTemperatureLayer extends RenderLayer<Megalania, MegalaniaModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_WARM = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_warm.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_nether.png");
 
-    public MegalaniaTemperatureLayer(RenderLayerParent<T, M> parent) {
+    public MegalaniaTemperatureLayer(RenderLayerParent<Megalania, MegalaniaModel> parent) {
         super(parent);
     }
 
     @Override
-    public void render (PoseStack matrixStackIn, MultiBufferSource buffer,int packedLightIn, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render (PoseStack matrixStackIn, MultiBufferSource buffer,int packedLightIn, Megalania entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entity.isInvisible()) {
             float tempProgress = entity.prevTempProgress + (entity.tempProgress - entity.prevTempProgress) * partialTicks;
             float a = 1F;

@@ -241,7 +241,6 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
         progress = compoundTag.getInt("transmogrifier.progress");
     }
 
-
     @Override
     public int[] getSlotsForFace(Direction direction) {
         if (direction == Direction.UP) {
