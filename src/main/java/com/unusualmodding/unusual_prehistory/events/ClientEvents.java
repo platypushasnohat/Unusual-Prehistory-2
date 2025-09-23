@@ -6,6 +6,7 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
+import com.unusualmodding.unusual_prehistory.client.renderer.blockentity.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
@@ -60,6 +61,8 @@ public class ClientEvents {
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
+
+        event.registerBlockEntityRenderer(UP2BlockEntities.SUSPICIOUS_STONE.get(), SuspiciousStoneRenderer::new);
     }
 
     @SubscribeEvent

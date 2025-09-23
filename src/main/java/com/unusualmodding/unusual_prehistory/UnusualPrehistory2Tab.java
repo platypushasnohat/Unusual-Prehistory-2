@@ -20,6 +20,8 @@ public class UnusualPrehistory2Tab {
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, tabOutput) -> {
 
+                        tabOutput.accept(CHISEL.get());
+
                         tabOutput.accept(PALEOZOIC_FOSSIL.get());
                         tabOutput.accept(MESOZOIC_FOSSIL.get());
                         tabOutput.accept(FROZEN_MEAT.get());
@@ -30,7 +32,6 @@ public class UnusualPrehistory2Tab {
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
-//                        tabOutput.accept(UP2Blocks.EXTRACTOR.get());
                         tabOutput.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
                         // paleozoic
