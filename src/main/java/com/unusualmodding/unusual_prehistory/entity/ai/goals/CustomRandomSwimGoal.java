@@ -9,15 +9,15 @@ import javax.annotation.Nullable;
 
 public class CustomRandomSwimGoal extends RandomStrollGoal {
 
-    PathfinderMob entity;
-    Vec3 wantedPos;
+    private final PathfinderMob entity;
+    protected Vec3 wantedPos;
 
-    int radius;
-    int height;
-    int prox;
+    private final int radius;
+    private final int height;
+    private final int prox;
 
-    public CustomRandomSwimGoal(PathfinderMob entity, double spdmultiplier, int interval, int radius, int height, int proximity) {
-        super(entity, spdmultiplier, interval);
+    public CustomRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity) {
+        super(entity, speedMultiplier, interval);
         this.entity = entity;
         this.radius = radius;
         this.height = height;
@@ -31,7 +31,7 @@ public class CustomRandomSwimGoal extends RandomStrollGoal {
 
     @Override
     public boolean canContinueToUse() {
-        wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
+        this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
         return super.canContinueToUse() && !(this.wantedPos.distanceTo(this.entity.position()) <= this.entity.getBbWidth() * prox);
     }
 

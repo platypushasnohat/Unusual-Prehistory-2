@@ -7,10 +7,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+
+import javax.annotation.Nullable;
 
 public abstract class PrehistoricMob extends Animal {
 
@@ -136,12 +143,17 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Mth.clamp(variant, 0, this.getVariantCount()));
+    }
+
+    public int getVariantCount() {
+        return 0;
     }
 
     public String getBehavior() {
         return this.entityData.get(BEHAVIOR);
     }
+
     public void setBehavior(String behavior) {
         this.entityData.set(BEHAVIOR, behavior);
     }

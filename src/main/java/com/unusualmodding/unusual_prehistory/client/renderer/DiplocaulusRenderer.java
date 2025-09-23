@@ -15,26 +15,27 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+
 @OnlyIn(Dist.CLIENT)
 public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, UP2Model<Diplocaulus>> {
 
-    private final DiplocaulusBrevirostrisModel<Diplocaulus> brevirostrisModel;
-    private final DiplocaulusMagnicornisModel<Diplocaulus> magnicornisModel;
-    private final DiplocaulusRecurvatisModel<Diplocaulus> recurvatisModel;
-    private final DiplocaulusSalamandroidesModel<Diplocaulus> salamandroidesModel;
+    private final DiplocaulusBrevirostrisModel brevirostrisModel;
+    private final DiplocaulusMagnicornisModel magnicornisModel;
+    private final DiplocaulusRecurvatisModel recurvatisModel;
+    private final DiplocaulusSalamandroidesModel salamandroidesModel;
 
     public DiplocaulusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
-        this.brevirostrisModel = new DiplocaulusBrevirostrisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS));
-        this.magnicornisModel = new DiplocaulusMagnicornisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS));
-        this.recurvatisModel = new DiplocaulusRecurvatisModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS));
-        this.salamandroidesModel = new DiplocaulusSalamandroidesModel<>(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES));
+        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
+        this.brevirostrisModel = new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS));
+        this.magnicornisModel = new DiplocaulusMagnicornisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS));
+        this.recurvatisModel = new DiplocaulusRecurvatisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS));
+        this.salamandroidesModel = new DiplocaulusSalamandroidesModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES));
     }
 
     @Override
     public void render(Diplocaulus entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-
-        switch (entity.getVariant()){
+        switch (Diplocaulus.DiplocaulusVariant.byId(entity.getVariant()).getId()) {
             case 1:
                 this.model = magnicornisModel;
                 break;
@@ -47,23 +48,19 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, UP2Model<Diplo
             default:
                 this.model = brevirostrisModel;
         }
-
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
     @Override
-    protected void scale(Diplocaulus entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
-        else super.scale(entity, matrices, amount);
-    }
-
-    @Override
     public ResourceLocation getTextureLocation(Diplocaulus entity) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/diplocaulus/diplocaulus_" + entity.getVariantName() + ".png");
+        Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
+        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Diplocaulus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/diplocaulus/diplocaulus_" + entity.getVariantName() + ".png"));
+    @Nullable
+    protected RenderType getRenderType(Diplocaulus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
+        return RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png"));
     }
 }

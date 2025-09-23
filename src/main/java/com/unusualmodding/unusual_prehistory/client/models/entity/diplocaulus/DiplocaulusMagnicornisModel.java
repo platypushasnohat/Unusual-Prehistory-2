@@ -1,19 +1,18 @@
 package com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.DiplocaulusMagnicornisAnimations;
+import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Diplocaulus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DiplocaulusMagnicornisModel<T extends Diplocaulus> extends UP2Model<T> {
+public class DiplocaulusMagnicornisModel extends UP2Model<Diplocaulus> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -81,26 +80,23 @@ public class DiplocaulusMagnicornisModel<T extends Diplocaulus> extends UP2Model
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWaterOrBubble()) {
-			this.animateWalk(DiplocaulusMagnicornisAnimations.SWIM, limbSwing, limbSwingAmount, 2.0f, 4.0f);
-			this.animateIdle(entity.swimIdleAnimationState, DiplocaulusMagnicornisAnimations.SWIM_IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
-
+			this.animateWalk(DiplocaulusMagnicornisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+			this.animateIdle(entity.swimIdleAnimationState, DiplocaulusMagnicornisAnimations.SWIM_IDLE, ageInTicks, 1, 1 - Math.abs(limbSwingAmount));
+			this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 			this.body_main.resetPose();
-			this.root.xRot = headPitch * ((float) Math.PI / 180f);
-			this.root.yRot = netHeadYaw * ((float) Math.PI / 180f);
 		} else {
-			this.animateWalk(DiplocaulusMagnicornisAnimations.WALK, limbSwing * 1.3f, limbSwingAmount, 4.0f, 8.0f);
-			this.animateIdle(entity.idleAnimationState, DiplocaulusMagnicornisAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
+			this.animateWalk(DiplocaulusMagnicornisAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+			this.animateIdle(entity.idleAnimationState, DiplocaulusMagnicornisAnimations.IDLE, ageInTicks, 1, 1 - Math.abs(limbSwingAmount));
 		}
 
-		this.animate(entity.quirkAnimationState, DiplocaulusMagnicornisAnimations.QUIRK, ageInTicks, 1.0f);
+		this.animate(entity.quirkAnimationState, DiplocaulusMagnicornisAnimations.QUIRK, ageInTicks);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
-	}
+		if (this.young) {
+			this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);
+		}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.head.xRot += headPitch * (Mth.DEG_TO_RAD) - (headPitch * (Mth.DEG_TO_RAD)) / 4;
+		this.head.yRot += netHeadYaw * (Mth.DEG_TO_RAD) - (netHeadYaw * (Mth.DEG_TO_RAD)) / 4;
 	}
 
 	@Override
