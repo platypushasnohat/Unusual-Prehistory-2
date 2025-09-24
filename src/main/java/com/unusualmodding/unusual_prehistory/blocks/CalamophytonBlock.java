@@ -22,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class CalamophytonBlock extends AncientPlantBlock implements BonemealableBlock {
+public class CalamophytonBlock extends PrehistoricPlantBlock implements BonemealableBlock {
 
     public static final IntegerProperty LAYER = IntegerProperty.create("layer", 0, 2);
     protected static final VoxelShape BOTTOM_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);

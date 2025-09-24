@@ -16,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class HorsetailBlock extends AncientPlantBlock implements BonemealableBlock {
+public class HorsetailBlock extends PrehistoricPlantBlock implements BonemealableBlock {
 
     public HorsetailBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -34,7 +34,7 @@ public class HorsetailBlock extends AncientPlantBlock implements BonemealableBlo
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
-        AncientTallPlantBlock doubleplantblock = (AncientTallPlantBlock) (UP2Blocks.LARGE_HORSETAIL.get());
+        PrehistoricTallPlantBlock doubleplantblock = (PrehistoricTallPlantBlock) (UP2Blocks.LARGE_HORSETAIL.get());
         if (doubleplantblock.defaultBlockState().canSurvive(level, pos) && level.isEmptyBlock(pos.above())) {
             DoublePlantBlock.placeAt(level, doubleplantblock.defaultBlockState(), pos, 2);
         }

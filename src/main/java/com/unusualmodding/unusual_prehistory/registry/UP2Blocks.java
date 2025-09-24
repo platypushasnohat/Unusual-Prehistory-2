@@ -51,15 +51,15 @@ public class UP2Blocks {
     public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new AncientPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutItem("potted_bennettitales", () -> new FlowerPotBlock(UP2Blocks.BENNETTITALES.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> CALAMOPHYTON = registerBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
 
-    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new AncientFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new PrehistoricFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_COOKSONIA = registerBlockWithoutItem("potted_cooksonia", () -> new FlowerPotBlock(UP2Blocks.COOKSONIA.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new AncientPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new HorsetailBlock(UP2BlockProperties.PLANT));
@@ -69,12 +69,12 @@ public class UP2Blocks {
     public static final RegistryObject<Block> ISOETES = registerBlock("isoetes", () -> new IsoetesBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_ISOETES = registerBlockWithoutItem("potted_isoetes", () -> new FlowerPotBlock(UP2Blocks.ISOETES.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new AncientFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new PrehistoricFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new AncientTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
 
-    public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new AncientPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new PrehistoricPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
 
     // ginkgo

@@ -10,7 +10,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class LargeHorsetailBlock extends AncientTallPlantBlock implements BonemealableBlock {
+public class LargeHorsetailBlock extends PrehistoricTallPlantBlock implements BonemealableBlock {
 
     public LargeHorsetailBlock(Properties properties) {
         super(properties);

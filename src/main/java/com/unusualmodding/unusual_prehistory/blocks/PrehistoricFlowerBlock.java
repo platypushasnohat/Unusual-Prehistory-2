@@ -9,34 +9,47 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.function.Supplier;
 
-public class AncientFlowerBlock extends FlowerBlock implements SuspiciousEffectHolder, BonemealableBlock {
+public class PrehistoricFlowerBlock extends FlowerBlock implements SuspiciousEffectHolder, BonemealableBlock {
 
-    public AncientFlowerBlock(Supplier<MobEffect> effect, int duration, BlockBehaviour.Properties properties) {
+    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+
+    public PrehistoricFlowerBlock(Supplier<MobEffect> effect, int duration, BlockBehaviour.Properties properties) {
         super(effect, duration, properties);
     }
 
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
         return true;
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource source, BlockPos pos, BlockState state) {
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         popResource(level, pos, new ItemStack(this));
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState state, BlockGetter blockGetter, BlockPos pos) {
         return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
     }
 }
