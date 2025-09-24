@@ -68,24 +68,17 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.dnaItem(UP2Items.TELECREX_DNA.get());
 
         // plant dna
-        this.dnaItem(UP2Items.ANOSTYLOSTROMA_DNA.get());
-        this.dnaItem(UP2Items.ARCHAEFRUCTUS_DNA.get());
-        this.dnaItem(UP2Items.ARCHAEOSIGILLARIA_DNA.get());
         this.dnaItem(UP2Items.BENNETTITALES_DNA.get());
         this.dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
         this.dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
-        this.dnaItem(UP2Items.CLATHRODICTYON_CORAL_DNA.get());
         this.dnaItem(UP2Items.COOKSONIA_DNA.get());
         this.dnaItem(UP2Items.GINKGO_DNA.get());
         this.dnaItem(UP2Items.HORSETAIL_DNA.get());
         this.dnaItem(UP2Items.ISOETES_DNA.get());
         this.dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
         this.dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
-        this.dnaItem(UP2Items.NELUMBITES_DNA.get());
-        this.dnaItem(UP2Items.QUEREUXIA_DNA.get());
         this.dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
         this.dnaItem(UP2Items.RHYNIA_DNA.get());
-        this.dnaItem(UP2Items.SARRACENIA_DNA.get());
 
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");

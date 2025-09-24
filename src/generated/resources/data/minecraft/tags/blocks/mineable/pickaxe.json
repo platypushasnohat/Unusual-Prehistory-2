@@ -2,12 +2,6 @@
   "values": [
     "unusual_prehistory:transmogrifier",
     "unusual_prehistory:deepslate_fossil",
-    "unusual_prehistory:fossil",
-    "unusual_prehistory:petrified_anostylostroma",
-    "unusual_prehistory:clathrodictyon_coral_block",
-    "unusual_prehistory:dead_clathrodictyon_coral",
-    "unusual_prehistory:dead_clathrodictyon_coral_block",
-    "unusual_prehistory:dead_clathrodictyon_coral_fan",
-    "unusual_prehistory:dead_clathrodictyon_coral_wall_fan"
+    "unusual_prehistory:fossil"
   ]
 }

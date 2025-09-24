@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "unusual_prehistory:block/dead_clathrodictyon_coral_block"
-  }
-}

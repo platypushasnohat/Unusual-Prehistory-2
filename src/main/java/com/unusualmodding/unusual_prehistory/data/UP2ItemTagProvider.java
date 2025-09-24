@@ -39,7 +39,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ORGANIC_OOZE.get()
         );
 
-        this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES).addTag(UP2ItemTags.WATER_PLANT_DNA_BOTTLES);
+        this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES);
 
         this.tag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).add(
                 DIPLOCAULUS_DNA.get(),
@@ -66,7 +66,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.PLANT_DNA_BOTTLES).add(
-                ARCHAEOSIGILLARIA_DNA.get(),
                 BENNETTITALES_DNA.get(),
                 CALAMOPHYTON_DNA.get(),
                 CLADOPHLEBIS_DNA.get(),
@@ -77,16 +76,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 LEEFRUCTUS_DNA.get(),
                 LEPIDODENDRON_DNA.get(),
                 RAIGUENRAYUN_DNA.get(),
-                RHYNIA_DNA.get(),
-                SARRACENIA_DNA.get()
-        );
-
-        this.tag(UP2ItemTags.WATER_PLANT_DNA_BOTTLES).add(
-                ANOSTYLOSTROMA_DNA.get(),
-                ARCHAEFRUCTUS_DNA.get(),
-                CLATHRODICTYON_CORAL_DNA.get(),
-                NELUMBITES_DNA.get(),
-                QUEREUXIA_DNA.get()
+                RHYNIA_DNA.get()
         );
 
         this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(

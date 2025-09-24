@@ -16,8 +16,6 @@ public class UP2Compat {
     public static void registerCompostables() {
         registerCompostable(UP2Items.GINKGO_FRUIT.get(), 0.65F);
 
-        registerCompostable(UP2Blocks.ARCHAEFRUCTUS.get(), 0.65F);
-        registerCompostable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 0.65F);
         registerCompostable(UP2Blocks.CALAMOPHYTON.get(), 0.65F);
         registerCompostable(UP2Blocks.CLADOPHLEBIS.get(), 0.65F);
         registerCompostable(UP2Blocks.COOKSONIA.get(), 0.65F);
@@ -25,13 +23,8 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.LARGE_HORSETAIL.get(), 0.65F);
         registerCompostable(UP2Blocks.ISOETES.get(), 0.65F);
         registerCompostable(UP2Blocks.LEEFRUCTUS.get(), 0.65F);
-        registerCompostable(UP2Blocks.NELUMBITES.get(), 0.65F);
         registerCompostable(UP2Blocks.RAIGUENRAYUN.get(), 0.65F);
         registerCompostable(UP2Blocks.RHYNIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.SARRACENIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.TALL_SARRACENIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.QUEREUXIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.QUEREUXIA_CLOVERS.get(), 0.65F);
 
         registerCompostable(UP2Blocks.GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 0.3F);
@@ -42,7 +35,6 @@ public class UP2Compat {
     }
 
     public static void registerFlammables() {
-        registerFlammable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 60, 100);
         registerFlammable(UP2Blocks.CALAMOPHYTON.get(), 60, 100);
         registerFlammable(UP2Blocks.CLADOPHLEBIS.get(), 60, 100);
         registerFlammable(UP2Blocks.COOKSONIA.get(), 60, 100);
@@ -52,8 +44,6 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.LEEFRUCTUS.get(), 60, 100);
         registerFlammable(UP2Blocks.RAIGUENRAYUN.get(), 60, 100);
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);
-        registerFlammable(UP2Blocks.SARRACENIA.get(), 60, 100);
-        registerFlammable(UP2Blocks.TALL_SARRACENIA.get(), 60, 100);
 
         registerFlammable(UP2Blocks.GINKGO_LOG.get(), 5, 3);
         registerFlammable(UP2Blocks.GINKGO_WOOD.get(), 5, 3);

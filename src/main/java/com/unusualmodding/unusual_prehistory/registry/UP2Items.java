@@ -65,24 +65,17 @@ public class UP2Items {
     public static final RegistryObject<Item> TALPANAS_DNA = registerDnaItem("talpanas");
 
     // plant dna
-    public static final RegistryObject<Item> ANOSTYLOSTROMA_DNA = registerDnaItem("anostylostroma");
-    public static final RegistryObject<Item> ARCHAEFRUCTUS_DNA = registerDnaItem("archaefructus");
-    public static final RegistryObject<Item> ARCHAEOSIGILLARIA_DNA = registerDnaItem("archaeosigillaria");
     public static final RegistryObject<Item> BENNETTITALES_DNA = registerDnaItem("bennettitales");
     public static final RegistryObject<Item> CALAMOPHYTON_DNA = registerDnaItem("calamophyton");
     public static final RegistryObject<Item> CLADOPHLEBIS_DNA = registerDnaItem("cladophlebis");
-    public static final RegistryObject<Item> CLATHRODICTYON_CORAL_DNA = registerDnaItem("clathrodictyon_coral");
     public static final RegistryObject<Item> COOKSONIA_DNA = registerDnaItem("cooksonia");
     public static final RegistryObject<Item> GINKGO_DNA = registerDnaItem("ginkgo");
     public static final RegistryObject<Item> HORSETAIL_DNA = registerDnaItem("horsetail");
     public static final RegistryObject<Item> ISOETES_DNA = registerDnaItem("isoetes");
     public static final RegistryObject<Item> LEEFRUCTUS_DNA = registerDnaItem("leefructus");
     public static final RegistryObject<Item> LEPIDODENDRON_DNA = registerDnaItem("lepidodendron");
-    public static final RegistryObject<Item> NELUMBITES_DNA = registerDnaItem("nelumbites");
-    public static final RegistryObject<Item> QUEREUXIA_DNA = registerDnaItem("quereuxia");
     public static final RegistryObject<Item> RAIGUENRAYUN_DNA = registerDnaItem("raiguenrayun");
     public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
-    public static final RegistryObject<Item> SARRACENIA_DNA = registerDnaItem("sarracenia");
 
     public static final RegistryObject<Item> DUNKLEOSTEUS_SAC = registerItem("dunkleosteus_sac", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STETHACANTHUS_SAC = registerItem("stethacanthus_sac", () -> new Item(new Item.Properties()));
@@ -90,10 +83,6 @@ public class UP2Items {
     public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerItem("dromaeosaurus_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
-
-    // block items
-    public static final RegistryObject<Item> DEAD_CLATHRODICTYON_CORAL_FAN = registerItemNoLang("dead_clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
-    public static final RegistryObject<Item> CLATHRODICTYON_CORAL_FAN = registerItemNoLang("clathrodictyon_coral_fan", () -> new StandingAndWallBlockItem(UP2Blocks.CLATHRODICTYON_CORAL_FAN.get(), UP2Blocks.CLATHRODICTYON_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
     // spawn eggs
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);

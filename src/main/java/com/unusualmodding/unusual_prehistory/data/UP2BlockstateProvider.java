@@ -29,33 +29,15 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.cubeAllBlock(FOSSIL);
         this.pillar(FROZEN_MEAT_BLOCK);
 
-        this.simpleCross(ARCHAEFRUCTUS);
-        this.generatedItem(ARCHAEFRUCTUS.get(), TextureFolder.BLOCK);
-
-        this.pottedPlant(ARCHAEOSIGILLARIA, POTTED_ARCHAEOSIGILLARIA);
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);
         this.pottedPlant(HORSETAIL, POTTED_HORSETAIL);
         this.pottedPlant(ISOETES, POTTED_ISOETES);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
-        this.pottedPlant(SARRACENIA, POTTED_SARRACENIA);
 
         this.tallPlant(LARGE_HORSETAIL);
-        this.tallPlant(TALL_SARRACENIA);
         this.tallPlant(RAIGUENRAYUN);
-
-        this.cubeAllBlock(ANOSTYLOSTROMA);
-        this.cubeAllBlock(PETRIFIED_ANOSTYLOSTROMA);
-
-        this.cubeAllBlock(DEAD_CLATHRODICTYON_CORAL_BLOCK);
-        this.cubeAllBlock(CLATHRODICTYON_CORAL_BLOCK);
-
-        this.simpleCross(DEAD_CLATHRODICTYON_CORAL);
-        this.generatedItem(DEAD_CLATHRODICTYON_CORAL.get(), TextureFolder.BLOCK);
-
-        this.simpleCross(CLATHRODICTYON_CORAL);
-        this.generatedItem(CLATHRODICTYON_CORAL.get(), TextureFolder.BLOCK);
 
         this.pillar(GINKGO_LOG);
         this.wood(GINKGO_WOOD, this.blockTexture(GINKGO_LOG.get()));

@@ -61,11 +61,6 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(JAWLESS_FISH_ROE.get());
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
 
-        this.dropSelf(ARCHAEFRUCTUS.get());
-
-        this.dropSelf(ARCHAEOSIGILLARIA.get());
-        this.dropPottedContents(POTTED_ARCHAEOSIGILLARIA.get());
-
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
 
@@ -83,35 +78,12 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(LEEFRUCTUS.get());
         this.dropPottedContents(POTTED_LEEFRUCTUS.get());
 
-        this.dropSelf(NELUMBITES.get());
-
         this.dropSelf(RHYNIA.get());
         this.dropPottedContents(POTTED_RHYNIA.get());
-
-        this.dropSelf(QUEREUXIA.get());
-        this.add(QUEREUXIA_PLANT.get(), createSingleItemTable(QUEREUXIA.get()));
-        this.dropSelf(QUEREUXIA_CLOVERS.get());
 
         this.dropSelf(HORSETAIL.get());
         this.dropPottedContents(POTTED_HORSETAIL.get());
         this.add(LARGE_HORSETAIL.get(), block -> doublePlantDrops(block, HORSETAIL.get()));
-
-        this.dropSelf(SARRACENIA.get());
-        this.dropPottedContents(POTTED_SARRACENIA.get());
-        this.add(TALL_SARRACENIA.get(), block -> doublePlantDrops(block, SARRACENIA.get()));
-
-        this.dropSelf(PETRIFIED_ANOSTYLOSTROMA.get());
-        this.dropSelf(ANOSTYLOSTROMA.get());
-
-        this.add(CLATHRODICTYON_CORAL_BLOCK.get(), (block) -> createSingleItemTableWithSilkTouch(block, DEAD_CLATHRODICTYON_CORAL_BLOCK.get()));
-        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL.get());
-        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL_FAN.get());
-        this.dropWhenSilkTouch(CLATHRODICTYON_CORAL_WALL_FAN.get());
-
-        this.dropSelf(DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
-        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL.get());
-        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL_FAN.get());
-        this.dropWhenSilkTouch(DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get());
 
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());

@@ -58,13 +58,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 TRANSMOGRIFIER.get(),
 
                 DEEPSLATE_FOSSIL.get(),
-                FOSSIL.get(),
-                PETRIFIED_ANOSTYLOSTROMA.get(),
-                CLATHRODICTYON_CORAL_BLOCK.get(),
-                DEAD_CLATHRODICTYON_CORAL.get(),
-                DEAD_CLATHRODICTYON_CORAL_BLOCK.get(),
-                DEAD_CLATHRODICTYON_CORAL_FAN.get(),
-                DEAD_CLATHRODICTYON_CORAL_WALL_FAN.get()
+                FOSSIL.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
@@ -86,7 +80,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
                 FROZEN_MEAT_BLOCK.get(),
-                ANOSTYLOSTROMA.get(),
                 MOSS_LAYER.get(),
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),
@@ -105,8 +98,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.REPLACEABLE_BY_TREES).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
-                RAIGUENRAYUN.get(),
-                TALL_SARRACENIA.get()
+                RAIGUENRAYUN.get()
         );
 
         this.tag(BlockTags.DIRT).add(
@@ -115,13 +107,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.SMALL_FLOWERS).add(
                 COOKSONIA.get(),
-                LEEFRUCTUS.get(),
-                SARRACENIA.get()
+                LEEFRUCTUS.get()
         );
 
         this.tag(BlockTags.TALL_FLOWERS).add(
-                RAIGUENRAYUN.get(),
-                TALL_SARRACENIA.get()
+                RAIGUENRAYUN.get()
         );
 
         this.tag(BlockTags.SAPLINGS).add(

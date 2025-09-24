@@ -24,11 +24,11 @@ public class UnusualPrehistory2Tab {
 
                         tabOutput.accept(PALEOZOIC_FOSSIL.get());
                         tabOutput.accept(MESOZOIC_FOSSIL.get());
-                        tabOutput.accept(FROZEN_MEAT.get());
+//                        tabOutput.accept(FROZEN_MEAT.get());
                         tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FOSSIL.get());
-                        tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
+//                        tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
@@ -91,7 +91,7 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(TALPANAS_EGG.get());
 
                         // plant dna
-                        tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
+//                        tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
                         tabOutput.accept(BENNETTITALES_DNA.get());
                         tabOutput.accept(CALAMOPHYTON_DNA.get());
                         tabOutput.accept(CLADOPHLEBIS_DNA.get());
@@ -103,18 +103,9 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(LEPIDODENDRON_DNA.get());
                         tabOutput.accept(RAIGUENRAYUN_DNA.get());
                         tabOutput.accept(RHYNIA_DNA.get());
-                        tabOutput.accept(SARRACENIA_DNA.get());
-
-                        // water plant dna
-                        tabOutput.accept(ARCHAEFRUCTUS_DNA.get());
-                        tabOutput.accept(NELUMBITES_DNA.get());
-                        tabOutput.accept(QUEREUXIA_DNA.get());
-                        tabOutput.accept(ANOSTYLOSTROMA_DNA.get());
-                        tabOutput.accept(CLATHRODICTYON_CORAL_DNA.get());
 
                         // plants
-                        tabOutput.accept(UP2Blocks.ARCHAEFRUCTUS.get());
-                        tabOutput.accept(UP2Blocks.ARCHAEOSIGILLARIA.get());
+                        tabOutput.accept(UP2Blocks.BENNETTITALES.get());
                         tabOutput.accept(UP2Blocks.CALAMOPHYTON.get());
                         tabOutput.accept(UP2Blocks.CLADOPHLEBIS.get());
                         tabOutput.accept(UP2Blocks.COOKSONIA.get());
@@ -122,25 +113,10 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.LARGE_HORSETAIL.get());
                         tabOutput.accept(UP2Blocks.ISOETES.get());
                         tabOutput.accept(UP2Blocks.LEEFRUCTUS.get());
-                        tabOutput.accept(UP2Blocks.NELUMBITES.get());
                         tabOutput.accept(UP2Blocks.RAIGUENRAYUN.get());
                         tabOutput.accept(UP2Blocks.RHYNIA.get());
-                        tabOutput.accept(UP2Blocks.SARRACENIA.get());
-                        tabOutput.accept(UP2Blocks.TALL_SARRACENIA.get());
                         tabOutput.accept(UP2Blocks.MOSS_LAYER.get());
                         tabOutput.accept(UP2Blocks.MOSSY_DIRT.get());
-
-                        // water plants
-                        tabOutput.accept(UP2Blocks.QUEREUXIA.get());
-                        tabOutput.accept(UP2Blocks.QUEREUXIA_CLOVERS.get());
-                        tabOutput.accept(UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get());
-                        tabOutput.accept(UP2Blocks.ANOSTYLOSTROMA.get());
-                        tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL_BLOCK.get());
-                        tabOutput.accept(UP2Blocks.CLATHRODICTYON_CORAL.get());
-                        tabOutput.accept(UP2Items.CLATHRODICTYON_CORAL_FAN.get());
-                        tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL_BLOCK.get());
-                        tabOutput.accept(UP2Blocks.DEAD_CLATHRODICTYON_CORAL.get());
-                        tabOutput.accept(UP2Items.DEAD_CLATHRODICTYON_CORAL_FAN.get());
 
                         // trees
                         tabOutput.accept(UP2Blocks.GINKGO_LOG.get());

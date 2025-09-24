@@ -71,7 +71,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
         transmogrification(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
 
-        transmogrification(consumer, UP2Items.ARCHAEOSIGILLARIA_DNA.get(), UP2Blocks.ARCHAEOSIGILLARIA.get().asItem());
         transmogrification(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
         transmogrification(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
         transmogrification(consumer, UP2Items.CLADOPHLEBIS_DNA.get(), UP2Blocks.CLADOPHLEBIS.get().asItem());
@@ -83,12 +82,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.LEPIDODENDRON_DNA.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
         transmogrification(consumer, UP2Items.RAIGUENRAYUN_DNA.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
         transmogrification(consumer, UP2Items.RHYNIA_DNA.get(), UP2Blocks.RHYNIA.get().asItem());
-        transmogrification(consumer, UP2Items.SARRACENIA_DNA.get(), UP2Blocks.SARRACENIA.get().asItem());
-        transmogrification(consumer, UP2Items.ARCHAEFRUCTUS_DNA.get(), UP2Blocks.ARCHAEFRUCTUS.get().asItem());
-        transmogrification(consumer, UP2Items.NELUMBITES_DNA.get(), UP2Blocks.NELUMBITES.get().asItem());
-        transmogrification(consumer, UP2Items.QUEREUXIA_DNA.get(), UP2Blocks.QUEREUXIA.get().asItem());
-        transmogrification(consumer, UP2Items.ANOSTYLOSTROMA_DNA.get(), UP2Blocks.PETRIFIED_ANOSTYLOSTROMA.get().asItem());
-        transmogrification(consumer, UP2Items.CLATHRODICTYON_CORAL_DNA.get(), UP2Blocks.CLATHRODICTYON_CORAL.get().asItem());
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {

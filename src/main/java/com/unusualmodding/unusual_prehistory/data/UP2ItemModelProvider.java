@@ -56,7 +56,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(TALPANAS_DNA);
 
         // plant dna
-        this.dnaItem(ARCHAEOSIGILLARIA_DNA);
         this.dnaItem(BENNETTITALES_DNA);
         this.dnaItem(CALAMOPHYTON_DNA);
         this.dnaItem(CLADOPHLEBIS_DNA);
@@ -68,14 +67,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.dnaItem(LEPIDODENDRON_DNA);
         this.dnaItem(RAIGUENRAYUN_DNA);
         this.dnaItem(RHYNIA_DNA);
-        this.dnaItem(SARRACENIA_DNA);
-
-        // water plant dna
-        this.dnaItem(ANOSTYLOSTROMA_DNA);
-        this.dnaItem(ARCHAEFRUCTUS_DNA);
-        this.dnaItem(CLATHRODICTYON_CORAL_DNA);
-        this.dnaItem(NELUMBITES_DNA);
-        this.dnaItem(QUEREUXIA_DNA);
 
         // eggs
         this.item(DROMAEOSAURUS_EGG);
