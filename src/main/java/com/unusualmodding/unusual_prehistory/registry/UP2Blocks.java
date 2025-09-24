@@ -34,8 +34,8 @@ public class UP2Blocks {
     // science doodads
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL)));
 
-    public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
-    public static final RegistryObject<Block> FOSSIL = registerBlock("fossil", () -> new SuspiciousStoneBlock(Blocks.STONE, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F), SoundEvents.BRUSH_GENERIC, SoundEvents.STONE_BREAK));
+    public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil", () -> new SuspiciousStoneBlock(Blocks.DEEPSLATE, BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), SoundEvents.DEEPSLATE_BREAK));
+    public static final RegistryObject<Block> FOSSIL = registerBlock("fossil", () -> new SuspiciousStoneBlock(Blocks.STONE, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F), SoundEvents.STONE_BREAK));
     public static final RegistryObject<Block> FROZEN_MEAT_BLOCK = registerBlock("frozen_meat_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(0.5F).sound(SoundType.GLASS)));
 
     // eggs

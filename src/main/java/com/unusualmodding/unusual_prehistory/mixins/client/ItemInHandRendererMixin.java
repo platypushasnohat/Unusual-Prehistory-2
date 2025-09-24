@@ -27,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandRenderer.class)
 public abstract class ItemInHandRendererMixin {
 
-    @Shadow protected abstract void applyItemArmTransform(PoseStack poseStack, HumanoidArm arm, float f);
     @Shadow public abstract void renderItem(LivingEntity entity, ItemStack stack, ItemDisplayContext context, boolean b, PoseStack poseStack, MultiBufferSource bufferSource, int i);
 
     @Shadow @Final private Minecraft minecraft;
@@ -48,23 +47,22 @@ public abstract class ItemInHandRendererMixin {
 
     @Unique
     private void applyChiselTransform(PoseStack poseStack, float v, HumanoidArm arm, float v1) {
-        this.applyItemArmTransform(poseStack, arm, v1);
         float f = (float) (this.minecraft.player.getUseItemRemainingTicks() % 10);
         float f1 = f - v + 1.0F;
         float f2 = 1.0F - f1 / 10.0F;
-        float f7 = -1.0F + 5.0F * Mth.cos(f2 * 2.0F * (float) Math.PI);
-        if (arm != HumanoidArm.RIGHT) {
-            poseStack.mulPose(Axis.YP.rotationDegrees(15.0F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-90.0F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(f7 * -2.0F));
-            poseStack.translate(0.0F, 0.0F, -f7 * 0.05F);
-        } else {
-            poseStack.translate(0.0F, 0.0F, f7 * 0.05F);
-            poseStack.mulPose(Axis.YP.rotationDegrees(-15.0F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(f7 * -2.0F));
-        }
+        float f7 = -15.0F + 25.0F * Mth.cos(f2 * 2.0F * (float) Math.PI);
+        int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+        transformSideFirstPerson(poseStack, arm, v1);
+        poseStack.translate(i * -0.25F, 0.22F, 0.25F + (f7 * 0.005F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-97.5F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(i * 90.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(0.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(f7 / 2));
+    }
+
+    @Unique
+    private static void transformSideFirstPerson(PoseStack poseStack, HumanoidArm arm, float v) {
+        int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+        poseStack.translate(((float) i * 0.56F), (-0.52F + v * -0.6F), -0.72F);
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -16,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class SuspiciousStoneBlock extends BrushableBlock {
 
-    public SuspiciousStoneBlock(Block block, BlockBehaviour.Properties properties, SoundEvent chiselSound, SoundEvent chiselCompletedSound) {
-        super(block, properties, chiselSound, chiselCompletedSound);
+    public SuspiciousStoneBlock(Block block, BlockBehaviour.Properties properties, SoundEvent chiselCompletedSound) {
+        super(block, properties, SoundEvents.BRUSH_GENERIC, chiselCompletedSound);
     }
 
     @Override
