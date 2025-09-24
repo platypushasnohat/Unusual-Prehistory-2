@@ -7,19 +7,44 @@
   },
   "carnotaurus_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/carnotaurus/hurt1",
-      "unusual_prehistory:entity/carnotaurus/hurt2"
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/hurt1",
+        "pitch": 1.2
+      }
     ],
     "subtitle": "subtitles.carnotaurus_hurt"
   },
   "carnotaurus_idle": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/idle1",
-      "unusual_prehistory:entity/carnotaurus/idle2",
-      "unusual_prehistory:entity/carnotaurus/idle3",
-      "unusual_prehistory:entity/carnotaurus/idle4"
+      "unusual_prehistory:entity/carnotaurus/idle2"
     ],
     "subtitle": "subtitles.carnotaurus_idle"
+  },
+  "carnotaurus_roar": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/roar1",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.carnotaurus_roar"
+  },
+  "carnotaurus_sniff": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/sniff1",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.carnotaurus_sniff"
+  },
+  "carnotaurus_step": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/step1",
+      "unusual_prehistory:entity/carnotaurus/step2"
+    ],
+    "subtitle": "subtitles.carnotaurus_step"
   },
   "diplocaulus_death": {
     "sounds": [
