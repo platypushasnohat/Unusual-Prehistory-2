@@ -205,6 +205,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
+        this.add("unusual_prehistory.jei.chiseling", "Chiseling");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

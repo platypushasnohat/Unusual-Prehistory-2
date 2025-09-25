@@ -1,7 +1,7 @@
-package com.unusualmodding.unusual_prehistory.data;
+package com.unusualmodding.unusual_prehistory.data.custom;
 
 import com.google.gson.JsonObject;
-import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.registry.UP2RecipeSerializers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -12,39 +12,36 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class UP2RecipeBuilder {
+public class TransmogrificationBuilder {
 
     private final Ingredient input;
     private final RecipeSerializer<?> type;
     private final int processingTime;
     private final Item output;
 
-    public UP2RecipeBuilder(RecipeSerializer<?> type, Ingredient input, Item output, int processingTime) {
+    public TransmogrificationBuilder(RecipeSerializer<?> type, Ingredient input, Item output, int processingTime) {
         this.type = type;
         this.input = input;
         this.output = output;
         this.processingTime = processingTime;
     }
 
-    public static UP2RecipeBuilder transmogrification(Ingredient dna, Item output, int processingTime) {
-        return new UP2RecipeBuilder(UP2RecipeTypes.TRANSMOGRIFICATION_SERIALIZER.get(), dna, output, processingTime);
+    public static TransmogrificationBuilder transmogrification(Ingredient dna, Item output, int processingTime) {
+        return new TransmogrificationBuilder(UP2RecipeSerializers.TRANSMOGRIFICATION_SERIALIZER.get(), dna, output, processingTime);
     }
 
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation resourceLocation) {
-        consumer.accept(new UP2RecipeBuilder.Result(resourceLocation, this.type, this.input, this.output, this.processingTime));
+        consumer.accept(new TransmogrificationBuilder.Result(resourceLocation, this.type, this.input, this.output, this.processingTime));
     }
 
     public record Result(ResourceLocation resourceLocation, RecipeSerializer<?> type, Ingredient input, Item output, int processingTime) implements FinishedRecipe {
+
         public void serializeRecipeData(JsonObject jsonObject) {
-            if (input != null) {
-                jsonObject.add("input", input.toJson());
-            }
+            jsonObject.add("input", input.toJson());
             jsonObject.addProperty("processing_time", processingTime);
-            if (output != null) {
-                JsonObject jsonobject = new JsonObject();
-                jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(this.output).toString());
-                jsonObject.add("output", jsonobject);
-            }
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(this.output).toString());
+            jsonObject.add("output", jsonobject);
         }
 
         public ResourceLocation getId() {

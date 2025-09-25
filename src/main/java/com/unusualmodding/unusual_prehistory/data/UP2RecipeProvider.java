@@ -1,5 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
+import com.unusualmodding.unusual_prehistory.data.custom.ChiselingBuilder;
+import com.unusualmodding.unusual_prehistory.data.custom.TransmogrificationBuilder;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -82,6 +85,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.LEPIDODENDRON_DNA.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
         transmogrification(consumer, UP2Items.RAIGUENRAYUN_DNA.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
         transmogrification(consumer, UP2Items.RHYNIA_DNA.get(), UP2Blocks.RHYNIA.get().asItem());
+
+        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
+        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+        chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
+        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
+        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
+        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE);
+        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK);
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {
@@ -165,11 +176,15 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime) {
         Ingredient ingredient = Ingredient.of(input);
-        UP2RecipeBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 
     protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result) {
         Ingredient ingredient = Ingredient.of(input);
-        UP2RecipeBuilder.transmogrification(ingredient, result, 1000).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, 1000).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+    }
+
+    protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {
+        ChiselingBuilder.chiseling(from, to).save(consumer, modPrefix("chiseling/" + getItemName(to)));
     }
 }

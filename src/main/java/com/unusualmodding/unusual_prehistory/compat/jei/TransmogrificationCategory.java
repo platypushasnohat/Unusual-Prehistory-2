@@ -21,7 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class TransmogrificationRecipeCategory implements IRecipeCategory<TransmogrificationRecipe> {
+public class TransmogrificationCategory implements IRecipeCategory<TransmogrificationRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(UnusualPrehistory2.MOD_ID, "transmogrification");
 
@@ -33,7 +33,7 @@ public class TransmogrificationRecipeCategory implements IRecipeCategory<Transmo
     protected final IDrawableAnimated fuel;
     protected final IDrawableAnimated progress;
 
-    public TransmogrificationRecipeCategory(IGuiHelper guiHelper) {
+    public TransmogrificationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(BACKGROUND, 32, 28, 116, 52);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(UP2Blocks.TRANSMOGRIFIER.get()));
         this.fuel = guiHelper.drawableBuilder(BACKGROUND, 176, 20, 44, 11).buildAnimated(1000, IDrawableAnimated.StartDirection.RIGHT, true);
@@ -42,7 +42,7 @@ public class TransmogrificationRecipeCategory implements IRecipeCategory<Transmo
 
     @Override
     public RecipeType<TransmogrificationRecipe> getRecipeType() {
-        return JEIPlugin.TRANSMOGRIFICATION_TYPE;
+        return JEIPlugin.TRANSMOGRIFICATION;
     }
 
     @Override

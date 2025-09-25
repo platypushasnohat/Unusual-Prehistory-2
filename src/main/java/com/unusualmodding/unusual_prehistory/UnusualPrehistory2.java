@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory;
 
+import com.unusualmodding.unusual_prehistory.data.custom.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
 import net.minecraft.core.HolderLookup;
@@ -25,7 +26,10 @@ public class UnusualPrehistory2 {
 
     public UnusualPrehistory2() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        MinecraftForge.EVENT_BUS.register(this);
+        IEventBus eventBus = MinecraftForge.EVENT_BUS;
+        bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
+        bus.addListener(this::dataSetup);
 
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         UP2Items.ITEMS.register(bus);
@@ -33,19 +37,17 @@ public class UnusualPrehistory2 {
         UP2Entities.ENTITY_TYPE.register(bus);
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
-        UP2RecipeTypes.register(bus);
+        UP2RecipeTypes.RECIPE_TYPES.register(bus);
+        UP2RecipeSerializers.RECIPE_SERIALIZERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
         UP2Features.register(bus);
 
-        bus.addListener(this::commonSetup);
-        bus.addListener(this::clientSetup);
-        bus.addListener(this::dataSetup);
+        eventBus.register(this);
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(UP2Compat::registerCompat);
-        UP2Network.registerNetwork();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
