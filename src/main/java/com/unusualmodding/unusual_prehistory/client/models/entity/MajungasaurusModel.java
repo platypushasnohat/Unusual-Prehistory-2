@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.majungasaurus.*;
+import com.unusualmodding.unusual_prehistory.client.animations.MajungasaurusAnimations;
 import com.unusualmodding.unusual_prehistory.entity.Majungasaurus;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -163,7 +163,7 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 			}
 		} else {
 			if (entity.isMajungasaurusStealthMode() && !entity.isInPoseTransition()) {
-				this.animateWalk(MajungasaurusStateAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
+				this.animateWalk(MajungasaurusAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
 			} else {
 				if (this.young) {
 					this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
@@ -181,11 +181,11 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.BITE_RIGHT, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.BITE_LEFT, ageInTicks);
 
-		this.animate(entity.enterStealthAnimationState, MajungasaurusStateAnimations.CAMOFLAUGE_START, ageInTicks);
-		this.animate(entity.stealthIdleAnimationState, MajungasaurusStateAnimations.CAMOFLAUGE_IDLE, ageInTicks);
-		this.animate(entity.exitStealthAnimationState, MajungasaurusStateAnimations.CAMOFLAUGE_END, ageInTicks);
+		this.animate(entity.enterStealthAnimationState, MajungasaurusAnimations.CAMOFLAUGE_START, ageInTicks);
+		this.animate(entity.stealthIdleAnimationState, MajungasaurusAnimations.CAMOFLAUGE_IDLE, ageInTicks);
+		this.animate(entity.exitStealthAnimationState, MajungasaurusAnimations.CAMOFLAUGE_END, ageInTicks);
 
-		this.animate(entity.eyesAnimationState, MajungasaurusIdleAnimations.EYES, ageInTicks);
+		this.animate(entity.eyesAnimationState, MajungasaurusAnimations.EYES, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
