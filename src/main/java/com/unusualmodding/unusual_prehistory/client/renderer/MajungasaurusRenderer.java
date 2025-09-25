@@ -14,13 +14,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel<Majungasaurus>> {
+public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel> {
 
     private static final ResourceLocation MAJUNGASAURUS = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/majungasaurus.png");
     private static final ResourceLocation DUSKLURKER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new MajungasaurusModel<>(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
+        super(context, new MajungasaurusModel(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
     }
 
     @Override

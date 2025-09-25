@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalModel<T> {
+public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
 
 	private float alpha = 1.0F;
 
