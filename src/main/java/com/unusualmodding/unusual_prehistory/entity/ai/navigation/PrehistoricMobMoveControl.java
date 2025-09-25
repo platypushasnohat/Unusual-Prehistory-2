@@ -17,12 +17,5 @@ public class PrehistoricMobMoveControl extends MoveControl {
         if (!prehistoricMob.refuseToMove()) {
             super.tick();
         }
-        else if (operation == Operation.MOVE_TO) {
-            super.tick();
-
-            if (mob.isInWater()) {
-                mob.setSpeed(mob.getSpeed() * 2);
-            }
-        }
     }
 }

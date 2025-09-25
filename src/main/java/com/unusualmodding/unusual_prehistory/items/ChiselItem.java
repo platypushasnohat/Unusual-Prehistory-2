@@ -127,14 +127,13 @@ public class ChiselItem extends Item {
 
     record DustParticlesDelta(double xd, double yd, double zd) {
         public static DustParticlesDelta fromDirection(Vec3 vec3, Direction direction) {
-           DustParticlesDelta dustParticlesDelta = switch (direction) {
-                case DOWN, UP -> new DustParticlesDelta(vec3.z(), 0.0D, -vec3.x());
-                case NORTH -> new DustParticlesDelta(1.0D, 0.0D, -0.1D);
-                case SOUTH -> new DustParticlesDelta(-1.0D, 0.0D, 0.1D);
-                case WEST -> new DustParticlesDelta(-0.1D, 0.0D, -1.0D);
-                case EAST -> new DustParticlesDelta(0.1D, 0.0D, 1.0D);
-           };
-           return dustParticlesDelta;
+            return switch (direction) {
+                 case DOWN, UP -> new DustParticlesDelta(vec3.z(), 0.0D, -vec3.x());
+                 case NORTH -> new DustParticlesDelta(1.0D, 0.0D, -0.1D);
+                 case SOUTH -> new DustParticlesDelta(-1.0D, 0.0D, 0.1D);
+                 case WEST -> new DustParticlesDelta(-0.1D, 0.0D, -1.0D);
+                 case EAST -> new DustParticlesDelta(0.1D, 0.0D, 1.0D);
+            };
         }
     }
 }

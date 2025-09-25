@@ -8,22 +8,18 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-
-import javax.annotation.Nullable;
 
 public abstract class PrehistoricMob extends Animal {
 
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
+    private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int healCooldown = 600;
@@ -119,6 +115,8 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(VARIANT, 0);
         this.entityData.define(BEHAVIOR, BaseBehaviors.IDLE.getName());
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
+        this.entityData.define(DATA_ID_FLAGS, (byte) 0);
+        this.entityData.define(ATTACK_STATE, 0);
     }
 
     @Override
@@ -136,6 +134,27 @@ public abstract class PrehistoricMob extends Animal {
         this.setBehavior(compoundTag.getString("Behavior"));
         long lastPoseTick = compoundTag.getLong("LastPoseTick");
         this.resetLastPoseChangeTick(lastPoseTick);
+    }
+
+    protected boolean getFlag(int flagId) {
+        return (this.entityData.get(DATA_ID_FLAGS) & flagId) != 0;
+    }
+
+    protected void setFlag(int flagId, boolean value) {
+        byte b0 = this.entityData.get(DATA_ID_FLAGS);
+        if (value) {
+            this.entityData.set(DATA_ID_FLAGS, (byte) (b0 | flagId));
+        } else {
+            this.entityData.set(DATA_ID_FLAGS, (byte) (b0 & ~flagId));
+        }
+    }
+
+    public int getAttackState() {
+        return this.entityData.get(ATTACK_STATE);
+    }
+
+    public void setAttackState(int attackState) {
+        this.entityData.set(ATTACK_STATE, attackState);
     }
 
     public int getVariant() {

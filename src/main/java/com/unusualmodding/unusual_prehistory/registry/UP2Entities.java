@@ -20,7 +20,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Carnotaurus>> CARNOTAURUS = ENTITY_TYPE.register(
             "carnotaurus", () ->
             EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
-                    .sized(1.75F, 3.0F)
+                    .sized(1.75F, 2.98F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "carnotaurus").toString())
     );

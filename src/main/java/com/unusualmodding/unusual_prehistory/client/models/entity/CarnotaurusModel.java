@@ -2,9 +2,8 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.carnotaurus.*;
+import com.unusualmodding.unusual_prehistory.client.animations.CarnotaurusAnimations;
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -14,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T> {
+public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -164,18 +163,10 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 
 		if (!entity.isCharging()) {
 			if (this.young) {
-				if (entity.isSprinting()) {
-					this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-				}
 				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
 			} else {
-				if (entity.isSprinting()) {
-					this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-				}
 				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 			}
-		} else {
-			this.animateWalk(CarnotaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1, 8);
 		}
 
 		if (this.young) {
@@ -183,12 +174,11 @@ public class CarnotaurusModel<T extends Carnotaurus> extends HierarchicalModel<T
 		}
 
 		this.animate(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks);
-		this.animate(entity.biteRightAnimationState, CarnotaurusAnimations.BITE_RIGHT, ageInTicks);
-		this.animate(entity.biteLeftAnimationState, CarnotaurusAnimations.BITE_LEFT, ageInTicks);
-
-		this.animate(entity.chargeStartAnimationState, CarnotaurusAnimations.CHARGE_START, ageInTicks);
-//		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
-		this.animate(entity.chargeEndAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
+		this.animate(entity.biteAnimationState, CarnotaurusAnimations.BITE, ageInTicks);
+		this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT, ageInTicks);
+		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
+		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
+		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

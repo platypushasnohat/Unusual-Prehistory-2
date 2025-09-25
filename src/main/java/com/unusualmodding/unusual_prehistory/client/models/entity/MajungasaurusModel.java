@@ -162,7 +162,7 @@ public class MajungasaurusModel<T extends Majungasaurus> extends HierarchicalMod
 				this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
 			}
 		} else {
-			if (entity.isMajungasaurusVisuallyStealthMode() && !entity.isInPoseTransition()) {
+			if (entity.isMajungasaurusStealthMode() && !entity.isInPoseTransition()) {
 				this.animateWalk(MajungasaurusStateAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
 			} else {
 				if (this.young) {

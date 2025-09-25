@@ -81,7 +81,7 @@ public class TelecrexModel<T extends Telecrex> extends HierarchicalModel<T> {
 		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
 
-		body_main.xRot += flightPitchAmount;
+		body_main.xRot += flightPitchAmount / 2;
 		body_main.zRot += rollAmount / 2;
 
 		if (this.young) {

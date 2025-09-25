@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel<Majungasaurus>> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/majungasaurus.png");
-    private static final ResourceLocation TEXTURE_DUSKLURKER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/dusklurker_majungasaurus.png");
+    private static final ResourceLocation MAJUNGASAURUS = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/majungasaurus.png");
+    private static final ResourceLocation DUSKLURKER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MajungasaurusModel<>(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
@@ -25,8 +25,8 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public ResourceLocation getTextureLocation(Majungasaurus entity) {
-        if (entity.getVariant() == 1) return TEXTURE_DUSKLURKER;
-        else return TEXTURE;
+        if (entity.getVariant() == 1) return DUSKLURKER;
+        else return MAJUNGASAURUS;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     }
 
     protected void scale(Majungasaurus entity, PoseStack poseStack, float partialTicks) {
-        float alpha = 1.0F - (0.85F + 0.15F * (float) Math.sin(entity.tickCount * 0.08F)) * entity.getStealthProgress(partialTicks);
+        float alpha = 1.0F - 0.85F * entity.getStealthProgress(partialTicks);
         this.model.setAlpha(alpha);
     }
 }

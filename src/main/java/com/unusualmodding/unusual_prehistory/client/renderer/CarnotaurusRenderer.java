@@ -13,12 +13,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusModel<Carnotaurus>> {
+public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/carnotaurus.png");
 
     public CarnotaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new CarnotaurusModel<>(context.bakeLayer(UP2EntityModelLayers.CARNOTAURUS)), 0.8F);
+        super(context, new CarnotaurusModel(context.bakeLayer(UP2EntityModelLayers.CARNOTAURUS)), 0.8F);
     }
 
     @Override

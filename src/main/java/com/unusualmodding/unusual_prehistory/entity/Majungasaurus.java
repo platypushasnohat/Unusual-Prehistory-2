@@ -41,7 +41,6 @@ import java.util.Objects;
 
 public class Majungasaurus extends PrehistoricMob {
 
-    public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Integer> STEALTH_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -88,7 +87,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 32.0D)
+                .add(Attributes.MAX_HEALTH, 24.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
@@ -150,10 +149,6 @@ public class Majungasaurus extends PrehistoricMob {
         if (this.getStealthCooldown() > 0) {
             this.setStealthCooldown(this.getStealthCooldown() - 1);
         }
-
-        if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth()) {
-            this.heal(2);
-        }
     }
 
     @Override
@@ -190,23 +185,18 @@ public class Majungasaurus extends PrehistoricMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STEALTH_COOLDOWN, 60 + random.nextInt(10));
-        this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("StealthCooldown", this.getStealthCooldown());
-        compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setStealthCooldown(compoundTag.getInt("StealthCooldown"));
-        long l = compoundTag.getLong("LastPoseTick");
-        if (l < 0L) this.setPose(UP2Poses.RESTING.get());
-        this.resetLastPoseChangeTick(l);
     }
 
     public int getStealthCooldown() {
@@ -229,6 +219,7 @@ public class Majungasaurus extends PrehistoricMob {
         return this.getPoseTime() < 0L != this.isMajungasaurusStealthMode();
     }
 
+    @Override
     public boolean isInPoseTransition() {
         long l = this.getPoseTime();
         return l < (long) (20);
