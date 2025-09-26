@@ -8,29 +8,15 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class KentrosaurusAttackGoal extends Goal {
+public class KentrosaurusAttackGoal extends AttackGoal {
+
     private int attackTime = 0;
-    private Kentrosaurus kentrosaurus;
+    private final Kentrosaurus kentrosaurus;
 
     public KentrosaurusAttackGoal(Kentrosaurus kentrosaurus) {
+        super(kentrosaurus);
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Flag.LOOK));
         this.kentrosaurus = kentrosaurus;
-    }
-
-    @Override
-    public boolean canUse() {
-        return !this.kentrosaurus.isBaby() && this.kentrosaurus.getTarget() != null && this.kentrosaurus.getTarget().isAlive();
-    }
-
-    @Override
-    public void start() {
-        this.kentrosaurus.setAttackState(0);
-        this.attackTime = 0;
-    }
-
-    @Override
-    public void stop() {
-        this.kentrosaurus.setAttackState(0);
     }
 
     @Override
@@ -58,11 +44,6 @@ public class KentrosaurusAttackGoal extends Goal {
         }
     }
 
-    @Override
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
     protected void tickAttack() {
         this.attackTime++;
         LivingEntity target = this.kentrosaurus.getTarget();
@@ -71,8 +52,8 @@ public class KentrosaurusAttackGoal extends Goal {
             this.kentrosaurus.addDeltaMovement(this.kentrosaurus.getLookAngle().scale(2.0D).multiply(0.15D, 0, 0.15D));
         }
 
-        if (this.attackTime == 20) {
-            if (this.kentrosaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
+        if (this.attackTime == 19) {
+            if (this.kentrosaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
                 this.kentrosaurus.swing(InteractionHand.MAIN_HAND);
                 this.kentrosaurus.doHurtTarget(target);
             }
@@ -83,7 +64,8 @@ public class KentrosaurusAttackGoal extends Goal {
         }
     }
 
-    protected double getAttackReach(LivingEntity target) {
-        return this.kentrosaurus.getBbWidth() * 1.5F * this.kentrosaurus.getBbWidth() * 1.0F + target.getBbWidth();
+    @Override
+    protected double getAttackReachSqr(LivingEntity target) {
+        return this.kentrosaurus.getBbWidth() * 1.25F * this.kentrosaurus.getBbWidth() * 1.25F + target.getBbWidth();
     }
 }

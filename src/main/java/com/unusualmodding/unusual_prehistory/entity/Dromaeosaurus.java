@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DromaeosaurusMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -17,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +29,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -56,7 +57,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
-        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
+        ((SmoothGroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.refreshDimensions();
         this.moveControl = new DromaeosaurusMoveControl(this);
     }
@@ -126,6 +127,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         }
 
         this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
+        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, 60);
 
         if (this.isDromaeosaurusSleeping() && this.isInWater()) {
             this.standUpInstantly();

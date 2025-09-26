@@ -366,16 +366,16 @@ public class Majungasaurus extends PrehistoricMob {
         }
 
         protected void tickBite() {
-            attackTime++;
+            timer++;
             LivingEntity target = this.majungasaurus.getTarget();
-            if (attackTime == 11) {
+            if (timer == 11) {
                 if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
                     this.majungasaurus.doHurtTarget(target);
                     this.majungasaurus.swing(InteractionHand.MAIN_HAND);
                 }
             }
-            if (attackTime >= 22) {
-                attackTime = 0;
+            if (timer >= 22) {
+                timer = 0;
                 this.majungasaurus.setPose(Pose.STANDING);
             }
         }

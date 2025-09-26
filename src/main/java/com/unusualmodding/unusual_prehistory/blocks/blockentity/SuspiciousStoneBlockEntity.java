@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.mojang.logging.LogUtils;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.SuspiciousStoneBlock;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

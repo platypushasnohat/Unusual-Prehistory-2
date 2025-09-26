@@ -5,7 +5,8 @@ import net.minecraft.sounds.SoundEvents;
 
 public enum BaseBehaviors {
 
-    IDLE("Idling", SoundEvents.EMPTY, 0);
+    IDLE("Idling", SoundEvents.EMPTY, 0),
+    ANGRY("Angry", SoundEvents.EMPTY, 0);
 
     private final String name;
     private final SoundEvent sound;

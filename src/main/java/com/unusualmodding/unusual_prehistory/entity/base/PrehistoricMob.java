@@ -14,17 +14,19 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricMob extends Animal {
 
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
-    private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
@@ -39,8 +41,13 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    protected BodyRotationControl createBodyControl() {
+    protected @NotNull BodyRotationControl createBodyControl() {
         return new RefuseToMoveBodyRotationControl(this);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level level) {
+        return new SmoothGroundPathNavigation(this, level);
     }
 
     @Override
@@ -143,7 +150,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(VARIANT, 0);
         this.entityData.define(BEHAVIOR, BaseBehaviors.IDLE.getName());
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
-        this.entityData.define(DATA_ID_FLAGS, (byte) 0);
+        this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
     }
 
@@ -165,15 +172,15 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     protected boolean getFlag(int flagId) {
-        return (this.entityData.get(DATA_ID_FLAGS) & flagId) != 0;
+        return (this.entityData.get(DATA_FLAGS) & flagId) != 0;
     }
 
     protected void setFlag(int flagId, boolean value) {
-        byte b0 = this.entityData.get(DATA_ID_FLAGS);
+        byte b0 = this.entityData.get(DATA_FLAGS);
         if (value) {
-            this.entityData.set(DATA_ID_FLAGS, (byte) (b0 | flagId));
+            this.entityData.set(DATA_FLAGS, (byte) (b0 | flagId));
         } else {
-            this.entityData.set(DATA_ID_FLAGS, (byte) (b0 & ~flagId));
+            this.entityData.set(DATA_FLAGS, (byte) (b0 & ~flagId));
         }
     }
 
