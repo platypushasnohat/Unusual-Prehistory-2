@@ -13,13 +13,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, DromaeosaurusModel<Dromaeosaurus>> {
+public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, DromaeosaurusModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/dromaeosaurus/dromaeosaurus.png");
     private static final ResourceLocation TEXTURE_SLEEPING = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/dromaeosaurus/dromaeosaurus_eepy.png");
 
     public DromaeosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DromaeosaurusModel<>(context.bakeLayer(UP2EntityModelLayers.DROMAEOSAURUS)), 0.5F);
+        super(context, new DromaeosaurusModel(context.bakeLayer(UP2EntityModelLayers.DROMAEOSAURUS)), 0.5F);
     }
 
     @Override

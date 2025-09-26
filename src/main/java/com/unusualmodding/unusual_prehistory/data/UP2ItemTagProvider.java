@@ -115,8 +115,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
-                Items.COOKIE,
-                Items.PUMPKIN_PIE,
                 Items.CAKE
         );
 

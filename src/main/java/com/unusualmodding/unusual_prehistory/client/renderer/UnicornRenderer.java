@@ -19,27 +19,25 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class UnicornRenderer extends MobRenderer<Unicorn, HierarchicalModel<Unicorn>> {
 
-    private final UnicornModel<Unicorn> unicornModel;
-    private final UnicornSkeletonModel<Unicorn> unicornSkeletonModel;
+    private final UnicornModel unicornModel;
+    private final UnicornSkeletonModel unicornSkeletonModel;
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/unicorn/unicorn.png");
     private static final ResourceLocation TEXTURE_SKELETON = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/unicorn/unicorn_skeleton.png");
 
     public UnicornRenderer(EntityRendererProvider.Context context) {
-        super(context, new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN)), 1F);
-        this.unicornModel = new UnicornModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN));
-        this.unicornSkeletonModel = new UnicornSkeletonModel<>(context.bakeLayer(UP2EntityModelLayers.UNICORN_SKELETON));
+        super(context, new UnicornModel(context.bakeLayer(UP2EntityModelLayers.UNICORN)), 0.9F);
+        this.unicornModel = new UnicornModel(context.bakeLayer(UP2EntityModelLayers.UNICORN));
+        this.unicornSkeletonModel = new UnicornSkeletonModel(context.bakeLayer(UP2EntityModelLayers.UNICORN_SKELETON));
     }
 
     @Override
     public void render(Unicorn entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-
         if (entity.isSkeletal()) {
             this.model = unicornSkeletonModel;
         } else {
             this.model = unicornModel;
         }
-
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
@@ -52,7 +50,8 @@ public class UnicornRenderer extends MobRenderer<Unicorn, HierarchicalModel<Unic
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Unicorn entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+    @Nullable
+    protected RenderType getRenderType(Unicorn entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         if (entity.isSkeletal()) {
             return RenderType.entityCutoutNoCull(TEXTURE_SKELETON);
         }

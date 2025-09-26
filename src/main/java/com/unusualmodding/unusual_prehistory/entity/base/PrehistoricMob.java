@@ -7,10 +7,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public abstract class PrehistoricMob extends Animal {
@@ -70,6 +76,28 @@ public abstract class PrehistoricMob extends Animal {
     @Override
     public boolean canMate(Animal animal) {
         return false;
+    }
+
+    public SoundEvent getEatingSound() {
+        return SoundEvents.GENERIC_EAT;
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (this.isFood(itemstack)) {
+            int i = this.getAge();
+            if (this.isBaby()) {
+                this.usePlayerItem(player, hand, itemstack);
+                this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
+                this.playSound(this.getEatingSound());
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+            if (this.level().isClientSide) {
+                return InteractionResult.CONSUME;
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

@@ -14,6 +14,9 @@ public class UnicornAnimations {
 			.addAnimation("head", new AnimationChannel(AnimationChannel.Targets.SCALE,
 					new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.4F, 1.4F, 1.4F), AnimationChannel.Interpolations.LINEAR)
 			))
+			.addAnimation("horn", new AnimationChannel(AnimationChannel.Targets.SCALE,
+					new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+			))
 			.build();
 
 	public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(4.0F).looping()
