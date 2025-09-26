@@ -1,9 +1,9 @@
-package com.unusualmodding.unusual_prehistory.worldgen.tree_decorator;
+package com.unusualmodding.unusual_prehistory.worldgen.feature.tree_decorator;
 
 import com.mojang.serialization.Codec;
 import com.unusualmodding.unusual_prehistory.blocks.LepidodendronConeBlock;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Features;
+import com.unusualmodding.unusual_prehistory.registry.UP2TreeDecorators;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -16,7 +16,7 @@ public class HangingLepidodendronLeavesDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> type() {
-        return UP2Features.HANGING_LEPIDODENDRON_LEAVES.get();
+        return UP2TreeDecorators.HANGING_LEPIDODENDRON_LEAVES.get();
     }
 
     @Override

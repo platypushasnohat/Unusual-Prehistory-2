@@ -1,8 +1,8 @@
-package com.unusualmodding.unusual_prehistory.worldgen.foliage_placer;
+package com.unusualmodding.unusual_prehistory.worldgen.feature.foliage_placer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.unusualmodding.unusual_prehistory.registry.UP2Features;
+import com.unusualmodding.unusual_prehistory.registry.UP2FoliagePlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -23,7 +23,7 @@ public class LepidodendronFoliagePlacer extends FoliagePlacer {
     }
 
     protected FoliagePlacerType<?> type() {
-        return UP2Features.LEPIDODENDRON_FOLIAGE.get();
+        return UP2FoliagePlacers.LEPIDODENDRON_FOLIAGE.get();
     }
 
     protected void createFoliage(LevelSimulatedReader level, FoliageSetter placer, RandomSource random, TreeConfiguration config, int trunkHeight, FoliagePlacer.FoliageAttachment treeNode, int foliageHeight, int radius, int offset) {

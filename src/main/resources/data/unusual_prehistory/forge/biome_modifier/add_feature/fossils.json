@@ -2,9 +2,8 @@
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
   "features": [
-    "unusual_prehistory:ore_frozen_meat",
-    "unusual_prehistory:ore_fossil_upper",
-    "unusual_prehistory:ore_fossil_lower"
+    "unusual_prehistory:fossil_patch",
+    "unusual_prehistory:deepslate_fossil_patch"
   ],
-  "step": "underground_ores"
+  "step": "underground_decoration"
 }

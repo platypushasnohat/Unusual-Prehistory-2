@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -99,6 +100,9 @@ public class CarnotaurusChargeGoal extends Goal {
                     float knockbackForce = entity.isDamageSourceBlocked(carnotaurus.level().damageSources().mobAttack(carnotaurus)) ? 1.75F : 2.25F;
                     entity.hurt(entity.damageSources().mobAttack(this.carnotaurus), (float) this.carnotaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     entity.knockback((knockbackForce * speedForce) * 2.5F, this.chargeDirection.x(), this.chargeDirection.z());
+                    if (entity.isDamageSourceBlocked(this.carnotaurus.damageSources().mobAttack(this.carnotaurus)) && entity instanceof Player player){
+                        player.disableShield(true);
+                    }
                     this.carnotaurus.swing(InteractionHand.MAIN_HAND);
                 }
             }

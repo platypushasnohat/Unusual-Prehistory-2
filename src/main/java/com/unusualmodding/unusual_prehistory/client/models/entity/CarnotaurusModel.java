@@ -163,9 +163,9 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 
 		if (!entity.isCharging()) {
 			if (this.young) {
-				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 6);
 			} else {
-				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 6);
 			}
 		}
 

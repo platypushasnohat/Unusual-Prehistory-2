@@ -1,4 +1,4 @@
-package com.unusualmodding.unusual_prehistory.worldgen.tree;
+package com.unusualmodding.unusual_prehistory.worldgen.feature.tree;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

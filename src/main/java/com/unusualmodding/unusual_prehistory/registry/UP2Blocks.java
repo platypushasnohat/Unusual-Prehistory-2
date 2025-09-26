@@ -2,9 +2,9 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.*;
-import com.unusualmodding.unusual_prehistory.worldgen.tree.GinkgoTreeGrower;
-import com.unusualmodding.unusual_prehistory.worldgen.tree.GoldenGinkgoTreeGrower;
-import com.unusualmodding.unusual_prehistory.worldgen.tree.LepidodendronTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.feature.tree.GinkgoTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.feature.tree.GoldenGinkgoTreeGrower;
+import com.unusualmodding.unusual_prehistory.worldgen.feature.tree.LepidodendronTreeGrower;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;

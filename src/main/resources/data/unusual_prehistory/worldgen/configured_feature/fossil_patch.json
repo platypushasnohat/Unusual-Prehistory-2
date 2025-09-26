@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "unusual_prehistory:fossil_patch",
+        "config": {
+          "to_place": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "unusual_prehistory:fossil",
+              "Properties": {
+                "dusted": "0"
+              }
+            }
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:stone"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 32,
+    "xz_spread": 4,
+    "y_spread": 2
+  }
+}

@@ -1,10 +1,10 @@
-package com.unusualmodding.unusual_prehistory.worldgen.trunk_placer;
+package com.unusualmodding.unusual_prehistory.worldgen.feature.trunk_placer;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Features;
+import com.unusualmodding.unusual_prehistory.registry.UP2TrunkPlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class LepidodendronTrunkPlacer extends TrunkPlacer {
 
@@ -29,7 +28,7 @@ public class LepidodendronTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> type() {
-        return UP2Features.LEPIDODENDRON_TRUNK.get();
+        return UP2TrunkPlacers.LEPIDODENDRON_TRUNK.get();
     }
 
     @Override
