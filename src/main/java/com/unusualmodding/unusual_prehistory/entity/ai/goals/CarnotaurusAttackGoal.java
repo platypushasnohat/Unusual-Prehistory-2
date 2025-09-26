@@ -46,6 +46,7 @@ public class CarnotaurusAttackGoal extends Goal {
 
             if (attackState == 1) {
                 tickBite();
+                this.carnotaurus.getNavigation().moveTo(target, 1.5D);
             } else if (attackState == 2) {
                 tickHeadbutt();
             } else {
@@ -69,7 +70,6 @@ public class CarnotaurusAttackGoal extends Goal {
     protected void tickBite() {
         this.timer++;
         LivingEntity target = this.carnotaurus.getTarget();
-        this.carnotaurus.getNavigation().stop();
 
         if (this.timer == 11) {
             if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
