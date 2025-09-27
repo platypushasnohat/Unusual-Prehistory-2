@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:jawless_fish_dna_bottle"
+    "item": "unusual_prehistory:jawless_fossil"
   },
   "output": {
     "item": "unusual_prehistory:jawless_fish_roe"

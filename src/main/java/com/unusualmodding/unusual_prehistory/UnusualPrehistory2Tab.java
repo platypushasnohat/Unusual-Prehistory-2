@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory;
 
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,82 +15,65 @@ public class UnusualPrehistory2Tab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(MESOZOIC_FOSSIL.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ORGANIC_OOZE.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, tabOutput) -> {
 
                         tabOutput.accept(CHISEL.get());
 
-                        tabOutput.accept(PALEOZOIC_FOSSIL.get());
-                        tabOutput.accept(MESOZOIC_FOSSIL.get());
-//                        tabOutput.accept(FROZEN_MEAT.get());
-                        tabOutput.accept(PLANT_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FOSSIL.get());
-//                        tabOutput.accept(UP2Blocks.FROZEN_MEAT_BLOCK.get());
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 
                         tabOutput.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
-                        // paleozoic
+                        tabOutput.accept(CARNOTAURUS_SPAWN_EGG.get());
                         tabOutput.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         tabOutput.accept(DIPLOCAULUS_BUCKET.get());
+                        tabOutput.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         tabOutput.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         tabOutput.accept(DUNKLEOSTEUS_BUCKET.get());
                         tabOutput.accept(JAWLESS_FISH_SPAWN_EGG.get());
                         tabOutput.accept(JAWLESS_FISH_BUCKET.get());
-                        tabOutput.accept(STETHACANTHUS_SPAWN_EGG.get());
-                        tabOutput.accept(STETHACANTHUS_BUCKET.get());
-
-                        tabOutput.accept(CARNOTAURUS_SPAWN_EGG.get());
-                        tabOutput.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         tabOutput.accept(KENTROSAURUS_SPAWN_EGG.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         tabOutput.accept(MAJUNGASAURUS_SPAWN_EGG.get());
-
                         tabOutput.accept(MEGALANIA_SPAWN_EGG.get());
+                        tabOutput.accept(STETHACANTHUS_SPAWN_EGG.get());
+                        tabOutput.accept(STETHACANTHUS_BUCKET.get());
+                        tabOutput.accept(TALPANAS_SPAWN_EGG.get());
                         tabOutput.accept(TELECREX_SPAWN_EGG.get());
 
-                        tabOutput.accept(TALPANAS_SPAWN_EGG.get());
-
-                        tabOutput.accept(DIPLOCAULUS_DNA.get());
-                        tabOutput.accept(DUNKLEOSTEUS_DNA.get());
-                        tabOutput.accept(JAWLESS_FISH_DNA.get());
-                        tabOutput.accept(STETHACANTHUS_DNA.get());
-
-                        tabOutput.accept(CARNOTAURUS_DNA.get());
-                        tabOutput.accept(DROMAEOSAURUS_DNA.get());
-                        tabOutput.accept(KENTROSAURUS_DNA.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
-                        tabOutput.accept(MAJUNGASAURUS_DNA.get());
-
-                        tabOutput.accept(MEGALANIA_DNA.get());
-                        tabOutput.accept(TELECREX_DNA.get());
-
-                        tabOutput.accept(TALPANAS_DNA.get());
-
-                        tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
-                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
-                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
-                        tabOutput.accept(STETHACANTHUS_SAC.get());
+                        tabOutput.accept(HORN_FOSSIL.get());
+                        tabOutput.accept(BOOMERANG_FOSSIL.get());
+                        tabOutput.accept(SWIFT_FOSSIL.get());
+                        tabOutput.accept(PLATED_FOSSIL.get());
+                        tabOutput.accept(JAWLESS_FOSSIL.get());
+                        tabOutput.accept(THAGOMIZER_FOSSIL.get());
+                        tabOutput.accept(HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get());
+                        tabOutput.accept(CRANIUM_FOSSIL.get());
+                        tabOutput.accept(FOOTPRINT_FOSSIL.get());
+                        tabOutput.accept(ANVIL_FOSSIL.get());
+                        tabOutput.accept(PLUMAGE_FOSSIL.get());
 
                         tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());
+                        tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         tabOutput.accept(DROMAEOSAURUS_EGG.get());
+                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
+                        tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         tabOutput.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
-
                         tabOutput.accept(UP2Blocks.MEGALANIA_EGG.get());
+                        tabOutput.accept(STETHACANTHUS_SAC.get());
+                        tabOutput.accept(TALPANAS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
 
-                        tabOutput.accept(TALPANAS_EGG.get());
-
                         // plant dna
-//                        tabOutput.accept(ARCHAEOSIGILLARIA_DNA.get());
                         tabOutput.accept(BENNETTITALES_DNA.get());
                         tabOutput.accept(CALAMOPHYTON_DNA.get());
                         tabOutput.accept(CLADOPHLEBIS_DNA.get());
@@ -132,6 +114,10 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.GINKGO_TRAPDOOR.get());
                         tabOutput.accept(UP2Blocks.GINKGO_PRESSURE_PLATE.get());
                         tabOutput.accept(UP2Blocks.GINKGO_BUTTON.get());
+                        tabOutput.accept(GINKGO_SIGN.get());
+                        tabOutput.accept(GINKGO_HANGING_SIGN.get());
+                        tabOutput.accept(GINKGO_BOAT.get());
+                        tabOutput.accept(GINKGO_CHEST_BOAT.get());
                         tabOutput.accept(UP2Blocks.GINKGO_LEAVES.get());
                         tabOutput.accept(UP2Blocks.GOLDEN_GINKGO_LEAVES.get());
                         tabOutput.accept(UP2Blocks.GINKGO_SAPLING.get());
@@ -153,6 +139,10 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_TRAPDOOR.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_PRESSURE_PLATE.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_BUTTON.get());
+                        tabOutput.accept(LEPIDODENDRON_SIGN.get());
+                        tabOutput.accept(LEPIDODENDRON_HANGING_SIGN.get());
+                        tabOutput.accept(LEPIDODENDRON_BOAT.get());
+                        tabOutput.accept(LEPIDODENDRON_CHEST_BOAT.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
                         tabOutput.accept(UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get());
                         tabOutput.accept(UP2Blocks.LEPIDODENDRON_CONE.get());

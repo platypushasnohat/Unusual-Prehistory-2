@@ -101,6 +101,11 @@ public class UP2Blocks {
     public static final RegistryObject<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(new GoldenGinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
     public static final RegistryObject<Block> POTTED_GOLDEN_GINKGO_SAPLING = registerBlockWithoutItem("potted_golden_ginkgo_sapling", () -> new FlowerPotBlock(GOLDEN_GINKGO_SAPLING.get(), registerFlowerPot()));
 
+    public static final RegistryObject<Block> GINKGO_SIGN = registerBlockWithoutItemNoLang("ginkgo_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_WALL_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(GINKGO_HANGING_SIGN.get()), UP2BlockProperties.GINKGO_WOOD_TYPE));
+
     // lepidodendron
     public static final RegistryObject<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
     public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
@@ -122,6 +127,11 @@ public class UP2Blocks {
     public static final RegistryObject<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
 
     public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+
+    public static final RegistryObject<Block> LEPIDODENDRON_SIGN = registerBlockWithoutItemNoLang("lepidodendron_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

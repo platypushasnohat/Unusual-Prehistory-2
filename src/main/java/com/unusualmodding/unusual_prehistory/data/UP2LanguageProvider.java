@@ -37,7 +37,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         UP2Blocks.AUTO_TRANSLATE.forEach(this::forBlock);
 
         // items
-        UP2Items.AUTO_TRANSLATE.forEach(this::forItem);
+        UP2Items.ITEM_TRANSLATIONS.forEach(this::forItem);
 
         // entities
         this.forEntity(UP2Entities.CARNOTAURUS);
@@ -53,19 +53,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
 
-        // creature dna
-        this.dnaItem(UP2Items.CARNOTAURUS_DNA.get());
-        this.dnaItem(UP2Items.DROMAEOSAURUS_DNA.get());
-        this.dnaItem(UP2Items.DIPLOCAULUS_DNA.get());
-        this.dnaItem(UP2Items.DUNKLEOSTEUS_DNA.get());
-        this.dnaItem(UP2Items.JAWLESS_FISH_DNA.get());
-        this.dnaItem(UP2Items.KENTROSAURUS_DNA.get());
-        this.dnaItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get());
-        this.dnaItem(UP2Items.MAJUNGASAURUS_DNA.get());
-        this.dnaItem(UP2Items.MEGALANIA_DNA.get());
-        this.dnaItem(UP2Items.STETHACANTHUS_DNA.get());
-        this.dnaItem(UP2Items.TALPANAS_DNA.get());
-        this.dnaItem(UP2Items.TELECREX_DNA.get());
+        this.forEntity(UP2Entities.BOAT);
+        this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
         // plant dna
         this.dnaItem(UP2Items.BENNETTITALES_DNA.get());
@@ -79,6 +68,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
         this.dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
         this.dnaItem(UP2Items.RHYNIA_DNA.get());
+
+        this.addItem(UP2Items.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
+        this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
 
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");

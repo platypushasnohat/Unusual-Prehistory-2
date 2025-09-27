@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.AgeableFollowParentGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
@@ -20,7 +21,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +46,7 @@ public class Unicorn extends Animal {
 
     @Override
     protected @NotNull PathNavigation createNavigation(Level level) {
-        return new GroundPathNavigation(this, level);
+        return new SmoothGroundPathNavigation(this, level);
     }
 
     public Unicorn(EntityType<? extends Animal> entityType, Level level) {

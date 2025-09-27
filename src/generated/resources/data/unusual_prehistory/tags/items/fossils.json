@@ -1,8 +1,15 @@
 {
   "values": [
-    "unusual_prehistory:plant_fossil",
-    "unusual_prehistory:paleozoic_fossil",
-    "unusual_prehistory:mesozoic_fossil",
-    "unusual_prehistory:frozen_meat"
+    "unusual_prehistory:horn_fossil",
+    "unusual_prehistory:boomerang_fossil",
+    "unusual_prehistory:swift_fossil",
+    "unusual_prehistory:plated_fossil",
+    "unusual_prehistory:jawless_fossil",
+    "unusual_prehistory:thagomizer_fossil",
+    "unusual_prehistory:hippopotomonstrosesquippedaliophobia_fossil",
+    "unusual_prehistory:cranium_fossil",
+    "unusual_prehistory:footprint_fossil",
+    "unusual_prehistory:anvil_fossil",
+    "unusual_prehistory:plumage_fossil"
   ]
 }

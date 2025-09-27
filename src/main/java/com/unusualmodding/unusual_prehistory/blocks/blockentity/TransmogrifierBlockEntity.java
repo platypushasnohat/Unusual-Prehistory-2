@@ -168,7 +168,7 @@ public class TransmogrifierBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private int getFuelAmount(final ItemStack fuelStack) {
-        if (!fuelStack.isEmpty() && fuelStack.is(UP2ItemTags.CULTIVATOR_FUEL)) {
+        if (!fuelStack.isEmpty() && fuelStack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL)) {
             return maxFuel;
         }
         return 0;

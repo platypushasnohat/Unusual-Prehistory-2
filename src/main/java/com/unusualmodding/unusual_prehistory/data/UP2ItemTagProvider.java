@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup;
@@ -27,56 +26,23 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        // unusual prehistory
+
         this.tag(UP2ItemTags.FOSSILS).add(
-                PLANT_FOSSIL.get(),
-                PALEOZOIC_FOSSIL.get(),
-                MESOZOIC_FOSSIL.get(),
-                FROZEN_MEAT.get()
+                HORN_FOSSIL.get(),
+                BOOMERANG_FOSSIL.get(),
+                SWIFT_FOSSIL.get(),
+                PLATED_FOSSIL.get(),
+                JAWLESS_FOSSIL.get(),
+                THAGOMIZER_FOSSIL.get(),
+                HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get(),
+                CRANIUM_FOSSIL.get(),
+                FOOTPRINT_FOSSIL.get(),
+                ANVIL_FOSSIL.get(),
+                PLUMAGE_FOSSIL.get()
         );
 
-        this.tag(UP2ItemTags.CULTIVATOR_FUEL).add(
+        this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(
                 ORGANIC_OOZE.get()
-        );
-
-        this.tag(UP2ItemTags.DNA_BOTTLES).addTag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).addTag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).addTag(UP2ItemTags.PLANT_DNA_BOTTLES);
-
-        this.tag(UP2ItemTags.PALEOZOIC_DNA_BOTTLES).add(
-                DIPLOCAULUS_DNA.get(),
-                DUNKLEOSTEUS_DNA.get(),
-                JAWLESS_FISH_DNA.get(),
-                STETHACANTHUS_DNA.get()
-        );
-
-        this.tag(UP2ItemTags.MESOZOIC_DNA_BOTTLES).add(
-                CARNOTAURUS_DNA.get(),
-                DROMAEOSAURUS_DNA.get(),
-                KENTROSAURUS_DNA.get(),
-                KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(),
-                MAJUNGASAURUS_DNA.get()
-        );
-
-        this.tag(UP2ItemTags.CENOZOIC_DNA_BOTTLES).add(
-                TELECREX_DNA.get(),
-                MEGALANIA_DNA.get()
-        );
-
-        this.tag(UP2ItemTags.HOLOCENE_DNA_BOTTLES).add(
-                TALPANAS_DNA.get()
-        );
-
-        this.tag(UP2ItemTags.PLANT_DNA_BOTTLES).add(
-                BENNETTITALES_DNA.get(),
-                CALAMOPHYTON_DNA.get(),
-                CLADOPHLEBIS_DNA.get(),
-                COOKSONIA_DNA.get(),
-                GINKGO_DNA.get(),
-                HORSETAIL_DNA.get(),
-                ISOETES_DNA.get(),
-                LEEFRUCTUS_DNA.get(),
-                LEPIDODENDRON_DNA.get(),
-                RAIGUENRAYUN_DNA.get(),
-                RHYNIA_DNA.get()
         );
 
         this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
@@ -142,7 +108,5 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         // forge
         this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
         this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());
-        this.tag(UP2ItemTags.BOTTLES).addTag(UP2ItemTags.BOTTLES_DNA);
-        this.tag(UP2ItemTags.BOTTLES_DNA).addTag(UP2ItemTags.DNA_BOTTLES);
     }
 }

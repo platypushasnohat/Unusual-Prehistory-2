@@ -14,7 +14,8 @@ import net.minecraft.world.level.material.PushReaction;
 
 public class UP2BlockProperties {
 
-    public static final WoodType GINKGO = WoodType.register(new WoodType("ginkgo", BlockSetType.CHERRY));
+    public static final WoodType GINKGO_WOOD_TYPE = WoodType.register(new WoodType("unusual_prehistory:ginkgo", BlockSetType.OAK));
+    public static final WoodType LEPIDODENDRON_WOOD_TYPE = WoodType.register(new WoodType("unusual_prehistory:lepidodendron", BlockSetType.OAK));
 
     public static final BlockBehaviour.Properties PLANT = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
     public static final BlockBehaviour.Properties TALL_PLANT = BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().ignitedByLava().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);

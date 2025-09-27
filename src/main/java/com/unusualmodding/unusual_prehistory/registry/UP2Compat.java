@@ -1,16 +1,20 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class UP2Compat {
 
     public static void registerCompat() {
         registerCompostables();
         registerFlammables();
+        registerSigns();
+        registerHangingSigns();
     }
 
     public static void registerCompostables() {
@@ -69,6 +73,26 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE.get(), 5, 20);
         registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE_GATE.get(), 5, 20);
         registerFlammable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 30, 60);
+    }
+
+    public static void registerSigns() {
+        ImmutableSet.Builder<Block> signs = new ImmutableSet.Builder<>();
+        signs.addAll(BlockEntityType.SIGN.validBlocks);
+        signs.add(UP2Blocks.GINKGO_SIGN.get());
+        signs.add(UP2Blocks.GINKGO_WALL_SIGN.get());
+        signs.add(UP2Blocks.LEPIDODENDRON_SIGN.get());
+        signs.add(UP2Blocks.LEPIDODENDRON_WALL_SIGN.get());
+        BlockEntityType.SIGN.validBlocks = signs.build();
+    }
+
+    public static void registerHangingSigns() {
+        ImmutableSet.Builder<Block> hangingSigns = new ImmutableSet.Builder<>();
+        hangingSigns.addAll(BlockEntityType.HANGING_SIGN.validBlocks);
+        hangingSigns.add(UP2Blocks.GINKGO_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.GINKGO_WALL_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.LEPIDODENDRON_WALL_HANGING_SIGN.get());
+        BlockEntityType.HANGING_SIGN.validBlocks = hangingSigns.build();
     }
 
     public static void registerCompostable(ItemLike item, float chance) {

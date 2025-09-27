@@ -14,6 +14,7 @@ import com.unusualmodding.unusual_prehistory.client.particles.*;
 import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,7 +31,8 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UP2ItemProperties::registerItemProperties);
-        Sheets.addWoodType(UP2BlockProperties.GINKGO);
+        Sheets.addWoodType(UP2BlockProperties.GINKGO_WOOD_TYPE);
+        Sheets.addWoodType(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE);
         MenuScreens.register(UP2MenuTypes.TRANSMOGRIFIER.get(), TransmogrifierScreen::new);
     }
 
@@ -61,6 +63,9 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
+
+        event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
+        event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
 
         event.registerBlockEntityRenderer(UP2BlockEntities.SUSPICIOUS_STONE.get(), SuspiciousStoneRenderer::new);
     }

@@ -1,0 +1,41 @@
+package com.unusualmodding.unusual_prehistory.client.renderer;
+
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.entity.UP2BoatEntity;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2BoatType;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.vehicle.Boat;
+
+import java.util.Map;
+import java.util.stream.Stream;
+
+public class UP2BoatRenderer extends BoatRenderer {
+
+	private final Map<UP2BoatType.Type, Pair<ResourceLocation, ListModel<Boat>>> boatResources;
+
+	public UP2BoatRenderer(EntityRendererProvider.Context renderContext, boolean isChestBoat) {
+		super(renderContext, isChestBoat);
+		boatResources = Stream.of(UP2BoatType.Type.values()).collect(ImmutableMap.toImmutableMap((boatType) -> boatType, (boatType) -> Pair.of(
+                new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/boat/" + boatType.getName() + ".png"),
+                new BoatModel(renderContext.bakeLayer(new ModelLayerLocation(new ResourceLocation("boat/oak"), "main")))
+        )));
+	}
+
+	public UP2BoatRenderer(EntityRendererProvider.Context renderContext) {
+		this(renderContext, false);
+	}
+
+	@Override
+	public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(Boat boat) {
+		UP2BoatEntity up2Boat = (UP2BoatEntity) boat;
+		return boatResources.get(up2Boat.getUP2BoatType());
+	}
+}
+

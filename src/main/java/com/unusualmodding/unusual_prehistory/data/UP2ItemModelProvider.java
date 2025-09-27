@@ -22,10 +22,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        this.item(PLANT_FOSSIL);
-        this.item(PALEOZOIC_FOSSIL);
-        this.item(MESOZOIC_FOSSIL);
-        this.item(FROZEN_MEAT);
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
@@ -34,26 +30,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(STETHACANTHUS_BUCKET);
         this.item(DIPLOCAULUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
-
-        // paleo dna
-        this.dnaItem(DIPLOCAULUS_DNA);
-        this.dnaItem(DUNKLEOSTEUS_DNA);
-        this.dnaItem(JAWLESS_FISH_DNA);
-        this.dnaItem(STETHACANTHUS_DNA);
-
-        // meso dna
-        this.dnaItem(CARNOTAURUS_DNA);
-        this.dnaItem(DROMAEOSAURUS_DNA);
-        this.dnaItem(KENTROSAURUS_DNA);
-        this.dnaItem(KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA);
-        this.dnaItem(MAJUNGASAURUS_DNA);
-
-        // ceno dna
-        this.dnaItem(MEGALANIA_DNA);
-        this.dnaItem(TELECREX_DNA);
-
-        // holocene dna
-        this.dnaItem(TALPANAS_DNA);
 
         // plant dna
         this.dnaItem(BENNETTITALES_DNA);
@@ -74,6 +50,28 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TELECREX_EGG);
         this.item(DUNKLEOSTEUS_SAC);
         this.item(STETHACANTHUS_SAC);
+
+        this.item(HORN_FOSSIL);
+        this.item(BOOMERANG_FOSSIL);
+        this.item(SWIFT_FOSSIL);
+        this.item(PLATED_FOSSIL);
+        this.item(JAWLESS_FOSSIL);
+        this.item(THAGOMIZER_FOSSIL);
+        this.item(HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL);
+        this.item(CRANIUM_FOSSIL);
+        this.item(FOOTPRINT_FOSSIL);
+        this.item(ANVIL_FOSSIL);
+        this.item(PLUMAGE_FOSSIL);
+
+        this.item(GINKGO_SIGN);
+        this.item(GINKGO_HANGING_SIGN);
+        this.item(GINKGO_BOAT);
+        this.item(GINKGO_CHEST_BOAT);
+
+        this.item(LEPIDODENDRON_SIGN);
+        this.item(LEPIDODENDRON_HANGING_SIGN);
+        this.item(LEPIDODENDRON_BOAT);
+        this.item(LEPIDODENDRON_CHEST_BOAT);
 
         // spawn eggs
         for (Item item : BuiltInRegistries.ITEM) {

@@ -31,7 +31,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.CULTIVATOR_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.CULTIVATOR_FUEL)).save(consumer);
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.TRANSMOGRIFIER_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.TRANSMOGRIFIER_FUEL)).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
@@ -60,19 +60,19 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
 
-        transmogrification(consumer, UP2Items.DIPLOCAULUS_DNA.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.DUNKLEOSTEUS_DNA.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
-        transmogrification(consumer, UP2Items.JAWLESS_FISH_DNA.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
-        transmogrification(consumer, UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DNA.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.STETHACANTHUS_DNA.get(), UP2Items.STETHACANTHUS_SAC.get());
+        transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
+        transmogrification(consumer, UP2Items.PLATED_FOSSIL.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
+        transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
+        transmogrification(consumer, UP2Items.HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
+        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Items.STETHACANTHUS_SAC.get());
 
-        transmogrification(consumer, UP2Items.CARNOTAURUS_DNA.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.DROMAEOSAURUS_DNA.get(), UP2Items.DROMAEOSAURUS_EGG.get());
-        transmogrification(consumer, UP2Items.KENTROSAURUS_DNA.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.MAJUNGASAURUS_DNA.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.MEGALANIA_DNA.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.TALPANAS_DNA.get(), UP2Items.TALPANAS_EGG.get());
-        transmogrification(consumer, UP2Items.TELECREX_DNA.get(), UP2Items.TELECREX_EGG.get());
+        transmogrification(consumer, UP2Items.HORN_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.SWIFT_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get());
+        transmogrification(consumer, UP2Items.THAGOMIZER_FOSSIL.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.CRANIUM_FOSSIL.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.FOOTPRINT_FOSSIL.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
+        transmogrification(consumer, Items.FEATHER, UP2Items.TALPANAS_EGG.get());
+        transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get());
 
         transmogrification(consumer, UP2Items.BENNETTITALES_DNA.get(), UP2Blocks.BENNETTITALES.get().asItem());
         transmogrification(consumer, UP2Items.CALAMOPHYTON_DNA.get(), UP2Blocks.CALAMOPHYTON.get().asItem());

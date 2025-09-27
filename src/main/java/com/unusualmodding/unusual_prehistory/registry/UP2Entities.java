@@ -6,6 +6,7 @@ import com.unusualmodding.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TelecrexEgg;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
@@ -60,7 +61,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Kentrosaurus>> KENTROSAURUS = ENTITY_TYPE.register(
             "kentrosaurus", () ->
             EntityType.Builder.of(Kentrosaurus::new, MobCategory.CREATURE)
-                    .sized(2.0F, 2.25F)
+                    .sized(1.98F, 2.25F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kentrosaurus").toString())
     );
@@ -92,7 +93,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
             "megalania", () ->
             EntityType.Builder.of(Megalania::new, MobCategory.CREATURE)
-                    .sized(2.0F, 1.5F)
+                    .sized(1.75F, 1.5F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "megalania").toString())
     );
@@ -124,7 +125,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Unicorn>> UNICORN = ENTITY_TYPE.register(
             "unicorn", () ->
             EntityType.Builder.of(Unicorn::new, MobCategory.CREATURE)
-                    .sized(1.25F, 3.0F)
+                    .sized(1.25F, 2.98F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
@@ -153,4 +154,17 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
     );
 
+    public static final RegistryObject<EntityType<UP2BoatEntity>> BOAT = ENTITY_TYPE.register(
+            "boat", () ->
+            EntityType.Builder.<UP2BoatEntity>of(UP2BoatEntity::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "boat").toString())
+    );
+
+    public static final RegistryObject<EntityType<UP2ChestBoatEntity>> CHEST_BOAT = ENTITY_TYPE.register(
+            "chest_boat", () ->
+            EntityType.Builder.<UP2ChestBoatEntity>of(UP2ChestBoatEntity::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "chest_boat").toString())
+    );
 }
