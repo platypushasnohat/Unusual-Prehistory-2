@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.client.renderer;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.entity.UP2ChestBoatEntity;
+import com.unusualmodding.unusual_prehistory.entity.UP2ChestBoat;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2BoatType;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.ListModel;
@@ -34,7 +34,7 @@ public class UP2ChestBoatRenderer extends BoatRenderer {
 
 	@Override
 	public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(Boat boat) {
-		UP2ChestBoatEntity up2ChestBoat = (UP2ChestBoatEntity) boat;
+		UP2ChestBoat up2ChestBoat = (UP2ChestBoat) boat;
 		return chestBoatResources.get(up2ChestBoat.getUP2BoatType());
 	}
 }

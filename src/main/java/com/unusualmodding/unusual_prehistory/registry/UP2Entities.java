@@ -6,7 +6,6 @@ import com.unusualmodding.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.unusualmodding.unusual_prehistory.entity.projectile.TelecrexEgg;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
@@ -154,16 +153,16 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
     );
 
-    public static final RegistryObject<EntityType<UP2BoatEntity>> BOAT = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<UP2Boat>> BOAT = ENTITY_TYPE.register(
             "boat", () ->
-            EntityType.Builder.<UP2BoatEntity>of(UP2BoatEntity::new, MobCategory.MISC)
+            EntityType.Builder.<UP2Boat>of(UP2Boat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "boat").toString())
     );
 
-    public static final RegistryObject<EntityType<UP2ChestBoatEntity>> CHEST_BOAT = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<UP2ChestBoat>> CHEST_BOAT = ENTITY_TYPE.register(
             "chest_boat", () ->
-            EntityType.Builder.<UP2ChestBoatEntity>of(UP2ChestBoatEntity::new, MobCategory.MISC)
+            EntityType.Builder.<UP2ChestBoat>of(UP2ChestBoat::new, MobCategory.MISC)
                     .sized(1.375F, 0.5625F)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "chest_boat").toString())
     );

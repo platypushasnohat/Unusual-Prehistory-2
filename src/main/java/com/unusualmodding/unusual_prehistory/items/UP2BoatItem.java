@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.items;
 
-import com.unusualmodding.unusual_prehistory.entity.UP2BoatEntity;
-import com.unusualmodding.unusual_prehistory.entity.UP2ChestBoatEntity;
+import com.unusualmodding.unusual_prehistory.entity.UP2Boat;
+import com.unusualmodding.unusual_prehistory.entity.UP2ChestBoat;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2BoatType;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -54,7 +54,7 @@ public class UP2BoatItem extends Item {
                 }
             }
             if (hitresult.getType() == HitResult.Type.BLOCK) {
-                Boat boat = this.hasChest ? new UP2ChestBoatEntity(level, hitresult.getLocation(), type) : new UP2BoatEntity(level, hitresult.getLocation(), type);
+                Boat boat = this.hasChest ? new UP2ChestBoat(level, hitresult.getLocation(), type) : new UP2Boat(level, hitresult.getLocation(), type);
                 boat.setYRot(player.getYRot());
 
                 if (!level.noCollision(boat, boat.getBoundingBox())) {

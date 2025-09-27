@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
@@ -18,27 +19,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
 
-public class UP2BoatEntity extends Boat implements UP2BoatType {
+public class UP2ChestBoat extends ChestBoat implements UP2BoatType {
 
-    public UP2BoatEntity(EntityType type, Level level) {
+    public UP2ChestBoat(EntityType type, Level level) {
         super(type, level);
         this.blocksBuilding = true;
     }
 
-    public UP2BoatEntity(PlayMessages.SpawnEntity spawnEntity, Level level) {
-        this(UP2Entities.BOAT.get(), level);
+    public UP2ChestBoat(PlayMessages.SpawnEntity spawnEntity, Level level) {
+        this(UP2Entities.CHEST_BOAT.get(), level);
         this.setBoundingBox(this.makeBoundingBox());
     }
 
-    public UP2BoatEntity(Level level, double x, double y, double z) {
-        this(UP2Entities.BOAT.get(), level);
+    public UP2ChestBoat(Level level, double x, double y, double z) {
+        this(UP2Entities.CHEST_BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
         this.zo = z;
     }
 
-    public UP2BoatEntity(Level level, Vec3 location, UP2BoatType.Type type) {
+    public UP2ChestBoat(Level level, Vec3 location, UP2BoatType.Type type) {
         this(level, location.x, location.y, location.z);
         this.setUP2BoatType(type);
     }
@@ -93,11 +94,6 @@ public class UP2BoatEntity extends Boat implements UP2BoatType {
         }
     }
 
-    @Override
-    public Item getDropItem() {
-        return getUP2BoatType().getDropSupplier().get();
-    }
-
     public void setUP2BoatType(UP2BoatType.Type type) {
         this.entityData.set(DATA_ID_TYPE, type.ordinal());
     }
@@ -112,7 +108,13 @@ public class UP2BoatEntity extends Boat implements UP2BoatType {
     }
 
     @Override
+    public Item getDropItem() {
+        return getUP2BoatType().getChestDropSupplier().get();
+    }
+
+    @Override
     public Boat.Type getVariant() {
         return Boat.Type.OAK;
     }
+
 }
