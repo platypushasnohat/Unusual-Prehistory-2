@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Kentrosaurus;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class KentrosaurusLayDownGoal extends Goal {
@@ -16,7 +16,7 @@ public class KentrosaurusLayDownGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(BaseBehaviors.IDLE.getName());
+        return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(Behaviors.IDLE.getName());
     }
 
     @Override

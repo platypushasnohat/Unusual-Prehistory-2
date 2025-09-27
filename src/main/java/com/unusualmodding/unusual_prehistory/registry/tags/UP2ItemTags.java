@@ -28,6 +28,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
 
+    public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");
+
     public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
 
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");

@@ -13,12 +13,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel<Telecrex>> {
+public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/telecrex.png");
 
     public TelecrexRenderer(EntityRendererProvider.Context context) {
-        super(context, new TelecrexModel<>(context.bakeLayer(UP2EntityModelLayers.TELECREX)), 0.4F);
+        super(context, new TelecrexModel(context.bakeLayer(UP2EntityModelLayers.TELECREX)), 0.4F);
     }
 
     @Override

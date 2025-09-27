@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -22,7 +22,7 @@ public class AttackGoal extends Goal {
     @Override
     public void start() {
         this.mob.setAttackState(0);
-        this.mob.setBehavior(BaseBehaviors.ANGRY.getName());
+        this.mob.setBehavior(Behaviors.ANGRY.getName());
         this.mob.setAggressive(true);
         this.timer = 0;
     }
@@ -32,7 +32,7 @@ public class AttackGoal extends Goal {
         LivingEntity target = this.mob.getTarget();
         if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) this.mob.setTarget(null);
         this.mob.setAttackState(0);
-        this.mob.setBehavior(BaseBehaviors.IDLE.getName());
+        this.mob.setBehavior(Behaviors.IDLE.getName());
         this.mob.setAggressive(false);
         this.mob.getNavigation().stop();
     }

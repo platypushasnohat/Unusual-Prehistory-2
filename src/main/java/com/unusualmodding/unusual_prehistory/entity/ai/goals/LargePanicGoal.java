@@ -1,9 +1,10 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.level.BlockGetter;
@@ -11,12 +12,28 @@ import net.minecraft.world.phys.Vec3;
 
 public class LargePanicGoal extends PanicGoal {
 
-    public LargePanicGoal(PathfinderMob mob, double speedModifier) {
+    private final PrehistoricMob prehistoricMob;
+
+    public LargePanicGoal(PrehistoricMob mob, double speedModifier) {
         super(mob, speedModifier);
+        this.prehistoricMob = mob;
     }
 
+    @Override
+    public void start() {
+        super.start();
+        this.prehistoricMob.setBehavior(Behaviors.PANIC.getName());
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        this.prehistoricMob.setBehavior(Behaviors.IDLE.getName());
+    }
+
+    @Override
     protected boolean findRandomPosition() {
-        Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 4);
+        Vec3 vec3 = DefaultRandomPos.getPos(this.prehistoricMob, 10, 4);
         if (vec3 == null) {
             return false;
         } else {

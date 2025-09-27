@@ -13,12 +13,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel<Talpanas>> {
+public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/talpanas.png");
 
     public TalpanasRenderer(EntityRendererProvider.Context context) {
-        super(context, new TalpanasModel<>(context.bakeLayer(UP2EntityModelLayers.TALPANAS)), 0.3F);
+        super(context, new TalpanasModel(context.bakeLayer(UP2EntityModelLayers.TALPANAS)), 0.3F);
     }
 
     @Override

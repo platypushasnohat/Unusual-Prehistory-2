@@ -419,11 +419,11 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/talpanas/death1",
-        "pitch": 1.15
+        "volume": 0.8
       },
       {
         "name": "unusual_prehistory:entity/talpanas/death2",
-        "pitch": 1.15
+        "volume": 0.8
       }
     ],
     "subtitle": "subtitles.talpanas_death"
@@ -432,11 +432,11 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/talpanas/hurt1",
-        "pitch": 1.15
+        "volume": 0.8
       },
       {
         "name": "unusual_prehistory:entity/talpanas/hurt2",
-        "pitch": 1.15
+        "volume": 0.8
       }
     ],
     "subtitle": "subtitles.talpanas_hurt"
@@ -445,27 +445,14 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/talpanas/idle1",
-        "pitch": 1.15
+        "volume": 0.8
       },
       {
         "name": "unusual_prehistory:entity/talpanas/idle2",
-        "pitch": 1.15
-      },
-      {
-        "name": "unusual_prehistory:entity/talpanas/idle3",
-        "pitch": 1.15
+        "volume": 0.8
       }
     ],
     "subtitle": "subtitles.talpanas_idle"
-  },
-  "talpanas_panic": {
-    "sounds": [
-      {
-        "name": "unusual_prehistory:entity/talpanas/panic1",
-        "pitch": 1.15
-      }
-    ],
-    "subtitle": "subtitles.talpanas_panic"
   },
   "telecrex_death": {
     "sounds": [

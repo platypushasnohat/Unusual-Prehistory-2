@@ -9,12 +9,13 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class TalpanasModel<T extends Talpanas> extends HierarchicalModel<T> {
+public class TalpanasModel extends HierarchicalModel<Talpanas> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -60,36 +61,35 @@ public class TalpanasModel<T extends Talpanas> extends HierarchicalModel<T> {
 	public void setupAnim(Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		if (!entity.isInWaterOrBubble()) {
+			if (this.young) {
+				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1, 2);
+			} else {
+				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+			}
+		}
+
 		if (this.young) {
 			this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
-			if (entity.isInWaterOrBubble()) {
-				this.animateWalk(TalpanasAnimations.SWIM, limbSwing, limbSwingAmount, 2, 8);
-			} else {
-				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
-			}
-		} else {
-			if (entity.isInWaterOrBubble()) {
-				this.animateWalk(TalpanasAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
-			} else {
-				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
-			}
 		}
 
         this.animate(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks);
         this.animate(entity.flapAnimationState, TalpanasAnimations.FLAP, ageInTicks);
+		this.animate(entity.swimmingAnimationState, TalpanasAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
+		this.animate(entity.peckingAnimationState, TalpanasAnimations.PECK, ageInTicks);
 
-		this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
-		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
+		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;
+		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD / 2;
     }
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
         if (this.young) {
-            float babyScale = 0.6f;
-            float bodyYOffset = 16.0f;
+            float babyScale = 0.6F;
+            float bodyYOffset = 16.0F;
             poseStack.pushPose();
             poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0f, bodyYOffset / 16.0f, 0.0f);
+            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
             this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
             poseStack.popPose();
         } else {

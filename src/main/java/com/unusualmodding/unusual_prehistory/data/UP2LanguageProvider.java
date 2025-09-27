@@ -126,7 +126,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TALPANAS_HURT, "Talpanas hurts");
         this.sound(UP2SoundEvents.TALPANAS_DEATH, "Talpanas dies");
         this.sound(UP2SoundEvents.TALPANAS_IDLE, "Talpanas quacks");
-        this.sound(UP2SoundEvents.TALPANAS_PANIC, "Talpanas panics");
 
         this.sound(UP2SoundEvents.TELECREX_HURT, "Telecrex hurts");
         this.sound(UP2SoundEvents.TELECREX_DEATH, "Telecrex dies");

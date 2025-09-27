@@ -9,15 +9,9 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -30,8 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,15 +34,13 @@ import java.util.List;
 
 public class Telecrex extends FlyingPrehistoricMob {
 
-    public static final EntityDataAccessor<Integer> LOOKOUT_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> PECK_COOLDOWN = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.INT);
-
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState lookoutAnimationState = new AnimationState();
-    public final AnimationState preenAnimationState = new AnimationState();
-    public final AnimationState peckAnimationState = new AnimationState();
+    public final AnimationState peckingAnimationState = new AnimationState();
+
+    private int peckingTimer = 0;
+    private int lookoutTimer = 0;
 
     public Telecrex(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -56,7 +48,7 @@ public class Telecrex extends FlyingPrehistoricMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FLYING_SPEED, 1.0F).add(Attributes.MOVEMENT_SPEED, 0.16F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FLYING_SPEED, 1.0F).add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Override
@@ -82,14 +74,11 @@ public class Telecrex extends FlyingPrehistoricMob {
                 return super.canUse() && !Telecrex.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(2, new RandomFlightGoal(this, 0.75F, 31, 4, 500, 150));
+        this.goalSelector.addGoal(2, new RandomFlightGoal(this, 0.75F, 16, 4, 2000, 200));
         this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new TelecrexPeckGoal(this));
-        this.goalSelector.addGoal(7, new TelecrexLookoutGoal(this));
-        this.goalSelector.addGoal(8, new TelecrexPreenGoal(this));
     }
 
     @Override
@@ -108,50 +97,51 @@ public class Telecrex extends FlyingPrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.onGround()) {
-            if (this.getLookoutCooldown() > 0) {
-                this.setLookoutCooldown(this.getLookoutCooldown() - 1);
+        if (!this.isInWaterOrBubble() && !this.isFlying() && !this.isPecking() && !this.isLooking()) {
+            if (this.random.nextInt(500) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
+                this.setPecking(true);
             }
-            if (this.getPreenCooldown() > 0) {
-                this.setPreenCooldown(this.getPreenCooldown() - 1);
+            if (this.random.nextInt(600) == 0) {
+                this.setLooking(true);
             }
-            if (this.getPeckCooldown() > 0) {
-                this.setPeckCooldown(this.getPeckCooldown() - 1);
-            }
+        }
+        if (this.isPecking() && this.peckingTimer++ > 40) {
+            this.peckingTimer = 0;
+            this.setPecking(false);
+        }
+        if (this.isLooking() && this.lookoutTimer++ > 40) {
+            this.lookoutTimer = 0;
+            this.setLooking(false);
         }
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isFlying(), this.tickCount);
-        this.flyingAnimationState.animateWhen(this.isFlying(), this.tickCount);
-        if (this.onGround() && !this.isFlying()) {
-            this.peckAnimationState.animateWhen(this.getPeckCooldown() == 0, this.tickCount);
-            this.lookoutAnimationState.animateWhen(this.getLookoutCooldown() == 0, this.tickCount);
-            this.preenAnimationState.animateWhen(this.getPreenCooldown() == 0, this.tickCount);
-        }
+    public boolean isImmobile() {
+        return super.isImmobile() || this.isPecking() || this.isLooking();
+    }
 
-        if (this.getPose() == UP2Poses.PECKING.get()) {
-            this.idleAnimationState.stop();
-            this.lookoutAnimationState.stop();
-            this.preenAnimationState.stop();
-            this.setPreenCooldown(40 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-            this.setLookoutCooldown(50 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-        }
-        if (this.getPose() == UP2Poses.LOOKOUT.get()) {
-            this.idleAnimationState.stop();
-            this.peckAnimationState.stop();
-            this.preenAnimationState.stop();
-            this.setPreenCooldown(40 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-            this.setPeckCooldown(20 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-        }
-        if (this.getPose() == UP2Poses.PREENING.get()) {
-            this.idleAnimationState.stop();
-            this.peckAnimationState.stop();
-            this.lookoutAnimationState.stop();
-            this.setLookoutCooldown(50 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-            this.setPeckCooldown(20 * 2 * 20 + this.getRandom().nextInt(20 * 8 * 20));
-        }
+    @Override
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(!this.isFlying() && !this.isPecking() && !this.isLooking(), this.tickCount);
+        this.flyingAnimationState.animateWhen(this.isFlying(), this.tickCount);
+        this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isPecking(), this.tickCount);
+        this.lookoutAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isLooking(), this.tickCount);
+    }
+
+    public boolean isPecking() {
+        return this.getFlag(16);
+    }
+
+    public void setPecking(boolean pecking) {
+        this.setFlag(16, pecking);
+    }
+
+    public boolean isLooking() {
+        return this.getFlag(32);
+    }
+
+    public void setLooking(boolean looking) {
+        this.setFlag(32, looking);
     }
 
     @Override
@@ -160,75 +150,13 @@ public class Telecrex extends FlyingPrehistoricMob {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            if (!this.level().isClientSide) {
-                this.level().broadcastEntityEvent(this, (byte) 7);
-            }
-            this.playSound(SoundEvents.PARROT_EAT, 0.25F, this.getVoicePitch());
-            this.gameEvent(GameEvent.EAT, this);
-            this.heal(2);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.FAIL;
+    public SoundEvent getEatingSound() {
+        return SoundEvents.PARROT_EAT;
     }
 
     @Override
     public boolean refuseToMove() {
         return (this.getPose() == UP2Poses.PECKING.get() || this.getPose() == UP2Poses.PREENING.get()) && super.refuseToMove();
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LOOKOUT_COOLDOWN, 50 * 2 * 20 + random.nextInt(20 * 8 * 20));
-        this.entityData.define(PREEN_COOLDOWN, 40 * 2 * 20 + random.nextInt(20 * 8 * 20));
-        this.entityData.define(PECK_COOLDOWN, 20 * 2 * 20 + random.nextInt(20 * 8 * 20));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("LookoutCooldown", this.getLookoutCooldown());
-        compoundTag.putInt("PreenCooldown", this.getPreenCooldown());
-        compoundTag.putInt("PeckCooldown", this.getPeckCooldown());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setLookoutCooldown(compoundTag.getInt("LookoutCooldown"));
-        this.setPreenCooldown(compoundTag.getInt("PreenCooldown"));
-        this.setPeckCooldown(compoundTag.getInt("PeckCooldown"));
-    }
-
-    public int getLookoutCooldown() {
-        return this.entityData.get(LOOKOUT_COOLDOWN);
-    }
-
-    public void setLookoutCooldown(int cooldown) {
-        this.entityData.set(LOOKOUT_COOLDOWN, cooldown);
-    }
-
-    public int getPreenCooldown() {
-        return this.entityData.get(PREEN_COOLDOWN);
-    }
-
-    public void setPreenCooldown(int cooldown) {
-        this.entityData.set(PREEN_COOLDOWN, cooldown);
-    }
-
-    public int getPeckCooldown() {
-        return this.entityData.get(PECK_COOLDOWN);
-    }
-
-    public void setPeckCooldown(int cooldown) {
-        this.entityData.set(PECK_COOLDOWN, cooldown);
     }
 
     @Override

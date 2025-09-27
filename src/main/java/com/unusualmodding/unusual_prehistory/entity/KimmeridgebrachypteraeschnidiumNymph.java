@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -65,7 +64,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob {
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D, 80));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new LargePanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(6, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(7, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
         this.goalSelector.addGoal(8, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D));
     }

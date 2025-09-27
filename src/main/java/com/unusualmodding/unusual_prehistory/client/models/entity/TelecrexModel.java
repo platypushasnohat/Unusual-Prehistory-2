@@ -8,12 +8,13 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class TelecrexModel<T extends Telecrex> extends HierarchicalModel<T> {
+public class TelecrexModel extends HierarchicalModel<Telecrex> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -61,20 +62,19 @@ public class TelecrexModel<T extends Telecrex> extends HierarchicalModel<T> {
 
 		if (!entity.isFlying()) {
 			if (this.young) {
-				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 1, 2);
 			} else {
-				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+				this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 			}
 		}
 
 		this.animate(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks);
 		this.animate(entity.flyingAnimationState, TelecrexAnimations.FLY, ageInTicks);
 		this.animate(entity.lookoutAnimationState, TelecrexAnimations.LOOKOUT, ageInTicks);
-		this.animate(entity.preenAnimationState, TelecrexAnimations.PREEN1, ageInTicks);
-		this.animate(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
+		this.animate(entity.peckingAnimationState, TelecrexAnimations.PECK, ageInTicks);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180f) - (headPitch * ((float) Math.PI / 180f)) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180f) - (netHeadYaw * ((float) Math.PI / 180f)) / 2;
+		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;
+		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD / 2;
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);

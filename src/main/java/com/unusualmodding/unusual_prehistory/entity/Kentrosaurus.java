@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -143,7 +143,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (!this.isInWaterOrBubble() && this.getBehavior().equals(BaseBehaviors.IDLE.getName())) {
+        if (!this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
             if (this.getLayDownCooldown() > 0) {
                 this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             }

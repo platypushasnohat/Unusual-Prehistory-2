@@ -35,10 +35,10 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<Dromaeosaurus>> DROMAEOSAURUS = ENTITY_TYPE.register(
             "dromaeosaurus", () ->
-                    EntityType.Builder.of(Dromaeosaurus::new, MobCategory.CREATURE)
-                            .sized(0.7F, 1.25F)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus").toString())
+            EntityType.Builder.of(Dromaeosaurus::new, MobCategory.CREATURE)
+                    .sized(0.7F, 1.25F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus").toString())
     );
 
     public static final RegistryObject<EntityType<Dunkleosteus>> DUNKLEOSTEUS = ENTITY_TYPE.register(
@@ -116,7 +116,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Telecrex>> TELECREX = ENTITY_TYPE.register(
             "telecrex", () ->
             EntityType.Builder.of(Telecrex::new, MobCategory.CREATURE)
-                    .sized(0.75F, 1.1F)
+                    .sized(0.75F, 0.98F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex").toString())
     );

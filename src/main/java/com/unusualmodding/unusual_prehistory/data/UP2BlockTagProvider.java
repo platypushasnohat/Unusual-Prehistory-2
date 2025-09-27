@@ -44,8 +44,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.LEPIDODENDRON_GROWTHS_PLACEABLES).addTag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.LEAVES).addTag(BlockTags.LOGS);
 
-        this.tag(UP2BlockTags.TALPANAS_DIGABLES).add(Blocks.ROOTED_DIRT);
-
         this.tag(UP2BlockTags.ACCELERATES_EGG_HATCHING).addTag(BlockTags.WOOL).add(
                 Blocks.HAY_BLOCK,
                 Blocks.MOSS_BLOCK

@@ -11,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -74,6 +75,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTag(ItemTags.FISHES);
 
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).add(Items.GOLDEN_APPLE);
+
+        this.tag(UP2ItemTags.TALPANAS_FOOD).add(
+                Items.WHEAT,
+                Blocks.GRASS.asItem(),
+                Items.SWEET_BERRIES
+        );
 
         this.tag(UP2ItemTags.TELECREX_FOOD).add(
                 Items.SWEET_BERRIES,

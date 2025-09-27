@@ -60,7 +60,6 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> TALPANAS_HURT = registerSoundEvent("talpanas_hurt");
     public static final RegistryObject<SoundEvent> TALPANAS_DEATH = registerSoundEvent("talpanas_death");
     public static final RegistryObject<SoundEvent> TALPANAS_IDLE = registerSoundEvent("talpanas_idle");
-    public static final RegistryObject<SoundEvent> TALPANAS_PANIC = registerSoundEvent("talpanas_panic");
 
     public static final RegistryObject<SoundEvent> TELECREX_HURT = registerSoundEvent("telecrex_hurt");
     public static final RegistryObject<SoundEvent> TELECREX_DEATH = registerSoundEvent("telecrex_death");

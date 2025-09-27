@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import com.unusualmodding.unusual_prehistory.entity.enums.MegalaniaBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -163,11 +163,11 @@ public class Megalania extends PrehistoricMob {
 
         if (!this.isInWaterOrBubble()) {
             if (this.getRoarCooldown() > 0) {
-                if (this.getBehavior().equals(MegalaniaBehaviors.ROAR.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
+                if (this.getBehavior().equals(MegalaniaBehaviors.ROAR.getName())) this.setBehavior(Behaviors.IDLE.getName());
                 this.setRoarCooldown(this.getRoarCooldown() - 1);
             }
             if (this.getYawnCooldown() > 0) {
-                if (this.getBehavior().equals(MegalaniaBehaviors.YAWN.getName())) this.setBehavior(BaseBehaviors.IDLE.getName());
+                if (this.getBehavior().equals(MegalaniaBehaviors.YAWN.getName())) this.setBehavior(Behaviors.IDLE.getName());
                 this.setYawnCooldown(this.getYawnCooldown() - 1);
             }
         }
@@ -175,7 +175,7 @@ public class Megalania extends PrehistoricMob {
             this.setRoarTimer(this.getRoarTimer() - 1);
             if (this.getRoarTimer() == 0) {
                 this.setPose(Pose.STANDING);
-                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.setBehavior(Behaviors.IDLE.getName());
                 this.roarCooldown();
             }
         }
@@ -183,7 +183,7 @@ public class Megalania extends PrehistoricMob {
             this.setYawnTimer(this.getYawnTimer() - 1);
             if (this.getYawnTimer() == 0) {
                 this.setPose(Pose.STANDING);
-                this.setBehavior(BaseBehaviors.IDLE.getName());
+                this.setBehavior(Behaviors.IDLE.getName());
                 this.yawnCooldown();
             }
         }
@@ -313,7 +313,7 @@ public class Megalania extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return megalania.getYawnCooldown() == 0 && megalania.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !megalania.isInWater() && megalania.onGround();
+            return megalania.getYawnCooldown() == 0 && megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !megalania.isInWater() && megalania.onGround();
         }
 
         @Override
@@ -338,7 +338,7 @@ public class Megalania extends PrehistoricMob {
         @Override
         public void stop() {
             super.stop();
-            megalania.setBehavior(BaseBehaviors.IDLE.getName());
+            megalania.setBehavior(Behaviors.IDLE.getName());
             megalania.yawnCooldown();
         }
     }
@@ -355,7 +355,7 @@ public class Megalania extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return megalania.getRoarCooldown() == 0 && megalania.getBehavior().equals(BaseBehaviors.IDLE.getName()) && !megalania.isInWater() && megalania.onGround();
+            return megalania.getRoarCooldown() == 0 && megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !megalania.isInWater() && megalania.onGround();
         }
 
         @Override
@@ -380,7 +380,7 @@ public class Megalania extends PrehistoricMob {
         @Override
         public void stop() {
             super.stop();
-            megalania.setBehavior(BaseBehaviors.IDLE.getName());
+            megalania.setBehavior(Behaviors.IDLE.getName());
             megalania.roarCooldown();
         }
     }

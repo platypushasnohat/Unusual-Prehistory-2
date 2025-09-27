@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity.base;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.*;
-import com.unusualmodding.unusual_prehistory.entity.enums.BaseBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -148,7 +148,7 @@ public abstract class PrehistoricMob extends Animal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
-        this.entityData.define(BEHAVIOR, BaseBehaviors.IDLE.getName());
+        this.entityData.define(BEHAVIOR, Behaviors.IDLE.getName());
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
         this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);

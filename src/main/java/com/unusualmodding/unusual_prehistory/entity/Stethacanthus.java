@@ -29,6 +29,7 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -351,7 +352,7 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
         }
     }
 
-    private class StethacanthusFleeGoal extends LargePanicGoal {
+    private class StethacanthusFleeGoal extends PanicGoal {
         public StethacanthusFleeGoal() {
             super(Stethacanthus.this, 2.0D);
         }

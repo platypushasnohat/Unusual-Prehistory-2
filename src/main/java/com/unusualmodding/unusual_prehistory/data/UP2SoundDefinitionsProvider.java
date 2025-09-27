@@ -191,20 +191,16 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2SoundEvents.TALPANAS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt1")).pitch(1.15f),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt2")).pitch(1.15f)
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt2")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.TALPANAS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death1")).pitch(1.15f),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death2")).pitch(1.15f)
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death2")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.TALPANAS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle1")).pitch(1.15f),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle2")).pitch(1.15f),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle3")).pitch(1.15f)
-        );
-        this.sound(UP2SoundEvents.TALPANAS_PANIC,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/panic1")).pitch(1.15f)
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle2")).volume(0.8F)
         );
 
         this.sound(UP2SoundEvents.TELECREX_HURT,

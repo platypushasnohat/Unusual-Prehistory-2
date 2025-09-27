@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -407,7 +408,7 @@ public class Dunkleosteus extends AncientAquaticEntity {
         }
     }
 
-    private class DunkleosteusFleeGoal extends LargePanicGoal {
+    private class DunkleosteusFleeGoal extends PanicGoal {
         public DunkleosteusFleeGoal() {
             super(Dunkleosteus.this, 2.0D);
         }
