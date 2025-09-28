@@ -16,29 +16,32 @@ public class TransmogrificationBuilder {
 
     private final Ingredient input;
     private final RecipeSerializer<?> type;
-    private final int processingTime;
     private final Item output;
+    private final int processingTime;
+    private final float experience;
 
-    public TransmogrificationBuilder(RecipeSerializer<?> type, Ingredient input, Item output, int processingTime) {
+    public TransmogrificationBuilder(RecipeSerializer<?> type, Ingredient input, Item output, int processingTime, float experience) {
         this.type = type;
         this.input = input;
         this.output = output;
         this.processingTime = processingTime;
+        this.experience = experience;
     }
 
-    public static TransmogrificationBuilder transmogrification(Ingredient dna, Item output, int processingTime) {
-        return new TransmogrificationBuilder(UP2RecipeSerializers.TRANSMOGRIFICATION_SERIALIZER.get(), dna, output, processingTime);
+    public static TransmogrificationBuilder transmogrification(Ingredient dna, Item output, int processingTime, float experience) {
+        return new TransmogrificationBuilder(UP2RecipeSerializers.TRANSMOGRIFICATION_SERIALIZER.get(), dna, output, processingTime, experience);
     }
 
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation resourceLocation) {
-        consumer.accept(new TransmogrificationBuilder.Result(resourceLocation, this.type, this.input, this.output, this.processingTime));
+        consumer.accept(new TransmogrificationBuilder.Result(resourceLocation, this.type, this.input, this.output, this.processingTime, this.experience));
     }
 
-    public record Result(ResourceLocation resourceLocation, RecipeSerializer<?> type, Ingredient input, Item output, int processingTime) implements FinishedRecipe {
+    public record Result(ResourceLocation resourceLocation, RecipeSerializer<?> type, Ingredient input, Item output, int processingTime, float experience) implements FinishedRecipe {
 
         public void serializeRecipeData(JsonObject jsonObject) {
             jsonObject.add("input", input.toJson());
             jsonObject.addProperty("processing_time", processingTime);
+            jsonObject.addProperty("experience", experience);
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(this.output).toString());
             jsonObject.add("output", jsonobject);

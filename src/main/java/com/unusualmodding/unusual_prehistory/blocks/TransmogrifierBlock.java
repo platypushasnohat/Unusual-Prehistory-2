@@ -41,7 +41,7 @@ public class TransmogrifierBlock extends BaseEntityBlock {
         if (state.getBlock() != blockState.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof TransmogrifierBlockEntity) {
-                ((TransmogrifierBlockEntity) blockEntity).drops();
+                ((TransmogrifierBlockEntity) blockEntity).getDrops();
             }
         }
         super.onRemove(state, level, pos, blockState, isMoving);

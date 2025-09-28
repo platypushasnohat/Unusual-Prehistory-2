@@ -20,15 +20,15 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     private static final int SCREEN_WIDTH = 176;
     private static final int SCREEN_HEIGHT = 166;
 
-    private static final int PROGRESS_X = 65;
+    private static final int PROGRESS_X = 62;
     private static final int PROGRESS_Y = 29;
-    public static final int PROGRESS_WIDTH = 48;
+    public static final int PROGRESS_WIDTH = 54;
     public static final int PROGRESS_HEIGHT = 20;
 
-    private static final int FUEL_X = 100;
-    private static final int FUEL_Y = 66;
+    private static final int FUEL_X = 102;
+    private static final int FUEL_Y = 60;
     public static final int FUEL_WIDTH = 44;
-    public static final int FUEL_HEIGHT = 11;
+    public static final int FUEL_HEIGHT = 14;
 
     public TransmogrifierScreen(TransmogrifierMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -39,6 +39,7 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     @Override
     protected void init() {
         super.init();
+        this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
     }
 
     @Override
@@ -55,11 +56,11 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
 
         if (menu.isCrafting()) {
             int width = menu.getScaledProgress(PROGRESS_WIDTH);
-            graphics.blit(TEXTURE, leftPos + PROGRESS_X, topPos + PROGRESS_Y, 176, 0, width, PROGRESS_HEIGHT);
+            graphics.blit(TEXTURE, leftPos + PROGRESS_X, topPos + PROGRESS_Y, 176, 14, width, PROGRESS_HEIGHT);
         }
 
         int width = menu.getScaledFuel(FUEL_WIDTH);
-        graphics.blit(TEXTURE, leftPos + FUEL_X, topPos + FUEL_Y, 176, 20, width, FUEL_HEIGHT);
+        graphics.blit(TEXTURE, leftPos + FUEL_X, topPos + FUEL_Y, 176, 0, width, FUEL_HEIGHT);
     }
 
     @Override

@@ -20,14 +20,16 @@ public class TransmogrificationRecipe implements Recipe<Container> {
     protected final Ingredient input;
     protected final ItemStack output;
     protected final int processingTime;
+    protected final float experience;
     private final NonNullList<Ingredient> recipeItems = NonNullList.create();
 
-    public TransmogrificationRecipe(ResourceLocation id, Ingredient input, ItemStack output, int processingTime) {
+    public TransmogrificationRecipe(ResourceLocation id, Ingredient input, ItemStack output, int processingTime, float experience) {
         this.id = id;
         this.input = input;
         this.output = output;
         this.processingTime = processingTime;
-        recipeItems.add(input);
+        this.experience = experience;
+        this.recipeItems.add(input);
     }
 
     @Override
@@ -52,6 +54,10 @@ public class TransmogrificationRecipe implements Recipe<Container> {
 
     public int getProcessingTime() {
         return processingTime;
+    }
+
+    public float getExperience() {
+        return this.experience;
     }
 
     @Override
@@ -84,7 +90,8 @@ public class TransmogrificationRecipe implements Recipe<Container> {
             Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject,"input"));
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "output"));
             int processingTime = GsonHelper.getAsInt(jsonObject, "processing_time", 100);
-            return new TransmogrificationRecipe(resourceLocation, input, output, processingTime);
+            float experience = GsonHelper.getAsFloat(jsonObject, "experience", 1.0F);
+            return new TransmogrificationRecipe(resourceLocation, input, output, processingTime, experience);
         }
 
         @Override
@@ -92,7 +99,8 @@ public class TransmogrificationRecipe implements Recipe<Container> {
             Ingredient input = Ingredient.fromNetwork(buf);
             ItemStack result = buf.readItem();
             int processingTime = buf.readVarInt();
-            return new TransmogrificationRecipe(resourceLocation, input, result, processingTime);
+            float experience = buf.readFloat();
+            return new TransmogrificationRecipe(resourceLocation, input, result, processingTime, experience);
         }
 
         @Override
@@ -100,6 +108,7 @@ public class TransmogrificationRecipe implements Recipe<Container> {
             recipe.input.toNetwork(buf);
             buf.writeItem(recipe.output);
             buf.writeVarInt(recipe.processingTime);
+            buf.writeFloat(recipe.experience);
         }
     }
 }

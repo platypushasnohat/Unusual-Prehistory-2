@@ -174,14 +174,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(logIn.get()).getPath(), has(logIn.get()));
     }
 
-    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime) {
+    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime, float experience) {
         Ingredient ingredient = Ingredient.of(input);
-        TransmogrificationBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, processingTime, experience).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 
     protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result) {
         Ingredient ingredient = Ingredient.of(input);
-        TransmogrificationBuilder.transmogrification(ingredient, result, 1000).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, 1000, 1.0F).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 
     protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {

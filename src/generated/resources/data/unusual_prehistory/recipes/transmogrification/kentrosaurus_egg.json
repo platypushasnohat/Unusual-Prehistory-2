@@ -1,5 +1,6 @@
 {
   "type": "unusual_prehistory:transmogrification",
+  "experience": 1.0,
   "input": {
     "item": "unusual_prehistory:thagomizer_fossil"
   },
