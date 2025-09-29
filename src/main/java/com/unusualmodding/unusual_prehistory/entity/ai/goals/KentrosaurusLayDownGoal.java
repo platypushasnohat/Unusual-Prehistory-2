@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Kentrosaurus;
-import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class KentrosaurusLayDownGoal extends Goal {

@@ -4,7 +4,7 @@ import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DromaeosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;

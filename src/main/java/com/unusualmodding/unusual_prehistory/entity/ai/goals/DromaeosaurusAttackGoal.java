@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Dromaeosaurus;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;

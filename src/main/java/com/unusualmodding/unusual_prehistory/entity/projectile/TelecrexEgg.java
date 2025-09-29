@@ -29,20 +29,13 @@ public class TelecrexEgg extends ThrowableItemProjectile {
         super(UP2Entities.TELECREX_EGG.get(), throwerIn, worldIn);
     }
 
-    public TelecrexEgg(Level worldIn, double x, double y, double z) {
-        super(UP2Entities.TELECREX_EGG.get(), x, y, z, worldIn);
-    }
-
-    public TelecrexEgg(PlayMessages.SpawnEntity entity, Level world) {
-        this(UP2Entities.TELECREX_EGG.get(), world);
-    }
-
     @Override
     public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void handleEntityEvent(byte id) {
         if (id == 3) {
             for (int i = 0; i < 8; ++i) {
@@ -51,20 +44,28 @@ public class TelecrexEgg extends ThrowableItemProjectile {
         }
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level().isClientSide) {
-            Telecrex telecrex = UP2Entities.TELECREX.get().create(this.level());
-            if (telecrex != null) {
-                telecrex.setAge(-24000);
-                telecrex.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                this.level().addFreshEntity(telecrex);
+            int i = 1;
+            if (this.random.nextInt(200) == 0) {
+                i = 4;
             }
-            this.level().broadcastEntityEvent(this, (byte) 3);
-            this.discard();
+            for (int j = 0; j < i; ++j) {
+                Telecrex telecrex = UP2Entities.TELECREX.get().create(this.level());
+                if (telecrex != null) {
+                    telecrex.setAge(-24000);
+                    telecrex.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                    this.level().addFreshEntity(telecrex);
+                }
+                this.level().broadcastEntityEvent(this, (byte) 3);
+                this.discard();
+            }
         }
     }
 
+    @Override
     protected Item getDefaultItem() {
         return UP2Items.TELECREX_EGG.get();
     }

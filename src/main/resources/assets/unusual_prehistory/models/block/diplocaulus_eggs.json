@@ -2,8 +2,8 @@
     "ambientocclusion": false,
     "render_type": "cutout",
     "textures": {
-        "particle": "unusual_prehistory:block/eggs/diplocaulus_eggs",
-        "texture": "unusual_prehistory:block/eggs/diplocaulus_eggs"
+        "particle": "unusual_prehistory:block/diplocaulus_eggs",
+        "texture": "unusual_prehistory:block/diplocaulus_eggs"
     },
     "elements": [
         {   "from": [  0, 0.25,  0 ],

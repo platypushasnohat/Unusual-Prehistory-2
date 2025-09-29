@@ -60,8 +60,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
-                FROZEN_MEAT_BLOCK.get(),
-
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
 
@@ -77,7 +75,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
-                FROZEN_MEAT_BLOCK.get(),
                 MOSS_LAYER.get(),
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),

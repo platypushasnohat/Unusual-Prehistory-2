@@ -1,7 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.unusualmodding.unusual_prehistory.entity.base.BreedablePrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -15,16 +16,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,10 +35,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Talpanas extends Animal {
+public class Talpanas extends BreedablePrehistoricMob {
 
     public static final EntityDataAccessor<Integer> LIGHT_THRESHOLD = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.BYTE);
 
     public int fleeLightFor = 0;
     public Vec3 fleeFromPosition;
@@ -52,7 +48,7 @@ public class Talpanas extends Animal {
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState peckingAnimationState = new AnimationState();
 
-    public Talpanas(EntityType<? extends Animal> entityType, Level level) {
+    public Talpanas(EntityType<? extends BreedablePrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -65,10 +61,10 @@ public class Talpanas extends Animal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 3.0F, 1.5D, 1.5D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.5D, 1.5D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 3.0F, 1.4D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.4D, 1.4D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
         this.goalSelector.addGoal(3, new TalpanasFleeLightGoal(this));
         this.goalSelector.addGoal(4, new TalpanasSeekShelterGoal(this));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
@@ -77,11 +73,6 @@ public class Talpanas extends Animal {
         this.goalSelector.addGoal(8, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-    }
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
-        return new SmoothGroundPathNavigation(this, level);
     }
 
     @Override
@@ -133,7 +124,6 @@ public class Talpanas extends Animal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(LIGHT_THRESHOLD, 10);
-        this.entityData.define(DATA_FLAGS, (byte) 0);
     }
 
     @Override
@@ -146,19 +136,6 @@ public class Talpanas extends Animal {
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setLightThreshold(compoundTag.getInt("LightThreshold"));
-    }
-
-    protected boolean getFlag(int flagId) {
-        return (this.entityData.get(DATA_FLAGS) & flagId) != 0;
-    }
-
-    protected void setFlag(int flagId, boolean value) {
-        byte b0 = this.entityData.get(DATA_FLAGS);
-        if (value) {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 | flagId));
-        } else {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 & ~flagId));
-        }
     }
 
     public boolean isPecking() {
@@ -184,29 +161,16 @@ public class Talpanas extends Animal {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
-        if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth()) {
-            this.heal(2);
-        }
-
-        this.setupAnimationCooldowns();
-
-        if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
+    public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.onGround(), this.tickCount);
         this.flapAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble(), this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && this.onGround() && this.isPecking(), this.tickCount);
     }
 
-    private void setupAnimationCooldowns() {
-        if (!this.isInWaterOrBubble() && this.onGround()) {
+    @Override
+    public void setupAnimationCooldowns() {
+        if (!this.isInWaterOrBubble() && this.onGround() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
             if (!this.isPecking() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
                 this.setPecking(true);
             }
@@ -235,30 +199,6 @@ public class Talpanas extends Animal {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.TALPANAS_FOOD);
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isFood(itemstack)) {
-            int i = this.getAge();
-            if (!this.level().isClientSide && i == 0 && this.canFallInLove()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.setInLove(player);
-                this.playSound(SoundEvents.PARROT_EAT);
-                return InteractionResult.SUCCESS;
-            }
-            if (this.isBaby()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
-                this.playSound(SoundEvents.PARROT_EAT);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-            if (this.level().isClientSide) {
-                return InteractionResult.CONSUME;
-            }
-        }
-        return InteractionResult.PASS;
     }
 
     @Override

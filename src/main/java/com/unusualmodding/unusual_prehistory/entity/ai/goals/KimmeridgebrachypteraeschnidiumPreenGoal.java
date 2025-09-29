@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 
 public class KimmeridgebrachypteraeschnidiumPreenGoal extends AnimationGoal {
 

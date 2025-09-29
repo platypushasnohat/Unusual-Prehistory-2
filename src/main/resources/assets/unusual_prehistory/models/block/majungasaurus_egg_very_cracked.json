@@ -1,8 +1,22 @@
 {
-	"parent": "unusual_prehistory:block/templates/small_egg_template",
+	"texture_size": [64, 64],
 	"textures": {
-		"side": "unusual_prehistory:block/eggs/majungasaurus_egg_side_very_cracked",
-		"bottom" : "unusual_prehistory:block/eggs/majungasaurus_egg_bottom_very_cracked",
-		"top" : "unusual_prehistory:block/eggs/majungasaurus_egg_top_very_cracked"
-	}
+		"particle": "unusual_prehistory:block/majungasaurus_egg_particle",
+		"egg": "unusual_prehistory:block/majungasaurus_egg_very_cracked"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 11, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
+			"faces": {
+				"north": {"uv": [3, 3, 6, 5.75], "texture": "#egg"},
+				"east": {"uv": [0, 3, 3, 5.75], "texture": "#egg"},
+				"south": {"uv": [9, 3, 12, 5.75], "texture": "#egg"},
+				"west": {"uv": [6, 3, 9, 5.75], "texture": "#egg"},
+				"up": {"uv": [6, 3, 3, 0], "texture": "#egg"},
+				"down": {"uv": [9, 0, 6, 3], "texture": "#egg"}
+			}
+		}
+	]
 }

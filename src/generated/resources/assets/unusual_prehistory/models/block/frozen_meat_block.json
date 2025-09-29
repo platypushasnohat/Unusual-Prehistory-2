@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "unusual_prehistory:block/frozen_meat_block_top",
-    "side": "unusual_prehistory:block/frozen_meat_block"
-  }
-}

@@ -16,7 +16,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class TalpanasEgg extends ThrowableItemProjectile {
@@ -29,20 +28,13 @@ public class TalpanasEgg extends ThrowableItemProjectile {
         super(UP2Entities.TALPANAS_EGG.get(), throwerIn, worldIn);
     }
 
-    public TalpanasEgg(Level worldIn, double x, double y, double z) {
-        super(UP2Entities.TALPANAS_EGG.get(), x, y, z, worldIn);
-    }
-
-    public TalpanasEgg(PlayMessages.SpawnEntity entity, Level world) {
-        this(UP2Entities.TALPANAS_EGG.get(), world);
-    }
-
     @Override
     public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void handleEntityEvent(byte id) {
         if (id == 3) {
             for (int i = 0; i < 8; ++i) {
@@ -51,20 +43,28 @@ public class TalpanasEgg extends ThrowableItemProjectile {
         }
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level().isClientSide) {
-            Talpanas talpanas = UP2Entities.TALPANAS.get().create(this.level());
-            if (talpanas != null) {
-                talpanas.setAge(-24000);
-                talpanas.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                this.level().addFreshEntity(talpanas);
+            int i = 1;
+            if (this.random.nextInt(200) == 0) {
+                i = 4;
+            }
+            for (int j = 0; j < i; ++j) {
+                Talpanas talpanas = UP2Entities.TALPANAS.get().create(this.level());
+                if (talpanas != null) {
+                    talpanas.setAge(-24000);
+                    talpanas.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                    this.level().addFreshEntity(talpanas);
+                }
             }
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }
     }
 
+    @Override
     protected Item getDefaultItem() {
         return UP2Items.TALPANAS_EGG.get();
     }

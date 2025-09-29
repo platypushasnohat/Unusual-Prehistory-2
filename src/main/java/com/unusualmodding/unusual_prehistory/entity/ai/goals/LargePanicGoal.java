@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;

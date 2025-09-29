@@ -1,8 +1,22 @@
 {
-	"parent": "unusual_prehistory:block/templates/small_egg_template",
+	"texture_size": [32, 32],
 	"textures": {
-		"side": "unusual_prehistory:block/eggs/kentrosaurus_egg_side_cracked",
-		"bottom" : "unusual_prehistory:block/eggs/kentrosaurus_egg_bottom_cracked",
-		"top" : "unusual_prehistory:block/eggs/kentrosaurus_egg_top_cracked"
-	}
+		"particle": "unusual_prehistory:block/kentrosaurus_egg_particle",
+		"egg": "unusual_prehistory:block/kentrosaurus_egg_cracked"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 15, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
+			"faces": {
+				"north": {"uv": [4, 4, 8, 11.5], "texture": "#egg"},
+				"east": {"uv": [0, 4, 4, 11.5], "texture": "#egg"},
+				"south": {"uv": [12, 4, 16, 11.5], "texture": "#egg"},
+				"west": {"uv": [8, 4, 12, 11.5], "texture": "#egg"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#egg"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#egg"}
+			}
+		}
+	]
 }

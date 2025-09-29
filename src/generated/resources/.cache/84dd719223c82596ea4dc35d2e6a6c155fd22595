@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-26T22:51:56.9711727	Item Models: unusual_prehistory
+// 1.20.1	2025-09-28T21:28:09.5046386	Item Models: unusual_prehistory
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 55cecffbc28c486d72b164f26ee068844184bd59 assets/unusual_prehistory/models/item/bennettitales_dna_bottle.json
 e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/boomerang_fossil.json
@@ -12,7 +12,6 @@ f44ed42d9dce1c909830b6a200bffdb2c3171081 assets/unusual_prehistory/models/item/c
 ea3aa04d3eac74d7df9f12597733b26dbfc73a72 assets/unusual_prehistory/models/item/dromaeosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dromaeosaurus_spawn_egg.json
 721b2cb64ce7fe20a03939b15a78050517a30214 assets/unusual_prehistory/models/item/dunkleosteus_bucket.json
-d4626cd2137ccbc02c39f1362f95565e358bdd7f assets/unusual_prehistory/models/item/dunkleosteus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dunkleosteus_spawn_egg.json
 7b23fb7104601a7cff2531489e342bc9418bd5fd assets/unusual_prehistory/models/item/footprint_fossil.json
 015c1fe436e9be4bad96c9ef9114f8be8f04db11 assets/unusual_prehistory/models/item/ginkgo_boat.json
@@ -46,7 +45,6 @@ e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/p
 d57df4a2401199e601ca594a830805ec9a15c4d4 assets/unusual_prehistory/models/item/raiguenrayun_dna_bottle.json
 da757269ccd3212b32a65b3f02965287e9b816b7 assets/unusual_prehistory/models/item/rhynia_dna_bottle.json
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
-d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json
 f654d0c9719ffef31c7cb137c051d7357592e5d4 assets/unusual_prehistory/models/item/swift_fossil.json
 98c3fcbb4daa1049985090b78782071bd00fc5fe assets/unusual_prehistory/models/item/talpanas_egg.json
@@ -54,3 +52,4 @@ f654d0c9719ffef31c7cb137c051d7357592e5d4 assets/unusual_prehistory/models/item/s
 40eef86754d6a500dd8fe5559003b023ae7a53c8 assets/unusual_prehistory/models/item/telecrex_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/telecrex_spawn_egg.json
 2d4fc5c6d27fbcd304c58e0406904be1fd9df401 assets/unusual_prehistory/models/item/thagomizer_fossil.json
+47c95f585a9c2e315356feab91694204d7948f97 assets/unusual_prehistory/models/item/unusual_prehistory.json

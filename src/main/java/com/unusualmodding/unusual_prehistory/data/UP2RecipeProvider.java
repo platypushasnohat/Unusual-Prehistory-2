@@ -61,10 +61,10 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
 
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.PLATED_FOSSIL.get(), UP2Items.DUNKLEOSTEUS_SAC.get());
+        transmogrification(consumer, UP2Items.PLATED_FOSSIL.get(), UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem());
         transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
         transmogrification(consumer, UP2Items.HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Items.STETHACANTHUS_SAC.get());
+        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Blocks.STETHACANTHUS_SAC.get().asItem());
 
         transmogrification(consumer, UP2Items.HORN_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
         transmogrification(consumer, UP2Items.SWIFT_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get());

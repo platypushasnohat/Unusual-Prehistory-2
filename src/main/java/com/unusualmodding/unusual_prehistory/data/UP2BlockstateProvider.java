@@ -27,7 +27,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.cubeAllBlock(DEEPSLATE_FOSSIL);
         this.cubeAllBlock(FOSSIL);
-        this.pillar(FROZEN_MEAT_BLOCK);
 
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);

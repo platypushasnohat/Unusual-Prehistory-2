@@ -21,6 +21,9 @@ public class UP2Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Item>> ITEM_TRANSLATIONS = new ArrayList<>();
 
+    // tab icon
+    public static final RegistryObject<Item> UNUSUAL_PREHISTORY = registerItem("unusual_prehistory", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CHISEL = registerItem("chisel", () -> new ChiselItem(new Item.Properties().durability(128)));
 
@@ -56,7 +59,6 @@ public class UP2Items {
     // dunkleosteus
     public static final RegistryObject<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x417a69, 0x825147);
     public static final RegistryObject<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new MobBucketItem(UP2Entities.DUNKLEOSTEUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> DUNKLEOSTEUS_SAC = registerItem("dunkleosteus_sac", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PLATED_FOSSIL = registerFossilItem("plated");
 
     // jawless fish
@@ -85,7 +87,6 @@ public class UP2Items {
 
     // stethacanthus
     public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x853028, 0xffc400);
-    public static final RegistryObject<Item> STETHACANTHUS_SAC = registerItem("stethacanthus_sac", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new MobBucketItem(UP2Entities.STETHACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil");
 

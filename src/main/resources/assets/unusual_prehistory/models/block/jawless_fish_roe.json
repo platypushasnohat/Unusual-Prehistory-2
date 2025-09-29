@@ -2,8 +2,8 @@
     "ambientocclusion": false,
     "render_type": "cutout",
     "textures": {
-        "particle": "unusual_prehistory:block/eggs/jawless_fish_roe",
-        "texture": "unusual_prehistory:block/eggs/jawless_fish_roe"
+        "particle": "unusual_prehistory:block/jawless_fish_roe",
+        "texture": "unusual_prehistory:block/jawless_fish_roe"
     },
     "elements": [
         {   "from": [  0, 0.25,  0 ],

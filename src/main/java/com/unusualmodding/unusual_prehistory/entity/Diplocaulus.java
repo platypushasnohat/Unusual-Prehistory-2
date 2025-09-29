@@ -4,7 +4,7 @@
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
  import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticPrehistoricMob;
- import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+ import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
  import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
  import net.minecraft.core.BlockPos;

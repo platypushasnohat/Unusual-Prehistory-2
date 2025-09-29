@@ -22,6 +22,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        this.item(UNUSUAL_PREHISTORY);
+
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
@@ -48,8 +50,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(DROMAEOSAURUS_EGG);
         this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);
-        this.item(DUNKLEOSTEUS_SAC);
-        this.item(STETHACANTHUS_SAC);
 
         this.item(HORN_FOSSIL);
         this.item(BOOMERANG_FOSSIL);

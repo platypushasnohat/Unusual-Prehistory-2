@@ -1,8 +1,22 @@
 {
-	"parent": "unusual_prehistory:block/templates/medium_egg_template",
+	"texture_size": [64, 64],
 	"textures": {
-		"side": "unusual_prehistory:block/eggs/carnotaurus_egg_side",
-		"bottom" : "unusual_prehistory:block/eggs/carnotaurus_egg_bottom",
-		"top" : "unusual_prehistory:block/eggs/carnotaurus_egg_top"
-	}
+		"particle": "unusual_prehistory:block/carnotaurus_egg_particle",
+		"egg": "unusual_prehistory:block/carnotaurus_egg"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 15, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
+			"faces": {
+				"north": {"uv": [3, 3, 6, 6.75], "texture": "#egg"},
+				"east": {"uv": [0, 3, 3, 6.75], "texture": "#egg"},
+				"south": {"uv": [9, 3, 12, 6.75], "texture": "#egg"},
+				"west": {"uv": [6, 3, 9, 6.75], "texture": "#egg"},
+				"up": {"uv": [6, 3, 3, 0], "texture": "#egg"},
+				"down": {"uv": [9, 0, 6, 3], "texture": "#egg"}
+			}
+		}
+	]
 }

@@ -1,9 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
-import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
-import com.unusualmodding.unusual_prehistory.entity.enums.MegalaniaBehaviors;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.MegalaniaBehaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -64,8 +64,8 @@ public class Megalania extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new MegalaniaYawnGoal(this));
         this.goalSelector.addGoal(8, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));

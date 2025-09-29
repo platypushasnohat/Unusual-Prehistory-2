@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.items;
 
 import com.unusualmodding.unusual_prehistory.blocks.blockentity.SuspiciousStoneBlockEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -10,25 +11,27 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Predicate;
 
 public class ChiselItem extends Item {
 
@@ -41,7 +44,7 @@ public class ChiselItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
-        if (player != null && this.calculateHitResult(player).getType() == HitResult.Type.BLOCK) {
+        if (player != null && this.calculateHitResult(player, 0).getType() == HitResult.Type.BLOCK) {
             player.startUsingItem(context.getHand());
         }
         return InteractionResult.CONSUME;
@@ -60,11 +63,13 @@ public class ChiselItem extends Item {
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int tickCount) {
         if (tickCount >= 0 && entity instanceof Player player) {
-            HitResult hitresult = this.calculateHitResult(entity);
-            if (hitresult instanceof BlockHitResult blockhitresult) {
-                if (hitresult.getType() == HitResult.Type.BLOCK) {
-                    int i = this.getUseDuration(stack) - tickCount + 1;
-                    boolean flag = i % 10 == 5;
+            HitResult blockHitResult = this.calculateHitResult(entity, 0);
+            HitResult entityHitResult = this.calculateHitResult(entity, -2);
+            int i = this.getUseDuration(stack) - tickCount + 1;
+            boolean flag = i % 10 == 5;
+            EquipmentSlot arm = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
+            if (blockHitResult instanceof BlockHitResult blockhitresult) {
+                if (blockHitResult.getType() == HitResult.Type.BLOCK) {
                     BlockPos blockpos = blockhitresult.getBlockPos();
                     BlockState blockstate = level.getBlockState(blockpos);
                     if (flag) {
@@ -78,8 +83,7 @@ public class ChiselItem extends Item {
                             if (blockentity instanceof SuspiciousStoneBlockEntity suspiciousStoneBlockEntity) {
                                 boolean flag1 = suspiciousStoneBlockEntity.chisel(level.getGameTime(), player, blockhitresult.getDirection());
                                 if (flag1) {
-                                    EquipmentSlot equipmentslot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                                    stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(equipmentslot));
+                                    stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(arm));
                                 }
                             }
                         }
@@ -100,17 +104,54 @@ public class ChiselItem extends Item {
                     }
                     return;
                 }
+            } else if (entityHitResult instanceof EntityHitResult entityhitresult && entityHitResult.getType() == HitResult.Type.ENTITY) {
+                if (flag) {
+                    Entity hitResultEntity = entityhitresult.getEntity();
+                    boolean hurt = hitResultEntity.hurt(entity.damageSources().mobAttack(player), 1);
+                    if (level.getRandom().nextInt(500) == 0) {
+                        level.playSound(player, hitResultEntity.blockPosition(), UP2SoundEvents.CHISEL_POKE.get(), SoundSource.PLAYERS);
+                    }
+                    if (hurt) {
+                        stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(arm));
+                    } else {
+                        return;
+                    }
+                }
+                return;
             }
             entity.releaseUsingItem();
-        }
-
-        else {
+        } else {
             entity.releaseUsingItem();
         }
     }
 
-    private HitResult calculateHitResult(LivingEntity entity) {
-        return ProjectileUtil.getHitResultOnViewVector(entity, (entity1) -> !entity1.isSpectator() && entity1.isPickable(), MAX_CHISEL_DISTANCE);
+    @Override
+    public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, @NotNull Player player, @NotNull LivingEntity livingEntity, InteractionHand hand) {
+        if (this.calculateHitResult(player, -2).getType() == HitResult.Type.ENTITY) {
+            player.startUsingItem(hand);
+        }
+        return InteractionResult.CONSUME;
+    }
+
+    private HitResult calculateHitResult(LivingEntity livingEntity, double interactionDistance) {
+        Vec3 vec3 = livingEntity.getViewVector(0.0F).scale(MAX_CHISEL_DISTANCE + interactionDistance);
+        Level level = livingEntity.level();
+        Vec3 vec31 = livingEntity.getEyePosition();
+        Predicate<Entity> predicate = (entity) -> !entity.isSpectator() && entity.isPickable();
+        return getChiselHitResult(vec31, livingEntity, predicate, vec3, level);
+    }
+
+    private HitResult getChiselHitResult(Vec3 eye, Entity viewer, Predicate<Entity> predicate, Vec3 view, Level level) {
+        Vec3 vec3 = eye.add(view);
+        HitResult hitresult = level.clip(new ClipContext(eye, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, viewer));
+        if (hitresult.getType() != HitResult.Type.MISS) {
+            vec3 = hitresult.getLocation();
+        }
+        HitResult hitresult1 = ProjectileUtil.getEntityHitResult(level, viewer, eye, vec3, viewer.getBoundingBox().expandTowards(view).inflate(1.0), predicate);
+        if (hitresult1 != null) {
+            hitresult = hitresult1;
+        }
+        return hitresult;
     }
 
     public void spawnDustParticles(Level level, BlockHitResult hitResult, BlockState state, Vec3 vec3, HumanoidArm arm) {

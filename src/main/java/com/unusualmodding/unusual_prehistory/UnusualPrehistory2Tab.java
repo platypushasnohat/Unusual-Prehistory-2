@@ -15,7 +15,7 @@ public class UnusualPrehistory2Tab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ORGANIC_OOZE.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UNUSUAL_PREHISTORY.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, tabOutput) -> {
 
@@ -63,13 +63,13 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         tabOutput.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         tabOutput.accept(DROMAEOSAURUS_EGG.get());
-                        tabOutput.accept(DUNKLEOSTEUS_SAC.get());
+                        tabOutput.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
                         tabOutput.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         tabOutput.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         tabOutput.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         tabOutput.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         tabOutput.accept(UP2Blocks.MEGALANIA_EGG.get());
-                        tabOutput.accept(STETHACANTHUS_SAC.get());
+                        tabOutput.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         tabOutput.accept(TALPANAS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
 

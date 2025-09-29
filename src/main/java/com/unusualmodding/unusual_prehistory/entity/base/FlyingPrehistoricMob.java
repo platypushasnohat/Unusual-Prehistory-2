@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity.base;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
-import com.unusualmodding.unusual_prehistory.entity.enums.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

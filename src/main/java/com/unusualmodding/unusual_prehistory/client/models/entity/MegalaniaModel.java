@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
-import com.unusualmodding.unusual_prehistory.entity.pose.UP2Poses;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

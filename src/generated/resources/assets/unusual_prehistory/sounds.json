@@ -46,6 +46,15 @@
     ],
     "subtitle": "subtitles.carnotaurus_step"
   },
+  "chisel_poke": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:item/chisel/poke1",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.chisel_poke"
+  },
   "diplocaulus_death": {
     "sounds": [
       {
