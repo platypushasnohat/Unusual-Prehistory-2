@@ -1,11 +1,10 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.AdvancedWaterboundPathNavigation;
+import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.CustomRandomSwimGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -16,7 +15,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,40 +26,27 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.Objects;
-import java.util.stream.Stream;
 
-public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable {
+public class Stethacanthus extends SchoolingAquaticMob {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Stethacanthus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Stethacanthus.class, EntityDataSerializers.BOOLEAN);
 
-    public float prevTilt;
-    public float tilt;
-
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
 
-    public Stethacanthus(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
+    public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
@@ -73,16 +58,16 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
                 .add(Attributes.FOLLOW_RANGE, 16.0F);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(1, new StethacanthusAttackGoal());
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
-        this.goalSelector.addGoal(3, new CustomRandomSwimGoal(this, 1, 3, 30, 30, 3));
-        this.goalSelector.addGoal(6, new AquaticLeapGoal(this, 15));
-        this.goalSelector.addGoal(7, new StethacanthusFleeGoal());
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)) {
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
+        this.goalSelector.addGoal(2, new StethacanthusAttackGoal(this));
+        this.goalSelector.addGoal(3, new AquaticLeapGoal(this, 10, 0.5D, 0.4D));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)) {
         @Override
         public boolean canUse() {
             if (this.mob instanceof Stethacanthus stethacanthus) {
@@ -92,139 +77,70 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
         }});
     }
 
-    // schooling
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level level) {
+        return new AdvancedWaterboundPathNavigation(this, level, false, true);
+    }
+
+    @Override
     public int getMaxSchoolSize() {
         return 3;
     }
 
     @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticEntity> entity) {
-        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> entity2.startFollowing(this));
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return dimensions.height * 0.55F;
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * 0.55F;
-    }
-
-    public void travel(Vec3 pTravelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
-            this.calculateEntityAnimation(true);
         } else {
-            super.travel(pTravelVector);
+            super.travel(travelVector);
         }
     }
 
     @Override
-    public void customServerAiStep() {
-        if (this.getMoveControl().hasWanted()) {
-            this.setRunning(this.getMoveControl().getSpeedModifier() >= 1.25D);
-        } else {
-            super.customServerAiStep();
-        }
-    }
-
-    public void tick () {
-        prevTilt = tilt;
-        if (this.isInWater() && !this.onGround()) {
-            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-            if (Math.abs(v) > 1) {
-                if (Math.abs(tilt) < 25) {
-                    tilt -= Math.signum(v);
-                }
-            } else {
-                if (Math.abs(tilt) > 0) {
-                    final float tiltSign = Math.signum(tilt);
-                    tilt -= tiltSign * 0.85F;
-                    if (tilt * tiltSign < 0) {
-                        tilt = 0;
-                    }
-                }
-            }
-        } else {
-            tilt = 0;
-        }
-
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-
-        super.tick();
-    }
-
-    private void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isInWaterOrBubble() && this.isAlive(), this.tickCount);
+    public void setupAnimationStates() {
+        super.setupAnimationStates();
         this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
-    // sounds
+    @Override
+    @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.STETHACANTHUS_DEATH.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource p_28281_) {
+    @Override
+    @Nullable
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 
+    @Override
+    @Nullable
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.STETHACANTHUS_FLOP.get();
     }
 
-    // synched data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(PASSIVE, false);
     }
 
-    // save data
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("FromBucket", this.isFromBucket());
-        compound.putBoolean("Bucketed", this.fromBucket());
         compound.putBoolean("Passive", this.isPassive());
     }
+
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-        this.setFromBucket(compound.getBoolean("Bucketed"));
         this.setPassive(compound.getBoolean("Passive"));
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double p_213397_1_) {
-        return !this.fromBucket() && !this.hasCustomName();
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    private boolean isFromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
     public void setPassive(boolean passive) {
@@ -236,30 +152,11 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        compoundnbt.putFloat("Health", this.getHealth());
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
-    }
-
-    @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(Items.SALMON_BUCKET);
+        return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
     @Override
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
-    }
-
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(UP2ItemTags.PACIFIES_STETHACANTHUS) && !this.isPassive()) {
@@ -274,100 +171,13 @@ public class Stethacanthus extends SchoolingAquaticEntity implements Bucketable 
                 this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
             }
-        } else if (itemstack.is(UP2ItemTags.STETHACANTHUS_FOOD) && this.isPassive() && this.getHealth() < this.getMaxHealth()) {
-            if (!this.level().isClientSide) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                this.heal((float) itemstack.getFoodProperties(this).getNutrition());
-                this.gameEvent(GameEvent.EAT, this);
-                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
         }
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        return super.mobInteract(player, hand);
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UP2Entities.STETHACANTHUS.get().create(serverLevel);
-    }
-
-    // goals
-    private class StethacanthusAttackGoal extends Goal {
-        private int attackTime = 0;
-
-        public StethacanthusAttackGoal() {
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            LivingEntity target = Stethacanthus.this.getTarget();
-            return target != null && target.isAlive() && target.isInWater() && !target.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS) && !(target instanceof Player);
-        }
-
-        public void start() {
-            Stethacanthus.this.setAttackState(0);
-            this.attackTime = 0;
-        }
-
-        public void stop() {
-            Stethacanthus.this.setAttackState(0);
-        }
-
-        public void tick() {
-            LivingEntity target = Stethacanthus.this.getTarget();
-            if (target != null && target.isInWater()) {
-                Stethacanthus.this.lookAt(Stethacanthus.this.getTarget(), 30F, 30F);
-                Stethacanthus.this.getLookControl().setLookAt(Stethacanthus.this.getTarget(), 30F, 30F);
-
-                double distance = Stethacanthus.this.distanceToSqr(target.getX(), target.getY(), target.getZ());
-                int attackState = Stethacanthus.this.getAttackState();
-
-                if (attackState == 1) {
-                    tickBiteAttack();
-                    Stethacanthus.this.getNavigation().moveTo(target, 0.75D);
-                } else {
-                    Stethacanthus.this.getNavigation().moveTo(target, 1.75D);
-                    if (distance <= 4) {
-                        Stethacanthus.this.setAttackState(1);
-                    }
-                }
-            }
-        }
-
-        protected void tickBiteAttack() {
-            attackTime++;
-            if (attackTime == 6) {
-                if (Stethacanthus.this.distanceTo(Objects.requireNonNull(Stethacanthus.this.getTarget())) < 2.1F) {
-                    Stethacanthus.this.doHurtTarget(Stethacanthus.this.getTarget());
-                    Stethacanthus.this.swing(InteractionHand.MAIN_HAND);
-                }
-            }
-            if (attackTime >= 9) {
-                attackTime = 0;
-                Stethacanthus.this.setAttackState(0);
-            }
-        }
-    }
-
-    private class StethacanthusFleeGoal extends PanicGoal {
-        public StethacanthusFleeGoal() {
-            super(Stethacanthus.this, 2.0D);
-        }
-
-        @Override
-        protected boolean findRandomPosition() {
-            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 8);
-            if (vec3 == null) {
-                return false;
-            } else {
-                this.posX = vec3.x;
-                this.posY = vec3.y;
-                this.posZ = vec3.z;
-                return true;
-            }
-        }
     }
 }

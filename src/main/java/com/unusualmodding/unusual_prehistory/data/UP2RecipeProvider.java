@@ -181,7 +181,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result) {
         Ingredient ingredient = Ingredient.of(input);
-        TransmogrificationBuilder.transmogrification(ingredient, result, 1000, 1.0F).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, 3600, 1.0F).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 
     protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {

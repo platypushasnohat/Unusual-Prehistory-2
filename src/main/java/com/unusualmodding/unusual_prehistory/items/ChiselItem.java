@@ -2,7 +2,6 @@ package com.unusualmodding.unusual_prehistory.items;
 
 import com.unusualmodding.unusual_prehistory.blocks.blockentity.SuspiciousStoneBlockEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
-import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -108,9 +107,6 @@ public class ChiselItem extends Item {
                 if (flag) {
                     Entity hitResultEntity = entityhitresult.getEntity();
                     boolean hurt = hitResultEntity.hurt(entity.damageSources().mobAttack(player), 1);
-                    if (level.getRandom().nextInt(500) == 0) {
-                        level.playSound(player, hitResultEntity.blockPosition(), UP2SoundEvents.CHISEL_POKE.get(), SoundSource.PLAYERS);
-                    }
                     if (hurt) {
                         stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(arm));
                     } else {

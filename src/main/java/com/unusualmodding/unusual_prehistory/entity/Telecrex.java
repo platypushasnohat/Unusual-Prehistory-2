@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.TelecrexMoveControl;
-import com.unusualmodding.unusual_prehistory.entity.base.FlyingPrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Telecrex extends FlyingPrehistoricMob {
+public class Telecrex extends PrehistoricFlyingMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flyingAnimationState = new AnimationState();
@@ -42,7 +42,7 @@ public class Telecrex extends FlyingPrehistoricMob {
     private int peckingTimer = 0;
     private int lookoutTimer = 0;
 
-    public Telecrex(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
+    public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         switchNavigator(false);
     }

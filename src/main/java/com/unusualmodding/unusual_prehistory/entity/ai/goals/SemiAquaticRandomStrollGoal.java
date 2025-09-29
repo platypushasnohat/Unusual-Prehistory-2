@@ -1,13 +1,13 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
-import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticPrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticMob;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 
 public class SemiAquaticRandomStrollGoal extends RandomStrollGoal {
 
-     private final SemiAquaticPrehistoricMob entity;
+     private final SemiAquaticMob entity;
 
-     public SemiAquaticRandomStrollGoal(SemiAquaticPrehistoricMob entity, double speedModifier) {
+     public SemiAquaticRandomStrollGoal(SemiAquaticMob entity, double speedModifier) {
          super(entity, speedModifier);
          this.entity = entity;
      }

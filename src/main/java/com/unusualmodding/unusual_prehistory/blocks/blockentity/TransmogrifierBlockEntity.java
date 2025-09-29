@@ -64,7 +64,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     private int maxProgress;
 
     private int fuel = 0;
-    private int maxFuel = 700;
+    private int maxFuel = 1800;
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
         super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);

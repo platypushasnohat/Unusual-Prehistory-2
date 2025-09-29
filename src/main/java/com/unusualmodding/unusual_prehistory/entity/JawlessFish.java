@@ -1,21 +1,14 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,55 +16,41 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
+public class JawlessFish extends SchoolingAquaticMob {
 
-public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.BOOLEAN);
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
-
-    public JawlessFish(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
+    public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    // Attributes
-    public static AttributeSupplier.@NotNull Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.9F);
-    }
-
-    // Goals
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1, 20, 8, 12, 0.01));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
-        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(4, new JawlessFishFleeGoal());
-    }
-
-    // Schooling
-    public int getMaxSchoolSize() {
-        return 24;
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.9F);
     }
 
     @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1.0D, 20, 16, 16, 0.01));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(4, new LargePanicGoal(this, 1.5D));
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 24;
     }
 
     @Override
@@ -80,48 +59,19 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
             this.moveRelative(this.getSpeed(), pTravelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
         } else {
             super.travel(pTravelVector);
         }
     }
 
-    public void tick () {
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-        super.tick();
-    }
-
-    private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
     @Override
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
-        return pSize.height * 0.4F;
-    }
-
-    public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return dimensions.height * 0.4F;
     }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(Items.SALMON_BUCKET);
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
-        }
-        return stack;
+        return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
     }
 
     @Override
@@ -139,52 +89,9 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
         return UP2SoundEvents.JAWLESS_FISH_HURT.get();
     }
 
+    @Override
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.JAWLESS_FISH_FLOP.get();
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
-    }
-
-    @Override
-    public void saveToBucketTag(@Nonnull ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
-    }
-
-    @Override
-    public void loadFromBucketTag(@Nonnull CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
-        if (compound.contains("BucketVariantTag", 3)) {
-            this.setVariant(compound.getInt("BucketVariantTag"));
-        }
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("FromBucket", this.fromBucket());
-    }
-
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    @Override
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
     @Nullable
@@ -195,19 +102,6 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
         return jawlessFish;
     }
 
-    // variants
-    public void determineVariant(int variantChange) {
-        if (variantChange <= 25) {
-            this.setVariant(1);
-        } else if (variantChange <= 50) {
-            this.setVariant(2);
-        } else if (variantChange <= 75) {
-            this.setVariant(3);
-        } else {
-            this.setVariant(0);
-        }
-    }
-
     public String getVariantName() {
         return switch (this.getVariant()) {
             case 1 -> "doryaspis";
@@ -215,25 +109,5 @@ public class JawlessFish extends SchoolingAquaticEntity implements Bucketable {
             case 3 -> "sacabambaspis";
             default -> "cephalaspis";
         };
-    }
-
-    // goals
-    private class JawlessFishFleeGoal extends PanicGoal {
-        public JawlessFishFleeGoal() {
-            super(JawlessFish.this, 2.0D);
-        }
-
-        @Override
-        protected boolean findRandomPosition() {
-            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 8);
-            if (vec3 == null) {
-                return false;
-            } else {
-                this.posX = vec3.x;
-                this.posY = vec3.y;
-                this.posZ = vec3.z;
-                return true;
-            }
-        }
     }
 }

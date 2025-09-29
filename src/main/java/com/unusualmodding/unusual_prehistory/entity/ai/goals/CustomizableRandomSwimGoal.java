@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class CustomRandomSwimGoal extends RandomStrollGoal {
+public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     private final PathfinderMob entity;
     protected Vec3 wantedPos;
@@ -16,7 +16,7 @@ public class CustomRandomSwimGoal extends RandomStrollGoal {
     private final int height;
     private final int prox;
 
-    public CustomRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity) {
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity) {
         super(entity, speedMultiplier, interval);
         this.entity = entity;
         this.radius = radius;

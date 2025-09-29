@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
-import com.unusualmodding.unusual_prehistory.entity.base.FlyingPrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.ClipContext;
@@ -13,7 +13,7 @@ import java.util.EnumSet;
 
 public class RandomFlightGoal extends Goal {
 
-    private final FlyingPrehistoricMob mob;
+    private final PrehistoricFlyingMob mob;
     private final float speedModifier;
     private final int flightRange;
     private final int flightHeight;
@@ -23,7 +23,7 @@ public class RandomFlightGoal extends Goal {
     private double y;
     private double z;
 
-    public RandomFlightGoal(FlyingPrehistoricMob mob, float speedModifier, int flightRange, int flightHeight, int interval, int maxTimeFlying) {
+    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, int flightRange, int flightHeight, int interval, int maxTimeFlying) {
         this.setFlags(EnumSet.of(Flag.MOVE));
         this.flightRange = flightRange;
         this.flightHeight = flightHeight;

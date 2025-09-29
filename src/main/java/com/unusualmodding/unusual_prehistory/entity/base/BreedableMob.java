@@ -8,9 +8,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public abstract class BreedablePrehistoricMob extends PrehistoricMob {
+public abstract class BreedableMob extends PrehistoricMob {
 
-    protected BreedablePrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected BreedableMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
 

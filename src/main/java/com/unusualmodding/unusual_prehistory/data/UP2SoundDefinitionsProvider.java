@@ -19,10 +19,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        this.sound(UP2SoundEvents.CHISEL_POKE,
-                sound(UnusualPrehistory2.modPrefix("item/chisel/poke1")).volume(0.8F)
-        );
-
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt1")).pitch(1.2F)
         );

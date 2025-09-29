@@ -1,9 +1,7 @@
 package com.unusualmodding.unusual_prehistory.blocks;
 
-import com.unusualmodding.unusual_prehistory.entity.Diplocaulus;
-import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
-import com.unusualmodding.unusual_prehistory.entity.base.AncientAquaticEntity;
-import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.*;
+import com.unusualmodding.unusual_prehistory.entity.base.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -38,9 +36,9 @@ public class WaterEggBlock extends FrogspawnBlock {
                         animal.setAge(-24000);
                         animal.setPersistenceRequired();
                     }
-                    if (entity instanceof AncientAquaticEntity ancientAquatic) {
-                        ancientAquatic.setAge(-24000);
-                        ancientAquatic.setPersistenceRequired();
+                    if (entity instanceof PrehistoricAquaticMob prehistoricAquaticMob) {
+                        prehistoricAquaticMob.setAge(-24000);
+                        prehistoricAquaticMob.setPersistenceRequired();
                     }
                     if (entity instanceof Dunkleosteus dunkleosteus) {
                         int sizeChange = random.nextInt(0, 100);

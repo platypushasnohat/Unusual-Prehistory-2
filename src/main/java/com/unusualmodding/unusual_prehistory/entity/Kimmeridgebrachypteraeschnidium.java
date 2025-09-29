@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
-import com.unusualmodding.unusual_prehistory.entity.base.FlyingPrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Kimmeridgebrachypteraeschnidium extends FlyingPrehistoricMob implements Bucketable {
+public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -55,7 +55,7 @@ public class Kimmeridgebrachypteraeschnidium extends FlyingPrehistoricMob implem
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState preenAnimationState = new AnimationState();
 
-    public Kimmeridgebrachypteraeschnidium(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
+    public Kimmeridgebrachypteraeschnidium(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveController();
     }

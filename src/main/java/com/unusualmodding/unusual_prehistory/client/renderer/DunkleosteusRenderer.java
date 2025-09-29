@@ -2,10 +2,10 @@ package com.unusualmodding.unusual_prehistory.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,22 +16,21 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, UP2Model<Dunkleosteus>> {
+public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, HierarchicalModel<Dunkleosteus>> {
 
-    private final DunkleosteusLargeModel<Dunkleosteus> dunkleosteusLargeModel;
-    private final DunkleosteusMediumModel<Dunkleosteus> dunkleosteusMediumModel;
-    private final DunkleosteusSmallModel<Dunkleosteus> dunkleosteusSmallModel;
+    private final DunkleosteusLargeModel dunkleosteusLargeModel;
+    private final DunkleosteusMediumModel dunkleosteusMediumModel;
+    private final DunkleosteusSmallModel dunkleosteusSmallModel;
 
     public DunkleosteusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE)), 0.5F);
-        this.dunkleosteusLargeModel = new DunkleosteusLargeModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE));
-        this.dunkleosteusMediumModel = new DunkleosteusMediumModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM));
-        this.dunkleosteusSmallModel = new DunkleosteusSmallModel<>(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL));
+        super(context, new DunkleosteusLargeModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE)), 0.5F);
+        this.dunkleosteusLargeModel = new DunkleosteusLargeModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE));
+        this.dunkleosteusMediumModel = new DunkleosteusMediumModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM));
+        this.dunkleosteusSmallModel = new DunkleosteusSmallModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL));
     }
 
     @Override
     public void render(Dunkleosteus entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-
         switch (entity.getDunkSize()){
             case 1:
                 this.model = dunkleosteusMediumModel;
@@ -42,14 +41,7 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, UP2Model<Dun
             default:
                 this.model = dunkleosteusSmallModel;
         }
-
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-    }
-
-    @Override
-    protected void scale(Dunkleosteus entity, PoseStack matrices, float amount) {
-        if (entity.isBaby()) matrices.scale(0.6F, 0.6F, 0.6F);
-        else super.scale(entity, matrices, amount);
     }
 
     @Override

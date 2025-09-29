@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity.base;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.control.LookControl;
@@ -12,11 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class SemiAquaticPrehistoricMob extends PrehistoricMob {
+public abstract class SemiAquaticMob extends PrehistoricMob {
 
     public boolean isLandNavigator;
 
-    protected SemiAquaticPrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected SemiAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -36,7 +37,7 @@ public abstract class SemiAquaticPrehistoricMob extends PrehistoricMob {
         if (onLand) {
             this.moveControl = new MoveControl(this);
             this.lookControl = new LookControl(this);
-            this.navigation = new GroundPathNavigation(this, level());
+            this.navigation = new SmoothGroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5F, 0.1F, false);

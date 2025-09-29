@@ -2,9 +2,9 @@ package com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.animations.dunkleosteus.DunkleosteusMediumAnimations;
 import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DunkleosteusMediumModel<T extends Dunkleosteus> extends UP2Model<T> {
+public class DunkleosteusMediumModel extends HierarchicalModel<Dunkleosteus> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -80,29 +80,33 @@ public class DunkleosteusMediumModel<T extends Dunkleosteus> extends UP2Model<T>
 	public void setupAnim(Dunkleosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.isInWater()) {
-			this.animateWalk(DunkleosteusMediumAnimations.SWIM, limbSwing, limbSwingAmount, 2f, 2f);
-		}
+		float prevOnLandProgress = entity.prevOnLandProgress;
+		float onLandProgress = entity.onLandProgress;
+		float partialTicks = ageInTicks - entity.tickCount;
+		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.animateIdle(entity.idleAnimationState, DunkleosteusMediumAnimations.IDLE, ageInTicks, 1.0F, 1.0F - Math.abs(limbSwingAmount));
-		this.animate(entity.flopAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks, 1.0F);
-		this.animate(entity.attackAnimationState, DunkleosteusMediumAnimations.ATTACK, ageInTicks, 1.0F);
-		this.animate(entity.yawnAnimationState, DunkleosteusMediumAnimations.YAWN, ageInTicks, 1.0F);
+		this.animate(entity.swimmingAnimationState, DunkleosteusMediumAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.floppingAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks);
+		this.animate(entity.attackAnimationState, DunkleosteusMediumAnimations.ATTACK, ageInTicks);
+		this.animate(entity.yawnAnimationState, DunkleosteusMediumAnimations.YAWN, ageInTicks);
 
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
-		this.swim_control.zRot = netHeadYaw * ((Mth.DEG_TO_RAD) / 2);
-
-		if (entity.isInWaterOrBubble()){
-			this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-			this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-			this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-			this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-		}
+		this.swim_control.zRot += landProgress * ((float) Math.toRadians(90) / 5F);
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+		if (this.young) {
+			float babyScale = 0.6F;
+			float bodyYOffset = 16.0F;
+			poseStack.pushPose();
+			poseStack.scale(babyScale, babyScale, babyScale);
+			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			poseStack.popPose();
+		} else {
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+		}
 	}
 
 	@Override

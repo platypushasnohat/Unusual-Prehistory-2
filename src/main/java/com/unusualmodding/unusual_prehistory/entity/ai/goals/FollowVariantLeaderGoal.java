@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.mojang.datafixers.DataFixUtils;
-import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticEntity;
+import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.List;
@@ -9,16 +9,16 @@ import java.util.function.Predicate;
 
 public class FollowVariantLeaderGoal extends Goal {
 
-    private final SchoolingAquaticEntity fish;
+    private final SchoolingAquaticMob fish;
     private int timeToRecalcPath;
     private int nextStartTick;
 
-    public FollowVariantLeaderGoal(SchoolingAquaticEntity fish) {
+    public FollowVariantLeaderGoal(SchoolingAquaticMob fish) {
         this.fish = fish;
         this.nextStartTick = this.nextStartTick(fish);
     }
 
-    protected int nextStartTick(SchoolingAquaticEntity fish) {
+    protected int nextStartTick(SchoolingAquaticMob fish) {
         return reducedTickDelay(200 + fish.getRandom().nextInt(200) % 20);
     }
 
@@ -32,9 +32,9 @@ public class FollowVariantLeaderGoal extends Goal {
             return false;
         } else {
             this.nextStartTick = this.nextStartTick(this.fish);
-            Predicate<SchoolingAquaticEntity> predicate = (fish) -> fish.canBeFollowed() || !fish.isFollower();
-            List<? extends SchoolingAquaticEntity> list = this.fish.level().getEntitiesOfClass(this.fish.getClass(), this.fish.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
-            SchoolingAquaticEntity schoolingWaterAnimal = DataFixUtils.orElse(list.stream().filter(SchoolingAquaticEntity::canBeFollowed).findAny(), this.fish);
+            Predicate<SchoolingAquaticMob> predicate = (fish) -> fish.canBeFollowed() || !fish.isFollower();
+            List<? extends SchoolingAquaticMob> list = this.fish.level().getEntitiesOfClass(this.fish.getClass(), this.fish.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
+            SchoolingAquaticMob schoolingWaterAnimal = DataFixUtils.orElse(list.stream().filter(SchoolingAquaticMob::canBeFollowed).findAny(), this.fish);
             schoolingWaterAnimal.addFollowers(list.stream().filter((fish) -> !fish.isFollower()));
             return this.fish.isFollower();
         }

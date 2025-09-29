@@ -1,9 +1,9 @@
  package com.unusualmodding.unusual_prehistory.entity;
 
- import com.unusualmodding.unusual_prehistory.entity.ai.goals.CustomRandomSwimGoal;
+ import com.unusualmodding.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
- import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticPrehistoricMob;
+ import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
  import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -28,7 +28,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Diplocaulus extends SemiAquaticPrehistoricMob {
+ public class Diplocaulus extends SemiAquaticMob {
 
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
@@ -39,7 +39,7 @@
 
      private int quirkCooldown = this.random.nextInt(10 * 40) + (20 * 40);
 
-     public Diplocaulus(EntityType<? extends SemiAquaticPrehistoricMob> entityType, Level level) {
+     public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
      }
@@ -52,7 +52,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new DiplocaulusQuirkGoal(this));
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D));
-         this.goalSelector.addGoal(2, new CustomRandomSwimGoal(this, 1.0D, 10, 10, 10, 3));
+         this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 10, 10, 10, 3));
          this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));

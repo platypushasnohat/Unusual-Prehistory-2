@@ -89,7 +89,7 @@ public class TransmogrificationRecipe implements Recipe<Container> {
         public TransmogrificationRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
             Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject,"input"));
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "output"));
-            int processingTime = GsonHelper.getAsInt(jsonObject, "processing_time", 100);
+            int processingTime = GsonHelper.getAsInt(jsonObject, "processing_time", 3600);
             float experience = GsonHelper.getAsFloat(jsonObject, "experience", 1.0F);
             return new TransmogrificationRecipe(resourceLocation, input, output, processingTime, experience);
         }

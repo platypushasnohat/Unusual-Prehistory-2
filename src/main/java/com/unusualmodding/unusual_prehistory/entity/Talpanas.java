@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
-import com.unusualmodding.unusual_prehistory.entity.base.BreedablePrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.BreedableMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -35,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Talpanas extends BreedablePrehistoricMob {
+public class Talpanas extends BreedableMob {
 
     public static final EntityDataAccessor<Integer> LIGHT_THRESHOLD = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.INT);
 
@@ -48,7 +48,7 @@ public class Talpanas extends BreedablePrehistoricMob {
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState peckingAnimationState = new AnimationState();
 
-    public Talpanas(EntityType<? extends BreedablePrehistoricMob> entityType, Level level) {
+    public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);

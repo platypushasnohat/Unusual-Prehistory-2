@@ -1,18 +1,12 @@
 package com.unusualmodding.unusual_prehistory.entity.base;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
-import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -20,23 +14,15 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnimal {
+public abstract class PrehistoricFlyingMob extends PrehistoricMob implements FlyingAnimal {
 
-    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(FlyingPrehistoricMob.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(FlyingPrehistoricMob.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(FlyingPrehistoricMob.class, EntityDataSerializers.STRING);
-    public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(FlyingPrehistoricMob.class, EntityDataSerializers.LONG);
-    private static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(FlyingPrehistoricMob.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PrehistoricFlyingMob.class, EntityDataSerializers.BOOLEAN);
 
     protected float flyProgress;
     protected float prevFlyProgress;
@@ -51,11 +37,9 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     public boolean isLandNavigator;
     public boolean landingFlag;
 
-    private int healCooldown = 600;
-
     public boolean useLowerFluidJumpThreshold = false;
 
-    protected FlyingPrehistoricMob(EntityType<? extends FlyingPrehistoricMob> entityType, Level level) {
+    protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.lookControl = new FlyingLookControl(this);
         setPersistenceRequired();
@@ -69,7 +53,7 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     public void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
-            this.navigation = new GroundPathNavigation(this, level());
+            this.navigation = new SmoothGroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new FlyingMoveController();
@@ -126,21 +110,6 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     }
 
     @Override
-    public int getExperienceReward() {
-        return 0;
-    }
-
-    @Override
-    public boolean canFallInLove() {
-        return false;
-    }
-
-    @Override
-    public boolean canMate(Animal animal) {
-        return false;
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
@@ -150,17 +119,6 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
         prevFlightRoll = flightRoll;
 
         this.tickFlight();
-
-        if (this.tickCount % healCooldown == 0 && this.getHealth() < this.getMaxHealth()) {
-            this.heal(2);
-        }
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-
-        this.setupAnimationCooldowns();
-
         this.tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
     }
 
@@ -213,12 +171,6 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
         }
     }
 
-    public void setupAnimationCooldowns() {
-    }
-
-    public void setupAnimationStates() {
-    }
-
     public void tickRotation(float yMov) {
         flightPitch = yMov;
         float threshold = 1F;
@@ -242,137 +194,47 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
         flightRoll = Mth.clamp(flightRoll, -60, 60);
     }
 
-    public void setHealCooldown(int cooldown) {
-        healCooldown = cooldown;
-    }
-
-    public boolean isInPoseTransition() {
-        return false;
-    }
-
-    public long getPoseTime() {
-        return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
-    }
-
-    public boolean refuseToMove() {
-        return this.isInPoseTransition();
-    }
-
-    public SoundEvent getEatingSound() {
-        return SoundEvents.GENERIC_EAT;
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isFood(itemstack)) {
-            int i = this.getAge();
-            if (this.isBaby()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
-                this.playSound(this.getEatingSound());
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-            if (this.level().isClientSide) {
-                return InteractionResult.CONSUME;
-            }
-        }
-        return InteractionResult.PASS;
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(FLYING, false);
-        this.entityData.define(BEHAVIOR, Behaviors.IDLE.getName());
-        this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
-        this.entityData.define(DATA_FLAGS, (byte) 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant());
-        compoundTag.putString("Behavior", this.getBehavior());
-        compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setVariant(compoundTag.getInt("Variant"));
-        this.setBehavior(compoundTag.getString("Behavior"));
-        long lastPoseTick = compoundTag.getLong("LastPoseTick");
-        this.resetLastPoseChangeTick(lastPoseTick);
     }
 
     @Override
     public boolean isFlying() {
         return this.entityData.get(FLYING);
     }
+
     public void setFlying(boolean flying) {
         this.entityData.set(FLYING, flying);
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    public String getBehavior() {
-        return this.entityData.get(BEHAVIOR);
-    }
-    public void setBehavior(String behavior) {
-        this.entityData.set(BEHAVIOR, behavior);
-    }
-
-    @VisibleForTesting
-    public void resetLastPoseChangeTick(long l) {
-        this.entityData.set(LAST_POSE_CHANGE_TICK, l);
-    }
-    public void resetLastPoseChangeTickToFullStand(long l) {
-        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
     }
 
     public float getFlightPitch(float partialTick) {
         return (prevFlightPitch + (flightPitch - prevFlightPitch) * partialTick);
     }
+
     public float getFlightRoll(float partialTick) {
         return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTick);
     }
+
     public float getFlyProgress(float partialTick) {
         return (prevFlyProgress + (flyProgress - prevFlyProgress) * partialTick) * 0.2F;
     }
+
     public float getGroundProgress(float partialTick) {
         return (prevGroundProgress + (groundProgress - prevGroundProgress) * partialTick) * 0.2F;
-    }
-
-    protected boolean getFlag(int flagId) {
-        return (this.entityData.get(DATA_FLAGS) & flagId) != 0;
-    }
-
-    protected void setFlag(int flagId, boolean value) {
-        byte b0 = this.entityData.get(DATA_FLAGS);
-        if (value) {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 | flagId));
-        } else {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 & ~flagId));
-        }
     }
 
     public class FlyingMoveController extends MoveControl {
         private final Mob entity;
 
         public FlyingMoveController() {
-            super(FlyingPrehistoricMob.this);
-            this.entity = FlyingPrehistoricMob.this;
+            super(PrehistoricFlyingMob.this);
+            this.entity = PrehistoricFlyingMob.this;
         }
 
         public void tick() {
-            if (!FlyingPrehistoricMob.this.refuseToMove()) {
+            if (!PrehistoricFlyingMob.this.refuseToMove()) {
                 if (this.operation == MoveControl.Operation.MOVE_TO) {
                     Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
                     double d0 = vector3d.length();
@@ -391,9 +253,9 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     }
 
     public static class FlyingBodyRotationControl extends BodyRotationControl {
-        protected final FlyingPrehistoricMob mob;
+        protected final PrehistoricFlyingMob mob;
 
-        public FlyingBodyRotationControl(FlyingPrehistoricMob mob) {
+        public FlyingBodyRotationControl(PrehistoricFlyingMob mob) {
             super(mob);
             this.mob = mob;
         }
@@ -405,9 +267,9 @@ public abstract class FlyingPrehistoricMob extends Animal implements FlyingAnima
     }
 
     public static class FlyingLookControl extends LookControl {
-        protected final FlyingPrehistoricMob mob;
+        protected final PrehistoricFlyingMob mob;
 
-        public FlyingLookControl(FlyingPrehistoricMob mob) {
+        public FlyingLookControl(PrehistoricFlyingMob mob) {
             super(mob);
             this.mob = mob;
         }
