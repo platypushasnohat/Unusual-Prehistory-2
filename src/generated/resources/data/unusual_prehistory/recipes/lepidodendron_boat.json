@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "wooden_slab",
+  "category": "misc",
+  "group": "boat",
   "key": {
     "#": {
       "item": "unusual_prehistory:lepidodendron_planks"
     }
   },
   "pattern": [
+    "# #",
     "###"
   ],
   "result": {
-    "count": 6,
-    "item": "unusual_prehistory:lepidodendron_slab"
+    "item": "unusual_prehistory:lepidodendron_boat"
   },
   "show_notification": true
 }

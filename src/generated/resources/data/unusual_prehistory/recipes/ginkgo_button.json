@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "building",
+  "category": "redstone",
+  "group": "wooden_button",
   "ingredients": [
     {
       "item": "unusual_prehistory:ginkgo_planks"

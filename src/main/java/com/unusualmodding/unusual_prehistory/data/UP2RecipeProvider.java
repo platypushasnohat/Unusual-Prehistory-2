@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.data.custom.ChiselingBuilder;
 import com.unusualmodding.unusual_prehistory.data.custom.TransmogrificationBuilder;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
@@ -7,13 +8,17 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -21,6 +26,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.unusualmodding.unusual_prehistory.UnusualPrehistory2.modPrefix;
+import static com.unusualmodding.unusual_prehistory.registry.UP2Blocks.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -35,43 +41,21 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
-        stairs(UP2Blocks.GINKGO_STAIRS, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        slab(UP2Blocks.GINKGO_SLAB, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        fence(UP2Blocks.GINKGO_FENCE, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        fenceGate(UP2Blocks.GINKGO_FENCE_GATE, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        door(UP2Blocks.GINKGO_DOOR, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        trapdoor(UP2Blocks.GINKGO_TRAPDOOR, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        button(UP2Blocks.GINKGO_BUTTON, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        pressurePlate(UP2Blocks.GINKGO_PRESSURE_PLATE, UP2Blocks.GINKGO_PLANKS).save(consumer);
-        planks(UP2Blocks.GINKGO_PLANKS, UP2ItemTags.GINKGO_LOGS).save(consumer);
-        wood(UP2Blocks.GINKGO_WOOD, UP2Blocks.GINKGO_LOG).save(consumer);
-        wood(UP2Blocks.STRIPPED_GINKGO_WOOD, UP2Blocks.STRIPPED_GINKGO_LOG).save(consumer);
-
-        stairs(UP2Blocks.LEPIDODENDRON_STAIRS, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        slab(UP2Blocks.LEPIDODENDRON_SLAB, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        fence(UP2Blocks.LEPIDODENDRON_FENCE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        fenceGate(UP2Blocks.LEPIDODENDRON_FENCE_GATE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        door(UP2Blocks.LEPIDODENDRON_DOOR, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        trapdoor(UP2Blocks.LEPIDODENDRON_TRAPDOOR, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        button(UP2Blocks.LEPIDODENDRON_BUTTON, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        pressurePlate(UP2Blocks.LEPIDODENDRON_PRESSURE_PLATE, UP2Blocks.LEPIDODENDRON_PLANKS).save(consumer);
-        planks(UP2Blocks.LEPIDODENDRON_PLANKS, UP2ItemTags.LEPIDODENDRON_LOGS).save(consumer);
-        wood(UP2Blocks.LEPIDODENDRON_WOOD, UP2Blocks.LEPIDODENDRON_LOG).save(consumer);
-        wood(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD, UP2Blocks.MOSSY_LEPIDODENDRON_LOG).save(consumer);
-        wood(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD, UP2Blocks.STRIPPED_LEPIDODENDRON_LOG).save(consumer);
+        woodSet(UP2ItemTags.GINKGO_LOGS, GINKGO_PLANKS.get(), GINKGO_SLAB.get(), GINKGO_STAIRS.get(), GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(), UP2Items.GINKGO_BOAT.get(), UP2Items.GINKGO_CHEST_BOAT.get(), GINKGO_BUTTON.get(), GINKGO_DOOR.get(), GINKGO_TRAPDOOR.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_HANGING_SIGN.get(), consumer);
+        woodSet(UP2ItemTags.LEPIDODENDRON_LOGS, LEPIDODENDRON_PLANKS.get(), LEPIDODENDRON_SLAB.get(), LEPIDODENDRON_STAIRS.get(), LEPIDODENDRON_LOG.get(), LEPIDODENDRON_WOOD.get(), STRIPPED_LEPIDODENDRON_LOG.get(), STRIPPED_LEPIDODENDRON_WOOD.get(), UP2Items.LEPIDODENDRON_BOAT.get(), UP2Items.LEPIDODENDRON_CHEST_BOAT.get(), LEPIDODENDRON_BUTTON.get(), LEPIDODENDRON_DOOR.get(), LEPIDODENDRON_TRAPDOOR.get(), LEPIDODENDRON_FENCE.get(), LEPIDODENDRON_FENCE_GATE.get(), LEPIDODENDRON_PRESSURE_PLATE.get(), UP2Blocks.LEPIDODENDRON_SIGN.get(), UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), consumer);
 
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.PLATED_FOSSIL.get(), UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem());
+        transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem());
         transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
-        transmogrification(consumer, UP2Items.HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
+        transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
         transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Blocks.STETHACANTHUS_SAC.get().asItem());
 
-        transmogrification(consumer, UP2Items.HORN_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.SWIFT_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get());
-        transmogrification(consumer, UP2Items.THAGOMIZER_FOSSIL.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.CRANIUM_FOSSIL.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.FOOTPRINT_FOSSIL.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
-        transmogrification(consumer, Items.FEATHER, UP2Items.TALPANAS_EGG.get());
+        transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get());
+        transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
+        transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get());
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get());
 
         transmogrification(consumer, UP2Items.TRUNK_FOSSIL.get(), UP2Blocks.BENNETTITALES.get().asItem());
@@ -93,6 +77,48 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
         chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE);
         chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK);
+    }
+
+    private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+        ConditionalRecipe.builder().addCondition(condition).addRecipe(consumer1 -> recipe.save(consumer1, id)).generateAdvancement(new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())).build(consumer, id);
+    }
+
+    private static void woodSet(TagKey<Item> logs, Block planks, Block slab, Block stairs, Block log, Block wood, Block strippedLog, Block strippedWood, ItemLike boat, ItemLike chestBoat, Block button, Block door, Block trapdoor, Block fence, Block fenceGate, Block pressurePlate, Block sign, Block hangingSign, Consumer<FinishedRecipe> consumer) {
+        woodenBoat(consumer, boat, planks);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, chestBoat).group("chest_boat").requires(Tags.Items.CHESTS_WOODEN).requires(boat).unlockedBy(getHasName(boat), has(boat)).save(consumer, getSaveLocation(chestBoat));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, button).group("wooden_button").requires(planks).unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(button));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, door, 3).group("wooden_door").define('#', planks).pattern("##").pattern("##").pattern("##").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(door));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, fence, 3).group("wooden_fence").define('#', planks).define('S', Items.STICK).pattern("#S#").pattern("#S#").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(fence));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, fenceGate).group("wooden_fence_gate").define('#', planks).define('S', Items.STICK).pattern("S#S").pattern("S#S").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(fenceGate));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, pressurePlate).group("wooden_pressure_plate").define('#', planks).pattern("##").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(pressurePlate));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, sign, 3).group("wooden_sign").define('#', planks).define('S', Items.STICK).pattern("###").pattern("###").pattern(" S ").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(sign));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, trapdoor, 2).group("wooden_trapdoor").define('#', planks).pattern("###").pattern("###").unlockedBy(getHasName(planks), has(planks)).save(consumer, getSaveLocation(trapdoor));
+        hangingSign(consumer, hangingSign, strippedLog);
+        planksFromLogs(consumer, planks, logs, 4);
+        woodFromLogs(consumer, wood, log);
+        woodFromLogs(consumer, strippedWood, strippedLog);
+        slab(planks, slab, "wooden_slab", consumer);
+        stairs(planks, stairs, "wooden_stairs", consumer);
+    }
+
+    private static void stairs(ItemLike ingredient, ItemLike stairs, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairs, 4).define('#', ingredient).pattern("#  ").pattern("## ").pattern("###").unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(stairs)));
+    }
+
+    private static void stairs(ItemLike ingredient, ItemLike stairs, String group, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairs, 4).group(group).define('#', ingredient).pattern("#  ").pattern("## ").pattern("###").unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(stairs)));
+    }
+
+    private static void wall(ItemLike ingredient, ItemLike wall, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wall, 6).define('#', ingredient).pattern("###").pattern("###").unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(wall)));
+    }
+
+    private static void slab(ItemLike ingredient, ItemLike slab, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 6).define('#', ingredient).pattern("###").unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(slab)));
+    }
+
+    private static void slab(ItemLike ingredient, ItemLike slab, String group, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 6).group(group).define('#', ingredient).pattern("###").unlockedBy("has_" + getName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(slab)));
     }
 
     public ShapedRecipeBuilder door(Supplier<? extends Block> doorOut, Supplier<? extends Block> plankIn) {
@@ -186,5 +212,17 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {
         ChiselingBuilder.chiseling(from, to).save(consumer, modPrefix("chiseling/" + getItemName(to)));
+    }
+
+    private static String getName(ItemLike object) {
+        return ForgeRegistries.ITEMS.getKey(object.asItem()).getPath();
+    }
+
+    private static ResourceLocation getSaveLocation(ItemLike item) {
+        return ForgeRegistries.ITEMS.getKey(item.asItem());
+    }
+
+    private static ResourceLocation getSaveLocation(String name) {
+        return UnusualPrehistory2.modPrefix(name);
     }
 }

@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "wooden_slab",
   "key": {
-    "M": {
+    "#": {
       "item": "unusual_prehistory:ginkgo_planks"
     }
   },
   "pattern": [
-    "MMM"
+    "###"
   ],
   "result": {
     "count": 6,

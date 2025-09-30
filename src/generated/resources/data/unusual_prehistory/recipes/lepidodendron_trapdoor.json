@@ -1,14 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
+  "group": "wooden_trapdoor",
   "key": {
-    "P": {
+    "#": {
       "item": "unusual_prehistory:lepidodendron_planks"
     }
   },
   "pattern": [
-    "PPP",
-    "PPP"
+    "###",
+    "###"
   ],
   "result": {
     "count": 2,

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_mossy_lepidodendron_log": {
+    "has_ginkgo_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:mossy_lepidodendron_log"
+              "unusual_prehistory:ginkgo_planks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "unusual_prehistory:mossy_lepidodendron_wood"
+        "recipe": "unusual_prehistory:ginkgo_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_mossy_lepidodendron_log",
+      "has_ginkgo_planks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "unusual_prehistory:mossy_lepidodendron_wood"
+      "unusual_prehistory:ginkgo_sign"
     ]
   },
   "sends_telemetry_event": false

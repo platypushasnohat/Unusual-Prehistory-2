@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/plated_fossil"
+    "layer0": "unusual_prehistory:item/prickly_fossil"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/cranium_fossil"
+    "layer0": "unusual_prehistory:item/runner_fossil"
   }
 }

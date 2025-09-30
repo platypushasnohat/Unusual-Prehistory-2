@@ -29,15 +29,15 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
 
         this.tag(UP2ItemTags.FOSSILS).add(
-                HORN_FOSSIL.get(),
+                FURY_FOSSIL.get(),
                 BOOMERANG_FOSSIL.get(),
-                SWIFT_FOSSIL.get(),
-                PLATED_FOSSIL.get(),
+                RUNNER_FOSSIL.get(),
+                GUILLOTINE_FOSSIL.get(),
                 JAWLESS_FOSSIL.get(),
-                THAGOMIZER_FOSSIL.get(),
-                HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get(),
-                CRANIUM_FOSSIL.get(),
-                FOOTPRINT_FOSSIL.get(),
+                PRICKLY_FOSSIL.get(),
+                IMPERATIVE_FOSSIL.get(),
+                RUGOSE_FOSSIL.get(),
+                THERMAL_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
                 BARK_FOSSIL.get(),

@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
+  "group": "wooden_fence_gate",
   "key": {
-    "/": {
-      "tag": "forge:rods/wooden"
-    },
-    "M": {
+    "#": {
       "item": "unusual_prehistory:ginkgo_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "/M/",
-    "/M/"
+    "S#S",
+    "S#S"
   ],
   "result": {
     "item": "unusual_prehistory:ginkgo_fence_gate"

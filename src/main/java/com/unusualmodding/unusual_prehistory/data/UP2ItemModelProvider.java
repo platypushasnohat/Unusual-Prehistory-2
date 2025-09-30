@@ -38,17 +38,18 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);
 
-        this.item(HORN_FOSSIL);
+        this.item(FURY_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
-        this.item(SWIFT_FOSSIL);
-        this.item(PLATED_FOSSIL);
+        this.item(RUNNER_FOSSIL);
+        this.item(GUILLOTINE_FOSSIL);
         this.item(JAWLESS_FOSSIL);
-        this.item(THAGOMIZER_FOSSIL);
-        this.item(HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL);
-        this.item(CRANIUM_FOSSIL);
-        this.item(FOOTPRINT_FOSSIL);
+        this.item(PRICKLY_FOSSIL);
+        this.item(IMPERATIVE_FOSSIL);
+        this.item(RUGOSE_FOSSIL);
+        this.item(THERMAL_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
+        this.item(AGED_FEATHER);
 
         this.item(BARK_FOSSIL);
         this.item(BLOOMED_FOSSIL);

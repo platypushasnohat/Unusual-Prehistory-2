@@ -2,7 +2,7 @@
   "type": "unusual_prehistory:transmogrification",
   "experience": 1.0,
   "input": {
-    "item": "minecraft:feather"
+    "item": "unusual_prehistory:aged_feather"
   },
   "output": {
     "item": "unusual_prehistory:talpanas_egg"

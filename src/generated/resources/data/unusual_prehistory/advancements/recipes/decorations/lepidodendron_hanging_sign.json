@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_logs": {
+    "has_stripped_logs": {
       "conditions": {
         "items": [
           {
-            "tag": "unusual_prehistory:ginkgo_logs"
+            "items": [
+              "unusual_prehistory:stripped_lepidodendron_log"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "unusual_prehistory:ginkgo_planks"
+        "recipe": "unusual_prehistory:lepidodendron_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_logs",
+      "has_stripped_logs",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "unusual_prehistory:ginkgo_planks"
+      "unusual_prehistory:lepidodendron_hanging_sign"
     ]
   },
   "sends_telemetry_event": false

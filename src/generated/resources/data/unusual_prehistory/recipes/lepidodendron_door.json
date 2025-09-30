@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
+  "group": "wooden_door",
   "key": {
-    "P": {
+    "#": {
       "item": "unusual_prehistory:lepidodendron_planks"
     }
   },
   "pattern": [
-    "PP",
-    "PP",
-    "PP"
+    "##",
+    "##",
+    "##"
   ],
   "result": {
     "count": 3,

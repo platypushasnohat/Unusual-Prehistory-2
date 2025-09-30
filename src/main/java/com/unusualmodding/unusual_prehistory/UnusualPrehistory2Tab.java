@@ -37,10 +37,10 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(JAWLESS_FISH_SPAWN_EGG.get());
                         tabOutput.accept(JAWLESS_FISH_BUCKET.get());
                         tabOutput.accept(KENTROSAURUS_SPAWN_EGG.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
-                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
                         tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
+                        tabOutput.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         tabOutput.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         tabOutput.accept(MEGALANIA_SPAWN_EGG.get());
                         tabOutput.accept(STETHACANTHUS_SPAWN_EGG.get());
@@ -48,16 +48,17 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(TALPANAS_SPAWN_EGG.get());
                         tabOutput.accept(TELECREX_SPAWN_EGG.get());
 
-                        tabOutput.accept(HORN_FOSSIL.get());
+                        tabOutput.accept(FURY_FOSSIL.get());
                         tabOutput.accept(BOOMERANG_FOSSIL.get());
-                        tabOutput.accept(SWIFT_FOSSIL.get());
-                        tabOutput.accept(PLATED_FOSSIL.get());
+                        tabOutput.accept(RUNNER_FOSSIL.get());
+                        tabOutput.accept(GUILLOTINE_FOSSIL.get());
                         tabOutput.accept(JAWLESS_FOSSIL.get());
-                        tabOutput.accept(THAGOMIZER_FOSSIL.get());
-                        tabOutput.accept(HIPPOPOTOMONSTROSESQUIPPEDALIOPHOBIA_FOSSIL.get());
-                        tabOutput.accept(CRANIUM_FOSSIL.get());
-                        tabOutput.accept(FOOTPRINT_FOSSIL.get());
+                        tabOutput.accept(PRICKLY_FOSSIL.get());
+                        tabOutput.accept(IMPERATIVE_FOSSIL.get());
+                        tabOutput.accept(RUGOSE_FOSSIL.get());
+                        tabOutput.accept(THERMAL_FOSSIL.get());
                         tabOutput.accept(ANVIL_FOSSIL.get());
+                        tabOutput.accept(AGED_FEATHER.get());
                         tabOutput.accept(PLUMAGE_FOSSIL.get());
 
                         tabOutput.accept(UP2Blocks.CARNOTAURUS_EGG.get());

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/swift_fossil"
+    "layer0": "unusual_prehistory:item/guillotine_fossil"
   }
 }

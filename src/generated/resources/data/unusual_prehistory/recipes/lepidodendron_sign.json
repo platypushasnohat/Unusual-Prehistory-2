@@ -1,18 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "wooden_slab",
+  "category": "misc",
+  "group": "wooden_sign",
   "key": {
     "#": {
       "item": "unusual_prehistory:lepidodendron_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "###"
+    "###",
+    "###",
+    " S "
   ],
   "result": {
-    "count": 6,
-    "item": "unusual_prehistory:lepidodendron_slab"
+    "count": 3,
+    "item": "unusual_prehistory:lepidodendron_sign"
   },
   "show_notification": true
 }
