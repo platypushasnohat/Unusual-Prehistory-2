@@ -73,18 +73,17 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(TALPANAS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
 
-                        // plant dna
-                        tabOutput.accept(BENNETTITALES_DNA.get());
-                        tabOutput.accept(CALAMOPHYTON_DNA.get());
-                        tabOutput.accept(CLADOPHLEBIS_DNA.get());
-                        tabOutput.accept(COOKSONIA_DNA.get());
-                        tabOutput.accept(GINKGO_DNA.get());
-                        tabOutput.accept(HORSETAIL_DNA.get());
-                        tabOutput.accept(ISOETES_DNA.get());
-                        tabOutput.accept(LEEFRUCTUS_DNA.get());
-                        tabOutput.accept(LEPIDODENDRON_DNA.get());
-                        tabOutput.accept(RAIGUENRAYUN_DNA.get());
-                        tabOutput.accept(RHYNIA_DNA.get());
+                        tabOutput.accept(TRUNK_FOSSIL.get());
+                        tabOutput.accept(BARK_FOSSIL.get());
+                        tabOutput.accept(SPORE_FOSSIL.get());
+                        tabOutput.accept(SPINDLY_FOSSIL.get());
+                        tabOutput.accept(VASCULAR_FOSSIL.get());
+                        tabOutput.accept(LEAFY_FOSSIL.get());
+                        tabOutput.accept(FLOWERING_FOSSIL.get());
+                        tabOutput.accept(BLOOMED_FOSSIL.get());
+                        tabOutput.accept(FIBROUS_FOSSIL.get());
+                        tabOutput.accept(FAN_FOSSIL.get());
+                        tabOutput.accept(SAPLING_FOSSIL.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.BENNETTITALES.get());

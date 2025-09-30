@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricAquaticMob;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -26,6 +27,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -43,12 +46,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
-    private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.2F, 1.1F);
-    private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(2.2F, 2.1F);
+    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.4F, 0.4F);
+    private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
+    private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.7F, 1.98F);
 
-    public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState yawnAnimationState = new AnimationState();
+    public final AnimationState bitingAnimationState = new AnimationState();
+    public final AnimationState yawningAnimationState = new AnimationState();
+
+    private int yawningTimer = 0;
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -60,7 +65,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.5F)
                 .add(Attributes.ARMOR, 2.0D)
                 .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
@@ -69,8 +74,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new DunkleosteusPanicGoal(this));
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
-        this.goalSelector.addGoal(3, new AquaticLeapGoal(this, 10, 0.4D, 0.6D));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
+        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1.0D, 70, 20, 20, 0.02));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(0, new DunkleosteusHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new DunkleosteusNearestAttackableTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
@@ -82,6 +88,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
+            }
         } else {
             super.travel(travelVector);
         }
@@ -90,9 +99,20 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        if (this.getAttackState() == 1) {
-            this.yawnAnimationState.stop();
+        this.bitingAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        this.yawningAnimationState.animateWhen(this.isYawning(), this.tickCount);
+    }
+
+    @Override
+    public void setupAnimationCooldowns() {
+        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
+            if (!this.isYawning() && this.random.nextInt(600) == 0) {
+                this.setYawning(true);
+            }
+            if (this.isYawning() && this.yawningTimer++ > 40) {
+                this.yawningTimer = 0;
+                this.setYawning(false);
+            }
         }
     }
 
@@ -183,17 +203,31 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.setDunkSize(compoundTag.getInt("Size"));
     }
 
+    public boolean isYawning() {
+        return this.getFlag(16);
+    }
+
+    public void setYawning(boolean yawning) {
+        this.setFlag(16, yawning);
+    }
+
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (DUNK_SIZE.equals(accessor)) {
             this.refreshDimensions();
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0F * this.getDunkSize() + 10.0F);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0F * this.getDunkSize() + 6.0F);
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0F * this.getDunkSize() + 6.0F);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.0F - this.getDunkSize() * 0.07F);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0F * this.getDunkSize());
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0F * this.getDunkSize() + 3.0F);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F - this.getDunkSize() * 0.1F);
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.1F + this.getDunkSize() * 0.3F);
             this.heal(50.0F);
         }
         super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return super.isPushable() && this.getDunkSize() != 2;
     }
 
     public int getDunkSize() {

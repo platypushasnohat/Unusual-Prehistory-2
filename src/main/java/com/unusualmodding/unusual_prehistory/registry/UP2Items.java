@@ -29,19 +29,6 @@ public class UP2Items {
 
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
-    // plant dna
-    public static final RegistryObject<Item> BENNETTITALES_DNA = registerDnaItem("bennettitales");
-    public static final RegistryObject<Item> CALAMOPHYTON_DNA = registerDnaItem("calamophyton");
-    public static final RegistryObject<Item> CLADOPHLEBIS_DNA = registerDnaItem("cladophlebis");
-    public static final RegistryObject<Item> COOKSONIA_DNA = registerDnaItem("cooksonia");
-    public static final RegistryObject<Item> GINKGO_DNA = registerDnaItem("ginkgo");
-    public static final RegistryObject<Item> HORSETAIL_DNA = registerDnaItem("horsetail");
-    public static final RegistryObject<Item> ISOETES_DNA = registerDnaItem("isoetes");
-    public static final RegistryObject<Item> LEEFRUCTUS_DNA = registerDnaItem("leefructus");
-    public static final RegistryObject<Item> LEPIDODENDRON_DNA = registerDnaItem("lepidodendron");
-    public static final RegistryObject<Item> RAIGUENRAYUN_DNA = registerDnaItem("raiguenrayun");
-    public static final RegistryObject<Item> RHYNIA_DNA = registerDnaItem("rhynia");
-
     // carnotaurus
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
     public static final RegistryObject<Item> HORN_FOSSIL = registerFossilItem("horn");
@@ -98,6 +85,19 @@ public class UP2Items {
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x121018, 0x770f38);
     public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage");
+
+    // plant fossils
+    public static final RegistryObject<Item> BARK_FOSSIL = registerFossilItem("bark");
+    public static final RegistryObject<Item> BLOOMED_FOSSIL = registerFossilItem("bloomed");
+    public static final RegistryObject<Item> FAN_FOSSIL = registerFossilItem("fan");
+    public static final RegistryObject<Item> FIBROUS_FOSSIL = registerFossilItem("fibrous");
+    public static final RegistryObject<Item> FLOWERING_FOSSIL = registerFossilItem("flowering");
+    public static final RegistryObject<Item> LEAFY_FOSSIL = registerFossilItem("leafy");
+    public static final RegistryObject<Item> SAPLING_FOSSIL = registerFossilItem("sapling");
+    public static final RegistryObject<Item> SPINDLY_FOSSIL = registerFossilItem("spindly");
+    public static final RegistryObject<Item> SPORE_FOSSIL = registerFossilItem("spore");
+    public static final RegistryObject<Item> TRUNK_FOSSIL = registerFossilItem("trunk");
+    public static final RegistryObject<Item> VASCULAR_FOSSIL = registerFossilItem("vascular");
 
     // wood
     public static final RegistryObject<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_WALL_SIGN.get()));

@@ -13,6 +13,17 @@ public class DunkleosteusAttackGoal extends AttackGoal {
             this.dunkleosteus = dunkleosteus;
         }
 
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.dunkleosteus.getTarget().isInWater();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dunkleosteus.getTarget().isInWater();
+        }
+
+        @Override
         public void tick() {
             LivingEntity target = this.dunkleosteus.getTarget();
             if (target != null) {
@@ -21,7 +32,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                 double distance = this.dunkleosteus.distanceToSqr(target.getX(), target.getY(), target.getZ());
                 int attackState = this.dunkleosteus.getAttackState();
 
-                this.dunkleosteus.getNavigation().moveTo(target, 1.5D);
+                this.dunkleosteus.getNavigation().moveTo(target, 1.3D);
                 if (distance <= getAttackReachSqr(target)) {
                     this.dunkleosteus.setAttackState(1);
                 }
@@ -33,7 +44,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                             this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                         }
                     }
-                    if (timer >= 8) {
+                    if (timer >= 26) {
                         timer = 0;
                         this.dunkleosteus.setAttackState(0);
                     }

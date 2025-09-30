@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.google.common.collect.Lists;
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
@@ -119,6 +120,15 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
                 blockEntity.assembleRecipe(level, input, recipe);
             }
         }
+        if (blockEntity.isTransmogrifying() && !blockEntity.isRemoved() && level.isClientSide()) {
+            UnusualPrehistory2.PROXY.playWorldSound(blockEntity, (byte) 0);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
+        super.setRemoved();
     }
 
     protected Optional<TransmogrificationRecipe> getRecipeFor(Level level, Container input) {
@@ -388,5 +398,9 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     @Override
     public Recipe<?> getRecipeUsed() {
         return null;
+    }
+
+    public boolean isTransmogrifying() {
+        return progress > 0;
     }
 }

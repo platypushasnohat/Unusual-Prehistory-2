@@ -7,7 +7,7 @@ public class DunkleosteusPanicGoal extends LargePanicGoal {
     private final Dunkleosteus dunkleosteus;
 
     public DunkleosteusPanicGoal(Dunkleosteus dunkleosteus) {
-        super(dunkleosteus, 1.5D);
+        super(dunkleosteus, 1.3D);
         this.dunkleosteus = dunkleosteus;
     }
 

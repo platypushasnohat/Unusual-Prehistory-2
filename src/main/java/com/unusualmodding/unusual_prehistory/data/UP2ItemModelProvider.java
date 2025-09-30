@@ -33,19 +33,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(DIPLOCAULUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
 
-        // plant dna
-        this.dnaItem(BENNETTITALES_DNA);
-        this.dnaItem(CALAMOPHYTON_DNA);
-        this.dnaItem(CLADOPHLEBIS_DNA);
-        this.dnaItem(COOKSONIA_DNA);
-        this.dnaItem(GINKGO_DNA);
-        this.dnaItem(HORSETAIL_DNA);
-        this.dnaItem(ISOETES_DNA);
-        this.dnaItem(LEEFRUCTUS_DNA);
-        this.dnaItem(LEPIDODENDRON_DNA);
-        this.dnaItem(RAIGUENRAYUN_DNA);
-        this.dnaItem(RHYNIA_DNA);
-
         // eggs
         this.item(DROMAEOSAURUS_EGG);
         this.item(TALPANAS_EGG);
@@ -62,6 +49,18 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(FOOTPRINT_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
+
+        this.item(BARK_FOSSIL);
+        this.item(BLOOMED_FOSSIL);
+        this.item(FAN_FOSSIL);
+        this.item(FIBROUS_FOSSIL);
+        this.item(FLOWERING_FOSSIL);
+        this.item(LEAFY_FOSSIL);
+        this.item(SAPLING_FOSSIL);
+        this.item(SPINDLY_FOSSIL);
+        this.item(SPORE_FOSSIL);
+        this.item(TRUNK_FOSSIL);
+        this.item(VASCULAR_FOSSIL);
 
         this.item(GINKGO_SIGN);
         this.item(GINKGO_HANGING_SIGN);

@@ -6,9 +6,11 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +53,7 @@ public class JawlessFish extends SchoolingAquaticMob {
 
     @Override
     public int getMaxSchoolSize() {
-        return 24;
+        return 12;
     }
 
     @Override
@@ -59,6 +62,9 @@ public class JawlessFish extends SchoolingAquaticMob {
             this.moveRelative(this.getSpeed(), pTravelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
+            }
         } else {
             super.travel(pTravelVector);
         }
@@ -102,12 +108,45 @@ public class JawlessFish extends SchoolingAquaticMob {
         return jawlessFish;
     }
 
-    public String getVariantName() {
-        return switch (this.getVariant()) {
-            case 1 -> "doryaspis";
-            case 2 -> "furcacauda";
-            case 3 -> "sacabambaspis";
-            default -> "cephalaspis";
-        };
+    public enum JawlessFishVariant {
+        ARANDASPIS(0),
+        CEPHALASPIS(1),
+        DORYASPIS(2),
+        FURCACAUDA(3),
+        SACABAMBASPIS(4);
+
+        private final int variant;
+
+        JawlessFishVariant(int variant) {
+            this.variant = variant;
+        }
+
+        public int getId() {
+            return this.variant;
+        }
+
+        public static JawlessFishVariant byId(int id) {
+            if (id < 0 || id >= JawlessFishVariant.values().length) {
+                id = 0;
+            }
+            return JawlessFishVariant.values()[id];
+        }
+    }
+
+    @Override
+    public int getVariantCount() {
+        return JawlessFishVariant.values().length;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
+        if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(compoundTag.getInt("BucketVariantTag"));
+        } else {
+            this.setVariant(random.nextInt(JawlessFishVariant.values().length));
+        }
+        return spawnGroupData;
     }
 }

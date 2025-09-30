@@ -39,7 +39,18 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CRANIUM_FOSSIL.get(),
                 FOOTPRINT_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
-                PLUMAGE_FOSSIL.get()
+                PLUMAGE_FOSSIL.get(),
+                BARK_FOSSIL.get(),
+                BLOOMED_FOSSIL.get(),
+                FAN_FOSSIL.get(),
+                FIBROUS_FOSSIL.get(),
+                FLOWERING_FOSSIL.get(),
+                LEAFY_FOSSIL.get(),
+                SAPLING_FOSSIL.get(),
+                SPINDLY_FOSSIL.get(),
+                SPORE_FOSSIL.get(),
+                TRUNK_FOSSIL.get(),
+                VASCULAR_FOSSIL.get()
         );
 
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(

@@ -56,19 +56,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.BOAT);
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
-        // plant dna
-        this.dnaItem(UP2Items.BENNETTITALES_DNA.get());
-        this.dnaItem(UP2Items.CALAMOPHYTON_DNA.get());
-        this.dnaItem(UP2Items.CLADOPHLEBIS_DNA.get());
-        this.dnaItem(UP2Items.COOKSONIA_DNA.get());
-        this.dnaItem(UP2Items.GINKGO_DNA.get());
-        this.dnaItem(UP2Items.HORSETAIL_DNA.get());
-        this.dnaItem(UP2Items.ISOETES_DNA.get());
-        this.dnaItem(UP2Items.LEEFRUCTUS_DNA.get());
-        this.dnaItem(UP2Items.LEPIDODENDRON_DNA.get());
-        this.dnaItem(UP2Items.RAIGUENRAYUN_DNA.get());
-        this.dnaItem(UP2Items.RHYNIA_DNA.get());
-
         this.addItem(UP2Items.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
 
@@ -134,6 +121,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
         this.sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
+
+        this.sound(UP2SoundEvents.TRANSMOGRIFYING, "Transmogrifying");
 
         // kimmeridgebrachypteraeschnidium bottle
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");
@@ -232,9 +221,5 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
         add("subtitles." + key.get().getLocation().getPath(), subtitle);
-    }
-
-    private void dnaItem(Item... items) {
-        List.of(items).forEach((item -> this.add(item, "Bottle of " + format(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item))).replace(" Dna Bottle", "") + " DNA")));
     }
 }

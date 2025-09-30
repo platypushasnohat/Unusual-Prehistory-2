@@ -10,6 +10,17 @@
     "unusual_prehistory:cranium_fossil",
     "unusual_prehistory:footprint_fossil",
     "unusual_prehistory:anvil_fossil",
-    "unusual_prehistory:plumage_fossil"
+    "unusual_prehistory:plumage_fossil",
+    "unusual_prehistory:bark_fossil",
+    "unusual_prehistory:bloomed_fossil",
+    "unusual_prehistory:fan_fossil",
+    "unusual_prehistory:fibrous_fossil",
+    "unusual_prehistory:flowering_fossil",
+    "unusual_prehistory:leafy_fossil",
+    "unusual_prehistory:sapling_fossil",
+    "unusual_prehistory:spindly_fossil",
+    "unusual_prehistory:spore_fossil",
+    "unusual_prehistory:trunk_fossil",
+    "unusual_prehistory:vascular_fossil"
   ]
 }

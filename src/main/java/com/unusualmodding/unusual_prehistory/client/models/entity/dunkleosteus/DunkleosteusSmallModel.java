@@ -76,8 +76,8 @@ public class DunkleosteusSmallModel extends HierarchicalModel<Dunkleosteus> {
 
 		this.animate(entity.swimmingAnimationState, DunkleosteusSmallAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
 		this.animate(entity.floppingAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
-		this.animate(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK, ageInTicks);
-		this.animate(entity.yawnAnimationState, DunkleosteusSmallAnimations.YAWN, ageInTicks);
+		this.animate(entity.bitingAnimationState, DunkleosteusSmallAnimations.ATTACK, ageInTicks);
+		this.animate(entity.yawningAnimationState, DunkleosteusSmallAnimations.YAWN, ageInTicks);
 
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 		this.root.zRot += landProgress * ((float) Math.toRadians(90) / 5F);

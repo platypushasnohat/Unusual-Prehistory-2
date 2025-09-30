@@ -33,11 +33,18 @@ public class FurcacaudaModel extends HierarchicalModel<JawlessFish> {
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
+
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+
 		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.25F, -3.0F, -1.5F));
-		PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.75F, -1.0F, -1.0F, 3.0F, 4.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(20, -1).addBox(-0.25F, -3.0F, 1.0F, 0.0F, 8.0F, 1.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, -1.0F, -1.5F));
+
+		PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.75F, -1.0F, -1.0F, 3.0F, 4.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(20, -1).addBox(-0.25F, -3.0F, 1.0F, 0.0F, 8.0F, 1.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, -1.0F, -1.5F));
+
 		PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 5).addBox(0.25F, -3.0F, 0.0F, 0.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 1.0F, 3.0F));
+
 		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(10, 6).addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.25F, 0.0F, 1.0F));
+
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 

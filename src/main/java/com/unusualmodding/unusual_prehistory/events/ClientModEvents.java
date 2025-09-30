@@ -72,6 +72,7 @@ public class ClientModEvents {
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(UP2EntityModelLayers.ARANDASPIS, ArandaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.CARNOTAURUS, CarnotaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.CEPHALASPIS, CephalaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS, DiplocaulusBrevirostrisModel::createBodyLayer);

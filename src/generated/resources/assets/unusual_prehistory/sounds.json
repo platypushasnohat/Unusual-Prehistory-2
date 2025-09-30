@@ -24,6 +24,7 @@
   "carnotaurus_roar": {
     "sounds": [
       {
+        "attenuation_distance": 32,
         "name": "unusual_prehistory:entity/carnotaurus/roar1",
         "pitch": 0.9
       }
@@ -283,8 +284,9 @@
   "kimmeridgebrachypteraeschnidium_loop": {
     "sounds": [
       {
+        "attenuation_distance": 10,
         "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/loop1",
-        "volume": 0.3
+        "volume": 0.5
       }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_loop"
@@ -476,6 +478,15 @@
       "unusual_prehistory:entity/telecrex/idle4"
     ],
     "subtitle": "subtitles.telecrex_idle"
+  },
+  "transmogrifying": {
+    "sounds": [
+      {
+        "attenuation_distance": 10,
+        "name": "unusual_prehistory:block/transmogrifier/transmogrifying"
+      }
+    ],
+    "subtitle": "subtitles.transmogrifying"
   },
   "unicorn_death": {
     "sounds": [

@@ -2,7 +2,7 @@
   "type": "unusual_prehistory:transmogrification",
   "experience": 1.0,
   "input": {
-    "item": "unusual_prehistory:rhynia_dna_bottle"
+    "item": "unusual_prehistory:fibrous_fossil"
   },
   "output": {
     "item": "unusual_prehistory:rhynia"

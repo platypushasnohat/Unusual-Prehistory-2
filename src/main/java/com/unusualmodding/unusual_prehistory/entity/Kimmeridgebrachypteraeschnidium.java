@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
@@ -111,6 +112,20 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (level().isClientSide && isAlive()) {
+            UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
+        }
+    }
+
+    @Override
+    public void remove(Entity.RemovalReason removalReason) {
+        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
+        super.remove(removalReason);
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
         if (heldItem.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
@@ -134,6 +149,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         return super.mobInteract(player, hand);
     }
 
+    @Override
     public boolean refuseToMove() {
         return false;
     }
@@ -372,7 +388,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     protected float getSoundVolume() {
-        return 0.3F;
+        return 0.5F;
     }
 
     @Override

@@ -52,6 +52,15 @@ public class Talpanas extends BreedableMob {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -63,8 +72,8 @@ public class Talpanas extends BreedableMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 3.0F, 1.4D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.4D, 1.4D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 3.0F, 1.25D, 1.25D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.25D, 1.25D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
         this.goalSelector.addGoal(3, new TalpanasFleeLightGoal(this));
         this.goalSelector.addGoal(4, new TalpanasSeekShelterGoal(this));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
