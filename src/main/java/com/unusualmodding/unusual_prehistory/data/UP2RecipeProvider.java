@@ -78,9 +78,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         chiseling(consumer, Blocks.STONE_SLAB, Blocks.STONE_BRICK_SLAB);
 
         chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
-        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
-        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
-        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
 
         chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
         chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
