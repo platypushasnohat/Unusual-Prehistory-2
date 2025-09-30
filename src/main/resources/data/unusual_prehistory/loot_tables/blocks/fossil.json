@@ -9,6 +9,41 @@
           "children": [
             {
               "type": "minecraft:item",
+              "functions": [
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "unusual_prehistory:fossil",
+                  "properties": [
+                    "dusted"
+                  ]
+                },
+                {
+                  "function": "minecraft:copy_nbt",
+                  "source": "block_entity",
+                  "ops": [
+                    {
+                      "source": "chisel_count",
+                      "target": "BlockEntityTag.chisel_count",
+                      "op": "replace"
+                    },
+                    {
+                      "source": "item",
+                      "target": "BlockEntityTag.item",
+                      "op": "replace"
+                    },
+                    {
+                      "op": "replace",
+                      "source": "LootTable",
+                      "target": "BlockEntityTag.LootTable"
+                    },
+                    {
+                      "op": "replace",
+                      "source": "LootTableSeed",
+                      "target": "BlockEntityTag.LootTableSeed"
+                    }
+                  ]
+                }
+              ],
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -28,51 +63,20 @@
             },
             {
               "type": "minecraft:item",
-              "weight": 3,
-              "functions": [
+              "functions": [],
+              "conditions": [
                 {
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops",
-                  "function": "minecraft:apply_bonus"
-                },
-                {
-                  "function": "minecraft:explosion_decay"
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:block_state_property",
+                    "block": "unusual_prehistory:fossil",
+                    "properties": {
+                      "dusted": "3"
+                    }
+                  }
                 }
               ],
-              "name": "unusual_prehistory:mesozoic_fossil"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:plant_fossil",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:explosion_decay"
-            },
-            {
-              "function": "minecraft:apply_bonus",
-              "enchantment": "minecraft:fortune",
-              "formula": "minecraft:ore_drops"
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:inverted",
-              "term": {
-                "condition": "minecraft:match_tool",
-                "predicate": {
-                  "enchantments": [
-                    {
-                      "enchantment": "minecraft:silk_touch",
-                      "levels": {
-                        "min": 1
-                      }
-                    }
-                  ]
-                }
-              }
+              "name": "minecraft:cobblestone"
             }
           ]
         }

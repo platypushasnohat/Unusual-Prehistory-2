@@ -1,35 +1,24 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
-import com.google.common.collect.Lists;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -39,10 +28,9 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
-public class TransmogrifierBlockEntity extends SyncedBlockEntity implements MenuProvider, WorldlyContainer, RecipeHolder {
+public class TransmogrifierBlockEntity extends SyncedBlockEntity implements MenuProvider, WorldlyContainer {
 
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
@@ -59,17 +47,15 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     protected final ContainerData data;
 
     private final RecipeType<TransmogrificationRecipe> recipeType;
-    private final Object2IntOpenHashMap<ResourceLocation> usedRecipeTracker;
 
     private int progress;
     private int maxProgress;
 
     private int fuel = 0;
-    private int maxFuel = 1800;
+    private int maxFuel = 800;
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
         super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);
-        this.usedRecipeTracker = new Object2IntOpenHashMap<>();
         this.recipeType = UP2RecipeTypes.TRANSMOGRIFICATION.get();
         this.data = new ContainerData() {
             @Override
@@ -255,9 +241,6 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
         super.saveAdditional(compoundTag);
         compoundTag.put("Inventory", inventory.serializeNBT());
         compoundTag.putInt("Progress", progress);
-        CompoundTag compoundRecipes = new CompoundTag();
-        usedRecipeTracker.forEach((recipeId, craftedAmount) -> compoundRecipes.putInt(recipeId.toString(), craftedAmount));
-        compoundTag.put("RecipesUsed", compoundRecipes);
     }
 
     @Override
@@ -265,10 +248,6 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
         super.load(compoundTag);
         inventory.deserializeNBT(compoundTag.getCompound("Inventory"));
         progress = compoundTag.getInt("Progress");
-        CompoundTag compoundRecipes = compoundTag.getCompound("RecipesUsed");
-        for (String key : compoundRecipes.getAllKeys()) {
-            usedRecipeTracker.put(new ResourceLocation(key), compoundRecipes.getInt(key));
-        }
     }
 
     @Override
@@ -345,59 +324,6 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     @Override
     public void clearContent() {
         this.inventory.setSize(3);
-    }
-
-    @Override
-    public void awardUsedRecipes(Player player, List<ItemStack> items) {
-        List<Recipe<?>> usedRecipes = getUsedRecipesAndPopExperience(player.level(), player.position());
-        player.awardRecipes(usedRecipes);
-        usedRecipeTracker.clear();
-    }
-
-    public List<Recipe<?>> getUsedRecipesAndPopExperience(Level level, Vec3 pos) {
-        List<Recipe<?>> list = Lists.newArrayList();
-
-        for (Object2IntMap.Entry<ResourceLocation> entry : usedRecipeTracker.object2IntEntrySet()) {
-            level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
-                list.add(recipe);
-                splitAndSpawnExperience((ServerLevel) level, pos, entry.getIntValue(), ((TransmogrificationRecipe) recipe).getExperience());
-            });
-        }
-
-        return list;
-    }
-
-    private static void splitAndSpawnExperience(ServerLevel level, Vec3 pos, int craftedAmount, float experience) {
-        int expTotal = Mth.floor((float) craftedAmount * experience);
-        float expFraction = Mth.frac((float) craftedAmount * experience);
-        if (expFraction != 0.0F && Math.random() < (double) expFraction) {
-            ++expTotal;
-        }
-        ExperienceOrb.award(level, pos, expTotal);
-    }
-
-    public NonNullList<ItemStack> getDroppableInventory() {
-        NonNullList<ItemStack> drops = NonNullList.create();
-        for (int i = 0; i < 2; ++i) {
-            if (i != 2) {
-                drops.add(inventory.getStackInSlot(i));
-            }
-        }
-        return drops;
-    }
-
-    @Override
-    public void setRecipeUsed(@Nullable Recipe<?> recipe) {
-        if (recipe != null) {
-            ResourceLocation recipeID = recipe.getId();
-            usedRecipeTracker.addTo(recipeID, 1);
-        }
-    }
-
-    @Nullable
-    @Override
-    public Recipe<?> getRecipeUsed() {
-        return null;
     }
 
     public boolean isTransmogrifying() {

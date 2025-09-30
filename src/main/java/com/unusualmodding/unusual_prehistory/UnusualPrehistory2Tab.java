@@ -21,8 +21,8 @@ public class UnusualPrehistory2Tab {
 
                         tabOutput.accept(CHISEL.get());
 
-                        tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
                         tabOutput.accept(UP2Blocks.FOSSIL.get());
+                        tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
 
                         tabOutput.accept(ORGANIC_OOZE.get());
 

@@ -37,6 +37,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(MISC, UP2Items.CHISEL.get()).define('#', Tags.Items.INGOTS_IRON).define('X', Tags.Items.LEATHER).define('Y', Tags.Items.RODS_WOODEN).pattern("#").pattern("X").pattern("Y").unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON)).save(consumer);
+
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.TRANSMOGRIFIER_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.TRANSMOGRIFIER_FUEL)).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
@@ -44,34 +46,42 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         woodSet(UP2ItemTags.GINKGO_LOGS, GINKGO_PLANKS.get(), GINKGO_SLAB.get(), GINKGO_STAIRS.get(), GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(), UP2Items.GINKGO_BOAT.get(), UP2Items.GINKGO_CHEST_BOAT.get(), GINKGO_BUTTON.get(), GINKGO_DOOR.get(), GINKGO_TRAPDOOR.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_HANGING_SIGN.get(), consumer);
         woodSet(UP2ItemTags.LEPIDODENDRON_LOGS, LEPIDODENDRON_PLANKS.get(), LEPIDODENDRON_SLAB.get(), LEPIDODENDRON_STAIRS.get(), LEPIDODENDRON_LOG.get(), LEPIDODENDRON_WOOD.get(), STRIPPED_LEPIDODENDRON_LOG.get(), STRIPPED_LEPIDODENDRON_WOOD.get(), UP2Items.LEPIDODENDRON_BOAT.get(), UP2Items.LEPIDODENDRON_CHEST_BOAT.get(), LEPIDODENDRON_BUTTON.get(), LEPIDODENDRON_DOOR.get(), LEPIDODENDRON_TRAPDOOR.get(), LEPIDODENDRON_FENCE.get(), LEPIDODENDRON_FENCE_GATE.get(), LEPIDODENDRON_PRESSURE_PLATE.get(), UP2Blocks.LEPIDODENDRON_SIGN.get(), UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), consumer);
 
-        transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem());
-        transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem());
-        transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem());
-        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Blocks.STETHACANTHUS_SAC.get().asItem());
+        transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), UP2Blocks.DIPLOCAULUS_EGGS.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), UP2Blocks.JAWLESS_FISH_ROE.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), UP2Blocks.STETHACANTHUS_SAC.get().asItem(), 1200);
 
-        transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get());
-        transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), UP2Blocks.MEGALANIA_EGG.get().asItem());
-        transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get());
-        transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get());
+        transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), UP2Blocks.CARNOTAURUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
+        transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), UP2Blocks.KENTROSAURUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), UP2Blocks.MAJUNGASAURUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), UP2Blocks.MEGALANIA_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
+        transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
 
-        transmogrification(consumer, UP2Items.TRUNK_FOSSIL.get(), UP2Blocks.BENNETTITALES.get().asItem());
-        transmogrification(consumer, UP2Items.BARK_FOSSIL.get(), UP2Blocks.CALAMOPHYTON.get().asItem());
-        transmogrification(consumer, UP2Items.SPORE_FOSSIL.get(), UP2Blocks.CLADOPHLEBIS.get().asItem());
-        transmogrification(consumer, UP2Items.SPINDLY_FOSSIL.get(), UP2Blocks.COOKSONIA.get().asItem());
-        transmogrification(consumer, UP2Items.FAN_FOSSIL.get(), UP2Blocks.GINKGO_SAPLING.get().asItem());
-        transmogrification(consumer, UP2Items.VASCULAR_FOSSIL.get(), UP2Blocks.HORSETAIL.get().asItem());
-        transmogrification(consumer, UP2Items.LEAFY_FOSSIL.get(), UP2Blocks.ISOETES.get().asItem());
-        transmogrification(consumer, UP2Items.FLOWERING_FOSSIL.get(), UP2Blocks.LEEFRUCTUS.get().asItem());
-        transmogrification(consumer, UP2Items.SAPLING_FOSSIL.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem());
-        transmogrification(consumer, UP2Items.BLOOMED_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem());
-        transmogrification(consumer, UP2Items.FIBROUS_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem());
+        transmogrification(consumer, UP2Items.TRUNK_FOSSIL.get(), UP2Blocks.BENNETTITALES.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.BARK_FOSSIL.get(), UP2Blocks.CALAMOPHYTON.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SPORE_FOSSIL.get(), UP2Blocks.CLADOPHLEBIS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SPINDLY_FOSSIL.get(), UP2Blocks.COOKSONIA.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.FAN_FOSSIL.get(), UP2Blocks.GINKGO_SAPLING.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.VASCULAR_FOSSIL.get(), UP2Blocks.HORSETAIL.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.LEAFY_FOSSIL.get(), UP2Blocks.ISOETES.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.FLOWERING_FOSSIL.get(), UP2Blocks.LEEFRUCTUS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SAPLING_FOSSIL.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.BLOOMED_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.FIBROUS_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem(), 600);
 
+        chiseling(consumer, Blocks.STONE, Blocks.STONE_BRICKS);
         chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
+        chiseling(consumer, Blocks.STONE_STAIRS, Blocks.STONE_BRICK_STAIRS);
+        chiseling(consumer, Blocks.STONE_SLAB, Blocks.STONE_BRICK_SLAB);
+
         chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+
         chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
         chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
         chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
@@ -200,14 +210,9 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(logIn.get()).getPath(), has(logIn.get()));
     }
 
-    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime, float experience) {
+    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime) {
         Ingredient ingredient = Ingredient.of(input);
-        TransmogrificationBuilder.transmogrification(ingredient, result, processingTime, experience).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
-    }
-
-    protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result) {
-        Ingredient ingredient = Ingredient.of(input);
-        TransmogrificationBuilder.transmogrification(ingredient, result, 3600, 1.0F).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
+        TransmogrificationBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
     }
 
     protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {

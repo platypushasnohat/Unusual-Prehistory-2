@@ -1,20 +1,16 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.mojang.logging.LogUtils;
-import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.blocks.SuspiciousStoneBlock;
+import com.unusualmodding.unusual_prehistory.blocks.FossilBlock;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -30,37 +26,27 @@ import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
-public class SuspiciousStoneBlockEntity extends BlockEntity {
+public class FossilBlockEntity extends BlockEntity {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     private int chiselCount;
-    private long chiselCountResetsAtTick;
     private long coolDownEndsAtTick;
     private ItemStack item = ItemStack.EMPTY;
-    @Nullable
-    private Direction hitDirection;
     @Nullable
     private ResourceLocation lootTable;
     private long lootTableSeed;
 
-    public SuspiciousStoneBlockEntity(BlockPos pos, BlockState state) {
-        super(UP2BlockEntities.SUSPICIOUS_STONE.get(), pos, state);
+    public FossilBlockEntity(BlockPos pos, BlockState state) {
+        super(UP2BlockEntities.FOSSIL.get(), pos, state);
     }
 
-    public boolean chisel(long l, Player player, Direction direction) {
-        if (this.hitDirection == null) {
-            this.hitDirection = direction;
-        }
-
-        this.chiselCountResetsAtTick = l + 40L;
+    public boolean chisel(long l) {
         if (l >= this.coolDownEndsAtTick && this.level instanceof ServerLevel) {
             this.coolDownEndsAtTick = l + 10L;
-            this.unpackLootTable(player);
             int i = this.getCompletionState();
-            if (++this.chiselCount >= 10) {
-                this.chiselingCompleted(player);
+            if (this.chiselCount++ >= 11) {
+                this.chiselingCompleted();
                 return true;
             } else {
                 this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 40);
@@ -92,7 +78,7 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
                 case 0 -> ItemStack.EMPTY;
                 case 1 -> objectarraylist.get(0);
                 default -> {
-                    LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectarraylist.size());
+                    LOGGER.warn("Expected max 1 loot from loot table {} got {}", this.lootTable, objectarraylist.size());
                     yield objectarraylist.get(0);
                 }
             };;
@@ -101,15 +87,13 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
         }
     }
 
-    private void chiselingCompleted(Player player) {
+    private void chiselingCompleted() {
         if (this.level != null && this.level.getServer() != null) {
-            this.dropContent(player);
             BlockState blockstate = this.getBlockState();
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             Block block = this.getBlockState().getBlock();
             Block block1;
-            if (block instanceof SuspiciousStoneBlock) {
-                SuspiciousStoneBlock suspiciousStoneBlock = (SuspiciousStoneBlock) block;
+            if (block instanceof FossilBlock suspiciousStoneBlock) {
                 block1 = suspiciousStoneBlock.getTurnsInto();
             } else {
                 block1 = Blocks.AIR;
@@ -118,44 +102,12 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
         }
     }
 
-    private void dropContent(Player player) {
+    public void dropContent(Player player) {
         if (this.level != null && this.level.getServer() != null) {
             this.unpackLootTable(player);
             if (!this.item.isEmpty()) {
-                double d0 = EntityType.ITEM.getWidth();
-                double d1 = 1.0D - d0;
-                double d2 = d0 / 2.0D;
-                Direction direction = Objects.requireNonNullElse(this.hitDirection, Direction.UP);
-                BlockPos blockpos = this.worldPosition.relative(direction, 1);
-                double d3 = (double) blockpos.getX() + 0.5D * d1 + d2;
-                double d4 = (double) blockpos.getY() + 0.5D + (double)(EntityType.ITEM.getHeight() / 2.0F);
-                double d5 = (double) blockpos.getZ() + 0.5D * d1 + d2;
-                ItemEntity itementity = new ItemEntity(this.level, d3, d4, d5, this.item.split(this.level.random.nextInt(21) + 10));
-                itementity.setDeltaMovement(Vec3.ZERO);
-                this.level.addFreshEntity(itementity);
+                Block.popResource(this.level, this.worldPosition, this.item);
                 this.item = ItemStack.EMPTY;
-            }
-        }
-    }
-
-    public void checkReset() {
-        if (this.level != null) {
-            if (this.chiselCount != 0 && this.level.getGameTime() >= this.chiselCountResetsAtTick) {
-                int i = this.getCompletionState();
-                this.chiselCount = Math.max(0, this.chiselCount - 2);
-                int j = this.getCompletionState();
-                if (i != j) {
-                    this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j), 3);
-                }
-                this.chiselCountResetsAtTick = this.level.getGameTime() + 4L;
-            }
-
-            if (this.chiselCount == 0) {
-                this.hitDirection = null;
-                this.chiselCountResetsAtTick = 0L;
-                this.coolDownEndsAtTick = 0L;
-            } else {
-                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), (int) (this.chiselCountResetsAtTick - this.level.getGameTime()));
             }
         }
     }
@@ -185,11 +137,8 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag compoundtag = super.getUpdateTag();
-        if (this.hitDirection != null) {
-            compoundtag.putInt("hit_direction", this.hitDirection.ordinal());
-        }
-
         compoundtag.put("item", this.item.save(new CompoundTag()));
+        compoundtag.putInt("chisel_count", this.chiselCount);
         return compoundtag;
     }
 
@@ -203,9 +152,7 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
         if (!this.tryLoadLootTable(compoundTag) && compoundTag.contains("item")) {
             this.item = ItemStack.of(compoundTag.getCompound("item"));
         }
-        if (compoundTag.contains("hit_direction")) {
-            this.hitDirection = Direction.values()[compoundTag.getInt("hit_direction")];
-        }
+        this.chiselCount = compoundTag.getInt("chisel_count");
     }
 
     @Override
@@ -213,6 +160,7 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
         if (!this.trySaveLootTable(compoundTag)) {
             compoundTag.put("item", this.item.save(new CompoundTag()));
         }
+        compoundTag.putInt("chisel_count", this.chiselCount);
     }
 
     public void setLootTable(ResourceLocation resourceLocation, long lootTableSeed) {
@@ -223,16 +171,11 @@ public class SuspiciousStoneBlockEntity extends BlockEntity {
     private int getCompletionState() {
         if (this.chiselCount == 0) {
             return 0;
-        } else if (this.chiselCount < 3) {
+        } else if (this.chiselCount < 4) {
             return 1;
         } else {
-            return this.chiselCount < 6 ? 2 : 3;
+            return this.chiselCount < 8 ? 2 : 3;
         }
-    }
-
-    @Nullable
-    public Direction getHitDirection() {
-        return this.hitDirection;
     }
 
     public ItemStack getItem() {

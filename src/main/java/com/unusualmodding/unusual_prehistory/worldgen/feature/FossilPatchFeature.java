@@ -2,13 +2,11 @@ package com.unusualmodding.unusual_prehistory.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.BulkSectionAccess;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -138,6 +136,6 @@ public class FossilPatchFeature extends OreFeature {
 
     private static void placeSusStone(WorldGenLevel level, BlockPos pos, BlockState state) {
         level.setBlock(pos, state, 3);
-        level.getBlockEntity(pos, UP2BlockEntities.SUSPICIOUS_STONE.get()).ifPresent((blockEntity) -> blockEntity.setLootTable(BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY, pos.asLong()));
+        level.getBlockEntity(pos, UP2BlockEntities.FOSSIL.get()).ifPresent((blockEntity) -> blockEntity.setLootTable(BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY, pos.asLong()));
     }
 }

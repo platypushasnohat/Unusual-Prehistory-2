@@ -24,10 +24,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
-        this.cubeAllBlock(DEEPSLATE_FOSSIL);
-        this.cubeAllBlock(FOSSIL);
-
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);

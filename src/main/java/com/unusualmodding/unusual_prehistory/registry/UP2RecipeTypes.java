@@ -1,8 +1,7 @@
 package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.recipes.ChiselingRecipe;
-import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
+import com.unusualmodding.unusual_prehistory.recipes.*;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;

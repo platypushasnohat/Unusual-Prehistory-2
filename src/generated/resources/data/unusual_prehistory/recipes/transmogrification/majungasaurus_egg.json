@@ -1,11 +1,10 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
   "input": {
     "item": "unusual_prehistory:rugose_fossil"
   },
   "output": {
     "item": "unusual_prehistory:majungasaurus_egg"
   },
-  "processing_time": 3600
+  "processing_time": 2400
 }

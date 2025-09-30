@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "X": {
+      "tag": "forge:leather"
+    },
+    "Y": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "#",
+    "X",
+    "Y"
+  ],
+  "result": {
+    "item": "unusual_prehistory:chisel"
+  },
+  "show_notification": true
+}

@@ -48,11 +48,6 @@ public class TransmogrifierResultSlot extends SlotItemHandler {
     @Override
     protected void checkTakeAchievements(ItemStack stack) {
         stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
-
-        if (!this.player.level().isClientSide) {
-            blockEntity.awardUsedRecipes(this.player, blockEntity.getDroppableInventory());
-        }
-
         this.removeCount = 0;
     }
 }

@@ -1,11 +1,10 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
   "input": {
     "item": "unusual_prehistory:bloomed_fossil"
   },
   "output": {
     "item": "unusual_prehistory:raiguenrayun"
   },
-  "processing_time": 3600
+  "processing_time": 600
 }

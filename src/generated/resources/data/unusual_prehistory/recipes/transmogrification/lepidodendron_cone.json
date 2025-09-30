@@ -1,11 +1,10 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
   "input": {
     "item": "unusual_prehistory:sapling_fossil"
   },
   "output": {
     "item": "unusual_prehistory:lepidodendron_cone"
   },
-  "processing_time": 3600
+  "processing_time": 600
 }

@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.items;
 
-import com.unusualmodding.unusual_prehistory.blocks.blockentity.SuspiciousStoneBlockEntity;
+import com.unusualmodding.unusual_prehistory.blocks.blockentity.FossilBlockEntity;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -79,8 +79,8 @@ public class ChiselItem extends Item {
                         level.playSound(player, blockpos, soundtype.getHitSound(), SoundSource.BLOCKS);
                         if (!level.isClientSide()) {
                             BlockEntity blockentity = level.getBlockEntity(blockpos);
-                            if (blockentity instanceof SuspiciousStoneBlockEntity suspiciousStoneBlockEntity) {
-                                boolean flag1 = suspiciousStoneBlockEntity.chisel(level.getGameTime(), player, blockhitresult.getDirection());
+                            if (blockentity instanceof FossilBlockEntity suspiciousStoneBlockEntity) {
+                                boolean flag1 = suspiciousStoneBlockEntity.chisel(level.getGameTime());
                                 if (flag1) {
                                     stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(arm));
                                 }

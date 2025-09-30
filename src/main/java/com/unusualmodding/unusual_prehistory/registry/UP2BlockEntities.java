@@ -12,6 +12,6 @@ public class UP2BlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<TransmogrifierBlockEntity>> TRANSMOGRIFIER = BLOCK_ENTITIES.register("transmogrifier", () -> BlockEntityType.Builder.of(TransmogrifierBlockEntity::new, UP2Blocks.TRANSMOGRIFIER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<SuspiciousStoneBlockEntity>> SUSPICIOUS_STONE = BLOCK_ENTITIES.register("suspicious_stone", () -> BlockEntityType.Builder.of(SuspiciousStoneBlockEntity::new, UP2Blocks.FOSSIL.get(), UP2Blocks.DEEPSLATE_FOSSIL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FossilBlockEntity>> FOSSIL = BLOCK_ENTITIES.register("fossil", () -> BlockEntityType.Builder.of(FossilBlockEntity::new, UP2Blocks.FOSSIL.get(), UP2Blocks.DEEPSLATE_FOSSIL.get()).build(null));
 
 }

@@ -6,15 +6,13 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
 import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
-import com.unusualmodding.unusual_prehistory.client.renderer.blockentity.*;
 import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
 import com.unusualmodding.unusual_prehistory.client.renderer.*;
 import com.unusualmodding.unusual_prehistory.client.particles.*;
-import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
+import com.unusualmodding.unusual_prehistory.screens.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -66,8 +64,6 @@ public class ClientModEvents {
 
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
         event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
-
-        event.registerBlockEntityRenderer(UP2BlockEntities.SUSPICIOUS_STONE.get(), SuspiciousStoneRenderer::new);
     }
 
     @SubscribeEvent

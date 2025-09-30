@@ -1,11 +1,10 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
   "input": {
     "item": "unusual_prehistory:trunk_fossil"
   },
   "output": {
     "item": "unusual_prehistory:bennettitales"
   },
-  "processing_time": 3600
+  "processing_time": 600
 }
