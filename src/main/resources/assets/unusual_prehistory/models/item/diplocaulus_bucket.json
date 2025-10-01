@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusual_prehistory:item/diplocaulus_brevirostris_bucket"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "variant": 0
+      },
+      "model": "unusual_prehistory:item/diplocaulus_bucket"
+    },
+    {
+      "predicate": {
+        "variant": 1
+      },
+      "model": "unusual_prehistory:item/buckets/diplocaulus_magnicornis_bucket"
+    },
+    {
+      "predicate": {
+        "variant": 2
+      },
+      "model": "unusual_prehistory:item/buckets/diplocaulus_recurvatis_bucket"
+    },
+    {
+      "predicate": {
+        "variant": 3
+      },
+      "model": "unusual_prehistory:item/buckets/diplocaulus_salamandroides_bucket"
+    }
+  ]
+}

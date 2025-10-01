@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/diplocaulus_bucket"
+    "layer0": "unusual_prehistory:item/furcacauda_bucket"
   }
 }

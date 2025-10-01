@@ -35,9 +35,9 @@ public class UnusualPrehistory2 {
         bus.addListener(this::dataSetup);
 
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
+        UP2Entities.ENTITY_TYPE.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
-        UP2Entities.ENTITY_TYPE.register(bus);
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
         UP2RecipeTypes.RECIPE_TYPES.register(bus);

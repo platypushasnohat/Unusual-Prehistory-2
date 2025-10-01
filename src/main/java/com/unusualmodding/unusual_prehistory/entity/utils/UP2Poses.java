@@ -17,7 +17,7 @@ public enum UP2Poses {
     LOOKOUT,
     PECKING,
     PREENING,
-    QUIRK;
+    BURROWED;
 
     public Pose get() {
         return Pose.valueOf(this.name());

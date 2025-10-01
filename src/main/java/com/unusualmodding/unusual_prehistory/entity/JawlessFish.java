@@ -57,16 +57,16 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public void travel(Vec3 pTravelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
             if (this.horizontalCollision) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
             }
         } else {
-            super.travel(pTravelVector);
+            super.travel(travelVector);
         }
     }
 

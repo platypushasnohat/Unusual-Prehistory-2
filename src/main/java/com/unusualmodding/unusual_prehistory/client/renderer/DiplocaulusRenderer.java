@@ -6,6 +6,7 @@ import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
 import com.unusualmodding.unusual_prehistory.entity.Diplocaulus;
 import com.unusualmodding.unusual_prehistory.registry.UP2EntityModelLayers;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 @OnlyIn(Dist.CLIENT)
-public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, UP2Model<Diplocaulus>> {
+public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalModel<Diplocaulus>> {
 
     private final DiplocaulusBrevirostrisModel brevirostrisModel;
     private final DiplocaulusMagnicornisModel magnicornisModel;

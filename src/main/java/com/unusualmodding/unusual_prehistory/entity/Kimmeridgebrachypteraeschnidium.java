@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -255,14 +256,14 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             this.setBaseColor(dataTag.getInt("BaseColor"));
             this.setPattern(dataTag.getInt("Pattern"));
             this.setPatternColor(dataTag.getInt("PatternColor"));
-            this.setHasPattern(dataTag.getBoolean("HasPattern"));
             this.setWingColor(dataTag.getInt("WingColor"));
+            this.setHasPattern(dataTag.getBoolean("HasPattern"));
         } else {
             this.setBaseColor(this.random.nextInt(16));
             this.setPattern(this.random.nextInt(7));
             this.setPatternColor(this.random.nextInt(16));
-            this.setHasPattern(this.random.nextInt(3)==0);
             this.setWingColor(this.random.nextInt(16));
+            this.setHasPattern(this.random.nextInt(3) == 0);
         }
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
     }
@@ -287,7 +288,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     public void setBaseColor(int variant) {
-        this.entityData.set(BASE_COLOR, variant);
+        this.entityData.set(BASE_COLOR, Mth.clamp(variant, 0, 15));
     }
 
     public int getPattern() {
@@ -295,7 +296,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     public void setPattern(int variant) {
-        this.entityData.set(PATTERN, variant);
+        this.entityData.set(PATTERN, Mth.clamp(variant, 0, 6));
     }
 
     public int getPatternColor() {
@@ -303,7 +304,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     public void setPatternColor(int variant) {
-        this.entityData.set(PATTERN_COLOR, variant);
+        this.entityData.set(PATTERN_COLOR, Mth.clamp(variant, 0, 15));
     }
 
     public int getWingColor() {
@@ -311,7 +312,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     public void setWingColor(int variant) {
-        this.entityData.set(WING_COLOR, variant);
+        this.entityData.set(WING_COLOR, Mth.clamp(variant, 0, 15));
     }
 
     public Boolean getHasPattern() {
@@ -322,12 +323,14 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.entityData.set(HAS_PATTERN, variant);
     }
 
+    @Override
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
 
-    public void setFromBucket(boolean pFromBucket) {
-        this.entityData.set(FROM_BUCKET, pFromBucket);
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     public int getPreenCooldown() {

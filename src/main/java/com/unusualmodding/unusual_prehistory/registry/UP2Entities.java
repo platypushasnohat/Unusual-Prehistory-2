@@ -28,7 +28,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Diplocaulus>> DIPLOCAULUS = ENTITY_TYPE.register(
             "diplocaulus", () ->
             EntityType.Builder.of(Diplocaulus::new, MobCategory.CREATURE)
-                    .sized(0.6F, 0.6F)
+                    .sized(0.6F, 0.4F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "diplocaulus").toString())
     );
