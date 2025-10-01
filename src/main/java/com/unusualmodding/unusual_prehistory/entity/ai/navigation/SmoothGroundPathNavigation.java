@@ -71,7 +71,7 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
 
         if (!attemptShortcut(shortcutNode, safeSurfacePos)) {
             if (isCloseToNextNode(0.5f) || isAboutToTraverseVertically() && isCloseToNextNode(getMaxDistanceToWaypoint()))
-                if(this.path != null) {
+                if (this.path != null) {
                     this.path.advance();
                 }
         }
@@ -88,8 +88,7 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
         final int nodesLength = this.path.getNodeCount();
 
         for (int nodeIndex = this.path.getNextNodeIndex(); nodeIndex < nodesLength; nodeIndex++) {
-            if (this.path.getNode(nodeIndex).y != safeSurfaceHeight)
-                return nodeIndex;
+            if (this.path.getNode(nodeIndex).y != safeSurfaceHeight) return nodeIndex;
         }
 
         return nodesLength;
