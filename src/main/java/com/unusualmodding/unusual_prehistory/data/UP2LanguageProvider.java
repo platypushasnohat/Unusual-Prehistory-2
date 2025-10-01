@@ -17,7 +17,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -122,7 +121,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
         this.sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
 
-        this.sound(UP2SoundEvents.TRANSMOGRIFYING, "Transmogrifying");
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP, "Transmogrifying");
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_START, "Transmogrifier starts");
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP, "Transmogrifier stops");
 
         // kimmeridgebrachypteraeschnidium bottle
         this.add("unusual_prehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");

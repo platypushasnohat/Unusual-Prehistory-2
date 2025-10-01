@@ -24,6 +24,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         this.item(UNUSUAL_PREHISTORY);
 
+        this.item(MACHINE_PARTS);
         this.item(GINKGO_FRUIT);
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);

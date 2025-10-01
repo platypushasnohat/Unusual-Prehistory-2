@@ -18,6 +18,7 @@ public class UP2Particles {
     public static final RegistryObject<ParticleType> GINKGO_LEAVES = registerParticle("ginkgo_leaves", ()-> new SimpleParticleType(false));
     public static final RegistryObject<ParticleType> GOLDEN_GINKGO_LEAVES = registerParticle("golden_ginkgo_leaves", ()-> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> EEPY = registerParticle("eepy", ()-> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> OOZE_BUBBLE = registerParticle("ooze_bubble", ()-> new SimpleParticleType(false));
 
     private static <P extends ParticleType> RegistryObject<P> registerParticle(String name, Supplier<P> particle ) {
         return PARTICLE_TYPES.register(name, particle);

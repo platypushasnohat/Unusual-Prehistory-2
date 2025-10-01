@@ -88,6 +88,7 @@ public class FallingLeafParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static class GinkgoProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 

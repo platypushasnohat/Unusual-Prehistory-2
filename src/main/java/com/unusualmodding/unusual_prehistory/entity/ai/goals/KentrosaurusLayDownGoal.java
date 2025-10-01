@@ -16,7 +16,7 @@ public class KentrosaurusLayDownGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(Behaviors.IDLE.getName());
+        return !this.kentrosaurus.isInWater() && this.kentrosaurus.getLayDownCooldown() == 0 && this.kentrosaurus.getPoseTime() >= (long) this.minimalPoseTicks && !this.kentrosaurus.isLeashed() && this.kentrosaurus.onGround() && this.kentrosaurus.getBehavior().equals(Behaviors.IDLE.getName()) && (!kentrosaurus.level().canSeeSky(kentrosaurus.blockPosition()) && (kentrosaurus.level().isThundering() || kentrosaurus.level().isRaining()));
     }
 
     @Override

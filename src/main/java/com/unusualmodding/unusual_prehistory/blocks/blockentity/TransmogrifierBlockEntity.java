@@ -1,6 +1,8 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.blocks.TransmogrifierBlock;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
@@ -8,6 +10,7 @@ import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.*;
@@ -101,13 +104,47 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
             blockEntity.progress++;
             blockEntity.depleteFuel();
             setChanged(level, pos, state);
+            spawnParticles(level, pos, state);
             if (blockEntity.progress >= processTime) {
-                blockEntity.progress = 0;
+                blockEntity.progress = 1;
                 blockEntity.assembleRecipe(level, input, recipe);
             }
         }
         if (blockEntity.isTransmogrifying() && !blockEntity.isRemoved() && level.isClientSide()) {
             UnusualPrehistory2.PROXY.playWorldSound(blockEntity, (byte) 0);
+        }
+        if (!level.isClientSide()) {
+            state = state.getBlock().defaultBlockState().setValue(TransmogrifierBlock.LIT, blockEntity.isTransmogrifying());
+            level.setBlock(pos, state, 3);
+        }
+    }
+
+    public static void spawnParticles(Level level, BlockPos pos, BlockState state) {
+        Direction direction = state.getValue(TransmogrifierBlock.FACING).getCounterClockWise();
+        Direction.Axis axis = direction.getAxis();
+        double x = pos.getX() + 0.5D;
+        double y = pos.getY() + 0.5D;
+        double z = pos.getZ() + 0.5D;
+        double offset = 0.0D;
+        double xdirection = axis == Direction.Axis.X ? direction.getStepX() * 0.52D : offset;
+        double zdirection = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52D : offset;
+        double xoffset = 0.0D;
+        double zoffset = 0.0D;
+        if (direction == Direction.NORTH) {
+            xoffset = -0.25D;
+        } else if (direction == Direction.SOUTH) {
+            xoffset = 0.25D;
+        } else if (direction == Direction.EAST) {
+            zoffset = -0.25D;
+        } else if (direction == Direction.WEST) {
+            zoffset = 0.25D;
+        }
+        double xspeed = direction.getStepX() * 0.2F;
+        double zspeed = direction.getStepZ() * 0.2F;
+        BlockPos sidePos = pos.relative(direction, 1);
+        BlockState sideState = level.getBlockState(sidePos);
+        if (level.random.nextInt(10) == 0 && (sideState.isAir() || sideState.getCollisionShape(level, sidePos).isEmpty())) {
+            level.addParticle(UP2Particles.OOZE_BUBBLE.get(), (x + xdirection) + xoffset, y - 0.2D, (z + zdirection) + zoffset, xspeed, 0.0D, zspeed);
         }
     }
 

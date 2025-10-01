@@ -12,7 +12,7 @@ public class TransmogrifierSound extends BlockEntityTickableSound<Transmogrifier
     private int fade = 0;
 
     public TransmogrifierSound(TransmogrifierBlockEntity blockEntity) {
-        super(UP2SoundEvents.TRANSMOGRIFYING.get(), blockEntity);
+        super(UP2SoundEvents.TRANSMOGRIFIER_LOOP.get(), blockEntity);
         this.volume = 0.1F;
     }
 
@@ -40,7 +40,7 @@ public class TransmogrifierSound extends BlockEntityTickableSound<Transmogrifier
             fade++;
         }
         this.volume = Mth.clamp(1F - fade / 40F, 0F, 1F);
-        if (fade > 40){
+        if (fade > 40) {
             this.stop();
         }
     }

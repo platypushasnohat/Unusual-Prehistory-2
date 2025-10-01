@@ -4,13 +4,15 @@ import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.recipes.*;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
+import com.unusualmodding.unusual_prehistory.registry.UP2MenuTypes;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
+import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -54,4 +56,14 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(UP2Blocks.TRANSMOGRIFIER.get()), TRANSMOGRIFICATION);
         registration.addRecipeCatalyst(new ItemStack(UP2Items.CHISEL.get()), CHISELING);
     }
+
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addRecipeClickArea(TransmogrifierScreen.class, 62, 29, 54, 20, TRANSMOGRIFICATION);
+    }
+
+//    @Override
+//    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+//        registration.addRecipeTransferHandler(TransmogrifierMenu.class, UP2MenuTypes.TRANSMOGRIFIER.get(), TRANSMOGRIFICATION, 1, 1, 3, 36);
+//    }
 }

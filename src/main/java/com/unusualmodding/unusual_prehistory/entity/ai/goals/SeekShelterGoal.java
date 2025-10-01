@@ -14,16 +14,21 @@ public class SeekShelterGoal extends FleeSunGoal {
         this.prehistoricMob = prehistoricMob;
     }
 
+    @Override
     public boolean canUse() {
-        if (prehistoricMob.level().canSeeSky(this.prehistoricMob.blockPosition()) && (prehistoricMob.level().isThundering() || prehistoricMob.level().isRaining())) {
-            return this.setWantedPos();
-        } else if (this.interval > 0) {
-            --this.interval;
-            return false;
+        if (!prehistoricMob.isSleeping() && this.mob.getTarget() == null) {
+            if (prehistoricMob.level().isThundering() && prehistoricMob.level().canSeeSky(this.mob.blockPosition())) {
+                return this.setWantedPos();
+            } else if (this.interval > 0) {
+                --this.interval;
+                return false;
+            } else {
+                this.interval = 100;
+                BlockPos blockpos = this.mob.blockPosition();
+                return mob.level().isDay() && mob.level().canSeeSky(blockpos) && this.setWantedPos();
+            }
         } else {
-            this.interval = 100;
-            BlockPos blockpos = this.prehistoricMob.blockPosition();
-            return prehistoricMob.level().isDay() && prehistoricMob.level().canSeeSky(blockpos) && !this.setWantedPos();
+            return false;
         }
     }
 }

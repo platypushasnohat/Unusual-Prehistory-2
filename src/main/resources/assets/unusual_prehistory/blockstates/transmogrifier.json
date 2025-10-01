@@ -1,26 +1,49 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier",
       "y": 90
     },
-    "facing=north": {
+    "facing=north,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier"
     },
-    "facing=south": {
+    "facing=south,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier",
       "y": 270
     },
-    "facing=up": {
+    "facing=up,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier",
       "y": 270
     },
-    "facing=down": {
+    "facing=down,lit=false": {
       "model": "unusual_prehistory:block/transmogrifier",
+      "y": 270
+    },
+    "facing=east,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active",
+      "y": 90
+    },
+    "facing=north,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active"
+    },
+    "facing=south,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active",
+      "y": 270
+    },
+    "facing=up,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active",
+      "y": 270
+    },
+    "facing=down,lit=true": {
+      "model": "unusual_prehistory:block/transmogrifier_active",
       "y": 270
     }
   }

@@ -25,6 +25,7 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
 
                         tabOutput.accept(ORGANIC_OOZE.get());
+                        tabOutput.accept(MACHINE_PARTS.get());
 
                         tabOutput.accept(UP2Blocks.TRANSMOGRIFIER.get());
 

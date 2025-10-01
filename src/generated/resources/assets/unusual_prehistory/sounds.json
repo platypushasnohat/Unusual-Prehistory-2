@@ -284,7 +284,7 @@
   "kimmeridgebrachypteraeschnidium_loop": {
     "sounds": [
       {
-        "attenuation_distance": 10,
+        "attenuation_distance": 6,
         "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/loop1",
         "volume": 0.5
       }
@@ -479,14 +479,34 @@
     ],
     "subtitle": "subtitles.telecrex_idle"
   },
-  "transmogrifying": {
+  "transmogrifier_loop": {
+    "sounds": [
+      {
+        "attenuation_distance": 8,
+        "name": "unusual_prehistory:block/transmogrifier/loop1",
+        "pitch": 0.78,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.transmogrifier_loop"
+  },
+  "transmogrifier_start": {
     "sounds": [
       {
         "attenuation_distance": 10,
-        "name": "unusual_prehistory:block/transmogrifier/transmogrifying"
+        "name": "unusual_prehistory:block/transmogrifier/start1"
       }
     ],
-    "subtitle": "subtitles.transmogrifying"
+    "subtitle": "subtitles.transmogrifier_start"
+  },
+  "transmogrifier_stop": {
+    "sounds": [
+      {
+        "attenuation_distance": 10,
+        "name": "unusual_prehistory:block/transmogrifier/stop1"
+      }
+    ],
+    "subtitle": "subtitles.transmogrifier_stop"
   },
   "unicorn_death": {
     "sounds": [

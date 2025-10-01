@@ -132,7 +132,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1"))
         );
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/loop1")).volume(0.5F).attenuationDistance(10)
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/loop1")).volume(0.5F).attenuationDistance(6)
         );
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT,
@@ -231,8 +231,14 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle4"))
         );
 
-        this.sound(UP2SoundEvents.TRANSMOGRIFYING,
-                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/transmogrifying")).attenuationDistance(10)
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP,
+                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.4F).pitch(0.78F)
+        );
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_START,
+                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/start1")).attenuationDistance(10)
+        );
+        this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP,
+                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/stop1")).attenuationDistance(10)
         );
     }
 

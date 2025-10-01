@@ -70,6 +70,7 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(4, new SeekShelterGoal(this, 1.25D));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -87,7 +88,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
+        return size.height * 0.9F;
     }
 
     @Override
@@ -138,6 +139,9 @@ public class Kentrosaurus extends PrehistoricMob {
         super.tick();
         if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) {
             this.standUpInstantly();
+        }
+        if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) {
+            this.standUp();
         }
     }
 

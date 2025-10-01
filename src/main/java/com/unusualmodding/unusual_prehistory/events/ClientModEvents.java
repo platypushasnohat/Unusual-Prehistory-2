@@ -39,6 +39,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.EEPY.get(), EepyParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OozeBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent
