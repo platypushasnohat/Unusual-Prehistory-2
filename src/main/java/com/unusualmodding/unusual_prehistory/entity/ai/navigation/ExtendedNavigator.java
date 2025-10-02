@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
  * https://mozilla.org/MPL/2.0/.
  *
  * Source: SmartBrainLib - https://github.com/Tslat/SmartBrainLib/tree/1.20
- * Modifications by: Unusual Prehistory - 3/7/2025
+ * Modifications by: Unusual Prehistory - 9/26/2025
  */
 
 public interface ExtendedNavigator {
