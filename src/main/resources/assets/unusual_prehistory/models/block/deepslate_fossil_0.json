@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "unusual_prehistory:block/deepslate_fossil_0"
+  }
+}

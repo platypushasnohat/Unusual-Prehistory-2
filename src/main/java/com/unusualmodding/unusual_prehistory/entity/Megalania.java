@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.MegalaniaAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.entity.utils.MegalaniaBehaviors;
@@ -54,6 +55,7 @@ public class Megalania extends PrehistoricMob {
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState yawningAnimationState = new AnimationState();
     public final AnimationState roaringAnimationState = new AnimationState();
+    public final AnimationState bitingAnimationState = new AnimationState();
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
@@ -63,16 +65,21 @@ public class Megalania extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new MegalaniaYawnGoal(this));
         this.goalSelector.addGoal(8, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.14F);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.16F)
+                .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     @Override
@@ -195,6 +202,7 @@ public class Megalania extends PrehistoricMob {
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble(), this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.bitingAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
     }
 
     public void changeTemperature() {

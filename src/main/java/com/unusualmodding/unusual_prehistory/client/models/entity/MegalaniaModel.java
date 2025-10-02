@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
 import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -132,8 +133,14 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		if (!(entity.getPose() == UP2Poses.ROARING.get())) {
 			if (!entity.isInWaterOrBubble()) {
-				if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
-					this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 5, 8);
+				if (entity.getBehavior().equals(Behaviors.ANGRY.getName())) {
+					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
+						this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+					}
+				} else {
+					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
+						this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+					}
 				}
 				this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1.0F, 1 - Math.abs(limbSwingAmount));
 			} else {
@@ -151,6 +158,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
+		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE1, ageInTicks);
 	}
 
 	@Override

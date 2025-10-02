@@ -1,8 +1,11 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Dromaeosaurus;
+import net.minecraft.data.worldgen.DimensionTypes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -28,7 +31,7 @@ public class DromaeosaurusRunGoal extends Goal {
             Vec3 vec3 = this.getPosition();
             if (vec3 == null) {
                 return false;
-            } else if ((this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F)) {
+            } else if ((this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) || this.dromaeosaurus.level().dimension() != Level.OVERWORLD) {
                 this.wantedX = vec3.x;
                 this.wantedY = vec3.y;
                 this.wantedZ = vec3.z;
@@ -45,7 +48,7 @@ public class DromaeosaurusRunGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.getNavigation().isDone();
+        return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F || this.dromaeosaurus.level().dimension() != Level.OVERWORLD) && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.getNavigation().isDone();
     }
 
     @Override

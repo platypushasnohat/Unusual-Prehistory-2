@@ -155,11 +155,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public boolean refuseToMove() {
-        return (this.getPose() == UP2Poses.PECKING.get() || this.getPose() == UP2Poses.PREENING.get()) && super.refuseToMove();
-    }
-
-    @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.TELECREX_IDLE.get();

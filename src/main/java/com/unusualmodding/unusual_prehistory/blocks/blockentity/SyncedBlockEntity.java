@@ -29,7 +29,7 @@ public class SyncedBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
+	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
 		load(packet.getTag());
 	}
 

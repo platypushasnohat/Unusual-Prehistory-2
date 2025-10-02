@@ -10,7 +10,6 @@ import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.*;
@@ -33,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class TransmogrifierBlockEntity extends SyncedBlockEntity implements MenuProvider, WorldlyContainer {
+public class TransmogrifierBlockEntity extends SyncedBlockEntity implements MenuProvider, WorldlyContainer, Nameable {
 
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
@@ -56,6 +55,8 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
 
     private int fuel = 0;
     private int maxFuel = 800;
+
+    private Component customName;
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
         super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);
@@ -90,6 +91,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
+        boolean didInventoryChange = false;
         if (!blockEntity.hasRecipe(blockEntity, level)) {
             blockEntity.progress = 0;
             if (!blockEntity.hasFuel()) {
@@ -108,14 +110,18 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
             if (blockEntity.progress >= processTime) {
                 blockEntity.progress = 1;
                 blockEntity.assembleRecipe(level, input, recipe);
+                didInventoryChange = true;
             }
         }
         if (blockEntity.isTransmogrifying() && !blockEntity.isRemoved() && level.isClientSide()) {
             UnusualPrehistory2.PROXY.playWorldSound(blockEntity, (byte) 0);
         }
         if (!level.isClientSide()) {
-            state = state.getBlock().defaultBlockState().setValue(TransmogrifierBlock.LIT, blockEntity.isTransmogrifying());
+            state = state.getBlock().defaultBlockState().setValue(TransmogrifierBlock.LIT, blockEntity.isTransmogrifying()).setValue(TransmogrifierBlock.FACING, state.getValue(TransmogrifierBlock.FACING));
             level.setBlock(pos, state, 3);
+        }
+        if (didInventoryChange) {
+            blockEntity.inventoryChanged();
         }
     }
 
@@ -263,8 +269,23 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
+    public Component getName() {
+        return customName != null ? customName : Component.translatable("block.unusual_prehistory.transmogrifier");
+    }
+
+    @Override
     public Component getDisplayName() {
-        return Component.translatable("block.unusual_prehistory.transmogrifier");
+        return getName();
+    }
+
+    @Override
+    @Nullable
+    public Component getCustomName() {
+        return customName;
+    }
+
+    public void setCustomName(Component name) {
+        customName = name;
     }
 
     @Nullable
@@ -278,6 +299,9 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
         super.saveAdditional(compoundTag);
         compoundTag.put("Inventory", inventory.serializeNBT());
         compoundTag.putInt("Progress", progress);
+        if (customName != null) {
+            compoundTag.putString("CustomName", Component.Serializer.toJson(customName));
+        }
     }
 
     @Override
@@ -285,6 +309,9 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
         super.load(compoundTag);
         inventory.deserializeNBT(compoundTag.getCompound("Inventory"));
         progress = compoundTag.getInt("Progress");
+        if (compoundTag.contains("CustomName", 8)) {
+            customName = Component.Serializer.fromJson(compoundTag.getString("CustomName"));
+        }
     }
 
     @Override

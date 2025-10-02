@@ -3,8 +3,11 @@ package com.unusualmodding.unusual_prehistory.blocks;
 import com.unusualmodding.unusual_prehistory.blocks.blockentity.FossilBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -21,6 +24,10 @@ public class FossilBlock extends BrushableBlock {
 
     public FossilBlock(Block block, BlockBehaviour.Properties properties, SoundEvent chiselCompletedSound) {
         super(block, properties, SoundEvents.EMPTY, chiselCompletedSound);
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
     }
 
     @Override
@@ -46,5 +53,9 @@ public class FossilBlock extends BrushableBlock {
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new FossilBlockEntity(pos, state);
+    }
+
+    @Override
+    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
     }
 }

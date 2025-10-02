@@ -207,14 +207,6 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-        if (DATA_POSE.equals(entityDataAccessor)) {
-            if (this.getPose() == UP2Poses.SHAKING.get()) this.shakeAnimationState.start(this.tickCount);
-        }
-        super.onSyncedDataUpdated(entityDataAccessor);
-    }
-
-    @Override
     public boolean canBeCollidedWith() {
         return this.isKentrosaurusLayingDown();
     }
