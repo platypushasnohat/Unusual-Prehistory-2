@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:transmogrifier"
+          "name": "unusual_prehistory:lepidodendron_sign"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/transmogrifier"
+  "random_sequence": "unusual_prehistory:blocks/lepidodendron_sign"
 }

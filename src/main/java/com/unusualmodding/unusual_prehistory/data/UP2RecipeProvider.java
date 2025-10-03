@@ -39,7 +39,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(MISC, UP2Items.CHISEL.get()).define('#', Tags.Items.INGOTS_IRON).define('X', Tags.Items.LEATHER).define('Y', Tags.Items.RODS_WOODEN).pattern("#").pattern("X").pattern("Y").unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON)).save(consumer);
 
-        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_IRON).define('X', UP2ItemTags.TRANSMOGRIFIER_FUEL).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.GLASS).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_organic_ooze", has(UP2ItemTags.TRANSMOGRIFIER_FUEL)).save(consumer);
+        ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_GOLD).define('X', UP2Items.MACHINE_PARTS.get()).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.INGOTS_COPPER).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_machine_parts", has(UP2Items.MACHINE_PARTS.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 

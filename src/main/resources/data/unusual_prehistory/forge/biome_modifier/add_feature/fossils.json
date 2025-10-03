@@ -2,8 +2,8 @@
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
   "features": [
-    "unusual_prehistory:fossil_patch",
-    "unusual_prehistory:deepslate_fossil_patch"
+    "unusual_prehistory:fossil_upper",
+    "unusual_prehistory:fossil_lower"
   ],
-  "step": "underground_ores"
+  "step": "underground_structures"
 }

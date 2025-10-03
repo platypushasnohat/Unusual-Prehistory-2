@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_organic_ooze": {
+    "has_machine_parts": {
       "conditions": {
         "items": [
           {
-            "tag": "unusual_prehistory:transmogrifier_fuel"
+            "items": [
+              "unusual_prehistory:machine_parts"
+            ]
           }
         ]
       },
@@ -20,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_organic_ooze",
+      "has_machine_parts",
       "has_the_recipe"
     ]
   ],

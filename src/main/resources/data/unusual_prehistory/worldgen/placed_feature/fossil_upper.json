@@ -1,9 +1,9 @@
 {
-  "feature": "unusual_prehistory:fossil_patch",
+  "feature": "unusual_prehistory:fossil_fossil",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 20
+      "type": "minecraft:rarity_filter",
+      "chance": 16
     },
     {
       "type": "minecraft:in_square"
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 62
+          "absolute": 64
         },
         "min_inclusive": {
-          "absolute": 0
+          "above_bottom": 0
         }
       }
     },

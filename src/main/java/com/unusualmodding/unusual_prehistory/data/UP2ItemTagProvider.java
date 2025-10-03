@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup;
@@ -122,6 +123,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES);
         this.copy(Tags.Blocks.FENCE_GATES, Tags.Items.FENCE_GATES);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+
+        this.tag(ItemTags.SIGNS).add(
+                GINKGO_SIGN.get(),
+                LEPIDODENDRON_SIGN.get()
+        );
+
+        this.tag(ItemTags.HANGING_SIGNS).add(
+                GINKGO_HANGING_SIGN.get(),
+                LEPIDODENDRON_HANGING_SIGN.get()
+        );
+
+        this.tag(ItemTags.BOATS).add(
+                GINKGO_BOAT.get(),
+                LEPIDODENDRON_BOAT.get()
+        );
+
+        this.tag(ItemTags.CHEST_BOATS).add(
+                GINKGO_CHEST_BOAT.get(),
+                LEPIDODENDRON_CHEST_BOAT.get()
+        );
 
         // forge
         this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);

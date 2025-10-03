@@ -51,7 +51,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        this.add(TRANSMOGRIFIER.get(), block -> doublePlantDrops(block, TRANSMOGRIFIER.get()));
+        this.dropSelf(TRANSMOGRIFIER.get());
 
         this.dropSelf(CARNOTAURUS_EGG.get());
         this.dropSelf(KENTROSAURUS_EGG.get());
@@ -103,6 +103,13 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(GINKGO_TRAPDOOR.get());
         this.dropSelf(GINKGO_PRESSURE_PLATE.get());
         this.dropSelf(GINKGO_BUTTON.get());
+        this.dropSelf(GINKGO_SIGN.get());
+        this.dropSelf(GINKGO_WALL_SIGN.get());
+        this.dropSelf(GINKGO_HANGING_SIGN.get());
+        this.dropSelf(GINKGO_SAPLING.get());
+        this.dropPottedContents(POTTED_GINKGO_SAPLING.get());
+        this.dropSelf(GOLDEN_GINKGO_SAPLING.get());
+        this.dropPottedContents(POTTED_GOLDEN_GINKGO_SAPLING.get());
 
         this.add(GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
         this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
@@ -122,6 +129,10 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(LEPIDODENDRON_TRAPDOOR.get());
         this.dropSelf(LEPIDODENDRON_PRESSURE_PLATE.get());
         this.dropSelf(LEPIDODENDRON_BUTTON.get());
+        this.dropSelf(LEPIDODENDRON_SIGN.get());
+        this.dropSelf(LEPIDODENDRON_WALL_SIGN.get());
+        this.dropSelf(LEPIDODENDRON_HANGING_SIGN.get());
+        this.dropSelf(LEPIDODENDRON_CONE.get());
 
         this.add(LEPIDODENDRON_LEAVES.get(), (block) -> createLeavesDrops(block, LEPIDODENDRON_CONE.get(), LEAVES_SAPLING_CHANCES));
     }

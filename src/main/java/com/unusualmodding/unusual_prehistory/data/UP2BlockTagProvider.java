@@ -54,7 +54,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
-
                 DEEPSLATE_FOSSIL.get(),
                 FOSSIL.get()
         );
@@ -174,6 +173,26 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_BUTTONS).add(
                 GINKGO_BUTTON.get(),
                 LEPIDODENDRON_BUTTON.get()
+        );
+
+        this.tag(BlockTags.STANDING_SIGNS).add(
+                GINKGO_SIGN.get(),
+                LEPIDODENDRON_SIGN.get()
+        );
+
+        this.tag(BlockTags.WALL_SIGNS).add(
+                GINKGO_WALL_SIGN.get(),
+                LEPIDODENDRON_WALL_SIGN.get()
+        );
+
+        this.tag(BlockTags.WALL_HANGING_SIGNS).add(
+                GINKGO_WALL_HANGING_SIGN.get(),
+                LEPIDODENDRON_WALL_HANGING_SIGN.get()
+        );
+
+        this.tag(BlockTags.CEILING_HANGING_SIGNS).add(
+                GINKGO_HANGING_SIGN.get(),
+                LEPIDODENDRON_HANGING_SIGN.get()
         );
 
         // forge

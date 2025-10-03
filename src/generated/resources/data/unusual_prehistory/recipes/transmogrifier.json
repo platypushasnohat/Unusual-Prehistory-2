@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:ingots/gold"
     },
     "X": {
-      "tag": "unusual_prehistory:transmogrifier_fuel"
+      "item": "unusual_prehistory:machine_parts"
     },
     "Y": {
       "tag": "forge:dusts/redstone"
     },
     "Z": {
-      "tag": "forge:glass"
+      "tag": "forge:ingots/copper"
     }
   },
   "pattern": [

@@ -10,6 +10,22 @@
         },
         {
           "type": "minecraft:item",
+          "name": "unusual_prehistory:runner_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:prickly_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:imperative_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:rugose_fossil"
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:bone",
           "weight": 5
         },
