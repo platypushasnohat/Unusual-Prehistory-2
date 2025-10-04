@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class FossilBlock extends BrushableBlock {
 
-    public FossilBlock(Block block, BlockBehaviour.Properties properties, SoundEvent chiselCompletedSound) {
-        super(block, properties, SoundEvents.EMPTY, chiselCompletedSound);
+    public FossilBlock(BlockBehaviour.Properties properties, SoundEvent chiselCompletedSound) {
+        super(Blocks.AIR, properties, SoundEvents.EMPTY, chiselCompletedSound);
     }
 
     @Override
@@ -57,5 +57,9 @@ public class FossilBlock extends BrushableBlock {
 
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
     }
 }

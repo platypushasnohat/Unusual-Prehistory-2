@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:add_loot_table",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    }
+  ],
+  "lootTable": "unusual_prehistory:chests/unusual_prehistory_abandoned_mineshaft"
+}

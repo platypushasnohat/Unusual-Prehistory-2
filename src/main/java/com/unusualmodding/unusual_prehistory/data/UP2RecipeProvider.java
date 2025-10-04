@@ -72,18 +72,13 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.BLOOMED_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem(), 600);
         transmogrification(consumer, UP2Items.FIBROUS_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem(), 600);
 
-        chiseling(consumer, Blocks.STONE, Blocks.STONE_BRICKS);
-        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
-        chiseling(consumer, Blocks.STONE_STAIRS, Blocks.STONE_BRICK_STAIRS);
-        chiseling(consumer, Blocks.STONE_SLAB, Blocks.STONE_BRICK_SLAB);
-
-        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
-
-        chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
-        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
-        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
-        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE);
-        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK);
+//        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
+//        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
+//        chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
+//        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
+//        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
+//        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE);
+//        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK);
     }
 
     private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {

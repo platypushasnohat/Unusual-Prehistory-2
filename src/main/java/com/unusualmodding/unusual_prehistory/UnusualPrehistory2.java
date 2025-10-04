@@ -46,6 +46,9 @@ public class UnusualPrehistory2 {
         UP2TreeDecorators.TREE_DECORATORS.register(bus);
         UP2TrunkPlacers.TRUNK_PLACERS.register(bus);
         UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
+        UP2StructureTypes.STRUCTURE_TYPES.register(bus);
+        UP2StructureProcessors.STRUCTURE_PROCESSORS.register(bus);
+        UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
         PROXY.commonInit();
@@ -78,6 +81,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
+        generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
         generator.addProvider(server, UP2LootProvider.register(output));
         generator.addProvider(server, new UP2RecipeProvider(output));
     }

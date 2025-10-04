@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.mojang.logging.LogUtils;
-import com.unusualmodding.unusual_prehistory.blocks.FossilBlock;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -31,6 +30,7 @@ public class FossilBlockEntity extends BlockEntity {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     private int chiselCount;
+    private int maxChiselCount;
     private long coolDownEndsAtTick;
     private ItemStack item = ItemStack.EMPTY;
     @Nullable
@@ -42,25 +42,28 @@ public class FossilBlockEntity extends BlockEntity {
     }
 
     public boolean chisel(long l) {
-        if (l >= this.coolDownEndsAtTick && this.level instanceof ServerLevel) {
-            this.coolDownEndsAtTick = l + 10L;
-            int i = this.getCompletionState();
-            if (this.chiselCount++ >= 11) {
-                this.chiselingCompleted();
-                return true;
-            } else {
-                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 40);
-                int j = this.getCompletionState();
-                if (i != j) {
-                    BlockState blockstate = this.getBlockState();
-                    BlockState blockstate1 = blockstate.setValue(BlockStateProperties.DUSTED, j);
-                    this.level.setBlock(this.getBlockPos(), blockstate1, 3);
+        if (this.level instanceof ServerLevel serverLevel) {
+            this.maxChiselCount = 9 + serverLevel.random.nextInt(2);
+            if (l >= this.coolDownEndsAtTick) {
+                this.coolDownEndsAtTick = l + 10L;
+                int i = this.getCompletionState();
+                if (this.chiselCount++ >= this.maxChiselCount) {
+                    this.chiselingCompleted();
+                    return true;
+                } else {
+                    int j = this.getCompletionState();
+                    if (i != j) {
+                        BlockState blockstate = this.getBlockState();
+                        BlockState blockstate1 = blockstate.setValue(BlockStateProperties.DUSTED, j);
+                        this.level.setBlock(this.getBlockPos(), blockstate1, 3);
+                    }
+                    return false;
                 }
-                return false;
             }
         } else {
             return false;
         }
+        return false;
     }
 
     public void unpackLootTable(Player player) {
@@ -81,7 +84,7 @@ public class FossilBlockEntity extends BlockEntity {
                     LOGGER.warn("Expected max 1 loot from loot table {} got {}", this.lootTable, objectarraylist.size());
                     yield objectarraylist.get(0);
                 }
-            };;
+            };
             this.lootTable = null;
             this.setChanged();
         }
@@ -91,14 +94,7 @@ public class FossilBlockEntity extends BlockEntity {
         if (this.level != null && this.level.getServer() != null) {
             BlockState blockstate = this.getBlockState();
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
-            Block block = this.getBlockState().getBlock();
-            Block block1;
-            if (block instanceof FossilBlock suspiciousStoneBlock) {
-                block1 = suspiciousStoneBlock.getTurnsInto();
-            } else {
-                block1 = Blocks.AIR;
-            }
-            this.level.setBlock(this.worldPosition, block1.defaultBlockState(), 3);
+            this.level.setBlock(this.worldPosition, Blocks.AIR.defaultBlockState(), 3);
         }
     }
 
@@ -138,7 +134,8 @@ public class FossilBlockEntity extends BlockEntity {
     public CompoundTag getUpdateTag() {
         CompoundTag compoundtag = super.getUpdateTag();
         compoundtag.put("item", this.item.save(new CompoundTag()));
-        compoundtag.putInt("chisel_count", this.chiselCount);
+        compoundtag.putInt("chiselCount", this.chiselCount);
+        compoundtag.putInt("maxChiselCount", this.maxChiselCount);
         return compoundtag;
     }
 
@@ -152,7 +149,8 @@ public class FossilBlockEntity extends BlockEntity {
         if (!this.tryLoadLootTable(compoundTag) && compoundTag.contains("item")) {
             this.item = ItemStack.of(compoundTag.getCompound("item"));
         }
-        this.chiselCount = compoundTag.getInt("chisel_count");
+        this.chiselCount = compoundTag.getInt("chiselCount");
+        this.maxChiselCount = compoundTag.getInt("maxChiselCount");
     }
 
     @Override
@@ -160,7 +158,8 @@ public class FossilBlockEntity extends BlockEntity {
         if (!this.trySaveLootTable(compoundTag)) {
             compoundTag.put("item", this.item.save(new CompoundTag()));
         }
-        compoundTag.putInt("chisel_count", this.chiselCount);
+        compoundTag.putInt("chiselCount", this.chiselCount);
+        compoundTag.putInt("maxChiselCount", this.maxChiselCount);
     }
 
     public void setLootTable(ResourceLocation resourceLocation, long lootTableSeed) {
