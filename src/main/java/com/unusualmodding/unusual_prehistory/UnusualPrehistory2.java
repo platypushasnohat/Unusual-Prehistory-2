@@ -47,7 +47,6 @@ public class UnusualPrehistory2 {
         UP2TrunkPlacers.TRUNK_PLACERS.register(bus);
         UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
         UP2StructureTypes.STRUCTURE_TYPES.register(bus);
-        UP2StructureProcessors.STRUCTURE_PROCESSORS.register(bus);
         UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
