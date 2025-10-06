@@ -1,0 +1,6 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "minecraft:fossil_upper",
+  "steps": "underground_structures"
+}

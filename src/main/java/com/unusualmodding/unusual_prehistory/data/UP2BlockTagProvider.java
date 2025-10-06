@@ -53,6 +53,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.FOSSILIZED_BONE_BLOCKS).add(
                 FOSSILIZED_BONE_BLOCK.get(),
+                FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get()
         );
 
@@ -60,7 +61,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
                 DEEPSLATE_FOSSIL.get(),
-                FOSSIL.get()
+                FOSSIL.get(),
+                FOSSILIZED_BONE_BLOCK.get(),
+                FOSSILIZED_BONE_BARK.get(),
+                FOSSILIZED_BONE_VERTEBRA.get(),
+                FOSSILIZED_SKULL.get(),
+                FOSSILIZED_SKULL_LANTERN.get(),
+                FOSSILIZED_SKULL_SOUL_LANTERN.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(

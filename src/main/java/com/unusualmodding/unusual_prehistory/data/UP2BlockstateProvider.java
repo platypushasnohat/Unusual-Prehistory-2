@@ -74,6 +74,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.pillar(FOSSILIZED_BONE_BLOCK);
         this.pillarWithTop(FOSSILIZED_BONE_VERTEBRA, "fossilized_bone_block_top");
+        this.pillarWithName(FOSSILIZED_BONE_BARK, "fossilized_bone_block", "fossilized_bone_block");
     }
 
     // item
@@ -114,6 +115,11 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     private void pillarWithTop(RegistryObject<Block> pillar, String topTexture) {
         this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + topTexture));
+        this.itemModel(pillar);
+    }
+
+    private void pillarWithName(RegistryObject<Block> pillar, String sideTexture, String topTexture) {
+        this.axisBlock((RotatedPillarBlock) pillar.get(), this.modLoc("block/" + sideTexture), this.modLoc("block/" + topTexture));
         this.itemModel(pillar);
     }
 

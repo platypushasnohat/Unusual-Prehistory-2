@@ -2,6 +2,12 @@
   "values": [
     "unusual_prehistory:transmogrifier",
     "unusual_prehistory:deepslate_fossil",
-    "unusual_prehistory:fossil"
+    "unusual_prehistory:fossil",
+    "unusual_prehistory:fossilized_bone_block",
+    "unusual_prehistory:fossilized_bone_bark",
+    "unusual_prehistory:fossilized_bone_vertebra",
+    "unusual_prehistory:fossilized_skull",
+    "unusual_prehistory:fossilized_skull_lantern",
+    "unusual_prehistory:fossilized_skull_soul_lantern"
   ]
 }
