@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "down": "unusual_prehistory:block/fossilized_skull_bottom",
+    "east": "unusual_prehistory:block/fossilized_skull_side",
+    "north": "unusual_prehistory:block/fossilized_skull_soul_lantern",
+    "particle": "unusual_prehistory:block/fossilized_skull_soul_lantern",
+    "south": "unusual_prehistory:block/fossilized_skull_back",
+    "up": "unusual_prehistory:block/fossilized_skull_top",
+    "west": "unusual_prehistory:block/fossilized_skull_side"
+  }
+}

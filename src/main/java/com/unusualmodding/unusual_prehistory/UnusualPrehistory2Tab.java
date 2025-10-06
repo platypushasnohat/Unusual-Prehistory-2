@@ -23,6 +23,10 @@ public class UnusualPrehistory2Tab {
 
                         tabOutput.accept(UP2Blocks.FOSSILIZED_BONE_BLOCK.get());
                         tabOutput.accept(UP2Blocks.FOSSILIZED_BONE_VERTEBRA.get());
+                        tabOutput.accept(UP2Blocks.FOSSILIZED_SKULL.get());
+                        tabOutput.accept(UP2Blocks.FOSSILIZED_SKULL_LANTERN.get());
+                        tabOutput.accept(UP2Blocks.FOSSILIZED_SKULL_SOUL_LANTERN.get());
+
                         tabOutput.accept(UP2Blocks.FOSSIL.get());
                         tabOutput.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
 
