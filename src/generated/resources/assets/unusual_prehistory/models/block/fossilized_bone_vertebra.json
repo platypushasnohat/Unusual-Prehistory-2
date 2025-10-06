@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "unusual_prehistory:block/fossilized_bone_block_top",
+    "side": "unusual_prehistory:block/fossilized_bone_vertebra"
+  }
+}

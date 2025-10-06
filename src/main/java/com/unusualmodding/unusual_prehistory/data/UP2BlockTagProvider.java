@@ -51,6 +51,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).addTag(BlockTags.ICE);
 
+        this.tag(UP2BlockTags.FOSSILIZED_BONE_BLOCKS).add(
+                FOSSILIZED_BONE_BLOCK.get(),
+                FOSSILIZED_BONE_VERTEBRA.get()
+        );
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

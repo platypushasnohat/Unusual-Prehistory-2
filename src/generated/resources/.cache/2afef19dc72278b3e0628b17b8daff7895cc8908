@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-02T12:48:03.615829	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-10-05T21:44:55.6900532	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 dde0cb7e52d3ca26cd06b362625a1ff03aeadecb data/minecraft/tags/blocks/ceiling_hanging_signs.json
@@ -30,6 +30,7 @@ c51a3ba5ec1970e8834eb86e6742cca76f20e869 data/minecraft/tags/blocks/wooden_slabs
 824a46c742eb55f66336a9b78edaeff27daf3544 data/minecraft/tags/blocks/wooden_trapdoors.json
 db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/blocks/accelerates_egg_hatching.json
 93e83650412bbd4fb2f46139d7b2da9346a9eafc data/unusual_prehistory/tags/blocks/ancient_plant_placeable.json
+4b65c82336dda66a3e3b16fd4859a7098cde3f6d data/unusual_prehistory/tags/blocks/fossilized_bone_blocks.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/blocks/ginkgo_logs.json
 e7e3ce8f25ff23e0e19228ac66a6ddeffcfa511b data/unusual_prehistory/tags/blocks/lepidodendron_growths_placeable.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/blocks/lepidodendron_logs.json

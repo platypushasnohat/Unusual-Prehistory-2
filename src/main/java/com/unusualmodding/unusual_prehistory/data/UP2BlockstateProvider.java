@@ -71,6 +71,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.leaves(LEPIDODENDRON_LEAVES);
         this.simpleCross(HANGING_LEPIDODENDRON_LEAVES);
         this.generatedItem(HANGING_LEPIDODENDRON_LEAVES.get(), TextureFolder.BLOCK);
+
+        this.pillar(FOSSILIZED_BONE_BLOCK);
+        this.pillarWithTop(FOSSILIZED_BONE_VERTEBRA, "fossilized_bone_block_top");
     }
 
     // item
@@ -106,6 +109,11 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     private void pillar(RegistryObject<Block> pillar) {
         this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + getItemName(pillar.get()) + "_top"));
+        this.itemModel(pillar);
+    }
+
+    private void pillarWithTop(RegistryObject<Block> pillar, String topTexture) {
+        this.axisBlock((RotatedPillarBlock) pillar.get(), this.blockTexture(pillar.get()), this.modLoc("block/" + topTexture));
         this.itemModel(pillar);
     }
 

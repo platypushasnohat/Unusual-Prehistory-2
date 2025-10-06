@@ -21,6 +21,8 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> ZOMBIE_EGG_TARGETS = modBlockTag("zombie_egg_targets");
 
+    public static final TagKey<Block> FOSSILIZED_BONE_BLOCKS = modBlockTag("fossilized_bone_blocks");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }
