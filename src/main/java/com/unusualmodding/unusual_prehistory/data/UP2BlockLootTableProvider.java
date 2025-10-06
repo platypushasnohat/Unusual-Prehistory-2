@@ -51,6 +51,19 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        this.dropSelf(FOSSILIZED_BONE_BLOCK.get());
+        this.dropSelf(FOSSILIZED_BONE_BARK.get());
+        this.dropSelf(FOSSILIZED_BONE_VERTEBRA.get());
+        this.dropSelf(FOSSILIZED_SKULL.get());
+        this.dropSelf(FOSSILIZED_SKULL_LANTERN.get());
+        this.dropSelf(FOSSILIZED_SKULL_SOUL_LANTERN.get());
+
+        this.dropSelf(PETRIFIED_LOG.get());
+        this.dropSelf(PETRIFIED_WOOD.get());
+        this.dropSelf(POLISHED_PETRIFIED_WOOD.get());
+        this.dropSelf(POLISHED_PETRIFIED_WOOD_STAIRS.get());
+        this.add(POLISHED_PETRIFIED_WOOD_SLAB.get(), this::createSlabItemTable);
+
         this.dropSelf(TRANSMOGRIFIER.get());
 
         this.dropSelf(CARNOTAURUS_EGG.get());

@@ -8,6 +8,11 @@
     "unusual_prehistory:fossilized_bone_vertebra",
     "unusual_prehistory:fossilized_skull",
     "unusual_prehistory:fossilized_skull_lantern",
-    "unusual_prehistory:fossilized_skull_soul_lantern"
+    "unusual_prehistory:fossilized_skull_soul_lantern",
+    "unusual_prehistory:petrified_log",
+    "unusual_prehistory:petrified_wood",
+    "unusual_prehistory:polished_petrified_wood",
+    "unusual_prehistory:polished_petrified_wood_stairs",
+    "unusual_prehistory:polished_petrified_wood_slab"
   ]
 }

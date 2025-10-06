@@ -485,7 +485,7 @@
         "attenuation_distance": 8,
         "name": "unusual_prehistory:block/transmogrifier/loop1",
         "pitch": 0.78,
-        "volume": 0.4
+        "volume": 0.8
       }
     ],
     "subtitle": "subtitles.transmogrifier_loop"

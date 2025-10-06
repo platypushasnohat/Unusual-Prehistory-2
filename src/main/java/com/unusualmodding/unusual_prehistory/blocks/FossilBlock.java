@@ -27,10 +27,6 @@ public class FossilBlock extends BrushableBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-    }
-
-    @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState blockState, boolean b) {
         level.scheduleTick(pos, this, 2);
     }
@@ -50,16 +46,17 @@ public class FossilBlock extends BrushableBlock {
     }
 
     @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight()) {
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(level, pos, state);
+            fallingblockentity.disableDrop();
+            fallingblockentity.setHurtsEntities(1.0F, 3);
+        }
+    }
+
+    @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new FossilBlockEntity(pos, state);
-    }
-
-    @Override
-    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
-    }
-
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
     }
 }

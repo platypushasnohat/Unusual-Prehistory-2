@@ -75,6 +75,12 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.pillar(FOSSILIZED_BONE_BLOCK);
         this.pillarWithTop(FOSSILIZED_BONE_VERTEBRA, "fossilized_bone_block_top");
         this.pillarWithName(FOSSILIZED_BONE_BARK, "fossilized_bone_block", "fossilized_bone_block");
+
+        this.pillar(PETRIFIED_LOG);
+        this.pillarWithName(PETRIFIED_WOOD, "petrified_log", "petrified_log");
+        this.cubeAllBlock(POLISHED_PETRIFIED_WOOD);
+        this.stairs(POLISHED_PETRIFIED_WOOD_STAIRS, this.blockTexture(POLISHED_PETRIFIED_WOOD.get()));
+        this.slab(POLISHED_PETRIFIED_WOOD_SLAB, this.blockTexture(POLISHED_PETRIFIED_WOOD.get()));
     }
 
     // item

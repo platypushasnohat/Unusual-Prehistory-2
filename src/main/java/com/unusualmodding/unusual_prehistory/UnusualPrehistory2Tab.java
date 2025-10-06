@@ -31,6 +31,12 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.FOSSILIZED_SKULL_LANTERN.get());
                         tabOutput.accept(UP2Blocks.FOSSILIZED_SKULL_SOUL_LANTERN.get());
 
+                        tabOutput.accept(UP2Blocks.PETRIFIED_LOG.get());
+                        tabOutput.accept(UP2Blocks.PETRIFIED_WOOD.get());
+                        tabOutput.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
+                        tabOutput.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+                        tabOutput.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+
                         tabOutput.accept(ORGANIC_OOZE.get());
                         tabOutput.accept(MACHINE_PARTS.get());
 

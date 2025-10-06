@@ -232,7 +232,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP,
-                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.4F).pitch(0.78F)
+                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.7F).pitch(0.78F)
         );
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_START,
                 sound(UnusualPrehistory2.modPrefix("block/transmogrifier/start1")).attenuationDistance(10)

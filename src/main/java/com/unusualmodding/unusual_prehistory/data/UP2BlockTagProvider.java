@@ -67,7 +67,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 FOSSILIZED_BONE_VERTEBRA.get(),
                 FOSSILIZED_SKULL.get(),
                 FOSSILIZED_SKULL_LANTERN.get(),
-                FOSSILIZED_SKULL_SOUL_LANTERN.get()
+                FOSSILIZED_SKULL_SOUL_LANTERN.get(),
+                PETRIFIED_LOG.get(),
+                PETRIFIED_WOOD.get(),
+                POLISHED_PETRIFIED_WOOD.get(),
+                POLISHED_PETRIFIED_WOOD_STAIRS.get(),
+                POLISHED_PETRIFIED_WOOD_SLAB.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
@@ -94,6 +99,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 MOSSY_DIRT.get()
+        );
+
+        this.tag(BlockTags.SLABS).add(
+                POLISHED_PETRIFIED_WOOD_SLAB.get()
+        );
+
+        this.tag(BlockTags.STAIRS).add(
+                POLISHED_PETRIFIED_WOOD_STAIRS.get()
         );
 
         this.tag(BlockTags.REPLACEABLE).add(
