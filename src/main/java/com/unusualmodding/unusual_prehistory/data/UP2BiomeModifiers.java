@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.registry.UP2PlacedFeatures;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -30,48 +29,23 @@ import static net.minecraft.world.level.levelgen.GenerationStep.Decoration.*;
 
 public class UP2BiomeModifiers {
 
-
-
-    private static final String ADD_FOSSIL = "add_fossil";
-
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         removeFeature(context, "fossil_lower", BiomeTags.IS_OVERWORLD, UNDERGROUND_STRUCTURES, CavePlacements.FOSSIL_LOWER);
         removeFeature(context, "fossil_upper", BiomeTags.IS_OVERWORLD, UNDERGROUND_STRUCTURES, CavePlacements.FOSSIL_UPPER);
-        addFeature(context, ADD_FOSSIL, BiomeTags.IS_OVERWORLD, UNDERGROUND_STRUCTURES, UP2PlacedFeatures.FOSSIL_PLACED);
     }
-
 
     private static void addSpawn(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
         register(context, "add_spawn/" + name, () -> new AddSpawnsBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), List.of(spawns)));
     }
 
-
     @SafeVarargs
-    private static void addFeature(BootstapContext<BiomeModifier> context,
-                                   ResourceKey<PlacedFeature> name,
-                                   TagKey<Biome> biomes,
-                                   GenerationStep.Decoration step,
-                                   ResourceKey<PlacedFeature>... features) {
-        register(context,
-                "add_feature/" + name.location().getNamespace(),
-                () -> new AddFeaturesBiomeModifier(
-                        context.lookup(Registries.BIOME).getOrThrow(biomes),
-                        featureSet(context, features),
-                        step));
+    private static void addFeature(BootstapContext<BiomeModifier> context, ResourceKey<PlacedFeature> name, TagKey<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
+        register(context, "add_feature/" + name.location().getNamespace(), () -> new AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), step));
     }
 
     @SafeVarargs
-    private static void addFeature(BootstapContext<BiomeModifier> context,
-                                   String name,
-                                   TagKey<Biome> biomes,
-                                   GenerationStep.Decoration step,
-                                   ResourceKey<PlacedFeature>... features) {
-        register(context,
-                "add_feature/" + name,
-                () -> new AddFeaturesBiomeModifier(
-                        context.lookup(Registries.BIOME).getOrThrow(biomes),
-                        featureSet(context, features),
-                        step));
+    private static void addFeature(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
+        register(context, "add_feature/" + name, () -> new AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(biomes), featureSet(context, features), step));
     }
 
 

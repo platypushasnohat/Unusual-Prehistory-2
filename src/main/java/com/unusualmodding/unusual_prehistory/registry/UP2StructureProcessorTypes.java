@@ -15,8 +15,8 @@ public class UP2StructureProcessorTypes {
     public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSOR_TYPE = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<StructureProcessorType<FossilProcessor>> FOSSIL = STRUCTURE_PROCESSOR_TYPE.register("fossil", () -> () -> FossilProcessor.CODEC);
-    public static final  RegistryObject<StructureProcessorType<ReplaceBlockProcessor>> REPLACE_BLOCK_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("replace_block_processor", () -> ()-> ReplaceBlockProcessor.CODEC);
-    public static final  RegistryObject<StructureProcessorType<IfStructureProcessor>> IF_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("if_processor", () -> ()-> IfStructureProcessor.CODEC);
-    public static final  RegistryObject<StructureProcessorType<MarkerProcessor>> MARKER_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("marker_processor", () -> ()-> MarkerProcessor.CODEC);
+    public static final RegistryObject<StructureProcessorType<ReplaceBlockProcessor>> REPLACE_BLOCK_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("replace_block_processor", () -> ()-> ReplaceBlockProcessor.CODEC);
+    public static final RegistryObject<StructureProcessorType<IfStructureProcessor>> IF_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("if_processor", () -> ()-> IfStructureProcessor.CODEC);
+    public static final RegistryObject<StructureProcessorType<MarkerProcessor>> MARKER_PROCESSOR = STRUCTURE_PROCESSOR_TYPE.register("marker_processor", () -> ()-> MarkerProcessor.CODEC);
 
 }

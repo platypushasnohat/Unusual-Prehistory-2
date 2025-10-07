@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
 public abstract class ExtendedRuleTest extends RuleTest {
-    public boolean  extendedTest(BlockPos pos, BlockState state, LevelReader levelReader, RandomSource randomSource) {
+    public boolean extendedTest(BlockPos pos, BlockState state, LevelReader levelReader, RandomSource randomSource) {
        return test(state, randomSource);
-    };
+    }
 }

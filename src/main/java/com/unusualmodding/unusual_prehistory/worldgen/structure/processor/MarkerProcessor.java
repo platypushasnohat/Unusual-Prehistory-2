@@ -8,10 +8,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.StructureMode;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.level.material.FluidState;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Optional;
 
@@ -38,10 +35,9 @@ public class MarkerProcessor extends StructureProcessor {
             BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("deep_block").forGetter(p -> p.deepBlock),
             ResourceLocation.CODEC.optionalFieldOf("normal_loot").forGetter(p -> p.normalLoot),
             ResourceLocation.CODEC.optionalFieldOf("deep_loot").forGetter(p -> p.deepLoot),
-            Codec.FLOAT.optionalFieldOf("chance", 1.0f).forGetter(p -> p.chance),
+            Codec.FLOAT.optionalFieldOf("chance", 1.0F).forGetter(p -> p.chance),
             Codec.INT.optionalFieldOf("deep_y", 0).forGetter(p -> p.deepThreshold) // 👈 new
     ).apply(i, MarkerProcessor::new));
-
 
     private final String markerName;
     private final Optional<RuleTest> rule;
@@ -53,14 +49,7 @@ public class MarkerProcessor extends StructureProcessor {
     private final float chance;
     private final int deepThreshold;
 
-    public MarkerProcessor(String markerName,
-                           Optional<RuleTest> rule,
-                           Block normalBlock,
-                           Optional<Block> deepBlock,
-                           Optional<ResourceLocation> normalLoot,
-                           Optional<ResourceLocation> deepLoot,
-                           float chance,
-                           int deepThreshold) {
+    public MarkerProcessor(String markerName, Optional<RuleTest> rule, Block normalBlock, Optional<Block> deepBlock, Optional<ResourceLocation> normalLoot, Optional<ResourceLocation> deepLoot, float chance, int deepThreshold) {
         this.markerName = markerName;
         this.rule = rule;
         this.normalBlock = normalBlock;
@@ -72,59 +61,41 @@ public class MarkerProcessor extends StructureProcessor {
     }
 
     @Override
-    public StructureTemplate.StructureBlockInfo processBlock(
-            LevelReader level,
-            BlockPos pivot,
-            BlockPos relative,
-            StructureTemplate.StructureBlockInfo original,
-            StructureTemplate.StructureBlockInfo placed,
-            StructurePlaceSettings settings) {
+    public StructureTemplate.StructureBlockInfo processBlock(LevelReader level, BlockPos pivot, BlockPos relative, StructureTemplate.StructureBlockInfo original, StructureTemplate.StructureBlockInfo placed, StructurePlaceSettings settings) {
 
         BlockPos pos = placed.pos();
-        StructureTemplate.StructureBlockInfo empty = new StructureTemplate.StructureBlockInfo(pos ,Blocks.AIR.defaultBlockState(), new CompoundTag());
-
-        if (placed == null)
-            return empty;
+        StructureTemplate.StructureBlockInfo empty = new StructureTemplate.StructureBlockInfo(pos, Blocks.AIR.defaultBlockState(), new CompoundTag());
 
         BlockState state = placed.state();
 
-        if (!state.is(Blocks.STRUCTURE_BLOCK))
-            return placed;
+        if (!state.is(Blocks.STRUCTURE_BLOCK)) return placed;
 
         CompoundTag tag = placed.nbt();
-        if (tag == null || !tag.contains("mode") || !tag.contains("metadata"))
-            return empty;
+        if (tag == null || !tag.contains("mode") || !tag.contains("metadata")) return empty;
 
         // Validate that it's a DATA marker
         StructureMode mode = StructureMode.valueOf(tag.getString("mode"));
-        if (mode != StructureMode.DATA)
-            return empty;
+        if (mode != StructureMode.DATA) return empty;
 
         String meta = tag.getString("metadata");
-        if (!meta.equals(markerName))
-            return empty;
-
+        if (!meta.equals(markerName)) return empty;
 
         RandomSource random = settings.getRandom(pos);
 
-
-        if (rule.isPresent() && rule.get() instanceof ExtendedRuleTest extendedRuleTest  && !extendedRuleTest.extendedTest(pos, placed.state(), level, random))
-            return empty;
+//        if (rule.isPresent() && rule.get() instanceof ExtendedRuleTest extendedRuleTest  && !extendedRuleTest.extendedTest(pos, placed.state(), level, random)) return empty;
 
         boolean deep = pos.getY() <= deepThreshold;
         Block block = deep && deepBlock.isPresent() ? deepBlock.get() : normalBlock;
 
-        if (!isValidPlacement(level, pos, block))
-            return empty;
-        CompoundTag newTag = new CompoundTag();
-        Optional<ResourceLocation> lootTable =
-                deep && deepLoot.isPresent() ? deepLoot : normalLoot;
+        if (!isValidPlacement(level, pos, block)) return empty;
+        CompoundTag compoundTag = new CompoundTag();
+        Optional<ResourceLocation> lootTable = deep && deepLoot.isPresent() ? deepLoot : normalLoot;
         lootTable.ifPresent(loc -> {
-            tag.putString("LootTable", loc.toString());
-            tag.putLong("LootTableSeed", random.nextLong());
+            compoundTag.putString("LootTable", loc.toString());
+            compoundTag.putLong("LootTableSeed", random.nextLong());
         });
 
-        return new StructureTemplate.StructureBlockInfo(pos, block.defaultBlockState(), newTag.isEmpty() ? null : newTag);
+        return new StructureTemplate.StructureBlockInfo(pos, block.defaultBlockState(), compoundTag.isEmpty() ? null : compoundTag);
     }
 
     private boolean isValidPlacement(LevelReader level, BlockPos pos, Block target) {

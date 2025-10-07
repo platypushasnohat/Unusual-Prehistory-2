@@ -18,6 +18,7 @@ import java.util.List;
  * - Otherwise falls back to RuleTest#test(state, random).
  */
 public class AndRuleTest extends ExtendedRuleTest {
+
     public static final Codec<AndRuleTest> CODEC = RecordCodecBuilder.create(i -> i.group(
             RuleTest.CODEC.listOf().fieldOf("rules").forGetter(t -> t.children)
     ).apply(i, AndRuleTest::new));

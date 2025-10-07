@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "unusual_prehistory:fossil_placed",
+  "features": "unusual_prehistory:fossil",
   "step": "underground_structures"
 }

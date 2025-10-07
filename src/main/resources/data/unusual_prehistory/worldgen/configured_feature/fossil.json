@@ -1,0 +1,54 @@
+{
+  "type": "unusual_prehistory:nbt_feature",
+  "config": {
+    "post_processors": "minecraft:empty",
+    "processors": "unusual_prehistory:fossil",
+    "structure_y_offset": 0,
+    "structures": [
+      {
+        "structure": "unusual_prehistory:fossil/spine_0",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/spine_0",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/spine_1",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/spine_2",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/spine_3",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/skull_0",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/skull_1",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/skull_2",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/skull_3",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/fury",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:fossil/boomerang",
+        "weight": 20
+      }
+    ]
+  }
+}

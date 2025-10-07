@@ -23,9 +23,7 @@ public class IfStructureProcessor extends StructureProcessor {
     private final StructureProcessor thenProcessor;         // run when rule passes
     private final Optional<StructureProcessor> elseProcessor; // optional else
 
-    public IfStructureProcessor(RuleTest rule,
-                                StructureProcessor thenProcessor,
-                                Optional<StructureProcessor> elseProcessor) {
+    public IfStructureProcessor(RuleTest rule, StructureProcessor thenProcessor, Optional<StructureProcessor> elseProcessor) {
         this.rule = rule;
         this.thenProcessor = thenProcessor;
         this.elseProcessor = elseProcessor;
