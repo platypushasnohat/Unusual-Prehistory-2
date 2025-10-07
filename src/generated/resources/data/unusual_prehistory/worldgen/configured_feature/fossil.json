@@ -1,0 +1,50 @@
+{
+  "type": "unusual_prehistory:nbt_feature",
+  "config": {
+    "nbt_entries": [
+      {
+        "resourcelocation": "unusual_prehistory:fossil/spine_0",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/spine_0",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/spine_1",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/spine_2",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/spine_3",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/skull_0",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/skull_1",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/skull_2",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/skull_3",
+        "weight": 20
+      },
+      {
+        "resourcelocation": "unusual_prehistory:fossil/fury",
+        "weight": 20
+      }
+    ],
+    "post_processors": "minecraft:empty",
+    "processors": "unusual_prehistory:fossil/replace_fossil",
+    "structure_y_offset": 0
+  }
+}

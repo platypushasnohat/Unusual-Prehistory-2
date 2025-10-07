@@ -8,6 +8,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -51,6 +52,8 @@ public class UnusualPrehistory2 {
         UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
+        UP2RuleTests.RULE_TESTS.register(bus);
+        UP2StructureProcessorTypes.STRUCTURE_PROCESSOR_TYPE.register(bus);
         PROXY.commonInit();
 
         eventBus.register(this);
@@ -77,15 +80,22 @@ public class UnusualPrehistory2 {
         generator.addProvider(client, new UP2LanguageProvider(data));
 
         boolean server = data.includeServer();
-        UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);
-        generator.addProvider(server, blockTags);
-        generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
-        generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
-        generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
-        generator.addProvider(server, UP2LootProvider.register(output));
-        generator.addProvider(server, new UP2RecipeProvider(output));
+
         UP2DatapackProvider datapackEntries = new UP2DatapackProvider(output, provider);
         generator.addProvider(server, datapackEntries);
+
+        CompletableFuture<HolderLookup.Provider> customLookupProvider = datapackEntries.getRegistryProvider();
+
+
+
+        UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, customLookupProvider, helper);
+        generator.addProvider(server, blockTags);
+        generator.addProvider(server, new UP2ItemTagProvider(output, customLookupProvider, blockTags.contentsGetter(), helper));
+        generator.addProvider(server, new UP2EntityTagProvider(output, customLookupProvider, helper));
+        generator.addProvider(server, new UP2BiomeTagProvider(output, customLookupProvider, helper));
+        generator.addProvider(server, UP2LootProvider.register(output));
+        generator.addProvider(server, new UP2RecipeProvider(output));
+
     }
 
     public static ResourceLocation modPrefix(String name) {

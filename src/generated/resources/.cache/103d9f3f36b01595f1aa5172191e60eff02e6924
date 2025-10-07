@@ -1,0 +1,7 @@
+// 1.20.1	2025-10-07T19:13:38.1746558	Registries
+e530367c41408c16a4e3420075629cffe8798dbf data/unusual_prehistory/forge/biome_modifier/add_feature/add_fossil.json
+2e84be5421c9180ba14ed8f416fadc7f13b67c64 data/unusual_prehistory/forge/biome_modifier/remove_feature/fossil_lower.json
+d271c4cfbc24238fe544bbb55f2f9a27d6272e5a data/unusual_prehistory/forge/biome_modifier/remove_feature/fossil_upper.json
+e7803f57e875a95a2ace7bc2b56224f64f4cc317 data/unusual_prehistory/worldgen/configured_feature/fossil.json
+f02cfc03dd56ce8e1dc21a9697d5f2cc42bf581b data/unusual_prehistory/worldgen/placed_feature/fossil_placed.json
+07551882f0a15d71eeb6d34bad345bb46c87e1f9 data/unusual_prehistory/worldgen/processor_list/fossil/replace_fossil.json
