@@ -2,13 +2,17 @@
   "structures": [
     {
       "structure": "unusual_prehistory:fossil",
+      "weight": 2
+    },
+    {
+      "structure": "unusual_prehistory:petrified_tree",
       "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 5317070,
-    "spacing": 6,
-    "separation": 2
+    "salt": 6428181,
+    "spacing": 10,
+    "separation": 4
   }
 }

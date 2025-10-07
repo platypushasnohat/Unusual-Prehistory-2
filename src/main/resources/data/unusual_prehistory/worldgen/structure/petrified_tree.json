@@ -1,0 +1,11 @@
+{
+  "type": "unusual_prehistory:petrified_tree",
+  "biomes": "#unusual_prehistory:has_structure/fossils",
+  "step": "underground_structures",
+  "terrain_adaptation": "none",
+  "start_height": {
+    "absolute": 0
+  },
+  "use_expansion_hack": false,
+  "spawn_overrides": {}
+}

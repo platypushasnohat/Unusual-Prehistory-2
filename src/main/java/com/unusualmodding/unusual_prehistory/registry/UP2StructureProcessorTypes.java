@@ -12,5 +12,6 @@ public class UP2StructureProcessorTypes {
     public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSOR_TYPE = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<StructureProcessorType<FossilProcessor>> FOSSIL = STRUCTURE_PROCESSOR_TYPE.register("fossil", () -> () -> FossilProcessor.CODEC);
+    public static final RegistryObject<StructureProcessorType<PetrifiedTreeProcessor>> PETRIFIED_TREE = STRUCTURE_PROCESSOR_TYPE.register("petrified_tree", () -> () -> PetrifiedTreeProcessor.CODEC);
 
 }

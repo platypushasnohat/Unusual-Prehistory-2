@@ -87,6 +87,9 @@ public class FossilPiece extends TemplateStructurePiece {
                 this.createFossil(level, boundingBox, random, pos, UP2LootTables.DEEPSLATE_FOSSIL, true);
             }
         }
+        if (data.equals("plant_fossil")) {
+            this.createFossil(level, boundingBox, random, pos, UP2LootTables.PLANT_FOSSIL, pos.getY() <= 0);
+        }
     }
 
     protected void createFossil(ServerLevelAccessor level, BoundingBox boundingBox, RandomSource random, BlockPos pos, ResourceLocation resourceLocation, boolean deepslate) {
@@ -144,7 +147,7 @@ public class FossilPiece extends TemplateStructurePiece {
     }
 
     public int minimumDepthBeneathSurface() {
-        return 6;
+        return 32;
     }
 
     public int buryDepth() {
