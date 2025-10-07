@@ -45,11 +45,9 @@ public class DimensionRuleTest extends ExtendedRuleTest {
         if (levelReader == null) return false;
 
 
-        // Resolve & cache the target dimension's DimensionType key from registries
         final ResourceKey<DimensionType> targetTypeKey = getTargetDimensionTypeKey(levelReader);
         if (targetTypeKey == null) return false;
 
-        // Resolve the *current world's* DimensionType key
         return targetTypeKey.location().getNamespace().equals(dimension.location().getNamespace()) ;
     }
 
@@ -57,7 +55,6 @@ public class DimensionRuleTest extends ExtendedRuleTest {
     /** Gets (and caches) the ResourceKey of the target dimension's DimensionType. */
     private ResourceKey<DimensionType> getTargetDimensionTypeKey(LevelReader levelReader) {
         if (cachedTargetDimTypeKey != null) return cachedTargetDimTypeKey;
-        // Each LevelStem carries a Holder<DimensionType>; unwrap its key for stable comparison.
         final Optional<ResourceKey<DimensionType>> keyOpt = levelReader.registryAccess().registry(Registries.DIMENSION_TYPE).flatMap(registry -> registry.getResourceKey(levelReader.dimensionType()));
         cachedTargetDimTypeKey = keyOpt.orElse(null);
         return cachedTargetDimTypeKey;
