@@ -57,6 +57,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 FOSSILIZED_BONE_VERTEBRA.get()
         );
 
+        this.tag(UP2BlockTags.PETRIFIED_WOOD).add(
+                PETRIFIED_LOG.get(),
+                PETRIFIED_WOOD.get()
+        );
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
