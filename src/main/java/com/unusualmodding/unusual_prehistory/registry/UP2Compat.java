@@ -25,7 +25,7 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.COOKSONIA.get(), 0.65F);
         registerCompostable(UP2Blocks.HORSETAIL.get(), 0.65F);
         registerCompostable(UP2Blocks.LARGE_HORSETAIL.get(), 0.65F);
-        registerCompostable(UP2Blocks.ISOETES.get(), 0.65F);
+        registerCompostable(UP2Blocks.QUILLWORT.get(), 0.65F);
         registerCompostable(UP2Blocks.LEEFRUCTUS.get(), 0.65F);
         registerCompostable(UP2Blocks.RAIGUENRAYUN.get(), 0.65F);
         registerCompostable(UP2Blocks.RHYNIA.get(), 0.65F);
@@ -44,7 +44,7 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.COOKSONIA.get(), 60, 100);
         registerFlammable(UP2Blocks.HORSETAIL.get(), 60, 100);
         registerFlammable(UP2Blocks.LARGE_HORSETAIL.get(), 60, 100);
-        registerFlammable(UP2Blocks.ISOETES.get(), 60, 100);
+        registerFlammable(UP2Blocks.QUILLWORT.get(), 60, 100);
         registerFlammable(UP2Blocks.LEEFRUCTUS.get(), 60, 100);
         registerFlammable(UP2Blocks.RAIGUENRAYUN.get(), 60, 100);
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);

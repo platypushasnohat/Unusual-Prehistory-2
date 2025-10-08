@@ -30,7 +30,6 @@ public class FossilBlockEntity extends BlockEntity {
 
     private static final Logger LOGGER = LogUtils.getLogger();
     private int chiselCount;
-    private int maxChiselCount;
     private long coolDownEndsAtTick;
     private ItemStack item = ItemStack.EMPTY;
     @Nullable
@@ -41,14 +40,13 @@ public class FossilBlockEntity extends BlockEntity {
         super(UP2BlockEntities.FOSSIL.get(), pos, state);
     }
 
-    public boolean chisel(long l) {
-        if (this.level instanceof ServerLevel serverLevel) {
-            this.maxChiselCount = 9 + serverLevel.random.nextInt(2);
+    public boolean chisel(long l, Player player) {
+        if (this.level instanceof ServerLevel) {
             if (l >= this.coolDownEndsAtTick) {
                 this.coolDownEndsAtTick = l + 10L;
                 int i = this.getCompletionState();
-                if (this.chiselCount++ >= this.maxChiselCount) {
-                    this.chiselingCompleted();
+                if (this.chiselCount++ >= 10) {
+                    this.chiselingCompleted(player);
                     return true;
                 } else {
                     int j = this.getCompletionState();
@@ -69,12 +67,11 @@ public class FossilBlockEntity extends BlockEntity {
     public void unpackLootTable(Player player) {
         if (this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null) {
             LootTable loottable = this.level.getServer().getLootData().getLootTable(this.lootTable);
-            if (player instanceof ServerPlayer) {
-                ServerPlayer serverplayer = (ServerPlayer) player;
+            if (player instanceof ServerPlayer serverplayer) {
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, this.lootTable);
             }
 
-            LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player).create(LootContextParamSets.CHEST);
+            LootParams lootparams = (new LootParams.Builder((ServerLevel) this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player).create(LootContextParamSets.CHEST);
             ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
 
             this.item = switch (objectarraylist.size()) {
@@ -90,8 +87,9 @@ public class FossilBlockEntity extends BlockEntity {
         }
     }
 
-    private void chiselingCompleted() {
+    private void chiselingCompleted(Player player) {
         if (this.level != null && this.level.getServer() != null) {
+            this.dropContent(player);
             BlockState blockstate = this.getBlockState();
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             this.level.setBlock(this.worldPosition, Blocks.AIR.defaultBlockState(), 3);
@@ -135,7 +133,6 @@ public class FossilBlockEntity extends BlockEntity {
         CompoundTag compoundtag = super.getUpdateTag();
         compoundtag.put("item", this.item.save(new CompoundTag()));
         compoundtag.putInt("chiselCount", this.chiselCount);
-        compoundtag.putInt("maxChiselCount", this.maxChiselCount);
         return compoundtag;
     }
 
@@ -150,7 +147,6 @@ public class FossilBlockEntity extends BlockEntity {
             this.item = ItemStack.of(compoundTag.getCompound("item"));
         }
         this.chiselCount = compoundTag.getInt("chiselCount");
-        this.maxChiselCount = compoundTag.getInt("maxChiselCount");
     }
 
     @Override
@@ -159,7 +155,6 @@ public class FossilBlockEntity extends BlockEntity {
             compoundTag.put("item", this.item.save(new CompoundTag()));
         }
         compoundTag.putInt("chiselCount", this.chiselCount);
-        compoundTag.putInt("maxChiselCount", this.maxChiselCount);
     }
 
     public void setLootTable(ResourceLocation resourceLocation, long lootTableSeed) {
@@ -170,10 +165,10 @@ public class FossilBlockEntity extends BlockEntity {
     private int getCompletionState() {
         if (this.chiselCount == 0) {
             return 0;
-        } else if (this.chiselCount < 4) {
+        } else if (this.chiselCount < 3) {
             return 1;
         } else {
-            return this.chiselCount < 8 ? 2 : 3;
+            return this.chiselCount < 6 ? 2 : 3;
         }
     }
 

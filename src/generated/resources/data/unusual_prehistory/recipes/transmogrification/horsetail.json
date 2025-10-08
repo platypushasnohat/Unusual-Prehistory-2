@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:vascular_fossil"
+    "item": "unusual_prehistory:short_equisetum_fossil"
   },
   "output": {
     "item": "unusual_prehistory:horsetail"

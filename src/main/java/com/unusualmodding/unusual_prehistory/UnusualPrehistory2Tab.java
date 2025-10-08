@@ -88,17 +88,17 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(TALPANAS_EGG.get());
                         tabOutput.accept(TELECREX_EGG.get());
 
-                        tabOutput.accept(TRUNK_FOSSIL.get());
-                        tabOutput.accept(BARK_FOSSIL.get());
-                        tabOutput.accept(SPORE_FOSSIL.get());
-                        tabOutput.accept(SPINDLY_FOSSIL.get());
-                        tabOutput.accept(VASCULAR_FOSSIL.get());
-                        tabOutput.accept(LEAFY_FOSSIL.get());
-                        tabOutput.accept(FLOWERING_FOSSIL.get());
-                        tabOutput.accept(BLOOMED_FOSSIL.get());
-                        tabOutput.accept(FIBROUS_FOSSIL.get());
-                        tabOutput.accept(FAN_FOSSIL.get());
-                        tabOutput.accept(SAPLING_FOSSIL.get());
+                        tabOutput.accept(STOUT_CYCAD_FOSSIL.get());
+                        tabOutput.accept(WOODY_FERN_FOSSIL.get());
+                        tabOutput.accept(SHORT_FERN_FOSSIL.get());
+                        tabOutput.accept(PRIMITIVE_SPOROPHYTE_FOSSIL.get());
+                        tabOutput.accept(SHORT_EQUISETUM_FOSSIL.get());
+                        tabOutput.accept(PRIMITIVE_BUTTERCUP_FOSSIL.get());
+                        tabOutput.accept(MOIST_QUILLWORT_FOSSIL.get());
+                        tabOutput.accept(RADIANT_DAISY_FOSSIL.get());
+                        tabOutput.accept(VASCULAR_SPOROPHYTE_FOSSIL.get());
+                        tabOutput.accept(SPLAYED_LEAF_FOSSIL.get());
+                        tabOutput.accept(LYCOPSID_CONE_FOSSIL.get());
 
                         // plants
                         tabOutput.accept(UP2Blocks.BENNETTITALES.get());
@@ -107,8 +107,8 @@ public class UnusualPrehistory2Tab {
                         tabOutput.accept(UP2Blocks.COOKSONIA.get());
                         tabOutput.accept(UP2Blocks.HORSETAIL.get());
                         tabOutput.accept(UP2Blocks.LARGE_HORSETAIL.get());
-                        tabOutput.accept(UP2Blocks.ISOETES.get());
                         tabOutput.accept(UP2Blocks.LEEFRUCTUS.get());
+                        tabOutput.accept(UP2Blocks.QUILLWORT.get());
                         tabOutput.accept(UP2Blocks.RAIGUENRAYUN.get());
                         tabOutput.accept(UP2Blocks.RHYNIA.get());
                         tabOutput.accept(UP2Blocks.MOSS_LAYER.get());

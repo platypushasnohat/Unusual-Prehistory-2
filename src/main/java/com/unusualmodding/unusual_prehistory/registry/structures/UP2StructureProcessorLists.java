@@ -22,6 +22,7 @@ import java.util.Optional;
 import static com.unusualmodding.unusual_prehistory.UnusualPrehistory2.modPrefix;
 
 public class UP2StructureProcessorLists {
+
     public static final ResourceKey<StructureProcessorList> REPLACE_FOSSIL = createKey("fossil/replace_fossil");
     public static final ResourceKey<StructureProcessorList> HANDLE_FOSSIL_MARKER = createKey("fossil/handle_fossil_marker");
 
@@ -147,20 +148,13 @@ public class UP2StructureProcessorLists {
                         fossilMarker
                 )
         );
-
-
     }
-
-
 
     private static ResourceKey<StructureProcessorList> createKey(String pName) {
         return ResourceKey.create(Registries.PROCESSOR_LIST, modPrefix(pName));
     }
 
-
-    private static void register(
-            BootstapContext<StructureProcessorList> pContext, ResourceKey<StructureProcessorList> pKey, List<StructureProcessor> pProcessors
-    ) {
+    private static void register(BootstapContext<StructureProcessorList> pContext, ResourceKey<StructureProcessorList> pKey, List<StructureProcessor> pProcessors) {
         pContext.register(pKey, new StructureProcessorList(pProcessors));
     }
 }

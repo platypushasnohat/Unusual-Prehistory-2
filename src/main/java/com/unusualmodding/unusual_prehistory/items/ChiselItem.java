@@ -80,14 +80,14 @@ public class ChiselItem extends Item {
                         if (!level.isClientSide()) {
                             BlockEntity blockentity = level.getBlockEntity(blockpos);
                             if (blockentity instanceof FossilBlockEntity suspiciousStoneBlockEntity) {
-                                boolean flag1 = suspiciousStoneBlockEntity.chisel(level.getGameTime());
+                                boolean flag1 = suspiciousStoneBlockEntity.chisel(level.getGameTime(), player);
                                 if (flag1) {
                                     stack.hurtAndBreak(1, entity, (livingEntity) -> livingEntity.broadcastBreakEvent(arm));
                                 }
                             }
                         }
                     }
-                    if (i % 20 == 15) {
+                    if (i % 10 == 5) {
                         if (!level.isClientSide()) {
                             Block block = blockstate.getBlock();
                             AtomicBoolean flag1 = new AtomicBoolean(false);

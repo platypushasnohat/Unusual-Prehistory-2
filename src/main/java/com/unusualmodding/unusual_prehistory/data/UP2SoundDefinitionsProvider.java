@@ -60,11 +60,11 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_0")),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_1"))
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_0")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_1")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/death_0"))
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/death_0")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_0")),
@@ -72,8 +72,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_2"))
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_EEPY,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1"))
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1")).volume(0.5F)
         );
 
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT,

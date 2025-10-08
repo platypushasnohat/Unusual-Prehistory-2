@@ -83,8 +83,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
     public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new LargeHorsetailBlock(UP2BlockProperties.TALL_PLANT));
 
-    public static final RegistryObject<Block> ISOETES = registerBlock("isoetes", () -> new IsoetesBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_ISOETES = registerBlockWithoutItem("potted_isoetes", () -> new FlowerPotBlock(UP2Blocks.ISOETES.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> QUILLWORT = registerBlock("quillwort", () -> new QuillwortBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_QUILLWORT = registerBlockWithoutItem("potted_quillwort", () -> new FlowerPotBlock(UP2Blocks.QUILLWORT.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new PrehistoricFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));

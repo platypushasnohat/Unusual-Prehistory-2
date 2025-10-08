@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup;
@@ -41,17 +40,17 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 THERMAL_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
-                BARK_FOSSIL.get(),
-                BLOOMED_FOSSIL.get(),
-                FAN_FOSSIL.get(),
-                FIBROUS_FOSSIL.get(),
-                FLOWERING_FOSSIL.get(),
-                LEAFY_FOSSIL.get(),
-                SAPLING_FOSSIL.get(),
-                SPINDLY_FOSSIL.get(),
-                SPORE_FOSSIL.get(),
-                TRUNK_FOSSIL.get(),
-                VASCULAR_FOSSIL.get()
+                WOODY_FERN_FOSSIL.get(),
+                RADIANT_DAISY_FOSSIL.get(),
+                SPLAYED_LEAF_FOSSIL.get(),
+                VASCULAR_SPOROPHYTE_FOSSIL.get(),
+                PRIMITIVE_BUTTERCUP_FOSSIL.get(),
+                MOIST_QUILLWORT_FOSSIL.get(),
+                LYCOPSID_CONE_FOSSIL.get(),
+                PRIMITIVE_SPOROPHYTE_FOSSIL.get(),
+                SHORT_FERN_FOSSIL.get(),
+                STOUT_CYCAD_FOSSIL.get(),
+                SHORT_EQUISETUM_FOSSIL.get()
         );
 
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(

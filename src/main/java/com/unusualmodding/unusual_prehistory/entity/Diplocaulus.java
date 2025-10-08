@@ -48,7 +48,7 @@
  public class Diplocaulus extends SemiAquaticMob implements Bucketable {
 
      public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
-     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.08F);
+     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.25F);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final AnimationState idleAnimationState = new AnimationState();
@@ -73,7 +73,7 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D));
-         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0D, 100, 10, 10, 3));
+         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 10, 3));
          this.goalSelector.addGoal(2, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));

@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:flowering_fossil"
+    "item": "unusual_prehistory:primitive_buttercup_fossil"
   },
   "output": {
     "item": "unusual_prehistory:leefructus"

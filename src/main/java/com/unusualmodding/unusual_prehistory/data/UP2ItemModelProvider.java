@@ -50,17 +50,17 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PLUMAGE_FOSSIL);
         this.item(AGED_FEATHER);
 
-        this.item(BARK_FOSSIL);
-        this.item(BLOOMED_FOSSIL);
-        this.item(FAN_FOSSIL);
-        this.item(FIBROUS_FOSSIL);
-        this.item(FLOWERING_FOSSIL);
-        this.item(LEAFY_FOSSIL);
-        this.item(SAPLING_FOSSIL);
-        this.item(SPINDLY_FOSSIL);
-        this.item(SPORE_FOSSIL);
-        this.item(TRUNK_FOSSIL);
-        this.item(VASCULAR_FOSSIL);
+        this.item(WOODY_FERN_FOSSIL);
+        this.item(RADIANT_DAISY_FOSSIL);
+        this.item(SPLAYED_LEAF_FOSSIL);
+        this.item(VASCULAR_SPOROPHYTE_FOSSIL);
+        this.item(PRIMITIVE_BUTTERCUP_FOSSIL);
+        this.item(MOIST_QUILLWORT_FOSSIL);
+        this.item(LYCOPSID_CONE_FOSSIL);
+        this.item(PRIMITIVE_SPOROPHYTE_FOSSIL);
+        this.item(SHORT_FERN_FOSSIL);
+        this.item(STOUT_CYCAD_FOSSIL);
+        this.item(SHORT_EQUISETUM_FOSSIL);
 
         this.item(GINKGO_SIGN);
         this.item(GINKGO_HANGING_SIGN);

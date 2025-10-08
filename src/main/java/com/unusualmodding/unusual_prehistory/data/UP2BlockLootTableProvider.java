@@ -87,8 +87,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(CLADOPHLEBIS.get());
         this.dropPottedContents(POTTED_CLADOPHLEBIS.get());
 
-        this.dropSelf(ISOETES.get());
-        this.dropPottedContents(POTTED_ISOETES.get());
+        this.dropSelf(QUILLWORT.get());
+        this.dropPottedContents(POTTED_QUILLWORT.get());
 
         this.dropSelf(LEEFRUCTUS.get());
         this.dropPottedContents(POTTED_LEEFRUCTUS.get());

@@ -1,0 +1,5 @@
+{
+  "type": "unusual_prehistory:chiseling",
+  "from": "minecraft:nether_bricks",
+  "to": "minecraft:chiseled_nether_bricks"
+}

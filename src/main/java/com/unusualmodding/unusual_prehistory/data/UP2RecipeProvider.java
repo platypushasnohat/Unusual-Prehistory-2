@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -62,25 +63,68 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
 
-        transmogrification(consumer, UP2Items.TRUNK_FOSSIL.get(), UP2Blocks.BENNETTITALES.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.BARK_FOSSIL.get(), UP2Blocks.CALAMOPHYTON.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.SPORE_FOSSIL.get(), UP2Blocks.CLADOPHLEBIS.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.SPINDLY_FOSSIL.get(), UP2Blocks.COOKSONIA.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.FAN_FOSSIL.get(), UP2Blocks.GINKGO_SAPLING.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.VASCULAR_FOSSIL.get(), UP2Blocks.HORSETAIL.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.LEAFY_FOSSIL.get(), UP2Blocks.ISOETES.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.FLOWERING_FOSSIL.get(), UP2Blocks.LEEFRUCTUS.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.SAPLING_FOSSIL.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.BLOOMED_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.FIBROUS_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.STOUT_CYCAD_FOSSIL.get(), UP2Blocks.BENNETTITALES.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.WOODY_FERN_FOSSIL.get(), UP2Blocks.CALAMOPHYTON.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SHORT_FERN_FOSSIL.get(), UP2Blocks.CLADOPHLEBIS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.PRIMITIVE_SPOROPHYTE_FOSSIL.get(), UP2Blocks.COOKSONIA.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SPLAYED_LEAF_FOSSIL.get(), UP2Blocks.GINKGO_SAPLING.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.SHORT_EQUISETUM_FOSSIL.get(), UP2Blocks.HORSETAIL.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.MOIST_QUILLWORT_FOSSIL.get(), UP2Blocks.QUILLWORT.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.PRIMITIVE_BUTTERCUP_FOSSIL.get(), UP2Blocks.LEEFRUCTUS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.LYCOPSID_CONE_FOSSIL.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.RADIANT_DAISY_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.VASCULAR_SPOROPHYTE_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem(), 600);
 
-//        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
-//        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE);
-//        chiseling(consumer, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
-//        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
-//        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
-//        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE);
-//        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK);
+        chiseling(consumer, Blocks.COBBLESTONE, Blocks.STONE);
+        chiseling(consumer, Blocks.STONE, Blocks.STONE_BRICKS);
+        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
+        chiseling(consumer, Blocks.CHISELED_STONE_BRICKS, Blocks.COBBLESTONE);
+
+        chiseling(consumer, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
+        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE);
+        chiseling(consumer, Blocks.POLISHED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS);
+        chiseling(consumer, Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_TILES);
+        chiseling(consumer, Blocks.DEEPSLATE_TILES, Blocks.CHISELED_DEEPSLATE);
+        chiseling(consumer, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE);
+
+        chiseling(consumer, Blocks.GRANITE, Blocks.POLISHED_GRANITE);
+        chiseling(consumer, Blocks.POLISHED_GRANITE, Blocks.GRANITE);
+
+        chiseling(consumer, Blocks.DIORITE, Blocks.POLISHED_DIORITE);
+        chiseling(consumer, Blocks.POLISHED_DIORITE, Blocks.DIORITE);
+
+        chiseling(consumer, Blocks.ANDESITE, Blocks.POLISHED_ANDESITE);
+        chiseling(consumer, Blocks.POLISHED_ANDESITE, Blocks.ANDESITE);
+
+        chiseling(consumer, Blocks.BASALT, Blocks.POLISHED_BASALT);
+        chiseling(consumer, Blocks.POLISHED_BASALT, Blocks.BASALT);
+
+        chiseling(consumer, Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE);
+        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_BRICKS);
+        chiseling(consumer, Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CHISELED_POLISHED_BLACKSTONE);
+        chiseling(consumer, Blocks.CHISELED_POLISHED_BLACKSTONE, Blocks.BLACKSTONE);
+
+        chiseling(consumer, Blocks.END_STONE, Blocks.END_STONE_BRICKS);
+        chiseling(consumer, Blocks.END_STONE_BRICKS, Blocks.END_STONE);
+
+        chiseling(consumer, Blocks.PURPUR_BLOCK, Blocks.PURPUR_PILLAR);
+        chiseling(consumer, Blocks.PURPUR_PILLAR, Blocks.PURPUR_BLOCK);
+
+        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_BRICKS);
+        chiseling(consumer, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK);
+        chiseling(consumer, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_PILLAR);
+        chiseling(consumer, Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BLOCK);
+
+        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
+        chiseling(consumer, Blocks.CHISELED_NETHER_BRICKS, Blocks.NETHER_BRICKS);
+
+        chiseling(consumer, Blocks.SANDSTONE, Blocks.CUT_SANDSTONE);
+        chiseling(consumer, Blocks.CUT_SANDSTONE, Blocks.CHISELED_SANDSTONE);
+        chiseling(consumer, Blocks.CHISELED_SANDSTONE, Blocks.SANDSTONE);
+
+        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE);
+        chiseling(consumer, Blocks.CUT_RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
+        chiseling(consumer, Blocks.CHISELED_RED_SANDSTONE, Blocks.RED_SANDSTONE);
     }
 
     private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {

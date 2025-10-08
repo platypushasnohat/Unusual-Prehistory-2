@@ -26,6 +26,12 @@ public class MegalaniaAttackGoal extends AttackGoal {
             double distance = this.megalania.distanceToSqr(target.getX(), target.getY(), target.getZ());
             int attackState = this.megalania.getAttackState();
 
+            if (this.megalania.isInWaterOrBubble()) {
+                this.megalania.getNavigation().moveTo(target, 1.0D);
+            } else {
+                this.megalania.getNavigation().moveTo(target, 2.4D);
+            }
+
             if (attackState == 1) {
                 this.timer++;
                 if (this.timer == 11) {
@@ -38,9 +44,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
                     this.timer = 0;
                     this.megalania.setAttackState(0);
                 }
-                this.megalania.getNavigation().moveTo(target, 2.4D);
             } else {
-                this.megalania.getNavigation().moveTo(target, 2.4D);
                 if (distance <= this.getAttackReachSqr(target)) {
                     if (this.megalania.getRandom().nextBoolean()) {
                         this.megalania.setAttackState(1);

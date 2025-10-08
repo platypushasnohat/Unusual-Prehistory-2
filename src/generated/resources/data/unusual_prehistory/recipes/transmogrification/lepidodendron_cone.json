@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:sapling_fossil"
+    "item": "unusual_prehistory:lycopsid_cone_fossil"
   },
   "output": {
     "item": "unusual_prehistory:lepidodendron_cone"

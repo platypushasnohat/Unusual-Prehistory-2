@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:moist_quillwort_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:quillwort"
+  },
+  "processing_time": 600
+}

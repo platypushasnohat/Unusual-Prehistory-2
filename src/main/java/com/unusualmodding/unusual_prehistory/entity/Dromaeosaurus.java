@@ -290,9 +290,4 @@ public class Dromaeosaurus extends PrehistoricMob {
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
     }
-
-    @Override
-    public int getAmbientSoundInterval() {
-        return this.isDromaeosaurusSleeping() ? 200 : 160;
-    }
 }

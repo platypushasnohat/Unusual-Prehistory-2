@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:trunk_fossil"
+    "item": "unusual_prehistory:stout_cycad_fossil"
   },
   "output": {
     "item": "unusual_prehistory:bennettitales"

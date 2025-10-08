@@ -51,7 +51,6 @@ public class Talpanas extends BreedableMob {
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);

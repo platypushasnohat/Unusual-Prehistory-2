@@ -90,17 +90,17 @@ public class UP2Items {
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage");
 
     // plant fossils
-    public static final RegistryObject<Item> BARK_FOSSIL = registerFossilItem("bark");
-    public static final RegistryObject<Item> BLOOMED_FOSSIL = registerFossilItem("bloomed");
-    public static final RegistryObject<Item> FAN_FOSSIL = registerFossilItem("fan");
-    public static final RegistryObject<Item> FIBROUS_FOSSIL = registerFossilItem("fibrous");
-    public static final RegistryObject<Item> FLOWERING_FOSSIL = registerFossilItem("flowering");
-    public static final RegistryObject<Item> LEAFY_FOSSIL = registerFossilItem("leafy");
-    public static final RegistryObject<Item> SAPLING_FOSSIL = registerFossilItem("sapling");
-    public static final RegistryObject<Item> SPINDLY_FOSSIL = registerFossilItem("spindly");
-    public static final RegistryObject<Item> SPORE_FOSSIL = registerFossilItem("spore");
-    public static final RegistryObject<Item> TRUNK_FOSSIL = registerFossilItem("trunk");
-    public static final RegistryObject<Item> VASCULAR_FOSSIL = registerFossilItem("vascular");
+    public static final RegistryObject<Item> STOUT_CYCAD_FOSSIL = registerFossilItem("stout_cycad"); // bennettitales
+    public static final RegistryObject<Item> WOODY_FERN_FOSSIL = registerFossilItem("woody_fern"); // calamophyton
+    public static final RegistryObject<Item> SHORT_FERN_FOSSIL = registerFossilItem("short_fern"); // cladophebis
+    public static final RegistryObject<Item> PRIMITIVE_SPOROPHYTE_FOSSIL = registerFossilItem("primitive_sporophyte"); // cooksonia
+    public static final RegistryObject<Item> SHORT_EQUISETUM_FOSSIL = registerFossilItem("short_equisetum"); // horsetail
+    public static final RegistryObject<Item> PRIMITIVE_BUTTERCUP_FOSSIL = registerFossilItem("primitive_buttercup"); // leefructus
+    public static final RegistryObject<Item> MOIST_QUILLWORT_FOSSIL = registerFossilItem("moist_quillwort"); // quillwort
+    public static final RegistryObject<Item> RADIANT_DAISY_FOSSIL = registerFossilItem("radiant_daisy"); // raiguenrayun
+    public static final RegistryObject<Item> VASCULAR_SPOROPHYTE_FOSSIL = registerFossilItem("vascular_sporophyte"); // rhynia
+    public static final RegistryObject<Item> SPLAYED_LEAF_FOSSIL = registerFossilItem("splayed_leaf"); // ginkgo
+    public static final RegistryObject<Item> LYCOPSID_CONE_FOSSIL = registerFossilItem("lycopsid_cone"); // lepidodendron
 
     // wood
     public static final RegistryObject<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_WALL_SIGN.get()));

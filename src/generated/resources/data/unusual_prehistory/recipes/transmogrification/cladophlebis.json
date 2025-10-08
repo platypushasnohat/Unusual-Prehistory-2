@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:spore_fossil"
+    "item": "unusual_prehistory:short_fern_fossil"
   },
   "output": {
     "item": "unusual_prehistory:cladophlebis"
