@@ -76,6 +76,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");
 
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT, "Dromaeosaurus hurts");
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_DEATH, "Dromaeosaurus dies");
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_IDLE, "Dromaeosaurus chatters");
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_EEPY, "Dromaeosaurus snores");
+
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");

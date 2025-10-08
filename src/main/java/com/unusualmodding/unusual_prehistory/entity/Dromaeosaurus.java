@@ -7,20 +7,18 @@ import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -33,7 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,8 +66,8 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(3, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.0D, 1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
-        this.goalSelector.addGoal(5, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(6, new DromaeosaurusRunGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
@@ -89,24 +86,13 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UP2ItemTags.DROMAEOSAURUS_FOOD) && this.getHealth() < this.getMaxHealth()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.heal((float) itemstack.getFoodProperties(this).getNutrition());
-            this.gameEvent(GameEvent.EAT, this);
-            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            for (int i = 0; i < 3; i++) {
-                final double d2 = this.random.nextGaussian() * 0.02D;
-                final double d0 = this.random.nextGaussian() * 0.02D;
-                final double d1 = this.random.nextGaussian() * 0.02D;
-                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.DROMAEOSAURUS_FOOD);
+    }
+
+    @Override
+    public SoundEvent getEatingSound() {
+        return SoundEvents.PARROT_EAT;
     }
 
     @Override
@@ -138,6 +124,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         }
     }
 
+    @Override
     public void setupAnimationStates() {
         if (this.idleAnimationTimeout == 0) {
             this.idleAnimationTimeout = 160;
@@ -146,7 +133,8 @@ public class Dromaeosaurus extends PrehistoricMob {
             --this.idleAnimationTimeout;
         }
 
-        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable(), this.tickCount);
+        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
+        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
 
         if (this.isDromaeosaurusVisuallySleeping()) {
             this.fallAnimationState.stop();
@@ -164,15 +152,6 @@ public class Dromaeosaurus extends PrehistoricMob {
             this.sleepAnimationState.stop();
             this.sleepEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
-        if (DATA_POSE.equals(entityDataAccessor)) {
-            if (this.getPose() == UP2Poses.BITING.get()) this.biteAnimationState.start(this.tickCount);
-            if (this.getPose() == Pose.STANDING) this.biteAnimationState.stop();
-        }
-        super.onSyncedDataUpdated(entityDataAccessor);
     }
 
     @Override
@@ -294,21 +273,26 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.refreshDimensions();
     }
 
-//    @Nullable
-//    @Override
-//    protected SoundEvent getAmbientSound() {
-//        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
-//    }
-//
-//    @Nullable
-//    @Override
-//    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-//        return UP2SoundEvents.MAJUNGASAURUS_HURT.get();
-//    }
-//
-//    @Nullable
-//    @Override
-//    protected SoundEvent getDeathSound() {
-//        return UP2SoundEvents.MAJUNGASAURUS_DEATH.get();
-//    }
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.isDromaeosaurusSleeping() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return UP2SoundEvents.DROMAEOSAURUS_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return this.isDromaeosaurusSleeping() ? 200 : 160;
+    }
 }

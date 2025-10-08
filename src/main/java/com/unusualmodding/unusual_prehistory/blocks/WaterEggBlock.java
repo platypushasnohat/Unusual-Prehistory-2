@@ -16,10 +16,12 @@ import net.minecraftforge.registries.RegistryObject;
 public class WaterEggBlock extends FrogspawnBlock {
 
     private final RegistryObject<EntityType> hatchedEntity;
+    private final int babyCount;
 
-    public WaterEggBlock(Properties properties, RegistryObject hatchedEntity) {
+    public WaterEggBlock(Properties properties, RegistryObject hatchedEntity, int spawnCount) {
         super(properties);
         this.hatchedEntity = hatchedEntity;
+        this.babyCount = spawnCount;
     }
 
     @Override
@@ -28,8 +30,7 @@ public class WaterEggBlock extends FrogspawnBlock {
             level.destroyBlock(pos, false);
         } else if (level.getFluidState(pos.below()).is(FluidTags.WATER)) {
             level.destroyBlock(pos, false);
-            int i = 2 + random.nextInt(2);
-            for (int j = 1; j <= i; ++j) {
+            for (int j = 0; j < babyCount; j++) {
                 Entity entity = hatchedEntity.get().create(level);
                 if (entity != null) {
                     if (entity instanceof Animal animal) {
@@ -40,18 +41,11 @@ public class WaterEggBlock extends FrogspawnBlock {
                         prehistoricAquaticMob.setAge(-24000);
                         prehistoricAquaticMob.setPersistenceRequired();
                     }
-                    if (entity instanceof Dunkleosteus dunkleosteus) {
-                        int sizeChange = random.nextInt(0, 100);
-                        if (sizeChange <= 30) {
-                            dunkleosteus.setDunkSize(1);
-                        } else if (sizeChange <= 60) {
-                            dunkleosteus.setDunkSize(2);
-                        } else {
-                            dunkleosteus.setDunkSize(0);
-                        }
-                    }
                     if (entity instanceof PrehistoricMob prehistoricMob) {
                         prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
+                    }
+                    if (entity instanceof Dunkleosteus dunkleosteus) {
+                        dunkleosteus.setDunkSize(random.nextInt(dunkleosteus.getVariantCount()));
                     }
                     int k = random.nextInt(1, 361);
                     entity.moveTo(pos.getX(), (double) pos.getY() - 0.5D, pos.getZ(), (float) k, 0.0F);

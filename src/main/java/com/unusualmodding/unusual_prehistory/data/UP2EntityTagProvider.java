@@ -103,6 +103,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.GUARDIAN
         );
 
+        tag(UP2EntityTags.SPAWNS_MULTIPLE_BABIES).add(
+                DIPLOCAULUS.get(),
+                JAWLESS_FISH.get(),
+                KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(),
+                KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get()
+        );
+
         tag(UP2EntityTags.SCATTERS_TELECREX).add(
                 KENTROSAURUS.get(),
                 MAJUNGASAURUS.get(),

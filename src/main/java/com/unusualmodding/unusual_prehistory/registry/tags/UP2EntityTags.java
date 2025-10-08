@@ -34,6 +34,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> SCATTERS_KIMMERIDGEBRACHYPTERAESCHNIDIUM = modEntityTag("scatters_kimmeridgebrachypteraeschnidium");
 
+    public static final TagKey<EntityType<?>> SPAWNS_MULTIPLE_BABIES = modEntityTag("spawns_multiple_babies");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

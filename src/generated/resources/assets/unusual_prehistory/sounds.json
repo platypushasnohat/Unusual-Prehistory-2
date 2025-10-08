@@ -110,6 +110,34 @@
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
   },
+  "dromaeosaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/dromaeosaurus/death_0"
+    ],
+    "subtitle": "subtitles.dromaeosaurus_death"
+  },
+  "dromaeosaurus_eepy": {
+    "sounds": [
+      "unusual_prehistory:entity/dromaeosaurus/sleep_0",
+      "unusual_prehistory:entity/dromaeosaurus/sleep_1"
+    ],
+    "subtitle": "subtitles.dromaeosaurus_eepy"
+  },
+  "dromaeosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/dromaeosaurus/hurt_0",
+      "unusual_prehistory:entity/dromaeosaurus/hurt_1"
+    ],
+    "subtitle": "subtitles.dromaeosaurus_hurt"
+  },
+  "dromaeosaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/dromaeosaurus/idle_0",
+      "unusual_prehistory:entity/dromaeosaurus/idle_1",
+      "unusual_prehistory:entity/dromaeosaurus/idle_2"
+    ],
+    "subtitle": "subtitles.dromaeosaurus_idle"
+  },
   "dunkleosteus_death": {
     "sounds": [
       "entity/fish/hurt1",

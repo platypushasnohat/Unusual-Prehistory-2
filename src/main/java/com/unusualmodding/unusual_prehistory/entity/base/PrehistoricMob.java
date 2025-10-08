@@ -208,7 +208,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     public int getVariantCount() {
-        return 0;
+        return 128;
     }
 
     public String getBehavior() {

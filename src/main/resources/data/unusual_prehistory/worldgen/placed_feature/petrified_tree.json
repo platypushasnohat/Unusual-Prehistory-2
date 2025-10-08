@@ -1,9 +1,9 @@
 {
-  "feature": "unusual_prehistory:fossil",
+  "feature": "unusual_prehistory:petrified_tree",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 5
+      "chance": 7
     },
     {
       "type": "minecraft:in_square"

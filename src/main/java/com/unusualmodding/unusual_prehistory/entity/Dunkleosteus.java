@@ -238,6 +238,10 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.entityData.set(DUNK_SIZE, dunkSize);
     }
 
+    public int getVariantCount() {
+        return 3;
+    }
+
     @Override
     public EntityDimensions getDimensions(Pose poseIn) {
         return getDimsForDunk().scale(this.getScale());

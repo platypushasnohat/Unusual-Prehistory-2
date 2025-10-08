@@ -24,6 +24,11 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_DEATH = registerSoundEvent("diplocaulus_death");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_IDLE = registerSoundEvent("diplocaulus_flop");
 
+    public static final RegistryObject<SoundEvent> DROMAEOSAURUS_HURT = registerSoundEvent("dromaeosaurus_hurt");
+    public static final RegistryObject<SoundEvent> DROMAEOSAURUS_DEATH = registerSoundEvent("dromaeosaurus_death");
+    public static final RegistryObject<SoundEvent> DROMAEOSAURUS_IDLE = registerSoundEvent("dromaeosaurus_idle");
+    public static final RegistryObject<SoundEvent> DROMAEOSAURUS_EEPY = registerSoundEvent("dromaeosaurus_eepy");
+
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_HURT = registerSoundEvent("dunkleosteus_hurt");
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_DEATH = registerSoundEvent("dunkleosteus_death");
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_FLOP = registerSoundEvent("dunkleosteus_flop");

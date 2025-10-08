@@ -59,6 +59,23 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/idle7").pitch(0.8F)
         );
 
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_0")),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_1"))
+        );
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/death_0"))
+        );
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_0")),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_1")),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_2"))
+        );
+        this.sound(UP2SoundEvents.DROMAEOSAURUS_EEPY,
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1"))
+        );
+
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),

@@ -279,12 +279,12 @@ public class Majungasaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isMajungasaurusStealthMode() ? UP2SoundEvents.MAJUNGASAURUS_IDLE.get() : null;
+        return this.isMajungasaurusStealthMode() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return UP2SoundEvents.MAJUNGASAURUS_HURT.get();
     }
 

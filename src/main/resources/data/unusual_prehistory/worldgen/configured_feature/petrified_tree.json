@@ -1,0 +1,22 @@
+{
+  "type": "unusual_prehistory:nbt_feature",
+  "config": {
+    "post_processors": "minecraft:empty",
+    "processors": "unusual_prehistory:petrified_tree",
+    "structure_y_offset": 0,
+    "structures": [
+      {
+        "structure": "unusual_prehistory:petrified_tree/fallen_0",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:petrified_tree/stump_0",
+        "weight": 20
+      },
+      {
+        "structure": "unusual_prehistory:petrified_tree/tall_0",
+        "weight": 20
+      }
+    ]
+  }
+}
