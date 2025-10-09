@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
     public MegalaniaAttackGoal(Megalania megalania) {
         super(megalania);
         this.megalania = megalania;
+        megalania.getNavigation().setCanFloat(false);
     }
 
     @Override
@@ -27,9 +29,11 @@ public class MegalaniaAttackGoal extends AttackGoal {
             int attackState = this.megalania.getAttackState();
 
             if (this.megalania.isInWaterOrBubble()) {
-                this.megalania.getNavigation().moveTo(target, 1.0D);
+                this.megalania.getNavigation().moveTo(target, 1.2D);
+            } else if (this.megalania.getTemperatureState().equals(Megalania.TemperatureStates.NETHER)) {
+                this.megalania.getNavigation().moveTo(target, 1.8D);
             } else {
-                this.megalania.getNavigation().moveTo(target, 2.4D);
+                this.megalania.getNavigation().moveTo(target, 2.0D);
             }
 
             if (attackState == 1) {
@@ -41,6 +45,28 @@ public class MegalaniaAttackGoal extends AttackGoal {
                     }
                 }
                 if (this.timer > 22) {
+                    this.timer = 0;
+                    this.megalania.setAttackState(0);
+                }
+            } else if (attackState == 2) {
+                this.timer++;
+                this.megalania.getNavigation().stop();
+
+                if (this.timer == 12) {
+                    this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
+                }
+
+                if (this.timer == 14) {
+                    if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
+                        this.megalania.swing(InteractionHand.MAIN_HAND);
+                        this.megalania.doHurtTarget(target);
+                        this.megalania.strongKnockback(target, 1.25D, 0.1D);
+                        if (target.isDamageSourceBlocked(this.megalania.damageSources().mobAttack(this.megalania)) && target instanceof Player player){
+                            player.disableShield(true);
+                        }
+                    }
+                }
+                if (this.timer > 28) {
                     this.timer = 0;
                     this.megalania.setAttackState(0);
                 }

@@ -32,6 +32,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(STETHACANTHUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
 
+        this.item(TARIFYING_DISC);
+
         // eggs
         this.item(DROMAEOSAURUS_EGG);
         this.item(TALPANAS_EGG);

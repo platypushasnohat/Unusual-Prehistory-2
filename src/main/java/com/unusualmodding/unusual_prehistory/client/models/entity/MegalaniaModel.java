@@ -1,19 +1,24 @@
 package com.unusualmodding.unusual_prehistory.client.models.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.unusualmodding.unusual_prehistory.client.animations.KentrosaurusAnimations;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Pose;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MegalaniaModel extends UP2Model<Megalania> {
+public class MegalaniaModel extends HierarchicalModel<Megalania> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -131,7 +136,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!(entity.getPose() == UP2Poses.ROARING.get())) {
+		if (entity.getPose() != UP2Poses.ROARING.get() && entity.getPose() != Pose.LONG_JUMPING) {
 			if (!entity.isInWaterOrBubble()) {
 				if (entity.getBehavior().equals(Behaviors.ANGRY.getName())) {
 					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
@@ -142,14 +147,15 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 						this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 					}
 				}
-				this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1.0F, 1 - Math.abs(limbSwingAmount));
+				this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
 			} else {
-				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, (0.8F + (limbSwingAmount * 2.0F)));
+				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
+				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
 			}
-			this.head.xRot += headPitch * ((float) Math.PI / 180) - (headPitch * ((float) Math.PI / 180)) / 2;
-			this.head.yRot += netHeadYaw * ((float) Math.PI / 180) - (netHeadYaw * ((float) Math.PI / 180)) / 2;
+			this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 4;
+			this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 4;
 			this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
-			this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
+			this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 4;
 		}
 
 		if (this.young) {
@@ -157,8 +163,26 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 		}
 
 		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
+		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
-		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE1, ageInTicks);
+		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE, ageInTicks);
+		this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAIL_WHIP, ageInTicks);
+		this.animate(entity.leapingAnimationState, MegalaniaAnimations.LEAP, ageInTicks);
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+		if (this.young) {
+			float babyScale = 0.5F;
+			float bodyYOffset = 24.0F;
+			poseStack.pushPose();
+			poseStack.scale(babyScale, babyScale, babyScale);
+			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			poseStack.popPose();
+		} else {
+			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+		}
 	}
 
 	@Override

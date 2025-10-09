@@ -32,6 +32,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_HURT = registerSoundEvent("dunkleosteus_hurt");
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_DEATH = registerSoundEvent("dunkleosteus_death");
     public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_FLOP = registerSoundEvent("dunkleosteus_flop");
+    public static final RegistryObject<SoundEvent> DUNKLEOSTEUS_BITE = registerSoundEvent("dunkleosteus_bite");
 
     public static final RegistryObject<SoundEvent> JAWLESS_FISH_HURT = registerSoundEvent("jawless_fish_hurt");
     public static final RegistryObject<SoundEvent> JAWLESS_FISH_DEATH = registerSoundEvent("jawless_fish_death");
@@ -77,6 +78,8 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_LOOP = registerSoundEvent("transmogrifier_loop");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_START = registerSoundEvent("transmogrifier_start");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");
+
+    public static final RegistryObject<SoundEvent> TARIFYING_DISC = registerSoundEvent("tarifying_disc");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory2.MOD_ID, soundName)));

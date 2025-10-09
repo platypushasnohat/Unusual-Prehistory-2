@@ -72,8 +72,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_2"))
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_EEPY,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")).volume(0.4F),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1")).volume(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")).volume(0.7F),
+                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1")).volume(0.7F)
         );
 
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT,
@@ -93,6 +93,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop2").volume(0.3F),
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
+        );
+        this.sound(UP2SoundEvents.DUNKLEOSTEUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/bite_0")).volume(0.7F)
         );
 
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT,
@@ -256,6 +259,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP,
                 sound(UnusualPrehistory2.modPrefix("block/transmogrifier/stop1")).attenuationDistance(10)
+        );
+
+        this.sound(UP2SoundEvents.TARIFYING_DISC,
+                sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );
     }
 

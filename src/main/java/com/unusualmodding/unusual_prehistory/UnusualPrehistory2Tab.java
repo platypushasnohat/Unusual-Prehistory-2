@@ -42,6 +42,8 @@ public class UnusualPrehistory2Tab {
 
                         tabOutput.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
+                        tabOutput.accept(TARIFYING_DISC.get());
+
                         tabOutput.accept(CARNOTAURUS_SPAWN_EGG.get());
                         tabOutput.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         tabOutput.accept(DIPLOCAULUS_BUCKET.get());

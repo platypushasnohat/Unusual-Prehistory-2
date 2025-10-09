@@ -84,6 +84,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
+        this.sound(UP2SoundEvents.DUNKLEOSTEUS_BITE, "Dunkleosteus chomps");
 
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
         this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
@@ -129,6 +130,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP, "Transmogrifying");
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_START, "Transmogrifier starts");
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP, "Transmogrifier stops");
+
+        this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
+        this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
 
         // kimmeridgebrachypteraeschnidium bottle
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");

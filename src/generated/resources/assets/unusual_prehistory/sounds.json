@@ -123,11 +123,11 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/dromaeosaurus/sleep_0",
-        "volume": 0.4
+        "volume": 0.7
       },
       {
         "name": "unusual_prehistory:entity/dromaeosaurus/sleep_1",
-        "volume": 0.5
+        "volume": 0.7
       }
     ],
     "subtitle": "subtitles.dromaeosaurus_eepy"
@@ -152,6 +152,15 @@
       "unusual_prehistory:entity/dromaeosaurus/idle_2"
     ],
     "subtitle": "subtitles.dromaeosaurus_idle"
+  },
+  "dunkleosteus_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/dunkleosteus/bite_0",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.dunkleosteus_bite"
   },
   "dunkleosteus_death": {
     "sounds": [
@@ -498,6 +507,15 @@
       }
     ],
     "subtitle": "subtitles.talpanas_idle"
+  },
+  "tarifying_disc": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:music/tarifying_disc",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.tarifying_disc"
   },
   "telecrex_death": {
     "sounds": [

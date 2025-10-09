@@ -75,13 +75,6 @@ public class Carnotaurus extends PrehistoricMob {
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
-    public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
-        double x = entity.getX() - this.getX();
-        double y = entity.getZ() - this.getZ();
-        double scale = Math.max(x * x + y * y, 0.001D);
-        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
-    }
-
     public void roar() {
         if (this.isAlive()) {
             this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 2));

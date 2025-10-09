@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -112,6 +113,13 @@ public abstract class PrehistoricMob extends Animal {
             }
         }
         return InteractionResult.PASS;
+    }
+
+    public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
+        double x = entity.getX() - this.getX();
+        double y = entity.getZ() - this.getZ();
+        double scale = Math.max(x * x + y * y, 0.001D);
+        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
     }
 
     @Override

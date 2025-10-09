@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-08T11:13:12.0551515	Item Models: unusual_prehistory
+// 1.20.1	2025-10-08T19:41:11.1944627	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/boomerang_fossil.json
@@ -47,6 +47,7 @@ bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/s
 fa58c9af324fa4dffcc0e4779f453e7ca6c17654 assets/unusual_prehistory/models/item/stout_cycad_fossil.json
 98c3fcbb4daa1049985090b78782071bd00fc5fe assets/unusual_prehistory/models/item/talpanas_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/talpanas_spawn_egg.json
+33fd89ddf0ae56c74069e81efe0513be8e38c8da assets/unusual_prehistory/models/item/tarifying_disc.json
 40eef86754d6a500dd8fe5559003b023ae7a53c8 assets/unusual_prehistory/models/item/telecrex_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/telecrex_spawn_egg.json
 df5da19eb503e954d2e8aad48d373678b74527ff assets/unusual_prehistory/models/item/thermal_fossil.json

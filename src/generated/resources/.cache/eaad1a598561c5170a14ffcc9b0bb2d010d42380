@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-08T11:13:12.0541534	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-10-08T19:41:11.1929513	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -9,6 +9,7 @@ f017ccac960ef3d9f766089b8eb23bdb657110c8 data/minecraft/tags/items/boats.json
 dde0cb7e52d3ca26cd06b362625a1ff03aeadecb data/minecraft/tags/items/hanging_signs.json
 6e89dd509d1f7d1b05ae899f2c6e2a2d87e364a3 data/minecraft/tags/items/leaves.json
 8ad98818815a6fcfd7699721d3ecf9cf2e73bdec data/minecraft/tags/items/logs_that_burn.json
+99be798fe08079a7e7eb5e7a471d63d39f67b667 data/minecraft/tags/items/music_discs.json
 2571ae931a2588cfba6fdc91f30bb75962da3850 data/minecraft/tags/items/planks.json
 1b24751065d6be752153013540eff262b555033c data/minecraft/tags/items/saplings.json
 3a75022d6b82acc3a1fedaa26fb38fa46b531f33 data/minecraft/tags/items/signs.json

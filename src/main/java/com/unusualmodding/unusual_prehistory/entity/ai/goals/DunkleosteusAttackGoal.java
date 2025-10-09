@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -38,6 +39,9 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                 }
                 if (attackState == 1) {
                     timer++;
+                    if (timer == 2) {
+                        this.dunkleosteus.playSound(UP2SoundEvents.DUNKLEOSTEUS_BITE.get(), 1.0F, this.dunkleosteus.getVoicePitch());
+                    }
                     if (timer == 5) {
                         if (this.dunkleosteus.distanceTo(target) < getAttackReachSqr(target)) {
                             this.dunkleosteus.doHurtTarget(this.dunkleosteus.getTarget());

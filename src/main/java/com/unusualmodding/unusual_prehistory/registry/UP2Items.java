@@ -113,6 +113,9 @@ public class UP2Items {
     public static final RegistryObject<Item> LEPIDODENDRON_BOAT = registerItem("lepidodendron_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
 
+    // discs
+    public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(15, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
+
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
         ITEM_TRANSLATIONS.add(item);

@@ -143,6 +143,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 LEPIDODENDRON_CHEST_BOAT.get()
         );
 
+        this.tag(ItemTags.MUSIC_DISCS).add(
+                TARIFYING_DISC.get()
+        );
+
         // forge
         this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
         this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());

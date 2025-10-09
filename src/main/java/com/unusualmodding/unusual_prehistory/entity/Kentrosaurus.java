@@ -252,7 +252,7 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(LAY_DOWN_COOLDOWN, 40 * 40 + getRandom().nextInt(60 * 2 * 20));
+        this.entityData.define(LAY_DOWN_COOLDOWN, 50 * 50 + getRandom().nextInt(60 * 2 * 20));
     }
 
     @Override
@@ -292,7 +292,7 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     public void layDownCooldown() {
-        this.entityData.set(LAY_DOWN_COOLDOWN, 40 * 40 + random.nextInt(60 * 2 * 20));
+        this.entityData.set(LAY_DOWN_COOLDOWN, 50 * 50 + random.nextInt(60 * 2 * 20));
     }
 
     public void standUpCooldown() {

@@ -92,7 +92,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
             "megalania", () ->
             EntityType.Builder.of(Megalania::new, MobCategory.CREATURE)
-                    .sized(1.75F, 1.5F)
+                    .sized(1.7F, 1.5F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "megalania").toString())
     );

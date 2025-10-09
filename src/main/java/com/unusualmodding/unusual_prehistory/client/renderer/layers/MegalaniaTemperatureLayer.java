@@ -55,6 +55,9 @@ public class MegalaniaTemperatureLayer extends RenderLayer<Megalania, MegalaniaM
         else if (state == Megalania.TemperatureStates.NETHER) {
             return TEXTURE_NETHER;
         }
+        else if (state == Megalania.TemperatureStates.TEMPERATE) {
+            return TEXTURE;
+        }
         else return TEXTURE;
     }
 }
