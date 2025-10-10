@@ -19,7 +19,7 @@ public class MegalaniaLeapGoal extends Goal {
 
    @Override
    public boolean canUse() {
-      return megalania.getTarget() != null && megalania.distanceToSqr(megalania.getTarget()) > 100 && megalania.onGround() && megalania.getPose() == Pose.STANDING && !this.megalania.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) && this.megalania.getLeapCooldown() <= 0;
+      return !megalania.isInWaterOrBubble() && megalania.getTarget() != null && megalania.distanceToSqr(megalania.getTarget()) > 100 && megalania.onGround() && megalania.getPose() == Pose.STANDING && !this.megalania.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) && this.megalania.getLeapCooldown() <= 0;
    }
 
    @Override

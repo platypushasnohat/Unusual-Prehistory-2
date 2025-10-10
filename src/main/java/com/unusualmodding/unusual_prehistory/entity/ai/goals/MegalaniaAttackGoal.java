@@ -72,10 +72,14 @@ public class MegalaniaAttackGoal extends AttackGoal {
                 }
             } else {
                 if (distance <= this.getAttackReachSqr(target)) {
-                    if (this.megalania.getRandom().nextBoolean()) {
-                        this.megalania.setAttackState(1);
+                    if (!this.megalania.isInWaterOrBubble()) {
+                        if (this.megalania.getRandom().nextBoolean()) {
+                            this.megalania.setAttackState(1);
+                        } else {
+                            this.megalania.setAttackState(2);
+                        }
                     } else {
-                        this.megalania.setAttackState(2);
+                        this.megalania.setAttackState(1);
                     }
                 }
             }

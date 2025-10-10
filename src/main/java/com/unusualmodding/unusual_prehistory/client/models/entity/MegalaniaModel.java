@@ -147,10 +147,8 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 						this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 					}
 				}
-				this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
 			} else {
 				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
-				this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
 			}
 			this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 4;
 			this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 4;
@@ -162,12 +160,14 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 			this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 		}
 
+		this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
 		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
 		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE, ageInTicks);
 		this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAIL_WHIP, ageInTicks);
 		this.animate(entity.leapingAnimationState, MegalaniaAnimations.LEAP, ageInTicks);
+		this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
 	}
 
 	@Override

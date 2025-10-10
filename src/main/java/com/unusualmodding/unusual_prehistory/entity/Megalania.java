@@ -107,9 +107,9 @@ public class Megalania extends SemiAquaticMob {
             this.lookControl = new LookControl(this);
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.6F, 0.1F, false);
+            this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.6F, 0.1F, false);
             this.navigation = new AmphibiousPathNavigation(this, level());
-            this.lookControl = new SmoothSwimmingLookControl(this, 4);
+            this.lookControl = new SmoothSwimmingLookControl(this, 10);
             this.isLandNavigator = false;
         }
     }
@@ -334,9 +334,15 @@ public class Megalania extends SemiAquaticMob {
                 this.idleAnimationState.stop();
                 this.yawningAnimationState.stop();
                 this.tongueAnimationState.stop();
+                this.tailWhipAnimationState.stop();
+                this.bitingAnimationState.stop();
+                this.swimmingAnimationState.stop();
+                this.leapingAnimationState.stop();
             } else if (this.getPose() == Pose.LONG_JUMPING) {
                 this.leapTimer = 20;
                 this.leapingAnimationState.start(this.tickCount);
+            } else {
+                this.roaringAnimationState.stop();
             }
         }
         if (TEMPERATURE_STATE.equals(accessor)) {
