@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CarnotaurusWaveGoal extends Goal {
 
-   private static final TargetingConditions FRIEND_TARGETING = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight();
+   private static final TargetingConditions FRIEND_TARGETING = TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight();
 
    protected final Carnotaurus carnotaurus;
    protected final Level level;
@@ -24,7 +24,7 @@ public class CarnotaurusWaveGoal extends Goal {
    public CarnotaurusWaveGoal(Carnotaurus carnotaurus) {
       this.carnotaurus = carnotaurus;
       this.level = carnotaurus.level();
-      this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+      this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.TARGET));
    }
 
    @Override
@@ -47,20 +47,27 @@ public class CarnotaurusWaveGoal extends Goal {
       this.friend = null;
       this.timer = 0;
       this.carnotaurus.setPose(Pose.STANDING);
-      this.carnotaurus.waveCooldown = carnotaurus.getRandom().nextInt(10 * 40) + (20 * 40);
+      this.carnotaurus.waveCooldown = 40;
    }
 
    @Override
    public void tick() {
       if (this.friend != null) {
          this.carnotaurus.getLookControl().setLookAt(this.friend, 10.0F, (float) this.carnotaurus.getMaxHeadXRot());
-         if (this.carnotaurus.distanceToSqr(this.friend) > 9.0D) {
+         if (this.carnotaurus.distanceToSqr(this.friend) > 21.0D) {
             this.carnotaurus.getNavigation().moveTo(this.friend, 1.0D);
          }
          this.timer++;
-         if (this.timer >= this.adjustedTickDelay(60) && this.carnotaurus.distanceToSqr(this.friend) < 9.0D) {
+         if (this.carnotaurus.distanceToSqr(this.friend) < 20.0D) {
+            this.carnotaurus.getNavigation().stop();
+            this.friend.getNavigation().stop();
             this.carnotaurus.setPose(UP2Poses.WAVING.get());
             this.friend.setPose(UP2Poses.WAVING.get());
+         }
+         if (this.timer > 70) {
+            stop();
+            this.friend.setPose(Pose.STANDING);
+            this.friend.waveCooldown = 40;
          }
       }
    }
@@ -71,7 +78,7 @@ public class CarnotaurusWaveGoal extends Goal {
       double d0 = Double.MAX_VALUE;
       Carnotaurus carnotaurus = null;
       for (Carnotaurus carnotaurus1 : list) {
-         if (this.carnotaurus.canMate(carnotaurus1) && this.carnotaurus.distanceToSqr(carnotaurus1) < d0) {
+         if (this.carnotaurus.distanceToSqr(carnotaurus1) < d0) {
             carnotaurus = carnotaurus1;
             d0 = this.carnotaurus.distanceToSqr(carnotaurus1);
          }

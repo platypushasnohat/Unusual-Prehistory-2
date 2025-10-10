@@ -47,7 +47,7 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState roarAnimationState = new AnimationState();
 
     public int sniffCooldown = this.random.nextInt(10 * 40) + (20 * 40);
-    public int waveCooldown = this.random.nextInt(10 * 40) + (20 * 40);
+    public int waveCooldown = 40;
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
