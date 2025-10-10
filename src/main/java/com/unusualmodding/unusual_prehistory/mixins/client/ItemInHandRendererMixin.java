@@ -32,7 +32,7 @@ public abstract class ItemInHandRendererMixin {
     @Shadow @Final private Minecraft minecraft;
 
     @Inject(at = @At("HEAD"), method = "renderArmWithItem", cancellable = true)
-    private void renderChiselItem(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack stack, float v3, PoseStack poseStack, MultiBufferSource bufferSource, int i, CallbackInfo ci) {
+    private void Unusualprehistory2$renderChiselItem(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack stack, float v3, PoseStack poseStack, MultiBufferSource bufferSource, int i, CallbackInfo ci) {
         boolean flag = hand == InteractionHand.MAIN_HAND;
         HumanoidArm humanoidarm = flag ? player.getMainArm() : player.getMainArm().getOpposite();
         if ((stack.getItem() instanceof ChiselItem) && player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUsedItemHand() == hand) {
