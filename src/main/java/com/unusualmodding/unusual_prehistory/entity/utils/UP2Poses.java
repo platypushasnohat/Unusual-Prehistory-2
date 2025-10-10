@@ -10,7 +10,8 @@ public enum UP2Poses {
     YAWNING,
     ROARING,
     PREENING,
-    BURROWED;
+    BURROWED,
+    WAVING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

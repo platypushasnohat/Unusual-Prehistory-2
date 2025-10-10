@@ -179,6 +179,8 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
 		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
 		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
+		this.animate(entity.sniffAnimationState, CarnotaurusAnimations.SNIFF, ageInTicks);
+		this.animate(entity.waveAnimationState, CarnotaurusAnimations.WAVE, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

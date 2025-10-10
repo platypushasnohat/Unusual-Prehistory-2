@@ -146,7 +146,6 @@ public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel
 		this.animate(entity.layDownAnimationState, KentrosaurusAnimations.LAY_DOWN, ageInTicks);
 		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.STAND_UP, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE, ageInTicks);
-		this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE, ageInTicks);
 
 		if (this.young) {
 			this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);

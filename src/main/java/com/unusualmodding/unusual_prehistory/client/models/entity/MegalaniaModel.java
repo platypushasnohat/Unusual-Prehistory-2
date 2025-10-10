@@ -2,11 +2,9 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.KentrosaurusAnimations;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
-import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -136,7 +134,7 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.getPose() != UP2Poses.ROARING.get() && entity.getPose() != Pose.LONG_JUMPING) {
+		if (entity.getPose() == Pose.STANDING) {
 			if (!entity.isInWaterOrBubble()) {
 				if (entity.getBehavior().equals(Behaviors.ANGRY.getName())) {
 					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
@@ -161,7 +159,6 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 		}
 
 		this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
-		this.animate(entity.yawningAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
 		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE, ageInTicks);

@@ -1,11 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.RefuseToMoveLookControl;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
-import com.unusualmodding.unusual_prehistory.entity.utils.MegalaniaBehaviors;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
@@ -23,10 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.LookControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
@@ -42,7 +37,6 @@ import org.jetbrains.annotations.Nullable;
 public class Megalania extends SemiAquaticMob {
 
     public static final EntityDataAccessor<Integer> ROAR_COOLDOWN = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> ROAR_TIMER = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> LEAP_COOLDOWN = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
@@ -52,8 +46,6 @@ public class Megalania extends SemiAquaticMob {
     public float prevTempProgress = 0F;
 
     private int tongueTimer = 0;
-    private int yawnTimer = 0;
-
     private int leapTimer;
 
     public enum TemperatureStates {
@@ -65,7 +57,6 @@ public class Megalania extends SemiAquaticMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
-    public final AnimationState yawningAnimationState = new AnimationState();
     public final AnimationState tongueAnimationState = new AnimationState();
     public final AnimationState roaringAnimationState = new AnimationState();
     public final AnimationState bitingAnimationState = new AnimationState();
@@ -134,7 +125,6 @@ public class Megalania extends SemiAquaticMob {
         super.defineSynchedData();
         this.entityData.define(LEAP_COOLDOWN, 60 * 2 + random.nextInt(60 * 2));
         this.entityData.define(ROAR_COOLDOWN, 30 * 40 + random.nextInt(60 * 8 * 40));
-        this.entityData.define(ROAR_TIMER, 0);
         this.entityData.define(TEMPERATURE_STATE, 0);
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
     }
@@ -143,7 +133,6 @@ public class Megalania extends SemiAquaticMob {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("LeapCooldown", this.getLeapCooldown());
         compoundTag.putInt("RoarCooldown", this.getRoarCooldown());
-        compoundTag.putInt("RoarTimer", this.getRoarTimer());
         compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
     }
 
@@ -152,7 +141,6 @@ public class Megalania extends SemiAquaticMob {
         super.readAdditionalSaveData(compoundTag);
         this.setLeapCooldown(compoundTag.getInt("LeapCooldown"));
         this.setRoarCooldown(compoundTag.getInt("RoarCooldown"));
-        this.setRoarTimer(compoundTag.getInt("RoarTimer"));
         this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
     }
 
@@ -166,14 +154,6 @@ public class Megalania extends SemiAquaticMob {
 
     public void leapCooldown() {
         this.entityData.set(LEAP_COOLDOWN, 60 * 2 + random.nextInt(60 * 2));
-    }
-
-    public int getRoarTimer() {
-        return this.entityData.get(ROAR_TIMER);
-    }
-
-    public void setRoarTimer(int timer) {
-        this.entityData.set(ROAR_TIMER, timer);
     }
 
     public int getRoarCooldown() {
@@ -194,14 +174,6 @@ public class Megalania extends SemiAquaticMob {
 
     public void setLicking(boolean licking) {
         this.setFlag(16, licking);
-    }
-
-    public boolean isYawning() {
-        return this.getFlag(32);
-    }
-
-    public void setYawning(boolean yawning) {
-        this.setFlag(32, yawning);
     }
 
     public TemperatureStates getTemperatureState() {
@@ -244,7 +216,6 @@ public class Megalania extends SemiAquaticMob {
         if (this.getLeapCooldown() > 0) {
             this.setLeapCooldown(this.getLeapCooldown() - 1);
         }
-
         if (this.level().isClientSide) {
             if (leapTimer == 0 && this.leapingAnimationState.isStarted()) {
                 this.leapingAnimationState.stop();
@@ -252,19 +223,7 @@ public class Megalania extends SemiAquaticMob {
         }
 
         if (this.getRoarCooldown() > 0) {
-            if (this.getBehavior().equals(MegalaniaBehaviors.ROAR.getName())) {
-                this.setBehavior(Behaviors.IDLE.getName());
-            }
             this.setRoarCooldown(this.getRoarCooldown() - 1);
-        }
-
-        if (this.getRoarTimer() > 0) {
-            this.setRoarTimer(this.getRoarTimer() - 1);
-            if (this.getRoarTimer() == 0) {
-                this.setPose(Pose.STANDING);
-                this.setBehavior(Behaviors.IDLE.getName());
-                this.roarCooldown();
-            }
         }
 
         if (!this.level().isClientSide) {
@@ -296,31 +255,23 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble() && this.getPose() == Pose.STANDING, this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.bitingAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
         this.tailWhipAnimationState.animateWhen(this.getAttackState() == 2, this.tickCount);
-        this.yawningAnimationState.animateWhen(this.isYawning(), this.tickCount);
         this.tongueAnimationState.animateWhen(this.isLicking(), this.tickCount);
     }
 
     @Override
     public void setupAnimationCooldowns() {
         if (!this.isInWaterOrBubble()) {
-            if (this.getBehavior().equals(Behaviors.IDLE.getName())) {
-                if (!this.isLicking() && !this.isYawning() && this.random.nextInt(280) == 0) {
+            if (this.getBehavior().equals(Behaviors.IDLE.getName()) && this.getPose() == Pose.STANDING) {
+                if (!this.isLicking() && this.random.nextInt(280) == 0) {
                     this.setLicking(true);
-                }
-                if (!this.isLicking() && !this.isYawning() && this.random.nextInt(1000) == 0) {
-                    this.setYawning(true);
                 }
                 if (this.isLicking() && this.tongueTimer++ > 20) {
                     this.tongueTimer = 0;
                     this.setLicking(false);
-                }
-                if (this.isYawning() && this.yawnTimer++ > 80) {
-                    this.yawnTimer = 0;
-                    this.setYawning(false);
                 }
             }
         }
@@ -330,14 +281,13 @@ public class Megalania extends SemiAquaticMob {
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.ROARING.get()) {
-                this.roaringAnimationState.start(this.tickCount);
                 this.idleAnimationState.stop();
-                this.yawningAnimationState.stop();
                 this.tongueAnimationState.stop();
                 this.tailWhipAnimationState.stop();
                 this.bitingAnimationState.stop();
                 this.swimmingAnimationState.stop();
                 this.leapingAnimationState.stop();
+                this.roaringAnimationState.start(this.tickCount);
             } else if (this.getPose() == Pose.LONG_JUMPING) {
                 this.leapTimer = 20;
                 this.leapingAnimationState.start(this.tickCount);

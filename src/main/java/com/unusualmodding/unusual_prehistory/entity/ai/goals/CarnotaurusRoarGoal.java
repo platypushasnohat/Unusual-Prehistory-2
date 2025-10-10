@@ -56,7 +56,6 @@ public class CarnotaurusRoarGoal extends Goal {
                 this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
 
                 if (timer == 8) {
-                    carnotaurus.level().broadcastEntityEvent(carnotaurus, (byte) 39);
                     carnotaurus.roar();
                 }
 

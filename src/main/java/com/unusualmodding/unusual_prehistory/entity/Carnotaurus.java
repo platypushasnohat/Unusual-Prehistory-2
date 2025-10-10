@@ -2,6 +2,7 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -40,13 +41,13 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState biteAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState headbuttAnimationState = new AnimationState();
-    public final AnimationState yawnAnimationState = new AnimationState();
     public final AnimationState sniffAnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
-    public final AnimationState lookLeftAnimationState = new AnimationState();
-    public final AnimationState lookRightAnimationState = new AnimationState();
+    public final AnimationState waveAnimationState = new AnimationState();
     public final AnimationState angryAnimationState = new AnimationState();
     public final AnimationState roarAnimationState = new AnimationState();
+
+    public int sniffCooldown = this.random.nextInt(10 * 40) + (20 * 40);
+    public int waveCooldown = this.random.nextInt(10 * 40) + (20 * 40);
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -60,6 +61,7 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
@@ -77,6 +79,7 @@ public class Carnotaurus extends PrehistoricMob {
 
     public void roar() {
         if (this.isAlive()) {
+            this.level().broadcastEntityEvent(this, (byte) 39);
             this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 2));
             this.gameEvent(GameEvent.ENTITY_ROAR);
         }
@@ -109,6 +112,13 @@ public class Carnotaurus extends PrehistoricMob {
             this.setRoarCooldown(this.getRoarCooldown() - 1);
         }
         this.setAngry(this.getHealth() < this.getMaxHealth() * 0.5F && !this.isBaby());
+
+        if (!this.isInWaterOrBubble() && this.getPose() != Pose.SNIFFING && sniffCooldown > 0) {
+            sniffCooldown--;
+        }
+        if (!this.isInWaterOrBubble() && this.getPose() != UP2Poses.WAVING.get() && waveCooldown > 0) {
+            waveCooldown--;
+        }
     }
 
     public void setupAnimationStates() {
@@ -118,6 +128,19 @@ public class Carnotaurus extends PrehistoricMob {
         this.roarAnimationState.animateWhen(this.isRoaring(), this.tickCount);
         this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
         this.headbuttAnimationState.animateWhen(this.getAttackState() == 2, this.tickCount);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.WAVING.get()) {
+                this.sniffAnimationState.stop();
+                this.waveAnimationState.start(this.tickCount);
+            } else {
+                this.waveAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
@@ -229,6 +252,6 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return this.isAngry() ? 140 : 180;
+        return 180;
     }
 }

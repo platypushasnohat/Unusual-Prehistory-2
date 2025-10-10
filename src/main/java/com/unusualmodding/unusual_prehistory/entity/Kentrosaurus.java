@@ -15,10 +15,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -32,12 +29,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class Kentrosaurus extends PrehistoricMob {
 
@@ -52,10 +46,8 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState layDownIdleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
 
     private int grazingTimer = 0;
-    private int shakingTimer = 0;
 
     public Kentrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -104,36 +96,6 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
-        ItemStack itemStack = player.getItemInHand(interactionHand);
-        boolean food = this.isFood(itemStack);
-        InteractionResult interactionResult = super.mobInteract(player, interactionHand);
-        if (interactionResult.consumesAction() && food) {
-            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        }
-        if (food && this.isKentrosaurusLayingDown()) {
-            this.standUp();
-            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-            this.gameEvent(GameEvent.EAT, this);
-            if (!player.getAbilities().instabuild) {
-                itemStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if (this.getHealth() != this.getMaxHealth() && food) {
-            this.heal((float) Objects.requireNonNull(itemStack.getFoodProperties(this)).getNutrition());
-            this.level().playSound(null, this, UP2SoundEvents.KENTROSAURUS_EAT.get(), SoundSource.NEUTRAL, 1.0f, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-            this.level().broadcastEntityEvent(this, (byte) 18);
-            this.gameEvent(GameEvent.EAT, this);
-            if (!player.getAbilities().instabuild) {
-                itemStack.shrink(1);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return interactionResult;
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) {
@@ -151,20 +113,13 @@ public class Kentrosaurus extends PrehistoricMob {
                 this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             }
             if (!this.isKentrosaurusLayingDown()) {
-                if (!this.isGrazing() && !this.isShaking() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
+                if (!this.isGrazing() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
                     this.setGrazing(true);
-                }
-                if (!this.isShaking() && !this.isGrazing() && this.random.nextInt(600) == 0) {
-                    this.setShaking(true);
                 }
             }
             if (this.isGrazing() && this.grazingTimer++ > 40) {
                 this.grazingTimer = 0;
                 this.setGrazing(false);
-            }
-            if (this.isShaking() && this.shakingTimer++ > 40) {
-                this.shakingTimer = 0;
-                this.setShaking(false);
             }
         }
     }
@@ -176,7 +131,6 @@ public class Kentrosaurus extends PrehistoricMob {
         this.attack2AnimationState.animateWhen(this.getAttackState() == 2, this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.grazeAnimationState.animateWhen(this.isGrazing(), this.tickCount);
-        this.shakeAnimationState.animateWhen(this.isShaking(), this.tickCount);
 
         if (this.isKentrosaurusVisuallyLayingDown()) {
             this.standUpAnimationState.stop();
@@ -184,7 +138,6 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.grazeAnimationState.stop();
-            this.shakeAnimationState.stop();
 
             if (this.isVisuallyLayingDown()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
@@ -273,14 +226,6 @@ public class Kentrosaurus extends PrehistoricMob {
 
     public void setGrazing(boolean grazing) {
         this.setFlag(16, grazing);
-    }
-
-    public boolean isShaking() {
-        return this.getFlag(32);
-    }
-
-    public void setShaking(boolean shaking) {
-        this.setFlag(32, shaking);
     }
 
     public int getLayDownCooldown() {
