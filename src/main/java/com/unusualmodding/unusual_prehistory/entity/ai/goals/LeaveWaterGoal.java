@@ -22,7 +22,7 @@ public class LeaveWaterGoal extends Goal {
         this.speedModifier = speedModifier;
         this.maxTimeInWater = maxTimeInWater;
         this.maxTimeOnLand = maxTimeOnLand;
-        setFlags(EnumSet.of(Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class LeaveWaterGoal extends Goal {
         if (semiAquaticMob.timeInWater() <= maxTimeInWater || semiAquaticMob.timeOnLand() >= maxTimeOnLand) {
             return false;
         }
-        return findLandPos();
+        return this.findLandPos();
     }
 
     @Override

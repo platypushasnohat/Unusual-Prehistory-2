@@ -46,8 +46,8 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState angryAnimationState = new AnimationState();
     public final AnimationState roarAnimationState = new AnimationState();
 
-    public int sniffCooldown = this.random.nextInt(10 * 40) + (20 * 40);
-    public int waveCooldown = 40;
+    public int sniffCooldown = this.random.nextInt(20 * 30) + (20 * 30);
+    public int waveCooldown = this.random.nextInt(40 * 40) + (40 * 40);
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -61,9 +61,10 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
+//        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new CarnotaurusSniffingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
     }
@@ -133,6 +134,12 @@ public class Carnotaurus extends PrehistoricMob {
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == Pose.SNIFFING) {
+                this.waveAnimationState.stop();
+                this.sniffAnimationState.start(this.tickCount);
+            } else {
+                this.sniffAnimationState.stop();
+            }
             if (this.getPose() == UP2Poses.WAVING.get()) {
                 this.sniffAnimationState.stop();
                 this.waveAnimationState.start(this.tickCount);

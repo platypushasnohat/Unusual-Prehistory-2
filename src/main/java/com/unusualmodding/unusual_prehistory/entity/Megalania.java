@@ -67,7 +67,7 @@ public class Megalania extends SemiAquaticMob {
         super(entityType, level);
         this.setMaxUpStep(1);
         this.switchNavigator(true);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 8.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
 
     @Override

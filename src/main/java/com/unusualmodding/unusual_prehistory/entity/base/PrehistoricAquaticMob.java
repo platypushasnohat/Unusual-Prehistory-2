@@ -107,7 +107,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         if (!this.isInWaterOrBubble() && this.isAlive()) {
             if (this.onGround() && this.getRandom().nextFloat() < flopChance()) {
                 this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F, 0.3D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F));
-                this.setYRot(this.getRandom().nextFloat() * 360.0F);
+//                this.setYRot(this.getRandom().nextFloat() * 360.0F);
                 this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
             }
         }

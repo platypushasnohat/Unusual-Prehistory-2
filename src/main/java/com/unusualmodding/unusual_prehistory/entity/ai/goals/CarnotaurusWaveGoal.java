@@ -29,7 +29,7 @@ public class CarnotaurusWaveGoal extends Goal {
 
    @Override
    public boolean canUse() {
-      if (carnotaurus.waveCooldown != 0 && carnotaurus.getPose() != Pose.STANDING && carnotaurus.isInWater()) {
+      if (carnotaurus.waveCooldown > 0 && carnotaurus.getPose() != Pose.STANDING && carnotaurus.isInWater()) {
          return false;
       } else {
          this.friend = this.getFriend();
@@ -39,7 +39,7 @@ public class CarnotaurusWaveGoal extends Goal {
 
    @Override
    public boolean canContinueToUse() {
-      return this.friend.isAlive() && this.timer < 60;
+      return this.friend != null && this.friend.isAlive() && this.timer < 60;
    }
 
    @Override
@@ -47,18 +47,18 @@ public class CarnotaurusWaveGoal extends Goal {
       this.friend = null;
       this.timer = 0;
       this.carnotaurus.setPose(Pose.STANDING);
-      this.carnotaurus.waveCooldown = 40;
+      this.carnotaurus.waveCooldown = carnotaurus.getRandom().nextInt(40 * 40) + (20 * 40);
    }
 
    @Override
    public void tick() {
       if (this.friend != null) {
          this.carnotaurus.getLookControl().setLookAt(this.friend, 10.0F, (float) this.carnotaurus.getMaxHeadXRot());
-         if (this.carnotaurus.distanceToSqr(this.friend) > 21.0D) {
+         if (this.carnotaurus.distanceToSqr(this.friend) > 26.0D) {
             this.carnotaurus.getNavigation().moveTo(this.friend, 1.0D);
          }
          this.timer++;
-         if (this.carnotaurus.distanceToSqr(this.friend) < 20.0D) {
+         if (this.carnotaurus.distanceToSqr(this.friend) < 25.0D) {
             this.carnotaurus.getNavigation().stop();
             this.friend.getNavigation().stop();
             this.carnotaurus.setPose(UP2Poses.WAVING.get());
@@ -67,7 +67,7 @@ public class CarnotaurusWaveGoal extends Goal {
          if (this.timer > 70) {
             stop();
             this.friend.setPose(Pose.STANDING);
-            this.friend.waveCooldown = 40;
+            this.friend.waveCooldown = carnotaurus.getRandom().nextInt(40 * 40) + (20 * 40);
          }
       }
    }
