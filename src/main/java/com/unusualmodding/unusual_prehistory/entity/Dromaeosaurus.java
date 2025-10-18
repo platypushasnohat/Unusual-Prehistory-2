@@ -75,7 +75,6 @@ public class Dromaeosaurus extends PrehistoricMob {
                 return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusSleeping() && Dromaeosaurus.this.level().isDay();
             }
         });
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
