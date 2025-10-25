@@ -40,17 +40,17 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 THERMAL_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
-                WOODY_FERN_FOSSIL.get(),
-                RADIANT_DAISY_FOSSIL.get(),
-                SPLAYED_LEAF_FOSSIL.get(),
-                VASCULAR_SPOROPHYTE_FOSSIL.get(),
-                PRIMITIVE_BUTTERCUP_FOSSIL.get(),
-                MOIST_QUILLWORT_FOSSIL.get(),
-                LYCOPSID_CONE_FOSSIL.get(),
-                PRIMITIVE_SPOROPHYTE_FOSSIL.get(),
-                SHORT_FERN_FOSSIL.get(),
-                STOUT_CYCAD_FOSSIL.get(),
-                SHORT_EQUISETUM_FOSSIL.get()
+                CALAMOPHYTON_FOSSIL.get(),
+                RAIGUENRAYUN_FOSSIL.get(),
+                GINKGO_FOSSIL.get(),
+                RHYNIA_FOSSIL.get(),
+                LEEFRUCTUS_FOSSIL.get(),
+                QUILLWORT_FOSSIL.get(),
+                LEPIDODENDRON_FOSSIL.get(),
+                COOKSONIA_FOSSIL.get(),
+                CLADOPHEBIS_FOSSIL.get(),
+                BENNETTITALES_FOSSIL.get(),
+                HORSETAIL_FOSSIL.get()
         );
 
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(

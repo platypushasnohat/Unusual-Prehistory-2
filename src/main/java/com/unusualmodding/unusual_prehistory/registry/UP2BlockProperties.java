@@ -22,6 +22,12 @@ public class UP2BlockProperties {
 
     public static final BlockBehaviour.Properties EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).noOcclusion();
 
+    public static final BlockBehaviour.Properties FOSSIL_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK);
+
+    public static BlockBehaviour.Properties fossilLantern(int lightLevel) {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).lightLevel((state) -> lightLevel);
+    }
+
     public static BlockBehaviour.Properties leaves(MapColor color, SoundType sound) {
         return BlockBehaviour.Properties.of().mapColor(color).strength(0.2F).randomTicks().sound(sound).noOcclusion().isValidSpawn(UP2BlockProperties::ocelotOrParrot).isSuffocating(UP2BlockProperties::never).isViewBlocking(UP2BlockProperties::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never);
     }

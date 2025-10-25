@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/moist_quillwort_fossil"
+    "layer0": "unusual_prehistory:item/cladophebis_fossil"
   }
 }

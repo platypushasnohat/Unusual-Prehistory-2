@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/splayed_leaf_fossil"
+    "layer0": "unusual_prehistory:item/calamophyton_fossil"
   }
 }

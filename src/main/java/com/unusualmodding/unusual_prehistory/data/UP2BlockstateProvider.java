@@ -70,11 +70,16 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.leaves(LEPIDODENDRON_LEAVES);
         this.simpleCross(HANGING_LEPIDODENDRON_LEAVES);
-        this.generatedItem(HANGING_LEPIDODENDRON_LEAVES.get(), TextureFolder.BLOCK);
 
         this.pillar(FOSSILIZED_BONE_BLOCK);
         this.pillarWithTop(FOSSILIZED_BONE_VERTEBRA, "fossilized_bone_block_top");
         this.pillarWithName(FOSSILIZED_BONE_BARK, "fossilized_bone_block", "fossilized_bone_block");
+
+        this.cubeAllBlock(COBBLED_FOSSILIZED_BONE);
+        this.stairs(COBBLED_FOSSILIZED_BONE_STAIRS, this.blockTexture(COBBLED_FOSSILIZED_BONE.get()));
+        this.slab(COBBLED_FOSSILIZED_BONE_SLAB, this.blockTexture(COBBLED_FOSSILIZED_BONE.get()));
+
+        this.simpleCross(FOSSILIZED_BONE_SPIKE);
 
         this.pillar(PETRIFIED_LOG);
         this.pillarWithName(PETRIFIED_WOOD, "petrified_log", "petrified_log");
@@ -188,6 +193,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     private void simpleCross(RegistryObject<Block> block) {
         this.simpleBlock(block.get(), this.models().cross(getItemName(block.get()), this.blockTexture(block.get())).renderType("cutout"));
+        this.generatedItem(block.get(), TextureFolder.BLOCK);
     }
 
     private void tallPlant(RegistryObject<Block> flower) {

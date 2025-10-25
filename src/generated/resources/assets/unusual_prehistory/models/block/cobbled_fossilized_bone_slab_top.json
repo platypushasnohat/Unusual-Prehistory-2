@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "unusual_prehistory:block/cobbled_fossilized_bone",
+    "side": "unusual_prehistory:block/cobbled_fossilized_bone",
+    "top": "unusual_prehistory:block/cobbled_fossilized_bone"
+  }
+}
