@@ -11,6 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class UP2Features {
 
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, UnusualPrehistory2.MOD_ID);
+
     public static final RegistryObject<Feature<NbtFeatureConfig>> NBT_FEATURE = FEATURES.register("nbt_feature", () -> new NbtFeature<>(NbtFeatureConfig.CODEC));
 
 }

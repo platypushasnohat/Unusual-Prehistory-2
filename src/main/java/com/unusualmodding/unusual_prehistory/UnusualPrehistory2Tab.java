@@ -28,10 +28,10 @@ public class UnusualPrehistory2Tab {
                             }
                         });
 
-                        output.accept(CHISEL.get());
-
-                        output.accept(UP2Blocks.FOSSIL.get());
-                        output.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
+//                        output.accept(CHISEL.get());
+//
+//                        output.accept(UP2Blocks.FOSSIL.get());
+//                        output.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
 
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BLOCK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BARK.get());
