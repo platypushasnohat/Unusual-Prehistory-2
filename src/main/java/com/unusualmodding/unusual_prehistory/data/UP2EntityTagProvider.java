@@ -68,6 +68,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.GOAT
         );
 
+        tag(UP2EntityTags.MEGALANIA_TARGETS).add(
+                EntityType.SHEEP,
+                EntityType.COW,
+                EntityType.PIG,
+                EntityType.GOAT
+        );
+
         tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 STETHACANTHUS.get(),

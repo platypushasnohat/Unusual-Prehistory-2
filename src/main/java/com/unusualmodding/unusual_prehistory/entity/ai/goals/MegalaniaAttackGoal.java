@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +10,6 @@ import java.util.Objects;
 
 public class MegalaniaAttackGoal extends AttackGoal {
 
-    private int timer = 0;
     private final Megalania megalania;
 
     public MegalaniaAttackGoal(Megalania megalania) {
@@ -38,6 +38,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
 
             if (attackState == 1) {
                 this.timer++;
+                if (timer == 1) this.megalania.setPose(UP2Poses.BITING.get());
                 if (this.timer == 11) {
                     if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
                         this.megalania.swing(InteractionHand.MAIN_HAND);
@@ -52,9 +53,8 @@ public class MegalaniaAttackGoal extends AttackGoal {
                 this.timer++;
                 this.megalania.getNavigation().stop();
 
-                if (this.timer == 12) {
-                    this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
-                }
+                if (timer == 1) this.megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
+                if (this.timer == 12) this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
 
                 if (this.timer == 14) {
                     if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
@@ -73,11 +73,8 @@ public class MegalaniaAttackGoal extends AttackGoal {
             } else {
                 if (distance <= this.getAttackReachSqr(target)) {
                     if (!this.megalania.isInWaterOrBubble()) {
-                        if (this.megalania.getRandom().nextBoolean()) {
-                            this.megalania.setAttackState(1);
-                        } else {
-                            this.megalania.setAttackState(2);
-                        }
+                        if (this.megalania.getRandom().nextBoolean()) this.megalania.setAttackState(1);
+                        else this.megalania.setAttackState(2);
                     } else {
                         this.megalania.setAttackState(1);
                     }
@@ -86,7 +83,8 @@ public class MegalaniaAttackGoal extends AttackGoal {
         }
     }
 
+    @Override
     protected double getAttackReachSqr(LivingEntity target) {
-        return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        return this.mob.getBbWidth() * 1.75F * this.mob.getBbWidth() * 1.75F + target.getBbWidth();
     }
 }

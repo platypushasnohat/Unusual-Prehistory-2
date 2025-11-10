@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 public class Kentrosaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Integer> LAY_DOWN_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2F, 1.75F);
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.98F, 1.75F);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
@@ -78,7 +78,7 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.9F;
     }
 
@@ -98,12 +98,8 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) {
-            this.standUpInstantly();
-        }
-        if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) {
-            this.standUp();
-        }
+        if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
+        if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) this.standUp();
     }
 
     @Override
@@ -154,7 +150,7 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         return (pose == UP2Poses.RESTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
@@ -164,7 +160,7 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void travel(Vec3 vec3) {
+    public void travel(@NotNull Vec3 vec3) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
             vec3 = vec3.multiply(0.0, 1.0, 0.0);

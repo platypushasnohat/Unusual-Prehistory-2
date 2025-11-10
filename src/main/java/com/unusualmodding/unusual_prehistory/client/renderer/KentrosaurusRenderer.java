@@ -10,24 +10,25 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, KentrosaurusModel<Kentrosaurus>> {
+public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, KentrosaurusModel> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kentrosaurus.png");
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new KentrosaurusModel<>(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS)), 0.9F);
+        super(context, new KentrosaurusModel(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS)), 0.9F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Kentrosaurus entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Kentrosaurus entity) {
         return TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Kentrosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+    protected @Nullable RenderType getRenderType(@NotNull Kentrosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
         return RenderType.entityCutoutNoCull(TEXTURE);
     }
 }

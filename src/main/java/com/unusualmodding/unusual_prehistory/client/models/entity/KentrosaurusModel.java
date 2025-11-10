@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KentrosaurusModel<T extends Kentrosaurus> extends HierarchicalModel<T> {
+public class KentrosaurusModel extends HierarchicalModel<Kentrosaurus> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;

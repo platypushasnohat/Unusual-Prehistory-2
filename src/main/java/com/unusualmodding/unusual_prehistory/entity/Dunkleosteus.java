@@ -117,18 +117,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.5F;
     }
 
     public boolean isTarget(Entity entity) {
-        if (this.getDunkSize() == 1) {
-            return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
-        } else if (this.getDunkSize() == 2) {
-            return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS);
-        } else {
-            return entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS);
-        }
+        if (this.getDunkSize() == 1) return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
+        else if (this.getDunkSize() == 2) return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS);
+        else return entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS);
     }
 
     public boolean canAttackPlayer(LivingEntity entity) {
@@ -212,7 +208,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DUNK_SIZE.equals(accessor)) {
             this.refreshDimensions();
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0F * this.getDunkSize() + 10.0F);
@@ -238,12 +234,13 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.entityData.set(DUNK_SIZE, dunkSize);
     }
 
+    @Override
     public int getVariantCount() {
         return 3;
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose poseIn) {
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         return getDimsForDunk().scale(this.getScale());
     }
 
@@ -272,17 +269,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         int sizeChange = this.random.nextInt(0, 100);
-        if (sizeChange <= 30) {
-            this.setDunkSize(1);
-        } else if (sizeChange <= 60) {
-            this.setDunkSize(2);
-        } else {
-            this.setDunkSize(0);
-        }
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (sizeChange <= 30) this.setDunkSize(1);
+        else if (sizeChange <= 60) this.setDunkSize(2);
+        else this.setDunkSize(0);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 
     @Nullable

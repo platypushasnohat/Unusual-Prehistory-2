@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.unusualmodding.unusual_prehistory.client.animations.megalania.*;
 import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
+import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,6 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -134,24 +136,20 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.getPose() == Pose.STANDING) {
+		if (entity.getPose() != Pose.ROARING && entity.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
 			if (!entity.isInWaterOrBubble()) {
 				if (entity.getBehavior().equals(Behaviors.ANGRY.getName())) {
-					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
-						this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-					}
+                    this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
 				} else {
-					if (entity.getDeltaMovement().horizontalDistance() > 1.0E-5F) {
-						this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
-					}
+                    this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 				}
 			} else {
 				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
 			}
-			this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 4;
-			this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 4;
-			this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
-			this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 4;
+			this.head.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 4;
+			this.head.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
+			this.neck.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
+			this.neck.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
 		}
 
 		if (this.young) {
@@ -161,14 +159,21 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 		this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
-		this.animate(entity.bitingAnimationState, MegalaniaAnimations.BITE, ageInTicks);
-		this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAIL_WHIP, ageInTicks);
-		this.animate(entity.leapingAnimationState, MegalaniaAnimations.LEAP, ageInTicks);
-		this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
+        this.animate(entity.flick1AnimationState, MegalaniaIdleAnimations.FLICK1, ageInTicks);
+        this.animate(entity.flick2AnimationState, MegalaniaIdleAnimations.FLICK2, ageInTicks);
+        this.animate(entity.yawnAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
+        this.animate(entity.layDownAnimationState, MegalaniaIdleAnimations.SIT_START, ageInTicks);
+        this.animate(entity.sittingAnimationState, MegalaniaIdleAnimations.SIT, ageInTicks);
+        this.animate(entity.standUpAnimationState, MegalaniaIdleAnimations.SIT_END, ageInTicks);
+        this.animate(entity.biting1AnimationState, MegalaniaAnimations.BITE1, ageInTicks);
+        this.animate(entity.biting2AnimationState, MegalaniaAnimations.BITE2, ageInTicks);
+        this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
+        this.animate(entity.aggroAnimationState, MegalaniaAnimations.AGGRO, ageInTicks);
+        this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.65F + (Mth.clamp(limbSwingAmount, 0.3F, 1.0F) * 1.1F));
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
 		if (this.young) {
 			float babyScale = 0.5F;
 			float bodyYOffset = 24.0F;
@@ -183,7 +188,7 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }
