@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
@@ -23,13 +24,12 @@ public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, Dromaeosau
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Dromaeosaurus entity) {
-        return entity.isDromaeosaurusVisuallySleeping() ? TEXTURE_SLEEPING : TEXTURE;
+    public @NotNull ResourceLocation getTextureLocation(Dromaeosaurus entity) {
+        return entity.isDromaeosaurusVisuallyLayingDown() ? TEXTURE_SLEEPING : TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Dromaeosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        ResourceLocation resourcelocation = this.getTextureLocation(entity);
-        return RenderType.entityCutoutNoCull(resourcelocation);
+    protected @Nullable RenderType getRenderType(@NotNull Dromaeosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Dromaeosaurus;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class DromaeosaurusSleepGoal extends Goal {
@@ -13,27 +14,24 @@ public class DromaeosaurusSleepGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+        return !this.dromaeosaurus.isInWater() && this.isEepyTime() && this.dromaeosaurus.onGround() && this.dromaeosaurus.getBehavior().equals(Behaviors.IDLE.getName());
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !this.dromaeosaurus.isInWater() && this.dromaeosaurus.level().isNight() && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.onGround() && !this.dromaeosaurus.isAggressive() && this.dromaeosaurus.getHealth() > this.dromaeosaurus.getMaxHealth() * 0.5F;
+        return !this.dromaeosaurus.isInWater() && this.isEepyTime() && this.dromaeosaurus.onGround();
     }
 
     @Override
     public void start() {
-        if (this.dromaeosaurus.isDromaeosaurusSleeping() && (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.isAggressive() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F)) {
+        if (this.dromaeosaurus.isDromaeosaurusLayingDown()) {
             this.dromaeosaurus.standUp();
         } else {
-            this.dromaeosaurus.sleep();
+            this.dromaeosaurus.layDown();
         }
     }
 
-    @Override
-    public void stop() {
-        if (this.dromaeosaurus.isDromaeosaurusSleeping() && (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.isAggressive() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F)) {
-            this.dromaeosaurus.standUp();
-        }
+    private boolean isEepyTime() {
+        return dromaeosaurus.level().isNight() && dromaeosaurus.getHealth() > dromaeosaurus.getMaxHealth() * 0.5F;
     }
 }

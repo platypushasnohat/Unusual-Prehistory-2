@@ -17,7 +17,7 @@ public class DromaeosaurusLeapGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && this.dromaeosaurus.isSprinting() && this.dromaeosaurus.getLeapCooldown() <= 0;
+        return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && this.dromaeosaurus.isSprinting() && this.dromaeosaurus.leapCooldown == 0;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DromaeosaurusLeapGoal extends Goal {
         if (this.dromaeosaurus.onGround()) {
             this.dromaeosaurus.addDeltaMovement(new Vec3(0, 0.8D, 0));
             this.dromaeosaurus.addDeltaMovement(this.dromaeosaurus.getLookAngle().scale(2.0D).multiply(0.6D, 0, 0.6D));
-            this.dromaeosaurus.leapCooldown();
+            this.dromaeosaurus.leapCooldown = 100 + dromaeosaurus.getRandom().nextInt(20 * 20);
         }
     }
 }
