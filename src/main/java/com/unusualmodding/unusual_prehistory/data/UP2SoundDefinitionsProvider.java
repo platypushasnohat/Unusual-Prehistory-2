@@ -105,8 +105,14 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
         );
-        this.sound(UP2SoundEvents.DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/bite_0")).volume(0.7F)
+        this.sound(UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/small_bite1")).volume(0.7F)
+        );
+        this.sound(UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/medium_bite1")).volume(0.7F)
+        );
+        this.sound(UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/large_bite1")).volume(0.7F)
         );
 
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT,
@@ -274,6 +280,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
+        );
+
+        this.sound(UP2SoundEvents.TAR_POP,
+                sound(UnusualPrehistory2.modPrefix("block/tar/pop1"))
         );
     }
 

@@ -176,15 +176,6 @@
     ],
     "subtitle": "subtitles.dromaeosaurus_idle"
   },
-  "dunkleosteus_bite": {
-    "sounds": [
-      {
-        "name": "unusual_prehistory:entity/dunkleosteus/bite_0",
-        "volume": 0.7
-      }
-    ],
-    "subtitle": "subtitles.dunkleosteus_bite"
-  },
   "dunkleosteus_death": {
     "sounds": [
       "entity/fish/hurt1",
@@ -388,6 +379,15 @@
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_hurt"
   },
+  "large_dunkleosteus_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/dunkleosteus/large_bite1",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.large_dunkleosteus_bite"
+  },
   "majungasaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/majungasaurus/death1",
@@ -409,6 +409,15 @@
       "unusual_prehistory:entity/majungasaurus/idle3"
     ],
     "subtitle": "subtitles.majungasaurus_idle"
+  },
+  "medium_dunkleosteus_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/dunkleosteus/medium_bite1",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.medium_dunkleosteus_bite"
   },
   "megalania_death": {
     "sounds": [
@@ -452,6 +461,15 @@
       }
     ],
     "subtitle": "subtitles.megalania_idle"
+  },
+  "small_dunkleosteus_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/dunkleosteus/small_bite1",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.small_dunkleosteus_bite"
   },
   "stethacanthus_death": {
     "sounds": [
@@ -530,6 +548,12 @@
       }
     ],
     "subtitle": "subtitles.talpanas_idle"
+  },
+  "tar_pop": {
+    "sounds": [
+      "unusual_prehistory:block/tar/pop1"
+    ],
+    "subtitle": "subtitles.tar_pop"
   },
   "tarifying_disc": {
     "sounds": [

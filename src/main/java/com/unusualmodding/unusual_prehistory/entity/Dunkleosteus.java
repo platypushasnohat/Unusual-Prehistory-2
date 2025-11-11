@@ -1,6 +1,10 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusHurtByTargetGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusNearestAttackableTargetGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusPanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -170,6 +174,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     @Override
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.DUNKLEOSTEUS_FLOP.get();
+    }
+
+    public SoundEvent getBiteSound() {
+        if (this.getDunkSize() == 0) return UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE.get();
+        else if (this.getDunkSize() == 1) return UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE.get();
+        else return UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE.get();
     }
 
     @Override

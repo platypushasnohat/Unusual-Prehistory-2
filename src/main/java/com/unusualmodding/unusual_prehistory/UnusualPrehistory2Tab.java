@@ -28,11 +28,6 @@ public class UnusualPrehistory2Tab {
                             }
                         });
 
-//                        output.accept(CHISEL.get());
-//
-//                        output.accept(UP2Blocks.FOSSIL.get());
-//                        output.accept(UP2Blocks.DEEPSLATE_FOSSIL.get());
-
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BLOCK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BARK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_VERTEBRA.get());
@@ -45,6 +40,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
 
+                        output.accept(TAR_BUCKET.get());
+                        output.accept(TARIFYING_DISC.get());
+
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());
                         output.accept(UP2Blocks.PETRIFIED_WOOD.get());
                         output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
@@ -56,7 +54,6 @@ public class UnusualPrehistory2Tab {
 
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
-                        output.accept(TARIFYING_DISC.get());
 
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());

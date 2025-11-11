@@ -1,7 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.NymphFindWaterGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.NymphFindWaterGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;

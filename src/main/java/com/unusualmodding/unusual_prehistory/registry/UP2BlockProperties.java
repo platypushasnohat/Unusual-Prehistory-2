@@ -3,6 +3,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +24,8 @@ public class UP2BlockProperties {
     public static final BlockBehaviour.Properties EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).noOcclusion();
 
     public static final BlockBehaviour.Properties FOSSIL_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK);
+
+    public static final BlockBehaviour.Properties TAR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(100.0F).noCollission().sound(SoundType.MUD).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY);
 
     public static BlockBehaviour.Properties fossilLantern(int lightLevel) {
         return BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).lightLevel((state) -> lightLevel);

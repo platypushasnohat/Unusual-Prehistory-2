@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaLayDownGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaRoarGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;

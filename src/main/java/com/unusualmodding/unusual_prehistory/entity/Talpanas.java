@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasFleeLightGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasSeekShelterGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasSwimGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.BreedableMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;

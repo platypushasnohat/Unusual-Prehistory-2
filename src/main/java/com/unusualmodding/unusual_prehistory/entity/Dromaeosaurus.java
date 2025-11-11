@@ -1,6 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.DromaeosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;

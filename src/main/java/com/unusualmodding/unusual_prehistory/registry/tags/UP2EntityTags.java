@@ -38,6 +38,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> SPAWNS_MULTIPLE_BABIES = modEntityTag("spawns_multiple_babies");
 
+    public static final TagKey<EntityType<?>> TAR_WALKABLE_MOBS = modEntityTag("tar_walkable_mobs");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

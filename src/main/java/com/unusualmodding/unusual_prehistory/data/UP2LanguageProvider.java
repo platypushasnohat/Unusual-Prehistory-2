@@ -1,13 +1,12 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
-import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
-import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
+import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2Tab;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -18,6 +17,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class UP2LanguageProvider extends LanguageProvider {
@@ -89,7 +90,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT, "Dunkleosteus hurts");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_DEATH, "Dunkleosteus dies");
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_FLOP, "Dunkleosteus flops");
-        this.sound(UP2SoundEvents.DUNKLEOSTEUS_BITE, "Dunkleosteus chomps");
+        this.sound(UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE, "Dunkleosteus nibbles");
+        this.sound(UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE, "Dunkleosteus chomps");
+        this.sound(UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE, "Dunkleosteus crushes");
 
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
         this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
@@ -212,6 +215,8 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
         this.add("unusual_prehistory.jei.chiseling", "Chiseling");
+
+        this.translateDamageType(UP2DamageTypes.TAR, player -> player + " suffocated in tar", (player, entity) -> player + " was suffocated in tar by " + entity);
     }
 
     private void forBlock(Supplier<? extends Block> block) {
@@ -224,6 +229,12 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
         addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
+    }
+
+    private void translateDamageType(ResourceKey<DamageType> source, Function<String, String> death, BiFunction<String, String, String> killed) {
+        String msgId = source.location().getPath();
+        this.add("death.attack." + msgId, death.apply("%1$s"));
+        this.add("death.attack." + msgId + ".player", killed.apply("%1$s", "%2$s"));
     }
 
     private String format(ResourceLocation registryName) {

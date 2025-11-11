@@ -113,6 +113,10 @@ public class UP2Items {
     public static final RegistryObject<Item> LEPIDODENDRON_BOAT = registerItem("lepidodendron_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
 
+    // tar
+//    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new SolidBucketItem(UP2Blocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
+    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.FLOWING_TAR.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
+
     // discs
     public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(15, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
 

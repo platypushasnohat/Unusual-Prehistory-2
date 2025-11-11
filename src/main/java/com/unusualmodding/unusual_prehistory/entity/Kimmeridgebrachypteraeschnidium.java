@@ -2,6 +2,9 @@ package com.unusualmodding.unusual_prehistory.entity;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumPreenGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;

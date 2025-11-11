@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusChargeGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusRoarGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusSniffingGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;

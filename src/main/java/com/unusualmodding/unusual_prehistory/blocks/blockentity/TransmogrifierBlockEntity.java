@@ -32,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused, FieldCanBeLocal")
 public class TransmogrifierBlockEntity extends SyncedBlockEntity implements MenuProvider, WorldlyContainer, Nameable {
 
     private static final int[] SLOTS_FOR_UP = new int[]{0};
@@ -269,12 +270,12 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public Component getName() {
+    public @NotNull Component getName() {
         return customName != null ? customName : Component.translatable("block.unusual_prehistory.transmogrifier");
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return getName();
     }
 
@@ -290,12 +291,12 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
         return new TransmogrifierMenu(id, inventory, this, this.data);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
+    protected void saveAdditional(@NotNull CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
         compoundTag.put("Inventory", inventory.serializeNBT());
         compoundTag.putInt("Progress", progress);
@@ -305,7 +306,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public void load(CompoundTag compoundTag) {
+    public void load(@NotNull CompoundTag compoundTag) {
         super.load(compoundTag);
         inventory.deserializeNBT(compoundTag.getCompound("Inventory"));
         progress = compoundTag.getInt("Progress");
@@ -315,7 +316,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public int[] getSlotsForFace(Direction direction) {
+    public int @NotNull [] getSlotsForFace(@NotNull Direction direction) {
         if (direction == Direction.UP) {
             return SLOTS_FOR_UP;
         } else {
@@ -324,12 +325,12 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
+    public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack itemStack, @Nullable Direction direction) {
         return true;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
+    public boolean canTakeItemThroughFace(int i, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return true;
     }
 
@@ -349,12 +350,12 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public ItemStack getItem(int slot) {
+    public @NotNull ItemStack getItem(int slot) {
         return this.inventory.getStackInSlot(slot);
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NotNull ItemStack removeItem(int slot, int amount) {
         if (canRemoveItem(slot)) {
             return this.inventory.extractItem(slot, amount, false);
         }
@@ -362,7 +363,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NotNull ItemStack removeItemNoUpdate(int slot) {
         if (canRemoveItem(slot)) {
             return this.inventory.extractItem(slot, 0, false);
         }
@@ -370,7 +371,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public void setItem(int slot, ItemStack stack) {
+    public void setItem(int slot, @NotNull ItemStack stack) {
         if (canTakeItem(slot, stack)) {
             this.inventory.setStackInSlot(slot, stack);
         }
@@ -381,7 +382,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
 

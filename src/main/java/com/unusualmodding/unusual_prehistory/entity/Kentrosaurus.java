@@ -1,6 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusPanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;

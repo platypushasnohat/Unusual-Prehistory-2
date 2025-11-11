@@ -65,7 +65,7 @@ public class DromaeosaurusEgg extends ThrowableItemProjectile {
     }
 
     @Override
-    protected Item getDefaultItem() {
+    protected @NotNull Item getDefaultItem() {
         return UP2Items.DROMAEOSAURUS_EGG.get();
     }
 }
