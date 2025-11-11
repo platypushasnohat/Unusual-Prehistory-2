@@ -39,6 +39,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.CARNOTAURUS_SNIFF,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/sniff1")).pitch(0.9F)
         );
+        this.sound(UP2SoundEvents.CARNOTAURUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3"))
+        );
+        this.sound(UP2SoundEvents.CARNOTAURUS_CHARGE,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/charge1")).attenuationDistance(32)
+        );
+        this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
+        );
 
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
                 sound("mob/frog/hurt1").pitch(0.8F),

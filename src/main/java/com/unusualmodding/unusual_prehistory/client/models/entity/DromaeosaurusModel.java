@@ -141,7 +141,7 @@ public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
 		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
 		this.animate(entity.wakeUpAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
 
-		this.neck.xRot += entity.isDromaeosaurusLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
+		this.neck.xRot += entity.isDromaeosaurusEeping() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
 		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
 

@@ -1,9 +1,32 @@
 {
+  "carnotaurus_bite": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/bite1",
+      "unusual_prehistory:entity/carnotaurus/bite2",
+      "unusual_prehistory:entity/carnotaurus/bite3"
+    ],
+    "subtitle": "subtitles.carnotaurus_bite"
+  },
+  "carnotaurus_charge": {
+    "sounds": [
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/carnotaurus/charge1"
+      }
+    ],
+    "subtitle": "subtitles.carnotaurus_charge"
+  },
   "carnotaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/death1"
     ],
     "subtitle": "subtitles.carnotaurus_death"
+  },
+  "carnotaurus_headbutt": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/headbutt1"
+    ],
+    "subtitle": "subtitles.carnotaurus_headbutt"
   },
   "carnotaurus_hurt": {
     "sounds": [

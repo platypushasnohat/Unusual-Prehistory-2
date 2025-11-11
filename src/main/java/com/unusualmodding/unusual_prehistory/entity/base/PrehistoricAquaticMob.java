@@ -26,14 +26,18 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PrehistoricAquaticMob.class, EntityDataSerializers.BOOLEAN);
 
     public float prevOnLandProgress;
     public float onLandProgress;
+
+    public float rollAngle = 0.0F;
 
     public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState floppingAnimationState = new AnimationState();
@@ -44,7 +48,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected @NotNull PathNavigation createNavigation(Level level) {
         return new AdvancedWaterboundPathNavigation(this, level);
     }
 
@@ -59,12 +63,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.WATER;
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
     }
 
     protected SoundEvent getFlopSound() {
@@ -77,6 +81,18 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         prevOnLandProgress = onLandProgress;
 
         this.tickFlopping();
+
+        if (this.isInWater()) {
+            Vec3 movement = this.getDeltaMovement();
+            float speed = (float) movement.length();
+
+            if (speed > 0.01F) {
+                float targetRoll = (float) Math.toDegrees(Math.atan2(movement.x, movement.z)) * 0.1F;
+                this.rollAngle += (targetRoll - this.rollAngle) * 0.05F;
+            } else {
+                this.rollAngle *= 0.9F;
+            }
+        }
     }
 
     @Override

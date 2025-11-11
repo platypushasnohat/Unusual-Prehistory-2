@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
+import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -16,7 +17,7 @@ public class CarnotaurusSniffingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return carnotaurus.sniffCooldown == 0 && carnotaurus.getPose() == Pose.STANDING && !carnotaurus.isInWater();
+        return carnotaurus.sniffCooldown == 0 && carnotaurus.getPose() == Pose.STANDING && !carnotaurus.isInWater() && carnotaurus.getBehavior().equals(Behaviors.IDLE.getName());
     }
 
     @Override

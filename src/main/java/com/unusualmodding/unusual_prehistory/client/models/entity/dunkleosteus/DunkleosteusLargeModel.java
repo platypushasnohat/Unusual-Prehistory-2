@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -85,7 +86,7 @@ public class DunkleosteusLargeModel extends HierarchicalModel<Dunkleosteus> {
 		float partialTicks = ageInTicks - entity.tickCount;
 		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.animate(entity.swimmingAnimationState, DunkleosteusLargeAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.swimmingAnimationState, DunkleosteusLargeAnimations.SWIM, ageInTicks, 0.7F + (Mth.clamp(limbSwingAmount, 0.45F, 1.0F) * 1.3F));
 		this.animate(entity.floppingAnimationState, DunkleosteusLargeAnimations.FLOP, ageInTicks);
 		this.animate(entity.bitingAnimationState, DunkleosteusLargeAnimations.ATTACK, ageInTicks);
 		this.animate(entity.yawningAnimationState, DunkleosteusLargeAnimations.YAWN, ageInTicks);
@@ -95,7 +96,7 @@ public class DunkleosteusLargeModel extends HierarchicalModel<Dunkleosteus> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
 		if (this.young) {
 			float babyScale = 0.6F;
 			float bodyYOffset = 16.0F;
@@ -110,7 +111,7 @@ public class DunkleosteusLargeModel extends HierarchicalModel<Dunkleosteus> {
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

@@ -162,11 +162,13 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isCharging()) {
-			if (this.young) {
-				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 6);
-			} else {
-				this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 6);
-			}
+            if (entity.isInWater()) {
+                this.animateWalk(CarnotaurusAnimations.SWIM, limbSwing, limbSwingAmount, 8, 12);
+            }
+			else {
+                if (this.young) this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 6);
+                else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 6);
+            }
 		}
 
 		if (this.young) {

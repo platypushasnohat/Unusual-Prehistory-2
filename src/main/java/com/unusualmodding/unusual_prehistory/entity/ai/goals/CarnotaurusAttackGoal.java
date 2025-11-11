@@ -1,38 +1,21 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
 import com.unusualmodding.unusual_prehistory.entity.Carnotaurus;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.EnumSet;
 import java.util.Objects;
 
-public class CarnotaurusAttackGoal extends Goal {
+public class CarnotaurusAttackGoal extends AttackGoal {
 
     private int timer = 0;
-    private Carnotaurus carnotaurus;
+    private final Carnotaurus carnotaurus;
 
     public CarnotaurusAttackGoal(Carnotaurus carnotaurus) {
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        super(carnotaurus);
         this.carnotaurus = carnotaurus;
-    }
-
-    @Override
-    public boolean canUse() {
-        return !this.carnotaurus.isBaby() && this.carnotaurus.getTarget() != null && this.carnotaurus.getTarget().isAlive();
-    }
-
-    @Override
-    public void start() {
-        this.carnotaurus.setAttackState(0);
-        this.timer = 0;
-    }
-
-    @Override
-    public void stop() {
-        this.carnotaurus.setAttackState(0);
     }
 
     @Override
@@ -63,17 +46,14 @@ public class CarnotaurusAttackGoal extends Goal {
         }
     }
 
-    @Override
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
     protected void tickBite() {
         this.timer++;
         LivingEntity target = this.carnotaurus.getTarget();
 
+        if (this.timer == 9) this.carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_BITE.get(), 1.0F, carnotaurus.getVoicePitch());
+
         if (this.timer == 11) {
-            if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
+            if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
                 this.carnotaurus.swing(InteractionHand.MAIN_HAND);
                 this.carnotaurus.doHurtTarget(target);
             }
@@ -94,9 +74,11 @@ public class CarnotaurusAttackGoal extends Goal {
         }
 
         if (this.timer == 12) {
-            if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReach(target)) {
+            if (this.carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
                 this.carnotaurus.swing(InteractionHand.MAIN_HAND);
-                this.carnotaurus.doHurtTarget(target);
+                if (this.carnotaurus.doHurtTarget(target)) {
+                    this.carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_HEADBUTT.get(), 1.0F, carnotaurus.getVoicePitch());
+                }
                 this.carnotaurus.strongKnockback(target, 1.5D, 0.5D);
                 if (target.isDamageSourceBlocked(this.carnotaurus.damageSources().mobAttack(this.carnotaurus)) && target instanceof Player player){
                     player.disableShield(true);
@@ -109,7 +91,8 @@ public class CarnotaurusAttackGoal extends Goal {
         }
     }
 
-    protected double getAttackReach(LivingEntity target) {
-        return this.carnotaurus.getBbWidth() * 1.1F * this.carnotaurus.getBbWidth() * 1.1F + target.getBbWidth();
+    @Override
+    protected double getAttackReachSqr(LivingEntity target) {
+        return this.mob.getBbWidth() * 1.35F * this.mob.getBbWidth() * 1.35F + target.getBbWidth();
     }
 }

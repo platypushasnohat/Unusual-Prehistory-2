@@ -83,7 +83,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -286,7 +286,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         return this.getDunkSize() == 0 ? new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get()) : ItemStack.EMPTY;
     }
 }

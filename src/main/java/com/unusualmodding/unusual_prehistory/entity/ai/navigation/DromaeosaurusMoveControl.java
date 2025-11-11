@@ -15,8 +15,8 @@ public class DromaeosaurusMoveControl extends PrehistoricMobMoveControl {
         @Override
         public void tick() {
             if (!this.dromaeosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusLayingDown() && !this.dromaeosaurus.isInPoseTransition()) {
-                    this.dromaeosaurus.standUp();
+                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusEeping() && !this.dromaeosaurus.isInPoseTransition()) {
+                    this.dromaeosaurus.wakeUp();
                 }
                 super.tick();
             }

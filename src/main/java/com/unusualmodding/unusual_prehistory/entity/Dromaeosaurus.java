@@ -64,8 +64,14 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
+            @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusLayingDown() && Dromaeosaurus.this.level().isDay();
+                return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+            }
+
+            @Override
+            public boolean canContinueToUse(){
+                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
             }
         });
     }
@@ -95,7 +101,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
 
         if (this.level().isClientSide) {
-            if (this.isDromaeosaurusLayingDown()) {
+            if (this.isDromaeosaurusEeping()) {
                 if (this.eepyTimer == 0) {
                     this.eepyTimer = 40 + random.nextInt(10);
                     this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
@@ -104,17 +110,17 @@ public class Dromaeosaurus extends PrehistoricMob {
             }
         } else {
             if (this.isEepyTime()) {
-                this.layDown();
+                this.eep();
             }
             else {
-                this.standUp();
+                this.wakeUp();
             }
         }
 
         this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
         this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, 60);
 
-        if (this.isDromaeosaurusLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
+        if (this.isDromaeosaurusEeping() && this.isInWaterOrBubble()) this.wakeUpInstantly();
 
         if (leapCooldown > 0) this.leapCooldown--;
 
@@ -130,13 +136,13 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
         this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
 
-        if (this.isDromaeosaurusVisuallyLayingDown()) {
+        if (this.isDromaeosaurusVisuallyEeping()) {
             this.fallAnimationState.stop();
             this.biteAnimationState.stop();
             this.wakeUpAnimationState.stop();
             this.idleAnimationState.stop();
 
-            if (this.isVisuallyLayingDown()) {
+            if (this.isVisuallyEeping()) {
                 this.startSleepingAnimationState.startIfStopped(this.tickCount);
                 this.sleepAnimationState.stop();
             } else {
@@ -166,7 +172,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        this.standUpInstantly();
+        this.wakeUpInstantly();
         super.actuallyHurt(damageSource, amount);
     }
 
@@ -186,22 +192,22 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 4.0F && this.isDromaeosaurusLayingDown() && !this.isInPoseTransition()) {
-            this.standUp();
+        if (distance > 4.0F && this.isDromaeosaurusEeping() && !this.isInPoseTransition()) {
+            this.wakeUp();
         }
     }
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.isDromaeosaurusLayingDown();
+        return super.refuseToMove() || this.isDromaeosaurusEeping();
     }
 
-    public boolean isDromaeosaurusLayingDown() {
+    public boolean isDromaeosaurusEeping() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
     }
 
-    public boolean isDromaeosaurusVisuallyLayingDown() {
-        return this.getPoseTime() < 0L != this.isDromaeosaurusLayingDown();
+    public boolean isDromaeosaurusVisuallyEeping() {
+        return this.getPoseTime() < 0L != this.isDromaeosaurusEeping();
     }
 
     public boolean isInPoseTransition() {
@@ -209,19 +215,19 @@ public class Dromaeosaurus extends PrehistoricMob {
         return l < (long) (5);
     }
 
-    private boolean isVisuallyLayingDown() {
-        return this.isDromaeosaurusLayingDown() && this.getPoseTime() < 5L && this.getPoseTime() >= 0L;
+    private boolean isVisuallyEeping() {
+        return this.isDromaeosaurusEeping() && this.getPoseTime() < 5L && this.getPoseTime() >= 0L;
     }
 
-    public void layDown() {
-        if (this.isDromaeosaurusLayingDown()) return;
+    public void eep() {
+        if (this.isDromaeosaurusEeping()) return;
         this.setPose(UP2Poses.RESTING.get());
         this.resetLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
-    public void standUp() {
-        if (!this.isDromaeosaurusLayingDown()) {
+    public void wakeUp() {
+        if (!this.isDromaeosaurusEeping()) {
             return;
         }
         this.setPose(Pose.STANDING);
@@ -229,7 +235,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.refreshDimensions();
     }
 
-    public void standUpInstantly() {
+    public void wakeUpInstantly() {
         this.setPose(Pose.STANDING);
         this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
         this.refreshDimensions();
@@ -238,7 +244,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isDromaeosaurusLayingDown() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
+        return this.isDromaeosaurusEeping() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
     }
 
     @Nullable

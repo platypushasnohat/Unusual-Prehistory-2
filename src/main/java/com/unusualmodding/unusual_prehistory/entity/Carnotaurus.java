@@ -132,7 +132,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == Pose.SNIFFING) {
                 this.waveAnimationState.stop();
@@ -230,7 +230,7 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     @Nullable
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
         return UP2Entities.CARNOTAURUS.get().create(level);
     }
 

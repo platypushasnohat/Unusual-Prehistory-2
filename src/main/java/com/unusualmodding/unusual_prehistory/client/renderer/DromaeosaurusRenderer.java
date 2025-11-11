@@ -25,7 +25,7 @@ public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, Dromaeosau
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Dromaeosaurus entity) {
-        return entity.isDromaeosaurusVisuallyLayingDown() ? TEXTURE_SLEEPING : TEXTURE;
+        return entity.isDromaeosaurusVisuallyEeping() ? TEXTURE_SLEEPING : TEXTURE;
     }
 
     @Override

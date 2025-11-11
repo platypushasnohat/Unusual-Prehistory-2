@@ -85,7 +85,7 @@ public class DunkleosteusMediumModel extends HierarchicalModel<Dunkleosteus> {
 		float partialTicks = ageInTicks - entity.tickCount;
 		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.animate(entity.swimmingAnimationState, DunkleosteusMediumAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.swimmingAnimationState, DunkleosteusMediumAnimations.SWIM, ageInTicks, 0.7F + (Mth.clamp(limbSwingAmount, 0.45F, 1.0F) * 1.3F));
 		this.animate(entity.floppingAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks);
 		this.animate(entity.bitingAnimationState, DunkleosteusMediumAnimations.ATTACK, ageInTicks);
 		this.animate(entity.yawningAnimationState, DunkleosteusMediumAnimations.YAWN, ageInTicks);
