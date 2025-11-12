@@ -385,7 +385,7 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == this.TONGUE) this.tongueAnimationState.start(this.tickCount);
-        else if (id == this.FLICK1) this.flick1AnimationState.stop();
+        else if (id == this.FLICK1) this.flick1AnimationState.start(this.tickCount);
         else if (id == this.FLICK2) this.flick2AnimationState.start(this.tickCount);
         else if (id == this.YAWN) this.yawnAnimationState.start(this.tickCount);
         else super.handleEntityEvent(id);
