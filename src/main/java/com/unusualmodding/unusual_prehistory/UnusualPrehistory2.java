@@ -15,6 +15,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Locale;
@@ -32,13 +33,15 @@ public class UnusualPrehistory2 {
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
+        bus.addListener(this::loadComplete);
         bus.addListener(this::dataSetup);
 
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
-        UP2Fluids.register(bus);
+        UP2Fluids.FLUIDS.register(bus);
+        UP2Fluids.TYPES.register(bus);
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
         UP2RecipeTypes.RECIPE_TYPES.register(bus);
@@ -63,6 +66,10 @@ public class UnusualPrehistory2 {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> PROXY.clientInit());
+    }
+
+    private void loadComplete(FMLLoadCompleteEvent event) {
+        event.enqueueWork(UP2Fluids::postInit);
     }
 
     private void dataSetup(GatherDataEvent data) {

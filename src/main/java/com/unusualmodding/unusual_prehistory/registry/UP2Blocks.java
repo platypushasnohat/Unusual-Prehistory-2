@@ -32,7 +32,7 @@ import java.util.function.ToIntFunction;
 public class UP2Blocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory2.MOD_ID);
-    public static List<RegistryObject<? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
+    public static List<RegistryObject<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
     // science doodads
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
@@ -157,12 +157,12 @@ public class UP2Blocks {
     // tar
 //    public static final RegistryObject<Block> TAR = registerBlockWithoutItem("tar", () -> new TarBlock(UP2BlockProperties.TAR));
 
-    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR, UP2BlockProperties.TAR));
+    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        AUTO_TRANSLATE.add(block);
+        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 
@@ -174,7 +174,7 @@ public class UP2Blocks {
 
     private static <B extends Block> RegistryObject<B> registerBlockWithoutItem(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
-        AUTO_TRANSLATE.add(block);
+        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 

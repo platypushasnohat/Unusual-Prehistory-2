@@ -17,11 +17,11 @@ public class TarBubbleParticle extends TextureSheetParticle {
         super(level, x, y, z);
         this.sprites = sprites;
         this.setSize(0.02F, 0.02F);
-        this.quadSize = 1.0F + level.random.nextFloat() * 0.3F;
+        this.quadSize = 0.1F + level.random.nextFloat() * 0.2F;
         this.xd = xspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
-        this.yd = yspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
+        this.yd = yspeed * (double) 0.3F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
         this.zd = zspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
-        this.lifetime = 30 + level.getRandom().nextInt(10);
+        this.lifetime = 10 + level.getRandom().nextInt(10);
         this.setSpriteFromAge(sprites);
     }
 
@@ -31,9 +31,7 @@ public class TarBubbleParticle extends TextureSheetParticle {
         this.yo = this.y;
         this.zo = this.z;
         if (this.age++ < this.lifetime) {
-            if (this.age > 15) {
-                this.setSpriteFromAge(this.sprites);
-            }
+            this.setSpriteFromAge(this.sprites);
             this.yd += 0.003D;
             this.move(this.xd, this.yd, this.zd);
             this.xd *= 0.85F;
@@ -42,11 +40,6 @@ public class TarBubbleParticle extends TextureSheetParticle {
         } else {
             this.remove();
         }
-    }
-
-    @Override
-    public float getQuadSize(float scaleFactor) {
-        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) / (float) this.lifetime * 0.17F, 0.0F, 0.95F);
     }
 
     @Override

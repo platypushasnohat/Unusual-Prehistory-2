@@ -80,7 +80,7 @@ public class UP2Items {
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil");
 
     // talpanas
-    public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = registerSpawnEggItem("talpanas", UP2Entities.TALPANAS, 0x30241a, 0xb2dee0);
+    public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = registerSpawnEggItem("talpanas", UP2Entities.TALPANAS, 0x38291c, 0x8daf82);
     public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties()));
 
@@ -115,7 +115,7 @@ public class UP2Items {
 
     // tar
 //    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new SolidBucketItem(UP2Blocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
-    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.FLOWING_TAR.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
+    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.TAR_FLUID_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
     // discs
     public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(15, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
@@ -133,10 +133,6 @@ public class UP2Items {
 
     private static RegistryObject<Item> registerSpawnEggItem(String name, RegistryObject type, int baseColor, int spotColor) {
         return registerItem(name + "_spawn_egg", () -> new ForgeSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
-    }
-
-    private static RegistryObject<Item> registerDnaItem(String name) {
-        return registerItemNoLang(name + "_dna_bottle", () -> new Item(new Item.Properties()));
     }
 
     private static RegistryObject<Item> registerFossilItem(String name) {

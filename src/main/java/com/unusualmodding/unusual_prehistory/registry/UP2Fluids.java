@@ -2,9 +2,14 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.fluid.TarFluidType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.SoundActions;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,18 +19,24 @@ import net.minecraftforge.registries.RegistryObject;
 public class UP2Fluids {
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, UnusualPrehistory2.MOD_ID);
-    private static final DeferredRegister<FluidType> TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, UnusualPrehistory2.MOD_ID);
+    public static final DeferredRegister<FluidType> TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, UnusualPrehistory2.MOD_ID);
 
-    public static final RegistryObject<FluidType> TAR_TYPE = TYPES.register("tar", TarFluidType::new);
+    private static ForgeFlowingFluid.Properties tarProperties() {
+        return new ForgeFlowingFluid.Properties(TAR_TYPE, TAR_FLUID_SOURCE, TAR_FLUID_FLOWING).bucket(UP2Items.TAR_BUCKET).block(UP2Blocks.TAR).levelDecreasePerBlock(3).slopeFindDistance(3).tickRate(40);
+    }
 
-    public static final RegistryObject<FlowingFluid> TAR = FLUIDS.register("tar", () -> new ForgeFlowingFluid.Source(UP2Fluids.TAR_PROPERTIES));
+    public static final RegistryObject<FluidType> TAR_TYPE = TYPES.register("tar", () -> new TarFluidType(FluidType.Properties.create().descriptionId("block.unusual_prehistory.tar").density(4000).viscosity(12000).pathType(BlockPathTypes.WALKABLE).adjacentPathType(BlockPathTypes.WALKABLE).canSwim(false).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_POWDER_SNOW).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_POWDER_SNOW)));
+    public static final RegistryObject<FlowingFluid> TAR_FLUID_SOURCE = FLUIDS.register("tar", () -> new ForgeFlowingFluid.Source(tarProperties()));
+    public static final RegistryObject<FlowingFluid> TAR_FLUID_FLOWING = FLUIDS.register("tar_flowing", () -> new ForgeFlowingFluid.Flowing(tarProperties()));
 
-    public static final RegistryObject<FlowingFluid> FLOWING_TAR = FLUIDS.register("flowing_tar", () -> new ForgeFlowingFluid.Flowing(UP2Fluids.TAR_PROPERTIES));
-
-    public static final ForgeFlowingFluid.Properties TAR_PROPERTIES = new ForgeFlowingFluid.Properties(TAR_TYPE, TAR, FLOWING_TAR).bucket(UP2Items.TAR_BUCKET).block(UP2Blocks.TAR).tickRate(30);
-
-    public static void register(IEventBus modBus) {
-        FLUIDS.register(modBus);
-        TYPES.register(modBus);
+    public static void postInit() {
+        FluidInteractionRegistry.addInteraction(TAR_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                ForgeMod.WATER_TYPE.get(),
+                fluidState -> Blocks.MUD.defaultBlockState()
+        ));
+        FluidInteractionRegistry.addInteraction(TAR_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
+                ForgeMod.LAVA_TYPE.get(),
+                fluidState -> Blocks.DEEPSLATE.defaultBlockState()
+        ));
     }
 }

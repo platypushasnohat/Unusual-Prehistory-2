@@ -3,57 +3,56 @@ package com.unusualmodding.unusual_prehistory.blocks.fluid;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.SoundActions;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class TarFluidType extends FluidType {
 
-    public TarFluidType() {
-        super(FluidType.Properties.create()
-                .descriptionId("block.unusual_prehistory.tar")
-                .motionScale(0.0015D)
-                .canExtinguish(false)
-                .supportsBoating(false)
-                .canSwim(false)
-                .canDrown(false)
-                .density(4000)
-                .viscosity(12000)
-                .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_POWDER_SNOW)
-                .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_POWDER_SNOW));
-    }
+    public static final ResourceLocation FLUID_STILL = UnusualPrehistory2.modPrefix("block/fluid/tar");
+    public static final ResourceLocation FLUID_FLOWING = UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
+    public static final ResourceLocation OVERLAY = UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
 
-    @Override
-    public double motionScale(Entity entity) {
-        return 0.0015D;
+    public TarFluidType(Properties properties) {
+        super(properties);
     }
 
     @Override
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
+
             @Override
             public ResourceLocation getStillTexture() {
-                return UnusualPrehistory2.modPrefix("block/fluid/tar");
+                return FLUID_STILL;
             }
 
             @Override
             public ResourceLocation getFlowingTexture() {
-                return UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
+                return FLUID_FLOWING;
             }
 
             @Override
             public ResourceLocation getOverlayTexture() {
-                return UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
+                return OVERLAY;
             }
 
             @Override
@@ -67,5 +66,23 @@ public class TarFluidType extends FluidType {
                 RenderSystem.setShaderFogEnd(1.0F);
             }
         });
+    }
+
+    @Override
+    public boolean isVaporizedOnPlacement(Level level, BlockPos pos, FluidStack stack) {
+        return level.dimensionType().ultraWarm();
+    }
+
+    @Override
+    public void onVaporize(@Nullable Player player, Level level, BlockPos pos, FluidStack stack) {
+        SoundEvent sound = this.getSound(player, level, pos, SoundActions.FLUID_VAPORIZE);
+        level.playSound(player, pos, sound != null ? sound : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
+
+        for (int l = 0; l < 8; ++l) {
+            level.addAlwaysVisibleParticle(UP2Particles.TAR_BUBBLE.get(), (double) pos.getX() + Math.random(), (double) pos.getY() + Math.random(), (double) pos.getZ() + Math.random(), (Math.random() - 0.5F) * 0.25F, Math.random() * 0.25F, (Math.random() - 0.5F) * 0.25F);
+            level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, (double) pos.getX() + Math.random(), (double) pos.getY() + Math.random(), (double) pos.getZ() + Math.random(), (Math.random() - 0.5F) * 0.05F, Math.random() * 0.05F, (Math.random() - 0.5F) * 0.05F);
+
+        }
+        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 }

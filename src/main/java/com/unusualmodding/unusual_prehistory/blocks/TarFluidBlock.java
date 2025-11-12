@@ -1,22 +1,20 @@
 package com.unusualmodding.unusual_prehistory.blocks;
 
-import com.unusualmodding.unusual_prehistory.registry.UP2Items;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
+import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -25,16 +23,8 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public class TarFluidBlock extends LiquidBlock {
 
-    public static final VoxelShape STABLE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
-
     public TarFluidBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
         super(fluid, properties);
-    }
-
-    @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, CollisionContext context) {
-        if (context.isHoldingItem(UP2Items.TAR_BUCKET.get())) return level.getBlockState(pos.above()).is(this) ? Shapes.block() : STABLE_SHAPE;
-        return Shapes.empty();
     }
 
     @Override
@@ -43,7 +33,6 @@ public class TarFluidBlock extends LiquidBlock {
             if (!(entity instanceof LivingEntity) || entity.getFeetBlockState().is(this)) {
                 entity.makeStuckInBlock(state, new Vec3(0.9F, 1.0D, 0.9F));
             }
-            if (!level.isClientSide) entity.setSharedFlagOnFire(true);
         }
     }
 
@@ -59,5 +48,17 @@ public class TarFluidBlock extends LiquidBlock {
     @Override
     public @NotNull Optional<SoundEvent> getPickupSound() {
         return Optional.of(SoundEvents.BUCKET_FILL_POWDER_SNOW);
+    }
+
+    @Override
+    public void animateTick(@NotNull BlockState state, Level level, BlockPos pos, @NotNull RandomSource random) {
+        boolean top = level.getFluidState(pos.above()).isEmpty();
+        if (random.nextInt(400) == 0) {
+            level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, UP2SoundEvents.TAR_POP.get(), SoundSource.BLOCKS, 0.5F, random.nextFloat() * 0.4F + 0.8F, false);
+        }
+        if (random.nextInt(top ? 10 : 40) == 0) {
+            float height = top ? state.getFluidState().getHeight(level, pos) : random.nextFloat();
+            level.addParticle(UP2Particles.TAR_BUBBLE.get(), pos.getX() + random.nextFloat(), pos.getY() + height, pos.getZ() + random.nextFloat(), (random.nextFloat() - 0.5F) * 0.1F, 0.05F + random.nextFloat() * 0.1F, (random.nextFloat() - 0.5F) * 0.1F);
+        }
     }
 }
