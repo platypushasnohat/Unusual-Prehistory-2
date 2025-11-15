@@ -23,7 +23,7 @@ public class DromaeosaurusAttackGoal extends AttackGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && canUse();
+        return super.canContinueToUse() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
     }
 
     @Override

@@ -151,12 +151,12 @@ public class Stethacanthus extends SchoolingAquaticMob {
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(UP2ItemTags.PACIFIES_STETHACANTHUS) && !this.isPassive()) {
             if (!this.level().isClientSide) {
