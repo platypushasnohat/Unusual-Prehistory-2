@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_rod"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "unusual_prehistory:blocks/fossilized_bone_rod"
+}

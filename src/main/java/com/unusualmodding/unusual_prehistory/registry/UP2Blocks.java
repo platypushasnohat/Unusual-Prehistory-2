@@ -29,6 +29,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
+@SuppressWarnings("deprecation")
 public class UP2Blocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory2.MOD_ID);
@@ -49,7 +50,10 @@ public class UP2Blocks {
     public static final RegistryObject<Block> COBBLED_FOSSILIZED_BONE = registerBlock("cobbled_fossilized_bone", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> COBBLED_FOSSILIZED_BONE_STAIRS = registerBlock("cobbled_fossilized_bone_stairs", () -> new StairBlock(() -> COBBLED_FOSSILIZED_BONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(COBBLED_FOSSILIZED_BONE.get())));
     public static final RegistryObject<Block> COBBLED_FOSSILIZED_BONE_SLAB = registerBlock("cobbled_fossilized_bone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(COBBLED_FOSSILIZED_BONE.get())));
-    public static final RegistryObject<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final RegistryObject<Block> FOSSILIZED_BONE_ROD = registerBlock("fossilized_bone_rod", () -> new FossilizedBoneRodBlock(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final RegistryObject<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
+    public static final RegistryObject<Block> FOSSILIZED_BONE_RIBS = registerBlock("fossilized_bone_ribs", () -> new FossilizedBoneRibsBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
+    public static final RegistryObject<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
 
     public static final RegistryObject<Block> PETRIFIED_LOG = registerBlock("petrified_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));

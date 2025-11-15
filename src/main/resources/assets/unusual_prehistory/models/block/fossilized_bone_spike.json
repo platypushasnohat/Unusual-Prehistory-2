@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cross",
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "unusual_prehistory:block/fossilized_bone_spike",
+    "particle": "unusual_prehistory:block/fossilized_bone_block"
+  }
+}

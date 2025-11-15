@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "unusual_prehistory:block/fossilized_bone_row",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "unusual_prehistory:block/fossilized_bone_row"
+    },
+    "facing=south": {
+      "model": "unusual_prehistory:block/fossilized_bone_row",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "unusual_prehistory:block/fossilized_bone_row",
+      "y": 270
+    }
+  }
+}

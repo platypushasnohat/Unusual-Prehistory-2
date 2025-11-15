@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod"
+    },
+    "facing=down": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "unusual_prehistory:block/fossilized_bone_rod",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

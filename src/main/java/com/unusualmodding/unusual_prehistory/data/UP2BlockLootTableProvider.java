@@ -62,7 +62,10 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(COBBLED_FOSSILIZED_BONE_STAIRS.get());
         this.add(COBBLED_FOSSILIZED_BONE_SLAB.get(), this::createSlabItemTable);
 
+        this.dropSelf(FOSSILIZED_BONE_ROD.get());
         this.dropSelf(FOSSILIZED_BONE_SPIKE.get());
+        this.dropSelf(FOSSILIZED_BONE_RIBS.get());
+        this.dropSelf(FOSSILIZED_BONE_ROW.get());
 
         this.dropSelf(PETRIFIED_LOG.get());
         this.dropSelf(PETRIFIED_WOOD.get());
@@ -130,7 +133,6 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(GOLDEN_GINKGO_SAPLING.get());
         this.dropPottedContents(POTTED_GOLDEN_GINKGO_SAPLING.get());
 
-        this.add(GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
         this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(LEPIDODENDRON_LOG.get());
