@@ -89,10 +89,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder dnaItem(RegistryObject<Item> item) {
-        return generated(item.getId().getPath(), modLoc("item/dna/" + item.getId().getPath()));
-    }
-
     // utils
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/generated");
