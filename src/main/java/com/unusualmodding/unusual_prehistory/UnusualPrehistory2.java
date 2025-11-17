@@ -62,6 +62,7 @@ public class UnusualPrehistory2 {
 
     public void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(UP2Compat::registerCompat);
+        UP2Network.registerNetwork();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

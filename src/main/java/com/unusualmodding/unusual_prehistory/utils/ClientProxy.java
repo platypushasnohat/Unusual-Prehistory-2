@@ -1,24 +1,35 @@
 package com.unusualmodding.unusual_prehistory.utils;
 
+import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
 import com.unusualmodding.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSound;
 import com.unusualmodding.unusual_prehistory.client.sounds.TransmogrifierSound;
 import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import com.unusualmodding.unusual_prehistory.events.ClientForgeEvents;
+import com.unusualmodding.unusual_prehistory.events.ScreenShakeEvent;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+@OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, value = Dist.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     public static final Int2ObjectMap<AbstractTickableSoundInstance> ENTITY_SOUND_INSTANCE_MAP = new Int2ObjectOpenHashMap<>();
     public static final Map<BlockEntity, AbstractTickableSoundInstance> BLOCK_ENTITY_SOUND_INSTANCE_MAP = new HashMap<>();
+
+    public static List<UUID> blockedEntityRenders = new ArrayList<>();
 
     @Override
     public void commonInit() {
@@ -26,6 +37,49 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void clientInit() {
+        MinecraftForge.EVENT_BUS.register(new ClientForgeEvents());
+    }
+
+    @Override
+    public boolean isKeyDown(int keyType) {
+        if (keyType == 0) {
+            return Minecraft.getInstance().options.keyJump.isDown();
+        }
+        if (keyType == 1) {
+            return Minecraft.getInstance().options.keySprint.isDown();
+        }
+        if (keyType == 3) {
+            return Minecraft.getInstance().options.keyAttack.isDown();
+        }
+        if (keyType == 4) {
+            return Minecraft.getInstance().options.keyShift.isDown();
+        }
+        return false;
+    }
+
+    @Override
+    public Player getClientSidePlayer() {
+        return Minecraft.getInstance().player;
+    }
+
+    @Override
+    public boolean isFirstPersonPlayer(Entity entity) {
+        return entity.equals(Minecraft.getInstance().cameraEntity) && Minecraft.getInstance().options.getCameraType().isFirstPerson();
+    }
+
+    @Override
+    public void blockRenderingEntity(UUID id) {
+        blockedEntityRenders.add(id);
+    }
+
+    @Override
+    public void releaseRenderingEntity(UUID id) {
+        blockedEntityRenders.remove(id);
+    }
+
+    @Override
+    public void screenShake(ScreenShakeEvent event) {
+        ClientForgeEvents.SCREEN_SHAKE_EVENTS.add(event);
     }
 
     @Override
