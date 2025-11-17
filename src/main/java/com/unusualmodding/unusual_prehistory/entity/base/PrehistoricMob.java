@@ -33,14 +33,13 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
-    private int healCooldown = 600;
     public int idleAnimationTimeout = 0;
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricMobMoveControl(this);
         this.lookControl = new RefuseToMoveLookControl(this);
-        setPersistenceRequired();
+        this.setPersistenceRequired();
     }
 
     @Override
@@ -49,12 +48,12 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothGroundPathNavigation(this, level);
     }
 
     @Override
-    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return 0.0F;
     }
 
@@ -74,7 +73,7 @@ public abstract class PrehistoricMob extends Animal {
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (isInWater() && horizontalCollision) {
-            setUseLowerFluidJumpThreshold(true);
+            this.setUseLowerFluidJumpThreshold(true);
         }
     }
 
@@ -132,7 +131,7 @@ public abstract class PrehistoricMob extends Animal {
 
         this.setupAnimationCooldowns();
 
-        if (this.tickCount % healCooldown == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
     }
@@ -143,8 +142,8 @@ public abstract class PrehistoricMob extends Animal {
     public void setupAnimationStates() {
     }
 
-    public void setHealCooldown(int cooldown) {
-        healCooldown = cooldown;
+    public int getHealCooldown() {
+        return 100;
     }
 
     public boolean isInPoseTransition() {
