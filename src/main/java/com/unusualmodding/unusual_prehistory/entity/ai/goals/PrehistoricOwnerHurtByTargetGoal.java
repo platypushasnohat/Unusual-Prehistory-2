@@ -1,6 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
-import com.platypushasnohat.average_prehistory.entity.base.TameablePrehistoricMob;
+import com.unusualmodding.unusual_prehistory.entity.base.TameablePrehistoricMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
