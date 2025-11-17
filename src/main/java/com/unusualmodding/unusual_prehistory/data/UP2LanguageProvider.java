@@ -216,6 +216,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
         this.add("unusual_prehistory.jei.chiseling", "Chiseling");
 
+        // tame commands
+        this.add("entity.unusual_prehistory.all.command_0", "%s is wandering");
+        this.add("entity.unusual_prehistory.all.command_1", "%s is staying");
+        this.add("entity.unusual_prehistory.all.command_2", "%s is following");
+
         this.translateDamageType(UP2DamageTypes.TAR, player -> player + " suffocated in tar", (player, entity) -> player + " was suffocated in tar by " + entity);
     }
 

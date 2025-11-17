@@ -179,7 +179,7 @@ public abstract class TameablePrehistoricMob extends PrehistoricMob implements O
         return entity == this.getOwner();
     }
 
-    public boolean wantsToAttack(LivingEntity pTarget, LivingEntity pOwner) {
+    public boolean wantsToAttack(LivingEntity target, LivingEntity owner) {
         return true;
     }
 
@@ -201,8 +201,11 @@ public abstract class TameablePrehistoricMob extends PrehistoricMob implements O
             if (entity == owner) {
                 return true;
             }
-            if (entity instanceof TamableAnimal) {
-                return ((TamableAnimal) entity).isOwnedBy(owner);
+            if (entity instanceof TamableAnimal tamableAnimal) {
+                return tamableAnimal.isOwnedBy(owner);
+            }
+            if (entity instanceof TameablePrehistoricMob tameablePrehistoricMob) {
+                return tameablePrehistoricMob.isOwnedBy(owner);
             }
             if (owner != null) {
                 return owner.isAlliedTo(entity);

@@ -23,17 +23,17 @@ public class PoseMixin {
     private static Pose[] $VALUES;
 
     @Invoker("<init>")
-    public static Pose Unusualprehistory2$newPose(String name, int id) {
+    public static Pose unusualPrehistory2$newPose(String name, int id) {
         throw new AssertionError();
     }
 
     @Inject(method = "<clinit>", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/Pose;$VALUES:[Lnet/minecraft/world/entity/Pose;", shift = At.Shift.AFTER))
-    private static void Unusualprehistory2$US$addCustomPose(CallbackInfo ci) {
+    private static void unusualPrehistory2$addCustomPose(CallbackInfo ci) {
         List<Pose> poses = new ArrayList<>(Arrays.asList($VALUES));
         Pose last = poses.get(poses.size() - 1);
         int i = 1;
         for (UP2Poses pose : UP2Poses.values()) {
-            poses.add(Unusualprehistory2$newPose(pose.name(), last.ordinal() + i));
+            poses.add(unusualPrehistory2$newPose(pose.name(), last.ordinal() + i));
             i++;
         }
         $VALUES = poses.toArray(new Pose[0]);
