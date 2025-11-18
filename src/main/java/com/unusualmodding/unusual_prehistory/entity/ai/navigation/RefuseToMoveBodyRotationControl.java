@@ -2,7 +2,6 @@ package com.unusualmodding.unusual_prehistory.entity.ai.navigation;
 
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.LookControl;
 
 public class RefuseToMoveBodyRotationControl extends BodyRotationControl {
     protected final PrehistoricMob mob;

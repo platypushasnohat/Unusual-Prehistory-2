@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, KentrosaurusModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/kentrosaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kentrosaurus.png");
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new KentrosaurusModel(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS)), 0.9F);
@@ -29,6 +29,6 @@ public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, Kentrosaurus
 
     @Override
     protected @Nullable RenderType getRenderType(@NotNull Kentrosaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(TEXTURE);
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

@@ -35,11 +35,8 @@ public class UP2Blocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
-    // science doodads
+    // science doodad
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
-
-    public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil", () -> new FossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), SoundEvents.DEEPSLATE_BREAK));
-    public static final RegistryObject<Block> FOSSIL = registerBlock("fossil", () -> new FossilBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F), SoundEvents.STONE_BREAK));
 
     public static final RegistryObject<Block> FOSSILIZED_BONE_BLOCK = registerBlock("fossilized_bone_block", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> FOSSILIZED_BONE_BARK = registerBlock("fossilized_bone_bark", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
@@ -52,7 +49,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> COBBLED_FOSSILIZED_BONE_SLAB = registerBlock("cobbled_fossilized_bone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(COBBLED_FOSSILIZED_BONE.get())));
     public static final RegistryObject<Block> FOSSILIZED_BONE_ROD = registerBlock("fossilized_bone_rod", () -> new FossilizedBoneRodBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
-    public static final RegistryObject<Block> FOSSILIZED_BONE_RIBS = registerBlock("fossilized_bone_ribs", () -> new FossilizedBoneRibsBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
     public static final RegistryObject<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
 
     public static final RegistryObject<Block> PETRIFIED_LOG = registerBlock("petrified_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
@@ -60,13 +56,15 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = registerBlock("polished_petrified_wood_stairs", () -> new StairBlock(() -> POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_PETRIFIED_WOOD.get())));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_SLAB = registerBlock("polished_petrified_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(POLISHED_PETRIFIED_WOOD.get())));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("polished_petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 20, false));
 
     // eggs
     public static final Supplier<Block> DIPLOCAULUS_EGGS = registerBlockWithItem("diplocaulus_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DIPLOCAULUS, 2), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> JAWLESS_FISH_ROE = registerBlockWithItem("jawless_fish_roe", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.JAWLESS_FISH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerBlockWithItem("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-    public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerBlockWithItem("dunkleosteus_sac", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DUNKLEOSTEUS, 1), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-    public static final Supplier<Block> STETHACANTHUS_SAC = registerBlockWithItem("stethacanthus_sac", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.STETHACANTHUS, 1), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+    public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DUNKLEOSTEUS, 1));
+    public static final Supplier<Block> STETHACANTHUS_SAC = registerBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.STETHACANTHUS, 1));
 
     public static final RegistryObject<Block> CARNOTAURUS_EGG = registerBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15, false));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
@@ -159,8 +157,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
 
     // tar
-//    public static final RegistryObject<Block> TAR = registerBlockWithoutItem("tar", () -> new TarBlock(UP2BlockProperties.TAR));
-
     public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {

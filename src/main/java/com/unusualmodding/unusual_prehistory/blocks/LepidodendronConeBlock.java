@@ -16,10 +16,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class LepidodendronConeBlock extends SaplingBlock {
 
-    public static final BooleanProperty HANGING;
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 13.0D, 12.0D);
     protected static final VoxelShape HANGING_SHAPE = Block.box(4.0D, 2.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
@@ -29,7 +30,7 @@ public class LepidodendronConeBlock extends SaplingBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull RandomSource random) {
         if (!isHanging(state)) {
             if (level.getMaxLocalRawBrightness(blockPos.above()) >= 9 && random.nextInt(7) == 0) {
                 this.advanceTree(level, blockPos, state, random);
@@ -37,7 +38,8 @@ public class LepidodendronConeBlock extends SaplingBlock {
         }
     }
 
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos blockPos) {
+    @Override
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos blockPos) {
         return isHanging(state) ? level.getBlockState(blockPos.above()).is(UP2Blocks.LEPIDODENDRON_LEAVES.get()) : super.canSurvive(state, level, blockPos);
     }
 
@@ -45,7 +47,8 @@ public class LepidodendronConeBlock extends SaplingBlock {
         return state.getValue(HANGING);
     }
 
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos blockPos, BlockState state, boolean valid) {
+    @Override
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos blockPos, @NotNull BlockState state, boolean valid) {
         return !isHanging(state);
     }
 
@@ -53,17 +56,14 @@ public class LepidodendronConeBlock extends SaplingBlock {
         return UP2Blocks.LEPIDODENDRON_CONE.get().defaultBlockState().setValue(HANGING, true);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HANGING).add(STAGE);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return state.getValue(HANGING) ? HANGING_SHAPE.move(offset.x, offset.y, offset.z) : SHAPE.move(offset.x, offset.y, offset.z);
-    }
-
-    static {
-        HANGING = BlockStateProperties.HANGING;
     }
 }

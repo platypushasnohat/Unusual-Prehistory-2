@@ -1,8 +1,9 @@
 package com.unusualmodding.unusual_prehistory;
 
-import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.data.*;
-import com.unusualmodding.unusual_prehistory.utils.*;
+import com.unusualmodding.unusual_prehistory.registry.*;
+import com.unusualmodding.unusual_prehistory.utils.ClientProxy;
+import com.unusualmodding.unusual_prehistory.utils.CommonProxy;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -46,15 +47,12 @@ public class UnusualPrehistory2 {
         UP2MenuTypes.MENUS.register(bus);
         UP2RecipeTypes.RECIPE_TYPES.register(bus);
         UP2RecipeSerializers.RECIPE_SERIALIZERS.register(bus);
-        UP2Features.FEATURES.register(bus);
         UP2TreeDecorators.TREE_DECORATORS.register(bus);
         UP2TrunkPlacers.TRUNK_PLACERS.register(bus);
         UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
         UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
-        UP2RuleTests.RULE_TESTS.register(bus);
-        UP2StructureProcessorTypes.STRUCTURE_PROCESSOR_TYPE.register(bus);
         PROXY.commonInit();
 
         eventBus.register(this);

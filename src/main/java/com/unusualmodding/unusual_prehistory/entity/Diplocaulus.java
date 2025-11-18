@@ -5,7 +5,6 @@
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.unusualmodding.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
  import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
- import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricAquaticMob;
  import com.unusualmodding.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
  import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;

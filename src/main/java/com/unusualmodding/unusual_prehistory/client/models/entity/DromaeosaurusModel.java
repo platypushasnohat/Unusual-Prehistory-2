@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -124,7 +125,7 @@ public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
 	}
 
 	@Override
-	public void setupAnim(Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (this.young) {
@@ -145,23 +146,23 @@ public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
 		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
-		if (this.young) {
-			float babyScale = 0.6F;
-			float bodyYOffset = 16.0F;
-			poseStack.pushPose();
-			poseStack.scale(babyScale, babyScale, babyScale);
-			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-			poseStack.popPose();
-		} else {
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-		}
-	}
+    @Override
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (this.young) {
+            float babyScale = 0.5F;
+            float bodyYOffset = 24.0F;
+            poseStack.pushPose();
+            poseStack.scale(babyScale, babyScale, babyScale);
+            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            poseStack.popPose();
+        } else {
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        }
+    }
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

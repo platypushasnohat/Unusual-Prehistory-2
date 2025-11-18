@@ -1,8 +1,6 @@
 {
   "values": [
     "unusual_prehistory:transmogrifier",
-    "unusual_prehistory:deepslate_fossil",
-    "unusual_prehistory:fossil",
     "unusual_prehistory:fossilized_bone_block",
     "unusual_prehistory:fossilized_bone_bark",
     "unusual_prehistory:fossilized_bone_vertebra",
@@ -14,12 +12,13 @@
     "unusual_prehistory:cobbled_fossilized_bone_slab",
     "unusual_prehistory:fossilized_bone_rod",
     "unusual_prehistory:fossilized_bone_spike",
-    "unusual_prehistory:fossilized_bone_ribs",
     "unusual_prehistory:fossilized_bone_row",
     "unusual_prehistory:petrified_log",
     "unusual_prehistory:petrified_wood",
     "unusual_prehistory:polished_petrified_wood",
     "unusual_prehistory:polished_petrified_wood_stairs",
-    "unusual_prehistory:polished_petrified_wood_slab"
+    "unusual_prehistory:polished_petrified_wood_slab",
+    "unusual_prehistory:polished_petrified_wood_pressure_plate",
+    "unusual_prehistory:polished_petrified_wood_button"
   ]
 }

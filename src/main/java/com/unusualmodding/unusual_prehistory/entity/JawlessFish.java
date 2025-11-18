@@ -1,6 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;

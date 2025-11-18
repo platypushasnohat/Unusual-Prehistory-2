@@ -14,7 +14,6 @@ public class UP2ItemProperties {
                 ItemProperties.register(item.get(), new ResourceLocation("variant"), (stack, level, living, i) -> stack.hasTag() ? stack.getTag().getInt("BucketVariantTag") : 0);
             }
             ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), new ResourceLocation("ooze_shape"), (stack, level, living, j) -> (stack.getCount() % 5) / 5F);
-            ItemProperties.register(UP2Items.CHISEL.get(), new ResourceLocation("chiseling"), (stack, level, living, j) -> living != null && living.getUseItem() == stack ? (float)(living.getUseItemRemainingTicks() % 10) / 10.0F : 0.0F);
         }
     }
 }

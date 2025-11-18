@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -23,7 +24,7 @@ public class UP2ChestBoatRenderer extends BoatRenderer {
 	public UP2ChestBoatRenderer(EntityRendererProvider.Context renderContext, boolean isChestBoot) {
 		super(renderContext, isChestBoot);
 		chestBoatResources = Stream.of(UP2BoatType.Type.values()).collect(ImmutableMap.toImmutableMap((boatType) -> boatType, (boatType) -> Pair.of(
-                new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/chest_boat/" + boatType.getName() + ".png"),
+                UnusualPrehistory2.modPrefix("textures/entity/chest_boat/" + boatType.getName() + ".png"),
                 new ChestBoatModel(renderContext.bakeLayer(new ModelLayerLocation(new ResourceLocation("chest_boat/oak"), "main")))
 		)));
 	}
@@ -33,7 +34,7 @@ public class UP2ChestBoatRenderer extends BoatRenderer {
 	}
 
 	@Override
-	public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(Boat boat) {
+	public @NotNull Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(@NotNull Boat boat) {
 		UP2ChestBoat up2ChestBoat = (UP2ChestBoat) boat;
 		return chestBoatResources.get(up2ChestBoat.getUP2BoatType());
 	}

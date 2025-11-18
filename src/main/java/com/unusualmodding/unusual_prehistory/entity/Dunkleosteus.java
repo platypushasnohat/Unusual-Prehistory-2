@@ -1,6 +1,7 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusHurtByTargetGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusNearestAttackableTargetGoal;
@@ -44,7 +45,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.4F, 0.4F);
+    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.5F, 0.5F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.7F, 1.98F);
 
@@ -113,6 +114,11 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
                 this.setYawning(false);
             }
         }
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.DUNKLEOSTEUS_FOOD);
     }
 
     @Override

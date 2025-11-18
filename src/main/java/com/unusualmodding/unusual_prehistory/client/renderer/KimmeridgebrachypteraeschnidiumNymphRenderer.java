@@ -9,18 +9,19 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumNymphRenderer extends MobRenderer<KimmeridgebrachypteraeschnidiumNymph, KimmeridgebrachypteraeschnidiumNymphModel<KimmeridgebrachypteraeschnidiumNymph>> {
+public class KimmeridgebrachypteraeschnidiumNymphRenderer extends MobRenderer<KimmeridgebrachypteraeschnidiumNymph, KimmeridgebrachypteraeschnidiumNymphModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/nymph.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/nymph.png");
 
     public KimmeridgebrachypteraeschnidiumNymphRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumNymphModel<>(context.bakeLayer(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH)), 0.2f);
+        super(context, new KimmeridgebrachypteraeschnidiumNymphModel(context.bakeLayer(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH)), 0.2f);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KimmeridgebrachypteraeschnidiumNymph entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull KimmeridgebrachypteraeschnidiumNymph entity) {
         return TEXTURE;
     }
 }

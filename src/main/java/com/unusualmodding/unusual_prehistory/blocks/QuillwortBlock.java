@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class QuillwortBlock extends BushBlock implements SimpleWaterloggedBlock, BonemealableBlock {
 
-    public static final BooleanProperty WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
     public QuillwortBlock(Properties properties) {
@@ -94,9 +94,5 @@ public class QuillwortBlock extends BushBlock implements SimpleWaterloggedBlock,
     @Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource source, @NotNull BlockPos pos, @NotNull BlockState state) {
         popResource(level, pos, new ItemStack(this));
-    }
-
-    static {
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 }

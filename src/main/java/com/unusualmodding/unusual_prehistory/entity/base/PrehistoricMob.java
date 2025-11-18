@@ -1,9 +1,15 @@
 package com.unusualmodding.unusual_prehistory.entity.base;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.unusualmodding.unusual_prehistory.entity.ai.navigation.*;
+import com.mojang.datafixers.util.Pair;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.RefuseToMoveBodyRotationControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.RefuseToMoveLookControl;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,16 +19,20 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricMob extends Animal {
@@ -36,6 +46,8 @@ public abstract class PrehistoricMob extends Animal {
 
     public boolean useLowerFluidJumpThreshold = false;
     public int idleAnimationTimeout = 0;
+
+    private final byte PACIFY = 9;
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -110,17 +122,22 @@ public abstract class PrehistoricMob extends Animal {
             if (this.isBaby()) {
                 this.usePlayerItem(player, hand, itemstack);
                 this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
-                this.playSound(this.getEatingSound());
+                this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
+                this.applyFoodEffects(itemstack, this.level(), this);
+                this.gameEvent(GameEvent.EAT);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
             if (this.level().isClientSide) {
                 return InteractionResult.CONSUME;
             }
         }
-        else if (this.isPacifyItem(itemstack) && this.canPacifiy()) {
+        else if (this.isPacifyItem(itemstack) && this.canPacifiy() && !this.isPacified() && !this.isBaby()) {
             this.usePlayerItem(player, hand, itemstack);
             this.setPacified(true);
-            this.playSound(this.getEatingSound());
+            this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
+            this.applyFoodEffects(itemstack, this.level(), this);
+            this.gameEvent(GameEvent.EAT);
+            this.level().broadcastEntityEvent(this, PACIFY);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
@@ -131,6 +148,36 @@ public abstract class PrehistoricMob extends Animal {
         double y = entity.getZ() - this.getZ();
         double scale = Math.max(x * x + y * y, 0.001D);
         entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
+    }
+
+    private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
+        Item item = food.getItem();
+        if (item.isEdible()) {
+            for(Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
+                if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
+                    livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
+                }
+            }
+        }
+    }
+
+    protected void spawnPacifyParticles() {
+        ParticleOptions particleoptions = UP2Particles.GOLDEN_HEART.get();
+        for(int i = 0; i < 7; ++i) {
+            double xspeed = this.random.nextGaussian() * 0.02D;
+            double yspeed = this.random.nextGaussian() * 0.08D;
+            double zspeed = this.random.nextGaussian() * 0.02D;
+            this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), xspeed, yspeed, zspeed);
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == PACIFY) {
+            this.spawnPacifyParticles();
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     @Override

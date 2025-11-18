@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 94571867,
+    "separation": 8,
+    "spacing": 34
+  },
+  "structures": [
+    {
+      "structure": "unusual_prehistory:mesozoic_fossil",
+      "weight": 1
+    }
+  ]
+}

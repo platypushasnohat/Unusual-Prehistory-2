@@ -2,18 +2,19 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.base.UP2Model;
+import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphAnimations;
 import com.unusualmodding.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumNymph;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumNymphModel<T extends KimmeridgebrachypteraeschnidiumNymph> extends UP2Model<T> {
+public class KimmeridgebrachypteraeschnidiumNymphModel extends HierarchicalModel<KimmeridgebrachypteraeschnidiumNymph> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -62,17 +63,17 @@ public class KimmeridgebrachypteraeschnidiumNymphModel<T extends Kimmeridgebrach
 	public void setupAnim(KimmeridgebrachypteraeschnidiumNymph entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 4f, 4f);
-		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
-		this.animate(entity.lookoutAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.LOOKOUT, ageInTicks, 1.0f);
+        this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1.0f);
+        this.animate(entity.lookoutAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.LOOKOUT, ageInTicks, 1.0f);
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LeaveWaterGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaLayDownGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.megalania.MegalaniaRoarGoal;
@@ -21,15 +24,22 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.*;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -112,7 +122,7 @@ public class Megalania extends SemiAquaticMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
@@ -163,6 +173,22 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
+    }
+
+    public void applyPoison(@NotNull LivingEntity entity) {
+        float chance = 0;
+        int i = 0;
+
+        if (this.level().getDifficulty() == Difficulty.NORMAL) i = 5;
+        else if (this.level().getDifficulty() == Difficulty.HARD) i = 10;
+
+        if (this.getTemperatureState() == TemperatureStates.COLD) chance = -0.1F;
+        else if (this.getTemperatureState() == TemperatureStates.WARM) chance = 0.1F;
+        else if (this.getTemperatureState() == TemperatureStates.NETHER) chance = 0.2F;
+
+        if (i > 0 && this.getRandom().nextFloat() < 0.3F + chance) {
+            entity.addEffect(new MobEffectInstance(this.getTemperatureState() == TemperatureStates.NETHER ? MobEffects.WITHER : MobEffects.POISON, i * 40, 0), this);
+        }
     }
 
     @Override

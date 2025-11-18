@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
@@ -22,12 +23,12 @@ public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Telecrex entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Telecrex entity) {
         return TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Telecrex entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(TEXTURE);
+    protected @Nullable RenderType getRenderType(@NotNull Telecrex entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -15,9 +15,9 @@ import java.util.function.Supplier;
 
 public class GinkgoLeavesBlock extends LeavesBlock {
 
-    public final Supplier<ParticleType> particle;
+    public final Supplier<SimpleParticleType> particle;
 
-    public GinkgoLeavesBlock(BlockBehaviour.Properties properties, Supplier<ParticleType> particle) {
+    public GinkgoLeavesBlock(BlockBehaviour.Properties properties, Supplier<SimpleParticleType> particle) {
         super(properties);
         this.particle = particle;
     }

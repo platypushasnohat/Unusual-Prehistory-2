@@ -1,6 +1,9 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.StethacanthusAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.navigation.AdvancedWaterboundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -43,7 +46,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.85F)
                 .add(Attributes.FOLLOW_RANGE, 16.0F);
     }
 

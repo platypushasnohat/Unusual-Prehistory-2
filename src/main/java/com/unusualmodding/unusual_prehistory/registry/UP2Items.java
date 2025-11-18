@@ -2,7 +2,10 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2BoatType;
-import com.unusualmodding.unusual_prehistory.items.*;
+import com.unusualmodding.unusual_prehistory.items.KimmeridgebrachypteraeschnidiumBottleItem;
+import com.unusualmodding.unusual_prehistory.items.ThrowableEggItem;
+import com.unusualmodding.unusual_prehistory.items.UP2BoatItem;
+import com.unusualmodding.unusual_prehistory.items.UP2MobBucketItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -25,7 +28,6 @@ public class UP2Items {
     public static final RegistryObject<Item> UNUSUAL_PREHISTORY = registerItem("unusual_prehistory", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> CHISEL = registerItem("chisel", () -> new ChiselItem(new Item.Properties().durability(64)));
 
     public static final RegistryObject<Item> MACHINE_PARTS = registerItem("machine_parts", () -> new Item(new Item.Properties()));
 
@@ -114,7 +116,6 @@ public class UP2Items {
     public static final RegistryObject<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
 
     // tar
-//    public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new SolidBucketItem(UP2Blocks.TAR.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, (new Item.Properties()).stacksTo(1).craftRemainder(Items.BUCKET)));
     public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.TAR_FLUID_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
     // discs

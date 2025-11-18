@@ -1,8 +1,9 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.registry.*;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2Tab;
+import com.unusualmodding.unusual_prehistory.registry.*;
+import com.unusualmodding.unusual_prehistory.utils.UP2TextUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;

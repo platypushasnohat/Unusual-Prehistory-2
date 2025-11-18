@@ -1,7 +1,5 @@
 package com.unusualmodding.unusual_prehistory.entity.ai.goals;
 
-import javax.annotation.Nullable;
-
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -26,6 +24,8 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import javax.annotation.Nullable;
 
 public class ZombieAttackEggGoal extends MoveToBlockGoal {
 

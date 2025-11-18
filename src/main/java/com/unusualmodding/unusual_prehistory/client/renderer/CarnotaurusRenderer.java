@@ -10,24 +10,25 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/carnotaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/carnotaurus.png");
 
     public CarnotaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new CarnotaurusModel(context.bakeLayer(UP2EntityModelLayers.CARNOTAURUS)), 0.8F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Carnotaurus entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Carnotaurus entity) {
         return TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Carnotaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(TEXTURE);
+    protected @Nullable RenderType getRenderType(@NotNull Carnotaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

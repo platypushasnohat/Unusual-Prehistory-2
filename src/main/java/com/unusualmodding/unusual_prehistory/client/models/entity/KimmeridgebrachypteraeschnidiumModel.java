@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.*;
+import com.unusualmodding.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumAnimations;
 import com.unusualmodding.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -10,10 +10,11 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypteraeschnidium> extends HierarchicalModel<T> {
+public class KimmeridgebrachypteraeschnidiumModel extends HierarchicalModel<Kimmeridgebrachypteraeschnidium> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -119,12 +120,12 @@ public class KimmeridgebrachypteraeschnidiumModel<T extends Kimmeridgebrachypter
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

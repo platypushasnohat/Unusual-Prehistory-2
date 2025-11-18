@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.NotNull;
 
 public class HangingLepidodendronLeavesDecorator extends TreeDecorator {
 
@@ -15,7 +16,7 @@ public class HangingLepidodendronLeavesDecorator extends TreeDecorator {
     public static final HangingLepidodendronLeavesDecorator INSTANCE = new HangingLepidodendronLeavesDecorator();
 
     @Override
-    protected TreeDecoratorType<?> type() {
+    protected @NotNull TreeDecoratorType<?> type() {
         return UP2TreeDecorators.HANGING_LEPIDODENDRON_LEAVES.get();
     }
 
@@ -26,7 +27,7 @@ public class HangingLepidodendronLeavesDecorator extends TreeDecorator {
                 if (context.random().nextInt(2) == 0) {
                     context.setBlock(pos.below(), UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get().defaultBlockState());
                 }
-                if (context.random().nextInt(18) == 0) {
+                if (context.random().nextInt(24) == 0) {
                     context.setBlock(pos.below(), LepidodendronConeBlock.createHangingCone());
                 }
             }

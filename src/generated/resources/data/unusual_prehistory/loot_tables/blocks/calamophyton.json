@@ -5,21 +5,19 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "unusual_prehistory:calamophyton",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "layer": "0"
-          }
+          "condition": "minecraft:survives_explosion"
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "conditions": [
             {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              "block": "unusual_prehistory:calamophyton",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "layer": "0"
+              }
             }
           ],
           "name": "unusual_prehistory:calamophyton"

@@ -1,25 +1,26 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.blocks.CalamophytonBlock;
+import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
 
     private static final float[] LEAVES_SAPLING_CHANCES = new float[] {0.05F, 0.0625F, 0.083333336F, 0.1F};
+    private static final float[] LEAVES_STICK_CHANCES = new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F};
 
     public UP2BlockLootTableProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
@@ -64,7 +66,6 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.dropSelf(FOSSILIZED_BONE_ROD.get());
         this.dropSelf(FOSSILIZED_BONE_SPIKE.get());
-        this.dropSelf(FOSSILIZED_BONE_RIBS.get());
         this.dropSelf(FOSSILIZED_BONE_ROW.get());
 
         this.dropSelf(PETRIFIED_LOG.get());
@@ -72,6 +73,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(POLISHED_PETRIFIED_WOOD.get());
         this.dropSelf(POLISHED_PETRIFIED_WOOD_STAIRS.get());
         this.add(POLISHED_PETRIFIED_WOOD_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
+        this.dropSelf(POLISHED_PETRIFIED_WOOD_BUTTON.get());
 
         this.dropSelf(TRANSMOGRIFIER.get());
 
@@ -88,7 +91,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
 
-        this.add(CALAMOPHYTON.get(), block -> layeredPlantDrops(CALAMOPHYTON.get()));
+//        this.add(CALAMOPHYTON.get(), block -> layeredPlantDrops(CALAMOPHYTON.get()));
+        this.add(CALAMOPHYTON.get(), (block) -> this.createLayeredSinglePropConditionTable(block, CalamophytonBlock.LAYER, 0));
 
         this.dropSelf(COOKSONIA.get());
         this.dropPottedContents(POTTED_COOKSONIA.get());
@@ -101,6 +105,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.dropSelf(LEEFRUCTUS.get());
         this.dropPottedContents(POTTED_LEEFRUCTUS.get());
+
+        this.add(RAIGUENRAYUN.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.dropSelf(RHYNIA.get());
         this.dropPottedContents(POTTED_RHYNIA.get());
@@ -133,7 +139,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(GOLDEN_GINKGO_SAPLING.get());
         this.dropPottedContents(POTTED_GOLDEN_GINKGO_SAPLING.get());
 
-        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(LEPIDODENDRON_LOG.get());
         this.dropSelf(LEPIDODENDRON_WOOD.get());
@@ -155,7 +161,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(LEPIDODENDRON_HANGING_SIGN.get());
         this.dropSelf(LEPIDODENDRON_CONE.get());
 
-        this.add(LEPIDODENDRON_LEAVES.get(), (block) -> createLeavesDrops(block, LEPIDODENDRON_CONE.get(), LEAVES_SAPLING_CHANCES));
+        this.add(LEPIDODENDRON_LEAVES.get(), this::createLepidodendronLeavesDrops);
+        this.add(HANGING_LEPIDODENDRON_LEAVES.get(), this::createLepidodendronLeavesDrops);
     }
 
     @Override
@@ -171,5 +178,17 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     protected static LootTable.Builder layeredPlantDrops(Block block) {
         LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
         return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CalamophytonBlock.LAYER, 0))));
+    }
+
+    protected LootTable.Builder createLayeredSinglePropConditionTable(Block block, IntegerProperty property, int value) {
+        return LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, value))))));
+    }
+
+    protected LootTable.Builder createLepidodendronLeavesDrops(Block leaves) {
+        return createSilkTouchOrShearsDispatchTable(leaves, this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, LEAVES_STICK_CHANCES)));
+    }
+
+    protected LootTable.Builder createGinkgoLeavesDrops(Block leaves, Block sapling, float... chances) {
+        return this.createLeavesDrops(leaves, sapling, chances).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(UP2Items.GINKGO_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
     }
 }

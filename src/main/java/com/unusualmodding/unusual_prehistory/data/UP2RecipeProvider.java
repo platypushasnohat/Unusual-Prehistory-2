@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.data.custom.ChiselingBuilder;
 import com.unusualmodding.unusual_prehistory.data.custom.TransmogrificationBuilder;
 import com.unusualmodding.unusual_prehistory.registry.UP2Blocks;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
@@ -15,19 +14,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.unusualmodding.unusual_prehistory.UnusualPrehistory2.modPrefix;
 import static com.unusualmodding.unusual_prehistory.registry.UP2Blocks.*;
-import static net.minecraft.data.recipes.RecipeCategory.*;
+import static net.minecraft.data.recipes.RecipeCategory.MISC;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 
@@ -36,9 +35,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(MISC, UP2Items.CHISEL.get()).define('#', Tags.Items.INGOTS_IRON).define('X', Tags.Items.LEATHER).define('Y', Tags.Items.RODS_WOODEN).pattern("#").pattern("X").pattern("Y").unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON)).save(consumer);
-
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_GOLD).define('X', UP2Items.MACHINE_PARTS.get()).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.INGOTS_COPPER).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_machine_parts", has(UP2Items.MACHINE_PARTS.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
@@ -74,57 +71,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.LEPIDODENDRON_FOSSIL.get(), UP2Blocks.LEPIDODENDRON_CONE.get().asItem(), 600);
         transmogrification(consumer, UP2Items.RAIGUENRAYUN_FOSSIL.get(), UP2Blocks.RAIGUENRAYUN.get().asItem(), 600);
         transmogrification(consumer, UP2Items.RHYNIA_FOSSIL.get(), UP2Blocks.RHYNIA.get().asItem(), 600);
-
-        chiseling(consumer, Blocks.COBBLESTONE, Blocks.STONE);
-        chiseling(consumer, Blocks.STONE, Blocks.STONE_BRICKS);
-        chiseling(consumer, Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS);
-        chiseling(consumer, Blocks.CHISELED_STONE_BRICKS, Blocks.COBBLESTONE);
-
-        chiseling(consumer, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
-        chiseling(consumer, Blocks.COBBLED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE);
-        chiseling(consumer, Blocks.POLISHED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS);
-        chiseling(consumer, Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_TILES);
-        chiseling(consumer, Blocks.DEEPSLATE_TILES, Blocks.CHISELED_DEEPSLATE);
-        chiseling(consumer, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE);
-
-        chiseling(consumer, Blocks.GRANITE, Blocks.POLISHED_GRANITE);
-        chiseling(consumer, Blocks.POLISHED_GRANITE, Blocks.GRANITE);
-
-        chiseling(consumer, Blocks.DIORITE, Blocks.POLISHED_DIORITE);
-        chiseling(consumer, Blocks.POLISHED_DIORITE, Blocks.DIORITE);
-
-        chiseling(consumer, Blocks.ANDESITE, Blocks.POLISHED_ANDESITE);
-        chiseling(consumer, Blocks.POLISHED_ANDESITE, Blocks.ANDESITE);
-
-        chiseling(consumer, Blocks.BASALT, Blocks.POLISHED_BASALT);
-        chiseling(consumer, Blocks.POLISHED_BASALT, Blocks.BASALT);
-
-        chiseling(consumer, Blocks.BLACKSTONE, Blocks.POLISHED_BLACKSTONE);
-        chiseling(consumer, Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_BRICKS);
-        chiseling(consumer, Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CHISELED_POLISHED_BLACKSTONE);
-        chiseling(consumer, Blocks.CHISELED_POLISHED_BLACKSTONE, Blocks.BLACKSTONE);
-
-        chiseling(consumer, Blocks.END_STONE, Blocks.END_STONE_BRICKS);
-        chiseling(consumer, Blocks.END_STONE_BRICKS, Blocks.END_STONE);
-
-        chiseling(consumer, Blocks.PURPUR_BLOCK, Blocks.PURPUR_PILLAR);
-        chiseling(consumer, Blocks.PURPUR_PILLAR, Blocks.PURPUR_BLOCK);
-
-        chiseling(consumer, Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_BRICKS);
-        chiseling(consumer, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK);
-        chiseling(consumer, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_PILLAR);
-        chiseling(consumer, Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BLOCK);
-
-        chiseling(consumer, Blocks.NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
-        chiseling(consumer, Blocks.CHISELED_NETHER_BRICKS, Blocks.NETHER_BRICKS);
-
-        chiseling(consumer, Blocks.SANDSTONE, Blocks.CUT_SANDSTONE);
-        chiseling(consumer, Blocks.CUT_SANDSTONE, Blocks.CHISELED_SANDSTONE);
-        chiseling(consumer, Blocks.CHISELED_SANDSTONE, Blocks.SANDSTONE);
-
-        chiseling(consumer, Blocks.RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE);
-        chiseling(consumer, Blocks.CUT_RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
-        chiseling(consumer, Blocks.CHISELED_RED_SANDSTONE, Blocks.RED_SANDSTONE);
     }
 
     private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {
@@ -251,10 +197,6 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     protected static void transmogrification(Consumer<FinishedRecipe> consumer, Item input, Item result, int processingTime) {
         Ingredient ingredient = Ingredient.of(input);
         TransmogrificationBuilder.transmogrification(ingredient, result, processingTime).save(consumer, modPrefix("transmogrification/" + getItemName(result)));
-    }
-
-    protected static void chiseling(Consumer<FinishedRecipe> consumer, Block from, Block to) {
-        ChiselingBuilder.chiseling(from, to).save(consumer, modPrefix("chiseling/" + getItemName(to)));
     }
 
     private static String getName(ItemLike object) {

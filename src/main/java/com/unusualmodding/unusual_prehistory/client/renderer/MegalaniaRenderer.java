@@ -13,12 +13,13 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/megalania/megalania_temperate.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_temperate.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
@@ -26,19 +27,19 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     }
 
     @Override
-    public void render(Megalania entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(Megalania entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         if (!entity.isInvisible()) {
             super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Megalania entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Megalania entity) {
         return TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Megalania entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(TEXTURE);
+    protected @Nullable RenderType getRenderType(@NotNull Megalania entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

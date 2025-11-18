@@ -10,24 +10,25 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/talpanas.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/talpanas.png");
 
     public TalpanasRenderer(EntityRendererProvider.Context context) {
         super(context, new TalpanasModel(context.bakeLayer(UP2EntityModelLayers.TALPANAS)), 0.3F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Talpanas entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Talpanas entity) {
         return TEXTURE;
     }
 
     @Override
-    protected @Nullable RenderType getRenderType(Talpanas entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(TEXTURE);
+    protected @Nullable RenderType getRenderType(@NotNull Talpanas entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

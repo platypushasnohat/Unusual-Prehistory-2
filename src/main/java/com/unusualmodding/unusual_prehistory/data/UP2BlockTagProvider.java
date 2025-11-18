@@ -65,8 +65,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
-                DEEPSLATE_FOSSIL.get(),
-                FOSSIL.get(),
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get(),
@@ -78,13 +76,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 COBBLED_FOSSILIZED_BONE_SLAB.get(),
                 FOSSILIZED_BONE_ROD.get(),
                 FOSSILIZED_BONE_SPIKE.get(),
-                FOSSILIZED_BONE_RIBS.get(),
                 FOSSILIZED_BONE_ROW.get(),
                 PETRIFIED_LOG.get(),
                 PETRIFIED_WOOD.get(),
                 POLISHED_PETRIFIED_WOOD.get(),
                 POLISHED_PETRIFIED_WOOD_STAIRS.get(),
-                POLISHED_PETRIFIED_WOOD_SLAB.get()
+                POLISHED_PETRIFIED_WOOD_SLAB.get(),
+                POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
+                POLISHED_PETRIFIED_WOOD_BUTTON.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
@@ -119,6 +118,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.STAIRS).add(
                 POLISHED_PETRIFIED_WOOD_STAIRS.get()
+        );
+
+        this.tag(BlockTags.STONE_PRESSURE_PLATES).add(
+                POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get()
+        );
+
+        this.tag(BlockTags.STONE_BUTTONS).add(
+                POLISHED_PETRIFIED_WOOD_BUTTON.get()
         );
 
         this.tag(BlockTags.REPLACEABLE).add(

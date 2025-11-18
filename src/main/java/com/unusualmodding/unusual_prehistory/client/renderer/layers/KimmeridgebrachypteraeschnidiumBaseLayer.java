@@ -10,22 +10,24 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel<Kimmeridgebrachypteraeschnidium>> {
+public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
 
-    public KimmeridgebrachypteraeschnidiumBaseLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel<Kimmeridgebrachypteraeschnidium>> renderer) {
+    public KimmeridgebrachypteraeschnidiumBaseLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> renderer) {
         super(renderer);
     }
 
     public ResourceLocation baseTextures(Kimmeridgebrachypteraeschnidium entity) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
     }
 
-    public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, Kimmeridgebrachypteraeschnidium entity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    @Override
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entity.isInvisible()) {
             ResourceLocation resourceLocation = baseTextures(entity);
-            renderColoredCutoutModel(this.getParentModel(), resourceLocation, pPoseStack, pBuffer, pPackedLight, entity, 1.0F, 1.0F, 1.0F);
+            renderColoredCutoutModel(this.getParentModel(), resourceLocation, poseStack, bufferSource, packedLight, entity, 1.0F, 1.0F, 1.0F);
         }
     }
 }

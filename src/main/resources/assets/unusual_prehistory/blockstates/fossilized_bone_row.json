@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,attached=false": {
       "model": "unusual_prehistory:block/fossilized_bone_row",
       "y": 90
     },
-    "facing=north": {
+    "facing=north,attached=false": {
       "model": "unusual_prehistory:block/fossilized_bone_row"
     },
-    "facing=south": {
+    "facing=south,attached=false": {
       "model": "unusual_prehistory:block/fossilized_bone_row",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,attached=false": {
       "model": "unusual_prehistory:block/fossilized_bone_row",
+      "y": 270
+    },
+    "facing=east,attached=true": {
+      "model": "unusual_prehistory:block/fossilized_bone_row_flipped",
+      "y": 90
+    },
+    "facing=north,attached=true": {
+      "model": "unusual_prehistory:block/fossilized_bone_row_flipped"
+    },
+    "facing=south,attached=true": {
+      "model": "unusual_prehistory:block/fossilized_bone_row_flipped",
+      "y": 180
+    },
+    "facing=west,attached=true": {
+      "model": "unusual_prehistory:block/fossilized_bone_row_flipped",
       "y": 270
     }
   }

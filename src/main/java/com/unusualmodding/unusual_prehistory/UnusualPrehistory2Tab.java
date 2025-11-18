@@ -37,7 +37,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.FOSSILIZED_BONE_ROD.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_ROW.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_SPIKE.get());
-                        output.accept(UP2Blocks.FOSSILIZED_BONE_RIBS.get());
 
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
@@ -51,18 +50,19 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
                         output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
                         output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_BUTTON.get());
 
                         output.accept(ORGANIC_OOZE.get());
                         output.accept(MACHINE_PARTS.get());
 
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
-
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());
-                        output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
+                        output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
 
                         output.accept(FURY_FOSSIL.get());

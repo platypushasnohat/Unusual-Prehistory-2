@@ -3,7 +3,7 @@ package com.unusualmodding.unusual_prehistory.data;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,12 +22,12 @@ import static com.unusualmodding.unusual_prehistory.registry.UP2Items.*;
 
 public class UP2ItemTagProvider extends ItemTagsProvider {
 
-    public UP2ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
+    public UP2ItemTagProvider(PackOutput output, CompletableFuture<Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
         super(output, provider, lookup, UnusualPrehistory2.MOD_ID, helper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(@NotNull Provider provider) {
 
         this.tag(UP2ItemTags.FOSSILS).add(
                 FURY_FOSSIL.get(),
@@ -193,6 +194,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES);
         this.copy(Tags.Blocks.FENCE_GATES, Tags.Items.FENCE_GATES);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+        this.copy(BlockTags.SLABS, ItemTags.SLABS);
+        this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
+        this.copy(BlockTags.STONE_BUTTONS, ItemTags.STONE_BUTTONS);
 
         this.tag(ItemTags.SIGNS).add(
                 GINKGO_SIGN.get(),

@@ -1,9 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": [
-    "unusual_prehistory:fossil",
-    "unusual_prehistory:petrified_tree"
-  ],
-  "step": "underground_structures"
-}

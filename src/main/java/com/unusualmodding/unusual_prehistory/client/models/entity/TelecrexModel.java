@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -89,23 +90,23 @@ public class TelecrexModel extends HierarchicalModel<Telecrex> {
 		}
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
-		if (this.young) {
-			float babyScale = 0.6f;
-			float bodyYOffset = 16.0f;
-			poseStack.pushPose();
-			poseStack.scale(babyScale, babyScale, babyScale);
-			poseStack.translate(0.0f, bodyYOffset / 16.0f, 0.0f);
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-			poseStack.popPose();
-		} else {
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-		}
-	}
+    @Override
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (this.young) {
+            float babyScale = 0.5F;
+            float bodyYOffset = 24.0F;
+            poseStack.pushPose();
+            poseStack.scale(babyScale, babyScale, babyScale);
+            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            poseStack.popPose();
+        } else {
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        }
+    }
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

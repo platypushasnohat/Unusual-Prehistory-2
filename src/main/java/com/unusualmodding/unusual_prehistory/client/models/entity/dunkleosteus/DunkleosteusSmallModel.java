@@ -85,17 +85,17 @@ public class DunkleosteusSmallModel extends HierarchicalModel<Dunkleosteus> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (this.young) {
-			float babyScale = 0.6F;
-			float bodyYOffset = 16.0F;
+			float babyScale = 0.5F;
+			float bodyYOffset = 24.0F;
 			poseStack.pushPose();
 			poseStack.scale(babyScale, babyScale, babyScale);
 			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 			poseStack.popPose();
 		} else {
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
+			this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		}
 	}
 

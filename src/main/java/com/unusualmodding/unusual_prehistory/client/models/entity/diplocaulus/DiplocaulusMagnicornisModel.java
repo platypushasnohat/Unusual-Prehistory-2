@@ -2,7 +2,8 @@ package com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.*;
+import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.DiplocaulusAnimations;
+import com.unusualmodding.unusual_prehistory.client.animations.diplocaulus.DiplocaulusMagnicornisAnimations;
 import com.unusualmodding.unusual_prehistory.entity.Diplocaulus;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,6 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -139,23 +141,23 @@ public class DiplocaulusMagnicornisModel extends HierarchicalModel<Diplocaulus> 
 		this.head.yRot += netHeadYaw * (Mth.DEG_TO_RAD) / 4;
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k) {
-		if (this.young) {
-			float babyScale = 0.5F;
-			float bodyYOffset = 24.0F;
-			poseStack.pushPose();
-			poseStack.scale(babyScale, babyScale, babyScale);
-			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-			poseStack.popPose();
-		} else {
-			this.root().render(poseStack, vertexConsumer, i, j, f, g, h, k);
-		}
-	}
+    @Override
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (this.young) {
+            float babyScale = 0.5F;
+            float bodyYOffset = 24.0F;
+            poseStack.pushPose();
+            poseStack.scale(babyScale, babyScale, babyScale);
+            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+            poseStack.popPose();
+        } else {
+            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        }
+    }
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

@@ -11,22 +11,23 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel> {
 
-    private static final ResourceLocation MAJUNGASAURUS = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/majungasaurus.png");
-    private static final ResourceLocation DUSKLURKER = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/majungasaurus/dusklurker_majungasaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/majungasaurus.png");
+    private static final ResourceLocation DUSKLURKER_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MajungasaurusModel(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Majungasaurus entity) {
-        if (entity.getVariant() == 1) return DUSKLURKER;
-        else return MAJUNGASAURUS;
+    public @NotNull ResourceLocation getTextureLocation(Majungasaurus entity) {
+        if (entity.getVariant() == 1) return DUSKLURKER_TEXTURE;
+        else return TEXTURE;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
         else return RenderType.entityCutoutNoCull(getTextureLocation(entity));
     }
 
-    protected void scale(Majungasaurus entity, PoseStack poseStack, float partialTicks) {
+    protected void scale(Majungasaurus entity, @NotNull PoseStack poseStack, float partialTicks) {
         float alpha = 1.0F - 0.85F * entity.getStealthProgress(partialTicks);
         this.model.setAlpha(alpha);
     }

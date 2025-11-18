@@ -1,0 +1,77 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:vascular_fossil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:spore_fossil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:trunk_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:leafy_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:bark_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:spindly_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fibrous_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:flowering_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:bloomed_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fan_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:sapling_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint",
+          "weight": 6
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/plant_fossils"
+}

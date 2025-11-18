@@ -11,9 +11,7 @@ public enum UP2Poses {
     PREENING,
     BURROWED,
     WAVING,
-    TAIL_WHIPPING,
-    START_SITTING,
-    STOP_SITTING;
+    TAIL_WHIPPING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

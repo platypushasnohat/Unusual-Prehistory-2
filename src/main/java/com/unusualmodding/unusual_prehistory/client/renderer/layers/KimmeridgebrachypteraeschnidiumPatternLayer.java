@@ -10,22 +10,24 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumPatternLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel<Kimmeridgebrachypteraeschnidium>> {
+public class KimmeridgebrachypteraeschnidiumPatternLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
 
-    public KimmeridgebrachypteraeschnidiumPatternLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel<Kimmeridgebrachypteraeschnidium>> renderer) {
+    public KimmeridgebrachypteraeschnidiumPatternLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> renderer) {
         super(renderer);
     }
 
     public ResourceLocation patternTextures(Kimmeridgebrachypteraeschnidium entity) {
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/kimmeridgebrachypteraeschnidium/patterns/" + entity.getPatternName(entity.getPattern()) + "/pattern_" + entity.getPatternName(entity.getPattern()) + "_" + entity.getPatternColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/patterns/" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "/pattern_" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "_" + entity.getPatternColor() + ".png");
     }
 
-    public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, Kimmeridgebrachypteraeschnidium entity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    @Override
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entity.isInvisible()) {
             ResourceLocation resourceLocation = patternTextures(entity);
-            renderColoredCutoutModel(this.getParentModel(), resourceLocation, pPoseStack, pBuffer, pPackedLight, entity, 1.0F, 1.0F, 1.0F);
+            renderColoredCutoutModel(this.getParentModel(), resourceLocation, poseStack, bufferSource, packedLight, entity, 1.0F, 1.0F, 1.0F);
         }
     }
 }

@@ -2,12 +2,12 @@ package com.unusualmodding.unusual_prehistory.blocks.blockentity;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.blocks.TransmogrifierBlock;
-import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
-import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
 import com.unusualmodding.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.unusualmodding.unusual_prehistory.registry.UP2BlockEntities;
+import com.unusualmodding.unusual_prehistory.registry.UP2Particles;
 import com.unusualmodding.unusual_prehistory.registry.UP2RecipeTypes;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.unusualmodding.unusual_prehistory.screens.TransmogrifierMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

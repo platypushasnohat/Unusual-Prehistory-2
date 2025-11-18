@@ -1,7 +1,8 @@
 package com.unusualmodding.unusual_prehistory.blocks;
 
-import com.unusualmodding.unusual_prehistory.entity.*;
-import com.unusualmodding.unusual_prehistory.entity.base.*;
+import com.unusualmodding.unusual_prehistory.entity.Dunkleosteus;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricAquaticMob;
+import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 public class WaterEggBlock extends FrogspawnBlock {
 
@@ -25,7 +27,7 @@ public class WaterEggBlock extends FrogspawnBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!this.canSurvive(state, level, pos)) {
             level.destroyBlock(pos, false);
         } else if (level.getFluidState(pos.below()).is(FluidTags.WATER)) {

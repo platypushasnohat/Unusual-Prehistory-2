@@ -2,15 +2,20 @@ package com.unusualmodding.unusual_prehistory.events;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
 import com.unusualmodding.unusual_prehistory.client.models.entity.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.*;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusLargeModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusMediumModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusSmallModel;
 import com.unusualmodding.unusual_prehistory.client.models.entity.jawless_fish.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.*;
-import com.unusualmodding.unusual_prehistory.client.particles.EepyParticle;
-import com.unusualmodding.unusual_prehistory.registry.*;
-import com.unusualmodding.unusual_prehistory.client.models.entity.dunkleosteus.*;
-import com.unusualmodding.unusual_prehistory.client.renderer.*;
+import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
+import com.unusualmodding.unusual_prehistory.client.models.entity.unicorn.UnicornSkeletonModel;
 import com.unusualmodding.unusual_prehistory.client.particles.*;
-import com.unusualmodding.unusual_prehistory.screens.*;
+import com.unusualmodding.unusual_prehistory.client.renderer.*;
+import com.unusualmodding.unusual_prehistory.registry.*;
+import com.unusualmodding.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -41,6 +46,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.EEPY.get(), EepyParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OozeBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.GOLDEN_HEART.get(), GrowingHeartParticle.Provider::new);
     }
 
     @SubscribeEvent

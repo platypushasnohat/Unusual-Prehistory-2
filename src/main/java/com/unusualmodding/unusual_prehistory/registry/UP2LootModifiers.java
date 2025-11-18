@@ -2,7 +2,7 @@ package com.unusualmodding.unusual_prehistory.registry;
 
 import com.mojang.serialization.Codec;
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.modifier.*;
+import com.unusualmodding.unusual_prehistory.modifier.AddLootTableModifier;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

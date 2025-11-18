@@ -57,6 +57,25 @@
                 }
               ],
               "name": "unusual_prehistory:ginkgo_sapling"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "chances": [
+                    0.005,
+                    0.00625,
+                    0.0083333336,
+                    0.01
+                  ],
+                  "condition": "minecraft:table_bonus",
+                  "enchantment": "minecraft:fortune"
+                }
+              ],
+              "name": "unusual_prehistory:golden_ginkgo_sapling"
             }
           ]
         }
@@ -183,7 +202,7 @@
               "enchantment": "minecraft:fortune"
             }
           ],
-          "name": "unusual_prehistory:golden_ginkgo_sapling"
+          "name": "unusual_prehistory:ginkgo_fruit"
         }
       ],
       "rolls": 1.0

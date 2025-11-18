@@ -1,7 +1,6 @@
 package com.unusualmodding.unusual_prehistory.data;
 
 import com.unusualmodding.unusual_prehistory.UnusualPrehistory2;
-import com.unusualmodding.unusual_prehistory.entity.Megalania;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

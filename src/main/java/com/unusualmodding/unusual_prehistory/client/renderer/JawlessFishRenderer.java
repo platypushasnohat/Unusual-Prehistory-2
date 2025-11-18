@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
@@ -36,7 +37,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, HierarchicalMo
     }
 
     @Override
-    public void render(JawlessFish entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public void render(JawlessFish entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
         switch (entity.getVariant()) {
             case 1:
                 this.model = cephalaspisModel;
@@ -57,15 +58,14 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, HierarchicalMo
     }
 
     @Override
-    public ResourceLocation getTextureLocation(JawlessFish entity) {
+    public @NotNull ResourceLocation getTextureLocation(JawlessFish entity) {
         JawlessFish.JawlessFishVariant variant = JawlessFish.JawlessFishVariant.byId(entity.getVariant());
-        return new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override
     @Nullable
-    protected RenderType getRenderType(JawlessFish entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        JawlessFish.JawlessFishVariant variant = JawlessFish.JawlessFishVariant.byId(entity.getVariant());
-        return RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/entity/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png"));
+    protected RenderType getRenderType(@NotNull JawlessFish entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }
