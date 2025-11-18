@@ -12,6 +12,7 @@
  import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
  import com.unusualmodding.unusual_prehistory.registry.UP2Items;
  import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
+ import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,10 +35,12 @@
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
@@ -75,7 +78,8 @@
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D));
          this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 10, 3));
          this.goalSelector.addGoal(2, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(5, new DiplocaulusBurrowInMudGoal(this));
      }
@@ -110,6 +114,11 @@
          } else {
              super.travel(travelVector);
          }
+     }
+
+     @Override
+     public boolean isFood(ItemStack stack) {
+         return stack.is(UP2ItemTags.DIPLOCAULUS_FOOD);
      }
 
      @Override

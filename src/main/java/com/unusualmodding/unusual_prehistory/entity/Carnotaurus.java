@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusChargeGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusRoarGoal;
@@ -8,6 +9,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +28,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -64,12 +68,13 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
 //        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new CarnotaurusSniffingGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new CarnotaurusSniffingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, true, false));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -87,6 +92,21 @@ public class Carnotaurus extends PrehistoricMob {
             this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 2));
             this.gameEvent(GameEvent.ENTITY_ROAR);
         }
+    }
+
+    @Override
+    public boolean canPacifiy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_CARNOTAURUS);
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.CARNOTAURUS_FOOD);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -30,11 +31,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -81,22 +84,28 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
         this.goalSelector.addGoal(2, new RandomFlightGoal(this, 1.0F, 13, 5, 50, 600));
-        this.goalSelector.addGoal(3, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
+        this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.6F;
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
         if (hurt && source.getEntity() != null){
             this.setFlying(true);
         }
         return hurt;
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD);
     }
 
     @Override

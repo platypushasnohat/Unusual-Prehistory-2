@@ -7,6 +7,7 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -56,7 +57,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
 
-    public PathNavigation createNavigation(Level level) {
+    public @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothGroundPathNavigation(this, level);
     }
 
@@ -67,8 +68,8 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new NymphFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 2.0D, TEMPTATION_ITEM, false));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D, 80));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -76,7 +77,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.5F;
     }
 
@@ -85,14 +86,12 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
         return true;
     }
 
-    public static final Ingredient TEMPTATION_ITEM = Ingredient.of(Items.SLIME_BALL);
-
-    private boolean isFood(ItemStack stack) {
-        return TEMPTATION_ITEM.test(stack);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD);
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isFood(itemstack)) {
             if (!player.getAbilities().instabuild) {

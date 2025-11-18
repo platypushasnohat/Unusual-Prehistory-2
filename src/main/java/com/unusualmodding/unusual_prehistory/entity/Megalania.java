@@ -11,6 +11,7 @@ import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
+import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,6 +32,8 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -96,21 +99,14 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
         this.goalSelector.addGoal(2, new SemiAquaticRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new MegalaniaRoarGoal(this));
-        this.goalSelector.addGoal(6, new MegalaniaLayDownGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new MegalaniaRoarGoal(this));
+        this.goalSelector.addGoal(7, new MegalaniaLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers) {
-            public boolean canUse() {
-                return super.canUse() && !Megalania.this.isBaby();
-            }
-        });
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)) {
-            public boolean canUse() {
-                return super.canUse() && !Megalania.this.isBaby();
-            }
-        });
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -152,6 +148,21 @@ public class Megalania extends SemiAquaticMob {
 
     public boolean isHostileToPlayers(LivingEntity entity) {
         return this.canAttack(entity) && (this.getTemperatureState() == TemperatureStates.WARM || this.getTemperatureState() == TemperatureStates.NETHER);
+    }
+
+    @Override
+    public boolean canPacifiy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_MEGALANIA);
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.MEGALANIA_FOOD);
     }
 
     @Override

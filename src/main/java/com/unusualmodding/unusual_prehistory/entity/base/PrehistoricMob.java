@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,7 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     public static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     public int idleAnimationTimeout = 0;
@@ -48,7 +50,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected @NotNull PathNavigation createNavigation(Level level) {
         return new SmoothGroundPathNavigation(this, level);
     }
 
@@ -96,6 +98,10 @@ public abstract class PrehistoricMob extends Animal {
         return SoundEvents.GENERIC_EAT;
     }
 
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(Items.ENCHANTED_GOLDEN_APPLE);
+    }
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -110,6 +116,12 @@ public abstract class PrehistoricMob extends Animal {
             if (this.level().isClientSide) {
                 return InteractionResult.CONSUME;
             }
+        }
+        else if (this.isPacifyItem(itemstack) && this.canPacifiy()) {
+            this.usePlayerItem(player, hand, itemstack);
+            this.setPacified(true);
+            this.playSound(this.getEatingSound());
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
     }
@@ -166,6 +178,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
         this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(PACIFIED, false);
     }
 
     @Override
@@ -173,6 +186,7 @@ public abstract class PrehistoricMob extends Animal {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
+        compoundTag.putBoolean("Pacified", this.isPacified());
     }
 
     @Override
@@ -181,6 +195,7 @@ public abstract class PrehistoricMob extends Animal {
         this.setVariant(compoundTag.getInt("Variant"));
         long lastPoseTick = compoundTag.getLong("LastPoseTick");
         this.resetLastPoseChangeTick(lastPoseTick);
+        this.setPacified(compoundTag.getBoolean("Pacified"));
     }
 
     protected boolean getFlag(int flagId) {
@@ -231,5 +246,17 @@ public abstract class PrehistoricMob extends Animal {
 
     public void resetLastPoseChangeTickToFullStand(long l) {
         this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
+    }
+
+    public boolean isPacified() {
+        return this.entityData.get(PACIFIED);
+    }
+
+    public void setPacified(boolean pacified) {
+        this.entityData.set(PACIFIED, pacified);
+    }
+
+    public boolean canPacifiy() {
+        return false;
     }
 }

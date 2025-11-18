@@ -57,39 +57,110 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ORGANIC_OOZE.get()
         );
 
+        this.tag(UP2ItemTags.PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
+
+        this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_MEGALANIA)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
+        );
+
+        this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
+                Items.SPIDER_EYE
+        );
+
         this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
                 Items.CHICKEN,
                 Items.COOKED_CHICKEN
         );
 
-        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).addTag(ItemTags.FISHES);
+        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).add(
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
+        );
 
-        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).add(Items.GOLDEN_APPLE);
+        this.tag(UP2ItemTags.JAWLESS_FISH_FOOD).add(
+                Items.SEAGRASS
+        );
 
         this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
-                Items.MELON_SLICE,
-                Items.APPLE,
-                Items.CARROT,
-                Items.SWEET_BERRIES,
-                Items.GLOW_BERRIES
+                Items.CACTUS,
+                Items.SWEET_BERRIES
+        );
+
+        this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).add(
+                Items.SPIDER_EYE,
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
         );
 
         this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).add(
-                Items.MUTTON,
-                Items.COOKED_MUTTON,
-                Items.PORKCHOP,
-                Items.COOKED_PORKCHOP,
                 Items.BEEF,
-                Items.COOKED_BEEF
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
         );
 
-        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTag(ItemTags.FISHES);
+        this.tag(UP2ItemTags.MEGALANIA_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
+        );
 
-        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).add(Items.GOLDEN_APPLE);
+        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
+        );
 
         this.tag(UP2ItemTags.TALPANAS_FOOD).add(
-                Items.WHEAT,
-                Blocks.GRASS.asItem(),
+                Blocks.HANGING_ROOTS.asItem(),
                 Items.SWEET_BERRIES
         );
 

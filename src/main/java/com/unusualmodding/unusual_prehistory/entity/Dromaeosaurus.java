@@ -1,5 +1,6 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
@@ -24,9 +25,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -51,7 +53,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
-        ((SmoothGroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         this.moveControl = new DromaeosaurusMoveControl(this);
     }
 
@@ -62,13 +63,14 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.0D, 1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
         this.goalSelector.addGoal(4, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(5, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(6, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isBaby() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
             }
 
             @Override
@@ -83,6 +85,24 @@ public class Dromaeosaurus extends PrehistoricMob {
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.38F);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(Level level) {
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+        navigation.setCanOpenDoors(true);
+        navigation.setCanPassDoors(true);
+        return navigation;
+    }
+
+    @Override
+    public boolean canPacifiy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_DROMAEOSAURUS);
     }
 
     @Override

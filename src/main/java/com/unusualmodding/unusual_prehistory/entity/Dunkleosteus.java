@@ -18,14 +18,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,13 +28,13 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +43,6 @@ import javax.annotation.Nullable;
 public class Dunkleosteus extends PrehistoricAquaticMob {
 
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.4F, 0.4F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
@@ -79,11 +73,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(1, new DunkleosteusPanicGoal(this));
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1.0D, 70, 20, 20, 0.02));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DUNKLEOSTEUS_FOOD), false));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(0, new DunkleosteusHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new DunkleosteusNearestAttackableTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
     }
 
     @Override
@@ -136,28 +131,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UP2ItemTags.PACIFIES_DUNKLEOSTEUS) && !this.isPassive()) {
-            if (!this.level().isClientSide) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 1));
-                this.level().broadcastEntityEvent(this, (byte) 20);
-                this.setPassive(true);
-                this.gameEvent(GameEvent.EAT, this);
-                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        return this.getDunkSize() == 0 ? super.mobInteract(player, hand) : InteractionResult.PASS;
-    }
-
-    @Override
     public boolean canAttack(@NotNull LivingEntity entity) {
         boolean prev = super.canAttack(entity);
-        if (prev && this.isPassive() && entity instanceof LivingEntity && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))) return false;
+        if (prev && this.isPacified() && entity instanceof LivingEntity && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))) return false;
         else return prev;
     }
 
@@ -192,20 +168,17 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DUNK_SIZE, 0);
-        this.entityData.define(PASSIVE, false);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putBoolean("Passive", this.isPassive());
         compoundTag.putFloat("Size", this.getDunkSize());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setPassive(compoundTag.getBoolean("Passive"));
         this.setDunkSize(compoundTag.getInt("Size"));
     }
 
@@ -270,12 +243,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         };
     }
 
-    public void setPassive(boolean passive) {
-        this.entityData.set(PASSIVE, passive);
+    @Override
+    public boolean canPacifiy() {
+        return true;
     }
 
-    public boolean isPassive() {
-        return this.entityData.get(PASSIVE);
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_DUNKLEOSTEUS);
     }
 
     @Override

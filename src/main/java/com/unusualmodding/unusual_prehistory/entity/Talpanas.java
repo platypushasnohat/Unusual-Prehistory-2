@@ -4,6 +4,7 @@ import com.unusualmodding.unusual_prehistory.entity.ai.goals.*;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasFleeLightGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasSeekShelterGoal;
 import com.unusualmodding.unusual_prehistory.entity.ai.goals.talpanas.TalpanasSwimGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.unusualmodding.unusual_prehistory.entity.base.BreedableMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.Behaviors;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -54,15 +56,15 @@ public class Talpanas extends BreedableMob {
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -86,12 +88,19 @@ public class Talpanas extends BreedableMob {
     }
 
     @Override
+    protected @NotNull PathNavigation createNavigation(Level level) {
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+        navigation.setAvoidSun(true);
+        return navigation;
+    }
+
+    @Override
     protected float getWaterSlowDown() {
         return 0.9F;
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
         return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
     }
 

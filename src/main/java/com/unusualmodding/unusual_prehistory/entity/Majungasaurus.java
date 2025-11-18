@@ -1,7 +1,8 @@
 package com.unusualmodding.unusual_prehistory.entity;
 
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.MajungasaurusAttackGoal;
+import com.unusualmodding.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.unusualmodding.unusual_prehistory.entity.base.PrehistoricMob;
 import com.unusualmodding.unusual_prehistory.entity.utils.UP2Poses;
 import com.unusualmodding.unusual_prehistory.registry.UP2Entities;
@@ -9,8 +10,6 @@ import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,25 +18,20 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class Majungasaurus extends PrehistoricMob {
 
@@ -63,25 +57,18 @@ public class Majungasaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MajungasaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new MajungasaurusBabyPanicGoal(this));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.7D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, Majungasaurus.class, 12.0F, 2.0D, 2.0D, this::avoidsParents) {
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MAJUNGASAURUS_FOOD), false));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Majungasaurus.class, 12.0F, 2.0D, 2.0D, this::avoidsParents) {
             public boolean canUse(){
                 return super.canUse() && Majungasaurus.this.isBaby();
             }
         });
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Majungasaurus.class, 300, true, true, this::canCannibalize) {
-            public boolean canUse(){
-                return super.canUse() && !Majungasaurus.this.isBaby();
-            }
-        });
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 600, true, false, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)) {
-            public boolean canUse(){
-                return super.canUse() && !Majungasaurus.this.isBaby();
-            }
-        });
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Majungasaurus.class, 300, true, true, this::canCannibalize));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 600, true, false, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
     }
 
@@ -94,30 +81,14 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UP2ItemTags.MAJUNGASAURUS_FOOD) && this.getHealth() < this.getMaxHealth()) {
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            this.heal((float) itemstack.getFoodProperties(this).getNutrition());
-            this.gameEvent(GameEvent.EAT, this);
-            this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
-            for (int i = 0; i < 3; i++) {
-                final double d2 = this.random.nextGaussian() * 0.02D;
-                final double d0 = this.random.nextGaussian() * 0.02D;
-                final double d1 = this.random.nextGaussian() * 0.02D;
-                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, this.getY() + this.getBbHeight() * 0.5F + (double) (this.random.nextFloat() * this.getBbHeight() * 0.5F), this.getZ() + (double) (this.random.nextFloat() * this.getBbWidth()) - (double) this.getBbWidth() * 0.5F, d0, d1, d2);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
+    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+        this.exitStealthInstantly();
+        super.actuallyHurt(damageSource, amount);
     }
 
     @Override
-    protected void actuallyHurt(DamageSource damageSource, float amount) {
-        this.exitStealthInstantly();
-        super.actuallyHurt(damageSource, amount);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.MAJUNGASAURUS_FOOD);
     }
 
     public float getStealthProgress(float partialTicks) {
@@ -131,6 +102,16 @@ public class Majungasaurus extends PrehistoricMob {
     public boolean avoidsParents(LivingEntity entity) {
         Majungasaurus majungasaurus = (Majungasaurus) entity;
         return this.isBaby() && !entity.isBaby() && !majungasaurus.isMajungasaurusStealthMode();
+    }
+
+    @Override
+    public boolean canPacifiy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_MAJUNGASAURUS);
     }
 
     @Override
@@ -254,7 +235,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> entityDataAccessor) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
         if (DATA_POSE.equals(entityDataAccessor)) {
             if (this.getPose() == UP2Poses.BITING.get()) {
                 if (this.getRandom().nextBoolean()) this.biteRightAnimationState.start(this.tickCount);
@@ -304,7 +285,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @javax.annotation.Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         int variantChange = this.random.nextInt(0, 100);
         if (variantChange <= 10 && this.level().isNight()) this.setVariant(1);
         else this.setVariant(0);
@@ -312,92 +293,5 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     // goals
-    static class MajungasaurusAttackGoal extends AttackGoal {
 
-        protected final Majungasaurus majungasaurus;
-
-        public MajungasaurusAttackGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus);
-            this.majungasaurus = majungasaurus;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.majungasaurus.setPose(Pose.STANDING);
-            this.majungasaurus.exitStealth();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.majungasaurus.setPose(Pose.STANDING);
-            this.majungasaurus.exitStealth();
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !this.majungasaurus.isBaby();
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity target = this.majungasaurus.getTarget();
-            if (target != null) {
-                double distanceToTarget = this.majungasaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-                Pose pose = this.majungasaurus.getPose();
-
-                this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
-
-                if (distanceToTarget > 50 && this.majungasaurus.getStealthCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
-                    this.majungasaurus.enterStealth();
-                    this.majungasaurus.getNavigation().moveTo(target, 1.0D);
-                }
-                if (distanceToTarget <= 50 || this.majungasaurus.getStealthCooldown() > 0) {
-                    this.majungasaurus.exitStealth();
-                    this.majungasaurus.getNavigation().moveTo(target, 1.7D);
-                }
-
-                if (pose == UP2Poses.BITING.get()) tickBite();
-                else if (distanceToTarget <= this.getAttackReachSqr(target)) {
-                    this.majungasaurus.setPose(UP2Poses.BITING.get());
-                }
-            }
-        }
-
-        protected void tickBite() {
-            timer++;
-            LivingEntity target = this.majungasaurus.getTarget();
-            if (timer == 11) {
-                if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
-                    this.majungasaurus.doHurtTarget(target);
-                    this.majungasaurus.swing(InteractionHand.MAIN_HAND);
-                }
-            }
-            if (timer >= 22) {
-                timer = 0;
-                this.majungasaurus.setPose(Pose.STANDING);
-            }
-        }
-
-        @Override
-        protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.8 + target.getBbWidth();
-        }
-    }
-
-    static class MajungasaurusBabyPanicGoal extends LargePanicGoal {
-
-        protected final Majungasaurus majungasaurus;
-
-        public MajungasaurusBabyPanicGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 1.7D);
-            this.majungasaurus = majungasaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && this.majungasaurus.isBaby();
-        }
-    }
 }

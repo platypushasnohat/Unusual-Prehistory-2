@@ -8,39 +8,28 @@ import com.unusualmodding.unusual_prehistory.registry.UP2Items;
 import com.unusualmodding.unusual_prehistory.registry.UP2SoundEvents;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.unusualmodding.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class Stethacanthus extends SchoolingAquaticMob {
-
-    private static final EntityDataAccessor<Boolean> PASSIVE = SynchedEntityData.defineId(Stethacanthus.class, EntityDataSerializers.BOOLEAN);
 
     public final AnimationState attackAnimationState = new AnimationState();
 
@@ -62,18 +51,12 @@ public class Stethacanthus extends SchoolingAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
-        this.goalSelector.addGoal(3, new StethacanthusAttackGoal(this));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)) {
-        @Override
-        public boolean canUse() {
-            if (this.mob instanceof Stethacanthus stethacanthus) {
-                if (stethacanthus.isPassive() || stethacanthus.isBaby()) return false;
-            }
-            return super.canUse();
-        }});
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
+        this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
+        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 
     @Override
@@ -87,12 +70,27 @@ public class Stethacanthus extends SchoolingAquaticMob {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.55F;
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public boolean canPacifiy() {
+        return true;
+    }
+
+    @Override
+    public boolean isPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PACIFIES_STETHACANTHUS);
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.STETHACANTHUS_FOOD);
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -127,51 +125,8 @@ public class Stethacanthus extends SchoolingAquaticMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PASSIVE, false);
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Passive", this.isPassive());
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setPassive(compound.getBoolean("Passive"));
-    }
-
-    public void setPassive(boolean passive) {
-        this.entityData.set(PASSIVE, passive);
-    }
-
-    public boolean isPassive() {
-        return this.entityData.get(PASSIVE);
-    }
-
-    @Override
     public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
-    }
-
-    @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UP2ItemTags.PACIFIES_STETHACANTHUS) && !this.isPassive()) {
-            if (!this.level().isClientSide) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 1));
-                this.level().broadcastEntityEvent(this, (byte) 20);
-                this.setPassive(true);
-                this.gameEvent(GameEvent.EAT, this);
-                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        return super.mobInteract(player, hand);
     }
 
     @Nullable

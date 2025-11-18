@@ -25,7 +25,7 @@ public class DunkleosteusNearestAttackableTargetGoal extends TargetGoal {
 
     @Override
     public boolean canUse() {
-        if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0 || this.dunkleosteus.isPassive() || this.dunkleosteus.isBaby()) {
+        if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0 || this.dunkleosteus.isPacified() || this.dunkleosteus.isBaby()) {
             return false;
         } else {
             this.findTarget();
