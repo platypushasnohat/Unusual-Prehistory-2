@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/spine_0",
+        "location": "unusual_prehistory:fossil/skull/diplocaulus",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },
@@ -12,7 +12,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/spine_1",
+        "location": "unusual_prehistory:fossil/skull/unknown_0",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },
@@ -21,7 +21,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/spine_2",
+        "location": "unusual_prehistory:fossil/skull/unknown_1",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },
@@ -30,7 +30,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/spine_3",
+        "location": "unusual_prehistory:fossil/skull/unknown_2",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },
@@ -39,7 +39,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/spine_4",
+        "location": "unusual_prehistory:fossil/skull/unknown_3",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },

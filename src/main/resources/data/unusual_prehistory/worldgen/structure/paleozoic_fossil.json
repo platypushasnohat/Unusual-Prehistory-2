@@ -6,9 +6,9 @@
   "size": 3,
   "spawn_overrides": {},
   "start_height": {
-    "absolute": -19
+    "absolute": -35
   },
-  "start_pool": "unusual_prehistory:fossils/mesozoic_entrance",
+  "start_pool": "unusual_prehistory:fossils/paleozoic_entrance",
   "step": "underground_structures",
   "terrain_adaptation": "bury",
   "use_expansion_hack": false

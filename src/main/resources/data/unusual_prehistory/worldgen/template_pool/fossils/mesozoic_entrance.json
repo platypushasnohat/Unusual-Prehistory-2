@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/skull/skull_2",
+        "location": "unusual_prehistory:fossil/mesozoic_entrance",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },
