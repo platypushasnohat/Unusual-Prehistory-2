@@ -43,6 +43,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
 
                         output.accept(TAR_BUCKET.get());
+                        output.accept(UP2Blocks.ASPHALT.get());
                         output.accept(TARIFYING_DISC.get());
 
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());

@@ -60,10 +60,15 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("polished_petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 20, false));
 
+    // tar
+    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
+    public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));
+
     // eggs
     public static final Supplier<Block> DIPLOCAULUS_EGGS = registerBlockWithItem("diplocaulus_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DIPLOCAULUS, 2), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> JAWLESS_FISH_ROE = registerBlockWithItem("jawless_fish_roe", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.JAWLESS_FISH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
     public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerBlockWithItem("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+
     public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DUNKLEOSTEUS, 1));
     public static final Supplier<Block> STETHACANTHUS_SAC = registerBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.STETHACANTHUS, 1));
 
@@ -156,9 +161,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
     public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
-
-    // tar
-    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

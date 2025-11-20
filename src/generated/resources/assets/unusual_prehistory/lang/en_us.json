@@ -1,4 +1,5 @@
 {
+  "block.unusual_prehistory.asphalt": "Asphalt",
   "block.unusual_prehistory.bennettitales": "Bennettitales",
   "block.unusual_prehistory.calamophyton": "Calamophyton",
   "block.unusual_prehistory.carnotaurus_egg": "Carnotaurus Egg",
@@ -277,6 +278,7 @@
   "subtitles.talpanas_death": "Talpanas dies",
   "subtitles.talpanas_hurt": "Talpanas hurts",
   "subtitles.talpanas_idle": "Talpanas quacks",
+  "subtitles.tar_pop": "Tar pops",
   "subtitles.tarifying_disc": "Music Disc",
   "subtitles.telecrex_death": "Telecrex dies",
   "subtitles.telecrex_hurt": "Telecrex hurts",

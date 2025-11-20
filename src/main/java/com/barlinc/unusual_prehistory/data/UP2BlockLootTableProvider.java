@@ -53,6 +53,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        this.dropSelf(ASPHALT.get());
+
         this.dropSelf(FOSSILIZED_BONE_BLOCK.get());
         this.dropSelf(FOSSILIZED_BONE_BARK.get());
         this.dropSelf(FOSSILIZED_BONE_VERTEBRA.get());

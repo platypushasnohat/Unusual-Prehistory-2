@@ -83,7 +83,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_STAIRS.get(),
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
-                POLISHED_PETRIFIED_WOOD_BUTTON.get()
+                POLISHED_PETRIFIED_WOOD_BUTTON.get(),
+                ASPHALT.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(

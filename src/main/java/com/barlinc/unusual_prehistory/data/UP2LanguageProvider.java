@@ -71,6 +71,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
 
         // sounds
+        this.sound(UP2SoundEvents.TAR_POP, "Tar pops");
+
         this.sound(UP2SoundEvents.CARNOTAURUS_STEP, "Carnotaurus steps");
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
         this.sound(UP2SoundEvents.CARNOTAURUS_DEATH, "Carnotaurus dies");
