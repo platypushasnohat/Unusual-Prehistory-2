@@ -1,2 +1,3 @@
-// 1.20.1	2025-11-18T10:27:45.3811143	Tags for minecraft:worldgen/biome mod id unusual_prehistory
+// 1.20.1	2025-11-19T19:07:02.3383171	Tags for minecraft:worldgen/biome mod id unusual_prehistory
 b020f6cdcd2d955793278b2f89a178a1d31e599a data/unusual_prehistory/tags/worldgen/biome/has_structure/fossils.json
+414ff6fbbfd989504c983067b158f4882dd91f00 data/unusual_prehistory/tags/worldgen/biome/has_structure/tar_pit.json

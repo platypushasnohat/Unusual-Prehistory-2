@@ -9,6 +9,7 @@ import net.minecraft.world.level.biome.Biome;
 public class UP2BiomeTags {
 
     public static final TagKey<Biome> HAS_FOSSILS = modBiomeTag("has_structure/fossils");
+    public static final TagKey<Biome> HAS_TAR_PIT = modBiomeTag("has_structure/tar_pit");
 
     private static TagKey<Biome> modBiomeTag(String name) {
         return biomeTag(UnusualPrehistory2.MOD_ID, name);

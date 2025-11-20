@@ -64,6 +64,7 @@ public class TarFluidType extends FluidType {
             public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
                 RenderSystem.setShaderFogStart(0.0F);
                 RenderSystem.setShaderFogEnd(1.0F);
+                RenderSystem.setShaderFogShape(FogShape.SPHERE);
             }
         });
     }
@@ -81,7 +82,6 @@ public class TarFluidType extends FluidType {
         for (int l = 0; l < 8; ++l) {
             level.addAlwaysVisibleParticle(UP2Particles.TAR_BUBBLE.get(), (double) pos.getX() + Math.random(), (double) pos.getY() + Math.random(), (double) pos.getZ() + Math.random(), (Math.random() - 0.5F) * 0.25F, Math.random() * 0.25F, (Math.random() - 0.5F) * 0.25F);
             level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, (double) pos.getX() + Math.random(), (double) pos.getY() + Math.random(), (double) pos.getZ() + Math.random(), (Math.random() - 0.5F) * 0.05F, Math.random() * 0.05F, (Math.random() - 0.5F) * 0.05F);
-
         }
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }

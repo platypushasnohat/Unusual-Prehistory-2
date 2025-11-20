@@ -51,6 +51,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).addTag(BlockTags.ICE);
 
+        this.tag(UP2BlockTags.TAR_PIT_REPLACEABLE).addTag(BlockTags.DIRT).add(
+                Blocks.GRAVEL
+        );
+
         this.tag(UP2BlockTags.FOSSILIZED_BONE_BLOCKS).add(
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),

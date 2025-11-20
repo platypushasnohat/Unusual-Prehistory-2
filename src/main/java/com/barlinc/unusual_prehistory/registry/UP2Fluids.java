@@ -32,11 +32,11 @@ public class UP2Fluids {
     public static void postInit() {
         FluidInteractionRegistry.addInteraction(TAR_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 ForgeMod.WATER_TYPE.get(),
-                fluidState -> Blocks.MUD.defaultBlockState()
+                fluidState -> UP2Blocks.ASPHALT.get().defaultBlockState()
         ));
         FluidInteractionRegistry.addInteraction(TAR_TYPE.get(), new FluidInteractionRegistry.InteractionInformation(
                 ForgeMod.LAVA_TYPE.get(),
-                fluidState -> Blocks.DEEPSLATE.defaultBlockState()
+                fluidState -> UP2Blocks.ASPHALT.get().defaultBlockState()
         ));
     }
 }

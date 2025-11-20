@@ -8,6 +8,8 @@ import net.minecraft.world.level.block.Block;
 
 public class UP2BlockTags {
 
+    public static final TagKey<Block> TAR_PIT_REPLACEABLE = modBlockTag("tar_pit_replaceable");
+
     public static final TagKey<Block> ACCELERATES_EGG_HATCHING = modBlockTag("accelerates_egg_hatching");
     public static final TagKey<Block> PREVENTS_EGG_HATCHING = modBlockTag("prevents_egg_hatching");
 

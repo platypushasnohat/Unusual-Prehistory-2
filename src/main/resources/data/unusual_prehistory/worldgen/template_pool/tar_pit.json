@@ -3,8 +3,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:tar_pit_0",
-        "processors": "minecraft:empty",
+        "location": "unusual_prehistory:tar_pit/tar_pit_0",
+        "processors": "unusual_prehistory:tar_pit",
         "projection": "rigid"
       },
       "weight": 1
@@ -12,8 +12,17 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:tar_pit_1",
-        "processors": "minecraft:empty",
+        "location": "unusual_prehistory:tar_pit/tar_pit_1",
+        "processors": "unusual_prehistory:tar_pit",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:tar_pit/tar_pit_2",
+        "processors": "unusual_prehistory:tar_pit",
         "projection": "rigid"
       },
       "weight": 1
