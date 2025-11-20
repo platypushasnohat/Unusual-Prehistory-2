@@ -1,11 +1,11 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.MegalaniaModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MegalaniaTemperatureLayer;
 import com.barlinc.unusual_prehistory.entity.Megalania;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,7 +22,7 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_temperate.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
-        super(context, new MegalaniaModel(context.bakeLayer(UP2EntityModelLayers.MEGALANIA)), 0.9F);
+        super(context, new MegalaniaModel(context.bakeLayer(UP2ModelLayers.MEGALANIA)), 0.9F);
         this.addLayer(new MegalaniaTemperatureLayer(this));
     }
 

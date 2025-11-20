@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
-import com.barlinc.unusual_prehistory.entity.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "unusual_prehistory:petrified_log"
+  },
+  "result": "unusual_prehistory:polished_petrified_wood_slab"
+}

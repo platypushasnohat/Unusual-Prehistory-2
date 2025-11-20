@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "unusual_prehistory:cobbled_fossilized_bone"
+  },
+  "result": "unusual_prehistory:cobbled_fossilized_bone_stairs"
+}

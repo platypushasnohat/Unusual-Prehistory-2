@@ -26,10 +26,12 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class EggBlock extends Block {
 
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
@@ -47,13 +49,13 @@ public class EggBlock extends Block {
     }
 
     @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+    public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
         this.tryTrample(level, pos, entity, 100);
         super.stepOn(level, pos, state, entity);
     }
 
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, float fallDistance) {
         if (!(entity instanceof Zombie)) {
             this.tryTrample(level, pos, entity, 3);
         }
@@ -61,7 +63,7 @@ public class EggBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return shape;
     }
 
@@ -99,11 +101,11 @@ public class EggBlock extends Block {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (this.canHatch(level, pos)) {
             if (!this.isReadyToHatch(state)) {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
-                level.setBlock(pos, state.setValue(HATCH, Integer.valueOf(this.getHatchLevel(state) + 1)), 2);
+                level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
             } else {
                 spawnEntity(level, pos, state, random);
             }
@@ -120,11 +122,13 @@ public class EggBlock extends Block {
         for (int j = 0; j < i; j++) {
             Vec3 vec3 = pos.getCenter();
             Entity entity = hatchedEntity.get().create(level);
-            if (entity instanceof Animal animal) {
-                animal.setBaby(true);
+            if (entity != null) {
+                if (entity instanceof Animal animal) {
+                    animal.setBaby(true);
+                }
+                entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
+                level.addFreshEntity(entity);
             }
-            entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
-            level.addFreshEntity(entity);
         }
     }
 
@@ -137,7 +141,7 @@ public class EggBlock extends Block {
     }
 
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState blockState, boolean b) {
+    public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState blockState, boolean b) {
         boolean flag = hatchBoost(level, pos);
         boolean flag1 = !canHatch(level, pos);
         if (!level.isClientSide()) {
@@ -166,7 +170,7 @@ public class EggBlock extends Block {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter blockGetter, BlockPos pos, PathComputationType computationType) {
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull PathComputationType computationType) {
         return false;
     }
 }

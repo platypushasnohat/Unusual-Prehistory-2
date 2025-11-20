@@ -33,6 +33,11 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:fossilized_skull",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:tarifying_disc",
+          "weight": 1
         }
       ],
       "rolls": 1.0

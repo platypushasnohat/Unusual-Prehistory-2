@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.barlinc.unusual_prehistory.client.animations.MajungasaurusAnimations;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

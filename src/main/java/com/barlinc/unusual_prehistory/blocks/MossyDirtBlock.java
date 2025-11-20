@@ -1,10 +1,11 @@
 package com.barlinc.unusual_prehistory.blocks;
 
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
+import com.barlinc.unusual_prehistory.registry.UP2Features;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -15,14 +16,13 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.lighting.LightEngine;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("deprecation")
 public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock {
 
     public MossyDirtBlock(BlockBehaviour.Properties pProperties) {
@@ -30,77 +30,80 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
+    public boolean isRandomlyTicking(@NotNull BlockState state) {
         return true;
     }
 
-    private static boolean canBeGrass(BlockState pState, LevelReader pLevelReader, BlockPos pPos) {
-        BlockPos blockpos = pPos.above();
-        BlockState blockstate = pLevelReader.getBlockState(blockpos);
-        if (blockstate.is(Blocks.SNOW) && blockstate.getValue(SnowLayerBlock.LAYERS) == 1) {
+    private static boolean canBeMossyDirt(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos abovePos = pos.above();
+        BlockState aboveState = level.getBlockState(abovePos);
+        if (aboveState.is(Blocks.SNOW) && aboveState.getValue(SnowLayerBlock.LAYERS) == 1) {
             return true;
-        } else if (blockstate.getFluidState().getAmount() == 8) {
+        } else if (aboveState.getFluidState().getAmount() == 8) {
             return false;
         } else {
-            int i = LightEngine.getLightBlockInto(pLevelReader, pState, pPos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(pLevelReader, blockpos));
-            return i < pLevelReader.getMaxLightLevel();
+            int light = LightEngine.getLightBlockInto(level, state, pos, aboveState, abovePos, Direction.UP, aboveState.getLightBlock(level, abovePos));
+            return light < level.getMaxLightLevel();
         }
     }
 
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (!canBeGrass(pState, pLevel, pPos)) {
-            if (!pLevel.isAreaLoaded(pPos, 1)) {
+    @Override
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (!canBeMossyDirt(state, level, pos)) {
+            if (!level.isAreaLoaded(pos, 1)) {
                 return;
             }
-            pLevel.setBlockAndUpdate(pPos, Blocks.DIRT.defaultBlockState());
+            level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
         }
     }
 
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean valid) {
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean valid) {
         return level.getBlockState(pos.above()).isAir();
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource source, BlockPos pos, BlockState state) {
+    @Override
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
-        BlockPos blockPos = pos.above();
-        BlockState blockState = Blocks.GRASS.defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> feature = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
+    @Override
+    public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
+        BlockPos abovePos = pos.above();
+        BlockState blockState = UP2Blocks.HORSETAIL.get().defaultBlockState();
+        Optional<Holder.Reference<PlacedFeature>> mossLayer = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.MOSS_LAYER_BONEMEAL);
+        Optional<Holder.Reference<PlacedFeature>> horsetail = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.HORSETAIL_BONEMEAL);
 
-        label49:
+        outerLoop:
         for(int i = 0; i < 128; ++i) {
-            BlockPos blockPos1 = blockPos;
+            BlockPos blockpos = abovePos;
 
             for(int j = 0; j < i / 16; ++j) {
-                blockPos1 = blockPos1.offset(source.nextInt(3) - 1, (source.nextInt(3) - 1) * source.nextInt(3) / 2, source.nextInt(3) - 1);
-                if (!level.getBlockState(blockPos1.below()).is(this) || level.getBlockState(blockPos1).isCollisionShapeFullBlock(level, blockPos1)) {
-                    continue label49;
+                blockpos = blockpos.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
+                if (!level.getBlockState(blockpos.below()).is(this) || level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
+                    continue outerLoop;
                 }
             }
 
-            BlockState state1 = level.getBlockState(blockPos1);
-            if (state1.is(blockState.getBlock()) && source.nextInt(10) == 0) {
-                ((BonemealableBlock) blockState.getBlock()).performBonemeal(level, source, blockPos1, state1);
+            BlockState state1 = level.getBlockState(blockpos);
+            if (state1.is(blockState.getBlock()) && random.nextInt(10) == 0) {
+                ((BonemealableBlock) blockState.getBlock()).performBonemeal(level, random, blockpos, state1);
             }
 
             if (state1.isAir()) {
                 Holder<PlacedFeature> featureHolder;
-                if (source.nextInt(8) == 0) {
-                    List<ConfiguredFeature<?, ?>> $$11 = level.getBiome(blockPos1).value().getGenerationSettings().getFlowerFeatures();
-                    if ($$11.isEmpty()) {
+                if (random.nextInt(4) == 0) {
+                    if (horsetail.isEmpty()) {
                         continue;
                     }
-
-                    featureHolder = ((RandomPatchConfiguration)((ConfiguredFeature)$$11.get(0)).config()).feature();
+                    featureHolder = horsetail.get();
                 } else {
-                    if (!feature.isPresent()) {
+                    if (mossLayer.isEmpty()) {
                         continue;
                     }
-                    featureHolder = feature.get();
+                    featureHolder = mossLayer.get();
                 }
-                featureHolder.value().place(level, level.getChunkSource().getGenerator(), source, blockPos1);
+                featureHolder.value().place(level, level.getChunkSource().getGenerator(), random, blockpos);
             }
         }
     }

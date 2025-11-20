@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.StethacanthusModel;
 import com.barlinc.unusual_prehistory.entity.Stethacanthus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,7 +19,7 @@ public class StethacanthusRenderer extends MobRenderer<Stethacanthus, Stethacant
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/stethacanthus.png");
 
     public StethacanthusRenderer(EntityRendererProvider.Context context) {
-        super(context, new StethacanthusModel(context.bakeLayer(UP2EntityModelLayers.STETHACANTHUS)), 0.5F);
+        super(context, new StethacanthusModel(context.bakeLayer(UP2ModelLayers.STETHACANTHUS)), 0.5F);
     }
 
     @Override

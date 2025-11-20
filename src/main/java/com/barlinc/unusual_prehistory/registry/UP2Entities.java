@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
-import com.barlinc.unusual_prehistory.entity.*;
 import com.barlinc.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
 import com.barlinc.unusual_prehistory.entity.projectile.TalpanasEgg;
 import com.barlinc.unusual_prehistory.entity.projectile.TelecrexEgg;

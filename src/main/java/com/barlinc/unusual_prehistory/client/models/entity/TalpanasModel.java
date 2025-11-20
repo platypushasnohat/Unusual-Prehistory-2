@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.barlinc.unusual_prehistory.client.animations.TalpanasAnimations;
 import com.barlinc.unusual_prehistory.client.animations.TelecrexAnimations;
 import com.barlinc.unusual_prehistory.entity.Talpanas;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

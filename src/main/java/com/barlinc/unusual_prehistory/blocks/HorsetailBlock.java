@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class HorsetailBlock extends PrehistoricPlantBlock implements BonemealableBlock {
 
@@ -23,31 +23,26 @@ public class HorsetailBlock extends PrehistoricPlantBlock implements Bonemealabl
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos source, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource source, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
-        PrehistoricTallPlantBlock doubleplantblock = (PrehistoricTallPlantBlock) (UP2Blocks.LARGE_HORSETAIL.get());
-        if (doubleplantblock.defaultBlockState().canSurvive(level, pos) && level.isEmptyBlock(pos.above())) {
-            DoublePlantBlock.placeAt(level, doubleplantblock.defaultBlockState(), pos, 2);
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource source, @NotNull BlockPos pos, @NotNull BlockState state) {
+        PrehistoricTallPlantBlock tallPlant = (PrehistoricTallPlantBlock) (UP2Blocks.LARGE_HORSETAIL.get());
+        if (tallPlant.defaultBlockState().canSurvive(level, pos) && level.isEmptyBlock(pos.above())) {
+            DoublePlantBlock.placeAt(level, tallPlant.defaultBlockState(), pos, 2);
         }
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return SHAPE.move(offset.x, offset.y, offset.z);
-    }
-
-    @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
     }
 }

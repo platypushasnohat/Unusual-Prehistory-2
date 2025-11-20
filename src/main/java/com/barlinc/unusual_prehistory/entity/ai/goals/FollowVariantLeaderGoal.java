@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.mojang.datafixers.DataFixUtils;
 import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
+import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.List;

@@ -1,16 +1,20 @@
 package com.barlinc.unusual_prehistory.registry;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.barlinc.unusual_prehistory.UnusualPrehistory2.modPrefix;
-
+@SuppressWarnings("unused")
 public class UP2LootTables {
 
-    public static final ResourceLocation PALEOZOIC_FOSSILS = create("archaeology/paleozoic_fossils");
-    public static final ResourceLocation MESOZOIC_FOSSILS = create("archaeology/mesozoic_fossils");
-    public static final ResourceLocation PLANT_FOSSILS = create("archaeology/plant_fossils");
+    public static final ResourceLocation TAR_PIT_COMMON = create("archaeology/tar_pit_common");
+    public static final ResourceLocation TAR_PIT_RARE = create("archaeology/tar_pit_rare");
+
+    // Modifiers
+    public static final ResourceLocation OCEAN_RUIN_WARM = create("archaeology/ocean_ruin_warm");
+    public static final ResourceLocation ABANDONED_MINESHAFT = create("archaeology/abandoned_mineshaft");
+    public static final ResourceLocation SIMPLE_DUNGEON = create("archaeology/simple_dungeon");
 
     private static ResourceLocation create(String id) {
-        return modPrefix(id);
+        return UnusualPrehistory2.modPrefix(id);
     }
 }

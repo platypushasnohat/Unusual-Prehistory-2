@@ -28,6 +28,18 @@ public class UnusualPrehistory2Tab {
                             }
                         });
 
+                        output.accept(ORGANIC_OOZE.get());
+                        output.accept(MACHINE_PARTS.get());
+                        output.accept(UP2Blocks.TRANSMOGRIFIER.get());
+
+                        output.accept(UP2Blocks.PETRIFIED_LOG.get());
+                        output.accept(UP2Blocks.PETRIFIED_WOOD.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_BUTTON.get());
+
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BLOCK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BARK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_VERTEBRA.get());
@@ -45,19 +57,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
                         output.accept(TARIFYING_DISC.get());
-
-                        output.accept(UP2Blocks.PETRIFIED_LOG.get());
-                        output.accept(UP2Blocks.PETRIFIED_WOOD.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_BUTTON.get());
-
-                        output.accept(ORGANIC_OOZE.get());
-                        output.accept(MACHINE_PARTS.get());
-
-                        output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());

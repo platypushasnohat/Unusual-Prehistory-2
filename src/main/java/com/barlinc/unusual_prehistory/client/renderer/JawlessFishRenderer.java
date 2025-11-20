@@ -1,11 +1,10 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.barlinc.unusual_prehistory.entity.JawlessFish;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -29,12 +28,12 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, HierarchicalMo
     private final ArandaspisModel arandaspisModel;
 
     public JawlessFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new CephalaspisModel(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS)), 0.3F);
-        this.cephalaspisModel = new CephalaspisModel(context.bakeLayer(UP2EntityModelLayers.CEPHALASPIS));
-        this.doryaspisModel = new DoryaspisModel(context.bakeLayer(UP2EntityModelLayers.DORYASPIS));
-        this.furcacaudaModel = new FurcacaudaModel(context.bakeLayer(UP2EntityModelLayers.FURACACAUDA));
-        this.sacabambaspisModel = new SacabambaspisModel(context.bakeLayer(UP2EntityModelLayers.SACABAMBASPIS));
-        this.arandaspisModel = new ArandaspisModel(context.bakeLayer(UP2EntityModelLayers.ARANDASPIS));
+        super(context, new CephalaspisModel(context.bakeLayer(UP2ModelLayers.CEPHALASPIS)), 0.3F);
+        this.cephalaspisModel = new CephalaspisModel(context.bakeLayer(UP2ModelLayers.CEPHALASPIS));
+        this.doryaspisModel = new DoryaspisModel(context.bakeLayer(UP2ModelLayers.DORYASPIS));
+        this.furcacaudaModel = new FurcacaudaModel(context.bakeLayer(UP2ModelLayers.FURACACAUDA));
+        this.sacabambaspisModel = new SacabambaspisModel(context.bakeLayer(UP2ModelLayers.SACABAMBASPIS));
+        this.arandaspisModel = new ArandaspisModel(context.bakeLayer(UP2ModelLayers.ARANDASPIS));
     }
 
     @Override

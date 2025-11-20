@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "F": {
+      "item": "unusual_prehistory:fossilized_bone_bark"
+    }
+  },
+  "pattern": [
+    "FF",
+    "FF"
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:cobbled_fossilized_bone"
+  },
+  "show_notification": true
+}

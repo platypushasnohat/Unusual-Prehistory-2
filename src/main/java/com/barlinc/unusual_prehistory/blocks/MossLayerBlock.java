@@ -18,10 +18,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
 
-    private static final BooleanProperty WATERLOGGED;
+    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final MultifaceSpreader spreader = new MultifaceSpreader(this);
 
     public MossLayerBlock(BlockBehaviour.Properties pProperties) {
@@ -29,47 +31,52 @@ public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock,
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> block) {
-        super.createBlockStateDefinition(block);
-        block.add(WATERLOGGED);
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(WATERLOGGED);
     }
 
-    public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor level, BlockPos pos, BlockPos pos1) {
+    @Override
+    public @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState blockstate, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos blockpos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, state1, level, pos, pos1);
+        return super.updateShape(state, direction, blockstate, level, pos, blockpos);
     }
 
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+    @Override
+    public boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext context) {
         return !context.getItemInHand().is(Items.GLOW_LICHEN) || super.canBeReplaced(state, context);
     }
 
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean client) {
+    @Override
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean client) {
         return Direction.stream().anyMatch((direction) -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
     }
 
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    @Override
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
-        this.spreader.spreadFromRandomFaceTowardRandomDirection(state, level, pos, source);
+    @Override
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        this.spreader.spreadFromRandomFaceTowardRandomDirection(state, level, pos, random);
     }
 
-    public FluidState getFluidState(BlockState state) {
+    @Override
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos) {
         return state.getFluidState().isEmpty();
     }
 
-    public MultifaceSpreader getSpreader() {
+    @Override
+    public @NotNull MultifaceSpreader getSpreader() {
         return this.spreader;
-    }
-
-    static {
-        WATERLOGGED = BlockStateProperties.WATERLOGGED;
     }
 }

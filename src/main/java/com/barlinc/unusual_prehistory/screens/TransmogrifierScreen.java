@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.screens;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class TransmogrifierScreen extends AbstractContainerScreen<TransmogrifierMenu> {
@@ -43,7 +44,7 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
         this.renderBackground(graphics);
 
         Lighting.setupForFlatItems();
@@ -64,7 +65,7 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         renderBackground(graphics);
         super.render(graphics, mouseX, mouseY, partialTicks);
         renderTooltip(graphics, mouseX, mouseY);

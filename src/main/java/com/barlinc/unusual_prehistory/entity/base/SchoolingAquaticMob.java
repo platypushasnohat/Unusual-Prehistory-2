@@ -41,10 +41,9 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
         return this.leader != null && this.leader.isAlive();
     }
 
-    public SchoolingAquaticMob startFollowing(SchoolingAquaticMob entity) {
+    public void startFollowing(SchoolingAquaticMob entity) {
         this.leader = entity;
         entity.addFollower();
-        return entity;
     }
 
     public void stopFollowing() {

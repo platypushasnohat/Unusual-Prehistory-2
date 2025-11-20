@@ -1,12 +1,12 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusLargeModel;
 import com.barlinc.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusMediumModel;
 import com.barlinc.unusual_prehistory.client.models.entity.dunkleosteus.DunkleosteusSmallModel;
 import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,10 +26,10 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
     private final DunkleosteusSmallModel dunkleosteusSmallModel;
 
     public DunkleosteusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DunkleosteusLargeModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE)), 0.5F);
-        this.dunkleosteusLargeModel = new DunkleosteusLargeModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_LARGE));
-        this.dunkleosteusMediumModel = new DunkleosteusMediumModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_MEDIUM));
-        this.dunkleosteusSmallModel = new DunkleosteusSmallModel(context.bakeLayer(UP2EntityModelLayers.DUNKLEOSTEUS_SMALL));
+        super(context, new DunkleosteusLargeModel(context.bakeLayer(UP2ModelLayers.DUNKLEOSTEUS_LARGE)), 0.5F);
+        this.dunkleosteusLargeModel = new DunkleosteusLargeModel(context.bakeLayer(UP2ModelLayers.DUNKLEOSTEUS_LARGE));
+        this.dunkleosteusMediumModel = new DunkleosteusMediumModel(context.bakeLayer(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM));
+        this.dunkleosteusSmallModel = new DunkleosteusSmallModel(context.bakeLayer(UP2ModelLayers.DUNKLEOSTEUS_SMALL));
     }
 
     @Override

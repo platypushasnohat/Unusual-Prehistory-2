@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:aged_feather",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

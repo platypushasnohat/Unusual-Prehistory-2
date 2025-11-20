@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.MajungasaurusModel;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -21,7 +21,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     private static final ResourceLocation DUSKLURKER_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new MajungasaurusModel(context.bakeLayer(UP2EntityModelLayers.MAJUNGASAURUS)), 0.8F);
+        super(context, new MajungasaurusModel(context.bakeLayer(UP2ModelLayers.MAJUNGASAURUS)), 0.8F);
     }
 
     @Override

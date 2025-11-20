@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "unusual_prehistory:polished_petrified_wood"
+    }
+  ],
+  "result": {
+    "item": "unusual_prehistory:polished_petrified_wood_button"
+  }
+}

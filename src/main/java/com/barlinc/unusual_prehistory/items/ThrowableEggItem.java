@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class ThrowableEggItem extends Item {
         super(properties);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         player.gameEvent(GameEvent.ITEM_INTERACT_START);
 
@@ -35,15 +36,9 @@ public class ThrowableEggItem extends Item {
         if (!level.isClientSide) {
             ThrowableItemProjectile egg;
 
-            if (this == UP2Items.DROMAEOSAURUS_EGG.get()) {
-                egg = new DromaeosaurusEgg(level, player);
-            }
-            else if (this == UP2Items.TELECREX_EGG.get()) {
-                egg = new TelecrexEgg(level, player);
-            }
-            else {
-                egg = new TalpanasEgg(level, player);
-            }
+            if (this == UP2Items.DROMAEOSAURUS_EGG.get()) egg = new DromaeosaurusEgg(level, player);
+            else if (this == UP2Items.TELECREX_EGG.get()) egg = new TelecrexEgg(level, player);
+            else egg = new TalpanasEgg(level, player);
 
             egg.setItem(itemstack);
             egg.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);

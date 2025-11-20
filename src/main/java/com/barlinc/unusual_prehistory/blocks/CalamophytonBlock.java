@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.blocks;
 
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -33,12 +33,12 @@ public class CalamophytonBlock extends PrehistoricPlantBlock implements Bonemeal
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
         if (state.getValue(LAYER) == 0) {
-            return super.canSurvive(state, worldIn, pos);
+            return super.canSurvive(state, level, pos);
         } else {
-            BlockState blockstate = worldIn.getBlockState(pos.below());
-            if (state.getBlock() != this) return super.canSurvive(state, worldIn, pos);
+            BlockState blockstate = level.getBlockState(pos.below());
+            if (state.getBlock() != this) return super.canSurvive(state, level, pos);
             return blockstate.getBlock() == this;
         }
     }
@@ -50,46 +50,46 @@ public class CalamophytonBlock extends PrehistoricPlantBlock implements Bonemeal
     }
 
     @Override
-    public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        worldIn.setBlock(pos, this.defaultBlockState().setValue(LAYER, 0), 2);
-        worldIn.setBlock(pos.above(), this.defaultBlockState().setValue(LAYER, 1), 2);
-        worldIn.setBlock(pos.above(2), this.defaultBlockState().setValue(LAYER, 2), 2);
+    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity placer, @NotNull ItemStack stack) {
+        level.setBlock(pos, this.defaultBlockState().setValue(LAYER, 0), 2);
+        level.setBlock(pos.above(), this.defaultBlockState().setValue(LAYER, 1), 2);
+        level.setBlock(pos.above(2), this.defaultBlockState().setValue(LAYER, 2), 2);
     }
 
     @Override
-    public void playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player player) {
+    public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, BlockState state, @NotNull Player player) {
         if (state.getValue(LAYER) == 0) {
             if(!player.isCreative()) {
-                worldIn.destroyBlock(pos, true);
-                worldIn.destroyBlock(pos.above(), false);
-                worldIn.destroyBlock(pos.above(2), false);
+                level.destroyBlock(pos, true);
+                level.destroyBlock(pos.above(), false);
+                level.destroyBlock(pos.above(2), false);
             } else {
-                worldIn.destroyBlock(pos, false);
-                worldIn.destroyBlock(pos.above(), false);
-                worldIn.destroyBlock(pos.above(2), false);
+                level.destroyBlock(pos, false);
+                level.destroyBlock(pos.above(), false);
+                level.destroyBlock(pos.above(2), false);
             }
         } else if (state.getValue(LAYER) == 1) {
             if(!player.isCreative()) {
-                worldIn.destroyBlock(pos.below(), true);
-                worldIn.destroyBlock(pos, false);
-                worldIn.destroyBlock(pos.above(), false);
+                level.destroyBlock(pos.below(), true);
+                level.destroyBlock(pos, false);
+                level.destroyBlock(pos.above(), false);
             } else {
-                worldIn.destroyBlock(pos.below(), false);
-                worldIn.destroyBlock(pos, false);
-                worldIn.destroyBlock(pos.above(), false);
+                level.destroyBlock(pos.below(), false);
+                level.destroyBlock(pos, false);
+                level.destroyBlock(pos.above(), false);
             }
         } else if (state.getValue(LAYER) == 2) {
             if(!player.isCreative()) {
-                worldIn.destroyBlock(pos.below(2), true);
-                worldIn.destroyBlock(pos.below(), false);
-                worldIn.destroyBlock(pos, false);
+                level.destroyBlock(pos.below(2), true);
+                level.destroyBlock(pos.below(), false);
+                level.destroyBlock(pos, false);
             } else {
-                worldIn.destroyBlock(pos.below(2), false);
-                worldIn.destroyBlock(pos.below(), false);
-                worldIn.destroyBlock(pos, false);
+                level.destroyBlock(pos.below(2), false);
+                level.destroyBlock(pos.below(), false);
+                level.destroyBlock(pos, false);
             }
         }
-        super.playerWillDestroy(worldIn, pos, state, player);
+        super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override
@@ -97,29 +97,27 @@ public class CalamophytonBlock extends PrehistoricPlantBlock implements Bonemeal
         builder.add(LAYER);
     }
 
-    public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    @Override
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return true;
-    }
-
-    public boolean isBonemealSuccess(Level worldIn, RandomSource rand, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    public void performBonemeal(ServerLevel worldIn, RandomSource rand, BlockPos pos, BlockState state) {
-        popResource(worldIn, pos, new ItemStack(this));
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(worldIn, pos);
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        popResource(level, pos, new ItemStack(this));
+    }
+
+    @Override
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
+        Vec3 offset = state.getOffset(blockGetter, pos);
         if (state.getValue(LAYER) == 2) {
             return TOP_SHAPE.move(offset.x, offset.y, offset.z);
         }
         return BOTTOM_SHAPE.move(offset.x, offset.y, offset.z);
-    }
-
-    @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
     }
 }

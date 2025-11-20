@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.registry;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.fluid.TarFluidType;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;

@@ -2,10 +2,9 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.GinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.GoldenGinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.LepidodendronTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.GinkgoTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.GoldenGinkgoTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.LepidodendronTreeGrower;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -61,22 +60,23 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 20, false));
 
     // tar
-    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarFluidBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
+    public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));
 
     // eggs
-    public static final Supplier<Block> DIPLOCAULUS_EGGS = registerBlockWithItem("diplocaulus_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DIPLOCAULUS, 2), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-    public static final Supplier<Block> JAWLESS_FISH_ROE = registerBlockWithItem("jawless_fish_roe", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.JAWLESS_FISH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
-    public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerBlockWithItem("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, 4), entry -> new PlaceOnWaterBlockItem(entry.get(), new Item.Properties()));
+    public static final Supplier<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
+    public static final Supplier<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, 4));
+    public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
 
-    public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.DUNKLEOSTEUS, 1));
-    public static final Supplier<Block> STETHACANTHUS_SAC = registerBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().randomTicks().sound(SoundType.FROGSPAWN), UP2Entities.STETHACANTHUS, 1));
+    public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
+    public static final Supplier<Block> STETHACANTHUS_SAC = registerBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 1));
 
     public static final RegistryObject<Block> CARNOTAURUS_EGG = registerBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15, false));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
     public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11, false));
     public static final RegistryObject<Block> MEGALANIA_EGG = registerBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14, false));
 
+    // plants
     public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(UP2SoundTypes.MOSSY_DIRT)));
     public static final RegistryObject<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
@@ -121,8 +121,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
     public static final RegistryObject<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
 
-    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
-    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new GinkgoLeavesBlock(UP2BlockProperties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
+    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
+    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
 
     public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), registerFlowerPot()));
@@ -189,6 +189,13 @@ public class UP2Blocks {
         Supplier<B> entry = registerBlockWithoutItem(name, block);
         UP2Items.ITEMS.register(name, () -> item.apply(entry));
         return entry;
+    }
+
+    private static <B extends Block> Supplier<B> registerWaterEggBlock(String name, Supplier<? extends B> supplier) {
+        RegistryObject<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
+        BLOCK_TRANSLATIONS.add(block);
+        return block;
     }
 
     private static BlockBehaviour.Properties registerFlowerPot(FeatureFlag... featureFlags) {

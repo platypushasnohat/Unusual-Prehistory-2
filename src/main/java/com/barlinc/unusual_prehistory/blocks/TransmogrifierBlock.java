@@ -24,8 +24,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class TransmogrifierBlock extends BaseEntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -37,12 +39,12 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState blockState, boolean isMoving) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState blockState, boolean isMoving) {
         if (state.getBlock() != blockState.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof TransmogrifierBlockEntity) {
@@ -53,13 +55,13 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if(entity instanceof TransmogrifierBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) player), (TransmogrifierBlockEntity) entity, pos);
             } else {
-                throw new IllegalStateException("Our Container provider is missing!");
+                throw new IllegalStateException("Transmogrifier container provider is missing!");
             }
         }
         return InteractionResult.sidedSuccess(level.isClientSide());
@@ -67,7 +69,7 @@ public class TransmogrifierBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new TransmogrifierBlockEntity(pos, state);
     }
 
@@ -77,7 +79,7 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, ItemStack stack) {
         if (stack.hasCustomHoverName()) {
             BlockEntity blockentity = level.getBlockEntity(pos);
             if (blockentity instanceof TransmogrifierBlockEntity) {
@@ -87,7 +89,7 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         ItemStack stack = super.getCloneItemStack(level, pos, state);
         TransmogrifierBlockEntity transmogrifierBlockEntity = (TransmogrifierBlockEntity) level.getBlockEntity(pos);
         if (transmogrifierBlockEntity != null) {
@@ -99,12 +101,12 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
@@ -115,7 +117,7 @@ public class TransmogrifierBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, UP2BlockEntities.TRANSMOGRIFIER.get(), TransmogrifierBlockEntity::tick);
     }
 }

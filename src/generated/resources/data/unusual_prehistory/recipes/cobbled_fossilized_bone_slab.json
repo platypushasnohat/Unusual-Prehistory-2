@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "unusual_prehistory:cobbled_fossilized_bone"
+    }
+  },
+  "pattern": [
+    "CCC"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusual_prehistory:cobbled_fossilized_bone_slab"
+  },
+  "show_notification": true
+}

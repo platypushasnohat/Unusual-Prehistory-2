@@ -21,7 +21,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("removal")
 public class TransmogrificationCategory implements IRecipeCategory<TransmogrificationRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(UnusualPrehistory2.MOD_ID, "transmogrification");
@@ -42,12 +44,12 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
     }
 
     @Override
-    public RecipeType<TransmogrificationRecipe> getRecipeType() {
+    public @NotNull RecipeType<TransmogrificationRecipe> getRecipeType() {
         return JEIPlugin.TRANSMOGRIFICATION;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return Component.translatable(UnusualPrehistory2.MOD_ID + "." + "jei.transmogrification");
     }
 
@@ -74,7 +76,7 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
     }
 
     @Override
-    public void draw(TransmogrificationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull TransmogrificationRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         drawProgress(recipe, guiGraphics, 24, -91);
         this.fuel.draw(guiGraphics, 70, 32);
@@ -82,7 +84,7 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, TransmogrificationRecipe recipe, IFocusGroup foci) {
+    public void setRecipe(IRecipeLayoutBuilder builder, TransmogrificationRecipe recipe, @NotNull IFocusGroup foci) {
         builder.addSlot(RecipeIngredientRole.INPUT, 5, 3).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.INPUT, 50, 31).addItemStack(new ItemStack(UP2Items.ORGANIC_OOZE.get()));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 3).addItemStack(recipe.getJEIResultItem());

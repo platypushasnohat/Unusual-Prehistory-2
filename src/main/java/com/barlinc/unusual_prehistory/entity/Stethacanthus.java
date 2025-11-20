@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.StethacanthusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AdvancedWaterboundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -22,7 +21,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -60,11 +58,6 @@ public class Stethacanthus extends SchoolingAquaticMob {
         this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
-    }
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
-        return new AdvancedWaterboundPathNavigation(this, level, false, true);
     }
 
     @Override

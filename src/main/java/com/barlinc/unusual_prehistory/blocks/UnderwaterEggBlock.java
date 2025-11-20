@@ -25,20 +25,20 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private final RegistryObject<EntityType> hatchedEntity;
+    private final Supplier<EntityType<?>> hatchedEntity;
     private final int babyCount;
 
-    public UnderwaterEggBlock(Properties properties, RegistryObject hatchedEntity, int spawnCount) {
+    public UnderwaterEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int spawnCount) {
         super(properties);
         this.hatchedEntity = hatchedEntity;
         this.babyCount = spawnCount;

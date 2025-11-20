@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class PrehistoricTallFlowerBlock extends TallFlowerBlock {
 
@@ -21,13 +22,13 @@ public class PrehistoricTallFlowerBlock extends TallFlowerBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? LOWER_SHAPE.move(offset.x, offset.y, offset.z) : UPPER_SHAPE.move(offset.x, offset.y, offset.z);
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter block, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos) {
         return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
     }
 }

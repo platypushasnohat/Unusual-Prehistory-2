@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.NymphFindWaterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -8,6 +7,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

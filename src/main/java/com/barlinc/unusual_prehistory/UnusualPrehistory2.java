@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory;
 
-import com.barlinc.unusual_prehistory.data.*;
-import com.barlinc.unusual_prehistory.registry.*;
-import com.barlinc.unusual_prehistory.data.*;
+import com.barlinc.unusual_prehistory.datagen.*;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.barlinc.unusual_prehistory.utils.CommonProxy;
@@ -47,11 +45,11 @@ public class UnusualPrehistory2 {
         UP2Fluids.TYPES.register(bus);
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
         UP2MenuTypes.MENUS.register(bus);
-        UP2RecipeTypes.RECIPE_TYPES.register(bus);
-        UP2RecipeSerializers.RECIPE_SERIALIZERS.register(bus);
-        UP2TreeDecorators.TREE_DECORATORS.register(bus);
-        UP2TrunkPlacers.TRUNK_PLACERS.register(bus);
-        UP2FoliagePlacers.FOLIAGE_PLACERS.register(bus);
+        UP2Recipes.RECIPE_TYPES.register(bus);
+        UP2Recipes.RECIPE_SERIALIZERS.register(bus);
+        UP2Trees.TREE_DECORATORS.register(bus);
+        UP2Trees.TRUNK_PLACERS.register(bus);
+        UP2Trees.FOLIAGE_PLACERS.register(bus);
         UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);

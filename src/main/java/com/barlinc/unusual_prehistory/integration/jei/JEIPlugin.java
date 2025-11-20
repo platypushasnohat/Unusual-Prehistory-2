@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.integration.jei;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
-import com.barlinc.unusual_prehistory.registry.UP2RecipeTypes;
+import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class JEIPlugin implements IModPlugin {
     public static RecipeType<TransmogrificationRecipe> TRANSMOGRIFICATION = new RecipeType<>(TransmogrificationCategory.UID, TransmogrificationRecipe.class);
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public @NotNull ResourceLocation getPluginUid() {
         return new ResourceLocation(UnusualPrehistory2.MOD_ID, "jei_plugin");
     }
 
@@ -41,7 +42,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<TransmogrificationRecipe> transmogrificationRecipes = recipeManager.getAllRecipesFor(UP2RecipeTypes.TRANSMOGRIFICATION.get());
+        List<TransmogrificationRecipe> transmogrificationRecipes = recipeManager.getAllRecipesFor(UP2Recipes.TRANSMOGRIFICATION.get());
         registration.addRecipes(TRANSMOGRIFICATION, transmogrificationRecipes);
     }
 

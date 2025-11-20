@@ -1,13 +1,13 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusSalamandroidesModel;
 import com.barlinc.unusual_prehistory.entity.Diplocaulus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -30,11 +30,11 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
     private final DiplocaulusSalamandroidesModel salamandroidesModel;
 
     public DiplocaulusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
-        this.brevirostrisModel = new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_BREVIROSTRIS));
-        this.magnicornisModel = new DiplocaulusMagnicornisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_MAGNICORNIS));
-        this.recurvatisModel = new DiplocaulusRecurvatisModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_RECURVATIS));
-        this.salamandroidesModel = new DiplocaulusSalamandroidesModel(context.bakeLayer(UP2EntityModelLayers.DIPLOCAULUS_SALAMANDROIDES));
+        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
+        this.brevirostrisModel = new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS));
+        this.magnicornisModel = new DiplocaulusMagnicornisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS));
+        this.recurvatisModel = new DiplocaulusRecurvatisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_RECURVATIS));
+        this.salamandroidesModel = new DiplocaulusSalamandroidesModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_SALAMANDROIDES));
     }
 
     @Override

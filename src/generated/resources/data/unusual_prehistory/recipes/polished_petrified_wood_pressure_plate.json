@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "unusual_prehistory:polished_petrified_wood"
+    }
+  },
+  "pattern": [
+    "PP"
+  ],
+  "result": {
+    "item": "unusual_prehistory:polished_petrified_wood_pressure_plate"
+  },
+  "show_notification": true
+}

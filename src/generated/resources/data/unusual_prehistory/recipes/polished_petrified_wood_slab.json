@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": {
+      "item": "unusual_prehistory:polished_petrified_wood"
+    }
+  },
+  "pattern": [
+    "PPP"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusual_prehistory:polished_petrified_wood_slab"
+  },
+  "show_notification": true
+}

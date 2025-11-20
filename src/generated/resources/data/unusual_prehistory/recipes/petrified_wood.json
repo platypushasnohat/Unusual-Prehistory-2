@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bark",
+  "key": {
+    "P": {
+      "item": "unusual_prehistory:petrified_log"
+    }
+  },
+  "pattern": [
+    "PP",
+    "PP"
+  ],
+  "result": {
+    "count": 3,
+    "item": "unusual_prehistory:petrified_wood"
+  },
+  "show_notification": true
+}

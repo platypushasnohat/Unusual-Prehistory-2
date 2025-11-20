@@ -43,6 +43,7 @@ public class HangingLeavesBlock extends Block implements IForgeShearable {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public void animateTick(@NotNull BlockState state, Level level, BlockPos pos, @NotNull RandomSource random) {
         if (level.isRainingAt(pos.above())) {
             if (random.nextInt(18) == 1) {

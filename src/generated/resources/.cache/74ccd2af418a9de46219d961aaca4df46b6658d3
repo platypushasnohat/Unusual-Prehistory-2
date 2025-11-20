@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-18T10:27:45.3856146	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2025-11-20T12:14:07.3235675	Tags for minecraft:entity_type mod id unusual_prehistory
 05e116b1d6ca50b77d526b98ed3d90698f5940ac data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
 8ab8c45ae51fec7c370f77ac7ace63989386b7e4 data/unusual_prehistory/tags/entity_types/dromaeosaurus_avoids.json
 b936804f9da78ee26f9bd432d42e7848d676f251 data/unusual_prehistory/tags/entity_types/dromaeosaurus_targets.json
@@ -9,9 +9,7 @@ b936804f9da78ee26f9bd432d42e7848d676f251 data/unusual_prehistory/tags/entity_typ
 19d13ed62cb30f8fa3bf451aaee8ecf3dc67dfed data/unusual_prehistory/tags/entity_types/megalania_targets.json
 21584d17af6dc5cc8b1b69c7cc139f2d1777c60b data/unusual_prehistory/tags/entity_types/scatters_kimmeridgebrachypteraeschnidium.json
 21584d17af6dc5cc8b1b69c7cc139f2d1777c60b data/unusual_prehistory/tags/entity_types/scatters_telecrex.json
-86435b34d163b92ef07c44844aa7f403f00d89b2 data/unusual_prehistory/tags/entity_types/scaumenacia_avoids.json
 b45c655e2f9bd54c2b4d3c33d5a3c58dd74c7b32 data/unusual_prehistory/tags/entity_types/small_dunkleosteus_targets.json
-a258313c940ee5835c33454230acbcf0f99803e1 data/unusual_prehistory/tags/entity_types/spawns_multiple_babies.json
 d9812ed858767fd0f40302ad062bbea00193cae7 data/unusual_prehistory/tags/entity_types/stethacanthus_avoids.json
 5e7effbf585b098cb7a3c9750aaad64b17eb094d data/unusual_prehistory/tags/entity_types/stethacanthus_targets.json
 9c905ae04539b6ec0a8d2ae51b14f01383bf927c data/unusual_prehistory/tags/entity_types/talpanas_avoids.json

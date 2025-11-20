@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
-import com.barlinc.unusual_prehistory.registry.UP2RecipeTypes;
+import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierMenu;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState state) {
         super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, state);
-        this.recipeType = UP2RecipeTypes.TRANSMOGRIFICATION.get();
+        this.recipeType = UP2Recipes.TRANSMOGRIFICATION.get();
         this.data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -162,7 +162,7 @@ public class TransmogrifierBlockEntity extends SyncedBlockEntity implements Menu
     }
 
     protected Optional<TransmogrificationRecipe> getRecipeFor(Level level, Container input) {
-        return level.getRecipeManager().getRecipeFor(UP2RecipeTypes.TRANSMOGRIFICATION.get(), input, level);
+        return level.getRecipeManager().getRecipeFor(UP2Recipes.TRANSMOGRIFICATION.get(), input, level);
     }
 
     private void assembleRecipe(final Level level, final Container input, TransmogrificationRecipe recipe) {

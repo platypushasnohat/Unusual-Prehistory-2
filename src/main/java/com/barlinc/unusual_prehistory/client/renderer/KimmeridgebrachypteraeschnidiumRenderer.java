@@ -1,13 +1,13 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.KimmeridgebrachypteraeschnidiumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumWingLayer;
 import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2EntityModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM)), 0.3F);
+        super(context, new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM)), 0.3F);
         this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));

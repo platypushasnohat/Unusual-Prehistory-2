@@ -12,15 +12,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class WaterEggBlock extends FrogspawnBlock {
 
-    private final RegistryObject<EntityType> hatchedEntity;
+    private final Supplier<EntityType<?>> hatchedEntity;
     private final int babyCount;
 
-    public WaterEggBlock(Properties properties, RegistryObject hatchedEntity, int spawnCount) {
+    public WaterEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int spawnCount) {
         super(properties);
         this.hatchedEntity = hatchedEntity;
         this.babyCount = spawnCount;

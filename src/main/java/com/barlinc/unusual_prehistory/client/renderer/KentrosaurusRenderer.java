@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.KentrosaurusModel;
 import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,7 +19,7 @@ public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, Kentrosaurus
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kentrosaurus.png");
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new KentrosaurusModel(context.bakeLayer(UP2EntityModelLayers.KENTROSAURUS)), 0.9F);
+        super(context, new KentrosaurusModel(context.bakeLayer(UP2ModelLayers.KENTROSAURUS)), 0.9F);
     }
 
     @Override

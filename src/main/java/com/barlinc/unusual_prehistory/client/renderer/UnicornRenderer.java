@@ -1,11 +1,11 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornSkeletonModel;
 import com.barlinc.unusual_prehistory.entity.Unicorn;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,9 +27,9 @@ public class UnicornRenderer extends MobRenderer<Unicorn, HierarchicalModel<Unic
     private static final ResourceLocation TEXTURE_SKELETON = UnusualPrehistory2.modPrefix("textures/entity/unicorn/unicorn_skeleton.png");
 
     public UnicornRenderer(EntityRendererProvider.Context context) {
-        super(context, new UnicornModel(context.bakeLayer(UP2EntityModelLayers.UNICORN)), 0.9F);
-        this.unicornModel = new UnicornModel(context.bakeLayer(UP2EntityModelLayers.UNICORN));
-        this.unicornSkeletonModel = new UnicornSkeletonModel(context.bakeLayer(UP2EntityModelLayers.UNICORN_SKELETON));
+        super(context, new UnicornModel(context.bakeLayer(UP2ModelLayers.UNICORN)), 0.9F);
+        this.unicornModel = new UnicornModel(context.bakeLayer(UP2ModelLayers.UNICORN));
+        this.unicornSkeletonModel = new UnicornSkeletonModel(context.bakeLayer(UP2ModelLayers.UNICORN_SKELETON));
     }
 
     @Override

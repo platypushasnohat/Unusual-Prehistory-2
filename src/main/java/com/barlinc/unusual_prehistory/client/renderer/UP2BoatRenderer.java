@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
-import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.util.Pair;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.UP2Boat;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "F": {
+      "item": "unusual_prehistory:fossilized_bone_block"
+    }
+  },
+  "pattern": [
+    "FFF"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusual_prehistory:fossilized_bone_row"
+  },
+  "show_notification": true
+}

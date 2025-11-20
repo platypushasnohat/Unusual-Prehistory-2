@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import org.jetbrains.annotations.NotNull;
 
 public class FossilizedSkullBlock extends HorizontalDirectionalBlock implements Equipable {
 
@@ -30,7 +31,7 @@ public class FossilizedSkullBlock extends HorizontalDirectionalBlock implements 
     }
 
     @Override
-    public EquipmentSlot getEquipmentSlot() {
+    public @NotNull EquipmentSlot getEquipmentSlot() {
         return EquipmentSlot.HEAD;
     }
 }

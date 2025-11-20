@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.CarnotaurusModel;
 import com.barlinc.unusual_prehistory.entity.Carnotaurus;
-import com.barlinc.unusual_prehistory.registry.UP2EntityModelLayers;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -19,7 +19,7 @@ public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusMod
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/carnotaurus.png");
 
     public CarnotaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new CarnotaurusModel(context.bakeLayer(UP2EntityModelLayers.CARNOTAURUS)), 0.8F);
+        super(context, new CarnotaurusModel(context.bakeLayer(UP2ModelLayers.CARNOTAURUS)), 0.8F);
     }
 
     @Override

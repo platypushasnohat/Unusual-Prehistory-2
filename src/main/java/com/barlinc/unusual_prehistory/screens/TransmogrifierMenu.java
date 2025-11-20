@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -88,7 +89,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
     private static final int CULTIVATOR_SLOT_COUNT = 3;
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot sourceSlot = slots.get(index);
 
         if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
@@ -119,7 +120,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, UP2Blocks.TRANSMOGRIFIER.get());
     }
 
@@ -144,7 +145,7 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         }
 
         @Override
-        public boolean mayPlace(ItemStack itemStack) {
+        public boolean mayPlace(@NotNull ItemStack itemStack) {
             return super.mayPlace(itemStack) && itemStack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
         }
     }

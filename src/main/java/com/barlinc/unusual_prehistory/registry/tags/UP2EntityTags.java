@@ -22,8 +22,6 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = modEntityTag("megalania_targets");
 
-    public static final TagKey<EntityType<?>> SCAUMENACIA_AVOIDS = modEntityTag("scaumenacia_avoids");
-
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");
 
     public static final TagKey<EntityType<?>> STETHACANTHUS_TARGETS = modEntityTag("stethacanthus_targets");
@@ -34,10 +32,6 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> SCATTERS_TELECREX = modEntityTag("scatters_telecrex");
 
     public static final TagKey<EntityType<?>> SCATTERS_KIMMERIDGEBRACHYPTERAESCHNIDIUM = modEntityTag("scatters_kimmeridgebrachypteraeschnidium");
-
-    public static final TagKey<EntityType<?>> SPAWNS_MULTIPLE_BABIES = modEntityTag("spawns_multiple_babies");
-
-    public static final TagKey<EntityType<?>> TAR_WALKABLE_MOBS = modEntityTag("tar_walkable_mobs");
 
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);

@@ -20,7 +20,7 @@ public class TransmogrifierResultSlot extends SlotItemHandler {
     }
 
     @Override
-    public boolean mayPlace(ItemStack itemStack) {
+    public boolean mayPlace(@NotNull ItemStack itemStack) {
         return false;
     }
 
@@ -34,13 +34,13 @@ public class TransmogrifierResultSlot extends SlotItemHandler {
     }
 
     @Override
-    public void onTake(Player player, ItemStack stack) {
+    public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
         this.checkTakeAchievements(stack);
         super.onTake(player, stack);
     }
 
     @Override
-    protected void onQuickCraft(ItemStack stack, int amount) {
+    protected void onQuickCraft(@NotNull ItemStack stack, int amount) {
         this.removeCount += amount;
         this.checkTakeAchievements(stack);
     }
