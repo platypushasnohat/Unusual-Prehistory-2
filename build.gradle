@@ -7,7 +7,7 @@ plugins {
 }
 
 version = "${project.mc_version}-${project.mod_version}"
-group = "com.unusualmodding.${mod_id}"
+group = "com.barlinc.${mod_id}"
 archivesBaseName = "Unusual-Prehistory-2"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
