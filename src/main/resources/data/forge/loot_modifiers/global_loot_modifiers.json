@@ -1,7 +1,8 @@
 {
   "replace": false,
   "entries": [
-    "unusual_prehistory:add_loot_abandoned_mineshaft",
-    "unusual_prehistory:add_loot_simple_dungeon"
+    "unusual_prehistory:abandoned_mineshaft",
+    "unusual_prehistory:simple_dungeon",
+    "unusual_prehistory:trail_ruins"
   ]
 }

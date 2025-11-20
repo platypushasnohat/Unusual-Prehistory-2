@@ -11,28 +11,31 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
-import static net.minecraft.world.level.storage.loot.LootTable.createStackSplitter;
-
+@SuppressWarnings("deprecation")
 public class AddLootTableModifier extends LootModifier {
 
-    public static final Supplier<Codec<AddLootTableModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(inst -> codecStart(inst).and(ResourceLocation.CODEC.fieldOf("lootTable").forGetter((m) -> m.lootTable)).apply(inst, AddLootTableModifier::new)));
+    public static final Supplier<Codec<AddLootTableModifier>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.create(instance -> codecStart(instance)
+                    .and(ResourceLocation.CODEC.fieldOf("lootTable").forGetter((modifier) -> modifier.lootTable))
+                    .apply(instance, AddLootTableModifier::new)
+            )
+    );
 
     private final ResourceLocation lootTable;
 
-    protected AddLootTableModifier(LootItemCondition[] conditionsIn, ResourceLocation lootTable) {
-        super(conditionsIn);
+    protected AddLootTableModifier(LootItemCondition[] conditions, ResourceLocation lootTable) {
+        super(conditions);
         this.lootTable = lootTable;
     }
 
-    @Nonnull
     @Override
-    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         LootTable extraTable = context.getResolver().getLootTable(this.lootTable);
-        extraTable.getRandomItemsRaw(context, createStackSplitter(context.getLevel(), generatedLoot::add));
+        extraTable.getRandomItemsRaw(context, LootTable.createStackSplitter(context.getLevel(), generatedLoot::add));
         return generatedLoot;
     }
 

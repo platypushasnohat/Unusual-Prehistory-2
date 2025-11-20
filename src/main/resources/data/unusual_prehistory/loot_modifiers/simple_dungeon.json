@@ -6,5 +6,5 @@
       "loot_table_id": "minecraft:chests/simple_dungeon"
     }
   ],
-  "lootTable": "unusual_prehistory:chests/unusual_prehistory_simple_dungeon"
+  "lootTable": "unusual_prehistory:chests/simple_dungeon"
 }
