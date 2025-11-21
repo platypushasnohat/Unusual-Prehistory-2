@@ -1,6 +1,5 @@
 {
-  "type": "unusual_prehistory:fossil_site_map",
-  "chance": 0.15,
+  "type": "unusual_prehistory:add_loot_table",
   "conditions": [
     {
       "condition": "forge:loot_table_id",
@@ -18,5 +17,6 @@
       "condition": "forge:loot_table_id",
       "loot_table_id": "minecraft:chests/simple_dungeon"
     }
-  ]
+  ],
+  "lootTable": "unusual_prehistory:chests/doodads"
 }

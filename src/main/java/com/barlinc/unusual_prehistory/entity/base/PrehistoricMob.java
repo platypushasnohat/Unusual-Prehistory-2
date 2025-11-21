@@ -45,7 +45,6 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
-    public int idleAnimationTimeout = 0;
 
     private final byte PACIFY = 9;
 
@@ -184,15 +183,10 @@ public abstract class PrehistoricMob extends Animal {
     public void tick () {
         super.tick();
 
-        if (this.level().isClientSide()) {
-            this.setupAnimationStates();
-        }
-
+        if (this.level().isClientSide()) this.setupAnimationStates();
         this.setupAnimationCooldowns();
 
-        if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) {
-            this.heal(2);
-        }
+        if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
     }
 
     public void setupAnimationCooldowns() {
@@ -201,8 +195,19 @@ public abstract class PrehistoricMob extends Animal {
     public void setupAnimationStates() {
     }
 
+    @Override
+    public void calculateEntityAnimation(boolean flying) {
+        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
+        float f2 = Math.min(f1 * this.getWalkAnimationSpeed(), 1.0F);
+        this.walkAnimation.update(f2, 0.4F);
+    }
+
+    public float getWalkAnimationSpeed() {
+        return this.isBaby() ? 5.0F : 10.0F;
+    }
+
     public int getHealCooldown() {
-        return 100;
+        return 250;
     }
 
     public boolean isInPoseTransition() {

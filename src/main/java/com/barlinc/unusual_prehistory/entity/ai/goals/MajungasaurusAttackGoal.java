@@ -5,7 +5,6 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
 
 import java.util.Objects;
 
@@ -21,14 +20,12 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     @Override
     public void start() {
         super.start();
-        this.majungasaurus.setPose(Pose.STANDING);
         this.majungasaurus.exitStealth();
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.majungasaurus.setPose(Pose.STANDING);
         this.majungasaurus.exitStealth();
     }
 

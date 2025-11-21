@@ -146,7 +146,7 @@ public class Carnotaurus extends PrehistoricMob {
 
     public void setupAnimationStates() {
         this.angryAnimationState.animateWhen(this.isAngry(), this.tickCount);
-        this.idleAnimationState.animateWhen(!this.isCharging() && !this.isRoaring(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCharging() && !this.isRoaring() && !this.isInWater(), this.tickCount);
         this.chargeAnimationState.animateWhen(this.isCharging(), this.tickCount);
         this.roarAnimationState.animateWhen(this.isRoaring(), this.tickCount);
         this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
@@ -159,14 +159,14 @@ public class Carnotaurus extends PrehistoricMob {
             if (this.getPose() == Pose.SNIFFING) {
                 this.waveAnimationState.stop();
                 this.sniffAnimationState.start(this.tickCount);
-            } else {
-                this.sniffAnimationState.stop();
             }
-            if (this.getPose() == UP2Poses.WAVING.get()) {
+            else if (this.getPose() == UP2Poses.WAVING.get()) {
                 this.sniffAnimationState.stop();
                 this.waveAnimationState.start(this.tickCount);
-            } else {
+            }
+            else {
                 this.waveAnimationState.stop();
+                this.sniffAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);

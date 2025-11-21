@@ -122,6 +122,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
         this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
         this.sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
+        this.sound(UP2SoundEvents.MEGALANIA_ROAR, "Megalania roars");
 
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");

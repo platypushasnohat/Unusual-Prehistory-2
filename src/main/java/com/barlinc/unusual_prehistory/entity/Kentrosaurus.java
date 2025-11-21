@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.KentrosaurusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.KentrosaurusLayDownGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
@@ -47,9 +47,10 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState layDownAnimationState = new AnimationState();
     public final AnimationState layDownIdleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
-    public final AnimationState swimmingAnimationState = new AnimationState();
 
-    private int grazingTimer = 0;
+    private int attackTicks;
+
+    private final byte GRAZE = 66;
 
     public Kentrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -60,10 +61,10 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KentrosaurusPanicGoal(this));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
@@ -100,6 +101,8 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
+        if (this.attackTicks > 0) attackTicks--;
+        if (this.attackTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
         if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
         if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) this.standUp();
     }
@@ -107,28 +110,22 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public void setupAnimationCooldowns() {
         if (!this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
-            if (this.getLayDownCooldown() > 0) {
-                this.setLayDownCooldown(this.getLayDownCooldown() - 1);
-            }
-            if (!this.isKentrosaurusLayingDown()) {
-                if (!this.isGrazing() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
-                    this.setGrazing(true);
+            if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
+            if (!this.isKentrosaurusLayingDown() && this.getPose() == Pose.STANDING) {
+                if (!this.grazeAnimationState.isStarted() && this.random.nextInt(350) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
+                    this.level().broadcastEntityEvent(this, this.GRAZE);
                 }
-            }
-            if (this.isGrazing() && this.grazingTimer++ > 40) {
-                this.grazingTimer = 0;
-                this.setGrazing(false);
             }
         }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-        this.attack1AnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        this.attack2AnimationState.animateWhen(this.getAttackState() == 2, this.tickCount);
-        this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.grazeAnimationState.animateWhen(this.isGrazing(), this.tickCount);
+        if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+        }
+        this.idleAnimationState.animateWhen(!this.isInWater() && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
 
         if (this.isKentrosaurusVisuallyLayingDown()) {
             this.standUpAnimationState.stop();
@@ -136,7 +133,6 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.grazeAnimationState.stop();
-
             if (this.isVisuallyLayingDown()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
                 this.layDownIdleAnimationState.stop();
@@ -149,6 +145,28 @@ public class Kentrosaurus extends PrehistoricMob {
             this.layDownIdleAnimationState.stop();
             this.standUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.TAIL_WHIPPING.get()) {
+                this.grazeAnimationState.stop();
+                if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
+                else this.attack2AnimationState.start(this.tickCount);
+                this.attackTicks = 40;
+            }
+            else {
+                this.attack1AnimationState.stop();
+                this.attack2AnimationState.stop();
+            }
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == this.GRAZE) this.grazeAnimationState.start(this.tickCount);
+        else super.handleEntityEvent(id);
     }
 
     @Override

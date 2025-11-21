@@ -17,12 +17,12 @@ public class MegalaniaRoarGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.megalania.roarCooldown == 0 && this.megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !this.megalania.isInWater() && this.megalania.onGround();
+        return this.megalania.getPose() == Pose.STANDING && !this.megalania.isMegalaniaLayingDown() && this.megalania.roarCooldown == 0 && this.megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !this.megalania.isInWater() && this.megalania.onGround();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return timer > 0 && !this.megalania.isInWater() && this.megalania.onGround();
+        return timer > 0 && !this.megalania.isInWater() && this.megalania.onGround() && this.megalania.getPose() == Pose.ROARING;
     }
 
     @Override
@@ -30,19 +30,18 @@ public class MegalaniaRoarGoal extends Goal {
         super.start();
         this.megalania.setPose(Pose.ROARING);
         this.timer = 80;
-        this.megalania.playSound(UP2SoundEvents.MEGALANIA_IDLE.get(), 1.0F, this.megalania.getVoicePitch());
     }
 
     @Override
     public void tick() {
         this.timer--;
+        if (timer == 61) megalania.playSound(UP2SoundEvents.MEGALANIA_ROAR.get(), 1.5F, megalania.getVoicePitch());
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.megalania.setPose(Pose.STANDING);
-        this.megalania.roarCooldown = 300 + megalania.getRandom().nextInt(30 * 40);;
+        this.megalania.roarCooldown = 300 + megalania.getRandom().nextInt(60 * 60);
     }
 
     @Override

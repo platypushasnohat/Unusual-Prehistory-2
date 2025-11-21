@@ -1,11 +1,8 @@
 {
   "replace": false,
   "entries": [
-    "unusual_prehistory:abandoned_mineshaft",
-    "unusual_prehistory:desert_pyramid",
-    "unusual_prehistory:jungle_temple",
-    "unusual_prehistory:ocean_ruin_warm",
-    "unusual_prehistory:simple_dungeon",
+    "unusual_prehistory:holocene_common",
+    "unusual_prehistory:doodads",
     "unusual_prehistory:fossil_site_map"
   ]
 }

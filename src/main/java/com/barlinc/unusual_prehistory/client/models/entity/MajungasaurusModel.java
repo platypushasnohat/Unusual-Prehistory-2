@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.MajungasaurusAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
+public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 
 	private float alpha = 1.0F;
 
@@ -42,7 +42,8 @@ public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
 	private final ModelPart tail2;
 
 	public MajungasaurusModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.leg_control = this.body_main.getChild("leg_control");
 		this.left_leg1 = this.leg_control.getChild("left_leg1");
@@ -157,20 +158,14 @@ public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (entity.isInWaterOrBubble()) {
-			if (this.young) {
-				this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 8);
-			} else {
-				this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
-			}
+			if (this.young) this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 8);
+			else this.animateWalk(MajungasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
 		} else {
 			if (entity.isMajungasaurusStealthMode() && !entity.isInPoseTransition()) {
 				this.animateWalk(MajungasaurusAnimations.CAMOFLAUGE_WALK, limbSwing, limbSwingAmount, 4, 8);
 			} else {
-				if (this.young) {
-					this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
-				} else {
-					this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
-				}
+				if (this.young) this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
+				else this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 			}
 		}
 
@@ -178,12 +173,12 @@ public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
 			this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 		}
 
-		this.animate(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks);
+        this.animateIdle(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.BITE_RIGHT, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.BITE_LEFT, ageInTicks);
 
 		this.animate(entity.enterStealthAnimationState, MajungasaurusAnimations.CAMOFLAUGE_START, ageInTicks);
-		this.animate(entity.stealthIdleAnimationState, MajungasaurusAnimations.CAMOFLAUGE_IDLE, ageInTicks);
+        this.animateIdle(entity.stealthIdleAnimationState, MajungasaurusAnimations.CAMOFLAUGE_IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.exitStealthAnimationState, MajungasaurusAnimations.CAMOFLAUGE_END, ageInTicks);
 
 		this.animate(entity.eyesAnimationState, MajungasaurusAnimations.EYES, ageInTicks);
@@ -194,16 +189,12 @@ public class MajungasaurusModel extends HierarchicalModel<Majungasaurus> {
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		if (this.young) {
-			float babyScale = 0.5F;
-			float bodyYOffset = 24.0F;
-			poseStack.pushPose();
-			poseStack.scale(babyScale, babyScale, babyScale);
-			poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-        } else {
-			poseStack.pushPose();
+        poseStack.pushPose();
+        if (this.young) {
+            poseStack.scale(this.youngScaleFactor, this.youngScaleFactor, this.youngScaleFactor);
+            poseStack.translate(0.0F, this.bodyYOffset / 16.0F, 0.0F);
         }
-        this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
+        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
         poseStack.popPose();
     }
 

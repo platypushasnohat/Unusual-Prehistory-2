@@ -14,11 +14,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+
 @OnlyIn(Dist.CLIENT)
 public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, MajungasaurusModel> {
-
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/majungasaurus.png");
-    private static final ResourceLocation DUSKLURKER_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/dusklurker_majungasaurus.png");
 
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MajungasaurusModel(context.bakeLayer(UP2ModelLayers.MAJUNGASAURUS)), 0.8F);
@@ -26,8 +25,8 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Majungasaurus entity) {
-        if (entity.getVariant() == 1) return DUSKLURKER_TEXTURE;
-        else return TEXTURE;
+        Majungasaurus.MajungasaurusVariant variant = Majungasaurus.MajungasaurusVariant.byId(entity.getVariant());
+        return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override
@@ -37,7 +36,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     }
 
     protected void scale(Majungasaurus entity, @NotNull PoseStack poseStack, float partialTicks) {
-        float alpha = 1.0F - 0.85F * entity.getStealthProgress(partialTicks);
+        float alpha = 1.0F - 0.9F * entity.getStealthProgress(partialTicks);
         this.model.setAlpha(alpha);
     }
 }

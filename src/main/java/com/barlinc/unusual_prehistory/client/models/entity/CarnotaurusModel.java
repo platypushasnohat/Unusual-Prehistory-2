@@ -1,10 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.CarnotaurusAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Carnotaurus;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
+public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -41,7 +39,8 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 	private final ModelPart tail2;
 
 	public CarnotaurusModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.leg_control = this.body_main.getChild("leg_control");
 		this.left_leg1 = this.leg_control.getChild("left_leg1");
@@ -163,20 +162,13 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isCharging()) {
-            if (entity.isInWater()) {
-                this.animateWalk(CarnotaurusAnimations.SWIM, limbSwing, limbSwingAmount, 8, 12);
-            }
-			else {
-                if (this.young) this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 6);
-                else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 6);
-            }
+            if (entity.isInWater()) this.animateWalk(CarnotaurusAnimations.SWIM, limbSwing, limbSwingAmount * 4, 4, 8);
+			else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
-		if (this.young) {
-			this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
-		}
+		if (this.young) this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
 
-		this.animate(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks);
+		this.animateIdle(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
 		this.animate(entity.biteAnimationState, CarnotaurusAnimations.BITE, ageInTicks);
 		this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT, ageInTicks);
 		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
@@ -188,21 +180,6 @@ public class CarnotaurusModel extends HierarchicalModel<Carnotaurus> {
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 	}
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
-    }
 
 	@Override
 	public @NotNull ModelPart root() {

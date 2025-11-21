@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus;
+package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;

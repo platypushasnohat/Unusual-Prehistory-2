@@ -1,0 +1,12 @@
+{
+  "type": "unusual_prehistory:add_loot_table",
+  "replace": true,
+  "replaceChance": 0.06,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/ocean_ruin_warm"
+    }
+  ],
+  "lootTable": "unusual_prehistory:archaeology/holocene_common"
+}

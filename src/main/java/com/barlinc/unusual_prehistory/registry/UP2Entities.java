@@ -84,7 +84,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Majungasaurus>> MAJUNGASAURUS = ENTITY_TYPE.register(
             "majungasaurus", () ->
             EntityType.Builder.of(Majungasaurus::new, MobCategory.CREATURE)
-                    .sized(1.25F, 2.5F)
+                    .sized(1.25F, 2.25F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
     );

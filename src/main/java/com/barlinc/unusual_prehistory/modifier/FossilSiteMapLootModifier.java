@@ -18,21 +18,25 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class FossilSiteMapLootModifier implements IGlobalLootModifier {
 
-    public static final Supplier<Codec<FossilSiteMapLootModifier>> CODEC = () -> RecordCodecBuilder.create(instance -> instance.group(LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(lm -> lm.conditions)).apply(instance, FossilSiteMapLootModifier::new));
+    public static final Supplier<Codec<FossilSiteMapLootModifier>> CODEC = () ->
+            RecordCodecBuilder.create(instance -> instance.group(
+                            LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(modifier -> modifier.conditions),
+                            Codec.FLOAT.optionalFieldOf("chance", 1.0F).forGetter(modifier -> modifier.chance))
+                    .apply(instance, FossilSiteMapLootModifier::new));
 
     private final LootItemCondition[] conditions;
-
     private final Predicate<LootContext> orConditions;
+    private final float chance;
 
-    protected FossilSiteMapLootModifier(LootItemCondition[] conditions) {
+    protected FossilSiteMapLootModifier(LootItemCondition[] conditions, float chance) {
         this.conditions = conditions;
         this.orConditions = LootItemConditions.orConditions(conditions);
+        this.chance = chance;
     }
 
     @NotNull
@@ -41,9 +45,9 @@ public class FossilSiteMapLootModifier implements IGlobalLootModifier {
         return this.orConditions.test(context) ? this.doApply(generatedLoot, context) : generatedLoot;
     }
 
-    @Nonnull
+    @NotNull
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        if (context.getRandom().nextFloat() < this.getChance() && context.hasParam(LootContextParams.ORIGIN)) {
+        if (context.getRandom().nextFloat() < chance && context.hasParam(LootContextParams.ORIGIN)) {
             ServerLevel serverlevel = context.getLevel();
             BlockPos chestPos = BlockPos.containing(context.getParam(LootContextParams.ORIGIN));
             BlockPos blockpos = serverlevel.findNearestMapStructure(UP2StructureTags.ON_FOSSIL_MAPS, chestPos, 100, true);
@@ -56,10 +60,6 @@ public class FossilSiteMapLootModifier implements IGlobalLootModifier {
             }
         }
         return generatedLoot;
-    }
-
-    private float getChance() {
-        return 0.15F;
     }
 
     @Override

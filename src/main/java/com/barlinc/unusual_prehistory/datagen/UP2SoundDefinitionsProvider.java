@@ -10,7 +10,6 @@ import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("SameParameterValue")
 public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     public UP2SoundDefinitionsProvider(PackOutput packOutput, ExistingFileHelper helper) {
@@ -19,6 +18,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+
+        // Carnotaurus
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt1")).pitch(1.2F)
         );
@@ -51,6 +52,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
         );
 
+        // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
                 sound("mob/frog/hurt1").pitch(0.8F),
                 sound("mob/frog/hurt2").pitch(0.8F),
@@ -70,6 +72,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/idle7").pitch(0.8F)
         );
 
+        // Dromaeosaurus
         this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_0")).volume(0.8F),
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_1")).volume(0.8F)
@@ -87,6 +90,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1")).volume(0.7F)
         );
 
+        // Dunkleosteus
         this.sound(UP2SoundEvents.DUNKLEOSTEUS_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),
@@ -109,12 +113,13 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/small_bite1")).volume(0.7F)
         );
         this.sound(UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/medium_bite1")).volume(0.7F)
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/medium_bite1")).volume(0.9F)
         );
         this.sound(UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/large_bite1")).volume(0.7F)
+                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/large_bite1"))
         );
 
+        // Jawless fish
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),
@@ -134,6 +139,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3F)
         );
 
+        // Kentrosaurus
         this.sound(UP2SoundEvents.KENTROSAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/hurt1")),
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/hurt2"))
@@ -161,6 +167,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/goat/eat3").pitch(0.86F)
         );
 
+        // Kimmeridgebrachypteraeschnidium
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt1")).pitch(1.4F),
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt2")).pitch(1.4F)
@@ -180,25 +187,27 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
         );
 
+        // Majungasaurus
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt2")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death1")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death2"))
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death2")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")).pitch(1.3F),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")).pitch(1.3F),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3")).pitch(1.3F)
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")).pitch(1.2F),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")).pitch(1.2F),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3")).pitch(1.2F)
         );
 
+        // Megalania
         this.sound(UP2SoundEvents.MEGALANIA_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt1")).pitch(0.9F),
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt2")).pitch(0.9F)
@@ -212,7 +221,11 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/idle2")).pitch(0.8F),
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/idle3")).pitch(0.8F)
         );
+        this.sound(UP2SoundEvents.MEGALANIA_ROAR,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/roar1"))
+        );
 
+        // Stethacanthus
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,
                 sound("entity/fish/hurt1"),
                 sound("entity/fish/hurt2"),
@@ -232,6 +245,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3F)
         );
 
+        // Talpanas
         this.sound(UP2SoundEvents.TALPANAS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt1")).volume(0.8F),
                 sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt2")).volume(0.8F)
@@ -245,6 +259,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle2")).volume(0.8F)
         );
 
+        // Telecrex
         this.sound(UP2SoundEvents.TELECREX_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt1")),
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt2"))
@@ -260,6 +275,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle4"))
         );
 
+        // Unicorn
         this.sound(UP2SoundEvents.UNICORN_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/hurt1"))
         );
@@ -273,6 +289,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle4"))
         );
 
+        // Transmogrifier
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP,
                 sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.7F).pitch(0.78F)
         );
@@ -283,12 +300,14 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("block/transmogrifier/stop1")).attenuationDistance(10)
         );
 
-        this.sound(UP2SoundEvents.TARIFYING_DISC,
-                sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
-        );
-
+        // Tar
         this.sound(UP2SoundEvents.TAR_POP,
                 sound(UnusualPrehistory2.modPrefix("block/tar/pop1"))
+        );
+
+        // Music discs
+        this.sound(UP2SoundEvents.TARIFYING_DISC,
+                sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );
     }
 

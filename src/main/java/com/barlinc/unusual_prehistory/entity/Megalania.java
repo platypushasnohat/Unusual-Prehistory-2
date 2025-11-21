@@ -32,10 +32,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.LookControl;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -63,7 +60,10 @@ public class Megalania extends SemiAquaticMob {
     public float tempProgress = 0F;
     public float prevTempProgress = 0F;
 
-    public int roarCooldown = 500 + this.getRandom().nextInt(80 * 80);
+    @Nullable
+    private SemiAquaticRandomStrollGoal randomStrollGoal;
+
+    public int roarCooldown = 300 + this.getRandom().nextInt(60 * 60);
 
     private final byte TONGUE = 66;
     private final byte FLICK1 = 67;
@@ -95,20 +95,22 @@ public class Megalania extends SemiAquaticMob {
 
     private int bitingTicks;
     private int tailWhipTicks;
+    private int roarTicks;
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
         this.switchNavigator(true);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     @Override
     protected void registerGoals() {
+        this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
         this.goalSelector.addGoal(0, new LeaveWaterGoal(this, 1.0D, 1200, 2400));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
-        this.goalSelector.addGoal(2, new SemiAquaticRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, this.randomStrollGoal);
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -116,7 +118,7 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(7, new MegalaniaLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
-        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MEGALANIA_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -173,6 +175,11 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return this.getTemperatureState() == TemperatureStates.NETHER;
     }
 
     public void applyPoison(@NotNull LivingEntity entity) {
@@ -324,6 +331,9 @@ public class Megalania extends SemiAquaticMob {
         if (tailWhipTicks > 0) tailWhipTicks--;
         if (tailWhipTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
 
+        if (roarTicks > 0) roarTicks--;
+        if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
+
         if (this.isMegalaniaLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
         if ((this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) || !this.isRightTemperatureToSit()) this.standUp();
 
@@ -364,7 +374,7 @@ public class Megalania extends SemiAquaticMob {
             this.biting2AnimationState.stop();
         }
         if (tailWhipTicks == 0 && this.tailWhipAnimationState.isStarted()) this.tailWhipAnimationState.stop();
-        this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble() && this.getPose() != Pose.ROARING && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() != Pose.ROARING && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.getBehavior().equals(Behaviors.ANGRY.getName()) && this.getPose() == Pose.STANDING, this.tickCount);
 
@@ -399,10 +409,10 @@ public class Megalania extends SemiAquaticMob {
                 if (this.random.nextInt(200) == 0) {
                     this.level().broadcastEntityEvent(this, this.TONGUE);
                 }
-                if (this.random.nextInt(800) == 0 && !this.flick2AnimationState.isStarted()) {
+                if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
                     this.level().broadcastEntityEvent(this, this.FLICK1);
                 }
-                if (this.random.nextInt(800) == 0 && !this.flick1AnimationState.isStarted()) {
+                if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
                     this.level().broadcastEntityEvent(this, this.FLICK2);
                 }
                 if (this.random.nextInt(700) == 0 && !this.tongueAnimationState.isStarted()) {
@@ -412,11 +422,8 @@ public class Megalania extends SemiAquaticMob {
         }
     }
 
-    @Override
-    public void calculateEntityAnimation(boolean flying) {
-        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float f2 = Math.min(f1 * 10.0F, 1.0F);
-        this.walkAnimation.update(f2, 0.4F);
+    private boolean flickAnimationStarted() {
+        return this.flick1AnimationState.isStarted() || this.flick2AnimationState.isStarted();
     }
 
     @Override
@@ -441,6 +448,7 @@ public class Megalania extends SemiAquaticMob {
                 this.leapingAnimationState.stop();
                 this.flick2AnimationState.stop();
                 this.flick1AnimationState.stop();
+                this.roarTicks = 80;
                 this.roaringAnimationState.start(this.tickCount);
             }
             else if (this.getPose() == UP2Poses.BITING.get()) {
@@ -462,15 +470,27 @@ public class Megalania extends SemiAquaticMob {
         if (TEMPERATURE_STATE.equals(accessor)) {
             if (this.getTemperatureState().equals(TemperatureStates.COLD)) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.12F);
+                if (this.randomStrollGoal != null) {
+                    this.randomStrollGoal.setInterval(200);
+                }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.TEMPERATE)) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.16F);
+                if (this.randomStrollGoal != null) {
+                    this.randomStrollGoal.setInterval(120);
+                }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.WARM)) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.19F);
+                if (this.randomStrollGoal != null) {
+                    this.randomStrollGoal.setInterval(80);
+                }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.NETHER)) {
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.22F);
+                if (this.randomStrollGoal != null) {
+                    this.randomStrollGoal.setInterval(50);
+                }
             }
         }
         super.onSyncedDataUpdated(accessor);

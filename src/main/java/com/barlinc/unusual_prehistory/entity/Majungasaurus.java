@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.MajungasaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -138,14 +139,8 @@ public class Majungasaurus extends PrehistoricMob {
             this.biteLeftAnimationState.stop();
         }
 
-        if (this.idleAnimationTimeout == 0) {
-            this.idleAnimationTimeout = 160;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
-        }
-
-        this.eyesAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isMajungasaurusStealthMode(), this.tickCount);
+        this.eyesAnimationState.animateWhen(this.getBehavior().equals(Behaviors.IDLE.getName()), this.tickCount);
 
         if (this.isMajungasaurusVisuallyStealthMode()) {
             this.exitStealthAnimationState.stop();
@@ -156,8 +151,7 @@ public class Majungasaurus extends PrehistoricMob {
                 this.stealthIdleAnimationState.stop();
             } else {
                 this.enterStealthAnimationState.stop();
-                if (this.getDeltaMovement().horizontalDistance() <= 0.0) this.stealthIdleAnimationState.startIfStopped(this.tickCount);
-                this.idleAnimationTimeout = 0;
+                this.stealthIdleAnimationState.startIfStopped(this.tickCount);
             }
         } else {
             this.stealthIdleAnimationState.stop();
@@ -283,20 +277,43 @@ public class Majungasaurus extends PrehistoricMob {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
        if (this.isMajungasaurusStealthMode()) {
-           this.playSound(SoundEvents.CAMEL_STEP, 0.25F, 0.9F);
+           this.playSound(SoundEvents.CAMEL_STEP, 0.1F, 0.9F);
        } else {
            this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
        }
     }
 
+    public enum MajungasaurusVariant {
+        MAJUNGASAURUS(0),
+        DUSKLURKER(1);
+
+        private final int id;
+
+        MajungasaurusVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static MajungasaurusVariant byId(int id) {
+            if (id < 0 || id >= MajungasaurusVariant.values().length) {
+                id = 0;
+            }
+            return MajungasaurusVariant.values()[id];
+        }
+    }
+
+    @Override
+    public int getVariantCount() {
+        return MajungasaurusVariant.values().length;
+    }
+
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        int variantChange = this.random.nextInt(0, 100);
-        if (variantChange <= 10 && this.level().isNight()) this.setVariant(1);
+        if (level.getRandom().nextFloat() < 0.15F && level.getLevel().isNight()) this.setVariant(1);
         else this.setVariant(0);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
-
-    // goals
-
 }

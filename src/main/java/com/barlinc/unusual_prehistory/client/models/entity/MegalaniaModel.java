@@ -2,12 +2,10 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.megalania.MegalaniaAnimations;
 import com.barlinc.unusual_prehistory.client.animations.megalania.MegalaniaIdleAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -19,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MegalaniaModel extends HierarchicalModel<Megalania> {
+public class MegalaniaModel extends UP2Model<Megalania> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -47,7 +45,8 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 	private final ModelPart right_leg2;
 
 	public MegalaniaModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.body_upper = this.body_main.getChild("body_upper");
 		this.body = this.body_upper.getChild("body");
@@ -146,7 +145,8 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 				}
 			} else {
 				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
-			}
+                this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
 			this.head.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 4;
 			this.head.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
 			this.neck.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
@@ -157,7 +157,7 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
 			this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 		}
 
-		this.animate(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks);
+        this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
         this.animate(entity.flick1AnimationState, MegalaniaIdleAnimations.FLICK1, ageInTicks);
@@ -170,23 +170,8 @@ public class MegalaniaModel extends HierarchicalModel<Megalania> {
         this.animate(entity.biting2AnimationState, MegalaniaAnimations.BITE2, ageInTicks);
         this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
         this.animate(entity.aggroAnimationState, MegalaniaAnimations.AGGRO, ageInTicks);
-        this.animate(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.65F + (Mth.clamp(limbSwingAmount, 0.3F, 1.0F) * 1.1F));
+        this.animateIdle(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
 	}
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
-    }
 
 	@Override
 	public @NotNull ModelPart root() {

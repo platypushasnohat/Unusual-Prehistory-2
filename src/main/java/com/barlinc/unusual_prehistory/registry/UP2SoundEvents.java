@@ -13,6 +13,7 @@ public class UP2SoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, UnusualPrehistory2.MOD_ID);
 
+    // Mobs
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HURT = registerSoundEvent("carnotaurus_hurt");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_DEATH = registerSoundEvent("carnotaurus_death");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_IDLE = registerSoundEvent("carnotaurus_idle");
@@ -64,6 +65,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_HURT = registerSoundEvent("megalania_hurt");
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
+    public static final RegistryObject<SoundEvent> MEGALANIA_ROAR = registerSoundEvent("megalania_roar");
 
     public static final RegistryObject<SoundEvent> STETHACANTHUS_HURT = registerSoundEvent("stethacanthus_hurt");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_DEATH = registerSoundEvent("stethacanthus_death");
@@ -81,6 +83,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> UNICORN_DEATH = registerSoundEvent("unicorn_death");
     public static final RegistryObject<SoundEvent> UNICORN_IDLE = registerSoundEvent("unicorn_idle");
 
+    // Misc
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_LOOP = registerSoundEvent("transmogrifier_loop");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_START = registerSoundEvent("transmogrifier_start");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");

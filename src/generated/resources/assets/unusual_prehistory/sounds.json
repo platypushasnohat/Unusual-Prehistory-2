@@ -381,10 +381,7 @@
   },
   "large_dunkleosteus_bite": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/dunkleosteus/large_bite1",
-        "volume": 0.7
-      }
+      "unusual_prehistory:entity/dunkleosteus/large_bite1"
     ],
     "subtitle": "subtitles.large_dunkleosteus_bite"
   },
@@ -392,38 +389,59 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/carnotaurus/bite1",
-        "pitch": 1.3
+        "pitch": 1.2
       },
       {
         "name": "unusual_prehistory:entity/carnotaurus/bite2",
-        "pitch": 1.3
+        "pitch": 1.2
       },
       {
         "name": "unusual_prehistory:entity/carnotaurus/bite3",
-        "pitch": 1.3
+        "pitch": 1.2
       }
     ],
     "subtitle": "subtitles.majungasaurus_bite"
   },
   "majungasaurus_death": {
     "sounds": [
-      "unusual_prehistory:entity/majungasaurus/death1",
-      "unusual_prehistory:entity/majungasaurus/death2"
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/death1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/death2",
+        "pitch": 0.9
+      }
     ],
     "subtitle": "subtitles.majungasaurus_death"
   },
   "majungasaurus_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/majungasaurus/hurt1",
-      "unusual_prehistory:entity/majungasaurus/hurt2"
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/hurt1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/hurt2",
+        "pitch": 0.9
+      }
     ],
     "subtitle": "subtitles.majungasaurus_hurt"
   },
   "majungasaurus_idle": {
     "sounds": [
-      "unusual_prehistory:entity/majungasaurus/idle1",
-      "unusual_prehistory:entity/majungasaurus/idle2",
-      "unusual_prehistory:entity/majungasaurus/idle3"
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/idle1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/idle2",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/majungasaurus/idle3",
+        "pitch": 0.9
+      }
     ],
     "subtitle": "subtitles.majungasaurus_idle"
   },
@@ -431,7 +449,7 @@
     "sounds": [
       {
         "name": "unusual_prehistory:entity/dunkleosteus/medium_bite1",
-        "volume": 0.7
+        "volume": 0.9
       }
     ],
     "subtitle": "subtitles.medium_dunkleosteus_bite"
@@ -478,6 +496,12 @@
       }
     ],
     "subtitle": "subtitles.megalania_idle"
+  },
+  "megalania_roar": {
+    "sounds": [
+      "unusual_prehistory:entity/megalania/roar1"
+    ],
+    "subtitle": "subtitles.megalania_roar"
   },
   "small_dunkleosteus_bite": {
     "sounds": [
