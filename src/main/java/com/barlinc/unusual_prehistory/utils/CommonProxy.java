@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -44,5 +45,8 @@ public class CommonProxy {
     }
 
     public void clearSoundCacheFor(BlockEntity entity) {
+    }
+
+    public void renderMapDecoration(MapDecoration mapDecoration, int index) {
     }
 }

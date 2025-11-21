@@ -11,24 +11,6 @@
         {
           "type": "minecraft:empty",
           "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:exploration_map",
-              "destination": "unusual_prehistory:on_fossil_maps",
-              "decoration": "red_x"
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "translate": "item.unusual_prehistory.fossil_explorer_map"
-              }
-            }
-          ],
-          "name": "minecraft:map",
-          "weight": 2
         }
       ]
     }

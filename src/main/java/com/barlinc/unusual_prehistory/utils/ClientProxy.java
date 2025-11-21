@@ -14,6 +14,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -133,5 +134,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void clearSoundCacheFor(BlockEntity entity) {
         BLOCK_ENTITY_SOUND_INSTANCE_MAP.remove(entity);
+    }
+
+    public void renderMapDecoration(MapDecoration mapDecoration, int index) {
+        ClientForgeEvents.renderMapDecoration(mapDecoration, index + 1);
     }
 }

@@ -3,7 +3,7 @@
   "conditions": [
     {
       "condition": "forge:loot_table_id",
-      "loot_table_id": "minecraft:chests/jungle_pyramid"
+      "loot_table_id": "minecraft:chests/jungle_temple"
     }
   ],
   "lootTable": "unusual_prehistory:chests/doodads"
