@@ -6,32 +6,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:plumage_fossil",
-          "weight": 3
+          "name": "unusual_prehistory:boomerang_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:guillotine_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 6
+          "weight": 8
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 5
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:flint",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:stick",
-          "weight": 5
+          "weight": 6
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:archaeology/tar_pit_common"
+  "random_sequence": "unusual_prehistory:archaeology/paleozoic_fossil_rare"
 }

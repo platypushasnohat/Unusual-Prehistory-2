@@ -25,8 +25,13 @@ public class UP2BiomeTagProvider extends BiomeTagsProvider {
 
     protected void addTags() {
 
-        this.tag(UP2BiomeTags.HAS_FOSSILS)
-                .addTag(BiomeTags.IS_OVERWORLD);
+        this.tag(UP2BiomeTags.HAS_FOSSIL)
+                .addTag(BiomeTags.IS_TAIGA)
+                .addTag(BiomeTags.IS_FOREST)
+                .addTag(BiomeTags.IS_JUNGLE)
+                .addTag(BiomeTags.IS_SAVANNA)
+                .addTag(Tags.Biomes.IS_PLAINS)
+                .addTag(Tags.Biomes.IS_SWAMP);
 
         this.tag(UP2BiomeTags.HAS_TAR_PIT)
                 .addTag(BiomeTags.IS_TAIGA)

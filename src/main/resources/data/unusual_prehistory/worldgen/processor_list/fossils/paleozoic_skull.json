@@ -5,19 +5,6 @@
       "rules": [
         {
           "input_predicate": {
-            "block": "minecraft:dirt",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.1
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:gravel"
-          }
-        },
-        {
-          "input_predicate": {
             "block": "minecraft:gravel",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.1
@@ -41,19 +28,6 @@
           "output_state": {
             "Name": "minecraft:coarse_dirt"
           }
-        },
-        {
-          "input_predicate": {
-            "block": "minecraft:coarse_dirt",
-            "predicate_type": "minecraft:random_block_match",
-            "probability": 0.1
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
-            "Name": "minecraft:gravel"
-          }
         }
       ]
     },
@@ -64,11 +38,11 @@
           {
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/tar_pit_common"
+              "loot_table": "unusual_prehistory:archaeology/paleozoic_fossil_common"
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:tar_pit_replaceable"
+              "tag": "unusual_prehistory:fossil_replaceable"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
@@ -82,7 +56,7 @@
           }
         ]
       },
-      "limit": 8,
+      "limit": 5,
       "processor_type": "minecraft:capped"
     },
     {
@@ -92,11 +66,11 @@
           {
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/tar_pit_rare"
+              "loot_table": "unusual_prehistory:archaeology/paleozoic_fossil_rare"
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:tar_pit_replaceable"
+              "tag": "unusual_prehistory:fossil_replaceable"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
@@ -110,7 +84,7 @@
           }
         ]
       },
-      "limit": 4,
+      "limit": 3,
       "processor_type": "minecraft:capped"
     }
   ]

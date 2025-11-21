@@ -4,16 +4,16 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/skull/diplocaulus",
-        "processors": "minecraft:empty",
+        "processors": "unusual_prehistory:fossils/paleozoic_skull",
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 3
     },
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/skull/unknown_0",
-        "processors": "minecraft:empty",
+        "processors": "unusual_prehistory:fossils/paleozoic_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/skull/unknown_1",
-        "processors": "minecraft:empty",
+        "processors": "unusual_prehistory:fossils/paleozoic_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/skull/unknown_2",
-        "processors": "minecraft:empty",
+        "processors": "unusual_prehistory:fossils/paleozoic_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -40,7 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/skull/unknown_3",
-        "processors": "minecraft:empty",
+        "processors": "unusual_prehistory:fossils/paleozoic_skull",
         "projection": "rigid"
       },
       "weight": 1
