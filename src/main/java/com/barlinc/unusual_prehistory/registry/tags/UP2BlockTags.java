@@ -10,6 +10,7 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> FOSSIL_REPLACEABLE = modBlockTag("fossil_replaceable");
     public static final TagKey<Block> TAR_PIT_REPLACEABLE = modBlockTag("tar_pit_replaceable");
+    public static final TagKey<Block> PETRIFIED_TREE_REPLACEABLE = modBlockTag("petrified_tree_replaceable");
 
     public static final TagKey<Block> ACCELERATES_EGG_HATCHING = modBlockTag("accelerates_egg_hatching");
     public static final TagKey<Block> PREVENTS_EGG_HATCHING = modBlockTag("prevents_egg_hatching");

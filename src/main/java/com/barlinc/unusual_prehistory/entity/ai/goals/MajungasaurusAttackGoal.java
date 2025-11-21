@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -41,7 +42,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
         LivingEntity target = this.majungasaurus.getTarget();
         if (target != null) {
             double distanceToTarget = this.majungasaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-            Pose pose = this.majungasaurus.getPose();
+            int attackState = this.majungasaurus.getAttackState();
 
             this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
 
@@ -54,9 +55,9 @@ public class MajungasaurusAttackGoal extends AttackGoal {
                 this.majungasaurus.getNavigation().moveTo(target, 1.7D);
             }
 
-            if (pose == UP2Poses.BITING.get()) tickBite();
+            if (attackState == 1) tickBite();
             else if (distanceToTarget <= this.getAttackReachSqr(target)) {
-                this.majungasaurus.setPose(UP2Poses.BITING.get());
+                this.majungasaurus.setAttackState(1);
             }
         }
     }
@@ -64,15 +65,17 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     protected void tickBite() {
         timer++;
         LivingEntity target = this.majungasaurus.getTarget();
+        if (timer == 1) majungasaurus.setPose(UP2Poses.BITING.get());
+        if (this.timer == 9) this.majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_BITE.get(), 1.0F, majungasaurus.getVoicePitch());
         if (timer == 11) {
             if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
                 this.majungasaurus.doHurtTarget(target);
                 this.majungasaurus.swing(InteractionHand.MAIN_HAND);
             }
         }
-        if (timer >= 22) {
+        if (timer > 22) {
             timer = 0;
-            this.majungasaurus.setPose(Pose.STANDING);
+            this.majungasaurus.setAttackState(0);
         }
     }
 

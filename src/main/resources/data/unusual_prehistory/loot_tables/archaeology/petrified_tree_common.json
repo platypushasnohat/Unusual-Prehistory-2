@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:bennettitales_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:calamophyton_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:cladophebis_fossil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:cooksonia_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:horsetail_fossil",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:leefructus_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:quillwort_fossil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:raiguenrayun_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:rhynia_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "weight": 11
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/petrified_tree_common"
+}

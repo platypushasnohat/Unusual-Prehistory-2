@@ -48,6 +48,8 @@ public class Majungasaurus extends PrehistoricMob {
     private float stealthProgress;
     private float prevStealthProgress;
 
+    private int biteTicks;
+
     public Majungasaurus(EntityType<? extends Majungasaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
@@ -120,20 +122,22 @@ public class Majungasaurus extends PrehistoricMob {
 
         prevStealthProgress = stealthProgress;
 
-        if (this.isMajungasaurusStealthMode() && stealthProgress < 20F) {
-            stealthProgress++;
-        }
-        if (!this.isMajungasaurusStealthMode() && stealthProgress > 0F) {
-            stealthProgress--;
-        }
+        if (this.biteTicks > 0) biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
 
-        if (this.getStealthCooldown() > 0) {
-            this.setStealthCooldown(this.getStealthCooldown() - 1);
-        }
+        if (this.isMajungasaurusStealthMode() && stealthProgress < 20F) stealthProgress++;
+        if (!this.isMajungasaurusStealthMode() && stealthProgress > 0F) stealthProgress--;
+
+        if (this.getStealthCooldown() > 0) this.setStealthCooldown(this.getStealthCooldown() - 1);
     }
 
     @Override
     public void setupAnimationStates() {
+        if (biteTicks == 0 && (this.biteRightAnimationState.isStarted() || this.biteLeftAnimationState.isStarted())) {
+            this.biteRightAnimationState.stop();
+            this.biteLeftAnimationState.stop();
+        }
+
         if (this.idleAnimationTimeout == 0) {
             this.idleAnimationTimeout = 160;
             this.idleAnimationState.start(this.tickCount);
@@ -240,6 +244,7 @@ public class Majungasaurus extends PrehistoricMob {
             if (this.getPose() == UP2Poses.BITING.get()) {
                 if (this.getRandom().nextBoolean()) this.biteRightAnimationState.start(this.tickCount);
                 this.biteLeftAnimationState.start(this.tickCount);
+                this.biteTicks = 15;
             }
             if (this.getPose() == Pose.STANDING) {
                 this.biteRightAnimationState.stop();

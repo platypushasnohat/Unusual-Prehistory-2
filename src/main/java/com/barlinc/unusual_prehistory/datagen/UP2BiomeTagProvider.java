@@ -40,5 +40,11 @@ public class UP2BiomeTagProvider extends BiomeTagsProvider {
                 .addTag(BiomeTags.IS_SAVANNA)
                 .addTag(Tags.Biomes.IS_PLAINS);
 
+        this.tag(UP2BiomeTags.HAS_PETRIFIED_TREE)
+                .addTag(BiomeTags.IS_TAIGA)
+                .addTag(BiomeTags.IS_FOREST)
+                .addTag(BiomeTags.IS_SAVANNA)
+                .addTag(Tags.Biomes.IS_PLAINS);
+
     }
 }

@@ -3,8 +3,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:tar_pits/tar_pit_0_start",
-        "processors": "unusual_prehistory:tar_pits/tar_pit_start",
+        "location": "unusual_prehistory:tar_pit/tar_pit_0_start",
+        "processors": "unusual_prehistory:tar_pit_start",
         "projection": "rigid"
       },
       "weight": 1
@@ -12,8 +12,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:tar_pits/tar_pit_1_start",
-        "processors": "unusual_prehistory:tar_pits/tar_pit_start",
+        "location": "unusual_prehistory:tar_pit/tar_pit_1_start",
+        "processors": "unusual_prehistory:tar_pit_start",
         "projection": "rigid"
       },
       "weight": 1
@@ -21,8 +21,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:tar_pits/tar_pit_2_start",
-        "processors": "unusual_prehistory:tar_pits/tar_pit_start",
+        "location": "unusual_prehistory:tar_pit/tar_pit_2_start",
+        "processors": "unusual_prehistory:tar_pit_start",
         "projection": "rigid"
       },
       "weight": 1

@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/body/paleozoic_spine_0",
-        "processors": "unusual_prehistory:fossils/paleozoic_body",
+        "processors": "unusual_prehistory:paleozoic_fossil_body",
         "projection": "rigid"
       },
       "weight": 1
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/body/paleozoic_spine_1",
-        "processors": "unusual_prehistory:fossils/paleozoic_body",
+        "processors": "unusual_prehistory:paleozoic_fossil_body",
         "projection": "rigid"
       },
       "weight": 1
@@ -22,7 +22,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/body/paleozoic_spine_2",
-        "processors": "unusual_prehistory:fossils/paleozoic_body",
+        "processors": "unusual_prehistory:paleozoic_fossil_body",
         "projection": "rigid"
       },
       "weight": 1
@@ -31,7 +31,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/body/paleozoic_spine_3",
-        "processors": "unusual_prehistory:fossils/paleozoic_body",
+        "processors": "unusual_prehistory:paleozoic_fossil_body",
         "projection": "rigid"
       },
       "weight": 1
@@ -40,7 +40,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "unusual_prehistory:fossil/body/paleozoic_spine_4",
-        "processors": "unusual_prehistory:fossils/paleozoic_body",
+        "processors": "unusual_prehistory:paleozoic_fossil_body",
         "projection": "rigid"
       },
       "weight": 1

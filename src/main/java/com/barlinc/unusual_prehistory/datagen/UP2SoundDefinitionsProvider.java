@@ -193,6 +193,11 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")),
                 sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3"))
         );
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")).pitch(1.3F),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")).pitch(1.3F),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3")).pitch(1.3F)
+        );
 
         this.sound(UP2SoundEvents.MEGALANIA_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt1")).pitch(0.9F),

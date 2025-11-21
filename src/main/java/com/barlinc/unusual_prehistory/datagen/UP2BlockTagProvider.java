@@ -57,6 +57,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRAVEL
         );
 
+        this.tag(UP2BlockTags.PETRIFIED_TREE_REPLACEABLE).addTag(BlockTags.DIRT).add(
+                Blocks.GRAVEL
+        );
+
         this.tag(UP2BlockTags.FOSSILIZED_BONE_BLOCKS).add(
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),

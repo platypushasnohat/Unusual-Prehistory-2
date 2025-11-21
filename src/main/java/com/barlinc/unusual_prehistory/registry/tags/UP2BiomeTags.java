@@ -10,6 +10,7 @@ public class UP2BiomeTags {
 
     public static final TagKey<Biome> HAS_FOSSIL = modBiomeTag("has_structure/fossil");
     public static final TagKey<Biome> HAS_TAR_PIT = modBiomeTag("has_structure/tar_pit");
+    public static final TagKey<Biome> HAS_PETRIFIED_TREE = modBiomeTag("has_structure/petrified_tree");
 
     private static TagKey<Biome> modBiomeTag(String name) {
         return biomeTag(UnusualPrehistory2.MOD_ID, name);

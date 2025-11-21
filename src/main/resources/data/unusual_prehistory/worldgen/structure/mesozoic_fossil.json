@@ -8,7 +8,7 @@
   "start_height": {
     "absolute": -24
   },
-  "start_pool": "unusual_prehistory:fossils/mesozoic_body",
+  "start_pool": "unusual_prehistory:mesozoic_fossil_body",
   "step": "underground_structures",
   "terrain_adaptation": "bury",
   "use_expansion_hack": false

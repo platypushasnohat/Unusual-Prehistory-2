@@ -3,8 +3,17 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/mesozoic_spine_0",
-        "processors": "unusual_prehistory:fossils/mesozoic_body",
+        "location": "unusual_prehistory:fossil/skull/diplocaulus",
+        "processors": "unusual_prehistory:paleozoic_fossil_skull",
+        "projection": "rigid"
+      },
+      "weight": 3
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/skull/unknown_0",
+        "processors": "unusual_prehistory:paleozoic_fossil_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -12,8 +21,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/mesozoic_spine_1",
-        "processors": "unusual_prehistory:fossils/mesozoic_body",
+        "location": "unusual_prehistory:fossil/skull/unknown_1",
+        "processors": "unusual_prehistory:paleozoic_fossil_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -21,8 +30,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/mesozoic_spine_2",
-        "processors": "unusual_prehistory:fossils/mesozoic_body",
+        "location": "unusual_prehistory:fossil/skull/unknown_2",
+        "processors": "unusual_prehistory:paleozoic_fossil_skull",
         "projection": "rigid"
       },
       "weight": 1
@@ -30,17 +39,8 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/mesozoic_spine_3",
-        "processors": "unusual_prehistory:fossils/mesozoic_body",
-        "projection": "rigid"
-      },
-      "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "unusual_prehistory:fossil/body/mesozoic_spine_4",
-        "processors": "unusual_prehistory:fossils/mesozoic_body",
+        "location": "unusual_prehistory:fossil/skull/unknown_3",
+        "processors": "unusual_prehistory:paleozoic_fossil_skull",
         "projection": "rigid"
       },
       "weight": 1
