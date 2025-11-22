@@ -17,7 +17,7 @@ public class KimmeridgebrachypteraeschnidiumNymphRenderer extends MobRenderer<Ki
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/nymph.png");
 
     public KimmeridgebrachypteraeschnidiumNymphRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumNymphModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH)), 0.2f);
+        super(context, new KimmeridgebrachypteraeschnidiumNymphModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH)), 0.2F);
     }
 
     @Override

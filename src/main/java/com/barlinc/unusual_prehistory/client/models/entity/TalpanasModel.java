@@ -2,10 +2,8 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.TalpanasAnimations;
 import com.barlinc.unusual_prehistory.client.animations.TelecrexAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Talpanas;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -16,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class TalpanasModel extends HierarchicalModel<Talpanas> {
+public class TalpanasModel extends UP2Model<Talpanas> {
 
     private final ModelPart root;
     private final ModelPart body_main;
@@ -33,6 +31,7 @@ public class TalpanasModel extends HierarchicalModel<Talpanas> {
     private final ModelPart right_leg;
 
 	public TalpanasModel(ModelPart root) {
+        super(0.5F, 24);
         this.root = root.getChild("root");
         this.body_main = this.root.getChild("body_main");
         this.body = this.body_main.getChild("body");
@@ -92,39 +91,18 @@ public class TalpanasModel extends HierarchicalModel<Talpanas> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isInWaterOrBubble()) {
-			if (this.young) {
-				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1, 2);
-			} else {
-				this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-			}
+            this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
-		if (this.young) {
-			this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
-		}
+		if (this.young) this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
 
-        this.animate(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks);
+        this.animateIdle(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
 		this.animate(entity.swimmingAnimationState, TalpanasAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
 		this.animate(entity.peckingAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
 
 		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;
 		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD / 2;
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
     }
 
 	@Override

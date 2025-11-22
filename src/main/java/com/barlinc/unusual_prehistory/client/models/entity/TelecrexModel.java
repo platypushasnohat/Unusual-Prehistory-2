@@ -79,13 +79,11 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isFlying()) {
-            this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
         this.animateIdle(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.hoveringAnimationState, TelecrexAnimations.HOVER, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.flyingAnimationState, TelecrexAnimations.FLY, ageInTicks);
-//        this.animate(entity.flyingFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks);
         this.animate(entity.lookoutAnimationState, TelecrexAnimations.LOOKOUT_BLEND, ageInTicks);
 		this.animate(entity.peckingAnimationState, TelecrexAnimations.PECK, ageInTicks);
 

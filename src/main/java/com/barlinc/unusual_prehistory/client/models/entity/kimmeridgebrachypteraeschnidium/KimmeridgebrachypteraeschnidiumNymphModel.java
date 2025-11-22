@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium;
 
 import com.barlinc.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumNymph;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumNymphModel extends HierarchicalModel<KimmeridgebrachypteraeschnidiumNymph> {
+public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<KimmeridgebrachypteraeschnidiumNymph> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -29,7 +29,8 @@ public class KimmeridgebrachypteraeschnidiumNymphModel extends HierarchicalModel
 	private final ModelPart right_back_leg;
 
 	public KimmeridgebrachypteraeschnidiumNymphModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(1, 0);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.body = this.body_main.getChild("body");
 		this.head = this.body.getChild("head");
@@ -62,9 +63,9 @@ public class KimmeridgebrachypteraeschnidiumNymphModel extends HierarchicalModel
 	@Override
 	public void setupAnim(KimmeridgebrachypteraeschnidiumNymph entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 4f, 4f);
-        this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(entity.lookoutAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.LOOKOUT, ageInTicks, 1.0f);
+		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 3, 6);
+        this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animate(entity.lookoutAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.LOOKOUT, ageInTicks);
 	}
 
 	@Override

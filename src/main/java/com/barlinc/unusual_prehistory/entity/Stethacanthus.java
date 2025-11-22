@@ -56,7 +56,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
         this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 20, 20, 3));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 16, 12, 12, 3));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 
@@ -91,6 +91,9 @@ public class Stethacanthus extends SchoolingAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
+            }
         } else {
             super.travel(travelVector);
         }

@@ -1,9 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LeaveWaterGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaLayDownGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaRoarGoal;
@@ -109,13 +106,14 @@ public class Megalania extends SemiAquaticMob {
         this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
         this.goalSelector.addGoal(0, new LeaveWaterGoal(this, 1.0D, 1200, 2400));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
-        this.goalSelector.addGoal(2, this.randomStrollGoal);
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new MegalaniaRoarGoal(this));
-        this.goalSelector.addGoal(7, new MegalaniaLayDownGoal(this));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.6D));
+        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
+        this.goalSelector.addGoal(3, this.randomStrollGoal);
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new MegalaniaRoarGoal(this));
+        this.goalSelector.addGoal(8, new MegalaniaLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MEGALANIA_TARGETS)));

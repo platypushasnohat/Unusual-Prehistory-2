@@ -75,7 +75,7 @@ public class Talpanas extends BreedableMob {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setAvoidSun(true);
         return navigation;
@@ -139,7 +139,7 @@ public class Talpanas extends BreedableMob {
     @Override
     public void setupAnimationCooldowns() {
         if (!this.isInWaterOrBubble() && this.onGround() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
-            if (!this.isPecking() && this.random.nextInt(300) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
+            if (!this.isPecking() && this.random.nextInt(500) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
                 this.setPecking(true);
             }
         }

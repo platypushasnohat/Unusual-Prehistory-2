@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium;
 
 import com.barlinc.unusual_prehistory.client.animations.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumModel extends HierarchicalModel<Kimmeridgebrachypteraeschnidium> {
+public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebrachypteraeschnidium> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -34,7 +34,8 @@ public class KimmeridgebrachypteraeschnidiumModel extends HierarchicalModel<Kimm
 	private final ModelPart right_back_leg;
 
 	public KimmeridgebrachypteraeschnidiumModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(1, 0);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.body = this.body_main.getChild("body");
 		this.tail = this.body.getChild("tail");
@@ -107,7 +108,7 @@ public class KimmeridgebrachypteraeschnidiumModel extends HierarchicalModel<Kimm
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks, 1);
 		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
-		this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1);
+		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks, 1);
 
 		float partialTicks = ageInTicks - entity.tickCount;
@@ -115,8 +116,8 @@ public class KimmeridgebrachypteraeschnidiumModel extends HierarchicalModel<Kimm
 		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
 
-		body_main.xRot += flightPitchAmount;
-		body_main.zRot += rollAmount / 2;
+		this.body_main.xRot += flightPitchAmount;
+		this.body_main.zRot += rollAmount / 2;
 	}
 
 	@Override

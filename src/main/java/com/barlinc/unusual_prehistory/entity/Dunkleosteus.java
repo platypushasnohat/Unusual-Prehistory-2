@@ -70,7 +70,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new DunkleosteusPanicGoal(this));
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
-        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1.0D, 70, 20, 20, 0.02));
+        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1.0D, 70, 16, 16, 0.02));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DUNKLEOSTEUS_FOOD), false));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));

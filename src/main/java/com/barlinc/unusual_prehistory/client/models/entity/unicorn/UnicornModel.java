@@ -1,10 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity.unicorn;
 
 import com.barlinc.unusual_prehistory.client.animations.UnicornAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Unicorn;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -15,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class UnicornModel extends HierarchicalModel<Unicorn> {
+public class UnicornModel extends UP2Model<Unicorn> {
 
 	private final ModelPart root;
 	private final ModelPart body;
@@ -28,7 +26,8 @@ public class UnicornModel extends HierarchicalModel<Unicorn> {
 	private final ModelPart leftLeg;
 
 	public UnicornModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.body = this.root.getChild("body");
 		this.upperBody = this.body.getChild("upperBody");
 		this.neck = this.upperBody.getChild("neck");
@@ -76,15 +75,12 @@ public class UnicornModel extends HierarchicalModel<Unicorn> {
 	}
 
 	@Override
-	public void setupAnim(Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (this.young) {
-			this.applyStatic(UnicornAnimations.BABY_TRANSFORM);
-			this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 2, 8);
-		} else {
-			this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
-		}
+        this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 3, 6);
+
+        if (this.young) this.applyStatic(UnicornAnimations.BABY_TRANSFORM);
 
 		this.animate(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks);
 
@@ -93,21 +89,6 @@ public class UnicornModel extends HierarchicalModel<Unicorn> {
 		this.neck.xRot += headPitch * (Mth.DEG_TO_RAD) / 4;
 		this.neck.yRot += netHeadYaw * (Mth.DEG_TO_RAD) / 4;
 	}
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
-    }
 
 	@Override
 	public @NotNull ModelPart root() {

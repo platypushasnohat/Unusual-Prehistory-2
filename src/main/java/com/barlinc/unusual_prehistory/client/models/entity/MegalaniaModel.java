@@ -138,7 +138,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		if (entity.getPose() != Pose.ROARING && entity.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
 			if (!entity.isInWater()) {
-				if (entity.getBehavior().equals(Behaviors.ANGRY.getName())) {
+				if (entity.getBehavior().equals(Behaviors.ANGRY.getName()) || entity.getBehavior().equals(Behaviors.PANIC.getName())) {
                     this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
 				} else {
                     this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);

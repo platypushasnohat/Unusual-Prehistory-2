@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.Telecrex;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -40,11 +39,5 @@ public class TelecrexScatterGoal extends Goal {
     @Override
     public void start() {
         telecrex.setFlying(true);
-        telecrex.setBehavior(Behaviors.PANIC.getName());
-    }
-
-    @Override
-    public void stop() {
-        telecrex.setBehavior(Behaviors.IDLE.getName());
     }
 }

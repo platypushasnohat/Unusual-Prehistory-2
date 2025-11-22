@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusChargeGoal;
@@ -71,12 +72,13 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(1, new CarnotaurusRoarGoal(this));
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
+        this.goalSelector.addGoal(4, new LargeBabyPanicGoal(this, 1.7D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
 //        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new CarnotaurusSniffingGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new CarnotaurusSniffingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, true, false));
     }

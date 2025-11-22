@@ -3,9 +3,9 @@ package com.barlinc.unusual_prehistory.entity;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TelecrexScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.TelecrexMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -23,7 +23,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,8 +39,6 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flyingAnimationState = new AnimationState();
-    public final AnimationState flyingFastAnimationState = new AnimationState();
-    public final AnimationState hoveringAnimationState = new AnimationState();
     public final AnimationState lookoutAnimationState = new AnimationState();
     public final AnimationState peckingAnimationState = new AnimationState();
 
@@ -61,7 +58,7 @@ public class Telecrex extends PrehistoricFlyingMob {
     public void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
-            this.navigation = new GroundPathNavigation(this, level());
+            this.navigation = new SmoothGroundPathNavigation(this, level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new TelecrexMoveControl(this);
@@ -122,16 +119,14 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public boolean isImmobile() {
+    public boolean refuseToMove() {
         return super.isImmobile() || this.isPecking() || this.isLooking();
     }
 
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && !this.isPecking() && !this.isLooking(), this.tickCount);
-        this.flyingAnimationState.animateWhen(this.isFlying() && this.getSpeed() > 1.0E-5F, this.tickCount);
-        this.hoveringAnimationState.animateWhen(this.isFlying(), this.tickCount);
-        this.flyingFastAnimationState.animateWhen(this.isFlying() && this.getSpeed() > 1.0E-5F, this.tickCount);
+        this.flyingAnimationState.animateWhen(this.isFlying(), this.tickCount);
         this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isPecking(), this.tickCount);
         this.lookoutAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isLooking(), this.tickCount);
     }
