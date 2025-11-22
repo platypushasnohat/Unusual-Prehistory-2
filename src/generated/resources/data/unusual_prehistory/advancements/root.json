@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "root": {
+      "conditions": {},
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "unusual_prehistory:textures/block/mossy_dirt_top.png",
+    "description": {
+      "translate": "advancement.unusual_prehistory.root.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:unusual_prehistory"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.unusual_prehistory.root"
+    }
+  },
+  "requirements": [
+    [
+      "root"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,4 +1,8 @@
 {
+  "advancement.unusual_prehistory.hatch_dromaeosaurus": "Dino Run",
+  "advancement.unusual_prehistory.hatch_dromaeosaurus.desc": "Revive a Dromaeosaurus",
+  "advancement.unusual_prehistory.root": "Unusual Prehistory 2",
+  "advancement.unusual_prehistory.root.desc": "Revive creatures from the ancient past!",
   "block.unusual_prehistory.asphalt": "Asphalt",
   "block.unusual_prehistory.bennettitales": "Bennettitales",
   "block.unusual_prehistory.calamophyton": "Calamophyton",

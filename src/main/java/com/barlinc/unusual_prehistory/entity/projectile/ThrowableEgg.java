@@ -1,10 +1,12 @@
 package com.barlinc.unusual_prehistory.entity.projectile;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
@@ -48,13 +50,16 @@ public abstract class ThrowableEgg extends ThrowableItemProjectile {
         if (this.random.nextInt(200) == 0) {
             i = 4;
         }
+        PrehistoricMob mob = entityType.create(this.level());
         for (int j = 0; j < i; j++) {
-            PrehistoricMob mob = entityType.create(this.level());
             if (mob != null) {
                 mob.setAge(-24000);
                 mob.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                 this.level().addFreshEntity(mob);
             }
+        }
+        if (!this.level().isClientSide && this.getOwner() != null && this.getOwner() instanceof ServerPlayer serverPlayer && mob != null) {
+            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, mob);
         }
         this.level().broadcastEntityEvent(this, (byte) 3);
         this.discard();

@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:root",
+  "criteria": {
+    "hatch_dromaeosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:dromaeosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:dromaeosaurus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus"
+    }
+  },
+  "requirements": [
+    [
+      "hatch_dromaeosaurus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

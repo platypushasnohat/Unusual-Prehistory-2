@@ -97,6 +97,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2BiomeTagProvider(output, customLookupProvider, helper));
         generator.addProvider(server, UP2LootProvider.register(output));
         generator.addProvider(server, new UP2RecipeProvider(output));
+        generator.addProvider(server, UP2AdvancementProvider.register(output, provider, helper));
     }
 
     public static ResourceLocation modPrefix(String name) {

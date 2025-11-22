@@ -147,6 +147,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
         this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
 
+        // Advancements
+        this.translateAdvancement("root", "Unusual Prehistory 2");
+        this.translateAdvancementDesc("root", "Revive creatures from the ancient past!");
+
+        this.translateAdvancement("hatch_dromaeosaurus", "Dino Run");
+        this.translateAdvancementDesc("hatch_dromaeosaurus", "Revive a Dromaeosaurus");
+
         // kimmeridgebrachypteraeschnidium bottle
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_1", "Blue Body");
@@ -262,6 +269,14 @@ public class UP2LanguageProvider extends LanguageProvider {
         String disc = item.get().getDescriptionId();
         add(disc, "Music Disc");
         add(disc + ".desc", description);
+    }
+
+    public void translateAdvancement(String key, String name) {
+        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key, name);
+    }
+
+    public void translateAdvancementDesc(String key, String name) {
+        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".desc", name);
     }
 
     public void creativeTab(CreativeModeTab key, String name){
