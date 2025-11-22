@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus;
 
 import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -39,16 +40,15 @@ public class DunkleosteusAttackGoal extends AttackGoal {
             }
             if (attackState == 1) {
                 timer++;
-                if (timer == 2) {
-                    this.dunkleosteus.playSound(dunkleosteus.getBiteSound(), 1.0F, 1.0F);
-                }
+                if (timer == 1) this.dunkleosteus.setPose(UP2Poses.BITING.get());
+                if (timer == 2) this.dunkleosteus.playSound(dunkleosteus.getBiteSound(), 1.0F, 1.0F);
                 if (timer == 5) {
                     if (this.dunkleosteus.distanceTo(target) < getAttackReachSqr(target)) {
                         this.dunkleosteus.doHurtTarget(this.dunkleosteus.getTarget());
                         this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                     }
                 }
-                if (timer >= 26) {
+                if (timer > 26) {
                     timer = 0;
                     this.dunkleosteus.setAttackState(0);
                 }

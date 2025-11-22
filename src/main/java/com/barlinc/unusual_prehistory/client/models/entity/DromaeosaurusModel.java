@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.DromaeosaurusAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Dromaeosaurus;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
+public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -38,7 +38,8 @@ public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
 	private final ModelPart right_claw;
 
 	public DromaeosaurusModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.body_main = this.root.getChild("body_main");
 		this.body = this.body_main.getChild("body");
 		this.breathing = this.body.getChild("breathing");
@@ -127,39 +128,19 @@ public class DromaeosaurusModel extends HierarchicalModel<Dromaeosaurus> {
 	@Override
 	public void setupAnim(@NotNull Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		if (this.young) {
-			this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
-			this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 0.5F, 2);
-		} else {
-			this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-		}
-
-		this.animate(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks);
+        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+		this.animateIdle(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
 		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks);
 		this.animate(entity.startSleepingAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
 		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
 		this.animate(entity.wakeUpAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
 
-		this.neck.xRot += entity.isDromaeosaurusEeping() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
+        if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
+
+        this.neck.xRot += entity.isDromaeosaurusEeping() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
 		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
-    }
 
 	@Override
 	public @NotNull ModelPart root() {

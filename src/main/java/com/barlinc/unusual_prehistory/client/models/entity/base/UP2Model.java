@@ -48,11 +48,6 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE));
     }
 
-    protected void animateIdleScaled(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed, float scale) {
-        animationState.updateTime(ageInTicks, speed);
-        animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE));
-    }
-
     @Override
     protected void animate(@NotNull AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks) {
         this.animate(animationState, definition, ageInTicks, 1.0F);

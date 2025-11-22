@@ -1,10 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity.jawless_fish;
 
 import com.barlinc.unusual_prehistory.client.animations.JawlessFishAnimations;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.JawlessFish;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -15,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class ArandaspisModel extends HierarchicalModel<JawlessFish> {
+public class ArandaspisModel extends UP2Model<JawlessFish> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
@@ -24,7 +22,8 @@ public class ArandaspisModel extends HierarchicalModel<JawlessFish> {
 	private final ModelPart tail1;
 
 	public ArandaspisModel(ModelPart root) {
-		this.root = root.getChild("root");
+        super(0.5F, 24);
+        this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
 		this.body_sideways = this.swim_control.getChild("body_sideways");
 		this.body = this.body_sideways.getChild("body");
@@ -51,27 +50,11 @@ public class ArandaspisModel extends HierarchicalModel<JawlessFish> {
 	@Override
 	public void setupAnim(JawlessFish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.animate(entity.swimmingAnimationState, JawlessFishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+        this.animateWalk(JawlessFishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateIdle(entity.swimIdleAnimationState, JawlessFishAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
 		this.animate(entity.floppingAnimationState, JawlessFishAnimations.FLOP, ageInTicks);
-
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (this.young) {
-            float babyScale = 0.5F;
-            float bodyYOffset = 24.0F;
-            poseStack.pushPose();
-            poseStack.scale(babyScale, babyScale, babyScale);
-            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-        } else {
-            this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        }
-    }
 
 	@Override
 	public @NotNull ModelPart root() {

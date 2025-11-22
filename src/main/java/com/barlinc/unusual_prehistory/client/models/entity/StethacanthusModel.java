@@ -79,7 +79,7 @@ public class StethacanthusModel extends HierarchicalModel<Stethacanthus> {
 		float partialTicks = ageInTicks - entity.tickCount;
 		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.animate(entity.swimmingAnimationState, StethacanthusAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.swimIdleAnimationState, StethacanthusAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
 		this.animate(entity.floppingAnimationState, StethacanthusAnimations.FLOP, ageInTicks);
 		this.animate(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
 

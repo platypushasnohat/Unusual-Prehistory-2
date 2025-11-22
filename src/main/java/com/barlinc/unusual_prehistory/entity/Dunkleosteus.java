@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusN
 import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusPanicGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -15,11 +16,8 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -43,16 +41,15 @@ import javax.annotation.Nullable;
 
 public class Dunkleosteus extends PrehistoricAquaticMob {
 
-    private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
-
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.5F, 0.5F);
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.7F, 1.98F);
 
     public final AnimationState bitingAnimationState = new AnimationState();
-    public final AnimationState yawningAnimationState = new AnimationState();
+    public final AnimationState quirkAnimationState = new AnimationState();
 
-    private int yawningTimer = 0;
+    private int biteTicks;
+    private final byte QUIRK = 66;
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -97,23 +94,54 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+
+        if (this.biteTicks > 0) biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+    }
+
+    @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
+        if (this.biteTicks == 0 && this.bitingAnimationState.isStarted()) this.bitingAnimationState.stop();
         this.bitingAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        this.yawningAnimationState.animateWhen(this.isYawning(), this.tickCount);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (VARIANT.equals(accessor)) {
+            this.refreshDimensions();
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0F * this.getVariant() + 10.0F);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0F * this.getVariant());
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0F * this.getVariant() + 3.0F);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F - this.getVariant() * 0.1F);
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.1F + this.getVariant() * 0.3F);
+            this.heal(50.0F);
+        }
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.BITING.get()) {
+                this.bitingAnimationState.start(this.tickCount);
+                this.biteTicks = 10;
+            }
+            else {
+                this.bitingAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
-            if (!this.isYawning() && this.random.nextInt(600) == 0) {
-                this.setYawning(true);
-            }
-            if (this.isYawning() && this.yawningTimer++ > 40) {
-                this.yawningTimer = 0;
-                this.setYawning(false);
-            }
+        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.quirkAnimationState.isStarted() && this.random.nextInt(600) == 0) {
+            this.level().broadcastEntityEvent(this, this.QUIRK);
         }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == this.QUIRK) this.quirkAnimationState.start(this.tickCount);
+        else super.handleEntityEvent(id);
     }
 
     @Override
@@ -127,13 +155,13 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     public boolean isTarget(Entity entity) {
-        if (this.getDunkSize() == 1) return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
-        else if (this.getDunkSize() == 2) return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS);
+        if (this.getVariant() == 1) return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
+        else if (this.getVariant() == 2) return entity.getType().is(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS);
         else return entity.getType().is(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS);
     }
 
     public boolean canAttackPlayer(LivingEntity entity) {
-        return this.canAttack(entity) && this.getDunkSize() > 0;
+        return this.canAttack(entity) && this.getVariant() > 0;
     }
 
     @Override
@@ -159,93 +187,32 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     public SoundEvent getBiteSound() {
-        if (this.getDunkSize() == 0) return UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE.get();
-        else if (this.getDunkSize() == 1) return UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE.get();
+        if (this.getVariant() == 0) return UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE.get();
+        else if (this.getVariant() == 1) return UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE.get();
         else return UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE.get();
     }
 
     @Override
     public float getVoicePitch() {
-        final float f = (3 - this.getDunkSize()) * 0.33F;
-        return (float) (super.getVoicePitch() * Math.sqrt(f) * 1.2F);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DUNK_SIZE, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putFloat("Size", this.getDunkSize());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setDunkSize(compoundTag.getInt("Size"));
-    }
-
-    public boolean isYawning() {
-        return this.getFlag(16);
-    }
-
-    public void setYawning(boolean yawning) {
-        this.setFlag(16, yawning);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DUNK_SIZE.equals(accessor)) {
-            this.refreshDimensions();
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0F * this.getDunkSize() + 10.0F);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0F * this.getDunkSize());
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0F * this.getDunkSize() + 3.0F);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F - this.getDunkSize() * 0.1F);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.1F + this.getDunkSize() * 0.3F);
-            this.heal(50.0F);
-        }
-        super.onSyncedDataUpdated(accessor);
+        final float size = (3 - this.getVariant()) * 0.33F;
+        return (float) (super.getVoicePitch() * Math.sqrt(size) * 1.2F);
     }
 
     @Override
     public boolean isPushable() {
-        return super.isPushable() && this.getDunkSize() != 2;
-    }
-
-    public int getDunkSize() {
-        return Mth.clamp(this.entityData.get(DUNK_SIZE), 0, 2);
-    }
-
-    public void setDunkSize(int dunkSize) {
-        this.entityData.set(DUNK_SIZE, dunkSize);
-    }
-
-    @Override
-    public int getVariantCount() {
-        return 3;
+        return super.isPushable() && this.getVariant() != 2;
     }
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return getDimsForDunk().scale(this.getScale());
+        return this.getDimsForDunk().scale(this.getScale());
     }
 
     private EntityDimensions getDimsForDunk() {
-        return switch (this.getDunkSize()) {
+        return switch (this.getVariant()) {
             case 1 -> MEDIUM_SIZE;
             case 2 -> LARGE_SIZE;
             default -> SMALL_SIZE;
-        };
-    }
-
-    public String getVariantName() {
-        return switch (this.getDunkSize()) {
-            case 1 -> "marsaisi";
-            case 2 -> "terrelli";
-            default -> "raveri";
         };
     }
 
@@ -259,25 +226,55 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         return itemStack.is(UP2ItemTags.PACIFIES_DUNKLEOSTEUS);
     }
 
-    @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        int sizeChange = this.random.nextInt(0, 100);
-        if (sizeChange <= 30) this.setDunkSize(1);
-        else if (sizeChange <= 60) this.setDunkSize(2);
-        else this.setDunkSize(0);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         Dunkleosteus dunkleosteus = UP2Entities.DUNKLEOSTEUS.get().create(serverLevel);
-        dunkleosteus.setDunkSize(this.getDunkSize());
+        dunkleosteus.setVariant(this.getVariant());
         return dunkleosteus;
     }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return this.getDunkSize() == 0 ? new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get()) : ItemStack.EMPTY;
+        return this.getVariant() == 0 ? new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get()) : ItemStack.EMPTY;
+    }
+
+    public enum DunkleosteusVariant {
+        RAVERI(0),
+        MARSAISI(1),
+        TERRELLI(2);
+
+        private final int id;
+
+        DunkleosteusVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static DunkleosteusVariant byId(int id) {
+            if (id < 0 || id >= DunkleosteusVariant.values().length) {
+                id = 0;
+            }
+            return DunkleosteusVariant.values()[id];
+        }
+    }
+
+    @Override
+    public int getVariantCount() {
+        return DunkleosteusVariant.values().length;
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData, @org.jetbrains.annotations.Nullable CompoundTag compoundTag) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
+        if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(compoundTag.getInt("BucketVariantTag"));
+        } else {
+            this.setVariant(random.nextInt(DunkleosteusVariant.values().length));
+        }
+        return spawnGroupData;
     }
 }

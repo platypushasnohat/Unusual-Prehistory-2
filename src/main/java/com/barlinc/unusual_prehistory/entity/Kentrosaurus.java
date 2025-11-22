@@ -47,10 +47,12 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState layDownAnimationState = new AnimationState();
     public final AnimationState layDownIdleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
+    public final AnimationState swimmingAnimationState = new AnimationState();
 
     private int attackTicks;
 
     private final byte GRAZE = 66;
+    private int grazingTicks = 0;
 
     public Kentrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -111,12 +113,18 @@ public class Kentrosaurus extends PrehistoricMob {
     public void setupAnimationCooldowns() {
         if (!this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
             if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
-            if (!this.isKentrosaurusLayingDown() && this.getPose() == Pose.STANDING) {
-                if (!this.grazeAnimationState.isStarted() && this.random.nextInt(350) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
-                    this.level().broadcastEntityEvent(this, this.GRAZE);
-                }
+            if (this.canGraze() && this.random.nextInt(350) == 0) {
+                this.setGrazing(true);
+            }
+            if (this.isGrazing() && this.grazingTicks++ > 40) {
+                this.grazingTicks = 0;
+                this.setGrazing(false);
             }
         }
+    }
+
+    private boolean canGraze() {
+        return !this.isKentrosaurusLayingDown() && this.getPose() == Pose.STANDING && !this.isGrazing() && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK);
     }
 
     @Override
@@ -126,6 +134,8 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack2AnimationState.stop();
         }
         this.idleAnimationState.animateWhen(!this.isInWater() && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.swimmingAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.grazeAnimationState.animateWhen(this.isGrazing(), this.tickCount);
 
         if (this.isKentrosaurusVisuallyLayingDown()) {
             this.standUpAnimationState.stop();
@@ -161,12 +171,15 @@ public class Kentrosaurus extends PrehistoricMob {
                 this.attack2AnimationState.stop();
             }
         }
+        super.onSyncedDataUpdated(accessor);
     }
 
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == this.GRAZE) this.grazeAnimationState.start(this.tickCount);
-        else super.handleEntityEvent(id);
+    public boolean isGrazing() {
+        return this.getFlag(GRAZE);
+    }
+
+    public void setGrazing(boolean grazing) {
+        this.setFlag(GRAZE, grazing);
     }
 
     @Override
@@ -210,7 +223,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return this.isKentrosaurusLayingDown() || this.isInPoseTransition() || this.isGrazing();
+        return super.refuseToMove() || this.isKentrosaurusLayingDown() || (this.isGrazing() && this.grazingTicks > 0);
     }
 
     @Override
@@ -229,14 +242,6 @@ public class Kentrosaurus extends PrehistoricMob {
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setLayDownCooldown(compoundTag.getInt("LayDownCooldown"));
-    }
-
-    public boolean isGrazing() {
-        return this.getFlag(16);
-    }
-
-    public void setGrazing(boolean grazing) {
-        this.setFlag(16, grazing);
     }
 
     public int getLayDownCooldown() {

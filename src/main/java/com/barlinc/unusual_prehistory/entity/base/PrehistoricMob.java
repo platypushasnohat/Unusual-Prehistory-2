@@ -197,9 +197,9 @@ public abstract class PrehistoricMob extends Animal {
 
     @Override
     public void calculateEntityAnimation(boolean flying) {
-        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float f2 = Math.min(f1 * this.getWalkAnimationSpeed(), 1.0F);
-        this.walkAnimation.update(f2, 0.4F);
+        float pos = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
+        float speed = Math.min(pos * this.getWalkAnimationSpeed(), 1.0F);
+        this.walkAnimation.update(speed, 0.4F);
     }
 
     public float getWalkAnimationSpeed() {

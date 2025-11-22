@@ -45,6 +45,7 @@ public class Majungasaurus extends PrehistoricMob {
     public final AnimationState enterStealthAnimationState = new AnimationState();
     public final AnimationState stealthIdleAnimationState = new AnimationState();
     public final AnimationState exitStealthAnimationState = new AnimationState();
+    public final AnimationState swimmingAnimationState = new AnimationState();
 
     private float stealthProgress;
     private float prevStealthProgress;
@@ -139,8 +140,9 @@ public class Majungasaurus extends PrehistoricMob {
             this.biteLeftAnimationState.stop();
         }
 
-        this.idleAnimationState.animateWhen(!this.isMajungasaurusStealthMode(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isMajungasaurusStealthMode() && !this.isInWater(), this.tickCount);
         this.eyesAnimationState.animateWhen(this.getBehavior().equals(Behaviors.IDLE.getName()), this.tickCount);
+        this.swimmingAnimationState.animateWhen(!this.isMajungasaurusStealthMode() && this.isInWater(), this.tickCount);
 
         if (this.isMajungasaurusVisuallyStealthMode()) {
             this.exitStealthAnimationState.stop();

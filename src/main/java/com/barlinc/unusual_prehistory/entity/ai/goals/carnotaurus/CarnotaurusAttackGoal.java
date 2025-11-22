@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus;
 
 import com.barlinc.unusual_prehistory.entity.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +12,6 @@ import java.util.Objects;
 
 public class CarnotaurusAttackGoal extends AttackGoal {
 
-    private int timer = 0;
     private final Carnotaurus carnotaurus;
 
     public CarnotaurusAttackGoal(Carnotaurus carnotaurus) {
@@ -51,6 +51,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = this.carnotaurus.getTarget();
 
+        if (this.timer == 1) this.carnotaurus.setPose(UP2Poses.BITING.get());
         if (this.timer == 9) this.carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_BITE.get(), 1.0F, carnotaurus.getVoicePitch());
 
         if (this.timer == 11) {
@@ -70,6 +71,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         LivingEntity target = this.carnotaurus.getTarget();
         this.carnotaurus.getNavigation().stop();
 
+        if (this.timer == 1) this.carnotaurus.setPose(UP2Poses.HEADBUTTING.get());
         if (this.timer == 9) {
             this.carnotaurus.addDeltaMovement(this.carnotaurus.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
         }

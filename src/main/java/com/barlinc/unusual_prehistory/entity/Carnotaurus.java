@@ -44,16 +44,21 @@ public class Carnotaurus extends PrehistoricMob {
     private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState biteAnimationState = new AnimationState();
+    public final AnimationState bite1AnimationState = new AnimationState();
+    public final AnimationState bite2AnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
     public final AnimationState headbuttAnimationState = new AnimationState();
     public final AnimationState sniffAnimationState = new AnimationState();
     public final AnimationState waveAnimationState = new AnimationState();
     public final AnimationState angryAnimationState = new AnimationState();
     public final AnimationState roarAnimationState = new AnimationState();
+    public final AnimationState swimmingAnimationState = new AnimationState();
 
     public int sniffCooldown = this.random.nextInt(20 * 30) + (20 * 30);
     public int waveCooldown = this.random.nextInt(40 * 40) + (40 * 40);
+
+    private int biteTicks;
+    private int headbuttTicks;
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -128,29 +133,29 @@ public class Carnotaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.getChargeCooldown() > 0) {
-            this.setChargeCooldown(this.getChargeCooldown() - 1);
-        }
-        if (this.getRoarCooldown() > 0) {
-            this.setRoarCooldown(this.getRoarCooldown() - 1);
-        }
+        if (this.getChargeCooldown() > 0) this.setChargeCooldown(this.getChargeCooldown() - 1);
+        if (this.getRoarCooldown() > 0) this.setRoarCooldown(this.getRoarCooldown() - 1);
         this.setAngry(this.getHealth() < this.getMaxHealth() * 0.5F && !this.isBaby());
 
-        if (!this.isInWaterOrBubble() && this.getPose() != Pose.SNIFFING && sniffCooldown > 0) {
-            sniffCooldown--;
-        }
-        if (!this.isInWaterOrBubble() && this.getPose() != UP2Poses.WAVING.get() && waveCooldown > 0) {
-            waveCooldown--;
-        }
+        if (!this.isInWaterOrBubble() && this.getPose() != Pose.SNIFFING && sniffCooldown > 0) sniffCooldown--;
+        if (!this.isInWaterOrBubble() && this.getPose() != UP2Poses.WAVING.get() && waveCooldown > 0) waveCooldown--;
+
+        if (this.biteTicks > 0) biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (this.headbuttTicks > 0) headbuttTicks--;
+        if (this.headbuttTicks == 0 && this.getPose() == UP2Poses.HEADBUTTING.get()) this.setPose(Pose.STANDING);
     }
 
     public void setupAnimationStates() {
+        if (biteTicks == 0 && (this.bite1AnimationState.isStarted() || this.bite2AnimationState.isStarted())) {
+            this.bite1AnimationState.stop();
+            this.bite2AnimationState.stop();
+        }
         this.angryAnimationState.animateWhen(this.isAngry(), this.tickCount);
         this.idleAnimationState.animateWhen(!this.isCharging() && !this.isRoaring() && !this.isInWater(), this.tickCount);
+        this.swimmingAnimationState.animateWhen(!this.isCharging() && !this.isRoaring() && this.isInWater(), this.tickCount);
         this.chargeAnimationState.animateWhen(this.isCharging(), this.tickCount);
         this.roarAnimationState.animateWhen(this.isRoaring(), this.tickCount);
-        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
-        this.headbuttAnimationState.animateWhen(this.getAttackState() == 2, this.tickCount);
     }
 
     @Override
@@ -164,9 +169,21 @@ public class Carnotaurus extends PrehistoricMob {
                 this.sniffAnimationState.stop();
                 this.waveAnimationState.start(this.tickCount);
             }
+            else if (this.getPose() == UP2Poses.BITING.get()) {
+                if (this.getRandom().nextBoolean()) this.bite1AnimationState.start(this.tickCount);
+                else this.bite2AnimationState.start(this.tickCount);
+                this.biteTicks = 15;
+            }
+            else if (this.getPose() == UP2Poses.HEADBUTTING.get()) {
+                this.headbuttAnimationState.start(this.tickCount);
+                this.headbuttTicks = 20;
+            }
             else {
+                this.bite1AnimationState.stop();
+                this.bite2AnimationState.stop();
                 this.waveAnimationState.stop();
                 this.sniffAnimationState.stop();
+                this.headbuttAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);

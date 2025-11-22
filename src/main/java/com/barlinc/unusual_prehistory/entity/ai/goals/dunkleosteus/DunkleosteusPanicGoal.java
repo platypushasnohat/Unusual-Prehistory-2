@@ -14,6 +14,6 @@ public class DunkleosteusPanicGoal extends LargePanicGoal {
 
     @Override
     protected boolean shouldPanic() {
-        return this.mob.getLastHurtByMob() != null && (dunkleosteus.getDunkSize() == 0 || dunkleosteus.isBaby());
+        return this.mob.getLastHurtByMob() != null && (dunkleosteus.getVariant() == 0 || dunkleosteus.isBaby());
     }
 }

@@ -64,9 +64,6 @@ public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterlog
                     if (entity instanceof PrehistoricMob prehistoricMob) {
                         prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
                     }
-                    if (entity instanceof Dunkleosteus dunkleosteus) {
-                        dunkleosteus.setDunkSize(random.nextInt(dunkleosteus.getVariantCount()));
-                    }
                     int k = random.nextInt(1, 361);
                     entity.moveTo(pos.getX(), (double) pos.getY() + 0.5D, pos.getZ(), (float) k, 0.0F);
                     level.addFreshEntity(entity);

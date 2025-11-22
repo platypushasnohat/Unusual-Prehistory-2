@@ -9,14 +9,14 @@ import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 @OnlyIn(Dist.CLIENT)
 public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, HierarchicalModel<Dunkleosteus>> {
@@ -34,26 +34,25 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
 
     @Override
     public void render(Dunkleosteus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        switch (entity.getDunkSize()){
+        switch (Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant()).getId()) {
             case 1:
                 this.model = dunkleosteusMediumModel;
+                this.shadowRadius = 0.6F;
                 break;
             case 2:
                 this.model = dunkleosteusLargeModel;
+                this.shadowRadius = 0.8F;
                 break;
             default:
                 this.model = dunkleosteusSmallModel;
+                this.shadowRadius = 0.5F;
         }
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Dunkleosteus entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/dunkleosteus/dunkleosteus_" + entity.getVariantName() + ".png");
-    }
-
-    @Override
-    protected @Nullable RenderType getRenderType(@NotNull Dunkleosteus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
+        Dunkleosteus.DunkleosteusVariant variant = Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant());
+        return UnusualPrehistory2.modPrefix("textures/entity/dunkleosteus/dunkleosteus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

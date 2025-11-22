@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus;
 
 import com.barlinc.unusual_prehistory.entity.Dromaeosaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -40,13 +41,14 @@ public class DromaeosaurusAttackGoal extends AttackGoal {
 
             if (this.dromaeosaurus.getAttackState() == 1) {
                 timer++;
+                if (timer == 1) this.dromaeosaurus.setPose(UP2Poses.BITING.get());
                 if (timer == 6) {
                     if (this.dromaeosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
                         this.dromaeosaurus.doHurtTarget(target);
                         this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
                     }
                 }
-                if (timer >= 15) {
+                if (timer > 15) {
                     timer = 0;
                     this.dromaeosaurus.setAttackState(0);
                 }

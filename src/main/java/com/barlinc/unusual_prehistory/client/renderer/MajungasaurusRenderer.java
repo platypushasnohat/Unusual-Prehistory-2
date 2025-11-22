@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.MajungasaurusModel;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -24,6 +25,12 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     }
 
     @Override
+    public void render(Majungasaurus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
+        this.shadowRadius = entity.isMajungasaurusStealthMode() ? 0.0F : 0.8F;
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    }
+
+    @Override
     public @NotNull ResourceLocation getTextureLocation(Majungasaurus entity) {
         Majungasaurus.MajungasaurusVariant variant = Majungasaurus.MajungasaurusVariant.byId(entity.getVariant());
         return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
@@ -35,6 +42,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
         else return RenderType.entityCutoutNoCull(getTextureLocation(entity));
     }
 
+    @Override
     protected void scale(Majungasaurus entity, @NotNull PoseStack poseStack, float partialTicks) {
         float alpha = 1.0F - 0.9F * entity.getStealthProgress(partialTicks);
         this.model.setAlpha(alpha);

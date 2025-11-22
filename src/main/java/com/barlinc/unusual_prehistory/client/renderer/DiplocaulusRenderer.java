@@ -10,14 +10,12 @@ import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
@@ -59,11 +57,5 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
     public @NotNull ResourceLocation getTextureLocation(Diplocaulus entity) {
         Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
         return UnusualPrehistory2.modPrefix("textures/entity/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
-    }
-
-    @Override
-    @Nullable
-    protected RenderType getRenderType(@NotNull Diplocaulus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
     }
 }

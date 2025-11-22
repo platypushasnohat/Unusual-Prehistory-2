@@ -47,6 +47,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
+ @SuppressWarnings("deprecation")
  public class Diplocaulus extends SemiAquaticMob implements Bucketable {
 
      public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
@@ -54,12 +55,13 @@
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final AnimationState idleAnimationState = new AnimationState();
+     public final AnimationState swimIdleAnimationState = new AnimationState();
      public final AnimationState burrowStartAnimationState = new AnimationState();
      public final AnimationState burrowIdleAnimationState = new AnimationState();
      public final AnimationState quirkAnimationState = new AnimationState();
      public final AnimationState swimmingAnimationState = new AnimationState();
 
-     private int quirkTimer = 0;
+     private final byte QUIRK = 66;
 
      public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -98,7 +100,7 @@
      }
 
      @Override
-     public void travel(Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVector) {
          if (this.refuseToMove() && this.onGround()) {
              this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
              travelVector = travelVector.multiply(0.0, 1.0, 0.0);
@@ -121,7 +123,7 @@
      }
 
      @Override
-     public EntityDimensions getDimensions(Pose pose) {
+     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
          return (pose == UP2Poses.BURROWED.get() ? BURROWED_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
      }
 
@@ -142,9 +144,8 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F && !this.isInWaterOrBubble(), this.tickCount);
-         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-         this.quirkAnimationState.animateWhen(this.isQuirky(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          if (this.isDiplocaulusVisuallyBurrowed()) {
              this.quirkAnimationState.stop();
              this.idleAnimationState.stop();
@@ -162,26 +163,17 @@
      }
 
      @Override
-     public void calculateEntityAnimation(boolean flying) {
-         float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-         float f2 = Math.min(f1 * 10.0F, 1.0F);
-         this.walkAnimation.update(f2, 0.4F);
+     public void setupAnimationCooldowns() {
+         if (this.getBehavior().equals(Behaviors.IDLE.getName())) {
+             if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
+             if (this.random.nextInt(650) == 0 && !this.quirkAnimationState.isStarted()) this.level().broadcastEntityEvent(this, this.QUIRK);
+         }
      }
 
      @Override
-     public void setupAnimationCooldowns() {
-         if (this.getBehavior().equals(Behaviors.IDLE.getName())) {
-             if (this.getBurrowCooldown() > 0) {
-                 this.setBurrowCooldown(this.getBurrowCooldown() - 1);
-             }
-             if (!this.isQuirky() && this.random.nextInt(650) == 0) {
-                 this.setQuirky(true);
-             }
-             if (this.isQuirky() && this.quirkTimer++ > 60) {
-                 this.quirkTimer = 0;
-                 this.setQuirky(false);
-             }
-         }
+     public void handleEntityEvent(byte id) {
+         if (id == this.QUIRK) this.quirkAnimationState.start(this.tickCount);
+         else super.handleEntityEvent(id);
      }
 
      @Override
@@ -197,7 +189,7 @@
      }
 
      @Override
-     protected void actuallyHurt(DamageSource damageSource, float amount) {
+     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
          this.exitBurrow();
          super.actuallyHurt(damageSource, amount);
      }
@@ -221,14 +213,6 @@
          super.readAdditionalSaveData(compoundTag);
          this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
          this.setFromBucket(compoundTag.getBoolean("FromBucket"));
-     }
-
-     public boolean isQuirky() {
-         return this.getFlag(16);
-     }
-
-     public void setQuirky(boolean grazing) {
-         this.setFlag(16, grazing);
      }
 
      public int getBurrowCooldown() {
@@ -285,7 +269,7 @@
 
      @Override
      @Nullable
-     protected SoundEvent getHurtSound(DamageSource damageSource) {
+     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
          return UP2SoundEvents.DIPLOCAULUS_HURT.get();
      }
 
@@ -296,7 +280,7 @@
      }
 
      @Override
-     protected void playStepSound(BlockPos pos, BlockState state) {
+     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
          this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.5F);
      }
 
@@ -324,12 +308,12 @@
      }
 
      @Override
-     public SoundEvent getPickupSound() {
+     public @NotNull SoundEvent getPickupSound() {
          return SoundEvents.BUCKET_FILL_FISH;
      }
 
      @Override
-     public void saveToBucketTag(ItemStack bucket) {
+     public void saveToBucketTag(@NotNull ItemStack bucket) {
          if (this.hasCustomName()) {
              bucket.setHoverName(this.getCustomName());
          }
@@ -339,7 +323,7 @@
      }
 
      @Override
-     public void loadFromBucketTag(CompoundTag compoundTag) {
+     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
          Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
          if (compoundTag.contains("BucketVariantTag", 3)) {
              this.setVariant(compoundTag.getInt("BucketVariantTag"));
@@ -347,12 +331,12 @@
      }
 
      @Override
-     public InteractionResult mobInteract(Player player, InteractionHand hand) {
+     public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      @Override
-     public ItemStack getBucketItemStack() {
+     public @NotNull ItemStack getBucketItemStack() {
          return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
      }
 

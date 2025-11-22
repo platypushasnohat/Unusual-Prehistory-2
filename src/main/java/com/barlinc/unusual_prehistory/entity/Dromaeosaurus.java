@@ -15,6 +15,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -40,6 +41,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
     private int eepyTimer;
+    private int biteTicks;
 
     public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
 
@@ -146,6 +148,8 @@ public class Dromaeosaurus extends PrehistoricMob {
 
         if (leapCooldown > 0) this.leapCooldown--;
 
+        if (biteTicks > 0) this.biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
     }
 
     private boolean isEepyTime() {
@@ -154,9 +158,9 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.getDeltaMovement().horizontalDistance() <= 1.0E-5F, this.tickCount);
+        if (this.biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
+        this.idleAnimationState.animateWhen(!this.isDromaeosaurusEeping(), this.tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
-        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
 
         if (this.isDromaeosaurusVisuallyEeping()) {
             this.fallAnimationState.stop();
@@ -175,6 +179,19 @@ public class Dromaeosaurus extends PrehistoricMob {
             this.startSleepingAnimationState.stop();
             this.sleepAnimationState.stop();
             this.wakeUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+        }
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.BITING.get()) {
+                this.biteAnimationState.start(this.tickCount);
+                this.biteTicks = 10;
+            }
+            else {
+                this.biteAnimationState.stop();
+            }
         }
     }
 

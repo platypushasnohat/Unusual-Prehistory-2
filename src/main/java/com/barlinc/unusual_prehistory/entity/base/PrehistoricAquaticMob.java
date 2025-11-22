@@ -9,7 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -39,7 +38,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     public float rollAngle = 0.0F;
 
-    public final AnimationState swimmingAnimationState = new AnimationState();
+    public final AnimationState swimIdleAnimationState = new AnimationState();
     public final AnimationState floppingAnimationState = new AnimationState();
 
     protected PrehistoricAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
@@ -97,15 +96,8 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     public void setupAnimationStates() {
-        this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.floppingAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
-    @Override
-    public void calculateEntityAnimation(boolean flying) {
-        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float f2 = Math.min(f1 * 10.0F, 1.0F);
-        this.walkAnimation.update(f2, 0.4F);
     }
 
     public float flopChance() {

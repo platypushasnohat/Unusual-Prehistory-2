@@ -161,21 +161,22 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 	public void setupAnim(Carnotaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isCharging()) {
-            if (entity.isInWater()) this.animateWalk(CarnotaurusAnimations.SWIM, limbSwing, limbSwingAmount * 4, 4, 8);
-			else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+		if (!entity.isCharging() && !entity.isInWater()) {
+			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
 		if (this.young) this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
 
 		this.animateIdle(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-		this.animate(entity.biteAnimationState, CarnotaurusAnimations.BITE, ageInTicks);
-		this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT, ageInTicks);
+		this.animate(entity.bite1AnimationState, CarnotaurusAnimations.BITE_BLEND1, ageInTicks);
+        this.animate(entity.bite2AnimationState, CarnotaurusAnimations.BITE_BLEND2, ageInTicks);
+        this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT, ageInTicks);
 		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
 		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
 		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
 		this.animate(entity.sniffAnimationState, CarnotaurusAnimations.SNIFF, ageInTicks);
 		this.animate(entity.waveAnimationState, CarnotaurusAnimations.WAVE, ageInTicks);
+        this.animate(entity.swimmingAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

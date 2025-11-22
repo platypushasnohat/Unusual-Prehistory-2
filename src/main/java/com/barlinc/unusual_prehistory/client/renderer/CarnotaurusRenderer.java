@@ -17,7 +17,7 @@ public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusMod
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/carnotaurus.png");
 
     public CarnotaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new CarnotaurusModel(context.bakeLayer(UP2ModelLayers.CARNOTAURUS)), 0.8F);
+        super(context, new CarnotaurusModel(context.bakeLayer(UP2ModelLayers.CARNOTAURUS)), 1.0F);
     }
 
     @Override

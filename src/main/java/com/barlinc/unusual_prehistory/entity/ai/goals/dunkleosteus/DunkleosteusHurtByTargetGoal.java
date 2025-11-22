@@ -27,7 +27,7 @@ public class DunkleosteusHurtByTargetGoal extends TargetGoal {
         int time = this.mob.getLastHurtByMobTimestamp();
         LivingEntity entity = this.mob.getLastHurtByMob();
         if (time != this.timestamp && entity != null) {
-            if (entity.getType() == EntityType.PLAYER && this.mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) || this.dunkleosteus.getDunkSize() == 0 || this.dunkleosteus.isBaby()) {
+            if (entity.getType() == EntityType.PLAYER && this.mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER) || this.dunkleosteus.getVariant() == 0 || this.dunkleosteus.isBaby()) {
                 return false;
             } else {
                 return this.canAttack(entity, HURT_BY_TARGETING);

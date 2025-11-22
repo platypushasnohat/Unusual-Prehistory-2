@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.blocks;
 
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
@@ -46,9 +45,6 @@ public class WaterEggBlock extends FrogspawnBlock {
                     }
                     if (entity instanceof PrehistoricMob prehistoricMob) {
                         prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
-                    }
-                    if (entity instanceof Dunkleosteus dunkleosteus) {
-                        dunkleosteus.setDunkSize(random.nextInt(dunkleosteus.getVariantCount()));
                     }
                     int k = random.nextInt(1, 361);
                     entity.moveTo(pos.getX(), (double) pos.getY() - 0.5D, pos.getZ(), (float) k, 0.0F);
