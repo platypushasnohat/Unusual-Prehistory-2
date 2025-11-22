@@ -32,7 +32,7 @@ public class CarnotaurusChargeGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.carnotaurus.isVehicle() && !this.carnotaurus.isBaby() && this.carnotaurus.getTarget() != null && this.carnotaurus.getTarget().isAlive() && this.carnotaurus.getChargeCooldown() <= 0 && !this.carnotaurus.isInWaterOrBubble() && this.carnotaurus.getAttackState() == 0;
+        return this.carnotaurus.isWithinYRange(this.carnotaurus.getTarget()) && !this.carnotaurus.isVehicle() && !this.carnotaurus.isBaby() && this.carnotaurus.getTarget() != null && this.carnotaurus.getTarget().isAlive() && this.carnotaurus.getChargeCooldown() <= 0 && !this.carnotaurus.isInWaterOrBubble() && this.carnotaurus.getAttackState() == 0;
     }
 
     @Override

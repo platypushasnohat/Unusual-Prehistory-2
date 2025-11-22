@@ -100,6 +100,13 @@ public class Carnotaurus extends PrehistoricMob {
         }
     }
 
+    public boolean isWithinYRange(LivingEntity target) {
+        if (target == null) {
+            return false;
+        }
+        return Math.abs(target.getY() - this.getY()) < 3;
+    }
+
     @Override
     public boolean canPacifiy() {
         return true;
