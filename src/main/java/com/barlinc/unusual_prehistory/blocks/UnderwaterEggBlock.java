@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.blocks;
 
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;

@@ -47,11 +47,14 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        switchNavigator(false);
+        this.switchNavigator(false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FLYING_SPEED, 1.0F).add(Attributes.MOVEMENT_SPEED, 0.2F);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.FLYING_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Override

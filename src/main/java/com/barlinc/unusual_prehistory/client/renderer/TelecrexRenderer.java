@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class TelecrexRenderer extends MobRenderer<Telecrex, TelecrexModel> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID,"textures/entity/telecrex.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/telecrex.png");
 
     public TelecrexRenderer(EntityRendererProvider.Context context) {
         super(context, new TelecrexModel(context.bakeLayer(UP2ModelLayers.TELECREX)), 0.4F);

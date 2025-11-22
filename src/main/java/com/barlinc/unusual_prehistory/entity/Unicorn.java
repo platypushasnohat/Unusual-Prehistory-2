@@ -44,7 +44,7 @@ public class Unicorn extends Animal {
     private int idleAnimationTimeout = 0;
 
     @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothGroundPathNavigation(this, level);
     }
 
@@ -70,10 +70,10 @@ public class Unicorn extends Animal {
 
     @Override
     public void tick () {
-        if (this.level().isClientSide()){
+        if (this.level().isClientSide()) {
             this.setupAnimationStates();
         }
-        if (this.tickCount % 600 == 0 && this.getHealth() < this.getMaxHealth()) {
+        if (this.tickCount % 400 == 0 && this.getHealth() < this.getMaxHealth()) {
             this.heal(2);
         }
         super.tick();
@@ -94,7 +94,7 @@ public class Unicorn extends Animal {
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isFood(itemstack)) {
             int i = this.getAge();
@@ -131,7 +131,7 @@ public class Unicorn extends Animal {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UP2Entities.UNICORN.get().create(serverLevel);
     }
 
@@ -143,7 +143,7 @@ public class Unicorn extends Animal {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         if (this.isSkeletal()) {
             return SoundEvents.SKELETON_HURT;
         }
@@ -170,15 +170,15 @@ public class Unicorn extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Skeletal", this.isSkeletal());
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Skeletal", this.isSkeletal());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setSkeletal(compound.getBoolean("Skeletal"));
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setSkeletal(compoundTag.getBoolean("Skeletal"));
     }
 
     @Override
@@ -195,8 +195,9 @@ public class Unicorn extends Animal {
         this.entityData.set(SKELETAL, isSkeletal);
     }
 
-    public void thunderHit(ServerLevel level, LightningBolt pLightning) {
-        UUID uuid = pLightning.getUUID();
+    @Override
+    public void thunderHit(@NotNull ServerLevel level, LightningBolt lightningBolt) {
+        UUID uuid = lightningBolt.getUUID();
         if (!uuid.equals(this.lastLightningBoltUUID)) {
             this.setSkeletal((!this.isSkeletal() || this.isSkeletal()) != this.isSkeletal());
             this.lastLightningBoltUUID = uuid;

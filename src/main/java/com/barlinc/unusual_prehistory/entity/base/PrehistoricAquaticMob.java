@@ -47,7 +47,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new AdvancedWaterboundPathNavigation(this, level);
     }
 
@@ -157,12 +157,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public SoundEvent getPickupSound() {
+    public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
@@ -172,7 +172,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public void loadFromBucketTag(CompoundTag compoundTag) {
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
         if (compoundTag.contains("BucketVariantTag", 3)) {
             this.setVariant(compoundTag.getInt("BucketVariantTag"));
@@ -180,7 +180,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
@@ -197,8 +197,8 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     public static boolean canSpawn(EntityType<? extends PrehistoricAquaticMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        int i = level.getSeaLevel();
-        int j = i - 13;
-        return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
+        int seaLevel = level.getSeaLevel();
+        int minHeight = seaLevel - 13;
+        return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
     }
 }

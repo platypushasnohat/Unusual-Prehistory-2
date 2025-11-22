@@ -33,10 +33,6 @@ public class ClientProxy extends CommonProxy {
     public static List<UUID> blockedEntityRenders = new ArrayList<>();
 
     @Override
-    public void commonInit() {
-    }
-
-    @Override
     public void clientInit() {
         MinecraftForge.EVENT_BUS.register(new ClientForgeEvents());
     }

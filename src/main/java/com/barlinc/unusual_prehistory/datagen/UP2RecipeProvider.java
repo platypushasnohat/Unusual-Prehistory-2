@@ -25,7 +25,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
-import static net.minecraft.data.recipes.RecipeCategory.*;
+import static net.minecraft.data.recipes.RecipeCategory.BUILDING_BLOCKS;
+import static net.minecraft.data.recipes.RecipeCategory.MISC;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 

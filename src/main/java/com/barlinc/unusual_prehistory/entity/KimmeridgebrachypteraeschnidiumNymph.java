@@ -17,6 +17,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,11 +32,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.BOOLEAN);
@@ -105,7 +110,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     }
 
     @Override
-    public void travel(Vec3 travelVec) {
+    public void travel(@NotNull Vec3 travelVec) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVec);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -273,7 +278,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     }
 
     @Override
-    public void loadFromBucketTag(CompoundTag compoundTag) {
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
         if (compoundTag.contains("Age")) {
             this.setAge(compoundTag.getInt("Age"));
@@ -281,12 +286,18 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     }
 
     @Override
-    public ItemStack getBucketItemStack() {
+    public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
     }
 
     @Override
-    public SoundEvent getPickupSound() {
+    public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    public static boolean canSpawn(EntityType<? extends PathfinderMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        int seaLevel = level.getSeaLevel();
+        int minHeight = seaLevel - 13;
+        return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
     }
 }

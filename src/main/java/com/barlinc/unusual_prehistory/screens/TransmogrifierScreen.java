@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class TransmogrifierScreen extends AbstractContainerScreen<TransmogrifierMenu> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/transmogrifier.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/gui/transmogrifier.png");
 
     private static final int SCREEN_WIDTH = 176;
     private static final int SCREEN_HEIGHT = 166;
