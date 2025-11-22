@@ -55,8 +55,8 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
 
     @Override
     protected void animateWalk(@NotNull AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor) {
-        if (limbSwing != 0 && limbSwingAmount != 0){
-            long i = (long)(limbSwing * 50.0F * maxAnimationSpeed);
+        if (limbSwing != 0 && limbSwingAmount != 0) {
+            long i = (long) (limbSwing * 50.0F * maxAnimationSpeed);
             float f = Math.min(limbSwingAmount * animationScaleFactor, 1.0F);
             KeyframeAnimations.animate(this, definition, i, f, UP2Model.ANIMATION_VECTOR_CACHE);
         }

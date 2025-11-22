@@ -4,9 +4,7 @@ import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 
-import java.util.EnumSet;
 import java.util.Objects;
 
 public class KentrosaurusAttackGoal extends AttackGoal {
@@ -15,7 +13,6 @@ public class KentrosaurusAttackGoal extends AttackGoal {
 
     public KentrosaurusAttackGoal(Kentrosaurus kentrosaurus) {
         super(kentrosaurus);
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Flag.LOOK));
         this.kentrosaurus = kentrosaurus;
     }
 

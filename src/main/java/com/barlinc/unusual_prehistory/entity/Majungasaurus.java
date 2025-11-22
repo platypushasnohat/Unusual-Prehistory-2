@@ -18,6 +18,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -52,7 +53,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     private int biteTicks;
 
-    public Majungasaurus(EntityType<? extends Majungasaurus> entityType, Level level) {
+    public Majungasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
     }
@@ -160,6 +161,11 @@ public class Majungasaurus extends PrehistoricMob {
             this.enterStealthAnimationState.stop();
             this.exitStealthAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
+    }
+
+    @Override
+    public float getWalkAnimationSpeed() {
+        return this.isBaby() ? 2.0F : 4.0F;
     }
 
     @Override

@@ -110,7 +110,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return UP2SoundEvents.STETHACANTHUS_HURT.get();
     }
 

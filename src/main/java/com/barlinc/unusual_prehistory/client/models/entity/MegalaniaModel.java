@@ -153,9 +153,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 			this.neck.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
 		}
 
-		if (this.young) {
-			this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
-		}
+		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);

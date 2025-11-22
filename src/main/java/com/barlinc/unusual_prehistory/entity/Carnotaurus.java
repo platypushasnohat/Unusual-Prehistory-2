@@ -71,12 +71,12 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(1, new CarnotaurusRoarGoal(this));
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
 //        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new CarnotaurusSniffingGoal(this));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new CarnotaurusSniffingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, true, false));
     }
@@ -156,6 +156,11 @@ public class Carnotaurus extends PrehistoricMob {
         this.swimmingAnimationState.animateWhen(!this.isCharging() && !this.isRoaring() && this.isInWater(), this.tickCount);
         this.chargeAnimationState.animateWhen(this.isCharging(), this.tickCount);
         this.roarAnimationState.animateWhen(this.isRoaring(), this.tickCount);
+    }
+
+    @Override
+    public float getWalkAnimationSpeed() {
+        return this.isBaby() ? 2.0F : 4.0F;
     }
 
     @Override
