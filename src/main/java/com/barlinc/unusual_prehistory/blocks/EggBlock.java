@@ -109,17 +109,17 @@ public class EggBlock extends Block {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
             } else {
-                spawnEntity(level, pos, state, random);
+                spawnEntity(level, pos, random);
             }
         }
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
     }
 
-    public void spawnEntity(ServerLevel level, BlockPos pos, BlockState state, RandomSource random){
+    public void spawnEntity(ServerLevel level, BlockPos pos, RandomSource random){
         level.playSound(null, pos, SoundEvents.SNIFFER_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
         level.destroyBlock(pos, false);
         int i = 1;

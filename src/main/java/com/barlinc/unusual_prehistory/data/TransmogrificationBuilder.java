@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings("deprecation")
 public class TransmogrificationBuilder {
 
     private final Ingredient input;

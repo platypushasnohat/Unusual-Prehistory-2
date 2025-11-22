@@ -16,7 +16,7 @@ public abstract class MapDecorationMixin {
     public abstract MapDecoration.Type getType();
 
     @Inject(method = {"render(I)Z"}, remap = false, cancellable = true, at = @At(value = "HEAD"))
-    private void unusualPrehistory$render(int index, CallbackInfoReturnable<Boolean> cir) {
+    private void unusualPrehistory2$render(int index, CallbackInfoReturnable<Boolean> cir) {
         if (this.getType() == UP2MapIcons.FOSSIL_SITE_MAP_DECORATION) {
             UnusualPrehistory2.PROXY.renderMapDecoration((MapDecoration) (Object) this, index);
             cir.setReturnValue(true);

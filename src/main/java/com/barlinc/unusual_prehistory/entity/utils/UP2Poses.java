@@ -8,7 +8,6 @@ public enum UP2Poses {
     BITING,
     HEADBUTTING,
     STEALTH,
-    YAWNING,
     PREENING,
     BURROWED,
     WAVING,

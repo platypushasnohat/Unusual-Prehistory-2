@@ -17,17 +17,17 @@ public class MapDecorationTypeMixin {
     private static MapDecoration.Type[] $VALUES;
 
     @Unique
-    private static final MapDecoration.Type FOSSIL_SITE = unusualPrehistory$addType("FOSSIL_SITE", true, 0X6B6B6B, false);
+    private static final MapDecoration.Type FOSSIL_SITE = unusualPrehistory2$addType("FOSSIL_SITE", true, 0X6B6B6B, false);
 
     @Invoker("<init>")
-    public static MapDecoration.Type unusualPrehistory$invokeInit(String internalName, int internalId, boolean renderOnFrame, int mapColor, boolean trackCount) {
+    public static MapDecoration.Type unusualPrehistory2$invokeInit(String internalName, int internalId, boolean renderOnFrame, int mapColor, boolean trackCount) {
         throw new AssertionError();
     }
 
     @Unique
-    private static MapDecoration.Type unusualPrehistory$addType(String internalName, boolean renderOnFrame, int mapColor, boolean trackCount) {
+    private static MapDecoration.Type unusualPrehistory2$addType(String internalName, boolean renderOnFrame, int mapColor, boolean trackCount) {
         ArrayList<MapDecoration.Type> variants = new ArrayList<>(Arrays.asList($VALUES));
-        MapDecoration.Type instrument = unusualPrehistory$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, renderOnFrame, mapColor, trackCount);
+        MapDecoration.Type instrument = unusualPrehistory2$invokeInit(internalName, variants.get(variants.size() - 1).ordinal() + 1, renderOnFrame, mapColor, trackCount);
         variants.add(instrument);
         MapDecorationTypeMixin.$VALUES = variants.toArray(new MapDecoration.Type[0]);
         return instrument;

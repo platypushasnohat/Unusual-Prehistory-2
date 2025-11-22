@@ -26,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("removal")
 public class TransmogrificationCategory implements IRecipeCategory<TransmogrificationRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(UnusualPrehistory2.MOD_ID, "transmogrification");
+    public final static ResourceLocation UID = UnusualPrehistory2.modPrefix("transmogrification");
 
-    public final static ResourceLocation BACKGROUND = new ResourceLocation(UnusualPrehistory2.MOD_ID, "textures/gui/transmogrifier.png");
+    public final static ResourceLocation BACKGROUND = UnusualPrehistory2.modPrefix("textures/gui/transmogrifier.png");
 
     private final IDrawable background;
     private final IDrawable icon;

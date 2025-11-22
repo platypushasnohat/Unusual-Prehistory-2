@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.entity.projectile;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -16,8 +15,8 @@ public class DromaeosaurusEgg extends ThrowableEgg {
         super(entity, level);
     }
 
-    public DromaeosaurusEgg(Level level, LivingEntity shooter) {
-        super(UP2Entities.DROMAEOSAURUS_EGG.get(), shooter, level);
+    public DromaeosaurusEgg(Level level, double x, double y, double z) {
+        super(UP2Entities.DROMAEOSAURUS_EGG.get(), x, y, z, level);
     }
 
     @Override

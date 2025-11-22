@@ -1,10 +1,6 @@
 package com.barlinc.unusual_prehistory.items;
 
-import com.barlinc.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TalpanasEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TelecrexEgg;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
-import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -13,7 +9,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -28,11 +23,12 @@ public class ThrowableEggItem extends Item {
     private final Random random = new Random();
     private final Supplier<? extends EntityType<?>> toSpawn;
 
-    public ThrowableEggItem(Properties properties,Supplier<? extends EntityType<?>> toSpawn) {
+    public ThrowableEggItem(Properties properties, Supplier<? extends EntityType<?>> toSpawn) {
         super(properties);
         this.toSpawn = toSpawn;
     }
 
+    @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         player.gameEvent(GameEvent.ITEM_INTERACT_START);
@@ -40,7 +36,7 @@ public class ThrowableEggItem extends Item {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
         
         if (!level.isClientSide) {
-            if(toSpawn.get() == null) return InteractionResultHolder.fail(itemstack);
+            if (toSpawn.get() == null) return InteractionResultHolder.fail(itemstack);
             Entity entity = toSpawn.get().create(level);
             if (entity instanceof ThrowableEgg egg) {
                 egg.setOwner(player);

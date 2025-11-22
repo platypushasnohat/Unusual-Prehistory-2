@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MapRendererMapInstanceMixin {
 
     @Inject(method = {"draw(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ZI)V"}, at = @At(value = "HEAD"))
-    private void ac_render(PoseStack poseStack, MultiBufferSource multiBufferSource, boolean inFrame, int packedLighting, CallbackInfo ci) {
+    private void unusualPrehistory2$render(PoseStack poseStack, MultiBufferSource multiBufferSource, boolean inFrame, int packedLighting, CallbackInfo ci) {
         ClientForgeEvents.lastMapPoseStack = poseStack;
         ClientForgeEvents.lastMapRenderBuffer = multiBufferSource;
         ClientForgeEvents.lastMapRenderPackedLight = packedLighting;
