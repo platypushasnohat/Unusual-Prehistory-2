@@ -47,7 +47,7 @@ public class ThrowableEggItem extends Item {
                 egg.setPos(player.getX(), player.getEyeY() - (double)0.1F, player.getZ());
                 egg.setItem(itemstack);
                 egg.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-                Forge
+                level.addFreshEntity(egg);
             }
         }
 
