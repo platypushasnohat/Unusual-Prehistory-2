@@ -1,9 +1,12 @@
 package com.barlinc.unusual_prehistory.blocks;
 
+import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -15,7 +18,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,10 +37,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class EggBlock extends Block {
+public class EggBlock extends BaseEntityBlock {
 
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     private final VoxelShape shape;
@@ -109,17 +116,15 @@ public class EggBlock extends Block {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
             } else {
-                spawnEntity(level, pos, random);
+                spawnEntity(level, pos, state, random);
             }
         }
     }
 
-    @Override
-    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-        super.setPlacedBy(level, pos, state, placer, stack);
-    }
-
-    public void spawnEntity(ServerLevel level, BlockPos pos, RandomSource random){
+    public void spawnEntity(ServerLevel level, BlockPos pos, BlockState state, RandomSource random){
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if(!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
+        UUID placer = dataBlockEntity.getOwner();
         level.playSound(null, pos, SoundEvents.SNIFFER_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
         level.destroyBlock(pos, false);
         int i = 1;
@@ -134,6 +139,12 @@ public class EggBlock extends Block {
                     animal.setBaby(true);
                 }
                 entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
+                if(placer != null) {
+                    Player player = level.getPlayerByUUID(placer);
+                    if(player instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
+                    }
+                }
                 ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos),MobSpawnType.NATURAL, null, null);
             }
         }
@@ -180,4 +191,23 @@ public class EggBlock extends Block {
     public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull PathComputationType computationType) {
         return false;
     }
+
+    @Override
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+        if (!pLevel.isClientSide && pPlacer instanceof Player player) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
+            if (be instanceof ExtraDataBlockEntity owned) {
+                owned.setOwner(player.getUUID());
+            }
+        }
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ExtraDataBlockEntity(pos, state);
+    }
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
+
 }

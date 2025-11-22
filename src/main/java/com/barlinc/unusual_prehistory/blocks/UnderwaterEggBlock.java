@@ -1,36 +1,44 @@
 package com.barlinc.unusual_prehistory.blocks;
 
+import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.blockentity.FrogSpawnBlockEntity;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterloggedBlock {
+public class UnderwaterEggBlock extends FrogSpawnBlockEntity implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -48,10 +56,13 @@ public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterlog
         if (!this.canSurvive(state, level, pos)) {
             level.destroyBlock(pos, false);
         } else {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
+            UUID placer = dataBlockEntity.getOwner();
             level.destroyBlock(pos, false);
             for (int j = 0; j < babyCount; j++) {
                 Entity entity = hatchedEntity.get().create(level);
-                if (entity != null) {
+                if (entity instanceof Mob mob) {
                     if (entity instanceof Animal animal) {
                         animal.setAge(-24000);
                         animal.setPersistenceRequired();
@@ -64,8 +75,14 @@ public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterlog
                         prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
                     }
                     int k = random.nextInt(1, 361);
+                    if(placer != null) {
+                        Player player = level.getPlayerByUUID(placer);
+                        if(player instanceof ServerPlayer serverPlayer) {
+                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
+                        }
+                    }
                     entity.moveTo(pos.getX(), (double) pos.getY() + 0.5D, pos.getZ(), (float) k, 0.0F);
-                    level.addFreshEntity(entity);
+                    ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
                 }
             }
         }
@@ -105,4 +122,20 @@ public class UnderwaterEggBlock extends FrogspawnBlock implements SimpleWaterlog
     public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ExtraDataBlockEntity(pos, state);
+    }
+
+    @Override
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @org.jetbrains.annotations.Nullable LivingEntity pPlacer, ItemStack pStack) {
+        if (!pLevel.isClientSide && pPlacer instanceof Player player) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
+            if (be instanceof ExtraDataBlockEntity owned) {
+                owned.setOwner(player.getUUID());
+            }
+        }
+    }
+
 }
