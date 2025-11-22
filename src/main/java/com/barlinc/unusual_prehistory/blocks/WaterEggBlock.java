@@ -8,9 +8,12 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.FrogspawnBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -34,7 +37,7 @@ public class WaterEggBlock extends FrogspawnBlock {
             level.destroyBlock(pos, false);
             for (int j = 0; j < babyCount; j++) {
                 Entity entity = hatchedEntity.get().create(level);
-                if (entity != null) {
+                if (entity instanceof Mob mob) {
                     if (entity instanceof Animal animal) {
                         animal.setAge(-24000);
                         animal.setPersistenceRequired();
@@ -48,7 +51,7 @@ public class WaterEggBlock extends FrogspawnBlock {
                     }
                     int k = random.nextInt(1, 361);
                     entity.moveTo(pos.getX(), (double) pos.getY() - 0.5D, pos.getZ(), (float) k, 0.0F);
-                    level.addFreshEntity(entity);
+                    ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
                 }
             }
         }
