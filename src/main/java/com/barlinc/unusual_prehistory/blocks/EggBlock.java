@@ -12,6 +12,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -112,6 +114,11 @@ public class EggBlock extends Block {
         }
     }
 
+    @Override
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+        super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+    }
+
     public void spawnEntity(ServerLevel level, BlockPos pos, BlockState state, RandomSource random){
         level.playSound(null, pos, SoundEvents.SNIFFER_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
         level.destroyBlock(pos, false);
@@ -122,12 +129,12 @@ public class EggBlock extends Block {
         for (int j = 0; j < i; j++) {
             Vec3 vec3 = pos.getCenter();
             Entity entity = hatchedEntity.get().create(level);
-            if (entity != null) {
+            if (entity instanceof Mob mob) {
                 if (entity instanceof Animal animal) {
                     animal.setBaby(true);
                 }
                 entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
-                level.addFreshEntity(entity);
+                ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos),MobSpawnType.NATURAL, null, null);
             }
         }
     }

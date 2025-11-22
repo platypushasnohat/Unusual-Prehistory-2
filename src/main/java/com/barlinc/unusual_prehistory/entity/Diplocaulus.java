@@ -339,6 +339,7 @@
          return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
      }
 
+
      public enum DiplocaulusVariant {
          BREVIROSTRIS(0),
          MAGNICORNIS(1),
