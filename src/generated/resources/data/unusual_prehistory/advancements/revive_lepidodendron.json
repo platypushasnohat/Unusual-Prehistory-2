@@ -1,0 +1,38 @@
+{
+  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "criteria": {
+    "lepidodendron_cone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:lepidodendron_cone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_lepidodendron.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:lepidodendron_cone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_lepidodendron"
+    }
+  },
+  "requirements": [
+    [
+      "lepidodendron_cone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

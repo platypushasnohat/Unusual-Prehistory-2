@@ -69,6 +69,7 @@ public class Megalania extends SemiAquaticMob {
     private final byte FLICK1 = 67;
     private final byte FLICK2 = 68;
     private final byte YAWN = 69;
+    private final byte STOP = 70;
 
     public enum TemperatureStates {
         TEMPERATE,
@@ -404,19 +405,19 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isInWaterOrBubble()) {
+        if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isInWaterOrBubble() && !this.isAggressive()) {
             if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             if (this.getPose() == Pose.STANDING) {
                 if (this.random.nextInt(200) == 0) {
                     this.level().broadcastEntityEvent(this, this.TONGUE);
                 }
-                if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
+                else if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
                     this.level().broadcastEntityEvent(this, this.FLICK1);
                 }
-                if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
+                else if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
                     this.level().broadcastEntityEvent(this, this.FLICK2);
                 }
-                if (this.random.nextInt(700) == 0 && !this.tongueAnimationState.isStarted()) {
+                else if (this.random.nextInt(700) == 0 && !this.tongueAnimationState.isStarted()) {
                     this.level().broadcastEntityEvent(this, this.YAWN);
                 }
             }

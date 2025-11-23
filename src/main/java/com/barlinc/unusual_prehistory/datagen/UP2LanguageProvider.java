@@ -148,11 +148,34 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
 
         // Advancements
-        this.translateAdvancement("root", "Unusual Prehistory 2");
-        this.translateAdvancementDesc("root", "Revive creatures from the ancient past!");
+        this.translateAdvancement("root", "Unusual Prehistory 2", "Revive creatures from the ancient past!");
 
-        this.translateAdvancement("hatch_dromaeosaurus", "Dino Run");
-        this.translateAdvancementDesc("hatch_dromaeosaurus", "Revive a Dromaeosaurus");
+        this.translateAdvancement("hatch_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
+        this.translateAdvancement("hatch_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
+        this.translateAdvancement("hatch_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
+        this.translateAdvancement("hatch_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
+        this.translateAdvancement("hatch_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
+        this.translateAdvancement("hatch_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
+        this.translateAdvancement("hatch_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("hatch_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
+        this.translateAdvancement("hatch_megalania", "The Giant Goanna", "Revive a Megalania");
+        this.translateAdvancement("hatch_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
+        this.translateAdvancement("hatch_talpanas", "Blind as a Duck", "Revive a Talpanas");
+        this.translateAdvancement("hatch_telecrex", "From a Singular Femur", "Revive a Telecrex");
+
+        this.translateAdvancement("hatch_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
+
+        this.translateAdvancement("revive_ginkgo", "Priest of Hiroshima", "Revive a Ginkgo Tree");
+        this.translateAdvancement("revive_lepidodendron", "Have You Seen This Tree?", "Revive a Lepidodendron");
+
+        this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
+        this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
+        this.translateAdvancement("obtain_fossil", "Rock and Bone", "Use a Brush to uncover fossils at a Fossil Site or Tar Pit");
+        this.translateAdvancement("obtain_holocene_remains", "Not So Ancient", "Find the remains of a recently extinct creature");
+        this.translateAdvancement("obtain_machine_parts", "Electrical Doodads", "Find some Machine Parts in a loot chest");
+        this.translateAdvancement("obtain_transmogrifier", "Jesse, We Have to Cook", "Craft a Transmogrifier, the key component in creature revival");
+        this.translateAdvancement("obtain_organic_ooze", "It's Looking at Me...", "Craft some Organic Ooze to fuel the revival process");
+        this.translateAdvancement("obtain_egg", "E G G S", "Recreate your first prehistoric egg or embryo");
 
         // kimmeridgebrachypteraeschnidium bottle
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");
@@ -271,12 +294,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         add(disc + ".desc", description);
     }
 
-    public void translateAdvancement(String key, String name) {
+    public void translateAdvancement(String key, String name, String desc) {
         this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key, name);
-    }
-
-    public void translateAdvancementDesc(String key, String name) {
-        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".desc", name);
+        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".desc", desc);
     }
 
     public void creativeTab(CreativeModeTab key, String name){

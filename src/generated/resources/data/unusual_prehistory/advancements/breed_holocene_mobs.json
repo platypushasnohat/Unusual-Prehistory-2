@@ -1,0 +1,30 @@
+{
+  "parent": "unusual_prehistory:hatch_talpanas",
+  "criteria": {
+    "breed_holocene_mobs": {
+      "conditions": {},
+      "trigger": "unusual_prehistory:breed_holocene_mobs"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.breed_holocene_mobs.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:hanging_roots"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.breed_holocene_mobs"
+    }
+  },
+  "requirements": [
+    [
+      "breed_holocene_mobs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

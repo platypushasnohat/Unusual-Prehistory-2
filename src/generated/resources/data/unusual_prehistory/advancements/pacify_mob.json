@@ -1,0 +1,33 @@
+{
+  "parent": "unusual_prehistory:hatch_carnotaurus",
+  "criteria": {
+    "pacify_mob": {
+      "conditions": {},
+      "trigger": "unusual_prehistory:pacify_mob"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.pacify_mob.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.pacify_mob"
+    }
+  },
+  "requirements": [
+    [
+      "pacify_mob"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

@@ -1,8 +1,13 @@
 package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.network.ParticlePacket;
+import com.barlinc.unusual_prehistory.registry.UP2Network;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -10,7 +15,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Zombie;
@@ -33,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -79,18 +87,22 @@ public class EggBlock extends BaseEntityBlock {
     private void tryTrample(Level level, BlockPos pos, Entity trampler, int chances) {
         if (this.canTrample(level, trampler)) {
             if (!level.isClientSide && level.random.nextInt(chances) == 0) {
-                AABB boundingBox = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).inflate(25, 25, 25);
-                if (trampler instanceof LivingEntity && !(trampler instanceof Player player && player.isCreative())) {
-                    List<Mob> list = level.getEntitiesOfClass(Mob.class, boundingBox, living -> living.isAlive() && living.getType() == hatchedEntity.get());
-                    for (Mob living : list) {
-                        if (!(living instanceof TamableAnimal) || !((TamableAnimal) living).isTame() || !((TamableAnimal) living).isOwnedBy((LivingEntity) trampler)) {
-                            living.setTarget((LivingEntity) trampler);
-                        }
-                    }
-                }
-                level.destroyBlock(pos, false);
+                this.trampleEgg(level, pos, trampler);
             }
         }
+    }
+
+    private void trampleEgg(Level level, BlockPos pos, Entity trampler) {
+        AABB boundingBox = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).inflate(25, 25, 25);
+        if (trampler instanceof LivingEntity && !(trampler instanceof Player player && player.isCreative())) {
+            List<Mob> list = level.getEntitiesOfClass(Mob.class, boundingBox, living -> living.isAlive() && living.getType() == hatchedEntity.get());
+            for (Mob living : list) {
+                if (!(living instanceof TamableAnimal) || !((TamableAnimal) living).isTame() || !((TamableAnimal) living).isOwnedBy((LivingEntity) trampler)) {
+                    living.setTarget((LivingEntity) trampler);
+                }
+            }
+        }
+        level.destroyBlock(pos, false);
     }
 
     public int getHatchLevel(BlockState state) {
@@ -116,12 +128,12 @@ public class EggBlock extends BaseEntityBlock {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
             } else {
-                spawnEntity(level, pos, state, random);
+                spawnEntity(level, pos, random);
             }
         }
     }
 
-    public void spawnEntity(ServerLevel level, BlockPos pos, BlockState state, RandomSource random){
+    public void spawnEntity(ServerLevel level, BlockPos pos, RandomSource random){
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
         UUID placer = dataBlockEntity.getOwner();
@@ -138,13 +150,14 @@ public class EggBlock extends BaseEntityBlock {
                 if (entity instanceof Animal animal) {
                     animal.setBaby(true);
                 }
-                entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
-                if(placer != null) {
+                if (placer != null) {
                     Player player = level.getPlayerByUUID(placer);
-                    if(player instanceof ServerPlayer serverPlayer) {
+                    if (player instanceof ServerPlayer serverPlayer) {
                         CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
                     }
                 }
+                entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
+                level.addFreshEntity(entity);
                 ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos),MobSpawnType.NATURAL, null, null);
             }
         }
@@ -160,26 +173,21 @@ public class EggBlock extends BaseEntityBlock {
 
     @Override
     public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState blockState, boolean b) {
-        boolean flag = hatchBoost(level, pos);
-        boolean flag1 = !canHatch(level, pos);
-        if (!level.isClientSide()) {
-            if (flag) {
+        boolean hatchBoost = hatchBoost(level, pos);
+        boolean preventsHatch = !canHatch(level, pos);
+        if (!level.isClientSide) {
+            if (hatchBoost) {
                 level.levelEvent(3009, pos, 0);
             }
-            if (flag1) {
-                for(int i = 0; i < 20; ++i) {
-                    double d3 = level.getRandom().nextGaussian() * 0.02D;
-                    double d1 = level.getRandom().nextGaussian() * 0.02D;
-                    double d2 = level.getRandom().nextGaussian() * 0.02D;
-                    ((ServerLevel) level).sendParticles(ParticleTypes.SNOWFLAKE, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 1, d3, d1, d2, 0.15F);
-                }
+            if (preventsHatch) {
+                UP2ParticleUtils.queueParticlesOnBlockFaces(level, pos, UP2Particles.SNOWFLAKE.get(), UniformInt.of(3, 6));
             }
         }
 
-        int i = flag ? 12000 : 24000;
-        int j = i / 3;
+        int hatchTime = hatchBoost ? 12000 : 24000;
+        int delay = hatchTime / 3;
         level.gameEvent(GameEvent.BLOCK_PLACE, pos, GameEvent.Context.of(state));
-        level.scheduleTick(pos, this, j + level.random.nextInt(300));
+        level.scheduleTick(pos, this, delay + level.random.nextInt(300));
     }
 
     @Override
@@ -193,21 +201,22 @@ public class EggBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        if (!pLevel.isClientSide && pPlacer instanceof Player player) {
-            BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof ExtraDataBlockEntity owned) {
+    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        if (!level.isClientSide && placer instanceof Player player) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof ExtraDataBlockEntity owned) {
                 owned.setOwner(player.getUUID());
             }
         }
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new ExtraDataBlockEntity(pos, state);
     }
-    public RenderShape getRenderShape(BlockState pState) {
+
+    @Override
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.MODEL;
     }
-
 }

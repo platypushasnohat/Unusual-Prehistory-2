@@ -180,7 +180,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.07F, 1.0F);
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.06F, 1.0F);
     }
 
     @Nullable

@@ -49,6 +49,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OozeBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_HEART.get(), GrowingHeartParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.SNOWFLAKE.get(), SnowflakeParticle.Provider::new);
     }
 
     @SubscribeEvent

@@ -1,17 +1,6 @@
 {
+  "parent": "unusual_prehistory:root",
   "criteria": {
-    "aged_feather": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:aged_feather"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "anvil_fossil": {
       "conditions": {
         "items": [
@@ -180,18 +169,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "machine_parts": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:machine_parts"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "plumage_fossil": {
       "conditions": {
         "items": [
@@ -290,25 +267,22 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
-    "background": "unusual_prehistory:textures/block/mossy_dirt_top.png",
+    "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.root.desc"
+      "translate": "advancement.unusual_prehistory.obtain_fossil.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:unusual_prehistory"
+      "item": "unusual_prehistory:rugose_fossil"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.root"
+      "translate": "advancement.unusual_prehistory.obtain_fossil"
     }
   },
   "requirements": [
     [
-      "machine_parts",
-      "aged_feather",
       "fury_fossil",
       "boomerang_fossil",
       "runner_fossil",

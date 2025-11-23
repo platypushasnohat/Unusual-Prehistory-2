@@ -4,14 +4,14 @@ import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class ExtraDataBlockEntity extends BlockEntity {
-    private UUID owner;
 
+    private UUID owner;
 
     public ExtraDataBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(UP2BlockEntities.EXTRA_DATA_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -27,17 +27,14 @@ public class ExtraDataBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
-        if (owner != null)
-            tag.putUUID("Owner", owner);
+    protected void saveAdditional(@NotNull CompoundTag compoundTag) {
+        super.saveAdditional(compoundTag);
+        if (owner != null) compoundTag.putUUID("Owner", owner);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
-        if (tag.hasUUID("Owner"))
-            owner = tag.getUUID("Owner");
+    public void load(@NotNull CompoundTag compoundTag) {
+        super.load(compoundTag);
+        if (compoundTag.hasUUID("Owner")) owner = compoundTag.getUUID("Owner");
     }
-
 }

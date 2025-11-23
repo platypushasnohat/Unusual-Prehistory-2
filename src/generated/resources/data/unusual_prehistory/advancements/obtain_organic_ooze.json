@@ -1,0 +1,38 @@
+{
+  "parent": "unusual_prehistory:obtain_transmogrifier",
+  "criteria": {
+    "organic_ooze": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:organic_ooze"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.obtain_organic_ooze.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:organic_ooze"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.obtain_organic_ooze"
+    }
+  },
+  "requirements": [
+    [
+      "organic_ooze"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

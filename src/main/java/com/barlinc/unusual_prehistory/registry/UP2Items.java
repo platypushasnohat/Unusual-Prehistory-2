@@ -140,7 +140,8 @@ public class UP2Items {
     }
 
     private static RegistryObject<Item> registerFossilItem(String name) {
-        return registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        RegistryObject<Item> fossil = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        return fossil;
     }
 
     public static Item.Properties registerFoodValue(FoodProperties food) {

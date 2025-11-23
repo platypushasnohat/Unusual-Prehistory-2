@@ -191,6 +191,6 @@ public class Talpanas extends BreedableMob {
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.1F, 1.0F);
+        this.playSound(SoundEvents.CHICKEN_STEP, 0.06F, 1.0F);
     }
 }

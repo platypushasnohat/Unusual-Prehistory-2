@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
@@ -19,6 +20,11 @@ public class MegalaniaAttackGoal extends AttackGoal {
         super(megalania);
         this.megalania = megalania;
         megalania.getNavigation().setCanFloat(false);
+    }
+
+    @Override
+    public boolean canUse() {
+        return super.canUse() && this.megalania.getPose() != Pose.ROARING && !this.megalania.isMegalaniaLayingDown();
     }
 
     @Override

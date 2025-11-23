@@ -1,0 +1,38 @@
+{
+  "parent": "unusual_prehistory:obtain_holocene_remains",
+  "criteria": {
+    "machine_parts": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:machine_parts"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.obtain_machine_parts.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:machine_parts"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.obtain_machine_parts"
+    }
+  },
+  "requirements": [
+    [
+      "machine_parts"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

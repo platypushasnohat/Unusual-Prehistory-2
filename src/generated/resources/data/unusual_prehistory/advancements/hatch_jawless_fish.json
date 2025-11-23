@@ -1,14 +1,14 @@
 {
   "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
-    "hatch_dromaeosaurus": {
+    "hatch_jawless_fish": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:dromaeosaurus"
+              "type": "unusual_prehistory:jawless_fish"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus.desc"
+      "translate": "advancement.unusual_prehistory.hatch_jawless_fish.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:dromaeosaurus_egg"
+      "item": "unusual_prehistory:jawless_fish_roe"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus"
+      "translate": "advancement.unusual_prehistory.hatch_jawless_fish"
     }
   },
   "requirements": [
     [
-      "hatch_dromaeosaurus"
+      "hatch_jawless_fish"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,0 +1,51 @@
+{
+  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "criteria": {
+    "ginkgo_sapling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:ginkgo_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "golden_ginkgo_sapling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:golden_ginkgo_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_ginkgo.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:ginkgo_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_ginkgo"
+    }
+  },
+  "requirements": [
+    [
+      "ginkgo_sapling",
+      "golden_ginkgo_sapling"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
-import com.barlinc.unusual_prehistory.blocks.blockentity.FrogSpawnBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.blockentity.WaterEggBlockEntity;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -38,7 +38,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public class UnderwaterEggBlock extends FrogSpawnBlockEntity implements SimpleWaterloggedBlock {
+public class UnderwaterEggBlock extends WaterEggBlockEntity implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -57,7 +57,7 @@ public class UnderwaterEggBlock extends FrogSpawnBlockEntity implements SimpleWa
             level.destroyBlock(pos, false);
         } else {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
+            if (!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
             UUID placer = dataBlockEntity.getOwner();
             level.destroyBlock(pos, false);
             for (int j = 0; j < babyCount; j++) {
@@ -75,13 +75,14 @@ public class UnderwaterEggBlock extends FrogSpawnBlockEntity implements SimpleWa
                         prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
                     }
                     int k = random.nextInt(1, 361);
-                    if(placer != null) {
+                    if (placer != null) {
                         Player player = level.getPlayerByUUID(placer);
-                        if(player instanceof ServerPlayer serverPlayer) {
+                        if (player instanceof ServerPlayer serverPlayer) {
                             CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
                         }
                     }
                     entity.moveTo(pos.getX(), (double) pos.getY() + 0.5D, pos.getZ(), (float) k, 0.0F);
+                    level.addFreshEntity(entity);
                     ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
                 }
             }
@@ -124,18 +125,17 @@ public class UnderwaterEggBlock extends FrogSpawnBlockEntity implements SimpleWa
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new ExtraDataBlockEntity(pos, state);
     }
 
     @Override
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @org.jetbrains.annotations.Nullable LivingEntity pPlacer, ItemStack pStack) {
-        if (!pLevel.isClientSide && pPlacer instanceof Player player) {
-            BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof ExtraDataBlockEntity owned) {
+    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        if (!level.isClientSide && placer instanceof Player player) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof ExtraDataBlockEntity owned) {
                 owned.setOwner(player.getUUID());
             }
         }
     }
-
 }

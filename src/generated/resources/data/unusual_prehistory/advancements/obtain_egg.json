@@ -1,0 +1,181 @@
+{
+  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "criteria": {
+    "carnotaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:carnotaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "diplocaulus_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:diplocaulus_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dromaeosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dromaeosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dunkleosteus_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dunkleosteus_sac"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "jawless_fish_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:jawless_fish_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "kentrosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:kentrosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "kimmeridgebrachypteraeschnidium_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "majungasaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:majungasaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "megalania_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:megalania_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "stethacanthus_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:stethacanthus_sac"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "talpanas_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:talpanas_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "telecrex_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:telecrex_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.obtain_egg.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:majungasaurus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.obtain_egg"
+    }
+  },
+  "requirements": [
+    [
+      "carnotaurus_egg",
+      "diplocaulus_eggs",
+      "dromaeosaurus_egg",
+      "dunkleosteus_sac",
+      "jawless_fish_roe",
+      "kentrosaurus_egg",
+      "kimmeridgebrachypteraeschnidium_eggs",
+      "majungasaurus_egg",
+      "megalania_egg",
+      "stethacanthus_sac",
+      "talpanas_egg",
+      "telecrex_egg"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

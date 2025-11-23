@@ -1,0 +1,38 @@
+{
+  "parent": "unusual_prehistory:obtain_fossil",
+  "criteria": {
+    "aged_feather": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aged_feather"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.obtain_holocene_remains.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:aged_feather"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.obtain_holocene_remains"
+    }
+  },
+  "requirements": [
+    [
+      "aged_feather"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

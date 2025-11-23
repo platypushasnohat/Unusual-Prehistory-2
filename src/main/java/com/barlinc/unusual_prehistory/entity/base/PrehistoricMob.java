@@ -5,15 +5,19 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveBodyRotat
 import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.registry.UP2CriteriaTriggers;
+import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -114,7 +118,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isFood(itemstack)) {
             int i = this.getAge();
@@ -137,6 +141,7 @@ public abstract class PrehistoricMob extends Animal {
             this.applyFoodEffects(itemstack, this.level(), this);
             this.gameEvent(GameEvent.EAT);
             this.level().broadcastEntityEvent(this, PACIFY);
+            if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB.trigger(serverPlayer);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
@@ -152,7 +157,7 @@ public abstract class PrehistoricMob extends Animal {
     private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
         Item item = food.getItem();
         if (item.isEdible()) {
-            for(Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
+            for (Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
                 if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
                     livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
                 }
