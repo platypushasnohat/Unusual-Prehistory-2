@@ -89,11 +89,11 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
         this.dropSelf(STETHACANTHUS_SAC.get());
         this.dropSelf(DUNKLEOSTEUS_SAC.get());
+        this.dropSelf(ONCHOPRISTIS_SAC.get());
 
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
 
-//        this.add(CALAMOPHYTON.get(), block -> layeredPlantDrops(CALAMOPHYTON.get()));
         this.add(CALAMOPHYTON.get(), (block) -> this.createLayeredSinglePropConditionTable(block, CalamophytonBlock.LAYER, 0));
 
         this.dropSelf(COOKSONIA.get());
@@ -175,11 +175,6 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     protected static LootTable.Builder doublePlantDrops(Block large, Block big) {
         LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(big).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)));
         return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).build()).build()), new BlockPos(0, 1, 0)))).withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(large).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).build()).build()), new BlockPos(0, -1, 0))));
-    }
-
-    protected static LootTable.Builder layeredPlantDrops(Block block) {
-        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
-        return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CalamophytonBlock.LAYER, 0))));
     }
 
     protected LootTable.Builder createLayeredSinglePropConditionTable(Block block, IntegerProperty property, int value) {

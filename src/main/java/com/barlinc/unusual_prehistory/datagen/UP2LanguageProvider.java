@@ -51,6 +51,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
         this.forEntity(UP2Entities.MAJUNGASAURUS);
         this.forEntity(UP2Entities.MEGALANIA);
+        this.forEntity(UP2Entities.ONCHOPRISTIS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
         this.forEntity(UP2Entities.TELECREX);
@@ -124,6 +125,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
         this.sound(UP2SoundEvents.MEGALANIA_ROAR, "Megalania roars");
 
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT, "Onchopristis hurts");
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH, "Onchopristis dies");
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_FLOP, "Onchopristis flops");
+
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
         this.sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
@@ -159,6 +164,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("hatch_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
         this.translateAdvancement("hatch_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
         this.translateAdvancement("hatch_megalania", "The Giant Goanna", "Revive a Megalania");
+        this.translateAdvancement("hatch_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
         this.translateAdvancement("hatch_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("hatch_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("hatch_telecrex", "From a Singular Femur", "Revive a Telecrex");

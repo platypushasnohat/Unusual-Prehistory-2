@@ -66,12 +66,13 @@ public class UP2Blocks {
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));
 
     // eggs
-    public static final Supplier<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
-    public static final Supplier<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, 4));
-    public static final Supplier<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
+    public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
+    public static final RegistryObject<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, 4));
+    public static final RegistryObject<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
 
-    public static final Supplier<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
-    public static final Supplier<Block> STETHACANTHUS_SAC = registerEggBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 1));
+    public static final RegistryObject<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
+    public static final RegistryObject<Block> ONCHOPRISTIS_SAC = registerEggBlock("onchopristis_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.ONCHOPRISTIS::get, 1));
+    public static final RegistryObject<Block> STETHACANTHUS_SAC = registerEggBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 2));
 
     public static final RegistryObject<Block> CARNOTAURUS_EGG = registerEggBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15, false));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
@@ -164,15 +165,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
 
-
-    public static <T extends Block> RegistryObject<T> registerEggBlock(String name, Supplier<T> supplier) {
-        RegistryObject<T> block = BLOCKS.register(name, supplier);
-        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        BLOCK_TRANSLATIONS.add(block);
-        EGG_BLOCKS.add(block);
-        return block;
-    }
-
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
@@ -202,7 +194,15 @@ public class UP2Blocks {
         return entry;
     }
 
-    private static <B extends Block> Supplier<B> registerWaterEggBlock(String name, Supplier<? extends B> supplier) {
+    public static <T extends Block> RegistryObject<T> registerEggBlock(String name, Supplier<T> supplier) {
+        RegistryObject<T> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        BLOCK_TRANSLATIONS.add(block);
+        EGG_BLOCKS.add(block);
+        return block;
+    }
+
+    private static <B extends Block> RegistryObject<B> registerWaterEggBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
         BLOCK_TRANSLATIONS.add(block);

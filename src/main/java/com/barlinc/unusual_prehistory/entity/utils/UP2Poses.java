@@ -4,6 +4,7 @@ import net.minecraft.world.entity.Pose;
 
 public enum UP2Poses {
 
+    ATTACKING,
     RESTING,
     BITING,
     HEADBUTTING,

@@ -29,16 +29,19 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Entities.CARNOTAURUS.get(), UP2Entities.DIPLOCAULUS.get(), UP2Entities.DROMAEOSAURUS.get(),
             UP2Entities.DUNKLEOSTEUS.get(), UP2Entities.JAWLESS_FISH.get(), UP2Entities.KENTROSAURUS.get(),
             UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), UP2Entities.MAJUNGASAURUS.get(), UP2Entities.MEGALANIA.get(),
-            UP2Entities.STETHACANTHUS.get(), UP2Entities.TALPANAS.get(), UP2Entities.TELECREX.get()
+            UP2Entities.ONCHOPRISTIS.get(),UP2Entities.STETHACANTHUS.get(), UP2Entities.TALPANAS.get(),
+            UP2Entities.TELECREX.get()
     };
 
     private static final ItemLike[] ROOT = new ItemLike[] {
             UP2Items.MACHINE_PARTS.get(),
             UP2Items.AGED_FEATHER.get(),
+
             UP2Items.FURY_FOSSIL.get(), UP2Items.BOOMERANG_FOSSIL.get(), UP2Items.RUNNER_FOSSIL.get(),
             UP2Items.GUILLOTINE_FOSSIL.get(), UP2Items.JAWLESS_FOSSIL.get(), UP2Items.PRICKLY_FOSSIL.get(),
             UP2Items.IMPERATIVE_FOSSIL.get(), UP2Items.RUGOSE_FOSSIL.get(), UP2Items.THERMAL_FOSSIL.get(),
-            UP2Items.ANVIL_FOSSIL.get(), UP2Items.PLUMAGE_FOSSIL.get(),
+            UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(), UP2Items.PLUMAGE_FOSSIL.get(),
+
             UP2Items.BENNETTITALES_FOSSIL.get(), UP2Items.CALAMOPHYTON_FOSSIL.get(), UP2Items.CLADOPHEBIS_FOSSIL.get(),
             UP2Items.COOKSONIA_FOSSIL.get(), UP2Items.HORSETAIL_FOSSIL.get(), UP2Items.LEEFRUCTUS_FOSSIL.get(),
             UP2Items.QUILLWORT_FOSSIL.get(), UP2Items.RAIGUENRAYUN_FOSSIL.get(), UP2Items.RHYNIA_FOSSIL.get(),
@@ -50,7 +53,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Items.FURY_FOSSIL.get(), UP2Items.BOOMERANG_FOSSIL.get(), UP2Items.RUNNER_FOSSIL.get(),
             UP2Items.GUILLOTINE_FOSSIL.get(), UP2Items.JAWLESS_FOSSIL.get(), UP2Items.PRICKLY_FOSSIL.get(),
             UP2Items.IMPERATIVE_FOSSIL.get(), UP2Items.RUGOSE_FOSSIL.get(), UP2Items.THERMAL_FOSSIL.get(),
-            UP2Items.ANVIL_FOSSIL.get(), UP2Items.PLUMAGE_FOSSIL.get(),
+            UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(), UP2Items.PLUMAGE_FOSSIL.get(),
 
             // Plants
             UP2Items.BENNETTITALES_FOSSIL.get(), UP2Items.CALAMOPHYTON_FOSSIL.get(), UP2Items.CLADOPHEBIS_FOSSIL.get(),
@@ -68,7 +71,8 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Blocks.CARNOTAURUS_EGG.get(), UP2Blocks.DIPLOCAULUS_EGGS.get(), UP2Items.DROMAEOSAURUS_EGG.get(),
             UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Blocks.KENTROSAURUS_EGG.get(),
             UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Blocks.MAJUNGASAURUS_EGG.get(), UP2Blocks.MEGALANIA_EGG.get(),
-            UP2Blocks.STETHACANTHUS_SAC.get(), UP2Items.TALPANAS_EGG.get(), UP2Items.TELECREX_EGG.get()
+            UP2Blocks.ONCHOPRISTIS_SAC.get(), UP2Blocks.STETHACANTHUS_SAC.get(), UP2Items.TALPANAS_EGG.get(),
+            UP2Items.TELECREX_EGG.get()
     };
 
     public static ForgeAdvancementProvider register(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
@@ -180,9 +184,10 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         this.hatchEggAdvancement(eggs, UP2Blocks.JAWLESS_FISH_ROE.get(), "hatch_jawless_fish", UP2Entities.JAWLESS_FISH.get(), consumer, helper);
         this.hatchEggAdvancement(eggs, UP2Blocks.KENTROSAURUS_EGG.get(), "hatch_kentrosaurus", UP2Entities.KENTROSAURUS.get(), consumer, helper);
         this.hatchEggAdvancement(eggs, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), "hatch_kimmeridgebrachypteraeschnidium", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), consumer, helper);
-        this.hatchEggAdvancement(eggs, UP2Blocks.MAJUNGASAURUS_EGG.get().asItem(), "hatch_majungasaurus", UP2Entities.MAJUNGASAURUS.get(), consumer, helper);
-        this.hatchEggAdvancement(eggs, UP2Blocks.MEGALANIA_EGG.get().asItem(), "hatch_megalania", UP2Entities.MEGALANIA.get(), consumer, helper);
-        this.hatchEggAdvancement(eggs, UP2Blocks.STETHACANTHUS_SAC.get().asItem(), "hatch_stethacanthus", UP2Entities.STETHACANTHUS.get(), consumer, helper);
+        this.hatchEggAdvancement(eggs, UP2Blocks.MAJUNGASAURUS_EGG.get(), "hatch_majungasaurus", UP2Entities.MAJUNGASAURUS.get(), consumer, helper);
+        this.hatchEggAdvancement(eggs, UP2Blocks.MEGALANIA_EGG.get(), "hatch_megalania", UP2Entities.MEGALANIA.get(), consumer, helper);
+        this.hatchEggAdvancement(eggs, UP2Blocks.ONCHOPRISTIS_SAC.get(), "hatch_onchopristis", UP2Entities.ONCHOPRISTIS.get(), consumer, helper);
+        this.hatchEggAdvancement(eggs, UP2Blocks.STETHACANTHUS_SAC.get(), "hatch_stethacanthus", UP2Entities.STETHACANTHUS.get(), consumer, helper);
         this.hatchEggAdvancement(eggs, UP2Items.TELECREX_EGG.get(), "hatch_telecrex", UP2Entities.TELECREX.get(), consumer, helper);
 
         this.addMobList(REVIVABLE_MOBS, Advancement.Builder.advancement().parent(eggs)

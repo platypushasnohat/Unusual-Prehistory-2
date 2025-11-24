@@ -109,6 +109,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "onchopristis_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:onchopristis_sac"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "stethacanthus_sac": {
       "conditions": {
         "items": [
@@ -172,6 +184,7 @@
       "kimmeridgebrachypteraeschnidium_eggs",
       "majungasaurus_egg",
       "megalania_egg",
+      "onchopristis_sac",
       "stethacanthus_sac",
       "talpanas_egg",
       "telecrex_egg"

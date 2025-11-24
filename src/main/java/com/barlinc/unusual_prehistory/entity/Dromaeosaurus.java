@@ -90,7 +90,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);

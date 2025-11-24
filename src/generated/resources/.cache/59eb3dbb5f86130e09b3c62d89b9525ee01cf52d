@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-19T17:04:05.7692955	Loot Tables
+// 1.20.1	2025-11-24T14:20:35.2274442	Loot Tables
 86a581faab506fc6da41180e7ace6da287b6851a data/unusual_prehistory/loot_tables/blocks/asphalt.json
 10266915d70e71b32995be35f0f832fdcb421a21 data/unusual_prehistory/loot_tables/blocks/bennettitales.json
 0ea148d457d40d39512d01a3bc3ce22333b0c77d data/unusual_prehistory/loot_tables/blocks/calamophyton.json
@@ -65,6 +65,7 @@ c20b33c9718bf1c954d9750eeff1142d126832e1 data/unusual_prehistory/loot_tables/blo
 597b38134aa7f3820930abb2306aae2dcdcf7c60 data/unusual_prehistory/loot_tables/blocks/mossy_lepidodendron_log.json
 70ea7aff96db1f9f3bbc1d33fb7085552cbe1415 data/unusual_prehistory/loot_tables/blocks/mossy_lepidodendron_wood.json
 5ae29183b0e3c0b335a3b7c91d3e9076037438fe data/unusual_prehistory/loot_tables/blocks/moss_layer.json
+63473e4b47bea4f248ad07e2cab8b5dc92b44885 data/unusual_prehistory/loot_tables/blocks/onchopristis_sac.json
 c3877d573a6592d0615005fbfc20c377df517882 data/unusual_prehistory/loot_tables/blocks/petrified_log.json
 3181c85e4b4a7b50df499ac4cf1f73f88d324c98 data/unusual_prehistory/loot_tables/blocks/petrified_wood.json
 00b1a5929b9f824da66e54eebb65b21a90ca764d data/unusual_prehistory/loot_tables/blocks/polished_petrified_wood.json

@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -37,11 +38,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.item(TAR_BUCKET);
 
-        // eggs
-        this.item(DROMAEOSAURUS_EGG);
-        this.item(TALPANAS_EGG);
-        this.item(TELECREX_EGG);
-
+        // fossils
         this.item(FURY_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
@@ -51,9 +48,24 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(IMPERATIVE_FOSSIL);
         this.item(RUGOSE_FOSSIL);
         this.item(THERMAL_FOSSIL);
+        this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
         this.item(AGED_FEATHER);
+
+        // eggs
+        this.item(UP2Blocks.CARNOTAURUS_EGG);
+        this.item(UP2Blocks.DIPLOCAULUS_EGGS);
+        this.item(DROMAEOSAURUS_EGG);
+        this.item(UP2Blocks.DUNKLEOSTEUS_SAC);
+        this.item(UP2Blocks.JAWLESS_FISH_ROE);
+        this.item(UP2Blocks.KENTROSAURUS_EGG);
+        this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
+        this.item(UP2Blocks.MEGALANIA_EGG);
+        this.item(UP2Blocks.ONCHOPRISTIS_SAC);
+        this.item(UP2Blocks.STETHACANTHUS_SAC);
+        this.item(TALPANAS_EGG);
+        this.item(TELECREX_EGG);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);
@@ -86,7 +98,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
     }
 
     // item
-    private ItemModelBuilder item(RegistryObject<Item> item) {
+    private ItemModelBuilder item(RegistryObject<?> item) {
         return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 

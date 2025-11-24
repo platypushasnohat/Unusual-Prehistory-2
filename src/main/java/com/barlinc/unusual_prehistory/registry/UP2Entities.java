@@ -97,6 +97,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "megalania").toString())
     );
 
+    public static final RegistryObject<EntityType<Onchopristis>> ONCHOPRISTIS = ENTITY_TYPE.register(
+            "onchopristis", () ->
+            EntityType.Builder.of(Onchopristis::new, MobCategory.WATER_CREATURE)
+                    .sized(1.2F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "onchopristis").toString())
+    );
+
     public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(
             "stethacanthus", () ->
             EntityType.Builder.of(Stethacanthus::new, MobCategory.WATER_CREATURE)

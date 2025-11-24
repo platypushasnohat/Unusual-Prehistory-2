@@ -253,6 +253,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "saw_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:saw_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "thermal_fossil": {
       "conditions": {
         "items": [
@@ -292,6 +304,7 @@
       "imperative_fossil",
       "rugose_fossil",
       "thermal_fossil",
+      "saw_fossil",
       "anvil_fossil",
       "plumage_fossil",
       "bennettitales_fossil",

@@ -225,6 +225,26 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/roar1"))
         );
 
+        // Onchopristis
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+        this.sound(UP2SoundEvents.ONCHOPRISTIS_FLOP,
+                sound("entity/fish/flop1").volume(0.3F),
+                sound("entity/fish/flop2").volume(0.3F),
+                sound("entity/fish/flop3").volume(0.3F),
+                sound("entity/fish/flop4").volume(0.3F)
+        );
+
         // Stethacanthus
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,
                 sound("entity/fish/hurt1"),

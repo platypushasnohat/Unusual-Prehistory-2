@@ -2,11 +2,12 @@ package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,12 +16,12 @@ import static com.barlinc.unusual_prehistory.registry.UP2Entities.*;
 
 public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
-    public UP2EntityTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
+    public UP2EntityTagProvider(PackOutput packOutput, CompletableFuture<Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
         super(packOutput, provider, UnusualPrehistory2.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(@NotNull Provider provider) {
 
         tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
                 CARNOTAURUS.get(),
@@ -60,6 +61,15 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH
         );
 
+        tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
+                KENTROSAURUS.get(),
+                DROMAEOSAURUS.get(),
+                EntityType.SHEEP,
+                EntityType.COW,
+                EntityType.PIG,
+                EntityType.GOAT
+        );
+
         tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
                 EntityType.SHEEP,
                 EntityType.COW,
@@ -76,6 +86,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
+                ONCHOPRISTIS.get(),
                 STETHACANTHUS.get(),
                 EntityType.GUARDIAN,
                 EntityType.DROWNED
@@ -83,10 +94,18 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
+                ONCHOPRISTIS.get(),
                 STETHACANTHUS.get(),
                 EntityType.AXOLOTL,
                 EntityType.DROWNED,
                 EntityType.GUARDIAN
+        );
+
+        tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).add(
+                JAWLESS_FISH.get(),
+                EntityType.COD,
+                EntityType.SALMON,
+                EntityType.TROPICAL_FISH
         );
 
         tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(

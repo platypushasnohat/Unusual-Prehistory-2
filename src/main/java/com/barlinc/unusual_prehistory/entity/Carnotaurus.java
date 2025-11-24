@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -81,6 +82,7 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(8, new CarnotaurusSniffingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, true, false));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.CARNOTAURUS_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -145,14 +147,6 @@ public class Carnotaurus extends PrehistoricMob {
         if (this.getChargeCooldown() > 0) this.setChargeCooldown(this.getChargeCooldown() - 1);
         if (this.getRoarCooldown() > 0) this.setRoarCooldown(this.getRoarCooldown() - 1);
         this.setAngry(this.getHealth() < this.getMaxHealth() * 0.5F && !this.isBaby());
-
-        if (!this.isInWaterOrBubble() && this.getPose() != Pose.SNIFFING && sniffCooldown > 0) sniffCooldown--;
-        if (!this.isInWaterOrBubble() && this.getPose() != UP2Poses.WAVING.get() && waveCooldown > 0) waveCooldown--;
-
-        if (this.biteTicks > 0) biteTicks--;
-        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
-        if (this.headbuttTicks > 0) headbuttTicks--;
-        if (this.headbuttTicks == 0 && this.getPose() == UP2Poses.HEADBUTTING.get()) this.setPose(Pose.STANDING);
     }
 
     public void setupAnimationStates() {
@@ -165,6 +159,17 @@ public class Carnotaurus extends PrehistoricMob {
         this.swimmingAnimationState.animateWhen(!this.isCharging() && !this.isRoaring() && this.isInWater(), this.tickCount);
         this.chargeAnimationState.animateWhen(this.isCharging(), this.tickCount);
         this.roarAnimationState.animateWhen(this.isRoaring(), this.tickCount);
+    }
+
+    @Override
+    public void setupAnimationCooldowns() {
+        if (!this.isInWaterOrBubble() && this.getPose() != Pose.SNIFFING && sniffCooldown > 0) sniffCooldown--;
+        if (!this.isInWaterOrBubble() && this.getPose() != UP2Poses.WAVING.get() && waveCooldown > 0) waveCooldown--;
+
+        if (this.biteTicks > 0) biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (this.headbuttTicks > 0) headbuttTicks--;
+        if (this.headbuttTicks == 0 && this.getPose() == UP2Poses.HEADBUTTING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override

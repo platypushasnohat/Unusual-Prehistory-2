@@ -39,8 +39,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERATIVE_FOSSIL.get(),
                 RUGOSE_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
+                SAW_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
+
                 CALAMOPHYTON_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
                 GINKGO_FOSSIL.get(),
@@ -76,6 +78,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 .addTag(UP2ItemTags.PACIFIES_MOB);
 
         this.tag(UP2ItemTags.PACIFIES_MEGALANIA)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS)
                 .addTag(UP2ItemTags.PACIFIES_MOB);
 
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
@@ -150,6 +155,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_CHICKEN,
                 Items.COOKED_MUTTON,
                 Items.COOKED_RABBIT
+        );
+
+        this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).add(
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
         );
 
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(

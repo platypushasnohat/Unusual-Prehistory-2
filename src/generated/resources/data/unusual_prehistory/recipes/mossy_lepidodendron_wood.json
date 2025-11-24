@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bark",
+  "key": {
+    "L": {
+      "item": "unusual_prehistory:mossy_lepidodendron_log"
+    }
+  },
+  "pattern": [
+    "LL",
+    "LL"
+  ],
+  "result": {
+    "count": 3,
+    "item": "unusual_prehistory:mossy_lepidodendron_wood"
+  },
+  "show_notification": true
+}

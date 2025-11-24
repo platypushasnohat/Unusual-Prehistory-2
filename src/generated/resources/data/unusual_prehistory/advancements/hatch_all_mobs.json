@@ -127,6 +127,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "onchopristis": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:onchopristis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "stethacanthus": {
       "conditions": {
         "entity": [
@@ -213,6 +227,9 @@
     ],
     [
       "megalania"
+    ],
+    [
+      "onchopristis"
     ],
     [
       "stethacanthus"
