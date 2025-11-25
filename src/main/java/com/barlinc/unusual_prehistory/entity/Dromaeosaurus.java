@@ -10,7 +10,6 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
-import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -121,22 +120,10 @@ public class Dromaeosaurus extends PrehistoricMob {
     public void tick () {
         super.tick();
 
-        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 1.7F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
-        Vec3 eyeVec = this.getEyePosition().add(lookVec);
-
-        if (this.level().isClientSide) {
-            if (this.isDromaeosaurusEeping()) {
-                if (this.eepyTimer == 0) {
-                    this.eepyTimer = 40 + random.nextInt(10);
-                    this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
-                }
-                if (this.eepyTimer > 0) this.eepyTimer--;
-            }
-        } else {
+        if (!this.level().isClientSide) {
             if (this.isEepyTime()) {
                 this.eep();
-            }
-            else {
+            } else {
                 this.wakeUp();
             }
         }
@@ -147,13 +134,21 @@ public class Dromaeosaurus extends PrehistoricMob {
         if (this.isDromaeosaurusEeping() && this.isInWaterOrBubble()) this.wakeUpInstantly();
 
         if (leapCooldown > 0) this.leapCooldown--;
+    }
 
-        if (biteTicks > 0) this.biteTicks--;
-        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+    @Override
+    public boolean shouldDoEepyParticles() {
+        return this.isDromaeosaurusEeping();
     }
 
     private boolean isEepyTime() {
         return this.level().isNight() && this.getHealth() > this.getMaxHealth() * 0.5F && !this.isInWater() && this.onGround() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isLeashed();
+    }
+
+    @Override
+    public void setupAnimationCooldowns() {
+        if (biteTicks > 0) this.biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override

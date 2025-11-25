@@ -181,7 +181,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        if (this.canBucket()) return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        else return super.mobInteract(player, hand);
+    }
+
+    public boolean canBucket() {
+        return false;
     }
 
     protected void handleAirSupply(int pAirSupply) {

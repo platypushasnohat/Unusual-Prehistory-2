@@ -5,12 +5,10 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveBodyRotat
 import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
-import com.barlinc.unusual_prehistory.registry.UP2CriteriaTriggers;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -37,6 +35,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricMob extends Animal {
@@ -49,6 +48,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
+    private int eepyTicks;
 
     private final byte PACIFY = 9;
 
@@ -192,6 +192,8 @@ public abstract class PrehistoricMob extends Animal {
         this.setupAnimationCooldowns();
 
         if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
+
+        if (this.level().isClientSide && this.shouldDoEepyParticles()) this.doEepyParticles(1.7F);
     }
 
     public void setupAnimationCooldowns() {
@@ -213,6 +215,20 @@ public abstract class PrehistoricMob extends Animal {
 
     public int getHealCooldown() {
         return 250;
+    }
+
+    public void doEepyParticles(float particleOffset) {
+        Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * particleOffset).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        Vec3 eyeVec = this.getEyePosition().add(lookVec);
+        if (this.eepyTicks == 0) {
+            this.eepyTicks = 40 + random.nextInt(20);
+            this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
+        }
+        if (this.eepyTicks > 0) this.eepyTicks--;
+    }
+
+    public boolean shouldDoEepyParticles() {
+        return false;
     }
 
     public boolean isInPoseTransition() {

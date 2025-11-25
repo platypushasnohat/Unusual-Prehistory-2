@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-24T14:20:35.2274442	Item Models: unusual_prehistory
+// 1.20.1	2025-11-24T18:01:25.2706647	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
@@ -42,6 +42,7 @@ b3762b88398511f1a34e6251d26401c479b01c94 assets/unusual_prehistory/models/item/k
 9a89097cb9baf84eed7f096306ca0fbaf7a46bb2 assets/unusual_prehistory/models/item/lepidodendron_hanging_sign.json
 99dac5615b391ce1d5c4b9be299eba731a31a5c4 assets/unusual_prehistory/models/item/lepidodendron_sign.json
 b10088114704dd8f5962e9665087820adad461d3 assets/unusual_prehistory/models/item/machine_parts.json
+041d0ebd248a467399a052a3ff1983754e777f62 assets/unusual_prehistory/models/item/majungasaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/majungasaurus_spawn_egg.json
 eaabae11b2b5864cf3147228be79486e6fa26268 assets/unusual_prehistory/models/item/megalania_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/megalania_spawn_egg.json

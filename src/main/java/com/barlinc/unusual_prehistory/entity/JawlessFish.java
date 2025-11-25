@@ -92,6 +92,11 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
+    public boolean canBucket() {
+        return true;
+    }
+
+    @Override
     public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }

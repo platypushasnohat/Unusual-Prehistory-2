@@ -94,11 +94,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
+    public void setupAnimationCooldowns() {
         if (this.biteTicks > 0) biteTicks--;
         if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.quirkAnimationState.isStarted() && this.random.nextInt(600) == 0) {
+            this.level().broadcastEntityEvent(this, this.QUIRK);
+        }
     }
 
     @Override
@@ -129,13 +130,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             }
         }
         super.onSyncedDataUpdated(accessor);
-    }
-
-    @Override
-    public void setupAnimationCooldowns() {
-        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.quirkAnimationState.isStarted() && this.random.nextInt(600) == 0) {
-            this.level().broadcastEntityEvent(this, this.QUIRK);
-        }
     }
 
     @Override
@@ -237,6 +231,11 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     @Override
     public @NotNull ItemStack getBucketItemStack() {
         return this.getVariant() == 0 ? new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get()) : ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean canBucket() {
+        return this.getVariant() == 0;
     }
 
     public enum DunkleosteusVariant {

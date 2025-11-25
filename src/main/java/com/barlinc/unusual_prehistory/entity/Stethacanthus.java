@@ -128,6 +128,11 @@ public class Stethacanthus extends SchoolingAquaticMob {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
+    @Override
+    public boolean canBucket() {
+        return true;
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

@@ -61,6 +61,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.JAWLESS_FISH_ROE);
         this.item(UP2Blocks.KENTROSAURUS_EGG);
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
+        this.item(UP2Blocks.MAJUNGASAURUS_EGG);
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(UP2Blocks.ONCHOPRISTIS_SAC);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
