@@ -10,6 +10,8 @@ import com.barlinc.unusual_prehistory.items.UP2BoatItem;
 import com.barlinc.unusual_prehistory.items.UP2MobBucketItem;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
@@ -126,7 +128,8 @@ public class UP2Items {
     public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.TAR_FLUID_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
     // discs
-    public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(15, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
+    public static final RegistryObject<Item> DOOMSURF_DISC = registerItemNoLang("doomsurf_disc", () -> new RecordItem(15, UP2SoundEvents.DOOMSURF_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3940));
+    public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(14, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
 
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
@@ -139,7 +142,7 @@ public class UP2Items {
         return item;
     }
 
-    private static RegistryObject<Item> registerSpawnEggItem(String name, RegistryObject type, int baseColor, int spotColor) {
+    private static RegistryObject<Item> registerSpawnEggItem(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {
         return registerItem(name + "_spawn_egg", () -> new ForgeSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
     }
 

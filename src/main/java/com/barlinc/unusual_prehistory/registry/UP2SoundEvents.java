@@ -66,6 +66,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
     public static final RegistryObject<SoundEvent> MEGALANIA_ROAR = registerSoundEvent("megalania_roar");
+    public static final RegistryObject<SoundEvent> MEGALANIA_STEP = registerSoundEvent("megalania_step");
 
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_HURT = registerSoundEvent("onchopristis_hurt");
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_DEATH = registerSoundEvent("onchopristis_death");
@@ -92,6 +93,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_START = registerSoundEvent("transmogrifier_start");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");
 
+    public static final RegistryObject<SoundEvent> DOOMSURF_DISC = registerSoundEvent("doomsurf_disc");
     public static final RegistryObject<SoundEvent> TARIFYING_DISC = registerSoundEvent("tarifying_disc");
 
     public static final RegistryObject<SoundEvent> TAR_POP = registerSoundEvent("tar_pop");

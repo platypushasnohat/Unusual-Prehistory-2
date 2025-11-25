@@ -34,6 +34,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(STETHACANTHUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
 
+        this.item(DOOMSURF_DISC);
         this.item(TARIFYING_DISC);
 
         this.item(TAR_BUCKET);

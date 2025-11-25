@@ -124,6 +124,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
         this.sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
         this.sound(UP2SoundEvents.MEGALANIA_ROAR, "Megalania roars");
+        this.sound(UP2SoundEvents.MEGALANIA_STEP, "Megalania steps");
 
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT, "Onchopristis hurts");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH, "Onchopristis dies");
@@ -149,6 +150,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_START, "Transmogrifier starts");
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP, "Transmogrifier stops");
 
+        this.sound(UP2SoundEvents.DOOMSURF_DISC, "Music Disc");
+        this.musicDisc(UP2Items.DOOMSURF_DISC, "ChipsTheCat - Doomsurf");
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
         this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
 

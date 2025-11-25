@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-24T18:01:25.2706647	Item Models: unusual_prehistory
+// 1.20.1	2025-11-24T20:42:15.3029025	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
@@ -10,6 +10,7 @@ e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/b
 6fb24554919870d291614a6232426cf3632beab3 assets/unusual_prehistory/models/item/cooksonia_fossil.json
 da447bb260bd31be75dcabef54ca34e72a8b39e5 assets/unusual_prehistory/models/item/diplocaulus_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/diplocaulus_spawn_egg.json
+813adf7ca8b20177821ef040b10425db1fdba276 assets/unusual_prehistory/models/item/doomsurf_disc.json
 ea3aa04d3eac74d7df9f12597733b26dbfc73a72 assets/unusual_prehistory/models/item/dromaeosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dromaeosaurus_spawn_egg.json
 721b2cb64ce7fe20a03939b15a78050517a30214 assets/unusual_prehistory/models/item/dunkleosteus_bucket.json

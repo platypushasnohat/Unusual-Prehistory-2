@@ -64,6 +64,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
+                        output.accept(DOOMSURF_DISC.get());
 
                         output.accept(FURY_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());

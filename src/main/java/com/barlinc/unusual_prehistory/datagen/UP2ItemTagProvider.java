@@ -232,6 +232,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(ItemTags.MUSIC_DISCS).add(
+                DOOMSURF_DISC.get(),
                 TARIFYING_DISC.get()
         );
 

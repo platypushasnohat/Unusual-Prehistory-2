@@ -524,7 +524,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
+        this.playSound(UP2SoundEvents.MEGALANIA_STEP.get(), 1.0F, 1.0F);
     }
 
     @Override

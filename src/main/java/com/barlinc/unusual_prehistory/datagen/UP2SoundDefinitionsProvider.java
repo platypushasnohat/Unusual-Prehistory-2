@@ -224,6 +224,14 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.MEGALANIA_ROAR,
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/roar1"))
         );
+        this.sound(UP2SoundEvents.MEGALANIA_STEP,
+                sound("mob/camel/step1").volume(0.5F).pitch(0.87F),
+                sound("mob/camel/step2").volume(0.5F).pitch(0.87F),
+                sound("mob/camel/step3").volume(0.5F).pitch(0.87F),
+                sound("mob/camel/step4").volume(0.5F).pitch(0.87F),
+                sound("mob/camel/step5").volume(0.5F).pitch(0.87F),
+                sound("mob/camel/step6").volume(0.5F).pitch(0.87F)
+        );
 
         // Onchopristis
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT,
@@ -326,6 +334,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         // Music discs
+        this.sound(UP2SoundEvents.DOOMSURF_DISC,
+                sound(UnusualPrehistory2.modPrefix("music/doomsurf_disc")).stream()
+        );
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );
