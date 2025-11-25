@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-24T18:01:25.2726609	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2025-11-25T22:28:40.7310977	Tags for minecraft:entity_type mod id unusual_prehistory
 05e116b1d6ca50b77d526b98ed3d90698f5940ac data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
 e5b421e2c5c0979148c5cd2c2b1c19505c3dfd13 data/unusual_prehistory/tags/entity_types/carnotaurus_targets.json
 8ab8c45ae51fec7c370f77ac7ace63989386b7e4 data/unusual_prehistory/tags/entity_types/dromaeosaurus_avoids.json
@@ -14,4 +14,5 @@ f4e7ad7017ebd1174e10f96b43917ff0bdaeb95e data/unusual_prehistory/tags/entity_typ
 b45c655e2f9bd54c2b4d3c33d5a3c58dd74c7b32 data/unusual_prehistory/tags/entity_types/small_dunkleosteus_targets.json
 d9812ed858767fd0f40302ad062bbea00193cae7 data/unusual_prehistory/tags/entity_types/stethacanthus_avoids.json
 5e7effbf585b098cb7a3c9750aaad64b17eb094d data/unusual_prehistory/tags/entity_types/stethacanthus_targets.json
+2b60d97edb1f323dc88048a5e41aec7a523d8f42 data/unusual_prehistory/tags/entity_types/sweet_berry_bush_immune.json
 9c905ae04539b6ec0a8d2ae51b14f01383bf927c data/unusual_prehistory/tags/entity_types/talpanas_avoids.json
