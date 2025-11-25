@@ -21,6 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,6 +48,7 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IDLE_PLAYING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -58,7 +60,7 @@ public abstract class PrehistoricMob extends Animal {
         this.moveControl = new PrehistoricMobMoveControl(this);
         this.lookControl = new RefuseToMoveLookControl(this);
         this.setPersistenceRequired();
-        this.setPathfindingMalus(BlockPathTypes.LEAVES, 4.0F);
+        this.setPathfindingMalus(BlockPathTypes.LEAVES, 8.0F);
     }
 
     @Override
@@ -186,6 +188,11 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
+//    @Override
+//    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+//        return !this.isLeashed();
+//    }
+
     @Override
     public void tick () {
         super.tick();
@@ -196,6 +203,8 @@ public abstract class PrehistoricMob extends Animal {
         if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
 
         if (this.level().isClientSide && this.shouldDoEepyParticles()) this.doEepyParticles(1.7F);
+
+        if (this.isLeashed()) this.resetFallDistance();
     }
 
     public void setupAnimationCooldowns() {
@@ -254,6 +263,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
+        this.entityData.define(IDLE_PLAYING, false);
     }
 
     @Override
@@ -333,5 +343,13 @@ public abstract class PrehistoricMob extends Animal {
 
     public boolean canPacifiy() {
         return false;
+    }
+
+    public boolean isIdlePlaying() {
+        return this.entityData.get(IDLE_PLAYING);
+    }
+
+    public void setIdlePlaying(boolean idlePlaying) {
+        this.entityData.set(IDLE_PLAYING, idlePlaying);
     }
 }

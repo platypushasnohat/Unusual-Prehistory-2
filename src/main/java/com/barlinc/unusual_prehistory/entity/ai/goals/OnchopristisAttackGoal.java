@@ -17,7 +17,7 @@ public class OnchopristisAttackGoal extends AttackGoal {
     @Override
     public void tick() {
         LivingEntity target = onchopristis.getTarget();
-        if (target != null && target.isInWater()) {
+        if (target != null && (target.isInWater() || !onchopristis.isInWater())) {
             onchopristis.lookAt(target, 30F, 30F);
             onchopristis.getLookControl().setLookAt(target, 30F, 30F);
 
@@ -25,14 +25,14 @@ public class OnchopristisAttackGoal extends AttackGoal {
             int attackState = onchopristis.getAttackState();
 
             onchopristis.getNavigation().moveTo(target, 1.5D);
-            if (distance <= 4) {
+            if (distance < this.getAttackReachSqr(target)) {
                 onchopristis.setAttackState(1);
             }
             if (attackState == 1) {
                 timer++;
                 if (timer == 1) onchopristis.setPose(UP2Poses.ATTACKING.get());
                 if (timer == 9) {
-                    if (onchopristis.distanceTo(target) < getAttackReachSqr(target)) {
+                    if (onchopristis.distanceTo(target) < this.getAttackReachSqr(target)) {
                         onchopristis.doHurtTarget(target);
                         onchopristis.swing(InteractionHand.MAIN_HAND);
                     }

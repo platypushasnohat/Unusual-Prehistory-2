@@ -20,9 +20,11 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,8 +33,15 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
+    public final AnimationState steppedOnAnimationState = new AnimationState();
+    public final AnimationState burrowStartAnimationState = new AnimationState();
+    public final AnimationState burrowAnimationState = new AnimationState();
+    public final AnimationState burrowEndAnimationState = new AnimationState();
 
     private int attackTicks;
+    private int stepTicks;
+
+    private final byte STEP = 60;
 
     public Onchopristis(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -42,9 +51,9 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0D)
-                .add(Attributes.ATTACK_DAMAGE, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7F)
+                .add(Attributes.MAX_HEALTH, 18.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.64F)
                 .add(Attributes.FOLLOW_RANGE, 16.0F);
     }
 
@@ -71,6 +80,34 @@ public class Onchopristis extends PrehistoricAquaticMob {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (this.stepTicks > 0) stepTicks--;
+
+        if (this.isAlive() && !this.level().isClientSide && this.getTarget() == null && this.stepTicks == 0) {
+            this.getSteppedOn();
+        }
+    }
+
+    private void getSteppedOn() {
+        this.level().getEntities(this, this.getAggroHitbox()).forEach((entity) -> {
+            if (entity instanceof LivingEntity mob && mob.isAlive() && !mob.isSpectator() && !(mob instanceof Onchopristis)) {
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob)) {
+                    this.setTarget(mob);
+                }
+                this.level().broadcastEntityEvent(this, this.STEP);
+                this.stepTicks = 5;
+            }
+        });
+    }
+
+    @NotNull
+    private AABB getAggroHitbox() {
+        return this.getBoundingBox().inflate(0.1, 0.0, 0.1).move(0, 0.35, 0);
     }
 
     @Override
@@ -102,6 +139,12 @@ public class Onchopristis extends PrehistoricAquaticMob {
             }
         }
         super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == this.STEP) this.steppedOnAnimationState.start(this.tickCount);
+        else super.handleEntityEvent(id);
     }
 
     @Override

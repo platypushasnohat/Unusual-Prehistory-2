@@ -476,6 +476,15 @@
     ],
     "subtitle": "subtitles.megalania_death"
   },
+  "megalania_disc": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:music/megalania_disc",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.megalania_disc"
+  },
   "megalania_hurt": {
     "sounds": [
       {

@@ -94,6 +94,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");
 
     public static final RegistryObject<SoundEvent> DOOMSURF_DISC = registerSoundEvent("doomsurf_disc");
+    public static final RegistryObject<SoundEvent> MEGALANIA_DISC = registerSoundEvent("megalania_disc");
     public static final RegistryObject<SoundEvent> TARIFYING_DISC = registerSoundEvent("tarifying_disc");
 
     public static final RegistryObject<SoundEvent> TAR_POP = registerSoundEvent("tar_pop");

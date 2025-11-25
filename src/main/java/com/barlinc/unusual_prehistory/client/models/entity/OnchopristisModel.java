@@ -90,6 +90,7 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 		this.animate(entity.floppingAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
 		this.animate(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
+        this.animate(entity.steppedOnAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);
         this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
 	}
 

@@ -1,6 +1,14 @@
 # Version 1.1.0
 - Added Onchopristis
 - Added a new music disc "Doomsurf" by ChipsTheCat
+- Added a new music disc "MEGALANIA" by ValiantEnvoy
 - Fixed Lepidodendron Wood not being craftable
 - Added targeting tag for Carnotaurus
-- Added a seperate sound event for Megalania step sounds
+- Added a separate sound event for Megalania step sounds
+- Fixed a z-fighting issue on the Furcacauda model
+- Kimmeridgebrachypteraeschndium no longer drowns to prevent unwanted deaths when a nymph grows up
+- Prehistoric mobs can now pathfind on leaves
+- Leashed Prehistoric mobs no longer take any fall damage
+- Kentrosaurus is now immune to thorns, sweet berry, and cactus damage
+- Kentrosaurus can now pathfind onto cactus and sweet berry bushes
+- Miscellaneous tweaks

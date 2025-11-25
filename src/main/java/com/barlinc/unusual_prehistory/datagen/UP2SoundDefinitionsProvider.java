@@ -337,6 +337,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.DOOMSURF_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/doomsurf_disc")).stream()
         );
+        this.sound(UP2SoundEvents.MEGALANIA_DISC,
+                sound(UnusualPrehistory2.modPrefix("music/megalania_disc")).stream()
+        );
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );

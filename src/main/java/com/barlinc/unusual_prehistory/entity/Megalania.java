@@ -19,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -69,7 +68,6 @@ public class Megalania extends SemiAquaticMob {
     private final byte FLICK1 = 67;
     private final byte FLICK2 = 68;
     private final byte YAWN = 69;
-    private final byte STOP = 70;
 
     public enum TemperatureStates {
         TEMPERATE,
@@ -327,15 +325,6 @@ public class Megalania extends SemiAquaticMob {
 
         if (this.roarCooldown > 0 && !this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) this.roarCooldown--;
 
-        if (bitingTicks > 0) bitingTicks--;
-        if (bitingTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
-
-        if (tailWhipTicks > 0) tailWhipTicks--;
-        if (tailWhipTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
-
-        if (roarTicks > 0) roarTicks--;
-        if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
-
         if (this.isMegalaniaLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
         if ((this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) || !this.isRightTemperatureToSit()) this.standUp();
 
@@ -405,27 +394,31 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void setupAnimationCooldowns() {
+        if (bitingTicks > 0) bitingTicks--;
+        if (bitingTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (tailWhipTicks > 0) tailWhipTicks--;
+        if (tailWhipTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
+        if (roarTicks > 0) roarTicks--;
+        if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
+
         if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isInWaterOrBubble() && !this.isAggressive()) {
             if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             if (this.getPose() == Pose.STANDING) {
                 if (this.random.nextInt(200) == 0) {
                     this.level().broadcastEntityEvent(this, this.TONGUE);
                 }
-                else if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
+                else if (this.random.nextInt(800) == 0) {
+                    this.setIdlePlaying(true);
                     this.level().broadcastEntityEvent(this, this.FLICK1);
                 }
-                else if (this.random.nextInt(800) == 0 && !this.flickAnimationStarted()) {
+                else if (this.random.nextInt(800) == 0) {
                     this.level().broadcastEntityEvent(this, this.FLICK2);
                 }
-                else if (this.random.nextInt(700) == 0 && !this.tongueAnimationState.isStarted()) {
+                else if (this.random.nextInt(700) == 0) {
                     this.level().broadcastEntityEvent(this, this.YAWN);
                 }
             }
         }
-    }
-
-    private boolean flickAnimationStarted() {
-        return this.flick1AnimationState.isStarted() || this.flick2AnimationState.isStarted();
     }
 
     @Override

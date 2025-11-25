@@ -56,7 +56,6 @@ public class UnusualPrehistory2Tab {
 
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
-                        output.accept(TARIFYING_DISC.get());
 
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
@@ -65,6 +64,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DOOMSURF_DISC.get());
+                        output.accept(TARIFYING_DISC.get());
+                        output.accept(MEGALANIA_DISC.get());
 
                         output.accept(FURY_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());

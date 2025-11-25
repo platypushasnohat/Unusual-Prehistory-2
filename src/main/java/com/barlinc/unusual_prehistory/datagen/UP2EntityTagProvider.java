@@ -23,18 +23,24 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
 
-        tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
+        this.tag(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE).add(
+                EntityType.BEE,
+                EntityType.FOX,
+                KENTROSAURUS.get()
+        );
+
+        this.tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
                 CARNOTAURUS.get(),
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get()
         );
 
-        tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).add(
+        this.tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).add(
                 TELECREX.get(),
                 EntityType.CHICKEN
         );
 
-        tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
+        this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 STETHACANTHUS.get(),
                 EntityType.COD,
@@ -45,7 +51,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.DROWNED
         );
 
-        tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
+        this.tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 EntityType.COD,
                 EntityType.SALMON,
@@ -53,7 +59,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.DOLPHIN
         );
 
-        tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(
+        this.tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(),
                 EntityType.COD,
@@ -61,7 +67,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH
         );
 
-        tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
+        this.tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
                 KENTROSAURUS.get(),
                 DROMAEOSAURUS.get(),
                 EntityType.SHEEP,
@@ -70,21 +76,21 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.GOAT
         );
 
-        tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
+        this.tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
                 EntityType.SHEEP,
                 EntityType.COW,
                 EntityType.PIG,
                 EntityType.GOAT
         );
 
-        tag(UP2EntityTags.MEGALANIA_TARGETS).add(
+        this.tag(UP2EntityTags.MEGALANIA_TARGETS).add(
                 EntityType.SHEEP,
                 EntityType.COW,
                 EntityType.PIG,
                 EntityType.GOAT
         );
 
-        tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
+        this.tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 ONCHOPRISTIS.get(),
                 STETHACANTHUS.get(),
@@ -92,7 +98,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.DROWNED
         );
 
-        tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
+        this.tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 ONCHOPRISTIS.get(),
                 STETHACANTHUS.get(),
@@ -101,27 +107,27 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.GUARDIAN
         );
 
-        tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).add(
+        this.tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH
         );
 
-        tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
+        this.tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH
         );
 
-        tag(UP2EntityTags.STETHACANTHUS_AVOIDS).add(
+        this.tag(UP2EntityTags.STETHACANTHUS_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 EntityType.DROWNED,
                 EntityType.GUARDIAN
         );
 
-        tag(UP2EntityTags.SCATTERS_TELECREX).add(
+        this.tag(UP2EntityTags.SCATTERS_TELECREX).add(
                 KENTROSAURUS.get(),
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get(),
@@ -178,7 +184,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.LLAMA
         );
 
-        tag(UP2EntityTags.TALPANAS_AVOIDS).add(
+        this.tag(UP2EntityTags.TALPANAS_AVOIDS).add(
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get(),
                 DROMAEOSAURUS.get(),
@@ -232,7 +238,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.ILLUSIONER
         );
 
-        tag(UP2EntityTags.SCATTERS_KIMMERIDGEBRACHYPTERAESCHNIDIUM).add(
+        this.tag(UP2EntityTags.SCATTERS_KIMMERIDGEBRACHYPTERAESCHNIDIUM).add(
                 KENTROSAURUS.get(),
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get(),

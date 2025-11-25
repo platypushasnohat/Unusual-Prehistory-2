@@ -41,6 +41,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
@@ -67,6 +68,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     public Kimmeridgebrachypteraeschnidium(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveController();
+        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
@@ -88,6 +90,11 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
         this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
         this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+    }
+
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     @Override
@@ -123,6 +130,23 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         if (this.getPose() == UP2Poses.PREENING.get()) {
             this.idleAnimationState.stop();
         }
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
+        if (DATA_POSE.equals(entityDataAccessor)) {
+            Pose entityPose = this.getPose();
+            if (entityPose == Pose.FALL_FLYING) {
+                this.idleAnimationState.stop();
+                this.preenAnimationState.stop();
+                this.flyingAnimationState.start(this.tickCount);
+                this.wingsAnimationState.start(this.tickCount);
+            } else {
+                this.flyingAnimationState.stop();
+                this.wingsAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(entityDataAccessor);
     }
 
     @Override
@@ -200,23 +224,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.setWingColor(compoundTag.getInt("WingColor"));
         this.setHasPattern(compoundTag.getBoolean("HasPattern"));
         this.setPreenCooldown(compoundTag.getInt("PreenCooldown"));
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
-        if (DATA_POSE.equals(entityDataAccessor)) {
-            Pose entityPose = this.getPose();
-            if (entityPose == Pose.FALL_FLYING) {
-                this.idleAnimationState.stop();
-                this.preenAnimationState.stop();
-                this.flyingAnimationState.start(this.tickCount);
-                this.wingsAnimationState.start(this.tickCount);
-            } else {
-                this.flyingAnimationState.stop();
-                this.wingsAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(entityDataAccessor);
     }
 
     @Override

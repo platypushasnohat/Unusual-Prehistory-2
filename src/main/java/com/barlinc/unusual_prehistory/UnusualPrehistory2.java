@@ -88,13 +88,12 @@ public class UnusualPrehistory2 {
         UP2DatapackProvider datapackEntries = new UP2DatapackProvider(output, provider);
         generator.addProvider(server, datapackEntries);
 
-        CompletableFuture<HolderLookup.Provider> customLookupProvider = datapackEntries.getRegistryProvider();
-
-        UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, customLookupProvider, helper);
+        UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);
         generator.addProvider(server, blockTags);
-        generator.addProvider(server, new UP2ItemTagProvider(output, customLookupProvider, blockTags.contentsGetter(), helper));
-        generator.addProvider(server, new UP2EntityTagProvider(output, customLookupProvider, helper));
-        generator.addProvider(server, new UP2BiomeTagProvider(output, customLookupProvider, helper));
+        generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
+        generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
+        generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
+        generator.addProvider(server, new UP2DamageTypeTagProvider(output, provider, helper));
         generator.addProvider(server, UP2LootProvider.register(output));
         generator.addProvider(server, new UP2RecipeProvider(output));
         generator.addProvider(server, UP2AdvancementProvider.register(output, provider, helper));

@@ -152,6 +152,8 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.sound(UP2SoundEvents.DOOMSURF_DISC, "Music Disc");
         this.musicDisc(UP2Items.DOOMSURF_DISC, "ChipsTheCat - Doomsurf");
+        this.sound(UP2SoundEvents.MEGALANIA_DISC, "Music Disc");
+        this.musicDisc(UP2Items.MEGALANIA_DISC, "ValiantEnvoy - MEGALANIA");
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
         this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
 
