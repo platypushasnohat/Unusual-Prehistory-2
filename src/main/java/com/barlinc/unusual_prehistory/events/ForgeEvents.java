@@ -1,15 +1,23 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,6 +42,14 @@ public class ForgeEvents {
             if (mob instanceof Zombie zombie) {
                 zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void burnBlock(BlockEvent.BreakEvent event) {
+        BlockState state = event.getState();
+        if (state.is(UP2BlockTags.GUARDED_BY_KENTROSAURUS)) {
+            Kentrosaurus.angerNearbyKentrosaurus(event.getPlayer(), false);
         }
     }
 }

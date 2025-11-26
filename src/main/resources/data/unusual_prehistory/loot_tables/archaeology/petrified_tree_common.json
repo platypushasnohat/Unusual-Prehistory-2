@@ -52,17 +52,17 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 12
+          "weight": 11
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:flint",
-          "weight": 9
+          "weight": 8
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:stick",
-          "weight": 11
+          "weight": 10
         }
       ],
       "rolls": 1.0

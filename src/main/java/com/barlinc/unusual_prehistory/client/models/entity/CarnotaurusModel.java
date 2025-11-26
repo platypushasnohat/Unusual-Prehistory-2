@@ -170,12 +170,14 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 		this.animateIdle(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
 		this.animate(entity.bite1AnimationState, CarnotaurusAnimations.BITE_BLEND1, ageInTicks);
         this.animate(entity.bite2AnimationState, CarnotaurusAnimations.BITE_BLEND2, ageInTicks);
-        this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT, ageInTicks);
-		this.animate(entity.chargeAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
+        this.animate(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT_BLEND, ageInTicks);
+        this.animate(entity.startChargingAnimationState, CarnotaurusAnimations.CHARGE_START, ageInTicks);
+        this.animate(entity.chargingAnimationState, CarnotaurusAnimations.CHARGE, ageInTicks);
+        this.animate(entity.stopChargingAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
 		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
 		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
-		this.animate(entity.sniffAnimationState, CarnotaurusAnimations.SNIFF, ageInTicks);
-		this.animate(entity.waveAnimationState, CarnotaurusAnimations.WAVE, ageInTicks);
+		this.animate(entity.sniffAnimationState, CarnotaurusAnimations.SNIFF_BLEND, ageInTicks);
+		this.animate(entity.waveAnimationState, CarnotaurusAnimations.HANDS_BLEND, ageInTicks);
         this.animate(entity.swimmingAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;

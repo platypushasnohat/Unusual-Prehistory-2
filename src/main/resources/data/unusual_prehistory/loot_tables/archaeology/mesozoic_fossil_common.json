@@ -22,12 +22,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 10
+          "weight": 9
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 9
+          "weight": 8
         },
         {
           "type": "minecraft:item",

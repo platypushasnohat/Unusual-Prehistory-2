@@ -17,7 +17,13 @@ public class MapDecorationTypeMixin {
     private static MapDecoration.Type[] $VALUES;
 
     @Unique
-    private static final MapDecoration.Type FOSSIL_SITE = unusualPrehistory2$addType("FOSSIL_SITE", true, 0X6B6B6B, false);
+    private static final MapDecoration.Type PALEOZOIC_FOSSIL_SITE = unusualPrehistory2$addType("PALEOZOIC_FOSSIL_SITE", true, 0X6B6B6B, false);
+
+    @Unique
+    private static final MapDecoration.Type MESOZOIC_FOSSIL_SITE = unusualPrehistory2$addType("MESOZOIC_FOSSIL_SITE", true, 0X6B6B6B, false);
+
+    @Unique
+    private static final MapDecoration.Type PETRIFIED_TREE_SITE = unusualPrehistory2$addType("PETRIFIED_TREE_SITE", true, 0X6B6B6B, false);
 
     @Invoker("<init>")
     public static MapDecoration.Type unusualPrehistory2$invokeInit(String internalName, int internalId, boolean renderOnFrame, int mapColor, boolean trackCount) {

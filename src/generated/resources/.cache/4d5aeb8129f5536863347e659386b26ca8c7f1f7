@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-20T19:22:55.5437553	Tags for minecraft:worldgen/biome mod id unusual_prehistory
-f883bf231a051844e4dbc39fdbe0a3f1a82a8ba9 data/unusual_prehistory/tags/worldgen/biome/has_structure/fossil.json
-fc7d494533dd3deb0e789d4d4343c059525d132b data/unusual_prehistory/tags/worldgen/biome/has_structure/petrified_tree.json
+// 1.20.1	2025-11-25T18:55:35.018149	Tags for minecraft:worldgen/biome mod id unusual_prehistory
+34666de91526a3226c165e305c2413a5cf55b95e data/unusual_prehistory/tags/worldgen/biome/has_structure/fossil.json
+9afd0cf31ddfcd9e31711cf853fff3f34dfe3cd7 data/unusual_prehistory/tags/worldgen/biome/has_structure/petrified_tree.json
 414ff6fbbfd989504c983067b158f4882dd91f00 data/unusual_prehistory/tags/worldgen/biome/has_structure/tar_pit.json

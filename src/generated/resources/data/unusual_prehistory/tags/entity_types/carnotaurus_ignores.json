@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:creeper",
+    {
+      "id": "species:quake",
+      "required": false
+    }
+  ]
+}

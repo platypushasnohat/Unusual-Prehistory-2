@@ -12,7 +12,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 6
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -22,12 +22,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:flint",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:stick",
-          "weight": 5
+          "weight": 3
         }
       ],
       "rolls": 1.0

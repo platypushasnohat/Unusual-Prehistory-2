@@ -40,7 +40,9 @@ public class ClientForgeEvents {
     public static PoseStack lastMapPoseStack;
     public static MultiBufferSource lastMapRenderBuffer;
     public static int lastMapRenderPackedLight;
-    private static final RenderType FOSSIL_SITE_MAP_ICONS = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/fossil_site_icons.png"));
+    private static final RenderType PALEOZOIC_SITE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/paleozoic_fossil_site_icon.png"));
+    private static final RenderType MESOZOIC_SITE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/mesozoic_fossil_site_icon.png"));
+    private static final RenderType PETRIFIED_TREE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/petrified_tree_icon.png"));
 
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
@@ -84,38 +86,48 @@ public class ClientForgeEvents {
     }
 
     public static void renderMapDecoration(MapDecoration mapdecoration, int k) {
-        if (mapdecoration.getType() == UP2MapIcons.FOSSIL_SITE_MAP_DECORATION) {
-            MultiBufferSource multiBufferSource = lastMapRenderBuffer == null ? Minecraft.getInstance().renderBuffers().bufferSource() : lastMapRenderBuffer;
-            PoseStack poseStack = lastMapPoseStack == null ? new PoseStack() : lastMapPoseStack;
+        if (mapdecoration.getType() == UP2MapIcons.PALEOZOIC_FOSSIL_SITE) {
+            renderDecoration(mapdecoration, k, PALEOZOIC_SITE_ICON);
+        }
+        else if (mapdecoration.getType() == UP2MapIcons.MESOZOIC_FOSSIL_SITE) {
+            renderDecoration(mapdecoration, k, MESOZOIC_SITE_ICON);
+        }
+        else if (mapdecoration.getType() == UP2MapIcons.PETRIFIED_TREE_SITE) {
+            renderDecoration(mapdecoration, k, PETRIFIED_TREE_ICON);
+        }
+    }
+
+    private static void renderDecoration(MapDecoration mapdecoration, int k, RenderType mapIcon) {
+        MultiBufferSource multiBufferSource = lastMapRenderBuffer == null ? Minecraft.getInstance().renderBuffers().bufferSource() : lastMapRenderBuffer;
+        PoseStack poseStack = lastMapPoseStack == null ? new PoseStack() : lastMapPoseStack;
+        poseStack.pushPose();
+        poseStack.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F, -0.02F);
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float) (mapdecoration.getRot() * 360) / 16.0F));
+        poseStack.scale(4.0F, 4.0F, 3.0F);
+        poseStack.translate(-0.125F, 0.125F, 0.0F);
+        byte iconOrdinal = UP2MapIcons.getMapIconRenderOrdinal(mapdecoration.getType());
+        float f1 = (float) (iconOrdinal % 16 + 0) / 16.0F;
+        float f2 = (float) (iconOrdinal / 16 + 0) / 16.0F;
+        float f3 = (float) (iconOrdinal % 16 + 1) / 16.0F;
+        float f4 = (float) (iconOrdinal / 16 + 1) / 16.0F;
+        Matrix4f matrix4f1 = poseStack.last().pose();
+        VertexConsumer icons = multiBufferSource.getBuffer(mapIcon);
+        icons.vertex(matrix4f1, -1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f2).uv2(lastMapRenderPackedLight).endVertex();
+        icons.vertex(matrix4f1, 1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f2).uv2(lastMapRenderPackedLight).endVertex();
+        icons.vertex(matrix4f1, 1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f4).uv2(lastMapRenderPackedLight).endVertex();
+        icons.vertex(matrix4f1, -1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f4).uv2(lastMapRenderPackedLight).endVertex();
+        poseStack.popPose();
+        if (mapdecoration.getName() != null) {
+            Font font = Minecraft.getInstance().font;
+            Component component = mapdecoration.getName();
+            float f6 = (float) font.width(component);
+            float f7 = Mth.clamp(25.0F / f6, 0.0F, 6.0F / 9.0F);
             poseStack.pushPose();
-            poseStack.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F, -0.02F);
-            poseStack.mulPose(Axis.ZP.rotationDegrees((float) (mapdecoration.getRot() * 360) / 16.0F));
-            poseStack.scale(4.0F, 4.0F, 3.0F);
-            poseStack.translate(-0.125F, 0.125F, 0.0F);
-            byte iconOrdinal = UP2MapIcons.getMapIconRenderOrdinal(mapdecoration.getType());
-            float f1 = (float) (iconOrdinal % 16 + 0) / 16.0F;
-            float f2 = (float) (iconOrdinal / 16 + 0) / 16.0F;
-            float f3 = (float) (iconOrdinal % 16 + 1) / 16.0F;
-            float f4 = (float) (iconOrdinal / 16 + 1) / 16.0F;
-            Matrix4f matrix4f1 = poseStack.last().pose();
-            VertexConsumer icons = multiBufferSource.getBuffer(FOSSIL_SITE_MAP_ICONS);
-            icons.vertex(matrix4f1, -1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f2).uv2(lastMapRenderPackedLight).endVertex();
-            icons.vertex(matrix4f1, 1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f2).uv2(lastMapRenderPackedLight).endVertex();
-            icons.vertex(matrix4f1, 1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f4).uv2(lastMapRenderPackedLight).endVertex();
-            icons.vertex(matrix4f1, -1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f4).uv2(lastMapRenderPackedLight).endVertex();
+            poseStack.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F - f6 * f7 / 2.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F + 4.0F, -0.025F);
+            poseStack.scale(f7, f7, 1.0F);
+            poseStack.translate(0.0F, 0.0F, -0.1F);
+            font.drawInBatch(component, 0.0F, 0.0F, -1, false, poseStack.last().pose(), multiBufferSource, Font.DisplayMode.NORMAL, Integer.MIN_VALUE, lastMapRenderPackedLight);
             poseStack.popPose();
-            if (mapdecoration.getName() != null) {
-                Font font = Minecraft.getInstance().font;
-                Component component = mapdecoration.getName();
-                float f6 = (float)font.width(component);
-                float f7 = Mth.clamp(25.0F / f6, 0.0F, 6.0F / 9.0F);
-                poseStack.pushPose();
-                poseStack.translate(0.0F + (float)mapdecoration.getX() / 2.0F + 64.0F - f6 * f7 / 2.0F, 0.0F + (float)mapdecoration.getY() / 2.0F + 64.0F + 4.0F, -0.025F);
-                poseStack.scale(f7, f7, 1.0F);
-                poseStack.translate(0.0F, 0.0F, -0.1F);
-                font.drawInBatch(component, 0.0F, 0.0F, -1, false, poseStack.last().pose(), multiBufferSource, Font.DisplayMode.NORMAL, Integer.MIN_VALUE, lastMapRenderPackedLight);
-                poseStack.popPose();
-            }
         }
     }
 }

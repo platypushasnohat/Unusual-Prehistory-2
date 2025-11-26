@@ -1,9 +1,11 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.KentrosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.KentrosaurusLayDownGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusDefendThornsGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusFollowThornsGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.KentrosaurusMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -24,11 +26,14 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,6 +41,8 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class Kentrosaurus extends PrehistoricMob {
 
@@ -71,11 +78,13 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new KentrosaurusLayDownGoal(this));
+        this.goalSelector.addGoal(5, new KentrosaurusFollowThornsGoal(this));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new KentrosaurusLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new KentrosaurusDefendThornsGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -104,17 +113,31 @@ public class Kentrosaurus extends PrehistoricMob {
         return stack.is(UP2ItemTags.KENTROSAURUS_FOOD);
     }
 
+    public boolean entityHasThorns(LivingEntity entity) {
+        return entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.LEGS).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(Enchantments.THORNS) > 0;
+    }
+
+    public static void angerNearbyKentrosaurus(Player player, boolean angerIfSeen) {
+        List<Kentrosaurus> list = player.level().getEntitiesOfClass(Kentrosaurus.class, player.getBoundingBox().inflate(16));
+        list.stream().filter((kentrosaurus) -> !angerIfSeen || BehaviorUtils.canSee(kentrosaurus, player)).forEach((kentrosaurus) -> kentrosaurus.standAndSetTarget(player));
+    }
+
+    private void standAndSetTarget(LivingEntity target) {
+        this.setTarget(target);
+        this.standUp();
+    }
+
     @Override
     public void tick() {
         super.tick();
-        if (this.attackTicks > 0) attackTicks--;
-        if (this.attackTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
         if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
         if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) this.standUp();
     }
 
     @Override
     public void setupAnimationCooldowns() {
+        if (this.attackTicks > 0) attackTicks--;
+        if (this.attackTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
         if (!this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
             if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             if (this.canGraze() && this.random.nextInt(350) == 0) {
@@ -340,5 +363,25 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 160;
+    }
+
+    private static class KentrosaurusMoveControl extends PrehistoricMobMoveControl {
+
+        protected final Kentrosaurus kentrosaurus;
+
+        public KentrosaurusMoveControl(Kentrosaurus kentrosaurus) {
+            super(kentrosaurus);
+            this.kentrosaurus = kentrosaurus;
+        }
+
+        @Override
+        public void tick() {
+            if (!this.kentrosaurus.refuseToMove()) {
+                if (this.operation == MoveControl.Operation.MOVE_TO && !this.kentrosaurus.isLeashed() && this.kentrosaurus.isKentrosaurusLayingDown() && !this.kentrosaurus.isInPoseTransition()) {
+                    this.kentrosaurus.standUp();
+                }
+                super.tick();
+            }
+        }
     }
 }

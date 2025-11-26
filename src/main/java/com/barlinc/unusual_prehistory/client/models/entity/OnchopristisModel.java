@@ -91,7 +91,10 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 		this.animate(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
         this.animate(entity.steppedOnAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);
-        this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
+        this.animate(entity.burrowStartAnimationState, OnchopristisAnimations.BURROW_START, ageInTicks);
+        this.animate(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks);
+        this.animate(entity.burrowEndAnimationState, OnchopristisAnimations.BURROW_END, ageInTicks);
+        if (!entity.isOnchopristisBurrowed()) this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
 	}
 
 	@Override

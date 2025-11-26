@@ -72,6 +72,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 PETRIFIED_WOOD.get()
         );
 
+        this.tag(UP2BlockTags.GUARDED_BY_KENTROSAURUS).add(
+                Blocks.SWEET_BERRY_BUSH,
+                Blocks.CACTUS
+        );
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

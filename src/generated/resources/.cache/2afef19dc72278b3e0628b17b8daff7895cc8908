@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-20T19:21:08.9201568	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-11-25T21:45:35.1283413	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 dde0cb7e52d3ca26cd06b362625a1ff03aeadecb data/minecraft/tags/blocks/ceiling_hanging_signs.json
@@ -37,6 +37,7 @@ db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/blocks/acc
 1dbdf9841f185e84bed6eb0ac3700d990c52c29a data/unusual_prehistory/tags/blocks/fossilized_bone_blocks.json
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/fossil_replaceable.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/blocks/ginkgo_logs.json
+d033385a638abbeacea8d8e59f7610e1ab169130 data/unusual_prehistory/tags/blocks/guarded_by_kentrosaurus.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/blocks/lepidodendron_logs.json
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/petrified_tree_replaceable.json
 24f677d61a08d0a549c729adb4fa26457ff4b62e data/unusual_prehistory/tags/blocks/petrified_wood.json

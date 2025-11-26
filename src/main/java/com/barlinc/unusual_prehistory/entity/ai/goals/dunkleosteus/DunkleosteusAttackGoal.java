@@ -43,7 +43,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                 if (timer == 1) this.dunkleosteus.setPose(UP2Poses.BITING.get());
                 if (timer == 2) this.dunkleosteus.playSound(dunkleosteus.getBiteSound(), 1.0F, 1.0F);
                 if (timer == 5) {
-                    if (this.dunkleosteus.distanceTo(target) < getAttackReachSqr(target)) {
+                    if (this.dunkleosteus.distanceTo(target) < this.getAttackReachSqr(target)) {
                         this.dunkleosteus.doHurtTarget(this.dunkleosteus.getTarget());
                         this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                     }
