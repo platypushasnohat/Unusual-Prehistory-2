@@ -2,7 +2,7 @@
 - Added Onchopristis
 - Added a new music disc "Doomsurf" by ChipsTheCat
 - Added a new music disc "MEGALANIA" by ValiantEnvoy
-- Fixed Lepidodendron Wood not being craftable
+- Fixed Mossy Lepidodendron Wood not being craftable
 - Added targeting tag for Carnotaurus
 - Added a separate sound event for Megalania step sounds
 - Fixed a z-fighting issue on the Furcacauda model
@@ -20,4 +20,8 @@
 - Increased the amount of suspicious blocks per fossil, petrified tree, and tar pit structure
 - Fossils can now spawn in deserts and badlands
 - Fossil Site maps are now seperated into different maps for each structure, each with their own icon
+- Replaced all fossil site structures with new ones representing each relevant creature in the mod
+- Fossils spawn closer to the surface
+- Fossils now contain 3 different loot tables: common, rare, and epic, with epic being the only one containing fossils but also with zero junk items
+- Added a new array of junk items to common and rare fossil loot tables
 - Miscellaneous tweaks
