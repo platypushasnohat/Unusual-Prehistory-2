@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.mixins;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
@@ -14,26 +15,27 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SweetBerryBushBlock.class)
-public abstract class SweetBerryBushBlockMixin {
+public class SweetBerryBushBlockMixin {
 
-    @Shadow
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+    @Redirect(
+            method = "entityInside",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/Entity;getType()Lnet/minecraft/world/entity/EntityType;"
+            )
+    )
+    private EntityType<?> unusualprehistory2$redirectBerryBushImmunityCheck(Entity entity) {
 
-    @Inject(method = "entityInside(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
-        ci.cancel();
-        if (entity instanceof LivingEntity && !entity.getType().is(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE)) {
-            entity.makeStuckInBlock(state, new Vec3(0.8F, 0.75D, 0.8F));
-            if (!level.isClientSide && state.getValue(AGE) > 0 && (entity.xOld != entity.getX() || entity.zOld != entity.getZ())) {
-                double entityX = Math.abs(entity.getX() - entity.xOld);
-                double entityZ = Math.abs(entity.getZ() - entity.zOld);
-                if (entityX >= (double) 0.003F || entityZ >= (double) 0.003F) {
-                    entity.hurt(level.damageSources().sweetBerryBush(), 1.0F);
-                }
-            }
+        // If our tag says the entity is immune, return FOX so the original code sees it as immune.
+        if (entity.getType().is(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE)) {
+            return EntityType.FOX;
         }
+
+        return entity.getType();
     }
 }
+

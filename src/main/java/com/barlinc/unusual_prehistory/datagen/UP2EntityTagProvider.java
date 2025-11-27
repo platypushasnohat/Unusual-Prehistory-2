@@ -26,8 +26,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     protected void addTags(@NotNull Provider provider) {
 
         this.tag(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE).add(
-                EntityType.BEE,
-                EntityType.FOX,
                 KENTROSAURUS.get()
         );
 
