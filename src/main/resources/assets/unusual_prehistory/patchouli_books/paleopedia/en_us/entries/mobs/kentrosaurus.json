@@ -1,0 +1,12 @@
+{
+  "name": "Kentrosaurus",
+  "icon": "unusual_prehistory:kentrosaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_kentrosaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Neutral $(br2)Diet: Herbivorous $(br2)Preferred Habitats: Jungles, Savannas"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Dromaeosaurus",
+  "icon": "unusual_prehistory:dromaeosaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_dromaeosaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Forests, Plains"
+    }
+  ]
+}

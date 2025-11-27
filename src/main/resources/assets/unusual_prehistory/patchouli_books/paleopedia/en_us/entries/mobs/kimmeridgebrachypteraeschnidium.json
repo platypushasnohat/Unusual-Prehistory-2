@@ -1,0 +1,12 @@
+{
+  "name": "Kimmeridgebrachypteraeschnidium",
+  "icon": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_kimmeridgebrachypteraeschnidium",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Beaches, Mangroves"
+    }
+  ]
+}

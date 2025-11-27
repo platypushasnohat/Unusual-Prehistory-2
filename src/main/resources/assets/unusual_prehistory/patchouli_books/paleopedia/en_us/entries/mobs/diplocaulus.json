@@ -1,0 +1,12 @@
+{
+  "name": "Diplocaulus",
+  "icon": "unusual_prehistory:diplocaulus_eggs",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_diplocaulus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Carboniferous-Late Permian Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Swamps, Mangroves"
+    }
+  ]
+}
