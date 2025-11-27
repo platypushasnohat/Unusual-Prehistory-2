@@ -31,8 +31,6 @@ import java.util.stream.Stream;
 public class UP2BiomeModifierProvider {
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
-        // add spawns
-        addSpawn(context, "jawless_fish", BiomeTags.IS_OCEAN, new MobSpawnSettings.SpawnerData(UP2Entities.JAWLESS_FISH.get(), 100, 1, 1));
     }
 
     private static void addSpawn(BootstapContext<BiomeModifier> context, String name, TagKey<Biome> biomes, MobSpawnSettings.SpawnerData... spawns) {
