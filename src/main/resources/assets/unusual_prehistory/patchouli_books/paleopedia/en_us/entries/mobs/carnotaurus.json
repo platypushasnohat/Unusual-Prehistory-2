@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Badlands, Jungles"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/carnotaurus.png"
+      ]
     }
   ]
 }

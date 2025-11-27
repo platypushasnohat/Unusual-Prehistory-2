@@ -189,9 +189,9 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         return false;
     }
 
-    protected void handleAirSupply(int pAirSupply) {
+    protected void handleAirSupply(int airSupply) {
         if (this.isAlive() && !this.isInWaterOrBubble()) {
-            this.setAirSupply(pAirSupply - 1);
+            this.setAirSupply(airSupply - 1);
             if (this.getAirSupply() == -20) {
                 this.setAirSupply(0);
                 this.hurt(this.damageSources().drown(), 2.0F);

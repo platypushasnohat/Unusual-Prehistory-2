@@ -1,5 +1,5 @@
 {
   "name": "Mobs",
-  "description": "This chapter contains everything about every mob.",
+  "description": "This chapter contains everything about every mob. Each entry is locked until you revive the creature.",
   "icon": "unusual_prehistory:majungasaurus_egg"
 }

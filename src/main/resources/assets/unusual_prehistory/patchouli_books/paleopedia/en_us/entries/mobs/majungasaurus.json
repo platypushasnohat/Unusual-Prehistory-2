@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Jungles, Beaches"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/majungasaurus.png"
+      ]
     }
   ]
 }

@@ -7,6 +7,21 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Forests, Plains"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/dromaeosaurus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Dromeosaurus is a small and rambunctious little critter, which is well known for its hyper personality. These quick footed little theropods are diurnal, and spend their days racing around and jumping over all kinds of obstacles. However, when night falls these dinosaurs fall into an incredibly deep sleep, which acts as a needed rest to make up for the incredible amounts of energy they use throughout their daily activities."
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
     }
   ]
 }

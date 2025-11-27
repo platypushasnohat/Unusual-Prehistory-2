@@ -9,15 +9,19 @@
       "text": "Time Period: Pleistocene Epoch $(br2)Temperament: Biome Dependent $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Warm Biomes"
     },
     {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/megalania.png"
+      ]
+    },
+    {
       "type": "patchouli:text",
       "text": "The Megalania is an ancient species of gigantic monitor lizard which was once a terrifying apex predator during the Pleistocene no doubt helped by their fast acting venom. It has been observed that depending on the conditions of the Megalania’s environment it’s appearance, temperament and behaviour will change in relation to these changes."
     },
     {
-      "type": "patchouli:entity",
-      "entity": "unusual_prehistory:megalania",
-      "scale": "0.6",
-      "default_rotation": "45",
-      "rotate": false
+      "type": "patchouli:empty",
+      "draw_filler": false
     }
   ]
 }

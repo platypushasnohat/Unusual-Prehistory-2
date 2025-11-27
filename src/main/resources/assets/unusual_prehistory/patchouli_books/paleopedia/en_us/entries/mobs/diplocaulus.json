@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Carboniferous-Late Permian Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Swamps, Mangroves"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/diplocaulus.png"
+      ]
     }
   ]
 }

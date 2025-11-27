@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Eocene Epoch $(br2)Temperament: Passive $(br2)Diet: Herbivorous, Insectivorous $(br2)Preferred Habitats: Plains, Savannas, Meadows"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/telecrex.png"
+      ]
     }
   ]
 }

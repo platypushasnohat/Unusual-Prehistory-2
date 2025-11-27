@@ -1,3 +1,8 @@
+# Version 1.1.1
+- Onchopristis no longer attacks after getting stepped on if it is pacified
+- Updated Dromaeosaurus entry in the Paleopedia
+- Added images for each mob entry in the Paleopedia
+
 # Version 1.1.0
 - Added Onchopristis
 - Added a new music disc "Doomsurf" by ChipsTheCat

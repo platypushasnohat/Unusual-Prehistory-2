@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Jurassic Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Beaches, Mangroves"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/kimmeridgebrachypteraeschnidium.png"
+      ]
     }
   ]
 }

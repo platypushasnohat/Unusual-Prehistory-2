@@ -7,6 +7,13 @@
     {
       "type": "patchouli:text",
       "text": "Time Period: Late Devonian Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Deep Ocean Biomes"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/dunkleosteus.png"
+      ]
     }
   ]
 }

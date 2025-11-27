@@ -18,6 +18,10 @@
       "recipe": "unusual_prehistory:organic_ooze",
       "title": "Organic Ooze Recipe",
       "text": "To fuel a Transmogrifier you need Organic Ooze. Transmogrifiers will consume ooze rather quickly, typically needing 2-3 in order to revive larger creatures, so make sure to collect plenty of ingredients!"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
     }
   ]
 }
