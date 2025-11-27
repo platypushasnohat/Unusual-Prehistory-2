@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusDefendThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusFollowThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;

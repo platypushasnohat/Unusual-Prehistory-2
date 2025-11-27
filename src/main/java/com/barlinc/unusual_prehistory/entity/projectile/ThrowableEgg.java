@@ -4,35 +4,48 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ThrowableEgg extends ThrowableItemProjectile {
+import java.util.function.Supplier;
 
-    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
-        super(entityType, level);
+public class ThrowableEgg extends ThrowableItemProjectile {
+
+    private final Supplier<EntityType<? extends PrehistoricMob>> mobToSpawn;
+    private final Supplier<Item> eggItem;
+
+    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> projectileType, Level level, Supplier<Item> eggItem, Supplier<EntityType<? extends PrehistoricMob>> mobToSpawn) {
+        super(projectileType, level);
+        this.eggItem = eggItem;
+        this.mobToSpawn = mobToSpawn;
     }
 
-    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> entityType, double x, double y, double z, Level level) {
-        super(entityType, x, y, z, level);
-    }
-
-    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> entityType, LivingEntity shooter, Level level) {
-        super(entityType, shooter, level);
+    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> projectileType, Level level, double x, double y, double z, Supplier<Item> eggItem, Supplier<EntityType<? extends PrehistoricMob>> mobToSpawn) {
+        super(projectileType, x, y, z, level);
+        this.eggItem = eggItem;
+        this.mobToSpawn = mobToSpawn;
     }
 
     @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+    protected void onHit(@NotNull HitResult result) {
+        super.onHit(result);
+        if (!this.level().isClientSide && mobToSpawn.get() != null) {
+            this.spawnMob(mobToSpawn.get());
+        }
+    }
+
+    @Override
+    protected @NotNull Item getDefaultItem() {
+        if(eggItem.get() == null) return Items.AIR;
+        return eggItem.get();
     }
 
     @OnlyIn(Dist.CLIENT)

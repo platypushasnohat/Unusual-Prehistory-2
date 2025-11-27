@@ -1,13 +1,9 @@
 package com.barlinc.unusual_prehistory.registry;
 
-import com.barlinc.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TalpanasEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TelecrexEgg;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
@@ -16,7 +12,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;

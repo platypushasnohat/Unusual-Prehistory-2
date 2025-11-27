@@ -2,10 +2,7 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
-import com.barlinc.unusual_prehistory.entity.projectile.DinosaurThrowableEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.DromaeosaurusEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TalpanasEgg;
-import com.barlinc.unusual_prehistory.entity.projectile.TelecrexEgg;
+import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -138,25 +135,25 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
 
-    public static final RegistryObject<EntityType<DinosaurThrowableEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<ThrowableEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
             "dromaeosaurus_egg", () ->
-            EntityType.Builder.<DinosaurThrowableEgg>of((pEntityType, pLevel) -> new DinosaurThrowableEgg(pEntityType, pLevel , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC)
+            EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
     );
 
-    public static final RegistryObject<EntityType<DinosaurThrowableEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<ThrowableEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
             "talpanas_egg", () ->
-                    EntityType.Builder.<DinosaurThrowableEgg>of((pEntityType, pLevel) -> new DinosaurThrowableEgg(pEntityType, pLevel , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC)
+                    EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "talpanas_egg").toString())
     );
 
-    public static final RegistryObject<EntityType<DinosaurThrowableEgg>> TELECREX_EGG = ENTITY_TYPE.register(
+    public static final RegistryObject<EntityType<ThrowableEgg>> TELECREX_EGG = ENTITY_TYPE.register(
             "telecrex_egg", () ->
-                    EntityType.Builder.<DinosaurThrowableEgg>of((pEntityType, pLevel) -> new DinosaurThrowableEgg(pEntityType, pLevel , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC)
+                    EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())

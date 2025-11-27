@@ -1,6 +1,9 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.OnchopristisAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;

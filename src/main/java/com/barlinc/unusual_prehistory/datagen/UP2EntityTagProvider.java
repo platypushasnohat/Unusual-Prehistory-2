@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;

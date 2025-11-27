@@ -1,10 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.OnchopristisAnimations;
-import com.barlinc.unusual_prehistory.client.animations.StethacanthusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Onchopristis;
-import com.barlinc.unusual_prehistory.entity.Stethacanthus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
