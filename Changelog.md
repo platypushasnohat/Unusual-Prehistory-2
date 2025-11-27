@@ -2,6 +2,7 @@
 - Added Onchopristis
 - Added a new music disc "Doomsurf" by ChipsTheCat
 - Added a new music disc "MEGALANIA" by ValiantEnvoy
+- Added optional compatibility with Patchouli, adding a Paleopedia guidebook with information on various systems and mobs (currently quite incomplete)
 - Fixed Mossy Lepidodendron Wood not being craftable
 - Added targeting tag for Carnotaurus
 - Added a separate sound event for Megalania step sounds
