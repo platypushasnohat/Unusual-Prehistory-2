@@ -66,13 +66,9 @@ public class CarnotaurusRoarGoal extends Goal {
             }
 
             if (this.timer > 40) {
-                finishRoaring(this.carnotaurus);
+                this.timer = 0;
+                this.carnotaurus.roarCooldown();
             }
         }
-    }
-
-    private void finishRoaring(Carnotaurus carnotaurus) {
-        this.timer = 0;
-        carnotaurus.roarCooldown();
     }
 }

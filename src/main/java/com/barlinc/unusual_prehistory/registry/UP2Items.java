@@ -129,7 +129,7 @@ public class UP2Items {
 
     // discs
     public static final RegistryObject<Item> DOOMSURF_DISC = registerItemNoLang("doomsurf_disc", () -> new RecordItem(15, UP2SoundEvents.DOOMSURF_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3940));
-    public static final RegistryObject<Item> MEGALANIA_DISC = registerItemNoLang("megalania_disc", () -> new RecordItem(14, UP2SoundEvents.MEGALANIA_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1260));
+    public static final RegistryObject<Item> MEGALANIA_DISC = registerItemNoLang("megalania_disc", () -> new RecordItem(14, UP2SoundEvents.MEGALANIA_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1400));
     public static final RegistryObject<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(13, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
 
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {

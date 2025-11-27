@@ -1,0 +1,12 @@
+{
+  "name": "Onchopristis",
+  "icon": "unusual_prehistory:onchopristis_sac",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_onchopristis",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Rivers"
+    }
+  ]
+}

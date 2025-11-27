@@ -17,7 +17,7 @@ public abstract class MapDecorationMixin {
 
     @Inject(method = {"render(I)Z"}, remap = false, cancellable = true, at = @At(value = "HEAD"))
     private void unusualPrehistory2$render(int index, CallbackInfoReturnable<Boolean> cir) {
-        if (this.getType() == UP2MapIcons.FOSSIL_SITE_MAP_DECORATION) {
+        if (this.getType() == UP2MapIcons.MESOZOIC_FOSSIL_SITE || this.getType() == UP2MapIcons.PALEOZOIC_FOSSIL_SITE || this.getType() == UP2MapIcons.PETRIFIED_TREE_SITE) {
             UnusualPrehistory2.PROXY.renderMapDecoration((MapDecoration) (Object) this, index);
             cir.setReturnValue(true);
         }

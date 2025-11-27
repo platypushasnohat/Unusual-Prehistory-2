@@ -8,7 +8,9 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class UP2StructureTags {
 
-    public static final TagKey<Structure> ON_FOSSIL_MAPS = modStructureTag("on_fossil_maps");
+    public static final TagKey<Structure> ON_PALEOZOIC_FOSSIL_MAPS = modStructureTag("on_paleozoic_fossil_maps");
+    public static final TagKey<Structure> ON_MESOZOIC_FOSSIL_MAPS = modStructureTag("on_mesozoic_fossil_maps");
+    public static final TagKey<Structure> ON_PETRIFIED_TREE_MAPS = modStructureTag("on_petrified_tree_maps");
 
     private static TagKey<Structure> modStructureTag(String name) {
         return structureTag(UnusualPrehistory2.MOD_ID, name);

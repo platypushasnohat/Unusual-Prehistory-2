@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "killer",
+          "predicate": {
+            "type": "unusual_prehistory:megalania"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:megalania_disc"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "unusual_prehistory:entities/megalania_disc_skeleton"
+}

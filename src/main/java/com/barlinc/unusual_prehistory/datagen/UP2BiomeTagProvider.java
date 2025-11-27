@@ -30,8 +30,10 @@ public class UP2BiomeTagProvider extends BiomeTagsProvider {
                 .addTag(BiomeTags.IS_FOREST)
                 .addTag(BiomeTags.IS_JUNGLE)
                 .addTag(BiomeTags.IS_SAVANNA)
+                .addTag(BiomeTags.IS_BADLANDS)
                 .addTag(Tags.Biomes.IS_PLAINS)
-                .addTag(Tags.Biomes.IS_SWAMP);
+                .addTag(Tags.Biomes.IS_SWAMP)
+                .addTag(Tags.Biomes.IS_DESERT);
 
         this.tag(UP2BiomeTags.HAS_TAR_PIT)
                 .addTag(BiomeTags.IS_TAIGA)
@@ -44,7 +46,9 @@ public class UP2BiomeTagProvider extends BiomeTagsProvider {
                 .addTag(BiomeTags.IS_TAIGA)
                 .addTag(BiomeTags.IS_FOREST)
                 .addTag(BiomeTags.IS_SAVANNA)
-                .addTag(Tags.Biomes.IS_PLAINS);
+                .addTag(BiomeTags.IS_BADLANDS)
+                .addTag(Tags.Biomes.IS_PLAINS)
+                .addTag(Tags.Biomes.IS_DESERT);
 
     }
 }

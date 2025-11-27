@@ -25,6 +25,8 @@ public class UP2BlockTags {
     public static final TagKey<Block> FOSSILIZED_BONE_BLOCKS = modBlockTag("fossilized_bone_blocks");
     public static final TagKey<Block> PETRIFIED_WOOD = modBlockTag("petrified_wood");
 
+    public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }

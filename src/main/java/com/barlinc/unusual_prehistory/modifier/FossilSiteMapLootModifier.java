@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -50,11 +51,22 @@ public class FossilSiteMapLootModifier implements IGlobalLootModifier {
         if (context.getRandom().nextFloat() < chance && context.hasParam(LootContextParams.ORIGIN)) {
             ServerLevel serverlevel = context.getLevel();
             BlockPos chestPos = BlockPos.containing(context.getParam(LootContextParams.ORIGIN));
-            BlockPos blockpos = serverlevel.findNearestMapStructure(UP2StructureTags.ON_FOSSIL_MAPS, chestPos, 100, true);
+            BlockPos blockpos;
+            MapDecoration.Type type;
+            if (context.getRandom().nextFloat() < 0.34F) {
+                blockpos = serverlevel.findNearestMapStructure(UP2StructureTags.ON_PALEOZOIC_FOSSIL_MAPS, chestPos, 100, true);
+                type = UP2MapIcons.PALEOZOIC_FOSSIL_SITE;
+            } else if (context.getRandom().nextFloat() < 0.67F) {
+                blockpos = serverlevel.findNearestMapStructure(UP2StructureTags.ON_MESOZOIC_FOSSIL_MAPS, chestPos, 100, true);
+                type = UP2MapIcons.MESOZOIC_FOSSIL_SITE;
+            } else {
+                blockpos = serverlevel.findNearestMapStructure(UP2StructureTags.ON_PETRIFIED_TREE_MAPS, chestPos, 100, true);
+                type = UP2MapIcons.PETRIFIED_TREE_SITE;
+            }
             if (blockpos != null) {
                 ItemStack itemstack = MapItem.create(serverlevel, blockpos.getX(), blockpos.getZ(), (byte) 2, true, true);
                 MapItem.renderBiomePreviewMap(serverlevel, itemstack);
-                MapItemSavedData.addTargetDecoration(itemstack, blockpos, "+", UP2MapIcons.FOSSIL_SITE_MAP_DECORATION);
+                MapItemSavedData.addTargetDecoration(itemstack, blockpos, "+", type);
                 itemstack.setHoverName(Component.translatable("item.unusual_prehistory.fossil_explorer_map"));
                 generatedLoot.add(itemstack);
             }

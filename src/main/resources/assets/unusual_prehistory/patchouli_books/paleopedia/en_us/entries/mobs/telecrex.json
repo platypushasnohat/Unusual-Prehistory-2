@@ -1,0 +1,12 @@
+{
+  "name": "Telecrex",
+  "icon": "unusual_prehistory:telecrex_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_telecrex",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Eocene Epoch $(br2)Temperament: Passive $(br2)Diet: Herbivorous, Insectivorous $(br2)Preferred Habitats: Plains, Savannas, Meadows"
+    }
+  ]
+}

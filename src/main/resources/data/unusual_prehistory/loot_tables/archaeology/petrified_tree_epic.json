@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:lepidodendron_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:ginkgo_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:bennettitales_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:calamophyton_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:cladophebis_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:cooksonia_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:horsetail_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:leefructus_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:quillwort_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:raiguenrayun_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:rhynia_fossil"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/petrified_tree_epic"
+}

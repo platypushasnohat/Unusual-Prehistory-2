@@ -1,0 +1,50 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/carnotaurus",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/dromaeosaurus",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/kentrosaurus",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/majungasaurus",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/onchopristis",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

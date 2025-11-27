@@ -1,0 +1,23 @@
+{
+  "name": "Revival Process",
+  "icon": "unusual_prehistory:machine_parts",
+  "category": "unusual_prehistory:revival",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Fossils can be found throughout the world. Typically buried underground (with the exception of tar pits), it is difficult to simply stumble upon them. To more easily find fossils, search through mineshafts, jungle temples, desert temples, or dungeons to find fossil site maps. Follow the map and dig down to find a buried fossil!        "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:transmogrifier",
+      "title": "Transmogrifier Recipe",
+      "text": "Once you have fossils, you will need a Transmogrifier. Transmogrifiers can only be crafted with machine parts, which can be found in the same structures fossil site maps can be found in, albeit more rarely than the maps."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:organic_ooze",
+      "title": "Organic Ooze Recipe",
+      "text": "To fuel a Transmogrifier you need Organic Ooze. Transmogrifiers will consume ooze rather quickly, typically needing 2-3 in order to revive larger creatures, so make sure to collect plenty of ingredients!"
+    }
+  ]
+}

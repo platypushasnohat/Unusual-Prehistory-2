@@ -14,6 +14,7 @@ public class TelecrexMoveControl extends MoveControl {
         this.telecrex = telecrex;
     }
 
+    @Override
     public void tick() {
         if (!telecrex.refuseToMove()) {
             if (this.operation == Operation.MOVE_TO) {

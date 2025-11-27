@@ -1,0 +1,12 @@
+{
+  "name": "Dunkleosteus",
+  "icon": "unusual_prehistory:dunkleosteus_sac",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_dunkleosteus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Devonian Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Deep Ocean Biomes"
+    }
+  ]
+}

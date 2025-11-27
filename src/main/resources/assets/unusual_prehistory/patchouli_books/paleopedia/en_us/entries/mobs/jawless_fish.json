@@ -1,0 +1,12 @@
+{
+  "name": "Jawless Fish",
+  "icon": "unusual_prehistory:jawless_fish_roe",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_jawless_fish",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Mid Ordovician-Early Devonian Period $(br2)Temperament: Passive $(br2)Diet: Omnivorous $(br2)Preferred Habitats: Warm Oceans"
+    }
+  ]
+}

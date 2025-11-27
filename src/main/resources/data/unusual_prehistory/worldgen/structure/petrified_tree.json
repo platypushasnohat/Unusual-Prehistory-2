@@ -6,7 +6,7 @@
   "spawn_overrides": {},
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "start_height": {
-    "absolute": -32
+    "absolute": -14
   },
   "start_pool": "unusual_prehistory:petrified_tree",
   "step": "underground_structures",

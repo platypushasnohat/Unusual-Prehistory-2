@@ -1,10 +1,16 @@
 {
   "values": [
-    "unusual_prehistory:kentrosaurus",
     "unusual_prehistory:dromaeosaurus",
-    "minecraft:sheep",
+    "unusual_prehistory:kentrosaurus",
+    "minecraft:horse",
+    "minecraft:camel",
+    "minecraft:sniffer",
     "minecraft:cow",
     "minecraft:pig",
-    "minecraft:goat"
+    "minecraft:sheep",
+    "minecraft:goat",
+    "minecraft:llama",
+    "minecraft:donkey",
+    "minecraft:mule"
   ]
 }

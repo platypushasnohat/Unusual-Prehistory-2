@@ -1,10 +1,12 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -66,13 +68,23 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
-                KENTROSAURUS.get(),
                 DROMAEOSAURUS.get(),
-                EntityType.SHEEP,
+                KENTROSAURUS.get(),
+                EntityType.HORSE,
+                EntityType.CAMEL,
+                EntityType.SNIFFER,
                 EntityType.COW,
                 EntityType.PIG,
-                EntityType.GOAT
+                EntityType.SHEEP,
+                EntityType.GOAT,
+                EntityType.LLAMA,
+                EntityType.DONKEY,
+                EntityType.MULE
         );
+
+        this.tag(UP2EntityTags.CARNOTAURUS_IGNORES).add(
+                EntityType.CREEPER
+        ).addOptional(new ResourceLocation("species", "quake"));
 
         this.tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
                 EntityType.SHEEP,

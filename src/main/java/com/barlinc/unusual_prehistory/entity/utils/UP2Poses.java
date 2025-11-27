@@ -12,7 +12,10 @@ public enum UP2Poses {
     PREENING,
     BURROWED,
     WAVING,
-    TAIL_WHIPPING;
+    TAIL_WHIPPING,
+    START_CHARGING,
+    CHARGING,
+    STOP_CHARGING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackab
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.DromaeosaurusMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
@@ -24,6 +24,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +41,6 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
-    private int eepyTimer;
     private int biteTicks;
 
     public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
@@ -71,12 +72,12 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
 
             @Override
             public boolean canContinueToUse(){
-                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
         });
     }
@@ -291,5 +292,25 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.DROMAEOSAURUS_DEATH.get();
+    }
+
+    private static class DromaeosaurusMoveControl extends PrehistoricMobMoveControl {
+
+        private final Dromaeosaurus dromaeosaurus;
+
+        public DromaeosaurusMoveControl(Dromaeosaurus dromaeosaurus) {
+            super(dromaeosaurus);
+            this.dromaeosaurus = dromaeosaurus;
+        }
+
+        @Override
+        public void tick() {
+            if (!this.dromaeosaurus.refuseToMove()) {
+                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusEeping() && !this.dromaeosaurus.isInPoseTransition()) {
+                    this.dromaeosaurus.wakeUp();
+                }
+                super.tick();
+            }
+        }
     }
 }

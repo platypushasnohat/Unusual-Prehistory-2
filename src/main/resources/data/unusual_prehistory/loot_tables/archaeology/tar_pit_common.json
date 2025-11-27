@@ -6,28 +6,75 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:plumage_fossil",
-          "weight": 3
+          "name": "minecraft:bone"
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
-          "weight": 6
+          "name": "minecraft:bone_meal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string"
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 5
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:flint",
-          "weight": 5
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:stick",
-          "weight": 5
+          "name": "minecraft:feather",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit_hide"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_bush"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:clay_ball",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_row"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_rod"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_spike"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_vertebra"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fossilized_bone_bark"
         }
       ],
       "rolls": 1.0

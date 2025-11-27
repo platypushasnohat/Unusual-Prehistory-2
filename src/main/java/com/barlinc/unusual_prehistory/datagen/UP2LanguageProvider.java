@@ -269,6 +269,10 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.fossil_explorer_map", "Fossil Site Map");
 
+        // Book
+        this.add("unusual_prehistory.patchouli.book.name", "Paleopedia");
+        this.add("unusual_prehistory.patchouli.book.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
+
         this.translateDamageType(UP2DamageTypes.TAR, player -> player + " suffocated in tar", (player, entity) -> player + " was suffocated in tar by " + entity);
     }
 
