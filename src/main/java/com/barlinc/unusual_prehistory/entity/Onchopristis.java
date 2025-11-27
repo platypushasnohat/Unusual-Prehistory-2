@@ -136,7 +136,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
     private void getSteppedOn() {
         this.level().getEntities(this, this.getAggroHitbox()).forEach((entity) -> {
             if (entity instanceof LivingEntity mob && mob.isAlive() && !(mob instanceof Onchopristis)) {
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob)) {
+                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob) && !this.isPacified()) {
                     this.setTarget(mob);
                     this.exitBurrowInstantly();
                     this.burrowCooldown();
