@@ -2,6 +2,9 @@
 - Onchopristis no longer attacks after getting stepped on if it is pacified
 - Updated Dromaeosaurus entry in the Paleopedia
 - Added images for each mob entry in the Paleopedia
+- Changed persistence rules so aquatic mobs can despawn when spawning naturally
+- Changed tempt goal priorities to be prioritized over wandering
+- Changed Jawless Fish mob category to water ambient
 
 # Version 1.1.0
 - Added Onchopristis

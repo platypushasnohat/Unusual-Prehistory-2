@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
@@ -144,6 +145,9 @@ public class EggBlock extends BaseEntityBlock {
                 if (entity instanceof Animal animal) {
                     animal.setBaby(true);
                 }
+                if (entity instanceof PrehistoricMob prehistoricMob) {
+                    prehistoricMob.setFromEgg(true);
+                }
                 if (placer != null) {
                     Player player = level.getPlayerByUUID(placer);
                     if (player instanceof ServerPlayer serverPlayer) {
@@ -152,7 +156,7 @@ public class EggBlock extends BaseEntityBlock {
                 }
                 entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
                 level.addFreshEntity(entity);
-                ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos),MobSpawnType.NATURAL, null, null);
+                ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
             }
         }
     }

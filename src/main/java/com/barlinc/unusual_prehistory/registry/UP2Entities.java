@@ -49,7 +49,7 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<JawlessFish>> JAWLESS_FISH = ENTITY_TYPE.register(
             "jawless_fish", () ->
-            EntityType.Builder.of(JawlessFish::new, MobCategory.WATER_CREATURE)
+            EntityType.Builder.of(JawlessFish::new, MobCategory.WATER_AMBIENT)
                     .sized(0.36F, 0.36F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "jawless_fish").toString())
@@ -137,7 +137,7 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<ThrowableEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
             "dromaeosaurus_egg", () ->
-            EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC)
+            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
@@ -145,7 +145,7 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<ThrowableEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
             "talpanas_egg", () ->
-                    EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC)
+                    EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "talpanas_egg").toString())
@@ -153,7 +153,7 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<ThrowableEgg>> TELECREX_EGG = ENTITY_TYPE.register(
             "telecrex_egg", () ->
-                    EntityType.Builder.<ThrowableEgg>of((pEntityType, pLevel) -> new ThrowableEgg(pEntityType, pLevel , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC)
+                    EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())

@@ -109,9 +109,9 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(0, new LeaveWaterGoal(this, 1.0D, 1200, 2400));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.6D));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
-        this.goalSelector.addGoal(3, this.randomStrollGoal);
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
+        this.goalSelector.addGoal(4, this.randomStrollGoal);
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new MegalaniaRoarGoal(this));

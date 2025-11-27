@@ -74,11 +74,11 @@ public class Onchopristis extends PrehistoricAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ONCHOPRISTIS_FOOD), false));
-        this.goalSelector.addGoal(4, new OnchopristisAttackGoal(this));
-        this.goalSelector.addGoal(5, new GroundseekingRandomSwimGoal(this, 1.0D, 60, 12, 12, 0.02));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new OnchopristisAttackGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ONCHOPRISTIS_FOOD), false));
+        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1.0D, 60, 12, 12, 0.02));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ONCHOPRISTIS_TARGETS)));
     }

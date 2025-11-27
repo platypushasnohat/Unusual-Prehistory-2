@@ -76,10 +76,10 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(5, new KentrosaurusFollowThornsGoal(this));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new KentrosaurusFollowThornsGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new KentrosaurusLayDownGoal(this));

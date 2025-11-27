@@ -36,7 +36,7 @@ public abstract class WaterEggBlockEntity extends FrogspawnBlock implements Enti
     @Override
     public MenuProvider getMenuProvider(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
         BlockEntity blockentity = level.getBlockEntity(pos);
-        return blockentity instanceof MenuProvider ? (MenuProvider)blockentity : null;
+        return blockentity instanceof MenuProvider ? (MenuProvider) blockentity : null;
     }
 
     @Nullable

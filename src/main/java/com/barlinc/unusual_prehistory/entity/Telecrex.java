@@ -76,15 +76,15 @@ public class Telecrex extends PrehistoricFlyingMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TelecrexScatterGoal(this));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1) {
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Telecrex.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(2, new RandomFlightGoal(this, 0.75F, 16, 4, 2000, 200));
-        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
+        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 0.75F, 16, 4, 2000, 200));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     }

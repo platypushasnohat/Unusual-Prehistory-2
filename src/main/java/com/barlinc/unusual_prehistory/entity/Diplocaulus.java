@@ -76,9 +76,9 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D));
-         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 10, 3));
-         this.goalSelector.addGoal(2, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 10, 3));
+         this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(5, new DiplocaulusBurrowInMudGoal(this));

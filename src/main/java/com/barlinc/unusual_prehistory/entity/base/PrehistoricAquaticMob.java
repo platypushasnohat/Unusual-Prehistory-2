@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -64,6 +65,11 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     @Override
     public @NotNull MobType getMobType() {
         return MobType.WATER;
+    }
+
+    @Override
+    public boolean checkSpawnObstruction(LevelReader level) {
+        return level.isUnobstructed(this);
     }
 
     @Override
@@ -201,9 +207,19 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         }
     }
 
-    public static boolean canSpawn(EntityType<? extends PrehistoricAquaticMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        int seaLevel = level.getSeaLevel();
-        int minHeight = seaLevel - 13;
-        return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
+    public static boolean checkSpawnRules(EntityType<? extends PrehistoricAquaticMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        int i = level.getSeaLevel();
+        int j = i - 13;
+        return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distanceToPlayer) {
+        return !this.requiresCustomPersistence();
     }
 }

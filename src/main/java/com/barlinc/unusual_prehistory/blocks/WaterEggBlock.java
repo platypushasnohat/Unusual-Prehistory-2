@@ -48,15 +48,13 @@ public class WaterEggBlock extends WaterEggBlockEntity {
                 Entity entity = hatchedEntity.get().create(level);
                 if (entity instanceof Mob mob) {
                     if (entity instanceof Animal animal) {
-                        animal.setAge(-24000);
-                        animal.setPersistenceRequired();
+                        animal.setBaby(true);
                     }
                     if (entity instanceof PrehistoricAquaticMob prehistoricAquaticMob) {
-                        prehistoricAquaticMob.setAge(-24000);
-                        prehistoricAquaticMob.setPersistenceRequired();
+                        prehistoricAquaticMob.setFromEgg(true);
                     }
                     if (entity instanceof PrehistoricMob prehistoricMob) {
-                        prehistoricMob.setVariant(random.nextInt(prehistoricMob.getVariantCount()));
+                        prehistoricMob.setFromEgg(true);
                     }
                     int k = random.nextInt(1, 361);
                     if (placer != null) {

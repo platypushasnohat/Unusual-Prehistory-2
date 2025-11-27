@@ -22,9 +22,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -47,6 +45,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_PLAYING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -57,7 +56,6 @@ public abstract class PrehistoricMob extends Animal {
         super(entityType, level);
         this.moveControl = new PrehistoricMobMoveControl(this);
         this.lookControl = new RefuseToMoveLookControl(this);
-        this.setPersistenceRequired();
     }
 
     @Override
@@ -261,6 +259,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
         this.entityData.define(IDLE_PLAYING, false);
+        this.entityData.define(FROM_EGG, false);
     }
 
     @Override
@@ -269,6 +268,7 @@ public abstract class PrehistoricMob extends Animal {
         compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
         compoundTag.putBoolean("Pacified", this.isPacified());
+        compoundTag.putBoolean("FromEgg", this.isFromEgg());
     }
 
     @Override
@@ -278,6 +278,7 @@ public abstract class PrehistoricMob extends Animal {
         long lastPoseTick = compoundTag.getLong("LastPoseTick");
         this.resetLastPoseChangeTick(lastPoseTick);
         this.setPacified(compoundTag.getBoolean("Pacified"));
+        this.setFromEgg(compoundTag.getBoolean("FromEgg"));
     }
 
     protected boolean getFlag(int flagId) {
@@ -348,5 +349,21 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setIdlePlaying(boolean idlePlaying) {
         this.entityData.set(IDLE_PLAYING, idlePlaying);
+    }
+
+    public boolean isFromEgg() {
+        return this.entityData.get(FROM_EGG);
+    }
+
+    public void setFromEgg(boolean fromEgg) {
+        this.entityData.set(FROM_EGG, fromEgg);
+    }
+
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
+    public boolean removeWhenFarAway(double d) {
+        return !this.requiresCustomPersistence();
     }
 }
