@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "unusual_prehistory:block/diplocaulus_eggs"
-    }
+    "": [
+      {
+        "model": "unusual_prehistory:block/diplocaulus_eggs"
+      },
+      {
+        "model": "unusual_prehistory:block/diplocaulus_eggs",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/diplocaulus_eggs",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/diplocaulus_eggs",
+        "y": 270
+      }
+    ]
   }
 }

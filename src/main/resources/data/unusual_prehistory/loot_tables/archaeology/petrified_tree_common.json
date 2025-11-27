@@ -6,63 +6,48 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:bennettitales_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:calamophyton_fossil",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:cladophebis_fossil",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:cooksonia_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:horsetail_fossil",
-          "weight": 4
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:leefructus_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:quillwort_fossil",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:raiguenrayun_fossil",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:rhynia_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:coal",
-          "weight": 11
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:flint",
-          "weight": 8
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:stick",
-          "weight": 10
+          "name": "minecraft:hanging_roots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_bush"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:clay_ball",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:moss_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:raw_copper",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:petrified_log"
         }
       ],
       "rolls": 1.0

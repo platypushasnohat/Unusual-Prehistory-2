@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -71,12 +72,12 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
 
             @Override
             public boolean canContinueToUse(){
-                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && Dromaeosaurus.this.level().isDay();
+                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
         });
     }

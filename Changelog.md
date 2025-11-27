@@ -24,4 +24,6 @@
 - Fossils spawn closer to the surface
 - Fossils now contain 3 different loot tables: common, rare, and epic, with epic being the only one containing fossils but also with zero junk items
 - Added a new array of junk items to common and rare fossil loot tables
+- Added random rotations to some egg blockstates
+- Fixed water eggs and underwater eggs hatching too quickly
 - Miscellaneous tweaks

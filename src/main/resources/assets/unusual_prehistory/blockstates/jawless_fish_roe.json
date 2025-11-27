@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "unusual_prehistory:block/jawless_fish_roe"
-    }
+    "": [
+      {
+        "model": "unusual_prehistory:block/jawless_fish_roe"
+      },
+      {
+        "model": "unusual_prehistory:block/jawless_fish_roe",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/jawless_fish_roe",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/jawless_fish_roe",
+        "y": 270
+      }
+    ]
   }
 }

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "minecraft:bone"
         },
         {
           "type": "minecraft:item",
@@ -14,7 +14,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:string",
+          "name": "minecraft:string"
         },
         {
           "type": "minecraft:item",

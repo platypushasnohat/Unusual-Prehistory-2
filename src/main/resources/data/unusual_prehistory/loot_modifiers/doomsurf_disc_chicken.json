@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:add_loot_table",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/chicken"
+    }
+  ],
+  "lootTable": "unusual_prehistory:entities/doomsurf_disc_chicken"
+}

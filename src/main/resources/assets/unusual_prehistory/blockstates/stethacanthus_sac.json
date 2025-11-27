@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "unusual_prehistory:block/stethacanthus_sac"
-    }
+    "": [
+      {
+        "model": "unusual_prehistory:block/stethacanthus_sac"
+      },
+      {
+        "model": "unusual_prehistory:block/stethacanthus_sac",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/stethacanthus_sac",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/stethacanthus_sac",
+        "y": 270
+      }
+    ]
   }
 }

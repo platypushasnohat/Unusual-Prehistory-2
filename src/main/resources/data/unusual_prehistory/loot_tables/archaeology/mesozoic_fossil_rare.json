@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold",
+          "name": "minecraft:raw_gold"
         },
         {
           "type": "minecraft:item",
