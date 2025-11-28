@@ -126,6 +126,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
         }
     }
 
+    @Override
     public void tick() {
         super.tick();
 
@@ -299,5 +300,15 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
         int seaLevel = level.getSeaLevel();
         int minHeight = seaLevel - 13;
         return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double d) {
+        return !this.requiresCustomPersistence();
     }
 }

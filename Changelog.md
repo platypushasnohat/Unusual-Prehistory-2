@@ -1,3 +1,6 @@
+# Version 1.1.2
+- Fixed Kimmeridgebrachypteraeschnidium nymphs being able to despawn
+
 # Version 1.1.1
 - Onchopristis no longer attacks after getting stepped on if it is pacified
 - Updated Dromaeosaurus entry in the Paleopedia

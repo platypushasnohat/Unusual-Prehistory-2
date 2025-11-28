@@ -359,10 +359,12 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(FROM_EGG, fromEgg);
     }
 
+    @Override
     public boolean requiresCustomPersistence() {
         return true;
     }
 
+    @Override
     public boolean removeWhenFarAway(double d) {
         return !this.requiresCustomPersistence();
     }
