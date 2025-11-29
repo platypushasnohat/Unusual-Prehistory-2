@@ -295,4 +295,14 @@
          int j = i - 13;
          return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
      }
+
+     @Override
+     public boolean requiresCustomPersistence() {
+         return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
+     }
+
+     @Override
+     public boolean removeWhenFarAway(double distanceToPlayer) {
+         return !this.requiresCustomPersistence();
+     }
  }

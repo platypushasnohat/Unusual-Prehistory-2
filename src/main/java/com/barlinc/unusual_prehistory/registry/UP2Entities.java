@@ -97,7 +97,7 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<Metriorhynchus>> METRIORHYNCHUS = ENTITY_TYPE.register(
             "metriorhynchus", () ->
-            EntityType.Builder.of(Metriorhynchus::new, MobCategory.CREATURE)
+            EntityType.Builder.of(Metriorhynchus::new, MobCategory.WATER_CREATURE)
                     .sized(1.35F, 1.2F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "metriorhynchus").toString())
