@@ -71,7 +71,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

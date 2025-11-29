@@ -51,6 +51,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
         this.forEntity(UP2Entities.MAJUNGASAURUS);
         this.forEntity(UP2Entities.MEGALANIA);
+        this.forEntity(UP2Entities.METRIORHYNCHUS);
         this.forEntity(UP2Entities.ONCHOPRISTIS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
@@ -260,7 +261,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.diplocaulus.variant_salamandroides", "D. salamandroides");
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
-        this.add("unusual_prehistory.jei.chiseling", "Chiseling");
 
         // tame commands
         this.add("entity.unusual_prehistory.all.command_0", "%s is wandering");

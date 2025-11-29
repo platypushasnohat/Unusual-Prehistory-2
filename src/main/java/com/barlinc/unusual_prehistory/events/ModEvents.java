@@ -25,6 +25,7 @@ public class ModEvents {
         event.register(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, KimmeridgebrachypteraeschnidiumNymph::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.MAJUNGASAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Majungasaurus::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.MEGALANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Megalania::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.STETHACANTHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stethacanthus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TALPANAS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
@@ -44,6 +45,7 @@ public class ModEvents {
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
         event.put(UP2Entities.MAJUNGASAURUS.get(), Majungasaurus.createAttributes().build());
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
+        event.put(UP2Entities.METRIORHYNCHUS.get(), Metriorhynchus.createAttributes().build());
         event.put(UP2Entities.ONCHOPRISTIS.get(), Onchopristis.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());

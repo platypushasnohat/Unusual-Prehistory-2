@@ -4,6 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.DiplocaulusBurrowInMudGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
@@ -91,7 +92,7 @@
              this.lookControl = new LookControl(this);
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.2F, 0.1F, false);
+             this.moveControl = new SemiAquaticSwimmingMoveControl(this, 85, 10, 0.34F);
              this.navigation = new AmphibiousPathNavigation(this, level());
              this.lookControl = new SmoothSwimmingLookControl(this, 10);
              this.isLandNavigator = false;

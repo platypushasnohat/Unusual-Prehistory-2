@@ -7,12 +7,12 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:thermal_fossil",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:plumage_fossil",
-          "weight": 3
+          "weight": 4
         },
         {
           "type": "minecraft:item",

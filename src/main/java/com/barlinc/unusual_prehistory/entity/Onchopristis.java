@@ -307,7 +307,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

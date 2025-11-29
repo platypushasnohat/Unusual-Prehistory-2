@@ -1,11 +1,9 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusHurtByTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus.DunkleosteusPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.DunkleosteusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -29,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -68,14 +67,23 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new DunkleosteusPanicGoal(this));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D) {
+            public boolean canUse() {
+                return super.canUse() && Dunkleosteus.this.getVariant() == 0 || Dunkleosteus.this.isBaby();
+            }
+        });
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DUNKLEOSTEUS_FOOD), false));
         this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1.0D, 70, 16, 16, 0.02));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.targetSelector.addGoal(0, new DunkleosteusHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new DunkleosteusNearestAttackableTargetGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this) {
+            public boolean canUse() {
+                return super.canUse() && Dunkleosteus.this.getVariant() != 0;
+            }
+        });
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, this::isTarget));
+
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
     }
 
@@ -113,12 +121,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (VARIANT.equals(accessor)) {
             this.refreshDimensions();
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(10.0F * this.getVariant() + 10.0F);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0F * this.getVariant());
-            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0F * this.getVariant() + 3.0F);
-            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F - this.getVariant() * 0.1F);
-            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.1F + this.getVariant() * 0.3F);
-            this.heal(50.0F);
+            this.setupSizeAttributes();
         }
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.BITING.get()) {
@@ -130,6 +133,31 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             }
         }
         super.onSyncedDataUpdated(accessor);
+    }
+
+    private void setupSizeAttributes() {
+        if (this.getVariant() == 0) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0D);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F);
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
+        }
+        if (this.getVariant() == 1) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(24.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(4.0D);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.8F);
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
+        }
+        if (this.getVariant() == 2) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(10.0D);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8.0D);
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.6F);
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.5D);
+        }
+        this.heal(50.0F);
     }
 
     @Override
@@ -211,7 +239,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

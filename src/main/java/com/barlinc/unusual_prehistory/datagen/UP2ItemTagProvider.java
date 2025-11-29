@@ -39,6 +39,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERATIVE_FOSSIL.get(),
                 RUGOSE_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
+                LONG_CROCODILE_FOSSIL.get(),
                 SAW_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
@@ -78,6 +79,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 .addTag(UP2ItemTags.PACIFIES_MOB);
 
         this.tag(UP2ItemTags.PACIFIES_MEGALANIA)
+                .addTag(UP2ItemTags.PACIFIES_MOB);
+
+        this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS)
                 .addTag(UP2ItemTags.PACIFIES_MOB);
 
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS)

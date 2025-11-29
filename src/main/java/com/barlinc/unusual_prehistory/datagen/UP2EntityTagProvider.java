@@ -34,6 +34,25 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 MEGALANIA.get()
         );
 
+        this.tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                STETHACANTHUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
+        this.tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                STETHACANTHUS.get(),
+                EntityType.AXOLOTL,
+                EntityType.DROWNED,
+                EntityType.GUARDIAN
+        );
+
         this.tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).add(
                 TELECREX.get(),
                 EntityType.CHICKEN
@@ -99,21 +118,12 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.GOAT
         );
 
-        this.tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
-                DUNKLEOSTEUS.get(),
-                ONCHOPRISTIS.get(),
+        this.tag(UP2EntityTags.METRIORHYNCHUS_TARGETS).add(
+                JAWLESS_FISH.get(),
                 STETHACANTHUS.get(),
-                EntityType.GUARDIAN,
-                EntityType.DROWNED
-        );
-
-        this.tag(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS).add(
-                DUNKLEOSTEUS.get(),
-                ONCHOPRISTIS.get(),
-                STETHACANTHUS.get(),
-                EntityType.AXOLOTL,
-                EntityType.DROWNED,
-                EntityType.GUARDIAN
+                EntityType.COD,
+                EntityType.SALMON,
+                EntityType.TROPICAL_FISH
         );
 
         this.tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).add(

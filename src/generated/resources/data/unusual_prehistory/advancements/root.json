@@ -180,6 +180,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "long_crocodile_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:long_crocodile_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "machine_parts": {
       "conditions": {
         "items": [
@@ -330,6 +342,7 @@
       "imperative_fossil",
       "rugose_fossil",
       "thermal_fossil",
+      "long_crocodile_fossil",
       "saw_fossil",
       "anvil_fossil",
       "plumage_fossil",

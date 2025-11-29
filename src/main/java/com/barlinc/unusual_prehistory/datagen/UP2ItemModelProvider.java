@@ -50,6 +50,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(IMPERATIVE_FOSSIL);
         this.item(RUGOSE_FOSSIL);
         this.item(THERMAL_FOSSIL);
+        this.item(LONG_CROCODILE_FOSSIL);
         this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
@@ -65,6 +66,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
         this.item(UP2Blocks.MAJUNGASAURUS_EGG);
         this.item(UP2Blocks.MEGALANIA_EGG);
+        this.item(METRIORHYNCHUS_EMBRYO);
         this.item(UP2Blocks.ONCHOPRISTIS_SAC);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);

@@ -27,6 +27,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = modEntityTag("megalania_targets");
 
+    public static final TagKey<EntityType<?>> METRIORHYNCHUS_TARGETS = modEntityTag("metriorhynchus_targets");
+
     public static final TagKey<EntityType<?>> ONCHOPRISTIS_TARGETS = modEntityTag("onchopristis_targets");
 
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");

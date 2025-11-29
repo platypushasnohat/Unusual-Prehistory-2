@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class UP2Items {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
@@ -81,17 +82,22 @@ public class UP2Items {
     public static final RegistryObject<Item> MEGALANIA_SPAWN_EGG = registerSpawnEggItem("megalania", UP2Entities.MEGALANIA, 0x4f432b, 0x0fd4e6);
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal");
 
+    // metriorhynchus
+    public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x2e2b45, 0x17192d);
+    public static final RegistryObject<Item> LONG_CROCODILE_FOSSIL = registerFossilItem("long_crocodile");
+    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new Item(new Item.Properties()));
+
     // onchopristis
     public static final RegistryObject<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);
     public static final RegistryObject<Item> SAW_FOSSIL = registerFossilItem("saw");
 
     // stethacanthus
-    public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x853028, 0xffc400);
+    public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x6e2e1f, 0xffa200);
     public static final RegistryObject<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new MobBucketItem(UP2Entities.STETHACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil");
 
     // talpanas
-    public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = registerSpawnEggItem("talpanas", UP2Entities.TALPANAS, 0x503527, 0xc9ffb8);
+    public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = registerSpawnEggItem("talpanas", UP2Entities.TALPANAS, 0x503527, 0x93ad87);
     public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.TALPANAS_EGG));
     public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties()));
 
@@ -139,8 +145,7 @@ public class UP2Items {
     }
 
     private static <I extends Item> RegistryObject<I> registerItemNoLang(String name, Supplier<? extends I> supplier) {
-        RegistryObject<I> item = ITEMS.register(name, supplier);
-        return item;
+        return ITEMS.register(name, supplier);
     }
 
     private static RegistryObject<Item> registerSpawnEggItem(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {
@@ -148,8 +153,7 @@ public class UP2Items {
     }
 
     private static RegistryObject<Item> registerFossilItem(String name) {
-        RegistryObject<Item> fossil = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
-        return fossil;
+        return registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
     }
 
     public static Item.Properties registerFoodValue(FoodProperties food) {

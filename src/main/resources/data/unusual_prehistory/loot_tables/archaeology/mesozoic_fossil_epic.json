@@ -33,6 +33,11 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:saw_fossil",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:long_crocodile_fossil",
+          "weight": 2
         }
       ],
       "rolls": 1.0

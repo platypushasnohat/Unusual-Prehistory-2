@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:obtain_egg",
+  "criteria": {
+    "hatch_metriorhynchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:metriorhynchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.hatch_metriorhynchus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:metriorhynchus_embryo"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.hatch_metriorhynchus"
+    }
+  },
+  "requirements": [
+    [
+      "hatch_metriorhynchus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

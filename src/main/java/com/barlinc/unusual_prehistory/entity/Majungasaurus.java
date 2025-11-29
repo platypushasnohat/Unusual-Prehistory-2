@@ -78,10 +78,11 @@ public class Majungasaurus extends PrehistoricMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 24.0D)
+                .add(Attributes.MAX_HEALTH, 32.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

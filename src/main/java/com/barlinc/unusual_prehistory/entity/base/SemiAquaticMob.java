@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
+@SuppressWarnings("deprecation")
 public abstract class SemiAquaticMob extends PrehistoricMob {
 
     public boolean isLandNavigator;

@@ -17,6 +17,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");
     public static final TagKey<Item> PACIFIES_MAJUNGASAURUS = modItemTag("pacifies_majungasaurus");
     public static final TagKey<Item> PACIFIES_MEGALANIA = modItemTag("pacifies_megalania");
+    public static final TagKey<Item> PACIFIES_METRIORHYNCHUS = modItemTag("pacifies_metriorhynchus");
     public static final TagKey<Item> PACIFIES_ONCHOPRISTIS = modItemTag("pacifies_onchopristis");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
 
@@ -29,6 +30,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD = modItemTag("kimmeridgebrachypteraeschnidium_food");
     public static final TagKey<Item> MAJUNGASAURUS_FOOD = modItemTag("majungasaurus_food");
     public static final TagKey<Item> MEGALANIA_FOOD = modItemTag("megalania_food");
+    public static final TagKey<Item> METRIORHYNCHUS_FOOD = modItemTag("metriorhynchus_food");
+
     public static final TagKey<Item> ONCHOPRISTIS_FOOD = modItemTag("onchopristis_food");
     public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
     public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");

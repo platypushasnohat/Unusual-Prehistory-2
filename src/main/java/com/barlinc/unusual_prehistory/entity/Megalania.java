@@ -101,6 +101,7 @@ public class Megalania extends SemiAquaticMob {
         this.setMaxUpStep(1);
         this.switchNavigator(true);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
 
     @Override
@@ -126,7 +127,8 @@ public class Megalania extends SemiAquaticMob {
                 .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
     }
 
     protected void switchNavigator(boolean onLand) {
@@ -163,7 +165,7 @@ public class Megalania extends SemiAquaticMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 
@@ -408,7 +410,6 @@ public class Megalania extends SemiAquaticMob {
                     this.level().broadcastEntityEvent(this, this.TONGUE);
                 }
                 else if (this.random.nextInt(800) == 0) {
-                    this.setIdlePlaying(true);
                     this.level().broadcastEntityEvent(this, this.FLICK1);
                 }
                 else if (this.random.nextInt(800) == 0) {

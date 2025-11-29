@@ -64,7 +64,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
                 this.carnotaurus.doHurtTarget(target);
             }
         }
-        if (this.timer > 22) {
+        if (this.timer > 20) {
             this.timer = 0;
             this.carnotaurus.setAttackState(0);
         }

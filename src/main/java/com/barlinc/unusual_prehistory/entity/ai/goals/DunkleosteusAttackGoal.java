@@ -1,7 +1,6 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.dunkleosteus;
+package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,12 +16,12 @@ public class DunkleosteusAttackGoal extends AttackGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && this.dunkleosteus.getTarget().isInWater();
+        return super.canUse() && (dunkleosteus.getTarget().isInWater() || !dunkleosteus.isInWater());
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && this.dunkleosteus.getTarget().isInWater();
+        return super.canContinueToUse() && (dunkleosteus.getTarget().isInWater() || !dunkleosteus.isInWater());
     }
 
     @Override
@@ -48,7 +47,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                         this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                     }
                 }
-                if (timer > 26) {
+                if (timer > 20) {
                     timer = 0;
                     this.dunkleosteus.setAttackState(0);
                 }

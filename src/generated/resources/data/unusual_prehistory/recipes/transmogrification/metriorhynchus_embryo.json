@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:long_crocodile_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:metriorhynchus_embryo"
+  },
+  "processing_time": 2400
+}

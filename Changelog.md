@@ -1,3 +1,15 @@
+# Version 1.2.0
+- Added Metriorhynchus
+- Increased Majungasaurus health to 32
+- Added 4 armor to Kentrosaurus
+- Tweaked Dunkleosteus stats per variant
+- Changed Dunkleosteus target goals to generic ones
+- Dunkleosteus can now attack outside of water
+- Majungasaurus now attacks faster
+- Tweaked spawn egg colors for Stethacanthus and Talpanas
+- Talpanas now drops feathers
+- Misc tweaks
+
 # Version 1.1.2
 - Fixed Kimmeridgebrachypteraeschnidium nymphs being able to despawn
 
@@ -18,7 +30,7 @@
 - Added targeting tag for Carnotaurus
 - Added a separate sound event for Megalania step sounds
 - Fixed a z-fighting issue on the Furcacauda model
-- Kimmeridgebrachypteraeschndium no longer drowns to prevent unwanted deaths when a nymph grows up
+- Kimmeridgebrachypteraeschnidium no longer drowns to prevent unwanted deaths when a nymph grows up
 - Leashed Prehistoric mobs no longer take any fall damage
 - Kentrosaurus is now immune to thorns, sweet berry, and cactus damage
 - Kentrosaurus can now pathfind onto cactus and sweet berry bushes
@@ -31,7 +43,7 @@
 - Carnotaurus now heals a small amount of health on kill
 - Increased the amount of suspicious blocks per fossil, petrified tree, and tar pit structure
 - Fossils can now spawn in deserts and badlands
-- Fossil Site maps are now seperated into different maps for each structure, each with their own icon
+- Fossil Site maps are now separated into different maps for each structure, each with their own icon
 - Replaced all fossil site structures with new ones representing each relevant creature in the mod
 - Fossils spawn closer to the surface
 - Fossils now contain 3 different loot tables: common, rare, and epic, with epic being the only one containing fossils but also with zero junk items

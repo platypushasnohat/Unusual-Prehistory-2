@@ -125,7 +125,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

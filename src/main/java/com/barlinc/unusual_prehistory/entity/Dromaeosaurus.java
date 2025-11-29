@@ -97,7 +97,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return true;
     }
 

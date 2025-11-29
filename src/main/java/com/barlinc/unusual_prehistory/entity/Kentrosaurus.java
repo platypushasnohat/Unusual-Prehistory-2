@@ -92,7 +92,8 @@ public class Kentrosaurus extends PrehistoricMob {
                 .add(Attributes.MAX_HEALTH, 36.0D)
                 .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
-                .add(Attributes.MOVEMENT_SPEED, 0.16F);
+                .add(Attributes.MOVEMENT_SPEED, 0.16F)
+                .add(Attributes.ARMOR, 4.0F);
     }
 
     @Override

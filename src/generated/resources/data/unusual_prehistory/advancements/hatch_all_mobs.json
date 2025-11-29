@@ -127,6 +127,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "metriorhynchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:metriorhynchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "onchopristis": {
       "conditions": {
         "entity": [
@@ -227,6 +241,9 @@
     ],
     [
       "megalania"
+    ],
+    [
+      "metriorhynchus"
     ],
     [
       "onchopristis"

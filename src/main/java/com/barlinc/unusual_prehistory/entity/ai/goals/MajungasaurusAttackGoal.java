@@ -30,11 +30,6 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     }
 
     @Override
-    public boolean canUse() {
-        return super.canUse() && !this.majungasaurus.isBaby();
-    }
-
-    @Override
     public void tick() {
         LivingEntity target = this.majungasaurus.getTarget();
         if (target != null) {
@@ -70,7 +65,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
                 this.majungasaurus.swing(InteractionHand.MAIN_HAND);
             }
         }
-        if (timer > 22) {
+        if (timer > 18) {
             timer = 0;
             this.majungasaurus.setAttackState(0);
         }

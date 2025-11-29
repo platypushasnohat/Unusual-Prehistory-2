@@ -44,8 +44,8 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_PLAYING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -133,7 +133,7 @@ public abstract class PrehistoricMob extends Animal {
                 return InteractionResult.CONSUME;
             }
         }
-        else if (this.isPacifyItem(itemstack) && this.canPacifiy() && !this.isPacified() && !this.isBaby()) {
+        else if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
             this.usePlayerItem(player, hand, itemstack);
             this.setPacified(true);
             this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
@@ -258,8 +258,8 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
-        this.entityData.define(IDLE_PLAYING, false);
         this.entityData.define(FROM_EGG, false);
+        this.entityData.define(RUNNING, false);
     }
 
     @Override
@@ -339,16 +339,8 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(PACIFIED, pacified);
     }
 
-    public boolean canPacifiy() {
+    public boolean canPacify() {
         return false;
-    }
-
-    public boolean isIdlePlaying() {
-        return this.entityData.get(IDLE_PLAYING);
-    }
-
-    public void setIdlePlaying(boolean idlePlaying) {
-        this.entityData.set(IDLE_PLAYING, idlePlaying);
     }
 
     public boolean isFromEgg() {
@@ -357,6 +349,14 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setFromEgg(boolean fromEgg) {
         this.entityData.set(FROM_EGG, fromEgg);
+    }
+
+    public boolean isRunning() {
+        return this.entityData.get(RUNNING);
+    }
+
+    public void setRunning(boolean running) {
+        this.entityData.set(RUNNING, running);
     }
 
     @Override
