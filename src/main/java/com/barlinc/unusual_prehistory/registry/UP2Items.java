@@ -85,7 +85,7 @@ public class UP2Items {
     // metriorhynchus
     public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x2e2b45, 0x17192d);
     public static final RegistryObject<Item> LONG_CROCODILE_FOSSIL = registerFossilItem("long_crocodile");
-    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.TELECREX_EGG));
 
     // onchopristis
     public static final RegistryObject<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);

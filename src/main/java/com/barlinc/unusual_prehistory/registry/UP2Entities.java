@@ -168,6 +168,15 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
     );
 
+    // Temporary
+    public static final RegistryObject<EntityType<ThrowableEgg>> METRI_TEST_EGG = ENTITY_TYPE.register(
+            "metri_test_egg", () ->
+            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.METRIORHYNCHUS_EMBRYO, UP2Entities.METRIORHYNCHUS::get), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "metri_test_egg").toString())
+    );
+
     public static final RegistryObject<EntityType<UP2Boat>> BOAT = ENTITY_TYPE.register(
             "boat", () ->
             EntityType.Builder.<UP2Boat>of(UP2Boat::new, MobCategory.MISC)

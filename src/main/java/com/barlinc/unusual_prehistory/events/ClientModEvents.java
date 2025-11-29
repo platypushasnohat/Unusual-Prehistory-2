@@ -75,6 +75,9 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
+        // TEST
+        event.registerEntityRenderer(UP2Entities.METRI_TEST_EGG.get(), ThrownItemRenderer::new);
+
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
         event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
     }
