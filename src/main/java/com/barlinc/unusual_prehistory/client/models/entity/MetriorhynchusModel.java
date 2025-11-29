@@ -123,7 +123,7 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 		if (this.young) this.applyStatic(MetriorhynchusAnimations.BABY_TRANSFORM);
 
 		this.animateIdle(entity.idleAnimationState, MetriorhynchusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animateIdle(entity.swimIdleAnimationState, MetriorhynchusAnimations.SWIM_IDLE, ageInTicks,1, limbSwingAmount);
+        this.animateIdle(entity.swimIdleAnimationState, MetriorhynchusAnimations.SWIM_IDLE, ageInTicks,1, limbSwingAmount * 4);
         this.animate(entity.bite1AnimationState, MetriorhynchusAnimations.BITE_BLEND1, ageInTicks);
         this.animate(entity.bite2AnimationState, MetriorhynchusAnimations.BITE_BLEND2, ageInTicks);
         this.animate(entity.deathRoll1AnimationState, MetriorhynchusAnimations.DEATHROLL1, ageInTicks);

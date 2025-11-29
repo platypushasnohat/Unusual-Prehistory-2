@@ -77,6 +77,55 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.CACTUS
         );
 
+        // Spawnable blocks
+        this.tag(UP2BlockTags.CARNOTAURUS_SPAWNABLE_ON).add(
+                Blocks.COARSE_DIRT,
+                Blocks.RED_SAND,
+                Blocks.GRASS_BLOCK
+        ).addTag(BlockTags.TERRACOTTA);
+
+        this.tag(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON).add(
+                Blocks.MUD,
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.KENTROSAURUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.MUD
+        );
+
+        this.tag(UP2BlockTags.MAJUNGASAURUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.MEGALANIA_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.SAND,
+                Blocks.RED_SAND
+        );
+
+        this.tag(UP2BlockTags.TALPANAS_SPAWNABLE_ON).add(
+                Blocks.MOSS_BLOCK,
+                Blocks.CLAY,
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.TELECREX_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.UNICORN_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

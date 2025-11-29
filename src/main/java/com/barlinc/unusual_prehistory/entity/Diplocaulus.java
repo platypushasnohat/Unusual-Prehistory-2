@@ -12,6 +12,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
@@ -21,6 +22,7 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.util.RandomSource;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -31,7 +33,6 @@
  import net.minecraft.world.entity.ai.control.LookControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -41,6 +42,7 @@
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.Vec3;
@@ -379,5 +381,9 @@
              this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
          }
          return spawnGroupData;
+     }
+
+     public static boolean canSpawn(EntityType<Diplocaulus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+         return level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
  }

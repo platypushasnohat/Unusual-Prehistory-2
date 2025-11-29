@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.blocks;
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
 import com.barlinc.unusual_prehistory.blocks.blockentity.WaterEggBlockEntity;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

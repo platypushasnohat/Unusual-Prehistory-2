@@ -8,6 +8,7 @@
 - Majungasaurus now attacks faster
 - Tweaked spawn egg colors for Stethacanthus and Talpanas
 - Talpanas now drops feathers
+- Added spawnable block tags for all mobs that can spawn on ground
 - Misc tweaks
 
 # Version 1.1.2

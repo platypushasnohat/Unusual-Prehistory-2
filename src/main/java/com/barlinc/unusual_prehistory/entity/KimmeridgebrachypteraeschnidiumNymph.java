@@ -44,6 +44,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.BOOLEAN);
 
     @VisibleForTesting
     public static int ticksToBeDragonfly = Math.abs(-24000);
@@ -156,20 +157,31 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(FROM_EGG, false);
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(DATA_FLAGS, (byte) 0);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("Age", this.age);
         compoundTag.putBoolean("FromBucket", this.fromBucket());
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setAge(compoundTag.getInt("Age"));
         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+    }
+
+    public boolean isFromEgg() {
+        return this.entityData.get(FROM_EGG);
+    }
+
+    public void setFromEgg(boolean fromEgg) {
+        this.entityData.set(FROM_EGG, fromEgg);
     }
 
     protected boolean getFlag(int flagId) {
@@ -296,7 +308,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
-    public static boolean canSpawn(EntityType<? extends PathfinderMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<KimmeridgebrachypteraeschnidiumNymph> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         int seaLevel = level.getSeaLevel();
         int minHeight = seaLevel - 13;
         return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
@@ -304,11 +316,11 @@ public class KimmeridgebrachypteraeschnidiumNymph extends PathfinderMob implemen
 
     @Override
     public boolean requiresCustomPersistence() {
-        return true;
+        return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
     }
 
     @Override
-    public boolean removeWhenFarAway(double d) {
+    public boolean removeWhenFarAway(double distanceToPlayer) {
         return !this.requiresCustomPersistence();
     }
 }

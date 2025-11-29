@@ -17,6 +17,8 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.tags.FluidTags;
+ import net.minecraft.util.RandomSource;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,12 +35,15 @@
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
+ @SuppressWarnings("deprecation")
  public class Metriorhynchus extends SemiAquaticMob {
 
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
@@ -279,14 +284,15 @@
          this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.5F);
      }
 
-     @Override
-     public float getSoundVolume() {
-         return 0.7F;
-     }
-
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.METRIORHYNCHUS.get().create(level);
+     }
+
+     public static boolean canSpawn(EntityType<Metriorhynchus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+         int i = level.getSeaLevel();
+         int j = i - 13;
+         return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
      }
  }

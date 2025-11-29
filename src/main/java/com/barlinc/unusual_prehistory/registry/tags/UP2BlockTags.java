@@ -27,6 +27,17 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
 
+    public static final TagKey<Block> CARNOTAURUS_SPAWNABLE_ON = modBlockTag("carnotaurus_spawnable_on");
+    public static final TagKey<Block> DIPLOCAULUS_SPAWNABLE_ON = modBlockTag("diplocaulus_spawnable_on");
+    public static final TagKey<Block> DROMAEOSAURUS_SPAWNABLE_ON = modBlockTag("dromaeosaurus_spawnable_on");
+    public static final TagKey<Block> KENTROSAURUS_SPAWNABLE_ON = modBlockTag("kentrosaurus_spawnable_on");
+    public static final TagKey<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON = modBlockTag("kimmeridgebrachypteraeschnidium_spawnable_on");
+    public static final TagKey<Block> MAJUNGASAURUS_SPAWNABLE_ON = modBlockTag("majungasaurus_spawnable_on");
+    public static final TagKey<Block> MEGALANIA_SPAWNABLE_ON = modBlockTag("megalania_spawnable_on");
+    public static final TagKey<Block> TALPANAS_SPAWNABLE_ON = modBlockTag("talpanas_spawnable_on");
+    public static final TagKey<Block> TELECREX_SPAWNABLE_ON = modBlockTag("telecrex_spawnable_on");
+    public static final TagKey<Block> UNICORN_SPAWNABLE_ON = modBlockTag("unicorn_spawnable_on");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }
