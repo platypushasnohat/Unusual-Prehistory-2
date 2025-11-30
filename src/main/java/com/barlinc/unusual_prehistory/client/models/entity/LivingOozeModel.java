@@ -13,9 +13,9 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class LivingOozeModel extends UP2Model<LivingOoze> {
 
-    private final ModelPart root;
-    private final ModelPart body;
-    private final ModelPart core;
+    public final ModelPart root;
+    public final ModelPart body;
+    public final ModelPart core;
 
 	public LivingOozeModel(ModelPart root) {
         super(1, 0);
