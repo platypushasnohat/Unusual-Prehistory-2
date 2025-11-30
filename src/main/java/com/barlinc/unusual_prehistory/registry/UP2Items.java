@@ -4,10 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.Diplocaulus;
 import com.barlinc.unusual_prehistory.entity.JawlessFish;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
-import com.barlinc.unusual_prehistory.items.KimmeridgebrachypteraeschnidiumBottleItem;
-import com.barlinc.unusual_prehistory.items.ThrowableEggItem;
-import com.barlinc.unusual_prehistory.items.UP2BoatItem;
-import com.barlinc.unusual_prehistory.items.UP2MobBucketItem;
+import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -74,6 +71,9 @@ public class UP2Items {
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
     public static final RegistryObject<Item> IMPERATIVE_FOSSIL = registerFossilItem("imperative");
 
+    // living ooze
+    public static final RegistryObject<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
+
     // majungasaurus
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose");
@@ -85,7 +85,7 @@ public class UP2Items {
     // metriorhynchus
     public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x2e2b45, 0x17192d);
     public static final RegistryObject<Item> LONG_CROCODILE_FOSSIL = registerFossilItem("long_crocodile");
-    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.TELECREX_EGG));
+    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new EmbryoItem(new Item.Properties(), UP2Entities.METRIORHYNCHUS));
 
     // onchopristis
     public static final RegistryObject<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);

@@ -130,7 +130,7 @@ public class EggBlock extends BaseEntityBlock {
 
     public void spawnEntity(ServerLevel level, BlockPos pos, RandomSource random){
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if(!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
+        if (!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
         UUID placer = dataBlockEntity.getOwner();
         level.playSound(null, pos, SoundEvents.SNIFFER_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
         level.destroyBlock(pos, false);
@@ -156,7 +156,7 @@ public class EggBlock extends BaseEntityBlock {
                 }
                 entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
                 level.addFreshEntity(entity);
-                ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
+                ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
             }
         }
     }

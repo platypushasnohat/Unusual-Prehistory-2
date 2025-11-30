@@ -51,5 +51,6 @@ public class ModEvents {
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());
         event.put(UP2Entities.TELECREX.get(), Telecrex.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
+        event.put(UP2Entities.LIVING_OOZE.get(), LivingOoze.createAttributes().build());
     }
 }

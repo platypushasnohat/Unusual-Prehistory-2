@@ -35,6 +35,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation TELECREX = main("telecrex");
     public static final ModelLayerLocation UNICORN = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");
+    public static final ModelLayerLocation LIVING_OOZE = main("living_ooze");
 
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(new ResourceLocation(UnusualPrehistory2.MOD_ID, id), name);

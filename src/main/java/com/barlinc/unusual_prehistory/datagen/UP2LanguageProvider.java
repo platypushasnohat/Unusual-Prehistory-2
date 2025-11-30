@@ -58,6 +58,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.TELECREX);
         this.forEntity(UP2Entities.TALPANAS);
 
+        this.forEntity(UP2Entities.LIVING_OOZE);
+
         this.forEntity(UP2Entities.BOAT);
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 

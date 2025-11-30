@@ -15,6 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
+    // Prehistoric
     public static final RegistryObject<EntityType<Carnotaurus>> CARNOTAURUS = ENTITY_TYPE.register(
             "carnotaurus", () ->
             EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
@@ -143,6 +144,15 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
 
+    // Other
+    public static final RegistryObject<EntityType<LivingOoze>> LIVING_OOZE = ENTITY_TYPE.register(
+            "living_ooze", () ->
+            EntityType.Builder.of(LivingOoze::new, MobCategory.CREATURE)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "living_ooze").toString())
+    );
+
     // Eggs
     public static final RegistryObject<EntityType<ThrowableEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
             "dromaeosaurus_egg", () ->
@@ -166,15 +176,6 @@ public class UP2Entities {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "telecrex_egg").toString())
-    );
-
-    // Temporary
-    public static final RegistryObject<EntityType<ThrowableEgg>> METRI_TEST_EGG = ENTITY_TYPE.register(
-            "metri_test_egg", () ->
-            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.METRIORHYNCHUS_EMBRYO, UP2Entities.METRIORHYNCHUS::get), MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
-                    .clientTrackingRange(4)
-                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "metri_test_egg").toString())
     );
 
     public static final RegistryObject<EntityType<UP2Boat>> BOAT = ENTITY_TYPE.register(

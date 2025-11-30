@@ -75,8 +75,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
 
-        // TEST
-        event.registerEntityRenderer(UP2Entities.METRI_TEST_EGG.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UP2Entities.LIVING_OOZE.get(), LivingOozeRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
         event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
@@ -110,5 +109,6 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.TELECREX, TelecrexModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.LIVING_OOZE, LivingOozeModel::createBodyLayer);
     }
 }
