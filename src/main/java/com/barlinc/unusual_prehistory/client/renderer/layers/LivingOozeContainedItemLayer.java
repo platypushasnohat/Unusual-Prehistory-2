@@ -24,8 +24,6 @@ public class LivingOozeContainedItemLayer extends RenderLayer<LivingOoze, Living
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, @NotNull LivingOoze entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entity.getMainHandItem();
-
-
         if (!itemstack.isEmpty()) {
             poseStack.pushPose();
             poseStack.translate(0.0F, 0.5F, 0.0F);

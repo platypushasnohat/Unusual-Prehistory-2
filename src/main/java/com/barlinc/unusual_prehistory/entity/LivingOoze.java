@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class LivingOoze extends PathfinderMob {
 
-    public static final EntityDataAccessor<ItemStack> HELD_ITEM = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<Integer> SPIT_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_CONTAINED_ENTITY = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> CONTAINED_ENTITY_TYPE = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.STRING);
@@ -62,9 +61,24 @@ public class LivingOoze extends PathfinderMob {
     }
 
     @Override
+    protected float getEquipmentDropChance(@NotNull EquipmentSlot slot) {
+        return 0;
+    }
+
+    @Override
+    protected void dropEquipment() {
+        super.dropEquipment();
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        if (!itemstack.isEmpty()) {
+            this.spawnAtLocation(itemstack);
+            this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        }
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
+        if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty()) {
             if (itemstack.getItem() instanceof EmbryoItem embryoItem) {
                 final ResourceLocation mobType = ForgeRegistries.ENTITY_TYPES.getKey(embryoItem.toSpawn.get());
                 if (mobType != null) {
@@ -73,10 +87,7 @@ public class LivingOoze extends PathfinderMob {
                     this.setSpitTime(100);
                 }
             }
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
+            this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (this.level().isClientSide) {
