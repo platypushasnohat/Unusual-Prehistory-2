@@ -6,13 +6,15 @@ import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeContained
 import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeOuterLayer;
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel> {
@@ -26,11 +28,20 @@ public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel>
     }
 
     @Override
-    protected void scale(@NotNull LivingOoze entity, @NotNull PoseStack poseStack, float partialTicks) {
-    }
-
-    @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull LivingOoze entity) {
         return TEXTURE;
+    }
+
+    @Nullable
+    @Override
+    protected RenderType getRenderType(@NotNull LivingOoze entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        ResourceLocation resourcelocation = this.getTextureLocation(entity);
+        if (translucent) {
+            return RenderType.itemEntityTranslucentCull(resourcelocation);
+        } else if (bodyVisible) {
+            return RenderType.entityTranslucent(resourcelocation);
+        } else {
+            return glowing ? RenderType.outline(resourcelocation) : null;
+        }
     }
 }

@@ -25,11 +25,10 @@ public class LivingOozeContainedItemLayer extends RenderLayer<LivingOoze, Living
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, @NotNull LivingOoze entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entity.getMainHandItem();
 
+
         if (!itemstack.isEmpty()) {
             poseStack.pushPose();
-            this.getParentModel().root.translateAndRotate(poseStack);
-            this.getParentModel().body.translateAndRotate(poseStack);
-            this.getParentModel().core.translateAndRotate(poseStack);
+            poseStack.translate(0.0F, 0.5F, 0.0F);
             Minecraft.getInstance().getItemRenderer().renderStatic(itemstack, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), poseStack, bufferSource, entity.level(), 0);
             poseStack.popPose();
         }
