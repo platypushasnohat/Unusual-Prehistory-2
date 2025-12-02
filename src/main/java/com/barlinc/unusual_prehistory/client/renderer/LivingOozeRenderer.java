@@ -6,6 +6,8 @@ import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeContained
 import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeOuterLayer;
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -25,6 +27,7 @@ public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel>
         super(context, new LivingOozeModel(context.bakeLayer(UP2ModelLayers.LIVING_OOZE)), 0.5F);
         this.addLayer(new LivingOozeContainedItemLayer(this));
         this.addLayer(new LivingOozeOuterLayer(this));
+
     }
 
     @Override
