@@ -243,7 +243,7 @@
      }
 
      public Entity getHeldMob() {
-         int id = getHeldMobId();
+         int id = this.getHeldMobId();
          return id == -1 ? null : level().getEntity(id);
      }
 

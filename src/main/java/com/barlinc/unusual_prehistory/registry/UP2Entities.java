@@ -148,7 +148,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<LivingOoze>> LIVING_OOZE = ENTITY_TYPE.register(
             "living_ooze", () ->
             EntityType.Builder.of(LivingOoze::new, MobCategory.CREATURE)
-                    .sized(1.0F, 1.0F)
+                    .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "living_ooze").toString())
     );

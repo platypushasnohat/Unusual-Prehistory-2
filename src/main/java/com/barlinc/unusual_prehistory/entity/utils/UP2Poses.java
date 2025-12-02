@@ -16,7 +16,8 @@ public enum UP2Poses {
     START_CHARGING,
     CHARGING,
     STOP_CHARGING,
-    DEATH_ROLL;
+    DEATH_ROLL,
+    SPITTING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

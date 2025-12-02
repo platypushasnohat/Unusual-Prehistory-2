@@ -22,7 +22,7 @@ public class MetriorhynchusHeldMobLayer extends RiderLayer<Metriorhynchus, Metri
         if (heldMob != null) {
             UnusualPrehistory2.PROXY.releaseRenderingEntity(heldMob.getUUID());
             poseStack.pushPose();
-            getParentModel().translateToMouth(poseStack);
+            this.getParentModel().translateToMouth(poseStack);
             poseStack.translate(0.1F * entity.getScale(), 0.1F * entity.getScale(), -1.4F * entity.getScale());
             poseStack.mulPose(Axis.XN.rotationDegrees(180F));
             poseStack.mulPose(Axis.YN.rotationDegrees(-90F));

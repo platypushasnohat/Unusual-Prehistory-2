@@ -101,7 +101,7 @@ public class Megalania extends SemiAquaticMob {
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1);
+        this.setMaxUpStep(1.1F);
         this.switchNavigator(true);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);

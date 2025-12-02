@@ -48,6 +48,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -202,6 +203,11 @@ public abstract class PrehistoricMob extends Animal {
         if (this.level().isClientSide && this.shouldDoEepyParticles()) this.doEepyParticles(1.7F);
 
         if (this.isLeashed()) this.resetFallDistance();
+
+        if (this.wasShotFromOoze()) {
+            if (!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable()) this.resetFallDistance();
+            else this.setShotFromOoze(false);
+        }
     }
 
     public void setupAnimationCooldowns() {
@@ -262,6 +268,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(PACIFIED, false);
         this.entityData.define(FROM_EGG, false);
         this.entityData.define(RUNNING, false);
+        this.entityData.define(SHOT_FROM_OOZE, false);
     }
 
     @Override
@@ -359,6 +366,14 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setRunning(boolean running) {
         this.entityData.set(RUNNING, running);
+    }
+
+    public boolean wasShotFromOoze() {
+        return this.entityData.get(SHOT_FROM_OOZE);
+    }
+
+    public void setShotFromOoze(boolean shotFromOoze) {
+        this.entityData.set(SHOT_FROM_OOZE, shotFromOoze);
     }
 
     @Override

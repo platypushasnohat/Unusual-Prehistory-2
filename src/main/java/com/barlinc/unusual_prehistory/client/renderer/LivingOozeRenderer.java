@@ -6,8 +6,6 @@ import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeContained
 import com.barlinc.unusual_prehistory.client.renderer.layers.LivingOozeOuterLayer;
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -21,13 +19,12 @@ import javax.annotation.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/normal.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/empty.png");
 
     public LivingOozeRenderer(EntityRendererProvider.Context context) {
         super(context, new LivingOozeModel(context.bakeLayer(UP2ModelLayers.LIVING_OOZE)), 0.5F);
         this.addLayer(new LivingOozeContainedItemLayer(this));
         this.addLayer(new LivingOozeOuterLayer(this));
-
     }
 
     @Override
@@ -38,13 +35,6 @@ public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel>
     @Nullable
     @Override
     protected RenderType getRenderType(@NotNull LivingOoze entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        ResourceLocation resourcelocation = this.getTextureLocation(entity);
-        if (translucent) {
-            return RenderType.itemEntityTranslucentCull(resourcelocation);
-        } else if (bodyVisible) {
-            return RenderType.entityTranslucent(resourcelocation);
-        } else {
-            return glowing ? RenderType.outline(resourcelocation) : null;
-        }
+        return RenderType.entityTranslucent(this.getTextureLocation(entity));
     }
 }
