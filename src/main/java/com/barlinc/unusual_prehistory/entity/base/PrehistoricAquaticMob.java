@@ -175,6 +175,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundTag = bucket.getOrCreateTag();
         compoundTag.putInt("BucketVariantTag", this.getVariant());
+        compoundTag.putInt("Age", this.getAge());
     }
 
     @Override
@@ -183,6 +184,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         if (compoundTag.contains("BucketVariantTag", 3)) {
             this.setVariant(compoundTag.getInt("BucketVariantTag"));
         }
+        this.setAge(compoundTag.getInt("Age"));
     }
 
     @Override

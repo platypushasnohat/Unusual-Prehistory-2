@@ -199,6 +199,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.CAKE
         );
 
+        this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(
+                Items.DEBUG_STICK
+        );
+
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
 

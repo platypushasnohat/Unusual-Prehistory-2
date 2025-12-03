@@ -24,6 +24,7 @@ public class UP2Compat {
         registerDispenserBehaviours();
         registerSigns();
         registerHangingSigns();
+        UP2CauldronInteractions.registerCauldronInteractions();
     }
 
     public static void registerCompostables() {

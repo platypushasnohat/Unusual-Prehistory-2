@@ -161,7 +161,7 @@ public class Talpanas extends BreedableMob {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.FALL) || source.is(DamageTypes.IN_WALL);
+        return source.is(DamageTypes.FALL);
     }
 
     @Override

@@ -57,6 +57,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
 
+                        output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());

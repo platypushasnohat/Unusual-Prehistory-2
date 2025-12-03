@@ -20,8 +20,11 @@ import org.jetbrains.annotations.NotNull;
 public class LivingOozeOuterLayer extends RenderLayer<LivingOoze, LivingOozeModel> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/normal.png");
+    private static final ResourceLocation TEXTURE_GULPING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/gulping.png");
     private static final ResourceLocation TEXTURE_SPITTING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/spitting.png");
     private static final ResourceLocation TEXTURE_COOLDOWN = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/clarity.png");
+    private static final ResourceLocation TEXTURE_SAD = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/sad.png");
+    private static final ResourceLocation TEXTURE_SCREAMING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/screaming.png");
 
     public LivingOozeOuterLayer(LivingOozeRenderer render) {
         super(render);
@@ -31,13 +34,19 @@ public class LivingOozeOuterLayer extends RenderLayer<LivingOoze, LivingOozeMode
     public void render(@NotNull PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, @NotNull LivingOoze entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(entity)));
         if (!entity.isInvisible()) {
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, 0.9F);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 
     public @NotNull ResourceLocation getTextureLocation(@NotNull LivingOoze entity) {
-        if (entity.getPose() == UP2Poses.SPITTING.get()) return TEXTURE_SPITTING;
-        else if (entity.getCooldown() > 0) return TEXTURE_COOLDOWN;
-        else return TEXTURE;
+        int spitTime = entity.getSpitTime();
+        if (spitTime > 0 && entity.getPose() == UP2Poses.SPITTING.get()) {
+            if (spitTime <= 6) return TEXTURE_SPITTING;
+            if (spitTime <= 35) return TEXTURE_GULPING;
+        }
+        if (entity.getCooldown() > 0) return TEXTURE_COOLDOWN;
+        if (entity.isAlive() && entity.getSadTime() > 0) return TEXTURE_SAD;
+        if (!entity.isAlive()) return TEXTURE_SCREAMING;
+        return TEXTURE;
     }
 }

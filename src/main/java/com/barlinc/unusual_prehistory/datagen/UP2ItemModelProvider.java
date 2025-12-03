@@ -39,6 +39,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TARIFYING_DISC);
 
         this.item(TAR_BUCKET);
+        this.item(LIVING_OOZE_BUCKET);
 
         // fossils
         this.item(FURY_FOSSIL);

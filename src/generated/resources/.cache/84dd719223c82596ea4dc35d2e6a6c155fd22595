@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-29T21:38:09.2293104	Item Models: unusual_prehistory
+// 1.20.1	2025-12-02T22:52:50.5745926	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
@@ -42,6 +42,7 @@ b3762b88398511f1a34e6251d26401c479b01c94 assets/unusual_prehistory/models/item/k
 75da54c3e01453a628dd226ca7b0f3f6f24a9cc6 assets/unusual_prehistory/models/item/lepidodendron_fossil.json
 9a89097cb9baf84eed7f096306ca0fbaf7a46bb2 assets/unusual_prehistory/models/item/lepidodendron_hanging_sign.json
 99dac5615b391ce1d5c4b9be299eba731a31a5c4 assets/unusual_prehistory/models/item/lepidodendron_sign.json
+0be9b3126827535cb12a8ad5d788601b1acfd3e7 assets/unusual_prehistory/models/item/living_ooze_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/living_ooze_spawn_egg.json
 ae694ae2a78e0ef75e80ab45e9da92277c261140 assets/unusual_prehistory/models/item/long_crocodile_fossil.json
 b10088114704dd8f5962e9665087820adad461d3 assets/unusual_prehistory/models/item/machine_parts.json

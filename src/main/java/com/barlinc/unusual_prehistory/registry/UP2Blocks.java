@@ -61,6 +61,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("polished_petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 20, false));
 
+    public static final RegistryObject<Block> OOZE_CAULDRON = registerBlockWithoutItem("ooze_cauldron", () -> new OozeCauldron(UP2BlockProperties.CAULDRON));
+
     // tar
     public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));

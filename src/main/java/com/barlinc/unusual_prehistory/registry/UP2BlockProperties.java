@@ -27,6 +27,8 @@ public class UP2BlockProperties {
 
     public static final BlockBehaviour.Properties TAR = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(100.0F).noCollission().sound(SoundType.MUD).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY);
 
+    public static final BlockBehaviour.Properties CAULDRON = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F).noOcclusion();
+
     public static BlockBehaviour.Properties fossilLantern(int lightLevel) {
         return BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).lightLevel((state) -> lightLevel);
     }

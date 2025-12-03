@@ -1,11 +1,14 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.LivingOozeMoveControl;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.items.EmbryoItem;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,7 +18,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -26,20 +32,28 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @SuppressWarnings("deprecation")
-public class LivingOoze extends PathfinderMob {
+public class LivingOoze extends PathfinderMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> SPIT_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_CONTAINED_ENTITY = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
@@ -47,6 +61,16 @@ public class LivingOoze extends PathfinderMob {
     private static final EntityDataAccessor<Integer> COOLDOWN = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> WANTS_TO_JUMP = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_JUMPED = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SAD_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PICKUP_COOLDOWN = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
+
+    public final AnimationState processingAnimationState = new AnimationState();
+    public final AnimationState spittingAnimationState = new AnimationState();
+    public final AnimationState cooldownAnimationState = new AnimationState();
+
+    private int spittingTicks;
 
     private float squishProgress;
     private float prevSquishProgress;
@@ -54,12 +78,6 @@ public class LivingOoze extends PathfinderMob {
     private float prevJumpProgress;
     private float jiggleTime;
     private float prevJiggleTime;
-
-    public final AnimationState processingAnimationState = new AnimationState();
-    public final AnimationState spittingAnimationState = new AnimationState();
-    public final AnimationState cooldownAnimationState = new AnimationState();
-
-    private int spittingTicks;
 
     public LivingOoze(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -114,6 +132,12 @@ public class LivingOoze extends PathfinderMob {
     }
 
     @Override
+    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+        this.setSadTime(10);
+        super.actuallyHurt(damageSource, amount);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.getSpitTime() > 0) this.setSpitTime(this.getSpitTime() - 1);
@@ -122,6 +146,10 @@ public class LivingOoze extends PathfinderMob {
         if (this.getSpitTime() == 35) this.setPose(UP2Poses.SPITTING.get());
         if (spittingTicks > 0) spittingTicks--;
         if (spittingTicks == 0 && this.getPose() == UP2Poses.SPITTING.get()) this.setPose(Pose.STANDING);
+
+        if (this.getSadTime() > 0) this.setSadTime(this.getSadTime() - 1);
+
+        if (this.getPickupCooldown() > 0) this.setPickupCooldown(this.getPickupCooldown() - 1);
 
         if (this.getSpitTime() == 2 && this.hasEntity()) {
             if (!this.level().isClientSide) {
@@ -134,6 +162,10 @@ public class LivingOoze extends PathfinderMob {
         if (this.level().isClientSide) this.setupAnimationStates();
 
         this.tickSquish();
+
+        if (this.tickCount % 20 == 0 && this.getMainHandItem().isEmpty() && this.getPickupCooldown() == 0 && this.getCooldown() == 0) {
+            this.tickItemAbsorption();
+        }
     }
 
     public void setupAnimationStates() {
@@ -183,10 +215,12 @@ public class LivingOoze extends PathfinderMob {
                 if (mobType != null) {
                     this.setContainedEntityType(mobType.toString());
                     this.setHasEntity(true);
-                    this.setSpitTime(100/*this.processingTime(this.level().getRandom())*/);
+                    this.setSpitTime(this.processingTime(this.level().getRandom()));
+                    this.setOwnerUUID(player.getUUID());
                 }
             }
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+            this.playSound(SoundEvents.ITEM_PICKUP, 0.1F, this.getSoundPitch());
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (!this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && itemstack.isEmpty()) {
@@ -194,6 +228,7 @@ public class LivingOoze extends PathfinderMob {
             this.setContainedEntityType("minecraft:pig");
             this.setHasEntity(false);
             this.setSpitTime(-1);
+            this.setPickupCooldown(40);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (this.level().isClientSide) {
@@ -210,6 +245,7 @@ public class LivingOoze extends PathfinderMob {
         EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(this.getContainedEntityType()));
         if (type != null) {
             Entity entity = type.create(this.level());
+            UUID owner = this.getOwnerUUID();
             if (entity instanceof final Mob mob) {
                 if (mob instanceof PrehistoricMob prehistoricMob) {
                     prehistoricMob.setAge(-24000);
@@ -224,6 +260,13 @@ public class LivingOoze extends PathfinderMob {
                     this.setHasEntity(false);
                     this.setContainedEntityType("minecraft:pig");
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    this.setOwnerUUID(null);
+                    if (owner != null) {
+                        Player player = this.level().getPlayerByUUID(owner);
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, entity);
+                        }
+                    }
                 }
             }
         }
@@ -277,6 +320,33 @@ public class LivingOoze extends PathfinderMob {
                 this.spawnJumpParticles();
             }
             jiggleTime--;
+        }
+    }
+
+    private void tickItemAbsorption() {
+        final boolean canAbsorb = !this.level().isClientSide && this.isAlive() && this.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        if (canAbsorb) {
+            if (!this.getMainHandItem().isEmpty()) {
+                return;
+            }
+            AABB boundingBox = this.getBoundingBox();
+            List<ItemEntity> items = this.level().getEntities(EntityType.ITEM, boundingBox, item -> item.isAlive() && !item.isPickable() && !item.getItem().isEmpty());
+            items.stream().filter(item -> !item.getItem().is(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB)).findFirst().ifPresent(item -> {
+                ItemStack stack = item.getItem();
+                ItemStack absorbedStack = stack.split(1);
+                if (absorbedStack.getItem() instanceof EmbryoItem embryoItem) {
+                    final ResourceLocation mobType = ForgeRegistries.ENTITY_TYPES.getKey(embryoItem.toSpawn.get());
+                    if (mobType != null) {
+                        this.setContainedEntityType(mobType.toString());
+                        this.setHasEntity(true);
+                        this.setSpitTime(this.processingTime(this.level().getRandom()));
+                    }
+                }
+                this.setItemInHand(InteractionHand.MAIN_HAND, absorbedStack);
+                this.setPickupCooldown(20);
+                this.playSound(SoundEvents.ITEM_PICKUP, 0.1F, this.getSoundPitch());
+                if (stack.isEmpty()) item.discard();
+            });
         }
     }
 
@@ -351,6 +421,10 @@ public class LivingOoze extends PathfinderMob {
         this.entityData.define(WANTS_TO_JUMP, false);
         this.entityData.define(HAS_JUMPED, false);
         this.entityData.define(COOLDOWN, 0);
+        this.entityData.define(SAD_TIME, 0);
+        this.entityData.define(PICKUP_COOLDOWN, 0);
+        this.entityData.define(OWNER_UUID, Optional.empty());
+        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -360,6 +434,10 @@ public class LivingOoze extends PathfinderMob {
         compoundTag.putString("ContainedEntityType", this.getContainedEntityType());
         compoundTag.putBoolean("HasContainedEntity", this.hasEntity());
         compoundTag.putInt("Cooldown", this.getCooldown());
+        if (this.getOwnerUUID() != null) {
+            compoundTag.putUUID("Owner", this.getOwnerUUID());
+        }
+        compoundTag.putBoolean("FromBucket", this.fromBucket());
     }
 
     @Override
@@ -369,6 +447,20 @@ public class LivingOoze extends PathfinderMob {
         this.setContainedEntityType(compoundTag.getString("ContainedEntityType"));
         this.setHasEntity(compoundTag.getBoolean("HasContainedEntity"));
         this.setCooldown(compoundTag.getInt("Cooldown"));
+        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+        UUID uuid;
+        if (compoundTag.hasUUID("Owner")) {
+            uuid = compoundTag.getUUID("Owner");
+        } else {
+            String s = compoundTag.getString("Owner");
+            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+        }
+        if (uuid != null) {
+            try {
+                this.setOwnerUUID(uuid);
+            } catch (Throwable ignored) {
+            }
+        }
     }
 
     public String getContainedEntityType() {
@@ -417,6 +509,89 @@ public class LivingOoze extends PathfinderMob {
 
     public void setCooldown(int cooldown) {
         this.entityData.set(COOLDOWN, cooldown);
+    }
+
+    public int getSadTime() {
+        return this.entityData.get(SAD_TIME);
+    }
+
+    public void setSadTime(int time) {
+        this.entityData.set(SAD_TIME, time);
+    }
+
+    public int getPickupCooldown() {
+        return this.entityData.get(PICKUP_COOLDOWN);
+    }
+
+    public void setPickupCooldown(int cooldown) {
+        this.entityData.set(PICKUP_COOLDOWN, cooldown);
+    }
+
+    @Nullable
+    public UUID getOwnerUUID() {
+        return this.entityData.get(OWNER_UUID).orElse(null);
+    }
+
+    public void setOwnerUUID(@Nullable UUID uuid) {
+        this.entityData.set(OWNER_UUID, Optional.ofNullable(uuid));
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        CompoundTag compoundTag = bucket.getOrCreateTag();
+        compoundTag.putString("ContainedEntityType", this.getContainedEntityType());
+        compoundTag.putBoolean("HasContainedEntity", this.hasEntity());
+        compoundTag.putInt("SpitTime", this.getSpitTime());
+        compoundTag.putInt("Cooldown", this.getCooldown());
+        if (this.getOwnerUUID() != null) {
+            compoundTag.putUUID("Owner", this.getOwnerUUID());
+        }
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        this.setContainedEntityType(compoundTag.getString("ContainedEntityType"));
+        this.setHasEntity(compoundTag.getBoolean("HasContainedEntity"));
+        this.setSpitTime(compoundTag.getInt("SpitTime"));
+        this.setCooldown(compoundTag.getInt("Cooldown"));
+        UUID uuid;
+        if (compoundTag.hasUUID("Owner")) {
+            uuid = compoundTag.getUUID("Owner");
+        } else {
+            String s = compoundTag.getString("Owner");
+            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+        }
+        if (uuid != null) {
+            try {
+                this.setOwnerUUID(uuid);
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.LIVING_OOZE_BUCKET.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     private static class LivingOozeKeepOnJumpingGoal extends Goal {

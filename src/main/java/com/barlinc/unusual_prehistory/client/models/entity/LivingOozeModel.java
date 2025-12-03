@@ -4,11 +4,9 @@ import com.barlinc.unusual_prehistory.client.animations.LivingOozeAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -20,8 +18,8 @@ public class LivingOozeModel extends UP2Model<LivingOoze> {
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart body_squish;
-    private final ModelPart core;
-    private final ModelPart core_squish;
+    public final ModelPart core;
+    public final ModelPart core_squish;
 
 	public LivingOozeModel(ModelPart root) {
         super(1, 0);

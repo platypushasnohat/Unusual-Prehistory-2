@@ -181,6 +181,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("hatch_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
         this.translateAdvancement("hatch_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
         this.translateAdvancement("hatch_megalania", "The Giant Goanna", "Revive a Megalania");
+        this.translateAdvancement("hatch_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("hatch_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
         this.translateAdvancement("hatch_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("hatch_talpanas", "Blind as a Duck", "Revive a Talpanas");

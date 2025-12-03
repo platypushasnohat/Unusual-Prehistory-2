@@ -13,6 +13,8 @@
 - Added Stethacanthus bite sound
 - Added Megalania tail whip sounds
 - Added Megalania bite sounds
+- Fixed bucketed mobs losing their age value
+- Talpanas and Telecrex are no longer immune to suffocation
 - Misc tweaks
 
 # Version 1.1.2
