@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.items.EmbryoItem;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,7 +16,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -44,7 +44,7 @@ public class LivingOoze extends PathfinderMob {
     private static final EntityDataAccessor<Integer> SPIT_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_CONTAINED_ENTITY = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> CONTAINED_ENTITY_TYPE = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.STRING);
-
+    private static final EntityDataAccessor<Integer> COOLDOWN = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> WANTS_TO_JUMP = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_JUMPED = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
 
@@ -57,6 +57,7 @@ public class LivingOoze extends PathfinderMob {
 
     public final AnimationState processingAnimationState = new AnimationState();
     public final AnimationState spittingAnimationState = new AnimationState();
+    public final AnimationState cooldownAnimationState = new AnimationState();
 
     private int spittingTicks;
 
@@ -71,14 +72,12 @@ public class LivingOoze extends PathfinderMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LivingOozeRandomDirectionGoal(this));
         this.goalSelector.addGoal(1, new LivingOozeKeepOnJumpingGoal(this));
-//        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
-//        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25F);
+                .add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
     @Override
@@ -118,13 +117,18 @@ public class LivingOoze extends PathfinderMob {
     public void tick() {
         super.tick();
         if (this.getSpitTime() > 0) this.setSpitTime(this.getSpitTime() - 1);
+        if (this.getCooldown() > 0) this.setCooldown(this.getCooldown() - 1);
 
-        if (this.getSpitTime() == 10) this.setPose(UP2Poses.SPITTING.get());
+        if (this.getSpitTime() == 35) this.setPose(UP2Poses.SPITTING.get());
         if (spittingTicks > 0) spittingTicks--;
         if (spittingTicks == 0 && this.getPose() == UP2Poses.SPITTING.get()) this.setPose(Pose.STANDING);
 
-        if (this.getSpitTime() == 0 && !this.level().isClientSide && this.hasEntity()) {
-            this.spawnMob();
+        if (this.getSpitTime() == 2 && this.hasEntity()) {
+            if (!this.level().isClientSide) {
+                this.spawnMob();
+            }
+            this.spawnSpitParticles();
+            this.playSound(UP2SoundEvents.LIVING_OOZE_SPIT.get(), 1.5F, this.getSoundPitch());
         }
 
         if (this.level().isClientSide) this.setupAnimationStates();
@@ -134,6 +138,7 @@ public class LivingOoze extends PathfinderMob {
 
     public void setupAnimationStates() {
         this.processingAnimationState.animateWhen(this.hasEntity() && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
+        this.cooldownAnimationState.animateWhen(this.getCooldown() > 0 && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
     }
 
     @Override
@@ -141,7 +146,7 @@ public class LivingOoze extends PathfinderMob {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.SPITTING.get()) {
                 this.spittingAnimationState.start(this.tickCount);
-                this.spittingTicks = 10;
+                this.spittingTicks = 35;
             }
             else {
                 this.spittingAnimationState.stop();
@@ -172,7 +177,7 @@ public class LivingOoze extends PathfinderMob {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty()) {
+        if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty() && this.getCooldown() == 0) {
             if (itemstack.getItem() instanceof EmbryoItem embryoItem) {
                 final ResourceLocation mobType = ForgeRegistries.ENTITY_TYPES.getKey(embryoItem.toSpawn.get());
                 if (mobType != null) {
@@ -197,6 +202,10 @@ public class LivingOoze extends PathfinderMob {
         return InteractionResult.PASS;
     }
 
+    public int cooldown(RandomSource random) {
+        return random.nextInt(1200, 2400);
+    }
+
     public void spawnMob() {
         EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(this.getContainedEntityType()));
         if (type != null) {
@@ -209,6 +218,7 @@ public class LivingOoze extends PathfinderMob {
                 }
                 Vec3 shootingVec = this.getLookAngle().scale(1.2D).multiply(0.25D, 1.0D, 0.25D);
                 this.spitMob(mob, shootingVec.x(), 0.2F, shootingVec.z(), 0.6F, 15);
+                this.setCooldown(this.cooldown(this.level().getRandom()));
                 if (this.level().addFreshEntity(mob)) {
                     ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null, null);
                     this.setHasEntity(false);
@@ -260,11 +270,11 @@ public class LivingOoze extends PathfinderMob {
         if (this.hasJumped() && this.onGround()) {
             jiggleTime = 5;
         } else if (jiggleTime > 0) {
-            if(jiggleTime == 4){
-                this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+            if (jiggleTime == 4) {
+                this.playSound(this.getSquishSound(), this.getSoundVolume(), this.getSoundPitch());
             }
             if (jiggleTime > 4) {
-                this.spawnParticles();
+                this.spawnJumpParticles();
             }
             jiggleTime--;
         }
@@ -282,8 +292,8 @@ public class LivingOoze extends PathfinderMob {
         return (prevSquishProgress + (squishProgress - prevSquishProgress) * partialTick) * 0.2F;
     }
 
-    private void spawnParticles() {
-        for(int j = 0; j < 8; j++) {
+    private void spawnJumpParticles() {
+        for (int j = 0; j < 6; j++) {
             float f = this.random.nextFloat() * ((float) Math.PI * 2F);
             float f1 = this.random.nextFloat() * 0.5F + 0.5F;
             float f2 = Mth.sin(f) * 2 * 0.5F * f1;
@@ -292,8 +302,11 @@ public class LivingOoze extends PathfinderMob {
         }
     }
 
-    public int getJumpDelay() {
-        return this.random.nextInt(24) + 16;
+    private void spawnSpitParticles() {
+        for (int j = 0; j < 10; j++) {
+            Vec3 shootingVec = this.getLookAngle().scale(0.6D);
+            this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, UP2Items.ORGANIC_OOZE.get().getDefaultInstance()), this.getMouthVec().x() + this.getRandom().nextFloat() * 0.7F, this.getMouthVec().y() + this.getRandom().nextFloat() * 0.7F, this.getMouthVec().z() + this.getRandom().nextFloat() * 0.7F, shootingVec.x() * this.getRandom().nextFloat() * 0.6F, shootingVec.y() * this.getRandom().nextFloat() * 0.6F, shootingVec.z() * this.getRandom().nextFloat() * 0.6F);
+        }
     }
 
     @Override
@@ -310,23 +323,23 @@ public class LivingOoze extends PathfinderMob {
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return SoundEvents.SLIME_HURT;
+        return UP2SoundEvents.LIVING_OOZE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SLIME_DEATH;
+        return UP2SoundEvents.LIVING_OOZE_DEATH.get();
     }
 
     protected SoundEvent getSquishSound() {
-        return SoundEvents.SLIME_SQUISH;
+        return UP2SoundEvents.LIVING_OOZE_SQUISH.get();
     }
 
     public SoundEvent getJumpSound() {
-        return SoundEvents.SLIME_JUMP;
+        return UP2SoundEvents.LIVING_OOZE_JUMP.get();
     }
 
     public float getSoundPitch() {
-        return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F;
+        return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F;
     }
 
     @Override
@@ -337,6 +350,7 @@ public class LivingOoze extends PathfinderMob {
         this.entityData.define(SPIT_TIME, -1);
         this.entityData.define(WANTS_TO_JUMP, false);
         this.entityData.define(HAS_JUMPED, false);
+        this.entityData.define(COOLDOWN, 0);
     }
 
     @Override
@@ -345,6 +359,7 @@ public class LivingOoze extends PathfinderMob {
         compoundTag.putInt("SpitTime", this.getSpitTime());
         compoundTag.putString("ContainedEntityType", this.getContainedEntityType());
         compoundTag.putBoolean("HasContainedEntity", this.hasEntity());
+        compoundTag.putInt("Cooldown", this.getCooldown());
     }
 
     @Override
@@ -353,6 +368,7 @@ public class LivingOoze extends PathfinderMob {
         this.setSpitTime(compoundTag.getInt("SpitTime"));
         this.setContainedEntityType(compoundTag.getString("ContainedEntityType"));
         this.setHasEntity(compoundTag.getBoolean("HasContainedEntity"));
+        this.setCooldown(compoundTag.getInt("Cooldown"));
     }
 
     public String getContainedEntityType() {
@@ -395,6 +411,14 @@ public class LivingOoze extends PathfinderMob {
         return this.entityData.get(HAS_JUMPED);
     }
 
+    public int getCooldown() {
+        return this.entityData.get(COOLDOWN);
+    }
+
+    public void setCooldown(int cooldown) {
+        this.entityData.set(COOLDOWN, cooldown);
+    }
+
     private static class LivingOozeKeepOnJumpingGoal extends Goal {
 
         private final LivingOoze ooze;
@@ -406,7 +430,7 @@ public class LivingOoze extends PathfinderMob {
 
         @Override
         public boolean canUse() {
-            return !this.ooze.isPassenger() && (this.ooze.getSpitTime() > 16 || this.ooze.getSpitTime() == -1);
+            return !this.ooze.isPassenger() && this.ooze.getPose() != UP2Poses.SPITTING.get();
         }
 
         @Override
@@ -430,14 +454,14 @@ public class LivingOoze extends PathfinderMob {
 
         @Override
         public boolean canUse() {
-            return (this.ooze.getSpitTime() > 16 || this.ooze.getSpitTime() == -1) && this.ooze.getTarget() == null && (this.ooze.onGround() || this.ooze.isInWater() || this.ooze.isInLava() || this.ooze.hasEffect(MobEffects.LEVITATION)) && this.ooze.getMoveControl() instanceof LivingOozeMoveControl;
+            return this.ooze.getPose() != UP2Poses.SPITTING.get() && this.ooze.getTarget() == null && (this.ooze.onGround() || this.ooze.isInWater() || this.ooze.isInLava() || this.ooze.hasEffect(MobEffects.LEVITATION)) && this.ooze.getMoveControl() instanceof LivingOozeMoveControl;
         }
 
         @Override
         public void tick() {
             if (--this.nextRandomizeTime <= 0) {
                 this.nextRandomizeTime = this.adjustedTickDelay(40 + this.ooze.getRandom().nextInt(60));
-                this.chosenDegrees = (float)this.ooze.getRandom().nextInt(360);
+                this.chosenDegrees = (float) this.ooze.getRandom().nextInt(360);
             }
             if (this.ooze.getMoveControl() instanceof LivingOozeMoveControl moveControl) {
                 moveControl.setDirection(this.chosenDegrees);

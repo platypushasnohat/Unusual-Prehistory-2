@@ -96,7 +96,7 @@ public class StethacanthusModel extends UP2Model<Stethacanthus> {
         if (entity.isInWater()) this.animateWalk(StethacanthusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdle(entity.swimIdleAnimationState, StethacanthusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.floppingAnimationState, StethacanthusAnimations.FLOP, ageInTicks);
-		this.animate(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
+		this.animate(entity.biteAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 

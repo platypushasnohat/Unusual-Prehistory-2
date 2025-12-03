@@ -394,6 +394,112 @@
     ],
     "subtitle": "subtitles.large_dunkleosteus_bite"
   },
+  "living_ooze_death": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 1.1
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 1.1
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 1.1
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.living_ooze_death"
+  },
+  "living_ooze_hurt": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 1.15
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 1.15
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 1.15
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 1.15
+      }
+    ],
+    "subtitle": "subtitles.living_ooze_hurt"
+  },
+  "living_ooze_jump": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 1.15,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.living_ooze_jump"
+  },
+  "living_ooze_spit": {
+    "sounds": [
+      {
+        "name": "mob/slime/attack1",
+        "pitch": 1.1,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/attack2",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.living_ooze_spit"
+  },
+  "living_ooze_squish": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 1.15,
+        "volume": 0.5
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 1.15,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.living_ooze_squish"
+  },
   "majungasaurus_bite": {
     "sounds": [
       {
@@ -462,6 +568,19 @@
       }
     ],
     "subtitle": "subtitles.medium_dunkleosteus_bite"
+  },
+  "megalania_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/megalania/bite1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/bite2",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.megalania_bite"
   },
   "megalania_death": {
     "sounds": [
@@ -556,6 +675,21 @@
     ],
     "subtitle": "subtitles.megalania_step"
   },
+  "megalania_tail_swing": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/megalania/tail_swing1",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/megalania/tail_swing2",
+        "pitch": 0.9,
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.megalania_tail_swing"
+  },
   "onchopristis_death": {
     "sounds": [
       "entity/fish/hurt1",
@@ -603,6 +737,15 @@
       }
     ],
     "subtitle": "subtitles.small_dunkleosteus_bite"
+  },
+  "stethacanthus_bite": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/stethacanthus/bite1",
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.stethacanthus_bite"
   },
   "stethacanthus_death": {
     "sounds": [

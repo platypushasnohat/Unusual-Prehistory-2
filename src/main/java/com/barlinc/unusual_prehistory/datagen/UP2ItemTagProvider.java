@@ -161,6 +161,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_RABBIT
         );
 
+        this.tag(UP2ItemTags.METRIORHYNCHUS_FOOD).add(
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
+        );
+
         this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).add(
                 Items.COD,
                 Items.SALMON,

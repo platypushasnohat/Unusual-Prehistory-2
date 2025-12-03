@@ -54,6 +54,7 @@ public class LivingOozeModel extends UP2Model<LivingOoze> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animate(entity.processingAnimationState, LivingOozeAnimations.PROCESSING, ageInTicks);
         this.animate(entity.spittingAnimationState, LivingOozeAnimations.SPIT_OUT, ageInTicks);
+        this.animate(entity.cooldownAnimationState, LivingOozeAnimations.TRAUMA, ageInTicks);
 
         float partialTicks = ageInTicks - entity.tickCount;
         float jumpProgress = entity.getJumpProgress(partialTicks);

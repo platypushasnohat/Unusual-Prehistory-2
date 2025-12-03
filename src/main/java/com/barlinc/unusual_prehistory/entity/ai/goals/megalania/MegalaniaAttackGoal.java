@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.megalania;
 import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -63,42 +64,9 @@ public class MegalaniaAttackGoal extends AttackGoal {
             if (this.tailWhipCooldown > 0 && !megalania.isInWater()) tailWhipCooldown--;
 
             if (attackState == 1) {
-                this.timer++;
-                if (timer == 1) this.megalania.setPose(UP2Poses.BITING.get());
-                if (this.timer == 11) {
-                    if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
-                        this.megalania.swing(InteractionHand.MAIN_HAND);
-                        this.megalania.doHurtTarget(target);
-                        this.megalania.applyPoison(target);
-                    }
-                }
-                if (this.timer > 22) {
-                    this.timer = 0;
-                    this.biteCooldown = 10 + megalania.getRandom().nextInt(6);
-                    this.megalania.setAttackState(0);
-                }
+                this.tickBite();
             } else if (attackState == 2) {
-                this.timer++;
-                this.megalania.getNavigation().stop();
-
-                if (timer == 1) this.megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
-                if (this.timer == 12) this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
-
-                if (this.timer == 14) {
-                    if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
-                        this.megalania.swing(InteractionHand.MAIN_HAND);
-                        this.megalania.doHurtTarget(target);
-                        this.megalania.strongKnockback(target, 1.3D, 0.1D);
-                        if (target.isDamageSourceBlocked(this.megalania.damageSources().mobAttack(this.megalania)) && target instanceof Player player){
-                            player.disableShield(true);
-                        }
-                    }
-                }
-                if (this.timer > 28) {
-                    this.timer = 0;
-                    this.tailWhipCooldown = 20 + megalania.getRandom().nextInt(24);
-                    this.megalania.setAttackState(0);
-                }
+                this.tickTailWhip();
             } else {
                 if (distance <= this.getAttackReachSqr(target)) {
                     if (!this.megalania.isInWater()) {
@@ -109,6 +77,50 @@ public class MegalaniaAttackGoal extends AttackGoal {
                     }
                 }
             }
+        }
+    }
+
+    private void tickBite() {
+        this.timer++;
+        LivingEntity target = this.megalania.getTarget();
+        if (timer == 1) this.megalania.setPose(UP2Poses.BITING.get());
+        if (timer == 5) this.megalania.playSound(UP2SoundEvents.MEGALANIA_BITE.get(), 1.0F, 1.0F);
+        if (this.timer == 11) {
+            if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
+                this.megalania.swing(InteractionHand.MAIN_HAND);
+                this.megalania.doHurtTarget(target);
+                this.megalania.applyPoison(target);
+            }
+        }
+        if (this.timer > 22) {
+            this.timer = 0;
+            this.biteCooldown = 10 + megalania.getRandom().nextInt(6);
+            this.megalania.setAttackState(0);
+        }
+    }
+
+    private void tickTailWhip() {
+        this.timer++;
+        this.megalania.getNavigation().stop();
+        LivingEntity target = this.megalania.getTarget();
+
+        if (timer == 1) this.megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
+        if (timer == 9) this.megalania.playSound(UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), 1.0F, 1.0F);
+        if (this.timer == 12) this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
+        if (this.timer == 14) {
+            if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
+                this.megalania.swing(InteractionHand.MAIN_HAND);
+                this.megalania.doHurtTarget(target);
+                this.megalania.strongKnockback(target, 1.3D, 0.1D);
+                if (target.isDamageSourceBlocked(this.megalania.damageSources().mobAttack(this.megalania)) && target instanceof Player player){
+                    player.disableShield(true);
+                }
+            }
+        }
+        if (this.timer > 28) {
+            this.timer = 0;
+            this.tailWhipCooldown = 20 + megalania.getRandom().nextInt(24);
+            this.megalania.setAttackState(0);
         }
     }
 

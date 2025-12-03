@@ -412,13 +412,13 @@ public class Megalania extends SemiAquaticMob {
                 if (this.random.nextInt(200) == 0) {
                     this.level().broadcastEntityEvent(this, this.TONGUE);
                 }
-                else if (this.random.nextInt(800) == 0) {
+                else if (this.random.nextInt(1000) == 0) {
                     this.level().broadcastEntityEvent(this, this.FLICK1);
                 }
-                else if (this.random.nextInt(800) == 0) {
+                else if (this.random.nextInt(1100) == 0) {
                     this.level().broadcastEntityEvent(this, this.FLICK2);
                 }
-                else if (this.random.nextInt(700) == 0) {
+                else if (this.random.nextInt(1200) == 0) {
                     this.level().broadcastEntityEvent(this, this.YAWN);
                 }
             }

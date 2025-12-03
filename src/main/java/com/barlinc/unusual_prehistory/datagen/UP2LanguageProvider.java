@@ -128,6 +128,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_IDLE, "Megalania hisses");
         this.sound(UP2SoundEvents.MEGALANIA_ROAR, "Megalania roars");
         this.sound(UP2SoundEvents.MEGALANIA_STEP, "Megalania steps");
+        this.sound(UP2SoundEvents.MEGALANIA_TAIL_SWING, "Megalania swings tail");
+        this.sound(UP2SoundEvents.MEGALANIA_BITE, "Megalania bites");
 
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT, "Onchopristis hurts");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH, "Onchopristis dies");
@@ -136,6 +138,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
         this.sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
+        this.sound(UP2SoundEvents.STETHACANTHUS_BITE, "Stethacanthus chomps");
 
         this.sound(UP2SoundEvents.TALPANAS_HURT, "Talpanas hurts");
         this.sound(UP2SoundEvents.TALPANAS_DEATH, "Talpanas dies");
@@ -148,6 +151,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
         this.sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
+
+        this.sound(UP2SoundEvents.LIVING_OOZE_HURT, "Living Ooze hurts");
+        this.sound(UP2SoundEvents.LIVING_OOZE_DEATH, "Living Ooze dies");
+        this.sound(UP2SoundEvents.LIVING_OOZE_SQUISH, "Living Ooze squishes");
+        this.sound(UP2SoundEvents.LIVING_OOZE_JUMP, "Living Ooze jumps");
+        this.sound(UP2SoundEvents.LIVING_OOZE_SPIT, "Living Ooze spits");
 
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP, "Transmogrifying");
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_START, "Transmogrifier starts");

@@ -1,5 +1,6 @@
 # Version 1.2.0
 - Added Metriorhynchus
+- Added Living Ooze
 - Increased Majungasaurus health to 32
 - Added 4 armor to Kentrosaurus
 - Tweaked Dunkleosteus stats per variant
@@ -9,6 +10,9 @@
 - Tweaked spawn egg colors for Stethacanthus and Talpanas
 - Talpanas now drops feathers
 - Added spawnable block tags for all mobs that can spawn on ground
+- Added Stethacanthus bite sound
+- Added Megalania tail whip sounds
+- Added Megalania bite sounds
 - Misc tweaks
 
 # Version 1.1.2

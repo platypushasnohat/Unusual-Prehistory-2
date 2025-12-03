@@ -5,11 +5,13 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.StethacanthusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,7 +34,9 @@ import javax.annotation.Nullable;
 
 public class Stethacanthus extends SchoolingAquaticMob {
 
-    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState biteAnimationState = new AnimationState();
+
+    private int biteTicks;
 
     public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -102,7 +106,28 @@ public class Stethacanthus extends SchoolingAquaticMob {
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-        this.attackAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        if (biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
+        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+    }
+
+    @Override
+    public void setupAnimationCooldowns() {
+        if (this.biteTicks > 0) biteTicks--;
+        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.BITING.get()) {
+                this.biteAnimationState.start(this.tickCount);
+                this.biteTicks = 20;
+            }
+            else {
+                this.biteAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override

@@ -67,6 +67,8 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
     public static final RegistryObject<SoundEvent> MEGALANIA_ROAR = registerSoundEvent("megalania_roar");
     public static final RegistryObject<SoundEvent> MEGALANIA_STEP = registerSoundEvent("megalania_step");
+    public static final RegistryObject<SoundEvent> MEGALANIA_TAIL_SWING = registerSoundEvent("megalania_tail_swing");
+    public static final RegistryObject<SoundEvent> MEGALANIA_BITE = registerSoundEvent("megalania_bite");
 
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_HURT = registerSoundEvent("onchopristis_hurt");
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_DEATH = registerSoundEvent("onchopristis_death");
@@ -75,6 +77,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> STETHACANTHUS_HURT = registerSoundEvent("stethacanthus_hurt");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_DEATH = registerSoundEvent("stethacanthus_death");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_FLOP = registerSoundEvent("stethacanthus_flop");
+    public static final RegistryObject<SoundEvent> STETHACANTHUS_BITE = registerSoundEvent("stethacanthus_bite");
 
     public static final RegistryObject<SoundEvent> TALPANAS_HURT = registerSoundEvent("talpanas_hurt");
     public static final RegistryObject<SoundEvent> TALPANAS_DEATH = registerSoundEvent("talpanas_death");
@@ -89,6 +92,12 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> UNICORN_IDLE = registerSoundEvent("unicorn_idle");
 
     // Misc
+    public static final RegistryObject<SoundEvent> LIVING_OOZE_HURT = registerSoundEvent("living_ooze_hurt");
+    public static final RegistryObject<SoundEvent> LIVING_OOZE_DEATH = registerSoundEvent("living_ooze_death");
+    public static final RegistryObject<SoundEvent> LIVING_OOZE_SQUISH = registerSoundEvent("living_ooze_squish");
+    public static final RegistryObject<SoundEvent> LIVING_OOZE_JUMP = registerSoundEvent("living_ooze_jump");
+    public static final RegistryObject<SoundEvent> LIVING_OOZE_SPIT = registerSoundEvent("living_ooze_spit");
+
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_LOOP = registerSoundEvent("transmogrifier_loop");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_START = registerSoundEvent("transmogrifier_start");
     public static final RegistryObject<SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");

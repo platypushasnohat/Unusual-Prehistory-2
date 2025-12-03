@@ -232,6 +232,14 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/camel/step5").volume(0.5F).pitch(0.87F),
                 sound("mob/camel/step6").volume(0.5F).pitch(0.87F)
         );
+        this.sound(UP2SoundEvents.MEGALANIA_TAIL_SWING,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/tail_swing1")).volume(0.9F).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/tail_swing2")).volume(0.9F).pitch(0.9F)
+        );
+        this.sound(UP2SoundEvents.MEGALANIA_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/bite1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/bite2")).volume(0.8F)
+        );
 
         // Onchopristis
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT,
@@ -271,6 +279,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop2").volume(0.3F),
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
+        );
+        this.sound(UP2SoundEvents.STETHACANTHUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/stethacanthus/bite1")).volume(0.6F)
         );
 
         // Talpanas
@@ -315,6 +326,36 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle2")),
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle3")),
                 sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle4"))
+        );
+
+        // Living Ooze
+        this.sound(UP2SoundEvents.LIVING_OOZE_HURT,
+                sound("mob/slime/big1").pitch(1.15F),
+                sound("mob/slime/big2").pitch(1.15F),
+                sound("mob/slime/big3").pitch(1.15F),
+                sound("mob/slime/big4").pitch(1.15F)
+        );
+        this.sound(UP2SoundEvents.LIVING_OOZE_DEATH,
+                sound("mob/slime/big1").pitch(1.1F),
+                sound("mob/slime/big2").pitch(1.1F),
+                sound("mob/slime/big3").pitch(1.1F),
+                sound("mob/slime/big4").pitch(1.1F)
+        );
+        this.sound(UP2SoundEvents.LIVING_OOZE_SQUISH,
+                sound("mob/slime/big1").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big2").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big3").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big4").pitch(1.15F).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.LIVING_OOZE_JUMP,
+                sound("mob/slime/big1").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big2").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big3").pitch(1.15F).volume(0.5F),
+                sound("mob/slime/big4").pitch(1.15F).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.LIVING_OOZE_SPIT,
+                sound("mob/slime/attack1").pitch(1.1F).volume(0.5F),
+                sound("mob/slime/attack2").pitch(1.1F)
         );
 
         // Transmogrifier

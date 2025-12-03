@@ -41,7 +41,7 @@ public class LivingOozeMoveControl extends MoveControl {
                     this.jumpDelay = 20;
                     this.ooze.getJumpControl().jump();
                     this.ooze.setHasJumped(true);
-                    this.ooze.playSound(this.ooze.getJumpSound(), 0.8F, this.ooze.getVoicePitch());
+                    this.ooze.playSound(this.ooze.getJumpSound(), 0.8F, this.ooze.getSoundPitch());
                 } else {
                     this.ooze.xxa = 0.0F;
                     this.ooze.zza = 0.0F;
