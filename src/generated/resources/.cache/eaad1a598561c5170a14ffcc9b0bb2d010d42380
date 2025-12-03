@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-02T22:52:50.5745926	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-12-03T11:26:38.7698234	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -29,7 +29,7 @@ c51a3ba5ec1970e8834eb86e6742cca76f20e869 data/minecraft/tags/items/wooden_slabs.
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/items/diplocaulus_food.json
 61884f4ffc6d4d74bf78255a6219ff5ae67fc376 data/unusual_prehistory/tags/items/dromaeosaurus_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/dunkleosteus_food.json
-7e16e679782934a4f5bb0611ae37d9511fcd4fed data/unusual_prehistory/tags/items/fossils.json
+f81d17ebf1dd460fe306beb0a3511b3d12daf314 data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
 c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/items/jawless_fish_food.json
 8da8f34a416bead74cb50fb5e02a0dd8490f6b4c data/unusual_prehistory/tags/items/kentrosaurus_food.json

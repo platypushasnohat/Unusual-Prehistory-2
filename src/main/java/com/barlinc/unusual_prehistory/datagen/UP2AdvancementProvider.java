@@ -43,7 +43,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Items.FURY_FOSSIL.get(), UP2Items.BOOMERANG_FOSSIL.get(), UP2Items.RUNNER_FOSSIL.get(),
             UP2Items.GUILLOTINE_FOSSIL.get(), UP2Items.JAWLESS_FOSSIL.get(), UP2Items.PRICKLY_FOSSIL.get(),
             UP2Items.IMPERATIVE_FOSSIL.get(), UP2Items.RUGOSE_FOSSIL.get(), UP2Items.THERMAL_FOSSIL.get(),
-            UP2Items.LONG_CROCODILE_FOSSIL.get(), UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(),
+            UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(),
             UP2Items.PLUMAGE_FOSSIL.get(),
 
             UP2Items.BENNETTITALES_FOSSIL.get(), UP2Items.CALAMOPHYTON_FOSSIL.get(), UP2Items.CLADOPHEBIS_FOSSIL.get(),
@@ -57,7 +57,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Items.FURY_FOSSIL.get(), UP2Items.BOOMERANG_FOSSIL.get(), UP2Items.RUNNER_FOSSIL.get(),
             UP2Items.GUILLOTINE_FOSSIL.get(), UP2Items.JAWLESS_FOSSIL.get(), UP2Items.PRICKLY_FOSSIL.get(),
             UP2Items.IMPERATIVE_FOSSIL.get(), UP2Items.RUGOSE_FOSSIL.get(), UP2Items.THERMAL_FOSSIL.get(),
-            UP2Items.LONG_CROCODILE_FOSSIL.get(), UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(),
+            UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.SAW_FOSSIL.get(), UP2Items.ANVIL_FOSSIL.get(),
             UP2Items.PLUMAGE_FOSSIL.get(),
 
             // Plants

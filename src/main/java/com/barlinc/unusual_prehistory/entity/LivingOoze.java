@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.LivingOozeMoveControl;
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.items.EmbryoItem;
@@ -36,6 +35,8 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -166,6 +167,8 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         if (this.tickCount % 20 == 0 && this.getMainHandItem().isEmpty() && this.getPickupCooldown() == 0 && this.getCooldown() == 0) {
             this.tickItemAbsorption();
         }
+
+        if (this.tickCount % 150 == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
     }
 
     public void setupAnimationStates() {
@@ -209,7 +212,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty() && this.getCooldown() == 0) {
+        if (this.isAlive() && this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty() && this.getCooldown() == 0 && (!itemstack.is(Items.BUCKET) || player.isCrouching())) {
             if (itemstack.getItem() instanceof EmbryoItem embryoItem) {
                 final ResourceLocation mobType = ForgeRegistries.ENTITY_TYPES.getKey(embryoItem.toSpawn.get());
                 if (mobType != null) {
@@ -221,6 +224,18 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             }
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
             this.playSound(SoundEvents.ITEM_PICKUP, 0.1F, this.getSoundPitch());
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        if (itemstack.getItem() == Items.BUCKET && this.isAlive() && !player.isCrouching()) {
+            this.playSound(this.getPickupSound(), 1.0F, 1.0F);
+            ItemStack bucketStack = this.getBucketItemStack();
+            this.saveToBucketTag(bucketStack);
+            ItemStack filledBucketStack = ItemUtils.createFilledResult(itemstack, player, bucketStack, false);
+            player.setItemInHand(hand, filledBucketStack);
+            if (!this.level().isClientSide) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucketStack);
+            }
+            this.discard();
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (!this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && itemstack.isEmpty()) {
@@ -438,6 +453,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             compoundTag.putUUID("Owner", this.getOwnerUUID());
         }
         compoundTag.putBoolean("FromBucket", this.fromBucket());
+        compoundTag.putInt("Cooldown", this.getCooldown());
     }
 
     @Override
@@ -548,40 +564,18 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
 
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundTag = bucket.getOrCreateTag();
-        compoundTag.putString("ContainedEntityType", this.getContainedEntityType());
-        compoundTag.putBoolean("HasContainedEntity", this.hasEntity());
-        compoundTag.putInt("SpitTime", this.getSpitTime());
-        compoundTag.putInt("Cooldown", this.getCooldown());
-        if (this.getOwnerUUID() != null) {
-            compoundTag.putUUID("Owner", this.getOwnerUUID());
-        }
+        this.addAdditionalSaveData(compoundTag);
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-        this.setContainedEntityType(compoundTag.getString("ContainedEntityType"));
-        this.setHasEntity(compoundTag.getBoolean("HasContainedEntity"));
-        this.setSpitTime(compoundTag.getInt("SpitTime"));
-        this.setCooldown(compoundTag.getInt("Cooldown"));
-        UUID uuid;
-        if (compoundTag.hasUUID("Owner")) {
-            uuid = compoundTag.getUUID("Owner");
-        } else {
-            String s = compoundTag.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-        if (uuid != null) {
-            try {
-                this.setOwnerUUID(uuid);
-            } catch (Throwable ignored) {
-            }
-        }
+        this.readAdditionalSaveData(compoundTag);
     }
 
     @Override
@@ -591,7 +585,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
 
     @Override
     public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
+        return SoundEvents.SLIME_BLOCK_PLACE;
     }
 
     private static class LivingOozeKeepOnJumpingGoal extends Goal {

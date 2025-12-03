@@ -1,0 +1,19 @@
+{
+  "name": "Metriorhynchus",
+  "icon": "unusual_prehistory:metriorhynchus_embryo",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:hatch_metriorhynchus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Oceans"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/metriorhynchus.png"
+      ]
+    }
+  ]
+}

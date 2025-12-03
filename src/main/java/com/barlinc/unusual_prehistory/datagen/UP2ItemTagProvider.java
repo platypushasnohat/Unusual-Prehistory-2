@@ -39,7 +39,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERATIVE_FOSSIL.get(),
                 RUGOSE_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
-                LONG_CROCODILE_FOSSIL.get(),
+                MELTDOWN_FOSSIL.get(),
                 SAW_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),

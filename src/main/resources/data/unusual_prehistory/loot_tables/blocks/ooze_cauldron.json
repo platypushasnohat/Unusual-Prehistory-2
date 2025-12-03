@@ -1,0 +1,87 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cauldron"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:organic_ooze",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "unusual_prehistory:ooze_cauldron",
+              "properties": {
+                "level": "1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:organic_ooze",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "unusual_prehistory:ooze_cauldron",
+              "properties": {
+                "level": "2"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:organic_ooze",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "unusual_prehistory:ooze_cauldron",
+              "properties": {
+                "level": "3"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "unusual_prehistory:blocks/ooze_cauldron"
+}

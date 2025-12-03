@@ -180,24 +180,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "long_crocodile_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:long_crocodile_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "machine_parts": {
       "conditions": {
         "items": [
           {
             "items": [
               "unusual_prehistory:machine_parts"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "meltdown_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:meltdown_fossil"
             ]
           }
         ]
@@ -342,7 +342,7 @@
       "imperative_fossil",
       "rugose_fossil",
       "thermal_fossil",
-      "long_crocodile_fossil",
+      "meltdown_fossil",
       "saw_fossil",
       "anvil_fossil",
       "plumage_fossil",

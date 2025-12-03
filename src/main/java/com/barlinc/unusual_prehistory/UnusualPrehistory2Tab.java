@@ -29,6 +29,7 @@ public class UnusualPrehistory2Tab {
                         });
 
                         output.accept(ORGANIC_OOZE.get());
+                        output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
@@ -57,7 +58,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
 
-                        output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());
@@ -77,7 +77,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(IMPERATIVE_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
-                        output.accept(LONG_CROCODILE_FOSSIL.get());
+                        output.accept(MELTDOWN_FOSSIL.get());
                         output.accept(SAW_FOSSIL.get());
                         output.accept(ANVIL_FOSSIL.get());
                         output.accept(AGED_FEATHER.get());

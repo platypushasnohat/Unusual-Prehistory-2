@@ -72,6 +72,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
         this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
         this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
+        this.addItem(UP2Items.LIVING_OOZE_BUCKET, "Bucket of Living Ooze");
 
         // sounds
         this.sound(UP2SoundEvents.TAR_POP, "Tar pops");

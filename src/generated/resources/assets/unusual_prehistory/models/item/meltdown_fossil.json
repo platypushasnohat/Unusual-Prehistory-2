@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/long_crocodile_fossil"
+    "layer0": "unusual_prehistory:item/meltdown_fossil"
   }
 }

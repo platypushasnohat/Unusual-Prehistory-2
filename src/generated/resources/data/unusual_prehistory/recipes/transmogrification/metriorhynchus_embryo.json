@@ -1,7 +1,7 @@
 {
   "type": "unusual_prehistory:transmogrification",
   "input": {
-    "item": "unusual_prehistory:long_crocodile_fossil"
+    "item": "unusual_prehistory:meltdown_fossil"
   },
   "output": {
     "item": "unusual_prehistory:metriorhynchus_embryo"

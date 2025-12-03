@@ -88,7 +88,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), KENTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), MAJUNGASAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);
-        transmogrification(consumer, UP2Items.LONG_CROCODILE_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);
+        transmogrification(consumer, UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);
         transmogrification(consumer, UP2Items.SAW_FOSSIL.get(), ONCHOPRISTIS_SAC.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);

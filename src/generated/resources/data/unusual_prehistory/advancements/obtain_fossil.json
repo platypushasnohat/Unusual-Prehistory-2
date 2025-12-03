@@ -169,12 +169,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "long_crocodile_fossil": {
+    "meltdown_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:long_crocodile_fossil"
+              "unusual_prehistory:meltdown_fossil"
             ]
           }
         ]
@@ -316,7 +316,7 @@
       "imperative_fossil",
       "rugose_fossil",
       "thermal_fossil",
-      "long_crocodile_fossil",
+      "meltdown_fossil",
       "saw_fossil",
       "anvil_fossil",
       "plumage_fossil",

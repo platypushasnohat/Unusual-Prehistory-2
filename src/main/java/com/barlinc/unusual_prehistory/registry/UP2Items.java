@@ -31,7 +31,6 @@ public class UP2Items {
     public static final RegistryObject<Item> UNUSUAL_PREHISTORY = registerItem("unusual_prehistory", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new MobBucketItem(UP2Entities.LIVING_OOZE, () -> Fluids.EMPTY, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> MACHINE_PARTS = registerItem("machine_parts", () -> new Item(new Item.Properties()));
 
@@ -74,6 +73,7 @@ public class UP2Items {
 
     // living ooze
     public static final RegistryObject<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
+    public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));
 
     // majungasaurus
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
@@ -85,7 +85,7 @@ public class UP2Items {
 
     // metriorhynchus
     public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x3a2c4e, 0x8b549b);
-    public static final RegistryObject<Item> LONG_CROCODILE_FOSSIL = registerFossilItem("long_crocodile");
+    public static final RegistryObject<Item> MELTDOWN_FOSSIL = registerFossilItem("meltdown");
     public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new EmbryoItem(new Item.Properties(), UP2Entities.METRIORHYNCHUS));
 
     // onchopristis

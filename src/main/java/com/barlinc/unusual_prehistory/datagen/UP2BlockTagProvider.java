@@ -148,7 +148,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
-                ASPHALT.get()
+                ASPHALT.get(),
+                OOZE_CAULDRON.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
@@ -302,6 +303,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.CEILING_HANGING_SIGNS).add(
                 GINKGO_HANGING_SIGN.get(),
                 LEPIDODENDRON_HANGING_SIGN.get()
+        );
+
+        this.tag(BlockTags.CAULDRONS).add(
+                OOZE_CAULDRON.get()
         );
 
         // forge

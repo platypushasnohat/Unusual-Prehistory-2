@@ -28,9 +28,9 @@ import java.util.function.Consumer;
 
 public class TarFluidType extends FluidType {
 
-    public static final ResourceLocation FLUID_STILL = UnusualPrehistory2.modPrefix("block/fluid/tar");
-    public static final ResourceLocation FLUID_FLOWING = UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
-    public static final ResourceLocation OVERLAY = UnusualPrehistory2.modPrefix("block/fluid/tar_flowing");
+    public static final ResourceLocation FLUID_STILL = UnusualPrehistory2.modPrefix("block/tar");
+    public static final ResourceLocation FLUID_FLOWING = UnusualPrehistory2.modPrefix("block/tar_flowing");
+    public static final ResourceLocation OVERLAY = UnusualPrehistory2.modPrefix("block/tar_flowing");
 
     public TarFluidType(Properties properties) {
         super(properties);

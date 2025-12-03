@@ -44,6 +44,15 @@
         "projection": "rigid"
       },
       "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "unusual_prehistory:fossil/metriorhynchus",
+        "processors": "unusual_prehistory:mesozoic_fossil",
+        "projection": "rigid"
+      },
+      "weight": 1
     }
   ],
   "fallback": "minecraft:empty"
