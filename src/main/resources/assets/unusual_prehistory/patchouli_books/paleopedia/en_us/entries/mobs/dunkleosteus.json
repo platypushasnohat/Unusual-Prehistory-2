@@ -2,7 +2,7 @@
   "name": "Dunkleosteus",
   "icon": "unusual_prehistory:dunkleosteus_sac",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_dunkleosteus",
+  "advancement": "unusual_prehistory:revive_dunkleosteus",
   "pages": [
     {
       "type": "patchouli:text",

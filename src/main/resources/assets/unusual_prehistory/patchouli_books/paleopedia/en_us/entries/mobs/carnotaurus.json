@@ -2,7 +2,7 @@
   "name": "Carnotaurus",
   "icon": "unusual_prehistory:carnotaurus_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_carnotaurus",
+  "advancement": "unusual_prehistory:revive_carnotaurus",
   "pages": [
     {
       "type": "patchouli:text",

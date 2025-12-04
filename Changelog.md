@@ -1,5 +1,6 @@
 # Version 1.2.0
 - Added Metriorhynchus
+- Added Tartuosteus
 - Added Living Ooze
 - Increased Majungasaurus health to 32
 - Added 4 armor to Kentrosaurus
@@ -17,6 +18,8 @@
 - Talpanas and Telecrex are no longer immune to suffocation
 - Removed revive ginkgo and revive lepidodendron advancements
 - Split revival advancements into different groups and reordered some advancements
+- Added a section for eggs and embryos to the revival category of the paleopedia
+- Fixed some jawless fish variants not tilting
 - Misc tweaks
 
 # Version 1.1.2

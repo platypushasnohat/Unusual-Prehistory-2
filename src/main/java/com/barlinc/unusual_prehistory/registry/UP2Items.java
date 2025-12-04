@@ -105,6 +105,9 @@ public class UP2Items {
     public static final RegistryObject<Item> TALPANAS_EGG = registerEggItem("talpanas", UP2Entities.TALPANAS_EGG);
     public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties()));
 
+    // tartuosteus
+    public static final RegistryObject<Item> TARTUOSTEUS_SPAWN_EGG = registerSpawnEggItem("tartuosteus", UP2Entities.TARTUOSTEUS, 0x23673c, 0x0b2720);
+
     // telecrex
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x121018, 0x770f38);
     public static final RegistryObject<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);

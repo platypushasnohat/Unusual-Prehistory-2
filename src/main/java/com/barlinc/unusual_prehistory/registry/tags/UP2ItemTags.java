@@ -31,10 +31,10 @@ public class UP2ItemTags {
     public static final TagKey<Item> MAJUNGASAURUS_FOOD = modItemTag("majungasaurus_food");
     public static final TagKey<Item> MEGALANIA_FOOD = modItemTag("megalania_food");
     public static final TagKey<Item> METRIORHYNCHUS_FOOD = modItemTag("metriorhynchus_food");
-
     public static final TagKey<Item> ONCHOPRISTIS_FOOD = modItemTag("onchopristis_food");
     public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
     public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");
+    public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");
     public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 

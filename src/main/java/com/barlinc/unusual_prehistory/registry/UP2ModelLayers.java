@@ -32,6 +32,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation SACABAMBASPIS = main("sacabambaspis");
     public static final ModelLayerLocation STETHACANTHUS = main("stethacanthus");
     public static final ModelLayerLocation TALPANAS = main("talpanas");
+    public static final ModelLayerLocation TARTUOSTEUS = main("tartuosteus");
     public static final ModelLayerLocation TELECREX = main("telecrex");
     public static final ModelLayerLocation UNICORN = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");

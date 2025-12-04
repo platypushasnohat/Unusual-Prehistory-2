@@ -17,7 +17,7 @@ public class AquaticLeapGoal extends JumpGoal {
     private final int interval;
     private final double jumpDistance;
     private final double jumpHeight;
-    private boolean breached;
+    protected boolean breached;
 
     public AquaticLeapGoal(PrehistoricAquaticMob entity, int interval, double jumpDistance, double jumpHeight) {
         this.entity = entity;

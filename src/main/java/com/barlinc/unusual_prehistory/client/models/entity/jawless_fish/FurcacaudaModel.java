@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.JawlessFish;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +54,7 @@ public class FurcacaudaModel extends UP2Model<JawlessFish> {
         this.animateWalk(JawlessFishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdle(entity.swimIdleAnimationState, JawlessFishAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
         this.animate(entity.floppingAnimationState, JawlessFishAnimations.FLOP, ageInTicks);
+        this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 
 	@Override

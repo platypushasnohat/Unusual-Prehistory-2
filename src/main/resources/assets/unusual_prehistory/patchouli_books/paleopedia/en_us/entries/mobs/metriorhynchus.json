@@ -2,7 +2,7 @@
   "name": "Metriorhynchus",
   "icon": "unusual_prehistory:metriorhynchus_embryo",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_metriorhynchus",
+  "advancement": "unusual_prehistory:revive_metriorhynchus",
   "pages": [
     {
       "type": "patchouli:text",

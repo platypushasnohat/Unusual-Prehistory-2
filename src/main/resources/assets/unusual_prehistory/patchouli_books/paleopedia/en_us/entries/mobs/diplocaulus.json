@@ -2,7 +2,7 @@
   "name": "Diplocaulus",
   "icon": "unusual_prehistory:diplocaulus_eggs",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_diplocaulus",
+  "advancement": "unusual_prehistory:revive_diplocaulus",
   "pages": [
     {
       "type": "patchouli:text",

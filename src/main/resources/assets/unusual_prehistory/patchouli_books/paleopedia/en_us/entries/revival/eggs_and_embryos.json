@@ -1,6 +1,6 @@
 {
-  "name": "Revival Process",
-  "icon": "unusual_prehistory:machine_parts",
+  "name": "Eggs and Embryos",
+  "icon": "unusual_prehistory:majungasaurus_egg",
   "category": "unusual_prehistory:revival",
   "pages": [
     {
@@ -9,23 +9,18 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Embryos are a little different. They require a vessel to be incubated inside of, which is where Living Oozes come into play. A living ooze can be created by simply "
+      "text": "Embryos are a little different. They require a vessel to be incubated inside of, which is where Living Ooze comes into play. A Living Ooze can be created by simply filling a cauldron with Organic Ooze until full, then picking it up with a bucket. Then place the ooze into the world and insert the embryo into it and wait for it to spit out the baby!"
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "unusual_prehistory:transmogrifier",
-      "title": "Transmogrifier Recipe",
-      "text": "Once you have fossils, you will need a Transmogrifier. Transmogrifiers can only be crafted with machine parts, which can be found in the same structures fossil site maps can be found in, albeit more rarely than the maps."
+      "type": "patchouli:text",
+      "text": "After incubating an embryo, the ooze will go on a temporary cooldown indicated by its facial expression and shaking body. Living Ooze can pick up any item off the ground or be given any item. They are also quite resilient, being able to survive on land just as well as in water."
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "unusual_prehistory:organic_ooze",
-      "title": "Organic Ooze Recipe",
-      "text": "To fuel a Transmogrifier you need Organic Ooze. Transmogrifiers will consume ooze rather quickly, typically needing 2-3 in order to revive larger creatures, so make sure to collect plenty of ingredients!"
-    },
-    {
-      "type": "patchouli:empty",
-      "draw_filler": false
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/living_ooze.png"
+      ]
     }
   ]
 }

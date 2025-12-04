@@ -2,7 +2,7 @@
   "name": "Telecrex",
   "icon": "unusual_prehistory:telecrex_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_telecrex",
+  "advancement": "unusual_prehistory:revive_telecrex",
   "pages": [
     {
       "type": "patchouli:text",

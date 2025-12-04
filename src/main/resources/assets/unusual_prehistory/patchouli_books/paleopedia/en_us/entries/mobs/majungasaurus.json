@@ -2,7 +2,7 @@
   "name": "Majungasaurus",
   "icon": "unusual_prehistory:majungasaurus_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_majungasaurus",
+  "advancement": "unusual_prehistory:revive_majungasaurus",
   "pages": [
     {
       "type": "patchouli:text",

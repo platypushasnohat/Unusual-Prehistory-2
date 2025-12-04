@@ -2,7 +2,7 @@
   "name": "Talpanas",
   "icon": "unusual_prehistory:talpanas_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_talpanas",
+  "advancement": "unusual_prehistory:revive_talpanas",
   "pages": [
     {
       "type": "patchouli:text",

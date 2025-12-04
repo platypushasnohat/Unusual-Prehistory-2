@@ -2,7 +2,7 @@
   "name": "Onchopristis",
   "icon": "unusual_prehistory:onchopristis_sac",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_onchopristis",
+  "advancement": "unusual_prehistory:revive_onchopristis",
   "pages": [
     {
       "type": "patchouli:text",

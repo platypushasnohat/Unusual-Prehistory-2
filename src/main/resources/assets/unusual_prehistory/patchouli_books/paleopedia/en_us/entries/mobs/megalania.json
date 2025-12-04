@@ -2,7 +2,7 @@
   "name": "Megalania",
   "icon": "unusual_prehistory:megalania_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_megalania",
+  "advancement": "unusual_prehistory:revive_megalania",
   "pages": [
     {
       "type": "patchouli:text",

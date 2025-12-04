@@ -2,7 +2,7 @@
   "name": "Kentrosaurus",
   "icon": "unusual_prehistory:kentrosaurus_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_kentrosaurus",
+  "advancement": "unusual_prehistory:revive_kentrosaurus",
   "pages": [
     {
       "type": "patchouli:text",

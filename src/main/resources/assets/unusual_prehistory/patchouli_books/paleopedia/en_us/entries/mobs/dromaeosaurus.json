@@ -2,7 +2,7 @@
   "name": "Dromaeosaurus",
   "icon": "unusual_prehistory:dromaeosaurus_egg",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_dromaeosaurus",
+  "advancement": "unusual_prehistory:revive_dromaeosaurus",
   "pages": [
     {
       "type": "patchouli:text",

@@ -128,6 +128,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "talpanas").toString())
     );
 
+    public static final RegistryObject<EntityType<Tartuosteus>> TARTUOSTEUS = ENTITY_TYPE.register(
+            "tartuosteus", () ->
+            EntityType.Builder.of(Tartuosteus::new, MobCategory.CREATURE)
+                    .sized(1.2F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "tartuosteus").toString())
+    );
+
     public static final RegistryObject<EntityType<Telecrex>> TELECREX = ENTITY_TYPE.register(
             "telecrex", () ->
             EntityType.Builder.of(Telecrex::new, MobCategory.CREATURE)

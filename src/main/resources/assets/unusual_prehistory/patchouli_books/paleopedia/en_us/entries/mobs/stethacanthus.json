@@ -2,7 +2,7 @@
   "name": "Stethacanthus",
   "icon": "unusual_prehistory:stethacanthus_sac",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_stethacanthus",
+  "advancement": "unusual_prehistory:revive_stethacanthus",
   "pages": [
     {
       "type": "patchouli:text",

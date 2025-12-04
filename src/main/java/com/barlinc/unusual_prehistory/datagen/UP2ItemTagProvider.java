@@ -190,6 +190,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SWEET_BERRIES
         );
 
+        this.tag(UP2ItemTags.TARTUOSTEUS_FOOD).add(
+                Items.SEAGRASS
+        );
+
         this.tag(UP2ItemTags.TELECREX_FOOD).add(
                 Items.SWEET_BERRIES,
                 Items.GLOW_BERRIES

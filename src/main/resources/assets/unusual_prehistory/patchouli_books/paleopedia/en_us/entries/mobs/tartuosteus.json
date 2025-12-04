@@ -1,18 +1,18 @@
 {
-  "name": "Jawless Fish",
+  "name": "Tartuosteus",
   "icon": "unusual_prehistory:jawless_fish_roe",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_jawless_fish",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Time Period: Mid Ordovician-Early Devonian Period $(br2)Temperament: Passive $(br2)Diet: Omnivorous $(br2)Preferred Habitats: Warm Oceans"
+      "text": "Time Period: Mid Ordovician-Early Devonian Period $(br2)Temperament: Passive $(br2)Diet: Omnivorous $(br2)Preferred Habitats: Warm Oceans, Open Oceans"
     },
     {
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/jawless_fish.png"
+        "unusual_prehistory:textures/gui/paleopedia/images/tartuosteus.png"
       ]
     }
   ]

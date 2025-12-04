@@ -2,7 +2,7 @@
   "name": "Kimmeridgebrachypteraeschnidium",
   "icon": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:hatch_kimmeridgebrachypteraeschnidium",
+  "advancement": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
   "pages": [
     {
       "type": "patchouli:text",
