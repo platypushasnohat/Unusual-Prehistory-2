@@ -69,7 +69,6 @@ public record UP2CauldronInteractions(ResourceLocation name, Map<Item, CauldronI
         });
     }
 
-
     public static UP2CauldronInteractions create(ResourceLocation name, Map<Item, CauldronInteraction> map) {
         return new UP2CauldronInteractions(name, map);
     }
