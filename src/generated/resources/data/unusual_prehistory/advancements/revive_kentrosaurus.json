@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:jurassic_root",
   "criteria": {
-    "hatch_carnotaurus": {
+    "revive_kentrosaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:carnotaurus"
+              "type": "unusual_prehistory:kentrosaurus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_carnotaurus.desc"
+      "translate": "advancement.unusual_prehistory.revive_kentrosaurus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:carnotaurus_egg"
+      "item": "unusual_prehistory:kentrosaurus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_carnotaurus"
+      "translate": "advancement.unusual_prehistory.revive_kentrosaurus"
     }
   },
   "requirements": [
     [
-      "hatch_carnotaurus"
+      "revive_kentrosaurus"
     ]
   ],
   "sends_telemetry_event": true

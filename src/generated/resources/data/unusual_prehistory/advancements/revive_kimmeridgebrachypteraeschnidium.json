@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:jurassic_root",
   "criteria": {
-    "hatch_stethacanthus": {
+    "revive_kimmeridgebrachypteraeschnidium": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:stethacanthus"
+              "type": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_stethacanthus.desc"
+      "translate": "advancement.unusual_prehistory.revive_kimmeridgebrachypteraeschnidium.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:stethacanthus_sac"
+      "item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_stethacanthus"
+      "translate": "advancement.unusual_prehistory.revive_kimmeridgebrachypteraeschnidium"
     }
   },
   "requirements": [
     [
-      "hatch_stethacanthus"
+      "revive_kimmeridgebrachypteraeschnidium"
     ]
   ],
   "sends_telemetry_event": true

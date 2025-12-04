@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "hatch_jawless_fish": {
+    "revive_stethacanthus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:jawless_fish"
+              "type": "unusual_prehistory:stethacanthus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_jawless_fish.desc"
+      "translate": "advancement.unusual_prehistory.revive_stethacanthus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:jawless_fish_roe"
+      "item": "unusual_prehistory:stethacanthus_sac"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_jawless_fish"
+      "translate": "advancement.unusual_prehistory.revive_stethacanthus"
     }
   },
   "requirements": [
     [
-      "hatch_jawless_fish"
+      "revive_stethacanthus"
     ]
   ],
   "sends_telemetry_event": true

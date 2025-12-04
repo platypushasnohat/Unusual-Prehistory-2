@@ -1,12 +1,12 @@
 {
   "parent": "unusual_prehistory:obtain_organic_ooze",
   "criteria": {
-    "lepidodendron_cone": {
+    "living_ooze_bucket": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:lepidodendron_cone"
+              "unusual_prehistory:living_ooze_bucket"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.revive_lepidodendron.desc"
+      "translate": "advancement.unusual_prehistory.obtain_living_ooze.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:lepidodendron_cone"
+      "item": "unusual_prehistory:living_ooze_bucket"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.revive_lepidodendron"
+      "translate": "advancement.unusual_prehistory.obtain_living_ooze"
     }
   },
   "requirements": [
     [
-      "lepidodendron_cone"
+      "living_ooze_bucket"
     ]
   ],
   "sends_telemetry_event": true

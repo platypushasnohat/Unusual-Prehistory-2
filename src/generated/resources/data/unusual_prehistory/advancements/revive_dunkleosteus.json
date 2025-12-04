@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "hatch_kimmeridgebrachypteraeschnidium": {
+    "revive_dunkleosteus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph"
+              "type": "unusual_prehistory:dunkleosteus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_kimmeridgebrachypteraeschnidium.desc"
+      "translate": "advancement.unusual_prehistory.revive_dunkleosteus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs"
+      "item": "unusual_prehistory:dunkleosteus_sac"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_kimmeridgebrachypteraeschnidium"
+      "translate": "advancement.unusual_prehistory.revive_dunkleosteus"
     }
   },
   "requirements": [
     [
-      "hatch_kimmeridgebrachypteraeschnidium"
+      "revive_dunkleosteus"
     ]
   ],
   "sends_telemetry_event": true

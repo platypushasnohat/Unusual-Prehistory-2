@@ -173,25 +173,28 @@ public class UP2LanguageProvider extends LanguageProvider {
         // Advancements
         this.translateAdvancement("root", "Unusual Prehistory 2", "Revive creatures from the ancient past!");
 
-        this.translateAdvancement("hatch_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
-        this.translateAdvancement("hatch_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
-        this.translateAdvancement("hatch_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
-        this.translateAdvancement("hatch_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
-        this.translateAdvancement("hatch_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
-        this.translateAdvancement("hatch_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
-        this.translateAdvancement("hatch_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
-        this.translateAdvancement("hatch_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
-        this.translateAdvancement("hatch_megalania", "The Giant Goanna", "Revive a Megalania");
-        this.translateAdvancement("hatch_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
-        this.translateAdvancement("hatch_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
-        this.translateAdvancement("hatch_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
-        this.translateAdvancement("hatch_talpanas", "Blind as a Duck", "Revive a Talpanas");
-        this.translateAdvancement("hatch_telecrex", "From a Singular Femur", "Revive a Telecrex");
+        this.translateAdvancement("paleozoic_root", "Paleozoic Era", "Paleozoic era creatures");
+        this.translateAdvancement("mesozoic_root", "Mesozoic Era", "Mesozoic era creatures");
+        this.translateAdvancement("jurassic_root", "Jurassic Period", "Jurassic period creatures");
+        this.translateAdvancement("cretaceous_root", "Cretaceous Period", "Cretaceous period creatures");
+        this.translateAdvancement("cenozoic_root", "Cenozoic Era", "Cenozoic era creatures");
+        this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
-        this.translateAdvancement("hatch_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
-
-        this.translateAdvancement("revive_ginkgo", "Priest of Hiroshima", "Revive a Ginkgo Tree");
-        this.translateAdvancement("revive_lepidodendron", "Have You Seen This Tree?", "Revive a Lepidodendron");
+        this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
+        this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
+        this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
+        this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
+        this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
+        this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
+        this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
+        this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
+        this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
+        this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
+        this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
+        this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
+        this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
+        this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
 
         this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
         this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
@@ -201,6 +204,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("obtain_transmogrifier", "Jesse, We Have to Cook", "Craft a Transmogrifier, the key component in creature revival");
         this.translateAdvancement("obtain_organic_ooze", "It's Looking at Me...", "Craft some Organic Ooze to fuel the revival process");
         this.translateAdvancement("obtain_egg", "E G G S", "Recreate your first prehistoric egg or embryo");
+        this.translateAdvancement("obtain_living_ooze", "Alakagoo!", "Create a Living Ooze in a cauldron to incubate embryos with");
 
         // kimmeridgebrachypteraeschnidium bottle
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");

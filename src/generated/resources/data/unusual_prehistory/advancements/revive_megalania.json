@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:cenozoic_root",
   "criteria": {
-    "hatch_diplocaulus": {
+    "revive_megalania": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:diplocaulus"
+              "type": "unusual_prehistory:megalania"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_diplocaulus.desc"
+      "translate": "advancement.unusual_prehistory.revive_megalania.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:diplocaulus_eggs"
+      "item": "unusual_prehistory:megalania_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_diplocaulus"
+      "translate": "advancement.unusual_prehistory.revive_megalania"
     }
   },
   "requirements": [
     [
-      "hatch_diplocaulus"
+      "revive_megalania"
     ]
   ],
   "sends_telemetry_event": true

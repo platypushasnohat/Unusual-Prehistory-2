@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:holocene_root",
   "criteria": {
-    "hatch_megalania": {
+    "revive_talpanas": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:megalania"
+              "type": "unusual_prehistory:talpanas"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_megalania.desc"
+      "translate": "advancement.unusual_prehistory.revive_talpanas.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:megalania_egg"
+      "item": "unusual_prehistory:talpanas_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_megalania"
+      "translate": "advancement.unusual_prehistory.revive_talpanas"
     }
   },
   "requirements": [
     [
-      "hatch_megalania"
+      "revive_talpanas"
     ]
   ],
   "sends_telemetry_event": true

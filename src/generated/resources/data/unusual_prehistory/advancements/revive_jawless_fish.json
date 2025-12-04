@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "hatch_kentrosaurus": {
+    "revive_jawless_fish": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:kentrosaurus"
+              "type": "unusual_prehistory:jawless_fish"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_kentrosaurus.desc"
+      "translate": "advancement.unusual_prehistory.revive_jawless_fish.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:kentrosaurus_egg"
+      "item": "unusual_prehistory:jawless_fish_roe"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_kentrosaurus"
+      "translate": "advancement.unusual_prehistory.revive_jawless_fish"
     }
   },
   "requirements": [
     [
-      "hatch_kentrosaurus"
+      "revive_jawless_fish"
     ]
   ],
   "sends_telemetry_event": true

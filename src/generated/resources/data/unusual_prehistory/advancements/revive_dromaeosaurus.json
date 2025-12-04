@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:cretaceous_root",
   "criteria": {
-    "hatch_metriorhynchus": {
+    "revive_dromaeosaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:metriorhynchus"
+              "type": "unusual_prehistory:dromaeosaurus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_metriorhynchus.desc"
+      "translate": "advancement.unusual_prehistory.revive_dromaeosaurus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:metriorhynchus_embryo"
+      "item": "unusual_prehistory:dromaeosaurus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_metriorhynchus"
+      "translate": "advancement.unusual_prehistory.revive_dromaeosaurus"
     }
   },
   "requirements": [
     [
-      "hatch_metriorhynchus"
+      "revive_dromaeosaurus"
     ]
   ],
   "sends_telemetry_event": true

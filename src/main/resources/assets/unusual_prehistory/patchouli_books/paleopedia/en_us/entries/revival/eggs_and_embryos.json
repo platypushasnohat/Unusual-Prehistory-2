@@ -1,0 +1,31 @@
+{
+  "name": "Revival Process",
+  "icon": "unusual_prehistory:machine_parts",
+  "category": "unusual_prehistory:revival",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Eggs are fairly straightforward. Most eggs can be placed on the ground, in that case moss, wool, or hay blocks are ideal for quicker incubation. Some eggs must be placed on or under water, and some can simply be thrown like a chicken egg."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Embryos are a little different. They require a vessel to be incubated inside of, which is where Living Oozes come into play. A living ooze can be created by simply "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:transmogrifier",
+      "title": "Transmogrifier Recipe",
+      "text": "Once you have fossils, you will need a Transmogrifier. Transmogrifiers can only be crafted with machine parts, which can be found in the same structures fossil site maps can be found in, albeit more rarely than the maps."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:organic_ooze",
+      "title": "Organic Ooze Recipe",
+      "text": "To fuel a Transmogrifier you need Organic Ooze. Transmogrifiers will consume ooze rather quickly, typically needing 2-3 in order to revive larger creatures, so make sure to collect plenty of ingredients!"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

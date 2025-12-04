@@ -60,6 +60,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "carnotaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:carnotaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "cladophebis_fossil": {
       "conditions": {
         "items": [
@@ -78,6 +90,42 @@
           {
             "items": [
               "unusual_prehistory:cooksonia_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "diplocaulus_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:diplocaulus_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dromaeosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dromaeosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dunkleosteus_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dunkleosteus_sac"
             ]
           }
         ]
@@ -144,12 +192,48 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "jawless_fish_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:jawless_fish_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "jawless_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
               "unusual_prehistory:jawless_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "kentrosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:kentrosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "kimmeridgebrachypteraeschnidium_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs"
             ]
           }
         ]
@@ -192,12 +276,60 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "majungasaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:majungasaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "megalania_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:megalania_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "meltdown_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
               "unusual_prehistory:meltdown_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "metriorhynchus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:metriorhynchus_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "onchopristis_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:onchopristis_sac"
             ]
           }
         ]
@@ -300,6 +432,42 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "stethacanthus_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:stethacanthus_sac"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "talpanas_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:talpanas_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "telecrex_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:telecrex_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "thermal_fossil": {
       "conditions": {
         "items": [
@@ -331,8 +499,20 @@
   },
   "requirements": [
     [
-      "machine_parts",
-      "aged_feather",
+      "diplocaulus_eggs",
+      "jawless_fish_roe",
+      "kimmeridgebrachypteraeschnidium_eggs",
+      "dunkleosteus_sac",
+      "onchopristis_sac",
+      "stethacanthus_sac",
+      "carnotaurus_egg",
+      "kentrosaurus_egg",
+      "majungasaurus_egg",
+      "megalania_egg",
+      "dromaeosaurus_egg",
+      "metriorhynchus_embryo",
+      "talpanas_egg",
+      "telecrex_egg",
       "fury_fossil",
       "boomerang_fossil",
       "runner_fossil",
@@ -356,7 +536,9 @@
       "raiguenrayun_fossil",
       "rhynia_fossil",
       "ginkgo_fossil",
-      "lepidodendron_fossil"
+      "lepidodendron_fossil",
+      "aged_feather",
+      "machine_parts"
     ]
   ],
   "sends_telemetry_event": true

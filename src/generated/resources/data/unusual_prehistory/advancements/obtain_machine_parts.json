@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:obtain_holocene_remains",
+  "parent": "unusual_prehistory:obtain_fossil",
   "criteria": {
     "machine_parts": {
       "conditions": {

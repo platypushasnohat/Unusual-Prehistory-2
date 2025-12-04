@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:obtain_fossil",
+  "parent": "unusual_prehistory:root",
   "criteria": {
     "aged_feather": {
       "conditions": {

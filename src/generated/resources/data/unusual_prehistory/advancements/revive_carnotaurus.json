@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:cretaceous_root",
   "criteria": {
-    "hatch_dromaeosaurus": {
+    "revive_carnotaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:dromaeosaurus"
+              "type": "unusual_prehistory:carnotaurus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus.desc"
+      "translate": "advancement.unusual_prehistory.revive_carnotaurus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:dromaeosaurus_egg"
+      "item": "unusual_prehistory:carnotaurus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_dromaeosaurus"
+      "translate": "advancement.unusual_prehistory.revive_carnotaurus"
     }
   },
   "requirements": [
     [
-      "hatch_dromaeosaurus"
+      "revive_carnotaurus"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:hatch_talpanas",
+  "parent": "unusual_prehistory:holocene_root",
   "criteria": {
     "breed_holocene_mobs": {
       "conditions": {},

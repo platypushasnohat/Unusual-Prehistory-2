@@ -27,6 +27,9 @@ public class UP2Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Item>> ITEM_TRANSLATIONS = new ArrayList<>();
 
+    public static final List<Supplier<? extends Item>> EGG_EMBRYO_ITEMS = new ArrayList<>();
+    public static final List<Supplier<? extends Item>> FOSSILS = new ArrayList<>();
+
     // tab icon
     public static final RegistryObject<Item> UNUSUAL_PREHISTORY = registerItem("unusual_prehistory", () -> new Item(new Item.Properties()));
 
@@ -47,7 +50,7 @@ public class UP2Items {
 
     // dromaeosaurus
     public static final RegistryObject<Item> DROMAEOSAURUS_SPAWN_EGG = registerSpawnEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS, 0xf9fa5e, 0xebc754);
-    public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerItem("dromaeosaurus_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.DROMAEOSAURUS_EGG));
+    public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
     public static final RegistryObject<Item> RUNNER_FOSSIL = registerFossilItem("runner");
 
     // dunkleosteus
@@ -86,7 +89,7 @@ public class UP2Items {
     // metriorhynchus
     public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x3a2c4e, 0x8b549b);
     public static final RegistryObject<Item> MELTDOWN_FOSSIL = registerFossilItem("meltdown");
-    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerItem("metriorhynchus_embryo", () -> new EmbryoItem(new Item.Properties(), UP2Entities.METRIORHYNCHUS));
+    public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerEmbryoItem("metriorhynchus", UP2Entities.METRIORHYNCHUS);
 
     // onchopristis
     public static final RegistryObject<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);
@@ -99,12 +102,12 @@ public class UP2Items {
 
     // talpanas
     public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = registerSpawnEggItem("talpanas", UP2Entities.TALPANAS, 0x503527, 0x93ad87);
-    public static final RegistryObject<Item> TALPANAS_EGG = registerItem("talpanas_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.TALPANAS_EGG));
+    public static final RegistryObject<Item> TALPANAS_EGG = registerEggItem("talpanas", UP2Entities.TALPANAS_EGG);
     public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties()));
 
     // telecrex
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x121018, 0x770f38);
-    public static final RegistryObject<Item> TELECREX_EGG = registerItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), UP2Entities.TELECREX_EGG));
+    public static final RegistryObject<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage");
 
     // plant fossils
@@ -145,6 +148,18 @@ public class UP2Items {
         return item;
     }
 
+    private static RegistryObject<Item> registerEggItem(String name, Supplier<? extends EntityType<?>> entityType) {
+        RegistryObject<Item> item = registerItem(name + "_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), entityType));
+        EGG_EMBRYO_ITEMS.add(item);
+        return item;
+    }
+
+    private static RegistryObject<Item> registerEmbryoItem(String name, Supplier<? extends EntityType<?>> entityType) {
+        RegistryObject<Item> item = registerItem(name + "_embryo", () -> new EmbryoItem(new Item.Properties(), entityType));
+        EGG_EMBRYO_ITEMS.add(item);
+        return item;
+    }
+
     private static <I extends Item> RegistryObject<I> registerItemNoLang(String name, Supplier<? extends I> supplier) {
         return ITEMS.register(name, supplier);
     }
@@ -154,7 +169,9 @@ public class UP2Items {
     }
 
     private static RegistryObject<Item> registerFossilItem(String name) {
-        return registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        RegistryObject<Item> item = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        FOSSILS.add(item);
+        return item;
     }
 
     public static Item.Properties registerFoodValue(FoodProperties food) {

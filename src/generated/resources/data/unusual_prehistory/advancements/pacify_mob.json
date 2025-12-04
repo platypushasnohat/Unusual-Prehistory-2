@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:hatch_carnotaurus",
+  "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
     "pacify_mob": {
       "conditions": {},

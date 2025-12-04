@@ -15,6 +15,8 @@
 - Added Megalania bite sounds
 - Fixed bucketed mobs losing their age value
 - Talpanas and Telecrex are no longer immune to suffocation
+- Removed revive ginkgo and revive lepidodendron advancements
+- Split revival advancements into different groups and reordered some advancements
 - Misc tweaks
 
 # Version 1.1.2

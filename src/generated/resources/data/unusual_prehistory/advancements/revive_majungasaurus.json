@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:cretaceous_root",
   "criteria": {
-    "hatch_talpanas": {
+    "revive_majungasaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:talpanas"
+              "type": "unusual_prehistory:majungasaurus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_talpanas.desc"
+      "translate": "advancement.unusual_prehistory.revive_majungasaurus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:talpanas_egg"
+      "item": "unusual_prehistory:majungasaurus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_talpanas"
+      "translate": "advancement.unusual_prehistory.revive_majungasaurus"
     }
   },
   "requirements": [
     [
-      "hatch_talpanas"
+      "revive_majungasaurus"
     ]
   ],
   "sends_telemetry_event": true

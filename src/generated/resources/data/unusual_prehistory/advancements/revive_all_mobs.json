@@ -201,7 +201,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_all_mobs.desc"
+      "translate": "advancement.unusual_prehistory.revive_all_mobs.desc"
     },
     "frame": "challenge",
     "hidden": true,
@@ -211,7 +211,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_all_mobs"
+      "translate": "advancement.unusual_prehistory.revive_all_mobs"
     }
   },
   "requirements": [

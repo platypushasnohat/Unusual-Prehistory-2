@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "hatch_telecrex": {
+    "revive_diplocaulus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:telecrex"
+              "type": "unusual_prehistory:diplocaulus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_telecrex.desc"
+      "translate": "advancement.unusual_prehistory.revive_diplocaulus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:telecrex_egg"
+      "item": "unusual_prehistory:diplocaulus_eggs"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_telecrex"
+      "translate": "advancement.unusual_prehistory.revive_diplocaulus"
     }
   },
   "requirements": [
     [
-      "hatch_telecrex"
+      "revive_diplocaulus"
     ]
   ],
   "sends_telemetry_event": true

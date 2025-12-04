@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
     "carnotaurus_egg": {
       "conditions": {
@@ -171,18 +171,18 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": {
-      "translate": "advancement.unusual_prehistory.obtain_egg.desc"
+      "translate": "advancement.unusual_prehistory.paleozoic_root.desc"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:majungasaurus_egg"
+      "item": "unusual_prehistory:diplocaulus_eggs"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.obtain_egg"
+      "translate": "advancement.unusual_prehistory.paleozoic_root"
     }
   },
   "requirements": [

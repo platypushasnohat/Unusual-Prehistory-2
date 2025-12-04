@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:cretaceous_root",
   "criteria": {
-    "hatch_dunkleosteus": {
+    "revive_onchopristis": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:dunkleosteus"
+              "type": "unusual_prehistory:onchopristis"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.hatch_dunkleosteus.desc"
+      "translate": "advancement.unusual_prehistory.revive_onchopristis.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:dunkleosteus_sac"
+      "item": "unusual_prehistory:onchopristis_sac"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.hatch_dunkleosteus"
+      "translate": "advancement.unusual_prehistory.revive_onchopristis"
     }
   },
   "requirements": [
     [
-      "hatch_dunkleosteus"
+      "revive_onchopristis"
     ]
   ],
   "sends_telemetry_event": true
