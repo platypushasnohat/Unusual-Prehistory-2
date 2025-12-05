@@ -20,6 +20,8 @@
 - Split revival advancements into different groups and reordered some advancements
 - Added a section for eggs and embryos to the revival category of the paleopedia
 - Fixed some jawless fish variants not tilting
+- Reduced range needed for majungasaurus to enter stealth mode
+- Reduced interval for mob auto healing
 - Misc tweaks
 
 # Version 1.1.2

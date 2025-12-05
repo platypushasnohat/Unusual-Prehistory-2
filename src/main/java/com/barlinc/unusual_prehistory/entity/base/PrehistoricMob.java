@@ -228,7 +228,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     public int getHealCooldown() {
-        return 250;
+        return 200;
     }
 
     public void doEepyParticles(float particleOffset) {

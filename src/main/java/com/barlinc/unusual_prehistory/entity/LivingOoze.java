@@ -168,7 +168,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             this.tickItemAbsorption();
         }
 
-        if (this.tickCount % 150 == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
+        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
     }
 
     public void setupAnimationStates() {

@@ -38,11 +38,11 @@ public class MajungasaurusAttackGoal extends AttackGoal {
 
             this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
 
-            if (distanceToTarget > 50 && this.majungasaurus.getStealthCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
+            if (distanceToTarget > 25 && this.majungasaurus.getStealthCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
                 this.majungasaurus.enterStealth();
                 this.majungasaurus.getNavigation().moveTo(target, 1.0D);
             }
-            if (distanceToTarget <= 50 || this.majungasaurus.getStealthCooldown() > 0) {
+            if (distanceToTarget <= 25 || this.majungasaurus.getStealthCooldown() > 0) {
                 this.majungasaurus.exitStealth();
                 this.majungasaurus.getNavigation().moveTo(target, 1.7D);
             }
