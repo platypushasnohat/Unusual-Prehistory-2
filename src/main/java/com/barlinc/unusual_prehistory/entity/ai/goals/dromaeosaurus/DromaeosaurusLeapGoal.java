@@ -22,7 +22,7 @@ public class DromaeosaurusLeapGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return canUse();
+        return this.canUse();
     }
 
     @Override

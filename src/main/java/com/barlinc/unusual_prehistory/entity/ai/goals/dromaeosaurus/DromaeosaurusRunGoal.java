@@ -41,7 +41,7 @@ public class DromaeosaurusRunGoal extends Goal {
 
     @Nullable
     protected Vec3 getPosition() {
-        return LandRandomPos.getPos(this.dromaeosaurus, 15, 7);
+        return LandRandomPos.getPos(this.dromaeosaurus, 20, 7);
     }
 
     @Override
