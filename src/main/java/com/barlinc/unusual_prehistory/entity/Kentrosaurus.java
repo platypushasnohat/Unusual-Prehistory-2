@@ -50,7 +50,7 @@ import java.util.List;
 public class Kentrosaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Integer> LAY_DOWN_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.98F, 1.75F);
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.6F, 1.75F);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
@@ -240,14 +240,13 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(DamageSource damageSource, float amount) {
-        this.standUpInstantly();
+    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+        if (this.isKentrosaurusLayingDown()) this.standUpInstantly();
         if (!damageSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !damageSource.is(DamageTypes.THORNS)) {
             Entity entity = damageSource.getDirectEntity();
             if (entity instanceof LivingEntity target) {
                 target.hurt(this.damageSources().thorns(this), 2.0F);
             }
-            super.actuallyHurt(damageSource, amount);
         }
         super.actuallyHurt(damageSource, amount);
     }

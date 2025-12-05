@@ -48,6 +48,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,10 +70,13 @@ public class Megalania extends SemiAquaticMob {
 
     public int roarCooldown = 300 + this.getRandom().nextInt(60 * 60);
 
-    private final byte TONGUE = 66;
-    private final byte FLICK1 = 67;
-    private final byte FLICK2 = 68;
-    private final byte YAWN = 69;
+    public int biteCooldown = 5;
+    public int talWhipCooldown = 150;
+
+    private final byte TONGUE = 67;
+    private final byte FLICK1 = 68;
+    private final byte FLICK2 = 69;
+    private final byte YAWN = 70;
 
     public enum TemperatureStates {
         TEMPERATE,
@@ -122,7 +128,8 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(8, new MegalaniaLayDownGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
-        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, false, entity -> entity.getType().is(UP2EntityTags.MEGALANIA_TARGETS)));
+        this.targetSelector.addGoal(2, new MegalaniaTargetGoal<>(this, LivingEntity.class));
+        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, this::isHostileToEverything));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -167,6 +174,50 @@ public class Megalania extends SemiAquaticMob {
         return this.canAttack(entity) && (this.getTemperatureState() == TemperatureStates.WARM || this.getTemperatureState() == TemperatureStates.NETHER);
     }
 
+    public boolean isHostileToEverything(LivingEntity entity) {
+        return this.canAttack(entity) && this.getTemperatureState() == TemperatureStates.NETHER;
+    }
+
+    private int getHuntingInterval() {
+        switch (this.getTemperatureState()) {
+            case COLD -> {
+                return 500;
+            }
+            case WARM -> {
+                return 200;
+            }
+            case NETHER -> {
+                return 100;
+            }
+            default -> {
+                return 300;
+            }
+        }
+    }
+
+    public int getHealCooldown() {
+        switch (this.getTemperatureState()) {
+            case COLD -> {
+                return 270;
+            }
+            case WARM -> {
+                return 130;
+            }
+            case NETHER -> {
+                return 60;
+            }
+            default -> {
+                return 200;
+            }
+        }
+    }
+
+    @Override
+    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+        if (this.getTemperatureState() == TemperatureStates.NETHER) this.heal(4);
+        return super.killedEntity(level, victim);
+    }
+
     @Override
     public boolean canPacify() {
         return true;
@@ -182,11 +233,6 @@ public class Megalania extends SemiAquaticMob {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
     }
 
-    @Override
-    public boolean fireImmune() {
-        return this.getTemperatureState() == TemperatureStates.NETHER;
-    }
-
     public void applyPoison(@NotNull LivingEntity entity) {
         float chance = 0;
         int i = 0;
@@ -200,6 +246,23 @@ public class Megalania extends SemiAquaticMob {
 
         if (i > 0 && this.getRandom().nextFloat() < 0.3F + chance) {
             entity.addEffect(new MobEffectInstance(this.getTemperatureState() == TemperatureStates.NETHER ? MobEffects.WITHER : MobEffects.POISON, i * 40, 0), this);
+        }
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effect) {
+        if (effect.getEffect() == MobEffects.POISON) {
+            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect);
+            MinecraftForge.EVENT_BUS.post(event);
+            return event.getResult() == Event.Result.ALLOW;
+        }
+        if (effect.getEffect() == MobEffects.WITHER && this.getTemperatureState() == TemperatureStates.NETHER) {
+            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect);
+            MinecraftForge.EVENT_BUS.post(event);
+            return event.getResult() == Event.Result.ALLOW;
+        }
+        else {
+            return super.canBeAffected(effect);
         }
     }
 
@@ -227,12 +290,14 @@ public class Megalania extends SemiAquaticMob {
     public TemperatureStates getTemperatureState() {
         return TemperatureStates.values()[Mth.clamp(entityData.get(TEMPERATURE_STATE), 0, 3)];
     }
+
     public void setTemperatureState(TemperatureStates state) {
         if (getTemperatureState() != state) {
             this.entityData.set(PREV_TEMPERATURE_STATE, this.entityData.get(TEMPERATURE_STATE));
         }
         this.entityData.set(TEMPERATURE_STATE, state.ordinal());
     }
+
     public TemperatureStates getPrevTemperatureState() {
         if (entityData.get(PREV_TEMPERATURE_STATE) == -1) {
             return null;
@@ -311,7 +376,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        this.standUpInstantly();
+        if (this.isMegalaniaLayingDown()) this.standUpInstantly();
         super.actuallyHurt(damageSource, amount);
     }
 
@@ -334,6 +399,9 @@ public class Megalania extends SemiAquaticMob {
         if ((this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) || !this.isRightTemperatureToSit()) this.standUp();
 
         this.tickTemperatureStates();
+
+        if (this.biteCooldown > 0 && !this.isInWater()) this.biteCooldown--;
+        if (this.talWhipCooldown > 0 && !this.isInWater()) this.talWhipCooldown--;
     }
 
     public boolean isRightTemperatureToSit() {
@@ -400,9 +468,15 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public void setupAnimationCooldowns() {
         if (bitingTicks > 0) bitingTicks--;
-        if (bitingTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (bitingTicks == 0 && this.getPose() == UP2Poses.BITING.get()) {
+            this.setPose(Pose.STANDING);
+            this.biteCooldown = 4 + this.getRandom().nextInt(3);
+        }
         if (tailWhipTicks > 0) tailWhipTicks--;
-        if (tailWhipTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
+        if (tailWhipTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) {
+            this.setPose(Pose.STANDING);
+            this.talWhipCooldown = 100 + this.getRandom().nextInt(50);
+        }
         if (roarTicks > 0) roarTicks--;
         if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
 
@@ -468,25 +542,29 @@ public class Megalania extends SemiAquaticMob {
         }
         if (TEMPERATURE_STATE.equals(accessor)) {
             if (this.getTemperatureState().equals(TemperatureStates.COLD)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.12F);
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.14F);
+                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(10.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(200);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.TEMPERATE)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.16F);
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.18F);
+                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(16.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(120);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.WARM)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.19F);
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2F);
+                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(20.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(80);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.NETHER)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.22F);
+                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3F);
+                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(32.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(50);
                 }
@@ -521,7 +599,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.MEGALANIA_STEP.get(), 1.0F, 1.0F);
+        this.playSound(UP2SoundEvents.MEGALANIA_STEP.get(), 0.6F, 1.0F);
     }
 
     @Override
@@ -533,5 +611,29 @@ public class Megalania extends SemiAquaticMob {
 
     public static boolean canSpawn(EntityType<Megalania> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.MEGALANIA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    private static class MegalaniaTargetGoal<T extends LivingEntity> extends PrehistoricNearestAttackableTargetGoal<T> {
+
+        private final Megalania megalania;
+
+        public MegalaniaTargetGoal(Megalania megalania, Class<T> targetClass) {
+            super(megalania, targetClass, 0, true, true, entity -> entity.getType().is(UP2EntityTags.MEGALANIA_TARGETS));
+            this.megalania = megalania;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.getInterval() && !prehistoricMob.isPacified() && !prehistoricMob.isBaby();
+        }
+
+        private boolean getInterval() {
+            if (megalania.getHuntingInterval() > 0 && megalania.getRandom().nextInt(megalania.getHuntingInterval()) != 0) {
+                return false;
+            } else {
+                this.findTarget();
+                return this.target != null;
+            }
+        }
     }
 }

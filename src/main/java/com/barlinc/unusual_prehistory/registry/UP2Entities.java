@@ -59,7 +59,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Kentrosaurus>> KENTROSAURUS = ENTITY_TYPE.register(
             "kentrosaurus", () ->
             EntityType.Builder.of(Kentrosaurus::new, MobCategory.CREATURE)
-                    .sized(1.98F, 2.25F)
+                    .sized(1.6F, 2.25F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kentrosaurus").toString())
     );

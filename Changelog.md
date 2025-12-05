@@ -22,6 +22,24 @@
 - Fixed some jawless fish variants not tilting
 - Reduced range needed for majungasaurus to enter stealth mode
 - Reduced interval for mob auto healing
+- Fixed Kentrosaurus taking damage twice every time it gets hurt
+- Fixed Kentrosaurus attack animation being reset if it gets hit during it
+- Reduced Kentrosaurus hitbox size
+- Increased Kentrosaurus attack range
+- Megalania is no longer fire immune in the nether
+- Megalania heals faster in warmer biomes and slower in cold biomes
+- Increased Megalania speed
+- Megalania is now hostile to everything, including other megalania, in the nether
+- Megalania tail whip can hit up to 3 targets at once
+- Nether Megalania heal on kill
+- Fixed Megalania attack animation being reset if it gets hit during it
+- Megalania is now immune to poison and also wither while in the nether
+- Megalania will no longer run when cold
+- Megalania shivers when cold
+- Megalania tail whip attack vertical range is now much shorter
+- Megalania follow range now depends on its temperature
+- Added 3 new idle animations for the different Megalania temperature states
+- Fixed Carnotaurus roar not having a subtitle translation
 - Misc tweaks
 
 # Version 1.1.2

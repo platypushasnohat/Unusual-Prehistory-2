@@ -198,7 +198,7 @@ public abstract class PrehistoricMob extends Animal {
         if (this.level().isClientSide()) this.setupAnimationStates();
         this.setupAnimationCooldowns();
 
-        if (this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
+        if (this.canHealOverTime()) this.heal(2);
 
         if (this.level().isClientSide && this.shouldDoEepyParticles()) this.doEepyParticles(1.7F);
 
@@ -229,6 +229,10 @@ public abstract class PrehistoricMob extends Animal {
 
     public int getHealCooldown() {
         return 200;
+    }
+
+    public boolean canHealOverTime() {
+        return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && !this.level().isClientSide && this.isAlive();
     }
 
     public void doEepyParticles(float particleOffset) {

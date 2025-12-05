@@ -6,10 +6,12 @@ import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Pose;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -135,10 +137,11 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 	@Override
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float deg = ((float) Math.PI / 180);
 
 		if (entity.getPose() != Pose.ROARING && entity.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
 			if (!entity.isInWater()) {
-				if (entity.getBehavior().equals(Behaviors.ANGRY.getName()) || entity.getBehavior().equals(Behaviors.PANIC.getName())) {
+				if (this.canMegalaniaRun(entity)) {
                     this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
 				} else {
                     this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
@@ -147,15 +150,15 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
                 this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
             }
-			this.head.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 4;
-			this.head.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
-			this.neck.xRot += entity.isMegalaniaLayingDown() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
-			this.neck.yRot += entity.isMegalaniaLayingDown() ? 0F : (netHeadYaw * ((float) Math.PI / 180)) / 4;
+			this.head.xRot += entity.isMegalaniaLayingDown() ? 0F : headPitch * deg / 4;
+			this.head.yRot += entity.isMegalaniaLayingDown() ? 0F : netHeadYaw * deg / 4;
+			this.neck.xRot += entity.isMegalaniaLayingDown() ? 0F : headPitch * deg / 2;
+			this.neck.yRot += entity.isMegalaniaLayingDown() ? 0F : netHeadYaw * deg / 4;
 		}
 
 		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 
-        this.animateIdle(entity.idleAnimationState, MegalaniaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, 1, limbSwingAmount * (entity.getTemperatureState() == Megalania.TemperatureStates.NETHER ? 2 : 4));
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roaringAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
         this.animate(entity.flick1AnimationState, MegalaniaIdleAnimations.FLICK1, ageInTicks);
@@ -170,6 +173,27 @@ public class MegalaniaModel extends UP2Model<Megalania> {
         this.animate(entity.aggroAnimationState, MegalaniaAnimations.AGGRO, ageInTicks);
         this.animateIdle(entity.swimmingAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
 	}
+
+    private AnimationDefinition getIdleAnimation(Megalania entity) {
+        switch (entity.getTemperatureState()) {
+            case COLD -> {
+                return MegalaniaIdleAnimations.IDLE_COLD;
+            }
+            case WARM -> {
+                return MegalaniaIdleAnimations.IDLE_WARM;
+            }
+            case NETHER -> {
+                return MegalaniaAnimations.IDLE_NETHER;
+            }
+            default -> {
+                return MegalaniaAnimations.IDLE;
+            }
+        }
+    }
+
+    private boolean canMegalaniaRun(Megalania entity) {
+        return (entity.getBehavior().equals(Behaviors.ANGRY.getName()) || entity.getBehavior().equals(Behaviors.PANIC.getName()) || entity.getTemperatureState() == Megalania.TemperatureStates.NETHER) && entity.getTemperatureState() != Megalania.TemperatureStates.COLD;
+    }
 
 	@Override
 	public @NotNull ModelPart root() {
