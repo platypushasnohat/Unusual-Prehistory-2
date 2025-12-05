@@ -223,7 +223,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
                 }
             }
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
-            this.playSound(SoundEvents.ITEM_PICKUP, 0.1F, this.getSoundPitch());
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (itemstack.getItem() == Items.BUCKET && this.isAlive() && !player.isCrouching()) {
