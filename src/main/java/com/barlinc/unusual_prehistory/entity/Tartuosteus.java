@@ -62,7 +62,7 @@ public class Tartuosteus extends PrehistoricAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 16, 3));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7, 3));
         this.goalSelector.addGoal(3, new TartuosteusGlideGoal(this));
         this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(5, new LargePanicGoal(this, 1.5D));
@@ -79,9 +79,6 @@ public class Tartuosteus extends PrehistoricAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
-            }
         } else {
             super.travel(travelVector);
         }

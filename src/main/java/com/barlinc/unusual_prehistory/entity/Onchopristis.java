@@ -76,7 +76,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new OnchopristisAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ONCHOPRISTIS_FOOD), false));
-        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1.0D, 60, 12, 12, 0.02));
+        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1.0D, 60, 8, 5, 0.02));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
@@ -93,9 +93,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
-            }
         } else {
             super.travel(travelVector);
         }

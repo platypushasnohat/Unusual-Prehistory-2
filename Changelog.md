@@ -45,6 +45,8 @@
 - Mossy dirt can now spread like grass and mycelium
 - Added calamophyton feature
 - Talpanas forgot how to swim
+- Updated Doomsurf disc
+- Tweaked swimming ai
 - Misc tweaks
 
 # Version 1.1.2

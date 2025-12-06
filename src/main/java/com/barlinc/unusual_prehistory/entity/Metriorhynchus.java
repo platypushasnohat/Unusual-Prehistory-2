@@ -84,7 +84,7 @@
          this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D));
          this.goalSelector.addGoal(1, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 30, 16, 16, 3));
+         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7, 3));
          this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -121,9 +121,6 @@
              this.moveRelative(this.getSpeed(), travelVector);
              this.move(MoverType.SELF, this.getDeltaMovement());
              this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-             if (this.horizontalCollision) {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
-             }
          } else {
              super.travel(travelVector);
          }

@@ -54,7 +54,7 @@ public class JawlessFish extends SchoolingAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(2, new GroundseekingRandomSwimGoal(this, 1.0D, 20, 10, 10, 0.01));
+        this.goalSelector.addGoal(2, new GroundseekingRandomSwimGoal(this, 1.0D, 20, 9, 6, 0.01));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
@@ -72,9 +72,6 @@ public class JawlessFish extends SchoolingAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.3 * this.getSpeed(), 0.0));
-            }
         } else {
             super.travel(travelVector);
         }

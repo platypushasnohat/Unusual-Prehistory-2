@@ -11,25 +11,24 @@ import javax.annotation.Nullable;
 
 public class GroundseekingRandomSwimGoal extends RandomStrollGoal {
 
-    PathfinderMob entity;
-    Vec3 wantedPos;
+    private final PathfinderMob entity;
+    protected Vec3 wantedPos;
 
     int radius;
     int height;
     double prox;
 
-    public GroundseekingRandomSwimGoal(PathfinderMob entity, double spdmultiplier, int interval, int SearchRadius, int SearchHeight, double proximity) {
+    public GroundseekingRandomSwimGoal(PathfinderMob entity, double spdmultiplier, int interval, int radius, int height, double proximity) {
         super(entity, spdmultiplier, interval);
         this.entity = entity;
-        this.radius = SearchRadius;
-        this.height = SearchHeight;
+        this.radius = radius;
+        this.height = height;
         this.prox = proximity;
     }
 
     @Override
     public boolean canUse() {
-        boolean canUse =super.canUse() && entity.isInWater();
-        return canUse;
+        return super.canUse() && entity.isInWater();
     }
 
     @Override
@@ -50,8 +49,7 @@ public class GroundseekingRandomSwimGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        Vec3 goalpos = getRandomSwimmablePosWithSeabed(this.mob, radius, height);
-        return goalpos;
+        return getRandomSwimmablePosWithSeabed(this.mob, radius, height);
     }
 
     @Nullable
