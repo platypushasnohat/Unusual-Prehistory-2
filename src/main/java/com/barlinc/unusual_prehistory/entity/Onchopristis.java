@@ -54,7 +54,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
     private int attackTicks;
     private int stepTicks;
 
-    private final byte STEP = 60;
+    private final byte STEP = 67;
 
     public Onchopristis(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);

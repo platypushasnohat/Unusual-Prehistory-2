@@ -41,6 +41,7 @@
 - Added 3 new idle animations for the different Megalania temperature states
 - Fixed Carnotaurus roar not having a subtitle translation
 - Increased the radius for Dromaeosaurus run positions
+- Fixed Onchopristis overriding death poof effects
 - Misc tweaks
 
 # Version 1.1.2

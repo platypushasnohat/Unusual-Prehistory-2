@@ -62,7 +62,7 @@
      private int deathRollTicks;
      private int biteTicks;
 
-     private final byte BELLOW = 60;
+     private final byte BELLOW = 67;
 
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
