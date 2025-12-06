@@ -87,18 +87,15 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 	}
 
 	@Override
-	public void setupAnim(Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWaterOrBubble()) {
-            this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		}
+        this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 
 		if (this.young) this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
-		this.animate(entity.swimmingAnimationState, TalpanasAnimations.SWIM, ageInTicks, 0.6F + limbSwingAmount * 1.5F);
 		this.animate(entity.peckingAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
 
 		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;

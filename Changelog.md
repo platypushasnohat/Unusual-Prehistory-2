@@ -5,7 +5,6 @@
 - Increased Majungasaurus health to 32
 - Added 4 armor to Kentrosaurus
 - Tweaked Dunkleosteus stats per variant
-- Changed Dunkleosteus target goals to generic ones
 - Dunkleosteus can now attack outside of water
 - Majungasaurus now attacks faster
 - Tweaked spawn egg colors for Stethacanthus and Talpanas
@@ -42,6 +41,10 @@
 - Fixed Carnotaurus roar not having a subtitle translation
 - Increased the radius for Dromaeosaurus run positions
 - Fixed Onchopristis overriding death poof effects
+- Increased chance of finding machine parts
+- Mossy dirt can now spread like grass and mycelium
+- Added calamophyton feature
+- Talpanas forgot how to swim
 - Misc tweaks
 
 # Version 1.1.2

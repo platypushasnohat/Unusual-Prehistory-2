@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.TalpanasFloatGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TalpanasSeekShelterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.BreedableMob;
@@ -42,7 +41,6 @@ public class Talpanas extends BreedableMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flapAnimationState = new AnimationState();
-    public final AnimationState swimmingAnimationState = new AnimationState();
     public final AnimationState peckingAnimationState = new AnimationState();
 
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
@@ -67,16 +65,15 @@ public class Talpanas extends BreedableMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TalpanasFloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 4.0F, 1.2D, 1.2D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.2D, 1.2D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
-        this.goalSelector.addGoal(3, new TalpanasSeekShelterGoal(this));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
-        this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 4.0F, 1.2D, 1.2D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.2D, 1.2D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
+        this.goalSelector.addGoal(2, new TalpanasSeekShelterGoal(this));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -84,11 +81,6 @@ public class Talpanas extends BreedableMob {
         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setAvoidSun(true);
         return navigation;
-    }
-
-    @Override
-    protected float getWaterSlowDown() {
-        return 0.9F;
     }
 
     @Override
@@ -106,7 +98,7 @@ public class Talpanas extends BreedableMob {
         super.aiStep();
 
         Vec3 vec3 = this.getDeltaMovement();
-        if (!this.onGround() && vec3.y < 0.0) {
+        if (!this.onGround() && !this.isInWaterOrBubble() && vec3.y < 0.0) {
             this.setDeltaMovement(vec3.multiply(1.0, 0.6, 1.0));
             if (this.getMovementEmission().emitsEvents()) {
                 this.gameEvent(GameEvent.FLAP);
@@ -135,9 +127,8 @@ public class Talpanas extends BreedableMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.onGround(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.onGround() || this.isInWaterOrBubble(), this.tickCount);
         this.flapAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble(), this.tickCount);
-        this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && this.onGround() && this.isPecking(), this.tickCount);
     }
 
@@ -198,6 +189,6 @@ public class Talpanas extends BreedableMob {
     }
 
     public static boolean canSpawn(EntityType<Talpanas> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 3;
+        return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON);
     }
 }

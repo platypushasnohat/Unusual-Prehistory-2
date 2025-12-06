@@ -6,7 +6,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "unusual_prehistory:lepidodendron_sapling",
+          "Name": "unusual_prehistory:lepidodendron_cone",
           "Properties": {
             "stage": "0"
           }
