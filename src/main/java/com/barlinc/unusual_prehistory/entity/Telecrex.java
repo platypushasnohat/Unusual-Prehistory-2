@@ -54,7 +54,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.FLYING_SPEED, 1.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
@@ -77,7 +77,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TelecrexScatterGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1) {
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Telecrex.this.isFlying();

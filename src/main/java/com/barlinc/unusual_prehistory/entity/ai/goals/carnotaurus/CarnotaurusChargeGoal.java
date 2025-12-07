@@ -22,6 +22,7 @@ public class CarnotaurusChargeGoal extends AttackGoal {
     private final Carnotaurus carnotaurus;
     private int collisionTicks;
     private Vec3 chargeDirection;
+    private int chargeHits;
 
     public CarnotaurusChargeGoal(Carnotaurus carnotaurus) {
         super(carnotaurus);
@@ -43,6 +44,7 @@ public class CarnotaurusChargeGoal extends AttackGoal {
     public void start() {
         super.start();
         this.collisionTicks = 0;
+        this.chargeHits = 0;
         this.carnotaurus.setCharging(false);
         this.carnotaurus.setPose(Pose.STANDING);
     }
@@ -51,8 +53,9 @@ public class CarnotaurusChargeGoal extends AttackGoal {
     public void stop() {
         super.stop();
         this.collisionTicks = 0;
+        this.chargeHits = 0;
         this.carnotaurus.setCharging(false);
-        this.carnotaurus.setPose(Pose.STANDING);
+        if (this.carnotaurus.getPose() != UP2Poses.STOP_CHARGING.get()) this.carnotaurus.setPose(Pose.STANDING);
         this.carnotaurus.chargeCooldown();
     }
 
@@ -109,7 +112,7 @@ public class CarnotaurusChargeGoal extends AttackGoal {
                 this.carnotaurus.lookAt(target, 30F, 30F);
                 this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
                 if (this.carnotaurus.getChargeCooldown() == 0) {
-                    this.carnotaurus.getNavigation().moveTo(target, 2.0D);
+                    this.carnotaurus.getNavigation().moveTo(target, 2.2D);
                     if (distance < 80) {
                         this.carnotaurus.setCharging(true);
                     }
@@ -139,6 +142,7 @@ public class CarnotaurusChargeGoal extends AttackGoal {
                 if (entity.isDamageSourceBlocked(this.carnotaurus.damageSources().mobAttack(this.carnotaurus)) && entity instanceof Player player){
                     player.disableShield(true);
                 }
+                this.chargeHits++;
                 this.carnotaurus.swing(InteractionHand.MAIN_HAND);
             }
         }

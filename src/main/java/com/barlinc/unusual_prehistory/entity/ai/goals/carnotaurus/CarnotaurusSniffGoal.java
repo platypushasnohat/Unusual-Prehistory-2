@@ -6,12 +6,12 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-public class CarnotaurusSniffingGoal extends Goal {
+public class CarnotaurusSniffGoal extends Goal {
 
     public Carnotaurus carnotaurus;
     public int timer;
 
-    public CarnotaurusSniffingGoal(Carnotaurus carnotaurus) {
+    public CarnotaurusSniffGoal(Carnotaurus carnotaurus) {
         this.carnotaurus = carnotaurus;
     }
 

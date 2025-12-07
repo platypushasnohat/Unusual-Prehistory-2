@@ -35,11 +35,11 @@ public class CarnotaurusAttackGoal extends AttackGoal {
 
             if (attackState == 1) {
                 this.tickBite();
-                this.carnotaurus.getNavigation().moveTo(target, 1.75D);
+                this.carnotaurus.getNavigation().moveTo(target, 1.8D);
             } else if (attackState == 2) {
                 this.tickHeadbutt();
             } else {
-                this.carnotaurus.getNavigation().moveTo(target, 2.0D);
+                this.carnotaurus.getNavigation().moveTo(target, 2.2D);
                 if (distance <= 10) {
                     if (this.carnotaurus.getRandom().nextBoolean() && !(target instanceof Creeper)) {
                         this.carnotaurus.setAttackState(1);
@@ -64,7 +64,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
                 this.carnotaurus.doHurtTarget(target);
             }
         }
-        if (this.timer > 20) {
+        if (this.timer > 17) {
             this.timer = 0;
             this.carnotaurus.setAttackState(0);
         }
@@ -81,7 +81,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         if (this.timer == 12) {
             this.hurtNearbyEntities();
         }
-        if (this.timer > 28) {
+        if (this.timer > 23) {
             this.timer = 0;
             this.carnotaurus.setAttackState(0);
         }

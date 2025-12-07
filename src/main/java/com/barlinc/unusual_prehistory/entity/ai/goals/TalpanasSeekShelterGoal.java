@@ -5,23 +5,11 @@ import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 
 public class TalpanasSeekShelterGoal extends FleeSunGoal {
 
-    private int interval = reducedTickDelay(50);
+    private int interval = reducedTickDelay(10);
     private final Talpanas talpanas;
 
     public TalpanasSeekShelterGoal(Talpanas talpanas) {
-        super(talpanas, 1.0D);
+        super(talpanas, 1.2D);
         this.talpanas = talpanas;
-    }
-
-    public boolean canUse() {
-        if (talpanas.level().canSeeSky(this.mob.blockPosition()) && this.talpanas.level().isDay()) {
-            return this.setWantedPos();
-        } else if (this.interval > 0) {
-            this.interval--;
-            return false;
-        } else {
-            this.interval = 50;
-            return this.talpanas.level().isDay() && talpanas.level().canSeeSky(this.mob.blockPosition()) && !this.setWantedPos();
-        }
     }
 }

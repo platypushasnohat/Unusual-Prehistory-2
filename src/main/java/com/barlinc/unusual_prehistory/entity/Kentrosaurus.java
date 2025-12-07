@@ -77,7 +77,7 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new KentrosaurusFollowThornsGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));

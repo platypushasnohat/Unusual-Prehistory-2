@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.GroundSeekingRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,12 +37,13 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class JawlessFish extends SchoolingAquaticMob {
 
     public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -54,16 +56,16 @@ public class JawlessFish extends SchoolingAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(2, new GroundseekingRandomSwimGoal(this, 1.0D, 20, 9, 6, 0.01));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(5, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new GroundSeekingRandomSwimGoal(this, 1.0D, 20, 10, 7));
+        this.goalSelector.addGoal(3, new LargePanicGoal(this, 2.0D, 10, 7));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 12;
+        return 10;
     }
 
     @Override
@@ -72,6 +74,9 @@ public class JawlessFish extends SchoolingAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+            }
         } else {
             super.travel(travelVector);
         }

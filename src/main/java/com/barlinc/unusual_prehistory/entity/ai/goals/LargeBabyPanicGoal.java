@@ -6,8 +6,8 @@ public class LargeBabyPanicGoal extends LargePanicGoal {
 
     private final PrehistoricMob prehistoricMob;
 
-    public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier) {
-        super(mob, speedModifier);
+    public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
+        super(mob, speedModifier, radius, height);
         this.prehistoricMob = mob;
     }
 

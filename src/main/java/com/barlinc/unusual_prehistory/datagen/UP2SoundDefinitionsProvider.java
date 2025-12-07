@@ -176,7 +176,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1"))
         );
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/loop1")).volume(0.5F).attenuationDistance(6)
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/loop1")).volume(0.6F).attenuationDistance(8)
         );
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT,
@@ -239,6 +239,28 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.MEGALANIA_BITE,
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/bite1")).volume(0.8F),
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/bite2")).volume(0.8F)
+        );
+
+        // Metriorhynchus
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/death1"))
+        );
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle4"))
+        );
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bite2"))
+        );
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_BELLOW,
+                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bellow1"))
         );
 
         // Onchopristis

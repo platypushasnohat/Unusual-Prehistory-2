@@ -64,7 +64,7 @@ public class Majungasaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MajungasaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.7D));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MAJUNGASAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -82,10 +82,11 @@ public class Majungasaurus extends PrehistoricMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 32.0D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
+                .add(Attributes.ARMOR, 4.0D);
     }
 
     @Override

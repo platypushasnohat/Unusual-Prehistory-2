@@ -34,7 +34,28 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 MEGALANIA.get()
         );
 
+        this.tag(UP2EntityTags.DIPLOCAULUS_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                MEGALANIA.get(),
+                CARNOTAURUS.get(),
+                MAJUNGASAURUS.get(),
+                DROMAEOSAURUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
         this.tag(UP2EntityTags.JAWLESS_FISH_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                STETHACANTHUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
+        this.tag(UP2EntityTags.TARTUOSTEUS_AVOIDS).add(
                 DUNKLEOSTEUS.get(),
                 METRIORHYNCHUS.get(),
                 ONCHOPRISTIS.get(),
@@ -60,13 +81,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
-                STETHACANTHUS.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH,
                 EntityType.DOLPHIN,
                 EntityType.TURTLE,
-                EntityType.DROWNED
+                EntityType.DROWNED,
+                EntityType.GUARDIAN
         );
 
         this.tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
@@ -121,6 +142,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         this.tag(UP2EntityTags.METRIORHYNCHUS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 STETHACANTHUS.get(),
+                DIPLOCAULUS.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH

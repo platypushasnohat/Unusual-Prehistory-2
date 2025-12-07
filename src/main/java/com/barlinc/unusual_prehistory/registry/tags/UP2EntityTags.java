@@ -21,6 +21,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> MEDIUM_DUNKLEOSTEUS_TARGETS = modEntityTag("medium_dunkleosteus_targets");
     public static final TagKey<EntityType<?>> SMALL_DUNKLEOSTEUS_TARGETS = modEntityTag("small_dunkleosteus_targets");
 
+    public static final TagKey<EntityType<?>> DIPLOCAULUS_AVOIDS = modEntityTag("diplocaulus_avoids");
+
     public static final TagKey<EntityType<?>> JAWLESS_FISH_AVOIDS = modEntityTag("jawless_fish_avoids");
 
     public static final TagKey<EntityType<?>> MAJUNGASAURUS_TARGETS = modEntityTag("majungasaurus_targets");
@@ -37,6 +39,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> STETHACANTHUS_AVOIDS = modEntityTag("stethacanthus_avoids");
 
     public static final TagKey<EntityType<?>> TALPANAS_AVOIDS = modEntityTag("talpanas_avoids");
+
+    public static final TagKey<EntityType<?>> TARTUOSTEUS_AVOIDS = modEntityTag("tartuosteus_avoids");
 
     public static final TagKey<EntityType<?>> SCATTERS_TELECREX = modEntityTag("scatters_telecrex");
 

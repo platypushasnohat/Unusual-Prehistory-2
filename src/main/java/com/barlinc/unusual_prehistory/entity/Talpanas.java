@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.TalpanasSeekShelterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.BreedableMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
@@ -59,16 +58,16 @@ public class Talpanas extends BreedableMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MAX_HEALTH, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24D);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 4.0F, 1.2D, 1.2D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.2D, 1.2D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
-        this.goalSelector.addGoal(2, new TalpanasSeekShelterGoal(this));
+        this.goalSelector.addGoal(2, new FleeSunGoal(this, 1.3D));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));

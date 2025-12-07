@@ -14,6 +14,7 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -32,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("deprecation")
 public class Stethacanthus extends SchoolingAquaticMob {
 
     public final AnimationState biteAnimationState = new AnimationState();
@@ -46,7 +48,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.85F)
                 .add(Attributes.FOLLOW_RANGE, 16.0F);
@@ -55,12 +57,12 @@ public class Stethacanthus extends SchoolingAquaticMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 10, 7));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
         this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 16, 10, 7, 3));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 16, 10, 7));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 
@@ -95,6 +97,9 @@ public class Stethacanthus extends SchoolingAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+            }
         } else {
             super.travel(travelVector);
         }

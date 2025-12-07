@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
@@ -14,7 +15,6 @@ public class LeaveWaterGoal extends Goal {
     private final double speedModifier;
     private final int maxTimeInWater;
     private final int maxTimeOnLand;
-
     private BlockPos landPos;
 
     public LeaveWaterGoal(SemiAquaticMob semiAquaticMob, double speedModifier, int maxTimeInWater, int maxTimeOnLand) {
@@ -22,7 +22,7 @@ public class LeaveWaterGoal extends Goal {
         this.speedModifier = speedModifier;
         this.maxTimeInWater = maxTimeInWater;
         this.maxTimeOnLand = maxTimeOnLand;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class LeaveWaterGoal extends Goal {
         if (!semiAquaticMob.isInWater()) {
             return false;
         }
-        if (semiAquaticMob.timeInWater() <= maxTimeInWater || semiAquaticMob.timeOnLand() >= maxTimeOnLand) {
+        if (semiAquaticMob.getTimeInWater() <= maxTimeInWater || semiAquaticMob.getTimeOnLand() >= maxTimeOnLand) {
             return false;
         }
         return this.findLandPos();
@@ -43,18 +43,25 @@ public class LeaveWaterGoal extends Goal {
 
     @Override
     public void start() {
-        semiAquaticMob.getNavigation().moveTo(landPos.getX(), landPos.getY(), landPos.getZ(), speedModifier);
+        this.semiAquaticMob.getNavigation().moveTo(landPos.getX(), landPos.getY(), landPos.getZ(), speedModifier);
+    }
+
+    @Override
+    public void tick() {
+        if (semiAquaticMob.horizontalCollision && semiAquaticMob.isInWater()) {
+            float yRot = semiAquaticMob.getYRot() * Mth.DEG_TO_RAD;
+            this.semiAquaticMob.setDeltaMovement(semiAquaticMob.getDeltaMovement().add(-Mth.sin(yRot) * 0.2F, 0.1D, Mth.cos(yRot) * 0.2F));
+        }
     }
 
     private boolean findLandPos() {
         RandomSource random = semiAquaticMob.getRandom();
         Level level = semiAquaticMob.level();
-        BlockPos original = semiAquaticMob.blockPosition();
-        BlockPos.MutableBlockPos mutable = original.mutable();
+        BlockPos.MutableBlockPos mutablePos = semiAquaticMob.blockPosition().mutable();
         for (int i = 0; i < 10; i++) {
-            mutable.move(random.nextInt(20) - 10, 1 + random.nextInt(6), random.nextInt(20) - 10);
-            if (level.getBlockState(mutable).isSolidRender(level, mutable) && level.getBlockState(mutable.above()).isAir() && mutable.getY() >= original.getY()) {
-                landPos = mutable.immutable();
+            mutablePos.move(random.nextInt(20) - 10, 1 + random.nextInt(6), random.nextInt(20) - 10);
+            if (level.getBlockState(mutablePos).isSolidRender(level, mutablePos) && level.getBlockState(mutablePos.above()).isAir() && mutablePos.getY() >= semiAquaticMob.blockPosition().getY()) {
+                landPos = mutablePos.immutable();
                 return true;
             }
         }

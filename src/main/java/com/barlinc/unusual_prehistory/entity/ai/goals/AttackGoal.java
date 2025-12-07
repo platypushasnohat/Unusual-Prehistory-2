@@ -24,6 +24,7 @@ public class AttackGoal extends Goal {
         this.mob.setAttackState(0);
         this.mob.setBehavior(Behaviors.ANGRY.getName());
         this.mob.setAggressive(true);
+        this.mob.setRunning(true);
         this.timer = 0;
     }
 
@@ -34,6 +35,7 @@ public class AttackGoal extends Goal {
         this.mob.setAttackState(0);
         this.mob.setBehavior(Behaviors.IDLE.getName());
         this.mob.setAggressive(false);
+        this.mob.setRunning(false);
         this.mob.getNavigation().stop();
     }
 

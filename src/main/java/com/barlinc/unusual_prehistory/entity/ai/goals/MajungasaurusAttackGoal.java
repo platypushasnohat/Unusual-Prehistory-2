@@ -40,11 +40,11 @@ public class MajungasaurusAttackGoal extends AttackGoal {
 
             if (distanceToTarget > 25 && this.majungasaurus.getStealthCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
                 this.majungasaurus.enterStealth();
-                this.majungasaurus.getNavigation().moveTo(target, 1.0D);
+                this.majungasaurus.getNavigation().moveTo(target, 1.1D);
             }
             if (distanceToTarget <= 25 || this.majungasaurus.getStealthCooldown() > 0) {
                 this.majungasaurus.exitStealth();
-                this.majungasaurus.getNavigation().moveTo(target, 1.7D);
+                this.majungasaurus.getNavigation().moveTo(target, 2.0D);
             }
 
             if (attackState == 1) tickBite();
@@ -65,7 +65,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
                 this.majungasaurus.swing(InteractionHand.MAIN_HAND);
             }
         }
-        if (timer > 18) {
+        if (timer > 17) {
             timer = 0;
             this.majungasaurus.setAttackState(0);
         }

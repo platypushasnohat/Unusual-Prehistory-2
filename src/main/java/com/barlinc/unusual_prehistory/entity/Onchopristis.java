@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.GroundseekingRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.GroundSeekingRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.OnchopristisAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
@@ -18,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -39,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class Onchopristis extends PrehistoricAquaticMob {
 
     public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Onchopristis.class, EntityDataSerializers.INT);
@@ -73,10 +75,10 @@ public class Onchopristis extends PrehistoricAquaticMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new OnchopristisAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ONCHOPRISTIS_FOOD), false));
-        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1.0D, 60, 8, 5, 0.02));
+        this.goalSelector.addGoal(4, new GroundSeekingRandomSwimGoal(this, 1.0D, 60, 8, 5));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
@@ -93,6 +95,9 @@ public class Onchopristis extends PrehistoricAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+            }
         } else {
             super.travel(travelVector);
         }

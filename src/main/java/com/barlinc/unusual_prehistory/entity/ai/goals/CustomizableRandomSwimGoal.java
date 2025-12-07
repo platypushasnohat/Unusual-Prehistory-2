@@ -9,30 +9,31 @@ import javax.annotation.Nullable;
 
 public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
-    private final PathfinderMob entity;
-    protected Vec3 wantedPos;
-
     private final int radius;
     private final int height;
-    private final int prox;
+    private final int proximity;
+    private final boolean hasProximity;
+    protected Vec3 wantedPos;
 
-    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity) {
-        super(entity, speedMultiplier, interval);
-        this.entity = entity;
-        this.radius = radius;
-        this.height = height;
-        this.prox = proximity;
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height) {
+        this(entity, speedMultiplier, interval, radius, height, 0, false);
     }
 
-    @Override
-    public boolean canUse() {
-        return super.canUse();
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
+        super(entity, speedMultiplier, interval);
+        this.radius = radius;
+        this.height = height;
+        this.proximity = proximity;
+        this.hasProximity = hasProximity;
     }
 
     @Override
     public boolean canContinueToUse() {
         this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && !(this.wantedPos.distanceTo(this.entity.position()) <= this.entity.getBbWidth() * prox);
+        if (this.hasProximity) {
+            return super.canContinueToUse() && !(this.wantedPos.distanceTo(mob.position()) <= mob.getBbWidth() * proximity);
+        }
+        return super.canContinueToUse();
     }
 
     @Nullable

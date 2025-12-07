@@ -44,6 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
@@ -58,10 +59,13 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
-
     public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
-
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SWELL_DURATION = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
+
+    private int oldSwell;
+    private int swell;
+    private final int maxSwell = 60;
 
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState wingsAnimationState = new AnimationState();
@@ -155,9 +159,43 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public void tick() {
         super.tick();
-        if (level().isClientSide && isAlive()) {
-            UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
+
+        // It is imperative that the name be changed
+        if (this.isAlive()) {
+            this.oldSwell = this.swell;
+            if (this.hasCustomName() && this.getName().getString().contains("draconoptera")) {
+                this.setSwellDuration(1);
+            }
+            int i = this.getSwellDuration();
+            if (i > 0 && this.swell == 0) {
+                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+                this.gameEvent(GameEvent.PRIME_FUSE);
+            }
+
+            this.swell += i;
+            if (this.swell < 0) {
+                this.swell = 0;
+            }
+
+            if (this.swell >= this.maxSwell) {
+                this.swell = this.maxSwell;
+                this.explode();
+            }
         }
+
+        if (level().isClientSide && isAlive()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
+    }
+
+    private void explode() {
+        if (!this.level().isClientSide) {
+            this.dead = true;
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) 7, Level.ExplosionInteraction.MOB);
+            this.discard();
+        }
+    }
+
+    public float getSwelling(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, (float) this.oldSwell, (float) this.swell) / (float) (this.maxSwell - 2);
     }
 
     @Override
@@ -205,6 +243,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.entityData.define(HAS_PATTERN, false);
         this.entityData.define(WING_COLOR, 0);
         this.entityData.define(PREEN_COOLDOWN, 2 * 20 + random.nextInt(10 * 20));
+        this.entityData.define(SWELL_DURATION, -1);
     }
 
     @Override
@@ -361,6 +400,14 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     public void setPreenCooldown(int cooldown) {
         this.entityData.set(PREEN_COOLDOWN, cooldown);
+    }
+
+    public int getSwellDuration() {
+        return this.entityData.get(SWELL_DURATION);
+    }
+
+    public void setSwellDuration(int duration) {
+        this.entityData.set(SWELL_DURATION, duration);
     }
 
     @Override

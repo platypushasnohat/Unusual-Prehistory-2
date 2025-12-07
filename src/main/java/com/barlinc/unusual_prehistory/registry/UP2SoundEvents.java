@@ -70,6 +70,12 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_TAIL_SWING = registerSoundEvent("megalania_tail_swing");
     public static final RegistryObject<SoundEvent> MEGALANIA_BITE = registerSoundEvent("megalania_bite");
 
+    public static final RegistryObject<SoundEvent> METRIORHYNCHUS_HURT = registerSoundEvent("metriorhynchus_hurt");
+    public static final RegistryObject<SoundEvent> METRIORHYNCHUS_DEATH = registerSoundEvent("metriorhynchus_death");
+    public static final RegistryObject<SoundEvent> METRIORHYNCHUS_IDLE = registerSoundEvent("metriorhynchus_idle");
+    public static final RegistryObject<SoundEvent> METRIORHYNCHUS_BITE = registerSoundEvent("metriorhynchus_bite");
+    public static final RegistryObject<SoundEvent> METRIORHYNCHUS_BELLOW = registerSoundEvent("metriorhynchus_bellow");
+
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_HURT = registerSoundEvent("onchopristis_hurt");
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_DEATH = registerSoundEvent("onchopristis_death");
     public static final RegistryObject<SoundEvent> ONCHOPRISTIS_FLOP = registerSoundEvent("onchopristis_flop");

@@ -134,6 +134,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_TAIL_SWING, "Megalania swings tail");
         this.sound(UP2SoundEvents.MEGALANIA_BITE, "Megalania bites");
 
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_HURT, "Metriorhynchus hurts");
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_DEATH, "Metriorhynchus dies");
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_IDLE, "Metriorhynchus hisses");
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_BITE, "Metriorhynchus bites");
+        this.sound(UP2SoundEvents.METRIORHYNCHUS_BELLOW, "Metriorhynchus bellows");
+
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT, "Onchopristis hurts");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH, "Onchopristis dies");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_FLOP, "Onchopristis flops");
@@ -196,6 +202,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
+        this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
 
         this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");

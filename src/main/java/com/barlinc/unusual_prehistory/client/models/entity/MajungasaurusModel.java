@@ -144,7 +144,8 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
             if (entity.isMajungasaurusStealthMode() && !entity.isInPoseTransition()) {
                 this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2.5F, 5);
             } else {
-                this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+                if (entity.isRunning()) this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+                else this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
             }
         }
 

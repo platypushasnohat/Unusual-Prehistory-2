@@ -114,11 +114,10 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180F);
 
-		if (!entity.isInWater()) {
+		if (!entity.isInWater() && !entity.isLeaping()) {
 			this.animateWalk(MetriorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		} else if (entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
-            this.swim_control.xRot = headPitch * deg;
-            this.animateWalk(entity.isRunning() ? MetriorhynchusAnimations.SWIMFAST : MetriorhynchusAnimations.SWIM, limbSwing, limbSwingAmount, 1, 2);
+            this.animateWalk(entity.isRunning() ? MetriorhynchusAnimations.SWIMFAST : MetriorhynchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.25F, 2.5F);
         }
 
 		if (this.young) this.applyStatic(MetriorhynchusAnimations.BABY_TRANSFORM);
@@ -131,8 +130,14 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
         this.animate(entity.deathRoll2AnimationState, MetriorhynchusAnimations.DEATHROLL2, ageInTicks);
         this.animate(entity.bellowAnimationState, MetriorhynchusAnimations.BELLOW_BLEND, ageInTicks);
 
-		this.head.xRot += (headPitch * deg) / 2;
-		this.head.yRot += (netHeadYaw * deg) / 2;
+        if (!entity.isLeaping() && entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
+            this.head.xRot += (headPitch * deg) / 2;
+            this.head.yRot += (netHeadYaw * deg) / 2;
+        }
+
+        if ((entity.isLeaping() || entity.isInWater())  && entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
+            this.swim_control.xRot = headPitch * deg;
+        }
 	}
 
 	@Override

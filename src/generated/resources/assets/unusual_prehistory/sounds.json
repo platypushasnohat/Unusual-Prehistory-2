@@ -359,9 +359,9 @@
   "kimmeridgebrachypteraeschnidium_loop": {
     "sounds": [
       {
-        "attenuation_distance": 6,
+        "attenuation_distance": 8,
         "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/loop1",
-        "volume": 0.5
+        "volume": 0.6
       }
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_loop"
@@ -689,6 +689,41 @@
       }
     ],
     "subtitle": "subtitles.megalania_tail_swing"
+  },
+  "metriorhynchus_bellow": {
+    "sounds": [
+      "unusual_prehistory:entity/metriorhynchus/bellow1"
+    ],
+    "subtitle": "subtitles.metriorhynchus_bellow"
+  },
+  "metriorhynchus_bite": {
+    "sounds": [
+      "unusual_prehistory:entity/metriorhynchus/bite1",
+      "unusual_prehistory:entity/metriorhynchus/bite2"
+    ],
+    "subtitle": "subtitles.metriorhynchus_bite"
+  },
+  "metriorhynchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/metriorhynchus/death1"
+    ],
+    "subtitle": "subtitles.metriorhynchus_death"
+  },
+  "metriorhynchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/metriorhynchus/hurt1",
+      "unusual_prehistory:entity/metriorhynchus/hurt2"
+    ],
+    "subtitle": "subtitles.metriorhynchus_hurt"
+  },
+  "metriorhynchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/metriorhynchus/idle1",
+      "unusual_prehistory:entity/metriorhynchus/idle2",
+      "unusual_prehistory:entity/metriorhynchus/idle3",
+      "unusual_prehistory:entity/metriorhynchus/idle4"
+    ],
+    "subtitle": "subtitles.metriorhynchus_idle"
   },
   "onchopristis_death": {
     "sounds": [

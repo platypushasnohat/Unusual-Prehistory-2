@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackab
 import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusChargeGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusRoarGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusSniffingGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.carnotaurus.CarnotaurusSniffGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -83,15 +83,15 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(1, new CarnotaurusRoarGoal(this));
         this.goalSelector.addGoal(2, new CarnotaurusChargeGoal(this));
         this.goalSelector.addGoal(3, new CarnotaurusAttackGoal(this));
-        this.goalSelector.addGoal(4, new LargeBabyPanicGoal(this, 1.7D));
+        this.goalSelector.addGoal(4, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 //        this.goalSelector.addGoal(4, new CarnotaurusWaveGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new CarnotaurusSniffingGoal(this));
+        this.goalSelector.addGoal(8, new CarnotaurusSniffGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, true, true));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::canAttack));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, 60, true, true, entity -> !entity.getType().is(UP2EntityTags.CARNOTAURUS_IGNORES)));
         this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.CARNOTAURUS_TARGETS)));
     }
@@ -99,24 +99,25 @@ public class Carnotaurus extends PrehistoricMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 50.0D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 9.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.18F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                .add(Attributes.ARMOR, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     public void roar() {
         if (this.isAlive()) {
             this.level().broadcastEntityEvent(this, (byte) 39);
-            this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 2));
-            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
+            this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 3));
+            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1));
             this.gameEvent(GameEvent.ENTITY_ROAR);
         }
     }
 
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(4);
+        this.heal(8);
         return super.killedEntity(level, victim);
     }
 

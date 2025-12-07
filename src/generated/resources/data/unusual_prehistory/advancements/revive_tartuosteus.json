@@ -1,14 +1,14 @@
 {
   "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "revive_jawless_fish": {
+    "revive_tartuosteus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:jawless_fish"
+              "type": "unusual_prehistory:tartuosteus"
             }
           }
         ]
@@ -19,7 +19,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.revive_jawless_fish.desc"
+      "translate": "advancement.unusual_prehistory.revive_tartuosteus.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -28,12 +28,12 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.revive_jawless_fish"
+      "translate": "advancement.unusual_prehistory.revive_tartuosteus"
     }
   },
   "requirements": [
     [
-      "revive_jawless_fish"
+      "revive_tartuosteus"
     ]
   ],
   "sends_telemetry_event": true

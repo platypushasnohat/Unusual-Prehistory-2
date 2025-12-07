@@ -13,10 +13,14 @@ import net.minecraft.world.phys.Vec3;
 public class LargePanicGoal extends PanicGoal {
 
     private final PrehistoricMob prehistoricMob;
+    private final int radius;
+    private final int height;
 
-    public LargePanicGoal(PrehistoricMob mob, double speedModifier) {
+    public LargePanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
         super(mob, speedModifier);
         this.prehistoricMob = mob;
+        this.radius = radius;
+        this.height = height;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class LargePanicGoal extends PanicGoal {
 
     @Override
     protected boolean findRandomPosition() {
-        Vec3 vec3 = DefaultRandomPos.getPos(this.prehistoricMob, 10, 4);
+        Vec3 vec3 = DefaultRandomPos.getPos(this.prehistoricMob, radius, height);
         if (vec3 == null) {
             return false;
         } else {

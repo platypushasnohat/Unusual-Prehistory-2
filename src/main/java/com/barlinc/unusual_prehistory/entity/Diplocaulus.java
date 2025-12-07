@@ -1,9 +1,6 @@
  package com.barlinc.unusual_prehistory.entity;
 
- import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.DiplocaulusBurrowInMudGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.SemiAquaticRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
@@ -13,6 +10,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
@@ -33,6 +31,7 @@
  import net.minecraft.world.entity.ai.control.LookControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -61,7 +60,6 @@
      public final AnimationState burrowStartAnimationState = new AnimationState();
      public final AnimationState burrowIdleAnimationState = new AnimationState();
      public final AnimationState quirkAnimationState = new AnimationState();
-     public final AnimationState swimmingAnimationState = new AnimationState();
 
      private final byte QUIRK = 66;
 
@@ -72,19 +70,22 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 12.0D)
+                 .add(Attributes.MAX_HEALTH, 10.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.18F);
      }
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D));
-         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
-         this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1.0D, 80, 8, 8, 3));
-         this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(5, new DiplocaulusBurrowInMudGoal(this));
+         this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D, 10, 4));
+         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
+         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 7));
+         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500, 800));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(7, new DiplocaulusBurrowInMudGoal(this));
      }
 
      protected void switchNavigator(boolean onLand) {

@@ -1,6 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -8,10 +11,10 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 @SuppressWarnings("deprecation")
 public abstract class SemiAquaticMob extends PrehistoricMob {
 
-    public boolean isLandNavigator;
+    public static final EntityDataAccessor<Integer> TIME_IN_WATER = SynchedEntityData.defineId(SemiAquaticMob.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> TIME_ON_LAND = SynchedEntityData.defineId(SemiAquaticMob.class, EntityDataSerializers.INT);
 
-    public int timeInWater;
-    public int timeOnLand;
+    public boolean isLandNavigator;
 
     protected SemiAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -23,26 +26,33 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
     public void tick() {
         super.tick();
         if (this.isInWater()) {
-            timeInWater++;
-            timeOnLand = 0;
+            this.setTimeInWater(this.getTimeInWater() + 1);
+            this.setTimeOnLand(0);
         } else {
-            timeInWater = 0;
-            timeOnLand++;
+            this.setTimeOnLand(this.getTimeOnLand() + 1);
+            this.setTimeInWater(0);
         }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TIME_IN_WATER, 0);
+        this.entityData.define(TIME_ON_LAND, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("TimeInWater", timeInWater);
-        compoundTag.putInt("TimeOnLand", timeOnLand);
+        compoundTag.putInt("TimeInWater", this.getTimeInWater());
+        compoundTag.putInt("TimeOnLand", this.getTimeOnLand());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        timeInWater = compoundTag.getInt("TimeInWater");
-        timeOnLand = compoundTag.getInt("TimeOnLand");
+        this.setTimeInWater(compoundTag.getInt("TimeInWater"));
+        this.setTimeOnLand(compoundTag.getInt("TimeOnLand"));
     }
 
     @Override
@@ -55,11 +65,19 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
         return true;
     }
 
-    public int timeInWater() {
-        return timeInWater;
+    public int getTimeInWater() {
+        return this.entityData.get(TIME_IN_WATER);
     }
 
-    public int timeOnLand() {
-        return timeOnLand;
+    public void setTimeInWater(int time) {
+        this.entityData.set(TIME_IN_WATER, time);
+    }
+
+    public int getTimeOnLand() {
+        return this.entityData.get(TIME_ON_LAND);
+    }
+
+    public void setTimeOnLand(int time) {
+        this.entityData.set(TIME_ON_LAND, time);
     }
 }

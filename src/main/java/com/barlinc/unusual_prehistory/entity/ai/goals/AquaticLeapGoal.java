@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -13,19 +13,20 @@ import net.minecraft.world.phys.Vec3;
 public class AquaticLeapGoal extends JumpGoal {
 
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
-    private final PrehistoricAquaticMob entity;
+    private final PrehistoricMob entity;
     private final int interval;
     private final double jumpDistance;
     private final double jumpHeight;
     protected boolean breached;
 
-    public AquaticLeapGoal(PrehistoricAquaticMob entity, int interval, double jumpDistance, double jumpHeight) {
+    public AquaticLeapGoal(PrehistoricMob entity, int interval, double jumpDistance, double jumpHeight) {
         this.entity = entity;
         this.interval = reducedTickDelay(interval);
         this.jumpDistance = jumpDistance;
         this.jumpHeight = jumpHeight;
     }
 
+    @Override
     public boolean canUse() {
         if (this.entity.getRandom().nextInt(this.interval) != 0) {
             return false;
@@ -53,25 +54,30 @@ public class AquaticLeapGoal extends JumpGoal {
         return this.entity.level().getBlockState(blockPos.offset(pDx * pScale, 1, pDz * pScale)).isAir() && this.entity.level().getBlockState(blockPos.offset(pDx * pScale, 2, pDz * pScale)).isAir();
     }
 
+    @Override
     public boolean canContinueToUse() {
         double d0 = this.entity.getDeltaMovement().y;
         return (!(d0 * d0 < (double) 0.03F) || this.entity.getXRot() == 0.0F || !(Math.abs(this.entity.getXRot()) < 10.0F) || !this.entity.isInWater()) && !this.entity.onGround();
     }
 
+    @Override
     public boolean isInterruptable() {
         return false;
     }
 
+    @Override
     public void start() {
         Direction direction = this.entity.getMotionDirection();
         this.entity.setDeltaMovement(this.entity.getDeltaMovement().add((double) direction.getStepX() * jumpDistance, jumpHeight, (double) direction.getStepZ() * jumpDistance));
         this.entity.getNavigation().stop();
     }
 
+    @Override
     public void stop() {
         this.entity.setXRot(0.0F);
     }
 
+    @Override
     public void tick() {
         boolean flag = this.breached;
         if (!flag) {
@@ -91,5 +97,7 @@ public class AquaticLeapGoal extends JumpGoal {
             double d1 = Math.atan2(-vec3.y, d0) * (double) (180F / (float) Math.PI);
             this.entity.setXRot((float) d1);
         }
+
+        entity.setYRot(((float) Mth.atan2(entity.getMotionDirection().getStepZ(), entity.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
     }
 }

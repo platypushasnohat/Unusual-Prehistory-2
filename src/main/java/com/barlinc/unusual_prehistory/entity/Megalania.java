@@ -20,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -116,13 +117,13 @@ public class Megalania extends SemiAquaticMob {
     @Override
     protected void registerGoals() {
         this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
-        this.goalSelector.addGoal(0, new LeaveWaterGoal(this, 1.0D, 1200, 2400));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
-        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.6D));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5, 3));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
         this.goalSelector.addGoal(4, this.randomStrollGoal);
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 600, 2400));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new MegalaniaRoarGoal(this));
         this.goalSelector.addGoal(8, new MegalaniaLayDownGoal(this));
@@ -135,7 +136,7 @@ public class Megalania extends SemiAquaticMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
@@ -165,6 +166,9 @@ public class Megalania extends SemiAquaticMob {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+            }
         } else {
             super.travel(travelVector);
         }
@@ -438,6 +442,7 @@ public class Megalania extends SemiAquaticMob {
             this.biting2AnimationState.stop();
         }
         if (tailWhipTicks == 0 && this.tailWhipAnimationState.isStarted()) this.tailWhipAnimationState.stop();
+        if (roarTicks == 0 && this.roaringAnimationState.isStarted()) this.roaringAnimationState.stop();
         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() != Pose.ROARING && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.getBehavior().equals(Behaviors.ANGRY.getName()) && this.getPose() == Pose.STANDING, this.tickCount);

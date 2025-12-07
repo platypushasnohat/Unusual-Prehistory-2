@@ -162,7 +162,8 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isCharging() && !entity.isInWater()) {
-			this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+            if (entity.isRunning()) this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.3F, 2.6F);
+			else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 		}
 
 		if (this.young) this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);

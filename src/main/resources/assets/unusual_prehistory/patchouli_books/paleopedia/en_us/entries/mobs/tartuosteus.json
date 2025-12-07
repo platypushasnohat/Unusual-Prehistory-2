@@ -2,7 +2,7 @@
   "name": "Tartuosteus",
   "icon": "unusual_prehistory:jawless_fish_roe",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_jawless_fish",
+  "advancement": "unusual_prehistory:revive_tartuosteus",
   "pages": [
     {
       "type": "patchouli:text",

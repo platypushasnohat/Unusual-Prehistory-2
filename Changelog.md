@@ -2,11 +2,15 @@
 - Added Metriorhynchus
 - Added Tartuosteus
 - Added Living Ooze
-- Increased Majungasaurus health to 32
-- Added 4 armor to Kentrosaurus
+- Tweaked mob stats
 - Tweaked Dunkleosteus stats per variant
 - Dunkleosteus can now attack outside of water
 - Majungasaurus now attacks faster
+- Carnotaurus now attacks faster
+- Increased duration for Carnotaurus roar buffs
+- Increased health gain when Carnotaurus kills a mob
+- Carnotaurus now has a running animation when aggro
+- Majungasaurus now has a running animation when aggro
 - Tweaked spawn egg colors for Stethacanthus and Talpanas
 - Talpanas now drops feathers
 - Added spawnable block tags for all mobs that can spawn on ground
@@ -34,7 +38,6 @@
 - Fixed Megalania attack animation being reset if it gets hit during it
 - Megalania is now immune to poison and also wither while in the nether
 - Megalania will no longer run when cold
-- Megalania shivers when cold
 - Megalania tail whip attack vertical range is now much shorter
 - Megalania follow range now depends on its temperature
 - Added 3 new idle animations for the different Megalania temperature states
@@ -47,6 +50,14 @@
 - Talpanas forgot how to swim
 - Updated Doomsurf disc
 - Tweaked swimming ai
+- Added enter water goal for Diplocaulus
+- Tweaked exit water goal to be more consistent
+- Carnotaurus no longer attacks on sight in peaceful mode
+- Dunkleosteus no longer attacks Stethacanthus
+- Large Dunkleosteus can now attack Guardians
+- Guardians are now scared of Dunkleosteus
+- Dunkleosteus does double damage to Guardians
+- Reduced interval for Talpanas seeking shelter
 - Misc tweaks
 
 # Version 1.1.2

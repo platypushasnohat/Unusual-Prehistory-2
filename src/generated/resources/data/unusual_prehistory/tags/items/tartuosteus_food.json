@@ -1,5 +1,8 @@
 {
   "values": [
-    "minecraft:seagrass"
+    "minecraft:seagrass",
+    "minecraft:moss_block",
+    "minecraft:moss_carpet",
+    "unusual_prehistory:moss_layer"
   ]
 }

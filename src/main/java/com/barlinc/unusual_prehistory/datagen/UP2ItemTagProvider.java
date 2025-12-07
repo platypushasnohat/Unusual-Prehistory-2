@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup.Provider;
@@ -9,6 +10,7 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -191,7 +193,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.TARTUOSTEUS_FOOD).add(
-                Items.SEAGRASS
+                Blocks.SEAGRASS.asItem(),
+                Blocks.MOSS_BLOCK.asItem(),
+                Blocks.MOSS_CARPET.asItem(),
+                UP2Blocks.MOSS_LAYER.get().asItem()
         );
 
         this.tag(UP2ItemTags.TELECREX_FOOD).add(

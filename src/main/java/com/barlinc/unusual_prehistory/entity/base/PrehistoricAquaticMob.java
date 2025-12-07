@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AdvancedWaterboundPathNavigation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +49,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new AdvancedWaterboundPathNavigation(this, level);
+        return new WaterBoundPathNavigation(this, level);
     }
 
     @Override

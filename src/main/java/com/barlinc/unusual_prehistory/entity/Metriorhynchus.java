@@ -4,7 +4,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
- import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -48,6 +47,7 @@
  public class Metriorhynchus extends SemiAquaticMob {
 
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
+     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.BOOLEAN);
 
      public int deathRollCooldown = 0;
      public int biteCooldown = 0;
@@ -62,8 +62,9 @@
 
      private int deathRollTicks;
      private int biteTicks;
+     private int bellowTicks;
 
-     private final byte BELLOW = 67;
+     public int bellowCooldown = 300 + this.getRandom().nextInt(60 * 70);
 
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -81,15 +82,27 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D));
-         this.goalSelector.addGoal(1, new MetriorhynchusAttackGoal(this));
-         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7, 3));
-         this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
+         this.goalSelector.addGoal(1, new MetriorhynchusLeapGoal(this));
+         this.goalSelector.addGoal(2, new MetriorhynchusAttackGoal(this));
+         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
+         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7));
+         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F) {
+             public boolean canUse() {
+                 return super.canUse() && !Metriorhynchus.this.isLeaping();
+             }
+         });
+         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this) {
+             public boolean canUse() {
+                 return super.canUse() && !Metriorhynchus.this.isLeaping();
+             }
+         });
+         this.goalSelector.addGoal(7, new MetriorhynchusBellowGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.METRIORHYNCHUS_TARGETS)));
+         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
      @Override
@@ -101,7 +114,9 @@
          if (onLand) {
              this.moveControl = new MoveControl(this);
              this.navigation = new SmoothGroundPathNavigation(this, level());
-             this.lookControl = new LookControl(this);
+             if (!this.isLeaping()) {
+                 this.lookControl = new LookControl(this);
+             }
              this.isLandNavigator = true;
          } else {
              this.moveControl = new SemiAquaticSwimmingMoveControl(this, 85, 10, 0.98F);
@@ -121,6 +136,9 @@
              this.moveRelative(this.getSpeed(), travelVector);
              this.move(MoverType.SELF, this.getDeltaMovement());
              this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+             }
          } else {
              super.travel(travelVector);
          }
@@ -179,7 +197,7 @@
                  entity.setXRot(0.0F);
                  entity.setDeltaMovement(minus);
                  if (deathRollTicks % 10 == 0) {
-                     entity.hurt(damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.5F);
+                     entity.hurt(damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.6F);
                  }
              } else {
                  entity.setDeltaMovement(entity.getDeltaMovement().scale(0.6F));
@@ -189,17 +207,13 @@
 
      @Override
      public void setupAnimationCooldowns() {
-         if (this.biteTicks > 0) biteTicks--;
-         if (this.deathRollTicks > 0) deathRollTicks--;
-         if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
-         if (this.deathRollTicks == 0 && this.getPose() == UP2Poses.DEATH_ROLL.get()) this.setPose(Pose.STANDING);
-         if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isAggressive() && !this.isRunning()) {
-             if (this.getPose() == Pose.STANDING) {
-                 if (this.random.nextInt(1200) == 0) {
-                     this.level().broadcastEntityEvent(this, this.BELLOW);
-                 }
-             }
-         }
+         if (biteTicks > 0) biteTicks--;
+         if (deathRollTicks > 0) deathRollTicks--;
+         if (biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+         if (deathRollTicks == 0 && this.getPose() == UP2Poses.DEATH_ROLL.get()) this.setPose(Pose.STANDING);
+         if (bellowTicks > 0) bellowTicks--;
+         if (bellowTicks == 0 && this.getPose() == UP2Poses.BELLOWING.get()) this.setPose(Pose.STANDING);
+         if (bellowCooldown > 0) bellowCooldown--;
      }
 
      @Override
@@ -212,6 +226,7 @@
              this.deathRoll1AnimationState.stop();
              this.deathRoll2AnimationState.stop();
          }
+         if (bellowTicks == 0 && this.bellowAnimationState.isStarted()) this.bellowAnimationState.stop();
          this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.DEATH_ROLL.get(), this.tickCount);
      }
@@ -229,20 +244,19 @@
                  else this.deathRoll2AnimationState.start(this.tickCount);
                  this.deathRollTicks = 40;
              }
+             else if (this.getPose() == UP2Poses.BELLOWING.get()) {
+                 this.bellowAnimationState.start(this.tickCount);
+                 this.bellowTicks = 30;
+             }
              else {
                  this.bite1AnimationState.stop();
                  this.bite2AnimationState.stop();
                  this.deathRoll1AnimationState.stop();
                  this.deathRoll2AnimationState.stop();
+                 this.bellowAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
-     }
-
-     @Override
-     public void handleEntityEvent(byte id) {
-         if (id == this.BELLOW) this.bellowAnimationState.start(this.tickCount);
-         else super.handleEntityEvent(id);
      }
 
      public Entity getHeldMob() {
@@ -254,6 +268,7 @@
      protected void defineSynchedData() {
          super.defineSynchedData();
          this.entityData.define(HELD_MOB_ID, -1);
+         this.entityData.define(LEAPING, false);
      }
 
      public void setHeldMobId(int id) {
@@ -264,27 +279,40 @@
          return this.entityData.get(HELD_MOB_ID);
      }
 
+     public void setLeaping(boolean leaping) {
+         this.entityData.set(LEAPING, leaping);
+     }
+
+     public boolean isLeaping() {
+         return this.entityData.get(LEAPING);
+     }
+
      @Override
      @Nullable
      protected SoundEvent getAmbientSound() {
-         return UP2SoundEvents.DIPLOCAULUS_IDLE.get();
+         return UP2SoundEvents.METRIORHYNCHUS_IDLE.get();
      }
 
      @Override
      @Nullable
      protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-         return UP2SoundEvents.DIPLOCAULUS_HURT.get();
+         return UP2SoundEvents.METRIORHYNCHUS_HURT.get();
      }
 
      @Override
      @Nullable
      protected SoundEvent getDeathSound() {
-         return UP2SoundEvents.DIPLOCAULUS_DEATH.get();
+         return UP2SoundEvents.METRIORHYNCHUS_DEATH.get();
      }
 
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.5F);
+         this.playSound(SoundEvents.FROG_STEP, 0.3F, 0.9F);
+     }
+
+     @Override
+     public int getAmbientSoundInterval() {
+         return 200;
      }
 
      @Nullable
@@ -307,5 +335,27 @@
      @Override
      public boolean removeWhenFarAway(double distanceToPlayer) {
          return !this.requiresCustomPersistence();
+     }
+
+     public static class MetriorhynchusLeapGoal extends AquaticLeapGoal {
+
+         private final Metriorhynchus metriorhynchus;
+
+         public MetriorhynchusLeapGoal(Metriorhynchus metriorhynchus) {
+             super(metriorhynchus, 10, 1.1D, 0.8D);
+             this.metriorhynchus = metriorhynchus;
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.metriorhynchus.setLeaping(true);
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.metriorhynchus.setLeaping(false);
+         }
      }
  }
