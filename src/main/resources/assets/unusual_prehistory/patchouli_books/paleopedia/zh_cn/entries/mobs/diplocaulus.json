@@ -1,0 +1,19 @@
+{
+  "name": "笠头螈",
+  "icon": "unusual_prehistory:diplocaulus_eggs",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_diplocaulus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚石炭世-晚二叠世$(br2)性情：被动$(br2)食性：食肉$(br2)主要栖息地：沼泽 红树林沼泽"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/diplocaulus.png"
+      ]
+    }
+  ]
+}

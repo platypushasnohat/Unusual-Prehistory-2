@@ -58,6 +58,7 @@
 - Guardians are now scared of Dunkleosteus
 - Dunkleosteus does double damage to Guardians
 - Reduced interval for Talpanas seeking shelter
+- Added Simplified Chinese translations thanks to Oldazhai!
 - Misc tweaks
 
 # Version 1.1.2

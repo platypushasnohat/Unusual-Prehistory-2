@@ -1,0 +1,27 @@
+{
+  "name": "古巨蜥",
+  "icon": "unusual_prehistory:megalania_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_megalania",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：更新世$(br2)性情：依赖于生物群系$(br2)食性：食肉$(br2)主要栖息地：温暖生物群系"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/megalania.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "古巨蜥是更新世时期一种体型庞大的古老巨蜥，凭借其毒液和体型，无疑是当时令人闻风丧胆的顶级掠食者。据观察，古巨蜥的外形、性情与行为会根据其生存环境温度的变化而相应改变。"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

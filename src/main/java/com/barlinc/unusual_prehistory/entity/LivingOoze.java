@@ -156,6 +156,8 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             if (!this.level().isClientSide) {
                 this.spawnMob();
             }
+            this.addDeltaMovement(new Vec3(0, 0.25D, 0));
+            this.addDeltaMovement(this.getLookAngle().scale(2.0D).multiply(-0.4D, 0, -0.4D));
             this.spawnSpitParticles();
             this.playSound(UP2SoundEvents.LIVING_OOZE_SPIT.get(), 1.5F, this.getSoundPitch());
         }

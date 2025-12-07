@@ -1,0 +1,27 @@
+{
+  "name": "驰龙",
+  "icon": "unusual_prehistory:dromaeosaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_dromaeosaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚白垩世$(br2)性情：被动$(br2)食性：食肉$(br2)主要栖息地：森林 平原"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/dromaeosaurus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "驰龙是一种小巧好动的生物，以极度活跃的性格著称。这类脚步轻快的小型兽脚类恐龙为昼行性，白天会四处奔跃，翻越各类障碍。但当夜幕降临，它们便会陷入深度睡眠，这是弥补日间活动所消耗的巨额能量的必要休息。"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

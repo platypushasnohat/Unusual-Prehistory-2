@@ -1,0 +1,19 @@
+{
+  "name": "钦莫利枝翼衍蜓",
+  "icon": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚侏罗世$(br2)性情：被动$(br2)食性：食肉$(br2)主要栖息地：沙滩 红树林沼泽"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/kimmeridgebrachypteraeschnidium.png"
+      ]
+    }
+  ]
+}

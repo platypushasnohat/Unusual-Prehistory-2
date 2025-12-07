@@ -1,0 +1,19 @@
+{
+  "name": "钉状龙",
+  "icon": "unusual_prehistory:kentrosaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_kentrosaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚侏罗世$(br2)性情：中立$(br2)食性：食草$(br2)主要栖息地：丛林 热带草原"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/kentrosaurus.png"
+      ]
+    }
+  ]
+}

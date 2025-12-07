@@ -1,0 +1,19 @@
+{
+  "name": "无颌鱼",
+  "icon": "unusual_prehistory:jawless_fish_roe",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_jawless_fish",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：中奥陶世-早泥盆世$(br2)性情：被动$(br2)食性：杂食$(br2)主要栖息地：暖水海洋"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/jawless_fish.png"
+      ]
+    }
+  ]
+}

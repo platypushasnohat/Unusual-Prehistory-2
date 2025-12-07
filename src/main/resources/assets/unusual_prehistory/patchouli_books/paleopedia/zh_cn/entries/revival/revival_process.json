@@ -1,0 +1,27 @@
+{
+  "name": "复活流程",
+  "icon": "unusual_prehistory:machine_parts",
+  "category": "unusual_prehistory:revival",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "化石遍布世界各地，通常埋藏于地下（除了焦油坑里的），难以轻易偶遇。若想更便捷地寻找化石，可在废弃矿井、丛林神庙、沙漠神庙或地牢中找寻化石遗址地图，循着地图目的地向下挖掘，便能找到埋藏的化石！        "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:transmogrifier",
+      "title": "形变器配方",
+      "text": "获得化石后，你需要一台形变器。形变器仅能使用机械部件制作，这类零件能在可获取化石遗址地图的结构中找到，不过其稀有度高于地图。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:organic_ooze",
+      "title": "活性软泥配方",
+      "text": "要给形变器供能，你得需要一些活性软泥。形变器消耗活性软泥的速度相当快，复活大型生物通常需要2到3个活性软泥，所以记得多收集些制作材料！"
+    },
+    {
+      "type": "patchouli:empty",
+      "draw_filler": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "玛君龙",
+  "icon": "unusual_prehistory:majungasaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_majungasaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚白垩世$(br2)性情：中立$(br2)食性：食肉$(br2)主要栖息地：丛林 沙滩"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/majungasaurus.png"
+      ]
+    }
+  ]
+}

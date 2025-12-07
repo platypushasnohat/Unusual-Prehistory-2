@@ -1,0 +1,19 @@
+{
+  "name": "远秧鸡",
+  "icon": "unusual_prehistory:telecrex_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_telecrex",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：始新世$(br2)性情：被动$(br2)食性：食草 食虫$(br2)主要栖息地：平原 热带草原 草甸"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/telecrex.png"
+      ]
+    }
+  ]
+}

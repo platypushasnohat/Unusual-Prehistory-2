@@ -1,0 +1,19 @@
+{
+  "name": "邓氏鱼",
+  "icon": "unusual_prehistory:dunkleosteus_sac",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_dunkleosteus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚泥盆世$(br2)性情：敌对$(br2)食性：食肉$(br2)主要栖息地：深海生物群系"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/dunkleosteus.png"
+      ]
+    }
+  ]
+}

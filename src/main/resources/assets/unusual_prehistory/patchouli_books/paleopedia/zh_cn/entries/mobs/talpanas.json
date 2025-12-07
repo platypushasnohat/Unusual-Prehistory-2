@@ -1,0 +1,19 @@
+{
+  "name": "盲鼹鸭",
+  "icon": "unusual_prehistory:talpanas_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_talpanas",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：公元前4050年 $(br2)性情：被动$(br2)食性：杂食与垂根$(br2)主要栖息地：洞穴 沙滩 岛屿"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/talpanas.png"
+      ]
+    }
+  ]
+}

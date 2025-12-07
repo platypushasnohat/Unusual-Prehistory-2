@@ -1,0 +1,19 @@
+{
+  "name": "胸脊鲛",
+  "icon": "unusual_prehistory:stethacanthus_sac",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_stethacanthus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "生存年代：晚泥盆世-晚石炭世$(br2)性情：被动$(br2)食性：食肉$(br2)主要栖息地：温水海洋 珊瑚礁"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/stethacanthus.png"
+      ]
+    }
+  ]
+}
