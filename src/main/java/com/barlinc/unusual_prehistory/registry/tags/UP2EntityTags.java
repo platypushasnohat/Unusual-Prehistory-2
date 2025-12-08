@@ -30,6 +30,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = modEntityTag("megalania_targets");
 
     public static final TagKey<EntityType<?>> METRIORHYNCHUS_TARGETS = modEntityTag("metriorhynchus_targets");
+    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CANT_DEATH_ROLL = modEntityTag("metriorhynchus_cant_death_roll");
+    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CAN_DEATH_ROLL = modEntityTag("metriorhynchus_can_death_roll");
 
     public static final TagKey<EntityType<?>> ONCHOPRISTIS_TARGETS = modEntityTag("onchopristis_targets");
 

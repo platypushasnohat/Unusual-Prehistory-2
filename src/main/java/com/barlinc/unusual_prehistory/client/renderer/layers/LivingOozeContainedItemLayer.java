@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.LivingOozeModel;
 import com.barlinc.unusual_prehistory.client.renderer.LivingOozeRenderer;
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -28,24 +29,28 @@ public class LivingOozeContainedItemLayer extends RenderLayer<LivingOoze, Living
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, @NotNull LivingOoze entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entity.getMainHandItem();
-        float age = entity.tickCount + partialTicks;
-        float yRot = age / 5;
         if (!itemstack.isEmpty() && !entity.isInvisible() && !entity.isCurrentlyGlowing()) {
-            if (bufferSource instanceof MultiBufferSource.BufferSource source) {
-                poseStack.pushPose();
-                this.getParentModel().translateToCore(poseStack);
-                float yPos = entity.getPose() == UP2Poses.SPITTING.get() ? 0.0F : (float) (0.0F + (Math.sin(age * 0.07F) * 0.03F));
-                poseStack.translate(0.0F, yPos, 0.0F);
-                poseStack.mulPose(new Quaternionf().rotateX(Mth.PI));
-                poseStack.mulPose(Axis.YP.rotationDegrees(yRot * (30F / (float) Math.PI)));
-                float xScale = (this.getParentModel().core_squish.xScale * this.getParentModel().core.xScale) * 0.38F;
-                float yScale = (this.getParentModel().core_squish.yScale * this.getParentModel().core.yScale) * 0.38F;
-                float zScale = (this.getParentModel().core_squish.zScale * this.getParentModel().core.zScale) * 0.38F;
-                poseStack.scale(xScale, yScale, zScale);
-                Minecraft.getInstance().getItemRenderer().renderStatic(itemstack, ItemDisplayContext.FIXED, packedLight, OverlayTexture.NO_OVERLAY, poseStack, source, entity.level(), (int) entity.blockPosition().asLong());
+            poseStack.pushPose();
+            this.translateItemInCore(poseStack, entity, partialTicks);
+            Minecraft.getInstance().getItemRenderer().renderStatic(itemstack, ItemDisplayContext.FIXED, packedLight, OverlayTexture.NO_OVERLAY, poseStack, bufferSource, entity.level(), (int) entity.blockPosition().asLong());
+            if (bufferSource instanceof MultiBufferSource.BufferSource source && !UP2LoadedMods.isOculusLoaded()) {
                 source.endBatch();
             }
             poseStack.popPose();
         }
+    }
+
+    private void translateItemInCore(PoseStack poseStack, LivingOoze entity, float partialTicks) {
+        float age = entity.tickCount + partialTicks;
+        float yRot = age / 5;
+        float yPos = entity.getPose() == UP2Poses.SPITTING.get() ? 0.0F : (float) (0.0F + (Math.sin(age * 0.07F) * 0.03F));
+        float xScale = (this.getParentModel().core_squish.xScale * this.getParentModel().core.xScale) * 0.38F;
+        float yScale = (this.getParentModel().core_squish.yScale * this.getParentModel().core.yScale) * 0.38F;
+        float zScale = (this.getParentModel().core_squish.zScale * this.getParentModel().core.zScale) * 0.38F;
+        this.getParentModel().translateToCore(poseStack);
+        poseStack.translate(0.0F, yPos, 0.0F);
+        poseStack.mulPose(new Quaternionf().rotateX(Mth.PI));
+        poseStack.mulPose(Axis.YP.rotationDegrees(yRot * (30F / (float) Math.PI)));
+        poseStack.scale(xScale, yScale, zScale);
     }
 }

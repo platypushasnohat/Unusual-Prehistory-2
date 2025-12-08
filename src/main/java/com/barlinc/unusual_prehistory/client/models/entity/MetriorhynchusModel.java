@@ -21,7 +21,7 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
     private final ModelPart body_main;
     private final ModelPart body;
     private final ModelPart head;
-    private final ModelPart jaw;
+    public final ModelPart jaw;
     private final ModelPart tail1;
     private final ModelPart tail2;
     private final ModelPart arm_control;
@@ -146,8 +146,11 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 	}
 
     public void translateToMouth(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.swim_control.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
         this.body.translateAndRotate(poseStack);
         this.head.translateAndRotate(poseStack);
-        this.jaw.translateAndRotate(poseStack);
+//        this.jaw.translateAndRotate(poseStack);
     }
 }

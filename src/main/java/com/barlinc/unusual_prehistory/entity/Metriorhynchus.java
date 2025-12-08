@@ -164,6 +164,16 @@
          return level.isUnobstructed(this);
      }
 
+     public boolean canPickUpTarget(LivingEntity target) {
+         if (target == null) {
+             return false;
+         }
+         if (target.getType().is(UP2EntityTags.METRIORHYNCHUS_CANT_DEATH_ROLL)) {
+             return false;
+         }
+         return (target.getBbWidth() < 1.3F && target.getBbHeight() < 1.4F) || target.getType().is(UP2EntityTags.METRIORHYNCHUS_CAN_DEATH_ROLL);
+     }
+
      @Override
      public void tick() {
          super.tick();

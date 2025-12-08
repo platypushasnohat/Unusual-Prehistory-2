@@ -199,7 +199,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
 
     @Override
     protected void dropEquipment() {
-        super.dropEquipment();
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
         if (!itemstack.isEmpty()) {
             this.spawnAtLocation(itemstack);
@@ -227,7 +226,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (itemstack.getItem() == Items.BUCKET && this.isAlive() && !player.isCrouching()) {
+        else if (itemstack.getItem() == Items.BUCKET && this.isAlive() && !player.isCrouching()) {
             this.playSound(this.getPickupSound(), 1.0F, 1.0F);
             ItemStack bucketStack = this.getBucketItemStack();
             this.saveToBucketTag(bucketStack);
@@ -239,7 +238,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             this.discard();
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (!this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && itemstack.isEmpty()) {
+        else if (!this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && itemstack.isEmpty()) {
             this.dropEquipment();
             this.setContainedEntityType("minecraft:pig");
             this.setHasEntity(false);

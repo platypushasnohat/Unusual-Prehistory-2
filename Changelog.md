@@ -1,4 +1,9 @@
-# Version 1.2.0
+## Version 1.2.1
+- Fixed a crash with Oculus
+- Metriorhynchus death roll now has a size limit, along with two tags to control what it can carry
+- Improved Metriorhynchus death roll visuals
+
+## Version 1.2.0
 - Added Metriorhynchus
 - Added Tartuosteus
 - Added Living Ooze
@@ -61,10 +66,10 @@
 - Added Simplified Chinese translations thanks to Oldazhai!
 - Misc tweaks
 
-# Version 1.1.2
+## Version 1.1.2
 - Fixed Kimmeridgebrachypteraeschnidium nymphs being able to despawn
 
-# Version 1.1.1
+## Version 1.1.1
 - Onchopristis no longer attacks after getting stepped on if it is pacified
 - Updated Dromaeosaurus entry in the Paleopedia
 - Added images for each mob entry in the Paleopedia
@@ -72,7 +77,7 @@
 - Changed tempt goal priorities to be prioritized over wandering
 - Changed Jawless Fish mob category to water ambient
 
-# Version 1.1.0
+## Version 1.1.0
 - Added Onchopristis
 - Added a new music disc "Doomsurf" by ChipsTheCat
 - Added a new music disc "MEGALANIA" by ValiantEnvoy

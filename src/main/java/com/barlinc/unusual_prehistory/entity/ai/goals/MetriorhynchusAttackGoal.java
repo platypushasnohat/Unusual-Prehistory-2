@@ -39,7 +39,7 @@ public class MetriorhynchusAttackGoal extends AttackGoal {
     }
 
     private boolean canDeathRoll() {
-        return metriorhynchus.deathRollCooldown == 0 && !(metriorhynchus.getTarget() instanceof Player) && metriorhynchus.isInWater();
+        return metriorhynchus.deathRollCooldown == 0 && !(metriorhynchus.getTarget() instanceof Player) && metriorhynchus.isInWater() && metriorhynchus.canPickUpTarget(metriorhynchus.getTarget());
     }
 
     protected void tickBite() {

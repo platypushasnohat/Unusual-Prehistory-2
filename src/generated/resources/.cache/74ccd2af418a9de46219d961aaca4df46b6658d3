@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-07T14:55:57.9441016	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2025-12-07T21:51:03.0654489	Tags for minecraft:entity_type mod id unusual_prehistory
 5d8b4b60253a74b248a668ee7fecf0b161d4b710 data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
 96e3e2da8f817373438167feeacfaab72f6ac8fb data/unusual_prehistory/tags/entity_types/carnotaurus_ignores.json
 ad7f58637660ff339b91771bb5097d4fa58bec1b data/unusual_prehistory/tags/entity_types/carnotaurus_targets.json
@@ -10,6 +10,8 @@ b936804f9da78ee26f9bd432d42e7848d676f251 data/unusual_prehistory/tags/entity_typ
 19d13ed62cb30f8fa3bf451aaee8ecf3dc67dfed data/unusual_prehistory/tags/entity_types/majungasaurus_targets.json
 4626785b65bf5d25020ddc77d6725d81778af4df data/unusual_prehistory/tags/entity_types/medium_dunkleosteus_targets.json
 19d13ed62cb30f8fa3bf451aaee8ecf3dc67dfed data/unusual_prehistory/tags/entity_types/megalania_targets.json
+ba5fd420c85b5ea0d81c085ee35f10cc6615e4fa data/unusual_prehistory/tags/entity_types/metriorhynchus_cant_death_roll.json
+af4260aaeeae74e7c7a4c4af7af6ad20e342ad75 data/unusual_prehistory/tags/entity_types/metriorhynchus_can_death_roll.json
 173317ee8c8b152c5a8d7bee922ed51acf82923a data/unusual_prehistory/tags/entity_types/metriorhynchus_targets.json
 5e7effbf585b098cb7a3c9750aaad64b17eb094d data/unusual_prehistory/tags/entity_types/onchopristis_targets.json
 21584d17af6dc5cc8b1b69c7cc139f2d1777c60b data/unusual_prehistory/tags/entity_types/scatters_kimmeridgebrachypteraeschnidium.json

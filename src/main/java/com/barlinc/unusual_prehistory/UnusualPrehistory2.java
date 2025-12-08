@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.datagen.*;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.barlinc.unusual_prehistory.utils.CommonProxy;
+import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -70,6 +71,7 @@ public class UnusualPrehistory2 {
 
     private void loadComplete(FMLLoadCompleteEvent event) {
         event.enqueueWork(UP2Fluids::postInit);
+        event.enqueueWork(UP2LoadedMods::afterAllModsLoaded);
     }
 
     private void dataSetup(GatherDataEvent data) {

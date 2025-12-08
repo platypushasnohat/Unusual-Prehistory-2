@@ -148,6 +148,16 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH
         );
 
+        this.tag(UP2EntityTags.METRIORHYNCHUS_CANT_DEATH_ROLL).add(
+                METRIORHYNCHUS.get(),
+                EntityType.ENDER_DRAGON,
+                EntityType.WITHER
+        );
+
+        this.tag(UP2EntityTags.METRIORHYNCHUS_CAN_DEATH_ROLL).add(
+                TARTUOSTEUS.get()
+        );
+
         this.tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).add(
                 JAWLESS_FISH.get(),
                 EntityType.COD,
