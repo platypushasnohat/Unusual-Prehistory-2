@@ -98,10 +98,10 @@ public class DunkleosteusMediumModel extends UP2Model<Dunkleosteus> {
         float partialTicks = ageInTicks - entity.tickCount;
         float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-        this.animateWalk(DunkleosteusMediumAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateWalk(DunkleosteusMediumAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         this.animateIdle(entity.swimIdleAnimationState, DunkleosteusMediumAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.floppingAnimationState, DunkleosteusMediumAnimations.FLOP, ageInTicks);
-        this.animate(entity.bitingAnimationState, DunkleosteusMediumAnimations.ATTACK_BLEND, ageInTicks);
+        this.animate(entity.biteAnimationState, DunkleosteusMediumAnimations.ATTACK_BLEND, ageInTicks);
         this.animate(entity.quirkAnimationState, DunkleosteusMediumAnimations.QUIRK_BLEND, ageInTicks);
 
         this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);

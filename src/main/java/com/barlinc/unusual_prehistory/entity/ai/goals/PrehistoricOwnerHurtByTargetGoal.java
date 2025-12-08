@@ -9,8 +9,8 @@ import java.util.EnumSet;
 
 public class PrehistoricOwnerHurtByTargetGoal extends TargetGoal {
 
-   private final TameablePrehistoricMob tamedMob;
-   private LivingEntity ownerLastHurtBy;
+   protected final TameablePrehistoricMob tamedMob;
+   protected LivingEntity ownerLastHurtBy;
    private int timestamp;
 
    public PrehistoricOwnerHurtByTargetGoal(TameablePrehistoricMob tamedMob) {

@@ -1,9 +1,9 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticSwimmingMoveControl;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
+ import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -22,14 +22,13 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.LookControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
- import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -38,13 +37,12 @@
  import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
  @SuppressWarnings("deprecation")
- public class Metriorhynchus extends SemiAquaticMob {
+ public class Metriorhynchus extends SemiAquaticMob implements LeapingMob, GrabbingMob {
 
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.BOOLEAN);
@@ -69,8 +67,7 @@
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.lookControl = new SmoothSwimmingLookControl(this, 20);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -83,22 +80,14 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
-         this.goalSelector.addGoal(1, new MetriorhynchusLeapGoal(this));
+         this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
          this.goalSelector.addGoal(2, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7));
+         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
          this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 400));
-         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F) {
-             public boolean canUse() {
-                 return super.canUse() && !Metriorhynchus.this.isLeaping();
-             }
-         });
-         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this) {
-             public boolean canUse() {
-                 return super.canUse() && !Metriorhynchus.this.isLeaping();
-             }
-         });
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(7, new MetriorhynchusBellowGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.METRIORHYNCHUS_TARGETS)));
@@ -113,15 +102,9 @@
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new MoveControl(this);
-             this.navigation = new SmoothGroundPathNavigation(this, level());
-             if (!this.isLeaping()) {
-                 this.lookControl = new LookControl(this);
-             }
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SemiAquaticSwimmingMoveControl(this, 85, 10, 0.98F);
-             this.navigation = new AmphibiousPathNavigation(this, level());
-             this.lookControl = new SmoothSwimmingLookControl(this, 10);
+             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.98F, 0.1F, false);
              this.isLandNavigator = false;
          }
      }
@@ -137,7 +120,7 @@
              this.move(MoverType.SELF, this.getDeltaMovement());
              this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
              if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
              }
          } else {
              super.travel(travelVector);
@@ -179,10 +162,10 @@
          super.tick();
          final boolean ground = !this.isInWater();
          if (!ground && this.isLandNavigator) {
-             switchNavigator(false);
+             this.switchNavigator(false);
          }
          if (ground && !this.isLandNavigator) {
-             switchNavigator(true);
+             this.switchNavigator(true);
          }
 
          if (this.getPose() == UP2Poses.DEATH_ROLL.get() && this.getHeldMobId() != -1) {
@@ -269,11 +252,6 @@
          super.onSyncedDataUpdated(accessor);
      }
 
-     public Entity getHeldMob() {
-         int id = this.getHeldMobId();
-         return id == -1 ? null : level().getEntity(id);
-     }
-
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
@@ -281,18 +259,22 @@
          this.entityData.define(LEAPING, false);
      }
 
+     @Override
      public void setHeldMobId(int id) {
          this.entityData.set(HELD_MOB_ID, id);
      }
 
+     @Override
      public int getHeldMobId() {
          return this.entityData.get(HELD_MOB_ID);
      }
 
+     @Override
      public void setLeaping(boolean leaping) {
          this.entityData.set(LEAPING, leaping);
      }
 
+     @Override
      public boolean isLeaping() {
          return this.entityData.get(LEAPING);
      }
@@ -345,27 +327,5 @@
      @Override
      public boolean removeWhenFarAway(double distanceToPlayer) {
          return !this.requiresCustomPersistence();
-     }
-
-     public static class MetriorhynchusLeapGoal extends AquaticLeapGoal {
-
-         private final Metriorhynchus metriorhynchus;
-
-         public MetriorhynchusLeapGoal(Metriorhynchus metriorhynchus) {
-             super(metriorhynchus, 10, 1.1D, 0.8D);
-             this.metriorhynchus = metriorhynchus;
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.metriorhynchus.setLeaping(true);
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.metriorhynchus.setLeaping(false);
-         }
      }
  }

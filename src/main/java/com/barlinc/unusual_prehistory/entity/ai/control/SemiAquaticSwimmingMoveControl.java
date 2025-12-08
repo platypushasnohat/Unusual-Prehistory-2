@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.navigation;
+package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
@@ -18,6 +18,7 @@ public class SemiAquaticSwimmingMoveControl extends MoveControl {
         this.inWaterSpeedModifier = speedModifier;
     }
 
+    @Override
     public void tick() {
         if (this.operation == MoveControl.Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
             double d0 = this.wantedX - this.mob.getX();

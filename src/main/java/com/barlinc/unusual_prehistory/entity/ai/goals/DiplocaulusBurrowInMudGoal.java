@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class DiplocaulusBurrowInMudGoal extends Goal {
 
-    protected final Diplocaulus diplocaulus;
+    private final Diplocaulus diplocaulus;
     private final int minimalPoseTicks;
 
     public DiplocaulusBurrowInMudGoal(Diplocaulus diplocaulus) {

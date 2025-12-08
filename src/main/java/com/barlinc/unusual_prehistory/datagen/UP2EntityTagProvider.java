@@ -81,6 +81,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
                 JAWLESS_FISH.get(),
+                TARTUOSTEUS.get(),
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH,
@@ -183,6 +184,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get(),
                 DROMAEOSAURUS.get(),
+                CARNOTAURUS.get(),
+                METRIORHYNCHUS.get(),
                 EntityType.OCELOT,
                 EntityType.POLAR_BEAR,
                 EntityType.WOLF,

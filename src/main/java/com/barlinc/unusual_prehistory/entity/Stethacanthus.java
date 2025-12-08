@@ -22,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
@@ -62,7 +63,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
         this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 16, 10, 7));
+        this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0D, 10));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 

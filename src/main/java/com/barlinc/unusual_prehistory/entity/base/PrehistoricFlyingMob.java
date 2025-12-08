@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -11,8 +11,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
@@ -41,29 +39,23 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.lookControl = new FlyingLookControl(this);
-        setPersistenceRequired();
-    }
-
-    @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new FlyingBodyRotationControl(this);
+        this.setPersistenceRequired();
     }
 
     public void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
-            this.navigation = new SmoothGroundPathNavigation(this, level());
+            this.navigation = new SmoothGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new FlyingMoveController();
-            this.navigation = new FlyingPathNavigationNoSpin(this, level(), 1.0F);
+            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1.0F);
             this.isLandNavigator = false;
         }
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource damageSource) {
+    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource damageSource) {
         return false;
     }
 
@@ -72,7 +64,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public boolean canTrample(BlockState state, BlockPos pos, float fallDistance) {
+    public boolean canTrample(@NotNull BlockState state, @NotNull BlockPos pos, float fallDistance) {
         return false;
     }
 
@@ -94,6 +86,10 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         if (isInWater() && horizontalCollision) {
             setUseLowerFluidJumpThreshold(true);
         }
+        this.setFlyingPose();
+    }
+
+    public void setFlyingPose() {
         if (this.isFlying()) {
             this.setPose(Pose.FALL_FLYING);
         } else {
@@ -102,7 +98,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isInWaterOrBubble() && !this.isFlying()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
         }
@@ -233,50 +229,23 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.entity = PrehistoricFlyingMob.this;
         }
 
+        @Override
         public void tick() {
             if (!PrehistoricFlyingMob.this.refuseToMove()) {
                 if (this.operation == MoveControl.Operation.MOVE_TO) {
                     Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
-                    double d0 = vector3d.length();
+                    double length = vector3d.length();
                     double width = entity.getBoundingBox().getSize();
-                    Vec3 vector3d1 = vector3d.scale(this.speedModifier * 0.05D / d0);
-                    entity.setDeltaMovement(entity.getDeltaMovement().add(vector3d1).scale(0.95D).add(0, -0.01, 0));
-                    if (d0 < width) {
+                    Vec3 scale = vector3d.scale(this.speedModifier * 0.05D / length);
+                    entity.setDeltaMovement(entity.getDeltaMovement().add(scale).scale(0.95D).add(0, -0.01, 0));
+                    if (length < width) {
                         this.operation = Operation.WAIT;
-                    } else if (d0 >= width) {
-                        float yaw = -((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI);
+                    } else if (length >= width) {
+                        float yaw = -((float) Mth.atan2(scale.x, scale.z)) * (180F / (float) Math.PI);
                         entity.setYRot(Mth.approachDegrees(entity.getYRot(), yaw, 8));
                     }
                 }
             }
-        }
-    }
-
-    public static class FlyingBodyRotationControl extends BodyRotationControl {
-        protected final PrehistoricFlyingMob mob;
-
-        public FlyingBodyRotationControl(PrehistoricFlyingMob mob) {
-            super(mob);
-            this.mob = mob;
-        }
-
-        @Override
-        public void clientTick() {
-            if (!mob.refuseToMove()) super.clientTick();
-        }
-    }
-
-    public static class FlyingLookControl extends LookControl {
-        protected final PrehistoricFlyingMob mob;
-
-        public FlyingLookControl(PrehistoricFlyingMob mob) {
-            super(mob);
-            this.mob = mob;
-        }
-
-        @Override
-        public void tick() {
-            if (!mob.refuseToMove()) super.tick();
         }
     }
 }

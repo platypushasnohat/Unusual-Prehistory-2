@@ -86,10 +86,10 @@ public class DunkleosteusSmallModel extends UP2Model<Dunkleosteus> {
 	public void setupAnim(Dunkleosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         this.animateIdle(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.floppingAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
-        this.animate(entity.bitingAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
+        this.animate(entity.biteAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
         this.animate(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks);
 
         if (entity.isInWater()) this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);

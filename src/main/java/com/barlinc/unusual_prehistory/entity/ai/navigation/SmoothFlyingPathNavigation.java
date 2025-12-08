@@ -4,20 +4,37 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.FlyNodeEvaluator;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class FlyingPathNavigationNoSpin extends FlyingPathNavigation {
+public class SmoothFlyingPathNavigation extends FlyingPathNavigation implements ExtendedNavigator {
 
-    private float distancemodifier;
+    private final float distance;
 
-    public FlyingPathNavigationNoSpin(Mob mob, Level level, float distancemodifier) {
+    public SmoothFlyingPathNavigation(Mob mob, Level level, float distance) {
         super(mob, level);
-        this.distancemodifier = distancemodifier;
+        this.distance = distance;
     }
 
+    @Override
+    public Mob getMob() {
+        return this.mob;
+    }
+
+    @Nullable
+    @Override
+    public Path getPath() {
+        return super.getPath();
+    }
+
+    @Override
     protected void followThePath() {
         Vec3 vector3d = this.getTempMobPos();
-        this.maxDistanceToWaypoint = this.mob.getBbWidth() * distancemodifier;
+        this.maxDistanceToWaypoint = this.mob.getBbWidth() * distance;
         Vec3i vector3i = this.path.getNextNodePos();
         double d0 = Math.abs(this.mob.getX() - ((double) vector3i.getX() + 0.5D));
         double d1 = Math.abs(this.mob.getY() - (double) vector3i.getY());
@@ -31,7 +48,7 @@ public class FlyingPathNavigationNoSpin extends FlyingPathNavigation {
     }
 
     private boolean shouldTargetNextNodeInDirection(Vec3 currentPosition) {
-        if (this.path.getNextNodeIndex() + 1 >= this.path.getNodeCount()) {
+        if (this.path != null && this.path.getNextNodeIndex() + 1 >= this.path.getNodeCount()) {
             return false;
         } else {
             Vec3 vector3d = Vec3.atBottomCenterOf(this.path.getNextNodePos());
@@ -44,5 +61,12 @@ public class FlyingPathNavigationNoSpin extends FlyingPathNavigation {
                 return vector3d2.dot(vector3d3) > 0.0D;
             }
         }
+    }
+
+    @Override
+    protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
+        this.nodeEvaluator = new FlyNodeEvaluator();
+        this.nodeEvaluator.setCanPassDoors(true);
+        return createSmoothPathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class LargePanicGoal extends PanicGoal {
 
-    private final PrehistoricMob prehistoricMob;
+    protected final PrehistoricMob prehistoricMob;
     private final int radius;
     private final int height;
 

@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundPathNavigation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -36,8 +35,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     public float prevOnLandProgress;
     public float onLandProgress;
-
-    public float rollAngle = 0.0F;
 
     public final AnimationState swimIdleAnimationState = new AnimationState();
     public final AnimationState floppingAnimationState = new AnimationState();
@@ -49,7 +46,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new WaterBoundPathNavigation(this, level);
+        return new SmoothWaterBoundPathNavigation(this, level, false);
     }
 
     @Override
@@ -84,20 +81,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     public void tick() {
         super.tick();
         prevOnLandProgress = onLandProgress;
-
         this.tickFlopping();
-
-        if (this.isInWater()) {
-            Vec3 movement = this.getDeltaMovement();
-            float speed = (float) movement.length();
-
-            if (speed > 0.01F) {
-                float targetRoll = (float) Math.toDegrees(Math.atan2(movement.x, movement.z)) * 0.1F;
-                this.rollAngle += (targetRoll - this.rollAngle) * 0.05F;
-            } else {
-                this.rollAngle *= 0.9F;
-            }
-        }
     }
 
     @Override

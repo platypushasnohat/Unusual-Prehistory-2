@@ -41,7 +41,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
             } else {
                 this.carnotaurus.getNavigation().moveTo(target, 2.2D);
                 if (distance <= 10) {
-                    if (this.carnotaurus.getRandom().nextBoolean() && !(target instanceof Creeper)) {
+                    if (this.carnotaurus.getRandom().nextFloat() < 0.6F && !(target instanceof Creeper)) {
                         this.carnotaurus.setAttackState(1);
                     } else {
                         this.carnotaurus.setAttackState(2);

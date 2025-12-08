@@ -1,3 +1,22 @@
+## Version 1.2.2
+- Added improved path navigation 
+- Tweaked semiaquatic navigation switching
+- Reduced Metriorhynchus jump distance
+- Metriorhynchus swims more often
+- Changed priority for avoiding mobs in some mobs
+- Added Tartuosteus to big Dunkleosteus targets
+- Fixed Dunkleosteus bite animations
+- Dunkleosteus no longer seeks the ground
+- Carnotaurus headbutts less often
+- Slightly increased the range for Telecrex to start scattering
+- Reduced Telecrex max hp to match Talpanas
+- Reduced Telecrex flight interval
+- Added a hover, takeoff, and fast flying animation to Telecrex
+- Telecrex flies away from danger faster
+- Telecrex flies a little bit faster
+- Added Carnotaurus and Metriorhynchus to scatters_telecrex tag
+- Misc tweaks
+
 ## Version 1.2.1
 - Fixed a crash with Oculus
 - Metriorhynchus death roll now has a size limit, along with two tags to control what it can carry

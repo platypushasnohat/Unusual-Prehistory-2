@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.navigation;
+package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;

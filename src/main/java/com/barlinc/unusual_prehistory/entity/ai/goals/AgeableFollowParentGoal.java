@@ -8,10 +8,10 @@ import java.util.List;
 
 public class AgeableFollowParentGoal extends Goal {
 
-    private final AgeableMob entity;
+    protected final AgeableMob entity;
 
     @Nullable
-    private AgeableMob parent;
+    protected AgeableMob parent;
 
     private final double speedModifier;
     private int timeToRecalcPath;

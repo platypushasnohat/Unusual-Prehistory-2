@@ -55,11 +55,11 @@ public class JawlessFish extends SchoolingAquaticMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(2, new GroundSeekingRandomSwimGoal(this, 1.0D, 20, 10, 7));
-        this.goalSelector.addGoal(3, new LargePanicGoal(this, 2.0D, 10, 7));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
+        this.goalSelector.addGoal(4, new GroundSeekingRandomSwimGoal(this, 1.0D, 20, 10, 7));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 

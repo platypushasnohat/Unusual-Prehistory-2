@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 public class ZombieAttackEggGoal extends MoveToBlockGoal {
 
     private final TagKey<Block> blockToRemove;
-    private final Mob removerMob;
+    protected final Mob removerMob;
     private int ticksSinceReachedGoal;
 
     public ZombieAttackEggGoal(PathfinderMob mob) {

@@ -1,8 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveBodyRotationControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.RefuseToMoveLookControl;
+import com.barlinc.unusual_prehistory.entity.Telecrex;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveBodyRotationControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
@@ -48,6 +49,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> RUNNING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
@@ -272,6 +274,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(PACIFIED, false);
         this.entityData.define(FROM_EGG, false);
         this.entityData.define(RUNNING, false);
+        this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(SHOT_FROM_OOZE, false);
     }
 
@@ -370,6 +373,14 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setRunning(boolean running) {
         this.entityData.set(RUNNING, running);
+    }
+
+    public int getRunningTicks() {
+        return this.entityData.get(RUNNING_TICKS);
+    }
+
+    public void setRunningTicks(int ticks) {
+        this.entityData.set(RUNNING_TICKS, ticks);
     }
 
     public boolean wasShotFromOoze() {

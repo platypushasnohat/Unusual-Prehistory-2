@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.LivingOozeMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.LivingOozeMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.items.EmbryoItem;

@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class GroundSeekingRandomSwimGoal extends RandomStrollGoal {
 
-    private final PathfinderMob entity;
+    protected final PathfinderMob entity;
 
     private final int radius;
     private final int height;

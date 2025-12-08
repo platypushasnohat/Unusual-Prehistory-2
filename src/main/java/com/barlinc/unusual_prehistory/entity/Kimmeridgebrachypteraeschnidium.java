@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumPreenGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.FlyingPathNavigationNoSpin;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -79,7 +79,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new FlyingPathNavigationNoSpin(this, level, 0.75F);
+        return new SmoothFlyingPathNavigation(this, level, 0.75F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -94,7 +94,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
-        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 13, 5, 50, 600));
+        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 50, 600));
         this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
         this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.navigation;
+package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import com.barlinc.unusual_prehistory.entity.LivingOoze;
 import net.minecraft.world.entity.ai.attributes.Attributes;

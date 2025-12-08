@@ -26,7 +26,7 @@ public class TelecrexScatterGoal extends Goal {
         if (telecrex.getRandom().nextInt(10) != 0 && worldTime != 0) {
             return false;
         }
-        AABB aabb = telecrex.getBoundingBox().inflate(7);
+        AABB aabb = telecrex.getBoundingBox().inflate(8);
         List<Entity> list = telecrex.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.SCATTERS_TELECREX) || entity instanceof Player && !((Player) entity).isCreative()));
         return !list.isEmpty();
     }
@@ -39,5 +39,7 @@ public class TelecrexScatterGoal extends Goal {
     @Override
     public void start() {
         telecrex.setFlying(true);
+        telecrex.setRunning(true);
+        telecrex.setRunningTicks(telecrex.getFastFlyingTicks());
     }
 }

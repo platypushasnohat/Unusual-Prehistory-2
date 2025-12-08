@@ -18,8 +18,8 @@ import java.util.EnumSet;
 
 public class PrehistoricFollowOwnerGoal extends Goal {
 
-    private final TameablePrehistoricMob tamedMob;
-    private LivingEntity owner;
+    protected final TameablePrehistoricMob tamedMob;
+    protected LivingEntity owner;
     private final LevelReader level;
     private final double speedModifier;
     private final PathNavigation navigation;

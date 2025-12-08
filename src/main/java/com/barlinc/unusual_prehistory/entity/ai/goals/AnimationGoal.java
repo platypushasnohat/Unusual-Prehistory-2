@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 public class AnimationGoal extends Goal {
 
-    private final PathfinderMob mob;
+    protected final PathfinderMob mob;
     private int timer;
     private final int animationTime;
 

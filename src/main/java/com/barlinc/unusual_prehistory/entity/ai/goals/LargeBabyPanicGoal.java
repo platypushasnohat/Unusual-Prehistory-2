@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 
 public class LargeBabyPanicGoal extends LargePanicGoal {
 
-    private final PrehistoricMob prehistoricMob;
+    protected final PrehistoricMob prehistoricMob;
 
     public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
         super(mob, speedModifier, radius, height);

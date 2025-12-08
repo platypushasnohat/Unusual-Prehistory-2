@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 public class FollowVariantLeaderGoal extends Goal {
 
-    private final SchoolingAquaticMob mob;
+    protected final SchoolingAquaticMob mob;
     private int timeToRecalcPath;
     private int nextStartTick;
 

@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 public class SemiAquaticRandomStrollGoal extends RandomStrollGoal {
 
-     private final SemiAquaticMob entity;
+     protected final SemiAquaticMob entity;
 
      public SemiAquaticRandomStrollGoal(SemiAquaticMob entity, double speedModifier) {
          super(entity, speedModifier);

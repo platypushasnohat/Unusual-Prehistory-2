@@ -19,6 +19,14 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
         this(entity, speedMultiplier, interval, radius, height, 0, false);
     }
 
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval) {
+        this(entity, speedMultiplier, interval, 10, 7, 0, false);
+    }
+
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int proximity) {
+        this(entity, speedMultiplier, interval, 10, 7, proximity, true);
+    }
+
     public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
         super(entity, speedMultiplier, interval);
         this.radius = radius;

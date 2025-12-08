@@ -13,22 +13,24 @@ import java.util.EnumSet;
 
 public class RandomFlightGoal extends Goal {
 
-    private final PrehistoricFlyingMob mob;
-    private final float speedModifier;
+    protected final PrehistoricFlyingMob mob;
+    protected final float speedModifier;
+    protected final float runningSpeedModifier;
     private final int flightRange;
     private final int flightHeight;
     private final int interval;
     private final int maxTimeFlying;
-    private double x;
-    private double y;
-    private double z;
+    protected double x;
+    protected double y;
+    protected double z;
 
-    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, int flightRange, int flightHeight, int interval, int maxTimeFlying) {
+    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, float runningSpeedModifier, int flightRange, int flightHeight, int interval, int maxTimeFlying) {
         this.setFlags(EnumSet.of(Flag.MOVE));
         this.flightRange = flightRange;
         this.flightHeight = flightHeight;
         this.maxTimeFlying = maxTimeFlying;
         this.speedModifier = speedModifier;
+        this.runningSpeedModifier = runningSpeedModifier;
         this.interval = interval;
         this.mob = mob;
     }
@@ -41,25 +43,17 @@ public class RandomFlightGoal extends Goal {
         if (!mob.isFlying() && mob.getRandom().nextInt(interval) != 0) {
             return false;
         }
-        Vec3 target = this.getPosition();
-        if (target == null) {
-            return false;
-        } else {
-            this.x = target.x;
-            this.y = target.y;
-            this.z = target.z;
-            return true;
-        }
-    }
-
-    private Vec3 getPosition() {
-        return findFlightPos();
+        Vec3 target = this.findFlightPos();
+        this.x = target.x;
+        this.y = target.y;
+        this.z = target.z;
+        return true;
     }
 
     @Override
     public void start() {
         this.mob.setFlying(true);
-        mob.getNavigation().moveTo(this.x, this.y, this.z, speedModifier);
+        mob.getNavigation().moveTo(this.x, this.y, this.z, mob.isRunning() ? runningSpeedModifier : speedModifier);
     }
 
     @Override
@@ -69,7 +63,6 @@ public class RandomFlightGoal extends Goal {
         x = 0;
         y = 0;
         z = 0;
-        super.stop();
     }
 
     @Override

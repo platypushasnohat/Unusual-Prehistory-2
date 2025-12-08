@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackab
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;

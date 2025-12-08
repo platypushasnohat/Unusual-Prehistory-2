@@ -1,8 +1,7 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticSwimmingMoveControl;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.control.SemiAquaticSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -28,14 +27,10 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.LookControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
- import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
- import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
- import net.minecraft.world.entity.ai.goal.TemptGoal;
- import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+ import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
@@ -44,6 +39,7 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -61,11 +57,13 @@
      public final AnimationState burrowIdleAnimationState = new AnimationState();
      public final AnimationState quirkAnimationState = new AnimationState();
 
-     private final byte QUIRK = 66;
+     private final byte QUIRK = 67;
 
      public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.lookControl = new SmoothSwimmingLookControl(this, 20);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -79,41 +77,37 @@
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D, 10, 4));
          this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
-         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 7));
-         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500, 800));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
-         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(7, new DiplocaulusBurrowInMudGoal(this));
+         this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 80));
+         this.goalSelector.addGoal(3, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(4, new LeaveWaterGoal(this, 1.0D, 1500, 800));
+         this.goalSelector.addGoal(4, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(6, new DiplocaulusBurrowInMudGoal(this));
      }
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new MoveControl(this);
-             this.navigation = new SmoothGroundPathNavigation(this, level());
-             this.lookControl = new LookControl(this);
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SemiAquaticSwimmingMoveControl(this, 85, 10, 0.34F);
-             this.navigation = new AmphibiousPathNavigation(this, level());
-             this.lookControl = new SmoothSwimmingLookControl(this, 10);
+             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
              this.isLandNavigator = false;
          }
      }
 
      @Override
-     public void travel(@NotNull Vec3 travelVector) {
+     public void travel(@NotNull Vec3 travelVec) {
          if (this.refuseToMove() && this.onGround()) {
-             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
-             travelVector = travelVector.multiply(0.0, 1.0, 0.0);
+             this.getNavigation().stop();
+             travelVec = Vec3.ZERO;
          }
          if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVector);
+             this.moveRelative(this.getSpeed(), travelVec);
              this.move(MoverType.SELF, this.getDeltaMovement());
              this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
          } else {
-             super.travel(travelVector);
+             super.travel(travelVec);
          }
      }
 

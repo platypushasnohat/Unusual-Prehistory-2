@@ -18,7 +18,7 @@ public class MetriorhynchusHeldMobLayer extends RiderLayer<Metriorhynchus, Metri
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, Metriorhynchus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        Entity heldMob = entity.getHeldMob();
+        Entity heldMob = entity.getHeldMob(entity);
         if (heldMob != null) {
             UnusualPrehistory2.PROXY.releaseRenderingEntity(heldMob.getUUID());
             poseStack.pushPose();

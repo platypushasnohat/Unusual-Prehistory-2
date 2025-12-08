@@ -33,8 +33,8 @@ public class DunkleosteusAttackGoal extends AttackGoal {
             double distance = this.dunkleosteus.distanceToSqr(target.getX(), target.getY(), target.getZ());
             int attackState = this.dunkleosteus.getAttackState();
 
-            this.dunkleosteus.getNavigation().moveTo(target, 1.3D);
-            if (distance <= getAttackReachSqr(target)) {
+            this.dunkleosteus.getNavigation().moveTo(target, dunkleosteus.getChaseSpeed());
+            if (distance < this.getAttackReachSqr(target) && dunkleosteus.biteCooldown == 0) {
                 this.dunkleosteus.setAttackState(1);
             }
             if (attackState == 1) {
@@ -47,7 +47,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
                         this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                     }
                 }
-                if (timer > 20) {
+                if (timer > 10) {
                     timer = 0;
                     this.dunkleosteus.setAttackState(0);
                 }

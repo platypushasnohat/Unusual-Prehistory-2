@@ -874,9 +874,9 @@ public class DunkleosteusLargeAnimations {
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.SCALE,
                     new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.1667F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
-                    new Keyframe(0.2083F, KeyframeAnimations.scaleVec(1.05F, 1.0F, 0.95F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.2083F, KeyframeAnimations.scaleVec(1.05F, 1.0F, 1.05F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.25F, KeyframeAnimations.scaleVec(1.05F, 1.0F, 0.95F), AnimationChannel.Interpolations.CATMULLROM),
-                    new Keyframe(0.2917F, KeyframeAnimations.scaleVec(1.05F, 1.0F, 0.95F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.2917F, KeyframeAnimations.scaleVec(1.05F, 1.0F, 1.05F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.3333F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.5F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM)
             ))

@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusA
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusDefendThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusFollowThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.PrehistoricMobMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -224,12 +224,12 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 vec3) {
+    public void travel(@NotNull Vec3 travelVec) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
-            vec3 = vec3.multiply(0.0, 1.0, 0.0);
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
-        super.travel(vec3);
+        super.travel(travelVec);
     }
 
     @Override

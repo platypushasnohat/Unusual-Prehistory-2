@@ -8,7 +8,7 @@ import java.util.EnumSet;
 
 public class PrehistoricSitWhenOrderedToGoal extends Goal {
 
-    private final TameablePrehistoricMob tamedMob;
+    protected final TameablePrehistoricMob tamedMob;
 
     public PrehistoricSitWhenOrderedToGoal(TameablePrehistoricMob mob) {
         this.tamedMob = mob;

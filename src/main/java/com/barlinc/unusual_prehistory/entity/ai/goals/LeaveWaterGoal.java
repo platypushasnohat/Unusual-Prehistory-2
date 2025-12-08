@@ -11,7 +11,7 @@ import java.util.EnumSet;
 
 public class LeaveWaterGoal extends Goal {
 
-    private final SemiAquaticMob semiAquaticMob;
+    protected final SemiAquaticMob semiAquaticMob;
     private final double speedModifier;
     private final int maxTimeInWater;
     private final int maxTimeOnLand;
