@@ -10,6 +10,8 @@ public enum UP2Poses {
     HEADBUTTING,
     STEALTH,
     PREENING,
+    PECKING,
+    SHAKING,
     BURROWED,
     WAVING,
     TAIL_WHIPPING,

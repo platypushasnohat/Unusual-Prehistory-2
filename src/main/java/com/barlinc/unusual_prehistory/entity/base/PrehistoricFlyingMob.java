@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.FlyingMoveController;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import net.minecraft.core.BlockPos;
@@ -48,7 +49,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.navigation = new SmoothGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new FlyingMoveController();
+            this.moveControl = new FlyingMoveController(this);
             this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1.0F);
             this.isLandNavigator = false;
         }
@@ -219,33 +220,5 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     public float getGroundProgress(float partialTick) {
         return (prevGroundProgress + (groundProgress - prevGroundProgress) * partialTick) * 0.2F;
-    }
-
-    public class FlyingMoveController extends MoveControl {
-        private final Mob entity;
-
-        public FlyingMoveController() {
-            super(PrehistoricFlyingMob.this);
-            this.entity = PrehistoricFlyingMob.this;
-        }
-
-        @Override
-        public void tick() {
-            if (!PrehistoricFlyingMob.this.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO) {
-                    Vec3 vector3d = new Vec3(this.wantedX - entity.getX(), this.wantedY - entity.getY(), this.wantedZ - entity.getZ());
-                    double length = vector3d.length();
-                    double width = entity.getBoundingBox().getSize();
-                    Vec3 scale = vector3d.scale(this.speedModifier * 0.05D / length);
-                    entity.setDeltaMovement(entity.getDeltaMovement().add(scale).scale(0.95D).add(0, -0.01, 0));
-                    if (length < width) {
-                        this.operation = Operation.WAIT;
-                    } else if (length >= width) {
-                        float yaw = -((float) Mth.atan2(scale.x, scale.z)) * (180F / (float) Math.PI);
-                        entity.setYRot(Mth.approachDegrees(entity.getYRot(), yaw, 8));
-                    }
-                }
-            }
-        }
     }
 }

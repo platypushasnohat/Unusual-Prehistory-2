@@ -180,7 +180,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.SCATTERS_TELECREX).add(
-                KENTROSAURUS.get(),
                 MAJUNGASAURUS.get(),
                 MEGALANIA.get(),
                 DROMAEOSAURUS.get(),
@@ -198,11 +197,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.HOGLIN,
                 EntityType.ZOGLIN,
                 EntityType.RAVAGER,
-                EntityType.HORSE,
                 EntityType.SKELETON_HORSE,
                 EntityType.ZOMBIE_HORSE,
-                EntityType.MULE,
-                EntityType.DONKEY,
                 EntityType.DROWNED,
                 EntityType.HUSK,
                 EntityType.GOAT,
@@ -213,7 +209,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.VINDICATOR,
                 EntityType.EVOKER,
                 EntityType.EVOKER_FANGS,
-                EntityType.CAMEL,
                 EntityType.CAT,
                 EntityType.WITHER_SKELETON,
                 EntityType.WITHER,
@@ -234,8 +229,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.ZOMBIE_VILLAGER,
                 EntityType.SHULKER,
                 EntityType.GHAST,
-                EntityType.ILLUSIONER,
-                EntityType.LLAMA
+                EntityType.ILLUSIONER
         );
 
         this.tag(UP2EntityTags.TALPANAS_AVOIDS).add(

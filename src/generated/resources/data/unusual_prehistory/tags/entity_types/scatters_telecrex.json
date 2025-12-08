@@ -1,6 +1,5 @@
 {
   "values": [
-    "unusual_prehistory:kentrosaurus",
     "unusual_prehistory:majungasaurus",
     "unusual_prehistory:megalania",
     "unusual_prehistory:dromaeosaurus",
@@ -18,11 +17,8 @@
     "minecraft:hoglin",
     "minecraft:zoglin",
     "minecraft:ravager",
-    "minecraft:horse",
     "minecraft:skeleton_horse",
     "minecraft:zombie_horse",
-    "minecraft:mule",
-    "minecraft:donkey",
     "minecraft:drowned",
     "minecraft:husk",
     "minecraft:goat",
@@ -33,7 +29,6 @@
     "minecraft:vindicator",
     "minecraft:evoker",
     "minecraft:evoker_fangs",
-    "minecraft:camel",
     "minecraft:cat",
     "minecraft:wither_skeleton",
     "minecraft:wither",
@@ -54,7 +49,6 @@
     "minecraft:zombie_villager",
     "minecraft:shulker",
     "minecraft:ghast",
-    "minecraft:illusioner",
-    "minecraft:llama"
+    "minecraft:illusioner"
   ]
 }

@@ -15,6 +15,7 @@
 - Telecrex flies away from danger faster
 - Telecrex flies a little bit faster
 - Added Carnotaurus and Metriorhynchus to scatters_telecrex tag
+- Removed Kentrosaurus and other passive mobs from scatters_telecrex tag
 - Misc tweaks
 
 ## Version 1.2.1

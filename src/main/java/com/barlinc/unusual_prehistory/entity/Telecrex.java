@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.TelecrexMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TelecrexScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.control.TelecrexMoveControl;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -13,8 +13,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -102,7 +100,12 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public void travel(@NotNull Vec3 travelVec) {
         if (this.isEffectiveAi() && this.getPose() == UP2Poses.START_FLYING.get()) {
-            travelVec = travelVec.multiply(this.isRunning() ? 0.4D : 0.7D, 1.0D, this.isRunning() ? 0.4D : 0.7D);
+            double horizontalSpeed = this.isRunning() ? 0.4D : 0.7D;
+            travelVec = travelVec.multiply(horizontalSpeed, 1.0D, horizontalSpeed);
+        }
+        if (this.refuseToMove() && this.onGround()) {
+            this.getNavigation().stop();
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         super.travel(travelVec);
     }

@@ -1,13 +1,11 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.TalpanasAnimations;
-import com.barlinc.unusual_prehistory.client.animations.TelecrexAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Talpanas;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -92,14 +90,16 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 
         this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 
-		if (this.young) this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
+		if (this.young) this.applyStatic(TalpanasAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
-		this.animate(entity.peckingAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
+		this.animate(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
+        this.animate(entity.shakeAnimationState, TalpanasAnimations.SHAKE_BLEND, ageInTicks);
 
-		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;
-		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD / 2;
+        float deg = ((float) Math.PI / 180F) / 2;
+		this.head.xRot += headPitch * deg;
+		this.head.yRot += netHeadYaw * deg;
     }
 
 	@Override

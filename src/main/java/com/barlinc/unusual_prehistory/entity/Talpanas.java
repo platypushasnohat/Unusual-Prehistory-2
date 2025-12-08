@@ -3,13 +3,14 @@ package com.barlinc.unusual_prehistory.entity;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.BreedableMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -36,11 +37,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class Talpanas extends BreedableMob {
 
-    private int peckingTimer = 0;
-
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flapAnimationState = new AnimationState();
-    public final AnimationState peckingAnimationState = new AnimationState();
+    public final AnimationState peckAnimationState = new AnimationState();
+    public final AnimationState shakeAnimationState = new AnimationState();
+
+    private int peckCooldown = 300 + this.getRandom().nextInt(300);
+    private int shakeCooldown = 240 + this.getRandom().nextInt(240);
 
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
@@ -73,6 +76,8 @@ public class Talpanas extends BreedableMob {
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new TalpanasPeckGoal(this));
+        this.goalSelector.addGoal(7, new TalpanasShakeGoal(this));
     }
 
     @Override
@@ -106,21 +111,22 @@ public class Talpanas extends BreedableMob {
     }
 
     @Override
+    public void travel(@NotNull Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            this.getNavigation().stop();
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
+        super.travel(travelVec);
+    }
+
+    @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
         return false;
     }
 
-    public boolean isPecking() {
-        return this.getFlag(16);
-    }
-
-    public void setPecking(boolean pecking) {
-        this.setFlag(16, pecking);
-    }
-
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob p_146744_) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UP2Entities.TALPANAS.get().create(serverLevel);
     }
 
@@ -128,25 +134,28 @@ public class Talpanas extends BreedableMob {
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.onGround() || this.isInWaterOrBubble(), this.tickCount);
         this.flapAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble(), this.tickCount);
-        this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && this.onGround() && this.isPecking(), this.tickCount);
     }
 
     @Override
-    public void setupAnimationCooldowns() {
-        if (!this.isInWaterOrBubble() && this.onGround() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
-            if (!this.isPecking() && this.random.nextInt(500) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
-                this.setPecking(true);
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.PECKING.get()) {
+                this.peckAnimationState.start(this.tickCount);
+            }
+            else if (this.getPose() == UP2Poses.PECKING.get()) {
+                this.shakeAnimationState.start(this.tickCount);
+            }
+            else {
+                this.peckAnimationState.stop();
+                this.shakeAnimationState.stop();
             }
         }
-        if (this.isPecking() && this.peckingTimer++ > 40) {
-            this.peckingTimer = 0;
-            this.setPecking(false);
-        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.isPecking();
+        return super.refuseToMove() || this.getPose() == UP2Poses.PECKING.get() || this.getPose() == UP2Poses.SHAKING.get();
     }
 
     @Override
@@ -189,5 +198,91 @@ public class Talpanas extends BreedableMob {
 
     public static boolean canSpawn(EntityType<Talpanas> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON);
+    }
+
+    private static class TalpanasPeckGoal extends Goal {
+
+        private final Talpanas talpanas;
+        private int timer;
+
+        public TalpanasPeckGoal(Talpanas talpanas) {
+            this.talpanas = talpanas;
+        }
+
+        @Override
+        public boolean canUse() {
+            return talpanas.peckCooldown == 0 && talpanas.getPose() == Pose.STANDING && talpanas.getLastHurtByMob() == null && talpanas.getNavigation().isDone() && talpanas.level().getBlockState(talpanas.blockPosition().below()).is(Blocks.GRASS_BLOCK);
+        }
+
+        @Override
+        public void start() {
+            this.timer = 40;
+            this.talpanas.getNavigation().stop();
+            this.talpanas.setPose(UP2Poses.PECKING.get());
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return timer > 0 && talpanas.getPose() == UP2Poses.PECKING.get() && talpanas.getLastHurtByMob() == null;
+        }
+
+        @Override
+        public void tick() {
+            this.timer--;
+        }
+
+        @Override
+        public void stop() {
+            this.talpanas.peckCooldown = 300 + talpanas.getRandom().nextInt(300);
+            this.talpanas.setPose(Pose.STANDING);
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+    }
+
+    private static class TalpanasShakeGoal extends Goal {
+
+        private final Talpanas talpanas;
+        private int timer;
+
+        public TalpanasShakeGoal(Talpanas talpanas) {
+            this.talpanas = talpanas;
+        }
+
+        @Override
+        public boolean canUse() {
+            return talpanas.shakeCooldown == 0 && talpanas.getPose() == Pose.STANDING && talpanas.getLastHurtByMob() == null && talpanas.getNavigation().isDone();
+        }
+
+        @Override
+        public void start() {
+            this.timer = 20;
+            this.talpanas.getNavigation().stop();
+            this.talpanas.setPose(UP2Poses.SHAKING.get());
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return timer > 0 && talpanas.getPose() == UP2Poses.SHAKING.get() && talpanas.getLastHurtByMob() == null;
+        }
+
+        @Override
+        public void tick() {
+            this.timer--;
+        }
+
+        @Override
+        public void stop() {
+            this.talpanas.shakeCooldown = 240 + talpanas.getRandom().nextInt(240);
+            this.talpanas.setPose(Pose.STANDING);
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
     }
 }

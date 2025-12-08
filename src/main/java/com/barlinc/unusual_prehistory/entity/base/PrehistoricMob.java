@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.Telecrex;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveLookControl;
