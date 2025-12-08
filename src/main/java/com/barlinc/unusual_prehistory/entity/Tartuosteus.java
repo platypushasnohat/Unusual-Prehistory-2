@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TartuosteusGlideGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -26,7 +27,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.item.ItemStack;
@@ -40,9 +40,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class Tartuosteus extends PrehistoricAquaticMob {
+public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
 
-    private static final EntityDataAccessor<Boolean> GLIDING = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.BOOLEAN);
 
     public Tartuosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -106,7 +106,7 @@ public class Tartuosteus extends PrehistoricAquaticMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isGliding()) {
+        if (this.isLeaping()) {
             if (!this.isInWaterOrBubble() && this.getDeltaMovement().y < 0.0) {
                 this.setDeltaMovement(this.getDeltaMovement().multiply(1.0F, 0.66F, 1.0F));
             }
@@ -116,15 +116,17 @@ public class Tartuosteus extends PrehistoricAquaticMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(GLIDING, false);
+        this.entityData.define(LEAPING, false);
     }
 
-    public boolean isGliding() {
-        return this.entityData.get(GLIDING);
+    @Override
+    public boolean isLeaping() {
+        return this.entityData.get(LEAPING);
     }
 
-    public void setGliding(boolean gliding) {
-        this.entityData.set(GLIDING, gliding);
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
     }
 
     @Override
