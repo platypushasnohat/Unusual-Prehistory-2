@@ -88,7 +88,10 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 	public void setupAnim(@NotNull Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        if (entity.onGround()) {
+            if (entity.isRunning()) this.animateWalk(TalpanasAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+            else this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        }
 
 		if (this.young) this.applyStatic(TalpanasAnimations.BABY_TRANSFORM);
 

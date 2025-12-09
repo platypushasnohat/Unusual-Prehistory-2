@@ -178,6 +178,8 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 
 		if (!entity.isInWater()) {
             this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        } else {
+            this.animateWalk(KentrosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 3, 6);
         }
 
         this.animateIdle(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
@@ -187,7 +189,10 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
         this.animate(entity.layDownIdleAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
 		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.SIT_END, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animate(entity.swimmingAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount);
+        this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH1_BLEND, ageInTicks);
+        this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH2_BLEND, ageInTicks);
+        this.animate(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_BLEND, ageInTicks);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 

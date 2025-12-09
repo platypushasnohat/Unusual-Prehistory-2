@@ -187,8 +187,6 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.flyingAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
         this.flyingFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
         this.flyingIdleAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
-        this.peckingAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isPecking(), this.tickCount);
-        this.lookoutAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isFlying() && this.isLooking(), this.tickCount);
     }
 
     @Override

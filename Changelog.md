@@ -6,7 +6,6 @@
 - Changed priority for avoiding mobs in some mobs
 - Added Tartuosteus to big Dunkleosteus targets
 - Fixed Dunkleosteus bite animations
-- Dunkleosteus no longer seeks the ground
 - Carnotaurus headbutts less often
 - Slightly increased the range for Telecrex to start scattering
 - Reduced Telecrex max hp to match Talpanas
@@ -16,6 +15,13 @@
 - Telecrex flies a little bit faster
 - Added Carnotaurus and Metriorhynchus to scatters_telecrex tag
 - Removed Kentrosaurus and other passive mobs from scatters_telecrex tag
+- Added Talpanas shake animation
+- Added Talpanas run animation
+- Talpanas now seeks shelter from sunlight and bright lights, with a light threshold of 5
+- Fixed some PrehistoricMob data not being saved to bucketed mobs
+- Changed Dunkleosteus, Onchopristis, and Jawless Fish ground seeking to be a bit better
+- Onchopristis and Dunkleosteus swim more often
+- Added more Kentrosaurus idle animations
 - Misc tweaks
 
 ## Version 1.2.1

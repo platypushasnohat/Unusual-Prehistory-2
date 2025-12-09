@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class AnimationGoal extends Goal {
@@ -12,20 +13,23 @@ public class AnimationGoal extends Goal {
     private final byte animationByte;
     private final byte stopAnimationByte;
     protected final boolean stopMoving;
+    protected final boolean stopIfHurt;
 
-    public AnimationGoal(PrehistoricMob mob, int animationTime, float chance, byte animationByte, byte stopAnimationByte, boolean stopMoving) {
+    public AnimationGoal(PrehistoricMob mob, int animationTime, float chance, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopIfHurt) {
         this.mob = mob;
         this.animationTime = animationTime;
         this.chance = chance;
         this.animationByte = animationByte;
         this.stopAnimationByte = stopAnimationByte;
         this.stopMoving = stopMoving;
+        this.stopIfHurt = stopIfHurt;
     }
 
     @Override
     public boolean canUse() {
-        if (stopMoving) return mob.getNavigation().isDone();
-        return mob.isAlive() && mob.getRandom().nextFloat() < chance;
+        if (stopIfHurt && mob.getLastHurtByMob() != null) return false;
+        if (stopMoving && !mob.getNavigation().isDone()) return false;
+        return mob.isAlive() && mob.getRandom().nextFloat() < chance && mob.getPose() == Pose.STANDING;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class AnimationGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
+        if (stopIfHurt && mob.getLastHurtByMob() != null) return false;
         return timer > 0 && mob.isAlive();
     }
 
@@ -53,5 +58,10 @@ public class AnimationGoal extends Goal {
     @Override
     public void stop() {
         this.mob.level().broadcastEntityEvent(mob, stopAnimationByte);
+    }
+
+    @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
     }
 }

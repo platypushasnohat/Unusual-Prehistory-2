@@ -49,6 +49,16 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         return new SmoothWaterBoundPathNavigation(this, level, false);
     }
 
+    public float getDepthPathfindingFavor(BlockPos pos, LevelReader level) {
+        int y = pos.getY() + Math.abs(level.getMinBuildHeight());
+        return 1.0F / (float) (y == 0 ? 1 : y);
+    }
+
+    public float getSurfacePathfindingFavor(BlockPos pos, LevelReader level) {
+        int y = Math.abs(level.getMaxBuildHeight()) - pos.getY();
+        return 1.0F / (float) (y == 0 ? 1 : y);
+    }
+
     @Override
     public boolean canBreatheUnderwater() {
         return true;
@@ -160,6 +170,9 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         CompoundTag compoundTag = bucket.getOrCreateTag();
         compoundTag.putInt("BucketVariantTag", this.getVariant());
         compoundTag.putInt("Age", this.getAge());
+        compoundTag.putBoolean("Pacified", this.isPacified());
+        compoundTag.putBoolean("FromEgg", this.isFromEgg());
+        compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
     }
 
     @Override
@@ -169,6 +182,9 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
             this.setVariant(compoundTag.getInt("BucketVariantTag"));
         }
         this.setAge(compoundTag.getInt("Age"));
+        this.setPacified(compoundTag.getBoolean("Pacified"));
+        this.setFromEgg(compoundTag.getBoolean("FromEgg"));
+        this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
     }
 
     @Override

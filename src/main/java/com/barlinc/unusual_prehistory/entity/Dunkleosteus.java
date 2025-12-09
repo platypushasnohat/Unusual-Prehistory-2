@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +80,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         });
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DUNKLEOSTEUS_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 70, 10, 7, 3, true));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7, 3, true));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this) {
@@ -103,6 +105,11 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        return this.getDepthPathfindingFavor(pos, level);
     }
 
     public double getChaseSpeed() {

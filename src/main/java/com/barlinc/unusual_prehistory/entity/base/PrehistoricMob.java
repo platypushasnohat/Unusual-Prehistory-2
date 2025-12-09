@@ -281,7 +281,7 @@ public abstract class PrehistoricMob extends Animal {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.getVariant());
-        compoundTag.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
+        compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
         compoundTag.putBoolean("Pacified", this.isPacified());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
     }
@@ -290,8 +290,7 @@ public abstract class PrehistoricMob extends Animal {
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setVariant(compoundTag.getInt("Variant"));
-        long lastPoseTick = compoundTag.getLong("LastPoseTick");
-        this.resetLastPoseChangeTick(lastPoseTick);
+        this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
     }
@@ -335,6 +334,10 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setBehavior(String behavior) {
         this.entityData.set(BEHAVIOR, behavior);
+    }
+
+    public long getLastPoseChangeTick() {
+        return this.entityData.get(LAST_POSE_CHANGE_TICK);
     }
 
     @VisibleForTesting

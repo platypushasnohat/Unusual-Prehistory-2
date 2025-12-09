@@ -12,6 +12,8 @@ public enum UP2Poses {
     PREENING,
     PECKING,
     SHAKING,
+    YAWNING,
+    STRETCHING,
     BURROWED,
     WAVING,
     TAIL_WHIPPING,

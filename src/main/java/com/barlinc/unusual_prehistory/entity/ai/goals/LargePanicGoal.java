@@ -27,12 +27,14 @@ public class LargePanicGoal extends PanicGoal {
     public void start() {
         super.start();
         this.prehistoricMob.setBehavior(Behaviors.PANIC.getName());
+        this.prehistoricMob.setRunning(true);
     }
 
     @Override
     public void stop() {
         super.stop();
         this.prehistoricMob.setBehavior(Behaviors.IDLE.getName());
+        this.prehistoricMob.setRunning(false);
     }
 
     @Override

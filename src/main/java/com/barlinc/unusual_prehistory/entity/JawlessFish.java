@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.GroundSeekingRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -59,7 +60,7 @@ public class JawlessFish extends SchoolingAquaticMob {
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(4, new GroundSeekingRandomSwimGoal(this, 1.0D, 20, 10, 7));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -80,6 +81,11 @@ public class JawlessFish extends SchoolingAquaticMob {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
