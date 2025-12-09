@@ -34,13 +34,13 @@ public class SmoothAmphibiousPathNavigation extends AmphibiousPathNavigation imp
     }
 
     @Override
-    public Mob getMob() {
+    public Mob getMobEN() {
         return this.mob;
     }
 
     @Nullable
     @Override
-    public Path getPath() {
+    public Path getPathEN() {
         return super.getPath();
     }
 

@@ -21,13 +21,13 @@ public class SmoothFlyingPathNavigation extends FlyingPathNavigation implements 
     }
 
     @Override
-    public Mob getMob() {
+    public Mob getMobEN() {
         return this.mob;
     }
 
     @Nullable
     @Override
-    public Path getPath() {
+    public Path getPathEN() {
         return super.getPath();
     }
 

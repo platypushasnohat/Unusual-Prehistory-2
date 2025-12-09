@@ -27,24 +27,21 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
     }
 
     @Override
-    public Mob getMob() {
+    public Mob getMobEN() {
         return this.mob;
     }
 
     @Nullable
     @Override
-    public Path getPath() {
-        return super.getPath();
+    public Path getPathEN() {
+        return this.path;
     }
 
-    /**
-     * Patch {@link Path#getEntityPosAtNode} to use a proper rounding check
-     */
     @Override
     protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new WalkNodeEvaluator();
         this.nodeEvaluator.setCanPassDoors(true);
-        return createSmoothPathFinder(this.nodeEvaluator, maxVisitedNodes);
+        return this.createSmoothPathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
 
     @Override
@@ -58,27 +55,11 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
         this.doStuckDetection(safeSurfacePos);
     }
 
-    /**
-     * Helper override to allow end-users to modify the fluids an entity can swim in
-     * <p>
-     * If using this to modify swimmable fluids, ensure you also override {@link PathNavigation#canUpdatePath()} as well
-     *
-     * @return The nearest safe surface height for the entity
-     */
     @Override
     public int getSurfaceY() {
         return super.getSurfaceY();
     }
 
-    /**
-     * Find the nearest node in the path that accounts for a vertical traversal (either up or down)
-     * <p>
-     * This can then be used to test if a collision-free traversal can be made, skipping the intermediate nodes as appropriate
-     *
-     * @param safeSurfaceHeight The baseline floored y-pos of where the mob should traverse to (usually the nearest ground pos or surface of the fluid it's submerged in)
-     *
-     * @return The node index for the nearest node representing a vertical traversal
-     */
     protected int getClosestVerticalTraversal(int safeSurfaceHeight) {
         final int nodesLength = this.path.getNodeCount();
         for (int nodeIndex = this.path.getNextNodeIndex(); nodeIndex < nodesLength; nodeIndex++) {

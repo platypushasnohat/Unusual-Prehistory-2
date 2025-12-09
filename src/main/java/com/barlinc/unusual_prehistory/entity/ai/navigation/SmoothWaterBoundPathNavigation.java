@@ -37,13 +37,13 @@ public class SmoothWaterBoundPathNavigation extends WaterBoundPathNavigation imp
     }
 
     @Override
-    public Mob getMob() {
+    public Mob getMobEN() {
         return this.mob;
     }
 
     @Nullable
     @Override
-    public Path getPath() {
+    public Path getPathEN() {
         return super.getPath();
     }
 

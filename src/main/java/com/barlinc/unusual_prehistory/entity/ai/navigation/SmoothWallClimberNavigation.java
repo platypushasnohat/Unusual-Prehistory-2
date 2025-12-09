@@ -26,13 +26,13 @@ public class SmoothWallClimberNavigation extends WallClimberNavigation implement
     }
 
     @Override
-    public Mob getMob() {
+    public Mob getMobEN() {
         return this.mob;
     }
 
     @Nullable
     @Override
-    public Path getPath() {
+    public Path getPathEN() {
         return super.getPath();
     }
 
