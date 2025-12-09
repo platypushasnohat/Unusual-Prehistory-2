@@ -49,6 +49,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.KENTROSAURUS);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
+        this.forEntity(UP2Entities.LYSTROSAURUS);
         this.forEntity(UP2Entities.MAJUNGASAURUS);
         this.forEntity(UP2Entities.MEGALANIA);
         this.forEntity(UP2Entities.METRIORHYNCHUS);
@@ -120,6 +121,11 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
+
+        this.sound(UP2SoundEvents.LYSTROSAURUS_HURT, "Lystrosaurus hurts");
+        this.sound(UP2SoundEvents.LYSTROSAURUS_DEATH, "Lystrosaurus dies");
+        this.sound(UP2SoundEvents.LYSTROSAURUS_IDLE, "Lystrosaurus oinks");
+        this.sound(UP2SoundEvents.LYSTROSAURUS_STEP, "Lystrosaurus steps");
 
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");

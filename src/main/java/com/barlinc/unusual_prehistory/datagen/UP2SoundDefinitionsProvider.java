@@ -187,6 +187,36 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
         );
 
+        // Lystrosaurus
+        this.sound(UP2SoundEvents.LYSTROSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt2")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt3")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt4")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt5")).pitch(0.9F)
+        );
+        this.sound(UP2SoundEvents.LYSTROSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death2")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death3")).pitch(0.9F)
+        );
+        this.sound(UP2SoundEvents.LYSTROSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle5")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle6")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle7"))
+        );
+        this.sound(UP2SoundEvents.LYSTROSAURUS_STEP,
+                sound("mob/pig/step1").pitch(0.9F),
+                sound("mob/pig/step2").pitch(0.9F),
+                sound("mob/pig/step3").pitch(0.9F),
+                sound("mob/pig/step4").pitch(0.9F),
+                sound("mob/pig/step5").pitch(0.9F)
+        );
+
         // Majungasaurus
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")).pitch(0.9F),

@@ -78,6 +78,9 @@ public class UP2Items {
     public static final RegistryObject<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
     public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));
 
+    // lystrosaurus
+    public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0x9b8f6c, 0x675a43);
+
     // majungasaurus
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose");

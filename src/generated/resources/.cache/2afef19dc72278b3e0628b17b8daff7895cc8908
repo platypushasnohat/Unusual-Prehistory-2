@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-08T21:04:48.7263123	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-12-08T22:54:54.7382398	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -46,6 +46,7 @@ d033385a638abbeacea8d8e59f7610e1ab169130 data/unusual_prehistory/tags/blocks/gua
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/kentrosaurus_spawnable_on.json
 263c3807b0291e6df88a90ba423cb53dd99c2695 data/unusual_prehistory/tags/blocks/kimmeridgebrachypteraeschnidium_spawnable_on.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/blocks/lepidodendron_logs.json
+92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/lystrosaurus_spawnable_on.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/majungasaurus_spawnable_on.json
 60f09cf927f2c5acd109b39ba3805c1f922d6142 data/unusual_prehistory/tags/blocks/megalania_spawnable_on.json
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/petrified_tree_replaceable.json

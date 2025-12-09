@@ -500,6 +500,85 @@
     ],
     "subtitle": "subtitles.living_ooze_squish"
   },
+  "lystrosaurus_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/death1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/death2",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/death3",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.lystrosaurus_death"
+  },
+  "lystrosaurus_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/hurt1",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/hurt2",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/hurt3",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/hurt4",
+        "pitch": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/lystrosaurus/hurt5",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.lystrosaurus_hurt"
+  },
+  "lystrosaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/lystrosaurus/idle1",
+      "unusual_prehistory:entity/lystrosaurus/idle2",
+      "unusual_prehistory:entity/lystrosaurus/idle3",
+      "unusual_prehistory:entity/lystrosaurus/idle4",
+      "unusual_prehistory:entity/lystrosaurus/idle5",
+      "unusual_prehistory:entity/lystrosaurus/idle6",
+      "unusual_prehistory:entity/lystrosaurus/idle7"
+    ],
+    "subtitle": "subtitles.lystrosaurus_idle"
+  },
+  "lystrosaurus_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.lystrosaurus_step"
+  },
   "majungasaurus_bite": {
     "sounds": [
       {

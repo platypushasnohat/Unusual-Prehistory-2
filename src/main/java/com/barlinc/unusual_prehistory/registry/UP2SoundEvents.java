@@ -57,6 +57,11 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_hurt");
     public static final RegistryObject<SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_death");
 
+    public static final RegistryObject<SoundEvent> LYSTROSAURUS_HURT = registerSoundEvent("lystrosaurus_hurt");
+    public static final RegistryObject<SoundEvent> LYSTROSAURUS_DEATH = registerSoundEvent("lystrosaurus_death");
+    public static final RegistryObject<SoundEvent> LYSTROSAURUS_IDLE = registerSoundEvent("lystrosaurus_idle");
+    public static final RegistryObject<SoundEvent> LYSTROSAURUS_STEP = registerSoundEvent("lystrosaurus_step");
+
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_HURT = registerSoundEvent("majungasaurus_hurt");
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_DEATH = registerSoundEvent("majungasaurus_death");
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_IDLE = registerSoundEvent("majungasaurus_idle");

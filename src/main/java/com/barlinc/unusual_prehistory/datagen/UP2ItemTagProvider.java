@@ -136,6 +136,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.LYSTROSAURUS_FOOD).add(
+                Blocks.GRASS.asItem()
+        );
+
         this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).add(
                 Items.BEEF,
                 Items.PORKCHOP,

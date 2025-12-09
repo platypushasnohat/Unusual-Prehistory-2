@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-06T21:41:22.1199289	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-12-08T22:54:54.7382398	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -36,6 +36,7 @@ c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/items/jawl
 17fd74489f84e85c3d4f8bc6feb8ec5d33ac3c59 data/unusual_prehistory/tags/items/kimmeridgebrachypteraeschnidium_food.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/items/lepidodendron_logs.json
 bc77032a8a67b188df9858f765efcbb6b8a301ee data/unusual_prehistory/tags/items/living_ooze_cannot_absorb.json
+51b9d59f5b051603bb0b23170fbef4be47a0b0a4 data/unusual_prehistory/tags/items/lystrosaurus_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/majungasaurus_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/megalania_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/metriorhynchus_food.json

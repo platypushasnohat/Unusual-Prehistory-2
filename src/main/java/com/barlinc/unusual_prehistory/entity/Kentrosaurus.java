@@ -175,7 +175,7 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        this.idleAnimationState.animateWhen(!this.isInWater() && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
 
         if (this.isKentrosaurusVisuallyLayingDown()) {
             this.standUpAnimationState.stop();

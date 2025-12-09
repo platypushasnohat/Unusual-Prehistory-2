@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -26,5 +27,19 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
                 DamageTypes.SWEET_BERRY_BUSH,
                 DamageTypes.THORNS
         );
+
+        this.tag(UP2DamageTypeTags.LYSTROSAURUS_IMMUNE_TO).add(
+                DamageTypes.CACTUS,
+                DamageTypes.SWEET_BERRY_BUSH,
+                DamageTypes.THORNS,
+                DamageTypes.FALLING_ANVIL,
+                DamageTypes.FALLING_STALACTITE,
+                DamageTypes.WITHER,
+                DamageTypes.MAGIC,
+                DamageTypes.INDIRECT_MAGIC
+        ).addTag(DamageTypeTags.IS_FIRE)
+        .addTag(DamageTypeTags.IS_FREEZING)
+        .addTag(DamageTypeTags.IS_FALL)
+        .addTag(DamageTypeTags.IS_PROJECTILE);
     }
 }

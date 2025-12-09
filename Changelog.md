@@ -1,3 +1,9 @@
+## Version 1.3.0
+- Added Lystrosaurus
+
+## Version 1.2.3
+- Fixed a server crash
+
 ## Version 1.2.2
 - Added improved path navigation 
 - Tweaked semiaquatic navigation switching

@@ -1,2 +1,3 @@
-// 1.20.1	2025-11-25T12:00:17.4732145	Tags for minecraft:damage_type mod id unusual_prehistory
+// 1.20.1	2025-12-08T23:16:17.2792656	Tags for minecraft:damage_type mod id unusual_prehistory
 6dbfe92243c09b03eeaf0cb821efb29e98a7d4f5 data/unusual_prehistory/tags/damage_type/kentrosaurus_immune_to.json
+831ff5c3f86268a1eb6f51116dd4d0084fa03758 data/unusual_prehistory/tags/damage_type/lystrosaurus_immune_to.json

@@ -80,6 +80,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kimmeridgebrachypteraeschnidium_nymph").toString())
     );
 
+    public static final RegistryObject<EntityType<Lystrosaurus>> LYSTROSAURUS = ENTITY_TYPE.register(
+            "lystrosaurus", () ->
+            EntityType.Builder.of(Lystrosaurus::new, MobCategory.CREATURE)
+                    .sized(0.9F, 0.94F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lystrosaurus").toString())
+    );
+
     public static final RegistryObject<EntityType<Majungasaurus>> MAJUNGASAURUS = ENTITY_TYPE.register(
             "majungasaurus", () ->
             EntityType.Builder.of(Majungasaurus::new, MobCategory.CREATURE)
