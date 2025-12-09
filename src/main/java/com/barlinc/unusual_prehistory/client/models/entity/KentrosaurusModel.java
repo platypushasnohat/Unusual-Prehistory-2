@@ -117,37 +117,37 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
         PartDefinition right_shoulder = body.addOrReplaceChild("right_shoulder", CubeListBuilder.create().texOffs(57, 145).mirror().addBox(-19.0F, -1.0F, 1.5F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(0, 145).mirror().addBox(-19.0F, -1.0F, -1.5F, 21.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-8.5F, 3.0F, -10.5F, -0.0873F, 0.3491F, 0.6109F));
 
-        PartDefinition left_backplates = body.addOrReplaceChild("left_backplates", CubeListBuilder.create().texOffs(72, 84).addBox(0.0F, -9.0F, -14.0F, 0.0F, 9.0F, 26.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(4.5F, -18.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
+        PartDefinition left_backplates = body.addOrReplaceChild("left_backplates", CubeListBuilder.create().texOffs(72, 84).addBox(0.0F, -9.0F, -14.0F, 0.0F, 9.0F, 26.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(4.5F, -18.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
 
-        PartDefinition right_backplates = body.addOrReplaceChild("right_backplates", CubeListBuilder.create().texOffs(72, 84).mirror().addBox(0.0F, -9.0F, -14.0F, 0.0F, 9.0F, 26.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-4.5F, -18.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
+        PartDefinition right_backplates = body.addOrReplaceChild("right_backplates", CubeListBuilder.create().texOffs(72, 84).mirror().addBox(0.0F, -9.0F, -14.0F, 0.0F, 9.0F, 26.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-4.5F, -18.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
 
-        PartDefinition left_thagomizer1 = body.addOrReplaceChild("left_thagomizer1", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(2.5F, -16.0F, 16.0F, 0.0F, 0.0F, 0.1745F));
+        PartDefinition left_thagomizer1 = body.addOrReplaceChild("left_thagomizer1", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(2.5F, -16.0F, 16.0F, 0.0F, 0.0F, 0.1745F));
 
-        PartDefinition right_thagomizer1 = body.addOrReplaceChild("right_thagomizer1", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-2.5F, -16.0F, 16.0F, 0.0F, 0.0F, -0.1745F));
+        PartDefinition right_thagomizer1 = body.addOrReplaceChild("right_thagomizer1", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-2.5F, -16.0F, 16.0F, 0.0F, 0.0F, -0.1745F));
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(104, 26).addBox(-4.5F, -2.5F, 0.0F, 9.0F, 9.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -13.5F, 17.0F));
 
-        PartDefinition left_thagomizer2 = tail1.addOrReplaceChild("left_thagomizer2", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.5F, -1.5F, 5.0F, 0.0F, 0.0F, 0.48F));
+        PartDefinition left_thagomizer2 = tail1.addOrReplaceChild("left_thagomizer2", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(1.5F, -1.5F, 5.0F, 0.0F, 0.0F, 0.48F));
 
-        PartDefinition right_thagomizer2 = tail1.addOrReplaceChild("right_thagomizer2", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-1.5F, -1.5F, 5.0F, 0.0F, 0.0F, -0.48F));
+        PartDefinition right_thagomizer2 = tail1.addOrReplaceChild("right_thagomizer2", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-1.5F, -1.5F, 5.0F, 0.0F, 0.0F, -0.48F));
 
         PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(0, 60).addBox(-2.5F, -2.5F, 0.0F, 5.0F, 5.0F, 31.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 12.0F));
 
-        PartDefinition left_thagomizer3 = tail2.addOrReplaceChild("left_thagomizer3", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(2.0F, -1.75F, 2.0F, 0.0F, 0.0F, 0.6109F));
+        PartDefinition left_thagomizer3 = tail2.addOrReplaceChild("left_thagomizer3", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(2.0F, -1.75F, 2.0F, 0.0F, 0.0F, 0.6109F));
 
-        PartDefinition left_thagomizer4 = tail2.addOrReplaceChild("left_thagomizer4", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(2.0F, -1.75F, 10.0F, 0.0F, 0.0F, 0.829F));
+        PartDefinition left_thagomizer4 = tail2.addOrReplaceChild("left_thagomizer4", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(2.0F, -1.75F, 10.0F, 0.0F, 0.0F, 0.829F));
 
-        PartDefinition left_thagomizer5 = tail2.addOrReplaceChild("left_thagomizer5", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(2.0F, -2.0F, 19.0F, 0.0F, 0.0F, 1.0472F));
+        PartDefinition left_thagomizer5 = tail2.addOrReplaceChild("left_thagomizer5", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(2.0F, -2.0F, 19.0F, 0.0F, 0.0F, 1.0472F));
 
-        PartDefinition left_thagomizer6 = tail2.addOrReplaceChild("left_thagomizer6", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(2.0F, -2.0F, 27.0F, 0.0F, 0.0F, 1.2654F));
+        PartDefinition left_thagomizer6 = tail2.addOrReplaceChild("left_thagomizer6", CubeListBuilder.create().texOffs(0, 96).addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(2.0F, -2.0F, 27.0F, 0.0F, 0.0F, 1.2654F));
 
-        PartDefinition right_thagomizer3 = tail2.addOrReplaceChild("right_thagomizer3", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -1.75F, 2.0F, 0.0F, 0.0F, -0.6109F));
+        PartDefinition right_thagomizer3 = tail2.addOrReplaceChild("right_thagomizer3", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -1.75F, 2.0F, 0.0F, 0.0F, -0.6109F));
 
-        PartDefinition right_thagomizer4 = tail2.addOrReplaceChild("right_thagomizer4", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -1.75F, 10.0F, 0.0F, 0.0F, -0.829F));
+        PartDefinition right_thagomizer4 = tail2.addOrReplaceChild("right_thagomizer4", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -1.75F, 10.0F, 0.0F, 0.0F, -0.829F));
 
-        PartDefinition right_thagomizer5 = tail2.addOrReplaceChild("right_thagomizer5", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -2.0F, 19.0F, 0.0F, 0.0F, -1.0472F));
+        PartDefinition right_thagomizer5 = tail2.addOrReplaceChild("right_thagomizer5", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -2.0F, 19.0F, 0.0F, 0.0F, -1.0472F));
 
-        PartDefinition right_thagomizer6 = tail2.addOrReplaceChild("right_thagomizer6", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -2.0F, 27.0F, 0.0F, 0.0F, -1.2654F));
+        PartDefinition right_thagomizer6 = tail2.addOrReplaceChild("right_thagomizer6", CubeListBuilder.create().texOffs(0, 96).mirror().addBox(0.0F, -13.0F, -1.0F, 0.0F, 14.0F, 22.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-2.0F, -2.0F, 27.0F, 0.0F, 0.0F, -1.2654F));
 
         PartDefinition arm_control = body_main.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(5.5F, 9.0F, -10.5F));
 
@@ -190,8 +190,8 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.SIT_END, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH1_BLEND, ageInTicks);
-        this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH2_BLEND, ageInTicks);
+        this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_BLEND1, ageInTicks);
+        this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_BLEND2, ageInTicks);
         this.animate(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_BLEND, ageInTicks);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);

@@ -106,10 +106,10 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 	@Override
 	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks, 1);
-		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks, 1);
+		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
+		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks);
 		this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks, 1);
+		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);

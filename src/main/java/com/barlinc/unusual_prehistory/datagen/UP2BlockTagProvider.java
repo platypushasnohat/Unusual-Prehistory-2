@@ -126,6 +126,19 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS).add(
+                Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.TALPANAS_PECKING_BLOCKS).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.MOSS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.TELECREX_PECKING_BLOCKS).add(
+                Blocks.GRASS_BLOCK
+        );
+
         // minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

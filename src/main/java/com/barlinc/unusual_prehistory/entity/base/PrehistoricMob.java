@@ -50,6 +50,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> RUNNING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -275,6 +276,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(RUNNING, false);
         this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(SHOT_FROM_OOZE, false);
+        this.entityData.define(IDLE_STATE, 0);
     }
 
     @Override
@@ -314,6 +316,14 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setAttackState(int attackState) {
         this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    public int getIdleState() {
+        return this.entityData.get(IDLE_STATE);
+    }
+
+    public void setIdleState(int idleState) {
+        this.entityData.set(IDLE_STATE, idleState);
     }
 
     public int getVariant() {

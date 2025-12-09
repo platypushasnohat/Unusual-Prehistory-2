@@ -34,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -252,31 +251,19 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasPeckGoal(Talpanas talpanas) {
-            super(talpanas, 40, 0.1F, (byte) 67, (byte) 68, true, true);
+            super(talpanas, 40, 1, (byte) 67, (byte) 68, true, true);
             this.talpanas = talpanas;
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && talpanas.shakeCooldown == 0 && talpanas.level().getBlockState(talpanas.blockPosition().below()).is(Blocks.GRASS_BLOCK);
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.talpanas.setPose(UP2Poses.PECKING.get());
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && talpanas.getPose() == UP2Poses.PECKING.get();
+            return super.canUse() && talpanas.shakeCooldown == 0 && talpanas.level().getBlockState(talpanas.blockPosition().below()).is(UP2BlockTags.TALPANAS_PECKING_BLOCKS);
         }
 
         @Override
         public void stop() {
             super.stop();
             this.talpanas.shakeCooldown = 240 + talpanas.getRandom().nextInt(240);
-            this.talpanas.setPose(Pose.STANDING);
         }
     }
 
@@ -285,7 +272,7 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasShakeGoal(Talpanas talpanas) {
-            super(talpanas, 20, 0.1F, (byte) 69, (byte) 70, true, true);
+            super(talpanas, 20, 2, (byte) 69, (byte) 70, true, true);
             this.talpanas = talpanas;
         }
 
@@ -295,21 +282,9 @@ public class Talpanas extends BreedableMob {
         }
 
         @Override
-        public void start() {
-            super.start();
-            this.talpanas.setPose(UP2Poses.SHAKING.get());
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && talpanas.getPose() == UP2Poses.SHAKING.get();
-        }
-
-        @Override
         public void stop() {
             super.stop();
             this.talpanas.shakeCooldown = 240 + talpanas.getRandom().nextInt(240);
-            this.talpanas.setPose(Pose.STANDING);
         }
     }
 }

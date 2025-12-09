@@ -38,6 +38,10 @@ public class UP2BlockTags {
     public static final TagKey<Block> TELECREX_SPAWNABLE_ON = modBlockTag("telecrex_spawnable_on");
     public static final TagKey<Block> UNICORN_SPAWNABLE_ON = modBlockTag("unicorn_spawnable_on");
 
+    public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
+    public static final TagKey<Block> TALPANAS_PECKING_BLOCKS = modBlockTag("talpanas_pecking_blocks");
+    public static final TagKey<Block> TELECREX_PECKING_BLOCKS = modBlockTag("telecrex_pecking_blocks");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }

@@ -99,11 +99,16 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVec) {
         if (this.isInWaterOrBubble() && !this.isFlying()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
         }
-        super.travel(travelVector);
+        super.travel(travelVec);
+    }
+
+    @Override
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getIdleState() == 1;
     }
 
     @Override
