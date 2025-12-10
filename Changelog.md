@@ -2,6 +2,8 @@
 - Added Desmatosuchus
 - Added Lystrosaurus
 - Added Pachycephalosaurus
+- Jawless fish and Tartuosteus will now nibble on blocks sometimes
+- Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
 - Misc tweaks
 
 ## Version 1.2.3

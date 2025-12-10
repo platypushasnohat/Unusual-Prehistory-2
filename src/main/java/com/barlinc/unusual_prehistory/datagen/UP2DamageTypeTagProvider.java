@@ -34,9 +34,7 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
                 DamageTypes.THORNS,
                 DamageTypes.FALLING_ANVIL,
                 DamageTypes.FALLING_STALACTITE,
-                DamageTypes.WITHER,
-                DamageTypes.MAGIC,
-                DamageTypes.INDIRECT_MAGIC
+                DamageTypes.IN_WALL
         ).addTag(DamageTypeTags.IS_FIRE)
         .addTag(DamageTypeTags.IS_FREEZING)
         .addTag(DamageTypeTags.IS_FALL)

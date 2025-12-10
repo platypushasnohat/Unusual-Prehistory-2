@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticDigBlockGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
@@ -8,6 +9,7 @@ import com.barlinc.unusual_prehistory.entity.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
@@ -60,8 +62,9 @@ public class JawlessFish extends SchoolingAquaticMob {
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7));
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(4, new AquaticDigBlockGoal(this, UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7));
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
 
     @Override

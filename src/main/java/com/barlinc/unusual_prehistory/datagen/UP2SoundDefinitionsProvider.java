@@ -216,6 +216,11 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step4").pitch(0.9F),
                 sound("mob/pig/step5").pitch(0.9F)
         );
+        this.sound(UP2SoundEvents.LYSTROSAURUS_CHAINSMOKER,
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough1")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough2")),
+                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough3"))
+        );
 
         // Majungasaurus
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT,

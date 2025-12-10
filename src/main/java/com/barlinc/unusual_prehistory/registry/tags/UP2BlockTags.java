@@ -41,8 +41,10 @@ public class UP2BlockTags {
     public static final TagKey<Block> TELECREX_SPAWNABLE_ON = modBlockTag("telecrex_spawnable_on");
     public static final TagKey<Block> UNICORN_SPAWNABLE_ON = modBlockTag("unicorn_spawnable_on");
 
+    public static final TagKey<Block> JAWLESS_FISH_NIBBLING_BLOCKS = modBlockTag("jawless_fish_nibbling_blocks");
     public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
     public static final TagKey<Block> TALPANAS_PECKING_BLOCKS = modBlockTag("talpanas_pecking_blocks");
+    public static final TagKey<Block> TARTUOSTEUS_NIBBLING_BLOCKS = modBlockTag("tartuosteus_nibbling_blocks");
     public static final TagKey<Block> TELECREX_PECKING_BLOCKS = modBlockTag("telecrex_pecking_blocks");
 
     private static TagKey<Block> modBlockTag(String name) {

@@ -71,22 +71,22 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
         PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(32, 37).addBox(-2.0F, -2.0F, -2.0F, 7.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 50).addBox(2.0F, 2.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.0F, -4.0F, 5.0F, 0.0F, -0.1745F, 0.0F));
 
-        PartDefinition left_leg1 = left_leg.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)), PartPose.offsetAndRotation(3.5F, 4.0F, -1.0F, 0.0F, -0.5236F, 0.0F));
+        PartDefinition left_leg1 = left_leg.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(3.5F, 4.0F, -1.0F, 0.0F, -0.5236F, 0.0F));
 
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(32, 37).mirror().addBox(-5.0F, -2.0F, -2.0F, 7.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(0, 50).mirror().addBox(-5.0F, 2.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-6.0F, -4.0F, 5.0F, 0.0F, 0.1745F, 0.0F));
 
-        PartDefinition right_leg1 = right_leg.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offsetAndRotation(-3.5F, 4.0F, -1.0F, 0.0F, 0.5236F, 0.0F));
+        PartDefinition right_leg1 = right_leg.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-3.5F, 4.0F, -1.0F, 0.0F, 0.5236F, 0.0F));
 
         PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 43).addBox(-2.0F, -2.0F, -1.5F, 7.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(52, 32).addBox(2.0F, 2.0F, -1.5F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.0F, -4.0F, -5.5F, 0.0F, 0.1745F, 0.0F));
 
-        PartDefinition left_arm1 = left_arm.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)), PartPose.offsetAndRotation(3.5F, 4.0F, -0.5F, 0.0F, -0.5236F, 0.0F));
+        PartDefinition left_arm1 = left_arm.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(3.5F, 4.0F, -0.5F, 0.0F, -0.5236F, 0.0F));
 
         PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 43).mirror().addBox(-5.0F, -2.0F, -1.5F, 7.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(52, 32).mirror().addBox(-5.0F, 2.0F, -1.5F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-6.0F, -4.0F, -5.5F, 0.0F, -0.1745F, 0.0F));
 
-        PartDefinition right_arm1 = right_arm.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offsetAndRotation(-3.5F, 4.0F, -0.5F, 0.0F, 0.5236F, 0.0F));
+        PartDefinition right_arm1 = right_arm.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(-3.5F, 4.0F, -0.5F, 0.0F, 0.5236F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}

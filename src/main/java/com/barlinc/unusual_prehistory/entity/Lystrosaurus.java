@@ -7,19 +7,27 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -103,7 +111,16 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        super.actuallyHurt(damageSource, amount * 0.15F);
+        if (damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) {
+            super.actuallyHurt(damageSource, amount * 0.05F);
+        } else {
+            super.actuallyHurt(damageSource, amount * 0.15F);
+        }
+    }
+
+    @Override
+    public boolean canBeAffected(@NotNull MobEffectInstance effect) {
+        return false;
     }
 
     // 3 hours of air
@@ -120,6 +137,23 @@ public class Lystrosaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
+
+        if (this.isAlive() && !this.level().isClientSide) {
+            this.breakAnvils();
+        }
+    }
+
+    private void breakAnvils() {
+        this.level().getEntities(this, this.getBoundingBox()).forEach((entity) -> {
+            if (entity instanceof FallingBlockEntity fallingBlockEntity) {
+                if (fallingBlockEntity.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                    fallingBlockEntity.spawnAtLocation(fallingBlockEntity.getBlockState().getBlock());
+                }
+                fallingBlockEntity.discard();
+                UP2ParticleUtils.queueParticlesOnBlockFaces(fallingBlockEntity.level(), fallingBlockEntity.blockPosition(), new BlockParticleOption(ParticleTypes.BLOCK, fallingBlockEntity.getBlockState()), UniformInt.of(2, 4));
+                fallingBlockEntity.callOnBrokenAfterFall(fallingBlockEntity.getBlockState().getBlock(), fallingBlockEntity.blockPosition());
+            }
+        });
     }
 
     @Override
@@ -164,6 +198,9 @@ public class Lystrosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
+        if (this.hasCustomName() && this.getName().getString().contains("chainsmoker") && this.getRandom().nextFloat() < 0.1F) {
+            return UP2SoundEvents.LYSTROSAURUS_CHAINSMOKER.get();
+        }
         return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
     }
 

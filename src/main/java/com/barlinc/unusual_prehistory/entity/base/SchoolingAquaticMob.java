@@ -29,6 +29,15 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     }
 
     @Override
+    protected void playSwimSound(float volume) {
+        float multiplier = 1.0F;
+        if (this.leader != null) {
+            multiplier = Math.max(1.0F - (leader.schoolSize - 1) * 0.1F, 0.4F);
+        }
+        this.playSound(this.getSwimSound(), volume * multiplier, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+    }
+
+    @Override
     public int getMaxSpawnClusterSize() {
         return this.getMaxSchoolSize();
     }
@@ -52,11 +61,11 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     }
 
     private void addFollower() {
-        ++this.schoolSize;
+        this.schoolSize++;
     }
 
     private void removeFollower() {
-        --this.schoolSize;
+        this.schoolSize--;
     }
 
     public boolean canBeFollowed() {

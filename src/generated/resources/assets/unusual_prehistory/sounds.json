@@ -500,6 +500,14 @@
     ],
     "subtitle": "subtitles.living_ooze_squish"
   },
+  "lystrosaurus_chainsmoker": {
+    "sounds": [
+      "unusual_prehistory:entity/lystrosaurus/cough1",
+      "unusual_prehistory:entity/lystrosaurus/cough2",
+      "unusual_prehistory:entity/lystrosaurus/cough3"
+    ],
+    "subtitle": "subtitles.lystrosaurus_chainsmoker"
+  },
   "lystrosaurus_death": {
     "sounds": [
       {

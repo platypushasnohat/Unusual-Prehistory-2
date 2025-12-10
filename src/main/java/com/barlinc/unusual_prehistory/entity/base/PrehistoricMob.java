@@ -51,6 +51,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Integer> RUNNING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> EATING_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -188,11 +189,6 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
-//    @Override
-//    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
-//        return !this.isLeashed();
-//    }
-
     @Override
     public void tick () {
         super.tick();
@@ -209,6 +205,10 @@ public abstract class PrehistoricMob extends Animal {
         if (this.wasShotFromOoze()) {
             if (!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable()) this.resetFallDistance();
             else this.setShotFromOoze(false);
+        }
+
+        if (this.getEatingCooldown() > 0 && this.canEat()) {
+            this.setEatingCooldown(this.getEatingCooldown() - 1);
         }
     }
 
@@ -235,6 +235,10 @@ public abstract class PrehistoricMob extends Animal {
 
     public boolean canHealOverTime() {
         return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && !this.level().isClientSide && this.isAlive();
+    }
+
+    public boolean canEat() {
+        return true;
     }
 
     public void doEepyParticles(float particleOffset) {
@@ -277,6 +281,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(SHOT_FROM_OOZE, false);
         this.entityData.define(IDLE_STATE, 0);
+        this.entityData.define(EATING_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
     }
 
     @Override
@@ -286,6 +291,7 @@ public abstract class PrehistoricMob extends Animal {
         compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
         compoundTag.putBoolean("Pacified", this.isPacified());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
+        compoundTag.putInt("EatingCooldown", this.getEatingCooldown());
     }
 
     @Override
@@ -295,6 +301,7 @@ public abstract class PrehistoricMob extends Animal {
         this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
+        this.setEatingCooldown(compoundTag.getInt("EatingCooldown"));
     }
 
     protected boolean getFlag(int flagId) {
@@ -401,6 +408,14 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setShotFromOoze(boolean shotFromOoze) {
         this.entityData.set(SHOT_FROM_OOZE, shotFromOoze);
+    }
+
+    public int getEatingCooldown() {
+        return this.entityData.get(EATING_COOLDOWN);
+    }
+
+    public void setEatingCooldown(int eatingCooldown) {
+        this.entityData.set(EATING_COOLDOWN, eatingCooldown);
     }
 
     @Override
