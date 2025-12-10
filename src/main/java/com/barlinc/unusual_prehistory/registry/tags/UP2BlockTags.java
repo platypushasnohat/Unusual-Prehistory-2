@@ -28,6 +28,7 @@ public class UP2BlockTags {
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
 
     public static final TagKey<Block> CARNOTAURUS_SPAWNABLE_ON = modBlockTag("carnotaurus_spawnable_on");
+    public static final TagKey<Block> DESMATOSUCHUS_SPAWNABLE_ON = modBlockTag("desmatosuchus_spawnable_on");
     public static final TagKey<Block> DIPLOCAULUS_SPAWNABLE_ON = modBlockTag("diplocaulus_spawnable_on");
     public static final TagKey<Block> DROMAEOSAURUS_SPAWNABLE_ON = modBlockTag("dromaeosaurus_spawnable_on");
     public static final TagKey<Block> KENTROSAURUS_SPAWNABLE_ON = modBlockTag("kentrosaurus_spawnable_on");

@@ -84,6 +84,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         ).addTag(BlockTags.TERRACOTTA);
 
+        this.tag(UP2BlockTags.DESMATOSUCHUS_SPAWNABLE_ON).add(
+                Blocks.SAND,
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON).add(
                 Blocks.MUD,
                 Blocks.GRASS_BLOCK

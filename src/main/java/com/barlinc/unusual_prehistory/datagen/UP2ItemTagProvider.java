@@ -101,6 +101,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_RABBIT
         );
 
+        this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
+                Blocks.CACTUS.asItem(),
+                Items.MELON
+        );
+
         this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
                 Items.SPIDER_EYE
         );
