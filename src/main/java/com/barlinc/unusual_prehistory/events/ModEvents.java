@@ -16,6 +16,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
         event.register(UP2Entities.CARNOTAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Carnotaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.DESMATOSUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Desmatosuchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.DIPLOCAULUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Diplocaulus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.DROMAEOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dromaeosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.DUNKLEOSTEUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dunkleosteus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
@@ -28,6 +29,7 @@ public class ModEvents {
         event.register(UP2Entities.MEGALANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Megalania::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.PACHYCEPHALOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pachycephalosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.STETHACANTHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stethacanthus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TALPANAS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TARTUOSTEUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tartuosteus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
@@ -38,6 +40,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(UP2Entities.CARNOTAURUS.get(), Carnotaurus.createAttributes().build());
+        event.put(UP2Entities.DESMATOSUCHUS.get(), Desmatosuchus.createAttributes().build());
         event.put(UP2Entities.DIPLOCAULUS.get(), Diplocaulus.createAttributes().build());
         event.put(UP2Entities.DROMAEOSAURUS.get(), Dromaeosaurus.createAttributes().build());
         event.put(UP2Entities.DUNKLEOSTEUS.get(), Dunkleosteus.createAttributes().build());
@@ -50,6 +53,7 @@ public class ModEvents {
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.METRIORHYNCHUS.get(), Metriorhynchus.createAttributes().build());
         event.put(UP2Entities.ONCHOPRISTIS.get(), Onchopristis.createAttributes().build());
+        event.put(UP2Entities.PACHYCEPHALOSAURUS.get(), Pachycephalosaurus.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());
         event.put(UP2Entities.TARTUOSTEUS.get(), Tartuosteus.createAttributes().build());

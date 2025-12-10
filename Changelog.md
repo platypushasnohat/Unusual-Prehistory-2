@@ -1,5 +1,8 @@
 ## Version 1.3.0
+- Added Desmatosuchus
 - Added Lystrosaurus
+- Added Pachycephalosaurus
+- Misc tweaks
 
 ## Version 1.2.3
 - Fixed a server crash

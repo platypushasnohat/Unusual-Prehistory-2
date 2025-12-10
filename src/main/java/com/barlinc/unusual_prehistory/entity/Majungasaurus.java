@@ -262,8 +262,8 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        Majungasaurus majungasaurus = UP2Entities.MAJUNGASAURUS.get().create(serverLevel);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+        Majungasaurus majungasaurus = UP2Entities.MAJUNGASAURUS.get().create(level);
         majungasaurus.setVariant(this.getVariant());
         return majungasaurus;
     }

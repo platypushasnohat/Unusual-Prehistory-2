@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-08T22:54:54.7382398	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-12-09T20:10:19.3937155	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -41,6 +41,7 @@ bc77032a8a67b188df9858f765efcbb6b8a301ee data/unusual_prehistory/tags/items/livi
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/megalania_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/metriorhynchus_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/onchopristis_food.json
+3f8de0b35529bc568180cc093eef809af6d10406 data/unusual_prehistory/tags/items/pachycephalosaurus_food.json
 2990eb285b0d60ed274032e65eeea09f83262ed5 data/unusual_prehistory/tags/items/pacifies_carnotaurus.json
 2990eb285b0d60ed274032e65eeea09f83262ed5 data/unusual_prehistory/tags/items/pacifies_dromaeosaurus.json
 2990eb285b0d60ed274032e65eeea09f83262ed5 data/unusual_prehistory/tags/items/pacifies_dunkleosteus.json

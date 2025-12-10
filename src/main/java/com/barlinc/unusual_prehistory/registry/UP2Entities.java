@@ -24,6 +24,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "carnotaurus").toString())
     );
 
+    public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = ENTITY_TYPE.register(
+            "desmatosuchus", () ->
+            EntityType.Builder.of(Desmatosuchus::new, MobCategory.CREATURE)
+                    .sized(1.3F, 1.2F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "desmatosuchus").toString())
+    );
+
     public static final RegistryObject<EntityType<Diplocaulus>> DIPLOCAULUS = ENTITY_TYPE.register(
             "diplocaulus", () ->
             EntityType.Builder.of(Diplocaulus::new, MobCategory.CREATURE)
@@ -118,6 +126,14 @@ public class UP2Entities {
                     .sized(1.2F, 0.5F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "onchopristis").toString())
+    );
+
+    public static final RegistryObject<EntityType<Pachycephalosaurus>> PACHYCEPHALOSAURUS = ENTITY_TYPE.register(
+            "pachycephalosaurus", () ->
+            EntityType.Builder.of(Pachycephalosaurus::new, MobCategory.CREATURE)
+                    .sized(0.8F, 1.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pachycephalosaurus").toString())
     );
 
     public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(

@@ -182,6 +182,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD).add(
+                Items.SWEET_BERRIES,
+                Items.APPLE,
+                Items.MELON
+        );
+
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(
                 Items.COD,
                 Items.SALMON,

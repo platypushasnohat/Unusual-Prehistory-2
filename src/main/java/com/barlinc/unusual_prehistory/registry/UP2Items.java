@@ -43,6 +43,9 @@ public class UP2Items {
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
     public static final RegistryObject<Item> FURY_FOSSIL = registerFossilItem("fury");
 
+    // desmatosuchus
+    public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
+
     // diplocaulus
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
     public static final RegistryObject<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new UP2MobBucketItem(UP2Entities.DIPLOCAULUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Diplocaulus.DiplocaulusVariant::byId)));
@@ -79,7 +82,7 @@ public class UP2Items {
     public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));
 
     // lystrosaurus
-    public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0x9b8f6c, 0x675a43);
+    public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0xaa9c65, 0x675a43);
 
     // majungasaurus
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
@@ -97,6 +100,9 @@ public class UP2Items {
     // onchopristis
     public static final RegistryObject<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);
     public static final RegistryObject<Item> SAW_FOSSIL = registerFossilItem("saw");
+
+    // pachycephalosaurus
+    public static final RegistryObject<Item> PACHYCEPHALOSAURUS_SPAWN_EGG = registerSpawnEggItem("pachycephalosaurus", UP2Entities.PACHYCEPHALOSAURUS, 0x4f3d72, 0x67bedb);
 
     // stethacanthus
     public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x6e2e1f, 0xffa200);

@@ -70,23 +70,8 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
-            return super.getFluidJumpThreshold();
-        }
-        return 0.6 * getBbHeight();
-    }
-
-    private void setUseLowerFluidJumpThreshold(boolean jumpThreshold) {
-        this.useLowerFluidJumpThreshold = jumpThreshold;
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
-        if (isInWater() && horizontalCollision) {
-            setUseLowerFluidJumpThreshold(true);
-        }
         this.setFlyingPose();
     }
 

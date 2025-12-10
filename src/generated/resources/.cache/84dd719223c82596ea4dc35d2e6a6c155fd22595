@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-08T23:05:19.5173187	Item Models: unusual_prehistory
+// 1.20.1	2025-12-09T19:35:51.989004	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
@@ -8,6 +8,7 @@ e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/b
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
 5426fced8a26cd9670b692972096d0b168b09a54 assets/unusual_prehistory/models/item/cladophebis_fossil.json
 6fb24554919870d291614a6232426cf3632beab3 assets/unusual_prehistory/models/item/cooksonia_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/desmatosuchus_spawn_egg.json
 da447bb260bd31be75dcabef54ca34e72a8b39e5 assets/unusual_prehistory/models/item/diplocaulus_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/diplocaulus_spawn_egg.json
 813adf7ca8b20177821ef040b10425db1fdba276 assets/unusual_prehistory/models/item/doomsurf_disc.json
@@ -56,6 +57,7 @@ eaabae11b2b5864cf3147228be79486e6fa26268 assets/unusual_prehistory/models/item/m
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/metriorhynchus_spawn_egg.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/pachycephalosaurus_spawn_egg.json
 e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/plumage_fossil.json
 8d78948154d3aef2b95f3cad96bf495d14459247 assets/unusual_prehistory/models/item/prickly_fossil.json
 e7a945291047943937e99a76bbcff9026ac08077 assets/unusual_prehistory/models/item/quillwort_fossil.json

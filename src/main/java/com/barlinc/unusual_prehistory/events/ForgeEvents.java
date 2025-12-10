@@ -67,5 +67,4 @@ public class ForgeEvents {
             event.setAmount(event.getAmount() * 4);
         }
     }
-
 }

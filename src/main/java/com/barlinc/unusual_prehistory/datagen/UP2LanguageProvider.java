@@ -42,6 +42,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         // entities
         this.forEntity(UP2Entities.CARNOTAURUS);
+        this.forEntity(UP2Entities.DESMATOSUCHUS);
         this.forEntity(UP2Entities.DIPLOCAULUS);
         this.forEntity(UP2Entities.DROMAEOSAURUS);
         this.forEntity(UP2Entities.DUNKLEOSTEUS);
@@ -54,6 +55,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.MEGALANIA);
         this.forEntity(UP2Entities.METRIORHYNCHUS);
         this.forEntity(UP2Entities.ONCHOPRISTIS);
+        this.forEntity(UP2Entities.PACHYCEPHALOSAURUS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
         this.forEntity(UP2Entities.TELECREX);
