@@ -4,7 +4,7 @@
     "item": "unusual_prehistory:prototaxites_fossil"
   },
   "output": {
-    "item": "unusual_prehistory:prototaxites"
+    "item": "unusual_prehistory:prototaxites_nub"
   },
   "processing_time": 600
 }

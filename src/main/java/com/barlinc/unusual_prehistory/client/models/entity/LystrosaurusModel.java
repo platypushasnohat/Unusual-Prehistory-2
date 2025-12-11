@@ -96,7 +96,7 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isInWater()) {
-            if (entity.isRunning()) this.animateWalk(LystrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+            if (entity.isRunning()) this.animateWalk(LystrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(LystrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         } else {
             this.animateWalk(LystrosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);

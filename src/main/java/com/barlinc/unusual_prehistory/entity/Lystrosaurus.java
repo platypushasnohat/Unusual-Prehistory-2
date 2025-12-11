@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LystrosaurusRunLikeCrazyGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -59,6 +60,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new LystrosaurusRunLikeCrazyGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LYSTROSAURUS_FOOD), false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
@@ -80,6 +82,11 @@ public class Lystrosaurus extends PrehistoricMob {
     @Override
     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.9F;
+    }
+
+    @Override
+    public float getStepHeight() {
+        return this.isRunning() ? 1.0F : 0.6F;
     }
 
     @Override

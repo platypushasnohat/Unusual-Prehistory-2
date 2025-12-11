@@ -99,7 +99,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.COOKSONIA_FOSSIL.get(), COOKSONIA.get().asItem(), 600);
         transmogrification(consumer, UP2Items.GINKGO_FOSSIL.get(), GINKGO_SAPLING.get().asItem(), 600);
         transmogrification(consumer, UP2Items.HORSETAIL_FOSSIL.get(), HORSETAIL.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.PROTOTAXITES_FOSSIL.get(), PROTOTAXITES.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.PROTOTAXITES_FOSSIL.get(), PROTOTAXITES_NUB.get().asItem(), 600);
         transmogrification(consumer, UP2Items.QUILLWORT_FOSSIL.get(), QUILLWORT.get().asItem(), 600);
         transmogrification(consumer, UP2Items.LEEFRUCTUS_FOSSIL.get(), LEEFRUCTUS.get().asItem(), 600);
         transmogrification(consumer, UP2Items.LEPIDODENDRON_FOSSIL.get(), LEPIDODENDRON_CONE.get().asItem(), 600);

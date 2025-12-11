@@ -126,6 +126,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
 
                         // fungus
+                        output.accept(UP2Blocks.PROTOTAXITES_NUB.get());
                         output.accept(UP2Blocks.PROTOTAXITES.get());
 
                         // trees

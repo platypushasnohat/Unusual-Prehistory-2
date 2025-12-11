@@ -36,6 +36,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.tallPlant(LARGE_HORSETAIL);
         this.tallPlant(RAIGUENRAYUN);
 
+        this.simpleCross(PROTOTAXITES_NUB);
+
         this.pillar(GINKGO_LOG);
         this.wood(GINKGO_WOOD, this.blockTexture(GINKGO_LOG.get()));
         this.pillar(STRIPPED_GINKGO_LOG);
