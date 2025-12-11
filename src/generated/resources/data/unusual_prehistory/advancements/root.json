@@ -360,6 +360,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "prototaxites_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:prototaxites_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "quillwort_fossil": {
       "conditions": {
         "items": [
@@ -532,6 +544,7 @@
       "cooksonia_fossil",
       "horsetail_fossil",
       "leefructus_fossil",
+      "prototaxites_fossil",
       "quillwort_fossil",
       "raiguenrayun_fossil",
       "rhynia_fossil",

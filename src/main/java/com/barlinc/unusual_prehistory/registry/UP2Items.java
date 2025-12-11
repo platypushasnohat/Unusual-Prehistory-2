@@ -129,6 +129,7 @@ public class UP2Items {
     public static final RegistryObject<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
     public static final RegistryObject<Item> HORSETAIL_FOSSIL = registerFossilItem("horsetail");
     public static final RegistryObject<Item> LEEFRUCTUS_FOSSIL = registerFossilItem("leefructus");
+    public static final RegistryObject<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");
     public static final RegistryObject<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
     public static final RegistryObject<Item> RAIGUENRAYUN_FOSSIL = registerFossilItem("raiguenrayun");
     public static final RegistryObject<Item> RHYNIA_FOSSIL = registerFossilItem("rhynia");

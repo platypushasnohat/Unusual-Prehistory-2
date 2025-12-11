@@ -78,6 +78,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(GINKGO_FOSSIL);
         this.item(RHYNIA_FOSSIL);
         this.item(LEEFRUCTUS_FOSSIL);
+        this.item(PROTOTAXITES_FOSSIL);
         this.item(QUILLWORT_FOSSIL);
         this.item(LEPIDODENDRON_FOSSIL);
         this.item(COOKSONIA_FOSSIL);

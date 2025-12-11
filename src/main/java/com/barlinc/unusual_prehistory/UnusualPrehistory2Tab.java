@@ -104,6 +104,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(COOKSONIA_FOSSIL.get());
                         output.accept(HORSETAIL_FOSSIL.get());
                         output.accept(LEEFRUCTUS_FOSSIL.get());
+                        output.accept(PROTOTAXITES_FOSSIL.get());
                         output.accept(QUILLWORT_FOSSIL.get());
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
                         output.accept(RHYNIA_FOSSIL.get());
@@ -123,6 +124,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.RHYNIA.get());
                         output.accept(UP2Blocks.MOSS_LAYER.get());
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
+
+                        // fungus
+                        output.accept(UP2Blocks.PROTOTAXITES.get());
 
                         // trees
                         output.accept(UP2Blocks.GINKGO_LOG.get());

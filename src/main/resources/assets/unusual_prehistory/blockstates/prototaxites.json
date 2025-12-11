@@ -1,0 +1,174 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10, 
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10, 
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10,
+          "y": 90,
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10,
+          "y": 90,
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10,
+          "y": 180,
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10,
+          "y": 180,
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10,
+          "y": 270,
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10,
+          "y": 270,
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10,
+          "x": 270,
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10,
+          "x": 270,
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": [
+        { 
+          "model": "unusual_prehistory:block/prototaxites", 
+          "weight": 10,
+          "x": 90,
+          "uvlock": true 
+        },
+        { 
+          "model": "unusual_prehistory:block/warty_prototaxites", 
+          "weight": 10,
+          "x": 90,
+          "uvlock": true 
+        }
+      ]
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "uvlock": false,
+        "y": 90
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "uvlock": false,
+        "y": 180
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "uvlock": false,
+        "y": 270
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "uvlock": false,
+        "x": 270
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "uvlock": false,
+        "x": 90
+      },
+      "when": {
+        "down": "false"
+      }
+    }
+  ]
+}

@@ -111,6 +111,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new PrehistoricPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
 
+    public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new HugeMushroomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+
     // ginkgo
     public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
     public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
