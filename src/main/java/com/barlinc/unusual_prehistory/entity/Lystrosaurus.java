@@ -205,7 +205,7 @@ public class Lystrosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        if (this.hasCustomName() && this.getName().getString().contains("chainsmoker") && this.getRandom().nextFloat() < 0.1F) {
+        if (this.hasCustomName() && this.getName().getString().contains("chainsmoker") && this.getRandom().nextFloat() < 0.15F) {
             return UP2SoundEvents.LYSTROSAURUS_CHAINSMOKER.get();
         }
         return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
@@ -213,7 +213,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return UP2SoundEvents.LYSTROSAURUS_HURT.get();
     }
 
