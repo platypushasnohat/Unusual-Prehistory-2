@@ -146,11 +146,11 @@ public class Lystrosaurus extends PrehistoricMob {
         super.tick();
 
         if (this.isAlive() && !this.level().isClientSide) {
-            this.breakAnvils();
+            this.breakFallingBlocks();
         }
     }
 
-    private void breakAnvils() {
+    private void breakFallingBlocks() {
         this.level().getEntities(this, this.getBoundingBox()).forEach((entity) -> {
             if (entity instanceof FallingBlockEntity fallingBlockEntity) {
                 if (fallingBlockEntity.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
