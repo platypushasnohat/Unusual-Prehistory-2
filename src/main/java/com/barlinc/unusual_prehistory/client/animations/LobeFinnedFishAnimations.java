@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.animations.lobe_finned_fish;
+package com.barlinc.unusual_prehistory.client.animations;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

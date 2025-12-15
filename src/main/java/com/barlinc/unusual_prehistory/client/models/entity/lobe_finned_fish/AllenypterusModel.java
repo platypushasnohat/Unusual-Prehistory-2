@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.lobe_finned_fish;
 
-import com.barlinc.unusual_prehistory.client.animations.lobe_finned_fish.LobeFinnedFishAnimations;
+import com.barlinc.unusual_prehistory.client.animations.LobeFinnedFishAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.LobeFinnedFish;
 import net.minecraft.client.model.geom.ModelPart;
