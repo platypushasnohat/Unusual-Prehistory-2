@@ -7,6 +7,8 @@
 - Jawless fish and Tartuosteus will now nibble on blocks sometimes
 - Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
 - Improved fish flopping
+- Mobs will now pathfind out of water more consistently instead of getting stuck
+- Mobs now move faster in water
 - Misc tweaks
 
 ## Version 1.2.3

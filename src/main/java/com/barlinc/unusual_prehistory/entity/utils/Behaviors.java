@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.utils;
 
+@Deprecated
 public enum Behaviors {
 
     IDLE("Idling"),

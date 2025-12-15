@@ -1,10 +1,11 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveBodyRotationControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.RefuseToMoveLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.google.common.annotations.VisibleForTesting;
@@ -25,6 +26,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -60,13 +62,26 @@ public abstract class PrehistoricMob extends Animal {
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricMobMoveControl(this);
-        this.lookControl = new RefuseToMoveLookControl(this);
+        this.moveControl = new PrehistoricMoveControl(this);
+        this.lookControl = new PrehistoricLookControl(this);
     }
 
     @Override
+    public int getExperienceReward() {
+        return 0;
+    }
+
+    public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
+        double x = entity.getX() - this.getX();
+        double y = entity.getZ() - this.getZ();
+        double scale = Math.max(x * x + y * y, 0.001D);
+        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
+    }
+
+    // Navigation
+    @Override
     protected @NotNull BodyRotationControl createBodyControl() {
-        return new RefuseToMoveBodyRotationControl(this);
+        return new PrehistoricBodyRotationControl(this);
     }
 
     @Override
@@ -79,6 +94,7 @@ public abstract class PrehistoricMob extends Animal {
         return 0.0F;
     }
 
+    // Floating
     @Override
     public double getFluidJumpThreshold() {
         if (useLowerFluidJumpThreshold) {
@@ -99,11 +115,7 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
-    @Override
-    public int getExperienceReward() {
-        return 0;
-    }
-
+    // Mating
     @Override
     public boolean canFallInLove() {
         return false;
@@ -114,12 +126,35 @@ public abstract class PrehistoricMob extends Animal {
         return false;
     }
 
+    // Persistence
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return !this.requiresCustomPersistence();
+    }
+
+    // Mob interactions
     public SoundEvent getEatingSound() {
         return SoundEvents.GENERIC_EAT;
     }
 
     public boolean isPacifyItem(ItemStack itemStack) {
         return itemStack.is(Items.ENCHANTED_GOLDEN_APPLE);
+    }
+
+    private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
+        Item item = food.getItem();
+        if (item.isEdible()) {
+            for (Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
+                if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
+                    livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
+                }
+            }
+        }
     }
 
     @Override
@@ -152,21 +187,13 @@ public abstract class PrehistoricMob extends Animal {
         return InteractionResult.PASS;
     }
 
-    public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
-        double x = entity.getX() - this.getX();
-        double y = entity.getZ() - this.getZ();
-        double scale = Math.max(x * x + y * y, 0.001D);
-        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
-    }
-
-    private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
-        Item item = food.getItem();
-        if (item.isEdible()) {
-            for (Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
-                if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
-                    livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
-                }
-            }
+    // Entity events
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == PACIFY) {
+            this.spawnPacifyParticles();
+        } else {
+            super.handleEntityEvent(id);
         }
     }
 
@@ -177,15 +204,6 @@ public abstract class PrehistoricMob extends Animal {
             double yspeed = this.random.nextGaussian() * 0.08D;
             double zspeed = this.random.nextGaussian() * 0.02D;
             this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), xspeed, yspeed, zspeed);
-        }
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == PACIFY) {
-            this.spawnPacifyParticles();
-        } else {
-            super.handleEntityEvent(id);
         }
     }
 
@@ -212,6 +230,11 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
+    public boolean canEat() {
+        return true;
+    }
+
+    // Animation
     public void setupAnimationCooldowns() {
     }
 
@@ -229,6 +252,7 @@ public abstract class PrehistoricMob extends Animal {
         return this.isBaby() ? 5.0F : 10.0F;
     }
 
+    // Healing
     public int getHealCooldown() {
         return 200;
     }
@@ -237,10 +261,7 @@ public abstract class PrehistoricMob extends Animal {
         return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && !this.level().isClientSide && this.isAlive();
     }
 
-    public boolean canEat() {
-        return true;
-    }
-
+    // Eepy particles
     public void doEepyParticles(float particleOffset) {
         Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * particleOffset).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
@@ -255,10 +276,7 @@ public abstract class PrehistoricMob extends Animal {
         return false;
     }
 
-    public boolean isInPoseTransition() {
-        return false;
-    }
-
+    // Sitting
     public long getPoseTime() {
         return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
@@ -267,6 +285,54 @@ public abstract class PrehistoricMob extends Animal {
         return this.isInPoseTransition();
     }
 
+    public boolean isMobSitting() {
+        return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
+    }
+
+    public boolean isMobVisuallySitting() {
+        return this.getPoseTime() < 0L != this.isMobSitting();
+    }
+
+    public long getSitTransitionTime() {
+        return 20L;
+    }
+
+    public boolean isInPoseTransition() {
+        long l = this.getPoseTime();
+        return l < this.getSitTransitionTime();
+    }
+
+    public boolean isVisuallySitting() {
+        return this.isMobSitting() && this.getPoseTime() < this.getSitTransitionTime() && this.getPoseTime() >= 0L;
+    }
+
+    public void sitDown() {
+        if (this.isMobSitting()) return;
+        this.setPose(UP2Poses.SITTING.get());
+        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+        this.refreshDimensions();
+    }
+
+    public void standUp() {
+        if (!this.isMobSitting()) {
+            return;
+        }
+        this.setPose(Pose.STANDING);
+        this.resetLastPoseChangeTick((this.level()).getGameTime());
+        this.refreshDimensions();
+    }
+
+    public void standUpInstantly() {
+        this.setPose(Pose.STANDING);
+        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
+        this.refreshDimensions();
+    }
+
+    public void resetLastPoseChangeTickToFullStand(long l) {
+        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
+    }
+
+    // Data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -362,10 +428,6 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(LAST_POSE_CHANGE_TICK, l);
     }
 
-    public void resetLastPoseChangeTickToFullStand(long l) {
-        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
-    }
-
     public boolean isPacified() {
         return this.entityData.get(PACIFIED);
     }
@@ -416,15 +478,5 @@ public abstract class PrehistoricMob extends Animal {
 
     public void setEatingCooldown(int eatingCooldown) {
         this.entityData.set(EATING_COOLDOWN, eatingCooldown);
-    }
-
-    @Override
-    public boolean requiresCustomPersistence() {
-        return true;
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double d) {
-        return !this.requiresCustomPersistence();
     }
 }

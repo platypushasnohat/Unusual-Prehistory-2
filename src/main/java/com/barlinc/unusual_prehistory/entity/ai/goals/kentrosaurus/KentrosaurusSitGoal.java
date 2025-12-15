@@ -4,12 +4,12 @@ import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-public class KentrosaurusLayDownGoal extends Goal {
+public class KentrosaurusSitGoal extends Goal {
 
     protected final Kentrosaurus kentrosaurus;
     private final int minimalPoseTicks;
 
-    public KentrosaurusLayDownGoal(Kentrosaurus kentrosaurus) {
+    public KentrosaurusSitGoal(Kentrosaurus kentrosaurus) {
         this.kentrosaurus = kentrosaurus;
         this.minimalPoseTicks = 20 * 20 + kentrosaurus.getRandom().nextInt(20 * 20);
     }
@@ -26,12 +26,12 @@ public class KentrosaurusLayDownGoal extends Goal {
 
     @Override
     public void start() {
-        if (this.kentrosaurus.isKentrosaurusLayingDown()) {
+        if (this.kentrosaurus.isMobSitting()) {
             this.kentrosaurus.layDownCooldown();
             this.kentrosaurus.standUp();
         } else {
             this.kentrosaurus.standUpCooldown();
-            this.kentrosaurus.layDown();
+            this.kentrosaurus.sitDown();
         }
     }
 }

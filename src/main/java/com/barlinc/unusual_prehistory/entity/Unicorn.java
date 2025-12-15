@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.AgeableFollowParentGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -66,7 +67,7 @@ public class Unicorn extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.UNICORN_FOOD), false));
         this.goalSelector.addGoal(4, new AgeableFollowParentGoal(this, 1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }

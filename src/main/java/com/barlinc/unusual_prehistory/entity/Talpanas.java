@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TalpanasSeekShelterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.BreedableMob;
@@ -81,7 +82,7 @@ public class Talpanas extends BreedableMob {
         this.goalSelector.addGoal(2, new TalpanasSeekShelterGoal(this));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new TalpanasPeckGoal(this));

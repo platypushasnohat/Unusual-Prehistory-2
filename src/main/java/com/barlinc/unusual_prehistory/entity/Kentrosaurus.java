@@ -1,12 +1,12 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusDefendThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusFollowThornsGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusLayDownGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusSitGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -30,7 +30,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -63,6 +62,7 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState stretch1AnimationState = new AnimationState();
     public final AnimationState stretch2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
+    public final AnimationState swimmingAnimationState = new AnimationState();
 
     private int attackTicks;
 
@@ -73,7 +73,6 @@ public class Kentrosaurus extends PrehistoricMob {
 
     public Kentrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new KentrosaurusMoveControl(this);
         this.setMaxUpStep(1);
         this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 0.0F);
@@ -86,11 +85,11 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new KentrosaurusFollowThornsGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new KentrosaurusLayDownGoal(this));
+        this.goalSelector.addGoal(8, new KentrosaurusSitGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusGrazeGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusShakeGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusStretchGoal(this));
@@ -152,7 +151,7 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isKentrosaurusLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
+        if (this.isMobSitting() && this.isInWaterOrBubble()) this.standUpInstantly();
         if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) this.standUp();
     }
 
@@ -175,15 +174,16 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isInWater(), this.tickCount);
+        this.swimmingAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get() && this.isInWater(), this.tickCount);
 
-        if (this.isKentrosaurusVisuallyLayingDown()) {
+        if (this.isMobVisuallySitting()) {
             this.standUpAnimationState.stop();
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.grazeAnimationState.stop();
-            if (this.isVisuallyLayingDown()) {
+            if (this.isVisuallySitting()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
                 this.layDownIdleAnimationState.stop();
             } else {
@@ -259,24 +259,24 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.RESTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
     public boolean canBeCollidedWith() {
-        return this.isKentrosaurusLayingDown();
+        return this.isMobSitting();
     }
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 6.0F && this.isKentrosaurusLayingDown() && !this.isInPoseTransition()) {
+        if (distance > 6.0F && this.isMobSitting() && !this.isInPoseTransition()) {
             this.standUp();
         }
     }
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (this.isKentrosaurusLayingDown()) this.standUpInstantly();
+        if (this.isMobSitting()) this.standUpInstantly();
         if (!damageSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !damageSource.is(DamageTypes.THORNS)) {
             Entity entity = damageSource.getDirectEntity();
             if (entity instanceof LivingEntity target) {
@@ -293,7 +293,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.isKentrosaurusLayingDown() || this.getIdleState() == 1 || this.getIdleState() == 4;
+        return super.refuseToMove() || this.isMobSitting() || this.getIdleState() == 1 || this.getIdleState() == 4;
     }
 
     @Override
@@ -328,45 +328,6 @@ public class Kentrosaurus extends PrehistoricMob {
 
     public void standUpCooldown() {
         this.entityData.set(LAY_DOWN_COOLDOWN, 20 * 40 + random.nextInt(50 * 2 * 20));
-    }
-
-    public boolean isKentrosaurusLayingDown() {
-        return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
-    }
-
-    public boolean isKentrosaurusVisuallyLayingDown() {
-        return this.getPoseTime() < 0L != this.isKentrosaurusLayingDown();
-    }
-
-    public boolean isInPoseTransition() {
-        long l = this.getPoseTime();
-        return l < (long) (20);
-    }
-
-    private boolean isVisuallyLayingDown() {
-        return this.isKentrosaurusLayingDown() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
-    }
-
-    public void layDown() {
-        if (this.isKentrosaurusLayingDown()) return;
-        this.setPose(UP2Poses.RESTING.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void standUp() {
-        if (!this.isKentrosaurusLayingDown()) {
-            return;
-        }
-        this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void standUpInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
-        this.refreshDimensions();
     }
 
     @Nullable
@@ -408,26 +369,6 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     // Goals
-    private static class KentrosaurusMoveControl extends PrehistoricMobMoveControl {
-
-        protected final Kentrosaurus kentrosaurus;
-
-        public KentrosaurusMoveControl(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus);
-            this.kentrosaurus = kentrosaurus;
-        }
-
-        @Override
-        public void tick() {
-            if (!this.kentrosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.kentrosaurus.isLeashed() && this.kentrosaurus.isKentrosaurusLayingDown() && !this.kentrosaurus.isInPoseTransition()) {
-                    this.kentrosaurus.standUp();
-                }
-                super.tick();
-            }
-        }
-    }
-
     private static class KentrosaurusGrazeGoal extends AnimationGoal {
 
         private final Kentrosaurus kentrosaurus;
@@ -439,7 +380,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && kentrosaurus.grazeCooldown == 0 && !kentrosaurus.isKentrosaurusLayingDown() && kentrosaurus.level().getBlockState(kentrosaurus.blockPosition().below()).is(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS);
+            return super.canUse() && kentrosaurus.grazeCooldown == 0 && !kentrosaurus.isMobSitting() && kentrosaurus.level().getBlockState(kentrosaurus.blockPosition().below()).is(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS);
         }
 
         @Override
@@ -460,7 +401,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && kentrosaurus.shakeCooldown == 0 && !kentrosaurus.isKentrosaurusLayingDown();
+            return super.canUse() && kentrosaurus.shakeCooldown == 0 && !kentrosaurus.isMobSitting();
         }
 
         @Override
@@ -502,7 +443,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && kentrosaurus.stretchCooldown == 0 && !kentrosaurus.isKentrosaurusLayingDown();
+            return super.canUse() && kentrosaurus.stretchCooldown == 0 && !kentrosaurus.isMobSitting();
         }
 
         @Override

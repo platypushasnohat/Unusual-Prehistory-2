@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMobMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
@@ -300,7 +300,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
-    private static class DromaeosaurusMoveControl extends PrehistoricMobMoveControl {
+    private static class DromaeosaurusMoveControl extends PrehistoricMoveControl {
 
         private final Dromaeosaurus dromaeosaurus;
 

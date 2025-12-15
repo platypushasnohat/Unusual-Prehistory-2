@@ -3,11 +3,11 @@ package com.barlinc.unusual_prehistory.entity.ai.control;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 
-public class RefuseToMoveBodyRotationControl extends BodyRotationControl {
+public class PrehistoricBodyRotationControl extends BodyRotationControl {
 
     protected final PrehistoricMob mob;
 
-    public RefuseToMoveBodyRotationControl(PrehistoricMob mob) {
+    public PrehistoricBodyRotationControl(PrehistoricMob mob) {
         super(mob);
         this.mob = mob;
     }

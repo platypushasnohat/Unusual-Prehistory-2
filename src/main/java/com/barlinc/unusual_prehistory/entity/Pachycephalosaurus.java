@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -42,7 +43,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
