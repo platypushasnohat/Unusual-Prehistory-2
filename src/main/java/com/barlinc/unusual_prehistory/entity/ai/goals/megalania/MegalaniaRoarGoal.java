@@ -17,7 +17,7 @@ public class MegalaniaRoarGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.megalania.getPose() == Pose.STANDING && !this.megalania.isMegalaniaLayingDown() && this.megalania.roarCooldown == 0 && this.megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !this.megalania.isInWater() && this.megalania.onGround();
+        return this.megalania.getPose() == Pose.STANDING && !this.megalania.isMobSitting() && this.megalania.roarCooldown == 0 && this.megalania.getBehavior().equals(Behaviors.IDLE.getName()) && !this.megalania.isInWater() && this.megalania.onGround();
     }
 
     @Override

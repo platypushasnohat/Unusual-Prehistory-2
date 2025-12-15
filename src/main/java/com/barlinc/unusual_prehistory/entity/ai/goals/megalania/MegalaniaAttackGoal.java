@@ -26,7 +26,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && this.megalania.getPose() != Pose.ROARING && !this.megalania.isMegalaniaLayingDown();
+        return super.canUse() && this.megalania.getPose() != Pose.ROARING && !this.megalania.isMobSitting();
     }
 
     @Override

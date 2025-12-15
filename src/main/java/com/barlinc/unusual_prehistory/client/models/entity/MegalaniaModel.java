@@ -149,10 +149,10 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 				this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
                 this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
             }
-			this.head.xRot += entity.isMegalaniaLayingDown() ? 0F : headPitch * deg / 4;
-			this.head.yRot += entity.isMegalaniaLayingDown() ? 0F : netHeadYaw * deg / 4;
-			this.neck.xRot += entity.isMegalaniaLayingDown() ? 0F : headPitch * deg / 2;
-			this.neck.yRot += entity.isMegalaniaLayingDown() ? 0F : netHeadYaw * deg / 4;
+			this.head.xRot += entity.isMobSitting() ? 0F : headPitch * deg / 4;
+			this.head.yRot += entity.isMobSitting() ? 0F : netHeadYaw * deg / 4;
+			this.neck.xRot += entity.isMobSitting() ? 0F : headPitch * deg / 2;
+			this.neck.yRot += entity.isMobSitting() ? 0F : netHeadYaw * deg / 4;
 		}
 
 		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
