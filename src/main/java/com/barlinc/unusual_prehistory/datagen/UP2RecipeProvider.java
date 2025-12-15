@@ -77,19 +77,19 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         stonecutting(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_SLAB.get(), 2, consumer);
         stonecutting(FOSSILIZED_BONE_VERTEBRA.get(), FOSSILIZED_BONE_BLOCK.get(), 1, consumer);
 
+        transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), DIPLOCAULUS_EGGS.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), DUNKLEOSTEUS_SAC.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), JAWLESS_FISH_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(), 1200);
-        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), STETHACANTHUS_SAC.get().asItem(), 1200);
-
-        transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
-        transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), KENTROSAURUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.FISH_FOSSIL.get(), LOBE_FINNED_FISH_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), MAJUNGASAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);
         transmogrification(consumer, UP2Items.SAW_FOSSIL.get(), ONCHOPRISTIS_SAC.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), STETHACANTHUS_SAC.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
 

@@ -13,6 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UP2Entities {
+
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
     // Prehistoric
@@ -86,6 +87,14 @@ public class UP2Entities {
                     .sized(0.4F, 0.3F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kimmeridgebrachypteraeschnidium_nymph").toString())
+    );
+
+    public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
+            "lobe_finned_fish", () ->
+            EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F, 0.8F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lobe_finned_fish").toString())
     );
 
     public static final RegistryObject<EntityType<Lystrosaurus>> LYSTROSAURUS = ENTITY_TYPE.register(

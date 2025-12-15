@@ -49,6 +49,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(JAWLESS_FOSSIL);
         this.item(PRICKLY_FOSSIL);
         this.item(IMPERATIVE_FOSSIL);
+        this.item(FISH_FOSSIL);
         this.item(RUGOSE_FOSSIL);
         this.item(THERMAL_FOSSIL);
         this.item(MELTDOWN_FOSSIL);
@@ -72,6 +73,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);
+        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);

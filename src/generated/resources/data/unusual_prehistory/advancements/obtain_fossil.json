@@ -73,6 +73,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "fish_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:fish_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "fury_fossil": {
       "conditions": {
         "items": [
@@ -326,6 +338,7 @@
       "jawless_fossil",
       "prickly_fossil",
       "imperative_fossil",
+      "fish_fossil",
       "rugose_fossil",
       "thermal_fossil",
       "meltdown_fossil",

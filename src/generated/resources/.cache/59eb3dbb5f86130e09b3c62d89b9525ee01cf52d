@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-24T14:20:35.2274442	Loot Tables
+// 1.20.1	2025-12-14T18:09:13.3185346	Loot Tables
 86a581faab506fc6da41180e7ace6da287b6851a data/unusual_prehistory/loot_tables/blocks/asphalt.json
 10266915d70e71b32995be35f0f832fdcb421a21 data/unusual_prehistory/loot_tables/blocks/bennettitales.json
 0ea148d457d40d39512d01a3bc3ce22333b0c77d data/unusual_prehistory/loot_tables/blocks/calamophyton.json
@@ -59,6 +59,7 @@ c556476062a4cc8502cf9182d182b9e6ee3a9d03 data/unusual_prehistory/loot_tables/blo
 36b7d2c660ac624f5e3b7e86a83d2089907237bc data/unusual_prehistory/loot_tables/blocks/lepidodendron_trapdoor.json
 cd9db3062e337451ec7fc65ed336635bdad9a974 data/unusual_prehistory/loot_tables/blocks/lepidodendron_wall_sign.json
 3810dca916fea36fb20eff878e4a58b9faed010b data/unusual_prehistory/loot_tables/blocks/lepidodendron_wood.json
+76e54b36bedd205bd983a04ce1c08d5da56c450c data/unusual_prehistory/loot_tables/blocks/lobe_finned_fish_roe.json
 01a9f879ade2de70804e2a135d4d962c714518fe data/unusual_prehistory/loot_tables/blocks/majungasaurus_egg.json
 2279f3b5c5b080884339bb3632ca8c7dccb18e19 data/unusual_prehistory/loot_tables/blocks/megalania_egg.json
 c20b33c9718bf1c954d9750eeff1142d126832e1 data/unusual_prehistory/loot_tables/blocks/mossy_dirt.json

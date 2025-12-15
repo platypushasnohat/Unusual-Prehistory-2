@@ -75,6 +75,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(JAWLESS_FOSSIL.get());
                         output.accept(PRICKLY_FOSSIL.get());
                         output.accept(IMPERATIVE_FOSSIL.get());
+                        output.accept(FISH_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
                         output.accept(MELTDOWN_FOSSIL.get());
@@ -90,6 +91,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());

@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class UP2ModelLayers {
 
+    public static final ModelLayerLocation ALLENYPTERUS = main("allenypterus");
     public static final ModelLayerLocation ARANDASPIS = main("arandaspis");
     public static final ModelLayerLocation CARNOTAURUS = main("carnotaurus");
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
@@ -22,10 +23,13 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation DUNKLEOSTEUS_LARGE = main("dunkleosteus_large");
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM = main("dunkleosteus_medium");
     public static final ModelLayerLocation DUNKLEOSTEUS_SMALL = main("dunkleosteus_small");
+    public static final ModelLayerLocation EUSTHENOPTERON = main("eusthenopteron");
     public static final ModelLayerLocation FURACACAUDA = main("furacacauda");
+    public static final ModelLayerLocation GOOLOOGONGIA = main("gooloogongia");
     public static final ModelLayerLocation KENTROSAURUS = main("kentrosaurus");
-    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM = main("kimmeridgebrachypteraeschnidium");
-    public static final ModelLayerLocation KIMMERIDGEBRACHYTERAESCHNIDIUM_NYMPH = main("kimmeridgebrachypteraeschnidium_nymph");
+    public static final ModelLayerLocation KIMMERIDGEBRACHYPTERAESCHNIDIUM = main("kimmeridgebrachypteraeschnidium");
+    public static final ModelLayerLocation KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH = main("kimmeridgebrachypteraeschnidium_nymph");
+    public static final ModelLayerLocation LACCOGNATHUS = main("laccognathus");
     public static final ModelLayerLocation LYSTROSAURUS = main("lystrosaurus");
     public static final ModelLayerLocation MAJUNGASAURUS = main("majungasaurus");
     public static final ModelLayerLocation MEGALANIA = main("megalania");
@@ -33,12 +37,14 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ONCHOPRISTIS = main("onchopristis");
     public static final ModelLayerLocation PACHYCEPHALOSAURUS = main("pachycephalosaurus");
     public static final ModelLayerLocation SACABAMBASPIS = main("sacabambaspis");
+    public static final ModelLayerLocation SCAUMENACIA = main("scaumenacia");
     public static final ModelLayerLocation STETHACANTHUS = main("stethacanthus");
     public static final ModelLayerLocation TALPANAS = main("talpanas");
     public static final ModelLayerLocation TARTUOSTEUS = main("tartuosteus");
     public static final ModelLayerLocation TELECREX = main("telecrex");
     public static final ModelLayerLocation UNICORN = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");
+
     public static final ModelLayerLocation LIVING_OOZE = main("living_ooze");
 
     private static ModelLayerLocation register(String id, String name) {

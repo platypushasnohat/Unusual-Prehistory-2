@@ -87,6 +87,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(DIPLOCAULUS_EGGS.get());
         this.dropSelf(JAWLESS_FISH_ROE.get());
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+        this.dropSelf(LOBE_FINNED_FISH_ROE.get());
         this.dropSelf(STETHACANTHUS_SAC.get());
         this.dropSelf(DUNKLEOSTEUS_SAC.get());
         this.dropSelf(ONCHOPRISTIS_SAC.get());

@@ -23,7 +23,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -99,7 +98,11 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     public float flopChance() {
-        return 0.3F;
+        return 1.0F;
+    }
+
+    public boolean shouldFlop() {
+        return true;
     }
 
     public void tickFlopping() {
@@ -110,11 +113,10 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
             onLandProgress--;
         }
 
-        if (!this.isInWaterOrBubble() && this.isAlive()) {
-            if (this.onGround() && this.getRandom().nextFloat() < flopChance()) {
-                this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F, 0.3D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F));
-                this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-            }
+        if (!this.isInWater() && this.onGround() && this.getRandom().nextFloat() < this.flopChance() && this.shouldFlop()) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F, 0.5D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F));
+            if (this.getRandom().nextFloat() < 0.3F) this.setYRot(this.getRandom().nextFloat() * 360.0F);
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
     }
 

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
-        super(context, new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYTERAESCHNIDIUM)), 0.3F);
+        super(context, new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYPTERAESCHNIDIUM)), 0.3F);
         this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
