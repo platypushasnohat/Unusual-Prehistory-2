@@ -172,7 +172,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         compoundTag.putBoolean("Pacified", this.isPacified());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
-        compoundTag.putInt("EatingCooldown", this.getEatingCooldown());
+        compoundTag.putInt("EatingCooldown", this.getEatCooldown());
     }
 
     @Override
@@ -185,7 +185,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
-        this.setEatingCooldown(compoundTag.getInt("EatingCooldown"));
+        this.setEatCooldown(compoundTag.getInt("EatingCooldown"));
     }
 
     @Override

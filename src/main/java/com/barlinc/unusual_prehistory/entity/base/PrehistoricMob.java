@@ -8,10 +8,12 @@ import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
+import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -33,7 +36,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -48,17 +50,17 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PACIFIED_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> RUNNING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> EATING_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
-
-    private final byte PACIFY = 9;
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -143,7 +145,15 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(Items.ENCHANTED_GOLDEN_APPLE);
+        return this.isFood(itemStack);
+    }
+
+    public boolean isPermanentPacifyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.PERMANENTLY_PACIFIES_MOB);
+    }
+
+    public int pacifiedTicks() {
+        return 600 + this.getRandom().nextInt(600 * 8);
     }
 
     private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
@@ -157,31 +167,34 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
+    protected void feedItemToMob(Player player, InteractionHand hand, ItemStack itemstack) {
+        this.usePlayerItem(player, hand, itemstack);
+        this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
+        this.applyFoodEffects(itemstack, this.level(), this);
+        this.gameEvent(GameEvent.EAT);
+    }
+
     @Override
     public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isFood(itemstack)) {
-            int i = this.getAge();
-            if (this.isBaby()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
-                this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
-                this.applyFoodEffects(itemstack, this.level(), this);
-                this.gameEvent(GameEvent.EAT);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-            if (this.level().isClientSide) {
-                return InteractionResult.CONSUME;
-            }
+        if (this.isFood(itemstack) && this.isBaby()) {
+            this.feedItemToMob(player, hand, itemstack);
+            this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        else if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
-            this.usePlayerItem(player, hand, itemstack);
+        if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
+            this.feedItemToMob(player, hand, itemstack);
             this.setPacified(true);
-            this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
-            this.applyFoodEffects(itemstack, this.level(), this);
-            this.gameEvent(GameEvent.EAT);
-            this.level().broadcastEntityEvent(this, PACIFY);
-            if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB.trigger(serverPlayer);
+            this.setPacifiedTicks(this.pacifiedTicks());
+            this.level().broadcastEntityEvent(this, (byte) 9);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        if (this.isPermanentPacifyItem(itemstack) && this.canPacify() && (!this.isPacified() || this.getPacifiedTicks() > 0) && !this.isBaby()) {
+            this.feedItemToMob(player, hand, itemstack);
+            this.setPacified(true);
+            this.setPacifiedTicks(-1);
+            this.level().broadcastEntityEvent(this, (byte) 10);
+            if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
@@ -190,16 +203,16 @@ public abstract class PrehistoricMob extends Animal {
     // Entity events
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == PACIFY) {
-            this.spawnPacifyParticles();
-        } else {
-            super.handleEntityEvent(id);
+        switch (id) {
+            case 9 -> this.spawnPacifyParticles(false);
+            case 10 -> this.spawnPacifyParticles(true);
+            default -> super.handleEntityEvent(id);
         }
     }
 
-    protected void spawnPacifyParticles() {
-        ParticleOptions particleoptions = UP2Particles.GOLDEN_HEART.get();
-        for(int i = 0; i < 7; ++i) {
+    protected void spawnPacifyParticles(boolean permanent) {
+        ParticleOptions particleoptions = permanent ? UP2Particles.GOLDEN_HEART.get() : ParticleTypes.HEART;
+        for(int i = 0; i < 7; i++) {
             double xspeed = this.random.nextGaussian() * 0.02D;
             double yspeed = this.random.nextGaussian() * 0.08D;
             double zspeed = this.random.nextGaussian() * 0.02D;
@@ -211,7 +224,7 @@ public abstract class PrehistoricMob extends Animal {
     public void tick () {
         super.tick();
 
-        if (this.level().isClientSide()) this.setupAnimationStates();
+        if (this.level().isClientSide) this.setupAnimationStates();
         this.setupAnimationCooldowns();
 
         if (this.canHealOverTime()) this.heal(2);
@@ -225,9 +238,27 @@ public abstract class PrehistoricMob extends Animal {
             else this.setShotFromOoze(false);
         }
 
-        if (this.getEatingCooldown() > 0 && this.canEat()) {
-            this.setEatingCooldown(this.getEatingCooldown() - 1);
+        if (this.getEatCooldown() > 0 && this.canEat()) this.setEatCooldown(this.getEatCooldown() - 1);
+
+        if (this.getPacifiedTicks() > 0) this.setPacifiedTicks(this.getPacifiedTicks() - 1);
+        if (this.getPacifiedTicks() == 0 && this.isPacified()) this.setPacified(false);
+
+        if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble() && !this.isInRain()) {
+            this.setSitCooldown(this.getSitCooldown() - 1);
         }
+
+        if (this.isMobSitting() && this.isInWaterOrBubble()) {
+            this.standUpInstantly();
+            this.sitCooldown();
+        }
+        if (this.isInRain()) {
+            this.standUp();
+            this.sitCooldown();
+        }
+    }
+
+    protected boolean isInRain() {
+        return this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining()) && this.level().getBiome(this.blockPosition()).get().hasPrecipitation();
     }
 
     public boolean canEat() {
@@ -277,12 +308,30 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     // Sitting
+    @Override
+    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+        if (this.isMobSitting()) this.standUpInstantly();
+        super.actuallyHurt(damageSource, amount);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.isMobSitting();
+    }
+
+    @Override
+    protected void onLeashDistance(float distance) {
+        if (distance > 6.0F && this.isMobSitting() && !this.isInPoseTransition()) {
+            this.standUp();
+        }
+    }
+
     public long getPoseTime() {
         return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
 
     public boolean refuseToMove() {
-        return this.isInPoseTransition();
+        return this.isInPoseTransition() || this.isMobSitting();
     }
 
     public boolean isMobSitting() {
@@ -342,12 +391,14 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
+        this.entityData.define(PACIFIED_TICKS, 0);
         this.entityData.define(FROM_EGG, false);
         this.entityData.define(RUNNING, false);
         this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(SHOT_FROM_OOZE, false);
         this.entityData.define(IDLE_STATE, 0);
-        this.entityData.define(EATING_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
+        this.entityData.define(EAT_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
+        this.entityData.define(SIT_COOLDOWN, 2000 + this.getRandom().nextInt(2000 * 2));
     }
 
     @Override
@@ -356,8 +407,10 @@ public abstract class PrehistoricMob extends Animal {
         compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
         compoundTag.putBoolean("Pacified", this.isPacified());
+        compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
-        compoundTag.putInt("EatingCooldown", this.getEatingCooldown());
+        compoundTag.putInt("EatCooldown", this.getEatCooldown());
+        compoundTag.putInt("SitCooldown", this.getSitCooldown());
     }
 
     @Override
@@ -366,14 +419,15 @@ public abstract class PrehistoricMob extends Animal {
         this.setVariant(compoundTag.getInt("Variant"));
         this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
+        this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
-        this.setEatingCooldown(compoundTag.getInt("EatingCooldown"));
+        this.setEatCooldown(compoundTag.getInt("EatCooldown"));
+        this.setSitCooldown(compoundTag.getInt("SitCooldown"));
     }
 
     protected boolean getFlag(int flagId) {
         return (this.entityData.get(DATA_FLAGS) & flagId) != 0;
     }
-
     protected void setFlag(int flagId, boolean value) {
         byte b0 = this.entityData.get(DATA_FLAGS);
         if (value) {
@@ -386,7 +440,6 @@ public abstract class PrehistoricMob extends Animal {
     public int getAttackState() {
         return this.entityData.get(ATTACK_STATE);
     }
-
     public void setAttackState(int attackState) {
         this.entityData.set(ATTACK_STATE, attackState);
     }
@@ -394,7 +447,6 @@ public abstract class PrehistoricMob extends Animal {
     public int getIdleState() {
         return this.entityData.get(IDLE_STATE);
     }
-
     public void setIdleState(int idleState) {
         this.entityData.set(IDLE_STATE, idleState);
     }
@@ -402,11 +454,9 @@ public abstract class PrehistoricMob extends Animal {
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
-
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, Mth.clamp(variant, 0, this.getVariantCount()));
     }
-
     public int getVariantCount() {
         return 128;
     }
@@ -414,7 +464,6 @@ public abstract class PrehistoricMob extends Animal {
     public String getBehavior() {
         return this.entityData.get(BEHAVIOR);
     }
-
     public void setBehavior(String behavior) {
         this.entityData.set(BEHAVIOR, behavior);
     }
@@ -422,7 +471,6 @@ public abstract class PrehistoricMob extends Animal {
     public long getLastPoseChangeTick() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK);
     }
-
     @VisibleForTesting
     public void resetLastPoseChangeTick(long l) {
         this.entityData.set(LAST_POSE_CHANGE_TICK, l);
@@ -431,19 +479,23 @@ public abstract class PrehistoricMob extends Animal {
     public boolean isPacified() {
         return this.entityData.get(PACIFIED);
     }
-
     public void setPacified(boolean pacified) {
         this.entityData.set(PACIFIED, pacified);
     }
-
     public boolean canPacify() {
         return false;
+    }
+
+    public int getPacifiedTicks() {
+        return this.entityData.get(PACIFIED_TICKS);
+    }
+    public void setPacifiedTicks(int ticks) {
+        this.entityData.set(PACIFIED_TICKS, ticks);
     }
 
     public boolean isFromEgg() {
         return this.entityData.get(FROM_EGG);
     }
-
     public void setFromEgg(boolean fromEgg) {
         this.entityData.set(FROM_EGG, fromEgg);
     }
@@ -451,7 +503,6 @@ public abstract class PrehistoricMob extends Animal {
     public boolean isRunning() {
         return this.entityData.get(RUNNING);
     }
-
     public void setRunning(boolean running) {
         this.entityData.set(RUNNING, running);
     }
@@ -459,7 +510,6 @@ public abstract class PrehistoricMob extends Animal {
     public int getRunningTicks() {
         return this.entityData.get(RUNNING_TICKS);
     }
-
     public void setRunningTicks(int ticks) {
         this.entityData.set(RUNNING_TICKS, ticks);
     }
@@ -467,16 +517,27 @@ public abstract class PrehistoricMob extends Animal {
     public boolean wasShotFromOoze() {
         return this.entityData.get(SHOT_FROM_OOZE);
     }
-
     public void setShotFromOoze(boolean shotFromOoze) {
         this.entityData.set(SHOT_FROM_OOZE, shotFromOoze);
     }
 
-    public int getEatingCooldown() {
-        return this.entityData.get(EATING_COOLDOWN);
+    public int getEatCooldown() {
+        return this.entityData.get(EAT_COOLDOWN);
+    }
+    public void setEatCooldown(int cooldown) {
+        this.entityData.set(EAT_COOLDOWN, cooldown);
     }
 
-    public void setEatingCooldown(int eatingCooldown) {
-        this.entityData.set(EATING_COOLDOWN, eatingCooldown);
+    public int getSitCooldown() {
+        return this.entityData.get(SIT_COOLDOWN);
+    }
+    public void setSitCooldown(int cooldown) {
+        this.entityData.set(SIT_COOLDOWN, cooldown);
+    }
+    public void sitCooldown() {
+        this.setSitCooldown(2000 + random.nextInt(2000 * 2));
+    }
+    public void standUpCooldown() {
+        this.setSitCooldown(1200 + random.nextInt(1200 * 2));
     }
 }

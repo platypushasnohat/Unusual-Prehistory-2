@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaLayDownGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaRoarGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaSitGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
@@ -59,7 +59,6 @@ public class Megalania extends SemiAquaticMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> LAY_DOWN_COOLDOWN = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.7F, 1.05F);
 
     public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
@@ -126,7 +125,7 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new MegalaniaRoarGoal(this));
-        this.goalSelector.addGoal(8, new MegalaniaLayDownGoal(this));
+        this.goalSelector.addGoal(8, new MegalaniaSitGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
         this.targetSelector.addGoal(2, new MegalaniaTargetGoal<>(this, LivingEntity.class));
@@ -275,20 +274,17 @@ public class Megalania extends SemiAquaticMob {
         super.defineSynchedData();
         this.entityData.define(TEMPERATURE_STATE, 0);
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
-        this.entityData.define(LAY_DOWN_COOLDOWN, 50 * 50 + getRandom().nextInt(60 * 2 * 20));
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
-        compoundTag.putInt("LayDownCooldown", this.getLayDownCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
-        this.setLayDownCooldown(compoundTag.getInt("LayDownCooldown"));
     }
 
     public TemperatureStates getTemperatureState() {
@@ -309,84 +305,14 @@ public class Megalania extends SemiAquaticMob {
         return TemperatureStates.values()[Mth.clamp(entityData.get(PREV_TEMPERATURE_STATE), 0, 3)];
     }
 
-    public int getLayDownCooldown() {
-        return this.entityData.get(LAY_DOWN_COOLDOWN);
-    }
-    public void setLayDownCooldown(int cooldown) {
-        this.entityData.set(LAY_DOWN_COOLDOWN, cooldown);
-    }
-
-    public void layDownCooldown() {
-        this.entityData.set(LAY_DOWN_COOLDOWN, 70 * 50 + random.nextInt(70 * 2 * 20));
-    }
-    public void standUpCooldown() {
-        this.entityData.set(LAY_DOWN_COOLDOWN, 20 * 40 + random.nextInt(50 * 2 * 20));
-    }
-
-    public boolean isMegalaniaLayingDown() {
-        return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
-    }
-    public boolean isMegalaniaVisuallyLayingDown() {
-        return this.getPoseTime() < 0L != this.isMegalaniaLayingDown();
-    }
-
-    public boolean isInPoseTransition() {
-        long l = this.getPoseTime();
-        return l < (long) (20);
-    }
-
-    private boolean isVisuallyLayingDown() {
-        return this.isMegalaniaLayingDown() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
-    }
-
-    public void layDown() {
-        if (this.isMegalaniaLayingDown()) return;
-        this.setPose(UP2Poses.RESTING.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void standUp() {
-        if (!this.isMegalaniaLayingDown()) {
-            return;
-        }
-        this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void standUpInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.RESTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return this.isMegalaniaLayingDown();
-    }
-
-    @Override
-    protected void onLeashDistance(float distance) {
-        if (distance > 6.0F && this.isMegalaniaLayingDown() && !this.isInPoseTransition()) {
-            this.standUp();
-        }
-    }
-
-    @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (this.isMegalaniaLayingDown()) this.standUpInstantly();
-        super.actuallyHurt(damageSource, amount);
+        return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
     public boolean refuseToMove() {
-        return this.isMegalaniaLayingDown() || this.isInPoseTransition() || this.getPose() == Pose.ROARING;
+        return super.refuseToMove() || this.getPose() == Pose.ROARING;
     }
 
     @Override
@@ -398,9 +324,6 @@ public class Megalania extends SemiAquaticMob {
         if (ground && !this.isLandNavigator) switchNavigator(true);
 
         if (this.roarCooldown > 0 && !this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) this.roarCooldown--;
-
-        if (this.isMegalaniaLayingDown() && this.isInWaterOrBubble()) this.standUpInstantly();
-        if ((this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) || !this.isRightTemperatureToSit()) this.standUp();
 
         this.tickTemperatureStates();
 
@@ -447,7 +370,7 @@ public class Megalania extends SemiAquaticMob {
         this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.getBehavior().equals(Behaviors.ANGRY.getName()) && this.getPose() == Pose.STANDING, this.tickCount);
 
-        if (this.isMegalaniaVisuallyLayingDown()) {
+        if (this.isMobVisuallySitting()) {
             this.standUpAnimationState.stop();
             this.biting1AnimationState.stop();
             this.biting2AnimationState.stop();
@@ -456,7 +379,7 @@ public class Megalania extends SemiAquaticMob {
             this.aggroAnimationState.stop();
             this.tailWhipAnimationState.stop();
 
-            if (this.isVisuallyLayingDown()) {
+            if (this.isVisuallySitting()) {
                 this.layDownAnimationState.startIfStopped(this.tickCount);
                 this.sittingAnimationState.stop();
             } else {
@@ -486,7 +409,6 @@ public class Megalania extends SemiAquaticMob {
         if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
 
         if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isInWaterOrBubble() && !this.isAggressive()) {
-            if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
             if (this.getPose() == Pose.STANDING) {
                 if (this.random.nextInt(200) == 0) {
                     this.level().broadcastEntityEvent(this, this.TONGUE);

@@ -158,7 +158,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .save(consumer, UnusualPrehistory2.modPrefix("breed_holocene_mobs"), helper);
 
         createAdvancement("pacify_mob", eggs, Items.ENCHANTED_GOLDEN_APPLE, FrameType.CHALLENGE, false)
-                .addCriterion("pacify_mob", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.PACIFY_MOB.getId(), ContextAwarePredicate.ANY))
+                .addCriterion("pacify_mob", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.PACIFY_MOB_PERMANENT.getId(), ContextAwarePredicate.ANY))
                 .rewards(AdvancementRewards.Builder.experience(50))
                 .save(consumer, UnusualPrehistory2.modPrefix("pacify_mob"), helper);
     }

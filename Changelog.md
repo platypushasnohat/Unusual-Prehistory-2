@@ -9,6 +9,7 @@
 - Improved fish flopping
 - Mobs will now pathfind out of water more consistently instead of getting stuck
 - Mobs now move faster in water
+- Mobs that can be pacified can now be temporarily pacified with their tempt item
 - Misc tweaks
 
 ## Version 1.2.3

@@ -64,32 +64,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ORGANIC_OOZE.get()
         );
 
-        this.tag(UP2ItemTags.PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
-
-        this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_MEGALANIA)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
-        this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS)
-                .addTag(UP2ItemTags.PACIFIES_MOB);
-
+        // Food
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
                 Items.BEEF,
                 Items.PORKCHOP,
@@ -223,6 +198,17 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
                 Items.CAKE
         );
+
+        // Pacifying
+        this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
+        this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS).addTag(UP2ItemTags.CARNOTAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS).addTag(UP2ItemTags.DROMAEOSAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
 
         this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(
                 Items.DEBUG_STICK

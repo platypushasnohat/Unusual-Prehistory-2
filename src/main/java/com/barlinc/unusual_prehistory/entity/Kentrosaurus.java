@@ -3,12 +3,11 @@ package com.barlinc.unusual_prehistory.entity;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusDefendThornsGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusFollowThornsGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus.KentrosaurusSitGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -16,10 +15,7 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -48,7 +44,6 @@ import java.util.List;
 
 public class Kentrosaurus extends PrehistoricMob {
 
-    public static final EntityDataAccessor<Integer> LAY_DOWN_COOLDOWN = SynchedEntityData.defineId(Kentrosaurus.class, EntityDataSerializers.INT);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.6F, 1.75F);
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -89,7 +84,7 @@ public class Kentrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new KentrosaurusSitGoal(this));
+        this.goalSelector.addGoal(8, new RandomSitGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusGrazeGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusShakeGoal(this));
         this.goalSelector.addGoal(9, new KentrosaurusStretchGoal(this));
@@ -149,13 +144,6 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.isMobSitting() && this.isInWaterOrBubble()) this.standUpInstantly();
-        if (this.level().canSeeSky(this.blockPosition()) && (this.level().isThundering() || this.level().isRaining())) this.standUp();
-    }
-
-    @Override
     public void setupAnimationCooldowns() {
         if (grazeCooldown > 0) grazeCooldown--;
         if (shakeCooldown > 0) shakeCooldown--;
@@ -163,9 +151,6 @@ public class Kentrosaurus extends PrehistoricMob {
         if (yawnCooldown > 0) yawnCooldown--;
         if (this.attackTicks > 0) attackTicks--;
         if (this.attackTicks == 0 && this.getPose() == UP2Poses.TAIL_WHIPPING.get()) this.setPose(Pose.STANDING);
-        if (!this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
-            if (this.getLayDownCooldown() > 0) this.setLayDownCooldown(this.getLayDownCooldown() - 1);
-        }
     }
 
     @Override
@@ -263,20 +248,7 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canBeCollidedWith() {
-        return this.isMobSitting();
-    }
-
-    @Override
-    protected void onLeashDistance(float distance) {
-        if (distance > 6.0F && this.isMobSitting() && !this.isInPoseTransition()) {
-            this.standUp();
-        }
-    }
-
-    @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (this.isMobSitting()) this.standUpInstantly();
         if (!damageSource.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !damageSource.is(DamageTypes.THORNS)) {
             Entity entity = damageSource.getDirectEntity();
             if (entity instanceof LivingEntity target) {
@@ -293,41 +265,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.isMobSitting() || this.getIdleState() == 1 || this.getIdleState() == 4;
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LAY_DOWN_COOLDOWN, 50 * 50 + getRandom().nextInt(60 * 2 * 20));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("LayDownCooldown", this.getLayDownCooldown());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setLayDownCooldown(compoundTag.getInt("LayDownCooldown"));
-    }
-
-    public int getLayDownCooldown() {
-        return this.entityData.get(LAY_DOWN_COOLDOWN);
-    }
-
-    public void setLayDownCooldown(int cooldown) {
-        this.entityData.set(LAY_DOWN_COOLDOWN, cooldown);
-    }
-
-    public void layDownCooldown() {
-        this.entityData.set(LAY_DOWN_COOLDOWN, 50 * 50 + random.nextInt(60 * 2 * 20));
-    }
-
-    public void standUpCooldown() {
-        this.entityData.set(LAY_DOWN_COOLDOWN, 20 * 40 + random.nextInt(50 * 2 * 20));
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 4;
     }
 
     @Nullable

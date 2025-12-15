@@ -41,8 +41,8 @@ public class AquaticDigBlockGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (aquaticMob.getEatingCooldown() <= 0 && aquaticMob.isInWater()) {
-            this.aquaticMob.setEatingCooldown(600 + aquaticMob.getRandom().nextInt(600 * 4));
+        if (aquaticMob.getEatCooldown() <= 0 && aquaticMob.isInWater()) {
+            this.aquaticMob.setEatCooldown(600 + aquaticMob.getRandom().nextInt(600 * 4));
             this.digPos = this.getDigPos();
             this.timeOut = 800;
             return this.digPos != null;
@@ -98,7 +98,7 @@ public class AquaticDigBlockGoal extends Goal {
 
     @Override
     public void stop() {
-        this.aquaticMob.setEatingCooldown(cooldown + (aquaticMob.getRandom().nextInt(cooldown * 4)));
+        this.aquaticMob.setEatCooldown(cooldown + (aquaticMob.getRandom().nextInt(cooldown * 4)));
         this.digPos = null;
         this.digTime = digTimeLimit;
         this.timeOut = 400;
