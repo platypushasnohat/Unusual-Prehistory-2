@@ -5,7 +5,6 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.MajungasaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -41,19 +40,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class Majungasaurus extends PrehistoricMob {
 
-    public static final EntityDataAccessor<Integer> STEALTH_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+
+    private float stealthProgress;
+    private float prevStealthProgress;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState eyesAnimationState = new AnimationState();
     public final AnimationState biteRightAnimationState = new AnimationState();
     public final AnimationState biteLeftAnimationState = new AnimationState();
-    public final AnimationState enterStealthAnimationState = new AnimationState();
-    public final AnimationState stealthIdleAnimationState = new AnimationState();
-    public final AnimationState exitStealthAnimationState = new AnimationState();
+    public final AnimationState startCamoAnimationState = new AnimationState();
+    public final AnimationState camoIdleAnimationState = new AnimationState();
+    public final AnimationState stopCamoAnimationState = new AnimationState();
     public final AnimationState swimmingAnimationState = new AnimationState();
-
-    private float stealthProgress;
-    private float prevStealthProgress;
 
     private int biteTicks;
 
@@ -65,8 +65,8 @@ public class Majungasaurus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MajungasaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(2, new MajungasaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MAJUNGASAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -132,6 +132,11 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
+    public boolean refuseToMove() {
+        return false;
+    }
+
+    @Override
     public void tick () {
         super.tick();
 
@@ -140,10 +145,16 @@ public class Majungasaurus extends PrehistoricMob {
         if (this.biteTicks > 0) biteTicks--;
         if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
 
-        if (this.isMajungasaurusStealthMode() && stealthProgress < 20F) stealthProgress++;
-        if (!this.isMajungasaurusStealthMode() && stealthProgress > 0F) stealthProgress--;
+        float targetStealth;
+        if (this.isMajungasaurusStealthMode()) {
+            targetStealth = 20;
+        } else {
+            targetStealth = this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000 ? 10 : 0;
+        }
+        if (stealthProgress < targetStealth) stealthProgress++;
+        else if (stealthProgress > targetStealth) stealthProgress--;
 
-        if (this.getStealthCooldown() > 0) this.setStealthCooldown(this.getStealthCooldown() - 1);
+        if (this.getCamoCooldown() > 0) this.setCamoCooldown(this.getCamoCooldown() - 1);
     }
 
     @Override
@@ -153,26 +164,27 @@ public class Majungasaurus extends PrehistoricMob {
             this.biteLeftAnimationState.stop();
         }
 
-        this.idleAnimationState.animateWhen(!this.isMajungasaurusStealthMode() && !this.isInWater(), this.tickCount);
-        this.eyesAnimationState.animateWhen(this.getBehavior().equals(Behaviors.IDLE.getName()), this.tickCount);
-        this.swimmingAnimationState.animateWhen(!this.isMajungasaurusStealthMode() && this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater(), this.tickCount);
+        this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater(), this.tickCount);
+        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
+        this.swimmingAnimationState.animateWhen(this.isInWater(), this.tickCount);
 
-        if (this.isMajungasaurusVisuallyStealthMode()) {
-            this.exitStealthAnimationState.stop();
-            this.idleAnimationState.stop();
-
-            if (this.isVisuallyStealthMode()) {
-                this.enterStealthAnimationState.startIfStopped(this.tickCount);
-                this.stealthIdleAnimationState.stop();
-            } else {
-                this.enterStealthAnimationState.stop();
-                this.stealthIdleAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.stealthIdleAnimationState.stop();
-            this.enterStealthAnimationState.stop();
-            this.exitStealthAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
-        }
+//        if (this.isMajungasaurusVisuallyStealthMode()) {
+//            this.stopCamoAnimationState.stop();
+//            this.idleAnimationState.stop();
+//
+//            if (this.isVisuallyStealthMode()) {
+//                this.startCamoAnimationState.startIfStopped(this.tickCount);
+//                this.camoIdleAnimationState.stop();
+//            } else {
+//                this.startCamoAnimationState.stop();
+//                this.camoIdleAnimationState.startIfStopped(this.tickCount);
+//            }
+//        } else {
+//            this.camoIdleAnimationState.stop();
+//            this.startCamoAnimationState.stop();
+//            this.stopCamoAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+//        }
     }
 
     @Override
@@ -183,31 +195,37 @@ public class Majungasaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(STEALTH_COOLDOWN, 60 + random.nextInt(10));
+        this.entityData.define(CAMO, false);
+        this.entityData.define(CAMO_COOLDOWN, 60 + random.nextInt(10));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("StealthCooldown", this.getStealthCooldown());
+        compoundTag.putInt("CamoCooldown", this.getCamoCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setStealthCooldown(compoundTag.getInt("StealthCooldown"));
+        this.setCamoCooldown(compoundTag.getInt("CamoCooldown"));
     }
 
-    public int getStealthCooldown() {
-        return this.entityData.get(STEALTH_COOLDOWN);
+    public boolean isCamo() {
+        return this.entityData.get(CAMO);
+    }
+    public void setCamo(boolean camo) {
+        this.entityData.set(CAMO, camo);
     }
 
-    public void setStealthCooldown(int cooldown) {
-        this.entityData.set(STEALTH_COOLDOWN, cooldown);
+    public int getCamoCooldown() {
+        return this.entityData.get(CAMO_COOLDOWN);
     }
-
-    public void stealthCooldown() {
-        this.entityData.set(STEALTH_COOLDOWN, 60 + random.nextInt(10));
+    public void setCamoCooldown(int cooldown) {
+        this.entityData.set(CAMO_COOLDOWN, cooldown);
+    }
+    public void camoCooldown() {
+        this.entityData.set(CAMO_COOLDOWN, 60 + random.nextInt(10));
     }
 
     public boolean isMajungasaurusStealthMode() {
@@ -218,37 +236,43 @@ public class Majungasaurus extends PrehistoricMob {
         return this.getPoseTime() < 0L != this.isMajungasaurusStealthMode();
     }
 
-    @Override
-    public boolean isInPoseTransition() {
-        long l = this.getPoseTime();
-        return l < (long) (20);
-    }
-
     private boolean isVisuallyStealthMode() {
         return this.isMajungasaurusStealthMode() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
     }
 
     public void enterStealth() {
-        if (this.isMajungasaurusStealthMode()) return;
-        this.setPose(UP2Poses.STEALTH.get());
-        this.setLastPoseChangeTick(-(this.level()).getGameTime());
+//        if (this.isMajungasaurusStealthMode()) return;
+//        this.setPose(UP2Poses.STEALTH.get());
+//        this.setLastPoseChangeTick(-(this.level()).getGameTime());
+//        this.refreshDimensions();
+        if (this.isCamo()) return;
+        this.setCamo(true);
         this.refreshDimensions();
     }
 
     public void exitStealth() {
-        if (!this.isMajungasaurusStealthMode()) {
+//        if (!this.isMajungasaurusStealthMode()) {
+//            return;
+//        }
+//        this.setPose(Pose.STANDING);
+//        this.setLastPoseChangeTick((this.level()).getGameTime());
+//        this.camoCooldown();
+//        this.refreshDimensions();
+        if (!this.isCamo()) {
             return;
         }
-        this.setPose(Pose.STANDING);
-        this.setLastPoseChangeTick((this.level()).getGameTime());
-        this.stealthCooldown();
+        this.setCamo(true);
+        this.camoCooldown();
         this.refreshDimensions();
     }
 
     public void exitStealthInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
-        this.stealthCooldown();
+//        this.setPose(Pose.STANDING);
+//        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
+//        this.camoCooldown();
+//        this.refreshDimensions();
+        this.setCamo(false);
+        this.camoCooldown();
         this.refreshDimensions();
     }
 

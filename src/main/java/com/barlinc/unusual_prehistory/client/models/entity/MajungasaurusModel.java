@@ -141,9 +141,8 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (!entity.isInWater()) {
-            if (entity.isMajungasaurusStealthMode() && !entity.isInPoseTransition()) {
-                this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2.5F, 5);
-            } else {
+            if (entity.isCamo()) this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2.5F, 5);
+            else {
                 if (entity.isRunning()) this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
                 else this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
             }
@@ -152,14 +151,10 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 		if (this.young) this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.swimmingAnimationState, MajungasaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount);
 		this.animate(entity.biteRightAnimationState, MajungasaurusAnimations.ATTACK_BLEND1, ageInTicks);
 		this.animate(entity.biteLeftAnimationState, MajungasaurusAnimations.ATTACK_BLEND2, ageInTicks);
-
-		this.animate(entity.enterStealthAnimationState, MajungasaurusAnimations.CAMO_START, ageInTicks);
-        this.animateIdle(entity.stealthIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.exitStealthAnimationState, MajungasaurusAnimations.CAMO_END, ageInTicks);
-
 		this.animate(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_BLEND, ageInTicks);
 
 		this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;

@@ -14,6 +14,7 @@
 - Added Tartuosteus fossil and roe
 - Reduced chance for Tartuosteus to appear from jawless fish roe
 - Fixed mobs moving sideways sometimes
+- Majungasaurus is now aggressive at night and turns slightly translucent at night
 - Misc tweaks
 
 ## Version 1.2.3

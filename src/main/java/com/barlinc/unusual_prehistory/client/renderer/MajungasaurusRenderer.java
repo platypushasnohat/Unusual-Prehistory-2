@@ -26,7 +26,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public void render(Majungasaurus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        this.shadowRadius = entity.isMajungasaurusStealthMode() ? 0.0F : 0.8F;
+        this.shadowRadius = entity.getStealthProgress(1.0F) > 0.0F ? 0.0F : 0.8F;
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
