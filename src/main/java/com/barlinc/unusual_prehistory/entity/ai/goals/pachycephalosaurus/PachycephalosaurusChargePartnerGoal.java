@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus;
 
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;

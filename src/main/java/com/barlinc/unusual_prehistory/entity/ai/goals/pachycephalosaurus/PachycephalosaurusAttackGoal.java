@@ -1,6 +1,7 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus;
 
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

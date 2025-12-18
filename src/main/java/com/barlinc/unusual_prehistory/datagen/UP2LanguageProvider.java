@@ -50,6 +50,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.KENTROSAURUS);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
+        this.forEntity(UP2Entities.LEPTICTIDIUM);
         this.forEntity(UP2Entities.LOBE_FINNED_FISH);
         this.forEntity(UP2Entities.LYSTROSAURUS);
         this.forEntity(UP2Entities.MAJUNGASAURUS);

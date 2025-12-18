@@ -118,6 +118,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.LEPTICTIDIUM_FOOD).add(
+                Items.SWEET_BERRIES
+        );
+
+        this.tag(UP2ItemTags.LOBE_FINNED_FISH_FOOD).add(
+                Blocks.SEAGRASS.asItem()
+        );
+
         this.tag(UP2ItemTags.LYSTROSAURUS_FOOD).add(
                 Blocks.GRASS.asItem()
         );

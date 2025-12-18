@@ -77,6 +77,9 @@ public class UP2Items {
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
     public static final RegistryObject<Item> IMPERATIVE_FOSSIL = registerFossilItem("imperative");
 
+    // leptictidium
+    public static final RegistryObject<Item> LEPTICTIDIUM_SPAWN_EGG = registerSpawnEggItem("leptictidium", UP2Entities.LEPTICTIDIUM, 0xac6746, 0x693d3d);
+
     // living ooze
     public static final RegistryObject<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
     public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));

@@ -153,6 +153,16 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS).add(
+                MOSS_LAYER.get(),
+                MOSSY_LEPIDODENDRON_LOG.get(),
+                MOSSY_LEPIDODENDRON_WOOD.get(),
+                Blocks.SEAGRASS,
+                Blocks.TALL_SEAGRASS,
+                Blocks.MOSS_BLOCK,
+                Blocks.MOSS_CARPET
+        ).addTag(Tags.Blocks.COBBLESTONE_MOSSY);
+
         this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );

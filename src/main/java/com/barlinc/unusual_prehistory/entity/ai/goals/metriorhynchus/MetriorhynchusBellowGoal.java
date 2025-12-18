@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.metriorhynchus;
 
 import com.barlinc.unusual_prehistory.entity.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;

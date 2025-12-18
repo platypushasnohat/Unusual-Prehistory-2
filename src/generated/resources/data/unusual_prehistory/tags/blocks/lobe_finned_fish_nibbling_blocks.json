@@ -1,0 +1,12 @@
+{
+  "values": [
+    "unusual_prehistory:moss_layer",
+    "unusual_prehistory:mossy_lepidodendron_log",
+    "unusual_prehistory:mossy_lepidodendron_wood",
+    "minecraft:seagrass",
+    "minecraft:tall_seagrass",
+    "minecraft:moss_block",
+    "minecraft:moss_carpet",
+    "#forge:cobblestone/mossy"
+  ]
+}

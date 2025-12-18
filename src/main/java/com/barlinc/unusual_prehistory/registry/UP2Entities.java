@@ -89,6 +89,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kimmeridgebrachypteraeschnidium_nymph").toString())
     );
 
+    public static final RegistryObject<EntityType<Leptictidium>> LEPTICTIDIUM = ENTITY_TYPE.register(
+            "leptictidium", () ->
+            EntityType.Builder.of(Leptictidium::new, MobCategory.CREATURE)
+                    .sized(0.4F, 0.7F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "leptictidium").toString())
+    );
+
     public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
             "lobe_finned_fish", () ->
             EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)

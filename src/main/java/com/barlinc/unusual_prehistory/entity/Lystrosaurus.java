@@ -114,15 +114,15 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     public int getHealCooldown() {
-        return 80;
+        return 120;
     }
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
         if (damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) {
-            super.actuallyHurt(damageSource, amount * 0.1F);
+            super.actuallyHurt(damageSource, amount * 0.15F);
         } else {
-            super.actuallyHurt(damageSource, amount * 0.2F);
+            super.actuallyHurt(damageSource, amount * 0.25F);
         }
     }
 

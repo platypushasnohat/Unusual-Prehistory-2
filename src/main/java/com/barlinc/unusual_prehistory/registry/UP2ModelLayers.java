@@ -30,6 +30,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation KIMMERIDGEBRACHYPTERAESCHNIDIUM = main("kimmeridgebrachypteraeschnidium");
     public static final ModelLayerLocation KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH = main("kimmeridgebrachypteraeschnidium_nymph");
     public static final ModelLayerLocation LACCOGNATHUS = main("laccognathus");
+    public static final ModelLayerLocation LEPTICTIDIUM = main("leptictidium");
     public static final ModelLayerLocation LYSTROSAURUS = main("lystrosaurus");
     public static final ModelLayerLocation MAJUNGASAURUS = main("majungasaurus");
     public static final ModelLayerLocation MEGALANIA = main("megalania");
