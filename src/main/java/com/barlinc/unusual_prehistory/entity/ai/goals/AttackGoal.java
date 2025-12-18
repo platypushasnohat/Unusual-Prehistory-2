@@ -41,7 +41,7 @@ public class AttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.mob.isBaby() && this.mob.getTarget() != null && this.mob.getTarget().isAlive() && !this.mob.isVehicle();
+        return !this.mob.isBaby() && this.mob.getTarget() != null && this.mob.getTarget().isAlive() && !this.mob.isVehicle() && !this.mob.isMobSitting();
     }
 
     @Override

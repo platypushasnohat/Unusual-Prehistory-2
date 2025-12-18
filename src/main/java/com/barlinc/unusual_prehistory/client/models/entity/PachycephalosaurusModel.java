@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
-import com.barlinc.unusual_prehistory.client.animations.pachycephalosaurus.PachycephalosaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.PachycephalosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import net.minecraft.client.model.geom.ModelPart;
@@ -105,15 +105,27 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 	public void setupAnim(Pachycephalosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
-            this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-        } else {
-            this.animateWalk(PachycephalosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
+		if (!entity.isInWater() && !entity.isMobSitting()) {
+            if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PachycephalosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+            else if (entity.getAttackState() == 2) this.animateWalk(PachycephalosaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+            else this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
         this.animateIdle(entity.idleAnimationState, PachycephalosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
+        this.animate(entity.huffAnimationState, PachycephalosaurusAnimations.HUFF_BLEND, ageInTicks);
+        this.animate(entity.stomp1AnimationState, PachycephalosaurusAnimations.STOMP_BLEND1, ageInTicks);
+        this.animate(entity.stomp2AnimationState, PachycephalosaurusAnimations.STOMP_BLEND2, ageInTicks);
+        this.animate(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
+        this.animate(entity.sitStartAnimationState, PachycephalosaurusAnimations.SIT_START, ageInTicks);
+        this.animate(entity.sitAnimationState, PachycephalosaurusAnimations.SIT, ageInTicks);
+        this.animate(entity.sitEndAnimationState, PachycephalosaurusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
+        this.animate(entity.attack1AnimationState, PachycephalosaurusAnimations.ATTACK1, ageInTicks);
+        this.animate(entity.attack2AnimationState, PachycephalosaurusAnimations.ATTACK2, ageInTicks);
+        this.animate(entity.attack3AnimationState, PachycephalosaurusAnimations.ATTACK3, ageInTicks);
 
-		if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
+        if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;

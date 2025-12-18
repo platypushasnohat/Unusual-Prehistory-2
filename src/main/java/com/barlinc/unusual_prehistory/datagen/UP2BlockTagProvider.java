@@ -153,6 +153,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.TALPANAS_PECKING_BLOCKS).add(
                 Blocks.GRASS_BLOCK,
                 Blocks.MOSS_BLOCK

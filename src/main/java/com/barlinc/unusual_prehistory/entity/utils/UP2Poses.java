@@ -12,9 +12,6 @@ public enum UP2Poses {
     PREENING,
     PECKING,
     SHAKING,
-    YAWNING,
-    STRETCHING,
-    GRAZING,
     BURROWED,
     WAVING,
     TAIL_WHIPPING,
@@ -25,7 +22,8 @@ public enum UP2Poses {
     SPITTING,
     BELLOWING,
     START_FLYING,
-    SITTING;
+    SITTING,
+    WARN;
 
     public Pose get() {
         return Pose.valueOf(this.name());
