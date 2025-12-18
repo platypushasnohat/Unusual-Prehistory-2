@@ -79,6 +79,8 @@ public class UP2Items {
 
     // leptictidium
     public static final RegistryObject<Item> LEPTICTIDIUM_SPAWN_EGG = registerSpawnEggItem("leptictidium", UP2Entities.LEPTICTIDIUM, 0xac6746, 0x693d3d);
+    public static final RegistryObject<Item> TRUNK_MOUSE_FOSSIL = registerFossilItem("trunk_mouse");
+    public static final RegistryObject<Item> LEPTICTIDIUM_EMBRYO = registerEmbryoItem("leptictidium", UP2Entities.LEPTICTIDIUM);
 
     // living ooze
     public static final RegistryObject<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);

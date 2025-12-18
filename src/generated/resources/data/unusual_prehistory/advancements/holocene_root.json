@@ -85,6 +85,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "leptictidium_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:leptictidium_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "lobe_finned_fish_roe": {
       "conditions": {
         "items": [
@@ -211,6 +223,7 @@
       "majungasaurus_egg",
       "megalania_egg",
       "dromaeosaurus_egg",
+      "leptictidium_embryo",
       "metriorhynchus_embryo",
       "talpanas_egg",
       "telecrex_egg"

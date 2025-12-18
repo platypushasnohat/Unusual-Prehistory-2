@@ -312,6 +312,18 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "trunk_mouse_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:trunk_mouse_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -338,6 +350,7 @@
       "jawless_fossil",
       "prickly_fossil",
       "imperative_fossil",
+      "trunk_mouse_fossil",
       "fish_fossil",
       "rugose_fossil",
       "thermal_fossil",

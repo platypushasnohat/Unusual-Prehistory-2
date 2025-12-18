@@ -45,6 +45,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
                 FISH_FOSSIL.get(),
+                TRUNK_MOUSE_FOSSIL.get(),
 
                 CALAMOPHYTON_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
