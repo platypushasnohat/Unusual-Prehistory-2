@@ -22,6 +22,11 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:anvil_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:impervious_fossil",
           "weight": 1
         }
       ],

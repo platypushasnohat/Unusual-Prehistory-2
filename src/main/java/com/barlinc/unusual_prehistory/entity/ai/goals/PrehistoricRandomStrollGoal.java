@@ -25,6 +25,11 @@ public class PrehistoricRandomStrollGoal extends RandomStrollGoal {
         this.shouldAvoidWater = shouldAvoidWater;
     }
 
+    @Override
+    public void tick() {
+        this.mob.getLookControl().setLookAt(this.wantedX, this.wantedY, this.wantedZ, 30F, 30F);
+    }
+
     @Nullable
     @Override
     protected Vec3 getPosition() {

@@ -3,6 +3,7 @@
 - Added Lystrosaurus
 - Added Pachycephalosaurus
 - Added Lobe Finned Fish
+- Added Leptictidium
 - Added Prototaxites
 - Jawless fish and Tartuosteus will now nibble on blocks sometimes
 - Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
@@ -10,6 +11,9 @@
 - Mobs will now pathfind out of water more consistently instead of getting stuck
 - Mobs now move faster in water
 - Mobs that can be pacified can now be temporarily pacified with their tempt item
+- Added Tartuosteus fossil and roe
+- Reduced chance for Tartuosteus to appear from jawless fish roe
+- Fixed mobs moving sideways sometimes
 - Misc tweaks
 
 ## Version 1.2.3

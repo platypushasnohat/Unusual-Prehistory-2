@@ -260,7 +260,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("Charging", this.isCharging());
         compoundTag.putInt("ChargeCooldown", this.getChargeCooldown());
@@ -270,7 +270,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setCharging(compoundTag.getBoolean("Charging"));
         this.setChargeCooldown(compoundTag.getInt("ChargeCooldown"));

@@ -9,7 +9,6 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.google.common.annotations.VisibleForTesting;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -96,6 +95,15 @@ public abstract class PrehistoricMob extends Animal {
         return 0.0F;
     }
 
+    public void refuseToTravel(Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec.multiply(0.0, 1.0, 0.0);
+        }
+    }
+
     // Floating
     @Override
     public double getFluidJumpThreshold() {
@@ -124,7 +132,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    public boolean canMate(Animal animal) {
+    public boolean canMate(@NotNull Animal animal) {
         return false;
     }
 
@@ -175,7 +183,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isFood(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
@@ -358,7 +366,7 @@ public abstract class PrehistoricMob extends Animal {
     public void sitDown() {
         if (this.isMobSitting()) return;
         this.setPose(UP2Poses.SITTING.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -367,7 +375,7 @@ public abstract class PrehistoricMob extends Animal {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
+        this.setLastPoseChangeTick((this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -378,7 +386,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     public void resetLastPoseChangeTickToFullStand(long l) {
-        this.resetLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
+        this.setLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
     }
 
     // Data
@@ -402,7 +410,7 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putLong("LastPoseTick", this.getLastPoseChangeTick());
@@ -414,10 +422,10 @@ public abstract class PrehistoricMob extends Animal {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setVariant(compoundTag.getInt("Variant"));
-        this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
+        this.setLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
@@ -471,8 +479,7 @@ public abstract class PrehistoricMob extends Animal {
     public long getLastPoseChangeTick() {
         return this.entityData.get(LAST_POSE_CHANGE_TICK);
     }
-    @VisibleForTesting
-    public void resetLastPoseChangeTick(long l) {
+    public void setLastPoseChangeTick(long l) {
         this.entityData.set(LAST_POSE_CHANGE_TICK, l);
     }
 
@@ -535,9 +542,9 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(SIT_COOLDOWN, cooldown);
     }
     public void sitCooldown() {
-        this.setSitCooldown(2000 + random.nextInt(2000 * 2));
+        this.setSitCooldown(2500 + random.nextInt(2500 * 2));
     }
     public void standUpCooldown() {
-        this.setSitCooldown(1200 + random.nextInt(1200 * 2));
+        this.setSitCooldown(900 + random.nextInt(900 * 2));
     }
 }

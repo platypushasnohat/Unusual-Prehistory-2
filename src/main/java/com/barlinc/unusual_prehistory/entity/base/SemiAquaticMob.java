@@ -49,14 +49,14 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("TimeInWater", this.getTimeInWater());
         compoundTag.putInt("TimeOnLand", this.getTimeOnLand());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setTimeInWater(compoundTag.getInt("TimeInWater"));
         this.setTimeOnLand(compoundTag.getInt("TimeOnLand"));

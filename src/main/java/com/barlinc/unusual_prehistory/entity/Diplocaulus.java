@@ -100,10 +100,7 @@
 
      @Override
      public void travel(@NotNull Vec3 travelVec) {
-         if (this.refuseToMove() && this.onGround()) {
-             this.getNavigation().stop();
-             travelVec = Vec3.ZERO;
-         }
+         this.refuseToTravel(travelVec);
          if (this.isEffectiveAi() && this.isInWater()) {
              this.moveRelative(this.getSpeed(), travelVec);
              this.move(MoverType.SELF, this.getDeltaMovement());
@@ -198,14 +195,14 @@
      }
 
      @Override
-     public void addAdditionalSaveData(CompoundTag compoundTag) {
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
          compoundTag.putInt("BurrowCooldown", this.getBurrowCooldown());
          compoundTag.putBoolean("FromBucket", this.fromBucket());
      }
 
      @Override
-     public void readAdditionalSaveData(CompoundTag compoundTag) {
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
          this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
          this.setFromBucket(compoundTag.getBoolean("FromBucket"));
@@ -247,7 +244,7 @@
      public void burrow() {
          if (this.isDiplocaulusBurrowed()) return;
          this.setPose(UP2Poses.BURROWED.get());
-         this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+         this.setLastPoseChangeTick(-(this.level()).getGameTime());
          this.refreshDimensions();
      }
 
@@ -329,7 +326,7 @@
      }
 
      @Override
-     public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 

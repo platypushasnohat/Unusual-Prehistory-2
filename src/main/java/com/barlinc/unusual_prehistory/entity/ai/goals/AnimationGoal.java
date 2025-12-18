@@ -13,16 +13,21 @@ public class AnimationGoal extends Goal {
     private final byte stopAnimationByte;
     protected final boolean stopMoving;
     protected final boolean stopIfHurt;
+    protected final boolean stopInWater;
 
     public AnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte) {
-        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, true, true);
+        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, true, true, true);
     }
 
     public AnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving) {
-        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, stopMoving, true);
+        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, stopMoving, true, true);
     }
 
-    public AnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopIfHurt) {
+    public AnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopInWater) {
+        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, stopMoving, true, stopInWater);
+    }
+
+    public AnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopIfHurt, boolean stopInWater) {
         this.prehistoricMob = prehistoricMob;
         this.animationTime = animationTime;
         this.idleState = idleState;
@@ -30,12 +35,14 @@ public class AnimationGoal extends Goal {
         this.stopAnimationByte = stopAnimationByte;
         this.stopMoving = stopMoving;
         this.stopIfHurt = stopIfHurt;
+        this.stopInWater = stopInWater;
     }
 
     @Override
     public boolean canUse() {
         if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
         else if (stopMoving && !prehistoricMob.getNavigation().isDone()) return false;
+        else if (stopInWater && prehistoricMob.isInWater()) return false;
         return prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0;
     }
 
@@ -50,6 +57,7 @@ public class AnimationGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
+        else if (stopInWater && prehistoricMob.isInWater()) return false;
         return prehistoricMob.getTarget() == null && timer > 0 && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == idleState;
     }
 

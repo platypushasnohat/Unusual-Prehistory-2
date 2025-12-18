@@ -394,6 +394,38 @@
     ],
     "subtitle": "subtitles.large_dunkleosteus_bite"
   },
+  "leptictidium_death": {
+    "sounds": [
+      "unusual_prehistory:entity/leptictidium/death1",
+      "unusual_prehistory:entity/leptictidium/death2"
+    ],
+    "subtitle": "subtitles.leptictidium_death"
+  },
+  "leptictidium_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/leptictidium/hurt1",
+      "unusual_prehistory:entity/leptictidium/hurt2",
+      "unusual_prehistory:entity/leptictidium/hurt3"
+    ],
+    "subtitle": "subtitles.leptictidium_hurt"
+  },
+  "leptictidium_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/leptictidium/idle1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/leptictidium/idle2",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/leptictidium/idle3",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.leptictidium_idle"
+  },
   "living_ooze_death": {
     "sounds": [
       {

@@ -126,6 +126,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
 
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_HURT, "Leptictidium hurts");
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_DEATH, "Leptictidium dies");
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_IDLE, "Leptictidium squeaks");
+
         this.sound(UP2SoundEvents.LYSTROSAURUS_HURT, "Lystrosaurus hurts");
         this.sound(UP2SoundEvents.LYSTROSAURUS_DEATH, "Lystrosaurus dies");
         this.sound(UP2SoundEvents.LYSTROSAURUS_IDLE, "Lystrosaurus oinks");

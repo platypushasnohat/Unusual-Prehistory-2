@@ -43,7 +43,7 @@ public class AlternatesWaterEggBlock extends WaterEggBlockEntity {
     }
 
     public AlternatesWaterEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, Supplier<EntityType<?>> secondaryHatchedEntity, int spawnCount) {
-        this(properties, hatchedEntity, secondaryHatchedEntity, 0.2F, spawnCount, 1);
+        this(properties, hatchedEntity, secondaryHatchedEntity, 0.02F, spawnCount, 1);
     }
 
     @Override

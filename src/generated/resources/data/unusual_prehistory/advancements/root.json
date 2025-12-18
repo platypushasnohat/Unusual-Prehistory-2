@@ -96,6 +96,30 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "cranium_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:cranium_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "desmatosuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:desmatosuchus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "diplocaulus_eggs": {
       "conditions": {
         "items": [
@@ -138,6 +162,18 @@
           {
             "items": [
               "unusual_prehistory:fish_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "flat_back_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:flat_back_fossil"
             ]
           }
         ]
@@ -198,6 +234,18 @@
           {
             "items": [
               "unusual_prehistory:imperative_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "impervious_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:impervious_fossil"
             ]
           }
         ]
@@ -360,6 +408,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "mossy_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:mossy_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "onchopristis_sac": {
       "conditions": {
         "items": [
@@ -504,6 +564,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "tartuosteus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:tartuosteus_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "telecrex_egg": {
       "conditions": {
         "items": [
@@ -563,6 +635,7 @@
       "jawless_fish_roe",
       "kimmeridgebrachypteraeschnidium_eggs",
       "lobe_finned_fish_roe",
+      "tartuosteus_roe",
       "dunkleosteus_sac",
       "onchopristis_sac",
       "stethacanthus_sac",
@@ -570,12 +643,14 @@
       "kentrosaurus_egg",
       "majungasaurus_egg",
       "megalania_egg",
+      "desmatosuchus_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",
       "talpanas_egg",
       "telecrex_egg",
       "fury_fossil",
+      "flat_back_fossil",
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",
@@ -584,11 +659,14 @@
       "imperative_fossil",
       "trunk_mouse_fossil",
       "fish_fossil",
+      "impervious_fossil",
       "rugose_fossil",
       "thermal_fossil",
       "meltdown_fossil",
       "saw_fossil",
+      "cranium_fossil",
       "anvil_fossil",
+      "mossy_fossil",
       "plumage_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",

@@ -36,12 +36,12 @@ public abstract class BreedableMob extends PrehistoricMob {
     }
 
     @Override
-    public boolean canMate(Animal animal) {
+    public boolean canMate(@NotNull Animal animal) {
         return true;
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isFood(itemstack)) {
             int i = this.getAge();

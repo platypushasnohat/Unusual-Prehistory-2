@@ -259,7 +259,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     public void eep() {
         if (this.isDromaeosaurusEeping()) return;
         this.setPose(UP2Poses.RESTING.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -268,7 +268,7 @@ public class Dromaeosaurus extends PrehistoricMob {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
+        this.setLastPoseChangeTick((this.level()).getGameTime());
         this.refreshDimensions();
     }
 

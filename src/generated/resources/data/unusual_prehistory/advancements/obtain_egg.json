@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "desmatosuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:desmatosuchus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "diplocaulus_eggs": {
       "conditions": {
         "items": [
@@ -181,6 +193,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "tartuosteus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:tartuosteus_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "telecrex_egg": {
       "conditions": {
         "items": [
@@ -215,6 +239,7 @@
       "jawless_fish_roe",
       "kimmeridgebrachypteraeschnidium_eggs",
       "lobe_finned_fish_roe",
+      "tartuosteus_roe",
       "dunkleosteus_sac",
       "onchopristis_sac",
       "stethacanthus_sac",
@@ -222,6 +247,7 @@
       "kentrosaurus_egg",
       "majungasaurus_egg",
       "megalania_egg",
+      "desmatosuchus_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",

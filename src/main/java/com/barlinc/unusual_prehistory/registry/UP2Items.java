@@ -45,6 +45,7 @@ public class UP2Items {
 
     // desmatosuchus
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
+    public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back");
 
     // diplocaulus
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
@@ -92,6 +93,7 @@ public class UP2Items {
 
     // lystrosaurus
     public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0xaa9c65, 0x675a43);
+    public static final RegistryObject<Item> IMPERVIOUS_FOSSIL = registerFossilItem("impervious");
 
     // majungasaurus
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
@@ -112,6 +114,7 @@ public class UP2Items {
 
     // pachycephalosaurus
     public static final RegistryObject<Item> PACHYCEPHALOSAURUS_SPAWN_EGG = registerSpawnEggItem("pachycephalosaurus", UP2Entities.PACHYCEPHALOSAURUS, 0x4f3d72, 0x67bedb);
+    public static final RegistryObject<Item> CRANIUM_FOSSIL = registerFossilItem("cranium");
 
     // stethacanthus
     public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x6e2e1f, 0xffa200);
@@ -125,6 +128,7 @@ public class UP2Items {
 
     // tartuosteus
     public static final RegistryObject<Item> TARTUOSTEUS_SPAWN_EGG = registerSpawnEggItem("tartuosteus", UP2Entities.TARTUOSTEUS, 0x23673c, 0x0b2720);
+    public static final RegistryObject<Item> MOSSY_FOSSIL = registerFossilItem("mossy");
 
     // telecrex
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x121018, 0x770f38);

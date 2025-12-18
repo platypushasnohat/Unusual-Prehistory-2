@@ -43,6 +43,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // fossils
         this.item(FURY_FOSSIL);
+        this.item(FLAT_BACK_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
         this.item(GUILLOTINE_FOSSIL);
@@ -51,11 +52,14 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(IMPERATIVE_FOSSIL);
         this.item(TRUNK_MOUSE_FOSSIL);
         this.item(FISH_FOSSIL);
+        this.item(IMPERVIOUS_FOSSIL);
         this.item(RUGOSE_FOSSIL);
         this.item(THERMAL_FOSSIL);
         this.item(MELTDOWN_FOSSIL);
         this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
+        this.item(CRANIUM_FOSSIL);
+        this.item(MOSSY_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
         this.item(AGED_FEATHER);
 
@@ -76,6 +80,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);
         this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
+        this.item(UP2Blocks.TARTUOSTEUS_ROE);
+        this.item(UP2Blocks.DESMATOSUCHUS_EGG);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);

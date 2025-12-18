@@ -69,6 +69,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MEGALANIA_DISC.get());
 
                         output.accept(FURY_FOSSIL.get());
+                        output.accept(FLAT_BACK_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());
                         output.accept(RUNNER_FOSSIL.get());
                         output.accept(GUILLOTINE_FOSSIL.get());
@@ -77,15 +78,19 @@ public class UnusualPrehistory2Tab {
                         output.accept(IMPERATIVE_FOSSIL.get());
                         output.accept(TRUNK_MOUSE_FOSSIL.get());
                         output.accept(FISH_FOSSIL.get());
+                        output.accept(IMPERVIOUS_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
                         output.accept(MELTDOWN_FOSSIL.get());
                         output.accept(SAW_FOSSIL.get());
+                        output.accept(CRANIUM_FOSSIL.get());
                         output.accept(ANVIL_FOSSIL.get());
                         output.accept(AGED_FEATHER.get());
+                        output.accept(MOSSY_FOSSIL.get());
                         output.accept(PLUMAGE_FOSSIL.get());
 
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
+                        output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
@@ -100,6 +105,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());
+                        output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
 
                         output.accept(BENNETTITALES_FOSSIL.get());

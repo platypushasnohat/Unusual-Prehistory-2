@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-14T18:09:13.3185346	Loot Tables
+// 1.20.1	2025-12-18T12:03:51.9462248	Loot Tables
 86a581faab506fc6da41180e7ace6da287b6851a data/unusual_prehistory/loot_tables/blocks/asphalt.json
 10266915d70e71b32995be35f0f832fdcb421a21 data/unusual_prehistory/loot_tables/blocks/bennettitales.json
 0ea148d457d40d39512d01a3bc3ce22333b0c77d data/unusual_prehistory/loot_tables/blocks/calamophyton.json
@@ -8,6 +8,7 @@ b5bebaaa146c63aafdeb60c2e02a1dd69232814e data/unusual_prehistory/loot_tables/blo
 fa7a7a3e29b0770e4be995b455152b14f86ecc51 data/unusual_prehistory/loot_tables/blocks/cobbled_fossilized_bone_slab.json
 47c18d5f02ec467f834b4ce6fd3e8bbbbac92314 data/unusual_prehistory/loot_tables/blocks/cobbled_fossilized_bone_stairs.json
 9c4b6ab2c49c83d5eba2532671054e13d295cd3f data/unusual_prehistory/loot_tables/blocks/cooksonia.json
+3592bcd375fce39bdc577815bb6ec591dca3afa6 data/unusual_prehistory/loot_tables/blocks/desmatosuchus_egg.json
 b6f77fd5da30d2afb5b826b1c145c544eb31ac2e data/unusual_prehistory/loot_tables/blocks/diplocaulus_eggs.json
 58b42a570df894145ba7268a111870acfc02d99a data/unusual_prehistory/loot_tables/blocks/dunkleosteus_sac.json
 0de6efe1b49f0e11e5d0c7dbe7bb99eafc64a90d data/unusual_prehistory/loot_tables/blocks/fossilized_bone_bark.json
@@ -91,4 +92,5 @@ c782725763e8a1be072678b72cd913198f7f96d7 data/unusual_prehistory/loot_tables/blo
 f50809186ac98e95b9a1f08fd60acbaf1e3bb40f data/unusual_prehistory/loot_tables/blocks/stripped_ginkgo_wood.json
 9cf0d9b25082388d4e8af218d31163d1ca1da3b9 data/unusual_prehistory/loot_tables/blocks/stripped_lepidodendron_log.json
 a2cf20cad71df29d3f61a050d4614c8754f74c92 data/unusual_prehistory/loot_tables/blocks/stripped_lepidodendron_wood.json
+f7da209cff8b1c77df34008de76cdec6a25022cb data/unusual_prehistory/loot_tables/blocks/tartuosteus_roe.json
 9cba6454cc992ba9584017a814a386fd01df0c30 data/unusual_prehistory/loot_tables/blocks/transmogrifier.json

@@ -35,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,6 +95,12 @@ public class Majungasaurus extends PrehistoricMob {
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
         this.exitStealthInstantly();
         super.actuallyHurt(damageSource, amount);
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 travelVec) {
+        this.refuseToTravel(travelVec);
+        super.travel(travelVec);
     }
 
     @Override
@@ -180,13 +187,13 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("StealthCooldown", this.getStealthCooldown());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setStealthCooldown(compoundTag.getInt("StealthCooldown"));
     }
@@ -224,7 +231,7 @@ public class Majungasaurus extends PrehistoricMob {
     public void enterStealth() {
         if (this.isMajungasaurusStealthMode()) return;
         this.setPose(UP2Poses.STEALTH.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -233,7 +240,7 @@ public class Majungasaurus extends PrehistoricMob {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
+        this.setLastPoseChangeTick((this.level()).getGameTime());
         this.stealthCooldown();
         this.refreshDimensions();
     }

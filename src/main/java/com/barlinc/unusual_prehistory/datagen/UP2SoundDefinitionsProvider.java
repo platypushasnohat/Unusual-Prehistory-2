@@ -187,6 +187,22 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
         );
 
+        // Leptictidium
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt3"))
+        );
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/death1")),
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/death2"))
+        );
+        this.sound(UP2SoundEvents.LEPTICTIDIUM_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle3")).volume(0.8F)
+        );
+
         // Lystrosaurus
         this.sound(UP2SoundEvents.LYSTROSAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt1")).pitch(0.9F),

@@ -85,20 +85,17 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVector) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
-            travelVector = travelVector.multiply(0.0, 1.0, 0.0);
-        }
+    public void travel(@NotNull Vec3 travelVec) {
+        this.refuseToTravel(travelVec);
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
+            this.moveRelative(this.getSpeed(), travelVec);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
         } else {
-            super.travel(travelVector);
+            super.travel(travelVec);
         }
     }
 
@@ -254,13 +251,13 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("BurrowCooldown", this.getBurrowCooldown());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
     }
@@ -293,7 +290,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
     public void burrow() {
         if (this.isOnchopristisBurrowed()) return;
         this.setPose(UP2Poses.BURROWED.get());
-        this.resetLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -302,7 +299,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTick((this.level()).getGameTime());
+        this.setLastPoseChangeTick((this.level()).getGameTime());
         this.refreshDimensions();
     }
 

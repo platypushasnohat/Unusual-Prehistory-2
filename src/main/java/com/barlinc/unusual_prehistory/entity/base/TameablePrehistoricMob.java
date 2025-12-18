@@ -59,7 +59,7 @@ public abstract class TameablePrehistoricMob extends PrehistoricMob implements O
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         if (this.getOwnerUUID() != null) {
             compoundTag.putUUID("Owner", this.getOwnerUUID());
@@ -69,7 +69,7 @@ public abstract class TameablePrehistoricMob extends PrehistoricMob implements O
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         UUID uuid;
         if (compoundTag.hasUUID("Owner")) {
@@ -227,7 +227,7 @@ public abstract class TameablePrehistoricMob extends PrehistoricMob implements O
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         InteractionResult type = super.mobInteract(player, hand);

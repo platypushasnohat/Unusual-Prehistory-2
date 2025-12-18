@@ -73,12 +73,36 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "cranium_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:cranium_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "fish_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
               "unusual_prehistory:fish_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "flat_back_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:flat_back_fossil"
             ]
           }
         ]
@@ -145,6 +169,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "impervious_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:impervious_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "jawless_fossil": {
       "conditions": {
         "items": [
@@ -187,6 +223,18 @@
           {
             "items": [
               "unusual_prehistory:meltdown_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "mossy_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:mossy_fossil"
             ]
           }
         ]
@@ -344,6 +392,7 @@
   "requirements": [
     [
       "fury_fossil",
+      "flat_back_fossil",
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",
@@ -352,11 +401,14 @@
       "imperative_fossil",
       "trunk_mouse_fossil",
       "fish_fossil",
+      "impervious_fossil",
       "rugose_fossil",
       "thermal_fossil",
       "meltdown_fossil",
       "saw_fossil",
+      "cranium_fossil",
       "anvil_fossil",
+      "mossy_fossil",
       "plumage_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",

@@ -70,12 +70,18 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LOBE_FINNED_FISH_FOOD), false));
         this.goalSelector.addGoal(4, new AquaticDigBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 30));
-        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(6, new LobeFinnedFishFollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 3;
+        return switch (this.getVariant()) {
+            case 1 -> 2;
+            case 2 -> 3;
+            case 3 -> 1;
+            case 4 -> 5;
+            default -> 4;
+        };
     }
 
     @Override
@@ -206,5 +212,18 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     public static boolean canSpawn(EntityType<LobeFinnedFish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return PrehistoricAquaticMob.checkSpawnRules(entityType, level, spawnType, pos, random);
+    }
+
+    // Goals
+    private static class LobeFinnedFishFollowVariantLeaderGoal extends FollowVariantLeaderGoal {
+
+        public LobeFinnedFishFollowVariantLeaderGoal(SchoolingAquaticMob mob) {
+            super(mob);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && mob.getVariant() != 3;
+        }
     }
 }

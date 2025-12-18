@@ -110,10 +110,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.getNavigation().stop();
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
+        this.refuseToTravel(travelVec);
         super.travel(travelVec);
     }
 

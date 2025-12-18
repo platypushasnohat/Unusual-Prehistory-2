@@ -2,10 +2,8 @@ package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaRoarGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaSitGoal;
 import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -58,23 +56,6 @@ public class Megalania extends SemiAquaticMob {
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.7F, 1.05F);
 
-    public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
-    public float tempProgress = 0F;
-    public float prevTempProgress = 0F;
-
-    @Nullable
-    private SemiAquaticRandomStrollGoal randomStrollGoal;
-
-    public int roarCooldown = 300 + this.getRandom().nextInt(60 * 60);
-
-    public int biteCooldown = 5;
-    public int talWhipCooldown = 150;
-
-    private final byte TONGUE = 67;
-    private final byte FLICK1 = 68;
-    private final byte FLICK2 = 69;
-    private final byte YAWN = 70;
-
     public enum TemperatureStates {
         TEMPERATE,
         COLD,
@@ -82,25 +63,38 @@ public class Megalania extends SemiAquaticMob {
         NETHER
     }
 
+    public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
+    public float tempProgress = 0F;
+    public float prevTempProgress = 0F;
+
+    @Nullable
+    private SemiAquaticRandomStrollGoal randomStrollGoal;
+
+    public int biteCooldown = 5;
+    public int talWhipCooldown = 150;
+
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState swimmingAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState tongueAnimationState = new AnimationState();
-    public final AnimationState roaringAnimationState = new AnimationState();
-    public final AnimationState biting1AnimationState = new AnimationState();
-    public final AnimationState biting2AnimationState = new AnimationState();
+    public final AnimationState roarAnimationState = new AnimationState();
+    public final AnimationState bite1AnimationState = new AnimationState();
+    public final AnimationState bite2AnimationState = new AnimationState();
     public final AnimationState tailWhipAnimationState = new AnimationState();
-    public final AnimationState leapingAnimationState = new AnimationState();
     public final AnimationState aggroAnimationState = new AnimationState();
     public final AnimationState flick1AnimationState = new AnimationState();
     public final AnimationState flick2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
-    public final AnimationState layDownAnimationState = new AnimationState();
-    public final AnimationState sittingAnimationState = new AnimationState();
-    public final AnimationState standUpAnimationState = new AnimationState();
+    public final AnimationState sitStartAnimationState = new AnimationState();
+    public final AnimationState sitAnimationState = new AnimationState();
+    public final AnimationState sitEndAnimationState = new AnimationState();
 
     private int bitingTicks;
     private int tailWhipTicks;
-    private int roarTicks;
+
+    private int flickCooldown = 300 + this.getRandom().nextInt(40 * 50);
+    private int yawnCooldown = 500 + this.getRandom().nextInt(60 * 50);
+    private int tongueCooldown = 100 + this.getRandom().nextInt(100);
+    private int roarCooldown = 650 + this.getRandom().nextInt(70 * 60);
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
@@ -122,8 +116,11 @@ public class Megalania extends SemiAquaticMob {
         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 600, 2400));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new MegalaniaRoarGoal(this));
-        this.goalSelector.addGoal(8, new MegalaniaSitGoal(this));
+        this.goalSelector.addGoal(7, new MegalaniaSitGoal(this));
+        this.goalSelector.addGoal(8, new MegalaniaFlickTailGoal(this));
+        this.goalSelector.addGoal(8, new MegalaniaYawnGoal(this));
+        this.goalSelector.addGoal(8, new MegalaniaTongueGoal(this));
+        this.goalSelector.addGoal(9, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
         this.targetSelector.addGoal(2, new MegalaniaTargetGoal<>(this, LivingEntity.class));
@@ -151,10 +148,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
+        this.refuseToTravel(travelVec);
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVec);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -270,13 +264,13 @@ public class Megalania extends SemiAquaticMob {
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
     }
 
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
     }
@@ -306,7 +300,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getPose() == Pose.ROARING;
+        return super.refuseToMove() || this.getIdleState() == 4;
     }
 
     @Override
@@ -316,8 +310,6 @@ public class Megalania extends SemiAquaticMob {
         final boolean ground = !this.isInWater();
         if (!ground && this.isLandNavigator) switchNavigator(false);
         if (ground && !this.isLandNavigator) switchNavigator(true);
-
-        if (this.roarCooldown > 0 && !this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName())) this.roarCooldown--;
 
         this.tickTemperatureStates();
 
@@ -354,36 +346,35 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void setupAnimationStates() {
-        if (bitingTicks == 0 && (this.biting1AnimationState.isStarted() || this.biting2AnimationState.isStarted())) {
-            this.biting1AnimationState.stop();
-            this.biting2AnimationState.stop();
+        if (bitingTicks == 0 && (this.bite1AnimationState.isStarted() || this.bite2AnimationState.isStarted())) {
+            this.bite1AnimationState.stop();
+            this.bite2AnimationState.stop();
         }
         if (tailWhipTicks == 0 && this.tailWhipAnimationState.isStarted()) this.tailWhipAnimationState.stop();
-        if (roarTicks == 0 && this.roaringAnimationState.isStarted()) this.roaringAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() != Pose.ROARING && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
-        this.swimmingAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.aggroAnimationState.animateWhen(this.getBehavior().equals(Behaviors.ANGRY.getName()) && this.getPose() == Pose.STANDING, this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 4 && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.aggroAnimationState.animateWhen(this.isAggressive() && this.getPose() == Pose.STANDING, this.tickCount);
 
         if (this.isMobVisuallySitting()) {
-            this.standUpAnimationState.stop();
-            this.biting1AnimationState.stop();
-            this.biting2AnimationState.stop();
-            this.roaringAnimationState.stop();
+            this.sitEndAnimationState.stop();
+            this.bite1AnimationState.stop();
+            this.bite2AnimationState.stop();
+            this.roarAnimationState.stop();
             this.idleAnimationState.stop();
             this.aggroAnimationState.stop();
             this.tailWhipAnimationState.stop();
 
             if (this.isVisuallySitting()) {
-                this.layDownAnimationState.startIfStopped(this.tickCount);
-                this.sittingAnimationState.stop();
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
             } else {
-                this.layDownAnimationState.stop();
-                this.sittingAnimationState.startIfStopped(this.tickCount);
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.layDownAnimationState.stop();
-            this.sittingAnimationState.stop();
-            this.standUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -399,65 +390,66 @@ public class Megalania extends SemiAquaticMob {
             this.setPose(Pose.STANDING);
             this.talWhipCooldown = 100 + this.getRandom().nextInt(50);
         }
-        if (roarTicks > 0) roarTicks--;
-        if (roarTicks == 0 && this.getPose() == Pose.ROARING) this.setPose(Pose.STANDING);
-
-        if (this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isInWaterOrBubble() && !this.isAggressive()) {
-            if (this.getPose() == Pose.STANDING) {
-                if (this.random.nextInt(200) == 0) {
-                    this.level().broadcastEntityEvent(this, this.TONGUE);
-                }
-                else if (this.random.nextInt(1000) == 0) {
-                    this.level().broadcastEntityEvent(this, this.FLICK1);
-                }
-                else if (this.random.nextInt(1100) == 0) {
-                    this.level().broadcastEntityEvent(this, this.FLICK2);
-                }
-                else if (this.random.nextInt(1200) == 0) {
-                    this.level().broadcastEntityEvent(this, this.YAWN);
-                }
-            }
+        if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWater()) {
+            if (flickCooldown > 0) flickCooldown--;
+            if (yawnCooldown > 0) yawnCooldown--;
+            if (tongueCooldown > 0) tongueCooldown--;
+            if (roarCooldown > 0) roarCooldown--;
         }
     }
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == this.TONGUE) this.tongueAnimationState.start(this.tickCount);
-        else if (id == this.FLICK1) this.flick1AnimationState.start(this.tickCount);
-        else if (id == this.FLICK2) this.flick2AnimationState.start(this.tickCount);
-        else if (id == this.YAWN) this.yawnAnimationState.start(this.tickCount);
-        else super.handleEntityEvent(id);
+        switch (id) {
+            case 67 -> {
+                if (this.getRandom().nextBoolean()) this.flick1AnimationState.start(this.tickCount);
+                else this.flick2AnimationState.start(this.tickCount);
+            }
+            case 68 -> {
+                this.flick1AnimationState.stop();
+                this.flick2AnimationState.stop();
+            }
+            case 69 -> this.yawnAnimationState.start(this.tickCount);
+            case 70 -> this.yawnAnimationState.stop();
+            case 71 -> this.tongueAnimationState.start(this.tickCount);
+            case 72 -> this.tongueAnimationState.stop();
+            case 73 -> this.roarAnimationState.start(this.tickCount);
+            case 74 -> this.roarAnimationState.stop();
+            default -> super.handleEntityEvent(id);
+        }
+    }
+
+    protected void flickCooldown() {
+        this.flickCooldown = 300 + this.getRandom().nextInt(40 * 50);
+    }
+
+    protected void yawnCooldown() {
+        this.yawnCooldown = 500 + this.getRandom().nextInt(60 * 50);
+    }
+
+    protected void tongueCooldown() {
+        this.tongueCooldown = 100 + this.getRandom().nextInt(100);
+    }
+
+    protected void roarCooldown() {
+        this.roarCooldown = 650 + this.getRandom().nextInt(70 * 60);
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == Pose.ROARING) {
-                this.idleAnimationState.stop();
-                this.tongueAnimationState.stop();
-                this.tailWhipAnimationState.stop();
-                this.biting1AnimationState.stop();
-                this.biting2AnimationState.stop();
-                this.swimmingAnimationState.stop();
-                this.leapingAnimationState.stop();
-                this.flick2AnimationState.stop();
-                this.flick1AnimationState.stop();
-                this.roarTicks = 80;
-                this.roaringAnimationState.start(this.tickCount);
-            }
-            else if (this.getPose() == UP2Poses.BITING.get()) {
+            if (this.getPose() == UP2Poses.BITING.get()) {
                 this.bitingTicks = 20;
-                if (this.getRandom().nextBoolean()) this.biting1AnimationState.start(this.tickCount);
-                else this.biting2AnimationState.start(this.tickCount);
+                if (this.getRandom().nextBoolean()) this.bite1AnimationState.start(this.tickCount);
+                else this.bite2AnimationState.start(this.tickCount);
             }
             else if (this.getPose() == UP2Poses.TAIL_WHIPPING.get()) {
                 this.tailWhipTicks = 30;
                 this.tailWhipAnimationState.start(this.tickCount);
             }
             else {
-                this.roaringAnimationState.stop();
-                this.biting1AnimationState.stop();
-                this.biting2AnimationState.stop();
+                this.bite1AnimationState.stop();
+                this.bite2AnimationState.stop();
                 this.tailWhipAnimationState.stop();
             }
         }
@@ -534,6 +526,7 @@ public class Megalania extends SemiAquaticMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.MEGALANIA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
+    // Goals
     private static class MegalaniaTargetGoal<T extends LivingEntity> extends PrehistoricNearestAttackableTargetGoal<T> {
 
         private final Megalania megalania;
@@ -555,6 +548,96 @@ public class Megalania extends SemiAquaticMob {
                 this.findTarget();
                 return this.target != null;
             }
+        }
+    }
+
+    private static class MegalaniaFlickTailGoal extends AnimationGoal {
+
+        private final Megalania megalania;
+
+        public MegalaniaFlickTailGoal(Megalania megalania) {
+            super(megalania, 20, 1, (byte) 67, (byte) 68, false);
+            this.megalania = megalania;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && megalania.flickCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.megalania.flickCooldown();
+        }
+    }
+
+    private static class MegalaniaYawnGoal extends AnimationGoal {
+
+        private final Megalania megalania;
+
+        public MegalaniaYawnGoal(Megalania megalania) {
+            super(megalania, 80, 2, (byte) 69, (byte) 70, false);
+            this.megalania = megalania;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && megalania.yawnCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.megalania.yawnCooldown();
+        }
+    }
+
+    private static class MegalaniaTongueGoal extends AnimationGoal {
+
+        private final Megalania megalania;
+
+        public MegalaniaTongueGoal(Megalania megalania) {
+            super(megalania, 20, 3, (byte) 71, (byte) 72, false, false);
+            this.megalania = megalania;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && megalania.tongueCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.megalania.tongueCooldown();
+        }
+    }
+
+    private static class MegalaniaRoarGoal extends AnimationGoal {
+
+        private final Megalania megalania;
+
+        public MegalaniaRoarGoal(Megalania megalania) {
+            super(megalania, 80, 4, (byte) 73, (byte) 74);
+            this.megalania = megalania;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.megalania.roarCooldown();
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (timer == 61) megalania.playSound(UP2SoundEvents.MEGALANIA_ROAR.get(), 1.5F, megalania.getVoicePitch());
         }
     }
 }

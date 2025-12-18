@@ -100,10 +100,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.getNavigation().stop();
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
+        this.refuseToTravel(travelVec);
         super.travel(travelVec);
     }
 
@@ -206,7 +203,7 @@ public class Lystrosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        if (this.hasCustomName() && this.getName().getString().contains("chainsmoker") && this.getRandom().nextFloat() < 0.15F) {
+        if (this.hasCustomName() && this.getName().getString().contains("chainsmoker") && this.getRandom().nextFloat() < 0.3F) {
             return UP2SoundEvents.LYSTROSAURUS_CHAINSMOKER.get();
         }
         return UP2SoundEvents.LYSTROSAURUS_IDLE.get();

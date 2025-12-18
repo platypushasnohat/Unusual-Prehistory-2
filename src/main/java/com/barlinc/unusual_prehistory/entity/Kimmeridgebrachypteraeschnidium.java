@@ -120,10 +120,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.onGround() && !this.isFlying() && this.refuseToMove()) {
-            this.getNavigation().stop();
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
+        if (!this.isFlying()) this.refuseToTravel(travelVec);
         super.travel(travelVec);
     }
 

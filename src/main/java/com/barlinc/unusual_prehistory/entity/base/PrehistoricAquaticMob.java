@@ -134,13 +134,13 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("FromBucket", this.fromBucket());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
     }
@@ -184,12 +184,12 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         this.setAge(compoundTag.getInt("Age"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
-        this.resetLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
+        this.setLastPoseChangeTick(compoundTag.getLong("LastPoseTick"));
         this.setEatCooldown(compoundTag.getInt("EatingCooldown"));
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         if (this.canBucket()) return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
         else return super.mobInteract(player, hand);
     }

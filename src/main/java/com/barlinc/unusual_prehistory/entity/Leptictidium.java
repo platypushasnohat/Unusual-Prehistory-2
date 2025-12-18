@@ -75,10 +75,7 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.getNavigation().stop();
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
+        this.refuseToTravel(travelVec);
         super.travel(travelVec);
     }
 
@@ -158,29 +155,24 @@ public class Leptictidium extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
+        return UP2SoundEvents.LEPTICTIDIUM_IDLE.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2SoundEvents.LYSTROSAURUS_HURT.get();
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return UP2SoundEvents.LEPTICTIDIUM_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.LYSTROSAURUS_DEATH.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.LYSTROSAURUS_STEP.get(), 0.1F, 1.0F);
+        return UP2SoundEvents.LEPTICTIDIUM_DEATH.get();
     }
 
     @Override
     public int getAmbientSoundInterval() {
-        return 140;
+        return 170;
     }
 
     public static boolean canSpawn(EntityType<Leptictidium> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
