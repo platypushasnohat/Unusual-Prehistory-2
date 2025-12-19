@@ -193,7 +193,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
     }
 
     private boolean canMegalaniaRun(Megalania entity) {
-        return (entity.getBehavior().equals(Behaviors.ANGRY.getName()) || entity.getBehavior().equals(Behaviors.PANIC.getName()) || entity.getTemperatureState() == Megalania.TemperatureStates.NETHER) && entity.getTemperatureState() != Megalania.TemperatureStates.COLD;
+        return (entity.isRunning() || entity.getTemperatureState() == Megalania.TemperatureStates.NETHER) && entity.getTemperatureState() != Megalania.TemperatureStates.COLD;
     }
 
 	@Override

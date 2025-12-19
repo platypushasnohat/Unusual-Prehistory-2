@@ -14,7 +14,11 @@
 - Added Tartuosteus fossil and roe
 - Reduced chance for Tartuosteus to appear from jawless fish roe
 - Fixed mobs moving sideways sometimes
-- Majungasaurus is now aggressive at night and turns slightly translucent at night
+- Majungasaurus is now aggressive to players at night and turns slightly translucent at night
+- Mob detection range is reduced for Majungasaurus in camo mode
+- Majungasaurus will now avoid large carnivores and strong mobs like Carnotaurus
+- Majungasaurus now enters camo mode when avoiding mobs
+- Reduced Majungasaurus camo cooldown time
 - Misc tweaks
 
 ## Version 1.2.3

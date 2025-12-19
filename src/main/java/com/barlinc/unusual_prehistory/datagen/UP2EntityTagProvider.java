@@ -179,6 +179,14 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.CREEPER
         ).addOptional(new ResourceLocation("species", "quake"));
 
+        this.tag(UP2EntityTags.MAJUNGASAURUS_AVOIDS).add(
+                CARNOTAURUS.get(),
+                EntityType.RAVAGER,
+                EntityType.IRON_GOLEM,
+                EntityType.WITHER,
+                EntityType.WARDEN
+        );
+
         this.tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
                 EntityType.SHEEP,
                 EntityType.COW,

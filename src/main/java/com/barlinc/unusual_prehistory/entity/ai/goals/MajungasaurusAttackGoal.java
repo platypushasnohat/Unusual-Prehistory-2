@@ -20,13 +20,13 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     @Override
     public void start() {
         super.start();
-        this.majungasaurus.exitStealth();
+        this.majungasaurus.stopCamo();
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.majungasaurus.exitStealth();
+        this.majungasaurus.stopCamo();
     }
 
     @Override
@@ -38,12 +38,12 @@ public class MajungasaurusAttackGoal extends AttackGoal {
 
             this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
 
-            if (distanceToTarget > 25 && this.majungasaurus.getCamoCooldown() <= 0 && !this.majungasaurus.isInWaterOrBubble()) {
-                this.majungasaurus.enterStealth();
+            if (distanceToTarget > 25 && this.majungasaurus.getCamoCooldown() == 0 && !this.majungasaurus.isInWaterOrBubble()) {
+                this.majungasaurus.startCamo();
                 this.majungasaurus.getNavigation().moveTo(target, 1.1D);
             }
             if (distanceToTarget <= 25 || this.majungasaurus.getCamoCooldown() > 0) {
-                this.majungasaurus.exitStealth();
+                this.majungasaurus.stopCamo();
                 this.majungasaurus.getNavigation().moveTo(target, 2.0D);
             }
 
@@ -57,7 +57,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     protected void tickBite() {
         timer++;
         LivingEntity target = this.majungasaurus.getTarget();
-        if (timer == 1) majungasaurus.setPose(UP2Poses.BITING.get());
+        if (timer == 1) majungasaurus.setPose(UP2Poses.ATTACKING.get());
         if (this.timer == 9) this.majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_BITE.get(), 1.0F, majungasaurus.getVoicePitch());
         if (timer == 11) {
             if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {

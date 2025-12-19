@@ -1,9 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.TalpanasSeekShelterGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.BreedableMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -77,8 +74,8 @@ public class Talpanas extends BreedableMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 4.0F, 1.2D, 1.2D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.2D, 1.2D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
+        this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, Player.class, 4.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.5D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
         this.goalSelector.addGoal(2, new TalpanasSeekShelterGoal(this));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
@@ -176,7 +173,7 @@ public class Talpanas extends BreedableMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getPose() == UP2Poses.PECKING.get() || this.getPose() == UP2Poses.SHAKING.get();
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
     }
 
     @Override
@@ -252,7 +249,7 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasPeckGoal(Talpanas talpanas) {
-            super(talpanas, 40, 1, (byte) 67, (byte) 68, true, true);
+            super(talpanas, 40, 1, (byte) 67, (byte) 68);
             this.talpanas = talpanas;
         }
 
@@ -273,7 +270,7 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasShakeGoal(Talpanas talpanas) {
-            super(talpanas, 20, 2, (byte) 69, (byte) 70, true, true);
+            super(talpanas, 20, 2, (byte) 69, (byte) 70);
             this.talpanas = talpanas;
         }
 

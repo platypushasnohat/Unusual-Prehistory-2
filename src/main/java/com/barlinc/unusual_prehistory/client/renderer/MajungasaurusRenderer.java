@@ -26,7 +26,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public void render(Majungasaurus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        this.shadowRadius = entity.getStealthProgress(1.0F) > 0.0F ? 0.0F : 0.8F;
+        this.shadowRadius = entity.getCamoProgress(1.0F) > 0.0F ? 0.0F : 0.8F;
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
@@ -38,13 +38,13 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     protected @Nullable RenderType getRenderType(Majungasaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        if (entity.getStealthProgress(1.0F) > 0.0F) return RenderType.entityTranslucent(getTextureLocation(entity));
+        if (entity.getCamoProgress(1.0F) > 0.0F) return RenderType.entityTranslucent(getTextureLocation(entity));
         else return RenderType.entityCutoutNoCull(getTextureLocation(entity));
     }
 
     @Override
     protected void scale(Majungasaurus entity, @NotNull PoseStack poseStack, float partialTicks) {
-        float alpha = 1.0F - 0.9F * entity.getStealthProgress(partialTicks);
+        float alpha = 1.0F - 0.9F * entity.getCamoProgress(partialTicks);
         this.model.setAlpha(alpha);
     }
 }

@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
@@ -65,9 +66,9 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(2, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 1.0D, 1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
         this.goalSelector.addGoal(4, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
         this.goalSelector.addGoal(6, new DromaeosaurusRunGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -215,7 +216,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.RESTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == Pose.SLEEPING ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -258,7 +259,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     public void eep() {
         if (this.isDromaeosaurusEeping()) return;
-        this.setPose(UP2Poses.RESTING.get());
+        this.setPose(Pose.SLEEPING);
         this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }

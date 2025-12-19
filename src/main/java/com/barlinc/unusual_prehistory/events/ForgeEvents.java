@@ -3,26 +3,30 @@ package com.barlinc.unusual_prehistory.events;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
+import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Collection;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents {
@@ -65,6 +69,17 @@ public class ForgeEvents {
 
         if (entity instanceof Guardian && damageSource.getEntity() instanceof Dunkleosteus) {
             event.setAmount(event.getAmount() * 4);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingVisibility(LivingEvent.LivingVisibilityEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (event.getLookingEntity() != null) {
+            if (entity instanceof Majungasaurus majungasaurus) {
+                if (majungasaurus.isCamo()) event.modifyVisibility(0.3F);
+                if (majungasaurus.isCamoAvoiding()) event.modifyVisibility(0.5F);
+            }
         }
     }
 }
