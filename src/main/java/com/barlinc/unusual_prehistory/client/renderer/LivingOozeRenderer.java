@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/empty.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/misc/empty.png");
 
     public LivingOozeRenderer(EntityRendererProvider.Context context) {
         super(context, new LivingOozeModel(context.bakeLayer(UP2ModelLayers.LIVING_OOZE)), 0.5F);

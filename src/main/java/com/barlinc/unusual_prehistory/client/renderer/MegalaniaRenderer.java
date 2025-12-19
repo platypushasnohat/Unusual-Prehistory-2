@@ -5,8 +5,6 @@ import com.barlinc.unusual_prehistory.client.models.entity.MegalaniaModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MegalaniaTemperatureLayer;
 import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -24,13 +22,6 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel(context.bakeLayer(UP2ModelLayers.MEGALANIA)), 0.9F);
         this.addLayer(new MegalaniaTemperatureLayer(this));
-    }
-
-    @Override
-    public void render(Megalania entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
-        if (!entity.isInvisible()) {
-            super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
-        }
     }
 
     @Override

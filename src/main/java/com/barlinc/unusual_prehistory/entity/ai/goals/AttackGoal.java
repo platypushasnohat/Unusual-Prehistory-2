@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -26,6 +27,9 @@ public class AttackGoal extends Goal {
         this.mob.setAggressive(true);
         this.mob.setRunning(true);
         this.timer = 0;
+        if (mob instanceof GrabbingMob grabbingMob) {
+            grabbingMob.setHeldMobId(-1);
+        }
     }
 
     @Override
@@ -37,6 +41,9 @@ public class AttackGoal extends Goal {
         this.mob.setAggressive(false);
         this.mob.setRunning(false);
         this.mob.getNavigation().stop();
+        if (mob instanceof GrabbingMob grabbingMob) {
+            grabbingMob.setHeldMobId(-1);
+        }
     }
 
     @Override

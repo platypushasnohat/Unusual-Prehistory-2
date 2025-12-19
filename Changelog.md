@@ -20,6 +20,11 @@
 - Majungasaurus now enters camo mode when avoiding mobs
 - Reduced Majungasaurus camo cooldown time
 - Added more Majungasaurus idle animations
+- Majungasaurus now goes fully invisible when in camouflage mode
+- Majungasaurus is now fully silent when camo
+- Added nighttime textures for Majungasaurus
+- Added angry textures for Majungasaurus
+- Decreased time it takes for Majungasaurus camo to transition to invisible
 - Added Golden Emperor Carnotaurus variant
 - Misc tweaks
 

@@ -47,18 +47,19 @@ public class MegalaniaTemperatureLayer extends RenderLayer<Megalania, MegalaniaM
     }
 
     public ResourceLocation getTexture(Megalania.TemperatureStates state) {
-        if (state == Megalania.TemperatureStates.COLD) {
-            return TEXTURE_COLD;
+        switch (state) {
+            case COLD -> {
+                return TEXTURE_COLD;
+            }
+            case WARM -> {
+                return TEXTURE_WARM;
+            }
+            case NETHER -> {
+                return TEXTURE_NETHER;
+            }
+            default -> {
+                return TEXTURE;
+            }
         }
-        else if (state == Megalania.TemperatureStates.WARM) {
-            return TEXTURE_WARM;
-        }
-        else if (state == Megalania.TemperatureStates.NETHER) {
-            return TEXTURE_NETHER;
-        }
-        else if (state == Megalania.TemperatureStates.TEMPERATE) {
-            return TEXTURE;
-        }
-        else return TEXTURE;
     }
 }

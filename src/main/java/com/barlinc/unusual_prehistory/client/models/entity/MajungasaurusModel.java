@@ -189,4 +189,8 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	public void setAlpha(float alpha) {
 		this.alpha = alpha;
 	}
+
+    public float getAlpha() {
+        return this.alpha;
+    }
 }

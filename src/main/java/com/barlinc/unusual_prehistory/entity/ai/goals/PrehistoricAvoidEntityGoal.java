@@ -85,6 +85,7 @@ public class PrehistoricAvoidEntityGoal<T extends LivingEntity> extends Goal {
     @Override
     public void start() {
         if (this.shouldRun) this.mob.setRunning(true);
+        if (this.mob.isMobSitting()) this.mob.standUp();
         this.pathNav.moveTo(this.path, this.speedModifier);
     }
 

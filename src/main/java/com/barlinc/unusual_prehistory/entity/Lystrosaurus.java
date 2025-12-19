@@ -116,7 +116,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     public int getHealCooldown() {
-        return 120;
+        return 150;
     }
 
     @Override

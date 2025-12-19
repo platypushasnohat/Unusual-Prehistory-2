@@ -45,8 +45,11 @@ public class Majungasaurus extends PrehistoricMob {
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.2F, 1.3F);
 
-    private float prevCamoProgress;
-    private float camoProgress;
+    public float prevCamoProgress;
+    public float camoProgress;
+
+    public float prevAngryProgress;
+    public float angryProgress;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState eyesAnimationState = new AnimationState();
@@ -127,7 +130,7 @@ public class Majungasaurus extends PrehistoricMob {
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         if (this.getPose() == UP2Poses.STOP_CAMO.get() || this.getPose() == UP2Poses.START_CAMO.get()) {
-            travelVec = travelVec.multiply(0.02, 1.0, 0.02);
+            travelVec = travelVec.multiply(0.25, 1.0, 0.25);
         }
         super.travel(travelVec);
     }
@@ -138,7 +141,11 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     public float getCamoProgress(float partialTicks) {
-        return (prevCamoProgress + (camoProgress - prevCamoProgress) * partialTicks) * 0.05F;
+        return (prevCamoProgress + (camoProgress - prevCamoProgress) * partialTicks) * 0.1F;
+    }
+
+    public float getAngryProgress(float partialTicks) {
+        return (prevAngryProgress + (angryProgress - prevAngryProgress) * partialTicks) * 0.1F;
     }
 
     public boolean canCannibalize(LivingEntity entity) {
@@ -160,8 +167,8 @@ public class Majungasaurus extends PrehistoricMob {
         return itemStack.is(UP2ItemTags.PACIFIES_MAJUNGASAURUS);
     }
 
-    private boolean isNightTime() {
-        return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000;
+    public boolean isNightTime() {
+        return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000 && !this.level().dimensionType().hasFixedTime();
     }
 
     protected boolean attacksPlayers(LivingEntity entity) {
@@ -183,18 +190,16 @@ public class Majungasaurus extends PrehistoricMob {
         super.tick();
 
         prevCamoProgress = camoProgress;
+        prevAngryProgress = angryProgress;
 
         if (this.attackTicks > 0) attackTicks--;
         if (this.attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
 
-        float camoAmount;
-        if (this.isCamo() || this.isCamoAvoiding()) {
-            camoAmount = 20;
-        } else {
-            camoAmount = this.isNightTime() ? 10 : 0;
-        }
-        if (camoProgress < camoAmount) camoProgress++;
-        else if (camoProgress > camoAmount) camoProgress--;
+        if ((this.isCamo() || this.isCamoAvoiding()) && camoProgress < 10.0F) camoProgress++;
+        else if (!(this.isCamo() || this.isCamoAvoiding()) && camoProgress > 0.0F) camoProgress--;
+
+        if (this.isAggressive() && angryProgress < 10.0F) angryProgress++;
+        else if (!this.isAggressive() && angryProgress > 0.0F) angryProgress--;
 
         if (this.getCamoCooldown() > 0) this.setCamoCooldown(this.getCamoCooldown() - 1);
     }
@@ -205,6 +210,9 @@ public class Majungasaurus extends PrehistoricMob {
         if (stopCamoTicks > 0) stopCamoTicks--;
         if (startCamoTicks == 0 && this.getPose() == UP2Poses.START_CAMO.get()) this.setPose(Pose.STANDING);
         if (stopCamoTicks == 0 && this.getPose() == UP2Poses.STOP_CAMO.get()) this.setPose(Pose.STANDING);
+        if (yawnCooldown > 0) yawnCooldown--;
+        if (shakeCooldown > 0) shakeCooldown--;
+        if (sniffCooldown > 0) sniffCooldown--;
     }
 
     @Override
@@ -311,7 +319,7 @@ public class Majungasaurus extends PrehistoricMob {
         super.defineSynchedData();
         this.entityData.define(CAMO, false);
         this.entityData.define(CAMO_AVOIDING, false);
-        this.entityData.define(CAMO_COOLDOWN, 60 + random.nextInt(10));
+        this.entityData.define(CAMO_COOLDOWN, 0);
     }
 
     @Override
@@ -502,7 +510,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.shakeCooldown == 0;
+            return super.canUse() && majungasaurus.shakeCooldown == 0 && !majungasaurus.isMobSitting();
         }
 
         @Override
@@ -523,7 +531,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.sniffCooldown == 0;
+            return super.canUse() && majungasaurus.sniffCooldown == 0 && !majungasaurus.isMobSitting();
         }
 
         @Override
@@ -535,7 +543,7 @@ public class Majungasaurus extends PrehistoricMob {
         @Override
         public void tick() {
             super.tick();
-            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.CARNOTAURUS_SNIFF.get(), 1.0F, majungasaurus.getVoicePitch());
+            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.CARNOTAURUS_SNIFF.get(), 1.0F, 1.2F * majungasaurus.getVoicePitch());
         }
     }
 }
