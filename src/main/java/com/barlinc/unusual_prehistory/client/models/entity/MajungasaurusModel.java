@@ -140,7 +140,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	public void setupAnim(Majungasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater()) {
+        if (!entity.isInWater() && !entity.isMobSitting()) {
             if (entity.isCamo()) this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2.5F, 5);
             else {
                 if (entity.isRunning()) this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);

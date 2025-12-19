@@ -127,8 +127,8 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+        this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
 	}
 
 	@Override

@@ -76,7 +76,12 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        this.refuseToTravel(travelVec);
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
         super.travel(travelVec);
     }
 

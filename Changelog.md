@@ -19,6 +19,8 @@
 - Majungasaurus will now avoid large carnivores and strong mobs like Carnotaurus
 - Majungasaurus now enters camo mode when avoiding mobs
 - Reduced Majungasaurus camo cooldown time
+- Added more Majungasaurus idle animations
+- Added Golden Emperor Carnotaurus variant
 - Misc tweaks
 
 ## Version 1.2.3

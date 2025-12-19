@@ -34,9 +34,16 @@ public class RandomSitGoal extends Goal {
         if (prehistoricMob.isMobSitting()) {
             this.prehistoricMob.sitCooldown();
             this.prehistoricMob.standUp();
+            this.prehistoricMob.setSittingDown(false);
         } else {
             this.prehistoricMob.standUpCooldown();
             this.prehistoricMob.sitDown();
+            this.prehistoricMob.setSittingDown(true);
         }
+    }
+
+    @Override
+    public void stop() {
+        this.prehistoricMob.setSittingDown(false);
     }
 }

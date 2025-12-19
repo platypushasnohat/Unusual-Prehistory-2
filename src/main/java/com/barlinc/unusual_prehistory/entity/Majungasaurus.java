@@ -31,7 +31,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,6 +42,8 @@ public class Majungasaurus extends PrehistoricMob {
     public static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> CAMO_AVOIDING = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.2F, 1.3F);
 
     private float prevCamoProgress;
     private float camoProgress;
@@ -67,6 +68,10 @@ public class Majungasaurus extends PrehistoricMob {
     private int startCamoTicks;
     private int stopCamoTicks;
 
+    private int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
+    private int shakeCooldown = 500 + this.getRandom().nextInt(60 * 60);
+    private int sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
+
     public Majungasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
@@ -87,6 +92,10 @@ public class Majungasaurus extends PrehistoricMob {
             }
         });
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
+        this.goalSelector.addGoal(7, new RandomSitGoal(this));
+        this.goalSelector.addGoal(8, new MajungasaurusYawnGoal(this));
+        this.goalSelector.addGoal(8, new MajungasaurusShakeGoal(this));
+        this.goalSelector.addGoal(9, new MajungasaurusSniffGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Majungasaurus.class, 200, true, true, this::canCannibalize));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
         this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::attacksPlayers));
@@ -111,10 +120,15 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.getPose() == UP2Poses.STOP_CAMO.get() || this.getPose() == UP2Poses.START_CAMO.get()) {
-            travelVec.multiply(0.02, 1.0, 0.02);
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
-        this.refuseToTravel(travelVec);
+        if (this.getPose() == UP2Poses.STOP_CAMO.get() || this.getPose() == UP2Poses.START_CAMO.get()) {
+            travelVec = travelVec.multiply(0.02, 1.0, 0.02);
+        }
         super.travel(travelVec);
     }
 
@@ -146,17 +160,22 @@ public class Majungasaurus extends PrehistoricMob {
         return itemStack.is(UP2ItemTags.PACIFIES_MAJUNGASAURUS);
     }
 
-    @Override
-    public boolean refuseToMove() {
-        return false;
-    }
-
     private boolean isNightTime() {
         return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000;
     }
 
     protected boolean attacksPlayers(LivingEntity entity) {
         return this.canAttack(entity) && this.isNightTime();
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+    }
+
+    @Override
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getIdleState() == 3;
     }
 
     @Override
@@ -200,11 +219,91 @@ public class Majungasaurus extends PrehistoricMob {
         this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater() && this.getPose() != UP2Poses.START_CAMO.get() && this.getPose() != UP2Poses.STOP_CAMO.get(), this.tickCount);
         this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+
+        if (this.isMobVisuallySitting()) {
+            this.sitEndAnimationState.stop();
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+            this.idleAnimationState.stop();
+            this.shakeAnimationState.stop();
+            this.sniff1AnimationState.stop();
+            this.sniff2AnimationState.stop();
+
+            if (this.isVisuallySitting()) {
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
+            } else {
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+        }
     }
 
     @Override
     public float getWalkAnimationSpeed() {
         return this.isBaby() ? 2.0F : 4.0F;
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
+        if (DATA_POSE.equals(entityDataAccessor)) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
+                else this.attack2AnimationState.start(this.tickCount);
+                this.attackTicks = 15;
+            }
+            else if (this.getPose() == UP2Poses.START_CAMO.get()) {
+                this.startCamoAnimationState.start(this.tickCount);
+                this.startCamoTicks = 20;
+            }
+            else if (this.getPose() == UP2Poses.STOP_CAMO.get()) {
+                this.stopCamoAnimationState.start(this.tickCount);
+                this.stopCamoTicks = 20;
+            }
+            else {
+                this.attack1AnimationState.stop();
+                this.attack2AnimationState.stop();
+                this.startCamoAnimationState.stop();
+                this.stopCamoAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(entityDataAccessor);
+    }
+
+    public void handleEntityEvent(byte id) {
+        switch (id) {
+            case 67 -> this.yawnAnimationState.start(this.tickCount);
+            case 68 -> this.yawnAnimationState.stop();
+
+            case 69 -> this.shakeAnimationState.start(this.tickCount);
+            case 70 -> this.shakeAnimationState.stop();
+
+            case 71 -> {
+                if (this.getRandom().nextBoolean()) this.sniff1AnimationState.start(this.tickCount);
+                else this.sniff2AnimationState.start(this.tickCount);
+            }
+            case 72 -> {
+                this.sniff1AnimationState.stop();
+                this.sniff2AnimationState.stop();
+            }
+            default -> super.handleEntityEvent(id);
+        }
+    }
+
+    protected void yawnCooldown() {
+        this.yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
+    }
+
+    protected void shakeCooldown() {
+        this.shakeCooldown = 500 + this.getRandom().nextInt(60 * 60);
+    }
+
+    protected void sniffCooldown() {
+        this.sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
     }
 
     @Override
@@ -248,7 +347,7 @@ public class Majungasaurus extends PrehistoricMob {
         this.entityData.set(CAMO_COOLDOWN, cooldown);
     }
     public void camoCooldown() {
-        this.setCamoCooldown(40 + this.getRandom().nextInt(10));
+        this.setCamoCooldown(30 + this.getRandom().nextInt(10));
     }
 
     public void startCamo() {
@@ -267,32 +366,6 @@ public class Majungasaurus extends PrehistoricMob {
     public void stopCamoInstantly() {
         this.setCamo(false);
         this.camoCooldown();
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
-        if (DATA_POSE.equals(entityDataAccessor)) {
-            if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
-                else this.attack2AnimationState.start(this.tickCount);
-                this.attackTicks = 15;
-            }
-            else if (this.getPose() == UP2Poses.START_CAMO.get()) {
-                this.startCamoAnimationState.start(this.tickCount);
-                this.startCamoTicks = 20;
-            }
-            else if (this.getPose() == UP2Poses.STOP_CAMO.get()) {
-                this.stopCamoAnimationState.start(this.tickCount);
-                this.stopCamoTicks = 20;
-            }
-            else {
-                this.attack1AnimationState.stop();
-                this.attack2AnimationState.stop();
-                this.startCamoAnimationState.stop();
-                this.stopCamoAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(entityDataAccessor);
     }
 
     @Nullable
@@ -394,6 +467,75 @@ public class Majungasaurus extends PrehistoricMob {
             super.stop();
             this.majungasaurus.setCamoAvoiding(false);
             this.majungasaurus.camoCooldown();
+        }
+    }
+
+    private static class MajungasaurusYawnGoal extends AnimationGoal {
+
+        private final Majungasaurus majungasaurus;
+
+        public MajungasaurusYawnGoal(Majungasaurus majungasaurus) {
+            super(majungasaurus, 60, 1, (byte) 67, (byte) 68, false);
+            this.majungasaurus = majungasaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && majungasaurus.yawnCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.majungasaurus.yawnCooldown();
+        }
+    }
+
+    private static class MajungasaurusShakeGoal extends AnimationGoal {
+
+        private final Majungasaurus majungasaurus;
+
+        public MajungasaurusShakeGoal(Majungasaurus majungasaurus) {
+            super(majungasaurus, 80, 2, (byte) 69, (byte) 70, false);
+            this.majungasaurus = majungasaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && majungasaurus.shakeCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.majungasaurus.shakeCooldown();
+        }
+    }
+
+    private static class MajungasaurusSniffGoal extends AnimationGoal {
+
+        private final Majungasaurus majungasaurus;
+
+        public MajungasaurusSniffGoal(Majungasaurus majungasaurus) {
+            super(majungasaurus, 80, 3, (byte) 71, (byte) 72);
+            this.majungasaurus = majungasaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && majungasaurus.sniffCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.majungasaurus.sniffCooldown();
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.CARNOTAURUS_SNIFF.get(), 1.0F, majungasaurus.getVoicePitch());
         }
     }
 }

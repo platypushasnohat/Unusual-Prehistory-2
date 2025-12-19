@@ -57,6 +57,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -93,15 +94,6 @@ public abstract class PrehistoricMob extends Animal {
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return 0.0F;
-    }
-
-    public void refuseToTravel(Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            travelVec.multiply(0.0, 1.0, 0.0);
-        }
     }
 
     // Floating
@@ -334,6 +326,10 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
+//    public boolean canLookWhileSitting() {
+//        return true;
+//    }
+
     public long getPoseTime() {
         return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
@@ -389,6 +385,18 @@ public abstract class PrehistoricMob extends Animal {
         this.setLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
     }
 
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+
+        if (DATA_POSE.equals(key)) {
+           this.refreshDimensions();
+        }
+        if (SITTING.equals(key)) {
+            this.refreshDimensions();
+        }
+    }
+
     // Data
     @Override
     protected void defineSynchedData() {
@@ -407,6 +415,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(IDLE_STATE, 0);
         this.entityData.define(EAT_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
         this.entityData.define(SIT_COOLDOWN, 2000 + this.getRandom().nextInt(2000 * 2));
+        this.entityData.define(SITTING, false);
     }
 
     @Override
@@ -419,6 +428,7 @@ public abstract class PrehistoricMob extends Animal {
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
+        compoundTag.putBoolean("SittingDown", this.isSittingDown());
     }
 
     @Override
@@ -431,6 +441,7 @@ public abstract class PrehistoricMob extends Animal {
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
+        this.setSittingDown(compoundTag.getBoolean("SittingDown"));
     }
 
     protected boolean getFlag(int flagId) {
@@ -546,5 +557,12 @@ public abstract class PrehistoricMob extends Animal {
     }
     public void standUpCooldown() {
         this.setSitCooldown(900 + random.nextInt(900 * 2));
+    }
+
+    public boolean isSittingDown() {
+        return this.entityData.get(SITTING);
+    }
+    public void setSittingDown(boolean sitting) {
+        this.entityData.set(SITTING, sitting);
     }
 }

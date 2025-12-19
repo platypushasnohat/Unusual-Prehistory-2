@@ -24,6 +24,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -39,6 +40,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -327,10 +329,12 @@ public class Carnotaurus extends PrehistoricMob {
         this.entityData.set(ROAR_COOLDOWN, 400 + this.getRandom().nextInt(400));
     }
 
-    @Override
     @Nullable
+    @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.CARNOTAURUS.get().create(level);
+        Carnotaurus carnotaurus = UP2Entities.CARNOTAURUS.get().create(level);
+        carnotaurus.setVariant(this.getVariant());
+        return carnotaurus;
     }
 
     @Nullable
@@ -359,6 +363,40 @@ public class Carnotaurus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 180;
+    }
+
+    public enum CarnotaurusVariant {
+        CARNOTAURUS(0),
+        GOLDEN_EMPEROR(1);
+
+        private final int id;
+
+        CarnotaurusVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static CarnotaurusVariant byId(int id) {
+            if (id < 0 || id >= CarnotaurusVariant.values().length) {
+                id = 0;
+            }
+            return CarnotaurusVariant.values()[id];
+        }
+    }
+
+    @Override
+    public int getVariantCount() {
+        return CarnotaurusVariant.values().length;
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        if (level.getRandom().nextFloat() < 0.1F) this.setVariant(1);
+        else this.setVariant(0);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 
     public static boolean canSpawn(EntityType<Carnotaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

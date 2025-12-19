@@ -100,11 +100,16 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
         if (this.isEffectiveAi() && this.getPose() == UP2Poses.START_FLYING.get()) {
             double horizontalSpeed = this.isRunning() ? 0.4D : 0.7D;
             travelVec = travelVec.multiply(horizontalSpeed, 1.0D, horizontalSpeed);
         }
-        this.refuseToTravel(travelVec);
         super.travel(travelVec);
     }
 

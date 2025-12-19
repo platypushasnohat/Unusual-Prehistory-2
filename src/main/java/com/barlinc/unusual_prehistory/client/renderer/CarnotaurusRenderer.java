@@ -11,17 +11,18 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 @OnlyIn(Dist.CLIENT)
 public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusModel> {
-
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/carnotaurus.png");
 
     public CarnotaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new CarnotaurusModel(context.bakeLayer(UP2ModelLayers.CARNOTAURUS)), 1.0F);
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull Carnotaurus entity) {
-        return TEXTURE;
+    public @NotNull ResourceLocation getTextureLocation(Carnotaurus entity) {
+        Carnotaurus.CarnotaurusVariant variant = Carnotaurus.CarnotaurusVariant.byId(entity.getVariant());
+        return UnusualPrehistory2.modPrefix("textures/entity/carnotaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }
