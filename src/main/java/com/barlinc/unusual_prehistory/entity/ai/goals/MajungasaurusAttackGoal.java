@@ -40,7 +40,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
 
             if (distanceToTarget > 25 && this.majungasaurus.getCamoCooldown() == 0 && !this.majungasaurus.isInWaterOrBubble()) {
                 this.majungasaurus.startCamo();
-                this.majungasaurus.getNavigation().moveTo(target, 1.1D);
+                this.majungasaurus.getNavigation().moveTo(target, 1.2D);
             }
             if (distanceToTarget <= 25 || this.majungasaurus.getCamoCooldown() > 0) {
                 this.majungasaurus.stopCamo();

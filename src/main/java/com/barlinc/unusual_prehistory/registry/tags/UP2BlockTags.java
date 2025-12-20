@@ -33,6 +33,7 @@ public class UP2BlockTags {
     public static final TagKey<Block> DROMAEOSAURUS_SPAWNABLE_ON = modBlockTag("dromaeosaurus_spawnable_on");
     public static final TagKey<Block> KENTROSAURUS_SPAWNABLE_ON = modBlockTag("kentrosaurus_spawnable_on");
     public static final TagKey<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON = modBlockTag("kimmeridgebrachypteraeschnidium_spawnable_on");
+    public static final TagKey<Block> LEPTICTIDIUM_SPAWNABLE_ON = modBlockTag("leptictidium_spawnable_on");
     public static final TagKey<Block> LYSTROSAURUS_SPAWNABLE_ON = modBlockTag("lystrosaurus_spawnable_on");
     public static final TagKey<Block> MAJUNGASAURUS_SPAWNABLE_ON = modBlockTag("majungasaurus_spawnable_on");
     public static final TagKey<Block> MEGALANIA_SPAWNABLE_ON = modBlockTag("megalania_spawnable_on");
@@ -41,6 +42,11 @@ public class UP2BlockTags {
     public static final TagKey<Block> TELECREX_SPAWNABLE_ON = modBlockTag("telecrex_spawnable_on");
     public static final TagKey<Block> UNICORN_SPAWNABLE_ON = modBlockTag("unicorn_spawnable_on");
 
+    public static final TagKey<Block> DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS = modBlockTag("desmatosuchus_preferred_walking_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_ROLLING_BLOCKS = modBlockTag("desmatosuchus_rolling_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_MOSSY_BLOCKS = modBlockTag("desmatosuchus_mossy_blocks");
+
+    public static final TagKey<Block> DESMATOSUCHUS_GRAZING_BLOCKS = modBlockTag("desmatosuchus_grazing_blocks");
     public static final TagKey<Block> JAWLESS_FISH_NIBBLING_BLOCKS = modBlockTag("jawless_fish_nibbling_blocks");
     public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
     public static final TagKey<Block> LOBE_FINNED_FISH_NIBBLING_BLOCKS = modBlockTag("lobe_finned_fish_nibbling_blocks");

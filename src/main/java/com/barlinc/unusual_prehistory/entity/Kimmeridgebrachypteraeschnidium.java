@@ -373,12 +373,12 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.entityData.set(WING_COLOR, Mth.clamp(variant, 0, 15));
     }
 
-    public Boolean getHasPattern() {
+    public boolean getHasPattern() {
         return this.entityData.get(HAS_PATTERN);
     }
 
-    public void setHasPattern(Boolean variant) {
-        this.entityData.set(HAS_PATTERN, variant);
+    public void setHasPattern(boolean hasPattern) {
+        this.entityData.set(HAS_PATTERN, hasPattern);
     }
 
     @Override

@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, DesmatosuchusModel> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus.png");
+    private static final ResourceLocation MOSSY_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy.png");
 
     public DesmatosuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 1.0F);
@@ -22,6 +23,6 @@ public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, Desmatosuc
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Desmatosuchus entity) {
-        return TEXTURE;
+        return entity.isMossy() ? MOSSY_TEXTURE : TEXTURE;
     }
 }

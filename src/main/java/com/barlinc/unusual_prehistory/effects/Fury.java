@@ -32,7 +32,7 @@ public class Fury extends MobEffect {
         }
         if (speed != null) {
             this.removeFuryModifiers(entity);
-            float speedBoost = ((1F - (entity.getHealth() / entity.getMaxHealth())) * levelScale) * 0.25F;
+            float speedBoost = ((1F - (entity.getHealth() / entity.getMaxHealth())) * levelScale) * 0.2F;
             speed.addTransientModifier(new AttributeModifier(FURY_SPEED_UUID, "Fury speed boost", speedBoost, AttributeModifier.Operation.MULTIPLY_BASE));
         }
     }

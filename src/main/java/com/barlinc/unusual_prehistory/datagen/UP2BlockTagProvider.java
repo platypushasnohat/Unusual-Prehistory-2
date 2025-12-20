@@ -107,6 +107,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.MUD
         );
 
+        this.tag(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.LYSTROSAURUS_SPAWNABLE_ON).add(
                 Blocks.GRASS_BLOCK
         );
@@ -137,6 +141,30 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.UNICORN_SPAWNABLE_ON).add(
                 Blocks.GRASS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.MOSS_BLOCK,
+                Blocks.MUD,
+                Blocks.SAND,
+                Blocks.DIRT,
+                Blocks.ROOTED_DIRT,
+                Blocks.COARSE_DIRT,
+                Blocks.PACKED_MUD
+        );
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS);
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.MOSS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.MOSS_BLOCK,
+                Blocks.ROOTED_DIRT
         );
 
         this.tag(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS).add(
