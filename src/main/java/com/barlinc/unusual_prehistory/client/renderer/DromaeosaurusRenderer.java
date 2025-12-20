@@ -18,7 +18,7 @@ public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, Dromaeosau
     private static final ResourceLocation TEXTURE_SLEEPING = UnusualPrehistory2.modPrefix("textures/entity/dromaeosaurus/dromaeosaurus_eepy.png");
 
     public DromaeosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DromaeosaurusModel(context.bakeLayer(UP2ModelLayers.DROMAEOSAURUS)), 0.6F);
+        super(context, new DromaeosaurusModel(context.bakeLayer(UP2ModelLayers.DROMAEOSAURUS)), 0.4F);
     }
 
     @Override

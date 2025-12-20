@@ -28,7 +28,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, HierarchicalMo
     private final ArandaspisModel arandaspisModel;
 
     public JawlessFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new CephalaspisModel(context.bakeLayer(UP2ModelLayers.CEPHALASPIS)), 0.3F);
+        super(context, new CephalaspisModel(context.bakeLayer(UP2ModelLayers.CEPHALASPIS)), 0.25F);
         this.cephalaspisModel = new CephalaspisModel(context.bakeLayer(UP2ModelLayers.CEPHALASPIS));
         this.doryaspisModel = new DoryaspisModel(context.bakeLayer(UP2ModelLayers.DORYASPIS));
         this.furcacaudaModel = new FurcacaudaModel(context.bakeLayer(UP2ModelLayers.FURACACAUDA));

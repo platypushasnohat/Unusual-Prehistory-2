@@ -47,6 +47,7 @@ import java.util.List;
 public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
 
     private static final EntityDataAccessor<Boolean> MOSSY = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.8F);
 
@@ -69,7 +70,6 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     public int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
     public int grazeCooldown = 800 + this.getRandom().nextInt(70 * 70);
     public int chewCooldown = 700 + this.getRandom().nextInt(70 * 70);
-    public int rollCooldown = 10 + this.getRandom().nextInt(10);
 
     public Desmatosuchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -78,7 +78,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DESMATOSUCHUS_FOOD), false));
         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
@@ -147,6 +147,11 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     }
 
     @Override
+    public boolean canCollideWith(@NotNull Entity entity) {
+        return super.canCollideWith(entity) && !(entity instanceof Desmatosuchus);
+    }
+
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
@@ -160,7 +165,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
             this.setMossy(false);
             int amount = 1 + this.random.nextInt(3);
             List<ItemStack> items = new ArrayList<>();
-            for (int j = 0; j < amount; j++) {
+            for (int i = 0; i < amount; i++) {
                 items.add(new ItemStack(Items.MOSS_CARPET));
             }
             return items;
@@ -175,7 +180,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (rollCooldown > 0) rollCooldown--;
+        if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
         if (shakeCooldown > 0) shakeCooldown--;
         if (sniffCooldown > 0) sniffCooldown--;
         if (chewCooldown > 0) chewCooldown--;
@@ -238,7 +243,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     }
 
     protected void rollCooldown() {
-        this.rollCooldown = 1000 + this.getRandom().nextInt(70 * 70);
+        this.setRollCooldown(1000 + this.getRandom().nextInt(70 * 70));
     }
 
     protected void shakeCooldown() {
@@ -246,7 +251,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     }
 
     protected void sniffCooldown() {
-        this.chewCooldown = 700 + this.getRandom().nextInt(60 * 60);
+        this.sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
     }
 
     protected void grazeCooldown() {
@@ -261,18 +266,21 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(MOSSY, false);
+        this.entityData.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("Mossy", this.isMossy());
+        compoundTag.putInt("RollCooldown", this.getRollCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setMossy(compoundTag.getBoolean("Mossy"));
+        this.setRollCooldown(compoundTag.getInt("RollCooldown"));
     }
 
     public boolean isMossy() {
@@ -280,6 +288,13 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     }
     public void setMossy(boolean mossy) {
         this.entityData.set(MOSSY, mossy);
+    }
+
+    public int getRollCooldown() {
+        return this.entityData.get(ROLL_COOLDOWN);
+    }
+    public void setRollCooldown(int cooldown) {
+        this.entityData.set(ROLL_COOLDOWN, cooldown);
     }
 
     @Nullable
@@ -332,7 +347,7 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.rollCooldown == 0 && !desmatosuchus.isMobSitting() && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS);
+            return super.canUse() && desmatosuchus.getRollCooldown() == 0 && !desmatosuchus.isMobSitting() && this.isRollingBlock();
         }
 
         @Override
@@ -344,9 +359,13 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
         @Override
         public void tick() {
             super.tick();
-            if (timer == 20 && !desmatosuchus.isMossy() && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
+            if (timer == 30 && !desmatosuchus.isMossy() && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
                 desmatosuchus.setMossy(true);
             }
+        }
+
+        protected boolean isRollingBlock() {
+            return desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS) || desmatosuchus.level().getBlockState(desmatosuchus.blockPosition()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS);
         }
     }
 

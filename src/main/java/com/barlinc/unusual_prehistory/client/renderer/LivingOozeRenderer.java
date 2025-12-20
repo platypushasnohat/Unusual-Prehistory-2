@@ -22,7 +22,7 @@ public class LivingOozeRenderer extends MobRenderer<LivingOoze, LivingOozeModel>
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/misc/empty.png");
 
     public LivingOozeRenderer(EntityRendererProvider.Context context) {
-        super(context, new LivingOozeModel(context.bakeLayer(UP2ModelLayers.LIVING_OOZE)), 0.5F);
+        super(context, new LivingOozeModel(context.bakeLayer(UP2ModelLayers.LIVING_OOZE)), 0.6F);
         this.addLayer(new LivingOozeContainedItemLayer(this));
         this.addLayer(new LivingOozeOuterLayer(this));
     }

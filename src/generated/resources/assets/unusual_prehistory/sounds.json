@@ -133,6 +133,27 @@
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
   },
+  "diplocaulus_step": {
+    "sounds": [
+      {
+        "name": "mob/frog/step1",
+        "pitch": 0.95
+      },
+      {
+        "name": "mob/frog/step2",
+        "pitch": 0.95
+      },
+      {
+        "name": "mob/frog/step3",
+        "pitch": 0.95
+      },
+      {
+        "name": "mob/frog/step4",
+        "pitch": 0.95
+      }
+    ],
+    "subtitle": "subtitles.diplocaulus_step"
+  },
   "doomsurf_disc": {
     "sounds": [
       {

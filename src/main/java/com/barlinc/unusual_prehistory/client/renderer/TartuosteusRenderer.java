@@ -17,7 +17,7 @@ import java.util.Locale;
 public class TartuosteusRenderer extends MobRenderer<Tartuosteus, TartuosteusModel> {
 
     public TartuosteusRenderer(EntityRendererProvider.Context context) {
-        super(context, new TartuosteusModel(context.bakeLayer(UP2ModelLayers.TARTUOSTEUS)), 0.6F);
+        super(context, new TartuosteusModel(context.bakeLayer(UP2ModelLayers.TARTUOSTEUS)), 0.7F);
     }
 
     @Override

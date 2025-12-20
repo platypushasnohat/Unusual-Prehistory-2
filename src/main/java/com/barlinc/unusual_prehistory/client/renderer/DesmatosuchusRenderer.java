@@ -18,7 +18,7 @@ public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, Desmatosuc
     private static final ResourceLocation MOSSY_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy.png");
 
     public DesmatosuchusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 1.0F);
+        super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 0.8F);
     }
 
     @Override

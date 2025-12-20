@@ -37,15 +37,15 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
         switch (Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant()).getId()) {
             case 1:
                 this.model = dunkleosteusMediumModel;
-                this.shadowRadius = 0.6F;
+                this.shadowRadius = 0.8F;
                 break;
             case 2:
                 this.model = dunkleosteusLargeModel;
-                this.shadowRadius = 0.8F;
+                this.shadowRadius = 1.0F;
                 break;
             default:
                 this.model = dunkleosteusSmallModel;
-                this.shadowRadius = 0.5F;
+                this.shadowRadius = 0.4F;
         }
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

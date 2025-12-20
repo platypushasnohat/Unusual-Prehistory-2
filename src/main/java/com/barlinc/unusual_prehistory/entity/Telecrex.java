@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.TelecrexMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.TelecrexScatterGoal;
@@ -30,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
@@ -43,17 +43,18 @@ import java.util.List;
 public class Telecrex extends PrehistoricFlyingMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState startFlyingAnimationState = new AnimationState();
-    public final AnimationState flyingAnimationState = new AnimationState();
-    public final AnimationState flyingFastAnimationState = new AnimationState();
-    public final AnimationState flyingIdleAnimationState = new AnimationState();
-    public final AnimationState lookoutAnimationState = new AnimationState();
-    public final AnimationState peckingAnimationState = new AnimationState();
+    public final AnimationState flyStartAnimationState = new AnimationState();
+    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState flyFastAnimationState = new AnimationState();
+    public final AnimationState hoverAnimationState = new AnimationState();
+    public final AnimationState peckAnimationState = new AnimationState();
+    public final AnimationState preen1AnimationState = new AnimationState();
+    public final AnimationState preen2AnimationState = new AnimationState();
 
-    private int peckingTimer = 0;
-    private int lookoutTimer = 0;
+    public int preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
+    public int peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
 
-    private int startFlyingTicks;
+    private int flyStartTicks;
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -83,6 +84,8 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new TelecrexPreenGoal(this));
+        this.goalSelector.addGoal(6, new TelecrexPeckGoal(this));
     }
 
     @Override
@@ -135,39 +138,25 @@ public class Telecrex extends PrehistoricFlyingMob {
     public void tick() {
         super.tick();
         if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
-        if (this.isRunning() && this.getRunningTicks() == 0) {
-            this.setRunning(false);
-        }
+        if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (startFlyingTicks > 0) startFlyingTicks--;
-        if (startFlyingTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) {
+        if (flyStartTicks > 0) flyStartTicks--;
+        if (flyStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) {
             this.setPose(Pose.FALL_FLYING);
             this.setFlying(true);
         }
-        if (!this.isInWaterOrBubble() && !this.isFlying() && !this.isPecking() && !this.isLooking()) {
-            if (this.random.nextInt(500) == 0 && this.level().getBlockState(this.blockPosition().below()).is(Blocks.GRASS_BLOCK)) {
-                this.setPecking(true);
-            }
-            if (this.random.nextInt(600) == 0) {
-                this.setLooking(true);
-            }
-        }
-        if (this.isPecking() && this.peckingTimer++ > 40) {
-            this.peckingTimer = 0;
-            this.setPecking(false);
-        }
-        if (this.isLooking() && this.lookoutTimer++ > 40) {
-            this.lookoutTimer = 0;
-            this.setLooking(false);
+        if (!this.isFlying()) {
+            if (preenCooldown > 0) preenCooldown--;
+            if (peckCooldown > 0) peckCooldown--;
         }
     }
 
     @Override
     public boolean refuseToMove() {
-        return super.isImmobile() || this.isPecking() || this.isLooking();
+        return super.isImmobile() || this.getIdleState() == 1 || this.getIdleState() == 2;
     }
 
     @Override
@@ -185,41 +174,51 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public void setupAnimationStates() {
-        if (startFlyingTicks == 0 && this.startFlyingAnimationState.isStarted()) this.startFlyingAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isFlying() && !this.isPecking() && !this.isLooking(), this.tickCount);
-        this.flyingAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
-        this.flyingFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
-        this.flyingIdleAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        if (flyStartTicks == 0 && this.flyStartAnimationState.isStarted()) this.flyStartAnimationState.stop();
+        this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && this.getIdleState() != 2, this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
+        this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.START_FLYING.get()) {
-                this.startFlyingAnimationState.start(this.tickCount);
-                this.startFlyingTicks = 20;
+                this.flyStartAnimationState.start(this.tickCount);
+                this.flyStartTicks = 20;
             }
             else {
-                this.startFlyingAnimationState.stop();
+                this.flyStartAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
     }
 
-    public boolean isPecking() {
-        return this.getFlag(16);
+    public void handleEntityEvent(byte id) {
+        switch (id) {
+            case 67 -> {
+                if (this.getRandom().nextBoolean()) this.preen1AnimationState.start(this.tickCount);
+                else this.preen2AnimationState.start(this.tickCount);
+            }
+            case 68 -> {
+                this.preen1AnimationState.stop();
+                this.preen2AnimationState.stop();
+            }
+
+            case 69 -> this.peckAnimationState.start(this.tickCount);
+            case 70 -> this.peckAnimationState.stop();
+
+            default -> super.handleEntityEvent(id);
+        }
     }
 
-    public void setPecking(boolean pecking) {
-        this.setFlag(16, pecking);
+    protected void preenCooldown() {
+        this.preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
     }
 
-    public boolean isLooking() {
-        return this.getFlag(32);
-    }
-
-    public void setLooking(boolean looking) {
-        this.setFlag(32, looking);
+    protected void peckCooldown() {
+        this.peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
     }
 
     @Override
@@ -278,5 +277,57 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     public static boolean canSpawn(EntityType<Telecrex> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.TELECREX_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    private static class TelecrexPreenGoal extends AnimationGoal {
+
+        private final Telecrex telecrex;
+
+        public TelecrexPreenGoal(Telecrex telecrex) {
+            super(telecrex, 60, 1, (byte) 67, (byte) 68);
+            this.telecrex = telecrex;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && telecrex.preenCooldown == 0 && !telecrex.isFlying();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canUse() && !telecrex.isFlying();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.telecrex.preenCooldown();
+        }
+    }
+
+    private static class TelecrexPeckGoal extends AnimationGoal {
+
+        private final Telecrex telecrex;
+
+        public TelecrexPeckGoal(Telecrex telecrex) {
+            super(telecrex, 60, 2, (byte) 69, (byte) 70);
+            this.telecrex = telecrex;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && telecrex.peckCooldown == 0 && !telecrex.isFlying();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canUse() && !telecrex.isFlying();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.telecrex.peckCooldown();
+        }
     }
 }

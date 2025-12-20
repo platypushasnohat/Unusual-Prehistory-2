@@ -17,7 +17,7 @@ public class OnchopristisRenderer extends MobRenderer<Onchopristis, Onchopristis
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/onchopristis.png");
 
     public OnchopristisRenderer(EntityRendererProvider.Context context) {
-        super(context, new OnchopristisModel(context.bakeLayer(UP2ModelLayers.ONCHOPRISTIS)), 0.5F);
+        super(context, new OnchopristisModel(context.bakeLayer(UP2ModelLayers.ONCHOPRISTIS)), 0.7F);
     }
 
     @Override

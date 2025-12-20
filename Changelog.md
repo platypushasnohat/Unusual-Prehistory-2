@@ -38,6 +38,13 @@
 - Slightly reduced the amount of health Carnotaurus gains on kill
 - Added more Carnotaurus idle animations
 - Increased Carnotaurus roar cooldown
+- Added more Telecrex idle animations
+- Increased Diplocaulus movement speed
+- Diplocaulus can now slide around on mud and ice
+- Tweaked Diplocaulus sound volume
+- Added Diplocaulus step sound event
+- Diplocaulus now prefers to walk on mud
+- Diplocaulus can now burrow into sand and gravel alongside mud
 - Misc tweaks
 
 ## Version 1.2.3

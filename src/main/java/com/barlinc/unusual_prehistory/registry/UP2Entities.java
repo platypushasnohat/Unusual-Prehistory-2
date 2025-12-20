@@ -28,7 +28,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = ENTITY_TYPE.register(
             "desmatosuchus", () ->
             EntityType.Builder.of(Desmatosuchus::new, MobCategory.CREATURE)
-                    .sized(1.3F, 1.1F)
+                    .sized(1.3F, 1.2F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "desmatosuchus").toString())
     );

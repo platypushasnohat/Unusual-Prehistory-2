@@ -17,7 +17,7 @@ public class LystrosaurusRenderer extends MobRenderer<Lystrosaurus, Lystrosaurus
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/lystrosaurus.png");
 
     public LystrosaurusRenderer(EntityRendererProvider.Context context) {
-        super(context, new LystrosaurusModel(context.bakeLayer(UP2ModelLayers.LYSTROSAURUS)), 1.0F);
+        super(context, new LystrosaurusModel(context.bakeLayer(UP2ModelLayers.LYSTROSAURUS)), 0.7F);
     }
 
     @Override

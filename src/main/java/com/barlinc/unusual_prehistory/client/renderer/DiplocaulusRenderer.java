@@ -28,7 +28,7 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
     private final DiplocaulusSalamandroidesModel salamandroidesModel;
 
     public DiplocaulusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.5F);
+        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.3F);
         this.brevirostrisModel = new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS));
         this.magnicornisModel = new DiplocaulusMagnicornisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS));
         this.recurvatisModel = new DiplocaulusRecurvatisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_RECURVATIS));

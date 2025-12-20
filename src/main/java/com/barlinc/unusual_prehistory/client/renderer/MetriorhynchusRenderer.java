@@ -18,7 +18,7 @@ public class MetriorhynchusRenderer extends MobRenderer<Metriorhynchus, Metriorh
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/metriorhynchus.png");
 
     public MetriorhynchusRenderer(EntityRendererProvider.Context context) {
-        super(context, new MetriorhynchusModel(context.bakeLayer(UP2ModelLayers.METRIORHYNCHUS)), 1.0F);
+        super(context, new MetriorhynchusModel(context.bakeLayer(UP2ModelLayers.METRIORHYNCHUS)), 0.8F);
         this.addLayer(new MetriorhynchusHeldMobLayer(this));
     }
 

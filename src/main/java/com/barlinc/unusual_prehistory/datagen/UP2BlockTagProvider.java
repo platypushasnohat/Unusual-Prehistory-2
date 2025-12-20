@@ -161,6 +161,24 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.MOSS_BLOCK
         );
 
+        this.tag(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS).add(
+                Blocks.MUD
+        );
+
+        this.tag(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS).add(
+                Blocks.MUD,
+                Blocks.ICE,
+                Blocks.PACKED_ICE,
+                Blocks.BLUE_ICE,
+                Blocks.SNOW_BLOCK
+        );
+
+        this.tag(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS).add(
+                Blocks.MUD,
+                Blocks.SAND,
+                Blocks.GRAVEL
+        );
+
         this.tag(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,

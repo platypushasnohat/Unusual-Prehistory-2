@@ -130,9 +130,9 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 		this.animateIdle(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
 		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
 		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks);
-		this.animate(entity.startSleepingAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
+		this.animate(entity.sleepStartAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
 		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
-		this.animate(entity.wakeUpAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
+		this.animate(entity.sleepEndAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
 
         if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
 

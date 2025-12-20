@@ -17,7 +17,7 @@ public class LeptictidiumRenderer extends MobRenderer<Leptictidium, Leptictidium
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/leptictidium.png");
 
     public LeptictidiumRenderer(EntityRendererProvider.Context context) {
-        super(context, new LeptictidiumModel(context.bakeLayer(UP2ModelLayers.LEPTICTIDIUM)), 0.3F);
+        super(context, new LeptictidiumModel(context.bakeLayer(UP2ModelLayers.LEPTICTIDIUM)), 0.2F);
     }
 
     @Override

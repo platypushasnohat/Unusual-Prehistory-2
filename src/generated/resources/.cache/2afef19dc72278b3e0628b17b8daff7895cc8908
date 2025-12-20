@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-19T22:53:50.9874569	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-12-20T12:57:34.5408065	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -41,6 +41,9 @@ dea3635c1f01e7174c39f14aefa3620f384bec74 data/unusual_prehistory/tags/blocks/des
 a8740bbacf4983c70ec0e2a5f6a11335688e730b data/unusual_prehistory/tags/blocks/desmatosuchus_preferred_walking_blocks.json
 72d13e0c3dc01153eb3fb4b0fbb4d6211dc7ee65 data/unusual_prehistory/tags/blocks/desmatosuchus_rolling_blocks.json
 f4ebb7d42202523362f0de073e1b31845b3f07f1 data/unusual_prehistory/tags/blocks/desmatosuchus_spawnable_on.json
+b1ec8eb71e51dd2382f705b80b7c0231936f2537 data/unusual_prehistory/tags/blocks/diplocaulus_burrowing_blocks.json
+33742694a14bb2697530757a24d4fd44291813bf data/unusual_prehistory/tags/blocks/diplocaulus_preferred_walking_blocks.json
+8e597328e4babaee30b4d67a98f853fab13d414e data/unusual_prehistory/tags/blocks/diplocaulus_sliding_blocks.json
 3cc43d54a00b1f2c28cc5f7553ffe87dbe2b92ba data/unusual_prehistory/tags/blocks/diplocaulus_spawnable_on.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/dromaeosaurus_spawnable_on.json
 1dbdf9841f185e84bed6eb0ac3700d990c52c29a data/unusual_prehistory/tags/blocks/fossilized_bone_blocks.json

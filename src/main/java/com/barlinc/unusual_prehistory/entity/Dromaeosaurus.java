@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Dromaeosaurus extends PrehistoricMob {
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
+    private static final EntityDimensions SLEEPING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
     private int biteTicks;
 
@@ -51,9 +51,9 @@ public class Dromaeosaurus extends PrehistoricMob {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState biteAnimationState = new AnimationState();
     public final AnimationState fallAnimationState = new AnimationState();
-    public final AnimationState startSleepingAnimationState = new AnimationState();
+    public final AnimationState sleepStartAnimationState = new AnimationState();
     public final AnimationState sleepAnimationState = new AnimationState();
-    public final AnimationState wakeUpAnimationState = new AnimationState();
+    public final AnimationState sleepEndAnimationState = new AnimationState();
 
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
@@ -164,20 +164,20 @@ public class Dromaeosaurus extends PrehistoricMob {
         if (this.isDromaeosaurusVisuallyEeping()) {
             this.fallAnimationState.stop();
             this.biteAnimationState.stop();
-            this.wakeUpAnimationState.stop();
+            this.sleepEndAnimationState.stop();
             this.idleAnimationState.stop();
 
             if (this.isVisuallyEeping()) {
-                this.startSleepingAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
                 this.sleepAnimationState.stop();
             } else {
-                this.startSleepingAnimationState.stop();
+                this.sleepStartAnimationState.stop();
                 this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.startSleepingAnimationState.stop();
+            this.sleepStartAnimationState.stop();
             this.sleepAnimationState.stop();
-            this.wakeUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sleepEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -216,7 +216,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == Pose.SLEEPING ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == UP2Poses.SLEEPING.get() ? SLEEPING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -259,7 +259,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     public void eep() {
         if (this.isDromaeosaurusEeping()) return;
-        this.setPose(Pose.SLEEPING);
+        this.setPose(UP2Poses.SLEEPING.get());
         this.setLastPoseChangeTick(-(this.level()).getGameTime());
         this.refreshDimensions();
     }

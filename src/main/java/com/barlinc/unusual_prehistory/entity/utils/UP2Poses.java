@@ -22,6 +22,7 @@ public enum UP2Poses {
     BELLOWING,
     START_FLYING,
     SITTING,
+    SLEEPING,
     WARN;
 
     public Pose get() {

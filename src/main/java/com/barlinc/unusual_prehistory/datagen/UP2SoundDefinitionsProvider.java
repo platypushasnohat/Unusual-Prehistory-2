@@ -71,6 +71,12 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/idle6").pitch(0.8F),
                 sound("mob/frog/idle7").pitch(0.8F)
         );
+        this.sound(UP2SoundEvents.DIPLOCAULUS_STEP,
+                sound("mob/frog/step1").pitch(0.95F),
+                sound("mob/frog/step2").pitch(0.95F),
+                sound("mob/frog/step3").pitch(0.95F),
+                sound("mob/frog/step4").pitch(0.95F)
+        );
 
         // Dromaeosaurus
         this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT,

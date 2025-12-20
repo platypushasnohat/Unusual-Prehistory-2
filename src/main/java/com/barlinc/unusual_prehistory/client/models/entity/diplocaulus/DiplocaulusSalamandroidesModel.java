@@ -7,7 +7,7 @@ import com.barlinc.unusual_prehistory.entity.Diplocaulus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -111,15 +111,18 @@ public class DiplocaulusSalamandroidesModel extends UP2Model<Diplocaulus> {
         return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
-	@Override
-	public void setupAnim(Diplocaulus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    @Override
+    public void setupAnim(Diplocaulus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
+        float deg = ((float) Math.PI / 180F);
+
         if (entity.isInWater()) {
-            this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
+            this.root.xRot = headPitch * deg;
             this.animateWalk(DiplocaulusSalamandroidesAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         } else {
-            this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            if (entity.isSliding()) this.animateWalk(DiplocaulusSalamandroidesAnimations.SLIDE, limbSwing, limbSwingAmount, 1.5F, 3);
+            else this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
         this.animateIdle(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
@@ -130,10 +133,14 @@ public class DiplocaulusSalamandroidesModel extends UP2Model<Diplocaulus> {
 
         if (this.young) this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);
 
-        if (entity.isDiplocaulusBurrowed()) this.body_main.y = 2;
-        if (!entity.isDiplocaulusBurrowed()) this.head.xRot += headPitch * (Mth.DEG_TO_RAD) / 4;
-        this.head.yRot += netHeadYaw * (Mth.DEG_TO_RAD) / 4;
-	}
+        if (entity.isDiplocaulusBurrowed() && entity.level().getBlockState(entity.blockPosition()).is(Blocks.MUD)) {
+            this.body_main.y = 1.0F;
+        }
+        if (!entity.isDiplocaulusBurrowed()) {
+            this.head.xRot += headPitch * deg / 4;
+            this.head.yRot += netHeadYaw * deg / 4;
+        }
+    }
 
 	@Override
 	public @NotNull ModelPart root() {
