@@ -45,6 +45,7 @@ public class UnusualPrehistory2 {
         UP2Fluids.FLUIDS.register(bus);
         UP2Fluids.TYPES.register(bus);
         UP2BlockEntities.BLOCK_ENTITIES.register(bus);
+        UP2MobEffects.MOB_EFFECTS.register(bus);
         UP2MenuTypes.MENUS.register(bus);
         UP2Recipes.RECIPE_TYPES.register(bus);
         UP2Recipes.RECIPE_SERIALIZERS.register(bus);

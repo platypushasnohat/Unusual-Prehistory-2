@@ -25,7 +25,19 @@
 - Added nighttime textures for Majungasaurus
 - Added angry textures for Majungasaurus
 - Decreased time it takes for Majungasaurus camo to transition to invisible
+- Added Majungasaurus step sound event
 - Added Golden Emperor Carnotaurus variant
+- Reduced Carnotaurus charge turn radius
+- Reduced Carnotaurus maximum charge time
+- Increased Carnotaurus charge speed
+- Merged Carnotaurus charge and roar goals into Carnotaurus attack goal
+- Carnotaurus charge speed now scales with speed attribute 
+- Replaced Carnotaurus roar effects with a new Fury effect that increases speed and attack speed
+- Reduced chance for Carnotaurus to headbutt
+- Increased Carnotaurus health
+- Slightly reduced the amount of health Carnotaurus gains on kill
+- Added more Carnotaurus idle animations
+- Increased Carnotaurus roar cooldown
 - Misc tweaks
 
 ## Version 1.2.3

@@ -679,6 +679,50 @@
     ],
     "subtitle": "subtitles.majungasaurus_idle"
   },
+  "majungasaurus_sniff": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/sniff1",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.majungasaurus_sniff"
+  },
+  "majungasaurus_step": {
+    "sounds": [
+      {
+        "name": "mob/camel/step1",
+        "pitch": 0.9,
+        "volume": 0.4
+      },
+      {
+        "name": "mob/camel/step2",
+        "pitch": 0.9,
+        "volume": 0.4
+      },
+      {
+        "name": "mob/camel/step3",
+        "pitch": 0.9,
+        "volume": 0.4
+      },
+      {
+        "name": "mob/camel/step4",
+        "pitch": 0.9,
+        "volume": 0.4
+      },
+      {
+        "name": "mob/camel/step5",
+        "pitch": 0.9,
+        "volume": 0.4
+      },
+      {
+        "name": "mob/camel/step6",
+        "pitch": 0.9,
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.majungasaurus_step"
+  },
   "medium_dunkleosteus_bite": {
     "sounds": [
       {

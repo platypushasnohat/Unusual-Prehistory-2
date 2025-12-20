@@ -5,8 +5,10 @@ import net.minecraft.world.entity.Pose;
 public enum UP2Poses {
 
     ATTACKING,
+    ATTACKING_FAST,
     BITING,
     HEADBUTTING,
+    HEADBUTTING_FAST,
     START_CAMO,
     STOP_CAMO,
     BURROWED,

@@ -72,8 +72,8 @@ public class Majungasaurus extends PrehistoricMob {
     private int stopCamoTicks;
 
     private int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
-    private int shakeCooldown = 500 + this.getRandom().nextInt(60 * 60);
-    private int sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
+    private int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
+    private int sniffCooldown = 700 + this.getRandom().nextInt(70 * 60);
 
     public Majungasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -307,11 +307,11 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     protected void shakeCooldown() {
-        this.shakeCooldown = 500 + this.getRandom().nextInt(60 * 60);
+        this.shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
     }
 
     protected void sniffCooldown() {
-        this.sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
+        this.sniffCooldown = 700 + this.getRandom().nextInt(70 * 60);
     }
 
     @Override
@@ -543,7 +543,7 @@ public class Majungasaurus extends PrehistoricMob {
         @Override
         public void tick() {
             super.tick();
-            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.CARNOTAURUS_SNIFF.get(), 1.0F, 1.2F * majungasaurus.getVoicePitch());
+            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_SNIFF.get(), 1.0F, majungasaurus.getVoicePitch());
         }
     }
 }

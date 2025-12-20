@@ -257,6 +257,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")).pitch(1.2F),
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3")).pitch(1.2F)
         );
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/sniff1")).pitch(1.2F)
+        );
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP,
+                sound("mob/camel/step1").volume(0.4F).pitch(0.9F),
+                sound("mob/camel/step2").volume(0.4F).pitch(0.9F),
+                sound("mob/camel/step3").volume(0.4F).pitch(0.9F),
+                sound("mob/camel/step4").volume(0.4F).pitch(0.9F),
+                sound("mob/camel/step5").volume(0.4F).pitch(0.9F),
+                sound("mob/camel/step6").volume(0.4F).pitch(0.9F)
+        );
 
         // Megalania
         this.sound(UP2SoundEvents.MEGALANIA_HURT,

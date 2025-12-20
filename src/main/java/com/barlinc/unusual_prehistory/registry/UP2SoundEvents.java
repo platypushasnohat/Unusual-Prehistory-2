@@ -71,6 +71,8 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_DEATH = registerSoundEvent("majungasaurus_death");
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_IDLE = registerSoundEvent("majungasaurus_idle");
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_BITE = registerSoundEvent("majungasaurus_bite");
+    public static final RegistryObject<SoundEvent> MAJUNGASAURUS_SNIFF = registerSoundEvent("majungasaurus_sniff");
+    public static final RegistryObject<SoundEvent> MAJUNGASAURUS_STEP = registerSoundEvent("majungasaurus_step");
 
     public static final RegistryObject<SoundEvent> MEGALANIA_HURT = registerSoundEvent("megalania_hurt");
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");

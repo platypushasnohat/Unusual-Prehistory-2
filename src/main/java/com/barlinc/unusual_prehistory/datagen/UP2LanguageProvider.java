@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -15,7 +16,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -140,6 +144,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE, "Majungasaurus bites");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF, "Majungasaurus sniffs");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP, "Majungasaurus steps");
 
         this.sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
         this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");
@@ -230,6 +236,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("obtain_egg", "E G G S", "Recreate your first prehistoric egg or embryo");
         this.translateAdvancement("obtain_living_ooze", "Alakagoo!", "Create a Living Ooze in a cauldron to incubate embryos with");
 
+        this.translateEffect(UP2MobEffects.FURY, "Gain increased speed and attack speed as your health gets lower");
+
         // kimmeridgebrachypteraeschnidium bottle
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_1", "Blue Body");
@@ -318,15 +326,15 @@ public class UP2LanguageProvider extends LanguageProvider {
     }
 
     private void forBlock(Supplier<? extends Block> block) {
-        addBlock(block, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
+        this.addBlock(block, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
     }
 
     private void forItem(Supplier<? extends Item> item) {
-        addItem(item, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get())).getPath()));
+        this.addItem(item, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get())).getPath()));
     }
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
-        addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
+        this.addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
     }
 
     private void translateDamageType(ResourceKey<DamageType> source, Function<String, String> death, BiFunction<String, String, String> killed) {
@@ -340,14 +348,14 @@ public class UP2LanguageProvider extends LanguageProvider {
     }
 
     protected void painting(String name, String author) {
-        add("painting." + UnusualPrehistory2.MOD_ID + "." + name + ".title",  UP2TextUtils.createTranslation(name));
-        add("painting." + UnusualPrehistory2.MOD_ID + "." + name + ".author",  author);
+        this.add("painting." + UnusualPrehistory2.MOD_ID + "." + name + ".title",  UP2TextUtils.createTranslation(name));
+        this.add("painting." + UnusualPrehistory2.MOD_ID + "." + name + ".author",  author);
     }
 
     protected void musicDisc(Supplier<? extends Item> item, String description) {
         String disc = item.get().getDescriptionId();
-        add(disc, "Music Disc");
-        add(disc + ".desc", description);
+        this.add(disc, "Music Disc");
+        this.add(disc + ".desc", description);
     }
 
     public void translateAdvancement(String key, String name, String desc) {
@@ -355,11 +363,24 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".desc", desc);
     }
 
+    private void translateEffect(RegistryObject<? extends MobEffect> effect, String desc) {
+        this.add(effect.get(), toUpper(ForgeRegistries.MOB_EFFECTS, effect));
+        this.add(effect.get().getDescriptionId() + ".description", desc);
+    }
+
     public void creativeTab(CreativeModeTab key, String name){
         add(key.getDisplayName().getString(), name);
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
-        add("subtitles." + key.get().getLocation().getPath(), subtitle);
+        this.add("subtitles." + key.get().getLocation().getPath(), subtitle);
+    }
+
+    private static <T> String toUpper(IForgeRegistry<T> registry, RegistryObject<? extends T> object) {
+        return toUpper(registry.getKey(object.get()).getPath());
+    }
+
+    private static String toUpper(String string) {
+        return StringUtils.capitaliseAllWords(string.replace('_', ' '));
     }
 }
