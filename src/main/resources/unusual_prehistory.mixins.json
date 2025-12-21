@@ -7,6 +7,7 @@
   "mixins": [
     "MapDecorationMixin",
     "MapDecorationTypeMixin",
+    "MobMixin",
     "PoseMixin",
     "SweetBerryBushBlockMixin"
   ],

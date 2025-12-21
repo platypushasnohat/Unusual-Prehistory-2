@@ -141,7 +141,11 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.DOLPHIN,
                 EntityType.TURTLE,
                 EntityType.DROWNED,
-                EntityType.GUARDIAN
+                EntityType.GUARDIAN,
+                EntityType.ZOMBIE,
+                EntityType.PIGLIN,
+                EntityType.SKELETON,
+                EntityType.WITHER_SKELETON
         );
 
         this.tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
@@ -149,7 +153,11 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH,
-                EntityType.DOLPHIN
+                EntityType.DROWNED,
+                EntityType.ZOMBIE,
+                EntityType.PIGLIN,
+                EntityType.SKELETON,
+                EntityType.WITHER_SKELETON
         );
 
         this.tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(

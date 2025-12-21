@@ -323,7 +323,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.patchouli.book.name", "Paleopedia");
         this.add("unusual_prehistory.patchouli.book.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
 
-        this.translateDamageType(UP2DamageTypes.TAR, player -> player + " suffocated in tar", (player, entity) -> player + " was suffocated in tar by " + entity);
+        this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
     }
 
     private void forBlock(Supplier<? extends Block> block) {
@@ -336,12 +336,6 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
         this.addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
-    }
-
-    private void translateDamageType(ResourceKey<DamageType> source, Function<String, String> death, BiFunction<String, String, String> killed) {
-        String msgId = source.location().getPath();
-        this.add("death.attack." + msgId, death.apply("%1$s"));
-        this.add("death.attack." + msgId + ".player", killed.apply("%1$s", "%2$s"));
     }
 
     private String format(ResourceLocation registryName) {

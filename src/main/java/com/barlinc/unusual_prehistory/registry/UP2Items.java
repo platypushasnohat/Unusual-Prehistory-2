@@ -58,7 +58,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RUNNER_FOSSIL = registerFossilItem("runner");
 
     // dunkleosteus
-    public static final RegistryObject<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x417a69, 0x825147);
+    public static final RegistryObject<Item> DUNKLEOSTEUS_SPAWN_EGG = registerSpawnEggItem("dunkleosteus", UP2Entities.DUNKLEOSTEUS, 0x478975, 0x673d35);
     public static final RegistryObject<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new MobBucketItem(UP2Entities.DUNKLEOSTEUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GUILLOTINE_FOSSIL = registerFossilItem("guillotine");
 
@@ -73,7 +73,7 @@ public class UP2Items {
 
     // kimmeridgebrachypteraeschnidium
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG = registerSpawnEggItem("kimmeridgebrachypteraeschnidium", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM, 0x74c70f, 0x8a3466);
-    public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG = registerSpawnEggItem("kimmeridgebrachypteraeschnidium_nymph", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, 0x233213, 0x0a1206);
+    public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG = registerSpawnEggItem("kimmeridgebrachypteraeschnidium_nymph", UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, 0x36401f, 0x0a1206);
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new KimmeridgebrachypteraeschnidiumBottleItem(new Item.Properties()));
     public static final RegistryObject<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
     public static final RegistryObject<Item> IMPERATIVE_FOSSIL = registerFossilItem("imperative");
@@ -104,7 +104,7 @@ public class UP2Items {
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal");
 
     // metriorhynchus
-    public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x3a2c4e, 0x8b549b);
+    public static final RegistryObject<Item> METRIORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("metriorhynchus", UP2Entities.METRIORHYNCHUS, 0x3a2c4e, 0x9d66ad);
     public static final RegistryObject<Item> MELTDOWN_FOSSIL = registerFossilItem("meltdown");
     public static final RegistryObject<Item> METRIORHYNCHUS_EMBRYO = registerEmbryoItem("metriorhynchus", UP2Entities.METRIORHYNCHUS);
 
@@ -131,7 +131,7 @@ public class UP2Items {
     public static final RegistryObject<Item> MOSSY_FOSSIL = registerFossilItem("mossy");
 
     // telecrex
-    public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x121018, 0x770f38);
+    public static final RegistryObject<Item> TELECREX_SPAWN_EGG = registerSpawnEggItem("telecrex", UP2Entities.TELECREX, 0x0e0c12, 0x931345);
     public static final RegistryObject<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage");
 

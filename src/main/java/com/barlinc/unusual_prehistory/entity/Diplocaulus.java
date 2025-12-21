@@ -81,8 +81,8 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargePanicGoal(this, 2.0D, 10, 4));
-         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
+         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
          this.goalSelector.addGoal(3, new DiplocaulusSlideGoal(this, 2.0D));
          this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 80));
@@ -445,7 +445,7 @@
 
          @Override
          public boolean canContinueToUse() {
-             return super.canUse() && !diplocaulus.isDiplocaulusBurrowed();
+             return super.canContinueToUse() && !diplocaulus.isDiplocaulusBurrowed();
          }
 
          @Override

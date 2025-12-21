@@ -1,11 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.DunkleosteusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -25,8 +21,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -48,13 +42,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
     private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.7F, 1.98F);
 
-    public int biteCooldown = 0;
+    public int attackCooldown = 0;
 
-    public final AnimationState biteAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState quirkAnimationState = new AnimationState();
 
-    private int biteTicks;
-    private final byte QUIRK = 67;
+    private int quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
+
+    private int attackTicks;
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -67,8 +62,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.5F)
-                .add(Attributes.ARMOR, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 16.0D);
+                .add(Attributes.ARMOR, 2.0D);
     }
 
     protected void registerGoals() {
@@ -81,15 +75,13 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DUNKLEOSTEUS_FOOD), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 30, 10, 7, 3, true));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(5, new DunkleosteusQuirkGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this) {
             public boolean canUse() {
                 return super.canUse() && Dunkleosteus.this.getVariant() != 0;
             }
         });
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, this::isTarget));
-
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttackPlayer));
     }
 
@@ -101,6 +93,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+            }
+            if (!this.isEyeInFluid(FluidTags.WATER)) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             }
         } else {
             super.travel(travelVector);
@@ -129,26 +124,23 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     @Override
     public void tick() {
         super.tick();
-        if (biteCooldown > 0) biteCooldown--;
+        if (attackCooldown > 0) attackCooldown--;
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.biteTicks > 0) biteTicks--;
-        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) {
+        if (attackTicks > 0) attackTicks--;
+        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
             this.setPose(Pose.STANDING);
-            this.biteCooldown = 4 + this.getRandom().nextInt(3);
+            this.attackCooldown = 4 + this.getRandom().nextInt(2);
         }
-        if (this.isInWaterOrBubble() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.quirkAnimationState.isStarted() && this.random.nextInt(600) == 0) {
-            this.level().broadcastEntityEvent(this, this.QUIRK);
-        }
+        if (quirkCooldown > 0) quirkCooldown--;
     }
 
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-        if (this.biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
-        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        if (this.attackTicks == 0 && this.attackAnimationState.isStarted()) this.attackAnimationState.stop();
     }
 
     @Override
@@ -158,12 +150,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             this.setupSizeAttributes();
         }
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.BITING.get()) {
-                this.biteAnimationState.start(this.tickCount);
-                this.biteTicks = 10;
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAnimationState.start(this.tickCount);
+                this.attackTicks = 10;
             }
             else {
-                this.biteAnimationState.stop();
+                this.attackAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -172,14 +164,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     private void setupSizeAttributes() {
         if (this.getVariant() == 0) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(2.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(4.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(3.0D);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.9F);
             this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
         }
         if (this.getVariant() == 1) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(24.0D);
-            this.getAttribute(Attributes.ARMOR).setBaseValue(4.0D);
+            this.getAttribute(Attributes.ARMOR).setBaseValue(6.0D);
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D);
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.8F);
             this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.25D);
@@ -196,8 +188,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == this.QUIRK) this.quirkAnimationState.start(this.tickCount);
+        if (id == 67) this.quirkAnimationState.start(this.tickCount);
         else super.handleEntityEvent(id);
+    }
+
+    protected void quirkCooldown() {
+        this.quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
     }
 
     @Override
@@ -227,8 +223,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         else return prev;
     }
 
+    public void doKnockback(LivingEntity target) {
+        if (this.getVariant() == 0) this.strongKnockback(target, 0.1D, 0.01D);
+        else if (this.getVariant() == 1) this.strongKnockback(target, 0.2D, 0.01D);
+        else this.strongKnockback(target, 0.3D, 0.01D);
+    }
+
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return UP2SoundEvents.DUNKLEOSTEUS_HURT.get();
     }
 
@@ -337,5 +339,27 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             this.setVariant(random.nextInt(DunkleosteusVariant.values().length));
         }
         return spawnGroupData;
+    }
+
+    // goals
+    private static class DunkleosteusQuirkGoal extends AnimationGoal {
+
+        private final Dunkleosteus dunkleosteus;
+
+        public DunkleosteusQuirkGoal(Dunkleosteus dunkleosteus) {
+            super(dunkleosteus, 40, 1, (byte) 67, (byte) 68, false, false);
+            this.dunkleosteus = dunkleosteus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && dunkleosteus.quirkCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.dunkleosteus.quirkCooldown();
+        }
     }
 }

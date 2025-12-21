@@ -45,6 +45,13 @@
 - Added Diplocaulus step sound event
 - Diplocaulus now prefers to walk on mud
 - Diplocaulus can now burrow into sand and gravel alongside mud
+- Reduced Diplocaulus panic speed
+- Dunkleosteus bites now bypass armor
+- Dunkleosteus now have a chance to cause mobs to drop their head on death, including players which has a 100% chance
+- Added mobs that drop skulls as medium and large Dunkleosteus targets
+- Fixed Dunkleosteus attack animation
+- Added more armor to small and medium Dunkleosteus variants
+- Slightly tweaked some spawn egg colors
 - Misc tweaks
 
 ## Version 1.2.3

@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.barlinc.unusual_prehistory.registry.UP2DamageTypes.*;
+
 public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
 
     public UP2DamageTypeTagProvider(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
@@ -22,6 +24,7 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
 
     @Override
     protected void addTags(@NotNull Provider provider) {
+
         this.tag(UP2DamageTypeTags.KENTROSAURUS_IMMUNE_TO).add(
                 DamageTypes.CACTUS,
                 DamageTypes.SWEET_BERRY_BUSH,
@@ -35,9 +38,10 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
                 DamageTypes.FALLING_ANVIL,
                 DamageTypes.FALLING_STALACTITE,
                 DamageTypes.IN_WALL
-        ).addTag(DamageTypeTags.IS_FIRE)
-        .addTag(DamageTypeTags.IS_FREEZING)
-        .addTag(DamageTypeTags.IS_FALL)
-        .addTag(DamageTypeTags.IS_PROJECTILE);
+        ).addTag(DamageTypeTags.IS_FIRE).addTag(DamageTypeTags.IS_FREEZING).addTag(DamageTypeTags.IS_FALL).addTag(DamageTypeTags.IS_PROJECTILE);
+
+        this.tag(DamageTypeTags.BYPASSES_ARMOR).add(
+                EXECUTE
+        );
     }
 }
