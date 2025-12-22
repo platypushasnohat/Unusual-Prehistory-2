@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -46,7 +46,6 @@ public abstract class PrehistoricMob extends Animal {
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
-    public static final EntityDataAccessor<Byte> DATA_FLAGS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> PACIFIED_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
@@ -404,7 +403,6 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(VARIANT, 0);
         this.entityData.define(BEHAVIOR, Behaviors.IDLE.getName());
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
-        this.entityData.define(DATA_FLAGS, (byte) 0);
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
         this.entityData.define(PACIFIED_TICKS, 0);
@@ -414,7 +412,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(SHOT_FROM_OOZE, false);
         this.entityData.define(IDLE_STATE, 0);
         this.entityData.define(EAT_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
-        this.entityData.define(SIT_COOLDOWN, 2000 + this.getRandom().nextInt(2000 * 2));
+        this.entityData.define(SIT_COOLDOWN, 3000 + this.getRandom().nextInt(3000));
         this.entityData.define(SITTING, false);
     }
 
@@ -442,18 +440,6 @@ public abstract class PrehistoricMob extends Animal {
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
         this.setSittingDown(compoundTag.getBoolean("SittingDown"));
-    }
-
-    protected boolean getFlag(int flagId) {
-        return (this.entityData.get(DATA_FLAGS) & flagId) != 0;
-    }
-    protected void setFlag(int flagId, boolean value) {
-        byte b0 = this.entityData.get(DATA_FLAGS);
-        if (value) {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 | flagId));
-        } else {
-            this.entityData.set(DATA_FLAGS, (byte) (b0 & ~flagId));
-        }
     }
 
     public int getAttackState() {
@@ -553,10 +539,10 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(SIT_COOLDOWN, cooldown);
     }
     public void sitCooldown() {
-        this.setSitCooldown(2500 + random.nextInt(2500 * 2));
+        this.setSitCooldown(3000 + random.nextInt(3000));
     }
     public void standUpCooldown() {
-        this.setSitCooldown(900 + random.nextInt(900 * 2));
+        this.setSitCooldown(1400 + random.nextInt(1400));
     }
 
     public boolean isSittingDown() {

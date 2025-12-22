@@ -108,6 +108,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "crooked_beak_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:crooked_beak_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "desmatosuchus_egg": {
       "conditions": {
         "items": [
@@ -540,6 +552,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "scythe_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:scythe_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "stethacanthus_sac": {
       "conditions": {
         "items": [
@@ -665,9 +689,11 @@
       "meltdown_fossil",
       "saw_fossil",
       "cranium_fossil",
+      "crooked_beak_fossil",
       "anvil_fossil",
       "mossy_fossil",
       "plumage_fossil",
+      "scythe_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",
       "cladophebis_fossil",

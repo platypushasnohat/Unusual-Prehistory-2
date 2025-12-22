@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.barlinc.unusual_prehistory.registry.UP2DamageTypes.*;
+import static com.barlinc.unusual_prehistory.registry.UP2DamageTypes.EXECUTE;
 
 public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
 

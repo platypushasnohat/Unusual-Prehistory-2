@@ -1,6 +1,9 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus.PachycephalosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus.PachycephalosaurusTargetNearbyPlayersGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
@@ -208,6 +211,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
                 this.attack3AnimationState.stop();
             }
         }
+        super.onSyncedDataUpdated(accessor);
     }
 
     public void handleEntityEvent(byte id) {

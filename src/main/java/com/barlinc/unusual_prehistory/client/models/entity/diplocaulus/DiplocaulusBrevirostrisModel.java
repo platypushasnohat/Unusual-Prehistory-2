@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.client.animations.diplocaulus.DiplocaulusA
 import com.barlinc.unusual_prehistory.client.animations.diplocaulus.DiplocaulusBrevirostrisAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Diplocaulus;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

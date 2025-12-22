@@ -4,6 +4,8 @@
 - Added Pachycephalosaurus
 - Added Lobe Finned Fish
 - Added Leptictidium
+- Added Psilopterus
+- Added Therizinosaurus
 - Added Prototaxites
 - Jawless fish and Tartuosteus will now nibble on blocks sometimes
 - Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
@@ -46,6 +48,7 @@
 - Diplocaulus now prefers to walk on mud
 - Diplocaulus can now burrow into sand and gravel alongside mud
 - Reduced Diplocaulus panic speed
+- Added new Diplocaulus sounds to replace frog sounds
 - Dunkleosteus bites now bypass armor
 - Dunkleosteus now have a chance to cause mobs to drop their head on death, including players which has a 100% chance
 - Added mobs that drop skulls as medium and large Dunkleosteus targets

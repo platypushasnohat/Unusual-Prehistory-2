@@ -36,6 +36,7 @@ public class ModEvents {
         event.register(UP2Entities.TALPANAS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TARTUOSTEUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tartuosteus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TELECREX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Telecrex::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.THERIZINOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Therizinosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.UNICORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Unicorn::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
@@ -62,6 +63,7 @@ public class ModEvents {
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());
         event.put(UP2Entities.TARTUOSTEUS.get(), Tartuosteus.createAttributes().build());
         event.put(UP2Entities.TELECREX.get(), Telecrex.createAttributes().build());
+        event.put(UP2Entities.THERIZINOSAURUS.get(), Therizinosaurus.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
         event.put(UP2Entities.LIVING_OOZE.get(), LivingOoze.createAttributes().build());
     }

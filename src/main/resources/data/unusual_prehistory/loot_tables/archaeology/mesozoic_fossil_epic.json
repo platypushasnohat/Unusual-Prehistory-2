@@ -16,13 +16,18 @@
         },
         {
           "type": "minecraft:item",
+          "name": "unusual_prehistory:scythe_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
           "name": "unusual_prehistory:imperative_fossil",
           "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:runner_fossil",
-          "weight": 1
+          "weight": 2
         },
         {
           "type": "minecraft:item",

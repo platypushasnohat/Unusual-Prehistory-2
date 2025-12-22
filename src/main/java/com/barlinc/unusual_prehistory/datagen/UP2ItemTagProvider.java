@@ -50,6 +50,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CRANIUM_FOSSIL.get(),
                 FLAT_BACK_FOSSIL.get(),
                 MOSSY_FOSSIL.get(),
+                SCYTHE_FOSSIL.get(),
+                CROOKED_BEAK_FOSSIL.get(),
 
                 CALAMOPHYTON_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
@@ -206,6 +208,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.TELECREX_FOOD).add(
                 Items.SWEET_BERRIES,
                 Items.GLOW_BERRIES
+        );
+
+        this.tag(UP2ItemTags.THERIZINOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
+                Items.SWEET_BERRIES
         );
 
         this.tag(UP2ItemTags.UNICORN_FOOD).add(

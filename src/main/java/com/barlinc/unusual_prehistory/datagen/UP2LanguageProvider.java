@@ -4,10 +4,8 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2Tab;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.UP2TextUtils;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,8 +20,6 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.codehaus.plexus.util.StringUtils;
 
 import java.util.Objects;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class UP2LanguageProvider extends LanguageProvider {
@@ -64,9 +60,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.PACHYCEPHALOSAURUS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
-        this.forEntity(UP2Entities.TELECREX);
         this.forEntity(UP2Entities.TALPANAS);
         this.forEntity(UP2Entities.TARTUOSTEUS);
+        this.forEntity(UP2Entities.TELECREX);
+        this.forEntity(UP2Entities.THERIZINOSAURUS);
 
         this.forEntity(UP2Entities.LIVING_OOZE);
 
@@ -178,6 +175,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TELECREX_HURT, "Telecrex hurts");
         this.sound(UP2SoundEvents.TELECREX_DEATH, "Telecrex dies");
         this.sound(UP2SoundEvents.TELECREX_IDLE, "Telecrex squawks");
+
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT, "Therizinosaurus hurts");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH, "Therizinosaurus dies");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus squawks");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus slices");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
 
         this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");

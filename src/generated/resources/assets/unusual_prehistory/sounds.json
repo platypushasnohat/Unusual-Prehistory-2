@@ -89,47 +89,17 @@
   },
   "diplocaulus_flop": {
     "sounds": [
-      {
-        "name": "mob/frog/idle2",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/idle3",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/idle5",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/idle6",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/idle7",
-        "pitch": 0.8
-      }
+      "unusual_prehistory:entity/diplocaulus/idle1",
+      "unusual_prehistory:entity/diplocaulus/idle2",
+      "unusual_prehistory:entity/diplocaulus/idle3",
+      "unusual_prehistory:entity/diplocaulus/idle4"
     ],
     "subtitle": "subtitles.diplocaulus_flop"
   },
   "diplocaulus_hurt": {
     "sounds": [
-      {
-        "name": "mob/frog/hurt1",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/hurt2",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/hurt3",
-        "pitch": 0.8
-      },
-      {
-        "name": "mob/frog/hurt4",
-        "pitch": 0.8
-      }
+      "unusual_prehistory:entity/diplocaulus/hurt1",
+      "unusual_prehistory:entity/diplocaulus/hurt2"
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
   },
@@ -1081,6 +1051,44 @@
       "unusual_prehistory:entity/telecrex/idle4"
     ],
     "subtitle": "subtitles.telecrex_idle"
+  },
+  "therizinosaurus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/attack1",
+      "unusual_prehistory:entity/therizinosaurus/attack2",
+      "unusual_prehistory:entity/therizinosaurus/attack3"
+    ],
+    "subtitle": "subtitles.therizinosaurus_attack"
+  },
+  "therizinosaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/death1"
+    ],
+    "subtitle": "subtitles.therizinosaurus_death"
+  },
+  "therizinosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/hurt1",
+      "unusual_prehistory:entity/therizinosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.therizinosaurus_hurt"
+  },
+  "therizinosaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/idle1",
+      "unusual_prehistory:entity/therizinosaurus/idle2",
+      "unusual_prehistory:entity/therizinosaurus/idle3",
+      "unusual_prehistory:entity/therizinosaurus/idle4"
+    ],
+    "subtitle": "subtitles.therizinosaurus_idle"
+  },
+  "therizinosaurus_step": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/step1",
+      "unusual_prehistory:entity/therizinosaurus/step2",
+      "unusual_prehistory:entity/therizinosaurus/step3"
+    ],
+    "subtitle": "subtitles.therizinosaurus_step"
   },
   "transmogrifier_loop": {
     "sounds": [

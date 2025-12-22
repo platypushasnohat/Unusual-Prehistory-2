@@ -42,6 +42,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");
     public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");
     public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
+    public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");

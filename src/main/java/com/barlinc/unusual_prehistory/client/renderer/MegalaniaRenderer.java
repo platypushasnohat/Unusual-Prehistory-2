@@ -18,6 +18,9 @@ import org.jetbrains.annotations.Nullable;
 public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_temperate.png");
+    private static final ResourceLocation TEXTURE_COLD = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_cold.png");
+    private static final ResourceLocation TEXTURE_WARM = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_warm.png");
+    private static final ResourceLocation TEXTURE_NETHER = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_nether.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel(context.bakeLayer(UP2ModelLayers.MEGALANIA)), 0.9F);
@@ -26,7 +29,12 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Megalania entity) {
-        return TEXTURE;
+        return switch (entity.getTemperatureState()) {
+            case COLD -> TEXTURE_COLD;
+            case WARM -> TEXTURE_WARM;
+            case NETHER -> TEXTURE_NETHER;
+            default -> TEXTURE;
+        };
     }
 
     @Override

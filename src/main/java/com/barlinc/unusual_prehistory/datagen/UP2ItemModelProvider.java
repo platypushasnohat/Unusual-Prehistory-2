@@ -59,8 +59,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(CRANIUM_FOSSIL);
+        this.item(CROOKED_BEAK_FOSSIL);
         this.item(MOSSY_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
+        this.item(SCYTHE_FOSSIL);
         this.item(AGED_FEATHER);
 
         // eggs

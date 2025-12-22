@@ -86,15 +86,15 @@ public class ClientForgeEvents {
         }
     }
 
-    public static void renderMapDecoration(MapDecoration mapdecoration, int k) {
+    public static void renderMapDecoration(MapDecoration mapdecoration, int index) {
         if (mapdecoration.getType() == UP2MapIcons.PALEOZOIC_FOSSIL_SITE) {
-            renderDecoration(mapdecoration, k, PALEOZOIC_SITE_ICON);
+            renderDecoration(mapdecoration, index, PALEOZOIC_SITE_ICON);
         }
         else if (mapdecoration.getType() == UP2MapIcons.MESOZOIC_FOSSIL_SITE) {
-            renderDecoration(mapdecoration, k, MESOZOIC_SITE_ICON);
+            renderDecoration(mapdecoration, index, MESOZOIC_SITE_ICON);
         }
         else if (mapdecoration.getType() == UP2MapIcons.PETRIFIED_TREE_SITE) {
-            renderDecoration(mapdecoration, k, PETRIFIED_TREE_ICON);
+            renderDecoration(mapdecoration, index, PETRIFIED_TREE_ICON);
         }
     }
 

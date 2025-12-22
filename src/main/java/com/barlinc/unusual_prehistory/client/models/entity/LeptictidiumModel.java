@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
-import com.barlinc.unusual_prehistory.client.animations.carnotaurus.CarnotaurusAnimations;
 import com.barlinc.unusual_prehistory.client.animations.LeptictidiumAnimations;
+import com.barlinc.unusual_prehistory.client.animations.carnotaurus.CarnotaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Leptictidium;
 import net.minecraft.client.model.geom.ModelPart;

@@ -54,10 +54,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
-                sound("mob/frog/hurt1").pitch(0.8F),
-                sound("mob/frog/hurt2").pitch(0.8F),
-                sound("mob/frog/hurt3").pitch(0.8F),
-                sound("mob/frog/hurt4").pitch(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt2"))
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH,
                 sound("mob/frog/death1").pitch(0.8F),
@@ -65,11 +63,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/death3").pitch(0.8F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE,
-                sound("mob/frog/idle2").pitch(0.8F),
-                sound("mob/frog/idle3").pitch(0.8F),
-                sound("mob/frog/idle5").pitch(0.8F),
-                sound("mob/frog/idle6").pitch(0.8F),
-                sound("mob/frog/idle7").pitch(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle4"))
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_STEP,
                 sound("mob/frog/step1").pitch(0.95F),
@@ -402,6 +399,31 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle2")),
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle3")),
                 sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle4"))
+        );
+
+        // Therizinosaurus
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle4"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack3"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step2")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step3"))
         );
 
         // Unicorn

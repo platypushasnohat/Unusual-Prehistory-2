@@ -106,6 +106,12 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> TELECREX_DEATH = registerSoundEvent("telecrex_death");
     public static final RegistryObject<SoundEvent> TELECREX_IDLE = registerSoundEvent("telecrex_idle");
 
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_HURT = registerSoundEvent("therizinosaurus_hurt");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_DEATH = registerSoundEvent("therizinosaurus_death");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_IDLE = registerSoundEvent("therizinosaurus_idle");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
+
     public static final RegistryObject<SoundEvent> UNICORN_HURT = registerSoundEvent("unicorn_hurt");
     public static final RegistryObject<SoundEvent> UNICORN_DEATH = registerSoundEvent("unicorn_death");
     public static final RegistryObject<SoundEvent> UNICORN_IDLE = registerSoundEvent("unicorn_idle");

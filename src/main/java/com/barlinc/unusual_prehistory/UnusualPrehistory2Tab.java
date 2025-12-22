@@ -84,10 +84,12 @@ public class UnusualPrehistory2Tab {
                         output.accept(MELTDOWN_FOSSIL.get());
                         output.accept(SAW_FOSSIL.get());
                         output.accept(CRANIUM_FOSSIL.get());
+                        output.accept(CROOKED_BEAK_FOSSIL.get());
                         output.accept(ANVIL_FOSSIL.get());
                         output.accept(AGED_FEATHER.get());
                         output.accept(MOSSY_FOSSIL.get());
                         output.accept(PLUMAGE_FOSSIL.get());
+                        output.accept(SCYTHE_FOSSIL.get());
 
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
