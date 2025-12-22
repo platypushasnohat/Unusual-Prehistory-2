@@ -5,12 +5,11 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusAtt
 import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusOpenDoorGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.ButtonPressingMob;
-import com.barlinc.unusual_prehistory.entity.utils.PackAnimal;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -40,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPressingMob {
+public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPressingMob, LeverPullingMob, ChestLootingMob {
 
     private static final EntityDataAccessor<Boolean> PACK_LEADER = SynchedEntityData.defineId(Psilopterus.class, EntityDataSerializers.BOOLEAN);
 
@@ -49,7 +48,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     private Psilopterus priorPackMember;
     private Psilopterus afterPackMember;
 
-    private int ticksSinceButtonPress;
+    private int pushButtonCooldown = 0;
+    private int pullLeverCooldown = 0;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sitStartAnimationState = new AnimationState();
@@ -72,23 +72,29 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(2, new JoinPackGoal(this, 60, 5));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(2, new JoinPackGoal(this, 60, 6));
         this.goalSelector.addGoal(3, new PsilopterusAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PSILOPTERUS_FOOD), false));
         this.goalSelector.addGoal(5, new PsilopterusOpenDoorGoal(this));
-        this.goalSelector.addGoal(5, new PressButtonGoal(this));
-        this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new RandomSitGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(5, new PressButtonGoal(this, 1, 6, 4));
+        this.goalSelector.addGoal(5, new PullLeverGoal(this, 1, 6, 4));
+        this.goalSelector.addGoal(6, new LootChestGoal(this, 1, 8, 6));
+        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(8, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(10, new RandomSitGoal(this));
+        this.targetSelector.addGoal(0, (new HurtByTargetGoal(this, Psilopterus.class)).setAlertOthers());
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_TARGETS)));
+        this.targetSelector.addGoal(2, new PackAnimalNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
+        this.targetSelector.addGoal(3, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_TARGETS), 3));
+        this.targetSelector.addGoal(4, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_TARGETS), 6));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.MAX_HEALTH, 14.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.28F);
     }
@@ -161,8 +167,45 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public void getTicksSinceButtonPress(int ticksSinceButtonPress) {
-        this.ticksSinceButtonPress = ticksSinceButtonPress;
+    public int getPushButtonCooldown() {
+        return this.pushButtonCooldown;
+    }
+
+    @Override
+    public void setPushButtonCooldown(int cooldown) {
+        this.pushButtonCooldown = cooldown;
+    }
+
+    @Override
+    public void pullLever() {
+        this.setPose(UP2Poses.POKING.get());
+    }
+
+    @Override
+    public int getPullLeverCooldown() {
+        return this.pullLeverCooldown;
+    }
+
+    @Override
+    public void setPullLeverCooldown(int cooldown) {
+        this.pullLeverCooldown = cooldown;
+    }
+
+    @Override
+    public boolean shouldLootItem(ItemStack stack) {
+        return stack.is(UP2ItemTags.PSILOPTERUS_FOOD);
+    }
+
+    @Override
+    public void startOpeningChest() {
+        if (this.getPose() == Pose.STANDING) {
+            this.setPose(UP2Poses.POKING.get());
+        }
+    }
+
+    @Override
+    public boolean openChest() {
+        return this.getPose() == UP2Poses.POKING.get() && pokeTicks == 10;
     }
 
     @Override
@@ -182,7 +225,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         }
 
         if (!this.level().isClientSide) {
-            if (ticksSinceButtonPress > 0) ticksSinceButtonPress--;
+            if (pushButtonCooldown > 0) pushButtonCooldown--;
+            if (pullLeverCooldown > 0) pullLeverCooldown--;
         }
     }
 

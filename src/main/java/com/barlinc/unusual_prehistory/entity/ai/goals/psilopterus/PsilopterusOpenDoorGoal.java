@@ -42,9 +42,9 @@ public class PsilopterusOpenDoorGoal extends DoorInteractGoal {
                 this.psilopterus.setPose(UP2Poses.POKING.get());
             }
         }
-        if (psilopterus.getPose() ==UP2Poses.POKING.get()) {
+        if (psilopterus.getPose() == UP2Poses.POKING.get()) {
             this.timer++;
-            if (timer == 12) {
+            if (timer == 10) {
                 this.setOpen(true);
                 this.timer = 0;
             }

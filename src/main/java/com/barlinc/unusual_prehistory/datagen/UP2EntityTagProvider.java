@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -233,6 +234,30 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.COD,
                 EntityType.SALMON,
                 EntityType.TROPICAL_FISH
+        );
+
+        this.tag(UP2EntityTags.SMALL_PSILOPTERUS_TARGETS).add(
+                LEPTICTIDIUM.get(),
+                DIPLOCAULUS.get(),
+                TALPANAS.get(),
+                TELECREX.get(),
+                EntityType.CHICKEN,
+                EntityType.PARROT,
+                EntityType.RABBIT
+        );
+
+        this.tag(UP2EntityTags.MEDIUM_PSILOPTERUS_TARGETS).add(
+                PACHYCEPHALOSAURUS.get(),
+                EntityType.COW,
+                EntityType.SHEEP,
+                EntityType.GOAT,
+                EntityType.PIG
+        );
+
+        this.tag(UP2EntityTags.LARGE_PSILOPTERUS_TARGETS).add(
+                KENTROSAURUS.get(),
+                EntityType.HORSE,
+                EntityType.SNIFFER
         );
 
         this.tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(

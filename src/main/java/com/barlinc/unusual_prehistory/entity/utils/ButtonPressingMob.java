@@ -2,7 +2,12 @@ package com.barlinc.unusual_prehistory.entity.utils;
 
 public interface ButtonPressingMob {
 
-    default void getTicksSinceButtonPress(int ticksSinceButtonPress) {
+    int getPushButtonCooldown();
+
+    void setPushButtonCooldown(int cooldown);
+
+    default boolean canPushButton() {
+        return this.getPushButtonCooldown() == 0;
     }
 
     default void pressButton() {

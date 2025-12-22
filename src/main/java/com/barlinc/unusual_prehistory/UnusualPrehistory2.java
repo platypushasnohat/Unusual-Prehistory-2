@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.barlinc.unusual_prehistory.utils.CommonProxy;
 import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 public class UnusualPrehistory2 {
 
     public static final String MOD_ID = "unusual_prehistory";
-
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public UnusualPrehistory2() {

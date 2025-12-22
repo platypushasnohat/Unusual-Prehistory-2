@@ -1,23 +1,23 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.utils.ButtonPressingMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeverPullingMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
-public class PressButtonGoal extends MoveToBlockGoal {
+public class PullLeverGoal extends MoveToBlockGoal {
 
-    protected final ButtonPressingMob buttonPushingMob;
+    protected final LeverPullingMob leverPullingMob;
     protected int ticksWaited = 0;
 
-    public PressButtonGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
+    public PullLeverGoal(PathfinderMob mob, double speedModifier, int searchRange, int verticalSearchRange) {
         super(mob, speedModifier, searchRange, verticalSearchRange);
-        this.buttonPushingMob = (ButtonPressingMob) mob;
+        this.leverPullingMob = (LeverPullingMob) mob;
     }
 
     @Override
@@ -29,20 +29,20 @@ public class PressButtonGoal extends MoveToBlockGoal {
     @Override
     public void stop() {
         super.stop();
-        buttonPushingMob.setPushButtonCooldown(200 + mob.getRandom().nextInt(200));
+        this.leverPullingMob.setPullLeverCooldown(200 + mob.getRandom().nextInt(200));
     }
 
     @Override
     public boolean canUse() {
-        if (mob instanceof ButtonPressingMob) {
-            return super.canUse();
+        if (mob instanceof LeverPullingMob) {
+            return super.canUse() && leverPullingMob.canPullLever();
         }
         return false;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && buttonPushingMob.canPushButton();
+        return super.canContinueToUse() && leverPullingMob.canPullLever();
     }
 
     @Override
@@ -57,8 +57,8 @@ public class PressButtonGoal extends MoveToBlockGoal {
     protected void onReachedTarget() {
         if (ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)) {
             BlockState blockstate = mob.level().getBlockState(blockPos);
-            if (blockstate.getBlock() instanceof ButtonBlock && !blockstate.getValue(ButtonBlock.POWERED)) {
-                this.pushButton();
+            if (blockstate.getBlock() instanceof LeverBlock) {
+                this.pullLever();
                 this.stop();
             }
         }
@@ -81,13 +81,13 @@ public class PressButtonGoal extends MoveToBlockGoal {
     @Override
     protected boolean isValidTarget(LevelReader level, @NotNull BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return state.getBlock() instanceof ButtonBlock && !state.getValue(ButtonBlock.POWERED);
+        return state.getBlock() instanceof LeverBlock;
     }
 
-    private void pushButton() {
-        ((ButtonPressingMob) mob).pressButton();
+    private void pullLever() {
+        ((LeverPullingMob) mob).pullLever();
         this.nextStartTick = this.nextStartTick(mob);
         BlockState state = mob.level().getBlockState(blockPos);
-        ((ButtonBlock) state.getBlock()).use(state, mob.level(), blockPos, null, null, null);
+        ((LeverBlock) state.getBlock()).use(state, mob.level(), blockPos, null, null, null);
     }
 }
