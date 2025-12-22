@@ -101,8 +101,8 @@ public class PachycephalosaurusChargePartnerGoal extends Goal {
         float effectSpeed = 0.1F * (speedFactor - slownessFactor);
 
         if (timer == 1) {
-            this.chargePartner.setPose(UP2Poses.WARN.get());
-            this.pachycephalosaurus.setPose(UP2Poses.WARN.get());
+            this.chargePartner.setPose(UP2Poses.WARNING.get());
+            this.pachycephalosaurus.setPose(UP2Poses.WARNING.get());
         }
         if (timer < 50) {
             this.pachycephalosaurus.lookAt(chargePartner, 360F, 30F);

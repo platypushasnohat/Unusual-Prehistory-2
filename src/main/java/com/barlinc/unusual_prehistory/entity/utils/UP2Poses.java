@@ -12,7 +12,6 @@ public enum UP2Poses {
     START_CAMO,
     STOP_CAMO,
     BURROWED,
-    WAVING,
     TAIL_WHIPPING,
     START_CHARGING,
     CHARGING,
@@ -24,7 +23,9 @@ public enum UP2Poses {
     SITTING,
     SLEEPING,
     SLASH_RUSH,
-    WARN;
+    WARNING,
+    KICKING,
+    POKING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

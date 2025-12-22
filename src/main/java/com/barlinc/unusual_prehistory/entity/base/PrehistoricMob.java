@@ -411,8 +411,8 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(SHOT_FROM_OOZE, false);
         this.entityData.define(IDLE_STATE, 0);
-        this.entityData.define(EAT_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
-        this.entityData.define(SIT_COOLDOWN, 3000 + this.getRandom().nextInt(3000));
+        this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
+        this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
         this.entityData.define(SITTING, false);
     }
 
@@ -539,10 +539,10 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.set(SIT_COOLDOWN, cooldown);
     }
     public void sitCooldown() {
-        this.setSitCooldown(3000 + random.nextInt(3000));
+        this.setSitCooldown(6000 + random.nextInt(3000));
     }
     public void standUpCooldown() {
-        this.setSitCooldown(1400 + random.nextInt(1400));
+        this.setSitCooldown(1200 + random.nextInt(2000));
     }
 
     public boolean isSittingDown() {

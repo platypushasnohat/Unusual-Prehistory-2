@@ -87,7 +87,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
         int speedFactor = pachycephalosaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? pachycephalosaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
         int slownessFactor = pachycephalosaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? pachycephalosaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
         float effectSpeed = 0.1F * (speedFactor - slownessFactor);
-        if (timer == 1) pachycephalosaurus.setPose(UP2Poses.WARN.get());
+        if (timer == 1) pachycephalosaurus.setPose(UP2Poses.WARNING.get());
         if (timer < 50) {
             this.pachycephalosaurus.lookAt(target, 360F, 30F);
             this.pachycephalosaurus.getLookControl().setLookAt(target, 30F, 30F);

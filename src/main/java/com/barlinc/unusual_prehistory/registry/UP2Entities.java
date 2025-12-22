@@ -153,6 +153,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pachycephalosaurus").toString())
     );
 
+    public static final RegistryObject<EntityType<Psilopterus>> PSILOPTERUS = ENTITY_TYPE.register(
+            "psilopterus", () ->
+            EntityType.Builder.of(Psilopterus::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.2F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "psilopterus").toString())
+    );
+
     public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(
             "stethacanthus", () ->
             EntityType.Builder.of(Stethacanthus::new, MobCategory.WATER_CREATURE)

@@ -55,12 +55,14 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             if (attackState == 1) {
                 this.tickSlash();
             } else if (attackState == 2) {
-                this.therizinosaurus.getNavigation().moveTo(target, 1.7D);
+                this.therizinosaurus.getNavigation().moveTo(target, 1.6D);
                 this.tickSlashRush();
             } else if (attackState == 3) {
                 this.tickCharge();
+            }  else if (attackState == 4) {
+                this.tickChargeEnd();
             } else {
-                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.7D);
+                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.6D);
                 if (distance <= 10 && therizinosaurus.chargeCooldown > 0 && !this.isInChargingPose()) {
                     if (therizinosaurus.getRandom().nextFloat() < 0.8F && therizinosaurus.slashCooldown == 0) therizinosaurus.setAttackState(1);
                     else if (therizinosaurus.slashRushCooldown == 0) therizinosaurus.setAttackState(2);
@@ -126,7 +128,7 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             this.therizinosaurus.getLookControl().setLookAt(target, 30F, 30F);
         }
 
-        if (timer > 30 && timer < 50) {
+        if (timer > 30 && timer < 40) {
             this.chargeDirection = new Vec3(target.getX() - therizinosaurus.getX(), target.getY() - therizinosaurus.getY(), target.getZ() - therizinosaurus.getZ()).normalize();
             float YRot = Mth.approachDegrees(therizinosaurus.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 1.0F);
             float speed = 0.55F + effectSpeed;
@@ -135,11 +137,40 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             this.therizinosaurus.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, therizinosaurus.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
         }
 
-        if (timer > 50 || collisionTicks > 10) {
+        if (timer > 40 || collisionTicks > 10) {
             this.timer = 0;
-            this.therizinosaurus.setPose(UP2Poses.STOP_CHARGING.get());
+            this.therizinosaurus.setAttackState(4);
+        }
+    }
+
+    protected void tickChargeEnd() {
+        this.timer++;
+        LivingEntity target = therizinosaurus.getTarget();
+        int speedFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
+        int slownessFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
+        float effectSpeed = 0.1F * (speedFactor - slownessFactor);
+
+        if (timer == 1) therizinosaurus.setPose(UP2Poses.STOP_CHARGING.get());
+        if (timer == 15) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch());
+        if (timer < 16) {
+            float YRot = Mth.approachDegrees(therizinosaurus.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 1.0F);
+            float speed = 0.55F + effectSpeed;
+            this.therizinosaurus.setYRot(YRot);
+            this.therizinosaurus.setYBodyRot(YRot);
+            this.therizinosaurus.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, therizinosaurus.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
+        }
+        if (timer == 22) {
+            if (therizinosaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
+                this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
+                this.therizinosaurus.doHurtTarget(target);
+                this.therizinosaurus.strongKnockback(target, 0.6D, 0.0D);
+            }
+        }
+        if (timer > 40) {
+            this.timer = 0;
             this.therizinosaurus.chargeCooldown();
             this.therizinosaurus.setAttackState(0);
+            this.chargeDirection = Vec3.ZERO;
         }
     }
 

@@ -117,6 +117,7 @@ public class UP2Items {
     public static final RegistryObject<Item> CRANIUM_FOSSIL = registerFossilItem("cranium");
 
     // Psilopterus
+    public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x432f2a, 0xeddbc5);
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak");
 
     // Stethacanthus

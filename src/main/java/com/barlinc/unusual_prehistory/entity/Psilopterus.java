@@ -1,0 +1,365 @@
+package com.barlinc.unusual_prehistory.entity;
+
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusOpenDoorGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.ButtonPressingMob;
+import com.barlinc.unusual_prehistory.entity.utils.PackAnimal;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPressingMob {
+
+    private static final EntityDataAccessor<Boolean> PACK_LEADER = SynchedEntityData.defineId(Psilopterus.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.8F, 0.7F);
+
+    private Psilopterus priorPackMember;
+    private Psilopterus afterPackMember;
+
+    private int ticksSinceButtonPress;
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState sitStartAnimationState = new AnimationState();
+    public final AnimationState sitAnimationState = new AnimationState();
+    public final AnimationState sitEndAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState attack1AnimationState = new AnimationState();
+    public final AnimationState attack2AnimationState = new AnimationState();
+    public final AnimationState kickAnimationState = new AnimationState();
+    public final AnimationState pokeAnimationState = new AnimationState();
+
+    private int attackTicks;
+    private int kickTicks;
+    private int pokeTicks;
+
+    public Psilopterus(EntityType<? extends PrehistoricMob> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(2, new JoinPackGoal(this, 60, 5));
+        this.goalSelector.addGoal(3, new PsilopterusAttackGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PSILOPTERUS_FOOD), false));
+        this.goalSelector.addGoal(5, new PsilopterusOpenDoorGoal(this));
+        this.goalSelector.addGoal(5, new PressButtonGoal(this));
+        this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new RandomSitGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.28F);
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+        navigation.setCanOpenDoors(true);
+        navigation.setCanPassDoors(true);
+        return navigation;
+    }
+
+    @Override
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+        return size.height * 0.9F;
+    }
+
+    @Override
+    public int getMaxFallDistance() {
+        return super.getMaxFallDistance() + 10;
+    }
+
+    @Override
+    public double getFluidJumpThreshold() {
+        if (useLowerFluidJumpThreshold) {
+            return super.getFluidJumpThreshold();
+        }
+        return 0.5 * getBbHeight();
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
+        super.travel(travelVec);
+    }
+
+    @Override
+    public float getStepHeight() {
+        return this.isRunning() ? 1.0F : 0.6F;
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
+
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(UP2ItemTags.PSILOPTERUS_FOOD);
+    }
+
+    @Override
+    public boolean isColliding(@NotNull BlockPos pos, BlockState blockState) {
+        return !(blockState.getBlock() instanceof DoorBlock && blockState.getValue(DoorBlock.OPEN)) && super.isColliding(pos, blockState);
+    }
+
+    @Override
+    public void pressButton() {
+        this.setPose(UP2Poses.POKING.get());
+    }
+
+    @Override
+    public void getTicksSinceButtonPress(int ticksSinceButtonPress) {
+        this.ticksSinceButtonPress = ticksSinceButtonPress;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
+            if (this.isPackLeader()) {
+                PackAnimal leader = this;
+                while (leader.getAfterPackMember() != null) {
+                    leader = leader.getAfterPackMember();
+                    if (!((Psilopterus) leader).isAlliedTo(target)) {
+                        ((Psilopterus) leader).setTarget(target);
+                    }
+                }
+            }
+        }
+
+        if (!this.level().isClientSide) {
+            if (ticksSinceButtonPress > 0) ticksSinceButtonPress--;
+        }
+    }
+
+    @Override
+    public void setupAnimationCooldowns() {
+        if (attackTicks > 0) attackTicks--;
+        if (kickTicks > 0) kickTicks--;
+        if (pokeTicks > 0) pokeTicks--;
+        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+        if (kickTicks == 0 && this.getPose() == UP2Poses.KICKING.get()) this.setPose(Pose.STANDING);
+        if (pokeTicks == 0 && this.getPose() == UP2Poses.POKING.get()) this.setPose(Pose.STANDING);
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+        }
+        if (kickTicks == 0 && this.kickAnimationState.isStarted()) this.kickAnimationState.stop();
+        if (pokeTicks == 0 && this.pokeAnimationState.isStarted()) this.pokeAnimationState.stop();
+
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.KICKING.get() && !this.isInWater(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+
+        if (this.isMobVisuallySitting()) {
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+            this.idleAnimationState.stop();
+
+            if (this.isVisuallySitting()) {
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
+            } else {
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+        }
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
+                else this.attack2AnimationState.start(this.tickCount);
+                this.attackTicks = 10;
+            }
+            else if (this.getPose() == UP2Poses.KICKING.get()) {
+                this.kickAnimationState.start(this.tickCount);
+                this.kickTicks = 30;
+            }
+            else if (this.getPose() == UP2Poses.POKING.get()) {
+                this.pokeAnimationState.start(this.tickCount);
+                this.pokeTicks = 20;
+            }
+            else {
+                this.attack1AnimationState.stop();
+                this.attack2AnimationState.stop();
+                this.kickAnimationState.stop();
+                this.pokeAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    public void handleEntityEvent(byte id) {
+        switch (id) {
+            default -> super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 3;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PACK_LEADER, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("PackLeader", this.isPackLeader());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setPackLeader(compoundTag.getBoolean("PackLeader"));
+    }
+
+    public boolean isPackLeader() {
+        return this.entityData.get(PACK_LEADER);
+    }
+    public void setPackLeader(boolean packLeader) {
+        this.entityData.set(PACK_LEADER, packLeader);
+    }
+
+    @Override
+    public PackAnimal getPriorPackMember() {
+        return this.priorPackMember;
+    }
+
+    @Override
+    public PackAnimal getAfterPackMember() {
+        return afterPackMember;
+    }
+
+    @Override
+    public void setPriorPackMember(PackAnimal animal) {
+        this.priorPackMember = (Psilopterus) animal;
+    }
+
+    @Override
+    public void setAfterPackMember(PackAnimal animal) {
+        this.afterPackMember = (Psilopterus) animal;
+    }
+
+    @Override
+    public boolean isValidLeader(PackAnimal packLeader) {
+        return packLeader instanceof Psilopterus && ((Psilopterus) packLeader).isAlive() && ((Psilopterus) packLeader).isPackLeader();
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+        Psilopterus psilopterus = UP2Entities.PSILOPTERUS.get().create(level);
+        psilopterus.setVariant(this.getVariant());
+        return psilopterus;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return UP2SoundEvents.LYSTROSAURUS_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return UP2SoundEvents.LYSTROSAURUS_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+        this.playSound(UP2SoundEvents.LYSTROSAURUS_STEP.get(), 0.15F, 1.0F);
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 160;
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        if (spawnData instanceof AgeableMobGroupData data) {
+            if (data.getGroupSize() == 0) this.setPackLeader(true);
+        }
+        else this.setPackLeader(this.getRandom().nextInt(2) == 0);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+    }
+
+    public static boolean canSpawn(EntityType<Psilopterus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getBlockState(pos.below()).is(UP2BlockTags.PSILOPTERUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+}

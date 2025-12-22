@@ -97,7 +97,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
 
     @Override
     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.9F;
+        return dimensions.height * 0.98F;
     }
 
     @Override

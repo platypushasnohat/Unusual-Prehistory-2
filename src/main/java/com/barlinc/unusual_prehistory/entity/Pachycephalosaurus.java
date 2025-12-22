@@ -153,7 +153,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         if (attackTicks > 0) attackTicks--;
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (warnTicks > 0) warnTicks--;
-        if (warnTicks == 0 && this.getPose() == UP2Poses.WARN.get()) this.setPose(Pose.STANDING);
+        if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
                 else if (this.getRandom().nextFloat() < 1.0F) this.attack3AnimationState.start(this.tickCount);
                 this.attackTicks = 20;
             }
-            else if (this.getPose() == UP2Poses.WARN.get()) {
+            else if (this.getPose() == UP2Poses.WARNING.get()) {
                 this.warnAnimationState.start(this.tickCount);
                 this.warnTicks = 50;
             }

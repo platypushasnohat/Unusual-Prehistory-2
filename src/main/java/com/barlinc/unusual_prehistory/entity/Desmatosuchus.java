@@ -159,9 +159,9 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
     // todo: change to loot table
     @Override
     public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, Level level, BlockPos pos, int fortune) {
-        level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
-        this.gameEvent(GameEvent.SHEAR, player);
         if (!level.isClientSide && this.isMossy()) {
+            level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+            this.gameEvent(GameEvent.SHEAR, player);
             this.setMossy(false);
             int amount = 1 + this.random.nextInt(3);
             List<ItemStack> items = new ArrayList<>();
