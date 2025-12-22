@@ -66,6 +66,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.TELECREX);
         this.forEntity(UP2Entities.THERIZINOSAURUS);
 
+        this.forEntity(UP2Entities.DROMAEOSAURUS_EGG);
+        this.forEntity(UP2Entities.PSILOPTERUS_EGG);
+        this.forEntity(UP2Entities.TALPANAS_EGG);
+        this.forEntity(UP2Entities.TELECREX_EGG);
+
         this.forEntity(UP2Entities.LIVING_OOZE);
 
         this.forEntity(UP2Entities.BOAT);
@@ -182,6 +187,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus squawks");
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus slices");
         this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_WARN, "Therizinosaurus warns");
 
         this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");
@@ -226,6 +232,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
+        this.translateAdvancement("revive_psilopterus", "Clever Girl", "Revive a Psilopterus");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");

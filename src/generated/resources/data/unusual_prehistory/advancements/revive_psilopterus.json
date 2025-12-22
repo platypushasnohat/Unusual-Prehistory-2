@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:holocene_root",
+  "criteria": {
+    "revive_psilopterus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:psilopterus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_psilopterus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:psilopterus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_psilopterus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_psilopterus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

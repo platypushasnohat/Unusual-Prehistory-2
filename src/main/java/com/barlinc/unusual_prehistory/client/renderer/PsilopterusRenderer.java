@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.PsilopterusModel;
 import com.barlinc.unusual_prehistory.entity.Psilopterus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +20,13 @@ public class PsilopterusRenderer extends MobRenderer<Psilopterus, PsilopterusMod
 
     public PsilopterusRenderer(EntityRendererProvider.Context context) {
         super(context, new PsilopterusModel(context.bakeLayer(UP2ModelLayers.PSILOPTERUS)), 0.4F);
+    }
+
+    @Override
+    protected void scale(Psilopterus entity, @NotNull PoseStack poseStack, float partialTicks) {
+        if (entity.isPackLeader()) {
+            poseStack.scale(1.1F, 1.1F, 1.1F);
+        }
     }
 
     @Override

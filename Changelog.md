@@ -55,6 +55,7 @@
 - Fixed Dunkleosteus attack animation
 - Added more armor to small and medium Dunkleosteus variants
 - Slightly tweaked some spawn egg colors
+- Added translation entries for thrown egg entities
 - Misc tweaks
 
 ## Version 1.2.3

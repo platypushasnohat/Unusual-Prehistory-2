@@ -69,7 +69,7 @@ public class WaterEggBlock extends WaterEggBlockEntity {
                     }
                     entity.moveTo(pos.getX(), (double) pos.getY() - 0.5D, pos.getZ(), (float) k, 0.0F);
                     level.addFreshEntity(entity);
-                    ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
+                    ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
                 }
             }
         }

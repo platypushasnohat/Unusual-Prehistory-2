@@ -105,6 +105,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
+                        output.accept(PSILOPTERUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());

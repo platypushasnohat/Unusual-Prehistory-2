@@ -296,8 +296,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 TARIFYING_DISC.get()
         );
 
-        // forge
+        // Forge
         this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
         this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());
+
+        // Mod Compat
+        this.tag(UP2ItemTags.CUSTOMIZABLE_MOB_ITEMS).add(
+                JAWLESS_FISH_BUCKET.get()
+        );
     }
 }

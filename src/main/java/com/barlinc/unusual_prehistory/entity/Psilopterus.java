@@ -396,10 +396,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        if (spawnData instanceof AgeableMobGroupData data) {
-            if (data.getGroupSize() == 0) this.setPackLeader(true);
-        }
-        else this.setPackLeader(this.getRandom().nextInt(2) == 0);
+        this.setPackLeader(this.getRandom().nextInt(4) == 0);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 

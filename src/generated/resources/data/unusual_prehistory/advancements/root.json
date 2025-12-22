@@ -480,6 +480,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "psilopterus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:psilopterus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "quillwort_fossil": {
       "conditions": {
         "items": [
@@ -671,6 +683,7 @@
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",
+      "psilopterus_egg",
       "talpanas_egg",
       "telecrex_egg",
       "fury_fossil",

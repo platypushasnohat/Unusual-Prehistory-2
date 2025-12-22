@@ -169,7 +169,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         if (!entity.isInWater() && !entity.isMobSitting()) {
             if (!entity.isInAttackingPose()) {
                 if (entity.isRunning()) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
-                else this.animateWalk(entity.isShaved() || entity.isBaby() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.5F, 3);
+                else this.animateWalk(entity.isShaved() || entity.isBaby() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.6F, 3.2F);
             } else if (entity.getPose() == UP2Poses.CHARGING.get()) {
                 this.animateWalk(TherizinosaurusAttackAnimations.CHARGE, limbSwing, limbSwingAmount, 1, 2);
             }

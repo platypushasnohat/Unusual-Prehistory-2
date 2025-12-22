@@ -147,6 +147,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
 
         // Cenozoic
         reviveMobAdvancement("revive_megalania", cenozoicRoot, UP2Blocks.MEGALANIA_EGG.get(), UP2Entities.MEGALANIA.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_megalania"), helper);
+        reviveMobAdvancement("revive_psilopterus", holoceneRoot, UP2Items.PSILOPTERUS_EGG.get(), UP2Entities.PSILOPTERUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_psilopterus"), helper);
         reviveMobAdvancement("revive_telecrex", cenozoicRoot, UP2Items.TELECREX_EGG.get(), UP2Entities.TELECREX.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_telecrex"), helper);
 
         // Holocene

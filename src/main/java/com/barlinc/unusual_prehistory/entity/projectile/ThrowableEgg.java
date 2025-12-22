@@ -4,8 +4,10 @@ import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -13,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -44,7 +47,7 @@ public class ThrowableEgg extends ThrowableItemProjectile {
 
     @Override
     protected @NotNull Item getDefaultItem() {
-        if(eggItem.get() == null) return Items.AIR;
+        if (eggItem.get() == null) return Items.AIR;
         return eggItem.get();
     }
 
@@ -69,6 +72,9 @@ public class ThrowableEgg extends ThrowableItemProjectile {
                 mob.setAge(-24000);
                 mob.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                 this.level().addFreshEntity(mob);
+                if (!this.level().isClientSide) {
+                    ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null, null);
+                }
             }
         }
         if (!this.level().isClientSide && this.getOwner() != null && this.getOwner() instanceof ServerPlayer serverPlayer && mob != null) {

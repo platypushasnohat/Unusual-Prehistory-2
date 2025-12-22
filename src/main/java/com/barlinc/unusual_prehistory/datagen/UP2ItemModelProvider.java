@@ -78,6 +78,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(METRIORHYNCHUS_EMBRYO);
         this.item(UP2Blocks.ONCHOPRISTIS_SAC);
+        this.item(PSILOPTERUS_EGG);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);
         this.item(TELECREX_EGG);

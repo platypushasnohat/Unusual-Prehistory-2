@@ -227,6 +227,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dromaeosaurus_egg").toString())
     );
 
+    public static final RegistryObject<EntityType<ThrowableEgg>> PSILOPTERUS_EGG = ENTITY_TYPE.register(
+            "psilopterus_egg", () ->
+            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "psilopterus_egg").toString())
+    );
+
     public static final RegistryObject<EntityType<ThrowableEgg>> TALPANAS_EGG = ENTITY_TYPE.register(
             "talpanas_egg", () ->
             EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC)

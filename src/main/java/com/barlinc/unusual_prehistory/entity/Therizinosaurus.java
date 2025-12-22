@@ -213,7 +213,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
             }
             else if (this.getPose() == UP2Poses.SLASH_RUSH.get()) {
                 this.slashRushAnimationState.start(this.tickCount);
-                this.slashRushTicks = 40;
+                this.slashRushTicks = 50;
             }
             else if (this.getPose() == UP2Poses.START_CHARGING.get()) {
                 this.chargeStartAnimationState.start(this.tickCount);
@@ -223,6 +223,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
                 this.chargeStartAnimationState.stop();
             }
             else if (this.getPose() == UP2Poses.STOP_CHARGING.get()) {
+                this.chargeStartAnimationState.stop();
                 this.chargeEndAnimationState.start(this.tickCount);
                 this.chargeEndTicks = 40;
             }
