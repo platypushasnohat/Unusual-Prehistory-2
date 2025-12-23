@@ -58,6 +58,24 @@ public class UnusualPrehistory2Tab {
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
 
+                        output.accept(UP2Blocks.REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.WHITE_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.LIGHT_GRAY_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.GRAY_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.BLACK_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.BROWN_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.RED_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.ORANGE_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.YELLOW_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.LIME_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.GREEN_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.CYAN_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.LIGHT_BLUE_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.BLUE_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.PURPLE_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.MAGENTA_REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.PINK_REINFORCED_GLASS.get());
+
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());

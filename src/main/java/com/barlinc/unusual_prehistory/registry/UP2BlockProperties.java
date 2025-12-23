@@ -29,6 +29,10 @@ public class UP2BlockProperties {
 
     public static final BlockBehaviour.Properties CAULDRON = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F).noOcclusion();
 
+    public static BlockBehaviour.Properties reinforcedGlass(MapColor color) {
+        return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).mapColor(color).strength(0.4F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(UP2BlockProperties::never).isRedstoneConductor(UP2BlockProperties::never).isSuffocating(UP2BlockProperties::never).isViewBlocking(UP2BlockProperties::never);
+    }
+
     public static BlockBehaviour.Properties fossilLantern(int lightLevel) {
         return BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).lightLevel((state) -> lightLevel);
     }
@@ -62,7 +66,7 @@ public class UP2BlockProperties {
     }
 
     public static BlockBehaviour.Properties woodenTrapdoor(MapColor color, SoundType sound, NoteBlockInstrument instrument) {
-        return BlockBehaviour.Properties.of().mapColor(color).strength(3.0F).sound(sound).instrument(instrument).noOcclusion().isValidSpawn(UP2BlockProperties::neverEntity);
+        return BlockBehaviour.Properties.of().mapColor(color).strength(3.0F).sound(sound).instrument(instrument).noOcclusion().isValidSpawn(UP2BlockProperties::never);
     }
 
     public static BlockBehaviour.Properties coral(MapColor color) {
@@ -81,7 +85,7 @@ public class UP2BlockProperties {
         return false;
     }
 
-    public static boolean neverEntity(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> entity) {
+    public static boolean never(BlockState state, BlockGetter getter, BlockPos pos, EntityType<?> entity) {
         return false;
     }
 }
