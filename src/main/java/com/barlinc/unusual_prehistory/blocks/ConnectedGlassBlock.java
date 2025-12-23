@@ -35,35 +35,35 @@ public class ConnectedGlassBlock extends AbstractGlassBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelReader level = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
-        BlockPos n = blockpos.north();
-        BlockPos e = blockpos.east();
-        BlockPos s = blockpos.south();
-        BlockPos w = blockpos.west();
-        BlockPos u = blockpos.above();
-        BlockPos d = blockpos.below();
-        BlockState northState = level.getBlockState(n);
-        BlockState eastState = level.getBlockState(e);
-        BlockState southState = level.getBlockState(s);
-        BlockState westState = level.getBlockState(w);
-        BlockState upState = level.getBlockState(u);
-        BlockState downState = level.getBlockState(d);
+        BlockPos north = blockpos.north();
+        BlockPos east = blockpos.east();
+        BlockPos south = blockpos.south();
+        BlockPos west = blockpos.west();
+        BlockPos up = blockpos.above();
+        BlockPos down = blockpos.below();
+        BlockState northState = level.getBlockState(north);
+        BlockState eastState = level.getBlockState(east);
+        BlockState southState = level.getBlockState(south);
+        BlockState westState = level.getBlockState(west);
+        BlockState upState = level.getBlockState(up);
+        BlockState downState = level.getBlockState(down);
         return defaultBlockState().setValue(NORTH, northState.is(this)).setValue(NORTH, northState.is(this)).setValue(EAST, eastState.is(this)).setValue(SOUTH, southState.is(this)).setValue(WEST, westState.is(this)).setValue(UP, upState.is(this)).setValue(DOWN, downState.is(this));
     }
 
     @Override
     public @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState state2, LevelAccessor level, BlockPos blockpos, @NotNull BlockPos pos2) {
-        BlockPos n = blockpos.north();
-        BlockPos e = blockpos.east();
-        BlockPos s = blockpos.south();
-        BlockPos w = blockpos.west();
-        BlockPos u = blockpos.above();
-        BlockPos d = blockpos.below();
-        BlockState northState = level.getBlockState(n);
-        BlockState eastState = level.getBlockState(e);
-        BlockState southState = level.getBlockState(s);
-        BlockState westState = level.getBlockState(w);
-        BlockState upState = level.getBlockState(u);
-        BlockState downState = level.getBlockState(d);
+        BlockPos north = blockpos.north();
+        BlockPos east = blockpos.east();
+        BlockPos south = blockpos.south();
+        BlockPos west = blockpos.west();
+        BlockPos up = blockpos.above();
+        BlockPos down = blockpos.below();
+        BlockState northState = level.getBlockState(north);
+        BlockState eastState = level.getBlockState(east);
+        BlockState southState = level.getBlockState(south);
+        BlockState westState = level.getBlockState(west);
+        BlockState upState = level.getBlockState(up);
+        BlockState downState = level.getBlockState(down);
         return state.setValue(NORTH, northState.is(this)).setValue(NORTH, northState.is(this)).setValue(EAST, eastState.is(this)).setValue(SOUTH, southState.is(this)).setValue(WEST, westState.is(this)).setValue(UP, upState.is(this)).setValue(DOWN, downState.is(this));
     }
 }

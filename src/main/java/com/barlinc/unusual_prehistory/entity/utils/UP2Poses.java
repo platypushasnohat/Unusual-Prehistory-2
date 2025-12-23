@@ -25,7 +25,8 @@ public enum UP2Poses {
     SLASH_RUSH,
     WARNING,
     KICKING,
-    POKING;
+    POKING,
+    FORAGING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

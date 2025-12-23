@@ -15,6 +15,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "desmatosuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:desmatosuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "diplocaulus": {
       "conditions": {
         "entity": [
@@ -99,6 +113,48 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "leptictidium": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:leptictidium"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "lobe_finned_fish": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:lobe_finned_fish"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "lystrosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:lystrosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "majungasaurus": {
       "conditions": {
         "entity": [
@@ -155,6 +211,34 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "pachycephalosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:pachycephalosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "psilopterus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:psilopterus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "stethacanthus": {
       "conditions": {
         "entity": [
@@ -196,6 +280,20 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "therizinosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:therizinosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "display": {
@@ -219,6 +317,9 @@
       "carnotaurus"
     ],
     [
+      "desmatosuchus"
+    ],
+    [
       "diplocaulus"
     ],
     [
@@ -237,6 +338,15 @@
       "kimmeridgebrachypteraeschnidium_nymph"
     ],
     [
+      "leptictidium"
+    ],
+    [
+      "lobe_finned_fish"
+    ],
+    [
+      "lystrosaurus"
+    ],
+    [
       "majungasaurus"
     ],
     [
@@ -249,6 +359,12 @@
       "onchopristis"
     ],
     [
+      "pachycephalosaurus"
+    ],
+    [
+      "psilopterus"
+    ],
+    [
       "stethacanthus"
     ],
     [
@@ -256,6 +372,9 @@
     ],
     [
       "telecrex"
+    ],
+    [
+      "therizinosaurus"
     ]
   ],
   "rewards": {

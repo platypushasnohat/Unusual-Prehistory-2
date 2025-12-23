@@ -51,7 +51,7 @@ public class LeptictidiumRunLikeCrazyGoal extends Goal {
     @Override
     public void start() {
         this.leptictidium.setRunning(true);
-        this.leptictidium.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, 1.8D + (0.4F * (1.0F - leptictidium.getHealth() / leptictidium.getMaxHealth())));
+        this.leptictidium.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, 1.6D + (0.25F * (1.0F - leptictidium.getHealth() / leptictidium.getMaxHealth())));
     }
 
     @Override

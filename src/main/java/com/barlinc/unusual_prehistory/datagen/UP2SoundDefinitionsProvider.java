@@ -426,8 +426,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step3"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_WARN,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn1")).attenuationDistance(32),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn2")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn1")).attenuationDistance(32).pitch(0.85F),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn2")).attenuationDistance(32).pitch(0.85F)
         );
 
         // Unicorn

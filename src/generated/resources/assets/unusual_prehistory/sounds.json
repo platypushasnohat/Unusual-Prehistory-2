@@ -1094,11 +1094,13 @@
     "sounds": [
       {
         "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/therizinosaurus/warn1"
+        "name": "unusual_prehistory:entity/therizinosaurus/warn1",
+        "pitch": 0.85
       },
       {
         "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/therizinosaurus/warn2"
+        "name": "unusual_prehistory:entity/therizinosaurus/warn2",
+        "pitch": 0.85
       }
     ],
     "subtitle": "subtitles.therizinosaurus_warn"

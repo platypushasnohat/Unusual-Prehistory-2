@@ -7,6 +7,7 @@
 - Added Psilopterus
 - Added Therizinosaurus
 - Added Prototaxites
+- Added Reinforced Glass
 - Jawless fish and Tartuosteus will now nibble on blocks sometimes
 - Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
 - Improved fish flopping

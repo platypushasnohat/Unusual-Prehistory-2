@@ -108,7 +108,7 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
         }
         if (timer > 50) {
             this.timer = 0;
-            this.therizinosaurus.slashRushCooldown = 150 + therizinosaurus.getRandom().nextInt(200);
+            this.therizinosaurus.slashRushCooldown();
             this.therizinosaurus.setAttackState(0);
         }
     }

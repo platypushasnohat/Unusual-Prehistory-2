@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:holocene_root",
+  "parent": "unusual_prehistory:cenozoic_root",
   "criteria": {
     "revive_psilopterus": {
       "conditions": {

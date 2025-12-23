@@ -1,9 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.TherizinosaurusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -45,6 +42,7 @@ import java.util.List;
 public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
 
     private static final EntityDataAccessor<Boolean> SHAVED = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FORAGING_TREE = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2.2F, 3.98F);
 
@@ -62,11 +60,15 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
     public final AnimationState slashRushAnimationState = new AnimationState();
     public final AnimationState chargeStartAnimationState = new AnimationState();
     public final AnimationState chargeEndAnimationState = new AnimationState();
+    public final AnimationState forageLowAnimationState = new AnimationState();
+    public final AnimationState forageHighAnimationState = new AnimationState();
 
     private int attackTicks;
     private int slashRushTicks;
     private int chargeStartTicks;
     private int chargeEndTicks;
+
+    private int foragingTicks;
 
     public Therizinosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -84,6 +86,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new RandomSitGoal(this));
+        this.goalSelector.addGoal(9, new TherizinosaurusForageLeavesGoal(this, 1, 32, 8));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
@@ -158,10 +161,12 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
         if (slashRushTicks > 0) slashRushTicks--;
         if (chargeStartTicks > 0) chargeStartTicks--;
         if (chargeEndTicks > 0) chargeEndTicks--;
+        if (foragingTicks > 0) foragingTicks--;
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (slashRushTicks == 0 && this.getPose() == UP2Poses.SLASH_RUSH.get()) this.setPose(Pose.STANDING);
         if (chargeStartTicks == 0 && this.getPose() == UP2Poses.START_CHARGING.get()) this.setPose(UP2Poses.CHARGING.get());
         if (chargeEndTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
+        if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
@@ -173,8 +178,12 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
         if (slashRushTicks == 0 && this.slashRushAnimationState.isStarted()) this.slashRushAnimationState.stop();
         if (chargeStartTicks == 0 && this.chargeStartAnimationState.isStarted()) this.chargeStartAnimationState.stop();
         if (chargeEndTicks == 0 && this.chargeEndAnimationState.isStarted()) this.chargeEndAnimationState.stop();
+        if (foragingTicks == 0 && (this.forageLowAnimationState.isStarted() || this.forageHighAnimationState.isStarted())) {
+            this.forageLowAnimationState.stop();
+            this.forageHighAnimationState.stop();
+        }
 
-        this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && !this.isInAttackingPose(), this.tickCount);
 
         if (this.isMobVisuallySitting()) {
@@ -184,6 +193,8 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
             this.chargeStartAnimationState.stop();
             this.chargeEndAnimationState.stop();
             this.idleAnimationState.stop();
+            this.forageLowAnimationState.stop();
+            this.forageHighAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -227,12 +238,19 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
                 this.chargeEndAnimationState.start(this.tickCount);
                 this.chargeEndTicks = 40;
             }
+            else if (this.getPose() == UP2Poses.FORAGING.get()) {
+                if (this.isForagingTree()) this.forageHighAnimationState.start(this.tickCount);
+                else this.forageLowAnimationState.start(this.tickCount);
+                this.foragingTicks = 60;
+            }
             else {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.slashRushAnimationState.stop();
                 this.chargeStartAnimationState.stop();
                 this.chargeEndAnimationState.stop();
+                this.forageLowAnimationState.stop();
+                this.forageHighAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -246,7 +264,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 3;
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 3 || this.getPose() == UP2Poses.FORAGING.get();
     }
 
     @Override
@@ -268,6 +286,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SHAVED, false);
+        this.entityData.define(FORAGING_TREE, false);
     }
 
     @Override
@@ -287,6 +306,13 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable {
     }
     public void setShaved(boolean shaved) {
         this.entityData.set(SHAVED, shaved);
+    }
+
+    public boolean isForagingTree() {
+        return this.entityData.get(FORAGING_TREE);
+    }
+    public void setForagingTree(boolean foragingTree) {
+        this.entityData.set(FORAGING_TREE, foragingTree);
     }
 
     @Nullable

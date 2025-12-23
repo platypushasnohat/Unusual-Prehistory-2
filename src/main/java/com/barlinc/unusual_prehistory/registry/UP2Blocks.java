@@ -71,7 +71,7 @@ public class UP2Blocks {
 
     // Decorations
     public static final RegistryObject<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
-    public static final RegistryObject<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
+    public static final RegistryObject<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));
     public static final RegistryObject<Block> LIGHT_GRAY_REINFORCED_GLASS = registerBlock("light_gray_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_GRAY)));
     public static final RegistryObject<Block> GRAY_REINFORCED_GLASS = registerBlock("gray_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
