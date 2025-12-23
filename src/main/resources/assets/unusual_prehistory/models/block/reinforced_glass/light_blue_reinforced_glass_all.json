@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "render_type": "translucent",
+  "textures": {
+    "all": "unusual_prehistory:block/reinforced_glass/light_blue_reinforced_glass_all"
+  }
+}

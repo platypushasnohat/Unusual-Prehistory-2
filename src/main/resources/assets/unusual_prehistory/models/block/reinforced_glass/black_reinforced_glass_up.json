@@ -1,0 +1,14 @@
+{
+  "parent": "block/cube",
+  "render_type": "cutout_mipped",
+  "textures": {
+    "particle": "unusual_prehistory:block/reinforced_glass/black_reinforced_glass_all",
+    "down": "unusual_prehistory:block/reinforced_glass/reinforced_glass_blank",
+    "up": "unusual_prehistory:block/reinforced_glass/reinforced_glass_blank",
+    "north": "unusual_prehistory:block/reinforced_glass/reinforced_glass_up",
+    "east": "unusual_prehistory:block/reinforced_glass/reinforced_glass_up",
+    "south": "unusual_prehistory:block/reinforced_glass/reinforced_glass_up",
+    "west": "unusual_prehistory:block/reinforced_glass/reinforced_glass_up"
+  }
+}
+

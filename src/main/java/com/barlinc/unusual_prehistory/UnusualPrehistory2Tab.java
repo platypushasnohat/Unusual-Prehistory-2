@@ -59,6 +59,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.ASPHALT.get());
 
                         output.accept(UP2Blocks.REINFORCED_GLASS.get());
+                        output.accept(UP2Blocks.TINTED_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.WHITE_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.LIGHT_GRAY_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.GRAY_REINFORCED_GLASS.get());

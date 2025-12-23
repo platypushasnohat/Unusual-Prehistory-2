@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
-public class ConnectingGlassBlock extends AbstractGlassBlock {
+public class ConnectedGlassBlock extends AbstractGlassBlock {
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
     public static final BooleanProperty DOWN = BooleanProperty.create("down");
@@ -21,7 +21,7 @@ public class ConnectingGlassBlock extends AbstractGlassBlock {
     public static final BooleanProperty NORTH = BooleanProperty.create("north");
     public static final BooleanProperty SOUTH = BooleanProperty.create("south");
 
-    public ConnectingGlassBlock(Properties properties) {
+    public ConnectedGlassBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(DOWN, false).setValue(EAST, false).setValue(WEST, false).setValue(NORTH, false).setValue(SOUTH, false));
     }

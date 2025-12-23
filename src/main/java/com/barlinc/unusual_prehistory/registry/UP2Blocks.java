@@ -70,23 +70,24 @@ public class UP2Blocks {
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));
 
     // Decorations
-    public static final RegistryObject<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
-    public static final RegistryObject<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));
-    public static final RegistryObject<Block> LIGHT_GRAY_REINFORCED_GLASS = registerBlock("light_gray_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_GRAY)));
-    public static final RegistryObject<Block> GRAY_REINFORCED_GLASS = registerBlock("gray_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
-    public static final RegistryObject<Block> BLACK_REINFORCED_GLASS = registerBlock("black_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BLACK)));
-    public static final RegistryObject<Block> BROWN_REINFORCED_GLASS = registerBlock("brown_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BROWN)));
-    public static final RegistryObject<Block> RED_REINFORCED_GLASS = registerBlock("red_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_RED)));
-    public static final RegistryObject<Block> ORANGE_REINFORCED_GLASS = registerBlock("orange_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_ORANGE)));
-    public static final RegistryObject<Block> YELLOW_REINFORCED_GLASS = registerBlock("yellow_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_YELLOW)));
-    public static final RegistryObject<Block> LIME_REINFORCED_GLASS = registerBlock("lime_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_GREEN)));
-    public static final RegistryObject<Block> GREEN_REINFORCED_GLASS = registerBlock("green_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GREEN)));
-    public static final RegistryObject<Block> CYAN_REINFORCED_GLASS = registerBlock("cyan_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_CYAN)));
-    public static final RegistryObject<Block> LIGHT_BLUE_REINFORCED_GLASS = registerBlock("light_blue_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_BLUE)));
-    public static final RegistryObject<Block> BLUE_REINFORCED_GLASS = registerBlock("blue_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BLUE)));
-    public static final RegistryObject<Block> PURPLE_REINFORCED_GLASS = registerBlock("purple_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PURPLE)));
-    public static final RegistryObject<Block> MAGENTA_REINFORCED_GLASS = registerBlock("magenta_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_MAGENTA)));
-    public static final RegistryObject<Block> PINK_REINFORCED_GLASS = registerBlock("pink_reinforced_glass", ()-> new ConnectingGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
+    public static final RegistryObject<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
+    public static final RegistryObject<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
+    public static final RegistryObject<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));
+    public static final RegistryObject<Block> LIGHT_GRAY_REINFORCED_GLASS = registerBlock("light_gray_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_GRAY)));
+    public static final RegistryObject<Block> GRAY_REINFORCED_GLASS = registerBlock("gray_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
+    public static final RegistryObject<Block> BLACK_REINFORCED_GLASS = registerBlock("black_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BLACK)));
+    public static final RegistryObject<Block> BROWN_REINFORCED_GLASS = registerBlock("brown_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BROWN)));
+    public static final RegistryObject<Block> RED_REINFORCED_GLASS = registerBlock("red_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> ORANGE_REINFORCED_GLASS = registerBlock("orange_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_ORANGE)));
+    public static final RegistryObject<Block> YELLOW_REINFORCED_GLASS = registerBlock("yellow_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_YELLOW)));
+    public static final RegistryObject<Block> LIME_REINFORCED_GLASS = registerBlock("lime_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_GREEN)));
+    public static final RegistryObject<Block> GREEN_REINFORCED_GLASS = registerBlock("green_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GREEN)));
+    public static final RegistryObject<Block> CYAN_REINFORCED_GLASS = registerBlock("cyan_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> LIGHT_BLUE_REINFORCED_GLASS = registerBlock("light_blue_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_LIGHT_BLUE)));
+    public static final RegistryObject<Block> BLUE_REINFORCED_GLASS = registerBlock("blue_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_BLUE)));
+    public static final RegistryObject<Block> PURPLE_REINFORCED_GLASS = registerBlock("purple_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PURPLE)));
+    public static final RegistryObject<Block> MAGENTA_REINFORCED_GLASS = registerBlock("magenta_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> PINK_REINFORCED_GLASS = registerBlock("pink_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
 
     // Eggs
     public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
