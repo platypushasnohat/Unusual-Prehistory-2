@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-22T14:09:19.3569326	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2025-12-23T14:08:04.1565391	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -55,6 +55,7 @@ aa3841b6b6fb425bffe6a3624c29d902668bce6d data/unusual_prehistory/tags/items/paci
 2dab50d94865d7e414502ec3168d63dfe7b27156 data/unusual_prehistory/tags/items/pacifies_onchopristis.json
 657d40070faf232b244b4af26f7b360508ef5187 data/unusual_prehistory/tags/items/pacifies_stethacanthus.json
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/items/permanently_pacifies_mob.json
+3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/praepusa_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/psilopterus_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/stethacanthus_food.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/items/talpanas_food.json

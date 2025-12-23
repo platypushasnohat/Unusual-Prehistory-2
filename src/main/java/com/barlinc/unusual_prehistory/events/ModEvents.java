@@ -32,6 +32,7 @@ public class ModEvents {
         event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.PACHYCEPHALOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pachycephalosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.PRAEPUSA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Praepusa::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.PSILOPTERUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Psilopterus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.STETHACANTHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stethacanthus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.TALPANAS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
@@ -60,6 +61,7 @@ public class ModEvents {
         event.put(UP2Entities.METRIORHYNCHUS.get(), Metriorhynchus.createAttributes().build());
         event.put(UP2Entities.ONCHOPRISTIS.get(), Onchopristis.createAttributes().build());
         event.put(UP2Entities.PACHYCEPHALOSAURUS.get(), Pachycephalosaurus.createAttributes().build());
+        event.put(UP2Entities.PRAEPUSA.get(), Praepusa.createAttributes().build());
         event.put(UP2Entities.PSILOPTERUS.get(), Psilopterus.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
         event.put(UP2Entities.TALPANAS.get(), Talpanas.createAttributes().build());

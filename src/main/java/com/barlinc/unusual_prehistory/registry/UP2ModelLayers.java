@@ -37,6 +37,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation METRIORHYNCHUS = main("metriorhynchus");
     public static final ModelLayerLocation ONCHOPRISTIS = main("onchopristis");
     public static final ModelLayerLocation PACHYCEPHALOSAURUS = main("pachycephalosaurus");
+    public static final ModelLayerLocation PRAEPUSA = main("praepusa");
     public static final ModelLayerLocation PSILOPTERUS = main("psilopterus");
     public static final ModelLayerLocation SACABAMBASPIS = main("sacabambaspis");
     public static final ModelLayerLocation SCAUMENACIA = main("scaumenacia");

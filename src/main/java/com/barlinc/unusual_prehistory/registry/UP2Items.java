@@ -116,6 +116,9 @@ public class UP2Items {
     public static final RegistryObject<Item> PACHYCEPHALOSAURUS_SPAWN_EGG = registerSpawnEggItem("pachycephalosaurus", UP2Entities.PACHYCEPHALOSAURUS, 0x4f3d72, 0x67bedb);
     public static final RegistryObject<Item> CRANIUM_FOSSIL = registerFossilItem("cranium");
 
+    // Praepusa
+    public static final RegistryObject<Item> PRAEPUSA_SPAWN_EGG = registerSpawnEggItem("praepusa", UP2Entities.PRAEPUSA, 0x4e5056, 0x4ea0a9);
+
     // Psilopterus
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x432f2a, 0xeddbc5);
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);

@@ -58,6 +58,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.METRIORHYNCHUS);
         this.forEntity(UP2Entities.ONCHOPRISTIS);
         this.forEntity(UP2Entities.PACHYCEPHALOSAURUS);
+        this.forEntity(UP2Entities.PRAEPUSA);
         this.forEntity(UP2Entities.PSILOPTERUS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.UNICORN);
