@@ -1,15 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
-import com.barlinc.unusual_prehistory.client.animations.PachycephalosaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.carnotaurus.CarnotaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.carnotaurus.CarnotaurusIdleAnimations;
-import com.barlinc.unusual_prehistory.client.animations.psilopterus.PsilopterusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.psilopterus.PsilopterusIdleAnimations;
+import com.barlinc.unusual_prehistory.client.animations.PsilopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.barlinc.unusual_prehistory.entity.Carnotaurus;
-import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.Psilopterus;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -71,15 +64,15 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
                 .texOffs(0, 50).addBox(-1.0F, -10.5F, -8.5F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(40, 54).addBox(-1.0F, -10.5F, -9.5F, 2.0F, 3.0F, 1.0F, new CubeDeformation(0.0F))
                 .texOffs(46, 0).addBox(0.0F, -14.5F, -2.5F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0F))
+                .texOffs(50, 14).addBox(0.0F, -13.5F, -1.5F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0F))
                 .texOffs(54, 50).addBox(-1.5F, -14.5F, -4.5F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-                .texOffs(43, 54).addBox(-1.5F, -12.5F, -4.5F, 3.0F, 2.0F, 7.0F, new CubeDeformation(0.0F))
-                .texOffs(50, 14).addBox(0.0F, -13.5F, -1.5F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, -7.0F));
+                .texOffs(43, 54).addBox(-1.5F, -12.5F, -4.5F, 3.0F, 2.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, -7.0F));
 
         PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(16, 50).addBox(-1.0F, 0.0F, -5.0F, 2.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.5F, -2.5F));
 
-        PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(37, 19).addBox(0.0F, 0.0F, 0.0F, 1.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, -5.5F, -6.5F));
+        PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(34, 16).addBox(0.0F, 0.0F, 0.0F, 1.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, -5.5F, -6.5F));
 
-        PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(37, 19).mirror().addBox(-1.0F, 0.0F, 0.0F, 1.0F, 6.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.5F, -5.5F, -6.5F));
+        PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(34, 16).mirror().addBox(-1.0F, 0.0F, 0.0F, 1.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.5F, -5.5F, -6.5F));
 
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 1.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.5F, 2.5F, 0.0873F, 0.0F, 0.0F));
 
@@ -88,7 +81,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
         PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(30, 54).addBox(-1.0F, -1.5F, -1.5F, 2.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(54, 36).addBox(0.0F, 1.5F, 1.5F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(3.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(54, 41).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 6.5F, 1.5F));
+        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(54, 36).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 6.5F, 1.5F));
 
         PartDefinition left_leg3 = left_leg2.addOrReplaceChild("left_leg3", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
 
@@ -97,7 +90,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
         PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(30, 54).mirror().addBox(-1.0F, -1.5F, -1.5F, 2.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(54, 36).mirror().addBox(-1.0F, 1.5F, 1.5F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(54, 41).mirror().addBox(-0.5F, 0.0F, 0.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, 6.5F, 1.5F));
+        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(54, 36).mirror().addBox(-0.5F, 0.0F, 0.0F, 1.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, 6.5F, 1.5F));
 
         PartDefinition right_leg3 = right_leg2.addOrReplaceChild("right_leg3", CubeListBuilder.create(), PartPose.offset(0.0F, 5.0F, 0.0F));
 
@@ -116,14 +109,18 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
         }
 
         this.animateIdle(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.sitStartAnimationState, PsilopterusIdleAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, PsilopterusIdleAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, PsilopterusIdleAnimations.SIT_END, ageInTicks);
+        this.animate(entity.sitStartAnimationState, PsilopterusAnimations.SIT_START, ageInTicks);
+        this.animate(entity.sitAnimationState, PsilopterusAnimations.SIT, ageInTicks);
+        this.animate(entity.sitEndAnimationState, PsilopterusAnimations.SIT_END, ageInTicks);
         this.animate(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
         this.animate(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
         this.animate(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks);
-        this.animate(entity.pokeAnimationState, PsilopterusIdleAnimations.POKE_BLEND, ageInTicks);
+        this.animate(entity.pokeAnimationState, PsilopterusAnimations.POKE_BLEND, ageInTicks);
+        this.animate(entity.dig1AnimationState, PsilopterusAnimations.DIG1, ageInTicks);
+        this.animate(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks);
+        this.animate(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks);
+        this.animate(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks);
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 

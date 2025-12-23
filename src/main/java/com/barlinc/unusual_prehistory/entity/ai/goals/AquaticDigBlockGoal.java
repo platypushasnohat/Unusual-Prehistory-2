@@ -147,7 +147,7 @@ public class AquaticDigBlockGoal extends Goal {
         return null;
     }
 
-    public void spawnEffectsAtBlock(BlockPos target) {
+    public void spawnEffectsAtBlock(BlockPos blockPos) {
         float radius = 0.3F;
         for (int i1 = 0; i1 < 3; i1++) {
             double motionX = aquaticMob.getRandom().nextGaussian() * 0.07D;
@@ -157,8 +157,8 @@ public class AquaticDigBlockGoal extends Goal {
             double extraX = radius * Mth.sin(Mth.PI + angle);
             double extraY = 0.8F;
             double extraZ = radius * Mth.cos(angle);
-            BlockState state = aquaticMob.level().getBlockState(target);
-            ((ServerLevel) aquaticMob.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + 0.5 + extraX, target.getY() + 0.5 + extraY, target.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+            BlockState state = aquaticMob.level().getBlockState(blockPos);
+            ((ServerLevel) aquaticMob.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
         }
     }
 }

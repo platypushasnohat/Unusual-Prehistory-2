@@ -12,12 +12,15 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -60,10 +63,17 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     public final AnimationState attack2AnimationState = new AnimationState();
     public final AnimationState kickAnimationState = new AnimationState();
     public final AnimationState pokeAnimationState = new AnimationState();
+    public final AnimationState dig1AnimationState = new AnimationState();
+    public final AnimationState dig2AnimationState = new AnimationState();
+    public final AnimationState preen1AnimationState = new AnimationState();
+    public final AnimationState preen2AnimationState = new AnimationState();
 
     private int attackTicks;
     private int kickTicks;
     private int pokeTicks;
+
+    private int digCooldown = 900 + this.getRandom().nextInt(900);
+    private int preenCooldown = 700 + this.getRandom().nextInt(800);
 
     public Psilopterus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -85,6 +95,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(10, new RandomSitGoal(this));
+        this.goalSelector.addGoal(11, new PsilopterusDigGoal(this));
+        this.goalSelector.addGoal(11, new PsilopterusPreenGoal(this));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this, Psilopterus.class)).setAlertOthers());
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_TARGETS)));
         this.targetSelector.addGoal(2, new PackAnimalNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
@@ -238,6 +250,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (kickTicks == 0 && this.getPose() == UP2Poses.KICKING.get()) this.setPose(Pose.STANDING);
         if (pokeTicks == 0 && this.getPose() == UP2Poses.POKING.get()) this.setPose(Pose.STANDING);
+        if (digCooldown > 0) digCooldown--;
+        if (preenCooldown > 0) preenCooldown--;
     }
 
     @Override
@@ -249,13 +263,18 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         if (kickTicks == 0 && this.kickAnimationState.isStarted()) this.kickAnimationState.stop();
         if (pokeTicks == 0 && this.pokeAnimationState.isStarted()) this.pokeAnimationState.stop();
 
-        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.KICKING.get() && !this.isInWater(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.canPlayIdleAnimation() && !this.isInWater(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.canPlayIdleAnimation() && this.isInWater(), this.tickCount);
 
         if (this.isMobVisuallySitting()) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
+            this.kickAnimationState.stop();
             this.idleAnimationState.stop();
+            this.dig1AnimationState.stop();
+            this.dig2AnimationState.stop();
+            this.preen1AnimationState.stop();
+            this.preen2AnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -269,6 +288,10 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
             this.sitAnimationState.stop();
             this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
+    }
+
+    private boolean canPlayIdleAnimation() {
+        return this.getIdleState() != 1 && this.getIdleState() != 2 && this.getPose() != UP2Poses.KICKING.get();
     }
 
     @Override
@@ -299,13 +322,37 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     public void handleEntityEvent(byte id) {
         switch (id) {
+            case 67 -> {
+                if (this.getRandom().nextBoolean()) this.dig1AnimationState.start(this.tickCount);
+                else this.dig2AnimationState.start(this.tickCount);
+            }
+            case 68 -> {
+                this.dig1AnimationState.stop();
+                this.dig2AnimationState.stop();
+            }
+            case 69 -> {
+                if (this.getRandom().nextBoolean()) this.preen1AnimationState.start(this.tickCount);
+                else this.preen2AnimationState.start(this.tickCount);
+            }
+            case 70 -> {
+                this.preen1AnimationState.stop();
+                this.preen2AnimationState.stop();
+            }
             default -> super.handleEntityEvent(id);
         }
     }
 
+    protected void digCooldown() {
+        this.digCooldown = 900 + this.getRandom().nextInt(900);
+    }
+
+    protected void preenCooldown() {
+        this.preenCooldown = 700 + this.getRandom().nextInt(800);
+    }
+
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 3;
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
     }
 
     @Override
@@ -402,5 +449,71 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     public static boolean canSpawn(EntityType<Psilopterus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.PSILOPTERUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    private static class PsilopterusDigGoal extends AnimationGoal {
+
+        private final Psilopterus psilopterus;
+
+        public PsilopterusDigGoal(Psilopterus psilopterus) {
+            super(psilopterus, 60, 1, (byte) 67, (byte) 68);
+            this.psilopterus = psilopterus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && psilopterus.digCooldown == 0 && !psilopterus.isMobSitting() && psilopterus.level().getBlockState(psilopterus.blockPosition().below()).is(UP2BlockTags.PSILOPTERUS_DIGGING_BLOCKS);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.psilopterus.digCooldown();
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            if (timer % 6 == 0 && timer < 50 && timer > 20) {
+                this.spawnEffectsAtBlock(psilopterus.blockPosition().below());
+                this.psilopterus.playSound(psilopterus.level().getBlockState(psilopterus.blockPosition().below()).getSoundType().getHitSound(), 0.3F, 0.8F + psilopterus.getRandom().nextFloat() * 0.25F);
+            }
+        }
+
+        public void spawnEffectsAtBlock(BlockPos blockPos) {
+            float radius = 0.3F;
+            for (int i1 = 0; i1 < 3; i1++) {
+                double motionX = psilopterus.getRandom().nextGaussian() * 0.07D;
+                double motionY = psilopterus.getRandom().nextGaussian() * 0.07D;
+                double motionZ = psilopterus.getRandom().nextGaussian() * 0.07D;
+                float angle = (float) ((0.0174532925 * psilopterus.yBodyRot) + i1);
+                double extraX = radius * Mth.sin(Mth.PI + angle);
+                double extraY = 0.8F;
+                double extraZ = radius * Mth.cos(angle);
+                BlockState state = psilopterus.level().getBlockState(blockPos);
+                ((ServerLevel) psilopterus.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+            }
+        }
+    }
+
+    private static class PsilopterusPreenGoal extends AnimationGoal {
+
+        private final Psilopterus psilopterus;
+
+        public PsilopterusPreenGoal(Psilopterus psilopterus) {
+            super(psilopterus, 80, 2, (byte) 69, (byte) 70);
+            this.psilopterus = psilopterus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && psilopterus.preenCooldown == 0 && !psilopterus.isMobSitting();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.psilopterus.preenCooldown();
+        }
     }
 }

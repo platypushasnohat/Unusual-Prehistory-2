@@ -80,6 +80,25 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.dropSelf(TRANSMOGRIFIER.get());
 
+        this.dropSelf(REINFORCED_GLASS.get());
+        this.dropSelf(TINTED_REINFORCED_GLASS.get());
+        this.dropSelf(WHITE_REINFORCED_GLASS.get());
+        this.dropSelf(LIGHT_GRAY_REINFORCED_GLASS.get());
+        this.dropSelf(GRAY_REINFORCED_GLASS.get());
+        this.dropSelf(BLACK_REINFORCED_GLASS.get());
+        this.dropSelf(BROWN_REINFORCED_GLASS.get());
+        this.dropSelf(RED_REINFORCED_GLASS.get());
+        this.dropSelf(ORANGE_REINFORCED_GLASS.get());
+        this.dropSelf(YELLOW_REINFORCED_GLASS.get());
+        this.dropSelf(LIME_REINFORCED_GLASS.get());
+        this.dropSelf(GREEN_REINFORCED_GLASS.get());
+        this.dropSelf(CYAN_REINFORCED_GLASS.get());
+        this.dropSelf(LIGHT_BLUE_REINFORCED_GLASS.get());
+        this.dropSelf(BLUE_REINFORCED_GLASS.get());
+        this.dropSelf(PURPLE_REINFORCED_GLASS.get());
+        this.dropSelf(MAGENTA_REINFORCED_GLASS.get());
+        this.dropSelf(PINK_REINFORCED_GLASS.get());
+
         this.dropSelf(CARNOTAURUS_EGG.get());
         this.dropSelf(DESMATOSUCHUS_EGG.get());
         this.dropSelf(KENTROSAURUS_EGG.get());

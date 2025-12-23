@@ -1,7 +1,8 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.therizinosaurus;
 
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -100,7 +101,7 @@ public class TherizinosaurusForageLeavesGoal extends MoveToBlockGoal {
 
     @Override
     protected boolean isValidTarget(@NotNull LevelReader level, @NotNull BlockPos pos) {
-        return level.getBlockState(pos).is(BlockTags.LEAVES) && this.canSeeBlock(pos);
+        return level.getBlockState(pos).is(UP2BlockTags.THERIZINOSAURUS_FORAGING_BLOCKS) && this.canSeeBlock(pos);
     }
 
     private boolean canSeeBlock(BlockPos destinationBlock) {

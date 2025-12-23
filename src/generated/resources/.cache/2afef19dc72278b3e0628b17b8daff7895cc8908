@@ -1,16 +1,17 @@
-// 1.20.1	2025-12-21T22:42:23.1752381	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-12-23T12:16:51.7734727	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
 dde0cb7e52d3ca26cd06b362625a1ff03aeadecb data/minecraft/tags/blocks/ceiling_hanging_signs.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/dirt.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/minecraft/tags/blocks/fence_gates.json
+6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/minecraft/tags/blocks/impermeable.json
 6e89dd509d1f7d1b05ae899f2c6e2a2d87e364a3 data/minecraft/tags/blocks/leaves.json
 8ad98818815a6fcfd7699721d3ecf9cf2e73bdec data/minecraft/tags/blocks/logs.json
 8ad98818815a6fcfd7699721d3ecf9cf2e73bdec data/minecraft/tags/blocks/logs_that_burn.json
 719005403a877ca29e484e3a65e6f60580bb21c1 data/minecraft/tags/blocks/mineable/axe.json
 5ce0101068cd8cfcffd4b54289196e5821bbb255 data/minecraft/tags/blocks/mineable/hoe.json
-d89717fb7a7ca81386daf7569b268579d31d0e56 data/minecraft/tags/blocks/mineable/pickaxe.json
+db47c85a2e5be0c531bc15940cc15a63a60252c0 data/minecraft/tags/blocks/mineable/pickaxe.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/mineable/shovel.json
 4bbcd7a1bc07c30e1bb94842b865ba6844f521cf data/minecraft/tags/blocks/overworld_natural_logs.json
 2571ae931a2588cfba6fdc91f30bb75962da3850 data/minecraft/tags/blocks/planks.json
@@ -65,6 +66,7 @@ d033385a638abbeacea8d8e59f7610e1ab169130 data/unusual_prehistory/tags/blocks/gua
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/petrified_tree_replaceable.json
 24f677d61a08d0a549c729adb4fa26457ff4b62e data/unusual_prehistory/tags/blocks/petrified_wood.json
 0a6d57dbfee5c2462339b802e3d71f90b2dbf41c data/unusual_prehistory/tags/blocks/prevents_egg_hatching.json
+469c10ab8a81a70ca974dd4118c0c3edbd30e84b data/unusual_prehistory/tags/blocks/psilopterus_digging_blocks.json
 ca095d5a860953b60dcde69a2b44186e15c701eb data/unusual_prehistory/tags/blocks/psilopterus_spawnable_on.json
 49d64558670a4750d9059f7e531d80f97c9b8619 data/unusual_prehistory/tags/blocks/talpanas_pecking_blocks.json
 45bfbb41d6bfa684bc079c162a12820d426eb8c8 data/unusual_prehistory/tags/blocks/talpanas_spawnable_on.json
@@ -72,5 +74,6 @@ ca095d5a860953b60dcde69a2b44186e15c701eb data/unusual_prehistory/tags/blocks/psi
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/tar_pit_replaceable.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/telecrex_pecking_blocks.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/telecrex_spawnable_on.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusual_prehistory/tags/blocks/therizinosaurus_foraging_blocks.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/therizinosaurus_spawnable_on.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/unicorn_spawnable_on.json

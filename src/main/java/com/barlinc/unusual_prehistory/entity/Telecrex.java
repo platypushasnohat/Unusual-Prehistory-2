@@ -316,7 +316,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && telecrex.peckCooldown == 0 && !telecrex.isFlying();
+            return super.canUse() && telecrex.peckCooldown == 0 && !telecrex.isFlying() && telecrex.level().getBlockState(telecrex.blockPosition().below()).is(UP2BlockTags.TELECREX_PECKING_BLOCKS);
         }
 
         @Override

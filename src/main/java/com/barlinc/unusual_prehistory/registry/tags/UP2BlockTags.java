@@ -57,9 +57,11 @@ public class UP2BlockTags {
     public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
     public static final TagKey<Block> LOBE_FINNED_FISH_NIBBLING_BLOCKS = modBlockTag("lobe_finned_fish_nibbling_blocks");
     public static final TagKey<Block> PACHYCEPHALOSAURUS_GRAZING_BLOCKS = modBlockTag("pachycephalosaurus_grazing_blocks");
+    public static final TagKey<Block> PSILOPTERUS_DIGGING_BLOCKS = modBlockTag("psilopterus_digging_blocks");
     public static final TagKey<Block> TALPANAS_PECKING_BLOCKS = modBlockTag("talpanas_pecking_blocks");
     public static final TagKey<Block> TARTUOSTEUS_NIBBLING_BLOCKS = modBlockTag("tartuosteus_nibbling_blocks");
     public static final TagKey<Block> TELECREX_PECKING_BLOCKS = modBlockTag("telecrex_pecking_blocks");
+    public static final TagKey<Block> THERIZINOSAURUS_FORAGING_BLOCKS = modBlockTag("therizinosaurus_foraging_blocks");
 
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
