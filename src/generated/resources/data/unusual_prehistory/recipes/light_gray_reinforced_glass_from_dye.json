@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "D": {
+      "tag": "forge:dyes/light_gray"
+    },
+    "G": {
+      "tag": "unusual_prehistory:reinforced_glass"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GDG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "item": "unusual_prehistory:light_gray_reinforced_glass"
+  },
+  "show_notification": true
+}

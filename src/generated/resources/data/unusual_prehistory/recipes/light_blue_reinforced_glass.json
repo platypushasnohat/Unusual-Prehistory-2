@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "tag": "forge:glass/light_blue"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GIG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "item": "unusual_prehistory:light_blue_reinforced_glass"
+  },
+  "show_notification": true
+}

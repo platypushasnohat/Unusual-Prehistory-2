@@ -31,6 +31,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE);
         this.item(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET);
+        this.item(PRAEPUSA_BUCKET);
         this.item(STETHACANTHUS_BUCKET);
         this.item(DUNKLEOSTEUS_BUCKET);
 
@@ -59,6 +60,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
         this.item(CRANIUM_FOSSIL);
+        this.item(FLIPPER_FOSSIL);
         this.item(CROOKED_BEAK_FOSSIL);
         this.item(MOSSY_FOSSIL);
         this.item(PLUMAGE_FOSSIL);
@@ -78,6 +80,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(METRIORHYNCHUS_EMBRYO);
         this.item(UP2Blocks.ONCHOPRISTIS_SAC);
+        this.item(PRAEPUSA_EMBRYO);
         this.item(PSILOPTERUS_EGG);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);

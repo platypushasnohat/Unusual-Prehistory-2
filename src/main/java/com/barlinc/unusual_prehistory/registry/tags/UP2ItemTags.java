@@ -11,6 +11,8 @@ public class UP2ItemTags {
     // UP2 tags
     public static final TagKey<Item> FOSSILS = modItemTag("fossils");
 
+    public static final TagKey<Item> REINFORCED_GLASS = modItemTag("reinforced_glass");
+
     public static final TagKey<Item> PERMANENTLY_PACIFIES_MOB = modItemTag("permanently_pacifies_mob");
 
     public static final TagKey<Item> PACIFIES_CARNOTAURUS = modItemTag("pacifies_carnotaurus");

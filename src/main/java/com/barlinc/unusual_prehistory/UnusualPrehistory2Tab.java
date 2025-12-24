@@ -82,6 +82,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(JAWLESS_FISH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        output.accept(PRAEPUSA_BUCKET.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DOOMSURF_DISC.get());
                         output.accept(TARIFYING_DISC.get());
@@ -103,6 +104,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MELTDOWN_FOSSIL.get());
                         output.accept(SAW_FOSSIL.get());
                         output.accept(CRANIUM_FOSSIL.get());
+                        output.accept(FLIPPER_FOSSIL.get());
                         output.accept(CROOKED_BEAK_FOSSIL.get());
                         output.accept(ANVIL_FOSSIL.get());
                         output.accept(AGED_FEATHER.get());
@@ -124,6 +126,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
+                        output.accept(PRAEPUSA_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());

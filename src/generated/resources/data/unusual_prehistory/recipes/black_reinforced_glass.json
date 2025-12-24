@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "tag": "forge:glass/black"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GIG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "item": "unusual_prehistory:black_reinforced_glass"
+  },
+  "show_notification": true
+}

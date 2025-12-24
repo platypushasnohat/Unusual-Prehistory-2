@@ -82,6 +82,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
+        this.addItem(UP2Items.PRAEPUSA_BUCKET, "Bucket of Praepusa");
         this.addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
         this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
         this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
@@ -169,6 +170,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ONCHOPRISTIS_HURT, "Onchopristis hurts");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_DEATH, "Onchopristis dies");
         this.sound(UP2SoundEvents.ONCHOPRISTIS_FLOP, "Onchopristis flops");
+
+        this.sound(UP2SoundEvents.PRAEPUSA_HURT, "Praepusa hurts");
+        this.sound(UP2SoundEvents.PRAEPUSA_DEATH, "Praepusa dies");
+        this.sound(UP2SoundEvents.PRAEPUSA_IDLE, "Praepusa honks");
 
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");

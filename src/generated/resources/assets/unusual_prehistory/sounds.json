@@ -918,6 +918,30 @@
     ],
     "subtitle": "subtitles.onchopristis_hurt"
   },
+  "praepusa_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/praepusa/death1",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.praepusa_death"
+  },
+  "praepusa_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/praepusa/hurt1",
+      "unusual_prehistory:entity/praepusa/hurt2"
+    ],
+    "subtitle": "subtitles.praepusa_hurt"
+  },
+  "praepusa_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/praepusa/idle1",
+      "unusual_prehistory:entity/praepusa/idle2",
+      "unusual_prehistory:entity/praepusa/idle3"
+    ],
+    "subtitle": "subtitles.praepusa_idle"
+  },
   "small_dunkleosteus_bite": {
     "sounds": [
       {

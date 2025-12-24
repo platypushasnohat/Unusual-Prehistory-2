@@ -30,6 +30,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> MAJUNGASAURUS_AVOIDS = modEntityTag("majungasaurus_avoids");
     public static final TagKey<EntityType<?>> MAJUNGASAURUS_TARGETS = modEntityTag("majungasaurus_targets");
 
+    public static final TagKey<EntityType<?>> PRAEPUSA_AVOIDS = modEntityTag("praepusa_avoids");
+
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = modEntityTag("megalania_targets");
 
     public static final TagKey<EntityType<?>> METRIORHYNCHUS_TARGETS = modEntityTag("metriorhynchus_targets");

@@ -192,6 +192,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "flipper_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:flipper_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "fury_fossil": {
       "conditions": {
         "items": [
@@ -456,6 +468,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "praepusa_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:praepusa_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "prickly_fossil": {
       "conditions": {
         "items": [
@@ -683,6 +707,7 @@
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",
+      "praepusa_embryo",
       "psilopterus_egg",
       "talpanas_egg",
       "telecrex_egg",
@@ -702,6 +727,7 @@
       "meltdown_fossil",
       "saw_fossil",
       "cranium_fossil",
+      "flipper_fossil",
       "crooked_beak_fossil",
       "anvil_fossil",
       "mossy_fossil",

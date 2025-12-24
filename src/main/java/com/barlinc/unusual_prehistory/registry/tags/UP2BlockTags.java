@@ -12,13 +12,15 @@ public class UP2BlockTags {
     public static final TagKey<Block> TAR_PIT_REPLACEABLE = modBlockTag("tar_pit_replaceable");
     public static final TagKey<Block> PETRIFIED_TREE_REPLACEABLE = modBlockTag("petrified_tree_replaceable");
 
+    public static final TagKey<Block> REINFORCED_GLASS = modBlockTag("reinforced_glass");
+
     public static final TagKey<Block> ACCELERATES_EGG_HATCHING = modBlockTag("accelerates_egg_hatching");
     public static final TagKey<Block> PREVENTS_EGG_HATCHING = modBlockTag("prevents_egg_hatching");
 
     public static final TagKey<Block> GINKGO_LOGS = modBlockTag("ginkgo_logs");
     public static final TagKey<Block> LEPIDODENDRON_LOGS = modBlockTag("lepidodendron_logs");
 
-    public static final TagKey<Block> ANCIENT_PLANT_PLACEABLES = modBlockTag("ancient_plant_placeable");
+    public static final TagKey<Block> ANCIENT_PLANT_PLACEABLE = modBlockTag("ancient_plant_placeable");
 
     public static final TagKey<Block> ZOMBIE_EGG_TARGETS = modBlockTag("zombie_egg_targets");
 

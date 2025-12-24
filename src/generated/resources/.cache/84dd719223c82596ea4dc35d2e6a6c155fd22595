@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-23T14:08:04.1565391	Item Models: unusual_prehistory
+// 1.20.1	2025-12-23T21:04:37.9584212	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
@@ -22,6 +22,7 @@ d4626cd2137ccbc02c39f1362f95565e358bdd7f assets/unusual_prehistory/models/item/d
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dunkleosteus_spawn_egg.json
 a9aabc8e6df8e37a04c42f6871a41d70535df496 assets/unusual_prehistory/models/item/fish_fossil.json
 7218ed30cae47a9e448e8df798078835be6f7eab assets/unusual_prehistory/models/item/flat_back_fossil.json
+3a3cf0a1bf1931199744e43f4b7419c3479d8165 assets/unusual_prehistory/models/item/flipper_fossil.json
 158b2a9b3ab18df3ff848d0cbdd054aa062df9ea assets/unusual_prehistory/models/item/fury_fossil.json
 015c1fe436e9be4bad96c9ef9114f8be8f04db11 assets/unusual_prehistory/models/item/ginkgo_boat.json
 42d9da5f0e2b2ee5fedd313fcc80198381b5c713 assets/unusual_prehistory/models/item/ginkgo_chest_boat.json
@@ -70,6 +71,8 @@ eaabae11b2b5864cf3147228be79486e6fa26268 assets/unusual_prehistory/models/item/m
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/pachycephalosaurus_spawn_egg.json
 e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/plumage_fossil.json
+88db65b592a9b11d0fe1c7dd00b90dbf212f6ed2 assets/unusual_prehistory/models/item/praepusa_bucket.json
+7ff840e281e3df175a69c7aadf46de9ff4960865 assets/unusual_prehistory/models/item/praepusa_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/praepusa_spawn_egg.json
 8d78948154d3aef2b95f3cad96bf495d14459247 assets/unusual_prehistory/models/item/prickly_fossil.json
 76b22cb0b7c1fc4404e9e52264f421cae5df5d6f assets/unusual_prehistory/models/item/prototaxites_fossil.json

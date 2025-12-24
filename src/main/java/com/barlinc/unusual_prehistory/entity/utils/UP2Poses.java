@@ -26,7 +26,8 @@ public enum UP2Poses {
     WARNING,
     KICKING,
     POKING,
-    FORAGING;
+    FORAGING,
+    MITOSIS;
 
     public Pose get() {
         return Pose.valueOf(this.name());

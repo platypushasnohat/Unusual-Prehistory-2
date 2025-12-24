@@ -117,7 +117,10 @@ public class UP2Items {
     public static final RegistryObject<Item> CRANIUM_FOSSIL = registerFossilItem("cranium");
 
     // Praepusa
-    public static final RegistryObject<Item> PRAEPUSA_SPAWN_EGG = registerSpawnEggItem("praepusa", UP2Entities.PRAEPUSA, 0x4e5056, 0x4ea0a9);
+    public static final RegistryObject<Item> PRAEPUSA_SPAWN_EGG = registerSpawnEggItem("praepusa", UP2Entities.PRAEPUSA, 0x444451, 0x4ea0a9);
+    public static final RegistryObject<Item> FLIPPER_FOSSIL = registerFossilItem("flipper");
+    public static final RegistryObject<Item> PRAEPUSA_EMBRYO = registerEmbryoItem("praepusa", UP2Entities.PRAEPUSA);
+    public static final RegistryObject<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
 
     // Psilopterus
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x432f2a, 0xeddbc5);

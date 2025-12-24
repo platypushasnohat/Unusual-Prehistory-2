@@ -96,8 +96,17 @@ public class PraepusaModel extends UP2Model<Praepusa> {
         }
 		this.animateIdle(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animateIdle(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animate(entity.rollStartAnimationState, PraepusaAnimations.ROLL_START, ageInTicks);
+        this.animate(entity.rollAnimationState, PraepusaAnimations.ROLL, ageInTicks);
+        this.animate(entity.rollEndAnimationState, PraepusaAnimations.ROLL_END, ageInTicks);
+        this.animate(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks);
+        this.animate(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks);
+        this.animate(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
+        this.animate(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
+        this.animate(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);
+        if (entity.isInWater()) this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
 	}
 
 	@Override

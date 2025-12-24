@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -52,6 +51,18 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 METRIORHYNCHUS.get(),
                 ONCHOPRISTIS.get(),
                 STETHACANTHUS.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
+        this.tag(UP2EntityTags.PRAEPUSA_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                MEGALANIA.get(),
+                CARNOTAURUS.get(),
+                MAJUNGASAURUS.get(),
+                DROMAEOSAURUS.get(),
                 EntityType.GUARDIAN,
                 EntityType.DROWNED
         );

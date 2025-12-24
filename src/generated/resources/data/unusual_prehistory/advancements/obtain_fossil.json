@@ -121,6 +121,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "flipper_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:flipper_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "fury_fossil": {
       "conditions": {
         "items": [
@@ -431,6 +443,7 @@
       "meltdown_fossil",
       "saw_fossil",
       "cranium_fossil",
+      "flipper_fossil",
       "crooked_beak_fossil",
       "anvil_fossil",
       "mossy_fossil",

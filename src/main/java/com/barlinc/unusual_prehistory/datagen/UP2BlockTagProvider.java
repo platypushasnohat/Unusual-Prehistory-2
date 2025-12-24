@@ -22,8 +22,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(@NotNull Provider pProvider) {
-        // unusual prehistory
+    protected void addTags(@NotNull Provider provider) {
+        // Unusual Prehistory
         this.tag(UP2BlockTags.GINKGO_LOGS).add(
                 GINKGO_LOG.get(),
                 GINKGO_WOOD.get(),
@@ -40,7 +40,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 STRIPPED_LEPIDODENDRON_WOOD.get()
         );
 
-        this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLES).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);
+        this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLE).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);
 
         this.tag(UP2BlockTags.ACCELERATES_EGG_HATCHING).addTag(BlockTags.WOOL).add(
                 Blocks.HAY_BLOCK,
@@ -59,6 +59,27 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.PETRIFIED_TREE_REPLACEABLE).addTag(BlockTags.DIRT).add(
                 Blocks.GRAVEL
+        );
+
+        this.tag(UP2BlockTags.REINFORCED_GLASS).add(
+                REINFORCED_GLASS.get(),
+                TINTED_REINFORCED_GLASS.get(),
+                WHITE_REINFORCED_GLASS.get(),
+                LIGHT_GRAY_REINFORCED_GLASS.get(),
+                GRAY_REINFORCED_GLASS.get(),
+                BLACK_REINFORCED_GLASS.get(),
+                BROWN_REINFORCED_GLASS.get(),
+                RED_REINFORCED_GLASS.get(),
+                ORANGE_REINFORCED_GLASS.get(),
+                YELLOW_REINFORCED_GLASS.get(),
+                LIME_REINFORCED_GLASS.get(),
+                GREEN_REINFORCED_GLASS.get(),
+                CYAN_REINFORCED_GLASS.get(),
+                LIGHT_BLUE_REINFORCED_GLASS.get(),
+                BLUE_REINFORCED_GLASS.get(),
+                PURPLE_REINFORCED_GLASS.get(),
+                MAGENTA_REINFORCED_GLASS.get(),
+                PINK_REINFORCED_GLASS.get()
         );
 
         this.tag(UP2BlockTags.FOSSILIZED_BONE_BLOCKS).add(
@@ -282,47 +303,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
                 ASPHALT.get(),
-                OOZE_CAULDRON.get(),
-                REINFORCED_GLASS.get(),
-                TINTED_REINFORCED_GLASS.get(),
-                WHITE_REINFORCED_GLASS.get(),
-                LIGHT_GRAY_REINFORCED_GLASS.get(),
-                GRAY_REINFORCED_GLASS.get(),
-                BLACK_REINFORCED_GLASS.get(),
-                BROWN_REINFORCED_GLASS.get(),
-                RED_REINFORCED_GLASS.get(),
-                ORANGE_REINFORCED_GLASS.get(),
-                YELLOW_REINFORCED_GLASS.get(),
-                LIME_REINFORCED_GLASS.get(),
-                GREEN_REINFORCED_GLASS.get(),
-                CYAN_REINFORCED_GLASS.get(),
-                LIGHT_BLUE_REINFORCED_GLASS.get(),
-                BLUE_REINFORCED_GLASS.get(),
-                PURPLE_REINFORCED_GLASS.get(),
-                MAGENTA_REINFORCED_GLASS.get(),
-                PINK_REINFORCED_GLASS.get()
-        );
+                OOZE_CAULDRON.get()
+        ).addTag(UP2BlockTags.REINFORCED_GLASS);
 
-        this.tag(BlockTags.IMPERMEABLE).add(
-                REINFORCED_GLASS.get(),
-                TINTED_REINFORCED_GLASS.get(),
-                WHITE_REINFORCED_GLASS.get(),
-                LIGHT_GRAY_REINFORCED_GLASS.get(),
-                GRAY_REINFORCED_GLASS.get(),
-                BLACK_REINFORCED_GLASS.get(),
-                BROWN_REINFORCED_GLASS.get(),
-                RED_REINFORCED_GLASS.get(),
-                ORANGE_REINFORCED_GLASS.get(),
-                YELLOW_REINFORCED_GLASS.get(),
-                LIME_REINFORCED_GLASS.get(),
-                GREEN_REINFORCED_GLASS.get(),
-                CYAN_REINFORCED_GLASS.get(),
-                LIGHT_BLUE_REINFORCED_GLASS.get(),
-                BLUE_REINFORCED_GLASS.get(),
-                PURPLE_REINFORCED_GLASS.get(),
-                MAGENTA_REINFORCED_GLASS.get(),
-                PINK_REINFORCED_GLASS.get()
-        );
+        this.tag(BlockTags.IMPERMEABLE).addTag(UP2BlockTags.REINFORCED_GLASS);
 
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
                 HORSETAIL.get(),

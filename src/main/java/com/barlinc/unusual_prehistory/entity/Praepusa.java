@@ -1,7 +1,9 @@
  package com.barlinc.unusual_prehistory.entity;
 
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -23,7 +25,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -35,6 +36,7 @@
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
@@ -44,10 +46,28 @@
  @SuppressWarnings("deprecation")
  public class Praepusa extends SemiAquaticMob implements Bucketable {
 
+     private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
+
+     private boolean prevOnGround = false;
+     private double prevYVelocity = 0.0D;
 
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
+     public final AnimationState slap1AnimationState = new AnimationState();
+     public final AnimationState slap2AnimationState = new AnimationState();
+     public final AnimationState loafAnimationState = new AnimationState();
+     public final AnimationState applauseAnimationState = new AnimationState();
+     public final AnimationState rollStartAnimationState = new AnimationState();
+     public final AnimationState rollAnimationState = new AnimationState();
+     public final AnimationState rollEndAnimationState = new AnimationState();
+     public final AnimationState mitosisAnimationState = new AnimationState();
+
+     private int mitosisTicks;
+
+     private int slapCooldown = 300 + this.getRandom().nextInt(300);
+     private int loafCooldown = 400 + this.getRandom().nextInt(400);
+     private int applauseCooldown = 900 + this.getRandom().nextInt(900);
 
      public Praepusa(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -58,29 +78,33 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 12.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.23F);
+                 .add(Attributes.MAX_HEALTH, 10.0D)
+                 .add(Attributes.MOVEMENT_SPEED, 0.16F);
      }
 
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
+         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
-         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 60));
+         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500, 800));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
          this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(7, new RandomSitGoal(this));
+         this.goalSelector.addGoal(8, new PraepusaSlapGoal(this));
+         this.goalSelector.addGoal(8, new PraepusaLoafGoal(this));
+         this.goalSelector.addGoal(8, new PraepusaApplauseGoal(this));
      }
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
-             this.moveControl = new MoveControl(this);
+             this.moveControl = new PrehistoricMoveControl(this);
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
+             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
              this.isLandNavigator = false;
          }
      }
@@ -113,75 +137,181 @@
      }
 
      @Override
+     public boolean refuseToMove() {
+         return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.getIdleState() == 3 || this.getPose() == UP2Poses.MITOSIS.get();
+     }
+
+     @Override
      public void tick() {
          super.tick();
          final boolean ground = !this.isInWater();
          if (!ground && this.isLandNavigator) this.switchNavigator(false);
          if (ground && !this.isLandNavigator) this.switchNavigator(true);
+
+         if (this.getMitosisCooldown() > 0) this.setMitosisCooldown(this.getMitosisCooldown() - 1);
+         if (this.getPose() == UP2Poses.MITOSIS.get()) {
+             this.setMitosisCooldown(2400 + this.getRandom().nextInt(1200));
+             if (this.mitosisTicks == 7) {
+                 this.performMitosis();
+                 this.addDeltaMovement(this.getLookAngle().scale(2.0D).multiply(this.level().getRandom().nextFloat() * (this.level().getRandom().nextBoolean() ? -0.25F : 0.25F), 0, this.level().getRandom().nextFloat() * (this.level().getRandom().nextBoolean() ? -0.25F : 0.25F)));
+             }
+         }
+
+//         this.tickBounce();
+     }
+
+     @Override
+     public boolean causeFallDamage(float distance, float multiplier, @NotNull DamageSource source) {
+         return false;
+     }
+
+//     private void tickBounce() {
+//         Vec3 motion = this.getDeltaMovement();
+//         if (!this.onGround()) prevYVelocity = motion.y;
+//         if (!prevOnGround && this.onGround() && prevYVelocity < -0.1D && !this.isInWater()) {
+//             double bounce = -prevYVelocity * 0.8D;
+//             if (bounce < -0.1D) this.setDeltaMovement(motion.x, 0.0D, motion.z);
+//             else this.setDeltaMovement(motion.x, bounce, motion.z);
+//         }
+//         this.prevOnGround = this.onGround();
+//     }
+
+//     @Override
+//     public void move(@NotNull MoverType type, @NotNull Vec3 pos) {
+//         super.move(type, pos);
+//         if (pos.y != this.collide(pos).y) {
+//             this.bounceUp();
+//         }
+//     }
+
+     protected void bounceUp() {
+         Vec3 vec3 = this.getDeltaMovement();
+         if (vec3.y < 0.0D) {
+             this.setDeltaMovement(vec3.x, -vec3.y * 0.8D, vec3.z);
+         }
+     }
+
+     protected void performMitosis() {
+         Praepusa praepusa = UP2Entities.PRAEPUSA.get().create(this.level());
+         if (praepusa != null) {
+             praepusa.moveTo(this.position());
+             praepusa.setPersistenceRequired();
+             praepusa.setMitosisCooldown(2400 + praepusa.getRandom().nextInt(1200));
+             praepusa.addDeltaMovement(praepusa.getLookAngle().scale(2.0D).multiply(praepusa.level().getRandom().nextFloat() * (praepusa.level().getRandom().nextBoolean() ? -0.25F : 0.25F), 0, praepusa.level().getRandom().nextFloat() * (praepusa.level().getRandom().nextBoolean() ? -0.25F : 0.25F)));
+             this.level().addFreshEntity(praepusa);
+         }
      }
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
+         if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3, this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
+
+         if (this.isMobVisuallySitting()) {
+             this.rollEndAnimationState.stop();
+             this.slap1AnimationState.stop();
+             this.slap2AnimationState.stop();
+             this.idleAnimationState.stop();
+             this.applauseAnimationState.stop();
+             this.loafAnimationState.stop();
+
+             if (this.isVisuallySitting()) {
+                 this.rollStartAnimationState.startIfStopped(this.tickCount);
+                 this.rollAnimationState.stop();
+             } else {
+                 this.rollStartAnimationState.stop();
+                 this.rollAnimationState.startIfStopped(this.tickCount);
+             }
+         } else {
+             this.rollStartAnimationState.stop();
+             this.rollAnimationState.stop();
+             this.rollEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+         }
      }
 
      @Override
      public void setupAnimationCooldowns() {
+         if (mitosisTicks > 0) mitosisTicks--;
+         if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
+         if (slapCooldown > 0) slapCooldown--;
+         if (loafCooldown > 0) loafCooldown--;
+         if (applauseCooldown > 0) applauseCooldown--;
      }
 
      @Override
-     public boolean refuseToMove() {
-         return super.refuseToMove();
+     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+         if (DATA_POSE.equals(accessor)) {
+             if (this.getPose() == UP2Poses.MITOSIS.get()) {
+                 this.mitosisAnimationState.start(this.tickCount);
+                 this.mitosisTicks = 40;
+             }
+             else {
+                 this.mitosisAnimationState.stop();
+             }
+         }
+         super.onSyncedDataUpdated(accessor);
+     }
+
+     public void handleEntityEvent(byte id) {
+         switch (id) {
+             case 67 -> {
+                 if (this.getRandom().nextBoolean()) this.slap1AnimationState.start(this.tickCount);
+                 else this.slap2AnimationState.start(this.tickCount);
+             }
+             case 68 -> {
+                 this.slap1AnimationState.stop();
+                 this.slap2AnimationState.stop();
+             }
+
+             case 69 -> this.loafAnimationState.start(this.tickCount);
+             case 70 -> this.loafAnimationState.stop();
+
+             case 71 -> this.applauseAnimationState.start(this.tickCount);
+             case 72 -> this.applauseAnimationState.stop();
+
+             default -> super.handleEntityEvent(id);
+         }
+     }
+
+     protected void slapCooldown() {
+         this.slapCooldown = 500 + this.getRandom().nextInt(500);
+     }
+
+     protected void loafCooldown() {
+         this.loafCooldown = 700 + this.getRandom().nextInt(700);
+     }
+
+     protected void applauseCooldown() {
+         this.applauseCooldown = 1000 + this.getRandom().nextInt(1000);
      }
 
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
+         this.entityData.define(MITOSIS_COOLDOWN, 0);
          this.entityData.define(FROM_BUCKET, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
          compoundTag.putBoolean("FromBucket", this.fromBucket());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
+         this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
          this.setFromBucket(compoundTag.getBoolean("FromBucket"));
      }
 
-     @Override
-     @Nullable
-     protected SoundEvent getAmbientSound() {
-         return UP2SoundEvents.DIPLOCAULUS_IDLE.get();
+     public int getMitosisCooldown() {
+         return this.entityData.get(MITOSIS_COOLDOWN);
      }
-
-     @Override
-     @Nullable
-     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-         return UP2SoundEvents.DIPLOCAULUS_HURT.get();
-     }
-
-     @Override
-     @Nullable
-     protected SoundEvent getDeathSound() {
-         return UP2SoundEvents.DIPLOCAULUS_DEATH.get();
-     }
-
-     @Override
-     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         this.playSound(UP2SoundEvents.DIPLOCAULUS_STEP.get(), 0.15F, 1.0F);
-     }
-
-     @Nullable
-     @Override
-     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-         Praepusa praepusa = UP2Entities.PRAEPUSA.get().create(level);
-         praepusa.setVariant(this.getVariant());
-         return praepusa;
+     public void setMitosisCooldown(int cooldown) {
+         this.entityData.set(MITOSIS_COOLDOWN, cooldown);
      }
 
      @Override
@@ -208,6 +338,7 @@
          CompoundTag compoundTag = bucket.getOrCreateTag();
          compoundTag.putInt("BucketVariantTag", this.getVariant());
          compoundTag.putInt("Age", this.getAge());
+         compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
      }
 
      @Override
@@ -217,19 +348,114 @@
              this.setVariant(compoundTag.getInt("BucketVariantTag"));
          }
          this.setAge(compoundTag.getInt("Age"));
+         this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
      }
 
      @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         if (this.isFood(itemstack) && !this.isBaby() && this.getMitosisCooldown() == 0 && this.getPose() == Pose.STANDING) {
+             this.feedItemToMob(player, hand, itemstack);
+             this.setPose(UP2Poses.MITOSIS.get());
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      @Override
      public @NotNull ItemStack getBucketItemStack() {
-         return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
+         return new ItemStack(UP2Items.PRAEPUSA_BUCKET.get());
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getAmbientSound() {
+         return UP2SoundEvents.PRAEPUSA_IDLE.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+         return UP2SoundEvents.PRAEPUSA_HURT.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getDeathSound() {
+         return UP2SoundEvents.PRAEPUSA_DEATH.get();
+     }
+
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+         return UP2Entities.PRAEPUSA.get().create(level);
      }
 
      public static boolean canSpawn(EntityType<Praepusa> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
          return level.getBlockState(pos.below()).is(UP2BlockTags.PRAEPUSA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+
+     // Goals
+     private static class PraepusaSlapGoal extends AnimationGoal {
+
+         private final Praepusa praepusa;
+
+         public PraepusaSlapGoal(Praepusa praepusa) {
+             super(praepusa, 40, 1, (byte) 67, (byte) 68);
+             this.praepusa = praepusa;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && praepusa.slapCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.praepusa.slapCooldown();
+         }
+     }
+
+     private static class PraepusaLoafGoal extends AnimationGoal {
+
+         private final Praepusa praepusa;
+
+         public PraepusaLoafGoal(Praepusa praepusa) {
+             super(praepusa, 80, 2, (byte) 69, (byte) 70);
+             this.praepusa = praepusa;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && praepusa.loafCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.praepusa.loafCooldown();
+         }
+     }
+
+     private static class PraepusaApplauseGoal extends AnimationGoal {
+
+         private final Praepusa praepusa;
+
+         public PraepusaApplauseGoal(Praepusa praepusa) {
+             super(praepusa, 60, 3, (byte) 71, (byte) 72);
+             this.praepusa = praepusa;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && praepusa.applauseCooldown == 0 && !praepusa.isMobSitting();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.praepusa.applauseCooldown();
+         }
      }
  }

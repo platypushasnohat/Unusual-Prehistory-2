@@ -278,6 +278,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
         this.copy(BlockTags.STONE_BUTTONS, ItemTags.STONE_BUTTONS);
 
+        this.copy(UP2BlockTags.REINFORCED_GLASS, UP2ItemTags.REINFORCED_GLASS);
+
+        this.tag(Tags.Items.GLASS).addTag(UP2ItemTags.REINFORCED_GLASS);
+
         this.tag(ItemTags.SIGNS).add(
                 GINKGO_SIGN.get(),
                 LEPIDODENDRON_SIGN.get()

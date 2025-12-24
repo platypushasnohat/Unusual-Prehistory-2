@@ -348,6 +348,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3F)
         );
 
+        // Praepusa
+        this.sound(UP2SoundEvents.PRAEPUSA_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/hurt2"))
+        );
+        this.sound(UP2SoundEvents.PRAEPUSA_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/death1")).pitch(0.8F)
+        );
+        this.sound(UP2SoundEvents.PRAEPUSA_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle3"))
+        );
+
         // Stethacanthus
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,
                 sound("entity/fish/hurt1"),

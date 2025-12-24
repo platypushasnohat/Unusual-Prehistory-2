@@ -169,6 +169,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "praepusa_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:praepusa_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "psilopterus_egg": {
       "conditions": {
         "items": [
@@ -263,6 +275,7 @@
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",
+      "praepusa_embryo",
       "psilopterus_egg",
       "talpanas_egg",
       "telecrex_egg"

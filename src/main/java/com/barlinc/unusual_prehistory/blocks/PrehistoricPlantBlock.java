@@ -32,7 +32,7 @@ public class PrehistoricPlantBlock extends BushBlock implements BonemealableBloc
 
     @Override
     protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos) {
-        return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
+        return state.is(UP2BlockTags.ANCIENT_PLANT_PLACEABLE);
     }
 
     @Override

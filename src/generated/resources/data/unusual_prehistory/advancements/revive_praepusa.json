@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:cenozoic_root",
+  "criteria": {
+    "revive_praepusa": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:praepusa"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_praepusa.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:praepusa_embryo"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_praepusa"
+    }
+  },
+  "requirements": [
+    [
+      "revive_praepusa"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

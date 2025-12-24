@@ -45,7 +45,7 @@ public class CalamophytonFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private boolean canPlace(WorldGenLevel level, BlockPos pos) {
-        return this.isOpenSpaceAbove(level, pos) && level.getBlockState(pos.below()).is(UP2BlockTags.ANCIENT_PLANT_PLACEABLES);
+        return this.isOpenSpaceAbove(level, pos) && level.getBlockState(pos.below()).is(UP2BlockTags.ANCIENT_PLANT_PLACEABLE);
     }
 
     private boolean isOpenSpaceAbove(WorldGenLevel level, BlockPos pos) {
