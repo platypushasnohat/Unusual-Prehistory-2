@@ -1,8 +1,7 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.goals.metriorhynchus.MetriorhynchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.metriorhynchus.MetriorhynchusBellowGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.MetriorhynchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -62,9 +61,8 @@
 
      private int deathRollTicks;
      private int biteTicks;
-     private int bellowTicks;
 
-     public int bellowCooldown = 300 + this.getRandom().nextInt(60 * 70);
+     public int bellowCooldown = 600 + this.getRandom().nextInt(600);
 
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -208,8 +206,6 @@
          if (deathRollTicks > 0) deathRollTicks--;
          if (biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
          if (deathRollTicks == 0 && this.getPose() == UP2Poses.DEATH_ROLL.get()) this.setPose(Pose.STANDING);
-         if (bellowTicks > 0) bellowTicks--;
-         if (bellowTicks == 0 && this.getPose() == UP2Poses.BELLOWING.get()) this.setPose(Pose.STANDING);
          if (bellowCooldown > 0) bellowCooldown--;
      }
 
@@ -223,7 +219,6 @@
              this.deathRoll1AnimationState.stop();
              this.deathRoll2AnimationState.stop();
          }
-         if (bellowTicks == 0 && this.bellowAnimationState.isStarted()) this.bellowAnimationState.stop();
          this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.DEATH_ROLL.get(), this.tickCount);
      }
@@ -241,19 +236,26 @@
                  else this.deathRoll2AnimationState.start(this.tickCount);
                  this.deathRollTicks = 40;
              }
-             else if (this.getPose() == UP2Poses.BELLOWING.get()) {
-                 this.bellowAnimationState.start(this.tickCount);
-                 this.bellowTicks = 30;
-             }
              else {
                  this.bite1AnimationState.stop();
                  this.bite2AnimationState.stop();
                  this.deathRoll1AnimationState.stop();
                  this.deathRoll2AnimationState.stop();
-                 this.bellowAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
+     }
+
+     public void handleEntityEvent(byte id) {
+         switch (id) {
+             case 67 -> this.bellowAnimationState.start(this.tickCount);
+             case 68 -> this.bellowAnimationState.stop();
+             default -> super.handleEntityEvent(id);
+         }
+     }
+
+     protected void bellowCooldown() {
+         this.bellowCooldown = 600 + this.getRandom().nextInt(600);
      }
 
      @Override
@@ -331,5 +333,33 @@
      @Override
      public boolean removeWhenFarAway(double distanceToPlayer) {
          return !this.requiresCustomPersistence();
+     }
+
+     // Goals
+     private static class MetriorhynchusBellowGoal extends AnimationGoal {
+
+         private final Metriorhynchus metriorhynchus;
+
+         public MetriorhynchusBellowGoal(Metriorhynchus metriorhynchus) {
+             super(metriorhynchus, 40, 1, (byte) 67, (byte) 68, false, false);
+             this.metriorhynchus = metriorhynchus;
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.metriorhynchus.playSound(UP2SoundEvents.METRIORHYNCHUS_BELLOW.get(), 1.5F, 1.0F);
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && metriorhynchus.bellowCooldown == 0 && !metriorhynchus.isMobSitting();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.metriorhynchus.bellowCooldown();
+         }
      }
  }

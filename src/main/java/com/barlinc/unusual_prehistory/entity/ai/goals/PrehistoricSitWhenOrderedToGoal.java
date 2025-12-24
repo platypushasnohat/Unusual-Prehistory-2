@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.TameablePrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -8,9 +8,9 @@ import java.util.EnumSet;
 
 public class PrehistoricSitWhenOrderedToGoal extends Goal {
 
-    protected final TameablePrehistoricMob tamedMob;
+    protected final PrehistoricMob tamedMob;
 
-    public PrehistoricSitWhenOrderedToGoal(TameablePrehistoricMob mob) {
+    public PrehistoricSitWhenOrderedToGoal(PrehistoricMob mob) {
         this.tamedMob = mob;
         this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }

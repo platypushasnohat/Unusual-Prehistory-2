@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
+import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -25,10 +26,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -41,10 +39,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class PrehistoricMob extends Animal {
+public abstract class PrehistoricMob extends TamableAnimal {
 
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<String> BEHAVIOR = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.STRING);
     public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
@@ -57,6 +54,7 @@ public abstract class PrehistoricMob extends Animal {
     private static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
@@ -176,6 +174,8 @@ public abstract class PrehistoricMob extends Animal {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
+        InteractionResult type = super.mobInteract(player, hand);
         if (this.isFood(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
@@ -196,7 +196,26 @@ public abstract class PrehistoricMob extends Animal {
             if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        return InteractionResult.PASS;
+        if (!interactionresult.consumesAction() && !type.consumesAction()) {
+            if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
+                if (this.canOwnerCommand(player)) {
+                    this.setCommand(this.getCommand() + 1);
+                    if (this.getCommand() == 3) {
+                        this.setCommand(0);
+                    }
+                    player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    boolean sit = this.getCommand() == 1;
+                    this.setOrderedToSit(sit);
+                    return InteractionResult.SUCCESS;
+                } else if (this.canOwnerMount(player)) {
+                    if (!level().isClientSide && player.startRiding(this)) {
+                        return InteractionResult.CONSUME;
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return type;
     }
 
     // Entity events
@@ -325,16 +344,12 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
-//    public boolean canLookWhileSitting() {
-//        return true;
-//    }
-
     public long getPoseTime() {
         return (this.level()).getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
     }
 
     public boolean refuseToMove() {
-        return this.isInPoseTransition() || this.isMobSitting();
+        return this.isInPoseTransition() || this.isMobSitting() || this.isInSittingPose();
     }
 
     public boolean isMobSitting() {
@@ -396,12 +411,50 @@ public abstract class PrehistoricMob extends Animal {
         }
     }
 
+    // Taming
+    @Override
+    public boolean isAlliedTo(@NotNull Entity entity) {
+        if (this.isTame() && this.getOwner() != null) {
+            if (entity == this.getOwner()) {
+                return true;
+            }
+            if (entity instanceof TamableAnimal tamableAnimal) {
+                return tamableAnimal.isOwnedBy(this.getOwner());
+            }
+            return this.getOwner().isAlliedTo(entity);
+        }
+        return super.isAlliedTo(entity);
+    }
+
+    public boolean canOwnerMount(Player player) {
+        return false;
+    }
+
+    public boolean canOwnerCommand(Player ownerPlayer) {
+        return false;
+    }
+
+    @Override
+    public boolean isInSittingPose() {
+        return super.isInSittingPose() && !(this.isVehicle() || this.isPassenger());
+    }
+
+    // Riding
+    protected void clampRotation(LivingEntity livingEntity, float clampRange) {
+        livingEntity.setYBodyRot(this.getYRot());
+        float f = Mth.wrapDegrees(livingEntity.getYRot() - this.getYRot());
+        float f1 = Mth.clamp(f, -clampRange, clampRange);
+        livingEntity.yRotO += f1 - f;
+        livingEntity.yBodyRotO += f1 - f;
+        livingEntity.setYRot(livingEntity.getYRot() + f1 - f);
+        livingEntity.setYHeadRot(livingEntity.getYRot());
+    }
+
     // Data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
-        this.entityData.define(BEHAVIOR, Behaviors.IDLE.getName());
         this.entityData.define(LAST_POSE_CHANGE_TICK, 0L);
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(PACIFIED, false);
@@ -414,6 +467,7 @@ public abstract class PrehistoricMob extends Animal {
         this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
         this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
         this.entityData.define(SITTING, false);
+        this.entityData.define(COMMAND, 0);
     }
 
     @Override
@@ -427,6 +481,7 @@ public abstract class PrehistoricMob extends Animal {
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
         compoundTag.putBoolean("SittingDown", this.isSittingDown());
+        compoundTag.putInt("Command", this.getCommand());
     }
 
     @Override
@@ -440,6 +495,7 @@ public abstract class PrehistoricMob extends Animal {
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
         this.setSittingDown(compoundTag.getBoolean("SittingDown"));
+        this.setCommand(compoundTag.getInt("Command"));
     }
 
     public int getAttackState() {
@@ -464,13 +520,6 @@ public abstract class PrehistoricMob extends Animal {
     }
     public int getVariantCount() {
         return 128;
-    }
-
-    public String getBehavior() {
-        return this.entityData.get(BEHAVIOR);
-    }
-    public void setBehavior(String behavior) {
-        this.entityData.set(BEHAVIOR, behavior);
     }
 
     public long getLastPoseChangeTick() {
@@ -550,5 +599,12 @@ public abstract class PrehistoricMob extends Animal {
     }
     public void setSittingDown(boolean sitting) {
         this.entityData.set(SITTING, sitting);
+    }
+
+    public int getCommand() {
+        return this.entityData.get(COMMAND);
+    }
+    public void setCommand(int command) {
+        this.entityData.set(COMMAND, command);
     }
 }

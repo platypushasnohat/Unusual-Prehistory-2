@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UlughbegsaurusModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.UlughbegsaurusRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +19,7 @@ public class UlughbegsaurusRenderer extends MobRenderer<Ulughbegsaurus, Ulughbeg
 
     public UlughbegsaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new UlughbegsaurusModel(context.bakeLayer(UP2ModelLayers.ULUGHBEGSAURUS)), 0.95F);
+        this.addLayer(new UlughbegsaurusRiderLayer(this));
     }
 
     @Override

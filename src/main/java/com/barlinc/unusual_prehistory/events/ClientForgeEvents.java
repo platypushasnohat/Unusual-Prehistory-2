@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2MapIcons;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -77,12 +78,17 @@ public class ClientForgeEvents {
     @SubscribeEvent
     public void computeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         Minecraft minecraft = Minecraft.getInstance();
+        Entity player = Minecraft.getInstance().getCameraEntity();
         float partialTicks = (float) event.getPartialTick();
 
         float lerpedShakeAmount = Mth.clamp(prevShakeAmount + (shakeAmount - prevShakeAmount) * partialTicks, 0, 4.0F);
         if (lerpedShakeAmount > 0) {
             float time = minecraft.cameraEntity == null ? 0.0F : minecraft.cameraEntity.tickCount + minecraft.getPartialTick();
             event.setRoll((float) (lerpedShakeAmount * Math.sin(2.0F * time)));
+        }
+
+        if (player != null && player.isPassenger() && player.getVehicle() instanceof Ulughbegsaurus && event.getCamera().isDetached()) {
+            event.getCamera().move(-event.getCamera().getMaxZoom(2.25F), 0, 0);
         }
     }
 

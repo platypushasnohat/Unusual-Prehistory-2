@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.TameablePrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +18,7 @@ import java.util.EnumSet;
 
 public class PrehistoricFollowOwnerGoal extends Goal {
 
-    protected final TameablePrehistoricMob tamedMob;
+    protected final PrehistoricMob tamedMob;
     protected LivingEntity owner;
     private final LevelReader level;
     private final double speedModifier;
@@ -29,7 +29,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     private float oldWaterCost;
     private final boolean canFly;
 
-    public PrehistoricFollowOwnerGoal(TameablePrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly) {
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly) {
         this.tamedMob = tamedMob;
         this.level = this.tamedMob.level();
         this.speedModifier = speedModifier;

@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.OnchopristisAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -122,7 +121,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
             this.getSteppedOn();
         }
 
-        if (this.isInWater() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
+        if (this.isInWater() && !this.isAggressive() && this.getLastHurtMob() == null) {
             if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
         }
 
@@ -133,7 +132,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
         if (this.isOnchopristisBurrowed() && !this.isInWater()) this.exitBurrowInstantly();
 
         if (this.isInWater()) {
-            if (!this.isLeashed() && this.getBurrowCooldown() == 0 && this.onGround() && !this.isOnchopristisBurrowed() && this.getBehavior().equals(Behaviors.IDLE.getName())) {
+            if (!this.isLeashed() && this.getBurrowCooldown() == 0 && this.onGround() && !this.isOnchopristisBurrowed() && !this.isAggressive() && this.getLastHurtMob() == null) {
                 this.burrow();
             }
             if ((!this.onGround() || this.isOnchopristisBurrowed()) && this.getBurrowCooldown() == 0 && !this.isLeashed()) {

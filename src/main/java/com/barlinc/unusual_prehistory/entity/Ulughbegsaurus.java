@@ -4,7 +4,8 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.UlughbegsaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.base.TameablePrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -18,6 +19,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -26,15 +29,17 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Ulughbegsaurus extends TameablePrehistoricMob {
+public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount {
 
     public int attackCooldown = 0;
 
@@ -50,7 +55,7 @@ public class Ulughbegsaurus extends TameablePrehistoricMob {
 
     private int attackTicks;
 
-    public Ulughbegsaurus(EntityType<? extends Ulughbegsaurus> entityType, Level level) {
+    public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1.1F);
     }
@@ -92,8 +97,113 @@ public class Ulughbegsaurus extends TameablePrehistoricMob {
     }
 
     @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+
+        if (!this.isTame() && itemstack.is(Items.DEBUG_STICK)) {
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            this.tame(player);
+            this.level().broadcastEntityEvent(this, (byte) 9);
+            this.setPacified(true);
+            this.heal(this.getMaxHealth());
+            return InteractionResult.SUCCESS;
+        }
+        return type;
+    }
+
+    // Riding
+    @Override
+    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
+        float f = player.zza < 0.0F ? 0.5F : 1.0F;
+        return this.refuseToMove() ? Vec3.ZERO : new Vec3(player.xxa * 0.35F, 0.0D, player.zza * 0.8F * f);
+    }
+
+    @Override
+    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if (player.zza > 0.0F && this.isMobSitting() && !this.isInPoseTransition()) {
+            this.standUp();
+        }
+        if (player.zza != 0 || player.xxa != 0) {
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.setYHeadRot(player.getYHeadRot());
+            this.setTarget(null);
+        }
+    }
+
+    @Override
+    protected float getRiddenSpeed(@NotNull Player rider) {
+        float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + sprintSpeed;
+    }
+
+    @Override
+    public boolean canSprint() {
+        return true;
+    }
+
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Player) {
+            return (Player) entity;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
+        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity && !this.touchingUnloadedChunk()) {
+            Vec3 seatOffset = new Vec3(0F, 0.28F, 0.1F).yRot((float) Math.toRadians(-this.yBodyRot));
+            passenger.setYBodyRot(this.yBodyRot);
+            passenger.fallDistance = 0.0F;
+            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
+        } else {
+            super.positionRider(passenger, moveFunction);
+        }
+    }
+
+    @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
+        return new Vec3(this.getX(), this.getBoundingBox().minY, this.getZ());
+    }
+
+    @Override
+    public boolean canOwnerCommand(Player ownerPlayer) {
+        return ownerPlayer.isShiftKeyDown();
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player) {
+        return !this.isBaby();
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser, int type) {
+        if (keyPresser.isPassengerOfSameVehicle(this)) {
+            if (type == 3) {
+                if (this.getPose() == Pose.STANDING) {
+                    this.setYHeadRot(keyPresser.getYHeadRot());
+                    this.setXRot(keyPresser.getXRot());
+                    this.setPose(UP2Poses.ATTACKING.get());
+                }
+            }
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
+    }
+
+    @Override
+    public float getWalkAnimationSpeed() {
+        return this.isVehicle() ? 15.0F : super.getWalkAnimationSpeed();
     }
 
     @Override
@@ -215,7 +325,9 @@ public class Ulughbegsaurus extends TameablePrehistoricMob {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
+        int variantCount = this.getVariantCount() - 1;
+        if (level.getRandom().nextFloat() < 0.03F) this.setVariant(16);
+        else this.setVariant(level.getRandom().nextInt(variantCount));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 

@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
@@ -26,14 +25,12 @@ public class LargePanicGoal extends PanicGoal {
     @Override
     public void start() {
         super.start();
-        this.prehistoricMob.setBehavior(Behaviors.PANIC.getName());
         this.prehistoricMob.setRunning(true);
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.prehistoricMob.setBehavior(Behaviors.IDLE.getName());
         this.prehistoricMob.setRunning(false);
     }
 

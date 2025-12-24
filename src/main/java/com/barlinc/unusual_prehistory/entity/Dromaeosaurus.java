@@ -8,7 +8,6 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.Dromaeosauru
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.Behaviors;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -146,7 +145,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     private boolean isEepyTime() {
-        return this.level().isNight() && this.getHealth() > this.getMaxHealth() * 0.5F && !this.isInWater() && this.onGround() && this.getBehavior().equals(Behaviors.IDLE.getName()) && !this.isLeashed();
+        return this.level().isNight() && this.getHealth() > this.getMaxHealth() * 0.5F && !this.isInWater() && this.onGround() && this.getLastHurtByMob() == null && this.getTarget() == null && !this.isLeashed();
     }
 
     @Override

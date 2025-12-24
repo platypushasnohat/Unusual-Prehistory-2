@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.TameablePrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -9,11 +9,11 @@ import java.util.EnumSet;
 
 public class PrehistoricOwnerHurtTargetGoal extends TargetGoal {
 
-   protected final TameablePrehistoricMob tamedMob;
+   protected final PrehistoricMob tamedMob;
    private LivingEntity ownerLastHurt;
    private int timestamp;
 
-   public PrehistoricOwnerHurtTargetGoal(TameablePrehistoricMob tamedMob) {
+   public PrehistoricOwnerHurtTargetGoal(PrehistoricMob tamedMob) {
       super(tamedMob, false);
       this.tamedMob = tamedMob;
       this.setFlags(EnumSet.of(Flag.TARGET));

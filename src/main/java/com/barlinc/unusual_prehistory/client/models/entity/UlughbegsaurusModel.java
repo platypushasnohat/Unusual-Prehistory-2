@@ -3,12 +3,15 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.UlughbegsaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -125,7 +128,7 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 	public void setupAnim(@NotNull Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (!entity.isInWater()) {
-            if (entity.isRunning()) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
+            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 		this.animateIdle(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
@@ -143,6 +146,19 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
         this.neck.xRot += headPitch * ((float) Math.PI / 180F) / 2;
 		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 
 	@Override
 	public @NotNull ModelPart root() {
