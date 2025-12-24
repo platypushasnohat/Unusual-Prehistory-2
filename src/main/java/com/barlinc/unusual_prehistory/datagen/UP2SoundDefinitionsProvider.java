@@ -19,6 +19,21 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
     @Override
     public void registerSounds() {
 
+        // Barinasuchus
+        this.sound(UP2SoundEvents.BARINASUCHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt1"))
+        );
+        this.sound(UP2SoundEvents.BARINASUCHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/death1"))
+        );
+        this.sound(UP2SoundEvents.BARINASUCHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle2"))
+        );
+        this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/bite1"))
+        );
+
         // Carnotaurus
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt1")).pitch(1.2F)
@@ -442,6 +457,22 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.THERIZINOSAURUS_WARN,
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn1")).attenuationDistance(32).pitch(0.85F),
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn2")).attenuationDistance(32).pitch(0.85F)
+        );
+
+        // Ulughbegsaurus
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/hurt1"))
+        );
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle3"))
+        );
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/bite1"))
         );
 
         // Unicorn

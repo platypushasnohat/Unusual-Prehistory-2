@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-23T21:04:37.9604147	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-12-24T10:04:40.8985679	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -78,4 +78,5 @@ ca095d5a860953b60dcde69a2b44186e15c701eb data/unusual_prehistory/tags/blocks/psi
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/telecrex_spawnable_on.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusual_prehistory/tags/blocks/therizinosaurus_foraging_blocks.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/therizinosaurus_spawnable_on.json
+92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/ulughbegsaurus_spawnable_on.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/unicorn_spawnable_on.json

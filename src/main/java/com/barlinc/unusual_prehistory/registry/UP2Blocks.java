@@ -93,7 +93,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
     public static final RegistryObject<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new AlternatesWaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, UP2Entities.TARTUOSTEUS::get, 4));
     public static final RegistryObject<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
-    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
+//    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
     public static final RegistryObject<Block> TARTUOSTEUS_ROE = registerWaterEggBlock("tartuosteus_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.TARTUOSTEUS::get, 1));
 
     public static final RegistryObject<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));

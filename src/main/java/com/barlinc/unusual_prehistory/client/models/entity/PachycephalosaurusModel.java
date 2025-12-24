@@ -119,7 +119,7 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
         this.animate(entity.sitStartAnimationState, PachycephalosaurusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, PachycephalosaurusAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, PachycephalosaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
         this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
         this.animate(entity.attack1AnimationState, PachycephalosaurusAnimations.ATTACK1, ageInTicks);
         this.animate(entity.attack2AnimationState, PachycephalosaurusAnimations.ATTACK2, ageInTicks);

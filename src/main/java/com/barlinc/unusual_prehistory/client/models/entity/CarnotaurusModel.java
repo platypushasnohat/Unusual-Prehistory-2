@@ -185,7 +185,7 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animate(entity.chargeEndAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
 		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
 		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
-        this.animate(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
         this.animate(entity.sitStartAnimationState, CarnotaurusIdleAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, CarnotaurusIdleAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, CarnotaurusIdleAnimations.SIT_END, ageInTicks);

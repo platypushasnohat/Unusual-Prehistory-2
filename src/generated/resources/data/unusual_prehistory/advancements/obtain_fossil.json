@@ -25,6 +25,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "boar_tooth_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:boar_tooth_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "boomerang_fossil": {
       "conditions": {
         "items": [
@@ -97,12 +109,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "fish_fossil": {
+    "dubious_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:fish_fossil"
+              "unusual_prehistory:dubious_fossil"
             ]
           }
         ]
@@ -433,10 +445,10 @@
       "runner_fossil",
       "guillotine_fossil",
       "jawless_fossil",
+      "boar_tooth_fossil",
       "prickly_fossil",
       "imperative_fossil",
       "trunk_mouse_fossil",
-      "fish_fossil",
       "impervious_fossil",
       "rugose_fossil",
       "thermal_fossil",
@@ -449,6 +461,7 @@
       "mossy_fossil",
       "plumage_fossil",
       "scythe_fossil",
+      "dubious_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",
       "cladophebis_fossil",

@@ -11,6 +11,7 @@ public class UP2ModelLayers {
 
     public static final ModelLayerLocation ALLENYPTERUS = main("allenypterus");
     public static final ModelLayerLocation ARANDASPIS = main("arandaspis");
+    public static final ModelLayerLocation BARINASUCHUS = main("barinasuchus");
     public static final ModelLayerLocation CARNOTAURUS = main("carnotaurus");
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
     public static final ModelLayerLocation DESMATOSUCHUS = main("desmatosuchus");
@@ -46,6 +47,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation TARTUOSTEUS = main("tartuosteus");
     public static final ModelLayerLocation TELECREX = main("telecrex");
     public static final ModelLayerLocation THERIZINOSAURUS = main("therizinosaurus");
+    public static final ModelLayerLocation ULUGHBEGSAURUS = main("ulughbegsaurus");
     public static final ModelLayerLocation UNICORN = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");
 

@@ -192,6 +192,7 @@ public class Dromaeosaurus extends PrehistoricMob {
                 this.biteAnimationState.stop();
             }
         }
+        super.onSyncedDataUpdated(accessor);
     }
 
     @Override

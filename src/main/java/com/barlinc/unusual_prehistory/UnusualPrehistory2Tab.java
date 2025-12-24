@@ -94,10 +94,11 @@ public class UnusualPrehistory2Tab {
                         output.accept(RUNNER_FOSSIL.get());
                         output.accept(GUILLOTINE_FOSSIL.get());
                         output.accept(JAWLESS_FOSSIL.get());
+                        output.accept(BOAR_TOOTH_FOSSIL.get());
                         output.accept(PRICKLY_FOSSIL.get());
                         output.accept(IMPERATIVE_FOSSIL.get());
                         output.accept(TRUNK_MOUSE_FOSSIL.get());
-                        output.accept(FISH_FOSSIL.get());
+//                        output.accept(FISH_FOSSIL.get());
                         output.accept(IMPERVIOUS_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
@@ -111,6 +112,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MOSSY_FOSSIL.get());
                         output.accept(PLUMAGE_FOSSIL.get());
                         output.accept(SCYTHE_FOSSIL.get());
+                        output.accept(DUBIOUS_FOSSIL.get());
 
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
@@ -121,7 +123,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
-                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
+//                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());

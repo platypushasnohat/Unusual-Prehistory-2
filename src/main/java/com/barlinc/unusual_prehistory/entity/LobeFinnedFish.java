@@ -160,7 +160,7 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        LobeFinnedFish lobeFinnedFish = UP2Entities.LOBE_FINNED_FISH.get().create(level);
+        JawlessFish lobeFinnedFish = UP2Entities.JAWLESS_FISH.get().create(level);
         lobeFinnedFish.setVariant(this.getVariant());
         return lobeFinnedFish;
     }

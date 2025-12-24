@@ -230,6 +230,14 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.TROPICAL_FISH
         );
 
+        this.tag(UP2EntityTags.ULUGHBEGSAURUS_TARGETS).add(
+                EntityType.COW,
+                EntityType.PIG,
+                EntityType.SHEEP,
+                EntityType.GOAT,
+                EntityType.LLAMA
+        );
+
         this.tag(UP2EntityTags.METRIORHYNCHUS_CANT_DEATH_ROLL).add(
                 METRIORHYNCHUS.get(),
                 EntityType.ENDER_DRAGON,

@@ -1,6 +1,20 @@
 {
   "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
+    "barinasuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:barinasuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "carnotaurus": {
       "conditions": {
         "entity": [
@@ -121,20 +135,6 @@
             "entity": "this",
             "predicate": {
               "type": "unusual_prehistory:leptictidium"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
-    "lobe_finned_fish": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:lobe_finned_fish"
             }
           }
         ]
@@ -308,6 +308,20 @@
         ]
       },
       "trigger": "minecraft:summoned_entity"
+    },
+    "ulughbegsaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:ulughbegsaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
     }
   },
   "display": {
@@ -327,6 +341,9 @@
     }
   },
   "requirements": [
+    [
+      "barinasuchus"
+    ],
     [
       "carnotaurus"
     ],
@@ -353,9 +370,6 @@
     ],
     [
       "leptictidium"
-    ],
-    [
-      "lobe_finned_fish"
     ],
     [
       "lystrosaurus"
@@ -392,6 +406,9 @@
     ],
     [
       "therizinosaurus"
+    ],
+    [
+      "ulughbegsaurus"
     ]
   ],
   "rewards": {

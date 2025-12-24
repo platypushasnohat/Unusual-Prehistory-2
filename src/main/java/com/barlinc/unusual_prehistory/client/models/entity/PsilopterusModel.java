@@ -112,7 +112,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
         this.animate(entity.sitStartAnimationState, PsilopterusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, PsilopterusAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, PsilopterusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
         this.animate(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
         this.animate(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks);

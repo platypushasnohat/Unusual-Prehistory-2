@@ -36,6 +36,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "boar_tooth_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:boar_tooth_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "boomerang_fossil": {
       "conditions": {
         "items": [
@@ -156,24 +168,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "dunkleosteus_sac": {
+    "dubious_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:dunkleosteus_sac"
+              "unusual_prehistory:dubious_fossil"
             ]
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "fish_fossil": {
+    "dunkleosteus_sac": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:fish_fossil"
+              "unusual_prehistory:dunkleosteus_sac"
             ]
           }
         ]
@@ -354,18 +366,6 @@
           {
             "items": [
               "unusual_prehistory:leptictidium_embryo"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "lobe_finned_fish_roe": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:lobe_finned_fish_roe"
             ]
           }
         ]
@@ -694,7 +694,6 @@
       "diplocaulus_eggs",
       "jawless_fish_roe",
       "kimmeridgebrachypteraeschnidium_eggs",
-      "lobe_finned_fish_roe",
       "tartuosteus_roe",
       "dunkleosteus_sac",
       "onchopristis_sac",
@@ -717,10 +716,10 @@
       "runner_fossil",
       "guillotine_fossil",
       "jawless_fossil",
+      "boar_tooth_fossil",
       "prickly_fossil",
       "imperative_fossil",
       "trunk_mouse_fossil",
-      "fish_fossil",
       "impervious_fossil",
       "rugose_fossil",
       "thermal_fossil",
@@ -733,6 +732,7 @@
       "mossy_fossil",
       "plumage_fossil",
       "scythe_fossil",
+      "dubious_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",
       "cladophebis_fossil",

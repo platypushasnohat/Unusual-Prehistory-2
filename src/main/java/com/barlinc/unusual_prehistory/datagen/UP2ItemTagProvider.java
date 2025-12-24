@@ -36,6 +36,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 RUNNER_FOSSIL.get(),
                 GUILLOTINE_FOSSIL.get(),
                 JAWLESS_FOSSIL.get(),
+                BOAR_TOOTH_FOSSIL.get(),
                 PRICKLY_FOSSIL.get(),
                 IMPERATIVE_FOSSIL.get(),
                 RUGOSE_FOSSIL.get(),
@@ -44,7 +45,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 SAW_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
-                FISH_FOSSIL.get(),
+//                FISH_FOSSIL.get(),
                 TRUNK_MOUSE_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 CRANIUM_FOSSIL.get(),
@@ -52,6 +53,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 MOSSY_FOSSIL.get(),
                 SCYTHE_FOSSIL.get(),
                 CROOKED_BEAK_FOSSIL.get(),
+                DUBIOUS_FOSSIL.get(),
 
                 CALAMOPHYTON_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
@@ -72,6 +74,19 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         // Food
+        this.tag(UP2ItemTags.BARINASUCHUS_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
+        );
+
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
                 Items.BEEF,
                 Items.PORKCHOP,
@@ -235,12 +250,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SWEET_BERRIES
         );
 
+        this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
+        );
+
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
                 Items.CAKE
         );
 
         // Pacifying
         this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
+        this.tag(UP2ItemTags.PACIFIES_BARINASUCHUS).addTag(UP2ItemTags.BARINASUCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS).addTag(UP2ItemTags.CARNOTAURUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS).addTag(UP2ItemTags.DROMAEOSAURUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
@@ -249,6 +278,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
         this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(
                 Items.DEBUG_STICK

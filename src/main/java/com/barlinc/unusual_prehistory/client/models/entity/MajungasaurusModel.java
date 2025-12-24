@@ -151,7 +151,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 		if (this.young) this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 		this.animate(entity.attack1AnimationState, MajungasaurusAnimations.ATTACK_BLEND1, ageInTicks);
 		this.animate(entity.attack2AnimationState, MajungasaurusAnimations.ATTACK_BLEND2, ageInTicks);
 		this.animate(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_BLEND, ageInTicks);

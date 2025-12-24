@@ -39,6 +39,9 @@ public class UP2Items {
 
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
+    // Barinasuchus
+    public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x282d1a, 0xb8b44d);
+
     // Carnotaurus
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
     public static final RegistryObject<Item> FURY_FOSSIL = registerFossilItem("fury");
@@ -67,6 +70,9 @@ public class UP2Items {
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.JAWLESS_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(JawlessFish.JawlessFishVariant::byId)));
     public static final RegistryObject<Item> JAWLESS_FOSSIL = registerFossilItem("jawless");
 
+    // Kaprosuchus
+    public static final RegistryObject<Item> BOAR_TOOTH_FOSSIL = registerFossilItem("boar_tooth");
+
     // Kentrosaurus
     public static final RegistryObject<Item> KENTROSAURUS_SPAWN_EGG = registerSpawnEggItem("kentrosaurus", UP2Entities.KENTROSAURUS, 0x5a6637, 0x1d1f18);
     public static final RegistryObject<Item> PRICKLY_FOSSIL = registerFossilItem("prickly");
@@ -88,8 +94,8 @@ public class UP2Items {
     public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));
 
     // Lobe Finned Fish
-    public static final RegistryObject<Item> LOBE_FINNED_FISH_SPAWN_EGG = registerSpawnEggItem("lobe_finned_fish", UP2Entities.LOBE_FINNED_FISH, 0x6d7c88, 0x38537a);
-    public static final RegistryObject<Item> FISH_FOSSIL = registerFossilItem("fish");
+//    public static final RegistryObject<Item> LOBE_FINNED_FISH_SPAWN_EGG = registerSpawnEggItem("lobe_finned_fish", UP2Entities.LOBE_FINNED_FISH, 0x6d7c88, 0x38537a);
+//    public static final RegistryObject<Item> FISH_FOSSIL = registerFossilItem("fish");
 
     // Lystrosaurus
     public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0xaa9c65, 0x675a43);
@@ -117,7 +123,7 @@ public class UP2Items {
     public static final RegistryObject<Item> CRANIUM_FOSSIL = registerFossilItem("cranium");
 
     // Praepusa
-    public static final RegistryObject<Item> PRAEPUSA_SPAWN_EGG = registerSpawnEggItem("praepusa", UP2Entities.PRAEPUSA, 0x444451, 0x4ea0a9);
+    public static final RegistryObject<Item> PRAEPUSA_SPAWN_EGG = registerSpawnEggItem("praepusa", UP2Entities.PRAEPUSA, 0x5e6067, 0xcfcfc8);
     public static final RegistryObject<Item> FLIPPER_FOSSIL = registerFossilItem("flipper");
     public static final RegistryObject<Item> PRAEPUSA_EMBRYO = registerEmbryoItem("praepusa", UP2Entities.PRAEPUSA);
     public static final RegistryObject<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
@@ -149,6 +155,10 @@ public class UP2Items {
     // Therizinosaurus
     public static final RegistryObject<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x141017, 0x514699);
     public static final RegistryObject<Item> SCYTHE_FOSSIL = registerFossilItem("scythe");
+
+    // Ulughbegsaurus
+    public static final RegistryObject<Item> ULUGHBEGSAURUS_SPAWN_EGG = registerSpawnEggItem("ulughbegsaurus", UP2Entities.ULUGHBEGSAURUS, 0x52413c, 0x52afcc);
+    public static final RegistryObject<Item> DUBIOUS_FOSSIL = registerFossilItem("dubious");
 
     // Plant Fossils
     public static final RegistryObject<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");

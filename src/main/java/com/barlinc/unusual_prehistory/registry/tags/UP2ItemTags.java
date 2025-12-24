@@ -15,6 +15,7 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> PERMANENTLY_PACIFIES_MOB = modItemTag("permanently_pacifies_mob");
 
+    public static final TagKey<Item> PACIFIES_BARINASUCHUS = modItemTag("pacifies_barinasuchus");
     public static final TagKey<Item> PACIFIES_CARNOTAURUS = modItemTag("pacifies_carnotaurus");
     public static final TagKey<Item> PACIFIES_DROMAEOSAURUS = modItemTag("pacifies_dromaeosaurus");
     public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");
@@ -23,7 +24,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_METRIORHYNCHUS = modItemTag("pacifies_metriorhynchus");
     public static final TagKey<Item> PACIFIES_ONCHOPRISTIS = modItemTag("pacifies_onchopristis");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
+    public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
 
+    public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
     public static final TagKey<Item> CARNOTAURUS_FOOD = modItemTag("carnotaurus_food");
     public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
     public static final TagKey<Item> DIPLOCAULUS_FOOD = modItemTag("diplocaulus_food");
@@ -47,6 +50,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");
     public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
     public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
+    public static final TagKey<Item> ULUGHBEGSAURUS_FOOD = modItemTag("ulughbegsaurus_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");

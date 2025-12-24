@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-23T21:51:05.6293186	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2025-12-24T10:04:40.8985679	Tags for minecraft:entity_type mod id unusual_prehistory
 08588cd21645876d9e64c6c0a42c180fc10f0ea9 data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
 96e3e2da8f817373438167feeacfaab72f6ac8fb data/unusual_prehistory/tags/entity_types/carnotaurus_ignores.json
 ad7f58637660ff339b91771bb5097d4fa58bec1b data/unusual_prehistory/tags/entity_types/carnotaurus_targets.json
@@ -28,3 +28,4 @@ d9812ed858767fd0f40302ad062bbea00193cae7 data/unusual_prehistory/tags/entity_typ
 2b60d97edb1f323dc88048a5e41aec7a523d8f42 data/unusual_prehistory/tags/entity_types/sweet_berry_bush_immune.json
 9c905ae04539b6ec0a8d2ae51b14f01383bf927c data/unusual_prehistory/tags/entity_types/talpanas_avoids.json
 354f6e901347b12205427792a46b22ffcee1181c data/unusual_prehistory/tags/entity_types/tartuosteus_avoids.json
+7c03c5a59dc00e9adfb783231a33963c026cf1f9 data/unusual_prehistory/tags/entity_types/ulughbegsaurus_targets.json

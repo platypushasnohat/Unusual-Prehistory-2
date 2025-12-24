@@ -1,11 +1,13 @@
 ## Version 1.3.0
+- Added Barinasuchus
 - Added Desmatosuchus
+- Added Leptictidium
 - Added Lystrosaurus
 - Added Pachycephalosaurus
-- Added Lobe Finned Fish
-- Added Leptictidium
+- Added Praepusa
 - Added Psilopterus
 - Added Therizinosaurus
+- Added Ulughbegsaurus
 - Added Prototaxites
 - Added Reinforced Glass
 - Jawless fish and Tartuosteus will now nibble on blocks sometimes

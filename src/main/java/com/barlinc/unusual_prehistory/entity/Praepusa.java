@@ -184,12 +184,12 @@
 //         }
 //     }
 
-     protected void bounceUp() {
-         Vec3 vec3 = this.getDeltaMovement();
-         if (vec3.y < 0.0D) {
-             this.setDeltaMovement(vec3.x, -vec3.y * 0.8D, vec3.z);
-         }
-     }
+//     protected void bounceUp() {
+//         Vec3 vec3 = this.getDeltaMovement();
+//         if (vec3.y < 0.0D) {
+//             this.setDeltaMovement(vec3.x, -vec3.y * 0.8D, vec3.z);
+//         }
+//     }
 
      protected void performMitosis() {
          Praepusa praepusa = UP2Entities.PRAEPUSA.get().create(this.level());

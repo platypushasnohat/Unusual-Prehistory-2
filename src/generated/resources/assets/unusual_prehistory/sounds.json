@@ -1,4 +1,29 @@
 {
+  "barinasuchus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/barinasuchus/bite1"
+    ],
+    "subtitle": "subtitles.barinasuchus_attack"
+  },
+  "barinasuchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/barinasuchus/death1"
+    ],
+    "subtitle": "subtitles.barinasuchus_death"
+  },
+  "barinasuchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/barinasuchus/hurt1"
+    ],
+    "subtitle": "subtitles.barinasuchus_hurt"
+  },
+  "barinasuchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/barinasuchus/idle1",
+      "unusual_prehistory:entity/barinasuchus/idle2"
+    ],
+    "subtitle": "subtitles.barinasuchus_idle"
+  },
   "carnotaurus_bite": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/bite1",
@@ -1157,6 +1182,32 @@
       }
     ],
     "subtitle": "subtitles.transmogrifier_stop"
+  },
+  "ulughbegsaurus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/ulughbegsaurus/bite1"
+    ],
+    "subtitle": "subtitles.ulughbegsaurus_attack"
+  },
+  "ulughbegsaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/ulughbegsaurus/death1"
+    ],
+    "subtitle": "subtitles.ulughbegsaurus_death"
+  },
+  "ulughbegsaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/ulughbegsaurus/hurt1"
+    ],
+    "subtitle": "subtitles.ulughbegsaurus_hurt"
+  },
+  "ulughbegsaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/ulughbegsaurus/idle1",
+      "unusual_prehistory:entity/ulughbegsaurus/idle2",
+      "unusual_prehistory:entity/ulughbegsaurus/idle3"
+    ],
+    "subtitle": "subtitles.ulughbegsaurus_idle"
   },
   "unicorn_death": {
     "sounds": [

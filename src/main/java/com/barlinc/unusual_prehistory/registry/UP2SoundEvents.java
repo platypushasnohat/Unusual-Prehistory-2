@@ -14,6 +14,11 @@ public class UP2SoundEvents {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, UnusualPrehistory2.MOD_ID);
 
     // Mobs
+    public static final RegistryObject<SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
+    public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
+    public static final RegistryObject<SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");
+    public static final RegistryObject<SoundEvent> BARINASUCHUS_ATTACK = registerSoundEvent("barinasuchus_attack");
+
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HURT = registerSoundEvent("carnotaurus_hurt");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_DEATH = registerSoundEvent("carnotaurus_death");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_IDLE = registerSoundEvent("carnotaurus_idle");
@@ -116,6 +121,11 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_WARN = registerSoundEvent("therizinosaurus_warn");
+
+    public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_HURT = registerSoundEvent("ulughbegsaurus_hurt");
+    public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_DEATH = registerSoundEvent("ulughbegsaurus_death");
+    public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_IDLE = registerSoundEvent("ulughbegsaurus_idle");
+    public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_ATTACK = registerSoundEvent("ulughbegsaurus_attack");
 
     public static final RegistryObject<SoundEvent> UNICORN_HURT = registerSoundEvent("unicorn_hurt");
     public static final RegistryObject<SoundEvent> UNICORN_DEATH = registerSoundEvent("unicorn_death");

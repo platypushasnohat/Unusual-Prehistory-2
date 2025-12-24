@@ -191,7 +191,7 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
         this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_BLEND1, ageInTicks);
         this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_BLEND2, ageInTicks);
         this.animate(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.swimmingAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount);
+        this.animate(entity.swimmingAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 

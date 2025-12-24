@@ -140,7 +140,7 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
         }
 
         this.animateIdle(entity.idleAnimationState, DesmatosuchusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
         this.animate(entity.sitStartAnimationState, DesmatosuchusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, DesmatosuchusAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, DesmatosuchusAnimations.SIT_END, ageInTicks);

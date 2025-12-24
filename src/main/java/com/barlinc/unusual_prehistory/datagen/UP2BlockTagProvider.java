@@ -173,6 +173,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.ULUGHBEGSAURUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.UNICORN_SPAWNABLE_ON).add(
                 Blocks.GRASS_BLOCK
         );

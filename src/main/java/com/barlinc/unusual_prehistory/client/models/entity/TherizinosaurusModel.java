@@ -178,7 +178,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 		if (this.young) this.applyStatic(TherizinosaurusAnimations.BABY_TRANSFORM);
 
         this.animateIdle(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount);
-        this.animate(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 		this.animate(entity.attack1AnimationState, TherizinosaurusAttackAnimations.SLASH1, ageInTicks);
 		this.animate(entity.attack2AnimationState, TherizinosaurusAttackAnimations.SLASH2, ageInTicks);
         this.animate(entity.sitStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);

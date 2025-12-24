@@ -17,6 +17,14 @@ public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
     // Prehistoric
+    public static final RegistryObject<EntityType<Barinasuchus>> BARINASUCHUS = ENTITY_TYPE.register(
+            "barinasuchus", () ->
+            EntityType.Builder.of(Barinasuchus::new, MobCategory.CREATURE)
+                    .sized(1.5F, 2.1F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "barinasuchus").toString())
+    );
+
     public static final RegistryObject<EntityType<Carnotaurus>> CARNOTAURUS = ENTITY_TYPE.register(
             "carnotaurus", () ->
             EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
@@ -207,6 +215,14 @@ public class UP2Entities {
                     .sized(2.2F, 4.48F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "therizinosaurus").toString())
+    );
+
+    public static final RegistryObject<EntityType<Ulughbegsaurus>> ULUGHBEGSAURUS = ENTITY_TYPE.register(
+            "ulughbegsaurus", () ->
+            EntityType.Builder.of(Ulughbegsaurus::new, MobCategory.CREATURE)
+                    .sized(1.35F, 2.38F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "ulughbegsaurus").toString())
     );
 
     public static final RegistryObject<EntityType<Unicorn>> UNICORN = ENTITY_TYPE.register(
