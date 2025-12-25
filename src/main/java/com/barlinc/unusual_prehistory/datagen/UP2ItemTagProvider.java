@@ -126,6 +126,19 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SEAGRASS
         );
 
+        this.tag(UP2ItemTags.KAPROSUCHUS_FOOD).add(
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.CHICKEN,
+                Items.MUTTON,
+                Items.RABBIT,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON,
+                Items.COOKED_RABBIT
+        );
+
         this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
                 Items.CACTUS,
                 Items.SWEET_BERRIES

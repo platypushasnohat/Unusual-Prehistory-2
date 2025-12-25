@@ -13,14 +13,17 @@
   },
   "barinasuchus_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/barinasuchus/hurt1"
+      "unusual_prehistory:entity/barinasuchus/hurt1",
+      "unusual_prehistory:entity/barinasuchus/hurt2"
     ],
     "subtitle": "subtitles.barinasuchus_hurt"
   },
   "barinasuchus_idle": {
     "sounds": [
       "unusual_prehistory:entity/barinasuchus/idle1",
-      "unusual_prehistory:entity/barinasuchus/idle2"
+      "unusual_prehistory:entity/barinasuchus/idle2",
+      "unusual_prehistory:entity/barinasuchus/idle3",
+      "unusual_prehistory:entity/barinasuchus/idle4"
     ],
     "subtitle": "subtitles.barinasuchus_idle"
   },
@@ -278,6 +281,27 @@
       "entity/fish/hurt4"
     ],
     "subtitle": "subtitles.jawless_fish_hurt"
+  },
+  "kaprosuchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/kaprosuchus/death1"
+    ],
+    "subtitle": "subtitles.kaprosuchus_death"
+  },
+  "kaprosuchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/kaprosuchus/hurt1",
+      "unusual_prehistory:entity/kaprosuchus/hurt2"
+    ],
+    "subtitle": "subtitles.kaprosuchus_hurt"
+  },
+  "kaprosuchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/kaprosuchus/idle1",
+      "unusual_prehistory:entity/kaprosuchus/idle2",
+      "unusual_prehistory:entity/kaprosuchus/idle3"
+    ],
+    "subtitle": "subtitles.kaprosuchus_idle"
   },
   "kentrosaurus_death": {
     "sounds": [

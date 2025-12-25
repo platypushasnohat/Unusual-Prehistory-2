@@ -48,6 +48,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.DROMAEOSAURUS);
         this.forEntity(UP2Entities.DUNKLEOSTEUS);
         this.forEntity(UP2Entities.JAWLESS_FISH);
+        this.forEntity(UP2Entities.KAPROSUCHUS);
         this.forEntity(UP2Entities.KENTROSAURUS);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
@@ -129,6 +130,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
         this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
         this.sound(UP2SoundEvents.JAWLESS_FISH_FLOP, "Jawless Fish flops");
+
+        this.sound(UP2SoundEvents.KAPROSUCHUS_HURT, "Kaprosuchus hurts");
+        this.sound(UP2SoundEvents.KAPROSUCHUS_DEATH, "Kaprosuchus dies");
+        this.sound(UP2SoundEvents.KAPROSUCHUS_IDLE, "Kaprosuchus hisses");
 
         this.sound(UP2SoundEvents.KENTROSAURUS_HURT, "Kentrosaurus hurts");
         this.sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");

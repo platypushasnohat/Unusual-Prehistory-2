@@ -21,14 +21,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Barinasuchus
         this.sound(UP2SoundEvents.BARINASUCHUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt1"))
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt2"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/death1"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle2"))
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle4"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/bite1"))
@@ -155,6 +158,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop2").volume(0.3F),
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
+        );
+
+        // Kaprosuchus
+        this.sound(UP2SoundEvents.KAPROSUCHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.KAPROSUCHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle3"))
+        );
+        this.sound(UP2SoundEvents.KAPROSUCHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/death1"))
         );
 
         // Kentrosaurus

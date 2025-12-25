@@ -33,6 +33,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> DROMAEOSAURUS_FOOD = modItemTag("dromaeosaurus_food");
     public static final TagKey<Item> DUNKLEOSTEUS_FOOD = modItemTag("dunkleosteus_food");
     public static final TagKey<Item> JAWLESS_FISH_FOOD = modItemTag("jawless_fish_food");
+    public static final TagKey<Item> KAPROSUCHUS_FOOD = modItemTag("kaprosuchus_food");
     public static final TagKey<Item> KENTROSAURUS_FOOD = modItemTag("kentrosaurus_food");
     public static final TagKey<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD = modItemTag("kimmeridgebrachypteraeschnidium_food");
     public static final TagKey<Item> LEPTICTIDIUM_FOOD = modItemTag("leptictidium_food");

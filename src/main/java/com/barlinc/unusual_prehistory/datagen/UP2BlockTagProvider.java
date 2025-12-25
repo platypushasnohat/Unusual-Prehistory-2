@@ -119,6 +119,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.KAPROSUCHUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.GRAVEL,
+                Blocks.SAND
+        );
+
         this.tag(UP2BlockTags.KENTROSAURUS_SPAWNABLE_ON).add(
                 Blocks.GRASS_BLOCK
         );

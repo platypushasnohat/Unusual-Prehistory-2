@@ -1,6 +1,7 @@
 ## Version 1.3.0
 - Added Barinasuchus
 - Added Desmatosuchus
+- Added Kaprosuchus
 - Added Leptictidium
 - Added Lystrosaurus
 - Added Pachycephalosaurus

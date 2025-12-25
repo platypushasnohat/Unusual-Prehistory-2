@@ -73,6 +73,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "jawless_fish").toString())
     );
 
+    public static final RegistryObject<EntityType<Kaprosuchus>> KAPROSUCHUS = ENTITY_TYPE.register(
+            "kaprosuchus", () ->
+            EntityType.Builder.of(Kaprosuchus::new, MobCategory.CREATURE)
+                    .sized(0.9F, 1.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "kaprosuchus").toString())
+    );
+
     public static final RegistryObject<EntityType<Kentrosaurus>> KENTROSAURUS = ENTITY_TYPE.register(
             "kentrosaurus", () ->
             EntityType.Builder.of(Kentrosaurus::new, MobCategory.CREATURE)

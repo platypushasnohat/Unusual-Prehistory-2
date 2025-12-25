@@ -50,6 +50,10 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> JAWLESS_FISH_DEATH = registerSoundEvent("jawless_fish_death");
     public static final RegistryObject<SoundEvent> JAWLESS_FISH_FLOP = registerSoundEvent("jawless_fish_flop");
 
+    public static final RegistryObject<SoundEvent> KAPROSUCHUS_HURT = registerSoundEvent("kaprosuchus_hurt");
+    public static final RegistryObject<SoundEvent> KAPROSUCHUS_DEATH = registerSoundEvent("kaprosuchus_death");
+    public static final RegistryObject<SoundEvent> KAPROSUCHUS_IDLE = registerSoundEvent("kaprosuchus_idle");
+
     public static final RegistryObject<SoundEvent> KENTROSAURUS_HURT = registerSoundEvent("kentrosaurus_hurt");
     public static final RegistryObject<SoundEvent> KENTROSAURUS_DEATH = registerSoundEvent("kentrosaurus_death");
     public static final RegistryObject<SoundEvent> KENTROSAURUS_IDLE = registerSoundEvent("kentrosaurus_idle");
