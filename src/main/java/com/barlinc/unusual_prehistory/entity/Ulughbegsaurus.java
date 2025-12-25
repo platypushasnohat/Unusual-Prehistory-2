@@ -1,13 +1,13 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.UlughbegsaurusAttackGoal;
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyMessage;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -39,7 +41,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount {
+
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
 
     public int attackCooldown = 0;
 
@@ -63,14 +69,19 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-        this.goalSelector.addGoal(2, new UlughbegsaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.ULUGHBEGSAURUS_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+        this.goalSelector.addGoal(3, new UlughbegsaurusAttackGoal(this));
+        this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.1D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(UP2ItemTags.ULUGHBEGSAURUS_FOOD), false));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ULUGHBEGSAURUS_TARGETS)));
+        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new PrehistoricOwnerHurtTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -113,6 +124,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             return InteractionResult.SUCCESS;
         }
         return type;
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        return (pose == UP2Poses.SITTING.get() || (this.getCommand() == 1 && this.isMobSitting()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     // Riding
@@ -159,7 +175,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
         if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity && !this.touchingUnloadedChunk()) {
-            Vec3 seatOffset = new Vec3(0F, 0.28F, 0.1F).yRot((float) Math.toRadians(-this.yBodyRot));
+            Vec3 seatOffset = new Vec3(0F, 0.3F, 0.15F).yRot((float) Math.toRadians(-this.yBodyRot));
             passenger.setYBodyRot(this.yBodyRot);
             passenger.fallDistance = 0.0F;
             moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
@@ -196,14 +212,53 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         }
     }
 
-    @Override
-    public void tick() {
-        super.tick();
+    private void tickPlayerBite() {
+        if (this.attackCooldown == 0) {
+            if (!level().isClientSide) {
+                if (this.getPose() == UP2Poses.ATTACKING.get() && this.hasControllingPassenger()) {
+                    if (attackTicks == 7)
+                        this.level().playSound(null, this, UP2SoundEvents.ULUGHBEGSAURUS_ATTACK.get(), SoundSource.PLAYERS, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                    if (attackTicks <= 6 && attackTicks > 4) {
+                        this.biteNearbyEntities(2.3D);
+                        this.swing(InteractionHand.MAIN_HAND);
+                    }
+                }
+            } else {
+                Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
+                if (player != null && player.isPassengerOfSameVehicle(this)) {
+                    if (UnusualPrehistory2.PROXY.isKeyDown(3) && !(this.getPose() == UP2Poses.ATTACKING.get())) {
+                        UP2Network.sendToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
+                    }
+                }
+            }
+        }
+    }
+
+    private void biteNearbyEntities(double radius) {
+        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, this.getBoundingBox().inflate(radius));
+        if (!nearbyEntities.isEmpty()) {
+            LivingEntity entity = nearbyEntities.get(0);
+            if (!entity.is(this) && !this.isAlliedTo(entity)) {
+                this.doHurtTarget(entity);
+                this.swing(InteractionHand.MAIN_HAND);
+            }
+        }
     }
 
     @Override
-    public float getWalkAnimationSpeed() {
-        return this.isVehicle() ? 15.0F : super.getWalkAnimationSpeed();
+    protected void removePassenger(@NotNull Entity passenger) {
+        super.removePassenger(passenger);
+        if (!this.level().isClientSide) {
+            if (this.getCommand() == 1 && !this.isMobSitting()) {
+                this.sitDown();
+            }
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.tickPlayerBite();
     }
 
     @Override
@@ -224,6 +279,26 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         }
         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+
+        if (this.isMobVisuallySitting()) {
+            this.sitEndAnimationState.stop();
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+            this.idleAnimationState.stop();
+            this.shakeAnimationState.stop();
+
+            if (this.isVisuallySitting()) {
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
+            } else {
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+        }
     }
 
     @Override
@@ -326,7 +401,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         int variantCount = this.getVariantCount() - 1;
-        if (level.getRandom().nextFloat() < 0.03F) this.setVariant(16);
+        if (level.getRandom().nextFloat() < 0.01F) this.setVariant(16);
         else this.setVariant(level.getRandom().nextInt(variantCount));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }

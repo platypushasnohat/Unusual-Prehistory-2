@@ -157,7 +157,7 @@ public class UP2Items {
     public static final RegistryObject<Item> SCYTHE_FOSSIL = registerFossilItem("scythe");
 
     // Ulughbegsaurus
-    public static final RegistryObject<Item> ULUGHBEGSAURUS_SPAWN_EGG = registerSpawnEggItem("ulughbegsaurus", UP2Entities.ULUGHBEGSAURUS, 0x52413c, 0x52afcc);
+    public static final RegistryObject<Item> ULUGHBEGSAURUS_SPAWN_EGG = registerSpawnEggItem("ulughbegsaurus", UP2Entities.ULUGHBEGSAURUS, 0x423534, 0x4198e1);
     public static final RegistryObject<Item> DUBIOUS_FOSSIL = registerFossilItem("dubious");
 
     // Plant Fossils

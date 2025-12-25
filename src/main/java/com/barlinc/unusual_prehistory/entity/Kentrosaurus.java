@@ -49,15 +49,15 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState standUpAnimationState = new AnimationState();
-    public final AnimationState layDownAnimationState = new AnimationState();
-    public final AnimationState layDownIdleAnimationState = new AnimationState();
+    public final AnimationState sitStartAnimationState = new AnimationState();
+    public final AnimationState sitAnimationState = new AnimationState();
+    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
     public final AnimationState stretch1AnimationState = new AnimationState();
     public final AnimationState stretch2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
-    public final AnimationState swimmingAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
 
     private int attackTicks;
 
@@ -162,25 +162,25 @@ public class Kentrosaurus extends PrehistoricMob {
             this.attack2AnimationState.stop();
         }
         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isInWater(), this.tickCount);
-        this.swimmingAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get() && this.isInWater(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.getPose() != UP2Poses.TAIL_WHIPPING.get() && this.isInWater(), this.tickCount);
 
         if (this.isMobVisuallySitting()) {
-            this.standUpAnimationState.stop();
+            this.sitEndAnimationState.stop();
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.grazeAnimationState.stop();
             if (this.isVisuallySitting()) {
-                this.layDownAnimationState.startIfStopped(this.tickCount);
-                this.layDownIdleAnimationState.stop();
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
             } else {
-                this.layDownAnimationState.stop();
-                this.layDownIdleAnimationState.startIfStopped(this.tickCount);
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.layDownAnimationState.stop();
-            this.layDownIdleAnimationState.stop();
-            this.standUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
         }
     }
 

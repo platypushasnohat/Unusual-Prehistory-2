@@ -183,15 +183,15 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
         this.animateIdle(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
 		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks);
 		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks);
-        this.animate(entity.layDownAnimationState, KentrosaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.layDownIdleAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
-		this.animate(entity.standUpAnimationState, KentrosaurusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.sitStartAnimationState, KentrosaurusAnimations.SIT_START, ageInTicks);
+        this.animate(entity.sitAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
+		this.animate(entity.sitEndAnimationState, KentrosaurusAnimations.SIT_END, ageInTicks);
 		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
         this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_BLEND1, ageInTicks);
         this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_BLEND2, ageInTicks);
         this.animate(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.swimmingAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
+        this.animate(entity.swimAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 

@@ -88,7 +88,7 @@ public class ClientForgeEvents {
         }
 
         if (player != null && player.isPassenger() && player.getVehicle() instanceof Ulughbegsaurus && event.getCamera().isDetached()) {
-            event.getCamera().move(-event.getCamera().getMaxZoom(2.25F), 0, 0);
+            event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
         }
     }
 

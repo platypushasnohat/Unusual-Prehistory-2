@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
-import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
