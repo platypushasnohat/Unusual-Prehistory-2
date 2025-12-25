@@ -41,6 +41,7 @@ public class UP2Items {
 
     // Barinasuchus
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x282d1a, 0xb8b44d);
+    public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute");
 
     // Carnotaurus
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);

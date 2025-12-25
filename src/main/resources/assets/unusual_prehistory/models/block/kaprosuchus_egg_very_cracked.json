@@ -1,0 +1,22 @@
+{
+	"texture_size": [64, 64],
+	"textures": {
+		"egg": "unusual_prehistory:block/kaprosuchus_egg_very_cracked",
+		"particle": "unusual_prehistory:block/kaprosuchus_egg_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 12, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 7.5, 10]},
+			"faces": {
+				"north": {"uv": [2, 2, 4, 5], "texture": "#egg"},
+				"east": {"uv": [0, 2, 2, 5], "texture": "#egg"},
+				"south": {"uv": [6, 2, 8, 5], "texture": "#egg"},
+				"west": {"uv": [4, 2, 6, 5], "texture": "#egg"},
+				"up": {"uv": [4, 2, 2, 0], "texture": "#egg"},
+				"down": {"uv": [6, 0, 4, 2], "texture": "#egg"}
+			}
+		}
+	]
+}

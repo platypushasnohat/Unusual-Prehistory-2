@@ -113,12 +113,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MAGENTA_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_MAGENTA).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("magenta_reinforced_glass_from_dye"));
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PINK_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_PINK).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("pink_reinforced_glass_from_dye"));
 
+        transmogrification(consumer, UP2Items.BRUTE_FOSSIL.get(), BARINASUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.FLAT_BACK_FOSSIL.get(), DESMATOSUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), DIPLOCAULUS_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), DUNKLEOSTEUS_SAC.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.JAWLESS_FOSSIL.get(), JAWLESS_FISH_ROE.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.BOAR_TOOTH_FOSSIL.get(), KAPROSUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), KENTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.TRUNK_MOUSE_FOSSIL.get(), UP2Items.LEPTICTIDIUM_EMBRYO.get(), 1200);
@@ -133,6 +135,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.MOSSY_FOSSIL.get(), TARTUOSTEUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
+        transmogrification(consumer, UP2Items.DUBIOUS_FOSSIL.get(), ULUGHBEGSAURUS_EGG.get().asItem(), 2400);
 
         transmogrification(consumer, UP2Items.BENNETTITALES_FOSSIL.get(), BENNETTITALES.get().asItem(), 600);
         transmogrification(consumer, UP2Items.CALAMOPHYTON_FOSSIL.get(), CALAMOPHYTON.get().asItem(), 600);

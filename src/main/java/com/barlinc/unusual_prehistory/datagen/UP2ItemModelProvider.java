@@ -43,6 +43,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(LIVING_OOZE_BUCKET);
 
         // fossils
+        this.item(BRUTE_FOSSIL);
         this.item(FURY_FOSSIL);
         this.item(FLAT_BACK_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
@@ -72,13 +73,16 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         // eggs
         this.item(UP2Blocks.BARINASUCHUS_EGG);
         this.item(UP2Blocks.CARNOTAURUS_EGG);
+        this.item(UP2Blocks.DESMATOSUCHUS_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);
         this.item(UP2Blocks.DUNKLEOSTEUS_SAC);
         this.item(UP2Blocks.JAWLESS_FISH_ROE);
+        this.item(UP2Blocks.KAPROSUCHUS_EGG);
         this.item(UP2Blocks.KENTROSAURUS_EGG);
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
         this.item(LEPTICTIDIUM_EMBRYO);
+//        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
         this.item(UP2Blocks.MAJUNGASAURUS_EGG);
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(METRIORHYNCHUS_EMBRYO);
@@ -87,10 +91,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PSILOPTERUS_EGG);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);
-        this.item(TELECREX_EGG);
-//        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
         this.item(UP2Blocks.TARTUOSTEUS_ROE);
-        this.item(UP2Blocks.DESMATOSUCHUS_EGG);
+        this.item(TELECREX_EGG);
+        this.item(UP2Blocks.ULUGHBEGSAURUS_EGG);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);

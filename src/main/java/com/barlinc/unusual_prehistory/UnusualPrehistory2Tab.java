@@ -88,6 +88,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
 
+                        output.accept(BRUTE_FOSSIL.get());
                         output.accept(FURY_FOSSIL.get());
                         output.accept(FLAT_BACK_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());
@@ -121,6 +122,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
+                        output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
@@ -135,6 +137,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
+                        output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
                         output.accept(BENNETTITALES_FOSSIL.get());
                         output.accept(CALAMOPHYTON_FOSSIL.get());

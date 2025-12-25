@@ -85,6 +85,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "kaprosuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:kaprosuchus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "kentrosaurus_egg": {
       "conditions": {
         "items": [
@@ -240,6 +252,18 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "ulughbegsaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:ulughbegsaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -259,19 +283,21 @@
   },
   "requirements": [
     [
-      "diplocaulus_eggs",
-      "jawless_fish_roe",
-      "kimmeridgebrachypteraeschnidium_eggs",
-      "tartuosteus_roe",
-      "dunkleosteus_sac",
-      "onchopristis_sac",
-      "stethacanthus_sac",
       "barinasuchus_egg",
       "carnotaurus_egg",
+      "desmatosuchus_egg",
+      "diplocaulus_eggs",
+      "dunkleosteus_sac",
+      "jawless_fish_roe",
+      "kaprosuchus_egg",
       "kentrosaurus_egg",
+      "kimmeridgebrachypteraeschnidium_eggs",
       "majungasaurus_egg",
       "megalania_egg",
-      "desmatosuchus_egg",
+      "onchopristis_sac",
+      "stethacanthus_sac",
+      "tartuosteus_roe",
+      "ulughbegsaurus_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",

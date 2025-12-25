@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-25T11:51:25.0724695	Item Models: unusual_prehistory
+// 1.20.1	2025-12-25T14:31:26.1739657	Item Models: unusual_prehistory
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 4b2d994666618f0af82f4c50b9f0113502b62a78 assets/unusual_prehistory/models/item/barinasuchus_egg.json
@@ -6,6 +6,7 @@
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json
 60e95d81f1e16ffc2144dbb94f4e70d72a4d3324 assets/unusual_prehistory/models/item/boar_tooth_fossil.json
 e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/boomerang_fossil.json
+d1fb4be7fb40905a6b54161c4864cf7d0c1c5149 assets/unusual_prehistory/models/item/brute_fossil.json
 08e9a2988b981452e8fa926aefa2528f47b65ed1 assets/unusual_prehistory/models/item/calamophyton_fossil.json
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
@@ -40,6 +41,7 @@ f63d65398445b879f036d13bf25399296f57ad1f assets/unusual_prehistory/models/item/g
 90dd26b9177a7be2d8b34dddb22a13a992a93fd2 assets/unusual_prehistory/models/item/jawless_fish_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/jawless_fish_spawn_egg.json
 73daa6bd9f6109245dc2e9d20c8922859a8f698d assets/unusual_prehistory/models/item/jawless_fossil.json
+abf8287d9e6527e798354af47e95ae15d76dc962 assets/unusual_prehistory/models/item/kaprosuchus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/kaprosuchus_spawn_egg.json
 40fc3b95fc4cb325d9044357cb41ca5ea7b2ac4a assets/unusual_prehistory/models/item/kentrosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/kentrosaurus_spawn_egg.json
@@ -101,5 +103,6 @@ a510bd0560ebfd74a42542df95091591660e9cca assets/unusual_prehistory/models/item/t
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/therizinosaurus_spawn_egg.json
 df5da19eb503e954d2e8aad48d373678b74527ff assets/unusual_prehistory/models/item/thermal_fossil.json
 f084cdf7338944471f771076e5dea4864e33b507 assets/unusual_prehistory/models/item/trunk_mouse_fossil.json
+5c957bce29e335929f3822a551d7fad097278c61 assets/unusual_prehistory/models/item/ulughbegsaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/ulughbegsaurus_spawn_egg.json
 47c95f585a9c2e315356feab91694204d7948f97 assets/unusual_prehistory/models/item/unusual_prehistory.json

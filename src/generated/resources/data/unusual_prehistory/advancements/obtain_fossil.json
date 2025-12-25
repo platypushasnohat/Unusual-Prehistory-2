@@ -49,6 +49,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "brute_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:brute_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "calamophyton_fossil": {
       "conditions": {
         "items": [
@@ -439,6 +451,7 @@
   },
   "requirements": [
     [
+      "brute_fossil",
       "fury_fossil",
       "flat_back_fossil",
       "boomerang_fossil",

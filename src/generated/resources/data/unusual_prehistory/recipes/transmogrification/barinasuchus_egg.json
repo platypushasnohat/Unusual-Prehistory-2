@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:brute_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:barinasuchus_egg"
+  },
+  "processing_time": 2400
+}

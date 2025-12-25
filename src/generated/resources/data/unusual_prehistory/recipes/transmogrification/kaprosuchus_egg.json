@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:boar_tooth_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:kaprosuchus_egg"
+  },
+  "processing_time": 2400
+}
