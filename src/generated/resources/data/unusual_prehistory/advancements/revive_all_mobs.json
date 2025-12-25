@@ -99,6 +99,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "kaprosuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:kaprosuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "kentrosaurus": {
       "conditions": {
         "entity": [
@@ -361,6 +375,9 @@
     ],
     [
       "jawless_fish"
+    ],
+    [
+      "kaprosuchus"
     ],
     [
       "kentrosaurus"

@@ -1,6 +1,18 @@
 {
   "parent": "unusual_prehistory:cenozoic_root",
   "criteria": {
+    "barinasuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:barinasuchus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "carnotaurus_egg": {
       "conditions": {
         "items": [
@@ -254,6 +266,7 @@
       "dunkleosteus_sac",
       "onchopristis_sac",
       "stethacanthus_sac",
+      "barinasuchus_egg",
       "carnotaurus_egg",
       "kentrosaurus_egg",
       "majungasaurus_egg",

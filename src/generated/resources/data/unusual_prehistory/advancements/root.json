@@ -24,6 +24,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "barinasuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:barinasuchus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "bennettitales_fossil": {
       "conditions": {
         "items": [
@@ -698,6 +710,7 @@
       "dunkleosteus_sac",
       "onchopristis_sac",
       "stethacanthus_sac",
+      "barinasuchus_egg",
       "carnotaurus_egg",
       "kentrosaurus_egg",
       "majungasaurus_egg",

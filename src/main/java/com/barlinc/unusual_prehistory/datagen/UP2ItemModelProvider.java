@@ -70,6 +70,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(DUBIOUS_FOSSIL);
 
         // eggs
+        this.item(UP2Blocks.BARINASUCHUS_EGG);
         this.item(UP2Blocks.CARNOTAURUS_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);

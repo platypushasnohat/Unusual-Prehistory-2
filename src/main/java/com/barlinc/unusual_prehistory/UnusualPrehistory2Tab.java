@@ -114,6 +114,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SCYTHE_FOSSIL.get());
                         output.accept(DUBIOUS_FOSSIL.get());
 
+                        output.accept(UP2Blocks.BARINASUCHUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());

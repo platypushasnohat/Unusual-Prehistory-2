@@ -99,6 +99,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(MAGENTA_REINFORCED_GLASS.get());
         this.dropSelf(PINK_REINFORCED_GLASS.get());
 
+        this.dropSelf(BARINASUCHUS_EGG.get());
         this.dropSelf(CARNOTAURUS_EGG.get());
         this.dropSelf(DESMATOSUCHUS_EGG.get());
         this.dropSelf(KENTROSAURUS_EGG.get());

@@ -244,6 +244,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
+        this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");

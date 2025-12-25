@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:cenozoic_root",
+  "criteria": {
+    "revive_barinasuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:barinasuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_barinasuchus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:barinasuchus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_barinasuchus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_barinasuchus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
