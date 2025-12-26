@@ -11,6 +11,8 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.core.particles.BlockParticleOption;
+ import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -36,7 +38,6 @@
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
- import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
@@ -49,8 +50,8 @@
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
 
-     private boolean prevOnGround = false;
-     private double prevYVelocity = 0.0D;
+     private boolean wasOnGroundLastTick = false;
+     private Vec3 prevVelocity = Vec3.ZERO;
 
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
@@ -157,39 +158,15 @@
              }
          }
 
-//         this.tickBounce();
+         if (!this.level().isClientSide && this.isAlive()) {
+             this.bounce();
+         }
      }
 
      @Override
      public boolean causeFallDamage(float distance, float multiplier, @NotNull DamageSource source) {
          return false;
      }
-
-//     private void tickBounce() {
-//         Vec3 motion = this.getDeltaMovement();
-//         if (!this.onGround()) prevYVelocity = motion.y;
-//         if (!prevOnGround && this.onGround() && prevYVelocity < -0.1D && !this.isInWater()) {
-//             double bounce = -prevYVelocity * 0.8D;
-//             if (bounce < -0.1D) this.setDeltaMovement(motion.x, 0.0D, motion.z);
-//             else this.setDeltaMovement(motion.x, bounce, motion.z);
-//         }
-//         this.prevOnGround = this.onGround();
-//     }
-
-//     @Override
-//     public void move(@NotNull MoverType type, @NotNull Vec3 pos) {
-//         super.move(type, pos);
-//         if (pos.y != this.collide(pos).y) {
-//             this.bounceUp();
-//         }
-//     }
-
-//     protected void bounceUp() {
-//         Vec3 vec3 = this.getDeltaMovement();
-//         if (vec3.y < 0.0D) {
-//             this.setDeltaMovement(vec3.x, -vec3.y * 0.8D, vec3.z);
-//         }
-//     }
 
      protected void performMitosis() {
          Praepusa praepusa = UP2Entities.PRAEPUSA.get().create(this.level());
@@ -200,6 +177,29 @@
              praepusa.addDeltaMovement(praepusa.getLookAngle().scale(2.0D).multiply(praepusa.level().getRandom().nextFloat() * (praepusa.level().getRandom().nextBoolean() ? -0.25F : 0.25F), 0, praepusa.level().getRandom().nextFloat() * (praepusa.level().getRandom().nextBoolean() ? -0.25F : 0.25F)));
              this.level().addFreshEntity(praepusa);
          }
+     }
+
+     private void bounce() {
+         Vec3 currentVelocity = this.getDeltaMovement();
+         double impactThreshold = 0.1D;
+         if (this.onGround() && !wasOnGroundLastTick && prevVelocity.y < -impactThreshold) {
+             double impactSpeed = Math.abs(prevVelocity.y);
+             double bounceFactor = 0.7D;
+             double minBounceVelocity = 0.38D;
+             double newYVelocity = impactSpeed * bounceFactor;
+             if (newYVelocity > minBounceVelocity) {
+                 this.setDeltaMovement(this.getDeltaMovement().x, newYVelocity, this.getDeltaMovement().z);
+                 this.setOnGround(false);
+                 this.hasImpulse = true;
+                 BlockPos blockBelow = BlockPos.containing(this.getX(), this.getY() - 0.1, this.getZ());
+                 BlockState blockState = this.level().getBlockState(blockBelow);
+                 if (!blockState.isAir()) {
+                     ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, blockState), this.getX(), this.getY() + 0.1, this.getZ(), 8, 0.15, 0.05, 0.15, 0.05);
+                 }
+             }
+         }
+         this.prevVelocity = currentVelocity;
+         this.wasOnGroundLastTick = this.onGround();
      }
 
      @Override
