@@ -991,6 +991,19 @@
     ],
     "subtitle": "subtitles.praepusa_idle"
   },
+  "praepusa_mitosis": {
+    "sounds": [
+      {
+        "name": "mob/slime/attack1",
+        "pitch": 1.3
+      },
+      {
+        "name": "mob/slime/attack2",
+        "pitch": 1.3
+      }
+    ],
+    "subtitle": "subtitles.praepusa_mitosis"
+  },
   "small_dunkleosteus_bite": {
     "sounds": [
       {

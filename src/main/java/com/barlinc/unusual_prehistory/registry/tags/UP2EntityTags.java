@@ -44,6 +44,8 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");
 
+    public static final TagKey<EntityType<?>> PRAEPUSA_TARGETS = modEntityTag("praepusa_targets");
+
     public static final TagKey<EntityType<?>> SMALL_PSILOPTERUS_TARGETS = modEntityTag("small_psilopterus_targets");
     public static final TagKey<EntityType<?>> MEDIUM_PSILOPTERUS_TARGETS = modEntityTag("medium_psilopterus_targets");
     public static final TagKey<EntityType<?>> LARGE_PSILOPTERUS_TARGETS = modEntityTag("large_psilopterus_targets");

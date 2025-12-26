@@ -217,7 +217,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PRAEPUSA_FOOD).add(
                 Items.COD,
                 Items.SALMON,
-                Items.TROPICAL_FISH,
                 Items.COOKED_COD,
                 Items.COOKED_SALMON
         );
@@ -292,6 +291,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(
+                Items.TROPICAL_FISH
+        );
         this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
         this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(

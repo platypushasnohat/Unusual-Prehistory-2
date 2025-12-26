@@ -23,6 +23,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_MEGALANIA = modItemTag("pacifies_megalania");
     public static final TagKey<Item> PACIFIES_METRIORHYNCHUS = modItemTag("pacifies_metriorhynchus");
     public static final TagKey<Item> PACIFIES_ONCHOPRISTIS = modItemTag("pacifies_onchopristis");
+    public static final TagKey<Item> PACIFIES_PRAEPUSA = modItemTag("pacifies_praepusa");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
     public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
 

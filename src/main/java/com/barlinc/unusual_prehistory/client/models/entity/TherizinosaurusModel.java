@@ -192,6 +192,8 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
         this.animate(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks);
         this.animate(entity.clickAnimationState, TherizinosaurusAnimations.IDLE_CLICK_BLEND, ageInTicks);
+        this.animate(entity.alert1AnimationState, TherizinosaurusAnimations.ALERT_LEFT_BLEND, ageInTicks);
+        this.animate(entity.alert2AnimationState, TherizinosaurusAnimations.ALERT_RIGHT_BLEND, ageInTicks);
 
         this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

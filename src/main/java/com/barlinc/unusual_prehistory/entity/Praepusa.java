@@ -20,6 +20,7 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.sounds.SoundSource;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -50,8 +51,10 @@
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
 
-     private boolean wasOnGroundLastTick = false;
+     private boolean prevOnGround = false;
      private Vec3 prevVelocity = Vec3.ZERO;
+
+     public int attackCooldown = 0;
 
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
@@ -63,8 +66,10 @@
      public final AnimationState rollAnimationState = new AnimationState();
      public final AnimationState rollEndAnimationState = new AnimationState();
      public final AnimationState mitosisAnimationState = new AnimationState();
+     public final AnimationState attackAnimationState = new AnimationState();
 
      private int mitosisTicks;
+     private int attackTicks;
 
      private int slapCooldown = 300 + this.getRandom().nextInt(300);
      private int loafCooldown = 400 + this.getRandom().nextInt(400);
@@ -80,14 +85,16 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.16F);
+                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
+                 .add(Attributes.ATTACK_DAMAGE, 3.0D);
      }
 
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
-         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
+         this.goalSelector.addGoal(2, new PraepusaAttackGoal(this));
+         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
          this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
@@ -98,6 +105,7 @@
          this.goalSelector.addGoal(8, new PraepusaSlapGoal(this));
          this.goalSelector.addGoal(8, new PraepusaLoafGoal(this));
          this.goalSelector.addGoal(8, new PraepusaApplauseGoal(this));
+         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, this::canHuntFish));
      }
 
      protected void switchNavigator(boolean onLand) {
@@ -133,6 +141,16 @@
      }
 
      @Override
+     public boolean canPacify() {
+         return true;
+     }
+
+     @Override
+     public boolean isPacifyItem(ItemStack itemStack) {
+         return itemStack.is(UP2ItemTags.PACIFIES_PRAEPUSA);
+     }
+
+     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.PRAEPUSA_FOOD);
      }
@@ -140,6 +158,16 @@
      @Override
      public boolean refuseToMove() {
          return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.getIdleState() == 3 || this.getPose() == UP2Poses.MITOSIS.get();
+     }
+
+     @Override
+     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+         if (this.getMitosisCooldown() == 0) this.setPose(UP2Poses.MITOSIS.get());
+         return super.killedEntity(level, victim);
+     }
+
+     public boolean canHuntFish(Entity entity) {
+         return this.getMitosisCooldown() == 0 && entity.getType().is(UP2EntityTags.PRAEPUSA_TARGETS);
      }
 
      @Override
@@ -155,12 +183,15 @@
              if (this.mitosisTicks == 7) {
                  this.performMitosis();
                  this.addDeltaMovement(this.getLookAngle().scale(2.0D).multiply(this.level().getRandom().nextFloat() * (this.level().getRandom().nextBoolean() ? -0.25F : 0.25F), 0, this.level().getRandom().nextFloat() * (this.level().getRandom().nextBoolean() ? -0.25F : 0.25F)));
+                 this.level().playSound(null, this.blockPosition(), UP2SoundEvents.PRAEPUSA_MITOSIS.get(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
              }
          }
 
-         if (!this.level().isClientSide && this.isAlive()) {
+         if (!this.level().isClientSide && this.isAlive() && !this.isInWaterOrBubble()) {
              this.bounce();
          }
+
+         if (attackCooldown > 0) attackCooldown--;
      }
 
      @Override
@@ -180,9 +211,8 @@
      }
 
      private void bounce() {
-         Vec3 currentVelocity = this.getDeltaMovement();
          double impactThreshold = 0.1D;
-         if (this.onGround() && !wasOnGroundLastTick && prevVelocity.y < -impactThreshold) {
+         if (this.onGround() && !prevOnGround && prevVelocity.y < -impactThreshold) {
              double impactSpeed = Math.abs(prevVelocity.y);
              double bounceFactor = 0.7D;
              double minBounceVelocity = 0.38D;
@@ -198,13 +228,14 @@
                  }
              }
          }
-         this.prevVelocity = currentVelocity;
-         this.wasOnGroundLastTick = this.onGround();
+         this.prevVelocity = this.getDeltaMovement();
+         this.prevOnGround = this.onGround();
      }
 
      @Override
      public void setupAnimationStates() {
          if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
+         if (this.attackAnimationState.isStarted() && attackTicks == 0) this.attackAnimationState.stop();
          this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3, this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
 
@@ -233,7 +264,9 @@
      @Override
      public void setupAnimationCooldowns() {
          if (mitosisTicks > 0) mitosisTicks--;
+         if (attackTicks > 0) attackTicks--;
          if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
+         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
          if (slapCooldown > 0) slapCooldown--;
          if (loafCooldown > 0) loafCooldown--;
          if (applauseCooldown > 0) applauseCooldown--;
@@ -246,8 +279,13 @@
                  this.mitosisAnimationState.start(this.tickCount);
                  this.mitosisTicks = 40;
              }
+             else if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                 this.attackAnimationState.start(this.tickCount);
+                 this.attackTicks = 10;
+             }
              else {
                  this.mitosisAnimationState.stop();
+                 this.attackAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);

@@ -273,6 +273,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.PIG
         );
 
+        this.tag(UP2EntityTags.PRAEPUSA_TARGETS).add(
+                JAWLESS_FISH.get(),
+                EntityType.COD,
+                EntityType.SALMON,
+                EntityType.TROPICAL_FISH
+        );
+
         this.tag(UP2EntityTags.LARGE_PSILOPTERUS_TARGETS).add(
                 KENTROSAURUS.get(),
                 EntityType.HORSE,

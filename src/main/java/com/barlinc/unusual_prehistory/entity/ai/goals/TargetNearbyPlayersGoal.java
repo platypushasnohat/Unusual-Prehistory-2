@@ -21,11 +21,7 @@ public class TargetNearbyPlayersGoal extends NearestAttackableTargetGoal<Player>
 
     @Override
     public boolean canUse() {
-        if (prehistoricMob.isBaby()) {
-            return false;
-        } else {
-            return super.canUse();
-        }
+        return super.canUse() && !prehistoricMob.isBaby();
     }
 
     @Override
