@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -30,6 +31,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -123,6 +126,15 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             this.heal(this.getMaxHealth());
             return InteractionResult.SUCCESS;
         }
+        if (itemstack.getItem() instanceof DyeItem dyeItem && this.getVariant() != this.getVariantByDye(dyeItem.getDyeColor()) && this.getVariant() != 16) {
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            this.setVariant(this.getVariantByDye(dyeItem.getDyeColor()));
+            this.playSound(SoundEvents.DYE_USE);
+            return InteractionResult.SUCCESS;
+        }
         return type;
     }
 
@@ -190,13 +202,13 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     }
 
     @Override
-    public boolean canOwnerCommand(Player ownerPlayer) {
-        return ownerPlayer.isShiftKeyDown();
+    public boolean canOwnerCommand(Player player) {
+        return player.isShiftKeyDown() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.getVariant() == 16);
     }
 
     @Override
     public boolean canOwnerMount(Player player) {
-        return !this.isBaby();
+        return !this.isBaby() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.getVariant() == 16);
     }
 
     @Override
@@ -324,15 +336,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         return ulughbegsaurus;
     }
 
-    @Override
-    public void travel(@NotNull Vec3 vec3) {
-        if (this.refuseToMove() && this.onGround()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
-            vec3 = vec3.multiply(0.0, 1.0, 0.0);
-        }
-        super.travel(vec3);
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -392,6 +395,28 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             return UlughbegsaurusVariant.values()[id];
         }
     }
+
+    private int getVariantByDye(DyeColor color) {
+        return switch (color) {
+            case WHITE -> UlughbegsaurusVariant.WHITE.getId();
+            case LIGHT_GRAY -> UlughbegsaurusVariant.LIGHT_GRAY.getId();
+            case GRAY -> UlughbegsaurusVariant.GRAY.getId();
+            case BLACK -> UlughbegsaurusVariant.BLACK.getId();
+            case BROWN -> UlughbegsaurusVariant.BROWN.getId();
+            case RED -> UlughbegsaurusVariant.RED.getId();
+            case ORANGE -> UlughbegsaurusVariant.ORANGE.getId();
+            case YELLOW -> UlughbegsaurusVariant.YELLOW.getId();
+            case LIME -> UlughbegsaurusVariant.LIME.getId();
+            case GREEN -> UlughbegsaurusVariant.GREEN.getId();
+            case CYAN -> UlughbegsaurusVariant.CYAN.getId();
+            case LIGHT_BLUE -> UlughbegsaurusVariant.LIGHT_BLUE.getId();
+            case BLUE -> UlughbegsaurusVariant.BLUE.getId();
+            case PURPLE -> UlughbegsaurusVariant.PURPLE.getId();
+            case MAGENTA -> UlughbegsaurusVariant.MAGENTA.getId();
+            case PINK -> UlughbegsaurusVariant.PINK.getId();
+        };
+    }
+
 
     @Override
     public int getVariantCount() {
