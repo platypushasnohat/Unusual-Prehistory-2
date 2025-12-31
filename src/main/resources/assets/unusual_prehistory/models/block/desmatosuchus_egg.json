@@ -1,19 +1,21 @@
 {
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"particle": "unusual_prehistory:block/desmatosuchus_egg_particle",
-		"egg": "unusual_prehistory:block/desmatosuchus_egg"
+		"egg": "unusual_prehistory:block/desmatosuchus_egg",
+		"particle": "unusual_prehistory:block/desmatosuchus_egg_particle"
 	},
 	"elements": [
 		{
 			"from": [4, 0, 4],
-			"to": [12, 15, 12],
+			"to": [12, 13, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 8]},
 			"faces": {
-				"north": {"uv": [4, 4, 8, 11.5], "texture": "#egg"},
-				"east": {"uv": [0, 4, 4, 11.5], "texture": "#egg"},
-				"south": {"uv": [12, 4, 16, 11.5], "texture": "#egg"},
-				"west": {"uv": [8, 4, 12, 11.5], "texture": "#egg"},
+				"north": {"uv": [4, 4, 8, 10.5], "texture": "#egg"},
+				"east": {"uv": [0, 4, 4, 10.5], "texture": "#egg"},
+				"south": {"uv": [12, 4, 16, 10.5], "texture": "#egg"},
+				"west": {"uv": [8, 4, 12, 10.5], "texture": "#egg"},
 				"up": {"uv": [8, 4, 4, 0], "texture": "#egg"},
 				"down": {"uv": [12, 0, 8, 4], "texture": "#egg"}
 			}
