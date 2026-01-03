@@ -124,6 +124,7 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 		this.animate(entity.sitEndAnimationState, BarinasuchusAnimations.SIT_END, ageInTicks);
         this.animate(entity.yawnAnimationState, BarinasuchusAnimations.YAWN_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, BarinasuchusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animate(entity.threatenAnimationState, BarinasuchusAnimations.THREATEN, ageInTicks);
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 

@@ -36,6 +36,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/bite1"))
         );
+        this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN,
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/threaten1")).attenuationDistance(12)
+        );
 
         // Carnotaurus
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT,

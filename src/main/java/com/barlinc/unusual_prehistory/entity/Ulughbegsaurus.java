@@ -75,7 +75,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
         this.goalSelector.addGoal(3, new UlughbegsaurusAttackGoal(this));
-        this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.1D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(UP2ItemTags.ULUGHBEGSAURUS_FOOD), false));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1));
@@ -92,7 +92,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
                 .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     @Override
@@ -177,19 +178,17 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     public LivingEntity getControllingPassenger() {
         Entity entity = this.getFirstPassenger();
-        if (entity instanceof Player) {
-            return (Player) entity;
-        } else {
-            return null;
-        }
+        if (entity instanceof Player player) return player;
+        else return null;
     }
 
     @Override
     public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
-        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity && !this.touchingUnloadedChunk()) {
+        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity livingEntity && !this.touchingUnloadedChunk()) {
             Vec3 seatOffset = new Vec3(0F, 0.3F, 0.15F).yRot((float) Math.toRadians(-this.yBodyRot));
             passenger.setYBodyRot(this.yBodyRot);
             passenger.fallDistance = 0.0F;
+            this.clampRotation(livingEntity, 105);
             moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
         } else {
             super.positionRider(passenger, moveFunction);
@@ -416,7 +415,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             case PINK -> UlughbegsaurusVariant.PINK.getId();
         };
     }
-
 
     @Override
     public int getVariantCount() {

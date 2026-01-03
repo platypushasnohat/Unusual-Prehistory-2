@@ -57,10 +57,13 @@ public class UP2BlockTags {
     public static final TagKey<Block> DIPLOCAULUS_SLIDING_BLOCKS = modBlockTag("diplocaulus_sliding_blocks");
     public static final TagKey<Block> DIPLOCAULUS_BURROWING_BLOCKS = modBlockTag("diplocaulus_burrowing_blocks");
 
+    public static final TagKey<Block> LYSTROSAURUS_DIGGING_BLOCKS = modBlockTag("lystrosaurus_digging_blocks");
+
     public static final TagKey<Block> DESMATOSUCHUS_GRAZING_BLOCKS = modBlockTag("desmatosuchus_grazing_blocks");
     public static final TagKey<Block> JAWLESS_FISH_NIBBLING_BLOCKS = modBlockTag("jawless_fish_nibbling_blocks");
     public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
     public static final TagKey<Block> LOBE_FINNED_FISH_NIBBLING_BLOCKS = modBlockTag("lobe_finned_fish_nibbling_blocks");
+    public static final TagKey<Block> LYSTROSAURUS_GRAZING_BLOCKS = modBlockTag("lystrosaurus_grazing_blocks");
     public static final TagKey<Block> PACHYCEPHALOSAURUS_GRAZING_BLOCKS = modBlockTag("pachycephalosaurus_grazing_blocks");
     public static final TagKey<Block> PSILOPTERUS_DIGGING_BLOCKS = modBlockTag("psilopterus_digging_blocks");
     public static final TagKey<Block> TALPANAS_PECKING_BLOCKS = modBlockTag("talpanas_pecking_blocks");

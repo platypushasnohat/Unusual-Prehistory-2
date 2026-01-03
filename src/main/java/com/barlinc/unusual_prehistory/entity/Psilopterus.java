@@ -72,8 +72,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     private int kickTicks;
     private int pokeTicks;
 
-    private int digCooldown = 900 + this.getRandom().nextInt(900);
-    private int preenCooldown = 700 + this.getRandom().nextInt(800);
+    private int digCooldown = 1500 + this.getRandom().nextInt(1600);
+    private int preenCooldown = 1200 + this.getRandom().nextInt(1400);
 
     public Psilopterus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -343,11 +343,11 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     protected void digCooldown() {
-        this.digCooldown = 900 + this.getRandom().nextInt(900);
+        this.digCooldown = 1500 + this.getRandom().nextInt(1600);
     }
 
     protected void preenCooldown() {
-        this.preenCooldown = 700 + this.getRandom().nextInt(800);
+        this.preenCooldown = 1200 + this.getRandom().nextInt(1400);
     }
 
     @Override

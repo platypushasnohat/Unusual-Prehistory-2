@@ -11,6 +11,7 @@
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
@@ -50,6 +51,12 @@
 
      private int attackTicks;
 
+     private int yawnCooldown = 1100 + this.getRandom().nextInt(1200);
+     private int shakeCooldown = 1400 + this.getRandom().nextInt(1600);
+     private int snapCooldown = 1500 + this.getRandom().nextInt(1700);
+     private int scratchCooldown = 1600 + this.getRandom().nextInt(1700);
+     private int threatenCooldown = 2300 + this.getRandom().nextInt(2400);;
+
      public Barinasuchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
          super(entityType, level);
      }
@@ -74,6 +81,11 @@
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(6, new RandomSitGoal(this));
+         this.goalSelector.addGoal(7, new BarinasuchusYawnGoal(this));
+         this.goalSelector.addGoal(7, new BarinasuchusShakeGoal(this));
+         this.goalSelector.addGoal(7, new BarinasuchusSnapGoal(this));
+         this.goalSelector.addGoal(7, new BarinasuchusScratchGoal(this));
+         this.goalSelector.addGoal(8, new BarinasuchusThreatenGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
      }
 
@@ -120,7 +132,7 @@
 
      @Override
      public boolean refuseToMove() {
-         return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.getIdleState() == 3;
+         return super.refuseToMove() || this.getIdleState() == 4 || this.getIdleState() == 5;
      }
 
      @Override
@@ -134,12 +146,16 @@
              this.attack1AnimationState.stop();
              this.attack2AnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3, this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 5, this.tickCount);
          this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
 
          if (this.isMobVisuallySitting()) {
              this.sitEndAnimationState.stop();
              this.idleAnimationState.stop();
+             this.threatenAnimationState.stop();
+             this.scratch1AnimationState.stop();
+             this.scratch2AnimationState.stop();
+             this.shakeAnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -163,6 +179,11 @@
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
+         if (yawnCooldown > 0) yawnCooldown--;
+         if (shakeCooldown > 0) shakeCooldown--;
+         if (snapCooldown > 0) snapCooldown--;
+         if (scratchCooldown > 0) scratchCooldown--;
+         if (threatenCooldown > 0) threatenCooldown--;
      }
 
      @Override
@@ -183,14 +204,54 @@
 
      public void handleEntityEvent(byte id) {
          switch (id) {
+             case 67 -> this.yawnAnimationState.start(this.tickCount);
+             case 68 -> this.yawnAnimationState.stop();
+
+             case 69 -> this.shakeAnimationState.start(this.tickCount);
+             case 70 -> this.shakeAnimationState.stop();
+
+             case 71 -> this.snapAnimationState.start(this.tickCount);
+             case 72 -> this.snapAnimationState.stop();
+
+             case 73 -> {
+                 if (this.getRandom().nextBoolean()) this.scratch1AnimationState.start(this.tickCount);
+                 else this.scratch2AnimationState.start(this.tickCount);
+             }
+             case 74 -> {
+                 this.scratch1AnimationState.stop();
+                 this.scratch2AnimationState.stop();
+             }
+
+             case 75 -> this.threatenAnimationState.start(this.tickCount);
+             case 76 -> this.threatenAnimationState.stop();
              default -> super.handleEntityEvent(id);
          }
+     }
+
+     protected void yawnCooldown() {
+         this.yawnCooldown = 1100 + this.getRandom().nextInt(1200);
+     }
+
+     protected void shakeCooldown() {
+         this.shakeCooldown = 1400 + this.getRandom().nextInt(1600);
+     }
+
+     protected void snapCooldown() {
+         this.snapCooldown = 1500 + this.getRandom().nextInt(1700);
+     }
+
+     protected void scratchCooldown() {
+         this.scratchCooldown = 1600 + this.getRandom().nextInt(1700);
+     }
+
+     protected void threatenCooldown() {
+         this.threatenCooldown = 2300 + this.getRandom().nextInt(2400);
      }
 
      @Override
      @Nullable
      protected SoundEvent getAmbientSound() {
-         return UP2SoundEvents.BARINASUCHUS_IDLE.get();
+         return this.getIdleState() == 5 ? SoundEvents.EMPTY : UP2SoundEvents.BARINASUCHUS_IDLE.get();
      }
 
      @Override
@@ -213,5 +274,119 @@
 
      public static boolean canSpawn(EntityType<Barinasuchus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
          return level.getBlockState(pos.below()).is(UP2BlockTags.PRAEPUSA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+
+     // Goals
+     private static class BarinasuchusYawnGoal extends AnimationGoal {
+
+         private final Barinasuchus barinasuchus;
+
+         public BarinasuchusYawnGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus, 80, 1, (byte) 67, (byte) 68, false, false);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && barinasuchus.yawnCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.barinasuchus.yawnCooldown();
+         }
+     }
+
+     private static class BarinasuchusShakeGoal extends AnimationGoal {
+
+         private final Barinasuchus barinasuchus;
+
+         public BarinasuchusShakeGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus, 60, 2, (byte) 69, (byte) 70, false);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && barinasuchus.shakeCooldown == 0 && !barinasuchus.isMobSitting();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.barinasuchus.shakeCooldown();
+         }
+     }
+
+     private static class BarinasuchusSnapGoal extends AnimationGoal {
+
+         private final Barinasuchus barinasuchus;
+
+         public BarinasuchusSnapGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus, 60, 3, (byte) 71, (byte) 72, false, false);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && barinasuchus.snapCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.barinasuchus.snapCooldown();
+         }
+     }
+
+     private static class BarinasuchusScratchGoal extends AnimationGoal {
+
+         private final Barinasuchus barinasuchus;
+
+         public BarinasuchusScratchGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus, 30, 4, (byte) 73, (byte) 74);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && barinasuchus.scratchCooldown == 0 && !barinasuchus.isMobSitting();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.barinasuchus.scratchCooldown();
+         }
+     }
+
+     private static class BarinasuchusThreatenGoal extends AnimationGoal {
+
+         private final Barinasuchus barinasuchus;
+
+         public BarinasuchusThreatenGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus, 60, 5, (byte) 75, (byte) 76);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && barinasuchus.threatenCooldown == 0 && !barinasuchus.isMobSitting();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.barinasuchus.threatenCooldown();
+         }
+
+         @Override
+         public void tick() {
+             super.tick();
+             if (timer == 55) {
+                 this.barinasuchus.playSound(UP2SoundEvents.BARINASUCHUS_THREATEN.get(), 1.5F, 0.9F + barinasuchus.getRandom().nextFloat() * 0.25F);
+             }
+         }
      }
  }

@@ -27,6 +27,15 @@
     ],
     "subtitle": "subtitles.barinasuchus_idle"
   },
+  "barinasuchus_threaten": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "unusual_prehistory:entity/barinasuchus/threaten1"
+      }
+    ],
+    "subtitle": "subtitles.barinasuchus_threaten"
+  },
   "carnotaurus_bite": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/bite1",

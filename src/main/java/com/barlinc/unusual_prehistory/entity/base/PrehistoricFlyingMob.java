@@ -109,16 +109,16 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     public void tickFlight() {
-        if (isFlying() && flyProgress < 5F) {
+        if (this.isFlying() && flyProgress < 5F) {
             flyProgress++;
         }
-        if (!isFlying() && flyProgress > 0F) {
+        if (!this.isFlying() && flyProgress > 0F) {
             flyProgress--;
         }
-        if (onGround() && groundProgress < 5F) {
+        if (this.onGround() && groundProgress < 5F) {
             groundProgress++;
         }
-        if (!onGround() && groundProgress > 0F) {
+        if (!this.onGround() && groundProgress > 0F) {
             groundProgress--;
         }
 
@@ -126,7 +126,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             timeFlying++;
             this.setNoGravity(true);
             if (this.isLandNavigator) {
-                switchNavigator(false);
+                this.switchNavigator(false);
             }
             if (groundedFor > 0) {
                 this.setFlying(false);
@@ -135,7 +135,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             timeFlying = 0;
             this.setNoGravity(false);
             if (!this.isLandNavigator) {
-                switchNavigator(true);
+                this.switchNavigator(true);
             }
         }
         if (groundedFor > 0) {
@@ -143,7 +143,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         }
 
         if (!level().isClientSide) {
-            if (isFlying() && this.isAlive() && !this.isVehicle()) {
+            if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
                 }

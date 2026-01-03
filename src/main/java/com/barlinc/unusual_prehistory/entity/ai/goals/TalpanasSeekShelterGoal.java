@@ -53,6 +53,11 @@ public class TalpanasSeekShelterGoal extends Goal {
         this.talpanas.getNavigation().moveTo(wantedX, wantedY, wantedZ, 1.2D);
     }
 
+    @Override
+    public void tick() {
+        this.talpanas.getLookControl().setLookAt(this.wantedX, this.wantedY, this.wantedZ, 30F, 30F);
+    }
+
     @Nullable
     protected Vec3 getHidePos() {
         RandomSource randomsource = talpanas.getRandom();

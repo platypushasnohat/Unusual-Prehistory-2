@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,7 +21,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,7 +32,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -39,6 +45,7 @@ import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.IForgeShearable;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,7 +53,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, VibrationSystem {
+public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     private static final EntityDataAccessor<Boolean> SHAVED = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FORAGING_TREE = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
@@ -87,9 +94,9 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, 
     private int alertTicks;
     private int foragingTicks;
 
-    private int shakeCooldown = 700 + this.getRandom().nextInt(800);
-    private int stretchCooldown = 800 + this.getRandom().nextInt(900);
-    private int clickCooldown = 500 + this.getRandom().nextInt(600);
+    private int shakeCooldown = 1200 + this.getRandom().nextInt(1200);
+    private int stretchCooldown = 1400 + this.getRandom().nextInt(1400);
+    private int clickCooldown = 1000 + this.getRandom().nextInt(1000);
 
     public Therizinosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -110,12 +117,12 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, 
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new RandomSitGoal(this));
-        this.goalSelector.addGoal(8, new TherizinosaurusForageLeavesGoal(this, 1, 16, 8));
+        this.goalSelector.addGoal(8, new TherizinosaurusForageLeavesGoal(this, 1, 12));
         this.goalSelector.addGoal(9, new TherizinosaurusShakeGoal(this));
         this.goalSelector.addGoal(9, new TherizinosaurusStretchGoal(this));
         this.goalSelector.addGoal(9, new TherizinosaurusClickGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(0, new TargetNearbyPlayersGoal(this, 80, 5.0D));
+        this.targetSelector.addGoal(1, new TargetNearbyPlayersGoal(this, 80, 5.0D));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -160,7 +167,7 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, 
         return stack.is(UP2ItemTags.THERIZINOSAURUS_FOOD);
     }
 
-    public boolean isWithinYRange(LivingEntity target) {
+    public boolean isWithinChargeYRange(LivingEntity target) {
         if (target == null) {
             return false;
         }
@@ -312,15 +319,15 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, 
     }
 
     protected void shakeCooldown() {
-        this.shakeCooldown = 700 + this.getRandom().nextInt(800);
+        this.shakeCooldown = 1200 + this.getRandom().nextInt(1200);
     }
 
     protected void stretchCooldown() {
-        this.stretchCooldown = 800 + this.getRandom().nextInt(900);
+        this.stretchCooldown = 1400 + this.getRandom().nextInt(1400);
     }
 
     protected void clickCooldown() {
-        this.clickCooldown = 500 + this.getRandom().nextInt(600);
+        this.clickCooldown = 1000 + this.getRandom().nextInt(1000);
     }
 
     @Override
@@ -329,13 +336,16 @@ public class Therizinosaurus extends PrehistoricMob implements IForgeShearable, 
     }
 
     @Override
-    public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, Level level, BlockPos pos, int fortune) {
-        if (!level.isClientSide && !this.isShaved()) {
-            level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        if (!this.isShaved() && itemstack.is(Tags.Items.SHEARS)) {
+            this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
             this.gameEvent(GameEvent.SHEAR, player);
             this.setShaved(true);
+            return InteractionResult.SUCCESS;
         }
-        return Collections.emptyList();
+        return type;
     }
 
     @Override

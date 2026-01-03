@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class AquaticDigBlockGoal extends Goal {
+public class AquaticNibbleBlockGoal extends Goal {
 
     protected final PrehistoricAquaticMob aquaticMob;
     protected int digTime;
@@ -26,11 +26,11 @@ public class AquaticDigBlockGoal extends Goal {
     protected TagKey<Block> foodBlocks;
     protected final double speedModifier;
 
-    public AquaticDigBlockGoal(PrehistoricAquaticMob aquaticMob, TagKey<Block> foodBlocks) {
+    public AquaticNibbleBlockGoal(PrehistoricAquaticMob aquaticMob, TagKey<Block> foodBlocks) {
         this(aquaticMob, 20, 600, foodBlocks, 1.1D);
     }
 
-    public AquaticDigBlockGoal(PrehistoricAquaticMob aquaticMob, int digTime, int cooldown, TagKey<Block> foodBlocks, double speedModifier) {
+    public AquaticNibbleBlockGoal(PrehistoricAquaticMob aquaticMob, int digTime, int cooldown, TagKey<Block> foodBlocks, double speedModifier) {
         this.foodBlocks = foodBlocks;
         this.aquaticMob = aquaticMob;
         this.digTime = digTime;

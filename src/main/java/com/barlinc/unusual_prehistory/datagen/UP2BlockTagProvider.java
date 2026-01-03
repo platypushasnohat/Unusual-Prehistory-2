@@ -223,6 +223,17 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRAVEL
         );
 
+        this.tag(UP2BlockTags.LYSTROSAURUS_DIGGING_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.GRASS_BLOCK,
+                Blocks.DIRT,
+                Blocks.COARSE_DIRT,
+                Blocks.SNOW_BLOCK,
+                Blocks.SAND,
+                Blocks.ROOTED_DIRT,
+                Blocks.PACKED_MUD
+        );
+
         this.tag(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,
@@ -253,7 +264,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.MOSS_CARPET
         ).addTag(Tags.Blocks.COBBLESTONE_MOSSY);
 
+        this.tag(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS).add(
+                MOSSY_DIRT.get(),
                 Blocks.GRASS_BLOCK
         );
 

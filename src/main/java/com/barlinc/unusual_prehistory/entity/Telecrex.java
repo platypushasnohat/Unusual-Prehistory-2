@@ -119,7 +119,7 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() != null){
+        if (hurt && source.getEntity() != null && this.isAlive()) {
             double range = 8;
             this.setFlying(true);
             this.setRunning(true);

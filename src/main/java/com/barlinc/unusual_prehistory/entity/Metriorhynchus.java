@@ -62,7 +62,7 @@
      private int deathRollTicks;
      private int biteTicks;
 
-     public int bellowCooldown = 600 + this.getRandom().nextInt(600);
+     public int bellowCooldown = 2000 + this.getRandom().nextInt(2000);
 
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -255,7 +255,7 @@
      }
 
      protected void bellowCooldown() {
-         this.bellowCooldown = 600 + this.getRandom().nextInt(600);
+         this.bellowCooldown = 2000 + this.getRandom().nextInt(2000);
      }
 
      @Override

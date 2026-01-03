@@ -18,6 +18,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_ATTACK = registerSoundEvent("barinasuchus_attack");
+    public static final RegistryObject<SoundEvent> BARINASUCHUS_THREATEN = registerSoundEvent("barinasuchus_threaten");
 
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HURT = registerSoundEvent("carnotaurus_hurt");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_DEATH = registerSoundEvent("carnotaurus_death");

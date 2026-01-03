@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
@@ -15,11 +16,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,28 +32,31 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.IForgeShearable;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
+public class Desmatosuchus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Boolean> MOSSY = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.8F);
+
+    public static final ResourceLocation MOSS_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing");
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
@@ -156,21 +163,22 @@ public class Desmatosuchus extends PrehistoricMob implements IForgeShearable {
         return true;
     }
 
-    // todo: change to loot table
     @Override
-    public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, Level level, BlockPos pos, int fortune) {
-        if (!level.isClientSide && this.isMossy()) {
-            level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        if (this.isMossy() && itemstack.is(Tags.Items.SHEARS)) {
+            this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
             this.gameEvent(GameEvent.SHEAR, player);
             this.setMossy(false);
-            int amount = 1 + this.random.nextInt(3);
-            List<ItemStack> items = new ArrayList<>();
-            for (int i = 0; i < amount; i++) {
-                items.add(new ItemStack(Items.MOSS_CARPET));
+            if (!this.level().isClientSide) {
+                LootTable loottable = this.level().getServer().getLootData().getLootTable(MOSS_LOOT);
+                List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
+                items.forEach(this::spawnAtLocation);
             }
-            return items;
+            return InteractionResult.SUCCESS;
         }
-        return Collections.emptyList();
+        return type;
     }
 
     @Override

@@ -154,6 +154,9 @@ public class Pachycephalosaurus extends PrehistoricMob {
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (warnTicks > 0) warnTicks--;
         if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) this.setPose(Pose.STANDING);
+        if (huffCooldown > 0) huffCooldown--;
+        if (stompCooldown > 0) stompCooldown--;
+        if (grazeCooldown > 0) grazeCooldown--;
     }
 
     @Override

@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-25T10:56:25.5963175	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2025-12-25T22:51:06.8896929	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -59,10 +59,12 @@ d033385a638abbeacea8d8e59f7610e1ab169130 data/unusual_prehistory/tags/blocks/gua
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/blocks/lepidodendron_logs.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/leptictidium_spawnable_on.json
 09751eadbc6764f9f1e8845e44b74c4f22790fe3 data/unusual_prehistory/tags/blocks/lobe_finned_fish_nibbling_blocks.json
+04f110648f9be8a35768dd2578f6cb1331ba2d28 data/unusual_prehistory/tags/blocks/lystrosaurus_digging_blocks.json
+c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/blocks/lystrosaurus_grazing_blocks.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/lystrosaurus_spawnable_on.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/majungasaurus_spawnable_on.json
 60f09cf927f2c5acd109b39ba3805c1f922d6142 data/unusual_prehistory/tags/blocks/megalania_spawnable_on.json
-92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/pachycephalosaurus_grazing_blocks.json
+c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/blocks/pachycephalosaurus_grazing_blocks.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/blocks/pachycephalosaurus_spawnable_on.json
 4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/blocks/petrified_tree_replaceable.json
 24f677d61a08d0a549c729adb4fa26457ff4b62e data/unusual_prehistory/tags/blocks/petrified_wood.json
