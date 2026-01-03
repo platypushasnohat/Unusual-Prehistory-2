@@ -144,7 +144,7 @@
 
      @Override
      public float getStepHeight() {
-         return 3.4F;
+         return 3.6F;
      }
 
      @Override
@@ -159,7 +159,7 @@
 
      @Override
      public boolean canBeCollidedWith() {
-         return true;
+         return !this.isAggressive();
      }
 
      @Override
