@@ -37,7 +37,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     public float onLandProgress;
 
     public final AnimationState swimIdleAnimationState = new AnimationState();
-    public final AnimationState floppingAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     protected PrehistoricAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -97,7 +97,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     @Override
     public void setupAnimationStates() {
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.floppingAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     public float flopChance() {

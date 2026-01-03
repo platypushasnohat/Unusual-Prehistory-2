@@ -43,9 +43,17 @@ public class UP2Items {
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x282d1a, 0xb8b44d);
     public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute");
 
+    // Brachiosaurus
+    public static final RegistryObject<Item> BRACHIOSAURUS_SPAWN_EGG = registerSpawnEggItem("brachiosaurus", UP2Entities.BRACHIOSAURUS, 0x285685, 0x141d26);
+    public static final RegistryObject<Item> ARM_FOSSIL = registerFossilItem("arm");
+
     // Carnotaurus
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
     public static final RegistryObject<Item> FURY_FOSSIL = registerFossilItem("fury");
+
+    // Coelacanthus
+    public static final RegistryObject<Item> COELACANTHUS_SPAWN_EGG = registerSpawnEggItem("coelacanthus", UP2Entities.COELACANTHUS, 0xea7a12, 0xa52d14);
+    public static final RegistryObject<Item> GLUTTONOUS_FOSSIL = registerFossilItem("gluttonous");
 
     // Desmatosuchus
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);

@@ -88,7 +88,7 @@ public class DunkleosteusSmallModel extends UP2Model<Dunkleosteus> {
 
         this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         this.animateIdle(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.floppingAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
+        this.animate(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
         this.animate(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
         this.animate(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks);
 

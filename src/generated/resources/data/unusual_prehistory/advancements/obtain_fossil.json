@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "arm_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:arm_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "bennettitales_fossil": {
       "conditions": {
         "items": [
@@ -175,6 +187,18 @@
           {
             "items": [
               "unusual_prehistory:ginkgo_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gluttonous_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:gluttonous_fossil"
             ]
           }
         ]
@@ -452,7 +476,9 @@
   "requirements": [
     [
       "brute_fossil",
+      "arm_fossil",
       "fury_fossil",
+      "gluttonous_fossil",
       "flat_back_fossil",
       "boomerang_fossil",
       "runner_fossil",

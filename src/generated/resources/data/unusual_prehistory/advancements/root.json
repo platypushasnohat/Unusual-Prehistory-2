@@ -24,6 +24,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "arm_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:arm_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "barinasuchus_egg": {
       "conditions": {
         "items": [
@@ -114,6 +126,18 @@
           {
             "items": [
               "unusual_prehistory:cladophebis_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "coelacanthus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:coelacanthus_roe"
             ]
           }
         ]
@@ -258,6 +282,18 @@
           {
             "items": [
               "unusual_prehistory:ginkgo_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gluttonous_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:gluttonous_fossil"
             ]
           }
         ]
@@ -492,6 +528,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "pachycephalosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:pachycephalosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "plumage_fossil": {
       "conditions": {
         "items": [
@@ -684,6 +732,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "therizinosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:therizinosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "thermal_fossil": {
       "conditions": {
         "items": [
@@ -741,6 +801,7 @@
     [
       "barinasuchus_egg",
       "carnotaurus_egg",
+      "coelacanthus_roe",
       "desmatosuchus_egg",
       "diplocaulus_eggs",
       "dunkleosteus_sac",
@@ -751,8 +812,10 @@
       "majungasaurus_egg",
       "megalania_egg",
       "onchopristis_sac",
+      "pachycephalosaurus_egg",
       "stethacanthus_sac",
       "tartuosteus_roe",
+      "therizinosaurus_egg",
       "ulughbegsaurus_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
@@ -762,7 +825,9 @@
       "talpanas_egg",
       "telecrex_egg",
       "brute_fossil",
+      "arm_fossil",
       "fury_fossil",
+      "gluttonous_fossil",
       "flat_back_fossil",
       "boomerang_fossil",
       "runner_fossil",

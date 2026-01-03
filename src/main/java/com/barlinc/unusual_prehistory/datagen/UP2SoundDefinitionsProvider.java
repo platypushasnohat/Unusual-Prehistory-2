@@ -37,7 +37,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/bite1"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/threaten1")).attenuationDistance(12)
+                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/threaten1")).attenuationDistance(32)
+        );
+
+        // Brachiosaurus
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle1")).attenuationDistance(20),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle2")).attenuationDistance(20),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle3")).attenuationDistance(20)
+        );
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_STOMP,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/stomp1")).attenuationDistance(32)
         );
 
         // Carnotaurus

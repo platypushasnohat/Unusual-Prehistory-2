@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:cretaceous_root",
+  "criteria": {
+    "revive_pachycephalosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:pachycephalosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_pachycephalosaurus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:pachycephalosaurus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_pachycephalosaurus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_pachycephalosaurus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

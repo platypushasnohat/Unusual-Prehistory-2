@@ -115,6 +115,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         transmogrification(consumer, UP2Items.BRUTE_FOSSIL.get(), BARINASUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.GLUTTONOUS_FOSSIL.get(), COELACANTHUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.FLAT_BACK_FOSSIL.get(), DESMATOSUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), DIPLOCAULUS_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
@@ -129,12 +130,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);
         transmogrification(consumer, UP2Items.SAW_FOSSIL.get(), ONCHOPRISTIS_SAC.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.CRANIUM_FOSSIL.get(), PACHYCEPHALOSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.FLIPPER_FOSSIL.get(), UP2Items.PRAEPUSA_EMBRYO.get(), 1200);
         transmogrification(consumer, UP2Items.CROOKED_BEAK_FOSSIL.get(), UP2Items.PSILOPTERUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), STETHACANTHUS_SAC.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.MOSSY_FOSSIL.get(), TARTUOSTEUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
+        transmogrification(consumer, UP2Items.SCYTHE_FOSSIL.get(), THERIZINOSAURUS_EGG.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.DUBIOUS_FOSSIL.get(), ULUGHBEGSAURUS_EGG.get().asItem(), 2400);
 
         transmogrification(consumer, UP2Items.BENNETTITALES_FOSSIL.get(), BENNETTITALES.get().asItem(), 600);

@@ -99,6 +99,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         // Spawnable blocks
+        this.tag(UP2BlockTags.BARINASUCHUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.CARNOTAURUS_SPAWNABLE_ON).add(
                 Blocks.COARSE_DIRT,
                 Blocks.RED_SAND,

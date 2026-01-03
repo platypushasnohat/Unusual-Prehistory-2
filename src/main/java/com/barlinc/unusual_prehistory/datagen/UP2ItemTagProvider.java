@@ -32,7 +32,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.FOSSILS).add(
                 BRUTE_FOSSIL.get(),
+                ARM_FOSSIL.get(),
                 FURY_FOSSIL.get(),
+                GLUTTONOUS_FOSSIL.get(),
                 BOOMERANG_FOSSIL.get(),
                 RUNNER_FOSSIL.get(),
                 GUILLOTINE_FOSSIL.get(),
@@ -86,6 +88,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_CHICKEN,
                 Items.COOKED_MUTTON,
                 Items.COOKED_RABBIT
+        );
+
+        this.tag(UP2ItemTags.BRACHIOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
+                Blocks.KELP.asItem(),
+                Blocks.SEAGRASS.asItem()
         );
 
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(

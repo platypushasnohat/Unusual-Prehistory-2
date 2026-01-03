@@ -90,7 +90,7 @@ public class GooloogongiaModel extends UP2Model<LobeFinnedFish> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(LobeFinnedFishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdle(entity.swimIdleAnimationState, LobeFinnedFishAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 3);
-		this.animate(entity.floppingAnimationState, LobeFinnedFishAnimations.FLOP, ageInTicks);
+		this.animate(entity.flopAnimationState, LobeFinnedFishAnimations.FLOP, ageInTicks);
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 

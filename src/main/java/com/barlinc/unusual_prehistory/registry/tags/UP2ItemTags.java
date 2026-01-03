@@ -28,6 +28,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
 
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
+    public static final TagKey<Item> BRACHIOSAURUS_FOOD = modItemTag("brachiosaurus_food");
     public static final TagKey<Item> CARNOTAURUS_FOOD = modItemTag("carnotaurus_food");
     public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
     public static final TagKey<Item> DIPLOCAULUS_FOOD = modItemTag("diplocaulus_food");

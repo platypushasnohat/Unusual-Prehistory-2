@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:paleozoic_root",
+  "criteria": {
+    "revive_coelacanthus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:coelacanthus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_coelacanthus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:coelacanthus_roe"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_coelacanthus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_coelacanthus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

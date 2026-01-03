@@ -37,7 +37,7 @@ public class StethacanthusAttackGoal extends AttackGoal {
             }
             if (stethacanthus.getAttackState() == 1) {
                 timer++;
-                if (timer == 1) stethacanthus.setPose(UP2Poses.BITING.get());
+                if (timer == 1) stethacanthus.setPose(UP2Poses.ATTACKING.get());
                 if (timer == 5) stethacanthus.playSound(UP2SoundEvents.STETHACANTHUS_BITE.get(), 0.7F, stethacanthus.getVoicePitch());
                 if (timer == 6) {
                     if (stethacanthus.distanceTo(target) < this.getAttackReachSqr(target)) {

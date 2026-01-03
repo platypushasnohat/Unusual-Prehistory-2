@@ -101,6 +101,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.dropSelf(BARINASUCHUS_EGG.get());
         this.dropSelf(CARNOTAURUS_EGG.get());
+        this.dropSelf(COELACANTHUS_ROE.get());
         this.dropSelf(DESMATOSUCHUS_EGG.get());
         this.dropSelf(DIPLOCAULUS_EGGS.get());
         this.dropSelf(DUNKLEOSTEUS_SAC.get());
@@ -112,8 +113,10 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(MAJUNGASAURUS_EGG.get());
         this.dropSelf(MEGALANIA_EGG.get());
         this.dropSelf(ONCHOPRISTIS_SAC.get());
+        this.dropSelf(PACHYCEPHALOSAURUS_EGG.get());
         this.dropSelf(STETHACANTHUS_SAC.get());
         this.dropSelf(TARTUOSTEUS_ROE.get());
+        this.dropSelf(THERIZINOSAURUS_EGG.get());
         this.dropSelf(ULUGHBEGSAURUS_EGG.get());
 
         this.dropSelf(BENNETTITALES.get());

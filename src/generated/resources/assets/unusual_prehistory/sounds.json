@@ -30,11 +30,50 @@
   "barinasuchus_threaten": {
     "sounds": [
       {
-        "attenuation_distance": 12,
+        "attenuation_distance": 32,
         "name": "unusual_prehistory:entity/barinasuchus/threaten1"
       }
     ],
     "subtitle": "subtitles.barinasuchus_threaten"
+  },
+  "brachiosaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/brachiosaurus/death1"
+    ],
+    "subtitle": "subtitles.brachiosaurus_death"
+  },
+  "brachiosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/brachiosaurus/hurt1",
+      "unusual_prehistory:entity/brachiosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.brachiosaurus_hurt"
+  },
+  "brachiosaurus_idle": {
+    "sounds": [
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/brachiosaurus/idle1"
+      },
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/brachiosaurus/idle2"
+      },
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/brachiosaurus/idle3"
+      }
+    ],
+    "subtitle": "subtitles.brachiosaurus_idle"
+  },
+  "brachiosaurus_stomp": {
+    "sounds": [
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/brachiosaurus/stomp1"
+      }
+    ],
+    "subtitle": "subtitles.brachiosaurus_stomp"
   },
   "carnotaurus_bite": {
     "sounds": [

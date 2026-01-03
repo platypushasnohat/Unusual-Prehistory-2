@@ -36,9 +36,9 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class Stethacanthus extends SchoolingAquaticMob {
 
-    public final AnimationState biteAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
 
-    private int biteTicks;
+    private int attackTicks;
 
     public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -50,8 +50,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.85F)
-                .add(Attributes.FOLLOW_RANGE, 16.0F);
+                .add(Attributes.MOVEMENT_SPEED, 0.85F);
     }
 
     @Override
@@ -108,25 +107,24 @@ public class Stethacanthus extends SchoolingAquaticMob {
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-        if (biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
-        this.biteAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        if (attackTicks == 0 && this.attackAnimationState.isStarted()) this.attackAnimationState.stop();
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.biteTicks > 0) biteTicks--;
-        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (this.attackTicks > 0) attackTicks--;
+        if (this.attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.BITING.get()) {
-                this.biteAnimationState.start(this.tickCount);
-                this.biteTicks = 20;
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAnimationState.start(this.tickCount);
+                this.attackTicks = 20;
             }
-            else {
-                this.biteAnimationState.stop();
+            else if (this.getPose() == Pose.STANDING) {
+                this.attackAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);

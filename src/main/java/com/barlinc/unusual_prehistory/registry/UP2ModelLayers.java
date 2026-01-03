@@ -12,8 +12,10 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ALLENYPTERUS = main("allenypterus");
     public static final ModelLayerLocation ARANDASPIS = main("arandaspis");
     public static final ModelLayerLocation BARINASUCHUS = main("barinasuchus");
+    public static final ModelLayerLocation BRACHIOSAURUS = main("brachiosaurus");
     public static final ModelLayerLocation CARNOTAURUS = main("carnotaurus");
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
+    public static final ModelLayerLocation COELACANTHUS = main("coelacanthus");
     public static final ModelLayerLocation DESMATOSUCHUS = main("desmatosuchus");
     public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS = main("diplocaulus_brevirostris");
     public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS = main("diplocaulus_magnicornis");

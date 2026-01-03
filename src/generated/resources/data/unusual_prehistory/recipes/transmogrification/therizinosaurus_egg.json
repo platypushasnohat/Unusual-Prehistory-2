@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:scythe_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:therizinosaurus_egg"
+  },
+  "processing_time": 3600
+}

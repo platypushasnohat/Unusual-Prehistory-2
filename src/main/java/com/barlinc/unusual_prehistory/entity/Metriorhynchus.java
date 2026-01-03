@@ -236,7 +236,7 @@
                  else this.deathRoll2AnimationState.start(this.tickCount);
                  this.deathRollTicks = 40;
              }
-             else {
+             else if (this.getPose() == Pose.STANDING) {
                  this.bite1AnimationState.stop();
                  this.bite2AnimationState.stop();
                  this.deathRoll1AnimationState.stop();

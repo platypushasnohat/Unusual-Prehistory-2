@@ -25,6 +25,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "coelacanthus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:coelacanthus_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "desmatosuchus_egg": {
       "conditions": {
         "items": [
@@ -181,6 +193,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "pachycephalosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:pachycephalosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "praepusa_embryo": {
       "conditions": {
         "items": [
@@ -253,6 +277,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "therizinosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:therizinosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "ulughbegsaurus_egg": {
       "conditions": {
         "items": [
@@ -285,6 +321,7 @@
     [
       "barinasuchus_egg",
       "carnotaurus_egg",
+      "coelacanthus_roe",
       "desmatosuchus_egg",
       "diplocaulus_eggs",
       "dunkleosteus_sac",
@@ -295,8 +332,10 @@
       "majungasaurus_egg",
       "megalania_egg",
       "onchopristis_sac",
+      "pachycephalosaurus_egg",
       "stethacanthus_sac",
       "tartuosteus_roe",
+      "therizinosaurus_egg",
       "ulughbegsaurus_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",

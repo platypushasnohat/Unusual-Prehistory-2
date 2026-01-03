@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:cretaceous_root",
   "criteria": {
     "revive_kaprosuchus": {
       "conditions": {

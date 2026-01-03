@@ -28,6 +28,20 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 KENTROSAURUS.get()
         );
 
+        this.tag(UP2EntityTags.COELACANTHUS_NEVER_EATS).add(
+                COELACANTHUS.get(),
+                EntityType.ENDER_DRAGON
+        );
+
+        this.tag(UP2EntityTags.COELACANTHUS_AVOIDS).add(
+                DUNKLEOSTEUS.get(),
+                METRIORHYNCHUS.get(),
+                ONCHOPRISTIS.get(),
+                MEGALANIA.get(),
+                EntityType.GUARDIAN,
+                EntityType.DROWNED
+        );
+
         this.tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
                 CARNOTAURUS.get(),
                 MAJUNGASAURUS.get(),

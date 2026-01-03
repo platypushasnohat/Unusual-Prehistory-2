@@ -25,12 +25,28 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "barinasuchus").toString())
     );
 
+    public static final RegistryObject<EntityType<Brachiosaurus>> BRACHIOSAURUS = ENTITY_TYPE.register(
+            "brachiosaurus", () ->
+            EntityType.Builder.of(Brachiosaurus::new, MobCategory.CREATURE)
+                    .sized(4.1F, 9.1F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "brachiosaurus").toString())
+    );
+
     public static final RegistryObject<EntityType<Carnotaurus>> CARNOTAURUS = ENTITY_TYPE.register(
             "carnotaurus", () ->
             EntityType.Builder.of(Carnotaurus::new, MobCategory.CREATURE)
                     .sized(1.6F, 2.9F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "carnotaurus").toString())
+    );
+
+    public static final RegistryObject<EntityType<Coelacanthus>> COELACANTHUS = ENTITY_TYPE.register(
+            "coelacanthus", () ->
+            EntityType.Builder.of(Coelacanthus::new, MobCategory.WATER_CREATURE)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "coelacanthus").toString())
     );
 
     public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = ENTITY_TYPE.register(
@@ -113,13 +129,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "leptictidium").toString())
     );
 
-    public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
-            "lobe_finned_fish", () ->
-            EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)
-                    .sized(0.5F, 0.8F)
-                    .clientTrackingRange(10)
-                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lobe_finned_fish").toString())
-    );
+//    public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
+//            "lobe_finned_fish", () ->
+//            EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)
+//                    .sized(0.5F, 0.8F)
+//                    .clientTrackingRange(10)
+//                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lobe_finned_fish").toString())
+//    );
 
     public static final RegistryObject<EntityType<Lystrosaurus>> LYSTROSAURUS = ENTITY_TYPE.register(
             "lystrosaurus", () ->

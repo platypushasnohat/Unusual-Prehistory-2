@@ -51,16 +51,11 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
 
             if (this.isInChargingPose() || attackState == 1 || attackState == 3 || attackState == 4) therizinosaurus.getNavigation().stop();
 
-            if (attackState == 1) {
-                this.tickSlash();
-            } else if (attackState == 2) {
-                this.therizinosaurus.getNavigation().moveTo(target, 1.3D);
-                this.tickSlashRush();
-            } else if (attackState == 3) {
-                this.tickCharge();
-            }  else if (attackState == 4) {
-                this.tickChargeEnd();
-            } else {
+            if (attackState == 1) this.tickSlash();
+            else if (attackState == 2) this.tickSlashRush();
+            else if (attackState == 3) this.tickCharge();
+            else if (attackState == 4) this.tickChargeEnd();
+            else {
                 if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.6D);
                 if (distance < 14 && therizinosaurus.chargeCooldown > 0 && !this.isInChargingPose()) {
                     if (therizinosaurus.getRandom().nextFloat() < 0.8F && therizinosaurus.slashCooldown == 0) therizinosaurus.setAttackState(1);
@@ -79,19 +74,18 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
     protected void tickSlash() {
         this.timer++;
         LivingEntity target = therizinosaurus.getTarget();
-
-        if (timer == 1) therizinosaurus.setPose(UP2Poses.ATTACKING.get());
-        if (timer == 7) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch());
-        if (timer == 14) {
-            if (therizinosaurus.distanceTo(target) <= this.getAttackReachSqr(target)) {
+        if (timer == 10) therizinosaurus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 17) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, 0.9F + therizinosaurus.getRandom().nextFloat() * 0.3F);
+        if (timer == 24) {
+            if (this.isInAttackRange(target, 3.0D)) {
                 this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
                 this.therizinosaurus.doHurtTarget(target);
                 this.therizinosaurus.strongKnockback(target, 0.5D, 0.0D);
             }
         }
-        if (timer > 20) {
+        if (timer > 30) {
             this.timer = 0;
-            this.therizinosaurus.slashCooldown = 2 + therizinosaurus.getRandom().nextInt(2);
+            this.therizinosaurus.slashCooldown = 4 + therizinosaurus.getRandom().nextInt(4);
             this.therizinosaurus.setAttackState(0);
         }
     }
@@ -99,15 +93,17 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
     protected void tickSlashRush() {
         this.timer++;
         LivingEntity target = therizinosaurus.getTarget();
-
-        if (timer == 1) therizinosaurus.setPose(UP2Poses.SLASH_RUSH.get());
-        if (timer == 2 || timer == 12 || timer == 22 || timer == 32 || timer == 42) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch() * 1.1F);
-        if (timer == 8 || timer == 18 || timer == 28 || timer == 38 || timer == 48) {
+        if (timer <= 5) therizinosaurus.getNavigation().stop();
+        if (timer == 5) therizinosaurus.setPose(UP2Poses.SLASH_RUSH.get());
+        if (timer == 7 || timer == 17 || timer == 27 || timer == 37 || timer == 47) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch() * 1.1F);
+        if ((timer == 13 || timer == 23 || timer == 33 || timer == 43 || timer == 53) && this.isInAttackRange(target, 2.5D)) {
             this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
             this.therizinosaurus.doHurtTarget(target);
             this.therizinosaurus.strongKnockback(target, 0.4D, 0.0D);
         }
-        if (timer > 50) {
+        if (timer > 5 && timer < 53) therizinosaurus.getNavigation().moveTo(target, 1.3D);
+        if (timer >= 53) therizinosaurus.getNavigation().stop();
+        if (timer > 55) {
             this.timer = 0;
             this.therizinosaurus.slashRushCooldown();
             this.therizinosaurus.setAttackState(0);
@@ -117,9 +113,6 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
     protected void tickCharge() {
         this.timer++;
         LivingEntity target = therizinosaurus.getTarget();
-        int speedFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
-        int slownessFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
-        float effectSpeed = 0.1F * (speedFactor - slownessFactor);
 
         if (timer == 1) {
             therizinosaurus.setPose(UP2Poses.START_CHARGING.get());
@@ -131,16 +124,9 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             this.therizinosaurus.getLookControl().setLookAt(target, 30F, 30F);
         }
 
-        if (timer > 30 && timer < 45) {
-            this.chargeDirection = new Vec3(target.getX() - therizinosaurus.getX(), target.getY() - therizinosaurus.getY(), target.getZ() - therizinosaurus.getZ()).normalize();
-            float YRot = Mth.approachDegrees(therizinosaurus.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 1.0F);
-            float speed = 0.6F + effectSpeed;
-            this.therizinosaurus.setYRot(YRot);
-            this.therizinosaurus.setYBodyRot(YRot);
-            this.therizinosaurus.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, therizinosaurus.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
-        }
+        if (timer > 30 && timer < 45) this.doChargeMovement();
 
-        if (timer > 45 || collisionTicks > 10 || (timer > 30 && therizinosaurus.distanceTo(target) < therizinosaurus.getBbWidth() + target.getBbWidth() + 1.3D)) {
+        if (timer > 45 || collisionTicks > 10 || (timer > 30 && therizinosaurus.distanceTo(target) < 46)) {
             this.timer = 0;
             this.therizinosaurus.setAttackState(4);
         }
@@ -149,13 +135,15 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
     protected void tickChargeEnd() {
         this.timer++;
         LivingEntity target = therizinosaurus.getTarget();
+
         if (timer == 1) therizinosaurus.setPose(UP2Poses.STOP_CHARGING.get());
         if (timer == 14) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch() * 0.9F);
+        if (timer < 15) this.doChargeMovement();
         if (timer == 22) {
-            if (therizinosaurus.distanceTo(target) <= this.getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 3.0D)) {
                 this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
                 this.therizinosaurus.doHurtTarget(target);
-                this.therizinosaurus.strongKnockback(target, 0.7D, 0.0D);
+                this.therizinosaurus.strongKnockback(target, 0.8D, 0.01D);
             }
         }
         if (timer > 40) {
@@ -166,8 +154,16 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
         }
     }
 
-    @Override
-    protected double getAttackReachSqr(LivingEntity target) {
-        return this.mob.getBbWidth() * 1.4F * this.mob.getBbWidth() * 1.4F + target.getBbWidth();
+    protected void doChargeMovement() {
+        LivingEntity target = therizinosaurus.getTarget();
+        int speedFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
+        int slownessFactor = therizinosaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? therizinosaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
+        float effectSpeed = 0.1F * (speedFactor - slownessFactor);
+        this.chargeDirection = new Vec3(target.getX() - therizinosaurus.getX(), target.getY() - therizinosaurus.getY(), target.getZ() - therizinosaurus.getZ()).normalize();
+        float YRot = Mth.approachDegrees(therizinosaurus.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 1.0F);
+        float speed = 0.53F + effectSpeed;
+        this.therizinosaurus.setYRot(YRot);
+        this.therizinosaurus.setYBodyRot(YRot);
+        this.therizinosaurus.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, therizinosaurus.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
     }
 }

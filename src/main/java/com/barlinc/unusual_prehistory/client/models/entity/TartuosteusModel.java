@@ -62,7 +62,7 @@ public class TartuosteusModel extends UP2Model<Tartuosteus> {
         }
 
         this.animateIdle(entity.swimIdleAnimationState, TartuosteusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-		this.animate(entity.floppingAnimationState, TartuosteusAnimations.FLOP, ageInTicks);
+		this.animate(entity.flopAnimationState, TartuosteusAnimations.FLOP, ageInTicks);
 
         this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

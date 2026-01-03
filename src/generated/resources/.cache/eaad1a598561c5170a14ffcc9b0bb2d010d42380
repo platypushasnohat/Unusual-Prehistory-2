@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-25T17:44:44.2196379	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-01-03T15:44:15.1815992	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -28,12 +28,13 @@ c51a3ba5ec1970e8834eb86e6742cca76f20e869 data/minecraft/tags/items/wooden_slabs.
 824a46c742eb55f66336a9b78edaeff27daf3544 data/minecraft/tags/items/wooden_trapdoors.json
 b62d0651df04f06b345375be99673a68980d412b data/spawn/tags/items/customizable_mob_items.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/barinasuchus_food.json
+44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/items/brachiosaurus_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/carnotaurus_food.json
 9c066e3f0776ed3d876a5702afaab483b4053a2f data/unusual_prehistory/tags/items/desmatosuchus_food.json
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/items/diplocaulus_food.json
 61884f4ffc6d4d74bf78255a6219ff5ae67fc376 data/unusual_prehistory/tags/items/dromaeosaurus_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/dunkleosteus_food.json
-4d63d7a9ae658ce2999ca8e2faed03671748c934 data/unusual_prehistory/tags/items/fossils.json
+496be29e3998fb90e10b08e77f7e45865a379be4 data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
 c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/items/jawless_fish_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/kaprosuchus_food.json

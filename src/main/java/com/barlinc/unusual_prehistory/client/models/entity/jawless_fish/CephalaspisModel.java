@@ -66,7 +66,7 @@ public class CephalaspisModel extends UP2Model<JawlessFish> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(JawlessFishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdle(entity.swimIdleAnimationState, JawlessFishAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
-        this.animate(entity.floppingAnimationState, JawlessFishAnimations.FLOP, ageInTicks);
+        this.animate(entity.flopAnimationState, JawlessFishAnimations.FLOP, ageInTicks);
         this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 

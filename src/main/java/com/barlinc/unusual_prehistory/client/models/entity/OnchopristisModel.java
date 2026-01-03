@@ -85,7 +85,7 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (entity.isInWater()) this.animateWalk(OnchopristisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdle(entity.swimIdleAnimationState, OnchopristisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.floppingAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
+		this.animate(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
 		this.animate(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
         this.animate(entity.steppedOnAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);

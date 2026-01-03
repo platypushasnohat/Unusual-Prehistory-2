@@ -44,7 +44,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // fossils
         this.item(BRUTE_FOSSIL);
+        this.item(ARM_FOSSIL);
         this.item(FURY_FOSSIL);
+        this.item(GLUTTONOUS_FOSSIL);
         this.item(FLAT_BACK_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
@@ -73,6 +75,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         // eggs
         this.item(UP2Blocks.BARINASUCHUS_EGG);
         this.item(UP2Blocks.CARNOTAURUS_EGG);
+        this.item(UP2Blocks.COELACANTHUS_ROE);
         this.item(UP2Blocks.DESMATOSUCHUS_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);
@@ -87,12 +90,14 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(METRIORHYNCHUS_EMBRYO);
         this.item(UP2Blocks.ONCHOPRISTIS_SAC);
+        this.item(UP2Blocks.PACHYCEPHALOSAURUS_EGG);
         this.item(PRAEPUSA_EMBRYO);
         this.item(PSILOPTERUS_EGG);
         this.item(UP2Blocks.STETHACANTHUS_SAC);
         this.item(TALPANAS_EGG);
         this.item(UP2Blocks.TARTUOSTEUS_ROE);
         this.item(TELECREX_EGG);
+        this.item(UP2Blocks.THERIZINOSAURUS_EGG);
         this.item(UP2Blocks.ULUGHBEGSAURUS_EGG);
 
         this.item(CALAMOPHYTON_FOSSIL);

@@ -42,7 +42,9 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         // entities
         this.forEntity(UP2Entities.BARINASUCHUS);
+        this.forEntity(UP2Entities.BRACHIOSAURUS);
         this.forEntity(UP2Entities.CARNOTAURUS);
+        this.forEntity(UP2Entities.COELACANTHUS);
         this.forEntity(UP2Entities.DESMATOSUCHUS);
         this.forEntity(UP2Entities.DIPLOCAULUS);
         this.forEntity(UP2Entities.DROMAEOSAURUS);
@@ -100,6 +102,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.BARINASUCHUS_IDLE, "Barinasuchus grumbles");
         this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK, "Barinasuchus snaps");
         this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN, "Barinasuchus rumbles");
+
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_HURT, "Brachiosaurus hurts");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_DEATH, "Brachiosaurus dies");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_IDLE, "Brachiosaurus rumbles");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_STOMP, "Brachiosaurus stomps");
 
         this.sound(UP2SoundEvents.CARNOTAURUS_STEP, "Carnotaurus steps");
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
@@ -240,6 +247,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.translateAdvancement("paleozoic_root", "Paleozoic Era", "Paleozoic era creatures");
         this.translateAdvancement("mesozoic_root", "Mesozoic Era", "Mesozoic era creatures");
+        this.translateAdvancement("triassic_root", "Triassic Period", "Triassic period creatures");
         this.translateAdvancement("jurassic_root", "Jurassic Period", "Jurassic period creatures");
         this.translateAdvancement("cretaceous_root", "Cretaceous Period", "Cretaceous period creatures");
         this.translateAdvancement("cenozoic_root", "Cenozoic Era", "Cenozoic era creatures");
@@ -248,22 +256,27 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
         this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
+        this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
+        this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
         this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
+        this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
+        this.translateAdvancement("revive_pachycephalosaurus", "Thick-Headed", "Revive a Pachycephalosaurus");
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");
         this.translateAdvancement("revive_psilopterus", "Clever Girl", "Revive a Psilopterus");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
+        this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
 
         this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
         this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
