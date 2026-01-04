@@ -37,8 +37,8 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
             else {
                 this.brachiosaurus.getNavigation().moveTo(target, 1.6D);
                 if (distance <= this.getAttackReachSqr(target)) {
-                    if (brachiosaurus.attackCooldown == 0) brachiosaurus.setAttackState(1);
-                    else if (brachiosaurus.stompCooldown == 0 && brachiosaurus.getRandom().nextFloat() < 0.45F) brachiosaurus.setAttackState(2);
+                    if (brachiosaurus.attackCooldown == 0 && brachiosaurus.stompCooldown > 0) brachiosaurus.setAttackState(1);
+                    else if (brachiosaurus.stompCooldown == 0) brachiosaurus.setAttackState(2);
                 }
             }
         }
@@ -52,6 +52,7 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
             if (this.isInAttackRange(target, 3.0D)) {
                 this.brachiosaurus.doHurtTarget(target);
                 this.brachiosaurus.swing(InteractionHand.MAIN_HAND);
+                this.brachiosaurus.strongKnockback(target, 7.0D, 0.3D);
             }
         }
         if (timer > 40) {
@@ -66,14 +67,12 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
         if (timer == 7) brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_STOMP.get(), 2.5F, 1.0F);
         if (timer == 10) brachiosaurus.setPose(UP2Poses.STOMPING.get());
         if (timer == 48) {
-            for (LivingEntity entity : brachiosaurus.level().getEntitiesOfClass(LivingEntity.class, brachiosaurus.getBoundingBox().inflate(6.0D))) {
-                boolean unreachable = entity.getY() > brachiosaurus.getY();
-                boolean self = entity == brachiosaurus;
-                if (self || unreachable) {
+            for (LivingEntity entity : brachiosaurus.level().getEntitiesOfClass(LivingEntity.class, brachiosaurus.getBoundingBox().inflate(6.0D, -0.5D, 6.0D))) {
+                if (entity == brachiosaurus) {
                     continue;
                 }
                 entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F));
-                brachiosaurus.strongKnockback(entity, 8.0D, 0.4D);
+                brachiosaurus.strongKnockback(entity, 9.0D, 0.55D);
             }
             UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 24, false));
             this.brachiosaurus.level().broadcastEntityEvent(brachiosaurus, (byte) 40);

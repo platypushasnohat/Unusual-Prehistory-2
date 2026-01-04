@@ -82,6 +82,7 @@
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
          this.headPart = new BrachiosaurusPart(this, 2.5F, 2.5F);
          this.neckPart1 = new BrachiosaurusPart(this, 2.5F, 6.0F);
          this.neckPart2 = new BrachiosaurusPart(this, 2.5F, 6.0F);
@@ -93,7 +94,7 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 500.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
+                 .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ATTACK_DAMAGE, 16.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                  .add(Attributes.FOLLOW_RANGE, 20.0D);
@@ -342,7 +343,7 @@
              this.setPose(Pose.STANDING);
          }
          if (stompTicks == 0 && this.getPose() == UP2Poses.STOMPING.get()) {
-             this.stompCooldown = 100 + this.getRandom().nextInt(150);
+             this.stompCooldown = 150 + this.getRandom().nextInt(150);
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
