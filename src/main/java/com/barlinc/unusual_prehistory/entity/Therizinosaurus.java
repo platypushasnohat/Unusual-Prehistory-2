@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2Developers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -102,20 +104,24 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(2, new TherizinosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new RandomSitGoal(this));
-        this.goalSelector.addGoal(8, new TherizinosaurusForageLeavesGoal(this, 1, 12));
-        this.goalSelector.addGoal(9, new TherizinosaurusShakeGoal(this));
-        this.goalSelector.addGoal(9, new TherizinosaurusStretchGoal(this));
-        this.goalSelector.addGoal(9, new TherizinosaurusClickGoal(this));
+        this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(3, new TherizinosaurusAttackGoal(this));
+        this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(10, new RandomSitGoal(this));
+        this.goalSelector.addGoal(11, new TherizinosaurusForageLeavesGoal(this, 1, 12));
+        this.goalSelector.addGoal(12, new TherizinosaurusShakeGoal(this));
+        this.goalSelector.addGoal(12, new TherizinosaurusStretchGoal(this));
+        this.goalSelector.addGoal(12, new TherizinosaurusClickGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new TargetNearbyPlayersGoal(this, 80, 5.0D));
+        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new PrehistoricOwnerHurtTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -338,7 +344,46 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.setShaved(true);
             return InteractionResult.SUCCESS;
         }
+
+        // Dev tame
+        if (!this.isTame() && itemstack.is(Items.DEBUG_STICK) && (player.getUUID().equals(UP2Developers.TEMO5886.getUuid()) || player.getUUID().equals(UP2Developers.DEV.getUuid()))) {
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            this.tame(player);
+            this.level().broadcastEntityEvent(this, (byte) 9);
+            this.setPacified(true);
+            this.heal(this.getMaxHealth());
+            return InteractionResult.SUCCESS;
+        }
         return type;
+    }
+
+    @Override
+    public boolean canOwnerCommand(Player player) {
+        return player.isShiftKeyDown();
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player) {
+        return !this.isBaby();
+    }
+
+    @Override
+    protected float getRiddenSpeed(@NotNull Player rider) {
+        float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + sprintSpeed;
+    }
+
+    @Override
+    public boolean canSprint() {
+        return true;
+    }
+
+    @Override
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, 1.1F, 0.0F);
     }
 
     @Override

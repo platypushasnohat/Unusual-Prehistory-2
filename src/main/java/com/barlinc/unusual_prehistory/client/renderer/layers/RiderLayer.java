@@ -35,10 +35,10 @@ public abstract class RiderLayer<T extends Entity, M extends EntityModel<T>> ext
             CrashReport crashreport = CrashReport.forThrowable(throwable3, "Rendering entity in world");
             CrashReportCategory crashreportcategory = crashreport.addCategory("Entity being rendered");
             entity.fillCrashReportCategory(crashreportcategory);
-            CrashReportCategory crashreportcategory1 = crashreport.addCategory("Renderer details");
-            crashreportcategory1.setDetail("Assigned renderer", render);
-            crashreportcategory1.setDetail("Rotation", yaw);
-            crashreportcategory1.setDetail("Delta", partialTicks);
+            CrashReportCategory details = crashreport.addCategory("Renderer details");
+            details.setDetail("Assigned renderer", render);
+            details.setDetail("Rotation", yaw);
+            details.setDetail("Delta", partialTicks);
             throw new ReportedException(crashreport);
         }
     }

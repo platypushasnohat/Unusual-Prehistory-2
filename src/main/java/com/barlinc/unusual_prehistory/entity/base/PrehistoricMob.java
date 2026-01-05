@@ -449,6 +449,66 @@ public abstract class PrehistoricMob extends TamableAnimal {
         livingEntity.setYHeadRot(livingEntity.getYRot());
     }
 
+    @Override
+    protected void removePassenger(@NotNull Entity passenger) {
+        super.removePassenger(passenger);
+        if (!this.level().isClientSide) {
+            if (this.getCommand() == 1 && !this.isMobSitting()) {
+                this.sitDown();
+            }
+        }
+    }
+
+    @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
+        return new Vec3(this.getX(), this.getBoundingBox().minY, this.getZ());
+    }
+
+    @Override
+    public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
+        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity livingEntity && !this.touchingUnloadedChunk()) {
+            Vec3 seatOffset = this.getRiderOffset().yRot((float) Math.toRadians(-this.yBodyRot));
+            passenger.setYBodyRot(this.yBodyRot);
+            passenger.fallDistance = 0.0F;
+            this.clampRotation(livingEntity, 105);
+            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
+        } else {
+            super.positionRider(passenger, moveFunction);
+        }
+    }
+
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, 0.0F, 0.0F);
+    }
+
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Player player) return player;
+        else return null;
+    }
+
+    @Override
+    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
+        float xxa = player.xxa * 0.5F;
+        float zza = player.zza;
+        if (zza <= 0.0F) zza *= 0.25F;
+        return new Vec3(xxa, 0.0F, zza);
+    }
+
+    @Override
+    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if (player.zza > 0.0F && this.isMobSitting() && !this.isInPoseTransition()) {
+            this.standUp();
+        }
+        if (player.zza != 0 || player.xxa != 0) {
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.setYHeadRot(player.getYHeadRot());
+            this.setTarget(null);
+        }
+    }
+
     // Data
     @Override
     protected void defineSynchedData() {

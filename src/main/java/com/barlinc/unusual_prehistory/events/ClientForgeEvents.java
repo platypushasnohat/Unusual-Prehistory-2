@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.*;
 import com.barlinc.unusual_prehistory.registry.UP2MapIcons;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -87,8 +87,12 @@ public class ClientForgeEvents {
             event.setRoll((float) (lerpedShakeAmount * Math.sin(2.0F * time)));
         }
 
-        if (player != null && player.isPassenger() && player.getVehicle() instanceof Ulughbegsaurus && event.getCamera().isDetached()) {
-            event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
+        if (player != null && player.isPassenger() && event.getCamera().isDetached()) {
+            if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
+            if (player.getVehicle() instanceof Therizinosaurus) event.getCamera().move(-event.getCamera().getMaxZoom(2.8F), 0, 0);
+            if (player.getVehicle() instanceof Talpanas) event.getCamera().move(-event.getCamera().getMaxZoom(-1.3F), -0.7F, 0);
+            if (player.getVehicle() instanceof Brachiosaurus) event.getCamera().move(-event.getCamera().getMaxZoom(12.0F), 0, 0);
+            if (player.getVehicle() instanceof Kimmeridgebrachypteraeschnidium) event.getCamera().move(-event.getCamera().getMaxZoom(-1.35F), -0.6F, 0);
         }
     }
 

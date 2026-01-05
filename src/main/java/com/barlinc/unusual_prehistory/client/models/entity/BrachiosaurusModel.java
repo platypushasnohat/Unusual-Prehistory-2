@@ -4,12 +4,15 @@ import com.barlinc.unusual_prehistory.client.animations.BrachiosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Brachiosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -148,7 +151,7 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (!entity.isMobSitting() && !entity.isInPoseTransition() && entity.getPose() != UP2Poses.STOMPING.get()) {
-            if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
         }
 		this.animateIdle(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 2);
@@ -171,4 +174,22 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body_upper.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.neck1.translateAndRotate(poseStack);
+        this.neck2.translateAndRotate(poseStack);
+        this.neck2_pivot.translateAndRotate(poseStack);
+        this.head.translateAndRotate(poseStack);
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 }

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.TherizinosaurusEyesLayer;
+import com.barlinc.unusual_prehistory.client.renderer.layers.TherizinosaurusRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -21,6 +22,7 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, Theriz
     public TherizinosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new TherizinosaurusModel(context.bakeLayer(UP2ModelLayers.THERIZINOSAURUS)), 1.3F);
         this.addLayer(new TherizinosaurusEyesLayer(this));
+        this.addLayer(new TherizinosaurusRiderLayer(this));
     }
 
     @Override

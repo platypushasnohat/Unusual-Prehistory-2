@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.network.MountedEntityKeyMessage;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.network.ParticlePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -33,33 +33,33 @@ public class UP2Network {
 
         CHANNEL = network;
 
-        network.registerMessage(id(), MountedEntityKeyMessage.class, MountedEntityKeyMessage::write, MountedEntityKeyMessage::read, MountedEntityKeyMessage::handle);
+        network.registerMessage(id(), MountedEntityKeyPacket.class, MountedEntityKeyPacket::write, MountedEntityKeyPacket::read, MountedEntityKeyPacket::handle);
         network.registerMessage(id(), ParticlePacket.class, ParticlePacket::encode, ParticlePacket::new, ParticlePacket.Handler::onMessage);
     }
 
-    public static <MSG> void sendToServer(MSG message) {
+    public static <MSG> void sendPacketToServer(MSG message) {
         CHANNEL.sendToServer(message);
     }
 
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
+    public static <MSG> void sendPacketToPlayer(MSG message, ServerPlayer player) {
         CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
-    public static <MSG> void sendToClients(MSG message) {
+    public static <MSG> void sendPacketToClients(MSG message) {
         CHANNEL.send(PacketDistributor.ALL.noArg(), message);
     }
 
-    public static <MSG> void sendToTrackingChunk(MSG message, Level level, BlockPos pos) {
+    public static <MSG> void sendPacketToTrackingChunk(MSG message, Level level, BlockPos pos) {
         CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), message);
     }
 
-    public static <MSG> void sendToAll(MSG message) {
+    public static <MSG> void sendPacketToAll(MSG message) {
         for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            sendNonLocal(message, player);
+            sendPacketNonLocal(message, player);
         }
     }
 
-    public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
+    public static <MSG> void sendPacketNonLocal(MSG msg, ServerPlayer player) {
         CHANNEL.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 }

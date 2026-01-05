@@ -10,32 +10,32 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class MountedEntityKeyMessage {
+public class MountedEntityKeyPacket {
 
     public int mountId;
     public int playerId;
     public int type;
 
-    public MountedEntityKeyMessage(int mountId, int playerId, int type) {
+    public MountedEntityKeyPacket(int mountId, int playerId, int type) {
         this.mountId = mountId;
         this.playerId = playerId;
         this.type = type;
     }
 
-    public MountedEntityKeyMessage() {
+    public MountedEntityKeyPacket() {
     }
 
-    public static MountedEntityKeyMessage read(FriendlyByteBuf buf) {
-        return new MountedEntityKeyMessage(buf.readInt(), buf.readInt(), buf.readInt());
+    public static MountedEntityKeyPacket read(FriendlyByteBuf buf) {
+        return new MountedEntityKeyPacket(buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(MountedEntityKeyMessage message, FriendlyByteBuf buf) {
+    public static void write(MountedEntityKeyPacket message, FriendlyByteBuf buf) {
         buf.writeInt(message.mountId);
         buf.writeInt(message.playerId);
         buf.writeInt(message.type);
     }
 
-    public static void handle(MountedEntityKeyMessage message, Supplier<NetworkEvent.Context> context) {
+    public static void handle(MountedEntityKeyPacket message, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
             Player playerSided = context.get().getSender();
             if (context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {

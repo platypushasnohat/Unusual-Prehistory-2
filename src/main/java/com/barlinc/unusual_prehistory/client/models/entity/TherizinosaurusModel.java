@@ -5,12 +5,15 @@ import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.Therizin
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -168,7 +171,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 
         if (!entity.isInWater() && !entity.isMobSitting()) {
             if (!entity.isInAttackingPose()) {
-                if (entity.isRunning()) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
+                if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
                 else this.animateWalk(entity.isShaved() || entity.isBaby() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.6F, 3.2F);
             } else if (entity.getPose() == UP2Poses.CHARGING.get()) {
                 this.animateWalk(TherizinosaurusAttackAnimations.CHARGE, limbSwing, limbSwingAmount, 1, 2);
@@ -203,4 +206,19 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body_adjust.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.neck.translateAndRotate(poseStack);
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 }

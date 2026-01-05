@@ -86,6 +86,7 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
         if (this.timer > 80) {
             this.timer = 0;
             this.brachiosaurus.setAttackState(0);
+            this.brachiosaurus.stompCooldown = 150 + brachiosaurus.getRandom().nextInt(100);
         }
     }
 

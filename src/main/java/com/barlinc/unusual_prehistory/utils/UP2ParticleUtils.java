@@ -42,7 +42,7 @@ public class UP2ParticleUtils {
         double zSpeed = stepZ == 0 ? speed.z() : 0.0D;
         level.addParticle(particle, x, y, z, xSpeed, ySpeed, zSpeed);
         particlePacket.queueParticle(particle, false, x, y, z, xSpeed, ySpeed, zSpeed);
-        UP2Network.sendToTrackingChunk(particlePacket, level, pos);
+        UP2Network.sendPacketToTrackingChunk(particlePacket, level, pos);
     }
 
     private static Vec3 getRandomSpeedRanges(RandomSource random) {

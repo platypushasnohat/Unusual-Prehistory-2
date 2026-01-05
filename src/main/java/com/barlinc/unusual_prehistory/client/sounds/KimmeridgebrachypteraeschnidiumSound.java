@@ -35,12 +35,12 @@ public class KimmeridgebrachypteraeschnidiumSound extends AbstractTickableSoundI
         this.y = (float) this.entity.getY();
         this.z = (float) this.entity.getZ();
         float horizontalDistance = (float) this.entity.getDeltaMovement().horizontalDistance();
-        if (horizontalDistance >= 0.01F) {
+        if (entity.isFlying()) {
             this.pitch = Mth.lerp(Mth.clamp(horizontalDistance, 1.5F, 1.75F), 1.5F, 1.75F);
             this.volume = Mth.lerp(Mth.clamp(horizontalDistance, 0.0F, 0.25F), 0.2F, 0.3F);
         } else {
-            this.pitch = 0.0F;
             this.volume = 0.0F;
+            this.pitch = 0.0F;
         }
     }
 

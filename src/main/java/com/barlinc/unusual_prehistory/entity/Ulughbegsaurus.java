@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barlinc.unusual_prehistory.network.MountedEntityKeyMessage;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -146,25 +146,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     // Riding
     @Override
-    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
-        float f = player.zza < 0.0F ? 0.5F : 1.0F;
-        return this.refuseToMove() ? Vec3.ZERO : new Vec3(player.xxa * 0.35F, 0.0D, player.zza * 0.8F * f);
-    }
-
-    @Override
-    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
-        super.tickRidden(player, vec3);
-        if (player.zza > 0.0F && this.isMobSitting() && !this.isInPoseTransition()) {
-            this.standUp();
-        }
-        if (player.zza != 0 || player.xxa != 0) {
-            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
-            this.setYHeadRot(player.getYHeadRot());
-            this.setTarget(null);
-        }
-    }
-
-    @Override
     protected float getRiddenSpeed(@NotNull Player rider) {
         float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + sprintSpeed;
@@ -176,28 +157,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     }
 
     @Override
-    public LivingEntity getControllingPassenger() {
-        Entity entity = this.getFirstPassenger();
-        if (entity instanceof Player player) return player;
-        else return null;
-    }
-
-    @Override
-    public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
-        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity livingEntity && !this.touchingUnloadedChunk()) {
-            Vec3 seatOffset = new Vec3(0F, 0.3F, 0.15F).yRot((float) Math.toRadians(-this.yBodyRot));
-            passenger.setYBodyRot(this.yBodyRot);
-            passenger.fallDistance = 0.0F;
-            this.clampRotation(livingEntity, 105);
-            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
-        } else {
-            super.positionRider(passenger, moveFunction);
-        }
-    }
-
-    @Override
-    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
-        return new Vec3(this.getX(), this.getBoundingBox().minY, this.getZ());
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, 0.3F, 0.15F);
     }
 
     @Override
@@ -237,8 +198,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             } else {
                 Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
                 if (player != null && player.isPassengerOfSameVehicle(this)) {
-                    if (UnusualPrehistory2.PROXY.isKeyDown(3) && !(this.getPose() == UP2Poses.ATTACKING.get())) {
-                        UP2Network.sendToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
+                    if (UnusualPrehistory2.PROXY.isKeyDown(3) && this.getPose() != UP2Poses.ATTACKING.get()) {
+                        UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
                     }
                 }
             }
@@ -252,16 +213,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             if (!entity.is(this) && !this.isAlliedTo(entity)) {
                 this.doHurtTarget(entity);
                 this.swing(InteractionHand.MAIN_HAND);
-            }
-        }
-    }
-
-    @Override
-    protected void removePassenger(@NotNull Entity passenger) {
-        super.removePassenger(passenger);
-        if (!this.level().isClientSide) {
-            if (this.getCommand() == 1 && !this.isMobSitting()) {
-                this.sitDown();
             }
         }
     }

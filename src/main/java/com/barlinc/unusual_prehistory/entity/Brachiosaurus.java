@@ -4,12 +4,16 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
+ import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Network;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.UP2Developers;
  import com.barlinc.unusual_prehistory.utils.UP2Math;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -20,6 +24,8 @@
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -31,18 +37,21 @@
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.AABB;
  import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.common.Tags;
  import net.minecraftforge.entity.PartEntity;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Brachiosaurus extends SemiAquaticMob {
+ public class Brachiosaurus extends SemiAquaticMob implements KeybindUsingMount {
 
      private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(4.1F, 6.1F);
 
@@ -66,6 +75,8 @@
      private float[] yawBuffer = new float[128];
      private int yawPointer = -1;
 
+     private int timer = 0;
+
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState sitStartAnimationState = new AnimationState();
      public final AnimationState sitAnimationState = new AnimationState();
@@ -81,14 +92,16 @@
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
+         this.refreshDimensions();
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
-         this.headPart = new BrachiosaurusPart(this, 2.5F, 2.5F);
-         this.neckPart1 = new BrachiosaurusPart(this, 2.5F, 6.0F);
-         this.neckPart2 = new BrachiosaurusPart(this, 2.5F, 6.0F);
-         this.tailPart1 = new BrachiosaurusPart(this, 2.5F, 2.5F);
-         this.tailPart2 = new BrachiosaurusPart(this, 2.0F, 2.0F);
+         this.headPart = new BrachiosaurusPart(this, "head", 2.5F, 2.5F);
+         this.neckPart1 = new BrachiosaurusPart(this, "neck1", 2.5F, 6.0F);
+         this.neckPart2 = new BrachiosaurusPart(this, "neck2", 2.5F, 6.0F);
+         this.tailPart1 = new BrachiosaurusPart(this, "tail1", 2.5F, 2.5F);
+         this.tailPart2 = new BrachiosaurusPart(this, "tail2", 2.0F, 2.0F);
          this.allParts = new BrachiosaurusPart[]{headPart, neckPart1, neckPart2, tailPart1, tailPart2};
+         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -102,14 +115,26 @@
 
      @Override
      protected void registerGoals() {
+         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(2, new BrachiosaurusAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BRACHIOSAURUS_FOOD), false));
-         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false));
-         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(6, new RandomSitGoal(this));
+         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+         this.goalSelector.addGoal(3, new BrachiosaurusAttackGoal(this));
+         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BRACHIOSAURUS_FOOD), false));
+         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(7, new RandomSitGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+     }
+
+     @Override
+     public void setId(int i1) {
+         super.setId(i1);
+         for (int i = 0; i < this.allParts.length; i++) {
+             this.allParts[i].setId(i1 + i + 1);
+         }
      }
 
      @Override
@@ -155,7 +180,7 @@
 
      @Override
      public boolean refuseToMove() {
-         return super.refuseToMove() || this.getIdleState() == 4 || this.getIdleState() == 5;
+         return super.refuseToMove() || this.getIdleState() == 4 || this.getIdleState() == 5 || this.getPose() == UP2Poses.STOMPING.get() || this.getAttackState() == 2;
      }
 
      @Override
@@ -182,6 +207,7 @@
      public void tick() {
          this.tickMultipart();
          super.tick();
+         this.tickPlayerStomp();
 
          this.lastStompX = this.getX();
          this.lastStompZ = this.getZ();
@@ -343,7 +369,6 @@
              this.setPose(Pose.STANDING);
          }
          if (stompTicks == 0 && this.getPose() == UP2Poses.STOMPING.get()) {
-             this.stompCooldown = 150 + this.getRandom().nextInt(150);
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
@@ -436,6 +461,107 @@
      }
 
      public static boolean canSpawn(EntityType<Brachiosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.PRAEPUSA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+         return level.getBlockState(pos.below()).is(UP2BlockTags.BRACHIOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+
+     // Dev taming stuff
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         InteractionResult type = super.mobInteract(player, hand);
+
+         if (!this.isTame() && (itemstack.is(Items.DEBUG_STICK) && UP2Developers.isDeveloper(player.getUUID())) || (itemstack.is(Tags.Items.GEMS_DIAMOND) && player.getUUID().equals(UP2Developers.MAGMASTRIDER.getUuid()))) {
+             if (!player.getAbilities().instabuild) {
+                 itemstack.shrink(1);
+             }
+             this.gameEvent(GameEvent.ENTITY_INTERACT);
+             this.tame(player);
+             this.level().broadcastEntityEvent(this, (byte) 9);
+             this.heal(this.getMaxHealth());
+             return InteractionResult.SUCCESS;
+         }
+         return type;
+     }
+
+     @Override
+     public boolean canOwnerCommand(Player player) {
+         return player.isShiftKeyDown();
+     }
+
+     @Override
+     public boolean canOwnerMount(Player player) {
+         return !this.isBaby();
+     }
+
+     @Override
+     protected float getRiddenSpeed(@NotNull Player rider) {
+         float sprintSpeed = rider.isSprinting() ? 0.05F : 0.0F;
+         return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F + sprintSpeed;
+     }
+
+     @Override
+     public boolean canSprint() {
+         return true;
+     }
+
+     @Override
+     public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
+         if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity living && !this.touchingUnloadedChunk()) {
+             float seatY = 14.5F;
+             float seatZ = 6.5F;
+             Vec3 seatOffset = new Vec3(0F, seatY, seatZ).yRot((float) Math.toRadians(-this.yBodyRot));
+             passenger.setYBodyRot(this.yBodyRot);
+             passenger.fallDistance = 0.0F;
+             clampRotation(living, 105);
+             moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
+         } else {
+             super.positionRider(passenger, moveFunction);
+         }
+     }
+
+     protected void tickPlayerStomp() {
+         if (this.stompCooldown == 0 && !this.isMobSitting()) {
+             if (!level().isClientSide) {
+                 if (this.getAttackState() == 2 && this.hasControllingPassenger()) {
+                     this.timer++;
+                     if (timer == 7) this.playSound(UP2SoundEvents.BRACHIOSAURUS_STOMP.get(), 2.5F, 1.0F);
+                     if (timer == 10) this.setPose(UP2Poses.STOMPING.get());
+                     if (timer == 48) {
+                         for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(6.0D, -0.5D, 6.0D))) {
+                             if (entity == this) {
+                                 continue;
+                             }
+                             entity.hurt(this.damageSources().mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F));
+                             this.strongKnockback(entity, 9.0D, 0.55D);
+                         }
+                         UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(this.position(), 40, 4.0F, 24, false));
+                         this.level().broadcastEntityEvent(this, (byte) 40);
+                     }
+                     if (this.timer > 80) {
+                         this.timer = 0;
+                         this.stompCooldown = 150 + this.getRandom().nextInt(100);
+                         this.setAttackState(0);
+                     }
+                 }
+             } else {
+                 Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
+                 if (player != null && player.isPassengerOfSameVehicle(this)) {
+                     if (UnusualPrehistory2.PROXY.isKeyDown(3) && this.getPose() != UP2Poses.STOMPING.get() && this.getAttackState() == 0) {
+                         UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
+                     }
+                 }
+             }
+         }
+     }
+
+     @Override
+     public void onKeyPacket(Entity keyPresser, int type) {
+         if (keyPresser.isPassengerOfSameVehicle(this)) {
+             if (type == 3) {
+                 if (this.getPose() == Pose.STANDING && this.getAttackState() == 0 && this.stompCooldown == 0) {
+                     this.setAttackState(2);
+                 }
+             }
+         }
      }
  }

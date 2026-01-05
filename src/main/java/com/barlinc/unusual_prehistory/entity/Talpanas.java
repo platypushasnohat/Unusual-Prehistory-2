@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2Developers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,7 +17,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -29,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -38,6 +43,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,17 +81,19 @@ public class Talpanas extends BreedableMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, Player.class, 4.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.5D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
-        this.goalSelector.addGoal(2, new TalpanasSeekShelterGoal(this));
-        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new TalpanasPeckGoal(this));
-        this.goalSelector.addGoal(7, new TalpanasShakeGoal(this));
+        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 4.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 4.0F, 1.5D, entity -> entity.getType().is(UP2EntityTags.TALPANAS_AVOIDS)));
+        this.goalSelector.addGoal(4, new TalpanasSeekShelterGoal(this));
+        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.25D, Ingredient.of(UP2ItemTags.TALPANAS_FOOD), false));
+        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 3.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new TalpanasPeckGoal(this));
+        this.goalSelector.addGoal(9, new TalpanasShakeGoal(this));
     }
 
     @Override
@@ -246,6 +254,52 @@ public class Talpanas extends BreedableMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON);
     }
 
+    // Dev taming stuff
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        // Dev tame
+        if (!this.isTame() && (itemstack.is(Items.DEBUG_STICK) && UP2Developers.isDeveloper(player.getUUID())) || (itemstack.is(Tags.Items.GEMS_DIAMOND) && player.getUUID().equals(UP2Developers.ICYDWARF.getUuid()))) {
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            this.tame(player);
+            this.level().broadcastEntityEvent(this, (byte) 9);
+            this.heal(this.getMaxHealth());
+            return InteractionResult.SUCCESS;
+        }
+        return type;
+    }
+
+    @Override
+    public boolean canOwnerCommand(Player player) {
+        return player.isShiftKeyDown();
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player) {
+        return !this.isBaby();
+    }
+
+    @Override
+    protected float getRiddenSpeed(@NotNull Player rider) {
+        float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + sprintSpeed;
+    }
+
+    @Override
+    public boolean canSprint() {
+        return true;
+    }
+
+    @Override
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, -0.4F, 0.0F);
+    }
+
+    // Goals
     private static class TalpanasPeckGoal extends AnimationGoal {
 
         private final Talpanas talpanas;

@@ -8,10 +8,14 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschn
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
+import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
+import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2Developers;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -48,12 +52,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable {
+public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable, KeybindUsingMount {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -67,6 +72,9 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     private int oldSwell;
     private int swell;
     private final int maxSwell = 60;
+
+    private int controlUpTicks = 0;
+    private int controlDownTicks = 0;
 
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
@@ -180,7 +188,27 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             }
         }
 
-        if (level().isClientSide && isAlive()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
+        if (this.level().isClientSide && this.isAlive()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
+
+        // flying mount stuff
+        if (this.isVehicle() && !this.isBaby()) {
+            this.setFlying(true);
+        }
+        if (this.level().isClientSide) {
+            Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
+            if (player != null && player.isPassengerOfSameVehicle(this)) {
+                if (UnusualPrehistory2.PROXY.isKeyDown(0) && !UnusualPrehistory2.PROXY.isKeyDown(1) && controlUpTicks < 2) {
+                    UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 0));
+                    this.controlUpTicks = 5;
+                }
+                if (UnusualPrehistory2.PROXY.isKeyDown(1) && !UnusualPrehistory2.PROXY.isKeyDown(0) && controlDownTicks < 2) {
+                    UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 1));
+                    this.controlDownTicks = 5;
+                }
+            }
+        }
+        if (controlDownTicks > 0) controlDownTicks--;
+        else if (controlUpTicks > 0) controlUpTicks--;
     }
 
     private void explode() {
@@ -203,23 +231,28 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
-
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.getItem() == Items.GLASS_BOTTLE && this.isAlive()) {
             playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, 1.0F);
-            heldItem.shrink(1);
-            ItemStack itemstack1 = new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
-
-            this.setBucketData(itemstack1);
-            if (!this.level().isClientSide) {
-                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
-            }
-            if (heldItem.isEmpty() && !player.isCreative()) {
-                player.setItemInHand(hand, itemstack1);
-            } else if (!player.getInventory().add(itemstack1)) {
-                player.drop(itemstack1, false);
-            }
+            itemstack.shrink(1);
+            ItemStack bottle = new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+            this.setBucketData(bottle);
+            if (!this.level().isClientSide) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bottle);
+            if (itemstack.isEmpty() && !player.isCreative()) player.setItemInHand(hand, bottle);
+            else if (!player.getInventory().add(bottle)) player.drop(bottle, false);
             this.discard();
+            return InteractionResult.SUCCESS;
+        }
+
+        // Dev tame
+        if (!this.isTame() && (itemstack.is(Items.DEBUG_STICK) && UP2Developers.isDeveloper(player.getUUID())) || (itemstack.is(Tags.Items.GEMS_DIAMOND) && player.getUUID().equals(UP2Developers.CRYDIGO.getUuid()))) {
+            if (!player.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            this.tame(player);
+            this.level().broadcastEntityEvent(this, (byte) 9);
+            this.heal(this.getMaxHealth());
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
@@ -474,6 +507,54 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         return level.getBlockState(pos.below()).is(UP2BlockTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
+    // Dev taming stuff
+    @Override
+    public boolean canOwnerCommand(Player player) {
+        return player.isShiftKeyDown();
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player) {
+        return !this.isBaby();
+    }
+
+    @Override
+    protected float getRiddenSpeed(@NotNull Player rider) {
+        return (float) this.getAttributeValue(Attributes.FLYING_SPEED) * 0.8F;
+    }
+
+    @Override
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, -0.3F, 0.0F);
+    }
+
+    @Override
+    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
+        if (player.zza != 0 || player.xxa != 0) {
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.setTarget(null);
+        }
+    }
+
+    @Override
+    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 delta) {
+        float f = player.zza < 0.0F ? 0.5F : 1.0F;
+        return new Vec3(player.xxa * 0.25F, controlUpTicks > 0 ? 0.1D : controlDownTicks > 0 ? -0.1D : 0.0D, player.zza * 0.5F * f);
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser, int type) {
+        if (keyPresser.isPassengerOfSameVehicle(this)) {
+            if (type == 0) {
+                this.controlUpTicks = 10;
+            }
+            if (type == 1) {
+                this.controlDownTicks = 10;
+            }
+        }
+    }
+
+    // Goals
     private static class KimmeridgebrachypteraeschnidiumPreenGoal extends AnimationGoal {
 
         private final Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium;

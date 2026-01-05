@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.BrachiosaurusModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.BrachiosaurusRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Brachiosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +19,7 @@ public class BrachiosaurusRenderer extends MobRenderer<Brachiosaurus, Brachiosau
 
     public BrachiosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new BrachiosaurusModel(context.bakeLayer(UP2ModelLayers.BRACHIOSAURUS)), 1.8F);
+        this.addLayer(new BrachiosaurusRiderLayer(this));
     }
 
     @Override

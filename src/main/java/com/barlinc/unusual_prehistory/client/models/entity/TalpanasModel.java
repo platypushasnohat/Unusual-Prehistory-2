@@ -3,12 +3,15 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.TalpanasAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Talpanas;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -89,7 +92,7 @@ public class TalpanasModel extends UP2Model<Talpanas> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (entity.onGround()) {
-            if (entity.isRunning()) this.animateWalk(TalpanasAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(TalpanasAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
@@ -109,4 +112,17 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 }

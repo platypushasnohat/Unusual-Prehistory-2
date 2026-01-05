@@ -103,6 +103,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.BRACHIOSAURUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.CARNOTAURUS_SPAWNABLE_ON).add(
                 Blocks.COARSE_DIRT,
                 Blocks.RED_SAND,
