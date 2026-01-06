@@ -417,6 +417,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/slime/attack1").pitch(1.3F),
                 sound("mob/slime/attack2").pitch(1.3F)
         );
+        this.sound(UP2SoundEvents.PRAEPUSA_BOUNCE,
+                sound(UnusualPrehistory2.modPrefix("entity/praepusa/bounce1"))
+        );
 
         // Stethacanthus
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,

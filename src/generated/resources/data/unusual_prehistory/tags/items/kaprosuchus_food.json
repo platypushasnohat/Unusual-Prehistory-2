@@ -9,6 +9,11 @@
     "minecraft:cooked_porkchop",
     "minecraft:cooked_chicken",
     "minecraft:cooked_mutton",
-    "minecraft:cooked_rabbit"
+    "minecraft:cooked_rabbit",
+    "minecraft:cod",
+    "minecraft:cooked_cod",
+    "minecraft:salmon",
+    "minecraft:cooked_salmon",
+    "minecraft:tropical_fish"
   ]
 }

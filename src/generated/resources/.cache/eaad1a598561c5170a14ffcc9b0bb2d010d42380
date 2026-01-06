@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-03T15:44:15.1815992	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-01-05T22:01:26.1368397	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -37,7 +37,7 @@ b62d0651df04f06b345375be99673a68980d412b data/spawn/tags/items/customizable_mob_
 496be29e3998fb90e10b08e77f7e45865a379be4 data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
 c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/items/jawless_fish_food.json
-3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/kaprosuchus_food.json
+1a1bbdab7bc1eda7fc96fe004701246f15857095 data/unusual_prehistory/tags/items/kaprosuchus_food.json
 8da8f34a416bead74cb50fb5e02a0dd8490f6b4c data/unusual_prehistory/tags/items/kentrosaurus_food.json
 17fd74489f84e85c3d4f8bc6feb8ec5d33ac3c59 data/unusual_prehistory/tags/items/kimmeridgebrachypteraeschnidium_food.json
 7c88d17b3935cd29a7ff7304744e6c1d3fa039bf data/unusual_prehistory/tags/items/lepidodendron_logs.json
@@ -54,6 +54,7 @@ ac57a5fbb213585d4abe28fce61514a95c724552 data/unusual_prehistory/tags/items/paci
 d42ac46c7683860454cb1980513532d7601a325b data/unusual_prehistory/tags/items/pacifies_carnotaurus.json
 6330eab91cd2d85e29764317f8031015b8d3b08d data/unusual_prehistory/tags/items/pacifies_dromaeosaurus.json
 aa3841b6b6fb425bffe6a3624c29d902668bce6d data/unusual_prehistory/tags/items/pacifies_dunkleosteus.json
+c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/pacifies_kaprosuchus.json
 83f2cf19e5ecb819ffbb506c0834c64e017b9e4e data/unusual_prehistory/tags/items/pacifies_majungasaurus.json
 16a0187c468ff486e1b273ca8b52a06d4a540e63 data/unusual_prehistory/tags/items/pacifies_megalania.json
 61a25cdfee0fd74fa6dae49e1d71ba9e2a7a8efc data/unusual_prehistory/tags/items/pacifies_metriorhynchus.json

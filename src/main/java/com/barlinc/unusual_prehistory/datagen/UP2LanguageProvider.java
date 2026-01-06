@@ -195,6 +195,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PRAEPUSA_DEATH, "Praepusa dies");
         this.sound(UP2SoundEvents.PRAEPUSA_IDLE, "Praepusa honks");
         this.sound(UP2SoundEvents.PRAEPUSA_MITOSIS, "Praepusa mitoses");
+        this.sound(UP2SoundEvents.PRAEPUSA_BOUNCE, "Praepusa bounces");
 
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");

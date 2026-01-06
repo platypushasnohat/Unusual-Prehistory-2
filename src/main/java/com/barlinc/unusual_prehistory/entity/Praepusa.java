@@ -67,9 +67,11 @@
      public final AnimationState rollEndAnimationState = new AnimationState();
      public final AnimationState mitosisAnimationState = new AnimationState();
      public final AnimationState attackAnimationState = new AnimationState();
+     public final AnimationState bounceAnimationState = new AnimationState();
 
      private int mitosisTicks;
      private int attackTicks;
+     private int bounceTicks = 0;
 
      private int slapCooldown = 300 + this.getRandom().nextInt(300);
      private int loafCooldown = 400 + this.getRandom().nextInt(400);
@@ -219,6 +221,9 @@
              double newYVelocity = impactSpeed * bounceFactor;
              if (newYVelocity > minBounceVelocity) {
                  this.setDeltaMovement(this.getDeltaMovement().x, newYVelocity, this.getDeltaMovement().z);
+                 if (this.bounceTicks == 0) this.level().broadcastEntityEvent(this, (byte) 73);
+                 this.bounceTicks = 10;
+                 this.level().playSound(null, this.blockPosition(), UP2SoundEvents.PRAEPUSA_BOUNCE.get(), SoundSource.NEUTRAL, 0.3F, 0.9F + this.getRandom().nextFloat() * 0.25F);
                  this.setOnGround(false);
                  this.hasImpulse = true;
                  BlockPos blockBelow = BlockPos.containing(this.getX(), this.getY() - 0.1, this.getZ());
@@ -246,6 +251,7 @@
              this.idleAnimationState.stop();
              this.applauseAnimationState.stop();
              this.loafAnimationState.stop();
+             this.bounceAnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.rollStartAnimationState.startIfStopped(this.tickCount);
@@ -265,11 +271,13 @@
      public void setupAnimationCooldowns() {
          if (mitosisTicks > 0) mitosisTicks--;
          if (attackTicks > 0) attackTicks--;
+         if (bounceTicks > 0) bounceTicks--;
          if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
          if (slapCooldown > 0) slapCooldown--;
          if (loafCooldown > 0) loafCooldown--;
          if (applauseCooldown > 0) applauseCooldown--;
+         if (bounceTicks == 0) this.level().broadcastEntityEvent(this, (byte) 74);
      }
 
      @Override
@@ -307,6 +315,9 @@
 
              case 71 -> this.applauseAnimationState.start(this.tickCount);
              case 72 -> this.applauseAnimationState.stop();
+
+             case 73 -> this.bounceAnimationState.start(this.tickCount);
+             case 74 -> this.bounceAnimationState.stop();
 
              default -> super.handleEntityEvent(id);
          }
@@ -396,6 +407,13 @@
              this.feedItemToMob(player, hand, itemstack);
              this.setPose(UP2Poses.MITOSIS.get());
              return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         if (itemstack.isEmpty() && this.loafCooldown > 0 && this.getIdleState() == 0 && this.getLastHurtByMob() == null && !this.isInWater()) {
+             this.loafCooldown = 0;
+             if (this.getNavigation().getPath() != null) {
+                 this.getNavigation().stop();
+             }
+             return InteractionResult.SUCCESS;
          }
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }

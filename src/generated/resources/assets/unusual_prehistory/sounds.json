@@ -1015,6 +1015,12 @@
     ],
     "subtitle": "subtitles.onchopristis_hurt"
   },
+  "praepusa_bounce": {
+    "sounds": [
+      "unusual_prehistory:entity/praepusa/bounce1"
+    ],
+    "subtitle": "subtitles.praepusa_bounce"
+  },
   "praepusa_death": {
     "sounds": [
       {

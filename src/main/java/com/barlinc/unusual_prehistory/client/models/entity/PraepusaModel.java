@@ -105,6 +105,7 @@ public class PraepusaModel extends UP2Model<Praepusa> {
         this.animate(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
         this.animate(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
         this.animate(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks);
+        this.animate(entity.bounceAnimationState, PraepusaAnimations.BOUNCE_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);
         if (entity.isInWater()) this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

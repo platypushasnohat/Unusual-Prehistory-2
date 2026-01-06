@@ -112,6 +112,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> PRAEPUSA_DEATH = registerSoundEvent("praepusa_death");
     public static final RegistryObject<SoundEvent> PRAEPUSA_IDLE = registerSoundEvent("praepusa_idle");
     public static final RegistryObject<SoundEvent> PRAEPUSA_MITOSIS = registerSoundEvent("praepusa_mitosis");
+    public static final RegistryObject<SoundEvent> PRAEPUSA_BOUNCE = registerSoundEvent("praepusa_bounce");
 
     public static final RegistryObject<SoundEvent> STETHACANTHUS_HURT = registerSoundEvent("stethacanthus_hurt");
     public static final RegistryObject<SoundEvent> STETHACANTHUS_DEATH = registerSoundEvent("stethacanthus_death");

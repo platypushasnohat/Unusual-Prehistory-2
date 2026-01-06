@@ -45,7 +45,6 @@ public class ClientForgeEvents {
     private static final RenderType MESOZOIC_SITE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/mesozoic_fossil_site_icon.png"));
     private static final RenderType PETRIFIED_TREE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/petrified_tree_icon.png"));
 
-
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
         if (ClientProxy.blockedEntityRenders.contains(event.getEntity().getUUID())) {

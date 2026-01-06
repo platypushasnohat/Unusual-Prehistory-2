@@ -5,8 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -20,14 +18,14 @@ public class PrehistoricFollowOwnerGoal extends Goal {
 
     protected final PrehistoricMob tamedMob;
     protected LivingEntity owner;
-    private final LevelReader level;
+    protected final LevelReader level;
     private final double speedModifier;
     private final PathNavigation navigation;
-    private int timeToRecalcPath;
+    protected int timeToRecalcPath;
     private final float stopDistance;
     private final float startDistance;
     private float oldWaterCost;
-    private final boolean canFly;
+    protected final boolean canFly;
 
     public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly) {
         this.tamedMob = tamedMob;
@@ -38,9 +36,6 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         this.stopDistance = stopDistance;
         this.canFly = canFly;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        if (!(this.tamedMob.getNavigation() instanceof GroundPathNavigation) && !(this.tamedMob.getNavigation() instanceof FlyingPathNavigation)) {
-            throw new IllegalArgumentException("Unsupported mob type for PrehistoricFollowOwnerGoal");
-        }
     }
 
     @Override
@@ -127,7 +122,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         }
     }
 
-    private boolean canTeleportTo(BlockPos blockPos) {
+    protected boolean canTeleportTo(BlockPos blockPos) {
         BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, blockPos.mutable());
         if (blockpathtypes != BlockPathTypes.WALKABLE) {
             return false;
