@@ -229,6 +229,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "pterodactylus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:pterodactylus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "stethacanthus_sac": {
       "conditions": {
         "items": [
@@ -342,6 +354,7 @@
       "metriorhynchus_embryo",
       "praepusa_embryo",
       "psilopterus_egg",
+      "pterodactylus_egg",
       "talpanas_egg",
       "telecrex_egg"
     ]

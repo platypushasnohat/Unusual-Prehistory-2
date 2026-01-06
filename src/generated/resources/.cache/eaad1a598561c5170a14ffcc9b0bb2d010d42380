@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-05T22:01:26.1368397	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-01-06T16:32:49.0584499	Tags for minecraft:item mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -34,7 +34,7 @@ b62d0651df04f06b345375be99673a68980d412b data/spawn/tags/items/customizable_mob_
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/items/diplocaulus_food.json
 61884f4ffc6d4d74bf78255a6219ff5ae67fc376 data/unusual_prehistory/tags/items/dromaeosaurus_food.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/dunkleosteus_food.json
-496be29e3998fb90e10b08e77f7e45865a379be4 data/unusual_prehistory/tags/items/fossils.json
+1db204bd9ddb91983c18d1b12fd179e19018a506 data/unusual_prehistory/tags/items/fossils.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
 c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/items/jawless_fish_food.json
 1a1bbdab7bc1eda7fc96fe004701246f15857095 data/unusual_prehistory/tags/items/kaprosuchus_food.json
@@ -65,6 +65,7 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/paci
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/items/permanently_pacifies_mob.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/items/praepusa_food.json
 3849bb93d7a2456310785ba74afd373a1d92ccb9 data/unusual_prehistory/tags/items/psilopterus_food.json
+40c0304f5a5d6fbd0a5f1bf1d29f27e765e1e63e data/unusual_prehistory/tags/items/pterodactylus_food.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/items/reinforced_glass.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/stethacanthus_food.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/items/talpanas_food.json

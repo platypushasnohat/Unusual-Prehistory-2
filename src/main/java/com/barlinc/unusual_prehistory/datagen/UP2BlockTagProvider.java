@@ -173,6 +173,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.COARSE_DIRT
         );
 
+        this.tag(UP2BlockTags.PTERODACTYLUS_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.STONE
+        );
+
         this.tag(UP2BlockTags.TALPANAS_SPAWNABLE_ON).add(
                 Blocks.MOSS_BLOCK,
                 Blocks.CLAY,

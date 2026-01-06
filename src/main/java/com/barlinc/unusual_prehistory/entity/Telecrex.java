@@ -156,7 +156,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.isImmobile() || this.getIdleState() == 1 || this.getIdleState() == 2;
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
     }
 
     @Override

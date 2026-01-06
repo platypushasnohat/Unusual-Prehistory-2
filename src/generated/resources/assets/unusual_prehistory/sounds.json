@@ -1058,6 +1058,26 @@
     ],
     "subtitle": "subtitles.praepusa_mitosis"
   },
+  "pterodactylus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/pterodactylus/death1"
+    ],
+    "subtitle": "subtitles.pterodactylus_death"
+  },
+  "pterodactylus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/pterodactylus/hurt1"
+    ],
+    "subtitle": "subtitles.pterodactylus_hurt"
+  },
+  "pterodactylus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/pterodactylus/idle1",
+      "unusual_prehistory:entity/pterodactylus/idle2",
+      "unusual_prehistory:entity/pterodactylus/idle3"
+    ],
+    "subtitle": "subtitles.pterodactylus_idle"
+  },
   "small_dunkleosteus_bite": {
     "sounds": [
       {

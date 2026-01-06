@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class UP2AdvancementProvider implements AdvancementGenerator {
 
     private static final EntityType<?>[] REVIVABLE_MOBS = new EntityType<?>[] {
-            UP2Entities.BARINASUCHUS.get(),
+            UP2Entities.BARINASUCHUS.get(), UP2Entities.BRACHIOSAURUS.get(),
             UP2Entities.CARNOTAURUS.get(),
             UP2Entities.DESMATOSUCHUS.get(), UP2Entities.DIPLOCAULUS.get(), UP2Entities.DROMAEOSAURUS.get(),
             UP2Entities.DUNKLEOSTEUS.get(),
@@ -41,6 +41,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Entities.MAJUNGASAURUS.get(), UP2Entities.MEGALANIA.get(), UP2Entities.METRIORHYNCHUS.get(),
             UP2Entities.ONCHOPRISTIS.get(),
             UP2Entities.PACHYCEPHALOSAURUS.get(), UP2Entities.PRAEPUSA.get(), UP2Entities.PSILOPTERUS.get(),
+            UP2Entities.PTERODACTYLUS.get(),
             UP2Entities.STETHACANTHUS.get(),
             UP2Entities.TALPANAS.get(), UP2Entities.TELECREX.get(), UP2Entities.THERIZINOSAURUS.get(),
             UP2Entities.ULUGHBEGSAURUS.get()
@@ -148,9 +149,11 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         reviveMobAdvancement("revive_desmatosuchus", triassicRoot, UP2Blocks.DESMATOSUCHUS_EGG.get(), UP2Entities.DESMATOSUCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_desmatosuchus"), helper);
 
         // Jurassic
+        reviveMobAdvancement("revive_brachiosaurus", jurassicRoot, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_brachiosaurus"), helper);
         reviveMobAdvancement("revive_kentrosaurus", jurassicRoot, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kentrosaurus"), helper);
         reviveMobAdvancement("revive_kimmeridgebrachypteraeschnidium", jurassicRoot, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kimmeridgebrachypteraeschnidium"), helper);
         reviveMobAdvancement("revive_metriorhynchus", jurassicRoot, UP2Items.METRIORHYNCHUS_EMBRYO.get(), UP2Entities.METRIORHYNCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_metriorhynchus"), helper);
+        reviveMobAdvancement("revive_pterodactylus", jurassicRoot, UP2Items.PTERODACTYLUS_EGG.get(), UP2Entities.PTERODACTYLUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_pterodactylus"), helper);
 
         // Cretaceous
         reviveMobAdvancement("revive_carnotaurus", cretaceousRoot, UP2Blocks.CARNOTAURUS_EGG.get(), UP2Entities.CARNOTAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_carnotaurus"), helper);

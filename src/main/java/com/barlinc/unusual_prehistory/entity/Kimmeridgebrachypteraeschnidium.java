@@ -120,7 +120,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() != null){
+        if (hurt && source.getEntity() != null) {
             this.setFlying(true);
         }
         return hurt;
@@ -260,7 +260,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public boolean refuseToMove() {
-        return this.getIdleState() == 1;
+        return super.refuseToMove() && this.getIdleState() == 1;
     }
 
     @Override

@@ -49,6 +49,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACHYCEPHALOSAURUS_FOOD = modItemTag("pachycephalosaurus_food");
     public static final TagKey<Item> PRAEPUSA_FOOD = modItemTag("praepusa_food");
     public static final TagKey<Item> PSILOPTERUS_FOOD = modItemTag("psilopterus_food");
+    public static final TagKey<Item> PTERODACTYLUS_FOOD = modItemTag("pterodactylus_food");
     public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
     public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");
     public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");

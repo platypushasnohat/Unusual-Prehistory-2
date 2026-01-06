@@ -140,8 +140,13 @@ public class UP2Items {
 
     // Psilopterus
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x432f2a, 0xeddbc5);
-    public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak");
+    public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
+
+    // Pterodactylus
+    public static final RegistryObject<Item> PTERODACTYLUS_SPAWN_EGG = registerSpawnEggItem("pterodactylus", UP2Entities.PTERODACTYLUS, 0x4e3d2e, 0xffdb63);
+    public static final RegistryObject<Item> WING_FOSSIL = registerFossilItem("wing");
+    public static final RegistryObject<Item> PTERODACTYLUS_EGG = registerEggItem("pterodactylus", UP2Entities.PTERODACTYLUS_EGG);
 
     // Stethacanthus
     public static final RegistryObject<Item> STETHACANTHUS_SPAWN_EGG = registerSpawnEggItem("stethacanthus", UP2Entities.STETHACANTHUS, 0x6e2e1f, 0xffa200);

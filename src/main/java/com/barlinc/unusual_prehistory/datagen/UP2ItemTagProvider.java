@@ -56,6 +56,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 MOSSY_FOSSIL.get(),
                 SCYTHE_FOSSIL.get(),
                 CROOKED_BEAK_FOSSIL.get(),
+                WING_FOSSIL.get(),
                 DUBIOUS_FOSSIL.get(),
 
                 CALAMOPHYTON_FOSSIL.get(),
@@ -244,6 +245,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_CHICKEN,
                 Items.COOKED_MUTTON,
                 Items.COOKED_RABBIT
+        );
+
+        this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
+                Items.APPLE,
+                Items.SWEET_BERRIES,
+                Items.MELON_SLICE
         );
 
         this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(

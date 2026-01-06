@@ -456,6 +456,18 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "wing_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:wing_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -496,6 +508,7 @@
       "cranium_fossil",
       "flipper_fossil",
       "crooked_beak_fossil",
+      "wing_fossil",
       "anvil_fossil",
       "mossy_fossil",
       "plumage_fossil",

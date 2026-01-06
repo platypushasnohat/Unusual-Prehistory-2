@@ -201,6 +201,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "psilopterus").toString())
     );
 
+    public static final RegistryObject<EntityType<Pterodactylus>> PTERODACTYLUS = ENTITY_TYPE.register(
+            "pterodactylus", () ->
+            EntityType.Builder.of(Pterodactylus::new, MobCategory.CREATURE)
+                    .sized(0.4F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pterodactylus").toString())
+    );
+
     public static final RegistryObject<EntityType<Stethacanthus>> STETHACANTHUS = ENTITY_TYPE.register(
             "stethacanthus", () ->
             EntityType.Builder.of(Stethacanthus::new, MobCategory.WATER_CREATURE)
@@ -281,6 +289,14 @@ public class UP2Entities {
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "psilopterus_egg").toString())
+    );
+
+    public static final RegistryObject<EntityType<ThrowableEgg>> PTERODACTYLUS_EGG = ENTITY_TYPE.register(
+            "pterodactylus_egg", () ->
+            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS::get), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pterodactylus_egg").toString())
     );
 
     public static final RegistryObject<EntityType<ThrowableEgg>> TALPANAS_EGG = ENTITY_TYPE.register(

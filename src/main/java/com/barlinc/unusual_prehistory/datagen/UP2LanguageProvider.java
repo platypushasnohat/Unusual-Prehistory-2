@@ -64,6 +64,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.PACHYCEPHALOSAURUS);
         this.forEntity(UP2Entities.PRAEPUSA);
         this.forEntity(UP2Entities.PSILOPTERUS);
+        this.forEntity(UP2Entities.PTERODACTYLUS);
         this.forEntity(UP2Entities.STETHACANTHUS);
         this.forEntity(UP2Entities.TALPANAS);
         this.forEntity(UP2Entities.TARTUOSTEUS);
@@ -74,6 +75,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.forEntity(UP2Entities.DROMAEOSAURUS_EGG);
         this.forEntity(UP2Entities.PSILOPTERUS_EGG);
+        this.forEntity(UP2Entities.PTERODACTYLUS_EGG);
         this.forEntity(UP2Entities.TALPANAS_EGG);
         this.forEntity(UP2Entities.TELECREX_EGG);
 
@@ -197,6 +199,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PRAEPUSA_MITOSIS, "Praepusa mitoses");
         this.sound(UP2SoundEvents.PRAEPUSA_BOUNCE, "Praepusa bounces");
 
+        this.sound(UP2SoundEvents.PTERODACTYLUS_HURT, "Pterodactylus hurts");
+        this.sound(UP2SoundEvents.PTERODACTYLUS_DEATH, "Pterodactylus dies");
+        this.sound(UP2SoundEvents.PTERODACTYLUS_IDLE, "Pterodactylus chirps");
+
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT, "Stethacanthus hurts");
         this.sound(UP2SoundEvents.STETHACANTHUS_DEATH, "Stethacanthus dies");
         this.sound(UP2SoundEvents.STETHACANTHUS_FLOP, "Stethacanthus flops");
@@ -256,6 +262,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
         this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
+        this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
         this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
@@ -273,6 +280,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_pachycephalosaurus", "Thick-Headed", "Revive a Pachycephalosaurus");
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");
         this.translateAdvancement("revive_psilopterus", "Clever Girl", "Revive a Psilopterus");
+        this.translateAdvancement("revive_pterodactylus", "Honey I Shrunk the Pterosaur", "Revive a Pterodactylus");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");

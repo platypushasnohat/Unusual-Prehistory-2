@@ -53,16 +53,16 @@ public class RandomFlightGoal extends Goal {
     @Override
     public void start() {
         this.mob.setFlying(true);
-        mob.getNavigation().moveTo(this.x, this.y, this.z, mob.isRunning() ? runningSpeedModifier : speedModifier);
+        this.mob.getNavigation().moveTo(this.x, this.y, this.z, mob.isRunning() ? runningSpeedModifier : speedModifier);
     }
 
     @Override
     public void stop() {
-        mob.getNavigation().stop();
-        mob.landingFlag = false;
-        x = 0;
-        y = 0;
-        z = 0;
+        this.mob.getNavigation().stop();
+        this.mob.landingFlag = false;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
     }
 
     @Override
@@ -86,6 +86,10 @@ public class RandomFlightGoal extends Goal {
         } else {
             return mob.isFlying() && !mob.getNavigation().isDone() && mob.groundedFor <= 0;
         }
+    }
+
+    protected Vec3 getPosition() {
+        return this.findFlightPos();
     }
 
     private Vec3 findFlightPos() {

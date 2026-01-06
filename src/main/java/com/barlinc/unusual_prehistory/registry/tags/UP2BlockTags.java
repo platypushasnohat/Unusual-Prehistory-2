@@ -45,6 +45,7 @@ public class UP2BlockTags {
     public static final TagKey<Block> PACHYCEPHALOSAURUS_SPAWNABLE_ON = modBlockTag("pachycephalosaurus_spawnable_on");
     public static final TagKey<Block> PRAEPUSA_SPAWNABLE_ON = modBlockTag("praepusa_spawnable_on");
     public static final TagKey<Block> PSILOPTERUS_SPAWNABLE_ON = modBlockTag("psilopterus_spawnable_on");
+    public static final TagKey<Block> PTERODACTYLUS_SPAWNABLE_ON = modBlockTag("pterodactylus_spawnable_on");
     public static final TagKey<Block> TALPANAS_SPAWNABLE_ON = modBlockTag("talpanas_spawnable_on");
     public static final TagKey<Block> TELECREX_SPAWNABLE_ON = modBlockTag("telecrex_spawnable_on");
     public static final TagKey<Block> THERIZINOSAURUS_SPAWNABLE_ON = modBlockTag("therizinosaurus_spawnable_on");

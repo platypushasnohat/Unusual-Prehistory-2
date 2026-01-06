@@ -86,7 +86,8 @@
          this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
-         this.goalSelector.addGoal(3, new AmphibiousPrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+         // todo: fix this not working properly
+         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
          this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));

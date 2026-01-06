@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:jurassic_root",
+  "criteria": {
+    "revive_pterodactylus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:pterodactylus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_pterodactylus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:pterodactylus_egg"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_pterodactylus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_pterodactylus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

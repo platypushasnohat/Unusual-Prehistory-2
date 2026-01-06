@@ -110,6 +110,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CRANIUM_FOSSIL.get());
                         output.accept(FLIPPER_FOSSIL.get());
                         output.accept(CROOKED_BEAK_FOSSIL.get());
+                        output.accept(WING_FOSSIL.get());
                         output.accept(ANVIL_FOSSIL.get());
                         output.accept(AGED_FEATHER.get());
                         output.accept(MOSSY_FOSSIL.get());
@@ -137,6 +138,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.PACHYCEPHALOSAURUS_EGG.get());
                         output.accept(PRAEPUSA_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
+                        output.accept(PTERODACTYLUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());

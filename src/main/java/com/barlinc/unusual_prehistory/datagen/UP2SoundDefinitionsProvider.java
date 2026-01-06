@@ -421,6 +421,19 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/praepusa/bounce1"))
         );
 
+        // Pterodactylus
+        this.sound(UP2SoundEvents.PTERODACTYLUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/hurt1"))
+        );
+        this.sound(UP2SoundEvents.PTERODACTYLUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/death1"))
+        );
+        this.sound(UP2SoundEvents.PTERODACTYLUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle3"))
+        );
+
         // Stethacanthus
         this.sound(UP2SoundEvents.STETHACANTHUS_HURT,
                 sound("entity/fish/hurt1"),

@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:wing_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:pterodactylus_egg"
+  },
+  "processing_time": 1200
+}

@@ -600,6 +600,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "pterodactylus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:pterodactylus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "quillwort_fossil": {
       "conditions": {
         "items": [
@@ -779,6 +791,18 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "wing_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:wing_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -822,6 +846,7 @@
       "metriorhynchus_embryo",
       "praepusa_embryo",
       "psilopterus_egg",
+      "pterodactylus_egg",
       "talpanas_egg",
       "telecrex_egg",
       "brute_fossil",
@@ -845,6 +870,7 @@
       "cranium_fossil",
       "flipper_fossil",
       "crooked_beak_fossil",
+      "wing_fossil",
       "anvil_fossil",
       "mossy_fossil",
       "plumage_fossil",

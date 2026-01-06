@@ -15,6 +15,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "brachiosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:brachiosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "carnotaurus": {
       "conditions": {
         "entity": [
@@ -267,6 +281,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "pterodactylus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:pterodactylus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "stethacanthus": {
       "conditions": {
         "entity": [
@@ -359,6 +387,9 @@
       "barinasuchus"
     ],
     [
+      "brachiosaurus"
+    ],
+    [
       "carnotaurus"
     ],
     [
@@ -411,6 +442,9 @@
     ],
     [
       "psilopterus"
+    ],
+    [
+      "pterodactylus"
     ],
     [
       "stethacanthus"

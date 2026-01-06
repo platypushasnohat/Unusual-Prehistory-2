@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-04T14:53:21.4877919	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2026-01-06T16:23:29.2787526	Tags for minecraft:block mod id unusual_prehistory
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates.json
 51f7c2eeefdb9106686fb800a464a0c54b620696 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -74,6 +74,7 @@ c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/blocks/pac
 0a6d57dbfee5c2462339b802e3d71f90b2dbf41c data/unusual_prehistory/tags/blocks/prevents_egg_hatching.json
 469c10ab8a81a70ca974dd4118c0c3edbd30e84b data/unusual_prehistory/tags/blocks/psilopterus_digging_blocks.json
 ca095d5a860953b60dcde69a2b44186e15c701eb data/unusual_prehistory/tags/blocks/psilopterus_spawnable_on.json
+992cb517afbab75457e6de013b6c1d1e7771c01b data/unusual_prehistory/tags/blocks/pterodactylus_spawnable_on.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/blocks/reinforced_glass.json
 49d64558670a4750d9059f7e531d80f97c9b8619 data/unusual_prehistory/tags/blocks/talpanas_pecking_blocks.json
 45bfbb41d6bfa684bc079c162a12820d426eb8c8 data/unusual_prehistory/tags/blocks/talpanas_spawnable_on.json
