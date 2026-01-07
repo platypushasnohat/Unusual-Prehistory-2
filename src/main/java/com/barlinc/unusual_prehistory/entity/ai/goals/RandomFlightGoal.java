@@ -19,7 +19,7 @@ public class RandomFlightGoal extends Goal {
     private final int flightRange;
     private final int flightHeight;
     private final int interval;
-    private final int maxTimeFlying;
+    protected final int maxTimeFlying;
     protected double x;
     protected double y;
     protected double z;
@@ -43,7 +43,7 @@ public class RandomFlightGoal extends Goal {
         if (!mob.isFlying() && mob.getRandom().nextInt(interval) != 0) {
             return false;
         }
-        Vec3 target = this.findFlightPos();
+        Vec3 target = this.getPosition();
         this.x = target.x;
         this.y = target.y;
         this.z = target.z;
@@ -70,10 +70,10 @@ public class RandomFlightGoal extends Goal {
         if (mob.isFlying() && mob.onGround() && mob.timeFlying > 40) {
             mob.setFlying(false);
         }
-        if (mob.isFlying() && mob.timeFlying % maxTimeFlying == 0 && !isOverWaterOrVoid()) {
+        if (mob.isFlying() && mob.timeFlying % maxTimeFlying == 0 && !this.isOverWaterOrVoid()) {
             mob.landingFlag = true;
         }
-        if (isOverWaterOrVoid() || mob.isInWaterOrBubble()) {
+        if (this.isOverWaterOrVoid() || mob.isInWaterOrBubble()) {
             mob.setFlying(true);
             mob.landingFlag = false;
         }
@@ -92,7 +92,7 @@ public class RandomFlightGoal extends Goal {
         return this.findFlightPos();
     }
 
-    private Vec3 findFlightPos() {
+    protected Vec3 findFlightPos() {
         Vec3 heightAdjusted = mob.position().add(mob.getRandom().nextInt(flightRange * 2) - flightRange, 0, mob.getRandom().nextInt(flightRange * 2) - flightRange);
         if (mob.level().canSeeSky(BlockPos.containing(heightAdjusted))) {
             Vec3 ground = groundPosition(heightAdjusted);
@@ -130,7 +130,7 @@ public class RandomFlightGoal extends Goal {
         return Vec3.atCenterOf(flag ? ground.above() : ground.below());
     }
 
-    private boolean isOverWaterOrVoid() {
+    protected boolean isOverWaterOrVoid() {
         BlockPos position = mob.blockPosition();
         while (position.getY() > mob.level().getMinBuildHeight() && mob.level().isEmptyBlock(position) && mob.level().getFluidState(position).isEmpty()) {
             position = position.below();

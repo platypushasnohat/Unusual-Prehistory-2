@@ -144,7 +144,7 @@ public class UP2Items {
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
     // Pterodactylus
-    public static final RegistryObject<Item> PTERODACTYLUS_SPAWN_EGG = registerSpawnEggItem("pterodactylus", UP2Entities.PTERODACTYLUS, 0x4e3d2e, 0xffdb63);
+    public static final RegistryObject<Item> PTERODACTYLUS_SPAWN_EGG = registerSpawnEggItem("pterodactylus", UP2Entities.PTERODACTYLUS, 0x634b39, 0xffdb63);
     public static final RegistryObject<Item> WING_FOSSIL = registerFossilItem("wing");
     public static final RegistryObject<Item> PTERODACTYLUS_EGG = registerEggItem("pterodactylus", UP2Entities.PTERODACTYLUS_EGG);
 

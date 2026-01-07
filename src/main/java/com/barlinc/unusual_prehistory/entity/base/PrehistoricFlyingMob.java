@@ -24,8 +24,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected float flyProgress;
     protected float prevFlyProgress;
-    protected float groundProgress = 5.0F;
-    protected float prevGroundProgress = 5.0F;
     public int timeFlying = 0;
     protected float flightPitch = 0;
     protected float prevFlightPitch = 0;
@@ -34,8 +32,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     public int groundedFor = 0;
     public boolean isLandNavigator;
     public boolean landingFlag;
-
-    public boolean useLowerFluidJumpThreshold = false;
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -100,7 +96,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         super.tick();
 
         prevFlyProgress = flyProgress;
-        prevGroundProgress = groundProgress;
         prevFlightPitch = flightPitch;
         prevFlightRoll = flightRoll;
 
@@ -110,20 +105,14 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     public void tickFlight() {
         if (this.isFlying() && flyProgress < 5F) {
-            flyProgress++;
+            this.flyProgress++;
         }
         if (!this.isFlying() && flyProgress > 0F) {
-            flyProgress--;
-        }
-        if (this.onGround() && groundProgress < 5F) {
-            groundProgress++;
-        }
-        if (!this.onGround() && groundProgress > 0F) {
-            groundProgress--;
+            this.flyProgress--;
         }
 
         if (this.isFlying()) {
-            timeFlying++;
+            this.timeFlying++;
             this.setNoGravity(true);
             if (this.isLandNavigator) {
                 this.switchNavigator(false);
@@ -132,14 +121,14 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
                 this.setFlying(false);
             }
         } else {
-            timeFlying = 0;
+            this.timeFlying = 0;
             this.setNoGravity(false);
             if (!this.isLandNavigator) {
                 this.switchNavigator(true);
             }
         }
         if (groundedFor > 0) {
-            groundedFor--;
+            this.groundedFor--;
         }
 
         if (!level().isClientSide) {
@@ -205,9 +194,5 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     public float getFlyProgress(float partialTick) {
         return (prevFlyProgress + (flyProgress - prevFlyProgress) * partialTick) * 0.2F;
-    }
-
-    public float getGroundProgress(float partialTick) {
-        return (prevGroundProgress + (groundProgress - prevGroundProgress) * partialTick) * 0.2F;
     }
 }

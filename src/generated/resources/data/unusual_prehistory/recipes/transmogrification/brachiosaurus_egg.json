@@ -1,0 +1,10 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "input": {
+    "item": "unusual_prehistory:arm_fossil"
+  },
+  "output": {
+    "item": "unusual_prehistory:brachiosaurus_egg"
+  },
+  "processing_time": 3600
+}

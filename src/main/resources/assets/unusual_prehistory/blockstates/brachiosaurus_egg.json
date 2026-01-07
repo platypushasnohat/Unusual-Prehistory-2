@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "hatch=0,half=lower": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_bottom"
+    },
+    "hatch=1,half=lower": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_bottom_cracked"
+    },
+    "hatch=2,half=lower": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_bottom_very_cracked"
+    },
+    "hatch=0,half=upper": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_top"
+    },
+    "hatch=1,half=upper": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_top_cracked"
+    },
+    "hatch=2,half=upper": {
+      "model": "unusual_prehistory:block/brachiosaurus_egg_top_very_cracked"
+    }
+  }
+}

@@ -119,6 +119,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DUBIOUS_FOSSIL.get());
 
                         output.accept(UP2Blocks.BARINASUCHUS_EGG.get());
+                        output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
@@ -131,6 +132,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
 //                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
+                        output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());

@@ -71,7 +71,7 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
-        return !this.isInvulnerableTo(source) && (source.getEntity() != null && this.parent.getControllingPassenger() != null && !(source.getEntity().is(this.parent.getControllingPassenger()))) && this.parent.hurt(source, amount);
+        return !this.isInvulnerableTo(source) && this.parent.hurt(source, amount);
     }
 
     @Override

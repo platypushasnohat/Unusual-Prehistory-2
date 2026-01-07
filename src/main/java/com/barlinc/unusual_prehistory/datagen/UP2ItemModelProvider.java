@@ -75,6 +75,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // eggs
         this.item(UP2Blocks.BARINASUCHUS_EGG);
+        this.item(UP2Blocks.BRACHIOSAURUS_EGG);
         this.item(UP2Blocks.CARNOTAURUS_EGG);
         this.item(UP2Blocks.COELACANTHUS_ROE);
         this.item(UP2Blocks.DESMATOSUCHUS_EGG);
@@ -87,6 +88,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
         this.item(LEPTICTIDIUM_EMBRYO);
 //        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
+        this.item(UP2Blocks.LYSTROSAURUS_EGG);
         this.item(UP2Blocks.MAJUNGASAURUS_EGG);
         this.item(UP2Blocks.MEGALANIA_EGG);
         this.item(METRIORHYNCHUS_EMBRYO);

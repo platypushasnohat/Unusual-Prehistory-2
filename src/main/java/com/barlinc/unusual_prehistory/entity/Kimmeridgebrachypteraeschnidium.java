@@ -86,10 +86,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothFlyingPathNavigation(this, level, 0.75F);
-    }
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
@@ -118,6 +114,15 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothFlyingPathNavigation(this, level, 0.75F);
+    }
+
+    @Override
+    public void switchNavigator(boolean onLand) {
+    }
+
+    @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
         if (hurt && source.getEntity() != null) {
@@ -128,7 +133,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround() && !this.isFlying()) {
+        if (this.refuseToMove() || (this.onGround() && !this.isFlying())) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }

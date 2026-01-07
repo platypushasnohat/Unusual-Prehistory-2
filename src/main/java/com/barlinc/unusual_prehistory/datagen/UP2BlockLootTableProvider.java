@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.blocks.CalamophytonBlock;
+import com.barlinc.unusual_prehistory.blocks.TallEggBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
@@ -48,7 +49,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void add(@NotNull Block block, LootTable.@NotNull Builder builder) {
         super.add(block, builder);
-        knownBlocks.add(block);
+        this.knownBlocks.add(block);
     }
 
     @Override
@@ -100,6 +101,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(PINK_REINFORCED_GLASS.get());
 
         this.dropSelf(BARINASUCHUS_EGG.get());
+        this.add(BRACHIOSAURUS_EGG.get(), (block) -> this.createSinglePropConditionTable(block, TallEggBlock.HALF, DoubleBlockHalf.LOWER));
         this.dropSelf(CARNOTAURUS_EGG.get());
         this.dropSelf(COELACANTHUS_ROE.get());
         this.dropSelf(DESMATOSUCHUS_EGG.get());
@@ -110,6 +112,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(KENTROSAURUS_EGG.get());
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
 //        this.dropSelf(LOBE_FINNED_FISH_ROE.get());
+        this.dropSelf(LYSTROSAURUS_EGG.get());
         this.dropSelf(MAJUNGASAURUS_EGG.get());
         this.dropSelf(MEGALANIA_EGG.get());
         this.dropSelf(ONCHOPRISTIS_SAC.get());

@@ -11,6 +11,21 @@
         },
         {
           "type": "minecraft:item",
+          "name": "unusual_prehistory:brute_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:flipper_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:crooked_beak_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
           "name": "unusual_prehistory:plumage_fossil",
           "weight": 4
         },

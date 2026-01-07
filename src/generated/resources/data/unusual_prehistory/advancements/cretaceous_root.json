@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "brachiosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:brachiosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "carnotaurus_egg": {
       "conditions": {
         "items": [
@@ -139,6 +151,18 @@
           {
             "items": [
               "unusual_prehistory:leptictidium_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "lystrosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:lystrosaurus_egg"
             ]
           }
         ]
@@ -332,6 +356,7 @@
   "requirements": [
     [
       "barinasuchus_egg",
+      "brachiosaurus_egg",
       "carnotaurus_egg",
       "coelacanthus_roe",
       "desmatosuchus_egg",
@@ -341,6 +366,7 @@
       "kaprosuchus_egg",
       "kentrosaurus_egg",
       "kimmeridgebrachypteraeschnidium_eggs",
+      "lystrosaurus_egg",
       "majungasaurus_egg",
       "megalania_egg",
       "onchopristis_sac",

@@ -1,9 +1,10 @@
 {
-	"format_version": "1.21.11",
+	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "unusual_prehistory:block/brachiosaurus_egg_bottom"
+		"egg": "unusual_prehistory:block/brachiosaurus_egg_bottom",
+		"particle": "unusual_prehistory:block/brachiosaurus_egg_particle"
 	},
 	"elements": [
 		{
@@ -11,12 +12,12 @@
 			"to": [16, 16, 16],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [4, 4, 8, 8], "texture": "#0"},
-				"east": {"uv": [0, 4, 4, 8], "texture": "#0"},
-				"south": {"uv": [12, 4, 16, 8], "texture": "#0"},
-				"west": {"uv": [8, 4, 12, 8], "texture": "#0"},
-				"up": {"uv": [8, 4, 4, 0], "texture": "#0"},
-				"down": {"uv": [12, 0, 8, 4], "texture": "#0"}
+				"north": {"uv": [4, 4, 8, 8], "texture": "#egg"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#egg"},
+				"south": {"uv": [12, 4, 16, 8], "texture": "#egg"},
+				"west": {"uv": [8, 4, 12, 8], "texture": "#egg"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#egg"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#egg"}
 			}
 		}
 	]

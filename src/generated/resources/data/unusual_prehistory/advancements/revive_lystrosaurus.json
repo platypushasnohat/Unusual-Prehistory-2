@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:jurassic_root",
+  "parent": "unusual_prehistory:paleozoic_root",
   "criteria": {
-    "revive_brachiosaurus": {
+    "revive_lystrosaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:brachiosaurus"
+              "type": "unusual_prehistory:lystrosaurus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.revive_brachiosaurus.desc"
+      "translate": "advancement.unusual_prehistory.revive_lystrosaurus.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:brachiosaurus_egg"
+      "item": "unusual_prehistory:lystrosaurus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.revive_brachiosaurus"
+      "translate": "advancement.unusual_prehistory.revive_lystrosaurus"
     }
   },
   "requirements": [
     [
-      "revive_brachiosaurus"
+      "revive_lystrosaurus"
     ]
   ],
   "sends_telemetry_event": true

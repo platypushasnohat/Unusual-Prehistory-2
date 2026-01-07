@@ -1,7 +1,7 @@
 {
 	"texture_size": [32, 32],
 	"textures": {
-		"egg": "unusual_prehistory:block/lystrosaurus_egg",
+		"egg": "unusual_prehistory:block/lystrosaurus_egg_cracked",
 		"particle": "unusual_prehistory:block/lystrosaurus_egg_particle"
 	},
 	"elements": [

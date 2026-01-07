@@ -114,6 +114,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PINK_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_PINK).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("pink_reinforced_glass_from_dye"));
 
         transmogrification(consumer, UP2Items.BRUTE_FOSSIL.get(), BARINASUCHUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.ARM_FOSSIL.get(), BRACHIOSAURUS_EGG.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.GLUTTONOUS_FOSSIL.get(), COELACANTHUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.FLAT_BACK_FOSSIL.get(), DESMATOSUCHUS_EGG.get().asItem(), 2400);
@@ -126,6 +127,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), KENTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.TRUNK_MOUSE_FOSSIL.get(), UP2Items.LEPTICTIDIUM_EMBRYO.get(), 1200);
 //        transmogrification(consumer, UP2Items.FISH_FOSSIL.get(), LOBE_FINNED_FISH_ROE.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.IMPERVIOUS_FOSSIL.get(), LYSTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), MAJUNGASAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);

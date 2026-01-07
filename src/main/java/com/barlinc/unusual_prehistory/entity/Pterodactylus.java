@@ -1,7 +1,9 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.FlyingMoveController;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusFlyAndHangGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -56,16 +58,19 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     public final AnimationState flyFastAnimationState = new AnimationState();
     public final AnimationState hoverAnimationState = new AnimationState();
     public final AnimationState stretchAnimationState = new AnimationState();
+    public final AnimationState hangingStretchAnimationState = new AnimationState();
+
+    private int stretchCooldown = 400 + this.getRandom().nextInt(600);
 
     public Pterodactylus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveController(this);
+        this.moveControl = new FlyingMoveController(this, 3.0F, 0.96F);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0D)
+                .add(Attributes.MAX_HEALTH, 4.0D)
                 .add(Attributes.FLYING_SPEED, 0.9F)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
@@ -73,22 +78,31 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-//        this.goalSelector.addGoal(1, new TelecrexScatterGoal(this));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PTERODACTYLUS_FOOD), true));
-        this.goalSelector.addGoal(2, new PterodactylusFlyAndHangGoal(this));
-        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(1, new PterodactylusScatterGoal(this));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PTERODACTYLUS_FOOD), true));
+        this.goalSelector.addGoal(3, new PterodactylusFlyAndHangGoal(this));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new PterodactylusStretchGoal(this));
     }
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothFlyingPathNavigation(this, level, 0.8F);
+        return new SmoothFlyingPathNavigation(this, level, 1.0F);
+    }
+
+    @Override
+    public void switchNavigator(boolean onLand) {
+    }
+
+    @Override
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+        return dimensions.height * 0.7F;
     }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
+        if (this.refuseToMove() || this.onGround() || this.isHanging()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
@@ -104,12 +118,14 @@ public class Pterodactylus extends PrehistoricFlyingMob {
             double range = 8;
             this.setFlying(true);
             this.setRunning(true);
+            if (this.isHanging()) this.setHanging(false);
             this.setRunningTicks(this.getFastFlyingTicks());
             List<? extends Pterodactylus> entities = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(range, range / 2, range));
             for (Pterodactylus pterodactylus : entities) {
                 pterodactylus.setFlying(true);
                 pterodactylus.setRunning(true);
-                pterodactylus.setRunningTicks(this.getFastFlyingTicks());
+                if (pterodactylus.isHanging()) pterodactylus.setHanging(false);
+                pterodactylus.setRunningTicks(pterodactylus.getFastFlyingTicks());
             }
         }
         return hurt;
@@ -124,21 +140,36 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     @Override
+    protected void doPush(@NotNull Entity entity) {
+    }
+
+    @Override
+    protected void pushEntities() {
+    }
+
+    @Override
+    protected Entity.@NotNull MovementEmission getMovementEmission() {
+        return Entity.MovementEmission.EVENTS;
+    }
+
+    @Override
+    protected void doWaterSplashEffect() {
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
         if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
 
-        if (!level().isClientSide) {
-            this.tickHanging();
-        }
+        if (!level().isClientSide) this.tickHanging();
     }
 
     private void tickHanging() {
         if (this.isHanging()) {
             BlockPos above = posAbove();
             if (checkHangingTime-- < 0 || random.nextFloat() < 0.1F || prevHangPos != above) {
-                this.validHangingPos = canHangFrom(above, level().getBlockState(above));
+                this.validHangingPos = this.canHangFrom(above, level().getBlockState(above));
                 this.checkHangingTime = 5 + random.nextInt(5);
                 this.prevHangPos = above;
             }
@@ -149,6 +180,10 @@ public class Pterodactylus extends PrehistoricFlyingMob {
                 this.setFlying(true);
             }
             this.timeHanging++;
+            if (this.isHanging() && timeHanging > 800) {
+                this.setFlying(true);
+                this.setHanging(false);
+            }
         } else {
             this.timeHanging = 0;
             this.validHangingPos = false;
@@ -158,11 +193,12 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     @Override
     public void setupAnimationCooldowns() {
+        if (stretchCooldown > 0) stretchCooldown--;
     }
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
+        return super.refuseToMove() || this.getIdleState() == 1;
     }
 
     public int getFastFlyingTicks() {
@@ -171,8 +207,8 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && !this.isHanging(), this.tickCount);
-        this.hangIdleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && this.isHanging(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isFlying() && !this.isHanging(), this.tickCount);
+        this.hangIdleAnimationState.animateWhen(!this.isFlying() && this.isHanging(), this.tickCount);
         this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning() && !this.isHanging(), this.tickCount);
         this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning() && !this.isHanging(), this.tickCount);
         this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
@@ -180,8 +216,20 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     public void handleEntityEvent(byte id) {
         switch (id) {
+            case 67 -> {
+                if (this.isHanging()) this.hangingStretchAnimationState.start(this.tickCount);
+                else this.stretchAnimationState.start(this.tickCount);
+            }
+            case 68 -> {
+                this.hangingStretchAnimationState.stop();
+                this.stretchAnimationState.stop();
+            }
             default -> super.handleEntityEvent(id);
         }
+    }
+
+    protected void stretchCooldown() {
+        this.stretchCooldown = 400 + this.getRandom().nextInt(600);
     }
 
     @Override
@@ -230,10 +278,22 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
     }
 
+    @Override
+    public int getAmbientSoundInterval() {
+        return 150;
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.8F;
+    }
+
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.PTERODACTYLUS.get().create(serverLevel);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+        Pterodactylus pterodactylus = UP2Entities.PTERODACTYLUS.get().create(level);
+        pterodactylus.setVariant(this.getVariant());
+        return pterodactylus;
     }
 
     @Override
@@ -287,5 +347,27 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     public static boolean canSpawn(EntityType<Pterodactylus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.PTERODACTYLUS_SPAWNABLE_ON);
+    }
+
+    // Goals
+    private static class PterodactylusStretchGoal extends AnimationGoal {
+
+        private final Pterodactylus pterodactylus;
+
+        public PterodactylusStretchGoal(Pterodactylus pterodactylus) {
+            super(pterodactylus, 40, 1, (byte) 67, (byte) 68);
+            this.pterodactylus = pterodactylus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging());
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.pterodactylus.stretchCooldown();
+        }
     }
 }

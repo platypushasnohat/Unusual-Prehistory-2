@@ -98,14 +98,16 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
         this.animateIdle(entity.hoverAnimationState, PterodactylusAnimations.FLY_HOVER, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks);
         this.animate(entity.flyFastAnimationState, PterodactylusAnimations.FLYFAST, ageInTicks);
+        this.animate(entity.stretchAnimationState, PterodactylusAnimations.GROUND_STRETCH_BLEND, ageInTicks);
+        this.animate(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks);
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);
 		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
 
-		this.body_main.xRot += flightPitchAmount / 2;
-		this.body_main.zRot += rollAmount / 2;
+		this.flight_control.xRot += flightPitchAmount;
+		this.flight_control.zRot += rollAmount * 0.4F;
 	}
 
 	@Override

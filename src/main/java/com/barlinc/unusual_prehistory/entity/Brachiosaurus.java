@@ -77,6 +77,8 @@
 
      private int timer = 0;
 
+     private boolean wasPreviouslyBaby;
+
      public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState sitStartAnimationState = new AnimationState();
      public final AnimationState sitAnimationState = new AnimationState();
@@ -92,7 +94,7 @@
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
-         this.refreshDimensions();
+//         this.refreshDimensions();
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
          this.headPart = new BrachiosaurusPart(this, "head", 2.5F, 2.5F);
@@ -170,7 +172,7 @@
 
      @Override
      public float getStepHeight() {
-         return 3.6F;
+         return this.isBaby() ? 1.1F : 3.6F;
      }
 
      @Override
@@ -185,12 +187,12 @@
 
      @Override
      public boolean canBeCollidedWith() {
-         return !this.isAggressive();
+         return !this.isAggressive() && !this.isBaby();
      }
 
      @Override
      public boolean isPushable() {
-         return false;
+         return this.isBaby();
      }
 
      @Override
@@ -217,6 +219,14 @@
          if (screenShakeAmount > 0) screenShakeAmount = Math.max(0, screenShakeAmount - 0.34F);
          if (this.onGround() && !this.isInFluidType() && this.walkAnimation.speed() > 0.1F && !this.isBaby()) {
              this.tickFootsteps();
+         }
+
+         if (wasPreviouslyBaby != this.isBaby()) {
+             this.wasPreviouslyBaby = this.isBaby();
+             this.refreshDimensions();
+             for (BrachiosaurusPart brachiosaurusPart : this.allParts){
+                 brachiosaurusPart.refreshDimensions();
+             }
          }
      }
 
@@ -297,7 +307,7 @@
 
      @Override
      public boolean isMultipartEntity() {
-         return true;
+         return !this.isBaby();
      }
 
      @Override

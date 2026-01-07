@@ -128,7 +128,7 @@ public class Telecrex extends PrehistoricFlyingMob {
             for (Telecrex telecrex : entities) {
                 telecrex.setFlying(true);
                 telecrex.setRunning(true);
-                telecrex.setRunningTicks(this.getFastFlyingTicks());
+                telecrex.setRunningTicks(telecrex.getFastFlyingTicks());
             }
         }
         return hurt;

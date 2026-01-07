@@ -8,10 +8,18 @@ import net.minecraft.world.phys.Vec3;
 public class FlyingMoveController extends MoveControl {
 
     private final PrehistoricMob prehistoricMob;
+    protected final float turnRadius;
+    protected final float speed;
 
     public FlyingMoveController(PrehistoricMob prehistoricMob) {
+        this(prehistoricMob, 1.0F, 0.95F);
+    }
+
+    public FlyingMoveController(PrehistoricMob prehistoricMob, float turnRadius, float speed) {
         super(prehistoricMob);
         this.prehistoricMob = prehistoricMob;
+        this.turnRadius = turnRadius;
+        this.speed = speed;
     }
 
     @Override
@@ -22,12 +30,12 @@ public class FlyingMoveController extends MoveControl {
                 double length = vector3d.length();
                 double width = prehistoricMob.getBoundingBox().getSize();
                 Vec3 scale = vector3d.scale(this.speedModifier * 0.05D / length);
-                prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(scale).scale(0.95D).add(0, -0.01, 0));
+                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(scale).scale(speed).add(0, -0.01, 0));
                 if (length < width) {
                     this.operation = Operation.WAIT;
                 } else if (length >= width) {
-                    float yaw = -((float) Mth.atan2(scale.x, scale.z)) * (180F / (float) Math.PI);
-                    prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 8));
+                    float yaw = -((float) Mth.atan2(scale.x * turnRadius, scale.z * turnRadius)) * (180F / (float) Math.PI);
+                    this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 8));
                 }
             }
         }

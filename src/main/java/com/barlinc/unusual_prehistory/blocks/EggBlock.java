@@ -47,7 +47,7 @@ import java.util.function.Supplier;
 public class EggBlock extends BaseEntityBlock {
 
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-    private final VoxelShape shape;
+    protected final VoxelShape shape;
     private final Supplier<EntityType<?>> hatchedEntity;
     private final boolean canTrample;
 
@@ -87,7 +87,7 @@ public class EggBlock extends BaseEntityBlock {
         }
     }
 
-    private void trampleEgg(Level level, BlockPos pos, Entity trampler) {
+    protected void trampleEgg(Level level, BlockPos pos, Entity trampler) {
         AABB boundingBox = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).inflate(25, 25, 25);
         if (trampler instanceof LivingEntity && !(trampler instanceof Player player && player.isCreative())) {
             List<Mob> list = level.getEntitiesOfClass(Mob.class, boundingBox, living -> living.isAlive() && living.getType() == hatchedEntity.get());
@@ -112,7 +112,7 @@ public class EggBlock extends BaseEntityBlock {
         return blockGetter.getBlockState(pos.below()).is(UP2BlockTags.ACCELERATES_EGG_HATCHING);
     }
 
-    private boolean isReadyToHatch(BlockState state) {
+    protected boolean isReadyToHatch(BlockState state) {
         return this.getHatchLevel(state) == 2;
     }
 
@@ -123,20 +123,20 @@ public class EggBlock extends BaseEntityBlock {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
                 level.setBlock(pos, state.setValue(HATCH, this.getHatchLevel(state) + 1), 2);
             } else {
-                spawnEntity(level, pos, random);
+                this.spawnEntity(level, pos, state, random);
             }
         }
     }
 
-    public void spawnEntity(ServerLevel level, BlockPos pos, RandomSource random){
+    public void spawnEntity(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (!(blockEntity instanceof ExtraDataBlockEntity dataBlockEntity)) return;
         UUID placer = dataBlockEntity.getOwner();
         level.playSound(null, pos, SoundEvents.SNIFFER_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
         level.destroyBlock(pos, false);
-        int i = 1;
+        int i = this.getMobsBornFrom(state);
         if (random.nextInt(5) == 0) {
-            i = 2;
+            i += 1;
         }
         for (int j = 0; j < i; j++) {
             Vec3 vec3 = pos.getCenter();
@@ -161,7 +161,11 @@ public class EggBlock extends BaseEntityBlock {
         }
     }
 
-    private boolean canTrample(Level level, Entity trampler) {
+    protected int getMobsBornFrom(BlockState state) {
+        return 1;
+    }
+
+    protected boolean canTrample(Level level, Entity trampler) {
         if (!(trampler instanceof LivingEntity)) {
             return false;
         } else {
