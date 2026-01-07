@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "unusual_prehistory:block/metasequoia_planks"
+  }
+}

@@ -48,6 +48,8 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_SAPLING.get(), 0.3F);
 
         registerCompostable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 0.3F);
+
+        registerCompostable(UP2Blocks.METASEQUOIA_LEAVES.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -87,17 +89,28 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE.get(), 5, 20);
         registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE_GATE.get(), 5, 20);
         registerFlammable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 30, 60);
+
+        registerFlammable(UP2Blocks.METASEQUOIA_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.METASEQUOIA_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_METASEQUOIA_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_METASEQUOIA_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.METASEQUOIA_PLANKS.get(), 5, 20);
+        registerFlammable(UP2Blocks.METASEQUOIA_SLAB.get(), 5, 20);
+        registerFlammable(UP2Blocks.METASEQUOIA_STAIRS.get(), 5, 20);
+        registerFlammable(UP2Blocks.METASEQUOIA_FENCE.get(), 5, 20);
+        registerFlammable(UP2Blocks.METASEQUOIA_FENCE_GATE.get(), 5, 20);
+        registerFlammable(UP2Blocks.METASEQUOIA_LEAVES.get(), 30, 60);
     }
 
     public static void registerDispenserBehaviours() {
-        registerDinosaurEggDispenserBehaviour(UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS_EGG::get);
-        registerDinosaurEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
-        registerDinosaurEggDispenserBehaviour(UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS_EGG::get);
-        registerDinosaurEggDispenserBehaviour(UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS_EGG::get);
-        registerDinosaurEggDispenserBehaviour(UP2Items.TELECREX_EGG, UP2Entities.TELECREX_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.TELECREX_EGG, UP2Entities.TELECREX_EGG::get);
     }
 
-    public static void registerDinosaurEggDispenserBehaviour(Supplier<Item> itemSupplier, Supplier<EntityType<? extends ThrowableEgg>> entityTypeSupplier) {
+    public static void registerEggDispenserBehaviour(Supplier<Item> itemSupplier, Supplier<EntityType<? extends ThrowableEgg>> entityTypeSupplier) {
         DispenserBlock.registerBehavior(itemSupplier.get(), new AbstractProjectileDispenseBehavior() {
             protected @NotNull Projectile getProjectile(@NotNull Level level, @NotNull Position pos, @NotNull ItemStack itemStack) {
                 ThrowableEgg egg = entityTypeSupplier.get().create(level);
@@ -114,6 +127,8 @@ public class UP2Compat {
         signs.add(UP2Blocks.GINKGO_WALL_SIGN.get());
         signs.add(UP2Blocks.LEPIDODENDRON_SIGN.get());
         signs.add(UP2Blocks.LEPIDODENDRON_WALL_SIGN.get());
+        signs.add(UP2Blocks.METASEQUOIA_SIGN.get());
+        signs.add(UP2Blocks.METASEQUOIA_WALL_SIGN.get());
         BlockEntityType.SIGN.validBlocks = signs.build();
     }
 
@@ -124,6 +139,8 @@ public class UP2Compat {
         hangingSigns.add(UP2Blocks.GINKGO_WALL_HANGING_SIGN.get());
         hangingSigns.add(UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get());
         hangingSigns.add(UP2Blocks.LEPIDODENDRON_WALL_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.METASEQUOIA_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.METASEQUOIA_WALL_HANGING_SIGN.get());
         BlockEntityType.HANGING_SIGN.validBlocks = hangingSigns.build();
     }
 

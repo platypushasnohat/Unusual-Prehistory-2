@@ -13,7 +13,8 @@ public interface UP2BoatType {
 
     enum Type {
         GINKGO("ginkgo", UP2Blocks.GINKGO_PLANKS, UP2Items.GINKGO_BOAT, UP2Items.GINKGO_CHEST_BOAT),
-        LEPIDODENDRON("lepidodendron", UP2Blocks.LEPIDODENDRON_PLANKS, UP2Items.LEPIDODENDRON_BOAT, UP2Items.LEPIDODENDRON_CHEST_BOAT);
+        LEPIDODENDRON("lepidodendron", UP2Blocks.LEPIDODENDRON_PLANKS, UP2Items.LEPIDODENDRON_BOAT, UP2Items.LEPIDODENDRON_CHEST_BOAT),
+        METASEQUOIA("metasequoia", UP2Blocks.METASEQUOIA_PLANKS, UP2Items.METASEQUOIA_BOAT, UP2Items.METASEQUOIA_CHEST_BOAT);
 
         private final String name;
         private final Supplier<Block> plankSupplier;

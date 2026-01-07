@@ -55,7 +55,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
         this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
         this.forEntity(UP2Entities.LEPTICTIDIUM);
-//        this.forEntity(UP2Entities.LOBE_FINNED_FISH);
+        this.forEntity(UP2Entities.LOBE_FINNED_FISH);
         this.forEntity(UP2Entities.LYSTROSAURUS);
         this.forEntity(UP2Entities.MAJUNGASAURUS);
         this.forEntity(UP2Entities.MEGALANIA);
@@ -86,6 +86,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.addItem(UP2Items.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
+        this.addItem(UP2Items.METASEQUOIA_CHEST_BOAT, "Metasequoia Boat with Chest");
 
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
         this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
@@ -273,6 +274,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
+        this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");

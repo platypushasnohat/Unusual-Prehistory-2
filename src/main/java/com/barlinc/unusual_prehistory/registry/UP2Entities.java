@@ -129,13 +129,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "leptictidium").toString())
     );
 
-//    public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
-//            "lobe_finned_fish", () ->
-//            EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)
-//                    .sized(0.5F, 0.8F)
-//                    .clientTrackingRange(10)
-//                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lobe_finned_fish").toString())
-//    );
+    public static final RegistryObject<EntityType<LobeFinnedFish>> LOBE_FINNED_FISH = ENTITY_TYPE.register(
+            "lobe_finned_fish", () ->
+            EntityType.Builder.of(LobeFinnedFish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F, 0.8F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "lobe_finned_fish").toString())
+    );
 
     public static final RegistryObject<EntityType<Lystrosaurus>> LYSTROSAURUS = ENTITY_TYPE.register(
             "lystrosaurus", () ->

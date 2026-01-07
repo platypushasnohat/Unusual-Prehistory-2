@@ -157,6 +157,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "fish_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:fish_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "flat_back_fossil": {
       "conditions": {
         "items": [
@@ -524,6 +536,7 @@
       "prickly_fossil",
       "imperative_fossil",
       "trunk_mouse_fossil",
+      "fish_fossil",
       "impervious_fossil",
       "rugose_fossil",
       "thermal_fossil",

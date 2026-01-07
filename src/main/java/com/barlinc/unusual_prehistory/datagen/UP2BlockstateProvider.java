@@ -15,6 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Function;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
+import static com.barlinc.unusual_prehistory.registry.UP2Blocks.METASEQUOIA_STAIRS;
 
 public class UP2BlockstateProvider extends BlockStateProvider {
 
@@ -74,6 +75,22 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.leaves(LEPIDODENDRON_LEAVES);
         this.simpleCross(HANGING_LEPIDODENDRON_LEAVES);
+
+        this.pillar(METASEQUOIA_LOG);
+        this.wood(METASEQUOIA_WOOD, this.blockTexture(METASEQUOIA_LOG.get()));
+        this.pillar(STRIPPED_METASEQUOIA_LOG);
+        this.wood(STRIPPED_METASEQUOIA_WOOD, this.blockTexture(STRIPPED_METASEQUOIA_LOG.get()));
+        this.cubeAllBlock(METASEQUOIA_PLANKS);
+        this.stairs(METASEQUOIA_STAIRS, this.blockTexture(METASEQUOIA_PLANKS.get()));
+        this.slab(METASEQUOIA_SLAB, this.blockTexture(METASEQUOIA_PLANKS.get()));
+        this.fence(METASEQUOIA_FENCE, this.blockTexture(METASEQUOIA_PLANKS.get()));
+        this.fenceGate(METASEQUOIA_FENCE_GATE, this.blockTexture(METASEQUOIA_PLANKS.get()));
+        this.doorCutout(METASEQUOIA_DOOR);
+        this.trapdoorCutout(METASEQUOIA_TRAPDOOR);
+        this.pressurePlate(METASEQUOIA_PRESSURE_PLATE, this.blockTexture(METASEQUOIA_PLANKS.get()));
+        this.button(METASEQUOIA_BUTTON, this.blockTexture(METASEQUOIA_PLANKS.get()));
+
+        this.leaves(METASEQUOIA_LEAVES);
 
         this.pillar(FOSSILIZED_BONE_BLOCK);
         this.pillarWithTop(FOSSILIZED_BONE_VERTEBRA, "fossilized_bone_block_top");

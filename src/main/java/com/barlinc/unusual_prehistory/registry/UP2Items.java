@@ -104,8 +104,8 @@ public class UP2Items {
     public static final RegistryObject<Item> LIVING_OOZE_BUCKET = registerItemNoLang("living_ooze_bucket", () -> new LivingOozeBucketItem(new Item.Properties().stacksTo(1)));
 
     // Lobe Finned Fish
-//    public static final RegistryObject<Item> LOBE_FINNED_FISH_SPAWN_EGG = registerSpawnEggItem("lobe_finned_fish", UP2Entities.LOBE_FINNED_FISH, 0x6d7c88, 0x38537a);
-//    public static final RegistryObject<Item> FISH_FOSSIL = registerFossilItem("fish");
+    public static final RegistryObject<Item> LOBE_FINNED_FISH_SPAWN_EGG = registerSpawnEggItem("lobe_finned_fish", UP2Entities.LOBE_FINNED_FISH, 0x387fb6, 0x3b4385);
+    public static final RegistryObject<Item> FISH_FOSSIL = registerFossilItem("fish");
 
     // Lystrosaurus
     public static final RegistryObject<Item> LYSTROSAURUS_SPAWN_EGG = registerSpawnEggItem("lystrosaurus", UP2Entities.LYSTROSAURUS, 0xaa9c65, 0x675a43);
@@ -201,6 +201,11 @@ public class UP2Items {
     public static final RegistryObject<Item> LEPIDODENDRON_HANGING_SIGN = registerItem("lepidodendron_hanging_sign", () -> new HangingSignItem(UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), UP2Blocks.LEPIDODENDRON_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> LEPIDODENDRON_BOAT = registerItem("lepidodendron_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> METASEQUOIA_SIGN = registerItem("metasequoia_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.METASEQUOIA_SIGN.get(), UP2Blocks.METASEQUOIA_WALL_SIGN.get()));
+    public static final RegistryObject<Item> METASEQUOIA_HANGING_SIGN = registerItem("metasequoia_hanging_sign", () -> new HangingSignItem(UP2Blocks.METASEQUOIA_HANGING_SIGN.get(), UP2Blocks.METASEQUOIA_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
+    public static final RegistryObject<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
 
     // Tar
     public static final RegistryObject<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.TAR_FLUID_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));

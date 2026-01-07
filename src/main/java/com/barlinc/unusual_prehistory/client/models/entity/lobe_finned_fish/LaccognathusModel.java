@@ -62,7 +62,7 @@ public class LaccognathusModel extends UP2Model<LobeFinnedFish> {
 
         PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create().texOffs(50, 20).addBox(-6.5F, -3.0F, -7.0F, 13.0F, 6.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 7.0F));
 
-        PartDefinition dorsal1 = body.addOrReplaceChild("dorsal1", CubeListBuilder.create().texOffs(0, 55).addBox(0.0F, -5.0F, 0.0F, 0.0F, 5.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -3.0F, -1.0F));
+        PartDefinition dorsal1 = body.addOrReplaceChild("dorsal1", CubeListBuilder.create().texOffs(1, 61).addBox(0.0F, -6.0F, -1.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -3.0F, -1.0F));
 
         PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-8.5F, -3.0F, -15.0F, 17.0F, 3.0F, 15.0F, new CubeDeformation(0.01F))
                 .texOffs(48, 40).addBox(-8.5F, -2.0F, -15.0F, 17.0F, 2.0F, 12.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, -7.0F));
@@ -70,21 +70,21 @@ public class LaccognathusModel extends UP2Model<LobeFinnedFish> {
         PartDefinition maw = head.addOrReplaceChild("maw", CubeListBuilder.create().texOffs(64, 0).addBox(-8.5F, 0.0F, -15.0F, 17.0F, 3.0F, 15.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 19).addBox(-8.5F, 0.0F, -15.0F, 17.0F, 2.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_pectoralfin = head.addOrReplaceChild("left_pectoralfin", CubeListBuilder.create().texOffs(12, 55).addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(8.5F, 2.0F, 0.0F, 0.0F, 0.5236F, 0.0F));
+        PartDefinition left_pectoralfin = head.addOrReplaceChild("left_pectoralfin", CubeListBuilder.create().texOffs(10, 55).addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(8.5F, 2.0F, 0.0F, 0.0F, 0.5236F, 0.0F));
 
-        PartDefinition right_pectoralfin = head.addOrReplaceChild("right_pectoralfin", CubeListBuilder.create().texOffs(12, 55).mirror().addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-8.5F, 2.0F, 0.0F, 0.0F, -0.5236F, 0.0F));
+        PartDefinition right_pectoralfin = head.addOrReplaceChild("right_pectoralfin", CubeListBuilder.create().texOffs(10, 55).mirror().addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-8.5F, 2.0F, 0.0F, 0.0F, -0.5236F, 0.0F));
 
-        PartDefinition left_pelvicfin = body.addOrReplaceChild("left_pelvicfin", CubeListBuilder.create().texOffs(32, 55).addBox(0.0F, 0.0F, -1.0F, 3.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(6.5F, 3.0F, 2.0F, 0.0F, 0.0F, 1.2217F));
+        PartDefinition left_pelvicfin = body.addOrReplaceChild("left_pelvicfin", CubeListBuilder.create().texOffs(30, 55).addBox(0.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(6.5F, 3.0F, 2.0F, 0.0F, 0.0F, 1.2217F));
 
-        PartDefinition right_pelvicfin = body.addOrReplaceChild("right_pelvicfin", CubeListBuilder.create().texOffs(32, 55).mirror().addBox(-3.0F, 0.0F, -1.0F, 3.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-6.5F, 3.0F, 2.0F, 0.0F, 0.0F, -1.2217F));
+        PartDefinition right_pelvicfin = body.addOrReplaceChild("right_pelvicfin", CubeListBuilder.create().texOffs(30, 55).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-6.5F, 3.0F, 2.0F, 0.0F, 0.0F, -1.2217F));
 
-        PartDefinition anal = body.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(22, 55).addBox(0.0F, -1.0F, 0.0F, 0.0F, 3.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 3.0F, 4.0F));
+        PartDefinition anal = body.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(21, 54).addBox(0.0F, -1.0F, 0.0F, 0.0F, 4.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 3.0F, 4.0F));
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(48, 56).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -0.5F, 7.0F));
 
-        PartDefinition dorsal2 = tail1.addOrReplaceChild("dorsal2", CubeListBuilder.create().texOffs(20, 40).addBox(0.0F, -4.0F, 0.0F, 0.0F, 4.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -1.5F, 0.0F));
+        PartDefinition dorsal2 = tail1.addOrReplaceChild("dorsal2", CubeListBuilder.create().texOffs(3, 69).addBox(0.0F, -5.0F, -1.0F, 0.0F, 5.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -1.5F, 1.0F));
 
-        PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(6, 30).addBox(0.0F, 0.0F, -2.0F, 0.0F, 7.0F, 18.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -1.5F, 8.0F));
+        PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(4, 28).addBox(0.0F, 0.0F, -2.0F, 0.0F, 7.0F, 20.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, -1.5F, 8.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}

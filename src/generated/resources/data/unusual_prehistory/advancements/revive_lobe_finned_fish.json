@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:paleozoic_root",
+  "criteria": {
+    "revive_lobe_finned_fish": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:lobe_finned_fish"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_lobe_finned_fish.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:lobe_finned_fish_roe"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_lobe_finned_fish"
+    }
+  },
+  "requirements": [
+    [
+      "revive_lobe_finned_fish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

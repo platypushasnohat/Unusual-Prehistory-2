@@ -101,7 +101,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> KAPROSUCHUS_EGG = registerEggBlock("kaprosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KAPROSUCHUS::get, 8, 12, false));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
     public static final RegistryObject<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
-    //    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
+    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
     public static final RegistryObject<Block> LYSTROSAURUS_EGG = registerEggBlock("lystrosaurus_egg", () -> new MultipleEggBlock(UP2BlockProperties.EGG, UP2Entities.LYSTROSAURUS::get, 3, 6, 6, 12, 12, false));
     public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerEggBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11, false));
     public static final RegistryObject<Block> MEGALANIA_EGG = registerEggBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14, false));
@@ -205,6 +205,32 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
     public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
     public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+
+    // metasequoia
+    public static final RegistryObject<Block> METASEQUOIA_LOG = registerBlock("metasequoia_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_WOOD = registerBlock("metasequoia_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_LOG = registerBlock("stripped_metasequoia_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_WOOD = registerBlock("stripped_metasequoia_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_PLANKS = registerBlock("metasequoia_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_STAIRS = registerBlock("metasequoia_stairs", () -> new StairBlock(() -> METASEQUOIA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
+    public static final RegistryObject<Block> METASEQUOIA_SLAB = registerBlock("metasequoia_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
+    public static final RegistryObject<Block> METASEQUOIA_FENCE = registerBlock("metasequoia_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_FENCE_GATE = registerBlock("metasequoia_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> METASEQUOIA_DOOR = registerBlock("metasequoia_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_TRAPDOOR = registerBlock("metasequoia_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_PRESSURE_PLATE = registerBlock("metasequoia_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_BUTTON = registerBlock("metasequoia_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+
+    public static final RegistryObject<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+
+    public static final RegistryObject<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
+
+    public static final RegistryObject<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get()), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

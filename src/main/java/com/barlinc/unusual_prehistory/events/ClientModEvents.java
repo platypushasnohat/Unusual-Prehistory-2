@@ -37,8 +37,10 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UP2ItemProperties::registerItemProperties);
+        Sheets.addWoodType(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE);
         Sheets.addWoodType(UP2BlockProperties.GINKGO_WOOD_TYPE);
         Sheets.addWoodType(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE);
+        Sheets.addWoodType(UP2BlockProperties.METASEQUOIA_WOOD_TYPE);
         MenuScreens.register(UP2MenuTypes.TRANSMOGRIFIER.get(), TransmogrifierScreen::new);
     }
 
@@ -69,7 +71,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphRenderer::new);
         event.registerEntityRenderer(UP2Entities.LEPTICTIDIUM.get(), LeptictidiumRenderer::new);
-//        event.registerEntityRenderer(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFishRenderer::new);
+        event.registerEntityRenderer(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.LYSTROSAURUS.get(), LystrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAJUNGASAURUS.get(), MajungasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);

@@ -69,6 +69,10 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:jawless_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fish_fossil"
         }
       ],
       "rolls": 1.0

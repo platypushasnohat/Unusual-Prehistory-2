@@ -62,6 +62,7 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
+    public static final TagKey<Item> METASEQUOIA_LOGS = modItemTag("metasequoia_logs");
 
     public static final TagKey<Item> LIVING_OOZE_CANNOT_ABSORB = modItemTag("living_ooze_cannot_absorb");
 

@@ -19,6 +19,7 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> GINKGO_LOGS = modBlockTag("ginkgo_logs");
     public static final TagKey<Block> LEPIDODENDRON_LOGS = modBlockTag("lepidodendron_logs");
+    public static final TagKey<Block> METASEQUOIA_LOGS = modBlockTag("metasequoia_logs");
 
     public static final TagKey<Block> ANCIENT_PLANT_PLACEABLE = modBlockTag("ancient_plant_placeable");
 

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_trapdoor",
+  "key": {
+    "#": {
+      "item": "unusual_prehistory:metasequoia_planks"
+    }
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "item": "unusual_prehistory:metasequoia_trapdoor"
+  },
+  "show_notification": true
+}

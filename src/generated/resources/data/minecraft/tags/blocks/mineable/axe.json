@@ -17,6 +17,8 @@
     "unusual_prehistory:ginkgo_trapdoor",
     "unusual_prehistory:lepidodendron_log",
     "unusual_prehistory:lepidodendron_wood",
+    "unusual_prehistory:mossy_lepidodendron_log",
+    "unusual_prehistory:mossy_lepidodendron_wood",
     "unusual_prehistory:stripped_lepidodendron_log",
     "unusual_prehistory:stripped_lepidodendron_wood",
     "unusual_prehistory:lepidodendron_planks",
@@ -27,6 +29,19 @@
     "unusual_prehistory:lepidodendron_pressure_plate",
     "unusual_prehistory:lepidodendron_button",
     "unusual_prehistory:lepidodendron_door",
-    "unusual_prehistory:lepidodendron_trapdoor"
+    "unusual_prehistory:lepidodendron_trapdoor",
+    "unusual_prehistory:metasequoia_log",
+    "unusual_prehistory:metasequoia_wood",
+    "unusual_prehistory:stripped_metasequoia_log",
+    "unusual_prehistory:stripped_metasequoia_wood",
+    "unusual_prehistory:metasequoia_planks",
+    "unusual_prehistory:metasequoia_stairs",
+    "unusual_prehistory:metasequoia_slab",
+    "unusual_prehistory:metasequoia_fence",
+    "unusual_prehistory:metasequoia_fence_gate",
+    "unusual_prehistory:metasequoia_pressure_plate",
+    "unusual_prehistory:metasequoia_button",
+    "unusual_prehistory:metasequoia_door",
+    "unusual_prehistory:metasequoia_trapdoor"
   ]
 }

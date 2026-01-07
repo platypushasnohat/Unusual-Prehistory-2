@@ -47,6 +47,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         woodSet(UP2ItemTags.LEPIDODENDRON_LOGS, LEPIDODENDRON_PLANKS.get(), LEPIDODENDRON_SLAB.get(), LEPIDODENDRON_STAIRS.get(), LEPIDODENDRON_LOG.get(), LEPIDODENDRON_WOOD.get(), STRIPPED_LEPIDODENDRON_LOG.get(), STRIPPED_LEPIDODENDRON_WOOD.get(), UP2Items.LEPIDODENDRON_BOAT.get(), UP2Items.LEPIDODENDRON_CHEST_BOAT.get(), LEPIDODENDRON_BUTTON.get(), LEPIDODENDRON_DOOR.get(), LEPIDODENDRON_TRAPDOOR.get(), LEPIDODENDRON_FENCE.get(), LEPIDODENDRON_FENCE_GATE.get(), LEPIDODENDRON_PRESSURE_PLATE.get(), UP2Blocks.LEPIDODENDRON_SIGN.get(), UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MOSSY_LEPIDODENDRON_WOOD.get(), 3).define('L', MOSSY_LEPIDODENDRON_LOG.get()).pattern("LL").pattern("LL").group("bark").unlockedBy("has_log", has(LEPIDODENDRON_LOG.get())).save(consumer);
 
+        woodSet(UP2ItemTags.METASEQUOIA_LOGS, METASEQUOIA_PLANKS.get(), METASEQUOIA_SLAB.get(), METASEQUOIA_STAIRS.get(), METASEQUOIA_LOG.get(), METASEQUOIA_WOOD.get(), STRIPPED_METASEQUOIA_LOG.get(), STRIPPED_METASEQUOIA_WOOD.get(), UP2Items.METASEQUOIA_BOAT.get(), UP2Items.METASEQUOIA_CHEST_BOAT.get(), METASEQUOIA_BUTTON.get(), METASEQUOIA_DOOR.get(), METASEQUOIA_TRAPDOOR.get(), METASEQUOIA_FENCE.get(), METASEQUOIA_FENCE_GATE.get(), METASEQUOIA_PRESSURE_PLATE.get(), UP2Blocks.METASEQUOIA_SIGN.get(), UP2Blocks.METASEQUOIA_HANGING_SIGN.get(), consumer);
+
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PETRIFIED_WOOD.get(), 3).define('P', PETRIFIED_LOG.get()).pattern("PP").pattern("PP").group("bark").unlockedBy("has_log", has(PETRIFIED_LOG.get())).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, POLISHED_PETRIFIED_WOOD.get(), 4).define('P', PETRIFIED_WOOD.get()).pattern("PP").pattern("PP").unlockedBy("has_log", has(PETRIFIED_LOG.get())).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, POLISHED_PETRIFIED_WOOD_STAIRS.get(), 4).define('P', POLISHED_PETRIFIED_WOOD.get()).pattern("P  ").pattern("PP ").pattern("PPP").unlockedBy("has_log", has(PETRIFIED_LOG.get())).save(consumer);
@@ -126,7 +128,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.IMPERATIVE_FOSSIL.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.PRICKLY_FOSSIL.get(), KENTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.TRUNK_MOUSE_FOSSIL.get(), UP2Items.LEPTICTIDIUM_EMBRYO.get(), 1200);
-//        transmogrification(consumer, UP2Items.FISH_FOSSIL.get(), LOBE_FINNED_FISH_ROE.get().asItem(), 1200);
+        transmogrification(consumer, UP2Items.FISH_FOSSIL.get(), LOBE_FINNED_FISH_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.IMPERVIOUS_FOSSIL.get(), LYSTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), MAJUNGASAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);

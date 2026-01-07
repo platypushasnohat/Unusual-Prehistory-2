@@ -26,6 +26,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "unusual_prehistory:fish_fossil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "unusual_prehistory:anvil_fossil",
           "weight": 2
         },
@@ -37,7 +42,7 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:impervious_fossil",
-          "weight": 1
+          "weight": 2
         }
       ],
       "rolls": 1.0

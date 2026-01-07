@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "unusual_prehistory:metasequoia_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:metasequoia_planks"
+  }
+}

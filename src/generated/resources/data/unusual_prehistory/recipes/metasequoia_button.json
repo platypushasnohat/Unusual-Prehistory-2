@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "unusual_prehistory:metasequoia_planks"
+    }
+  ],
+  "result": {
+    "item": "unusual_prehistory:metasequoia_button"
+  }
+}

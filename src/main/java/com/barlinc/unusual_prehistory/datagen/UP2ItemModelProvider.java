@@ -56,7 +56,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PRICKLY_FOSSIL);
         this.item(IMPERATIVE_FOSSIL);
         this.item(TRUNK_MOUSE_FOSSIL);
-//        this.item(FISH_FOSSIL);
+        this.item(FISH_FOSSIL);
         this.item(IMPERVIOUS_FOSSIL);
         this.item(RUGOSE_FOSSIL);
         this.item(THERMAL_FOSSIL);
@@ -87,7 +87,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.KENTROSAURUS_EGG);
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
         this.item(LEPTICTIDIUM_EMBRYO);
-//        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
+        this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
         this.item(UP2Blocks.LYSTROSAURUS_EGG);
         this.item(UP2Blocks.MAJUNGASAURUS_EGG);
         this.item(UP2Blocks.MEGALANIA_EGG);
@@ -131,6 +131,11 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(LEPIDODENDRON_HANGING_SIGN);
         this.item(LEPIDODENDRON_BOAT);
         this.item(LEPIDODENDRON_CHEST_BOAT);
+
+        this.item(METASEQUOIA_SIGN);
+        this.item(METASEQUOIA_HANGING_SIGN);
+        this.item(METASEQUOIA_BOAT);
+        this.item(METASEQUOIA_CHEST_BOAT);
 
         // spawn eggs
         for (Item item : BuiltInRegistries.ITEM) {

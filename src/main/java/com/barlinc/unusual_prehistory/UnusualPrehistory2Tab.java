@@ -101,7 +101,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PRICKLY_FOSSIL.get());
                         output.accept(IMPERATIVE_FOSSIL.get());
                         output.accept(TRUNK_MOUSE_FOSSIL.get());
-//                        output.accept(FISH_FOSSIL.get());
+                        output.accept(FISH_FOSSIL.get());
                         output.accept(IMPERVIOUS_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
@@ -131,7 +131,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
-//                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
+                        output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
                         output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
@@ -229,6 +229,26 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
                         output.accept(UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get());
                         output.accept(UP2Blocks.LEPIDODENDRON_CONE.get());
+
+                        output.accept(UP2Blocks.METASEQUOIA_LOG.get());
+                        output.accept(UP2Blocks.METASEQUOIA_WOOD.get());
+                        output.accept(UP2Blocks.STRIPPED_METASEQUOIA_LOG.get());
+                        output.accept(UP2Blocks.STRIPPED_METASEQUOIA_WOOD.get());
+                        output.accept(UP2Blocks.METASEQUOIA_PLANKS.get());
+                        output.accept(UP2Blocks.METASEQUOIA_STAIRS.get());
+                        output.accept(UP2Blocks.METASEQUOIA_SLAB.get());
+                        output.accept(UP2Blocks.METASEQUOIA_FENCE.get());
+                        output.accept(UP2Blocks.METASEQUOIA_FENCE_GATE.get());
+                        output.accept(UP2Blocks.METASEQUOIA_DOOR.get());
+                        output.accept(UP2Blocks.METASEQUOIA_TRAPDOOR.get());
+                        output.accept(UP2Blocks.METASEQUOIA_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.METASEQUOIA_BUTTON.get());
+                        output.accept(METASEQUOIA_SIGN.get());
+                        output.accept(METASEQUOIA_HANGING_SIGN.get());
+                        output.accept(METASEQUOIA_BOAT.get());
+                        output.accept(METASEQUOIA_CHEST_BOAT.get());
+                        output.accept(UP2Blocks.METASEQUOIA_LEAVES.get());
+                        output.accept(UP2Blocks.METASEQUOIA_SAPLING.get());
 
                     }).build());
 }

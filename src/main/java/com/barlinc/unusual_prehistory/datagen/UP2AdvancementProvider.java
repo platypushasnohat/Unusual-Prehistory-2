@@ -142,9 +142,10 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         reviveMobAdvancement("revive_diplocaulus", paleozoicRoot, UP2Blocks.DIPLOCAULUS_EGGS.get(), UP2Entities.DIPLOCAULUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_diplocaulus"), helper);
         reviveMobAdvancement("revive_dunkleosteus", paleozoicRoot, UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Entities.DUNKLEOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dunkleosteus"), helper);
         reviveMobAdvancement("revive_jawless_fish", paleozoicRoot, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_jawless_fish"), helper);
+        reviveMobAdvancement("revive_lobe_finned_fish", paleozoicRoot, UP2Blocks.LOBE_FINNED_FISH_ROE.get(), UP2Entities.LOBE_FINNED_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_lobe_finned_fish"), helper);
         reviveMobAdvancement("revive_lystrosaurus", paleozoicRoot, UP2Blocks.LYSTROSAURUS_EGG.get(), UP2Entities.LYSTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_lystrosaurus"), helper);
         reviveMobAdvancement("revive_stethacanthus", paleozoicRoot, UP2Blocks.STETHACANTHUS_SAC.get(), UP2Entities.STETHACANTHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_stethacanthus"), helper);
-        reviveMobAdvancement("revive_tartuosteus", paleozoicRoot, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.TARTUOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_tartuosteus"), helper);
+        reviveMobAdvancement("revive_tartuosteus", paleozoicRoot, UP2Blocks.TARTUOSTEUS_ROE.get(), UP2Entities.TARTUOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_tartuosteus"), helper);
 
         // Triassic
         reviveMobAdvancement("revive_desmatosuchus", triassicRoot, UP2Blocks.DESMATOSUCHUS_EGG.get(), UP2Entities.DESMATOSUCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_desmatosuchus"), helper);

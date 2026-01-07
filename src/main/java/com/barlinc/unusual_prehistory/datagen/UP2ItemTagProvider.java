@@ -48,7 +48,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 SAW_FOSSIL.get(),
                 ANVIL_FOSSIL.get(),
                 PLUMAGE_FOSSIL.get(),
-//                FISH_FOSSIL.get(),
+                FISH_FOSSIL.get(),
                 TRUNK_MOUSE_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 CRANIUM_FOSSIL.get(),
@@ -324,6 +324,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
+        this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
@@ -352,22 +353,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(ItemTags.SIGNS).add(
                 GINKGO_SIGN.get(),
-                LEPIDODENDRON_SIGN.get()
+                LEPIDODENDRON_SIGN.get(),
+                METASEQUOIA_SIGN.get()
         );
 
         this.tag(ItemTags.HANGING_SIGNS).add(
                 GINKGO_HANGING_SIGN.get(),
-                LEPIDODENDRON_HANGING_SIGN.get()
+                LEPIDODENDRON_HANGING_SIGN.get(),
+                METASEQUOIA_HANGING_SIGN.get()
         );
 
         this.tag(ItemTags.BOATS).add(
                 GINKGO_BOAT.get(),
-                LEPIDODENDRON_BOAT.get()
+                LEPIDODENDRON_BOAT.get(),
+                METASEQUOIA_BOAT.get()
         );
 
         this.tag(ItemTags.CHEST_BOATS).add(
                 GINKGO_CHEST_BOAT.get(),
-                LEPIDODENDRON_CHEST_BOAT.get()
+                LEPIDODENDRON_CHEST_BOAT.get(),
+                METASEQUOIA_CHEST_BOAT.get()
         );
 
         this.tag(ItemTags.MUSIC_DISCS).add(

@@ -112,7 +112,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(KAPROSUCHUS_EGG.get());
         this.dropSelf(KENTROSAURUS_EGG.get());
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
-//        this.dropSelf(LOBE_FINNED_FISH_ROE.get());
+        this.dropSelf(LOBE_FINNED_FISH_ROE.get());
         this.dropSelf(LYSTROSAURUS_EGG.get());
         this.dropSelf(MAJUNGASAURUS_EGG.get());
         this.dropSelf(MEGALANIA_EGG.get());
@@ -199,6 +199,27 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.add(LEPIDODENDRON_LEAVES.get(), this::createLepidodendronLeavesDrops);
         this.add(HANGING_LEPIDODENDRON_LEAVES.get(), this::createLepidodendronLeavesDrops);
+
+        this.dropSelf(METASEQUOIA_LOG.get());
+        this.dropSelf(METASEQUOIA_WOOD.get());
+        this.dropSelf(STRIPPED_METASEQUOIA_LOG.get());
+        this.dropSelf(STRIPPED_METASEQUOIA_WOOD.get());
+        this.dropSelf(METASEQUOIA_PLANKS.get());
+        this.dropSelf(METASEQUOIA_STAIRS.get());
+        this.add(METASEQUOIA_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(METASEQUOIA_FENCE.get());
+        this.dropSelf(METASEQUOIA_FENCE_GATE.get());
+        this.add(METASEQUOIA_DOOR.get(), this::createDoorTable);
+        this.dropSelf(METASEQUOIA_TRAPDOOR.get());
+        this.dropSelf(METASEQUOIA_PRESSURE_PLATE.get());
+        this.dropSelf(METASEQUOIA_BUTTON.get());
+        this.dropSelf(METASEQUOIA_SIGN.get());
+        this.dropSelf(METASEQUOIA_WALL_SIGN.get());
+        this.dropSelf(METASEQUOIA_HANGING_SIGN.get());
+        this.dropSelf(METASEQUOIA_SAPLING.get());
+        this.dropPottedContents(POTTED_METASEQUOIA_SAPLING.get());
+
+        this.add(METASEQUOIA_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
     }
 
     @Override

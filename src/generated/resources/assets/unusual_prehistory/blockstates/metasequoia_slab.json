@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusual_prehistory:block/metasequoia_slab"
+    },
+    "type=double": {
+      "model": "unusual_prehistory:block/metasequoia_planks"
+    },
+    "type=top": {
+      "model": "unusual_prehistory:block/metasequoia_slab_top"
+    }
+  }
+}
