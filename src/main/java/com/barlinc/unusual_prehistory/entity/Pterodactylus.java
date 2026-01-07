@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.FlyingMoveController;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusFlyAndHangGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusScatterGoal;
@@ -64,15 +64,15 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     public Pterodactylus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveController(this, 3.0F, 0.96F);
+        this.moveControl = new PrehistoricFlyingMoveControl(this);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.FLYING_SPEED, 0.9F)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F);
+                .add(Attributes.FLYING_SPEED, 0.8F)
+                .add(Attributes.MOVEMENT_SPEED, 0.01F);
     }
 
     @Override

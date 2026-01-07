@@ -63,6 +63,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 RAIGUENRAYUN_FOSSIL.get(),
                 GINKGO_FOSSIL.get(),
                 RHYNIA_FOSSIL.get(),
+                SCHIZONEURA_FOSSIL.get(),
                 LEEFRUCTUS_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
@@ -70,6 +71,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 COOKSONIA_FOSSIL.get(),
                 CLADOPHEBIS_FOSSIL.get(),
                 BENNETTITALES_FOSSIL.get(),
+                BRACHYPHYLLUM_FOSSIL.get(),
                 HORSETAIL_FOSSIL.get()
         );
 

@@ -108,6 +108,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(RAIGUENRAYUN_FOSSIL);
         this.item(GINKGO_FOSSIL);
         this.item(RHYNIA_FOSSIL);
+        this.item(SCHIZONEURA_FOSSIL);
         this.item(LEEFRUCTUS_FOSSIL);
         this.item(PROTOTAXITES_FOSSIL);
         this.item(QUILLWORT_FOSSIL);
@@ -115,7 +116,11 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(COOKSONIA_FOSSIL);
         this.item(CLADOPHEBIS_FOSSIL);
         this.item(BENNETTITALES_FOSSIL);
+        this.item(BRACHYPHYLLUM_FOSSIL);
         this.item(HORSETAIL_FOSSIL);
+
+        this.item(UP2Blocks.SCHIZONEURA);
+        this.item(UP2Blocks.BRACHYPHYLLUM);
 
         this.item(GINKGO_SIGN);
         this.item(GINKGO_HANGING_SIGN);

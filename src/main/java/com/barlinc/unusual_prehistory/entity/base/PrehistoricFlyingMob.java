@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.FlyingMoveController;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import net.minecraft.core.BlockPos;
@@ -44,7 +44,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.navigation = new SmoothGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new FlyingMoveController(this);
+            this.moveControl = new PrehistoricFlyingMoveControl(this);
             this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1.0F);
             this.isLandNavigator = false;
         }

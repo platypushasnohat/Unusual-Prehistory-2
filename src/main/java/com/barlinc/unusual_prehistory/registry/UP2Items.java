@@ -177,6 +177,7 @@ public class UP2Items {
 
     // Plant Fossils
     public static final RegistryObject<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
+    public static final RegistryObject<Item> BRACHYPHYLLUM_FOSSIL = registerFossilItem("brachyphyllum");
     public static final RegistryObject<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
     public static final RegistryObject<Item> CLADOPHEBIS_FOSSIL = registerFossilItem("cladophebis");
     public static final RegistryObject<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
@@ -186,6 +187,7 @@ public class UP2Items {
     public static final RegistryObject<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
     public static final RegistryObject<Item> RAIGUENRAYUN_FOSSIL = registerFossilItem("raiguenrayun");
     public static final RegistryObject<Item> RHYNIA_FOSSIL = registerFossilItem("rhynia");
+    public static final RegistryObject<Item> SCHIZONEURA_FOSSIL = registerFossilItem("schizoneura");
     public static final RegistryObject<Item> GINKGO_FOSSIL = registerFossilItem("ginkgo");
     public static final RegistryObject<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
 

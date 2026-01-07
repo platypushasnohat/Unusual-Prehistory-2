@@ -96,6 +96,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "brachyphyllum_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:brachyphyllum_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "brute_fossil": {
       "conditions": {
         "items": [
@@ -708,6 +720,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "schizoneura_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:schizoneura_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "scythe_fossil": {
       "conditions": {
         "items": [
@@ -903,6 +927,7 @@
       "scythe_fossil",
       "dubious_fossil",
       "bennettitales_fossil",
+      "brachyphyllum_fossil",
       "calamophyton_fossil",
       "cladophebis_fossil",
       "cooksonia_fossil",
@@ -912,6 +937,7 @@
       "quillwort_fossil",
       "raiguenrayun_fossil",
       "rhynia_fossil",
+      "schizoneura_fossil",
       "ginkgo_fossil",
       "lepidodendron_fossil",
       "aged_feather",

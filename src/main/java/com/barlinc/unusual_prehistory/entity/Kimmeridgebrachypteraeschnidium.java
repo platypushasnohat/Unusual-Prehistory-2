@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.ai.control.FlyingMoveController;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
@@ -82,15 +82,15 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     public Kimmeridgebrachypteraeschnidium(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveController(this);
+        this.moveControl = new PrehistoricFlyingMoveControl(this);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F)
-                .add(Attributes.FLYING_SPEED, 1.7F);
+                .add(Attributes.MOVEMENT_SPEED, 0.01F)
+                .add(Attributes.FLYING_SPEED, 0.9F);
     }
 
     @Override

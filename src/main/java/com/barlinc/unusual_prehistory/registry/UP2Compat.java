@@ -39,6 +39,8 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.LEEFRUCTUS.get(), 0.65F);
         registerCompostable(UP2Blocks.RAIGUENRAYUN.get(), 0.65F);
         registerCompostable(UP2Blocks.RHYNIA.get(), 0.65F);
+        registerCompostable(UP2Blocks.SCHIZONEURA.get(), 0.65F);
+        registerCompostable(UP2Blocks.BRACHYPHYLLUM.get(), 0.65F);
 
         registerCompostable(UP2Blocks.GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 0.3F);
@@ -58,6 +60,8 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.LEEFRUCTUS.get(), 60, 100);
         registerFlammable(UP2Blocks.RAIGUENRAYUN.get(), 60, 100);
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);
+        registerFlammable(UP2Blocks.SCHIZONEURA.get(), 60, 100);
+        registerFlammable(UP2Blocks.BRACHYPHYLLUM.get(), 60, 100);
 
         registerFlammable(UP2Blocks.GINKGO_LOG.get(), 5, 3);
         registerFlammable(UP2Blocks.GINKGO_WOOD.get(), 5, 3);

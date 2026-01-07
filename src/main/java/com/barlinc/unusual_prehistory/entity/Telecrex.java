@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.TelecrexMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
@@ -65,7 +65,7 @@ public class Telecrex extends PrehistoricFlyingMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.FLYING_SPEED, 1.0F)
+                .add(Attributes.FLYING_SPEED, 0.75F)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
@@ -95,7 +95,7 @@ public class Telecrex extends PrehistoricFlyingMob {
             this.navigation = new SmoothGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new TelecrexMoveControl(this);
+            this.moveControl = new PrehistoricFlyingMoveControl(this);
             this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1);
             this.isLandNavigator = false;
         }

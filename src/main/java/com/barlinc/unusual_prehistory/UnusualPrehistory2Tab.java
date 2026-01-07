@@ -149,6 +149,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
                         output.accept(BENNETTITALES_FOSSIL.get());
+                        output.accept(BRACHYPHYLLUM_FOSSIL.get());
                         output.accept(CALAMOPHYTON_FOSSIL.get());
                         output.accept(CLADOPHEBIS_FOSSIL.get());
                         output.accept(COOKSONIA_FOSSIL.get());
@@ -158,11 +159,13 @@ public class UnusualPrehistory2Tab {
                         output.accept(QUILLWORT_FOSSIL.get());
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
                         output.accept(RHYNIA_FOSSIL.get());
+                        output.accept(SCHIZONEURA_FOSSIL.get());
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
 
                         // plants
                         output.accept(UP2Blocks.BENNETTITALES.get());
+                        output.accept(UP2Blocks.BRACHYPHYLLUM.get());
                         output.accept(UP2Blocks.CALAMOPHYTON.get());
                         output.accept(UP2Blocks.CLADOPHLEBIS.get());
                         output.accept(UP2Blocks.COOKSONIA.get());
@@ -172,6 +175,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.QUILLWORT.get());
                         output.accept(UP2Blocks.RAIGUENRAYUN.get());
                         output.accept(UP2Blocks.RHYNIA.get());
+                        output.accept(UP2Blocks.SCHIZONEURA.get());
                         output.accept(UP2Blocks.MOSS_LAYER.get());
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
 

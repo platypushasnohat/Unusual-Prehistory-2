@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.blocks.CalamophytonBlock;
 import com.barlinc.unusual_prehistory.blocks.TallEggBlock;
+import com.barlinc.unusual_prehistory.blocks.ThreeTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
@@ -125,7 +126,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
 
-        this.add(CALAMOPHYTON.get(), (block) -> this.createLayeredSinglePropConditionTable(block, CalamophytonBlock.LAYER, 0));
+        this.add(CALAMOPHYTON.get(), (block) -> this.createLayeredSinglePropConditionTable(block, ThreeTallPlantBlock.LAYER, 0));
+        this.add(BRACHYPHYLLUM.get(), (block) -> this.createLayeredSinglePropConditionTable(block, ThreeTallPlantBlock.LAYER, 0));
 
         this.dropSelf(COOKSONIA.get());
         this.dropPottedContents(POTTED_COOKSONIA.get());
@@ -140,6 +142,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropPottedContents(POTTED_LEEFRUCTUS.get());
 
         this.add(RAIGUENRAYUN.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.add(SCHIZONEURA.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.dropSelf(RHYNIA.get());
         this.dropPottedContents(POTTED_RHYNIA.get());

@@ -107,7 +107,7 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
 
 		this.flight_control.xRot += flightPitchAmount;
-		this.flight_control.zRot += rollAmount * 0.4F;
+		this.flight_control.zRot += rollAmount * 0.7F;
 	}
 
 	@Override

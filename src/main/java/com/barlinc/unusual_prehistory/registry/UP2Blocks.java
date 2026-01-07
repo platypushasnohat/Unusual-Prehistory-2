@@ -146,6 +146,10 @@ public class UP2Blocks {
     public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new PrototaxitesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
     public static final RegistryObject<Block> PROTOTAXITES_NUB = registerBlock("prototaxites_nub", () -> new PrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
 
+    public static final RegistryObject<Block> SCHIZONEURA = registerBlock("schizoneura", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+
+    public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+
     // ginkgo
     public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
     public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));

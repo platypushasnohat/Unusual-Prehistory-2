@@ -69,6 +69,9 @@ public class PterodactylusFlyAndHangGoal extends RandomFlightGoal {
             this.pterodactylus.setHanging(false);
             this.pterodactylus.landingFlag = false;
         }
+        if (mob.isFlying() && mob.timeFlying > maxTimeFlying && !this.isOverWaterOrVoid()) {
+            mob.landingFlag = true;
+        }
     }
 
     @Override
