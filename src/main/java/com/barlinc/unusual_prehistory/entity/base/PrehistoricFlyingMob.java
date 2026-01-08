@@ -24,12 +24,12 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected float flyProgress;
     protected float prevFlyProgress;
-    public int timeFlying = 0;
+    public int flightTicks = 0;
     protected float flightPitch = 0;
     protected float prevFlightPitch = 0;
     protected float flightRoll = 0;
     protected float prevFlightRoll = 0;
-    public int groundedFor = 0;
+    public int groundTicks = 0;
     public boolean isLandNavigator;
     public boolean landingFlag;
 
@@ -95,59 +95,43 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     public void tick() {
         super.tick();
 
-        prevFlyProgress = flyProgress;
-        prevFlightPitch = flightPitch;
-        prevFlightRoll = flightRoll;
+        this.prevFlyProgress = this.flyProgress;
+        this.prevFlightPitch = this.flightPitch;
+        this.prevFlightRoll = this.flightRoll;
 
         this.tickFlight();
         this.tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
     }
 
     public void tickFlight() {
-        if (this.isFlying() && flyProgress < 5F) {
-            this.flyProgress++;
-        }
-        if (!this.isFlying() && flyProgress > 0F) {
-            this.flyProgress--;
-        }
+        if (this.isFlying() && flyProgress < 5F) this.flyProgress++;
+        if (!this.isFlying() && flyProgress > 0F) this.flyProgress--;
 
         if (this.isFlying()) {
-            this.timeFlying++;
+            this.flightTicks++;
             this.setNoGravity(true);
-            if (this.isLandNavigator) {
-                this.switchNavigator(false);
-            }
-            if (groundedFor > 0) {
-                this.setFlying(false);
-            }
+            if (this.isLandNavigator) this.switchNavigator(false);
+            if (groundTicks > 0) this.setFlying(false);
         } else {
-            this.timeFlying = 0;
+            this.flightTicks = 0;
             this.setNoGravity(false);
-            if (!this.isLandNavigator) {
-                this.switchNavigator(true);
-            }
+            if (!this.isLandNavigator) this.switchNavigator(true);
         }
-        if (groundedFor > 0) {
-            this.groundedFor--;
-        }
+        if (groundTicks > 0) groundTicks--;
 
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
-                if (landingFlag) {
-                    this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                }
+                if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
                 if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }
-            if (this.isFlying() && timeFlying > 40 && this.onGround()) {
-                this.setFlying(false);
-            }
+            if (this.isFlying() && flightTicks > 40 && this.onGround()) this.setFlying(false);
         }
     }
 
     public void tickRotation(float yMov) {
-        flightPitch = yMov;
+        this.flightPitch = yMov;
         float threshold = 1F;
         boolean flag = false;
         if (isFlying() && this.yRotO - this.getYRot() > threshold) {
@@ -159,14 +143,10 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             flag = true;
         }
         if (!flag) {
-            if (flightRoll > 0) {
-                flightRoll = Math.max(flightRoll - 5, 0);
-            }
-            if (flightRoll < 0) {
-                flightRoll = Math.min(flightRoll + 5, 0);
-            }
+            if (flightRoll > 0) this.flightRoll = Math.max(flightRoll - 5, 0);
+            if (flightRoll < 0) this.flightRoll = Math.min(flightRoll + 5, 0);
         }
-        flightRoll = Mth.clamp(flightRoll, -60, 60);
+        this.flightRoll = Mth.clamp(flightRoll, -60, 60);
     }
 
     @Override
