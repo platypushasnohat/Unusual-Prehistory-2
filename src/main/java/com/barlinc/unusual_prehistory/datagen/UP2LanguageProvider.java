@@ -88,14 +88,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
         this.addItem(UP2Items.METASEQUOIA_CHEST_BOAT, "Metasequoia Boat with Chest");
 
-        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
-        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
-        this.addItem(UP2Items.PRAEPUSA_BUCKET, "Bucket of Praepusa");
-        this.addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
-        this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
+        this.addItem(UP2Items.COELACANTHUS_BUCKET, "Bucket of Coelacanthus");
         this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
         this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
+        this.addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
+        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
+        this.addItem(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET, "Bucket of Kimmeridgebrachypteraeschnidium Nymph");
         this.addItem(UP2Items.LIVING_OOZE_BUCKET, "Bucket of Living Ooze");
+        this.addItem(UP2Items.LOBE_FINNED_FISH_BUCKET, "Bucket of Lobe Finned Fish");
+        this.addItem(UP2Items.PRAEPUSA_BUCKET, "Bucket of Praepusa");
+        this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
 
         // sounds
         this.sound(UP2SoundEvents.TAR_POP, "Tar pops");
@@ -372,6 +374,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.diplocaulus.variant_magnicornis", "D. magnicornis");
         this.add("entity.unusual_prehistory.diplocaulus.variant_recurvatis", "D. recurvatis");
         this.add("entity.unusual_prehistory.diplocaulus.variant_salamandroides", "D. salamandroides");
+
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_raveri", "D. raveri");
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_marsaisi", "D. marsaisi");
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_terrelli", "D. terrelli");
+
+        this.add("entity.unusual_prehistory.lobe_finned_fish.variant_allenypterus", "Allenypterus");
+        this.add("entity.unusual_prehistory.lobe_finned_fish.variant_eusthenopteron", "Eusthenopteron");
+        this.add("entity.unusual_prehistory.lobe_finned_fish.variant_gooloogongia", "Gooloogongia");
+        this.add("entity.unusual_prehistory.lobe_finned_fish.variant_laccognathus", "Laccognathus");
+        this.add("entity.unusual_prehistory.lobe_finned_fish.variant_scaumenacia", "Scaumenacia");
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
 

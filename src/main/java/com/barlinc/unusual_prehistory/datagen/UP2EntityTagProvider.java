@@ -29,7 +29,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.COELACANTHUS_NEVER_EATS).add(
-                COELACANTHUS.get(),
                 EntityType.ENDER_DRAGON
         );
 

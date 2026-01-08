@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/arandaspis_bucket"
+    "layer0": "unusual_prehistory:item/jawless_fish_arandaspis_bucket"
   },
   "overrides": [
     {
@@ -14,25 +14,25 @@
       "predicate": {
         "variant": 1
       },
-      "model": "unusual_prehistory:item/buckets/cephalaspis_bucket"
+      "model": "unusual_prehistory:item/jawless_fish_cephalaspis_bucket"
     },
     {
       "predicate": {
         "variant": 2
       },
-      "model": "unusual_prehistory:item/buckets/doryaspis_bucket"
+      "model": "unusual_prehistory:item/jawless_fish_doryaspis_bucket"
     },
     {
       "predicate": {
         "variant": 3
       },
-      "model": "unusual_prehistory:item/buckets/furcacauda_bucket"
+      "model": "unusual_prehistory:item/jawless_fish_furcacauda_bucket"
     },
     {
       "predicate": {
         "variant": 4
       },
-      "model": "unusual_prehistory:item/buckets/sacabambaspis_bucket"
+      "model": "unusual_prehistory:item/jawless_fish_sacabambaspis_bucket"
     }
   ]
 }
