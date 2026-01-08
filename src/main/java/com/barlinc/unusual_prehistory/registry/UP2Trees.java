@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.TreeBranchDecorator;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.ginkgo.GinkgoFoliagePlacer;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.HangingLepidodendronLeavesDecorator;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.LepidodendronFoliagePlacer;
@@ -28,5 +29,6 @@ public class UP2Trees {
 
     // Tree decorators
     public static final RegistryObject<TreeDecoratorType<?>> HANGING_LEPIDODENDRON_LEAVES = TREE_DECORATORS.register("hanging_lepidodendron_leaves", () -> new TreeDecoratorType<>(HangingLepidodendronLeavesDecorator.CODEC));
+    public static final RegistryObject<TreeDecoratorType<?>> TREE_BRANCH = TREE_DECORATORS.register("tree_branch", () -> new TreeDecoratorType<>(TreeBranchDecorator.CODEC));
 
 }

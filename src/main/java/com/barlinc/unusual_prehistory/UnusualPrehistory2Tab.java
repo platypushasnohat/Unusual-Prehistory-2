@@ -148,13 +148,15 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
+                        output.accept(AETHOPHYLLUM_FOSSIL.get());
                         output.accept(BENNETTITALES_FOSSIL.get());
                         output.accept(BRACHYPHYLLUM_FOSSIL.get());
                         output.accept(CALAMOPHYTON_FOSSIL.get());
-                        output.accept(CLADOPHEBIS_FOSSIL.get());
+                        output.accept(CLADOPHLEBIS_FOSSIL.get());
                         output.accept(COOKSONIA_FOSSIL.get());
                         output.accept(HORSETAIL_FOSSIL.get());
                         output.accept(LEEFRUCTUS_FOSSIL.get());
+                        output.accept(NEOMARIOPTERIS_FOSSIL.get());
                         output.accept(PROTOTAXITES_FOSSIL.get());
                         output.accept(QUILLWORT_FOSSIL.get());
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
@@ -164,6 +166,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(LEPIDODENDRON_FOSSIL.get());
 
                         // plants
+                        output.accept(UP2Blocks.AETHOPHYLLUM.get());
                         output.accept(UP2Blocks.BENNETTITALES.get());
                         output.accept(UP2Blocks.BRACHYPHYLLUM.get());
                         output.accept(UP2Blocks.CALAMOPHYTON.get());
@@ -172,6 +175,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.HORSETAIL.get());
                         output.accept(UP2Blocks.LARGE_HORSETAIL.get());
                         output.accept(UP2Blocks.LEEFRUCTUS.get());
+                        output.accept(UP2Blocks.NEOMARIOPTERIS.get());
                         output.accept(UP2Blocks.QUILLWORT.get());
                         output.accept(UP2Blocks.RAIGUENRAYUN.get());
                         output.accept(UP2Blocks.RHYNIA.get());
@@ -180,8 +184,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
 
                         // fungus
-                        output.accept(UP2Blocks.PROTOTAXITES_NUB.get());
+                        output.accept(UP2Blocks.PROTOTAXITES_CLUSTER.get());
                         output.accept(UP2Blocks.PROTOTAXITES.get());
+                        output.accept(UP2Blocks.PROTOTAXITES_NUB.get());
+                        output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
 
                         // trees
                         output.accept(UP2Blocks.GINKGO_LOG.get());

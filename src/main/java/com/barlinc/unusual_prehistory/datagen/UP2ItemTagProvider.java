@@ -65,12 +65,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 RHYNIA_FOSSIL.get(),
                 SCHIZONEURA_FOSSIL.get(),
                 LEEFRUCTUS_FOSSIL.get(),
+                NEOMARIOPTERIS_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
                 LEPIDODENDRON_FOSSIL.get(),
                 COOKSONIA_FOSSIL.get(),
-                CLADOPHEBIS_FOSSIL.get(),
+                CLADOPHLEBIS_FOSSIL.get(),
                 BENNETTITALES_FOSSIL.get(),
+                AETHOPHYLLUM_FOSSIL.get(),
                 BRACHYPHYLLUM_FOSSIL.get(),
                 HORSETAIL_FOSSIL.get()
         );

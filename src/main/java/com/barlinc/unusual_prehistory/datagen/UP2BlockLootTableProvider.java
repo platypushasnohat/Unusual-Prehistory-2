@@ -126,6 +126,9 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());
 
+        this.dropSelf(NEOMARIOPTERIS.get());
+        this.dropPottedContents(POTTED_NEOMARIOPTERIS.get());
+
         this.add(CALAMOPHYTON.get(), (block) -> this.createLayeredSinglePropConditionTable(block, ThreeTallPlantBlock.LAYER, 0));
         this.add(BRACHYPHYLLUM.get(), (block) -> this.createLayeredSinglePropConditionTable(block, ThreeTallPlantBlock.LAYER, 0));
 
@@ -143,6 +146,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.add(RAIGUENRAYUN.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(SCHIZONEURA.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.add(AETHOPHYLLUM.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.dropSelf(RHYNIA.get());
         this.dropPottedContents(POTTED_RHYNIA.get());
@@ -220,6 +224,11 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropPottedContents(POTTED_METASEQUOIA_SAPLING.get());
 
         this.add(METASEQUOIA_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+
+        this.dropSelf(PROTOTAXITES_NUB.get());
+        this.dropSelf(PROTOTAXITES_CLUSTER.get());
+        this.dropSelf(PROTOTAXITES.get());
+        this.add(LARGE_PROTOTAXITES_NUB.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
     }
 
     @Override

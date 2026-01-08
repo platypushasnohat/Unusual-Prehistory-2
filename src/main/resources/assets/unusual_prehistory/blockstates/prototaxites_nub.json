@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusual_prehistory:block/prototaxites_nub"
+      },
+      {
+        "model": "unusual_prehistory:block/warty_prototaxites_nub"
+      }
+    ]
+  }
+}

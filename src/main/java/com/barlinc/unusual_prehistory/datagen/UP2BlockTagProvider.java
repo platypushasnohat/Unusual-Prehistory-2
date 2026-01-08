@@ -411,7 +411,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.REPLACEABLE_BY_TREES).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
-                RAIGUENRAYUN.get()
+                RAIGUENRAYUN.get(),
+                AETHOPHYLLUM.get()
         );
 
         this.tag(BlockTags.DIRT).add(
@@ -424,6 +425,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.TALL_FLOWERS).add(
+                AETHOPHYLLUM.get(),
                 RAIGUENRAYUN.get()
         );
 

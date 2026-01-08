@@ -28,19 +28,16 @@ public class UP2Compat {
     }
 
     public static void registerCompostables() {
-        registerCompostable(UP2Items.GINKGO_FRUIT.get(), 0.65F);
+        registerCompostable(UP2Items.GINKGO_FRUIT.get(), 0.5F);
 
-        registerCompostable(UP2Blocks.CALAMOPHYTON.get(), 0.65F);
-        registerCompostable(UP2Blocks.CLADOPHLEBIS.get(), 0.65F);
         registerCompostable(UP2Blocks.COOKSONIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.HORSETAIL.get(), 0.65F);
-        registerCompostable(UP2Blocks.LARGE_HORSETAIL.get(), 0.65F);
-        registerCompostable(UP2Blocks.QUILLWORT.get(), 0.65F);
         registerCompostable(UP2Blocks.LEEFRUCTUS.get(), 0.65F);
         registerCompostable(UP2Blocks.RAIGUENRAYUN.get(), 0.65F);
-        registerCompostable(UP2Blocks.RHYNIA.get(), 0.65F);
-        registerCompostable(UP2Blocks.SCHIZONEURA.get(), 0.65F);
-        registerCompostable(UP2Blocks.BRACHYPHYLLUM.get(), 0.65F);
+        registerCompostable(UP2Blocks.PROTOTAXITES_CLUSTER.get(), 0.65F);
+        registerCompostable(UP2Blocks.PROTOTAXITES.get(), 0.65F);
+        registerCompostable(UP2Blocks.PROTOTAXITES_NUB.get(), 0.65F);
+        registerCompostable(UP2Blocks.LARGE_PROTOTAXITES_NUB.get(), 0.65F);
+        registerCompostable(UP2Blocks.AETHOPHYLLUM.get(), 0.65F);
 
         registerCompostable(UP2Blocks.GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 0.3F);
@@ -50,6 +47,17 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 0.3F);
 
         registerCompostable(UP2Blocks.METASEQUOIA_LEAVES.get(), 0.3F);
+
+        registerCompostable(UP2Blocks.BENNETTITALES.get(), 0.3F);
+        registerCompostable(UP2Blocks.NEOMARIOPTERIS.get(), 0.3F);
+        registerCompostable(UP2Blocks.SCHIZONEURA.get(), 0.3F);
+        registerCompostable(UP2Blocks.BRACHYPHYLLUM.get(), 0.3F);
+        registerCompostable(UP2Blocks.RHYNIA.get(), 0.3F);
+        registerCompostable(UP2Blocks.HORSETAIL.get(), 0.3F);
+        registerCompostable(UP2Blocks.LARGE_HORSETAIL.get(), 0.3F);
+        registerCompostable(UP2Blocks.QUILLWORT.get(), 0.3F);
+        registerCompostable(UP2Blocks.CALAMOPHYTON.get(), 0.3F);
+        registerCompostable(UP2Blocks.CLADOPHLEBIS.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -64,6 +72,9 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);
         registerFlammable(UP2Blocks.SCHIZONEURA.get(), 60, 100);
         registerFlammable(UP2Blocks.BRACHYPHYLLUM.get(), 60, 100);
+        registerFlammable(UP2Blocks.NEOMARIOPTERIS.get(), 60, 100);
+        registerFlammable(UP2Blocks.BENNETTITALES.get(), 60, 100);
+        registerFlammable(UP2Blocks.AETHOPHYLLUM.get(), 60, 100);
 
         registerFlammable(UP2Blocks.GINKGO_LOG.get(), 5, 3);
         registerFlammable(UP2Blocks.GINKGO_WOOD.get(), 5, 3);

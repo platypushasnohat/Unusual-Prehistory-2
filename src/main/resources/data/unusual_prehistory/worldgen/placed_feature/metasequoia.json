@@ -1,0 +1,17 @@
+{
+  "feature": "unusual_prehistory:metasequoia",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "unusual_prehistory:metasequoia_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

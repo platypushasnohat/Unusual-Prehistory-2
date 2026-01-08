@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/template_single_face",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "texture": "unusual_prehistory:block/warty_prototaxites"
+    "end": "unusual_prehistory:block/warty_prototaxites",
+    "side": "unusual_prehistory:block/warty_prototaxites"
   }
 }

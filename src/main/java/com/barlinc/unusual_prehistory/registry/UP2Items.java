@@ -176,13 +176,15 @@ public class UP2Items {
     public static final RegistryObject<Item> DUBIOUS_FOSSIL = registerFossilItem("dubious");
 
     // Plant Fossils
+    public static final RegistryObject<Item> AETHOPHYLLUM_FOSSIL = registerFossilItem("aethophyllum");
     public static final RegistryObject<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
     public static final RegistryObject<Item> BRACHYPHYLLUM_FOSSIL = registerFossilItem("brachyphyllum");
     public static final RegistryObject<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
-    public static final RegistryObject<Item> CLADOPHEBIS_FOSSIL = registerFossilItem("cladophebis");
+    public static final RegistryObject<Item> CLADOPHLEBIS_FOSSIL = registerFossilItem("cladophlebis");
     public static final RegistryObject<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
     public static final RegistryObject<Item> HORSETAIL_FOSSIL = registerFossilItem("horsetail");
     public static final RegistryObject<Item> LEEFRUCTUS_FOSSIL = registerFossilItem("leefructus");
+    public static final RegistryObject<Item> NEOMARIOPTERIS_FOSSIL = registerFossilItem("neomariopteris");
     public static final RegistryObject<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");
     public static final RegistryObject<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
     public static final RegistryObject<Item> RAIGUENRAYUN_FOSSIL = registerFossilItem("raiguenrayun");

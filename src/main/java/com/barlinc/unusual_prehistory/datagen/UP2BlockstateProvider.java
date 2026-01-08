@@ -33,11 +33,10 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.pottedPlant(HORSETAIL, POTTED_HORSETAIL);
         this.pottedPlant(QUILLWORT, POTTED_QUILLWORT);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
+        this.pottedPlant(NEOMARIOPTERIS, POTTED_NEOMARIOPTERIS);
 
         this.tallPlant(LARGE_HORSETAIL);
         this.tallPlant(RAIGUENRAYUN);
-
-        this.simpleCross(PROTOTAXITES_NUB);
 
         this.pillar(GINKGO_LOG);
         this.wood(GINKGO_WOOD, this.blockTexture(GINKGO_LOG.get()));
@@ -107,6 +106,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.slab(POLISHED_PETRIFIED_WOOD_SLAB, this.blockTexture(POLISHED_PETRIFIED_WOOD.get()));
         this.pressurePlate(POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE, this.blockTexture(POLISHED_PETRIFIED_WOOD.get()));
         this.button(POLISHED_PETRIFIED_WOOD_BUTTON, this.blockTexture(POLISHED_PETRIFIED_WOOD.get()));
+
+        this.simpleCross(PROTOTAXITES_CLUSTER);
     }
 
     // item

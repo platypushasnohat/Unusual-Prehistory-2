@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "half=lower": [
+      {
+        "model": "unusual_prehistory:block/large_prototaxites_nub_bottom"
+      },
+      {
+        "model": "unusual_prehistory:block/large_warty_prototaxites_nub_bottom"
+      }
+    ],
+    "half=upper": [
+      {
+        "model": "unusual_prehistory:block/large_prototaxites_nub_top"
+      },
+      {
+        "model": "unusual_prehistory:block/large_warty_prototaxites_nub_top"
+      }
+    ]
+  }
+}

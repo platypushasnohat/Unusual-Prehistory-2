@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.blocks.*;
 import com.barlinc.unusual_prehistory.blocks.grower.GinkgoTreeGrower;
 import com.barlinc.unusual_prehistory.blocks.grower.GoldenGinkgoTreeGrower;
 import com.barlinc.unusual_prehistory.blocks.grower.LepidodendronTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.MetasequoiaTreeGrower;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -138,17 +139,24 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new PrehistoricFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
 
+    public static final RegistryObject<Block> NEOMARIOPTERIS = registerBlock("neomariopteris", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_NEOMARIOPTERIS = registerBlockWithoutItem("potted_neomariopteris", () -> new FlowerPotBlock(UP2Blocks.NEOMARIOPTERIS.get(), registerFlowerPot()));
+
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
 
     public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new PrehistoricPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
 
-    public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new PrototaxitesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
-    public static final RegistryObject<Block> PROTOTAXITES_NUB = registerBlock("prototaxites_nub", () -> new PrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> PROTOTAXITES_NUB = registerBlock("prototaxites_nub", () -> new PrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> LARGE_PROTOTAXITES_NUB = registerBlock("large_prototaxites_nub", () -> new LargePrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> PROTOTAXITES_CLUSTER = registerBlock("prototaxites_cluster", () -> new PrototaxitesClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
 
     public static final RegistryObject<Block> SCHIZONEURA = registerBlock("schizoneura", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 
     public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+
+    public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
 
     // ginkgo
     public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
@@ -223,14 +231,13 @@ public class UP2Blocks {
 
     public static final RegistryObject<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
 
-    public static final RegistryObject<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(new MetasequoiaTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final RegistryObject<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
     public static final RegistryObject<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
     public static final RegistryObject<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
     public static final RegistryObject<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get()), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
-
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

@@ -1,5 +1,17 @@
 {
   "criteria": {
+    "aethophyllum_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aethophyllum_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "aged_feather": {
       "conditions": {
         "items": [
@@ -144,12 +156,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "cladophebis_fossil": {
+    "cladophlebis_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:cladophebis_fossil"
+              "unusual_prehistory:cladophlebis_fossil"
             ]
           }
         ]
@@ -576,6 +588,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "neomariopteris_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:neomariopteris_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "onchopristis_sac": {
       "conditions": {
         "items": [
@@ -952,13 +976,15 @@
       "plumage_fossil",
       "scythe_fossil",
       "dubious_fossil",
+      "aethophyllum_fossil",
       "bennettitales_fossil",
       "brachyphyllum_fossil",
       "calamophyton_fossil",
-      "cladophebis_fossil",
+      "cladophlebis_fossil",
       "cooksonia_fossil",
       "horsetail_fossil",
       "leefructus_fossil",
+      "neomariopteris_fossil",
       "prototaxites_fossil",
       "quillwort_fossil",
       "raiguenrayun_fossil",
