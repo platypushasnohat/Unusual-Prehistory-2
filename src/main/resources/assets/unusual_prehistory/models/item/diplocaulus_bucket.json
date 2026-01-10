@@ -14,19 +14,19 @@
       "predicate": {
         "variant": 1
       },
-      "model": "unusual_prehistory:item/buckets/diplocaulus_magnicornis_bucket"
+      "model": "unusual_prehistory:item/diplocaulus_magnicornis_bucket"
     },
     {
       "predicate": {
         "variant": 2
       },
-      "model": "unusual_prehistory:item/buckets/diplocaulus_recurvatis_bucket"
+      "model": "unusual_prehistory:item/diplocaulus_recurvatis_bucket"
     },
     {
       "predicate": {
         "variant": 3
       },
-      "model": "unusual_prehistory:item/buckets/diplocaulus_salamandroides_bucket"
+      "model": "unusual_prehistory:item/diplocaulus_salamandroides_bucket"
     }
   ]
 }

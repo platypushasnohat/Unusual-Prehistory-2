@@ -294,12 +294,12 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return this.getVariant() == 0 ? new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get()) : ItemStack.EMPTY;
+        return new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get());
     }
 
     @Override
     public boolean canBucket() {
-        return this.getVariant() == 0;
+        return true;
     }
 
     public enum DunkleosteusVariant {

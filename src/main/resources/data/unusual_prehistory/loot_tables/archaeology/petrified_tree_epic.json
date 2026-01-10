@@ -47,6 +47,22 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:rhynia_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:aethophyllum_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:brachyphyllum_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:neomariopteris_fossil"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:schizoneura_fossil"
         }
       ],
       "rolls": 1.0

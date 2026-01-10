@@ -77,11 +77,13 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MAGENTA_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.PINK_REINFORCED_GLASS.get());
 
+                        output.accept(COELACANTHUS_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+                        output.accept(LOBE_FINNED_FISH_BUCKET.get());
                         output.accept(PRAEPUSA_BUCKET.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DOOMSURF_DISC.get());

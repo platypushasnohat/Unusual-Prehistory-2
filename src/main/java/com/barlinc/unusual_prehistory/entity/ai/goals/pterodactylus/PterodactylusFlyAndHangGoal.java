@@ -1,6 +1,7 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus;
 
 import com.barlinc.unusual_prehistory.entity.Pterodactylus;
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.ClipContext;
@@ -25,10 +26,10 @@ public class PterodactylusFlyAndHangGoal extends RandomFlightGoal {
 
     @Override
     public boolean canUse() {
-        if (pterodactylus.isHanging() || pterodactylus.getIdleState() == 1 || pterodactylus.groundedFor > 0) {
+        if (pterodactylus.isHanging() || pterodactylus.getIdleState() == 1 || pterodactylus.groundTicks > 0) {
             return false;
         }
-        this.wantsToHang = pterodactylus.timeFlying > 300 && !pterodactylus.isRunning();
+        this.wantsToHang = pterodactylus.flightTicks > 300 && !pterodactylus.isRunning();
         return super.canUse();
     }
 
@@ -61,7 +62,7 @@ public class PterodactylusFlyAndHangGoal extends RandomFlightGoal {
                 }
             }
         }
-        if (pterodactylus.isFlying() && pterodactylus.onGround() && pterodactylus.timeFlying > 40) {
+        if (pterodactylus.isFlying() && pterodactylus.onGround() && pterodactylus.flightTicks > 40) {
             this.pterodactylus.setFlying(false);
         }
         if (this.isOverWaterOrVoid() || pterodactylus.isInWaterOrBubble()) {
@@ -69,17 +70,17 @@ public class PterodactylusFlyAndHangGoal extends RandomFlightGoal {
             this.pterodactylus.setHanging(false);
             this.pterodactylus.landingFlag = false;
         }
-        if (mob.isFlying() && mob.timeFlying > maxTimeFlying && !this.isOverWaterOrVoid()) {
-            mob.landingFlag = true;
+        if (pterodactylus.isFlying() && pterodactylus.flightTicks > maxTimeFlying && !this.isOverWaterOrVoid()) {
+            this.pterodactylus.landingFlag = true;
         }
     }
 
     @Override
     public boolean canContinueToUse() {
         if (wantsToHang) {
-            return !pterodactylus.getNavigation().isDone() && !pterodactylus.isHanging() && pterodactylus.groundedFor <= 0;
+            return !pterodactylus.getNavigation().isDone() && !pterodactylus.isHanging() && pterodactylus.groundTicks <= 0;
         } else {
-            return pterodactylus.isFlying() && !pterodactylus.getNavigation().isDone() && pterodactylus.groundedFor <= 0;
+            return pterodactylus.isFlying() && !pterodactylus.getNavigation().isDone() && pterodactylus.groundTicks <= 0;
         }
     }
 

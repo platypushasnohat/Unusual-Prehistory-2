@@ -129,7 +129,7 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
+        return new ItemStack(UP2Items.LOBE_FINNED_FISH_BUCKET.get());
     }
 
     @Override

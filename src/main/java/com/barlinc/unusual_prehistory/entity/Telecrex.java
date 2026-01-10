@@ -65,7 +65,7 @@ public class Telecrex extends PrehistoricFlyingMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.FLYING_SPEED, 0.75F)
+                .add(Attributes.FLYING_SPEED, 1.0F)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 

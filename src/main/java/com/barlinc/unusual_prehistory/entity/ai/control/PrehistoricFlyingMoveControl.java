@@ -25,13 +25,13 @@ public class PrehistoricFlyingMoveControl extends MoveControl {
                 double length = vector3d.length();
                 double width = prehistoricMob.getBoundingBox().getSize();
                 this.prehistoricMob.setSpeed(flyingSpeed);
-                this.prehistoricMob.setDeltaMovement(deltaMovement.add(vector3d.scale(flyingSpeed * 0.05D / length)));
+                this.prehistoricMob.setDeltaMovement(deltaMovement.add(vector3d.scale(flyingSpeed * 0.05D / length)).scale(0.9D));
                 if (length < width) {
                     this.operation = Operation.WAIT;
-                    this.prehistoricMob.setDeltaMovement(deltaMovement.scale(0.6D));
+                    this.prehistoricMob.setDeltaMovement(deltaMovement.scale(0.5D));
                 } else if (length >= width) {
                     float yaw = -((float) Mth.atan2(deltaMovement.x, deltaMovement.z)) * (180F / (float) Math.PI);
-                    this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 10));
+                    this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 20));
                     this.prehistoricMob.yBodyRot = prehistoricMob.getYRot();
                 }
             }

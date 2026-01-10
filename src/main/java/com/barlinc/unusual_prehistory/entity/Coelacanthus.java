@@ -6,15 +6,14 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -36,7 +35,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -46,8 +44,6 @@ import java.util.List;
 public class Coelacanthus extends PrehistoricAquaticMob {
 
     private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(Coelacanthus.class, EntityDataSerializers.INT);
-
-    private final ListTag swallowedMobs = new ListTag();
 
     private int absorbCooldown = 0;
 
@@ -126,6 +122,9 @@ public class Coelacanthus extends PrehistoricAquaticMob {
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
+            if (!this.isEyeInFluid(FluidTags.WATER)) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
         } else {
             super.travel(travelVector);
         }
@@ -134,43 +133,9 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide) {
-            if (absorbCooldown > 0) absorbCooldown--;
-            if (this.getCoelacanthusSize() < 127 && this.isAlive() && absorbCooldown == 0) this.consumeNearbyMobs();
-        }
-    }
-
-    public boolean canConsumeEntity(Entity entity) {
-        if (entity == null) {
-            return false;
-        }
-        if (entity.getType().is(UP2EntityTags.COELACANTHUS_NEVER_EATS)) {
-            return false;
-        }
-        return (entity.getBbWidth() < this.getBbWidth() && entity.getBbHeight() < this.getBbHeight()) || entity.getType().is(UP2EntityTags.COELACANTHUS_ALWAYS_EATS);
-    }
-
-    private void consumeNearbyMobs() {
-        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat(), this, this.getBoundingBox().inflate(2.0D));
-        if (!nearbyEntities.isEmpty()) {
-            LivingEntity entity = nearbyEntities.get(0);
-            if (this.canConsumeEntity(entity)) {
-                if (entity instanceof Player) entity.hurt(this.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                else {
-                    ResourceLocation entityKey = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-                    if (entityKey != null) {
-                        CompoundTag entry = new CompoundTag();
-                        CompoundTag mobData = new CompoundTag();
-                        entity.addAdditionalSaveData(mobData);
-                        entry.putString("SwallowedMobType", entityKey.toString());
-                        entry.put("SwallowedMobData", mobData);
-                        if (swallowedMobs.size() >= 8) this.swallowedMobs.remove(0);
-                        this.swallowedMobs.add(entry);
-                    }
-                    entity.discard();
-                    entity.gameEvent(GameEvent.ENTITY_DIE);
-                    entity.level().broadcastEntityEvent(this, (byte) 3);
-                }
+        if (absorbCooldown > 0) absorbCooldown--;
+        if (this.getCoelacanthusSize() < 127 && this.isAlive() && absorbCooldown == 0) {
+            if (this.consumeNearbyMobs()) {
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
                 this.heal(this.getMaxHealth());
@@ -181,35 +146,30 @@ public class Coelacanthus extends PrehistoricAquaticMob {
         }
     }
 
-    private void spitOutLastEatenMob() {
-        if (!swallowedMobs.isEmpty()) {
-            CompoundTag compoundTag = swallowedMobs.getCompound(swallowedMobs.size() - 1);
-            EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(compoundTag.getString("SwallowedMobType")));
-            if (type != null) {
-                Entity entity = type.create(level());
-                if (entity instanceof LivingEntity alive) {
-                    alive.readAdditionalSaveData(compoundTag.getCompound("SwallowedMobData"));
-                    alive.setYRot(random.nextFloat() * 360F);
-                    alive.setPos(this.getMouthVec());
-                    level().addFreshEntity(alive);
-                }
-            }
-        }
+    public boolean canConsumeEntity(Entity entity) {
+        if (entity == null || !entity.isAlive() || entity == this) return false;
+        else if (entity.getType().is(UP2EntityTags.COELACANTHUS_NEVER_EATS)) return false;
+        return (entity.getBbWidth() < this.getBbWidth() && entity.getBbHeight() < this.getBbHeight()) || entity.getType().is(UP2EntityTags.COELACANTHUS_ALWAYS_EATS);
     }
 
-    @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-        if (super.hurt(source, amount)) {
-            this.spitOutLastEatenMob();
-            return true;
-        } else {
+    private boolean consumeNearbyMobs() {
+        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat(), this, this.getBoundingBox().inflate(1.1D));
+        if (!nearbyEntities.isEmpty()) {
+            LivingEntity entity = nearbyEntities.get(0);
+            if (this.canConsumeEntity(entity) && !this.level().isClientSide) {
+                if (entity instanceof Player player) {
+                    if (!player.isCreative() && !player.isSpectator()) {
+                        entity.hurt(this.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    }
+                } else {
+                    entity.level().broadcastEntityEvent(entity, (byte) 20);
+                    entity.discard();
+                }
+                return true;
+            }
             return false;
         }
-    }
-
-    private Vec3 getMouthVec(){
-        final Vec3 vec3 = new Vec3(0, this.getBbHeight() * 0.25F, this.getBbWidth() * 0.8F).xRot(this.getXRot() * Mth.DEG_TO_RAD).yRot(-this.getYRot() * Mth.DEG_TO_RAD);
-        return this.position().add(vec3);
+        return false;
     }
 
     @Override
@@ -266,18 +226,12 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Size", this.getCoelacanthusSize() - 1);
-        compoundTag.put("SwallowedMobs", this.swallowedMobs.copy());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setCoelacanthusSize(compoundTag.getInt("Size") + 1);
-        this.swallowedMobs.clear();
-        ListTag list = compoundTag.getList("SwallowedMobs", 10);
-        for (int i = 0; i < list.size(); i++) {
-            this.swallowedMobs.add(list.getCompound(i));
-        }
     }
 
     public int getCoelacanthusSize() {
@@ -306,6 +260,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         int size = this.getCoelacanthusSize();
         EntityDimensions dimensions = super.getDimensions(pose);
+        if (dimensions.width <= 0.0F || dimensions.height <= 0.0F) return dimensions;
         float scale = (dimensions.width + 0.05F * (float) size) / dimensions.width;
         return dimensions.scale(scale);
     }
@@ -315,6 +270,28 @@ public class Coelacanthus extends PrehistoricAquaticMob {
         int size = this.getCoelacanthusSize();
         float pitch = Mth.clamp(size / 127.0F, 0.0F, 1.0F);
         return Mth.lerp(pitch, 2.0F, 0.1F);
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.COELACANTHUS_BUCKET.get());
+    }
+
+    @Override
+    public boolean canBucket() {
+        return true;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        super.saveToBucketTag(bucket);
+        CompoundTag compoundTag = bucket.getOrCreateTag();
+        compoundTag.putInt("Size", this.getCoelacanthusSize());
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        this.setCoelacanthusSize(compoundTag.getInt("Size"));
     }
 
     @Override
@@ -333,11 +310,6 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     @Nullable
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.STETHACANTHUS_FLOP.get();
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return ItemStack.EMPTY;
     }
 
     @Nullable

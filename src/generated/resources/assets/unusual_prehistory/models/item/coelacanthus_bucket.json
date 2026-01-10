@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/cephalaspis_bucket"
+    "layer0": "unusual_prehistory:item/coelacanthus_bucket"
   }
 }

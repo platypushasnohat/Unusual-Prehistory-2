@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus;
 
 import com.barlinc.unusual_prehistory.entity.Pterodactylus;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;

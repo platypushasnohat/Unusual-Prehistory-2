@@ -67,10 +67,10 @@ public class RandomFlightGoal extends Goal {
 
     @Override
     public void tick() {
-        if (mob.isFlying() && mob.onGround() && mob.timeFlying > 40) {
+        if (mob.isFlying() && mob.onGround() && mob.flightTicks > 40) {
             mob.setFlying(false);
         }
-        if (mob.isFlying() && mob.timeFlying % maxTimeFlying == 0 && !this.isOverWaterOrVoid()) {
+        if (mob.isFlying() && mob.flightTicks % maxTimeFlying == 0 && !this.isOverWaterOrVoid()) {
             mob.landingFlag = true;
         }
         if (this.isOverWaterOrVoid() || mob.isInWaterOrBubble()) {
@@ -82,9 +82,9 @@ public class RandomFlightGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         if (mob.landingFlag) {
-            return !mob.getNavigation().isDone() && !mob.onGround() && mob.groundedFor <= 0;
+            return !mob.getNavigation().isDone() && !mob.onGround() && mob.groundTicks <= 0;
         } else {
-            return mob.isFlying() && !mob.getNavigation().isDone() && mob.groundedFor <= 0;
+            return mob.isFlying() && !mob.getNavigation().isDone() && mob.groundTicks <= 0;
         }
     }
 

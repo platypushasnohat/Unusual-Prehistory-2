@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusFlyAndHangGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PterodactylusScatterGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusFlyAndHangGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -33,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -71,7 +72,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.FLYING_SPEED, 0.8F)
+                .add(Attributes.FLYING_SPEED, 1.1F)
                 .add(Attributes.MOVEMENT_SPEED, 0.01F);
     }
 
@@ -89,6 +90,11 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothFlyingPathNavigation(this, level, 1.0F);
+    }
+
+    @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
+        return level.getBlockState(pos).isAir() ? 10.0F : 0.0F;
     }
 
     @Override
@@ -188,6 +194,32 @@ public class Pterodactylus extends PrehistoricFlyingMob {
             this.timeHanging = 0;
             this.validHangingPos = false;
             this.prevHangPos = null;
+        }
+    }
+
+    @Override
+    public void tickFlight() {
+        if (this.isFlying() && flyProgress < 5F) this.flyProgress++;
+        if (!this.isFlying() && flyProgress > 0F) this.flyProgress--;
+
+        if (this.isFlying()) {
+            this.flightTicks++;
+            this.setNoGravity(true);
+            if (groundTicks > 0) this.setFlying(false);
+        } else {
+            this.flightTicks = 0;
+            this.setNoGravity(false);
+        }
+        if (groundTicks > 0) groundTicks--;
+
+        if (!level().isClientSide) {
+            if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
+                if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
+                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                    this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
+                }
+            }
+            if (this.isFlying() && flightTicks > 40 && this.onGround()) this.setFlying(false);
         }
     }
 

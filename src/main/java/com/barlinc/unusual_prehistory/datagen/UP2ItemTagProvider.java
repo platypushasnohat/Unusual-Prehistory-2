@@ -389,7 +389,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         // Mod Compat
         this.tag(UP2ItemTags.CUSTOMIZABLE_MOB_ITEMS).add(
-                JAWLESS_FISH_BUCKET.get()
+                JAWLESS_FISH_BUCKET.get(),
+                LOBE_FINNED_FISH_BUCKET.get()
         );
     }
 }

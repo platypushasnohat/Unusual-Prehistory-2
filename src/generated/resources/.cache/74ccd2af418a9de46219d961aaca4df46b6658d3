@@ -1,9 +1,9 @@
-// 1.20.1	2026-01-05T21:58:37.2467436	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2026-01-08T13:09:02.8805145	Tags for minecraft:entity_type mod id unusual_prehistory
 08588cd21645876d9e64c6c0a42c180fc10f0ea9 data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
 96e3e2da8f817373438167feeacfaab72f6ac8fb data/unusual_prehistory/tags/entity_types/carnotaurus_ignores.json
 ad7f58637660ff339b91771bb5097d4fa58bec1b data/unusual_prehistory/tags/entity_types/carnotaurus_targets.json
 eefc73135a3782a7ee1523319cfd2834270b8800 data/unusual_prehistory/tags/entity_types/coelacanthus_avoids.json
-9d6989ea111ce90894966819e9348809d488624c data/unusual_prehistory/tags/entity_types/coelacanthus_never_eats.json
+e00f2931577049b9a4400a87ed9c249373be376c data/unusual_prehistory/tags/entity_types/coelacanthus_never_eats.json
 533c8efa89ec82700f23e3dca8ea244f526b995d data/unusual_prehistory/tags/entity_types/diplocaulus_avoids.json
 8ab8c45ae51fec7c370f77ac7ace63989386b7e4 data/unusual_prehistory/tags/entity_types/dromaeosaurus_avoids.json
 b936804f9da78ee26f9bd432d42e7848d676f251 data/unusual_prehistory/tags/entity_types/dromaeosaurus_targets.json

@@ -46,6 +46,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -90,7 +91,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.01F)
-                .add(Attributes.FLYING_SPEED, 0.9F);
+                .add(Attributes.FLYING_SPEED, 1.3F);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
-        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 50, 600));
+        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 60, 600));
         this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
         this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
@@ -119,6 +120,11 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
+        return level.getBlockState(pos).isAir() ? 10.0F : 0.0F;
+    }
+
+    @Override
     public void switchNavigator(boolean onLand) {
     }
 
@@ -133,7 +139,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() || (this.onGround() && !this.isFlying())) {
+        if (this.refuseToMove() || this.onGround()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
@@ -214,6 +220,32 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         }
         if (controlDownTicks > 0) controlDownTicks--;
         else if (controlUpTicks > 0) controlUpTicks--;
+    }
+
+    @Override
+    public void tickFlight() {
+        if (this.isFlying() && flyProgress < 5F) this.flyProgress++;
+        if (!this.isFlying() && flyProgress > 0F) this.flyProgress--;
+
+        if (this.isFlying()) {
+            this.flightTicks++;
+            this.setNoGravity(true);
+            if (groundTicks > 0) this.setFlying(false);
+        } else {
+            this.flightTicks = 0;
+            this.setNoGravity(false);
+        }
+        if (groundTicks > 0) groundTicks--;
+
+        if (!level().isClientSide) {
+            if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
+                if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
+                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                    this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
+                }
+            }
+            if (this.isFlying() && flightTicks > 40 && this.onGround()) this.setFlying(false);
+        }
     }
 
     private void explode() {
