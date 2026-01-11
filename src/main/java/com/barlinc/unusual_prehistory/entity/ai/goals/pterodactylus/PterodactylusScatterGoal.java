@@ -27,7 +27,7 @@ public class PterodactylusScatterGoal extends Goal {
             return false;
         }
         AABB aabb = pterodactylus.getBoundingBox().inflate(6);
-        List<Entity> list = pterodactylus.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.SCATTERS_TELECREX) || entity instanceof Player && !((Player) entity).isCreative()));
+        List<Entity> list = pterodactylus.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.TELECREX_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
         return !list.isEmpty();
     }
 

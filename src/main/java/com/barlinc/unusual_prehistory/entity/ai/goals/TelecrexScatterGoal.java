@@ -27,7 +27,7 @@ public class TelecrexScatterGoal extends Goal {
             return false;
         }
         AABB aabb = telecrex.getBoundingBox().inflate(8);
-        List<Entity> list = telecrex.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.SCATTERS_TELECREX) || entity instanceof Player && !((Player) entity).isCreative()));
+        List<Entity> list = telecrex.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.TELECREX_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
         return !list.isEmpty();
     }
 

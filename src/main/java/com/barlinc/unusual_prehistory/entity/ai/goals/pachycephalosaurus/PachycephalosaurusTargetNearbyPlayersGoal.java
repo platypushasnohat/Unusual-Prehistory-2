@@ -8,7 +8,7 @@ public class PachycephalosaurusTargetNearbyPlayersGoal extends TargetNearbyPlaye
     private final Pachycephalosaurus pachycephalosaurus;
 
     public PachycephalosaurusTargetNearbyPlayersGoal(Pachycephalosaurus pachycephalosaurus) {
-        super(pachycephalosaurus);
+        super(pachycephalosaurus, 50, 3.0D);
         this.pachycephalosaurus = pachycephalosaurus;
     }
 

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -15,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
-import java.util.Objects;
 
 public class PachycephalosaurusAttackGoal extends AttackGoal {
 
@@ -68,8 +68,9 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
         timer++;
         LivingEntity target = this.pachycephalosaurus.getTarget();
         if (timer == 1) pachycephalosaurus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 4) pachycephalosaurus.playSound(UP2SoundEvents.PACHYCEPHALOSAURUS_ATTACK.get(), 2.0F, 0.9F + pachycephalosaurus.getRandom().nextFloat() * 0.25F);
         if (timer == 11) {
-            if (this.pachycephalosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 2.0D)) {
                 this.pachycephalosaurus.doHurtTarget(target);
                 this.pachycephalosaurus.strongKnockback(target, 0.7D, 0.1D);
                 this.pachycephalosaurus.swing(InteractionHand.MAIN_HAND);
@@ -92,6 +93,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
             this.pachycephalosaurus.lookAt(target, 360F, 30F);
             this.pachycephalosaurus.getLookControl().setLookAt(target, 30F, 30F);
         }
+        if (timer == 7) pachycephalosaurus.playSound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN.get(), 3.0F, 0.85F + pachycephalosaurus.getRandom().nextFloat() * 0.25F);
         if (timer > 50 && timer < 70) {
             this.hurtNearbyEntities();
             this.chargeDirection = new Vec3(target.getX() - pachycephalosaurus.getX(), target.getY() - pachycephalosaurus.getY(), target.getZ() - pachycephalosaurus.getZ()).normalize();

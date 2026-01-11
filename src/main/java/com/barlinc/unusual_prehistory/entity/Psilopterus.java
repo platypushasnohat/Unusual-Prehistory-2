@@ -98,10 +98,10 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(11, new PsilopterusDigGoal(this));
         this.goalSelector.addGoal(11, new PsilopterusPreenGoal(this));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this, Psilopterus.class)).setAlertOthers());
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_TARGETS)));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_PACK_TARGETS)));
         this.targetSelector.addGoal(2, new PackAnimalNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
-        this.targetSelector.addGoal(3, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_TARGETS), 3));
-        this.targetSelector.addGoal(4, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_TARGETS), 6));
+        this.targetSelector.addGoal(3, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS), 3));
+        this.targetSelector.addGoal(4, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS), 6));
     }
 
     public static AttributeSupplier.Builder createAttributes() {

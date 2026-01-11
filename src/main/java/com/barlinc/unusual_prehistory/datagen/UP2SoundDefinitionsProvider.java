@@ -96,9 +96,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt2"))
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH,
-                sound("mob/frog/death1").pitch(0.8F),
-                sound("mob/frog/death2").pitch(0.8F),
-                sound("mob/frog/death3").pitch(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/death1"))
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle1")),
@@ -398,6 +396,36 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop2").volume(0.3F),
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
+        );
+
+        // Pachycephalosaurus
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle5"))
+        );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/attack2"))
+        );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/warn1"))
+        );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP,
+                sound("mob/pig/step1").pitch(0.85F),
+                sound("mob/pig/step2").pitch(0.85F),
+                sound("mob/pig/step3").pitch(0.85F),
+                sound("mob/pig/step4").pitch(0.85F),
+                sound("mob/pig/step5").pitch(0.85F)
         );
 
         // Praepusa

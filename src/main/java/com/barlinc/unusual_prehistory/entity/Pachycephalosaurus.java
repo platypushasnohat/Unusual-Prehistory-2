@@ -277,24 +277,24 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
+        return UP2SoundEvents.PACHYCEPHALOSAURUS_IDLE.get();
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2SoundEvents.LYSTROSAURUS_HURT.get();
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return UP2SoundEvents.PACHYCEPHALOSAURUS_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.LYSTROSAURUS_DEATH.get();
+        return UP2SoundEvents.PACHYCEPHALOSAURUS_DEATH.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.LYSTROSAURUS_STEP.get(), 0.15F, 1.0F);
+        this.playSound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP.get(), 0.15F, 1.0F);
     }
 
     @Override

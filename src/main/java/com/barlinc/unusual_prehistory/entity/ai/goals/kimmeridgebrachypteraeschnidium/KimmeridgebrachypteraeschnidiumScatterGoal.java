@@ -27,7 +27,7 @@ public class KimmeridgebrachypteraeschnidiumScatterGoal extends Goal {
             return false;
         }
         AABB aabb = dragonfly.getBoundingBox().inflate(4);
-        List<Entity> list = dragonfly.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.SCATTERS_KIMMERIDGEBRACHYPTERAESCHNIDIUM) || entity instanceof Player && !((Player) entity).isCreative()));
+        List<Entity> list = dragonfly.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
         return !list.isEmpty();
     }
 
