@@ -1,8 +1,6 @@
 {
   "values": [
-    "minecraft:sheep",
-    "minecraft:cow",
-    "minecraft:pig",
-    "minecraft:goat"
+    "#unusual_prehistory:small_prey",
+    "#unusual_prehistory:medium_prey"
   ]
 }

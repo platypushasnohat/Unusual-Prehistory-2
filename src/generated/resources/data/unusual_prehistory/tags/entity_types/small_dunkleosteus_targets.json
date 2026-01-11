@@ -1,9 +1,6 @@
 {
   "values": [
-    "unusual_prehistory:jawless_fish",
-    "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph",
-    "minecraft:cod",
-    "minecraft:salmon",
-    "minecraft:tropical_fish"
+    "#unusual_prehistory:tiny_aquatic_prey",
+    "#unusual_prehistory:small_aquatic_prey"
   ]
 }

@@ -21,17 +21,25 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> LARGE_PREY = modEntityTag("large_prey");
     public static final TagKey<EntityType<?>> GIANT_PREY = modEntityTag("giant_prey");
 
-    public static final TagKey<EntityType<?>> TINY_WATER_ANIMALS = modEntityTag("tiny_water_animals");
-    public static final TagKey<EntityType<?>> SMALL_WATER_ANIMALS = modEntityTag("small_water_animals");
-    public static final TagKey<EntityType<?>> MEDIUM_WATER_ANIMALS = modEntityTag("medium_water_animals");
-    public static final TagKey<EntityType<?>> LARGE_WATER_ANIMALS = modEntityTag("large_water_animals");
-    public static final TagKey<EntityType<?>> GIANT_WATER_ANIMALS = modEntityTag("giant_water_animals");
+    public static final TagKey<EntityType<?>> TINY_AQUATIC_ANIMALS = modEntityTag("tiny_aquatic_animals");
+    public static final TagKey<EntityType<?>> SMALL_AQUATIC_ANIMALS = modEntityTag("small_aquatic_animals");
+    public static final TagKey<EntityType<?>> MEDIUM_AQUATIC_ANIMALS = modEntityTag("medium_aquatic_animals");
+    public static final TagKey<EntityType<?>> LARGE_AQUATIC_ANIMALS = modEntityTag("large_aquatic_animals");
+    public static final TagKey<EntityType<?>> GIANT_AQUATIC_ANIMALS = modEntityTag("giant_aquatic_animals");
+
+    public static final TagKey<EntityType<?>> TINY_AQUATIC_PREY = modEntityTag("tiny_aquatic_prey");
+    public static final TagKey<EntityType<?>> SMALL_AQUATIC_PREY = modEntityTag("small_aquatic_prey");
+    public static final TagKey<EntityType<?>> MEDIUM_AQUATIC_PREY = modEntityTag("medium_aquatic_prey");
+    public static final TagKey<EntityType<?>> LARGE_AQUATIC_PREY = modEntityTag("large_aquatic_prey");
+    public static final TagKey<EntityType<?>> GIANT_AQUATIC_PREY = modEntityTag("giant_aquatic_prey");
 
     public static final TagKey<EntityType<?>> MONSTERS = modEntityTag("monsters");
     public static final TagKey<EntityType<?>> STRONG_MONSTERS = modEntityTag("strong_monsters");
 
     public static final TagKey<EntityType<?>> AQUATIC_MONSTERS = modEntityTag("aquatic_monsters");
     public static final TagKey<EntityType<?>> STRONG_AQUATIC_MONSTERS = modEntityTag("strong_aquatic_monsters");
+
+    public static final TagKey<EntityType<?>> BUGS = modEntityTag("bugs");
 
     // Targets
     public static final TagKey<EntityType<?>> CARNOTAURUS_TARGETS = modEntityTag("carnotaurus_targets");

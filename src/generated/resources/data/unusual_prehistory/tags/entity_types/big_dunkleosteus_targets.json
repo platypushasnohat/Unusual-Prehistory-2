@@ -1,11 +1,7 @@
 {
   "values": [
-    "unusual_prehistory:jawless_fish",
-    "unusual_prehistory:tartuosteus",
-    "minecraft:cod",
-    "minecraft:salmon",
-    "minecraft:tropical_fish",
-    "minecraft:dolphin",
+    "#unusual_prehistory:medium_aquatic_prey",
+    "#unusual_prehistory:large_aquatic_prey",
     "minecraft:turtle",
     "minecraft:drowned",
     "minecraft:guardian",

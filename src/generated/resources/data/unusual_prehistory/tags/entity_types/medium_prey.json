@@ -2,7 +2,6 @@
   "values": [
     "unusual_prehistory:pachycephalosaurus",
     "unusual_prehistory:desmatosuchus",
-    "unusual_prehistory:kaprosuchus",
     "unusual_prehistory:lystrosaurus",
     "minecraft:pig",
     "minecraft:cow",
@@ -11,6 +10,7 @@
     "minecraft:ocelot",
     "minecraft:donkey",
     "minecraft:mule",
-    "minecraft:llama"
+    "minecraft:llama",
+    "minecraft:trader_llama"
   ]
 }

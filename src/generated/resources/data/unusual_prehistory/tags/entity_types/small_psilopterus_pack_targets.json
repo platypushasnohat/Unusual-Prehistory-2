@@ -1,11 +1,6 @@
 {
   "values": [
-    "unusual_prehistory:leptictidium",
-    "unusual_prehistory:diplocaulus",
-    "unusual_prehistory:talpanas",
-    "unusual_prehistory:telecrex",
-    "minecraft:chicken",
-    "minecraft:parrot",
-    "minecraft:rabbit"
+    "#unusual_prehistory:tiny_prey",
+    "#unusual_prehistory:small_prey"
   ]
 }

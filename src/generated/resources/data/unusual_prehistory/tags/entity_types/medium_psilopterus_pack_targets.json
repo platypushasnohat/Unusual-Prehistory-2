@@ -1,9 +1,6 @@
 {
   "values": [
-    "unusual_prehistory:pachycephalosaurus",
-    "minecraft:cow",
-    "minecraft:sheep",
-    "minecraft:goat",
-    "minecraft:pig"
+    "#unusual_prehistory:small_prey",
+    "#unusual_prehistory:medium_prey"
   ]
 }
