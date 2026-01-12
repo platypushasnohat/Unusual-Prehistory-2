@@ -17,10 +17,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
+import org.jetbrains.annotations.NotNull;
 
 public class UP2Boat extends Boat implements UP2BoatType {
 
-    public UP2Boat(EntityType type, Level level) {
+    public UP2Boat(EntityType<? extends Boat> type, Level level) {
         super(type, level);
         this.blocksBuilding = true;
     }
@@ -44,24 +45,26 @@ public class UP2Boat extends Boat implements UP2BoatType {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
+    protected void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
         compoundTag.putString("UP2BoatType", getUP2BoatType().getName());
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compoundTag) {
+    protected void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
         if (compoundTag.contains("UP2BoatType")) {
             this.entityData.set(DATA_ID_TYPE, UP2BoatType.Type.byName(compoundTag.getString("UP2BoatType")).ordinal());
         }
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
         this.lastYd = this.getDeltaMovement().y;
         if (!this.isPassenger()) {
             if (onGround) {
@@ -94,7 +97,7 @@ public class UP2Boat extends Boat implements UP2BoatType {
     }
 
     @Override
-    public Item getDropItem() {
+    public @NotNull Item getDropItem() {
         return getUP2BoatType().getDropSupplier().get();
     }
 
@@ -108,11 +111,11 @@ public class UP2Boat extends Boat implements UP2BoatType {
     }
 
     @Override
-    public void setVariant(Boat.Type vanillaType) {
+    public void setVariant(Boat.@NotNull Type vanillaType) {
     }
 
     @Override
-    public Boat.Type getVariant() {
+    public Boat.@NotNull Type getVariant() {
         return Boat.Type.OAK;
     }
 }
