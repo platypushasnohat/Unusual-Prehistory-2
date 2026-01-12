@@ -57,8 +57,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
     private int attackTicks;
     private int stepTicks;
 
-    private final byte STEP = 67;
-
     public Onchopristis(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new OnchopristisMoveControl(this);
@@ -154,7 +152,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
                     this.exitBurrowInstantly();
                     this.burrowCooldown();
                 }
-                this.level().broadcastEntityEvent(this, this.STEP);
+                this.level().broadcastEntityEvent(this, (byte) 67);
                 this.stepTicks = 5;
             }
         });
@@ -242,7 +240,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == this.STEP) this.steppedOnAnimationState.start(this.tickCount);
+        if (id == 67) this.steppedOnAnimationState.start(this.tickCount);
         else super.handleEntityEvent(id);
     }
 

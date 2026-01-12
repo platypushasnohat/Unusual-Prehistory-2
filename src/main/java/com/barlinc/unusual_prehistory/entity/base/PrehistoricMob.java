@@ -51,12 +51,24 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> ASLEEP = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> SLEEP_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     public boolean useLowerFluidJumpThreshold = false;
     private int eepyTicks;
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState sleepStartAnimationState = new AnimationState();
+    public final AnimationState sleepAnimationState = new AnimationState();
+    public final AnimationState sleepEndAnimationState = new AnimationState();
+
+    protected int sleepStartTicks;
+    protected int sleepEndTicks;
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -89,7 +101,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return 0.0F;
+        return level.getPathfindingCostFromLightLevels(pos);
     }
 
     // Floating
@@ -272,6 +284,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.standUp();
             this.sitCooldown();
         }
+
+        this.tickSleeping();
     }
 
     protected boolean isInRain() {
@@ -287,6 +301,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public void setupAnimationStates() {
+        if (sleepStartTicks == 0 && this.sleepStartAnimationState.isStarted()) this.sleepStartAnimationState.stop();
+        if (sleepEndTicks == 0 && this.sleepEndAnimationState.isStarted()) this.sleepEndAnimationState.stop();
     }
 
     @Override
@@ -321,19 +337,20 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean shouldDoEepyParticles() {
-        return false;
+        return this.isAsleep();
     }
 
-    // Sitting
+    // Sitting & Sleeping
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
         if (this.isMobSitting()) this.standUpInstantly();
+        else if (this.isAsleep()) this.wakeUpInstantly();
         super.actuallyHurt(damageSource, amount);
     }
 
     @Override
     public boolean canBeCollidedWith() {
-        return this.isMobSitting();
+        return this.isMobSitting() || this.isAsleep();
     }
 
     @Override
@@ -348,7 +365,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean refuseToMove() {
-        return this.isInPoseTransition() || this.isMobSitting() || this.isInSittingPose();
+        return this.isInPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.getPose() == UP2Poses.START_SLEEPING.get() || this.getPose() == UP2Poses.STOP_SLEEPING.get() || this.isAsleep();
     }
 
     public boolean isMobSitting() {
@@ -398,15 +415,38 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setLastPoseChangeTick(Math.max(0L, l - 52L - 1L));
     }
 
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-        super.onSyncedDataUpdated(key);
+    public void goToSleep() {
+        if (this.isAsleep()) return;
+        this.setPose(UP2Poses.START_SLEEPING.get());
+        this.refreshDimensions();
+    }
 
-        if (DATA_POSE.equals(key)) {
-           this.refreshDimensions();
-        }
-        if (SITTING.equals(key)) {
-            this.refreshDimensions();
+    public void wakeUp() {
+        if (!this.isAsleep()) return;
+        this.setPose(UP2Poses.STOP_SLEEPING.get());
+        this.refreshDimensions();
+    }
+
+    public void wakeUpInstantly() {
+        this.setAsleep(false);
+        this.setSleepCooldown(100);
+        this.setPose(Pose.STANDING);
+        this.refreshDimensions();
+    }
+
+    public void tickSleeping() {
+        if (!this.level().isClientSide) {
+            if (this.getSleepCooldown() > 0) this.setSleepCooldown(this.getSleepCooldown() - 1);
+            if (this.sleepStartTicks > 0) sleepStartTicks--;
+            if (this.sleepEndTicks > 0) sleepEndTicks--;
+            if (this.sleepStartTicks == 0 && this.getPose() == UP2Poses.START_SLEEPING.get()) {
+                this.setPose(Pose.STANDING);
+                this.setAsleep(true);
+            }
+            if (this.sleepEndTicks == 0 && this.getPose() == UP2Poses.STOP_SLEEPING.get()) {
+                this.setPose(Pose.STANDING);
+                this.setAsleep(false);
+            }
         }
     }
 
@@ -526,6 +566,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
         this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
         this.entityData.define(SITTING, false);
+        this.entityData.define(ASLEEP, false);
+        this.entityData.define(SLEEP_COOLDOWN, 1000);
         this.entityData.define(COMMAND, 0);
     }
 
@@ -540,6 +582,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
         compoundTag.putBoolean("SittingDown", this.isSittingDown());
+        compoundTag.putBoolean("Asleep", this.isAsleep());
+        compoundTag.putInt("SleepCooldown", this.getSleepCooldown());
         compoundTag.putInt("Command", this.getCommand());
     }
 
@@ -554,6 +598,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
         this.setSittingDown(compoundTag.getBoolean("SittingDown"));
+        this.setSleepCooldown(compoundTag.getInt("SleepCooldown"));
+        this.setAsleep(compoundTag.getBoolean("Asleep"));
         this.setCommand(compoundTag.getInt("Command"));
     }
 
@@ -658,6 +704,28 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
     public void setSittingDown(boolean sitting) {
         this.entityData.set(SITTING, sitting);
+    }
+
+    public int getSleepCooldown() {
+        return this.entityData.get(SLEEP_COOLDOWN);
+    }
+
+    public void setSleepCooldown(int cooldown) {
+        this.entityData.set(SLEEP_COOLDOWN, cooldown);
+    }
+
+    public void sleepCooldown() {
+        this.setSleepCooldown(6000 + random.nextInt(3000));
+    }
+    public void wakeUpCooldown() {
+        this.setSitCooldown(1200 + random.nextInt(2000));
+    }
+
+    public boolean isAsleep() {
+        return this.entityData.get(ASLEEP);
+    }
+    public void setAsleep(boolean asleep) {
+        this.entityData.set(ASLEEP, asleep);
     }
 
     public int getCommand() {

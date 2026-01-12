@@ -93,7 +93,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, LevelReader level) {
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return level.getBlockState(pos).isAir() ? 10.0F : 0.0F;
     }
 

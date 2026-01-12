@@ -54,7 +54,6 @@ public class Majungasaurus extends PrehistoricMob {
     public float prevAngryProgress;
     public float angryProgress;
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState eyesAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
@@ -98,7 +97,7 @@ public class Majungasaurus extends PrehistoricMob {
             }
         });
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
-        this.goalSelector.addGoal(7, new RandomSitGoal(this));
+        this.goalSelector.addGoal(7, new NocturnalSleepGoal(this));
         this.goalSelector.addGoal(8, new MajungasaurusYawnGoal(this));
         this.goalSelector.addGoal(8, new MajungasaurusShakeGoal(this));
         this.goalSelector.addGoal(9, new MajungasaurusSniffGoal(this));
@@ -192,8 +191,8 @@ public class Majungasaurus extends PrehistoricMob {
     public void tick () {
         super.tick();
 
-        prevCamoProgress = camoProgress;
-        prevAngryProgress = angryProgress;
+        this.prevCamoProgress = camoProgress;
+        this.prevAngryProgress = angryProgress;
 
         if (this.attackTicks > 0) attackTicks--;
         if (this.attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
@@ -220,38 +219,40 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
+        super.setupAnimationStates();
         if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
         if (startCamoTicks == 0 && this.startCamoAnimationState.isStarted()) this.startCamoAnimationState.stop();
         if (stopCamoTicks == 0 && this.stopCamoAnimationState.isStarted()) this.stopCamoAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater() && !this.isAsleep(), this.tickCount);
         this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater() && this.getPose() != UP2Poses.START_CAMO.get() && this.getPose() != UP2Poses.STOP_CAMO.get(), this.tickCount);
-        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
+        this.eyesAnimationState.animateWhen(!this.isAggressive() && !this.isAsleep(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+        this.sleepAnimationState.animateWhen(this.isAsleep() && this.getPose() != UP2Poses.STOP_SLEEPING.get(), this.tickCount);
 
-        if (this.isMobVisuallySitting()) {
-            this.sitEndAnimationState.stop();
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.idleAnimationState.stop();
-            this.shakeAnimationState.stop();
-            this.sniff1AnimationState.stop();
-            this.sniff2AnimationState.stop();
-
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
-            } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
-        }
+//        if (this.isMobVisuallySleeping()) {
+//            this.sleepEndAnimationState.stop();
+//            this.attack1AnimationState.stop();
+//            this.attack2AnimationState.stop();
+//            this.idleAnimationState.stop();
+//            this.shakeAnimationState.stop();
+//            this.sniff1AnimationState.stop();
+//            this.sniff2AnimationState.stop();
+//
+//            if (this.isVisuallySitting()) {
+//                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+//                this.sleepAnimationState.stop();
+//            } else {
+//                this.sleepStartAnimationState.stop();
+//                this.sleepAnimationState.startIfStopped(this.tickCount);
+//            }
+//        } else {
+//            this.sleepStartAnimationState.stop();
+//            this.sleepAnimationState.stop();
+//            this.sleepEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+//        }
     }
 
     @Override
@@ -263,23 +264,33 @@ public class Majungasaurus extends PrehistoricMob {
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> entityDataAccessor) {
         if (DATA_POSE.equals(entityDataAccessor)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackTicks = 15;
                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
                 else this.attack2AnimationState.start(this.tickCount);
-                this.attackTicks = 15;
             }
             else if (this.getPose() == UP2Poses.START_CAMO.get()) {
-                this.startCamoAnimationState.start(this.tickCount);
                 this.startCamoTicks = 20;
+                this.startCamoAnimationState.start(this.tickCount);
             }
             else if (this.getPose() == UP2Poses.STOP_CAMO.get()) {
-                this.stopCamoAnimationState.start(this.tickCount);
                 this.stopCamoTicks = 20;
+                this.stopCamoAnimationState.start(this.tickCount);
             }
-            else {
+            else if (this.getPose() == UP2Poses.START_SLEEPING.get()) {
+                this.sleepStartTicks = 40;
+                this.sleepStartAnimationState.start(this.tickCount);
+            }
+            else if (this.getPose() == UP2Poses.STOP_SLEEPING.get()) {
+                this.sleepEndTicks = 40;
+                this.sleepEndAnimationState.start(this.tickCount);
+            }
+            else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.startCamoAnimationState.stop();
                 this.stopCamoAnimationState.stop();
+                this.sleepStartAnimationState.stop();
+                this.sleepEndAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(entityDataAccessor);
@@ -390,7 +401,7 @@ public class Majungasaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isCamo() || this.isCamoAvoiding() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+        return this.isCamo() || this.isCamoAvoiding() || this.isAsleep() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
     }
 
     @Nullable

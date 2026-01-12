@@ -158,13 +158,13 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.animate(entity.startCamoAnimationState, MajungasaurusAnimations.CAMO_START, ageInTicks);
         this.animateIdle(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.stopCamoAnimationState, MajungasaurusAnimations.CAMO_END, ageInTicks);
-        this.animate(entity.sitStartAnimationState, MajungasaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, MajungasaurusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, MajungasaurusAnimations.SIT_END, ageInTicks);
         this.animate(entity.yawnAnimationState, MajungasaurusAnimations.YAWN_BLEND, ageInTicks);
         this.animate(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
         this.animate(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
         this.animate(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, MajungasaurusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, MajungasaurusAnimations.SLEEP_END, ageInTicks);
 
         this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
