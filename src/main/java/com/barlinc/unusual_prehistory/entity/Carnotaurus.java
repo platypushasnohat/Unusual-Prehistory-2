@@ -250,7 +250,7 @@ public class Carnotaurus extends PrehistoricMob {
         } else {
             this.sitStartAnimationState.stop();
             this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
         }
     }
 

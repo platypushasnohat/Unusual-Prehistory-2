@@ -26,8 +26,8 @@ public class PrehistoricMoveControl extends MoveControl {
                 this.doStrafing();
             } else if (this.operation == MoveControl.Operation.MOVE_TO) {
                 this.doMoveTo();
-                if (!this.prehistoricMob.isLeashed() && this.prehistoricMob.isMobSitting() && !this.prehistoricMob.isInPoseTransition()) {
-                    this.prehistoricMob.standUp();
+                if (!this.prehistoricMob.isLeashed() && this.prehistoricMob.isMobSitting() && !this.prehistoricMob.isInSitPoseTransition()) {
+                    this.prehistoricMob.stopSitting();
                 }
             } else if (this.operation == MoveControl.Operation.JUMPING) {
                 this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));

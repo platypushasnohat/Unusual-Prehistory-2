@@ -201,7 +201,7 @@
      }
 
      @Override
-     public long getSitTransitionTime() {
+     public long getSitPoseTransitionTime() {
          return 40L;
      }
 
@@ -366,7 +366,7 @@
          } else {
              this.sitStartAnimationState.stop();
              this.sitAnimationState.stop();
-             this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
          }
      }
 

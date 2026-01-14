@@ -214,7 +214,7 @@
              this.bash1AnimationState.stop();
              this.bash2AnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isInPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isInSitPoseTransition(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
 
@@ -237,7 +237,7 @@
          } else {
              this.sitStartAnimationState.stop();
              this.sitAnimationState.stop();
-             this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
          }
      }
 

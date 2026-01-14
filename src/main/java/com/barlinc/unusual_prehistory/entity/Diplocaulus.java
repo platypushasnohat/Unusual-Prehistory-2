@@ -225,7 +225,7 @@
 
      @Override
      protected void onLeashDistance(float distance) {
-         if (distance > 5.0F && this.isDiplocaulusBurrowed() && !this.isInPoseTransition()) this.exitBurrow();
+         if (distance > 5.0F && this.isDiplocaulusBurrowed() && !this.isInSitPoseTransition()) this.exitBurrow();
      }
 
      @Override
@@ -270,10 +270,10 @@
      }
 
      public boolean isDiplocaulusBurrowed() {
-         return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
+         return this.entityData.get(SIT_POSE_TICKS) < 0L;
      }
      public boolean isDiplocaulusVisuallyBurrowed() {
-         return this.getPoseTime() < 0L != this.isDiplocaulusBurrowed();
+         return this.getSitPoseTime() < 0L != this.isDiplocaulusBurrowed();
      }
 
      public boolean isSliding() {
@@ -284,26 +284,26 @@
      }
 
      @Override
-     public boolean isInPoseTransition() {
-         long l = this.getPoseTime();
+     public boolean isInSitPoseTransition() {
+         long l = this.getSitPoseTime();
          return l < (long) (40);
      }
 
      private boolean isVisuallyBurrowed() {
-         return this.isDiplocaulusBurrowed() && this.getPoseTime() < 40L && this.getPoseTime() >= 0L;
+         return this.isDiplocaulusBurrowed() && this.getSitPoseTime() < 40L && this.getSitPoseTime() >= 0L;
      }
 
      public void burrow() {
          this.refreshDimensions();
          if (this.isDiplocaulusBurrowed()) return;
          this.setPose(UP2Poses.BURROWED.get());
-         this.setLastPoseChangeTick(-(this.level()).getGameTime());
+         this.setSitPoseTicks(-(this.level()).getGameTime());
      }
 
      public void exitBurrow() {
          this.refreshDimensions();
          this.setPose(Pose.STANDING);
-         this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
+         this.resetSitPoseTicks((this.level()).getGameTime());
      }
 
      @Override

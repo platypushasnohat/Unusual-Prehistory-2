@@ -43,7 +43,7 @@ public class AnimationGoal extends Goal {
         if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
         else if (stopMoving && !prehistoricMob.getNavigation().isDone()) return false;
         else if (stopInWater && prehistoricMob.isInWater()) return false;
-        return prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isAsleep();
+        return prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isMobEepy();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AnimationGoal extends Goal {
     public boolean canContinueToUse() {
         if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
         else if (stopInWater && prehistoricMob.isInWater()) return false;
-        return !prehistoricMob.isAsleep() && prehistoricMob.getTarget() == null && timer > 0 && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == idleState;
+        return !prehistoricMob.isMobEepy() && prehistoricMob.getTarget() == null && timer > 0 && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == idleState;
     }
 
     @Override

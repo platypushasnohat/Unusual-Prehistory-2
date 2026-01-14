@@ -21,29 +21,22 @@ public class RandomSitGoal extends Goal {
     public boolean canUse() {
         if (prehistoricMob.getLastHurtByMob() != null) return false;
         else if (prehistoricMob.getTarget() != null) return false;
-        return !prehistoricMob.isInWater() && prehistoricMob.getSitCooldown() <= 0 && prehistoricMob.getPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isInWater() && prehistoricMob.getSitCooldown() <= 0 && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !prehistoricMob.isInWater() && prehistoricMob.getPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isInWater() && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override
     public void start() {
         if (prehistoricMob.isMobSitting()) {
-            this.prehistoricMob.sitCooldown();
-            this.prehistoricMob.standUp();
-            this.prehistoricMob.setSittingDown(false);
+            this.prehistoricMob.setSitCooldown(6000 + prehistoricMob.getRandom().nextInt(3000));
+            this.prehistoricMob.stopSitting();
         } else {
-            this.prehistoricMob.standUpCooldown();
-            this.prehistoricMob.sitDown();
-            this.prehistoricMob.setSittingDown(true);
+            this.prehistoricMob.setSitCooldown(1200 + prehistoricMob.getRandom().nextInt(2000));;
+            this.prehistoricMob.startSitting();
         }
-    }
-
-    @Override
-    public void stop() {
-        this.prehistoricMob.setSittingDown(false);
     }
 }

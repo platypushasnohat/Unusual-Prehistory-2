@@ -40,17 +40,16 @@ public class PrehistoricSitWhenOrderedToGoal extends Goal {
 
     @Override
     public void start() {
-        this.tamedMob.getNavigation().stop();
         this.tamedMob.setInSittingPose(true);
         this.tamedMob.getNavigation().stop();
-        this.tamedMob.sitDown();
+        this.tamedMob.startSitting();
     }
 
     @Override
     public void stop() {
         this.tamedMob.setInSittingPose(false);
         if (tamedMob.isMobSitting() && tamedMob.getCommand() != 1) {
-            this.tamedMob.standUp();
+            this.tamedMob.stopSitting();
         }
     }
 }

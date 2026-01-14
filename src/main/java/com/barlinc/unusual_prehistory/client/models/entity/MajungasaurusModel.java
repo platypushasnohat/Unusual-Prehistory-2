@@ -166,7 +166,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.animate(entity.sleepAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
         this.animate(entity.sleepEndAnimationState, MajungasaurusAnimations.SLEEP_END, ageInTicks);
 
-        this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
+        this.neck.xRot += entity.isMobEepy() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 	}
 

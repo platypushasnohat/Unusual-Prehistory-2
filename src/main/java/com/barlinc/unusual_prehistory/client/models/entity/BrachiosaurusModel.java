@@ -150,7 +150,7 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (!entity.isMobSitting() && !entity.isInPoseTransition() && entity.getPose() != UP2Poses.STOMPING.get()) {
+        if (!entity.isMobSitting() && !entity.isInSitPoseTransition() && entity.getPose() != UP2Poses.STOMPING.get()) {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
         }

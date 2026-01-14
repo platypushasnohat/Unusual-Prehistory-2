@@ -127,14 +127,14 @@ public class Dromaeosaurus extends PrehistoricMob {
             if (this.isEepyTime()) {
                 this.eep();
             } else {
-                this.wakeUp();
+                this.stopEepy();
             }
         }
 
         this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
         this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, 60);
 
-        if (this.isDromaeosaurusEeping() && this.isInWaterOrBubble()) this.wakeUpInstantly();
+        if (this.isDromaeosaurusEeping() && this.isInWaterOrBubble()) this.stopEepyInstantly();
 
         if (leapCooldown > 0) this.leapCooldown--;
     }
@@ -176,7 +176,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         } else {
             this.sleepStartAnimationState.stop();
             this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sleepEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -210,7 +210,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        this.wakeUpInstantly();
+        this.stopEepyInstantly();
         super.actuallyHurt(damageSource, amount);
     }
 
@@ -230,8 +230,8 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 4.0F && this.isDromaeosaurusEeping() && !this.isInPoseTransition()) {
-            this.wakeUp();
+        if (distance > 4.0F && this.isDromaeosaurusEeping() && !this.isInSitPoseTransition()) {
+            this.stopEepy();
         }
     }
 
@@ -241,41 +241,41 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     public boolean isDromaeosaurusEeping() {
-        return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
+        return this.entityData.get(SIT_POSE_TICKS) < 0L;
     }
 
     public boolean isDromaeosaurusVisuallyEeping() {
-        return this.getPoseTime() < 0L != this.isDromaeosaurusEeping();
+        return this.getSitPoseTime() < 0L != this.isDromaeosaurusEeping();
     }
 
-    public boolean isInPoseTransition() {
-        long l = this.getPoseTime();
+    public boolean isInSitPoseTransition() {
+        long l = this.getSitPoseTime();
         return l < (long) (5);
     }
 
     private boolean isVisuallyEeping() {
-        return this.isDromaeosaurusEeping() && this.getPoseTime() < 5L && this.getPoseTime() >= 0L;
+        return this.isDromaeosaurusEeping() && this.getSitPoseTime() < 5L && this.getSitPoseTime() >= 0L;
     }
 
     public void eep() {
         if (this.isDromaeosaurusEeping()) return;
         this.setPose(UP2Poses.SLEEPING.get());
-        this.setLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setSitPoseTicks(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
-    public void wakeUp() {
+    public void stopEepy() {
         if (!this.isDromaeosaurusEeping()) {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.setLastPoseChangeTick((this.level()).getGameTime());
+        this.setSitPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
     }
 
-    public void wakeUpInstantly() {
+    public void stopEepyInstantly() {
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
+        this.resetSitPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -313,8 +313,8 @@ public class Dromaeosaurus extends PrehistoricMob {
         @Override
         public void tick() {
             if (!this.dromaeosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusEeping() && !this.dromaeosaurus.isInPoseTransition()) {
-                    this.dromaeosaurus.wakeUp();
+                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusEeping() && !this.dromaeosaurus.isInSitPoseTransition()) {
+                    this.dromaeosaurus.stopEepy();
                 }
                 super.tick();
             }

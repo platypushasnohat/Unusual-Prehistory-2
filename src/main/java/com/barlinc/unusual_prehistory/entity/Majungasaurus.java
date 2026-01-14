@@ -46,7 +46,7 @@ public class Majungasaurus extends PrehistoricMob {
     public static final EntityDataAccessor<Boolean> CAMO_AVOIDING = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.2F, 1.3F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.2F, 1.1F);
 
     public float prevCamoProgress;
     public float camoProgress;
@@ -61,9 +61,6 @@ public class Majungasaurus extends PrehistoricMob {
     public final AnimationState camoIdleAnimationState = new AnimationState();
     public final AnimationState stopCamoAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
     public final AnimationState sniff1AnimationState = new AnimationState();
     public final AnimationState sniff2AnimationState = new AnimationState();
@@ -179,7 +176,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        return this.getPose() == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -212,47 +209,48 @@ public class Majungasaurus extends PrehistoricMob {
         if (stopCamoTicks > 0) stopCamoTicks--;
         if (startCamoTicks == 0 && this.getPose() == UP2Poses.START_CAMO.get()) this.setPose(Pose.STANDING);
         if (stopCamoTicks == 0 && this.getPose() == UP2Poses.STOP_CAMO.get()) this.setPose(Pose.STANDING);
-        if (yawnCooldown > 0) yawnCooldown--;
-        if (shakeCooldown > 0) shakeCooldown--;
-        if (sniffCooldown > 0) sniffCooldown--;
+        if (!this.isMobEepy()) {
+            if (yawnCooldown > 0) yawnCooldown--;
+            if (shakeCooldown > 0) shakeCooldown--;
+            if (sniffCooldown > 0) sniffCooldown--;
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        super.setupAnimationStates();
         if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
         if (startCamoTicks == 0 && this.startCamoAnimationState.isStarted()) this.startCamoAnimationState.stop();
         if (stopCamoTicks == 0 && this.stopCamoAnimationState.isStarted()) this.stopCamoAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater() && !this.isAsleep(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater(), this.tickCount);
         this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater() && this.getPose() != UP2Poses.START_CAMO.get() && this.getPose() != UP2Poses.STOP_CAMO.get(), this.tickCount);
-        this.eyesAnimationState.animateWhen(!this.isAggressive() && !this.isAsleep(), this.tickCount);
+        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
-        this.sleepAnimationState.animateWhen(this.isAsleep() && this.getPose() != UP2Poses.STOP_SLEEPING.get(), this.tickCount);
 
-//        if (this.isMobVisuallySleeping()) {
-//            this.sleepEndAnimationState.stop();
-//            this.attack1AnimationState.stop();
-//            this.attack2AnimationState.stop();
-//            this.idleAnimationState.stop();
-//            this.shakeAnimationState.stop();
-//            this.sniff1AnimationState.stop();
-//            this.sniff2AnimationState.stop();
-//
-//            if (this.isVisuallySitting()) {
-//                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-//                this.sleepAnimationState.stop();
-//            } else {
-//                this.sleepStartAnimationState.stop();
-//                this.sleepAnimationState.startIfStopped(this.tickCount);
-//            }
-//        } else {
-//            this.sleepStartAnimationState.stop();
-//            this.sleepAnimationState.stop();
-//            this.sleepEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
-//        }
+        if (this.isMobVisuallyEepy()) {
+            this.sleepEndAnimationState.stop();
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+            this.eyesAnimationState.stop();
+            this.idleAnimationState.stop();
+            this.startCamoAnimationState.stop();
+            this.stopCamoAnimationState.stop();
+            this.camoIdleAnimationState.stop();
+
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
+            } else {
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+        }
     }
 
     @Override
@@ -276,21 +274,11 @@ public class Majungasaurus extends PrehistoricMob {
                 this.stopCamoTicks = 20;
                 this.stopCamoAnimationState.start(this.tickCount);
             }
-            else if (this.getPose() == UP2Poses.START_SLEEPING.get()) {
-                this.sleepStartTicks = 40;
-                this.sleepStartAnimationState.start(this.tickCount);
-            }
-            else if (this.getPose() == UP2Poses.STOP_SLEEPING.get()) {
-                this.sleepEndTicks = 40;
-                this.sleepEndAnimationState.start(this.tickCount);
-            }
             else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.startCamoAnimationState.stop();
                 this.stopCamoAnimationState.stop();
-                this.sleepStartAnimationState.stop();
-                this.sleepEndAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(entityDataAccessor);
@@ -401,7 +389,7 @@ public class Majungasaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isCamo() || this.isCamoAvoiding() || this.isAsleep() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+        return this.isCamo() || this.isCamoAvoiding() || this.isMobEepy() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
     }
 
     @Nullable

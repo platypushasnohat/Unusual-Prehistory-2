@@ -263,7 +263,7 @@
          } else {
              this.rollStartAnimationState.stop();
              this.rollAnimationState.stop();
-             this.rollEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+             this.rollEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
          }
      }
 

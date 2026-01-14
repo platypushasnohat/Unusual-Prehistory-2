@@ -16,12 +16,12 @@ public class DiplocaulusBurrowGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !diplocaulus.isInWater() && diplocaulus.getBurrowCooldown() == 0 && diplocaulus.getPoseTime() >= (long) minimalPoseTicks && !diplocaulus.isLeashed() && diplocaulus.onGround() && diplocaulus.getLastHurtByMob() == null && this.isBurrowBlock();
+        return !diplocaulus.isInWater() && diplocaulus.getBurrowCooldown() == 0 && diplocaulus.getSitPoseTime() >= (long) minimalPoseTicks && !diplocaulus.isLeashed() && diplocaulus.onGround() && diplocaulus.getLastHurtByMob() == null && this.isBurrowBlock();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !diplocaulus.isInWater() && diplocaulus.getPoseTime() >= (long) minimalPoseTicks && !diplocaulus.isLeashed() && diplocaulus.onGround();
+        return !diplocaulus.isInWater() && diplocaulus.getSitPoseTime() >= (long) minimalPoseTicks && !diplocaulus.isLeashed() && diplocaulus.onGround();
     }
 
     @Override

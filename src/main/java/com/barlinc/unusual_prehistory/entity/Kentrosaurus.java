@@ -49,9 +49,6 @@ public class Kentrosaurus extends PrehistoricMob {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
     public final AnimationState stretch1AnimationState = new AnimationState();
@@ -142,7 +139,7 @@ public class Kentrosaurus extends PrehistoricMob {
 
     private void standAndSetTarget(LivingEntity target) {
         this.setTarget(target);
-        this.standUp();
+        this.stopSitting();
     }
 
     @Override
@@ -180,7 +177,7 @@ public class Kentrosaurus extends PrehistoricMob {
         } else {
             this.sitStartAnimationState.stop();
             this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
         }
     }
 

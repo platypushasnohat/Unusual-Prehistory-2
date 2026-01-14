@@ -175,7 +175,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 6.0F && this.isOnchopristisBurrowed() && !this.isInPoseTransition()) {
+        if (distance > 6.0F && this.isOnchopristisBurrowed() && !this.isInSitPoseTransition()) {
             this.exitBurrow();
         }
     }
@@ -212,7 +212,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
         } else {
             this.burrowStartAnimationState.stop();
             this.burrowAnimationState.stop();
-            this.burrowEndAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+            this.burrowEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -276,26 +276,26 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     public boolean isOnchopristisBurrowed() {
-        return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
+        return this.entityData.get(SIT_POSE_TICKS) < 0L;
     }
 
     public boolean isOnchopristisVisuallyBurrowed() {
-        return this.getPoseTime() < 0L != this.isOnchopristisBurrowed();
+        return this.getSitPoseTime() < 0L != this.isOnchopristisBurrowed();
     }
 
-    public boolean isInPoseTransition() {
-        long l = this.getPoseTime();
+    public boolean isInSitPoseTransition() {
+        long l = this.getSitPoseTime();
         return l < (long) (20);
     }
 
     private boolean isVisuallyBurrowed() {
-        return this.isOnchopristisBurrowed() && this.getPoseTime() < 20L && this.getPoseTime() >= 0L;
+        return this.isOnchopristisBurrowed() && this.getSitPoseTime() < 20L && this.getSitPoseTime() >= 0L;
     }
 
     public void burrow() {
         if (this.isOnchopristisBurrowed()) return;
         this.setPose(UP2Poses.BURROWED.get());
-        this.setLastPoseChangeTick(-(this.level()).getGameTime());
+        this.setSitPoseTicks(-(this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -304,13 +304,13 @@ public class Onchopristis extends PrehistoricAquaticMob {
             return;
         }
         this.setPose(Pose.STANDING);
-        this.setLastPoseChangeTick((this.level()).getGameTime());
+        this.setSitPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
     }
 
     public void exitBurrowInstantly() {
         this.setPose(Pose.STANDING);
-        this.resetLastPoseChangeTickToFullStand((this.level()).getGameTime());
+        this.resetSitPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
     }
 
@@ -369,7 +369,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
         @Override
         public void tick() {
             if (!this.onchopristis.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.onchopristis.isLeashed() && this.onchopristis.isOnchopristisBurrowed() && !this.onchopristis.isInPoseTransition()) {
+                if (this.operation == MoveControl.Operation.MOVE_TO && !this.onchopristis.isLeashed() && this.onchopristis.isOnchopristisBurrowed() && !this.onchopristis.isInSitPoseTransition()) {
                     this.onchopristis.exitBurrow();
                 }
                 super.tick();
