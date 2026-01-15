@@ -1,0 +1,14 @@
+{
+  "type": "unusual_prehistory:structure_feature",
+  "config": {
+    "structures": [
+      {
+        "structure": "unusual_prehistory:tree/metasequoia_0",
+        "weight": 5
+      }
+    ],
+    "post_processors": "minecraft:empty",
+    "processors": "minecraft:empty",
+    "structure_y_offset": 0
+  }
+}

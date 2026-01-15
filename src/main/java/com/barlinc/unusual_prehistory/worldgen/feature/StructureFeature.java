@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("deprecation")
 public class StructureFeature<T extends StructureFeatureConfig> extends Feature<T> {
 
     private static final ResourceLocation EMPTY = new ResourceLocation("minecraft", "empty");
@@ -31,11 +32,11 @@ public class StructureFeature<T extends StructureFeatureConfig> extends Feature<
 
     @Override
     public boolean place(FeaturePlaceContext<T> context) {
-        ResourceLocation nbtRL = GeneralUtils.getRandomEntry(context.config().structureLocationAndWeights(), context.random());
+        ResourceLocation entry = GeneralUtils.getRandomEntry(context.config().structureLocationAndWeights(), context.random());
         StructureTemplateManager structureManager = context.level().getLevel().getStructureManager();
-        Optional<StructureTemplate> template = structureManager.get(nbtRL);
+        Optional<StructureTemplate> template = structureManager.get(entry);
         if (template.isEmpty()) {
-            UnusualPrehistory2.LOGGER.error("Identifier to the specified nbt file was not found! : {}", nbtRL);
+            UnusualPrehistory2.LOGGER.error("Identifier to the specified nbt file was not found! : {}", entry);
             return false;
         }
         Rotation rotation = Rotation.getRandom(context.random());
