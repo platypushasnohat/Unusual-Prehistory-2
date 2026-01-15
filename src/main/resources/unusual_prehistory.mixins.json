@@ -9,6 +9,7 @@
     "MapDecorationTypeMixin",
     "MobMixin",
     "PoseMixin",
+    "StructureTemplateAccessor",
     "SweetBerryBushBlockMixin"
   ],
   "client": [

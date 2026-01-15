@@ -2,6 +2,8 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.worldgen.feature.CalamophytonFeature;
+import com.barlinc.unusual_prehistory.worldgen.feature.StructureFeature;
+import com.barlinc.unusual_prehistory.worldgen.feature.config.StructureFeatureConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -17,6 +19,7 @@ public class UP2Features {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CalamophytonFeature> CALAMOPHYTON = FEATURES.register("calamophyton", () -> new CalamophytonFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<StructureFeatureConfig>> NBT_FEATURE = FEATURES.register("nbt_feature", () -> new StructureFeature<>(StructureFeatureConfig.CODEC));
 
     public static final ResourceKey<PlacedFeature> MOSS_LAYER_BONEMEAL = createPlacedFeatureKey("moss_layer_bonemeal");
     public static final ResourceKey<PlacedFeature> HORSETAIL_BONEMEAL = createPlacedFeatureKey("horsetail_bonemeal");
