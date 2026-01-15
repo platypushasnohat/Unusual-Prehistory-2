@@ -8,7 +8,7 @@
       }
     ],
     "post_processors": "minecraft:empty",
-    "processors": "minecraft:empty",
+    "processors": "unusual_prehistory:tree",
     "structure_y_offset": 0
   }
 }

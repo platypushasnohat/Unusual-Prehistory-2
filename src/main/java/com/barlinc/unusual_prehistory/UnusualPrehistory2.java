@@ -40,7 +40,6 @@ public class UnusualPrehistory2 {
         bus.addListener(this::loadComplete);
         bus.addListener(this::dataSetup);
 
-        UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         UP2Entities.ENTITY_TYPE.register(bus);
         UP2Items.ITEMS.register(bus);
         UP2Blocks.BLOCKS.register(bus);
@@ -55,9 +54,11 @@ public class UnusualPrehistory2 {
         UP2Trees.TREE_DECORATORS.register(bus);
         UP2Trees.TRUNK_PLACERS.register(bus);
         UP2Trees.FOLIAGE_PLACERS.register(bus);
+        UP2StructureProcessors.PROCESSOR_TYPES.register(bus);
         UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
+        UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         PROXY.commonInit();
 
         eventBus.register(this);
