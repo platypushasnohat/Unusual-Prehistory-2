@@ -53,7 +53,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     private static final EntityDataAccessor<Boolean> SHAVED = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FORAGING_TREE = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(2.2F, 3.98F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(2.2F, 3.98F);
 
     private final VibrationUser vibrationUser;
     private final DynamicGameEventListener<LoudVibrationListener> loudVibrationListener;
@@ -63,10 +63,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public int slashRushCooldown = 100 + this.getRandom().nextInt(60);
     public int chargeCooldown = 250 + this.getRandom().nextInt(400);
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
@@ -113,7 +109,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(10, new RandomSitGoal(this));
+        this.goalSelector.addGoal(10, new SleepingGoal(this));
         this.goalSelector.addGoal(11, new TherizinosaurusForageLeavesGoal(this, 1, 12));
         this.goalSelector.addGoal(12, new TherizinosaurusShakeGoal(this));
         this.goalSelector.addGoal(12, new TherizinosaurusStretchGoal(this));
@@ -158,7 +154,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -179,6 +175,21 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     public void chargeCooldown() {
         this.chargeCooldown = 250 + this.getRandom().nextInt(400);
+    }
+
+    @Override
+    public boolean isEepyTime() {
+        return this.level().isDay();
+    }
+
+    @Override
+    public long getEepyPoseTransitionTime() {
+        return 20L;
+    }
+
+    @Override
+    public Vec3 getLookVec() {
+        return new Vec3(0, 2.3F, -this.getBbWidth() * 0.8F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
     }
 
     @Override
@@ -203,9 +214,11 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (chargeEndTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
         if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
         if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
-        if (shakeCooldown > 0) shakeCooldown--;
-        if (stretchCooldown > 0) stretchCooldown--;
-        if (clickCooldown > 0) clickCooldown--;
+        if (!this.isMobEepy()) {
+            if (shakeCooldown > 0) shakeCooldown--;
+            if (stretchCooldown > 0) stretchCooldown--;
+            if (clickCooldown > 0) clickCooldown--;
+        }
     }
 
     @Override
@@ -226,10 +239,10 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.alert2AnimationState.stop();
         }
 
-        this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && !this.isInAttackingPose(), this.tickCount);
 
-        if (this.isMobVisuallySitting()) {
+        if (this.isMobVisuallyEepy()) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.slashRushAnimationState.stop();
@@ -238,18 +251,21 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.idleAnimationState.stop();
             this.forageLowAnimationState.stop();
             this.forageHighAnimationState.stop();
+            this.sleepEndAnimationState.stop();
+            this.alert1AnimationState.stop();
+            this.alert2AnimationState.stop();
 
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -457,7 +473,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 220;
+        return 300;
     }
 
     public static boolean canSpawn(EntityType<Therizinosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

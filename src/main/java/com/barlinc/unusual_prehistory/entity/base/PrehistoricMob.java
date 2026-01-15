@@ -301,6 +301,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return true;
     }
 
+    // Eye glow
     public void tickEyeGlow() {
         this.prevEyeGlowProgress = eyeGlowProgress;
         long roundTime = this.level().getDayTime() % 24000;

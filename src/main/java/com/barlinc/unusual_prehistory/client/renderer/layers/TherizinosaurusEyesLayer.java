@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class TherizinosaurusEyesLayer extends RenderLayer<Therizinosaurus, TherizinosaurusModel> {
 
-    private static final ResourceLocation TEXTURE_EYES = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_eyes.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_eyes.png");
 
     public TherizinosaurusEyesLayer(RenderLayerParent<Therizinosaurus, TherizinosaurusModel> parent) {
         super(parent);
@@ -26,8 +26,8 @@ public class TherizinosaurusEyesLayer extends RenderLayer<Therizinosaurus, Theri
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Therizinosaurus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible()) return;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(TEXTURE_EYES));
+        if (entity.isInvisible() || entity.isMobEepy()) return;
+        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(TEXTURE));
         this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

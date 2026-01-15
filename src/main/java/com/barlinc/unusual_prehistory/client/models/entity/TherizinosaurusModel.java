@@ -169,7 +169,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 	public void setupAnim(Therizinosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isMobSitting()) {
+        if (!entity.isInWater() && !entity.isMobEepy()) {
             if (!entity.isInAttackingPose()) {
                 if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
                 else this.animateWalk(entity.isShaved() || entity.isBaby() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.6F, 3.2F);
@@ -184,9 +184,6 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 		this.animate(entity.attack1AnimationState, TherizinosaurusAttackAnimations.SLASH1, ageInTicks);
 		this.animate(entity.attack2AnimationState, TherizinosaurusAttackAnimations.SLASH2, ageInTicks);
-        this.animate(entity.sitStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, TherizinosaurusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, TherizinosaurusAnimations.SIT_END, ageInTicks);
         this.animate(entity.chargeStartAnimationState, TherizinosaurusAttackAnimations.CHARGE_START, ageInTicks);
         this.animate(entity.chargeEndAnimationState, TherizinosaurusAttackAnimations.CHARGE_END, ageInTicks);
         this.animate(entity.slashRushAnimationState, TherizinosaurusAttackAnimations.SLASH_FRENZY, ageInTicks);
@@ -197,8 +194,11 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.clickAnimationState, TherizinosaurusAnimations.IDLE_CLICK_BLEND, ageInTicks);
         this.animate(entity.alert1AnimationState, TherizinosaurusAnimations.ALERT_LEFT_BLEND, ageInTicks);
         this.animate(entity.alert2AnimationState, TherizinosaurusAnimations.ALERT_RIGHT_BLEND, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, TherizinosaurusAnimations.SIT, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, TherizinosaurusAnimations.SIT_END, ageInTicks);
 
-        this.head.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
+        this.head.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 	}
 

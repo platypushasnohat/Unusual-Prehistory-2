@@ -18,6 +18,8 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, Theriz
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus.png");
     private static final ResourceLocation TEXTURE_SHAVED = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_shaved.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_eepy.png");
+    private static final ResourceLocation TEXTURE_SHAVED_EEPY = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_shaved_eepy.png");
 
     public TherizinosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new TherizinosaurusModel(context.bakeLayer(UP2ModelLayers.THERIZINOSAURUS)), 1.3F);
@@ -27,6 +29,9 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, Theriz
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Therizinosaurus entity) {
+        if (entity.isMobEepy()) {
+            return entity.isShaved() || entity.isBaby() ? TEXTURE_SHAVED_EEPY : TEXTURE_EEPY;
+        }
         return entity.isShaved() || entity.isBaby() ? TEXTURE_SHAVED : TEXTURE;
     }
 }

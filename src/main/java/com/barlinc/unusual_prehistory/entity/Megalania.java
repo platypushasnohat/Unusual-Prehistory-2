@@ -73,7 +73,6 @@ public class Megalania extends SemiAquaticMob {
     public int biteCooldown = 5;
     public int talWhipCooldown = 150;
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState tongueAnimationState = new AnimationState();
     public final AnimationState roarAnimationState = new AnimationState();
@@ -84,9 +83,6 @@ public class Megalania extends SemiAquaticMob {
     public final AnimationState flick1AnimationState = new AnimationState();
     public final AnimationState flick2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
 
     private int bitingTicks;
     private int tailWhipTicks;
