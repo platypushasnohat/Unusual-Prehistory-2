@@ -186,15 +186,15 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 		this.animate(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
 		this.animate(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
         this.animate(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
-        this.animate(entity.sitStartAnimationState, CarnotaurusIdleAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, CarnotaurusIdleAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, CarnotaurusIdleAnimations.SIT_END, ageInTicks);
         this.animate(entity.sniff1AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND1, ageInTicks);
         this.animate(entity.sniff2AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND2, ageInTicks);
         this.animate(entity.yawnAnimationState, CarnotaurusIdleAnimations.YAWN_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, CarnotaurusIdleAnimations.SHAKE_BLEND, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
 
-        this.neck.xRot += (headPitch * ((float) Math.PI / 180)) / 2;
+        this.neck.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
 	}
 

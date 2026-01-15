@@ -3,7 +3,8 @@ package com.barlinc.unusual_prehistory.client.renderer;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.MajungasaurusModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusAngryLayer;
-import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusEmissiveLayer;
+import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusAngryEmissiveLayer;
+import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusEyesLayer;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -25,7 +26,8 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     public MajungasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MajungasaurusModel(context.bakeLayer(UP2ModelLayers.MAJUNGASAURUS)), 0.8F);
         this.addLayer(new MajungasaurusAngryLayer(this));
-        this.addLayer(new MajungasaurusEmissiveLayer(this));
+        this.addLayer(new MajungasaurusAngryEmissiveLayer(this));
+        this.addLayer(new MajungasaurusEyesLayer(this));
     }
 
     @Override
@@ -38,8 +40,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     @Override
     public @NotNull ResourceLocation getTextureLocation(Majungasaurus entity) {
         Majungasaurus.MajungasaurusVariant variant = Majungasaurus.MajungasaurusVariant.byId(entity.getVariant());
-        if (entity.isNightTime()) return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_night.png");
-        else if (entity.isMobEepy()) return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_sleeping.png");
+        if (entity.isMobEepy()) return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_eepy.png");
         return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 

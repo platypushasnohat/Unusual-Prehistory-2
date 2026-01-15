@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Dromaeosaurus extends PrehistoricMob {
 
-    private static final EntityDimensions SLEEPING_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
     private int biteTicks;
 
@@ -144,7 +144,8 @@ public class Dromaeosaurus extends PrehistoricMob {
         return this.isDromaeosaurusEeping();
     }
 
-    private boolean isEepyTime() {
+    @Override
+    public boolean isEepyTime() {
         return this.level().isNight() && this.getHealth() > this.getMaxHealth() * 0.5F && !this.isInWater() && this.onGround() && this.getLastHurtByMob() == null && this.getTarget() == null && !this.isLeashed();
     }
 
@@ -216,7 +217,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.SLEEPING.get() ? SLEEPING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override

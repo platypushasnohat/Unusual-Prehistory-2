@@ -48,14 +48,13 @@ public class Carnotaurus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.6F, 1.9F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.6F, 1.7F);
 
     public int chargeCooldown = 200 + this.getRandom().nextInt(200);
     public int roarCooldown = 100;
     public int biteCooldown = 0;
     public int headbuttCooldown = 0;
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
     public final AnimationState chargeStartAnimationState = new AnimationState();
@@ -71,9 +70,6 @@ public class Carnotaurus extends PrehistoricMob {
     public final AnimationState shakeAnimationState = new AnimationState();
     public final AnimationState sniff1AnimationState = new AnimationState();
     public final AnimationState sniff2AnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
 
     public int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
     public int shakeCooldown = 600 + this.getRandom().nextInt(50 * 50);
@@ -101,7 +97,7 @@ public class Carnotaurus extends PrehistoricMob {
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new RandomSitGoal(this) {
+        this.goalSelector.addGoal(6, new SleepingGoal(this) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Carnotaurus.this.isAngry();
@@ -180,7 +176,7 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        return pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -224,8 +220,8 @@ public class Carnotaurus extends PrehistoricMob {
         this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
 
-        if (this.isMobVisuallySitting()) {
-            this.sitEndAnimationState.stop();
+        if (this.isMobVisuallyEepy()) {
+            this.sleepEndAnimationState.stop();
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.attackFast1AnimationState.stop();
@@ -240,25 +236,27 @@ public class Carnotaurus extends PrehistoricMob {
             this.sniff2AnimationState.stop();
             this.roarAnimationState.stop();
 
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (yawnCooldown > 0) yawnCooldown--;
-        if (shakeCooldown > 0) shakeCooldown--;
-        if (sniffCooldown > 0) sniffCooldown--;
+        if (!this.isMobEepy()) {
+            if (yawnCooldown > 0) yawnCooldown--;
+            if (shakeCooldown > 0) shakeCooldown--;
+            if (sniffCooldown > 0) sniffCooldown--;
+        }
 
         if (this.attackTicks > 0) attackTicks--;
         if (this.headbuttTicks > 0) headbuttTicks--;

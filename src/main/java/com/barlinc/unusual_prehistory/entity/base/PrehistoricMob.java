@@ -34,6 +34,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -61,6 +62,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public boolean useLowerFluidJumpThreshold = false;
     protected int eepyTicks;
+
+    public float prevEyeGlowProgress;
+    public float eyeGlowProgress;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sleepStartAnimationState = new AnimationState();
@@ -253,6 +257,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public void tick () {
         super.tick();
 
+        this.tickEyeGlow();
+
         if (this.level().isClientSide) this.setupAnimationStates();
         this.setupAnimationCooldowns();
 
@@ -295,6 +301,24 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return true;
     }
 
+    public void tickEyeGlow() {
+        this.prevEyeGlowProgress = eyeGlowProgress;
+        long roundTime = this.level().getDayTime() % 24000;
+        boolean night = roundTime >= 13000 && roundTime <= 22000;
+        BlockPos pos = this.blockPosition();
+        int skyLight = this.level().getBrightness(LightLayer.SKY, pos);
+        int blockLight = this.level().getBrightness(LightLayer.BLOCK, pos);
+        int brightness;
+        if (night) brightness = blockLight;
+        else brightness = Math.max(skyLight, blockLight);
+        if (brightness < 7 && eyeGlowProgress < 10.0F) eyeGlowProgress++;
+        else if (eyeGlowProgress > 0.0F) eyeGlowProgress--;
+    }
+
+    public float getEyeGlowProgress(float partialTicks) {
+        return (prevEyeGlowProgress + (eyeGlowProgress - prevEyeGlowProgress) * partialTicks) * 0.1F;
+    }
+
     // Animation
     public void setupAnimationCooldowns() {
     }
@@ -323,7 +347,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean refuseToMove() {
-        return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isMobEepy();
+        return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isInEepyPoseTransition() || this.isMobEepy();
     }
 
     // Sitting & Sleeping
@@ -398,6 +422,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     // Sleeping
+    public boolean isEepyTime() {
+        return this.level().isNight();
+    }
+
     public void doEepyParticles() {
         Vec3 lookVec = this.getLookVec();
         Vec3 eyeVec = this.getEyePosition().add(lookVec);
@@ -562,6 +590,19 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setRot(player.getYRot(), player.getXRot() * 0.25F);
             this.setYHeadRot(player.getYHeadRot());
             this.setTarget(null);
+        }
+    }
+
+    // Sounds
+    public boolean canPlayAmbientSound() {
+        return !this.isMobEepy();
+    }
+
+    @Override
+    public void playAmbientSound() {
+        SoundEvent soundevent = this.getAmbientSound();
+        if (soundevent != null && this.canPlayAmbientSound()) {
+            this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
         }
     }
 

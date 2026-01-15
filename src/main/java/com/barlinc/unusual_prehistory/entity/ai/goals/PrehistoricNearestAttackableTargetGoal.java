@@ -33,11 +33,11 @@ public class PrehistoricNearestAttackableTargetGoal<T extends LivingEntity> exte
 
     @Override
     public boolean canUse() {
-        return super.canUse() && !prehistoricMob.isPacified() && !prehistoricMob.isBaby();
+        return super.canUse() && !prehistoricMob.isPacified() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && !prehistoricMob.isPacified();
+        return super.canContinueToUse() && !prehistoricMob.isPacified() && !prehistoricMob.isMobEepy();
     }
 }

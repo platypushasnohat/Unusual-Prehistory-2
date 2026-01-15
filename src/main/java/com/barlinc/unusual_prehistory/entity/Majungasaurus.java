@@ -94,7 +94,7 @@ public class Majungasaurus extends PrehistoricMob {
             }
         });
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
-        this.goalSelector.addGoal(7, new NocturnalSleepGoal(this));
+        this.goalSelector.addGoal(7, new SleepingGoal(this));
         this.goalSelector.addGoal(8, new MajungasaurusYawnGoal(this));
         this.goalSelector.addGoal(8, new MajungasaurusShakeGoal(this));
         this.goalSelector.addGoal(9, new MajungasaurusSniffGoal(this));
@@ -182,6 +182,11 @@ public class Majungasaurus extends PrehistoricMob {
     @Override
     public boolean refuseToMove() {
         return super.refuseToMove() || this.getIdleState() == 3;
+    }
+
+    @Override
+    public boolean isEepyTime() {
+        return this.level().isDay();
     }
 
     @Override
@@ -386,10 +391,15 @@ public class Majungasaurus extends PrehistoricMob {
         return majungasaurus;
     }
 
+    @Override
+    public boolean canPlayAmbientSound() {
+        return !this.isCamo() && !this.isCamoAvoiding() && super.canPlayAmbientSound();
+    }
+
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isCamo() || this.isCamoAvoiding() || this.isMobEepy() ? SoundEvents.EMPTY : UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
     }
 
     @Nullable

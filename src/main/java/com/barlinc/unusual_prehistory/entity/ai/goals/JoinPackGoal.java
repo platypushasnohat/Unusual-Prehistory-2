@@ -67,9 +67,8 @@ public class JoinPackGoal extends Goal {
                 }
             }
             if (this.distCheckCounter > 0) {
-                --this.distCheckCounter;
+                this.distCheckCounter--;
             }
-
             return true;
         } else {
             return false;

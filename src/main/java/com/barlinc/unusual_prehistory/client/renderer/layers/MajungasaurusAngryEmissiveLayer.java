@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 @OnlyIn(Dist.CLIENT)
-public class MajungasaurusEmissiveLayer extends RenderLayer<Majungasaurus, MajungasaurusModel> {
+public class MajungasaurusAngryEmissiveLayer extends RenderLayer<Majungasaurus, MajungasaurusModel> {
 
-    public MajungasaurusEmissiveLayer(RenderLayerParent<Majungasaurus, MajungasaurusModel> parent) {
+    public MajungasaurusAngryEmissiveLayer(RenderLayerParent<Majungasaurus, MajungasaurusModel> parent) {
         super(parent);
     }
 
