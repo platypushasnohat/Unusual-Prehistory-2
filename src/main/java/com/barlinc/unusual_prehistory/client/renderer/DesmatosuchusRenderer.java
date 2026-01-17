@@ -15,7 +15,9 @@ import org.jetbrains.annotations.NotNull;
 public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, DesmatosuchusModel> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus.png");
-    private static final ResourceLocation MOSSY_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy.png");
+    private static final ResourceLocation TEXTURE_MOSSY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_eepy.png");
+    private static final ResourceLocation TEXTURE_MOSSY_EEPY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy_eepy.png");
 
     public DesmatosuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 0.8F);
@@ -23,6 +25,7 @@ public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, Desmatosuc
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Desmatosuchus entity) {
-        return entity.isMossy() ? MOSSY_TEXTURE : TEXTURE;
+        if (entity.isMossy()) return entity.isMobEepy() ? TEXTURE_MOSSY_EEPY : TEXTURE_MOSSY;
+        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

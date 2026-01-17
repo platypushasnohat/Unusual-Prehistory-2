@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -40,18 +41,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class Lystrosaurus extends PrehistoricMob {
 
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.78F);
+
     private boolean prevOnGround = false;
     private Vec3 prevVelocity = Vec3.ZERO;
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
-    public final AnimationState sleepStartAnimationState = new AnimationState();
-    public final AnimationState sleepAnimationState = new AnimationState();
-    public final AnimationState sleepEndAnimationState = new AnimationState();
     public final AnimationState digAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
     public final AnimationState scratch1AnimationState = new AnimationState();
@@ -81,6 +77,7 @@ public class Lystrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new RandomSitGoal(this));
+        this.goalSelector.addGoal(6, new SleepingGoal(this));
         this.goalSelector.addGoal(7, new LystrosaurusBlinkGoal(this));
         this.goalSelector.addGoal(8, new LystrosaurusScratchGoal(this));
         this.goalSelector.addGoal(8, new LystrosaurusDigGoal(this));
@@ -163,6 +160,16 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
+    public Vec3 getLookVec() {
+        return new Vec3(0, 0, -this.getBbWidth() * 1.3F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -215,19 +222,22 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (scratchCooldown > 0) scratchCooldown--;
-        if (grazeCooldown > 0) grazeCooldown--;
         if (rollCooldown > 0 && this.isMobSitting()) rollCooldown--;
-        if (digCooldown > 0) digCooldown--;
-        if (blinkCooldown > 0) blinkCooldown--;
-        if (shakeCooldown > 0) shakeCooldown--;
+        if (!this.isMobEepy()) {
+            if (scratchCooldown > 0) scratchCooldown--;
+            if (grazeCooldown > 0) grazeCooldown--;
+            if (digCooldown > 0) digCooldown--;
+            if (blinkCooldown > 0) blinkCooldown--;
+            if (shakeCooldown > 0) shakeCooldown--;
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isAlive() && this.getIdleState() != 4, this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive() && this.getIdleState() != 4 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
 
         if (this.isMobVisuallySitting() && this.getIdleState() != 3) {
+            this.sitEndAnimationState.stop();
             this.attackAnimationState.stop();
             this.grazeAnimationState.stop();
             this.shakeAnimationState.stop();
@@ -235,6 +245,9 @@ public class Lystrosaurus extends PrehistoricMob {
             this.scratch1AnimationState.stop();
             this.scratch2AnimationState.stop();
             this.digAnimationState.stop();
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -247,6 +260,34 @@ public class Lystrosaurus extends PrehistoricMob {
             this.sitStartAnimationState.stop();
             this.sitAnimationState.stop();
             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+        }
+
+        if (this.isMobVisuallyEepy()) {
+            this.sleepEndAnimationState.stop();
+            this.attackAnimationState.stop();
+            this.grazeAnimationState.stop();
+            this.shakeAnimationState.stop();
+            this.idleAnimationState.stop();
+            this.scratch1AnimationState.stop();
+            this.scratch2AnimationState.stop();
+            this.digAnimationState.stop();
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.stop();
+            this.roll1AnimationState.stop();
+            this.roll2AnimationState.stop();
+
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
+            } else {
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

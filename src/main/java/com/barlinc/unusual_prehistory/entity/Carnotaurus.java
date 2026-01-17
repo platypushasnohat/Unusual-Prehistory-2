@@ -217,7 +217,7 @@ public class Carnotaurus extends PrehistoricMob {
         if (stopChargeTicks == 0 && this.chargeEndAnimationState.isStarted()) this.chargeEndAnimationState.stop();
         if (roarTicks == 0 && this.roarAnimationState.isStarted()) this.roarAnimationState.stop();
         this.angryAnimationState.animateWhen(this.isAngry(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {

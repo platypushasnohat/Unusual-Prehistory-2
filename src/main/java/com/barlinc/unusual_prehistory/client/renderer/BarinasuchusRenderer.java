@@ -14,7 +14,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class BarinasuchusRenderer extends MobRenderer<Barinasuchus, BarinasuchusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/barinasuchus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/barinasuchus/barinasuchus.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/barinasuchus/barinasuchus_eepy.png");
 
     public BarinasuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new BarinasuchusModel(context.bakeLayer(UP2ModelLayers.BARINASUCHUS)), 0.9F);
@@ -22,6 +23,6 @@ public class BarinasuchusRenderer extends MobRenderer<Barinasuchus, Barinasuchus
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Barinasuchus entity) {
-        return TEXTURE;
+        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

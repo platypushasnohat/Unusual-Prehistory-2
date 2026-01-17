@@ -17,6 +17,8 @@ public class PsilopterusRenderer extends MobRenderer<Psilopterus, PsilopterusMod
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/psilopterus/psilopterus.png");
     private static final ResourceLocation TEXTURE_LEADER = UnusualPrehistory2.modPrefix("textures/entity/psilopterus/psilopterus_leader.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/psilopterus/psilopterus_eepy.png");
+    private static final ResourceLocation TEXTURE_LEADER_EEPY = UnusualPrehistory2.modPrefix("textures/entity/psilopterus/psilopterus_leader_eepy.png");
 
     public PsilopterusRenderer(EntityRendererProvider.Context context) {
         super(context, new PsilopterusModel(context.bakeLayer(UP2ModelLayers.PSILOPTERUS)), 0.4F);
@@ -31,6 +33,7 @@ public class PsilopterusRenderer extends MobRenderer<Psilopterus, PsilopterusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Psilopterus entity) {
-        return entity.isPackLeader() ? TEXTURE_LEADER : TEXTURE;
+        if (entity.isPackLeader()) return entity.isMobEepy() ? TEXTURE_LEADER_EEPY : TEXTURE_LEADER;
+        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

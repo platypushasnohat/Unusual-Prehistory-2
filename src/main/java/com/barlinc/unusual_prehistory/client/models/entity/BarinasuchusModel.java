@@ -125,10 +125,13 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
         this.animate(entity.yawnAnimationState, BarinasuchusAnimations.YAWN_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, BarinasuchusAnimations.SHAKE_BLEND, ageInTicks);
         this.animate(entity.threatenAnimationState, BarinasuchusAnimations.THREATEN, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, BarinasuchusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, BarinasuchusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, BarinasuchusAnimations.SLEEP_END, ageInTicks);
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
 	}
 

@@ -124,7 +124,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        if (isInWater() && horizontalCollision) {
+        if (this.isInWater() && horizontalCollision) {
             this.setUseLowerFluidJumpThreshold(true);
         }
     }

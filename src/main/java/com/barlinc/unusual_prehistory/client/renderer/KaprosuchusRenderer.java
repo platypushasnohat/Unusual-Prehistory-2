@@ -16,7 +16,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class KaprosuchusRenderer extends MobRenderer<Kaprosuchus, KaprosuchusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kaprosuchus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kaprosuchus/kaprosuchus.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/kaprosuchus/kaprosuchus_eepy.png");
 
     public KaprosuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new KaprosuchusModel(context.bakeLayer(UP2ModelLayers.KAPROSUCHUS)), 0.6F);
@@ -24,6 +25,6 @@ public class KaprosuchusRenderer extends MobRenderer<Kaprosuchus, KaprosuchusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Kaprosuchus entity) {
-        return TEXTURE;
+        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

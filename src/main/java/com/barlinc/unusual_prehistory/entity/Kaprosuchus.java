@@ -50,19 +50,17 @@
 
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.BOOLEAN);
 
+     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.8F);
+
      public int leapCooldown = 70 + this.getRandom().nextInt(80);
      public int attackCooldown = 0;
 
-     public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
      public final AnimationState attack1AnimationState = new AnimationState();
      public final AnimationState attack2AnimationState = new AnimationState();
      public final AnimationState bash1AnimationState = new AnimationState();
      public final AnimationState bash2AnimationState = new AnimationState();
      public final AnimationState leapAnimationState = new AnimationState();
-     public final AnimationState sitStartAnimationState = new AnimationState();
-     public final AnimationState sitAnimationState = new AnimationState();
-     public final AnimationState sitEndAnimationState = new AnimationState();
 
      private int attackTicks;
      private int bashTicks;
@@ -95,6 +93,7 @@
          this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 1500));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(8, new SleepingGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.KAPROSUCHUS_TARGETS)));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
@@ -176,6 +175,11 @@
      }
 
      @Override
+     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+         return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+     }
+
+     @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
@@ -214,11 +218,12 @@
              this.bash1AnimationState.stop();
              this.bash2AnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isInSitPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
 
          if (this.isMobVisuallySitting()) {
+             this.sitEndAnimationState.stop();
              this.swimIdleAnimationState.stop();
              this.attack1AnimationState.stop();
              this.attack2AnimationState.stop();
@@ -226,6 +231,9 @@
              this.bash1AnimationState.stop();
              this.bash2AnimationState.stop();
              this.leapAnimationState.stop();
+             this.sleepStartAnimationState.stop();
+             this.sleepAnimationState.stop();
+             this.sleepEndAnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -238,6 +246,32 @@
              this.sitStartAnimationState.stop();
              this.sitAnimationState.stop();
              this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+         }
+
+         if (this.isMobVisuallyEepy()) {
+             this.sleepEndAnimationState.stop();
+             this.swimIdleAnimationState.stop();
+             this.attack1AnimationState.stop();
+             this.attack2AnimationState.stop();
+             this.idleAnimationState.stop();
+             this.bash1AnimationState.stop();
+             this.bash2AnimationState.stop();
+             this.leapAnimationState.stop();
+             this.sitStartAnimationState.stop();
+             this.sitAnimationState.stop();
+             this.sitEndAnimationState.stop();
+
+             if (this.isVisuallyEepy()) {
+                 this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                 this.sleepAnimationState.stop();
+             } else {
+                 this.sleepStartAnimationState.stop();
+                 this.sleepAnimationState.startIfStopped(this.tickCount);
+             }
+         } else {
+             this.sleepStartAnimationState.stop();
+             this.sleepAnimationState.stop();
+             this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
          }
      }
 

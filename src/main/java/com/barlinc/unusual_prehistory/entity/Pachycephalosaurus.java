@@ -50,14 +50,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
     private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
     private int stompCooldown = 500 + this.getRandom().nextInt(60 * 70);
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState huffAnimationState = new AnimationState();
     public final AnimationState stomp1AnimationState = new AnimationState();
     public final AnimationState stomp2AnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState warnAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();

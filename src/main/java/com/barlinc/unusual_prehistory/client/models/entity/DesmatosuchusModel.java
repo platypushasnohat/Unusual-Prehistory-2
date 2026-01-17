@@ -150,13 +150,13 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
         this.animate(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
         this.animate(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks);
         this.animate(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks);
-        this.animate(entity.burrowStartAnimationState, DesmatosuchusAnimations.BURROW_START, ageInTicks);
-        this.animate(entity.burrowAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
-        this.animate(entity.burrowEndAnimationState, DesmatosuchusAnimations.BURROW_END, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, DesmatosuchusAnimations.BURROW_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, DesmatosuchusAnimations.BURROW_END, ageInTicks);
 
 		if (this.young) this.applyStatic(DesmatosuchusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+		this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
 	}
 

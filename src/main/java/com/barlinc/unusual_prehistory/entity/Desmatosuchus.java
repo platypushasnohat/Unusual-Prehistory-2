@@ -1,10 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -55,10 +52,10 @@ public class Desmatosuchus extends PrehistoricMob {
     private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.8F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
 
     public static final ResourceLocation MOSS_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing");
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState sniff1AnimationState = new AnimationState();
     public final AnimationState sniff2AnimationState = new AnimationState();
@@ -66,12 +63,6 @@ public class Desmatosuchus extends PrehistoricMob {
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState chewAnimationState = new AnimationState();
     public final AnimationState rollAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
-    public final AnimationState burrowStartAnimationState = new AnimationState();
-    public final AnimationState burrowAnimationState = new AnimationState();
-    public final AnimationState burrowEndAnimationState = new AnimationState();
 
     public int sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
     public int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
@@ -92,6 +83,7 @@ public class Desmatosuchus extends PrehistoricMob {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new RandomSitGoal(this));
+        this.goalSelector.addGoal(8, new SleepingGoal(this));
         this.goalSelector.addGoal(9, new DesmatosuchusRollGoal(this));
         this.goalSelector.addGoal(9, new DesmatosuchusShakeGoal(this));
         this.goalSelector.addGoal(9, new DesmatosuchusSniffGoal(this));
@@ -139,6 +131,21 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
+    public long getEepyPoseTransitionTime() {
+        return 30L;
+    }
+
+    @Override
+    public boolean isEepyTime() {
+        return this.level().isNight() && this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS);
+    }
+
+    @Override
+    public Vec3 getLookVec() {
+        return new Vec3(0, 0, -this.getBbWidth() * 1.25F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS) ? 10.0F : super.getWalkTargetValue(pos, level);
     }
@@ -150,6 +157,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        if (pose == UP2Poses.SLEEPING.get()) return EEPY_DIMENSIONS.scale(this.getScale());
         return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
@@ -182,22 +190,19 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
     public void setupAnimationCooldowns() {
-        if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
-        if (shakeCooldown > 0) shakeCooldown--;
-        if (sniffCooldown > 0) sniffCooldown--;
-        if (chewCooldown > 0) chewCooldown--;
-        if (grazeCooldown > 0) grazeCooldown--;
+        if (!this.isMobEepy()) {
+            if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
+            if (shakeCooldown > 0) shakeCooldown--;
+            if (sniffCooldown > 0) sniffCooldown--;
+            if (chewCooldown > 0) chewCooldown--;
+            if (grazeCooldown > 0) grazeCooldown--;
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
 
         if (this.isMobVisuallySitting()) {
@@ -208,6 +213,9 @@ public class Desmatosuchus extends PrehistoricMob {
             this.sniff1AnimationState.stop();
             this.sniff2AnimationState.stop();
             this.rollAnimationState.stop();
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -220,6 +228,31 @@ public class Desmatosuchus extends PrehistoricMob {
             this.sitStartAnimationState.stop();
             this.sitAnimationState.stop();
             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+        }
+
+        if (this.isMobVisuallyEepy()) {
+            this.sleepEndAnimationState.stop();
+            this.grazeAnimationState.stop();
+            this.idleAnimationState.stop();
+            this.shakeAnimationState.stop();
+            this.sniff1AnimationState.stop();
+            this.sniff2AnimationState.stop();
+            this.rollAnimationState.stop();
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.stop();
+
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
+            } else {
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 
