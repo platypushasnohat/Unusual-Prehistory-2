@@ -26,7 +26,6 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
     protected int attackWarmupDelay;
     protected int nextAttackTickCount;
 
-
     public WololoSpellGoal(Evoker evoker, Class<T> targetType, @Nullable Predicate<LivingEntity> entityPredicate, int redVariant) {
         this.evoker = evoker;
         this.evokerAccess = (EvokerAccessor) evoker;
