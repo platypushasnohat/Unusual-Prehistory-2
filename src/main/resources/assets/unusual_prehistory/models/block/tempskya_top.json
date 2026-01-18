@@ -3,9 +3,9 @@
 	"ambientocclusion": false,
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"1": "unusual_prehistory:block/schizoneura_top",
-		"cross": "unusual_prehistory:block/schizoneura_middle",
-		"particle": "unusual_prehistory:block/schizoneura_top"
+		"1": "unusual_prehistory:block/tempskya_top",
+		"cross": "unusual_prehistory:block/tempskya_middle",
+		"particle": "unusual_prehistory:block/tempskya_top"
 	},
 	"elements": [
 		{

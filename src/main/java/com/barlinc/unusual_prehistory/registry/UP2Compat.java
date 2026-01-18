@@ -50,7 +50,7 @@ public class UP2Compat {
 
         registerCompostable(UP2Blocks.BENNETTITALES.get(), 0.3F);
         registerCompostable(UP2Blocks.NEOMARIOPTERIS.get(), 0.3F);
-        registerCompostable(UP2Blocks.SCHIZONEURA.get(), 0.3F);
+        registerCompostable(UP2Blocks.TEMPSKYA.get(), 0.3F);
         registerCompostable(UP2Blocks.BRACHYPHYLLUM.get(), 0.3F);
         registerCompostable(UP2Blocks.RHYNIA.get(), 0.3F);
         registerCompostable(UP2Blocks.HORSETAIL.get(), 0.3F);
@@ -70,7 +70,7 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.LEEFRUCTUS.get(), 60, 100);
         registerFlammable(UP2Blocks.RAIGUENRAYUN.get(), 60, 100);
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);
-        registerFlammable(UP2Blocks.SCHIZONEURA.get(), 60, 100);
+        registerFlammable(UP2Blocks.TEMPSKYA.get(), 60, 100);
         registerFlammable(UP2Blocks.BRACHYPHYLLUM.get(), 60, 100);
         registerFlammable(UP2Blocks.NEOMARIOPTERIS.get(), 60, 100);
         registerFlammable(UP2Blocks.BENNETTITALES.get(), 60, 100);

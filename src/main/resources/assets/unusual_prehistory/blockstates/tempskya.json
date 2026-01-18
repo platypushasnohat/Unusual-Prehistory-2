@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "unusual_prehistory:block/tempskya_bottom"
+    },
+    "half=upper": {
+      "model": "unusual_prehistory:block/tempskya_top"
+    }
+  }
+}

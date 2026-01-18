@@ -163,7 +163,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(QUILLWORT_FOSSIL.get());
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
                         output.accept(RHYNIA_FOSSIL.get());
-                        output.accept(SCHIZONEURA_FOSSIL.get());
+                        output.accept(TEMPSKYA_FOSSIL.get());
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
 
@@ -181,7 +181,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.QUILLWORT.get());
                         output.accept(UP2Blocks.RAIGUENRAYUN.get());
                         output.accept(UP2Blocks.RHYNIA.get());
-                        output.accept(UP2Blocks.SCHIZONEURA.get());
+                        output.accept(UP2Blocks.TEMPSKYA.get());
                         output.accept(UP2Blocks.MOSS_LAYER.get());
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
 

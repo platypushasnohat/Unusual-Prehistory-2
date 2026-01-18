@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.datagen;
 
-import com.barlinc.unusual_prehistory.blocks.CalamophytonBlock;
 import com.barlinc.unusual_prehistory.blocks.TallEggBlock;
 import com.barlinc.unusual_prehistory.blocks.ThreeTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -145,7 +144,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropPottedContents(POTTED_LEEFRUCTUS.get());
 
         this.add(RAIGUENRAYUN.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-        this.add(SCHIZONEURA.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.add(TEMPSKYA.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(AETHOPHYLLUM.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.dropSelf(RHYNIA.get());

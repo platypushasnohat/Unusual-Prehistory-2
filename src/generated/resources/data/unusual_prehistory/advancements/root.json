@@ -768,18 +768,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "schizoneura_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:schizoneura_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "scythe_fossil": {
       "conditions": {
         "items": [
@@ -834,6 +822,18 @@
           {
             "items": [
               "unusual_prehistory:telecrex_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tempskya_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:tempskya_fossil"
             ]
           }
         ]
@@ -989,7 +989,7 @@
       "quillwort_fossil",
       "raiguenrayun_fossil",
       "rhynia_fossil",
-      "schizoneura_fossil",
+      "tempskya_fossil",
       "ginkgo_fossil",
       "lepidodendron_fossil",
       "aged_feather",

@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-08T12:19:53.4611493	Item Models: unusual_prehistory
+// 1.20.1	2026-01-18T11:26:20.3205331	Item Models: unusual_prehistory
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
 cc50162b00151d47b9687a33d7f79caee8013e69 assets/unusual_prehistory/models/item/aethophyllum_fossil.json
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
@@ -110,8 +110,6 @@ a9ab3bf8a96f9d6f6de571f77bd26e995ad2e630 assets/unusual_prehistory/models/item/r
 328583d318f2e629cbd8f359126154aec0f02d7c assets/unusual_prehistory/models/item/rugose_fossil.json
 4e60248c43ffcf6c1f1aeab4e7f0aeaa2ed60f3c assets/unusual_prehistory/models/item/runner_fossil.json
 5e7ba0df0826af08d2c8115e0ba1b6063820d049 assets/unusual_prehistory/models/item/saw_fossil.json
-0b1c9d633b4958db68088c3cf29624900175b9d6 assets/unusual_prehistory/models/item/schizoneura.json
-3401d1fbb0bfbff329fb2935e2d26cc80e8aa957 assets/unusual_prehistory/models/item/schizoneura_fossil.json
 3decafb95e8c83cbb1a25c73b1168f577cc426a1 assets/unusual_prehistory/models/item/scythe_fossil.json
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
@@ -124,6 +122,8 @@ baeec8405ceb543e555f7c1eaa823aabe5ea8eca assets/unusual_prehistory/models/item/t
 a510bd0560ebfd74a42542df95091591660e9cca assets/unusual_prehistory/models/item/tar_bucket.json
 40eef86754d6a500dd8fe5559003b023ae7a53c8 assets/unusual_prehistory/models/item/telecrex_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/telecrex_spawn_egg.json
+829686c17a3cad3585bbf38c443e5ba4ba809f6e assets/unusual_prehistory/models/item/tempskya.json
+79fb83d36b2469e748b714a5bc9c6a10971603e5 assets/unusual_prehistory/models/item/tempskya_fossil.json
 17ff61ced5e2aa6cf2565f7f5ba8c04405857450 assets/unusual_prehistory/models/item/therizinosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/therizinosaurus_spawn_egg.json
 df5da19eb503e954d2e8aad48d373678b74527ff assets/unusual_prehistory/models/item/thermal_fossil.json

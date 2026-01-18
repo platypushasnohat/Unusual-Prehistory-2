@@ -152,7 +152,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LARGE_PROTOTAXITES_NUB = registerBlock("large_prototaxites_nub", () -> new LargePrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
     public static final RegistryObject<Block> PROTOTAXITES_CLUSTER = registerBlock("prototaxites_cluster", () -> new PrototaxitesClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
 
-    public static final RegistryObject<Block> SCHIZONEURA = registerBlock("schizoneura", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> TEMPSKYA = registerBlock("tempskya", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 
     public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 

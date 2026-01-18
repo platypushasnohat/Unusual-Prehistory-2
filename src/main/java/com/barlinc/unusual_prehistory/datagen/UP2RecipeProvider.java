@@ -160,7 +160,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.LEPIDODENDRON_FOSSIL.get(), LEPIDODENDRON_CONE.get().asItem(), 600);
         transmogrification(consumer, UP2Items.RAIGUENRAYUN_FOSSIL.get(), RAIGUENRAYUN.get().asItem(), 600);
         transmogrification(consumer, UP2Items.RHYNIA_FOSSIL.get(), RHYNIA.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.SCHIZONEURA_FOSSIL.get(), SCHIZONEURA.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.TEMPSKYA_FOSSIL.get(), TEMPSKYA.get().asItem(), 600);
     }
 
     private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {

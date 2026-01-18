@@ -63,7 +63,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 RAIGUENRAYUN_FOSSIL.get(),
                 GINKGO_FOSSIL.get(),
                 RHYNIA_FOSSIL.get(),
-                SCHIZONEURA_FOSSIL.get(),
+                TEMPSKYA_FOSSIL.get(),
                 LEEFRUCTUS_FOSSIL.get(),
                 NEOMARIOPTERIS_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
