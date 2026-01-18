@@ -4,6 +4,8 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
+import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -51,11 +54,14 @@ public class ForgeEvents {
     public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Mob mob) {
-            if (mob instanceof Zombie zombie) {
-                zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
+            if (mob instanceof Evoker evoker) {
+                evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == 12, 5));
             }
             if (mob instanceof Guardian guardian) {
                 guardian.goalSelector.addGoal(3, new AvoidEntityGoal<>(guardian, Dunkleosteus.class, 12.0F, 1.5D, 1.5D));
+            }
+            if (mob instanceof Zombie zombie) {
+                zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
             }
         }
     }
