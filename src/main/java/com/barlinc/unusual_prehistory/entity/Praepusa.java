@@ -56,15 +56,11 @@
 
      public int attackCooldown = 0;
 
-     public final AnimationState idleAnimationState = new AnimationState();
      public final AnimationState swimIdleAnimationState = new AnimationState();
      public final AnimationState slap1AnimationState = new AnimationState();
      public final AnimationState slap2AnimationState = new AnimationState();
      public final AnimationState loafAnimationState = new AnimationState();
      public final AnimationState applauseAnimationState = new AnimationState();
-     public final AnimationState rollStartAnimationState = new AnimationState();
-     public final AnimationState rollAnimationState = new AnimationState();
-     public final AnimationState rollEndAnimationState = new AnimationState();
      public final AnimationState mitosisAnimationState = new AnimationState();
      public final AnimationState attackAnimationState = new AnimationState();
      public final AnimationState bounceAnimationState = new AnimationState();
@@ -241,11 +237,11 @@
      public void setupAnimationStates() {
          if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
          if (this.attackAnimationState.isStarted() && attackTicks == 0) this.attackAnimationState.stop();
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3, this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
 
          if (this.isMobVisuallySitting()) {
-             this.rollEndAnimationState.stop();
+             this.sitEndAnimationState.stop();
              this.slap1AnimationState.stop();
              this.slap2AnimationState.stop();
              this.idleAnimationState.stop();
@@ -254,16 +250,16 @@
              this.bounceAnimationState.stop();
 
              if (this.isVisuallySitting()) {
-                 this.rollStartAnimationState.startIfStopped(this.tickCount);
-                 this.rollAnimationState.stop();
+                 this.sitStartAnimationState.startIfStopped(this.tickCount);
+                 this.sitAnimationState.stop();
              } else {
-                 this.rollStartAnimationState.stop();
-                 this.rollAnimationState.startIfStopped(this.tickCount);
+                 this.sitStartAnimationState.stop();
+                 this.sitAnimationState.startIfStopped(this.tickCount);
              }
          } else {
-             this.rollStartAnimationState.stop();
-             this.rollAnimationState.stop();
-             this.rollEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+             this.sitStartAnimationState.stop();
+             this.sitAnimationState.stop();
+             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
          }
      }
 

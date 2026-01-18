@@ -229,7 +229,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
         if (startCamoTicks == 0 && this.startCamoAnimationState.isStarted()) this.startCamoAnimationState.stop();
         if (stopCamoTicks == 0 && this.stopCamoAnimationState.isStarted()) this.stopCamoAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater() && this.getPose() != UP2Poses.START_CAMO.get() && this.getPose() != UP2Poses.STOP_CAMO.get(), this.tickCount);
         this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);

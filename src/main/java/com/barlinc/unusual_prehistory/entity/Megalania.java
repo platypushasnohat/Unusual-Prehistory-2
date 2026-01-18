@@ -352,7 +352,7 @@ public class Megalania extends SemiAquaticMob {
             this.bite2AnimationState.stop();
         }
         if (tailWhipTicks == 0 && this.tailWhipAnimationState.isStarted()) this.tailWhipAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 4 && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 4 && this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.isAggressive() && this.getPose() == Pose.STANDING, this.tickCount);
 

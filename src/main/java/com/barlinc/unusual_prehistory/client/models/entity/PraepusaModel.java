@@ -96,9 +96,9 @@ public class PraepusaModel extends UP2Model<Praepusa> {
         }
 		this.animateIdle(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animateIdle(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.rollStartAnimationState, PraepusaAnimations.ROLL_START, ageInTicks);
-        this.animate(entity.rollAnimationState, PraepusaAnimations.ROLL, ageInTicks);
-        this.animate(entity.rollEndAnimationState, PraepusaAnimations.ROLL_END, ageInTicks);
+        this.animate(entity.sitStartAnimationState, PraepusaAnimations.ROLL_START, ageInTicks);
+        this.animate(entity.sitAnimationState, PraepusaAnimations.ROLL, ageInTicks);
+        this.animate(entity.sitEndAnimationState, PraepusaAnimations.ROLL_END, ageInTicks);
         this.animate(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks);
         this.animate(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks);
         this.animate(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
