@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.worldgen.structure;
+package com.barlinc.unusual_prehistory.worldgen.structure.processor;
 
 import com.barlinc.unusual_prehistory.registry.UP2StructureProcessors;
 import com.mojang.serialization.Codec;
@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class TreeProcessor extends StructureProcessor {
+public class TreeStructureProcessor extends StructureProcessor {
 
-    public static final Codec<TreeProcessor> CODEC = Codec.unit(() -> TreeProcessor.INSTANCE);
+    public static final Codec<TreeStructureProcessor> CODEC = Codec.unit(() -> TreeStructureProcessor.INSTANCE);
 
-    public static final TreeProcessor INSTANCE = new TreeProcessor();
+    public static final TreeStructureProcessor INSTANCE = new TreeStructureProcessor();
 
-    public TreeProcessor() {
+    public TreeStructureProcessor() {
     }
 
     @Nullable
