@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "unusual_prehistory:mesozoic_fossil",
+    "unusual_prehistory:paleozoic_fossil"
+  ],
+  "step": "underground_structures"
+}

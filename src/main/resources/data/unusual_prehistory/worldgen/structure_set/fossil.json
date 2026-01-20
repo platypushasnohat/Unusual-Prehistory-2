@@ -1,13 +1,6 @@
 {
    "structures": [
-    {
-      "structure": "unusual_prehistory:mesozoic_fossil",
-      "weight": 1
-    },
-    {
-      "structure": "unusual_prehistory:paleozoic_fossil",
-      "weight": 1
-    }
+
   ],
   "placement": {
     "type": "minecraft:random_spread",

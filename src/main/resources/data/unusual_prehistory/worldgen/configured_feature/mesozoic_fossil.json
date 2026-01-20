@@ -1,0 +1,34 @@
+{
+  "type": "unusual_prehistory:structure_feature",
+  "config": {
+    "structures": [
+      {
+        "structure": "unusual_prehistory:fossil/carnotaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/dromaeosaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/kentrosaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/majungasaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/onchopristis",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/metriorhynchus",
+        "weight": 1
+      }
+    ],
+    "post_processors": "unusual_prehistory:mesozoic_fossil",
+    "processors": "unusual_prehistory:mesozoic_fossil",
+    "structure_y_offset": -8
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "unusual_prehistory:structure_feature",
+  "config": {
+    "structures": [
+      {
+        "structure": "unusual_prehistory:fossil/diplocaulus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/dunkleosteus",
+        "weight": 1
+      }
+    ],
+    "post_processors": "unusual_prehistory:paleozoic_fossil",
+    "processors": "unusual_prehistory:paleozoic_fossil",
+    "structure_y_offset": -8
+  }
+}
