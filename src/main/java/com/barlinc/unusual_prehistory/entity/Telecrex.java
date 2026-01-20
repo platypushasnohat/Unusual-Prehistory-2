@@ -96,7 +96,7 @@ public class Telecrex extends PrehistoricFlyingMob {
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1);
+            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 0.75F);
             this.isLandNavigator = false;
         }
     }

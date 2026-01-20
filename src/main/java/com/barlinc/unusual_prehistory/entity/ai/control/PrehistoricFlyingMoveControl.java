@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.phys.Vec3;
 
@@ -18,21 +17,17 @@ public class PrehistoricFlyingMoveControl extends MoveControl {
     @Override
     public void tick() {
         if (!prehistoricMob.refuseToMove()) {
-            if (this.operation == MoveControl.Operation.MOVE_TO && !this.prehistoricMob.getNavigation().isDone()) {
-                float flyingSpeed = (float) (this.speedModifier * this.prehistoricMob.getAttributeValue(Attributes.FLYING_SPEED));
+            if (this.operation == MoveControl.Operation.MOVE_TO) {
                 Vec3 vector3d = new Vec3(this.wantedX - prehistoricMob.getX(), this.wantedY - prehistoricMob.getY(), this.wantedZ - prehistoricMob.getZ());
-                Vec3 deltaMovement = prehistoricMob.getDeltaMovement();
-                double length = vector3d.length();
+                double d0 = vector3d.length();
                 double width = prehistoricMob.getBoundingBox().getSize();
-                this.prehistoricMob.setSpeed(flyingSpeed);
-                this.prehistoricMob.setDeltaMovement(deltaMovement.add(vector3d.scale(flyingSpeed * 0.05D / length)).scale(0.9D));
-                if (length < width) {
+                Vec3 vector3d1 = vector3d.scale(this.speedModifier * 0.05D / d0);
+                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(vector3d1).scale(0.95D).add(0, -0.01, 0));
+                if (d0 < width) {
                     this.operation = Operation.WAIT;
-                    this.prehistoricMob.setDeltaMovement(deltaMovement.scale(0.5D));
-                } else if (length >= width) {
-                    float yaw = -((float) Mth.atan2(deltaMovement.x, deltaMovement.z)) * (180F / (float) Math.PI);
-                    this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 20));
-                    this.prehistoricMob.yBodyRot = prehistoricMob.getYRot();
+                } else if (d0 >= width) {
+                    float yaw = -((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI);
+                    this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, 8));
                 }
             }
         }

@@ -89,7 +89,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothFlyingPathNavigation(this, level, 1.0F);
+        return new SmoothFlyingPathNavigation(this, level, 0.75F);
     }
 
     @Override

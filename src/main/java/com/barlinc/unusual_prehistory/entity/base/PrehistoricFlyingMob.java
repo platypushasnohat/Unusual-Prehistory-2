@@ -45,7 +45,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 1.0F);
+            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 0.75F);
             this.isLandNavigator = false;
         }
     }
