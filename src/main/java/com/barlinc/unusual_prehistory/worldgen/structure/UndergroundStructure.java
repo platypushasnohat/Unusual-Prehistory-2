@@ -53,7 +53,7 @@ public class UndergroundStructure extends Structure {
     protected @NotNull Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
         BlockPos blockPos = new BlockPos(context.chunkPos().getMinBlockX(), 0, context.chunkPos().getMinBlockZ());
         BlockPos validPos = new BlockPos(blockPos.getX(), getValidY(context.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), context.heightAccessor(), context.randomState())), blockPos.getZ());
-        if (validPos.getY() != min - 1 && this.isSufficientlyFlat(context, validPos, 4)) {
+        if (validPos.getY() != min - 1 && this.isSufficientlyFlat(context, validPos, 3)) {
             return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter);
         }
         return Optional.empty();

@@ -7,7 +7,7 @@
   "step": "underground_structures",
   "max_y": 0,
   "min_y": -40,
-  "offset_in_ground": -4,
+  "offset_in_ground": -6,
   "use_expansion_hack": false,
   "spawn_overrides": {}
 }
