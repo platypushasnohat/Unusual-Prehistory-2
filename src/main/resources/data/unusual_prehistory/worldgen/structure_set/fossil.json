@@ -13,10 +13,6 @@
     {
       "structure": "unusual_prehistory:paleozoic_fossil",
       "weight": 1
-    },
-    {
-      "structure": "unusual_prehistory:fossil",
-      "weight": 1
     }
   ]
 }
