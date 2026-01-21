@@ -324,6 +324,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.DEBUG_STICK
         );
 
+        // Misc
+        this.tag(UP2ItemTags.STOPS_MOB_AGING).add(Items.POISONOUS_POTATO);
+
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);

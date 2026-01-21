@@ -51,6 +51,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> RUNNING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> FOREVER_BABY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected static final EntityDataAccessor<Long> SIT_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
@@ -156,6 +157,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return SoundEvents.GENERIC_EAT;
     }
 
+    public boolean isForeverBabyItem(ItemStack itemStack) {
+        return itemStack.is(UP2ItemTags.STOPS_MOB_AGING);
+    }
+
     public boolean isPacifyItem(ItemStack itemStack) {
         return this.isFood(itemStack);
     }
@@ -194,6 +199,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.isFood(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        if (this.isForeverBabyItem(itemstack) && this.isBaby()) {
+            this.feedItemToMob(player, hand, itemstack);
+            this.setForeverBaby(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
@@ -258,6 +268,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         super.tick();
 
         this.tickEyeGlow();
+
+        if (this.isForeverBaby() && this.isBaby()) this.setAge(-24000);
 
         if (this.level().isClientSide) this.setupAnimationStates();
         this.setupAnimationCooldowns();
@@ -621,6 +633,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(RUNNING_TICKS, 0);
         this.entityData.define(IDLE_STATE, 0);
         this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
+        this.entityData.define(FOREVER_BABY, false);
         this.entityData.define(SIT_POSE_TICKS, 0L);
         this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
         this.entityData.define(EEPY_POSE_TICKS, 0L);
@@ -636,6 +649,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
+        compoundTag.putBoolean("ForeverBaby", this.isForeverBaby());
         compoundTag.putLong("SitPoseTicks", this.getSitPoseTicks());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
         compoundTag.putLong("EepyPoseTicks", this.getEepyPoseTicks());
@@ -651,6 +665,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
+        this.setForeverBaby(compoundTag.getBoolean("ForeverBaby"));
         this.setSitPoseTicks(compoundTag.getLong("SitPoseTicks"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
         this.setEepyPoseTicks(compoundTag.getLong("EepyPoseTicks"));
@@ -739,6 +754,14 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
     public void setEatCooldown(int cooldown) {
         this.entityData.set(EAT_COOLDOWN, cooldown);
+    }
+
+    // Never grows up
+    public boolean isForeverBaby() {
+        return this.entityData.get(FOREVER_BABY);
+    }
+    public void setForeverBaby(boolean foreverBaby) {
+        this.entityData.set(FOREVER_BABY, foreverBaby);
     }
 
     // Sitting

@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-18T11:26:20.3245217	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-01-20T22:29:21.246403	Tags for minecraft:item mod id unusual_prehistory
 0f18c4c8263e255f35562d7755f5a6f6d2bc64a4 data/forge/tags/items/fence_gates.json
 0f18c4c8263e255f35562d7755f5a6f6d2bc64a4 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -69,6 +69,7 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/paci
 40c0304f5a5d6fbd0a5f1bf1d29f27e765e1e63e data/unusual_prehistory/tags/items/pterodactylus_food.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/items/reinforced_glass.json
 3fe82f42528107b1bdef9bee7bb84c9124841def data/unusual_prehistory/tags/items/stethacanthus_food.json
+635de4c7559d65c52269150e0f5edf6de7379583 data/unusual_prehistory/tags/items/stops_mob_aging.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/items/talpanas_food.json
 2aa9d531f50ea1ce998971938cb40958aea44b97 data/unusual_prehistory/tags/items/tartuosteus_food.json
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/items/telecrex_food.json
