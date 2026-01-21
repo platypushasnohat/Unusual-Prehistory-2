@@ -19,7 +19,7 @@ public class SleepingGoal extends Goal {
 		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
 			if (!player.isShiftKeyDown()) return false;
 		}
-		return prehistoricMob.isEepyTime() && prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWater() && !prehistoricMob.isInLava() && prehistoricMob.getEepyCooldown() == 0 && !prehistoricMob.isMobSitting();
+		return prehistoricMob.isEepyTime() && prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWater() && !prehistoricMob.isInLava() && prehistoricMob.getEepyCooldown() == 0 && !prehistoricMob.isMobSitting() && !prehistoricMob.isBaby();
 	}
 
 	@Override

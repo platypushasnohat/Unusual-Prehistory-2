@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.barlinc.unusual_prehistory.entity.JawlessFish;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 @OnlyIn(Dist.CLIENT)
-public class JawlessFishRenderer extends MobRenderer<JawlessFish, HierarchicalModel<JawlessFish>> {
+public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<JawlessFish>> {
 
     private final CephalaspisModel cephalaspisModel;
     private final DoryaspisModel doryaspisModel;

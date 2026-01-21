@@ -335,7 +335,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 5.0F : 10.0F;
+        return this.isBaby() ? 3.0F : 10.0F;
     }
 
     // Healing

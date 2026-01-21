@@ -254,51 +254,6 @@ public class Talpanas extends BreedableMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON);
     }
 
-    // Dev taming stuff
-    @Override
-    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
-        // Dev tame
-        if (!this.isTame() && (itemstack.is(Items.DEBUG_STICK) && UP2Developers.isDeveloper(player.getUUID())) || (itemstack.is(Tags.Items.GEMS_DIAMOND) && player.getUUID().equals(UP2Developers.ICYDWARF.getUuid()))) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.tame(player);
-            this.level().broadcastEntityEvent(this, (byte) 9);
-            this.heal(this.getMaxHealth());
-            return InteractionResult.SUCCESS;
-        }
-        return type;
-    }
-
-    @Override
-    public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown();
-    }
-
-    @Override
-    public boolean canOwnerMount(Player player) {
-        return !this.isBaby();
-    }
-
-    @Override
-    protected float getRiddenSpeed(@NotNull Player rider) {
-        float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
-        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + sprintSpeed;
-    }
-
-    @Override
-    public boolean canSprint() {
-        return true;
-    }
-
-    @Override
-    public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, -0.4F, 0.0F);
-    }
-
     // Goals
     private static class TalpanasPeckGoal extends AnimationGoal {
 

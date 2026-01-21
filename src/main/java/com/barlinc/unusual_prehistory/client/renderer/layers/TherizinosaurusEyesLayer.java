@@ -1,7 +1,8 @@
 package com.barlinc.unusual_prehistory.client.renderer.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.TherizinosaurusModel;
+import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
+import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -16,11 +17,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class TherizinosaurusEyesLayer extends RenderLayer<Therizinosaurus, TherizinosaurusModel> {
+public class TherizinosaurusEyesLayer extends RenderLayer<Therizinosaurus, UP2Model<Therizinosaurus>> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_eyes.png");
 
-    public TherizinosaurusEyesLayer(RenderLayerParent<Therizinosaurus, TherizinosaurusModel> parent) {
+    public TherizinosaurusEyesLayer(RenderLayerParent<Therizinosaurus, UP2Model<Therizinosaurus>> parent) {
         super(parent);
     }
 

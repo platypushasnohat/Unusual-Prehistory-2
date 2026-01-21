@@ -13,6 +13,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
 import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.barlinc.unusual_prehistory.client.models.entity.lobe_finned_fish.*;
+import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornSkeletonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
@@ -145,6 +147,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.TARTUOSTEUS, TartuosteusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.TELECREX, TelecrexModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS, TherizinosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS_BABY, TherizinosaurusBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ULUGHBEGSAURUS, UlughbegsaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);

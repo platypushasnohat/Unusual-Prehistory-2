@@ -46,6 +46,11 @@ public class TherizinosaurusForageLeavesGoal extends MoveToBlockGoal {
     }
 
     @Override
+    public boolean canUse() {
+        return super.canUse() && !therizinosaurus.isBaby();
+    }
+
+    @Override
     public boolean canContinueToUse() {
         return super.canContinueToUse() && !stopFlag;
     }

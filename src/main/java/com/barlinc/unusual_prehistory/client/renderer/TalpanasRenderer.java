@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.TalpanasModel;
-import com.barlinc.unusual_prehistory.client.renderer.layers.TalpanasRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Talpanas;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -19,7 +18,6 @@ public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel> {
 
     public TalpanasRenderer(EntityRendererProvider.Context context) {
         super(context, new TalpanasModel(context.bakeLayer(UP2ModelLayers.TALPANAS)), 0.3F);
-        this.addLayer(new TalpanasRiderLayer(this));
     }
 
     @Override
