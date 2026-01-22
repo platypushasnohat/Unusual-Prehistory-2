@@ -10,7 +10,7 @@ public class TargetNearbyPlayersGoal extends NearestAttackableTargetGoal<Player>
     protected final double distance;
 
     public TargetNearbyPlayersGoal(PrehistoricMob prehistoricMob) {
-        this(prehistoricMob, 100, 2.0D);
+        this(prehistoricMob, 80, 2.0D);
     }
 
     public TargetNearbyPlayersGoal(PrehistoricMob prehistoricMob, int interval, double distance) {
@@ -21,7 +21,7 @@ public class TargetNearbyPlayersGoal extends NearestAttackableTargetGoal<Player>
 
     @Override
     public boolean canUse() {
-        return super.canUse() && !prehistoricMob.isBaby();
+        return super.canUse() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy();
     }
 
     @Override
