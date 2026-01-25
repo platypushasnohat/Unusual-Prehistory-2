@@ -13,6 +13,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ARANDASPIS = main("arandaspis");
     public static final ModelLayerLocation BARINASUCHUS = main("barinasuchus");
     public static final ModelLayerLocation BRACHIOSAURUS = main("brachiosaurus");
+    public static final ModelLayerLocation BRACHIOSAURUS_BABY = main("brachiosaurus_baby");
     public static final ModelLayerLocation CARNOTAURUS = main("carnotaurus");
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
     public static final ModelLayerLocation COELACANTHUS = main("coelacanthus");

@@ -292,7 +292,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
         if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble()) {
             if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
-            if (!this.isInRain() && !this.isMobEepy() && this.getSitCooldown() > 0) this.setSitCooldown(this.getSitCooldown() - 1);
+            if (!this.isInRain() && !this.isMobEepy() && this.getSitCooldown() > 0 && !this.isBaby()) this.setSitCooldown(this.getSitCooldown() - 1);
         }
 
         if (this.isMobSitting() && this.isInWaterOrBubble()) {

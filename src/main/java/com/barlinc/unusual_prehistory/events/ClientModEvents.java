@@ -2,6 +2,8 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.*;
+import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusMagnicornisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusRecurvatisModel;
@@ -109,6 +111,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ARANDASPIS, ArandaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BARINASUCHUS, BarinasuchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS, BrachiosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS_BABY, BrachiosaurusBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CARNOTAURUS, CarnotaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS, CephalaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELACANTHUS, CoelacanthusModel::createBodyLayer);

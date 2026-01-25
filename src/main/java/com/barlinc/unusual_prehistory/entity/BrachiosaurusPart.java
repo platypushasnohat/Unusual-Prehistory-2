@@ -31,12 +31,13 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return this.dimensions;
+        return parent == null ? dimensions : dimensions.scale(parent.getScale());
     }
 
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
-        return this.parent.interact(player, interactionHand);
+        if (parent == null) return InteractionResult.PASS;
+        else return parent.interact(player, interactionHand);
     }
 
     @Override
@@ -46,22 +47,17 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
 
     @Override
     public boolean canBeCollidedWith() {
-        return this.parent.canBeCollidedWith();
-    }
-
-    @Override
-    public boolean canCollideWith(@NotNull Entity entity) {
-        return super.canCollideWith(entity) && !(entity instanceof Brachiosaurus) && !(entity instanceof BrachiosaurusPart);
+        return parent != null && parent.canBeCollidedWith();
     }
 
     @Override
     public boolean isPickable() {
-        return true;
+        return parent != null && parent.isPickable();
     }
 
     @Override
     public boolean is(@NotNull Entity entity) {
-        return this == entity || this.parent == entity;
+        return this == entity || parent == entity;
     }
 
     @Override
@@ -71,7 +67,7 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
-        return !this.isInvulnerableTo(source) && this.parent.hurt(source, amount);
+        return !this.isInvulnerableTo(source) && parent.hurt(source, amount);
     }
 
     @Override
