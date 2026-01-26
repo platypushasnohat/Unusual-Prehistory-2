@@ -41,6 +41,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         UP2Items.ITEM_TRANSLATIONS.forEach(this::forItem);
 
         // entities
+        this.forEntity(UP2Entities.AEGIROCASSIS);
         this.forEntity(UP2Entities.BARINASUCHUS);
         this.forEntity(UP2Entities.BRACHIOSAURUS);
         this.forEntity(UP2Entities.CARNOTAURUS);
@@ -271,6 +272,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
+        this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
         this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");

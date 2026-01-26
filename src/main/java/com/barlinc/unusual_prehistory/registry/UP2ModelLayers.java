@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class UP2ModelLayers {
 
+    public static final ModelLayerLocation AEGIROCASSIS = main("aegirocassis");
     public static final ModelLayerLocation ALLENYPTERUS = main("allenypterus");
     public static final ModelLayerLocation ARANDASPIS = main("arandaspis");
     public static final ModelLayerLocation BARINASUCHUS = main("barinasuchus");

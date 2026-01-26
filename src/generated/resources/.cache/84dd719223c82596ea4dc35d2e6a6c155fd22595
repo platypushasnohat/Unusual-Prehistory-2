@@ -1,4 +1,6 @@
-// 1.20.1	2026-01-18T11:26:20.3205331	Item Models: unusual_prehistory
+// 1.20.1	2026-01-26T12:32:03.1571128	Item Models: unusual_prehistory
+71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
 cc50162b00151d47b9687a33d7f79caee8013e69 assets/unusual_prehistory/models/item/aethophyllum_fossil.json
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
@@ -13,6 +15,7 @@ a045bf852e4528544429caefb6b06c4ded8c6b2e assets/unusual_prehistory/models/item/b
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/brachiosaurus_spawn_egg.json
 ac50f23a8cd1b76b80513cb843a74e45d3304057 assets/unusual_prehistory/models/item/brachyphyllum.json
 450db0b62564ed8bf0ad3fdaa32e875168ab3ce5 assets/unusual_prehistory/models/item/brachyphyllum_fossil.json
+fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/bristle_fossil.json
 d1fb4be7fb40905a6b54161c4864cf7d0c1c5149 assets/unusual_prehistory/models/item/brute_fossil.json
 08e9a2988b981452e8fa926aefa2528f47b65ed1 assets/unusual_prehistory/models/item/calamophyton_fossil.json
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json

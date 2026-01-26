@@ -41,6 +41,10 @@ public class UP2Items {
 
     public static final RegistryObject<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
 
+    // Aegirocassis
+    public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
+    public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle");
+
     // Barinasuchus
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x282d1a, 0xb8b44d);
     public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute");

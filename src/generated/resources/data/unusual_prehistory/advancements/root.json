@@ -1,5 +1,17 @@
 {
   "criteria": {
+    "aegirocassis_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aegirocassis_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "aethophyllum_fossil": {
       "conditions": {
         "items": [
@@ -114,6 +126,18 @@
           {
             "items": [
               "unusual_prehistory:brachyphyllum_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bristle_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:bristle_fossil"
             ]
           }
         ]
@@ -919,6 +943,7 @@
   },
   "requirements": [
     [
+      "aegirocassis_eggs",
       "barinasuchus_egg",
       "brachiosaurus_egg",
       "carnotaurus_egg",
@@ -948,6 +973,7 @@
       "pterodactylus_egg",
       "talpanas_egg",
       "telecrex_egg",
+      "bristle_fossil",
       "brute_fossil",
       "arm_fossil",
       "fury_fossil",

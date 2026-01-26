@@ -115,6 +115,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MAGENTA_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_MAGENTA).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("magenta_reinforced_glass_from_dye"));
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PINK_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_PINK).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("pink_reinforced_glass_from_dye"));
 
+        transmogrification(consumer, UP2Items.BRISTLE_FOSSIL.get(), AEGIROCASSIS_EGGS.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.BRUTE_FOSSIL.get(), BARINASUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.ARM_FOSSIL.get(), BRACHIOSAURUS_EGG.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);

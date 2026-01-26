@@ -31,6 +31,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     protected void addTags(@NotNull Provider provider) {
 
         this.tag(UP2ItemTags.FOSSILS).add(
+                BRISTLE_FOSSIL.get(),
                 BRUTE_FOSSIL.get(),
                 ARM_FOSSIL.get(),
                 FURY_FOSSIL.get(),

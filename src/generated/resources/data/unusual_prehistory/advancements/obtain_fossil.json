@@ -85,6 +85,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "bristle_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:bristle_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "brute_fossil": {
       "conditions": {
         "items": [
@@ -547,6 +559,7 @@
   },
   "requirements": [
     [
+      "bristle_fossil",
       "brute_fossil",
       "arm_fossil",
       "fury_fossil",

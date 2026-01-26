@@ -1,6 +1,18 @@
 {
   "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
+    "aegirocassis_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aegirocassis_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "barinasuchus_egg": {
       "conditions": {
         "items": [
@@ -367,6 +379,7 @@
   },
   "requirements": [
     [
+      "aegirocassis_eggs",
       "barinasuchus_egg",
       "brachiosaurus_egg",
       "carnotaurus_egg",

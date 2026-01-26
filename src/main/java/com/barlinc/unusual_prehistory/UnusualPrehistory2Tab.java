@@ -90,6 +90,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
 
+                        output.accept(BRISTLE_FOSSIL.get());
                         output.accept(BRUTE_FOSSIL.get());
                         output.accept(ARM_FOSSIL.get());
                         output.accept(FURY_FOSSIL.get());
@@ -120,6 +121,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SCYTHE_FOSSIL.get());
                         output.accept(DUBIOUS_FOSSIL.get());
 
+                        output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
                         output.accept(UP2Blocks.BARINASUCHUS_EGG.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());

@@ -15,6 +15,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+        event.register(UP2Entities.AEGIROCASSIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Aegirocassis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.BARINASUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Barinasuchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.BRACHIOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Brachiosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.CARNOTAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Carnotaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
@@ -50,6 +51,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(UP2Entities.AEGIROCASSIS.get(), Aegirocassis.createAttributes().build());
         event.put(UP2Entities.BARINASUCHUS.get(), Barinasuchus.createAttributes().build());
         event.put(UP2Entities.BRACHIOSAURUS.get(), Brachiosaurus.createAttributes().build());
         event.put(UP2Entities.CARNOTAURUS.get(), Carnotaurus.createAttributes().build());

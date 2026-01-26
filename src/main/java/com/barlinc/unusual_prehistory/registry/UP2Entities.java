@@ -17,6 +17,14 @@ public class UP2Entities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
     // Prehistoric
+    public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = ENTITY_TYPE.register(
+            "aegirocassis", () ->
+            EntityType.Builder.of(Aegirocassis::new, MobCategory.CREATURE)
+                    .sized(4.3F, 3.8F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "aegirocassis").toString())
+    );
+
     public static final RegistryObject<EntityType<Barinasuchus>> BARINASUCHUS = ENTITY_TYPE.register(
             "barinasuchus", () ->
             EntityType.Builder.of(Barinasuchus::new, MobCategory.CREATURE)
