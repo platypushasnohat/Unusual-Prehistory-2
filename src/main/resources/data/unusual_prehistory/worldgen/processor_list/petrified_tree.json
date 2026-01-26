@@ -42,7 +42,7 @@
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:petrified_tree_replaceable"
+              "tag": "unusual_prehistory:fossil_replaceable"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
@@ -70,7 +70,7 @@
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:petrified_tree_replaceable"
+              "tag": "unusual_prehistory:fossil_replaceable"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
@@ -98,7 +98,7 @@
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:petrified_tree_replaceable"
+              "tag": "unusual_prehistory:fossil_replaceable"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"

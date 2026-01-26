@@ -6,11 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold"
+          "name": "minecraft:raw_gold",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_iron",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -24,6 +26,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:amethyst_shard",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -37,6 +40,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:slime_ball",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -49,31 +53,73 @@
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:bennettitales_fossil"
+          "name": "unusual_prehistory:aethophyllum_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:cladophebis_fossil"
+          "name": "unusual_prehistory:bennettitales_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:cooksonia_fossil"
+          "name": "unusual_prehistory:brachyphyllum_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:horsetail_fossil"
+          "name": "unusual_prehistory:calamophyton_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:leefructus_fossil"
+          "name": "unusual_prehistory:cladophlebis_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:quillwort_fossil"
+          "name": "unusual_prehistory:cooksonia_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:rhynia_fossil"
+          "name": "unusual_prehistory:horsetail_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:leefructus_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:neomariopteris_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:prototaxites_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:quillwort_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:raiguenrayun_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:rhynia_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:tempskya_fossil",
+          "weight": 1
         }
       ],
       "rolls": 1.0
