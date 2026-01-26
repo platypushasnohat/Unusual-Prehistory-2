@@ -38,35 +38,27 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class Aegirocassis extends PrehistoricAquaticMob {
 
+    public final AegirocassisPart headPart;
     public final AegirocassisPart tailPart1;
     public final AegirocassisPart tailPart2;
-    public final AegirocassisPart tailPart3;
-    public final AegirocassisPart tailPart4;
-    public final AegirocassisPart tailPart5;
     private final AegirocassisPart[] allParts;
 
     private boolean wasPreviouslyBaby;
 
-    public float prevTilt;
-    public float tilt;
-
-    private float pitch = 0;
-    private float prevPitch = 0;
     private float fakeYRot = 0;
-    private float[][] trailTransformations = new float[128][2];
-    private int trailPointer = -1;
+    private float[] yawBuffer = new float[128];
+    private int yawPointer = -1;
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new AegirocassisMoveControl(this, 1, 0.02F, 0.1F);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.tailPart1 = new AegirocassisPart(this, this, 4.3F, 3.8F);
-        this.tailPart2 = new AegirocassisPart(this, tailPart1, 4.3F, 3.8F);
-        this.tailPart3 = new AegirocassisPart(this, tailPart2, 4.3F, 3.8F);
-        this.tailPart4 = new AegirocassisPart(this, tailPart3, 4.3F, 3.8F);
-        this.tailPart5 = new AegirocassisPart(this, tailPart4, 4.3F, 3.8F);
-        this.allParts = new AegirocassisPart[]{tailPart1, tailPart2, tailPart3, tailPart4, tailPart5};
+        this.headPart = new AegirocassisPart(this, this, 3.5F, 3.8F);
+        this.tailPart1 = new AegirocassisPart(this, this, 3.5F, 3.8F);
+        this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.5F, 3.8F);
+        this.allParts = new AegirocassisPart[]{headPart, tailPart1, tailPart2};
         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
+        this.fakeYRot = this.getYRot();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -151,20 +143,16 @@ public class Aegirocassis extends PrehistoricAquaticMob {
 
     @Override
     public int getHeadRotSpeed() {
-        return 5;
+        return 4;
     }
 
     @Override
     public void tick() {
         this.tickMultipart();
         super.tick();
-        this.prevPitch = pitch;
 
-        float targetPitch = isInWaterOrBubble() ? Mth.clamp((float) this.getDeltaMovement().y * 25, -1.4F, 1.4F) * -(float) (180F / (float) Math.PI) : 0;
-        this.pitch = Mth.approachDegrees(pitch, targetPitch, 1);
-
-        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, getHeadRotSpeed());
-        this.fakeYRot = Mth.approachDegrees(fakeYRot, yBodyRot, 10);
+        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, this.getHeadRotSpeed());
+        this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
 
         if (wasPreviouslyBaby != this.isBaby()) {
             this.wasPreviouslyBaby = this.isBaby();
@@ -186,28 +174,25 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     }
 
     private void tickMultipart() {
-        if (trailPointer == -1) {
+        if (yawPointer == -1) {
             this.fakeYRot = this.yBodyRot;
-            for (int i = 0; i < this.trailTransformations.length; i++) {
-                this.trailTransformations[i][0] = this.pitch;
-                this.trailTransformations[i][1] = this.fakeYRot;
+            for (int i = 0; i < yawBuffer.length; i++) {
+                this.yawBuffer[i] = this.fakeYRot;
             }
         }
-        if (++this.trailPointer == this.trailTransformations.length) {
-            this.trailPointer = 0;
+        if (++this.yawPointer == this.yawBuffer.length) {
+            this.yawPointer = 0;
         }
-        this.trailTransformations[this.trailPointer][0] = this.pitch;
-        this.trailTransformations[this.trailPointer][1] = this.fakeYRot;
+        this.yawBuffer[this.yawPointer] = this.fakeYRot;
 
         Vec3[] avector3d = new Vec3[this.allParts.length];
         for (int j = 0; j < this.allParts.length; ++j) {
             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
         }
-        this.tailPart1.setToTransformation(new Vec3(0, 0, -1), this.getTrailTransformation(5, 0, 1.0F), this.getTrailTransformation(5, 1, 1.0F));
-        this.tailPart2.setToTransformation(new Vec3(0, 0, -0.9F), this.getTrailTransformation(10, 0, 1.0F), this.getTrailTransformation(10, 1, 1.0F));
-        this.tailPart3.setToTransformation(new Vec3(0, 0, -0.8F), this.getTrailTransformation(15, 0, 1.0F), this.getTrailTransformation(15, 1, 1.0F));
-        this.tailPart4.setToTransformation(new Vec3(0, 0, -0.7F), this.getTrailTransformation(20, 0, 1.0F), this.getTrailTransformation(20, 1, 1.0F));
-        this.tailPart5.setToTransformation(new Vec3(0, 0, -0.6F), this.getTrailTransformation(25, 0, 1.0F), this.getTrailTransformation(25, 1, 1.0F));
+        Vec3 center = this.position().add(0, this.getBbHeight() * 0.5F, 0);
+        this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, 4.0F), this.getXRot(), this.getYHeadRot()).add(center));
+        this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -4.0F), this.getXRot(), this.getYawFromBuffer(2, 1.0F)).add(center));
+        this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -4.0F), this.getXRot(), this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
         for (int l = 0; l < this.allParts.length; ++l) {
             this.allParts[l].xo = avector3d[l].x;
             this.allParts[l].yo = avector3d[l].y;
@@ -218,41 +203,28 @@ public class Aegirocassis extends PrehistoricAquaticMob {
         }
     }
 
-    public float getTrailTransformation(int pointer, int index, float partialTick) {
+    public float getTrailTransformation(int pointer, float partialTick) {
         if (this.isRemoved()) {
             partialTick = 1.0F;
         }
-        int i = this.trailPointer - pointer & 127;
-        int j = this.trailPointer - pointer - 1 & 127;
-        float d0 = this.trailTransformations[j][index];
-        float d1 = this.trailTransformations[i][index] - d0;
+        int i = this.yawPointer - pointer & 127;
+        int j = this.yawPointer - pointer - 1 & 127;
+        float d0 = this.yawBuffer[j];
+        float d1 = this.yawBuffer[i] - d0;
         return d0 + d1 * partialTick;
     }
 
-    public float getPitch(float partialTick) {
-        return (prevPitch + (pitch - prevPitch) * partialTick);
+    private Vec3 rotateOffsetVec(Vec3 offset, float xRot, float yRot) {
+        return offset.xRot(-xRot * ((float) Math.PI / 180F)).yRot(-yRot * ((float) Math.PI / 180F));
     }
 
-//    private void tickTilt() {
-//        if (this.isInWater()) {
-//            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-//            if (Math.abs(v) > 1) {
-//                if (Math.abs(tilt) < 25) {
-//                    this.tilt -= Math.signum(v);
-//                }
-//            } else {
-//                if (Math.abs(tilt) > 0) {
-//                    final float tiltSign = Math.signum(tilt);
-//                    this.tilt -= tiltSign * 0.85F;
-//                    if (tilt * tiltSign < 0) {
-//                        this.tilt = 0;
-//                    }
-//                }
-//            }
-//        } else {
-//            this.tilt = 0;
-//        }
-//    }
+    public float getYawFromBuffer(int pointer, float partialTick) {
+        int i = this.yawPointer - pointer & 127;
+        int j = this.yawPointer - pointer - 1 & 127;
+        float d0 = this.yawBuffer[j];
+        float d1 = this.yawBuffer[i] - d0;
+        return d0 + d1 * partialTick;
+    }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {

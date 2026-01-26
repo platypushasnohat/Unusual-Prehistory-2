@@ -242,47 +242,23 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
-//        this.segment1.yRot = -(entity.tilt * deg / 3);
-//        this.segment2.yRot = -(entity.tilt * deg / 3);
-//        this.segment3.yRot = -(entity.tilt * deg / 3);
-//        this.segment4.yRot = -(entity.tilt * deg / 3);
-//        this.segment5.yRot = -(entity.tilt * deg / 3);
-//        this.segment6.yRot = -(entity.tilt * deg / 3);
-
         float partialTicks = ageInTicks - entity.tickCount;
-        float pitch = entity.getPitch(partialTicks);
-        double defaultX = Mth.wrapDegrees(pitch);
-        double defaultY = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
-        double segment1X = (entity.getTrailTransformation(10, 0, partialTicks)) - defaultX;
-        double segment1Y = (entity.getTrailTransformation(10, 1, partialTicks)) - defaultY;
+        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
 
-        double segment2X = (entity.getTrailTransformation(20, 0, partialTicks)) - defaultX - segment1X;
-        double segment2Y = (entity.getTrailTransformation(20, 1, partialTicks)) - defaultY - segment1Y;
+        double segment1Y = (entity.getTrailTransformation(10, partialTicks)) - bodyYRot;
+        double segment2Y = (entity.getTrailTransformation(20, partialTicks)) - bodyYRot - segment1Y;
+        double segment3Y = (entity.getTrailTransformation(30, partialTicks)) - bodyYRot - segment2Y;
+        double segment4Y = (entity.getTrailTransformation(40, partialTicks)) - bodyYRot - segment3Y;
+        double segment5Y = (entity.getTrailTransformation(50, partialTicks)) - bodyYRot - segment4Y;
 
-        double segment3X = (entity.getTrailTransformation(30, 0, partialTicks)) - defaultX - segment2X;
-        double segment3Y = (entity.getTrailTransformation(30, 1, partialTicks)) - defaultY - segment2Y;
-
-        double segment4X = (entity.getTrailTransformation(40, 0, partialTicks)) - defaultX - segment3X;
-        double segment4Y = (entity.getTrailTransformation(40, 1, partialTicks)) - defaultY - segment3Y;
-
-        double segment5X = (entity.getTrailTransformation(50, 0, partialTicks)) - defaultX - segment4X;
-        double segment5Y = (entity.getTrailTransformation(50, 1, partialTicks)) - defaultY - segment4Y;
-
-        this.segment2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 1);
-        this.segment3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.35F);
-        this.segment4.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.35F);
-        this.segment5.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.4F);
-        this.segment6.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment4Y) * 0.4F);
-
-        this.segment2.xRot += (float) Math.toRadians(segment1X * 1);
-        this.segment3.xRot += (float) Math.toRadians(segment2X * 0.5F);
-        this.segment4.xRot += (float) Math.toRadians(segment2X * 0.5F);
-        this.segment5.xRot += (float) Math.toRadians(segment3X * 0.35F);
-        this.segment6.xRot += (float) Math.toRadians(segment4X * 0.25F);
-//        segment7.rotateAngleX += Math.toRadians(tail5X * 0.25F);
+        this.segment2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.5F);
+        this.segment3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.4F);
+        this.segment4.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.4F);
+        this.segment5.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.3F);
+        this.segment6.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment4Y) * 0.2F);
 
         if (entity.isInWater()) {
-            this.swim_control.xRot = headPitch * deg / 2;
+            this.swim_control.xRot = headPitch * deg / 3;
         }
     }
 
