@@ -236,10 +236,13 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
     public void setupAnim(@NotNull Aegirocassis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         if (entity.isInWater()) {
-            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
+            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.75F, 3.5F);
         }
         this.animateIdle(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 2);
         this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
+        this.animate(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks);
+        this.animateIdle(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, 1, limbSwingAmount * 4);
 
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
