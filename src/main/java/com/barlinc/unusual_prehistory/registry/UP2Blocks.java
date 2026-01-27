@@ -41,6 +41,19 @@ public class UP2Blocks {
     // Science Doodads
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
 
+    // Fossil stones
+    public static final RegistryObject<Block> GREYNITE = registerBlock("greynite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> GREYNITE_STAIRS = registerBlock("greynite_stairs", () -> new StairBlock(() -> GREYNITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(GREYNITE.get())));
+    public static final RegistryObject<Block> GREYNITE_SLAB = registerBlock("greynite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GREYNITE.get())));
+
+    public static final RegistryObject<Block> RANATITE = registerBlock("ranatite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> RANATITE_STAIRS = registerBlock("ranatite_stairs", () -> new StairBlock(() -> RANATITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(RANATITE.get())));
+    public static final RegistryObject<Block> RANATITE_SLAB = registerBlock("ranatite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(RANATITE.get())));
+
+    public static final RegistryObject<Block> VISTOSTONE = registerBlock("vistostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> VISTOSTONE_STAIRS = registerBlock("vistostone_stairs", () -> new StairBlock(() -> VISTOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(VISTOSTONE.get())));
+    public static final RegistryObject<Block> VISTOSTONE_SLAB = registerBlock("vistostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(VISTOSTONE.get())));
+
     // Fossils
     public static final RegistryObject<Block> FOSSILIZED_BONE_BLOCK = registerBlock("fossilized_bone_block", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> FOSSILIZED_BONE_BARK = registerBlock("fossilized_bone_bark", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
@@ -56,6 +69,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
 
     // Petrified Wood
+    public static final RegistryObject<Block> PETRIFIED_BUSH = registerBlock("petrified_bush", () -> new PetrifiedBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().noCollission().instrument(NoteBlockInstrument.HARP).strength(1.0F).instabreak().sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> PETRIFIED_LOG = registerBlock("petrified_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));

@@ -237,12 +237,12 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         if (entity.isInWater()) {
             this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
-            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.75F, 3.5F);
+            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.625F, 3.25F);
         }
-        this.animateIdle(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 2);
+        this.animateIdle(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 3);
         this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
         this.animate(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks);
-        this.animateIdle(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, 1, limbSwingAmount * 3);
 
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
@@ -254,11 +254,11 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         double segment4Y = (entity.getTrailTransformation(40, partialTicks)) - bodyYRot - segment3Y;
         double segment5Y = (entity.getTrailTransformation(50, partialTicks)) - bodyYRot - segment4Y;
 
-        this.segment2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.5F);
-        this.segment3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.4F);
-        this.segment4.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.4F);
-        this.segment5.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.3F);
-        this.segment6.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment4Y) * 0.2F);
+        this.segment2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.4F);
+        this.segment3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.3F);
+        this.segment4.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.3F);
+        this.segment5.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.2F);
+        this.segment6.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment4Y) * 0.1F);
 
         if (entity.isInWater()) {
             this.swim_control.xRot = headPitch * deg / 3;

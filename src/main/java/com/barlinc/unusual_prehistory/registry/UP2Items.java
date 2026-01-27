@@ -123,6 +123,9 @@ public class UP2Items {
     public static final RegistryObject<Item> MAJUNGASAURUS_SPAWN_EGG = registerSpawnEggItem("majungasaurus", UP2Entities.MAJUNGASAURUS, 0x5aa81e, 0x194e80);
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose");
 
+    // Manipulator
+    public static final RegistryObject<Item> ROACH_FOSSIL = registerFossilItem("roach");
+
     // Megalania
     public static final RegistryObject<Item> MEGALANIA_SPAWN_EGG = registerSpawnEggItem("megalania", UP2Entities.MEGALANIA, 0x4f432b, 0x0fd4e6);
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal");

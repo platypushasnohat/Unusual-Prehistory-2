@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-26T12:32:03.1571128	Item Models: unusual_prehistory
+// 1.20.1	2026-01-27T13:58:38.4626651	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -110,6 +110,7 @@ e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/p
 e7a945291047943937e99a76bbcff9026ac08077 assets/unusual_prehistory/models/item/quillwort_fossil.json
 a9ab3bf8a96f9d6f6de571f77bd26e995ad2e630 assets/unusual_prehistory/models/item/raiguenrayun_fossil.json
 2d3d57c9dbd913e79db8d72360d35436cf19c38e assets/unusual_prehistory/models/item/rhynia_fossil.json
+9af0769c00fae34a7ce0c971d6ceea7015d8b942 assets/unusual_prehistory/models/item/roach_fossil.json
 328583d318f2e629cbd8f359126154aec0f02d7c assets/unusual_prehistory/models/item/rugose_fossil.json
 4e60248c43ffcf6c1f1aeab4e7f0aeaa2ed60f3c assets/unusual_prehistory/models/item/runner_fossil.json
 5e7ba0df0826af08d2c8115e0ba1b6063820d049 assets/unusual_prehistory/models/item/saw_fossil.json

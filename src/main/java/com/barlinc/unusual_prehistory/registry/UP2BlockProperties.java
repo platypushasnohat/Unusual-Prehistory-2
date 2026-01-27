@@ -31,6 +31,8 @@ public class UP2BlockProperties {
 
     public static final BlockBehaviour.Properties CAULDRON = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).requiresCorrectToolForDrops().strength(2.0F).noOcclusion();
 
+    public static final BlockBehaviour.Properties FOSSIL_STONE = BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.DRIPSTONE_BLOCK);
+
     public static BlockBehaviour.Properties reinforcedGlass(MapColor color) {
         return BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).mapColor(color).strength(0.4F, 6.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(UP2BlockProperties::never).isRedstoneConductor(UP2BlockProperties::never).isSuffocating(UP2BlockProperties::never).isViewBlocking(UP2BlockProperties::never);
     }

@@ -7,9 +7,11 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,10 +20,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
@@ -48,11 +52,11 @@ public class Aegirocassis extends PrehistoricAquaticMob {
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 40, 10, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.headPart = new AegirocassisPart(this, this, 3.5F, 3.8F);
-        this.tailPart1 = new AegirocassisPart(this, this, 3.5F, 3.8F);
-        this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.5F, 3.8F);
+        this.headPart = new AegirocassisPart(this, this, 3.6F, 4.1F);
+        this.tailPart1 = new AegirocassisPart(this, this, 3.6F, 4.1F);
+        this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.6F, 4.1F);
         this.allParts = new AegirocassisPart[]{headPart, tailPart1, tailPart2};
         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fakeYRot = this.getYRot();
@@ -61,22 +65,34 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 200.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.65F);
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
+                .add(Attributes.ARMOR, 6.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
-//        this.goalSelector.addGoal(4, new PrehistoricRandomSwimGoal(this, 1.0D, 50, 35, 5));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 40, 15, 10, 3, true));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AEGIROCASSIS_FOOD), false));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 60, 15, 10, 3, true));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Aegirocassis.this.isInWaterOrBubble();
+            }
+        });
     }
 
     @Override
-    public void setId(int i1) {
-        super.setId(i1);
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        return this.getDepthPathfindingFavor(pos, level);
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
         for (int i = 0; i < this.allParts.length; i++) {
-            this.allParts[i].setId(i1 + i + 1);
+            this.allParts[i].setId(id + i + 1);
         }
     }
 
@@ -87,7 +103,7 @@ public class Aegirocassis extends PrehistoricAquaticMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.STETHACANTHUS_FOOD);
+        return stack.is(UP2ItemTags.AEGIROCASSIS_FOOD);
     }
 
     @Override
@@ -234,19 +250,19 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.STETHACANTHUS_DEATH.get();
+        return UP2SoundEvents.AEGIROCASSIS_DEATH.get();
     }
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return UP2SoundEvents.STETHACANTHUS_HURT.get();
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return UP2SoundEvents.AEGIROCASSIS_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
+        return SoundEvents.EMPTY;
     }
 
     @Override

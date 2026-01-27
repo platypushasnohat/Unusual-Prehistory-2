@@ -56,6 +56,18 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         this.dropSelf(ASPHALT.get());
 
+        this.dropSelf(GREYNITE.get());
+        this.dropSelf(GREYNITE_STAIRS.get());
+        this.add(GREYNITE_SLAB.get(), this::createSlabItemTable);
+
+        this.dropSelf(RANATITE.get());
+        this.dropSelf(RANATITE_STAIRS.get());
+        this.add(RANATITE_SLAB.get(), this::createSlabItemTable);
+
+        this.dropSelf(VISTOSTONE.get());
+        this.dropSelf(VISTOSTONE_STAIRS.get());
+        this.add(VISTOSTONE_SLAB.get(), this::createSlabItemTable);
+
         this.dropSelf(FOSSILIZED_BONE_BLOCK.get());
         this.dropSelf(FOSSILIZED_BONE_BARK.get());
         this.dropSelf(FOSSILIZED_BONE_VERTEBRA.get());
@@ -71,6 +83,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(FOSSILIZED_BONE_SPIKE.get());
         this.dropSelf(FOSSILIZED_BONE_ROW.get());
 
+        this.dropSelf(PETRIFIED_BUSH.get());
         this.dropSelf(PETRIFIED_LOG.get());
         this.dropSelf(PETRIFIED_WOOD.get());
         this.dropSelf(POLISHED_PETRIFIED_WOOD.get());

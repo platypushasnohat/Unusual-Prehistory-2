@@ -33,6 +33,19 @@ public class UnusualPrehistory2Tab {
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
+                        output.accept(UP2Blocks.GREYNITE.get());
+                        output.accept(UP2Blocks.GREYNITE_STAIRS.get());
+                        output.accept(UP2Blocks.GREYNITE_SLAB.get());
+
+                        output.accept(UP2Blocks.RANATITE.get());
+                        output.accept(UP2Blocks.RANATITE_STAIRS.get());
+                        output.accept(UP2Blocks.RANATITE_SLAB.get());
+
+                        output.accept(UP2Blocks.VISTOSTONE.get());
+                        output.accept(UP2Blocks.VISTOSTONE_STAIRS.get());
+                        output.accept(UP2Blocks.VISTOSTONE_SLAB.get());
+
+                        output.accept(UP2Blocks.PETRIFIED_BUSH.get());
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());
                         output.accept(UP2Blocks.PETRIFIED_WOOD.get());
                         output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
@@ -107,6 +120,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(FISH_FOSSIL.get());
                         output.accept(IMPERVIOUS_FOSSIL.get());
                         output.accept(RUGOSE_FOSSIL.get());
+                        output.accept(ROACH_FOSSIL.get());
                         output.accept(THERMAL_FOSSIL.get());
                         output.accept(MELTDOWN_FOSSIL.get());
                         output.accept(SAW_FOSSIL.get());

@@ -14,6 +14,9 @@ public class UP2SoundEvents {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, UnusualPrehistory2.MOD_ID);
 
     // Mobs
+    public static final RegistryObject<SoundEvent> AEGIROCASSIS_HURT = registerSoundEvent("aegirocassis_hurt");
+    public static final RegistryObject<SoundEvent> AEGIROCASSIS_DEATH = registerSoundEvent("aegirocassis_death");
+
     public static final RegistryObject<SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");

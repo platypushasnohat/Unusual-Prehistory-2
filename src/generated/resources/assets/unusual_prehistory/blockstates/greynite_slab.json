@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusual_prehistory:block/greynite_slab"
+    },
+    "type=double": {
+      "model": "unusual_prehistory:block/greynite"
+    },
+    "type=top": {
+      "model": "unusual_prehistory:block/greynite_slab_top"
+    }
+  }
+}

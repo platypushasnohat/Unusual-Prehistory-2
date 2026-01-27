@@ -78,6 +78,11 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:impervious_fossil",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:roach_fossil",
+          "weight": 2
         }
       ],
       "rolls": 1.0

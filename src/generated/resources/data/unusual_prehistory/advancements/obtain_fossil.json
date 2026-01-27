@@ -445,6 +445,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "roach_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:roach_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "rugose_fossil": {
       "conditions": {
         "items": [
@@ -576,6 +588,7 @@
       "fish_fossil",
       "impervious_fossil",
       "rugose_fossil",
+      "roach_fossil",
       "thermal_fossil",
       "meltdown_fossil",
       "saw_fossil",

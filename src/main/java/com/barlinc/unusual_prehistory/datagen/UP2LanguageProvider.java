@@ -103,6 +103,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         // sounds
         this.sound(UP2SoundEvents.TAR_POP, "Tar pops");
 
+        this.sound(UP2SoundEvents.AEGIROCASSIS_HURT, "Aegirocassis hurts");
+        this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH, "Aegirocassis dies");
+
         this.sound(UP2SoundEvents.BARINASUCHUS_HURT, "Barinasuchus hurts");
         this.sound(UP2SoundEvents.BARINASUCHUS_DEATH, "Barinasuchus dies");
         this.sound(UP2SoundEvents.BARINASUCHUS_IDLE, "Barinasuchus grumbles");

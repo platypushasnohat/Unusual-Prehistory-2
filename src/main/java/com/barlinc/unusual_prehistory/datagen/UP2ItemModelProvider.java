@@ -60,6 +60,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(FISH_FOSSIL);
         this.item(IMPERVIOUS_FOSSIL);
         this.item(RUGOSE_FOSSIL);
+        this.item(ROACH_FOSSIL);
         this.item(THERMAL_FOSSIL);
         this.item(MELTDOWN_FOSSIL);
         this.item(SAW_FOSSIL);

@@ -20,7 +20,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = ENTITY_TYPE.register(
             "aegirocassis", () ->
             EntityType.Builder.of(Aegirocassis::new, MobCategory.CREATURE)
-                    .sized(4.3F, 3.8F)
+                    .sized(4.1F, 4.1F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "aegirocassis").toString())
     );

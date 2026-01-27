@@ -44,6 +44,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PRICKLY_FOSSIL.get(),
                 IMPERATIVE_FOSSIL.get(),
                 RUGOSE_FOSSIL.get(),
+                ROACH_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
                 MELTDOWN_FOSSIL.get(),
                 SAW_FOSSIL.get(),
@@ -83,6 +84,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         // Food
+        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
+                Items.COD,
+                Items.COOKED_COD,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Items.TROPICAL_FISH
+        );
+
         this.tag(UP2ItemTags.BARINASUCHUS_FOOD).add(
                 Items.BEEF,
                 Items.PORKCHOP,

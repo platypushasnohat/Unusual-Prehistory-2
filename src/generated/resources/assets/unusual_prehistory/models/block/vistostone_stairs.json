@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "unusual_prehistory:block/vistostone",
+    "side": "unusual_prehistory:block/vistostone",
+    "top": "unusual_prehistory:block/vistostone"
+  }
+}

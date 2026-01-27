@@ -19,6 +19,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
     @Override
     public void registerSounds() {
 
+        // Aegirocassis
+        this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH,
+                sound("entity/fish/hurt1").pitch(0.3F),
+                sound("entity/fish/hurt2").pitch(0.3F),
+                sound("entity/fish/hurt3").pitch(0.3F),
+                sound("entity/fish/hurt4").pitch(0.3F)
+        );
+        this.sound(UP2SoundEvents.AEGIROCASSIS_HURT,
+                sound("entity/fish/hurt1").pitch(0.5F),
+                sound("entity/fish/hurt2").pitch(0.5F),
+                sound("entity/fish/hurt3").pitch(0.5F),
+                sound("entity/fish/hurt4").pitch(0.5F)
+        );
+
         // Barinasuchus
         this.sound(UP2SoundEvents.BARINASUCHUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt1")),

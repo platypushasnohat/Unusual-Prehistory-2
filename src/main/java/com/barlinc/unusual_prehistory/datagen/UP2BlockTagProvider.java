@@ -330,6 +330,15 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),
+                GREYNITE.get(),
+                GREYNITE_STAIRS.get(),
+                GREYNITE_SLAB.get(),
+                RANATITE.get(),
+                RANATITE_STAIRS.get(),
+                RANATITE_SLAB.get(),
+                VISTOSTONE.get(),
+                VISTOSTONE_STAIRS.get(),
+                VISTOSTONE_SLAB.get(),
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get(),
@@ -388,10 +397,16 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.SLABS).add(
+                GREYNITE_SLAB.get(),
+                RANATITE_SLAB.get(),
+                VISTOSTONE_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_SLAB.get()
         );
 
         this.tag(BlockTags.STAIRS).add(
+                GREYNITE_STAIRS.get(),
+                RANATITE_STAIRS.get(),
+                VISTOSTONE_STAIRS.get(),
                 POLISHED_PETRIFIED_WOOD_STAIRS.get()
         );
 

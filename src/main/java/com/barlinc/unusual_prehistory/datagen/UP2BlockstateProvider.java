@@ -27,6 +27,18 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.cubeAllBlock(ASPHALT);
 
+        this.cubeAllBlock(GREYNITE);
+        this.stairs(GREYNITE_STAIRS, this.blockTexture(GREYNITE.get()));
+        this.slab(GREYNITE_SLAB, this.blockTexture(GREYNITE.get()));
+
+        this.cubeAllBlock(RANATITE);
+        this.stairs(RANATITE_STAIRS, this.blockTexture(RANATITE.get()));
+        this.slab(RANATITE_SLAB, this.blockTexture(RANATITE.get()));
+
+        this.cubeAllBlock(VISTOSTONE);
+        this.stairs(VISTOSTONE_STAIRS, this.blockTexture(VISTOSTONE.get()));
+        this.slab(VISTOSTONE_SLAB, this.blockTexture(VISTOSTONE.get()));
+
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);
@@ -99,6 +111,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.stairs(COBBLED_FOSSILIZED_BONE_STAIRS, this.blockTexture(COBBLED_FOSSILIZED_BONE.get()));
         this.slab(COBBLED_FOSSILIZED_BONE_SLAB, this.blockTexture(COBBLED_FOSSILIZED_BONE.get()));
 
+        this.simpleCross(PETRIFIED_BUSH);
         this.pillar(PETRIFIED_LOG);
         this.pillarWithName(PETRIFIED_WOOD, "petrified_log", "petrified_log");
         this.cubeAllBlock(POLISHED_PETRIFIED_WOOD);

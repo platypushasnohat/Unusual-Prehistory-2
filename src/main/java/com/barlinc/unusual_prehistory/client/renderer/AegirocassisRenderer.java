@@ -21,6 +21,11 @@ public class AegirocassisRenderer extends MobRenderer<Aegirocassis, Aegirocassis
     }
 
     @Override
+    protected float getFlipDegrees(@NotNull Aegirocassis entity) {
+        return !entity.isInWaterOrBubble() ? 0.0F : super.getFlipDegrees(entity);
+    }
+
+    @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Aegirocassis entity) {
         return TEXTURE;
     }
