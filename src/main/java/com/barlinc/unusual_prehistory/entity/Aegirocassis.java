@@ -206,9 +206,10 @@ public class Aegirocassis extends PrehistoricAquaticMob {
             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
         }
         Vec3 center = this.position().add(0, this.getBbHeight() * 0.5F, 0);
-        this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, 4.0F), this.getXRot(), this.getYHeadRot()).add(center));
-        this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -4.0F), this.getXRot(), this.getYawFromBuffer(2, 1.0F)).add(center));
-        this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -4.0F), this.getXRot(), this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
+        float zOffset = this.isBaby() ? 1.0F : 4.0F;
+        this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, zOffset), this.getXRot(), this.getYHeadRot()).add(center));
+        this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -zOffset), this.getXRot(), this.getYawFromBuffer(2, 1.0F)).add(center));
+        this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -zOffset), this.getXRot(), this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
         for (int l = 0; l < this.allParts.length; ++l) {
             this.allParts[l].xo = avector3d[l].x;
             this.allParts[l].yo = avector3d[l].y;
