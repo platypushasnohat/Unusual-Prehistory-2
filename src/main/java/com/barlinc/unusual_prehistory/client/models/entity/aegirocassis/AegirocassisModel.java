@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity;
+package com.barlinc.unusual_prehistory.client.models.entity.aegirocassis;
 
 import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
@@ -65,7 +65,7 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
     private final ModelPart right_fin6;
 
     public AegirocassisModel(ModelPart root) {
-        super(0.25F, 72);
+        super(1.0F, 0);
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
         this.body = this.swim_control.getChild("body");
