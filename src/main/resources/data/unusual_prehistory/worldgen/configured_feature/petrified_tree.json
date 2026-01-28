@@ -3,14 +3,6 @@
   "config": {
     "structures": [
       {
-        "structure": "unusual_prehistory:petrified_tree/tall_0",
-        "weight": 1
-      },
-      {
-        "structure": "unusual_prehistory:petrified_tree/stump_0",
-        "weight": 1
-      },
-      {
         "structure": "unusual_prehistory:petrified_tree/fallen_0",
         "weight": 1
       }
