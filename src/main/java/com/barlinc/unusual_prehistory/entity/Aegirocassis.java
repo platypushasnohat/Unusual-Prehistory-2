@@ -74,7 +74,7 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AEGIROCASSIS_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 60, 15, 10, 3, true));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 30, 15, 10, 3, true));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
             @Override
             public boolean canUse() {
@@ -118,6 +118,11 @@ public class Aegirocassis extends PrehistoricAquaticMob {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public boolean isPushable() {
+        return this.isBaby();
     }
 
     @Override

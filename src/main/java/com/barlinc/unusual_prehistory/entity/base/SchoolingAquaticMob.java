@@ -60,11 +60,11 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
         this.leader = null;
     }
 
-    private void addFollower() {
+    protected void addFollower() {
         this.schoolSize++;
     }
 
-    private void removeFollower() {
+    protected void removeFollower() {
         this.schoolSize--;
     }
 

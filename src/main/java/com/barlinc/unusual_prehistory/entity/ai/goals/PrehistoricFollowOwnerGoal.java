@@ -62,7 +62,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         } else if (this.unableToMove()) {
             return false;
         } else {
-            return !(this.tamedMob.distanceToSqr(this.owner) <= (double)(this.stopDistance * this.stopDistance)) && this.shouldFollow() && !this.isInCombat();
+            return !(this.tamedMob.distanceToSqr(this.owner) <= (double) (this.stopDistance * this.stopDistance)) && this.shouldFollow() && !this.isInCombat();
         }
     }
 

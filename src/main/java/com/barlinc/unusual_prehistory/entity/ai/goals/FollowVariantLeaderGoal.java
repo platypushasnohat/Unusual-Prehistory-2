@@ -24,26 +24,26 @@ public class FollowVariantLeaderGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (this.mob.hasFollowers()) {
+        if (mob.hasFollowers()) {
             return false;
-        } else if (this.mob.isFollower()) {
+        } else if (mob.isFollower()) {
             return true;
-        } else if (this.nextStartTick > 0) {
-            --this.nextStartTick;
+        } else if (nextStartTick > 0) {
+            this.nextStartTick--;
             return false;
         } else {
-            this.nextStartTick = this.nextStartTick(this.mob);
+            this.nextStartTick = this.nextStartTick(mob);
             Predicate<SchoolingAquaticMob> predicate = (fishy) -> fishy.canBeFollowed() || !fishy.isFollower();
-            List<? extends SchoolingAquaticMob> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), this.mob.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
-            SchoolingAquaticMob schoolingFish = DataFixUtils.orElse(list.stream().filter(SchoolingAquaticMob::canBeFollowed).findAny(), this.mob);
+            List<? extends SchoolingAquaticMob> list = mob.level().getEntitiesOfClass(mob.getClass(), mob.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
+            SchoolingAquaticMob schoolingFish = DataFixUtils.orElse(list.stream().filter(SchoolingAquaticMob::canBeFollowed).findAny(), mob);
             schoolingFish.addFollowers(list.stream().filter((fishy2) -> !fishy2.isFollower()));
-            return this.mob.isFollower();
+            return mob.isFollower();
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.mob.isFollower() && this.mob.inRangeOfLeader();
+        return mob.isFollower() && mob.inRangeOfLeader();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class FollowVariantLeaderGoal extends Goal {
 
     @Override
     public void tick() {
-        if (--this.timeToRecalcPath <= 0) {
+        if (this.timeToRecalcPath-- <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
             this.mob.pathToLeader();
         }
