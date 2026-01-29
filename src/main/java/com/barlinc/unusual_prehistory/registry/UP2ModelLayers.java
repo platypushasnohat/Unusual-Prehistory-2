@@ -32,6 +32,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation EUSTHENOPTERON = main("eusthenopteron");
     public static final ModelLayerLocation FURACACAUDA = main("furacacauda");
     public static final ModelLayerLocation GOOLOOGONGIA = main("gooloogongia");
+    public static final ModelLayerLocation HIBBERTOPTERUS = main("hibbertopterus");
     public static final ModelLayerLocation KAPROSUCHUS = main("kaprosuchus");
     public static final ModelLayerLocation KENTROSAURUS = main("kentrosaurus");
     public static final ModelLayerLocation KIMMERIDGEBRACHYPTERAESCHNIDIUM = main("kimmeridgebrachypteraeschnidium");

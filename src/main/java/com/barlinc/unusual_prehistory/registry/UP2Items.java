@@ -81,6 +81,9 @@ public class UP2Items {
     public static final RegistryObject<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new UP2MobBucketItem(UP2Entities.DUNKLEOSTEUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Dunkleosteus.DunkleosteusVariant::byId)));
     public static final RegistryObject<Item> GUILLOTINE_FOSSIL = registerFossilItem("guillotine");
 
+    // Hibbertopterus
+    public static final RegistryObject<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xb5ac75, 0x4a3221);
+
     // Jawless Fish
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = registerSpawnEggItem("jawless_fish", UP2Entities.JAWLESS_FISH, 0x312e38, 0x917388);
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.JAWLESS_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(JawlessFish.JawlessFishVariant::byId)));

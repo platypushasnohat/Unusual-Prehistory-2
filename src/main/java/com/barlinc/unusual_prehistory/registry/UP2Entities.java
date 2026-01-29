@@ -89,6 +89,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dunkleosteus").toString())
     );
 
+    public static final RegistryObject<EntityType<Hibbertopterus>> HIBBERTOPTERUS = ENTITY_TYPE.register(
+            "hibbertopterus", () ->
+            EntityType.Builder.of(Hibbertopterus::new, MobCategory.CREATURE)
+                    .sized(2.6F, 1.7F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "hibbertopterus").toString())
+    );
+
     public static final RegistryObject<EntityType<JawlessFish>> JAWLESS_FISH = ENTITY_TYPE.register(
             "jawless_fish", () ->
             EntityType.Builder.of(JawlessFish::new, MobCategory.WATER_AMBIENT)
