@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:grass_block",
+    "minecraft:mud",
+    "minecraft:grass_block",
     "minecraft:gravel",
     "minecraft:sand"
   ]

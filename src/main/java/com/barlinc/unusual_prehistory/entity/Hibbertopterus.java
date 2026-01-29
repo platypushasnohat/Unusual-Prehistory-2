@@ -13,6 +13,8 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.RandomSource;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,6 +25,7 @@
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
@@ -51,7 +54,7 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
+         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
          this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -103,7 +106,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.KAPROSUCHUS_FOOD);
+         return stack.is(UP2ItemTags.HIBBERTOPTERUS_FOOD);
      }
 
      @Override
@@ -114,6 +117,45 @@
      @Override
      public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
          return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+     }
+
+     @Nullable
+     @Override
+     public LivingEntity getControllingPassenger() {
+         Entity entity = this.getFirstPassenger();
+         if (entity instanceof Player player) {
+             if (player.getMainHandItem().is(Items.CARROT_ON_A_STICK) || player.getOffhandItem().is(Items.CARROT_ON_A_STICK)) {
+                 return player;
+             }
+         }
+         return null;
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         boolean flag = this.isFood(player.getItemInHand(hand));
+         if (!flag && !this.isVehicle() && !player.isSecondaryUseActive()) {
+             if (!this.level().isClientSide) {
+                 player.startRiding(this);
+             }
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         } else {
+             return super.mobInteract(player, hand);
+         }
+     }
+
+     protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
+         return new Vec3(0.0D, 0.0D, 1.0D);
+     }
+
+     @Override
+     protected float getRiddenSpeed(@NotNull Player player) {
+         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D);
+     }
+
+     @Override
+     public Vec3 getRiderOffset() {
+         return new Vec3(0.0F, 0.0F, -0.5F);
      }
 
      @Override
@@ -128,6 +170,11 @@
 
      @Override
      public void setupAnimationCooldowns() {
+     }
+
+     @Override
+     public float getWalkAnimationSpeed() {
+         return this.isBaby() ? 6.0F : 10.0F;
      }
 
      @Override
@@ -166,6 +213,6 @@
      }
 
      public static boolean canSpawn(EntityType<Hibbertopterus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.KAPROSUCHUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+         return level.getBlockState(pos.below()).is(UP2BlockTags.HIBBERTOPTERUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
  }

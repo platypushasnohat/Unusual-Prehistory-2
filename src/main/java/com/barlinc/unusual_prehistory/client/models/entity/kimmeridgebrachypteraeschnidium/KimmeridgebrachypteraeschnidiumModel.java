@@ -131,14 +131,4 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
-
-    public Vec3 getRiderPosition(Vec3 offset) {
-        PoseStack poseStack = new PoseStack();
-        poseStack.pushPose();
-        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
-        armOffsetVec.mul(poseStack.last().pose());
-        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
-        poseStack.popPose();
-        return vec3;
-    }
 }

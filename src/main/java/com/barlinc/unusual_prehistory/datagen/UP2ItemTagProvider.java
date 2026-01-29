@@ -145,6 +145,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.HIBBERTOPTERUS_FOOD).add(
+                Blocks.DIRT.asItem(),
+                Blocks.COARSE_DIRT.asItem(),
+                Blocks.PODZOL.asItem(),
+                Blocks.FARMLAND.asItem()
+        );
+
         this.tag(UP2ItemTags.JAWLESS_FISH_FOOD).add(
                 Items.SEAGRASS
         );

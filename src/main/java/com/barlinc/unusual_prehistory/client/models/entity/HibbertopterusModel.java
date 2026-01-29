@@ -3,20 +3,23 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.HibbertopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Hibbertopterus;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 
-    private final ModelPart root;
-    private final ModelPart body_main;
-    private final ModelPart body;
+    public final ModelPart root;
+    public final ModelPart body_main;
+    public final ModelPart body;
     private final ModelPart left_arm1;
     private final ModelPart left_arm2;
     private final ModelPart right_arm1;
@@ -172,4 +175,14 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 }

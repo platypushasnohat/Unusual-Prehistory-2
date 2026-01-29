@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.HibbertopterusModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.HibbertopterusRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Hibbertopterus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +19,7 @@ public class HibbertopterusRenderer extends MobRenderer<Hibbertopterus, Hibberto
 
     public HibbertopterusRenderer(EntityRendererProvider.Context context) {
         super(context, new HibbertopterusModel(context.bakeLayer(UP2ModelLayers.HIBBERTOPTERUS)), 1.2F);
+        this.addLayer(new HibbertopterusRiderLayer(this));
     }
 
     @Override

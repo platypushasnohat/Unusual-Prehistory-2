@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
-import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumRiderLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.KimmeridgebrachypteraeschnidiumWingLayer;
 import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
@@ -28,7 +27,6 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
         this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
-        this.addLayer(new KimmeridgebrachypteraeschnidiumRiderLayer(this));
     }
 
     @Override
