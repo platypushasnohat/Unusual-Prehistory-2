@@ -17,17 +17,6 @@ public class TartuosteusGlideGoal extends AquaticLeapGoal {
     }
 
     @Override
-    public void start() {
-        super.start();
-        this.tartuosteus.setLeaping(true);
-    }
-
-    @Override
-    public void stop() {
-        this.tartuosteus.setLeaping(false);
-    }
-
-    @Override
     public void tick() {
         boolean flag = this.breached;
         tartuosteus.getNavigation().stop();

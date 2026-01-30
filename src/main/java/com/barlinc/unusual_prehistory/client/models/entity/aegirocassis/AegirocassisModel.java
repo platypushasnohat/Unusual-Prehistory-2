@@ -1,8 +1,10 @@
 package com.barlinc.unusual_prehistory.client.models.entity.aegirocassis;
 
 import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisAnimations;
+import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisLeapAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -235,14 +237,16 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
     @Override
     public void setupAnim(@NotNull Aegirocassis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWater()) {
+        if (entity.isInWater() || entity.isLeaping() && !entity.isTryingToFly()) {
             this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
             this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.625F, 3.25F);
         }
         this.animateIdle(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 3);
-        this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
-        this.animate(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks);
         this.animateIdle(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, 1, limbSwingAmount * 3);
+        this.animate(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks);
+        this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
+        this.animate(entity.leapStartAnimationState, AegirocassisLeapAnimations.LEAP_START, ageInTicks);
+        this.animate(entity.leapAnimationState, AegirocassisLeapAnimations.LEAP_HOLD, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
@@ -260,7 +264,7 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         this.segment5.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.2F);
         this.segment6.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment4Y) * 0.1F);
 
-        if (entity.isInWater()) {
+        if (entity.isInWater() && !entity.isTryingToFly()) {
             this.swim_control.xRot = headPitch * deg / 3;
         }
     }

@@ -324,73 +324,30 @@
   },
   "hibbertopterus_death": {
     "sounds": [
-      {
-        "name": "mob/spider/death",
-        "pitch": 0.5
-      }
+      "unusual_prehistory:entity/hibbertopterus/death1"
     ],
     "subtitle": "subtitles.hibbertopterus_death"
   },
   "hibbertopterus_hurt": {
     "sounds": [
-      {
-        "name": "mob/spider/say1",
-        "pitch": 0.4
-      },
-      {
-        "name": "mob/spider/say2",
-        "pitch": 0.4
-      },
-      {
-        "name": "mob/spider/say3",
-        "pitch": 0.4
-      },
-      {
-        "name": "mob/spider/say4",
-        "pitch": 0.4
-      }
+      "unusual_prehistory:entity/hibbertopterus/hurt1",
+      "unusual_prehistory:entity/hibbertopterus/hurt2"
     ],
     "subtitle": "subtitles.hibbertopterus_hurt"
   },
   "hibbertopterus_idle": {
     "sounds": [
-      {
-        "name": "mob/spider/say1",
-        "pitch": 0.5
-      },
-      {
-        "name": "mob/spider/say2",
-        "pitch": 0.5
-      },
-      {
-        "name": "mob/spider/say3",
-        "pitch": 0.5
-      },
-      {
-        "name": "mob/spider/say4",
-        "pitch": 0.5
-      }
+      "unusual_prehistory:entity/hibbertopterus/idle1",
+      "unusual_prehistory:entity/hibbertopterus/idle2",
+      "unusual_prehistory:entity/hibbertopterus/idle3",
+      "unusual_prehistory:entity/hibbertopterus/idle4"
     ],
     "subtitle": "subtitles.hibbertopterus_idle"
   },
   "hibbertopterus_step": {
     "sounds": [
-      {
-        "name": "mob/spider/step1",
-        "pitch": 0.65
-      },
-      {
-        "name": "mob/spider/step2",
-        "pitch": 0.65
-      },
-      {
-        "name": "mob/spider/step3",
-        "pitch": 0.65
-      },
-      {
-        "name": "mob/spider/step4",
-        "pitch": 0.65
-      }
+      "unusual_prehistory:entity/hibbertopterus/step1",
+      "unusual_prehistory:entity/hibbertopterus/step2"
     ],
     "subtitle": "subtitles.hibbertopterus_step"
   },

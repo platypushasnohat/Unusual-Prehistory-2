@@ -1,14 +1,19 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
@@ -34,7 +40,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class Aegirocassis extends PrehistoricAquaticMob {
+public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
+
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.BOOLEAN);
 
     public final AegirocassisPart headPart;
     public final AegirocassisPart tailPart1;
@@ -49,6 +57,11 @@ public class Aegirocassis extends PrehistoricAquaticMob {
 
     public final AnimationState eyesAnimationState = new AnimationState();
     public final AnimationState mouthAnimationState = new AnimationState();
+    public final AnimationState leapStartAnimationState = new AnimationState();
+    public final AnimationState leapAnimationState = new AnimationState();
+
+    private int leapStartTicks;
+    private int leapTicks;
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -73,6 +86,7 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
+        this.goalSelector.addGoal(1, new AegirocassisTryToFlyGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AEGIROCASSIS_FOOD), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 30, 15, 10, 3, true));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
@@ -180,18 +194,58 @@ public class Aegirocassis extends PrehistoricAquaticMob {
                 aegirocassisPart.refreshDimensions();
             }
         }
+
+        if (this.getPose() == UP2Poses.START_FLYING.get() && leapStartTicks > 20) {
+            if (!this.isInWaterOrBubble() && this.getDeltaMovement().y < 0.0) {
+                this.setDeltaMovement(this.getDeltaMovement().multiply(1.0F, 0.3F, 1.0F));
+            }
+        }
+        if (this.getPose() == Pose.FALL_FLYING && (this.isInWaterOrBubble() || this.onGround())) {
+            this.setPose(Pose.STANDING);
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.eyesAnimationState.animateWhen(this.isAlive(), this.tickCount);
-        this.mouthAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        if (leapStartTicks == 0 && this.leapStartAnimationState.isStarted()) this.leapStartAnimationState.stop();
+        if (leapTicks == 0 && this.leapAnimationState.isStarted()) this.leapAnimationState.stop();
+        this.eyesAnimationState.animateWhen(this.isAlive() && !this.isTryingToFly(), this.tickCount);
+        this.mouthAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
+        this.leapAnimationState.animateWhen(this.getPose() == Pose.FALL_FLYING, this.tickCount);
+    }
+
+    public boolean isTryingToFly() {
+        return this.getPose() == UP2Poses.START_FLYING.get() || this.getPose() == Pose.FALL_FLYING;
     }
 
     @Override
     public void setupAnimationCooldowns() {
+        if (leapStartTicks > 0) leapStartTicks--;
+        if (leapTicks > 0) leapTicks--;
+        if (leapStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) this.setPose(Pose.FALL_FLYING);
+        if (leapTicks == 0 && this.getPose() == Pose.FALL_FLYING) this.setPose(Pose.STANDING);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.START_FLYING.get()) {
+                this.leapStartAnimationState.start(this.tickCount);
+                this.leapStartTicks = 120;
+            }
+            if (this.getPose() == Pose.FALL_FLYING) {
+                this.leapStartAnimationState.stop();
+                this.leapAnimationState.start(this.tickCount);
+                this.leapTicks = 60;
+            }
+            else if (this.getPose() == Pose.STANDING) {
+                this.leapStartAnimationState.stop();
+                this.leapAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     private void tickMultipart() {
@@ -250,8 +304,19 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        super.onSyncedDataUpdated(accessor);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LEAPING, false);
+    }
+
+    @Override
+    public boolean isLeaping() {
+        return this.entityData.get(LEAPING);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
     }
 
     @Override
@@ -286,5 +351,55 @@ public class Aegirocassis extends PrehistoricAquaticMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UP2Entities.AEGIROCASSIS.get().create(serverLevel);
+    }
+
+    // Goals
+    private static class AegirocassisTryToFlyGoal extends AquaticLeapGoal {
+
+        private final Aegirocassis aegirocassis;
+
+        public AegirocassisTryToFlyGoal(Aegirocassis aegirocassis) {
+            super(aegirocassis, 50, 1.0D, 1.25D);
+            this.aegirocassis = aegirocassis;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.aegirocassis.setPose(UP2Poses.START_FLYING.get());
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !aegirocassis.isBaby();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            Vec3 motion = aegirocassis.getDeltaMovement();
+            if (!aegirocassis.isInWaterOrBubble() && motion.y < -0.1D) return false;
+            if (aegirocassis.onGround()) return false;
+            return aegirocassis.isLeaping();
+        }
+
+        @Override
+        public void tick() {
+            boolean flag = breached;
+            this.aegirocassis.getNavigation().stop();
+            if (!flag) {
+                FluidState fluidstate = aegirocassis.level().getFluidState(aegirocassis.blockPosition());
+                this.breached = fluidstate.is(FluidTags.WATER);
+            }
+
+            if (breached && !flag) {
+                this.aegirocassis.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
+            }
+
+            Vec3 vec3 = aegirocassis.getDeltaMovement();
+            Vec3 movement = new Vec3(aegirocassis.getMotionDirection().getStepX(), 0, aegirocassis.getMotionDirection().getStepZ()).normalize().scale(0.1F);
+            Vec3 glide = new Vec3(movement.x, vec3.y, movement.z);
+            this.aegirocassis.setDeltaMovement(glide);
+            this.aegirocassis.setYRot(((float) Mth.atan2(aegirocassis.getMotionDirection().getStepZ(), aegirocassis.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
+        }
     }
 }

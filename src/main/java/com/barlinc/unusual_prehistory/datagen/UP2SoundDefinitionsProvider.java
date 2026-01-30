@@ -174,25 +174,21 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Hibbertopterus
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_HURT,
-                sound("mob/spider/say1").pitch(0.4F),
-                sound("mob/spider/say2").pitch(0.4F),
-                sound("mob/spider/say3").pitch(0.4F),
-                sound("mob/spider/say4").pitch(0.4F)
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/hurt2"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_DEATH,
-                sound("mob/spider/death").pitch(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/death1"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_IDLE,
-                sound("mob/spider/say1").pitch(0.5F),
-                sound("mob/spider/say2").pitch(0.5F),
-                sound("mob/spider/say3").pitch(0.5F),
-                sound("mob/spider/say4").pitch(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle4"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_STEP,
-                sound("mob/spider/step1").pitch(0.65F),
-                sound("mob/spider/step2").pitch(0.65F),
-                sound("mob/spider/step3").pitch(0.65F),
-                sound("mob/spider/step4").pitch(0.65F)
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/step2"))
         );
 
         // Jawless fish

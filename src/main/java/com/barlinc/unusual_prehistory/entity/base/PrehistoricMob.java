@@ -104,9 +104,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Jukebox detection
     @Override
-    public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> acceptor) {
-        if (this.level() instanceof ServerLevel serverlevel) {
-            acceptor.accept(this.dynamicJukeboxListener, serverlevel);
+    public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> consumer) {
+        if (this.canDanceToJukebox()) {
+            if (this.level() instanceof ServerLevel serverlevel) {
+                consumer.accept(this.dynamicJukeboxListener, serverlevel);
+            }
         }
     }
 
@@ -124,6 +126,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public boolean shouldStopDancing() {
         return this.getLastHurtByMob() != null || this.getTarget() != null || this.hasControllingPassenger() || jukeboxPosition == null || !jukeboxPosition.closerToCenterThan(position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !level().getBlockState(jukeboxPosition).is(Blocks.JUKEBOX);
+    }
+
+    public boolean canDanceToJukebox() {
+        return false;
     }
 
     // Navigation

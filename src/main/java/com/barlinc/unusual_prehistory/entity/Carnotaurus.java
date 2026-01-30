@@ -315,7 +315,7 @@ public class Carnotaurus extends PrehistoricMob {
                 this.roarTicks = 40;
                 this.roarAnimationState.start(this.tickCount);
             }
-            else {
+            else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.attackFast1AnimationState.stop();

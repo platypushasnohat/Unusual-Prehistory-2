@@ -1,11 +1,13 @@
  package com.barlinc.unusual_prehistory.entity;
 
+ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+ import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -18,6 +20,7 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.BlockTags;
  import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
@@ -65,7 +68,7 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 40.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.15F)
+                 .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ARMOR, 10.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
      }
@@ -73,10 +76,10 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
-         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
-         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
+         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
      }
 
      @Override
@@ -109,6 +112,11 @@
      }
 
      @Override
+     public boolean canDanceToJukebox() {
+         return true;
+     }
+
+     @Override
      public float getStepHeight() {
          return 1.1F;
      }
@@ -120,7 +128,7 @@
 
      @Override
      public boolean canBeCollidedWith() {
-         return true;
+         return this.isAlive() && !this.isBaby();
      }
 
      @Override
@@ -170,7 +178,7 @@
 
      @Override
      protected float getRiddenSpeed(@NotNull Player player) {
-         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D * this.steering.boostFactor());
+         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225D * this.steering.boostFactor());
      }
 
      @Override
@@ -239,7 +247,7 @@
 
      @Override
      public float getWalkAnimationSpeed() {
-         return this.isBaby() ? 6.0F : 10.0F;
+         return this.isBaby() ? 5.0F : 10.0F;
      }
 
      public void handleEntityEvent(byte id) {
@@ -262,14 +270,6 @@
          this.entityData.define(PLOW_TIME, 0);
      }
 
-     public void setPlowTime(int plowTime) {
-         this.entityData.set(PLOW_TIME, plowTime);
-     }
-
-     public int getPlowTime() {
-         return this.entityData.get(PLOW_TIME);
-     }
-
      @Override
      @Nullable
      protected SoundEvent getAmbientSound() {
@@ -290,7 +290,16 @@
 
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         this.playSound(UP2SoundEvents.HIBBERTOPTERUS_STEP.get(), 0.3F, 1.0F);
+         this.playSound(UP2SoundEvents.HIBBERTOPTERUS_STEP.get(), 0.4F, this.getStepPitch());
+     }
+
+     @Override
+     protected float nextStep() {
+         return this.moveDist + 0.55F;
+     }
+
+     private float getStepPitch() {
+         return this.isBaby() ? 1.45F + this.getRandom().nextFloat() * 0.1F : 0.95F + this.getRandom().nextFloat() * 0.1F;
      }
 
      @Nullable
