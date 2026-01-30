@@ -11,11 +11,14 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.core.Direction;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.tags.BlockTags;
+ import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -29,12 +32,18 @@
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
+ import net.minecraft.world.item.context.UseOnContext;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.phys.BlockHitResult;
  import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.common.Tags;
+ import net.minecraftforge.common.ToolActions;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
@@ -186,9 +195,35 @@
          return this.steering.boost(this.getRandom());
      }
 
+     private void tickPlowing() {
+         if (!(this.getControllingPassenger() instanceof Player player)) return;
+
+         for (int i = 0; i < 4; i++) {
+             float offset = 38.0F - i * 38.0F;
+             double blockPosX = this.getX() - Mth.sin((float) Math.toRadians(this.getYRot() - offset)) * 1.7D;
+             double blockPosZ = this.getZ() + Mth.cos((float) Math.toRadians(this.getYRot() - offset)) * 1.7D;
+             BlockPos pos = BlockPos.containing(blockPosX, this.getY() - 0.75D, blockPosZ);
+             BlockPos above = pos.above();
+             BlockState state = this.level().getBlockState(pos);
+             BlockState aboveState = this.level().getBlockState(above);
+             boolean replaceable = aboveState.canBeReplaced() || aboveState.is(BlockTags.REPLACEABLE) || aboveState.is(BlockTags.SMALL_FLOWERS) || aboveState.is(BlockTags.TALL_FLOWERS);
+             if (replaceable && !aboveState.isAir()) this.level().destroyBlock(above, true);
+             if (!replaceable) continue;
+             UseOnContext context = new UseOnContext(player.level(), player, InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_HOE), new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false));
+             BlockState modified = state.getToolModifiedState(context, ToolActions.HOE_TILL, false);
+             if (modified != null) {
+                 this.level().setBlock(pos, modified, 11);
+                 this.level().levelEvent(2001, pos, Block.getId(state));
+             }
+         }
+     }
+
      @Override
      public void tick() {
          super.tick();
+         if (!this.level().isClientSide && this.steering.isBoosting()) {
+             this.tickPlowing();
+         }
      }
 
      @Override
