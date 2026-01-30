@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
@@ -17,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -35,9 +37,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.BiConsumer;
 
 public abstract class PrehistoricMob extends TamableAnimal {
 
@@ -52,17 +57,18 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> FOREVER_BABY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
-
     protected static final EntityDataAccessor<Long> SIT_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-
     protected static final EntityDataAccessor<Long> EEPY_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> EEPY_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean useLowerFluidJumpThreshold = false;
     protected int eepyTicks;
+
+    private BlockPos jukeboxPosition;
+    private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
 
     public float prevEyeGlowProgress;
     public float eyeGlowProgress;
@@ -74,11 +80,14 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public final AnimationState sitStartAnimationState = new AnimationState();
     public final AnimationState sitAnimationState = new AnimationState();
     public final AnimationState sitEndAnimationState = new AnimationState();
+    public final AnimationState danceAnimationState = new AnimationState();
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricMoveControl(this);
         this.lookControl = new PrehistoricLookControl(this);
+        PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
+        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
     }
 
     @Override
@@ -91,6 +100,30 @@ public abstract class PrehistoricMob extends TamableAnimal {
         double y = entity.getZ() - this.getZ();
         double scale = Math.max(x * x + y * y, 0.001D);
         entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
+    }
+
+    // Jukebox detection
+    @Override
+    public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> acceptor) {
+        if (this.level() instanceof ServerLevel serverlevel) {
+            acceptor.accept(this.dynamicJukeboxListener, serverlevel);
+        }
+    }
+
+    public void danceToJukebox(BlockPos pos, boolean dancing) {
+        if (dancing) {
+            if (!this.isDancing()) {
+                this.jukeboxPosition = pos;
+                this.setDancing(true);
+            }
+        } else if (pos.equals(jukeboxPosition)) {
+            this.jukeboxPosition = null;
+            this.setDancing(false);
+        }
+    }
+
+    public boolean shouldStopDancing() {
+        return this.getLastHurtByMob() != null || this.getTarget() != null || this.hasControllingPassenger() || jukeboxPosition == null || !jukeboxPosition.closerToCenterThan(position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !level().getBlockState(jukeboxPosition).is(Blocks.JUKEBOX);
     }
 
     // Navigation
@@ -302,6 +335,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.isInRain()) {
             this.stopSitting();
             this.setSitCooldown(6000 + random.nextInt(3000));
+        }
+
+        if (!this.level().isClientSide && tickCount % 20 == 0 && this.shouldStopDancing() && this.isDancing()) {
+            this.setDancing(false);
+            this.jukeboxPosition = null;
         }
     }
 
@@ -639,6 +677,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(EEPY_POSE_TICKS, 0L);
         this.entityData.define(EEPY_COOLDOWN, 100);
         this.entityData.define(COMMAND, 0);
+        this.entityData.define(DANCING, false);
     }
 
     @Override
@@ -800,5 +839,14 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
     public void setCommand(int command) {
         this.entityData.set(COMMAND, command);
+    }
+
+    // Dancing
+    public boolean isDancing() {
+        return this.entityData.get(DANCING);
+    }
+
+    public void setDancing(boolean dancing) {
+        this.entityData.set(DANCING, dancing);
     }
 }

@@ -170,6 +170,7 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 		this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);
+        this.animate(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks);
     }
 
 	@Override

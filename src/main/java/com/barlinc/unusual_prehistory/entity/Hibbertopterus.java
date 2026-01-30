@@ -86,7 +86,7 @@
 
      @Override
      public void travel(@NotNull Vec3 travelVec) {
-         if (this.refuseToMove() && this.onGround()) {
+         if ((this.refuseToMove() || this.isDancing()) && this.onGround()) {
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }
@@ -228,8 +228,9 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(this.getIdleState() != 3 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isDancing() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
          this.plowAnimationState.animateWhen(this.steering.isBoosting() && this.hasControllingPassenger(), this.tickCount);
+         this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
      }
 
      @Override
