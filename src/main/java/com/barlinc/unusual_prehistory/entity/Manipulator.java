@@ -86,7 +86,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.BARINASUCHUS_FOOD);
+         return stack.is(UP2ItemTags.MANIPULATOR_FOOD);
      }
 
      @Override
@@ -96,7 +96,7 @@
 
      @Override
      public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_BARINASUCHUS);
+         return itemStack.is(UP2ItemTags.PACIFIES_MANIPULATOR);
      }
 
      @Override
@@ -190,6 +190,6 @@
      }
 
      public static boolean canSpawn(EntityType<Manipulator> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.BARINASUCHUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+         return level.getBlockState(pos.below()).is(UP2BlockTags.MANIPULATOR_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
  }

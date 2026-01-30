@@ -166,6 +166,10 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.MANIPULATOR_SPAWNABLE_ON).add(
+                Blocks.GRASS_BLOCK
+        );
+
         this.tag(UP2BlockTags.MEGALANIA_SPAWNABLE_ON).add(
                 Blocks.GRASS_BLOCK,
                 Blocks.SAND,

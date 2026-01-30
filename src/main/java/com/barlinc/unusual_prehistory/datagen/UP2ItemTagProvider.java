@@ -213,6 +213,15 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_RABBIT
         );
 
+        this.tag(UP2ItemTags.MANIPULATOR_FOOD).add(
+                Items.SPIDER_EYE,
+                Items.FERMENTED_SPIDER_EYE,
+                Items.CHICKEN,
+                Items.RABBIT,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_RABBIT
+        );
+
         this.tag(UP2ItemTags.MEGALANIA_FOOD).add(
                 Items.BEEF,
                 Items.PORKCHOP,
@@ -328,6 +337,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_KAPROSUCHUS).addTag(UP2ItemTags.KAPROSUCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MANIPULATOR).addTag(UP2ItemTags.MANIPULATOR_FOOD);
         this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
