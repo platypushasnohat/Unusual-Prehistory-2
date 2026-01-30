@@ -871,6 +871,78 @@
     ],
     "subtitle": "subtitles.majungasaurus_step"
   },
+  "manipulator_death": {
+    "sounds": [
+      {
+        "name": "mob/spider/death",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.manipulator_death"
+  },
+  "manipulator_hurt": {
+    "sounds": [
+      {
+        "name": "mob/spider/say1",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/spider/say2",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/spider/say3",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/spider/say4",
+        "pitch": 0.6
+      }
+    ],
+    "subtitle": "subtitles.manipulator_hurt"
+  },
+  "manipulator_idle": {
+    "sounds": [
+      {
+        "name": "mob/spider/say1",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/say2",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/say3",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/say4",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.manipulator_idle"
+  },
+  "manipulator_step": {
+    "sounds": [
+      {
+        "name": "mob/spider/step1",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/step2",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/step3",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/spider/step4",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.manipulator_step"
+  },
   "medium_dunkleosteus_bite": {
     "sounds": [
       {

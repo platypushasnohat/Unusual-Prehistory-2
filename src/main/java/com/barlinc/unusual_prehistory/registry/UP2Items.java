@@ -132,6 +132,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose");
 
     // Manipulator
+    public static final RegistryObject<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
     public static final RegistryObject<Item> ROACH_FOSSIL = registerFossilItem("roach");
 
     // Megalania

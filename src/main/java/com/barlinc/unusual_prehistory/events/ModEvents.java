@@ -34,6 +34,7 @@ public class ModEvents {
         event.register(UP2Entities.LOBE_FINNED_FISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LobeFinnedFish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.LYSTROSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lystrosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.MAJUNGASAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Majungasaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.MANIPULATOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Manipulator::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.MEGALANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Megalania::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
@@ -71,6 +72,7 @@ public class ModEvents {
         event.put(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFish.createAttributes().build());
         event.put(UP2Entities.LYSTROSAURUS.get(), Lystrosaurus.createAttributes().build());
         event.put(UP2Entities.MAJUNGASAURUS.get(), Majungasaurus.createAttributes().build());
+        event.put(UP2Entities.MANIPULATOR.get(), Manipulator.createAttributes().build());
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.METRIORHYNCHUS.get(), Metriorhynchus.createAttributes().build());
         event.put(UP2Entities.ONCHOPRISTIS.get(), Onchopristis.createAttributes().build());

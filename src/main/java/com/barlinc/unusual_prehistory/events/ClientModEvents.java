@@ -17,6 +17,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
 import com.barlinc.unusual_prehistory.client.models.entity.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.barlinc.unusual_prehistory.client.models.entity.lobe_finned_fish.*;
+import com.barlinc.unusual_prehistory.client.models.entity.manipulator.ManipulatorModel;
 import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
@@ -82,6 +83,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.LYSTROSAURUS.get(), LystrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAJUNGASAURUS.get(), MajungasaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.MANIPULATOR.get(), ManipulatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.METRIORHYNCHUS.get(), MetriorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PACHYCEPHALOSAURUS.get(), PachycephalosaurusRenderer::new);
@@ -143,6 +145,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.LEPTICTIDIUM, LeptictidiumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LYSTROSAURUS, LystrosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAJUNGASAURUS, MajungasaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.MANIPULATOR, ManipulatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MEGALANIA, MegalaniaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.METRIORHYNCHUS, MetriorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ONCHOPRISTIS, OnchopristisModel::createBodyLayer);

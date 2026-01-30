@@ -355,6 +355,29 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/camel/step6").volume(0.4F).pitch(0.9F)
         );
 
+        // Manipulator
+        this.sound(UP2SoundEvents.MANIPULATOR_HURT,
+                sound("mob/spider/say1").pitch(0.6F),
+                sound("mob/spider/say2").pitch(0.6F),
+                sound("mob/spider/say3").pitch(0.6F),
+                sound("mob/spider/say4").pitch(0.6F)
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_DEATH,
+                sound("mob/spider/death").pitch(0.85F)
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_IDLE,
+                sound("mob/spider/say1").pitch(0.85F),
+                sound("mob/spider/say2").pitch(0.85F),
+                sound("mob/spider/say3").pitch(0.85F),
+                sound("mob/spider/say4").pitch(0.85F)
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_STEP,
+                sound("mob/spider/step1").pitch(0.85F),
+                sound("mob/spider/step2").pitch(0.85F),
+                sound("mob/spider/step3").pitch(0.85F),
+                sound("mob/spider/step4").pitch(0.85F)
+        );
+
         // Megalania
         this.sound(UP2SoundEvents.MEGALANIA_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt1")).pitch(0.9F),

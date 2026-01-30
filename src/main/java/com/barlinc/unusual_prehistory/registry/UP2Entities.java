@@ -169,6 +169,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
     );
 
+    public static final RegistryObject<EntityType<Manipulator>> MANIPULATOR = ENTITY_TYPE.register(
+            "manipulator", () ->
+            EntityType.Builder.of(Manipulator::new, MobCategory.CREATURE)
+                    .sized(1.5F, 1.9F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "manipulator").toString())
+    );
+
     public static final RegistryObject<EntityType<Megalania>> MEGALANIA = ENTITY_TYPE.register(
             "megalania", () ->
             EntityType.Builder.of(Megalania::new, MobCategory.CREATURE)

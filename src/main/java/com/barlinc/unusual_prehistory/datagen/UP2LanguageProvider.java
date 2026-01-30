@@ -60,6 +60,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.LOBE_FINNED_FISH);
         this.forEntity(UP2Entities.LYSTROSAURUS);
         this.forEntity(UP2Entities.MAJUNGASAURUS);
+        this.forEntity(UP2Entities.MANIPULATOR);
         this.forEntity(UP2Entities.MEGALANIA);
         this.forEntity(UP2Entities.METRIORHYNCHUS);
         this.forEntity(UP2Entities.ONCHOPRISTIS);
@@ -192,6 +193,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE, "Majungasaurus bites");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF, "Majungasaurus sniffs");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP, "Majungasaurus steps");
+
+        this.sound(UP2SoundEvents.MANIPULATOR_HURT, "Manipulator hurts");
+        this.sound(UP2SoundEvents.MANIPULATOR_DEATH, "Manipulator dies");
+        this.sound(UP2SoundEvents.MANIPULATOR_IDLE, "Manipulator chatters");
+        this.sound(UP2SoundEvents.MANIPULATOR_STEP, "Manipulator steps");
 
         this.sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
         this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");

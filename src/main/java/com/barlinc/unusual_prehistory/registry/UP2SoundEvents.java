@@ -98,6 +98,11 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_SNIFF = registerSoundEvent("majungasaurus_sniff");
     public static final RegistryObject<SoundEvent> MAJUNGASAURUS_STEP = registerSoundEvent("majungasaurus_step");
 
+    public static final RegistryObject<SoundEvent> MANIPULATOR_HURT = registerSoundEvent("manipulator_hurt");
+    public static final RegistryObject<SoundEvent> MANIPULATOR_DEATH = registerSoundEvent("manipulator_death");
+    public static final RegistryObject<SoundEvent> MANIPULATOR_IDLE = registerSoundEvent("manipulator_idle");
+    public static final RegistryObject<SoundEvent> MANIPULATOR_STEP = registerSoundEvent("manipulator_step");
+
     public static final RegistryObject<SoundEvent> MEGALANIA_HURT = registerSoundEvent("megalania_hurt");
     public static final RegistryObject<SoundEvent> MEGALANIA_DEATH = registerSoundEvent("megalania_death");
     public static final RegistryObject<SoundEvent> MEGALANIA_IDLE = registerSoundEvent("megalania_idle");
