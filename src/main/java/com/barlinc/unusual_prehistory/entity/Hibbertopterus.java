@@ -10,6 +10,8 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
  import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.RandomSource;
@@ -37,6 +39,10 @@
  public class Hibbertopterus extends SemiAquaticMob {
 
      private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.8F);
+
+     private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
+
+     private boolean plowing;
 
      public Hibbertopterus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -133,13 +139,19 @@
 
      @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
          boolean flag = this.isFood(player.getItemInHand(hand));
-         if (!flag && !this.isVehicle() && !player.isSecondaryUseActive()) {
+         if (!flag && !this.isBaby() && !this.isVehicle() && !player.isSecondaryUseActive() && !player.isShiftKeyDown()) {
              if (!this.level().isClientSide) {
                  player.startRiding(this);
              }
              return InteractionResult.sidedSuccess(this.level().isClientSide);
-         } else {
+         }
+         if (itemstack.is(Items.CARROT_ON_A_STICK) && player.isPassenger() && player.getControlledVehicle() == this) {
+
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         else {
              return super.mobInteract(player, hand);
          }
      }
@@ -150,12 +162,24 @@
 
      @Override
      protected float getRiddenSpeed(@NotNull Player player) {
-         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D);
+         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D * this.boostFactor());
+     }
+
+     public float boostFactor() {
+         return this.plowing ? 1.5F : 1.0F;
      }
 
      @Override
      public Vec3 getRiderOffset() {
          return new Vec3(0.0F, 0.0F, -0.5F);
+     }
+
+     public boolean startPlowing(ItemStack stack) {
+         if (this.getControllingPassenger() != null && !plowing) {
+             this.heal(2);
+             return true;
+         }
+         return false;
      }
 
      @Override
@@ -177,15 +201,29 @@
          return this.isBaby() ? 6.0F : 10.0F;
      }
 
+     public void handleEntityEvent(byte id) {
+         switch (id) {
+             default -> super.handleEntityEvent(id);
+         }
+     }
+
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          super.onSyncedDataUpdated(accessor);
      }
 
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             default -> super.handleEntityEvent(id);
-         }
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(PLOW_TIME, 0);
+     }
+
+     public void setPlowTime(int plowTime) {
+         this.entityData.set(PLOW_TIME, plowTime);
+     }
+
+     public int getPlowTime() {
+         return this.entityData.get(PLOW_TIME);
      }
 
      @Override

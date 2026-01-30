@@ -82,7 +82,7 @@ public class UP2Items {
     public static final RegistryObject<Item> GUILLOTINE_FOSSIL = registerFossilItem("guillotine");
 
     // Hibbertopterus
-    public static final RegistryObject<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xb5ac75, 0x4a3221);
+    public static final RegistryObject<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xe4b57c, 0x5d3a2f);
 
     // Jawless Fish
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = registerSpawnEggItem("jawless_fish", UP2Entities.JAWLESS_FISH, 0x312e38, 0x917388);
