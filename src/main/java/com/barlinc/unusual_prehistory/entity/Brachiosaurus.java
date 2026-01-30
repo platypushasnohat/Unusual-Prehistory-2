@@ -1,7 +1,10 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
- import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.BrachiosaurusAttackGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;

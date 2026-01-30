@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.client.renderer.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

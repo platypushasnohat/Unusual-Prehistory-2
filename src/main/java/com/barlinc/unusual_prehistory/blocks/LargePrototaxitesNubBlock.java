@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;

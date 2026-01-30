@@ -1,14 +1,11 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.PterodactylusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.TelecrexAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Pterodactylus;
-import com.barlinc.unusual_prehistory.entity.Telecrex;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;

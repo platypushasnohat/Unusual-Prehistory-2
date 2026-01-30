@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.client.models.entity.jawless_fish.*;
 import com.barlinc.unusual_prehistory.entity.JawlessFish;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.MajungasaurusModel;
-import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusAngryLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusAngryEmissiveLayer;
+import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusAngryLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MajungasaurusEyesLayer;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;

@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.client.models.entity.aegirocassis;
 
-import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisAnimations;
 import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisBabyAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Aegirocassis;
