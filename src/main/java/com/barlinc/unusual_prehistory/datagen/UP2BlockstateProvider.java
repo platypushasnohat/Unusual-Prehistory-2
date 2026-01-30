@@ -15,7 +15,6 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Function;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
-import static com.barlinc.unusual_prehistory.registry.UP2Blocks.METASEQUOIA_STAIRS;
 
 public class UP2BlockstateProvider extends BlockStateProvider {
 

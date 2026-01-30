@@ -1,7 +1,6 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.goals.MetriorhynchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
