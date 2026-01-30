@@ -42,7 +42,6 @@
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.BlockHitResult;
  import net.minecraft.world.phys.Vec3;
- import net.minecraftforge.common.Tags;
  import net.minecraftforge.common.ToolActions;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
