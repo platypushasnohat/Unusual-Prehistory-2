@@ -99,6 +99,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(LOBE_FINNED_FISH_BUCKET.get());
                         output.accept(PRAEPUSA_BUCKET.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
+                        output.accept(DIRT_ON_A_STICK.get());
                         output.accept(DOOMSURF_DISC.get());
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());

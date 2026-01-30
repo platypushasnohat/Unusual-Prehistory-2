@@ -172,6 +172,29 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/large_bite1"))
         );
 
+        // Hibbertopterus
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_HURT,
+                sound("mob/spider/say1").pitch(0.4F),
+                sound("mob/spider/say2").pitch(0.4F),
+                sound("mob/spider/say3").pitch(0.4F),
+                sound("mob/spider/say4").pitch(0.4F)
+        );
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_DEATH,
+                sound("mob/spider/death").pitch(0.5F)
+        );
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_IDLE,
+                sound("mob/spider/say1").pitch(0.5F),
+                sound("mob/spider/say2").pitch(0.5F),
+                sound("mob/spider/say3").pitch(0.5F),
+                sound("mob/spider/say4").pitch(0.5F)
+        );
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_STEP,
+                sound("mob/spider/step1").pitch(0.65F),
+                sound("mob/spider/step2").pitch(0.65F),
+                sound("mob/spider/step3").pitch(0.65F),
+                sound("mob/spider/step4").pitch(0.65F)
+        );
+
         // Jawless fish
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT,
                 sound("entity/fish/hurt1"),

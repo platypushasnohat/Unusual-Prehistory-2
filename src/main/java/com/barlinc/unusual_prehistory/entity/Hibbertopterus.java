@@ -3,8 +3,10 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -27,22 +29,24 @@
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Hibbertopterus extends SemiAquaticMob {
+ public class Hibbertopterus extends SemiAquaticMob implements ItemSteerable {
 
      private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.8F);
 
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
 
-     private boolean plowing;
+     private final SaddlelessItemBasedSteering steering = new SaddlelessItemBasedSteering(this.entityData, PLOW_TIME);
+
+     public final AnimationState plowAnimationState = new AnimationState();
 
      public Hibbertopterus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -130,7 +134,7 @@
      public LivingEntity getControllingPassenger() {
          Entity entity = this.getFirstPassenger();
          if (entity instanceof Player player) {
-             if (player.getMainHandItem().is(Items.CARROT_ON_A_STICK) || player.getOffhandItem().is(Items.CARROT_ON_A_STICK)) {
+             if (player.getMainHandItem().is(UP2Items.DIRT_ON_A_STICK.get()) || player.getOffhandItem().is(UP2Items.DIRT_ON_A_STICK.get())) {
                  return player;
              }
          }
@@ -139,16 +143,11 @@
 
      @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-         ItemStack itemstack = player.getItemInHand(hand);
          boolean flag = this.isFood(player.getItemInHand(hand));
          if (!flag && !this.isBaby() && !this.isVehicle() && !player.isSecondaryUseActive() && !player.isShiftKeyDown()) {
              if (!this.level().isClientSide) {
                  player.startRiding(this);
              }
-             return InteractionResult.sidedSuccess(this.level().isClientSide);
-         }
-         if (itemstack.is(Items.CARROT_ON_A_STICK) && player.isPassenger() && player.getControlledVehicle() == this) {
-
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
          else {
@@ -162,11 +161,7 @@
 
      @Override
      protected float getRiddenSpeed(@NotNull Player player) {
-         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D * this.boostFactor());
-     }
-
-     public float boostFactor() {
-         return this.plowing ? 1.5F : 1.0F;
+         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.25D * this.steering.boostFactor());
      }
 
      @Override
@@ -174,12 +169,21 @@
          return new Vec3(0.0F, 0.0F, -0.5F);
      }
 
-     public boolean startPlowing(ItemStack stack) {
-         if (this.getControllingPassenger() != null && !plowing) {
-             this.heal(2);
-             return true;
-         }
-         return false;
+     @Override
+     public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
+         return new Vec3(this.getX(), this.getBoundingBox().maxY + 0.1F, this.getZ());
+     }
+
+     @Override
+     protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
+         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
+         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+         this.steering.tickBoost();
+     }
+
+     @Override
+     public boolean boost() {
+         return this.steering.boost(this.getRandom());
      }
 
      @Override
@@ -190,6 +194,7 @@
      @Override
      public void setupAnimationStates() {
          this.idleAnimationState.animateWhen(this.getIdleState() != 3 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.plowAnimationState.animateWhen(this.steering.isBoosting() && this.hasControllingPassenger(), this.tickCount);
      }
 
      @Override
@@ -209,6 +214,9 @@
 
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+         if (PLOW_TIME.equals(accessor) && this.level().isClientSide) {
+             this.steering.onSynced();
+         }
          super.onSyncedDataUpdated(accessor);
      }
 
@@ -229,19 +237,24 @@
      @Override
      @Nullable
      protected SoundEvent getAmbientSound() {
-         return UP2SoundEvents.KAPROSUCHUS_IDLE.get();
+         return UP2SoundEvents.HIBBERTOPTERUS_IDLE.get();
      }
 
      @Override
      @Nullable
      protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-         return UP2SoundEvents.KAPROSUCHUS_HURT.get();
+         return UP2SoundEvents.HIBBERTOPTERUS_HURT.get();
      }
 
      @Override
      @Nullable
      protected SoundEvent getDeathSound() {
-         return UP2SoundEvents.KAPROSUCHUS_DEATH.get();
+         return UP2SoundEvents.HIBBERTOPTERUS_DEATH.get();
+     }
+
+     @Override
+     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+         this.playSound(UP2SoundEvents.HIBBERTOPTERUS_STEP.get(), 0.3F, 1.0F);
      }
 
      @Nullable

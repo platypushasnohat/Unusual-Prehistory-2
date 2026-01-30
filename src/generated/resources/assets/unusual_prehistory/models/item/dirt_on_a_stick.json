@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "unusual_prehistory:item/dirt_on_a_stick"
+  }
+}

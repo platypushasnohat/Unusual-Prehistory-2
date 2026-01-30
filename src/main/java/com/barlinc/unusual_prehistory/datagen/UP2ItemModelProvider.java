@@ -42,6 +42,11 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TAR_BUCKET);
         this.item(LIVING_OOZE_BUCKET);
 
+        this.item(PETRIFIED_LUCA);
+        this.item(LUCA);
+
+        this.handheldItem(DIRT_ON_A_STICK);
+
         // fossils
         this.item(BRISTLE_FOSSIL);
         this.item(BRUTE_FOSSIL);
@@ -156,6 +161,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
+    private void handheldItem(RegistryObject<?> item) {
+        this.handheld(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
+    }
+
     // utils
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/generated");
@@ -163,5 +172,12 @@ public class UP2ItemModelProvider extends ItemModelProvider {
             builder = builder.texture("layer" + i, layers[i]);
         }
         return builder;
+    }
+
+    private void handheld(String name, ResourceLocation... layers) {
+        ItemModelBuilder builder = withExistingParent(name, "item/handheld");
+        for (int i = 0; i < layers.length; i++) {
+            builder = builder.texture("layer" + i, layers[i]);
+        }
     }
 }

@@ -1,10 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
-import com.barlinc.unusual_prehistory.entity.Majungasaurus;
-import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;

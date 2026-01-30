@@ -86,6 +86,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.BOAT);
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
+        this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
+        this.addItem(UP2Items.LUCA, "L.U.C.A");
+
+        this.addItem(UP2Items.DIRT_ON_A_STICK, "Dirt on a Stick");
+
         this.addItem(UP2Items.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
         this.addItem(UP2Items.METASEQUOIA_CHEST_BOAT, "Metasequoia Boat with Chest");
@@ -144,6 +149,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE, "Dunkleosteus nibbles");
         this.sound(UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE, "Dunkleosteus chomps");
         this.sound(UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE, "Dunkleosteus crushes");
+
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_HURT, "Hibbertopterus hurts");
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_DEATH, "Hibbertopterus dies");
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_IDLE, "Hibbertopterus rattles");
+        this.sound(UP2SoundEvents.HIBBERTOPTERUS_STEP, "Hibbertopterus steps");
 
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
         this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
