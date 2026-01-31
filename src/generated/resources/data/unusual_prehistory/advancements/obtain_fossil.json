@@ -373,6 +373,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "plow_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:plow_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "plumage_fossil": {
       "conditions": {
         "items": [
@@ -580,6 +592,7 @@
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",
+      "plow_fossil",
       "jawless_fossil",
       "boar_tooth_fossil",
       "prickly_fossil",

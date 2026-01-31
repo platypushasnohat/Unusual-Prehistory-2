@@ -113,6 +113,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
     public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
     public static final RegistryObject<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
+    public static final RegistryObject<Block> HIBBERTOPTERUS_EGGS = registerWaterEggBlock("hibbertopterus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HIBBERTOPTERUS::get, 1));
     public static final RegistryObject<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new AlternatesWaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, UP2Entities.TARTUOSTEUS::get, 4));
     public static final RegistryObject<Block> KAPROSUCHUS_EGG = registerEggBlock("kaprosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KAPROSUCHUS::get, 8, 12, false));
     public static final RegistryObject<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
@@ -120,6 +121,7 @@ public class UP2Blocks {
     public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
     public static final RegistryObject<Block> LYSTROSAURUS_EGG = registerEggBlock("lystrosaurus_egg", () -> new MultipleEggBlock(UP2BlockProperties.EGG, UP2Entities.LYSTROSAURUS::get, 3, 6, 6, 12, 12, false));
     public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerEggBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11, false));
+    public static final RegistryObject<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.MANIPULATOR::get, 1));
     public static final RegistryObject<Block> MEGALANIA_EGG = registerEggBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14, false));
     public static final RegistryObject<Block> ONCHOPRISTIS_SAC = registerEggBlock("onchopristis_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.ONCHOPRISTIS::get, 1));
     public static final RegistryObject<Block> PACHYCEPHALOSAURUS_EGG = registerEggBlock("pachycephalosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.PACHYCEPHALOSAURUS::get, 10, 10, false));

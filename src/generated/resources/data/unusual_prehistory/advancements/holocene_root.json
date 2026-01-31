@@ -109,6 +109,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "hibbertopterus_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:hibbertopterus_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "jawless_fish_roe": {
       "conditions": {
         "items": [
@@ -199,6 +211,18 @@
           {
             "items": [
               "unusual_prehistory:majungasaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "manipulator_ootheca": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:manipulator_ootheca"
             ]
           }
         ]
@@ -387,6 +411,7 @@
       "desmatosuchus_egg",
       "diplocaulus_eggs",
       "dunkleosteus_sac",
+      "hibbertopterus_eggs",
       "jawless_fish_roe",
       "kaprosuchus_egg",
       "kentrosaurus_egg",
@@ -394,6 +419,7 @@
       "lobe_finned_fish_roe",
       "lystrosaurus_egg",
       "majungasaurus_egg",
+      "manipulator_ootheca",
       "megalania_egg",
       "onchopristis_sac",
       "pachycephalosaurus_egg",

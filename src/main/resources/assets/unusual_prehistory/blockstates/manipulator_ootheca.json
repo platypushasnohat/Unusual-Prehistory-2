@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusual_prehistory:block/manipulator_ootheca"
+      },
+      {
+        "model": "unusual_prehistory:block/manipulator_ootheca",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/manipulator_ootheca",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/manipulator_ootheca",
+        "y": 270
+      }
+    ]
+  }
+}

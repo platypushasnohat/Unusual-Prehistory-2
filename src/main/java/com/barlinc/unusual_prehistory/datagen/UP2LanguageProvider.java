@@ -301,6 +301,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
+        this.translateAdvancement("revive_hibbertopterus", "No Thoughts, Head Empty", "Revive a Hibbertopterus");
         this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
@@ -308,6 +309,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
+        this.translateAdvancement("revive_manipulator", "Mandibles", "Revive a Manipulator");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");

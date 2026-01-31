@@ -113,6 +113,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BOOMERANG_FOSSIL.get());
                         output.accept(RUNNER_FOSSIL.get());
                         output.accept(GUILLOTINE_FOSSIL.get());
+                        output.accept(PLOW_FOSSIL.get());
                         output.accept(JAWLESS_FOSSIL.get());
                         output.accept(BOAR_TOOTH_FOSSIL.get());
                         output.accept(PRICKLY_FOSSIL.get());
@@ -145,6 +146,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
+                        output.accept(UP2Blocks.HIBBERTOPTERUS_EGGS.get());
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
@@ -153,6 +155,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
                         output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
+                        output.accept(UP2Blocks.MANIPULATOR_OOTHECA.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());

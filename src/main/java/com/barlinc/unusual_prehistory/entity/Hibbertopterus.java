@@ -1,13 +1,11 @@
  package com.barlinc.unusual_prehistory.entity;
 
- import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
- import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -20,7 +18,6 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
- import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.BlockTags;
  import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
@@ -67,7 +64,7 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 40.0D)
+                 .add(Attributes.MAX_HEALTH, 36.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ARMOR, 10.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
@@ -88,6 +85,11 @@
      }
 
      @Override
+     protected float getWaterSlowDown() {
+         return 0.9F;
+     }
+
+     @Override
      public void travel(@NotNull Vec3 travelVec) {
          if ((this.refuseToMove() || this.isDancing()) && this.onGround()) {
              if (this.getNavigation().getPath() != null) {
@@ -96,19 +98,13 @@
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
          if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVec);
-             this.move(MoverType.SELF, this.getDeltaMovement());
-             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
              if (this.jumping) {
-                 this.setDeltaMovement(this.getDeltaMovement().scale(1.0D));
                  this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
              } else {
-                 this.setDeltaMovement(this.getDeltaMovement().scale(0.4D));
                  this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.05D, 0.0D));
              }
-         } else {
-             super.travel(travelVec);
          }
+         super.travel(travelVec);
      }
 
      @Override

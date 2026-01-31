@@ -39,6 +39,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 BOOMERANG_FOSSIL.get(),
                 RUNNER_FOSSIL.get(),
                 GUILLOTINE_FOSSIL.get(),
+                PLOW_FOSSIL.get(),
                 JAWLESS_FOSSIL.get(),
                 BOAR_TOOTH_FOSSIL.get(),
                 PRICKLY_FOSSIL.get(),

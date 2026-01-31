@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:paleozoic_root",
+  "criteria": {
+    "revive_hibbertopterus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:hibbertopterus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_hibbertopterus.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:hibbertopterus_eggs"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_hibbertopterus"
+    }
+  },
+  "requirements": [
+    [
+      "revive_hibbertopterus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

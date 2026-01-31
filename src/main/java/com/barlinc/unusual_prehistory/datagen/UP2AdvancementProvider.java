@@ -142,6 +142,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         reviveMobAdvancement("revive_coelacanthus", paleozoicRoot, UP2Blocks.COELACANTHUS_ROE.get(), UP2Entities.COELACANTHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_coelacanthus"), helper);
         reviveMobAdvancement("revive_diplocaulus", paleozoicRoot, UP2Blocks.DIPLOCAULUS_EGGS.get(), UP2Entities.DIPLOCAULUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_diplocaulus"), helper);
         reviveMobAdvancement("revive_dunkleosteus", paleozoicRoot, UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Entities.DUNKLEOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dunkleosteus"), helper);
+        reviveMobAdvancement("revive_hibbertopterus", paleozoicRoot, UP2Blocks.HIBBERTOPTERUS_EGGS.get(), UP2Entities.HIBBERTOPTERUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_hibbertopterus"), helper);
         reviveMobAdvancement("revive_jawless_fish", paleozoicRoot, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_jawless_fish"), helper);
         reviveMobAdvancement("revive_lobe_finned_fish", paleozoicRoot, UP2Blocks.LOBE_FINNED_FISH_ROE.get(), UP2Entities.LOBE_FINNED_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_lobe_finned_fish"), helper);
         reviveMobAdvancement("revive_stethacanthus", paleozoicRoot, UP2Blocks.STETHACANTHUS_SAC.get(), UP2Entities.STETHACANTHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_stethacanthus"), helper);
@@ -155,6 +156,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         reviveMobAdvancement("revive_brachiosaurus", jurassicRoot, UP2Blocks.BRACHIOSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_brachiosaurus"), helper);
         reviveMobAdvancement("revive_kentrosaurus", jurassicRoot, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kentrosaurus"), helper);
         reviveMobAdvancement("revive_kimmeridgebrachypteraeschnidium", jurassicRoot, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kimmeridgebrachypteraeschnidium"), helper);
+        reviveMobAdvancement("revive_manipulator", jurassicRoot, UP2Blocks.MANIPULATOR_OOTHECA.get(), UP2Entities.MANIPULATOR.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_manipulator"), helper);
         reviveMobAdvancement("revive_metriorhynchus", jurassicRoot, UP2Items.METRIORHYNCHUS_EMBRYO.get(), UP2Entities.METRIORHYNCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_metriorhynchus"), helper);
         reviveMobAdvancement("revive_pterodactylus", jurassicRoot, UP2Items.PTERODACTYLUS_EGG.get(), UP2Entities.PTERODACTYLUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_pterodactylus"), helper);
 

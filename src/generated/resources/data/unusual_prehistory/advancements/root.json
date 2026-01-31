@@ -384,6 +384,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "hibbertopterus_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:hibbertopterus_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "horsetail_fossil": {
       "conditions": {
         "items": [
@@ -564,6 +576,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "manipulator_ootheca": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:manipulator_ootheca"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "megalania_egg": {
       "conditions": {
         "items": [
@@ -642,6 +666,18 @@
           {
             "items": [
               "unusual_prehistory:pachycephalosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "plow_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:plow_fossil"
             ]
           }
         ]
@@ -963,6 +999,7 @@
       "desmatosuchus_egg",
       "diplocaulus_eggs",
       "dunkleosteus_sac",
+      "hibbertopterus_eggs",
       "jawless_fish_roe",
       "kaprosuchus_egg",
       "kentrosaurus_egg",
@@ -970,6 +1007,7 @@
       "lobe_finned_fish_roe",
       "lystrosaurus_egg",
       "majungasaurus_egg",
+      "manipulator_ootheca",
       "megalania_egg",
       "onchopristis_sac",
       "pachycephalosaurus_egg",
@@ -994,6 +1032,7 @@
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",
+      "plow_fossil",
       "jawless_fossil",
       "boar_tooth_fossil",
       "prickly_fossil",

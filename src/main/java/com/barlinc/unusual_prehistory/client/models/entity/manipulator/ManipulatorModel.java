@@ -225,12 +225,10 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 	public void setupAnim(Manipulator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
-            if (entity.isRunning()) this.animateWalk(ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
-        }
+        if (entity.isRunning()) this.animateWalk(ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+        else this.animateWalk(ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
 
-        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
+        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks,1, limbSwingAmount * 3);
         this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;

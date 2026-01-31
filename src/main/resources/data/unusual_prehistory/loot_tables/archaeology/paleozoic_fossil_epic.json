@@ -48,6 +48,11 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:impervious_fossil",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:plow_fossil",
+          "weight": 1
         }
       ],
       "rolls": 1.0
