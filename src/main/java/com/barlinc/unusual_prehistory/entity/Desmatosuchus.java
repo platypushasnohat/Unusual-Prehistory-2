@@ -98,7 +98,7 @@ public class Desmatosuchus extends PrehistoricMob {
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.18F)
-                .add(Attributes.ARMOR, 14.0F);
+                .add(Attributes.ARMOR, 12.0F);
     }
 
     @Override
