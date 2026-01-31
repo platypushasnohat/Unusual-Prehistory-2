@@ -3,7 +3,27 @@
   "config": {
     "structures": [
       {
-        "structure": "unusual_prehistory:fossil/test_1",
+        "structure": "unusual_prehistory:fossil/carnotaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/dromaeosaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/kentrosaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/majungasaurus",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/onchopristis",
+        "weight": 1
+      },
+      {
+        "structure": "unusual_prehistory:fossil/metriorhynchus",
         "weight": 1
       }
     ],
