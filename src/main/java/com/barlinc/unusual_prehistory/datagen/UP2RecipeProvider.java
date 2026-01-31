@@ -8,12 +8,14 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -39,6 +41,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_GOLD).define('X', UP2Items.MACHINE_PARTS.get()).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.INGOTS_COPPER).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_machine_parts", has(UP2Items.MACHINE_PARTS.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.DIRT_ON_A_STICK.get(), 1).requires(Tags.Items.TOOLS_FISHING_RODS).requires(Blocks.DIRT.asItem()).unlockedBy("has_fishing_rod", has(Tags.Items.TOOLS_FISHING_RODS)).save(consumer);
 
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_STAIRS.get(), 4).define('G', GREYNITE.get()).pattern("G  ").pattern("GG ").pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_SLAB.get(), 6).define('G', GREYNITE.get()).pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
@@ -87,6 +91,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         stonecutting(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_STAIRS.get(), 1, consumer);
         stonecutting(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_SLAB.get(), 2, consumer);
         stonecutting(FOSSILIZED_BONE_VERTEBRA.get(), FOSSILIZED_BONE_BLOCK.get(), 1, consumer);
+
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MOSSY_DIRT.get(), 8).define('D', Blocks.DIRT.asItem()).define('M', MOSS_LAYER.get()).pattern("DDD").pattern("DMD").pattern("DDD").unlockedBy("has_moss_layer", has(MOSS_LAYER.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_COLORLESS).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TINTED_REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_TINTED).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);

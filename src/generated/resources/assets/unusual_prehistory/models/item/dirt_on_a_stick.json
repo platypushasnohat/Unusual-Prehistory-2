@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "minecraft:item/handheld_rod",
   "textures": {
     "layer0": "unusual_prehistory:item/dirt_on_a_stick"
   }

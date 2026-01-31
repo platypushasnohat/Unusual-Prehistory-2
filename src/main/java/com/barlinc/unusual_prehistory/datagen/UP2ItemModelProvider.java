@@ -45,7 +45,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PETRIFIED_LUCA);
         this.item(LUCA);
 
-        this.handheldItem(DIRT_ON_A_STICK);
+        this.handheldRodItem(DIRT_ON_A_STICK);
 
         // fossils
         this.item(BRISTLE_FOSSIL);
@@ -168,6 +168,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.handheld(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
+    private void handheldRodItem(RegistryObject<?> item) {
+        this.handheldRod(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
+    }
+
     // utils
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/generated");
@@ -179,6 +183,13 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     private void handheld(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/handheld");
+        for (int i = 0; i < layers.length; i++) {
+            builder = builder.texture("layer" + i, layers[i]);
+        }
+    }
+
+    private void handheldRod(String name, ResourceLocation... layers) {
+        ItemModelBuilder builder = withExistingParent(name, "item/handheld_rod");
         for (int i = 0; i < layers.length; i++) {
             builder = builder.texture("layer" + i, layers[i]);
         }
