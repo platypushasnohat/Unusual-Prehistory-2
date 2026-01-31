@@ -1,17 +1,35 @@
 {
-    "ambientocclusion": false,
-    "render_type": "cutout",
-    "textures": {
-        "particle": "unusual_prehistory:block/manipulator_ootheca",
-        "texture": "unusual_prehistory:block/manipulator_ootheca"
-    },
-    "elements": [
-        {   "from": [  0, 0.25,  0 ],
-            "to":   [ 16, 0.25, 16 ],
-            "faces": {
-              "down":  { "uv": [  0, 16, 16,  0 ], "texture": "#texture" },
-              "up":  { "uv": [  0,  0, 16, 16 ], "texture": "#texture"}
-            }
-        }
-    ]
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "manipulator_ootheca",
+		"particle": "manipulator_ootheca"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 3],
+			"to": [12, 6, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+			"faces": {
+				"north": {"uv": [2.5, 2.5, 4.5, 4], "texture": "#0"},
+				"east": {"uv": [0, 2.5, 2.5, 4], "texture": "#0"},
+				"south": {"uv": [7, 2.5, 9, 4], "texture": "#0"},
+				"west": {"uv": [4.5, 2.5, 7, 4], "texture": "#0"},
+				"up": {"uv": [4.5, 2.5, 2.5, 0], "texture": "#0"},
+				"down": {"uv": [6.5, 0, 4.5, 2.5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "root",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"wynncraft_billboard_pivot": "none",
+			"wynncraft_block_brightness": -1,
+			"wynncraft_sky_brightness": -1,
+			"children": [0]
+		}
+	]
 }
