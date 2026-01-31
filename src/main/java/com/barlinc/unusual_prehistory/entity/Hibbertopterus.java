@@ -97,7 +97,7 @@
              }
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
-         if (this.isEffectiveAi() && this.isInWater()) {
+         if (this.isInWater()) {
              if (this.jumping) {
                  this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
              } else {
@@ -174,7 +174,7 @@
 
      @Override
      protected float getRiddenSpeed(@NotNull Player player) {
-         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225D * this.steering.boostFactor());
+         return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (this.isInWater() ? 0.2D : 0.225D) * this.steering.boostFactor());
      }
 
      @Override
@@ -228,6 +228,9 @@
          if (!this.level().isClientSide && this.steering.isBoosting()) {
              this.tickPlowing();
          }
+//         if (this.hasControllingPassenger() && this.isInWater()) {
+//             this.move(MoverType.PLAYER, new Vec3(0.0D, -0.1D, 0.0D));
+//         }
      }
 
      @Override
