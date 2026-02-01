@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-31T14:47:53.2896877	Item Models: unusual_prehistory
+// 1.20.1	2026-01-31T18:51:29.2475902	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -35,6 +35,10 @@ c9b02087da1335242baba98c36350b993506b43f assets/unusual_prehistory/models/item/d
 813adf7ca8b20177821ef040b10425db1fdba276 assets/unusual_prehistory/models/item/doomsurf_disc.json
 ea3aa04d3eac74d7df9f12597733b26dbfc73a72 assets/unusual_prehistory/models/item/dromaeosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dromaeosaurus_spawn_egg.json
+b91ed43947ef442b37d43b182962c3171e260590 assets/unusual_prehistory/models/item/dryophyllum_boat.json
+bb73ae6c4616caec683b576b7be1059737aa48d0 assets/unusual_prehistory/models/item/dryophyllum_chest_boat.json
+9d3d39a47c990c0a04ecae1a7da36c48cf681760 assets/unusual_prehistory/models/item/dryophyllum_hanging_sign.json
+8c8d02c26fde7a1bbf3d3bc6fe847883f09dfc8c assets/unusual_prehistory/models/item/dryophyllum_sign.json
 229c09dbbd16bbeb2a7e8d1135148246ed9afb6a assets/unusual_prehistory/models/item/dubious_fossil.json
 d4626cd2137ccbc02c39f1362f95565e358bdd7f assets/unusual_prehistory/models/item/dunkleosteus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dunkleosteus_spawn_egg.json

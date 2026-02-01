@@ -215,6 +215,11 @@ public class UP2Items {
     public static final RegistryObject<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
 
     // Wood
+    public static final RegistryObject<Item> DRYOPHYLLUM_SIGN = registerItem("dryophyllum_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DRYOPHYLLUM_HANGING_SIGN = registerItem("dryophyllum_hanging_sign", () -> new HangingSignItem(UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
+    public static final RegistryObject<Item> DRYOPHYLLUM_BOAT = registerItem("dryophyllum_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DRYOPHYLLUM_CHEST_BOAT = registerItemNoLang("dryophyllum_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_WALL_SIGN.get()));
     public static final RegistryObject<Item> GINKGO_HANGING_SIGN = registerItem("ginkgo_hanging_sign", () -> new HangingSignItem(UP2Blocks.GINKGO_HANGING_SIGN.get(), UP2Blocks.GINKGO_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> GINKGO_BOAT = registerItem("ginkgo_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.GINKGO, new Item.Properties().stacksTo(1)));

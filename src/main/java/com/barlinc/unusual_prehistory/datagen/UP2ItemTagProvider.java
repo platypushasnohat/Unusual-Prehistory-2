@@ -355,6 +355,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         // Misc
         this.tag(UP2ItemTags.STOPS_MOB_AGING).add(Items.POISONOUS_POTATO);
 
+        this.copy(UP2BlockTags.DRYOPHYLLUM_LOGS, UP2ItemTags.DRYOPHYLLUM_LOGS);
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
@@ -385,24 +386,28 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.GLASS).addTag(UP2ItemTags.REINFORCED_GLASS);
 
         this.tag(ItemTags.SIGNS).add(
+                DRYOPHYLLUM_SIGN.get(),
                 GINKGO_SIGN.get(),
                 LEPIDODENDRON_SIGN.get(),
                 METASEQUOIA_SIGN.get()
         );
 
         this.tag(ItemTags.HANGING_SIGNS).add(
+                DRYOPHYLLUM_HANGING_SIGN.get(),
                 GINKGO_HANGING_SIGN.get(),
                 LEPIDODENDRON_HANGING_SIGN.get(),
                 METASEQUOIA_HANGING_SIGN.get()
         );
 
         this.tag(ItemTags.BOATS).add(
+                DRYOPHYLLUM_BOAT.get(),
                 GINKGO_BOAT.get(),
                 LEPIDODENDRON_BOAT.get(),
                 METASEQUOIA_BOAT.get()
         );
 
         this.tag(ItemTags.CHEST_BOATS).add(
+                DRYOPHYLLUM_CHEST_BOAT.get(),
                 GINKGO_CHEST_BOAT.get(),
                 LEPIDODENDRON_CHEST_BOAT.get(),
                 METASEQUOIA_CHEST_BOAT.get()

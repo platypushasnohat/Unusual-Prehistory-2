@@ -20,6 +20,13 @@ public class WoodBlocks extends RotatedPillarBlock {
             return null;
 
         if (ToolActions.AXE_STRIP == toolAction) {
+            if (this == UP2Blocks.DRYOPHYLLUM_LOG.get()) {
+                return UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
+            if (this == UP2Blocks.DRYOPHYLLUM_WOOD.get()) {
+                return UP2Blocks.STRIPPED_DRYOPHYLLUM_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
+
             if (this == UP2Blocks.GINKGO_LOG.get()) {
                 return UP2Blocks.STRIPPED_GINKGO_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
             }

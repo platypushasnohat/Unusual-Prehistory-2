@@ -92,6 +92,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.addItem(UP2Items.DIRT_ON_A_STICK, "Dirt on a Stick");
 
+        this.addItem(UP2Items.DRYOPHYLLUM_CHEST_BOAT, "Dryophyllum Boat with Chest");
         this.addItem(UP2Items.GINKGO_CHEST_BOAT, "Ginkgo Boat with Chest");
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
         this.addItem(UP2Items.METASEQUOIA_CHEST_BOAT, "Metasequoia Boat with Chest");

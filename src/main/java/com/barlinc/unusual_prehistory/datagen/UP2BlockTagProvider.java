@@ -24,6 +24,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
         // Unusual Prehistory
+        this.tag(UP2BlockTags.DRYOPHYLLUM_LOGS).add(
+                DRYOPHYLLUM_LOG.get(),
+                DRYOPHYLLUM_WOOD.get(),
+                STRIPPED_DRYOPHYLLUM_LOG.get(),
+                STRIPPED_DRYOPHYLLUM_WOOD.get()
+        );
+
         this.tag(UP2BlockTags.GINKGO_LOGS).add(
                 GINKGO_LOG.get(),
                 GINKGO_WOOD.get(),
@@ -377,6 +384,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
 
+                DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(),
+                STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(),
+                DRYOPHYLLUM_PLANKS.get(), DRYOPHYLLUM_STAIRS.get(), DRYOPHYLLUM_SLAB.get(), DRYOPHYLLUM_FENCE.get(), DRYOPHYLLUM_FENCE_GATE.get(), DRYOPHYLLUM_PRESSURE_PLATE.get(), DRYOPHYLLUM_BUTTON.get(),
+                DRYOPHYLLUM_DOOR.get(), DRYOPHYLLUM_TRAPDOOR.get(),
+
                 GINKGO_LOG.get(), GINKGO_WOOD.get(),
                 STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(),
                 GINKGO_PLANKS.get(), GINKGO_STAIRS.get(), GINKGO_SLAB.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), GINKGO_BUTTON.get(),
@@ -395,6 +407,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
                 MOSS_LAYER.get(),
+                DRYOPHYLLUM_LEAVES.get(),
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),
                 LEPIDODENDRON_LEAVES.get(),
@@ -454,28 +467,42 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.SAPLINGS).add(
+                DRYOPHYLLUM_SAPLING.get(),
                 GINKGO_SAPLING.get(),
                 GOLDEN_GINKGO_SAPLING.get(),
                 LEPIDODENDRON_CONE.get()
         );
 
         this.tag(BlockTags.LEAVES).add(
+                DRYOPHYLLUM_LEAVES.get(),
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),
                 LEPIDODENDRON_LEAVES.get()
         );
 
-        this.tag(BlockTags.LOGS)
-                .addTag(UP2BlockTags.GINKGO_LOGS)
-                .addTag(UP2BlockTags.LEPIDODENDRON_LOGS)
-                .addTag(UP2BlockTags.METASEQUOIA_LOGS);
-
-        this.tag(BlockTags.LOGS_THAT_BURN)
-                .addTag(UP2BlockTags.GINKGO_LOGS)
-                .addTag(UP2BlockTags.LEPIDODENDRON_LOGS)
-                .addTag(UP2BlockTags.METASEQUOIA_LOGS);
+        this.tag(BlockTags.LOGS_THAT_BURN).add(
+                DRYOPHYLLUM_LOG.get(),
+                DRYOPHYLLUM_WOOD.get(),
+                STRIPPED_DRYOPHYLLUM_LOG.get(),
+                STRIPPED_DRYOPHYLLUM_WOOD.get(),
+                GINKGO_LOG.get(),
+                GINKGO_WOOD.get(),
+                STRIPPED_GINKGO_LOG.get(),
+                STRIPPED_GINKGO_WOOD.get(),
+                LEPIDODENDRON_LOG.get(),
+                LEPIDODENDRON_WOOD.get(),
+                MOSSY_LEPIDODENDRON_LOG.get(),
+                MOSSY_LEPIDODENDRON_WOOD.get(),
+                STRIPPED_LEPIDODENDRON_LOG.get(),
+                STRIPPED_LEPIDODENDRON_WOOD.get(),
+                METASEQUOIA_LOG.get(),
+                METASEQUOIA_WOOD.get(),
+                STRIPPED_METASEQUOIA_LOG.get(),
+                STRIPPED_METASEQUOIA_WOOD.get()
+        );
 
         this.tag(BlockTags.OVERWORLD_NATURAL_LOGS).add(
+                DRYOPHYLLUM_LOG.get(),
                 GINKGO_LOG.get(),
                 LEPIDODENDRON_LOG.get(),
                 MOSSY_LEPIDODENDRON_LOG.get(),
@@ -483,81 +510,94 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.PLANKS).add(
+                DRYOPHYLLUM_PLANKS.get(),
                 GINKGO_PLANKS.get(),
                 LEPIDODENDRON_PLANKS.get(),
                 METASEQUOIA_PLANKS.get()
         );
 
         this.tag(BlockTags.WOODEN_STAIRS).add(
+                DRYOPHYLLUM_STAIRS.get(),
                 GINKGO_STAIRS.get(),
                 LEPIDODENDRON_STAIRS.get(),
                 METASEQUOIA_STAIRS.get()
         );
 
         this.tag(BlockTags.WOODEN_SLABS).add(
+                DRYOPHYLLUM_SLAB.get(),
                 GINKGO_SLAB.get(),
                 LEPIDODENDRON_SLAB.get(),
                 METASEQUOIA_SLAB.get()
         );
 
         this.tag(BlockTags.WOODEN_FENCES).add(
+                DRYOPHYLLUM_FENCE.get(),
                 GINKGO_FENCE.get(),
                 LEPIDODENDRON_FENCE.get(),
                 METASEQUOIA_FENCE.get()
         );
 
         this.tag(BlockTags.FENCE_GATES).add(
+                DRYOPHYLLUM_FENCE_GATE.get(),
                 GINKGO_FENCE_GATE.get(),
                 LEPIDODENDRON_FENCE_GATE.get(),
                 METASEQUOIA_FENCE_GATE.get()
         );
 
         this.tag(BlockTags.WOODEN_DOORS).add(
+                DRYOPHYLLUM_DOOR.get(),
                 GINKGO_DOOR.get(),
                 LEPIDODENDRON_DOOR.get(),
                 METASEQUOIA_DOOR.get()
         );
 
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(
+                DRYOPHYLLUM_TRAPDOOR.get(),
                 GINKGO_TRAPDOOR.get(),
                 LEPIDODENDRON_TRAPDOOR.get(),
                 METASEQUOIA_TRAPDOOR.get()
         );
 
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(
+                DRYOPHYLLUM_PRESSURE_PLATE.get(),
                 GINKGO_PRESSURE_PLATE.get(),
                 LEPIDODENDRON_PRESSURE_PLATE.get(),
                 METASEQUOIA_PRESSURE_PLATE.get()
         );
 
         this.tag(BlockTags.WOODEN_BUTTONS).add(
+                DRYOPHYLLUM_BUTTON.get(),
                 GINKGO_BUTTON.get(),
                 LEPIDODENDRON_BUTTON.get(),
                 METASEQUOIA_BUTTON.get()
         );
 
         this.tag(BlockTags.STANDING_SIGNS).add(
+                DRYOPHYLLUM_SIGN.get(),
                 GINKGO_SIGN.get(),
                 LEPIDODENDRON_SIGN.get(),
                 METASEQUOIA_SIGN.get()
         );
 
         this.tag(BlockTags.WALL_SIGNS).add(
+                DRYOPHYLLUM_WALL_SIGN.get(),
                 GINKGO_WALL_SIGN.get(),
                 LEPIDODENDRON_WALL_SIGN.get(),
                 METASEQUOIA_WALL_SIGN.get()
         );
 
-        this.tag(BlockTags.WALL_HANGING_SIGNS).add(
-                GINKGO_WALL_HANGING_SIGN.get(),
-                LEPIDODENDRON_WALL_HANGING_SIGN.get(),
-                METASEQUOIA_WALL_HANGING_SIGN.get()
-        );
-
         this.tag(BlockTags.CEILING_HANGING_SIGNS).add(
+                DRYOPHYLLUM_HANGING_SIGN.get(),
                 GINKGO_HANGING_SIGN.get(),
                 LEPIDODENDRON_HANGING_SIGN.get(),
                 METASEQUOIA_HANGING_SIGN.get()
+        );
+
+        this.tag(BlockTags.WALL_HANGING_SIGNS).add(
+                DRYOPHYLLUM_WALL_HANGING_SIGN.get(),
+                GINKGO_WALL_HANGING_SIGN.get(),
+                LEPIDODENDRON_WALL_HANGING_SIGN.get(),
+                METASEQUOIA_WALL_HANGING_SIGN.get()
         );
 
         this.tag(BlockTags.CAULDRONS).add(
@@ -566,12 +606,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         // forge
         this.tag(Tags.Blocks.FENCE_GATES).add(
+                DRYOPHYLLUM_FENCE_GATE.get(),
                 GINKGO_FENCE_GATE.get(),
                 LEPIDODENDRON_FENCE_GATE.get(),
                 METASEQUOIA_FENCE_GATE.get()
         );
 
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(
+                DRYOPHYLLUM_FENCE_GATE.get(),
                 GINKGO_FENCE_GATE.get(),
                 LEPIDODENDRON_FENCE_GATE.get(),
                 METASEQUOIA_FENCE_GATE.get()

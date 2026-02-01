@@ -212,6 +212,26 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
 
                         // trees
+                        output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());
+                        output.accept(UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get());
+                        output.accept(UP2Blocks.STRIPPED_DRYOPHYLLUM_WOOD.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_PLANKS.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_STAIRS.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_SLAB.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_FENCE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_FENCE_GATE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_DOOR.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_TRAPDOOR.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_BUTTON.get());
+                        output.accept(DRYOPHYLLUM_SIGN.get());
+                        output.accept(DRYOPHYLLUM_HANGING_SIGN.get());
+                        output.accept(DRYOPHYLLUM_BOAT.get());
+                        output.accept(DRYOPHYLLUM_CHEST_BOAT.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_LEAVES.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_SAPLING.get());
+
                         output.accept(UP2Blocks.GINKGO_LOG.get());
                         output.accept(UP2Blocks.GINKGO_WOOD.get());
                         output.accept(UP2Blocks.STRIPPED_GINKGO_LOG.get());

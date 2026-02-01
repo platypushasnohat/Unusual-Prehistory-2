@@ -173,6 +173,27 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());
 
+        this.dropSelf(DRYOPHYLLUM_LOG.get());
+        this.dropSelf(DRYOPHYLLUM_WOOD.get());
+        this.dropSelf(STRIPPED_DRYOPHYLLUM_LOG.get());
+        this.dropSelf(STRIPPED_DRYOPHYLLUM_WOOD.get());
+        this.dropSelf(DRYOPHYLLUM_PLANKS.get());
+        this.dropSelf(DRYOPHYLLUM_STAIRS.get());
+        this.add(DRYOPHYLLUM_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(DRYOPHYLLUM_FENCE.get());
+        this.dropSelf(DRYOPHYLLUM_FENCE_GATE.get());
+        this.add(DRYOPHYLLUM_DOOR.get(), this::createDoorTable);
+        this.dropSelf(DRYOPHYLLUM_TRAPDOOR.get());
+        this.dropSelf(DRYOPHYLLUM_PRESSURE_PLATE.get());
+        this.dropSelf(DRYOPHYLLUM_BUTTON.get());
+        this.dropSelf(DRYOPHYLLUM_SIGN.get());
+        this.dropSelf(DRYOPHYLLUM_WALL_SIGN.get());
+        this.dropSelf(DRYOPHYLLUM_HANGING_SIGN.get());
+        this.dropSelf(DRYOPHYLLUM_SAPLING.get());
+        this.dropPottedContents(POTTED_DRYOPHYLLUM_SAPLING.get());
+
+        this.add(DRYOPHYLLUM_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, DRYOPHYLLUM_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+
         this.dropSelf(GINKGO_LOG.get());
         this.dropSelf(GINKGO_WOOD.get());
         this.dropSelf(STRIPPED_GINKGO_LOG.get());

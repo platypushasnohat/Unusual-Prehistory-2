@@ -136,6 +136,11 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.BRACHYPHYLLUM);
         this.item(UP2Blocks.AETHOPHYLLUM);
 
+        this.item(DRYOPHYLLUM_SIGN);
+        this.item(DRYOPHYLLUM_HANGING_SIGN);
+        this.item(DRYOPHYLLUM_BOAT);
+        this.item(DRYOPHYLLUM_CHEST_BOAT);
+
         this.item(GINKGO_SIGN);
         this.item(GINKGO_HANGING_SIGN);
         this.item(GINKGO_BOAT);
