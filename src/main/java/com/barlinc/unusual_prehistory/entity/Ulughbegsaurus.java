@@ -348,7 +348,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     private int getVariantByDye(DyeColor color) {
         return switch (color) {
-            case WHITE -> UlughbegsaurusVariant.WHITE.getId();
             case LIGHT_GRAY -> UlughbegsaurusVariant.LIGHT_GRAY.getId();
             case GRAY -> UlughbegsaurusVariant.GRAY.getId();
             case BLACK -> UlughbegsaurusVariant.BLACK.getId();
@@ -364,6 +363,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             case PURPLE -> UlughbegsaurusVariant.PURPLE.getId();
             case MAGENTA -> UlughbegsaurusVariant.MAGENTA.getId();
             case PINK -> UlughbegsaurusVariant.PINK.getId();
+            default -> UlughbegsaurusVariant.WHITE.getId();
         };
     }
 

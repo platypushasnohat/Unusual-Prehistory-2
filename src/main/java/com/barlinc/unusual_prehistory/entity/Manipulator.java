@@ -12,6 +12,8 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.RandomSource;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,10 +25,12 @@
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -35,8 +39,9 @@
 
      public int attackCooldown = 0;
 
-     public final AnimationState attack1AnimationState = new AnimationState();
-     public final AnimationState attack2AnimationState = new AnimationState();
+     public final AnimationState idleArmedAnimationState = new AnimationState();
+     public final AnimationState attackAnimationState = new AnimationState();
+     public final AnimationState attackArmedAnimationState = new AnimationState();
 
      private int attackTicks;
 
@@ -56,11 +61,14 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new FloatGoal(this));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(2, new ManipulatorAttackGoal(this));
          this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
          this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
      }
 
      @Override
@@ -110,12 +118,40 @@
      }
 
      @Override
-     public void setupAnimationStates() {
-         if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
+     public boolean canOwnerCommand(Player player) {
+         return true;
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         InteractionResult type = super.mobInteract(player, hand);
+         if (!this.isTame() && itemstack.is(Items.DEBUG_STICK)) {
+             if (!player.getAbilities().instabuild) {
+                 itemstack.shrink(1);
+             }
+             this.gameEvent(GameEvent.ENTITY_INTERACT);
+             this.tame(player);
+             this.level().broadcastEntityEvent(this, (byte) 9);
+             this.setPacified(true);
+             this.heal(this.getMaxHealth());
+             return InteractionResult.SUCCESS;
          }
-         this.idleAnimationState.animateWhen(!this.isInSitPoseTransition() && !this.isDancing() && !this.isInEepyPoseTransition(), this.tickCount);
+         return type;
+     }
+
+     public boolean isHoldingItem() {
+         return !this.getMainHandItem().isEmpty() && !this.getOffhandItem().isEmpty();
+     }
+
+     @Override
+     public void setupAnimationStates() {
+         if (attackTicks == 0 && (this.attackAnimationState.isStarted() || this.attackArmedAnimationState.isStarted())) {
+             this.attackAnimationState.stop();
+             this.attackArmedAnimationState.stop();
+         }
+         this.idleAnimationState.animateWhen(!this.isHoldingItem() && !this.isInSitPoseTransition() && !this.isDancing() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && !this.isInSitPoseTransition() && !this.isDancing() && !this.isInEepyPoseTransition(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
      }
 
@@ -123,7 +159,7 @@
      public void setupAnimationCooldowns() {
          if (attackTicks > 0) attackTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.attackCooldown = 3 + this.getRandom().nextInt(2);
+             this.attackCooldown = 5 + this.getRandom().nextInt(5);
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
@@ -133,13 +169,13 @@
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          if (DATA_POSE.equals(accessor)) {
              if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
-                 else this.attack2AnimationState.start(this.tickCount);
-                 this.attackTicks = 15;
+                 if (this.isHoldingItem()) this.attackArmedAnimationState.start(this.tickCount);
+                 else this.attackAnimationState.start(this.tickCount);
+                 this.attackTicks = 30;
              }
              else {
-                 this.attack1AnimationState.stop();
-                 this.attack2AnimationState.stop();
+                 this.attackAnimationState.stop();
+                 this.attackArmedAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
