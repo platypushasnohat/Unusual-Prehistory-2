@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -214,13 +215,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_RABBIT
         );
 
-        this.tag(UP2ItemTags.MANIPULATOR_FOOD).add(
-                Items.SPIDER_EYE,
-                Items.FERMENTED_SPIDER_EYE,
-                Items.CHICKEN,
-                Items.RABBIT,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.MANIPULATOR_FOOD).addTag(ItemTags.SMALL_FLOWERS);
+        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
+                Blocks.TORCHFLOWER.asItem()
         );
 
         this.tag(UP2ItemTags.MEGALANIA_FOOD).add(
@@ -338,7 +335,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_KAPROSUCHUS).addTag(UP2ItemTags.KAPROSUCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_MANIPULATOR).addTag(UP2ItemTags.MANIPULATOR_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MANIPULATOR).addTag(UP2ItemTags.MANIPULATOR_FOOD).remove(UP2ItemTags.TAMES_MANIPULATOR);
         this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
@@ -351,6 +348,24 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(
                 Items.DEBUG_STICK
         );
+
+        // Dye Depot compat
+        this.tag(UP2ItemTags.AMBER_DYES).addOptional(new ResourceLocation("dye_depot", "amber_dye"));
+        this.tag(UP2ItemTags.AQUA_DYES).addOptional(new ResourceLocation("dye_depot", "aqua_dye"));
+        this.tag(UP2ItemTags.BEIGE_DYES).addOptional(new ResourceLocation("dye_depot", "beige_dye"));
+        this.tag(UP2ItemTags.CORAL_DYES).addOptional(new ResourceLocation("dye_depot", "coral_dye"));
+        this.tag(UP2ItemTags.FOREST_DYES).addOptional(new ResourceLocation("dye_depot", "forest_dye"));
+        this.tag(UP2ItemTags.GINGER_DYES).addOptional(new ResourceLocation("dye_depot", "ginger_dye"));
+        this.tag(UP2ItemTags.INDIGO_DYES).addOptional(new ResourceLocation("dye_depot", "indigo_dye"));
+        this.tag(UP2ItemTags.MAROON_DYES).addOptional(new ResourceLocation("dye_depot", "maroon_dye"));
+        this.tag(UP2ItemTags.MINT_DYES).addOptional(new ResourceLocation("dye_depot", "mint_dye"));
+        this.tag(UP2ItemTags.NAVY_DYES).addOptional(new ResourceLocation("dye_depot", "navy_dye"));
+        this.tag(UP2ItemTags.OLIVE_DYES).addOptional(new ResourceLocation("dye_depot", "olive_dye"));
+        this.tag(UP2ItemTags.ROSE_DYES).addOptional(new ResourceLocation("dye_depot", "rose_dye"));
+        this.tag(UP2ItemTags.SLATE_DYES).addOptional(new ResourceLocation("dye_depot", "slate_dye"));
+        this.tag(UP2ItemTags.TAN_DYES).addOptional(new ResourceLocation("dye_depot", "tan_dye"));
+        this.tag(UP2ItemTags.TEAL_DYES).addOptional(new ResourceLocation("dye_depot", "teal_dye"));
+        this.tag(UP2ItemTags.VERDANT_DYES).addOptional(new ResourceLocation("dye_depot", "verdant_dye"));
 
         // Misc
         this.tag(UP2ItemTags.STOPS_MOB_AGING).add(Items.POISONOUS_POTATO);

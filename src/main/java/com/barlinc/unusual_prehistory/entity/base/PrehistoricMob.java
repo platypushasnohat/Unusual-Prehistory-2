@@ -233,7 +233,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         InteractionResult type = super.mobInteract(player, hand);
         if (this.isFood(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
@@ -245,14 +244,47 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setForeverBaby(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
+        if (!type.consumesAction()) {
+            return this.interactTameCommands(player, hand);
+        }
+        if (this.canPacify()) {
+            return this.interactPacify(player, hand);
+        }
+        return type;
+    }
+
+    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
+            if (this.canOwnerCommand(player)) {
+                this.setCommand(this.getCommand() + 1);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
+                boolean sit = this.getCommand() == 1;
+                this.setOrderedToSit(sit);
+                return InteractionResult.SUCCESS;
+            } else if (this.canOwnerMount(player)) {
+                if (!level().isClientSide && player.startRiding(this)) {
+                    return InteractionResult.CONSUME;
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+
+    public InteractionResult interactPacify(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.setPacified(true);
             this.setPacifiedTicks(this.pacifiedTicks());
             this.level().broadcastEntityEvent(this, (byte) 9);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.isPermanentPacifyItem(itemstack) && this.canPacify() && (!this.isPacified() || this.getPacifiedTicks() > 0) && !this.isBaby()) {
+        if (this.isPermanentPacifyItem(itemstack) && (!this.isPacified() || this.getPacifiedTicks() > 0) && !this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.setPacified(true);
             this.setPacifiedTicks(-1);
@@ -260,26 +292,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (!interactionresult.consumesAction() && !type.consumesAction()) {
-            if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
-                if (this.canOwnerCommand(player)) {
-                    this.setCommand(this.getCommand() + 1);
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 1;
-                    this.setOrderedToSit(sit);
-                    return InteractionResult.SUCCESS;
-                } else if (this.canOwnerMount(player)) {
-                    if (!level().isClientSide && player.startRiding(this)) {
-                        return InteractionResult.CONSUME;
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-            }
-        }
-        return type;
+        return InteractionResult.PASS;
     }
 
     // Entity events

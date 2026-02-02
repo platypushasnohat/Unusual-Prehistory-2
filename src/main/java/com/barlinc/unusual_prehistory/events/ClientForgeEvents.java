@@ -2,18 +2,23 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
 import com.barlinc.unusual_prehistory.registry.UP2MapIcons;
+import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
+import com.barlinc.unusual_prehistory.screens.ManipulatorInventoryScreen;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -138,6 +143,20 @@ public class ClientForgeEvents {
             poseStack.translate(0.0F, 0.0F, -0.1F);
             font.drawInBatch(component, 0.0F, 0.0F, -1, false, poseStack.last().pose(), multiBufferSource, Font.DisplayMode.NORMAL, Integer.MIN_VALUE, lastMapRenderPackedLight);
             poseStack.popPose();
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void openManipulatorInventory(ManipulatorOpenInventoryPacket packet) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            Entity entity = player.level().getEntity(packet.getEntityId());
+            if (entity instanceof Manipulator manipulator) {
+                LocalPlayer localPlayer = Minecraft.getInstance().player;
+                ManipulatorContainer container = new ManipulatorContainer(packet.getId(), player.getInventory(), manipulator.manipulatorInventory, manipulator);
+                localPlayer.containerMenu = container;
+                Minecraft.getInstance().setScreen(new ManipulatorInventoryScreen(container, player.getInventory(), manipulator));
+            }
         }
     }
 }

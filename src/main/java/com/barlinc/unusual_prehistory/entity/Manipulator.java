@@ -3,17 +3,25 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+ import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Network;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.core.Direction;
+ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.nbt.ListTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.server.level.ServerPlayer;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.RandomSource;
- import net.minecraft.world.InteractionHand;
- import net.minecraft.world.InteractionResult;
+ import net.minecraft.world.*;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,17 +33,29 @@
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
+ import net.minecraft.world.item.enchantment.EnchantmentHelper;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.common.MinecraftForge;
+ import net.minecraftforge.common.capabilities.Capability;
+ import net.minecraftforge.common.capabilities.ForgeCapabilities;
+ import net.minecraftforge.common.util.LazyOptional;
+ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+ import net.minecraftforge.items.wrapper.InvWrapper;
+ import net.minecraftforge.network.PacketDistributor;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Manipulator extends PrehistoricMob {
+ public class Manipulator extends PrehistoricMob implements ContainerListener {
+
+     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.INT);
+
+     public final SimpleContainer manipulatorInventory = new SimpleContainer(2);
+     private LazyOptional<?> itemHandler;
+     public boolean interacting;
 
      public int attackCooldown = 0;
 
@@ -48,6 +68,8 @@
 
      public Manipulator(EntityType<? extends PrehistoricMob> entityType, Level level) {
          super(entityType, level);
+         this.manipulatorInventory.addListener(this);
+         this.itemHandler = LazyOptional.of(() -> new InvWrapper(this.manipulatorInventory));
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -117,12 +139,12 @@
 
      @Override
      public boolean refuseToMove() {
-         return super.refuseToMove();
+         return super.refuseToMove() || this.interacting;
      }
 
      @Override
      public boolean canOwnerCommand(Player player) {
-         return true;
+         return player.isShiftKeyDown();
      }
 
      @Override
@@ -141,22 +163,34 @@
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
-         if (!this.isTame() && itemstack.is(Items.DEBUG_STICK)) {
-             if (!player.getAbilities().instabuild) {
-                 itemstack.shrink(1);
+         if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_MANIPULATOR)) {
+             if (!this.level().isClientSide) {
+                 if (!player.getAbilities().instabuild) {
+                     itemstack.shrink(1);
+                 }
+                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                     this.level().broadcastEntityEvent(this, (byte) 7);
+                     this.tame(player);
+                     this.setPacified(true);
+                     this.heal(this.getMaxHealth());
+                 } else {
+                     this.level().broadcastEntityEvent(this, (byte) 6);
+                     this.setTameAttempts(this.getTameAttempts() + 1);
+                 }
              }
-             this.gameEvent(GameEvent.ENTITY_INTERACT);
-             this.tame(player);
-             this.level().broadcastEntityEvent(this, (byte) 9);
-             this.setPacified(true);
-             this.heal(this.getMaxHealth());
-             return InteractionResult.SUCCESS;
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         if (this.isTame() && !player.isShiftKeyDown()) {
+             if (player instanceof ServerPlayer serverPlayer) {
+                 this.openGui(serverPlayer);
+                 return InteractionResult.SUCCESS;
+             }
          }
          return type;
      }
 
      public boolean isHoldingItem() {
-         return !this.getMainHandItem().isEmpty() && !this.getOffhandItem().isEmpty();
+         return !this.getMainHandItem().isEmpty() || !this.getOffhandItem().isEmpty();
      }
 
      private boolean canPlayIdle() {
@@ -206,6 +240,127 @@
          switch (id) {
              default -> super.handleEntityEvent(id);
          }
+     }
+
+     @Override
+     protected void dropCustomDeathLoot(@NotNull DamageSource source, int looting, boolean recentlyHitIn) {
+         for (int i = 0; i < this.manipulatorInventory.getContainerSize(); i++) {
+             ItemStack itemstack = this.manipulatorInventory.getItem(i);
+             if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+                 this.spawnAtLocation(itemstack);
+             }
+         }
+     }
+
+     @Override
+     public @NotNull ItemStack getItemBySlot(EquipmentSlot slot) {
+         return switch (slot) {
+             case MAINHAND -> this.manipulatorInventory.getItem(0);
+             case OFFHAND -> this.manipulatorInventory.getItem(1);
+             default -> ItemStack.EMPTY;
+         };
+     }
+
+     @Override
+     public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {
+         super.setItemSlot(slot, stack);
+         switch (slot) {
+             case MAINHAND:
+                 this.manipulatorInventory.setItem(0, this.handItems.get(slot.getIndex()));
+                 break;
+             case OFFHAND:
+                 this.manipulatorInventory.setItem(1, this.handItems.get(slot.getIndex()));
+                 break;
+         }
+     }
+
+     @Override
+     protected void populateDefaultEquipmentSlots(@NotNull RandomSource source, @NotNull DifficultyInstance instance) {
+         this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 100.0F;
+         this.handDropChances[EquipmentSlot.OFFHAND.getIndex()] = 100.0F;
+     }
+
+     @Override
+     public void containerChanged(@NotNull Container container) {
+     }
+
+     public void openGui(ServerPlayer player) {
+         if (player.containerMenu != player.inventoryMenu) {
+             player.closeContainer();
+         }
+         this.interacting = true;
+         player.nextContainerCounter();
+         UP2Network.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ManipulatorOpenInventoryPacket(player.containerCounter, this.manipulatorInventory.getContainerSize(), this.getId()));
+         player.containerMenu = new ManipulatorContainer(player.containerCounter, player.getInventory(), this.manipulatorInventory, this);
+         player.initMenu(player.containerMenu);
+         MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
+     }
+
+     @Override
+     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+         if (this.isAlive() && capability == ForgeCapabilities.ITEM_HANDLER && itemHandler != null) return itemHandler.cast();
+         return super.getCapability(capability, facing);
+     }
+
+     @Override
+     public void invalidateCaps() {
+         super.invalidateCaps();
+         if (itemHandler != null) {
+             LazyOptional<?> oldHandler = itemHandler;
+             this.itemHandler = null;
+             oldHandler.invalidate();
+         }
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(TAME_ATTEMPTS, 0);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+         compoundTag.putBoolean("Interacting", this.interacting);
+         ListTag list = new ListTag();
+         for (int i = 0; i < this.manipulatorInventory.getContainerSize(); i++) {
+             ItemStack itemstack = this.manipulatorInventory.getItem(i);
+             if (!itemstack.isEmpty()) {
+                 CompoundTag tag = new CompoundTag();
+                 tag.putByte("Slot", (byte) i);
+                 itemstack.save(tag);
+                 list.add(tag);
+             }
+         }
+         compoundTag.put("Inventory", list);
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
+         this.interacting = compoundTag.getBoolean("Interacting");
+         ListTag list = compoundTag.getList("Inventory", 9);
+         for (int i = 0; i < list.size(); i++) {
+             CompoundTag compoundnbt = list.getCompound(i);
+             int j = compoundnbt.getByte("Slot") & 255;
+             this.manipulatorInventory.setItem(j, ItemStack.of(compoundnbt));
+         }
+         if (compoundTag.contains("HandItems", 9)) {
+             ListTag handItems = compoundTag.getList("HandItems", 10);
+             for (int i = 0; i < this.handItems.size(); i++) {
+                 this.manipulatorInventory.setItem(i, ItemStack.of(handItems.getCompound(i)));
+             }
+         }
+     }
+
+     public void setTameAttempts(int tameAttempts) {
+         this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+     }
+
+     public int getTameAttempts() {
+         return this.entityData.get(TAME_ATTEMPTS);
      }
 
      @Override

@@ -17,7 +17,7 @@ import java.util.Locale;
 @OnlyIn(Dist.CLIENT)
 public class UlughbegsaurusRenderer extends MobRenderer<Ulughbegsaurus, UlughbegsaurusModel> {
 
-    private static final ResourceLocation TEXTURE_RAINBOW = UnusualPrehistory2.modPrefix("textures/entity/ulughbegsaurus/ulughbegsaurus.png");
+    private static final ResourceLocation TEXTURE_RAINBOW = UnusualPrehistory2.modPrefix("textures/entity/ulughbegsaurus/rainbow.png");
 
     public UlughbegsaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new UlughbegsaurusModel(context.bakeLayer(UP2ModelLayers.ULUGHBEGSAURUS)), 0.95F);

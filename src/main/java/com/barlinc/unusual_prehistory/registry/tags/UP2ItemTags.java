@@ -63,6 +63,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> ULUGHBEGSAURUS_FOOD = modItemTag("ulughbegsaurus_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 
+    public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
+
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
     public static final TagKey<Item> DRYOPHYLLUM_LOGS = modItemTag("ginkgo_logs");
@@ -71,6 +73,24 @@ public class UP2ItemTags {
     public static final TagKey<Item> METASEQUOIA_LOGS = modItemTag("metasequoia_logs");
 
     public static final TagKey<Item> LIVING_OOZE_CANNOT_ABSORB = modItemTag("living_ooze_cannot_absorb");
+
+    // Dye Depot compat
+    public static final TagKey<Item> AMBER_DYES = modItemTag("amber_dyes");
+    public static final TagKey<Item> AQUA_DYES = modItemTag("aqua_dyes");
+    public static final TagKey<Item> BEIGE_DYES = modItemTag("beige_dyes");
+    public static final TagKey<Item> CORAL_DYES = modItemTag("coral_dyes");
+    public static final TagKey<Item> FOREST_DYES = modItemTag("forest_dyes");
+    public static final TagKey<Item> GINGER_DYES = modItemTag("ginger_dyes");
+    public static final TagKey<Item> INDIGO_DYES = modItemTag("indigo_dyes");
+    public static final TagKey<Item> MAROON_DYES = modItemTag("maroon_dyes");
+    public static final TagKey<Item> MINT_DYES = modItemTag("mint_dyes");
+    public static final TagKey<Item> NAVY_DYES = modItemTag("navy_dyes");
+    public static final TagKey<Item> OLIVE_DYES = modItemTag("olive_dyes");
+    public static final TagKey<Item> ROSE_DYES = modItemTag("rose_dyes");
+    public static final TagKey<Item> SLATE_DYES = modItemTag("slate_dyes");
+    public static final TagKey<Item> TAN_DYES = modItemTag("tan_dyes");
+    public static final TagKey<Item> TEAL_DYES = modItemTag("teal_dyes");
+    public static final TagKey<Item> VERDANT_DYES = modItemTag("verdant_dyes");
 
     // Forge tags
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");

@@ -231,10 +231,10 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
         if (entity.isRunning()) this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
         else this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
 
-        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks,1, limbSwingAmount * 3);
-        this.animateIdle(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks,1, limbSwingAmount * 3);
-        this.animateIdle(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks,1, limbSwingAmount * 3);
-        this.animateIdle(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks,1, limbSwingAmount * 3);
+        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
         this.animate(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
         this.animate(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);

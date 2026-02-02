@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.network.ParticlePacket;
 import net.minecraft.core.BlockPos;
@@ -35,6 +36,7 @@ public class UP2Network {
 
         network.registerMessage(id(), MountedEntityKeyPacket.class, MountedEntityKeyPacket::write, MountedEntityKeyPacket::read, MountedEntityKeyPacket::handle);
         network.registerMessage(id(), ParticlePacket.class, ParticlePacket::encode, ParticlePacket::new, ParticlePacket.Handler::onMessage);
+        network.registerMessage(id(), ManipulatorOpenInventoryPacket.class, ManipulatorOpenInventoryPacket::encode, ManipulatorOpenInventoryPacket::decode, ManipulatorOpenInventoryPacket::handle);
     }
 
     public static <MSG> void sendPacketToServer(MSG message) {
