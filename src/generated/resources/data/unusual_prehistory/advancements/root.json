@@ -276,6 +276,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "dryophyllum_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dryophyllum_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "dubious_fossil": {
       "conditions": {
         "items": [
@@ -606,6 +618,18 @@
           {
             "items": [
               "unusual_prehistory:meltdown_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "metasequoia_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:metasequoia_fossil"
             ]
           }
         ]
@@ -1070,6 +1094,8 @@
       "tempskya_fossil",
       "ginkgo_fossil",
       "lepidodendron_fossil",
+      "metasequoia_fossil",
+      "dryophyllum_fossil",
       "aged_feather",
       "machine_parts"
     ]

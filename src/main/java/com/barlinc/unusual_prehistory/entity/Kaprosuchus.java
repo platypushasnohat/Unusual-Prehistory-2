@@ -14,6 +14,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
  import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,6 +47,8 @@
  import org.jetbrains.annotations.Nullable;
 
  public class Kaprosuchus extends SemiAquaticMob implements LeapingMob {
+
+     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.INT);
 
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.BOOLEAN);
 
@@ -131,6 +134,18 @@
      }
 
      @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+     }
+
+     @Override
      public float getStepHeight() {
          return this.isRunning() ? 1.0F : 0.6F;
      }
@@ -183,16 +198,23 @@
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
 
-         if (!this.isTame() && itemstack.is(Items.DEBUG_STICK)) {
-             if (!player.getAbilities().instabuild) {
-                 itemstack.shrink(1);
-             }
+         if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_KAPROSUCHUS)) {
              this.gameEvent(GameEvent.ENTITY_INTERACT);
-             this.tame(player);
-             this.level().broadcastEntityEvent(this, (byte) 9);
-             this.setPacified(true);
-             this.heal(this.getMaxHealth());
-             return InteractionResult.SUCCESS;
+             if(!this.level().isClientSide) {
+                 if (!player.getAbilities().instabuild) {
+                     itemstack.shrink(1);
+                 }
+                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                     this.level().broadcastEntityEvent(this, (byte) 7);
+                     this.tame(player);
+                     this.setPacified(true);
+                     this.heal(this.getMaxHealth());
+                 } else {
+                     this.level().broadcastEntityEvent(this, (byte) 6);
+                     this.setTameAttempts(this.getTameAttempts() + 1);
+                 }
+             }
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
          return type;
      }
@@ -314,7 +336,16 @@
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
+         this.entityData.define(TAME_ATTEMPTS, 0);
          this.entityData.define(LEAPING, false);
+     }
+
+     public void setTameAttempts(int tameAttempts) {
+         this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+     }
+
+     public int getTameAttempts() {
+         return this.entityData.get(TAME_ATTEMPTS);
      }
 
      @Override

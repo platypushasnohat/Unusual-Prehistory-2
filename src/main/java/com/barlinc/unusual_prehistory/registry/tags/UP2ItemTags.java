@@ -30,6 +30,13 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
     public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
 
+    // Food Categories
+    public static final TagKey<Item> RAW_MEATS = modItemTag("raw_meats");
+    public static final TagKey<Item> COOKED_MEATS = modItemTag("cooked_meats");
+    public static final TagKey<Item> RAW_FISH = modItemTag("raw_fish");
+    public static final TagKey<Item> COOKED_FISH = modItemTag("cooked_fish");
+
+    // W eats
     public static final TagKey<Item> AEGIROCASSIS_FOOD = modItemTag("aegirocassis_food");
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
     public static final TagKey<Item> BRACHIOSAURUS_FOOD = modItemTag("brachiosaurus_food");
@@ -63,8 +70,6 @@ public class UP2ItemTags {
     public static final TagKey<Item> ULUGHBEGSAURUS_FOOD = modItemTag("ulughbegsaurus_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 
-    public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
-
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
     public static final TagKey<Item> DRYOPHYLLUM_LOGS = modItemTag("ginkgo_logs");
@@ -91,6 +96,11 @@ public class UP2ItemTags {
     public static final TagKey<Item> TAN_DYES = modItemTag("tan_dyes");
     public static final TagKey<Item> TEAL_DYES = modItemTag("teal_dyes");
     public static final TagKey<Item> VERDANT_DYES = modItemTag("verdant_dyes");
+
+    // Taming items
+    public static final TagKey<Item> TAMES_ULUGHBEGSAURUS = modItemTag("tames_ulughbegsaurus");
+    public static final TagKey<Item> TAMES_KAPROSUCHUS = modItemTag("tames_kaprosuchus");
+    public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
 
     // Forge tags
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");

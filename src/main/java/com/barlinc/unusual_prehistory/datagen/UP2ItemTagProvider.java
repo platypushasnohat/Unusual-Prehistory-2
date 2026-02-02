@@ -64,12 +64,14 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 DUBIOUS_FOSSIL.get(),
 
                 CALAMOPHYTON_FOSSIL.get(),
+                DRYOPHYLLUM_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
                 GINKGO_FOSSIL.get(),
                 RHYNIA_FOSSIL.get(),
                 TEMPSKYA_FOSSIL.get(),
                 LEEFRUCTUS_FOSSIL.get(),
                 NEOMARIOPTERIS_FOSSIL.get(),
+                METASEQUOIA_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
                 LEPIDODENDRON_FOSSIL.get(),
@@ -86,25 +88,38 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         // Food
-        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
-                Items.COD,
-                Items.COOKED_COD,
-                Items.SALMON,
-                Items.COOKED_SALMON,
-                Items.TROPICAL_FISH
-        );
-
-        this.tag(UP2ItemTags.BARINASUCHUS_FOOD).add(
+        this.tag(UP2ItemTags.RAW_MEATS).add(
                 Items.BEEF,
                 Items.PORKCHOP,
                 Items.CHICKEN,
                 Items.MUTTON,
-                Items.RABBIT,
+                Items.RABBIT);
+
+        this.tag(UP2ItemTags.COOKED_MEATS).add(
                 Items.COOKED_BEEF,
                 Items.COOKED_PORKCHOP,
                 Items.COOKED_CHICKEN,
                 Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+                Items.COOKED_RABBIT);
+
+        this.tag(UP2ItemTags.RAW_FISH).add(
+                Items.COD,
+                Items.SALMON,
+                Items.TROPICAL_FISH);
+
+        this.tag(UP2ItemTags.COOKED_FISH).add(
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
+        );
+
+        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
+        );
+
+        this.tag(UP2ItemTags.BARINASUCHUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.BRACHIOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
@@ -112,17 +127,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.SEAGRASS.asItem()
         );
 
-        this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
@@ -139,12 +146,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_CHICKEN
         );
 
-        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
+        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
         this.tag(UP2ItemTags.HIBBERTOPTERUS_FOOD).add(
@@ -158,22 +162,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SEAGRASS
         );
 
-        this.tag(UP2ItemTags.KAPROSUCHUS_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT,
-                Items.COD,
-                Items.COOKED_COD,
-                Items.SALMON,
-                Items.COOKED_SALMON,
-                Items.TROPICAL_FISH
+        this.tag(UP2ItemTags.KAPROSUCHUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS,
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
         this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
@@ -182,12 +175,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).add(
-                Items.SPIDER_EYE,
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
+                Items.SPIDER_EYE
+        );
+
+        this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
         this.tag(UP2ItemTags.LEPTICTIDIUM_FOOD).add(
@@ -202,51 +195,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.GRASS.asItem()
         );
 
-        this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.MANIPULATOR_FOOD).addTag(ItemTags.SMALL_FLOWERS);
-        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
-                Blocks.TORCHFLOWER.asItem()
+
+        this.tag(UP2ItemTags.MEGALANIA_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
-        this.tag(UP2ItemTags.MEGALANIA_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.METRIORHYNCHUS_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
-        this.tag(UP2ItemTags.METRIORHYNCHUS_FOOD).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
-        );
-
-        this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
+        this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
         this.tag(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD).add(
@@ -262,17 +230,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
-        this.tag(UP2ItemTags.PSILOPTERUS_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.PSILOPTERUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
@@ -281,12 +241,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.MELON_SLICE
         );
 
-        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
+        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTags(
+                UP2ItemTags.RAW_FISH,
+                UP2ItemTags.COOKED_FISH
         );
 
         this.tag(UP2ItemTags.TALPANAS_FOOD).add(
@@ -310,21 +267,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SWEET_BERRIES
         );
 
-        this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT,
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT
+        this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).addTags(
+                UP2ItemTags.RAW_MEATS,
+                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.UNICORN_FOOD).add(
                 Items.CAKE
+        );
+
+        // Taming
+        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
+                Blocks.TORCHFLOWER.asItem()
+        );
+
+        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTags(
+                UP2ItemTags.ULUGHBEGSAURUS_FOOD
+        );
+
+        this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(
+                Items.BONE
         );
 
         // Pacifying

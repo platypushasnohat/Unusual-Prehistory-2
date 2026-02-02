@@ -1,19 +1,8 @@
 {
   "values": [
-    "minecraft:beef",
-    "minecraft:porkchop",
-    "minecraft:chicken",
-    "minecraft:mutton",
-    "minecraft:rabbit",
-    "minecraft:cooked_beef",
-    "minecraft:cooked_porkchop",
-    "minecraft:cooked_chicken",
-    "minecraft:cooked_mutton",
-    "minecraft:cooked_rabbit",
-    "minecraft:cod",
-    "minecraft:cooked_cod",
-    "minecraft:salmon",
-    "minecraft:cooked_salmon",
-    "minecraft:tropical_fish"
+    "#unusual_prehistory:raw_meats",
+    "#unusual_prehistory:cooked_meats",
+    "#unusual_prehistory:raw_fish",
+    "#unusual_prehistory:cooked_fish"
   ]
 }

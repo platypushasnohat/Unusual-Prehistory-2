@@ -213,6 +213,8 @@ public class UP2Items {
     public static final RegistryObject<Item> TEMPSKYA_FOSSIL = registerFossilItem("tempskya");
     public static final RegistryObject<Item> GINKGO_FOSSIL = registerFossilItem("ginkgo");
     public static final RegistryObject<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
+    public static final RegistryObject<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
+    public static final RegistryObject<Item> DRYOPHYLLUM_FOSSIL = registerFossilItem("dryophyllum");
 
     // Wood
     public static final RegistryObject<Item> DRYOPHYLLUM_SIGN = registerItem("dryophyllum_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_SIGN.get()));

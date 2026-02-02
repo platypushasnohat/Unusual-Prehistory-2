@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-31T18:51:29.2475902	Item Models: unusual_prehistory
+// 1.20.1	2026-02-02T13:07:38.0722312	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -37,6 +37,7 @@ ea3aa04d3eac74d7df9f12597733b26dbfc73a72 assets/unusual_prehistory/models/item/d
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dromaeosaurus_spawn_egg.json
 b91ed43947ef442b37d43b182962c3171e260590 assets/unusual_prehistory/models/item/dryophyllum_boat.json
 bb73ae6c4616caec683b576b7be1059737aa48d0 assets/unusual_prehistory/models/item/dryophyllum_chest_boat.json
+2bd5570e94110fca8742e864266e4015f861dcab assets/unusual_prehistory/models/item/dryophyllum_fossil.json
 9d3d39a47c990c0a04ecae1a7da36c48cf681760 assets/unusual_prehistory/models/item/dryophyllum_hanging_sign.json
 8c8d02c26fde7a1bbf3d3bc6fe847883f09dfc8c assets/unusual_prehistory/models/item/dryophyllum_sign.json
 229c09dbbd16bbeb2a7e8d1135148246ed9afb6a assets/unusual_prehistory/models/item/dubious_fossil.json
@@ -97,6 +98,7 @@ eaabae11b2b5864cf3147228be79486e6fa26268 assets/unusual_prehistory/models/item/m
 41a17470ef50bef635590da5597ca9686cfdb645 assets/unusual_prehistory/models/item/meltdown_fossil.json
 09537b75f72d7e5b68cde62696c043129331b620 assets/unusual_prehistory/models/item/metasequoia_boat.json
 29d291bc09fcf4635189aff412a42d96886e531e assets/unusual_prehistory/models/item/metasequoia_chest_boat.json
+84c747b5fddf5f6e91ab661e3f8fa0740717f57f assets/unusual_prehistory/models/item/metasequoia_fossil.json
 a175c33aeb7477cec8879d5e8590b4f62ce09247 assets/unusual_prehistory/models/item/metasequoia_hanging_sign.json
 a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/metasequoia_sign.json
 7cd4e02cd2b15d832535d0a76a162b9e50108b1f assets/unusual_prehistory/models/item/metriorhynchus_embryo.json

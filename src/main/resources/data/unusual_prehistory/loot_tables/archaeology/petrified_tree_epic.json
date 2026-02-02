@@ -83,6 +83,16 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:lepidodendron_fossil",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:dryophyllum_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:metasequoia_fossil",
+          "weight": 1
         }
       ],
       "rolls": 1.0

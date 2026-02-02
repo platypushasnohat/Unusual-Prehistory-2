@@ -131,6 +131,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(AETHOPHYLLUM_FOSSIL);
         this.item(BRACHYPHYLLUM_FOSSIL);
         this.item(HORSETAIL_FOSSIL);
+        this.item(METASEQUOIA_FOSSIL);
+        this.item(DRYOPHYLLUM_FOSSIL);
 
         this.item(UP2Blocks.TEMPSKYA);
         this.item(UP2Blocks.BRACHYPHYLLUM);

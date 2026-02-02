@@ -54,6 +54,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
 
+    private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
+
     public int attackCooldown = 0;
 
     public final AnimationState swimAnimationState = new AnimationState();
@@ -115,17 +117,23 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-
-        if (!this.isTame() && itemstack.is(Items.DEBUG_STICK)) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
+        if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_ULUGHBEGSAURUS)) {
+            if (!this.level().isClientSide) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                    this.tame(player);
+                    this.setPacified(true);
+                    this.heal(this.getMaxHealth());
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                    this.setTameAttempts(this.getTameAttempts() + 1);
+                }
             }
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.tame(player);
-            this.level().broadcastEntityEvent(this, (byte) 9);
-            this.setPacified(true);
-            this.heal(this.getMaxHealth());
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         if (!this.isRainbow() && itemstack.is(Tags.Items.DYES)) {
             UlughbegsaurusVariant variant = UlughbegsaurusVariant.byDye(itemstack);
@@ -285,19 +293,30 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(TAME_ATTEMPTS, 0);
         this.entityData.define(RAINBOW, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("TameAttempts", this.getTameAttempts());
         compoundTag.putBoolean("Rainbow", this.isRainbow());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setTameAttempts(compoundTag.getInt("TameAttempts"));
         this.setRainbow(compoundTag.getBoolean("Rainbow"));
+    }
+
+    public void setTameAttempts(int tameAttempts) {
+        this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+    }
+
+    public int getTameAttempts() {
+        return this.entityData.get(TAME_ATTEMPTS);
     }
 
     public boolean isRainbow() {

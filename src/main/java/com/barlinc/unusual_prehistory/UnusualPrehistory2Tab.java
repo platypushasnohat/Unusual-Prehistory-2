@@ -186,6 +186,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(TEMPSKYA_FOSSIL.get());
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
+                        output.accept(METASEQUOIA_FOSSIL.get());
+                        output.accept(DRYOPHYLLUM_FOSSIL.get());
 
                         // plants
                         output.accept(UP2Blocks.AETHOPHYLLUM.get());
