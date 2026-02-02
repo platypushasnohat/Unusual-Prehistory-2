@@ -15,6 +15,8 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -31,11 +33,9 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -48,17 +48,15 @@ import java.util.List;
 
 public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount {
 
+    private static final EntityDataAccessor<Boolean> RAINBOW = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
 
     public int attackCooldown = 0;
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
 
@@ -127,14 +125,17 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             this.heal(this.getMaxHealth());
             return InteractionResult.SUCCESS;
         }
-        if (itemstack.getItem() instanceof DyeItem dyeItem && this.getVariant() != this.getVariantByDye(dyeItem.getDyeColor()) && this.getVariant() != 16) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
+        if (!this.isRainbow() && itemstack.getItem() instanceof DyeItem) {
+            UlughbegsaurusVariant variant = UlughbegsaurusVariant.byDye(itemstack.getItem());
+            if (variant != null && variant.getId() != this.getVariant()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                this.setVariant(variant.getId());
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.playSound(SoundEvents.DYE_USE);
+                return InteractionResult.SUCCESS;
             }
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.setVariant(this.getVariantByDye(dyeItem.getDyeColor()));
-            this.playSound(SoundEvents.DYE_USE);
-            return InteractionResult.SUCCESS;
         }
         return type;
     }
@@ -163,12 +164,12 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     @Override
     public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.getVariant() == 16);
+        return player.isShiftKeyDown() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.isRainbow());
     }
 
     @Override
     public boolean canOwnerMount(Player player) {
-        return !this.isBaby() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.getVariant() == 16);
+        return !this.isBaby() && (!(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof DyeItem) && !(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof DyeItem) || this.isRainbow());
     }
 
     @Override
@@ -280,6 +281,32 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     }
 
     @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(RAINBOW, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Rainbow", this.isRainbow());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setRainbow(compoundTag.getBoolean("Rainbow"));
+    }
+
+    public boolean isRainbow() {
+        return this.entityData.get(RAINBOW);
+    }
+
+    public void setRainbow(boolean rainbow) {
+        this.entityData.set(RAINBOW, rainbow);
+    }
+
+    @Override
     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
         Ulughbegsaurus ulughbegsaurus = UP2Entities.ULUGHBEGSAURUS.get().create(level);
         ulughbegsaurus.setVariant(this.getVariant());
@@ -310,32 +337,46 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     }
 
     public enum UlughbegsaurusVariant {
-        WHITE(0),
-        LIGHT_GRAY(1),
-        GRAY(2),
-        BLACK(3),
-        BROWN(4),
-        RED(5),
-        ORANGE(6),
-        YELLOW(7),
-        LIME(8),
-        GREEN(9),
-        CYAN(10),
-        LIGHT_BLUE(11),
-        BLUE(12),
-        PURPLE(13),
-        MAGENTA(14),
-        PINK(15),
-        RAINBOW(16);
+        WHITE(0, Items.WHITE_DYE),
+        LIGHT_GRAY(1, Items.LIGHT_GRAY_DYE),
+        GRAY(2, Items.GRAY_DYE),
+        BLACK(3, Items.BLACK_DYE),
+        BROWN(4, Items.BROWN_DYE),
+        RED(5, Items.RED_DYE),
+        ORANGE(6, Items.ORANGE_DYE),
+        YELLOW(7, Items.YELLOW_DYE),
+        LIME(8, Items.LIME_DYE),
+        GREEN(9, Items.GREEN_DYE),
+        CYAN(10, Items.CYAN_DYE),
+        LIGHT_BLUE(11, Items.LIGHT_BLUE_DYE),
+        BLUE(12, Items.BLUE_DYE),
+        PURPLE(13, Items.PURPLE_DYE),
+        MAGENTA(14, Items.MAGENTA_DYE),
+        PINK(15, Items.PINK_DYE);
 
         private final int id;
+        private final ItemLike dye;
 
-        UlughbegsaurusVariant(int id) {
+        UlughbegsaurusVariant(int id, ItemLike dye) {
             this.id = id;
+            this.dye = dye;
         }
 
         public int getId() {
             return this.id;
+        }
+
+        public ItemLike getDye() {
+            return this.dye;
+        }
+
+        public static UlughbegsaurusVariant byDye(ItemLike item) {
+            for (UlughbegsaurusVariant variant : values()) {
+                if (variant.getDye() == item) {
+                    return variant;
+                }
+            }
+            return null;
         }
 
         public static UlughbegsaurusVariant byId(int id) {
@@ -346,27 +387,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         }
     }
 
-    private int getVariantByDye(DyeColor color) {
-        return switch (color) {
-            case LIGHT_GRAY -> UlughbegsaurusVariant.LIGHT_GRAY.getId();
-            case GRAY -> UlughbegsaurusVariant.GRAY.getId();
-            case BLACK -> UlughbegsaurusVariant.BLACK.getId();
-            case BROWN -> UlughbegsaurusVariant.BROWN.getId();
-            case RED -> UlughbegsaurusVariant.RED.getId();
-            case ORANGE -> UlughbegsaurusVariant.ORANGE.getId();
-            case YELLOW -> UlughbegsaurusVariant.YELLOW.getId();
-            case LIME -> UlughbegsaurusVariant.LIME.getId();
-            case GREEN -> UlughbegsaurusVariant.GREEN.getId();
-            case CYAN -> UlughbegsaurusVariant.CYAN.getId();
-            case LIGHT_BLUE -> UlughbegsaurusVariant.LIGHT_BLUE.getId();
-            case BLUE -> UlughbegsaurusVariant.BLUE.getId();
-            case PURPLE -> UlughbegsaurusVariant.PURPLE.getId();
-            case MAGENTA -> UlughbegsaurusVariant.MAGENTA.getId();
-            case PINK -> UlughbegsaurusVariant.PINK.getId();
-            default -> UlughbegsaurusVariant.WHITE.getId();
-        };
-    }
-
     @Override
     public int getVariantCount() {
         return UlughbegsaurusVariant.values().length;
@@ -374,9 +394,9 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        int variantCount = this.getVariantCount() - 1;
-        if (level.getRandom().nextFloat() < 0.01F) this.setVariant(16);
-        else this.setVariant(level.getRandom().nextInt(variantCount));
+        int variantCount = this.getVariantCount();
+        this.setVariant(level.getRandom().nextInt(variantCount));
+        if (level.getRandom().nextFloat() < 0.01F) this.setRainbow(true);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 

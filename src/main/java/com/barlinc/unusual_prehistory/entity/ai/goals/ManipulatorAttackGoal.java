@@ -26,7 +26,7 @@ public class ManipulatorAttackGoal extends AttackGoal {
                 this.manipulator.getNavigation().stop();
                 this.tickAttack();
             } else {
-                this.manipulator.getNavigation().moveTo(target, 1.6D);
+                this.manipulator.getNavigation().moveTo(target, 1.3D);
                 if (distance <= this.getAttackReachSqr(target) && manipulator.attackCooldown == 0) {
                     this.manipulator.setAttackState(1);
                 }

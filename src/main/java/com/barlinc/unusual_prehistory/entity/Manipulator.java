@@ -40,6 +40,7 @@
      public int attackCooldown = 0;
 
      public final AnimationState idleArmedAnimationState = new AnimationState();
+     public final AnimationState sitArmedAnimationState = new AnimationState();
      public final AnimationState attackAnimationState = new AnimationState();
      public final AnimationState attackArmedAnimationState = new AnimationState();
 
@@ -51,21 +52,23 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 30.0D)
+                 .add(Attributes.MAX_HEALTH, 28.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.3F)
-                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                 .add(Attributes.FOLLOW_RANGE, 32.0D);
+                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                 .add(Attributes.FOLLOW_RANGE, 20.0D);
      }
 
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(2, new ManipulatorAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
-         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(3, new ManipulatorAttackGoal(this));
+         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
+         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
+         this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
@@ -123,6 +126,18 @@
      }
 
      @Override
+     public void startSitting() {
+     }
+
+     @Override
+     public void stopSitting() {
+     }
+
+     @Override
+     public void stopSittingInstantly() {
+     }
+
+     @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
@@ -144,22 +159,28 @@
          return !this.getMainHandItem().isEmpty() && !this.getOffhandItem().isEmpty();
      }
 
+     private boolean canPlayIdle() {
+         return !this.isInSittingPose() && !this.isDancing();
+     }
+
      @Override
      public void setupAnimationStates() {
          if (attackTicks == 0 && (this.attackAnimationState.isStarted() || this.attackArmedAnimationState.isStarted())) {
              this.attackAnimationState.stop();
              this.attackArmedAnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isHoldingItem() && !this.isInSitPoseTransition() && !this.isDancing() && !this.isInEepyPoseTransition(), this.tickCount);
-         this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && !this.isInSitPoseTransition() && !this.isDancing() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
+         this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
      }
 
      @Override
      public void setupAnimationCooldowns() {
          if (attackTicks > 0) attackTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.attackCooldown = 5 + this.getRandom().nextInt(5);
+             this.attackCooldown = 10 + this.getRandom().nextInt(7);
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
@@ -173,7 +194,7 @@
                  else this.attackAnimationState.start(this.tickCount);
                  this.attackTicks = 30;
              }
-             else {
+             else if (this.getPose() == Pose.STANDING) {
                  this.attackAnimationState.stop();
                  this.attackArmedAnimationState.stop();
              }

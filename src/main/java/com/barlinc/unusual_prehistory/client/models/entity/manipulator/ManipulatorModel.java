@@ -233,6 +233,8 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 
         this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks,1, limbSwingAmount * 3);
         this.animateIdle(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks,1, limbSwingAmount * 3);
+        this.animateIdle(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks,1, limbSwingAmount * 3);
+        this.animateIdle(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks,1, limbSwingAmount * 3);
         this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
         this.animate(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
         this.animate(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
