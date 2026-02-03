@@ -61,9 +61,9 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 50.0D)
+                 .add(Attributes.MAX_HEALTH, 40.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.23F)
-                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
+                 .add(Attributes.ATTACK_DAMAGE, 7.0D)
                  .add(Attributes.ARMOR, 8.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                  .add(Attributes.FOLLOW_RANGE, 32.0D);

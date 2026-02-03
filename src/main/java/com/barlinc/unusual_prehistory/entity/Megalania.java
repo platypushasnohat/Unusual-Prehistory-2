@@ -26,8 +26,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -58,6 +58,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -152,8 +153,8 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 7.0D)
+                .add(Attributes.MAX_HEALTH, 38.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
@@ -296,7 +297,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
     @Override
     public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, 0.2F, 0.0F);
+        return new Vec3(0.0F, 0.3F, 0.0F);
     }
 
     @Override
@@ -342,7 +343,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
     @Override
     protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-        return super.calculateFallDamage(fallDistance, damageMultiplier) - 3;
+        return super.calculateFallDamage(fallDistance, damageMultiplier) - 5;
     }
 
     @Override

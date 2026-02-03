@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -676,6 +678,42 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setRot(player.getYRot(), player.getXRot() * 0.25F);
             this.setYHeadRot(player.getYHeadRot());
             this.setTarget(null);
+        }
+    }
+
+    // Prevent riding from taking fall damage
+    @Override
+    public boolean causeFallDamage(float f1, float f2, @NotNull DamageSource source) {
+        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
+        if (ret == null) return false;
+        f1 = ret[0];
+        f2 = ret[1];
+
+        boolean flag = causeInternalFallDamage(f1, f2, source);
+        int i = this.calculateFallDamage(f1, f2);
+        if (i > 0) {
+            this.playSound(i > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0F, 1.0F);
+            this.playBlockFallSound();
+            this.hurt(source, (float)i);
+            return true;
+        } else {
+            return flag;
+        }
+    }
+
+    private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
+        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
+        if (ret == null) return false;
+        f1 = ret[0];
+        f2 = ret[1];
+
+        int i = this.calculateFallDamage(f1, f2);
+        if (i > 0) {
+            this.playBlockFallSound();
+            this.hurt(damageSource, (float) i);
+            return true;
+        } else {
+            return this.getType().is(EntityTypeTags.FALL_DAMAGE_IMMUNE);
         }
     }
 
