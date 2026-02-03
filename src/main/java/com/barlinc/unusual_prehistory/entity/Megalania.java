@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
@@ -8,8 +9,12 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaSitGoal
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -21,6 +26,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -40,6 +47,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -56,11 +64,14 @@ import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Megalania extends SemiAquaticMob {
+import java.util.List;
+
+public class Megalania extends SemiAquaticMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.7F, 1.05F);
 
     public enum TemperatureStates {
@@ -73,6 +84,11 @@ public class Megalania extends SemiAquaticMob {
     public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
     public float tempProgress = 0F;
     public float prevTempProgress = 0F;
+
+    private boolean leapImpulse;
+    private float prevLeapProgress;
+    private float leapProgress;
+    private int leapCooldown = 0;
 
     @Nullable
     private SemiAquaticRandomStrollGoal randomStrollGoal;
@@ -90,6 +106,7 @@ public class Megalania extends SemiAquaticMob {
     public final AnimationState flick1AnimationState = new AnimationState();
     public final AnimationState flick2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
+    public final AnimationState leapAnimationState = new AnimationState();
 
     private int bitingTicks;
     private int tailWhipTicks;
@@ -187,7 +204,7 @@ public class Megalania extends SemiAquaticMob {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-                if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                if (this.getTameAttempts() > 4 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
                     this.setPacified(true);
@@ -292,6 +309,129 @@ public class Megalania extends SemiAquaticMob {
         return !this.isBaby();
     }
 
+    @Override
+    public void onPlayerJump(int jumpPower) {
+        if (this.leapCooldown == 0) {
+            this.setLeaping(true);
+            if (this.onGround()) {
+                float jumpFactor = this.getBlockJumpFactor() + this.getJumpBoostPower();
+                this.addDeltaMovement(this.getLookAngle().multiply(1.0D, 0.0D, 1.0D).normalize().scale((0.08F * jumpPower) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) * this.getBlockSpeedFactor()).add(0.0D, (0.007F * jumpPower) * jumpFactor, 0.0D));
+                this.leapImpulse = true;
+                this.leapCooldown = 50;
+            }
+        }
+    }
+
+    @Override
+    public boolean canJump() {
+        return !this.isLeaping();
+    }
+
+    @Override
+    public void handleStartJump(int jumpPower) {
+    }
+
+    @Override
+    public void handleStopJump() {
+    }
+
+    @Override
+    public int getJumpCooldown() {
+        return this.leapCooldown;
+    }
+
+    @Override
+    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+        return super.calculateFallDamage(fallDistance, damageMultiplier) - 3;
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser, int type) {
+        if (keyPresser.isPassengerOfSameVehicle(this)) {
+            if (type == 3) {
+                if (this.getPose() == Pose.STANDING) {
+                    this.setYHeadRot(keyPresser.getYHeadRot());
+                    this.setXRot(keyPresser.getXRot());
+                    if (this.isInWater()) {
+                        this.setPose(UP2Poses.ATTACKING.get());
+                    } else {
+                        if (this.getRandom().nextBoolean() && this.talWhipCooldown == 0) this.setPose(UP2Poses.TAIL_WHIPPING.get());
+                        else this.setPose(UP2Poses.ATTACKING.get());
+                    }
+                }
+            }
+        }
+    }
+
+    private void tickPlayerBite() {
+        if (this.biteCooldown == 0) {
+            if (!level().isClientSide) {
+                if (this.getPose() == UP2Poses.ATTACKING.get() && this.hasControllingPassenger()) {
+                    if (bitingTicks == 7)
+                        this.level().playSound(null, this, UP2SoundEvents.MEGALANIA_BITE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    if (bitingTicks <= 6 && bitingTicks > 4) {
+                        this.biteNearbyEntities(2.0D);
+                        this.swing(InteractionHand.MAIN_HAND);
+                    }
+                }
+            } else {
+                Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
+                if (player != null && player.isPassengerOfSameVehicle(this)) {
+                    if (UnusualPrehistory2.PROXY.isKeyDown(3) && this.getPose() != UP2Poses.ATTACKING.get()) {
+                        UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
+                    }
+                }
+            }
+        }
+    }
+
+    private void tickPlayerTailWhip() {
+        if (this.talWhipCooldown == 0) {
+            if (!level().isClientSide) {
+                if (this.getPose() == UP2Poses.TAIL_WHIPPING.get() && this.hasControllingPassenger()) {
+                    if (tailWhipTicks == 7)
+                        this.level().playSound(null, this, UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    if (tailWhipTicks <= 6 && tailWhipTicks > 4) {
+                        this.whipNearbyEnemies();
+                        this.swing(InteractionHand.MAIN_HAND);
+                    }
+                }
+            } else {
+                Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
+                if (player != null && player.isPassengerOfSameVehicle(this)) {
+                    if (UnusualPrehistory2.PROXY.isKeyDown(3) && this.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
+                        UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
+                    }
+                }
+            }
+        }
+    }
+
+    private void biteNearbyEntities(double radius) {
+        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, this.getBoundingBox().inflate(radius));
+        if (!nearbyEntities.isEmpty()) {
+            LivingEntity entity = nearbyEntities.get(0);
+            if (!entity.is(this) && !this.isAlliedTo(entity)) {
+                this.doHurtTarget(entity);
+                this.swing(InteractionHand.MAIN_HAND);
+            }
+        }
+    }
+
+    public void whipNearbyEnemies() {
+        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, this.getBoundingBox().inflate(2.5, -0.5, 2.5));
+        if (!nearbyEntities.isEmpty()) {
+            nearbyEntities.stream().filter(entity -> !entity.is(this) && !entity.isAlliedTo(this)).limit(3).forEach(entity -> {
+                entity.hurt(entity.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                this.strongKnockback(entity, 1.3D, 0.2D);
+                if (entity.isDamageSourceBlocked(this.damageSources().mobAttack(this)) && entity instanceof Player player) {
+                    player.disableShield(true);
+                }
+                this.swing(InteractionHand.MAIN_HAND);
+            });
+        }
+    }
+
     public void applyPoison(@NotNull LivingEntity entity) {
         float chance = 0;
         int i = 0;
@@ -331,6 +471,7 @@ public class Megalania extends SemiAquaticMob {
         this.entityData.define(TEMPERATURE_STATE, 0);
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
         this.entityData.define(TAME_ATTEMPTS, 0);
+        this.entityData.define(LEAPING, false);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
@@ -373,6 +514,20 @@ public class Megalania extends SemiAquaticMob {
     }
 
     @Override
+    public boolean isLeaping() {
+        return this.entityData.get(LEAPING);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
+    }
+
+    public float getLeapProgress(float partialTicks) {
+        return (prevLeapProgress + (leapProgress - prevLeapProgress) * partialTicks) * 0.2F;
+    }
+
+    @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
@@ -391,9 +546,26 @@ public class Megalania extends SemiAquaticMob {
         if (ground && !this.isLandNavigator) switchNavigator(true);
 
         this.tickTemperatureStates();
+        this.tickPlayerBite();
+        this.tickPlayerTailWhip();
 
         if (this.biteCooldown > 0 && !this.isInWater()) this.biteCooldown--;
         if (this.talWhipCooldown > 0 && !this.isInWater()) this.talWhipCooldown--;
+
+        this.prevLeapProgress = leapProgress;
+        if (this.isLeaping() && leapProgress < 5F) leapProgress++;
+        if (!this.isLeaping() && leapProgress > 0F) leapProgress--;
+
+        if (this.onGround() && this.isLeaping() && !leapImpulse) {
+            this.setLeaping(false);
+        }
+        if (leapImpulse) {
+            this.leapImpulse = false;
+        }
+
+        if (this.leapCooldown > 0 && !this.isLeaping()) {
+            this.leapCooldown--;
+        }
     }
 
     public boolean isRightTemperatureToSit() {
@@ -434,6 +606,7 @@ public class Megalania extends SemiAquaticMob {
         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 4 && this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.isAggressive() && this.getPose() == Pose.STANDING, this.tickCount);
+        this.leapAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
 
         if (this.isMobVisuallySitting()) {
             this.sitEndAnimationState.stop();
@@ -527,7 +700,7 @@ public class Megalania extends SemiAquaticMob {
                 this.tailWhipTicks = 30;
                 this.tailWhipAnimationState.start(this.tickCount);
             }
-            else {
+            else if (this.getPose() == Pose.STANDING) {
                 this.bite1AnimationState.stop();
                 this.bite2AnimationState.stop();
                 this.tailWhipAnimationState.stop();
@@ -642,7 +815,7 @@ public class Megalania extends SemiAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.flickCooldown == 0;
+            return super.canUse() && megalania.flickCooldown == 0 && !megalania.isLeaping();
         }
 
         @Override
@@ -663,7 +836,7 @@ public class Megalania extends SemiAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.yawnCooldown == 0;
+            return super.canUse() && megalania.yawnCooldown == 0 && !megalania.isLeaping();
         }
 
         @Override
@@ -684,7 +857,7 @@ public class Megalania extends SemiAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.tongueCooldown == 0;
+            return super.canUse() && megalania.tongueCooldown == 0 && !megalania.isLeaping();
         }
 
         @Override
@@ -705,7 +878,7 @@ public class Megalania extends SemiAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting() && !megalania.hasControllingPassenger();
+            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting() && !megalania.hasControllingPassenger() && !megalania.isLeaping();
         }
 
         @Override

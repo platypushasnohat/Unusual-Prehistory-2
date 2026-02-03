@@ -73,6 +73,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public float prevEyeGlowProgress;
     public float eyeGlowProgress;
 
+    private float tailYaw;
+    private float prevTailYaw;
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sleepStartAnimationState = new AnimationState();
     public final AnimationState sleepAnimationState = new AnimationState();
@@ -88,6 +91,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.lookControl = new PrehistoricLookControl(this);
         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
+        this.tailYaw = this.getYRot();
+        this.prevTailYaw = this.getYRot();
     }
 
     @Override
@@ -320,6 +325,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         super.tick();
 
         this.tickEyeGlow();
+        this.tickTailYaw();
 
         if (this.isForeverBaby() && this.isBaby()) this.setAge(-24000);
 
@@ -387,6 +393,16 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public float getEyeGlowProgress(float partialTicks) {
         return (prevEyeGlowProgress + (eyeGlowProgress - prevEyeGlowProgress) * partialTicks) * 0.1F;
+    }
+
+    // Tail yaw
+    public void tickTailYaw() {
+        this.prevTailYaw = tailYaw;
+        this.tailYaw = Mth.approachDegrees(this.tailYaw, yBodyRot, 8);
+    }
+
+    public float getTailYaw(float partialTick) {
+        return (prevTailYaw + (tailYaw - prevTailYaw) * partialTick);
     }
 
     // Animation

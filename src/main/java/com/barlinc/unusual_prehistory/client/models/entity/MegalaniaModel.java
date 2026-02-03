@@ -138,8 +138,15 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float yaw = entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks;
+        float tailYaw = Mth.wrapDegrees(entity.getTailYaw(partialTicks) - yaw) / 57.295776F;
 
-		if (entity.getIdleState() != 4 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
+        this.tail1.yRot += tailYaw * 0.35F;
+        this.tail2.yRot += tailYaw * 0.3F;
+        this.tail3.yRot += tailYaw * 0.25F;
+
+		if (entity.getIdleState() != 4 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isLeaping()) {
             if (!entity.isMobSitting()) {
                 if (!entity.isInWater()) {
                     if (this.canMegalaniaRun(entity)) {
@@ -160,7 +167,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 
-        this.animateIdle(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, 1, limbSwingAmount * (entity.getTemperatureState() == Megalania.TemperatureStates.NETHER ? 2 : 4));
+        this.animateIdle(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, limbSwingAmount * (entity.getTemperatureState() == Megalania.TemperatureStates.NETHER ? 2 : 4));
 		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
 		this.animate(entity.roarAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
         this.animate(entity.flick1AnimationState, MegalaniaIdleAnimations.FLICK1, ageInTicks);
@@ -174,7 +181,8 @@ public class MegalaniaModel extends UP2Model<Megalania> {
         this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
         this.animate(entity.aggroAnimationState, MegalaniaAnimations.AGGRO, ageInTicks);
         this.animateIdle(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
-	}
+        this.animateLerped(entity.leapAnimationState, MegalaniaIdleAnimations.LEAP, ageInTicks, entity.getLeapProgress(partialTicks));
+    }
 
     private AnimationDefinition getIdleAnimation(Megalania entity) {
         switch (entity.getTemperatureState()) {

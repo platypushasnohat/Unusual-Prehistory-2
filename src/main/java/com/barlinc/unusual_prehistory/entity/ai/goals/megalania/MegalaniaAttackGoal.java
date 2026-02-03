@@ -40,7 +40,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
             int attackState = this.megalania.getAttackState();
 
             if (attackState == 1) {
-                this.megalania.getNavigation().moveTo(target, this.megalania.isInWater() ? this.getSpeedMultiplier() * 0.5F : this.getSpeedMultiplier() * 0.7F);
+                this.megalania.getNavigation().moveTo(target, this.megalania.isInWater() ? this.getSpeedMultiplier() * 0.25F : this.getSpeedMultiplier() * 0.4F);
                 this.tickBite();
             }
             else if (attackState == 2) {
@@ -107,25 +107,11 @@ public class MegalaniaAttackGoal extends AttackGoal {
         if (timer == 9) this.megalania.playSound(UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), 1.0F, 1.0F);
         if (this.timer == 12) this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
         if (this.timer == 14) {
-            this.hurtNearbyEntities();
+            this.megalania.whipNearbyEnemies();
         }
         if (this.timer > 30) {
             this.timer = 0;
             this.megalania.setAttackState(0);
-        }
-    }
-
-    private void hurtNearbyEntities() {
-        List<LivingEntity> nearbyEntities = megalania.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), megalania, megalania.getBoundingBox().inflate(2.5, -0.5, 2.5));
-        if (!nearbyEntities.isEmpty()) {
-            nearbyEntities.stream().filter(entity -> !entity.is(megalania) && !entity.isAlliedTo(megalania)).limit(3).forEach(entity -> {
-                entity.hurt(entity.damageSources().mobAttack(megalania), (float) megalania.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                megalania.strongKnockback(entity, 1.3D, 0.2D);
-                if (entity.isDamageSourceBlocked(megalania.damageSources().mobAttack(megalania)) && entity instanceof Player player) {
-                    player.disableShield(true);
-                }
-                megalania.swing(InteractionHand.MAIN_HAND);
-            });
         }
     }
 

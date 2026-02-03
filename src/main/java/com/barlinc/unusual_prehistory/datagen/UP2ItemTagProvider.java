@@ -290,7 +290,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
-                Items.BONE
+                Items.ROTTEN_FLESH
         );
 
         // Pacifying
