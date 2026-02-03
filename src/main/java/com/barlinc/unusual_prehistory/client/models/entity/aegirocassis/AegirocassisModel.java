@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.client.animations.aegirocassis.Aegirocassi
 import com.barlinc.unusual_prehistory.client.animations.aegirocassis.AegirocassisLeapAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Aegirocassis;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

@@ -2,10 +2,7 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.grower.GinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.GoldenGinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.LepidodendronTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.MetasequoiaTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -190,9 +187,9 @@ public class UP2Blocks {
     public static final RegistryObject<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
     public static final RegistryObject<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
 
-    public static final RegistryObject<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
+    public static final RegistryObject<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
 
-    public static final RegistryObject<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new DryophyllumTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final RegistryObject<Block> POTTED_DRYOPHYLLUM_SAPLING = registerBlockWithoutItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYOPHYLLUM_SAPLING.get(), registerFlowerPot()));
 
     public static final RegistryObject<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));

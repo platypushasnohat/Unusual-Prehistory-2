@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -48,13 +49,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount {
+public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob {
 
     private static final EntityDataAccessor<Boolean> RAINBOW = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
 
-    private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
+    private boolean leapImpulse;
+    private float prevLeapProgress;
+    private float leapProgress;
 
     public int attackCooldown = 0;
 
@@ -63,6 +68,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     public final AnimationState attack2AnimationState = new AnimationState();
     public final AnimationState yawnAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
 
     private int attackTicks;
 
@@ -95,7 +101,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.JUMP_STRENGTH, 0.5D);
     }
 
     @Override
@@ -159,7 +166,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     @Override
     protected float getRiddenSpeed(@NotNull Player rider) {
         float sprintSpeed = rider.isSprinting() ? 0.1F : 0.0F;
-        return ((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F) + sprintSpeed;
+        return ((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.55F) + sprintSpeed;
     }
 
     @Override
@@ -229,9 +236,50 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
     }
 
     @Override
+    public void onPlayerJump(int jumpPower) {
+        this.setLeaping(true);
+        if (this.onGround()) {
+            this.leapImpulse = true;
+            float f = 0.05F + jumpPower * 0.01F;
+            float jump = f * this.getBlockJumpFactor() + this.getJumpBoostPower();
+            Vec3 jumpForwards = new Vec3(0F, jump * 0.75F, this.zza * 2.5F).yRot((float) Math.toRadians(-this.yBodyRot));
+            this.setDeltaMovement(this.getDeltaMovement().add(jumpForwards));
+        }
+    }
+
+    @Override
+    public boolean canJump() {
+        return !this.isLeaping();
+    }
+
+    @Override
+    public void handleStartJump(int jumpPower) {
+    }
+
+    @Override
+    public void handleStopJump() {
+    }
+
+    @Override
+    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+        return super.calculateFallDamage(fallDistance, damageMultiplier) - 8;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         this.tickPlayerBite();
+
+        this.prevLeapProgress = leapProgress;
+        if (this.isLeaping() && leapProgress < 5F) leapProgress++;
+        if (!this.isLeaping() && leapProgress > 0F) leapProgress--;
+
+        if (this.onGround() && this.isLeaping() && !leapImpulse) {
+            this.setLeaping(false);
+        }
+        if (leapImpulse) {
+            this.leapImpulse = false;
+        }
     }
 
     @Override
@@ -252,6 +300,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         }
         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+        this.jumpAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
 
         if (this.isMobVisuallySitting()) {
             this.sitEndAnimationState.stop();
@@ -259,6 +308,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
             this.attack2AnimationState.stop();
             this.idleAnimationState.stop();
             this.shakeAnimationState.stop();
+            this.jumpAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -295,6 +345,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
         super.defineSynchedData();
         this.entityData.define(TAME_ATTEMPTS, 0);
         this.entityData.define(RAINBOW, false);
+        this.entityData.define(LEAPING, false);
     }
 
     @Override
@@ -325,6 +376,20 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount 
 
     public void setRainbow(boolean rainbow) {
         this.entityData.set(RAINBOW, rainbow);
+    }
+
+    @Override
+    public boolean isLeaping() {
+        return this.entityData.get(LEAPING);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
+    }
+
+    public float getLeapProgress(float partialTicks) {
+        return (prevLeapProgress + (leapProgress - prevLeapProgress) * partialTicks) * 0.2F;
     }
 
     @Override

@@ -3,22 +3,16 @@ package com.barlinc.unusual_prehistory.blocks.grower;
 import com.barlinc.unusual_prehistory.registry.UP2Features;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractMegaTreeGrower;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MetasequoiaTreeGrower extends AbstractMegaTreeGrower {
+public class DryophyllumTreeGrower extends AbstractTreeGrower {
 
     @Nullable
     @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
-        return UP2Features.METASEQUOIA;
-    }
-
-    @Nullable
-    @Override
-    protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(@NotNull RandomSource random) {
-        return UP2Features.MEGA_METASEQUOIA;
+        return bees ? UP2Features.DRYOPHYLLUM_BEES : UP2Features.DRYOPHYLLUM;
     }
 }

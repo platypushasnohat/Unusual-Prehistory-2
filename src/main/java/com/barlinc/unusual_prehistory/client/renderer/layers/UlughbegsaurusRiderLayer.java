@@ -22,7 +22,7 @@ public class UlughbegsaurusRiderLayer extends RiderLayer<Ulughbegsaurus, Ulughbe
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         float bodyYaw = entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks;
         if (entity.isVehicle()) {
-            Vec3 offset = new Vec3(0, 0, 0.05F);
+            Vec3 offset = new Vec3(0, 0, 0);
             Vec3 ridePos = this.getParentModel().getRiderPosition(offset);
             for (Entity passenger : entity.getPassengers()) {
                 if (passenger == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
@@ -30,9 +30,13 @@ public class UlughbegsaurusRiderLayer extends RiderLayer<Ulughbegsaurus, Ulughbe
                 }
                 UnusualPrehistory2.PROXY.releaseRenderingEntity(passenger.getUUID());
                 poseStack.pushPose();
+                this.getParentModel().root.translateAndRotate(poseStack);
+                this.getParentModel().body_main.translateAndRotate(poseStack);
+                this.getParentModel().body.translateAndRotate(poseStack);
                 poseStack.translate(ridePos.x, ridePos.y - 2.0F + passenger.getBbHeight(), ridePos.z);
-                poseStack.mulPose(Axis.XN.rotationDegrees(180F));
-                poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw));
+                poseStack.mulPose(Axis.XP.rotationDegrees(180F));
+                poseStack.mulPose(Axis.YN.rotationDegrees(360F - bodyYaw));
+                passenger.setYBodyRot(entity.getYRot());
                 renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
                 poseStack.popPose();
                 UnusualPrehistory2.PROXY.blockRenderingEntity(passenger.getUUID());

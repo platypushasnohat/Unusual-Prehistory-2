@@ -227,6 +227,7 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 	@Override
 	public void setupAnim(Manipulator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isRunning()) this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
         else this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
@@ -238,6 +239,7 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
         this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
         this.animate(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
         this.animate(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
+        this.animateLerped(entity.blockAnimationState, ManipulatorAttackAnimations.SHIELDBLOCK_BLEND, ageInTicks, entity.getBlockProgress(partialTicks));
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;

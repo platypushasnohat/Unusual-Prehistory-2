@@ -52,19 +52,26 @@
  public class Manipulator extends PrehistoricMob implements ContainerListener {
 
      private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.INT);
+     private static final EntityDataAccessor<Boolean> BLOCKING = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.BOOLEAN);
 
      public final SimpleContainer manipulatorInventory = new SimpleContainer(2);
      private LazyOptional<?> itemHandler;
      public boolean interacting;
 
      public int attackCooldown = 0;
+     public int blockCooldown = 0;
 
      public final AnimationState idleArmedAnimationState = new AnimationState();
      public final AnimationState sitArmedAnimationState = new AnimationState();
      public final AnimationState attackAnimationState = new AnimationState();
      public final AnimationState attackArmedAnimationState = new AnimationState();
+     public final AnimationState blockAnimationState = new AnimationState();
 
      private int attackTicks;
+     private int blockTicks;
+
+     private float prevBlockProgress;
+     private float blockProgress;
 
      public Manipulator(EntityType<? extends PrehistoricMob> entityType, Level level) {
          super(entityType, level);
@@ -189,6 +196,21 @@
          return type;
      }
 
+     @Override
+     public void tick() {
+         super.tick();
+         this.prevBlockProgress = blockProgress;
+         if (this.isBlocking() && blockProgress < 5F) blockProgress++;
+         if (!this.isBlocking() && blockProgress > 0F) blockProgress--;
+         if (blockTicks > 0) blockTicks--;
+         if (this.isBlocking() && this.blockTicks == 0) {
+             this.setBlocking(false);
+         }
+
+         if (attackCooldown > 0) attackCooldown--;
+         if (blockCooldown > 0) blockCooldown--;
+     }
+
      public boolean isHoldingItem() {
          return !this.getMainHandItem().isEmpty() || !this.getOffhandItem().isEmpty();
      }
@@ -208,6 +230,7 @@
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
          this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
          this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.blockAnimationState.animateWhen(this.blockProgress > 0.0F, this.tickCount);
      }
 
      @Override
@@ -217,7 +240,6 @@
              this.attackCooldown = 10 + this.getRandom().nextInt(7);
              this.setPose(Pose.STANDING);
          }
-         if (attackCooldown > 0) attackCooldown--;
      }
 
      @Override
@@ -316,6 +338,7 @@
      protected void defineSynchedData() {
          super.defineSynchedData();
          this.entityData.define(TAME_ATTEMPTS, 0);
+         this.entityData.define(BLOCKING, false);
      }
 
      @Override
@@ -361,6 +384,18 @@
 
      public int getTameAttempts() {
          return this.entityData.get(TAME_ATTEMPTS);
+     }
+
+     public void setBlocking(boolean blocking) {
+         this.entityData.set(BLOCKING, blocking);
+     }
+
+     public boolean isBlocking() {
+         return this.entityData.get(BLOCKING);
+     }
+
+     public float getBlockProgress(float partialTicks) {
+         return (prevBlockProgress + (blockProgress - prevBlockProgress) * partialTicks) * 0.2F;
      }
 
      @Override
