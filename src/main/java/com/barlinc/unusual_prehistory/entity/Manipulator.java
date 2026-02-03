@@ -1,6 +1,7 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.manipulator.ManipulatorAttackGoal;
  import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
@@ -20,6 +21,9 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.server.level.ServerPlayer;
  import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.tags.DamageTypeTags;
+ import net.minecraft.util.Mth;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.*;
  import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +36,7 @@
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.player.Player;
+ import net.minecraft.world.entity.projectile.AbstractArrow;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -39,10 +44,13 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.common.ForgeHooks;
  import net.minecraftforge.common.MinecraftForge;
+ import net.minecraftforge.common.ToolActions;
  import net.minecraftforge.common.capabilities.Capability;
  import net.minecraftforge.common.capabilities.ForgeCapabilities;
  import net.minecraftforge.common.util.LazyOptional;
+ import net.minecraftforge.event.entity.living.ShieldBlockEvent;
  import net.minecraftforge.event.entity.player.PlayerContainerEvent;
  import net.minecraftforge.items.wrapper.InvWrapper;
  import net.minecraftforge.network.PacketDistributor;
@@ -52,7 +60,7 @@
  public class Manipulator extends PrehistoricMob implements ContainerListener {
 
      private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Boolean> BLOCKING = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> SHIELD_BLOCKING = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.BOOLEAN);
 
      public final SimpleContainer manipulatorInventory = new SimpleContainer(2);
      private LazyOptional<?> itemHandler;
@@ -68,7 +76,7 @@
      public final AnimationState blockAnimationState = new AnimationState();
 
      private int attackTicks;
-     private int blockTicks;
+     public int blockTicks;
 
      private float prevBlockProgress;
      private float blockProgress;
@@ -92,12 +100,12 @@
          this.goalSelector.addGoal(0, new FloatGoal(this));
          this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
          this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(3, new ManipulatorAttackGoal(this));
-         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
-         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
-         this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
+         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
+         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
+         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
@@ -197,18 +205,102 @@
      }
 
      @Override
+     protected void blockUsingShield(@NotNull LivingEntity entity) {
+         super.blockUsingShield(entity);
+         this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 1.0F);
+         this.onManipulatorBlock();
+         if (entity.getMainHandItem().canDisableShield(this.useItem, this, entity)) this.disableShield(true);
+     }
+
+     private boolean isHoldingShield() {
+         return this.getMainHandItem().canPerformAction(ToolActions.SHIELD_BLOCK) || this.getOffhandItem().canPerformAction(ToolActions.SHIELD_BLOCK);
+     }
+
+     public void onManipulatorBlock() {
+         this.setShieldBlocking(true);
+         this.blockTicks = 10;
+         this.blockCooldown();
+         this.attackCooldown();
+     }
+
+     @Override
+     protected void hurtCurrentlyUsedShield(float damage) {
+         if (this.useItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
+             if (damage >= 3.0F) {
+                 int i = 1 + Mth.floor(damage);
+                 InteractionHand hand = this.getUsedItemHand();
+                 this.damageManipulatorItem(i, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND, this.useItem);
+                 this.useItem.hurtAndBreak(i, this, (entity) -> entity.broadcastBreakEvent(hand));
+                 if (this.useItem.isEmpty()) {
+                     if (hand == InteractionHand.MAIN_HAND) {
+                         this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                     } else {
+                         this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                     }
+                     this.useItem = ItemStack.EMPTY;
+                     this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + level().random.nextFloat() * 0.4F);
+                 }
+             }
+         }
+     }
+
+     public void damageManipulatorItem(int damage, EquipmentSlot slotToDamage, ItemStack item) {
+         item.hurtAndBreak(damage, this, (entity) -> entity.broadcastBreakEvent(slotToDamage));
+     }
+
+     public void disableShield(boolean increase) {
+         float chance = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(this) * 0.05F;
+         if (increase) chance += 0.75F;
+         if (this.random.nextFloat() < chance) {
+             this.blockCooldown = 100;
+             this.stopUsingItem();
+             level().broadcastEntityEvent(this, (byte) 30);
+         }
+     }
+
+     @Override
+     public boolean isDamageSourceBlocked(DamageSource source) {
+         Entity entity = source.getDirectEntity();
+         boolean flag = false;
+         if (entity instanceof AbstractArrow abstractarrow) {
+             if (abstractarrow.getPierceLevel() > 0) {
+                 flag = true;
+             }
+         }
+         if (!source.is(DamageTypeTags.BYPASSES_SHIELD) && this.isHoldingShield() && !flag && this.blockCooldown == 0 && this.getAttackState() == 0) {
+             Vec3 sourcePosition = source.getSourcePosition();
+             if (sourcePosition != null) {
+                 Vec3 viewVector = this.getViewVector(1.0F);
+                 Vec3 normalize = sourcePosition.vectorTo(this.position()).normalize();
+                 normalize = new Vec3(normalize.x, 0.0D, normalize.z);
+                 return normalize.dot(viewVector) < 0.0D;
+             }
+         }
+         return false;
+     }
+
+     public void attackCooldown() {
+         this.attackCooldown = 10 + this.getRandom().nextInt(10);
+     }
+
+     public void blockCooldown() {
+         this.blockCooldown = 30 + this.getRandom().nextInt(10);
+     }
+
+     @Override
      public void tick() {
          super.tick();
          this.prevBlockProgress = blockProgress;
-         if (this.isBlocking() && blockProgress < 5F) blockProgress++;
-         if (!this.isBlocking() && blockProgress > 0F) blockProgress--;
-         if (blockTicks > 0) blockTicks--;
-         if (this.isBlocking() && this.blockTicks == 0) {
-             this.setBlocking(false);
+         if (this.isShieldBlocking() && blockProgress < 5F) blockProgress++;
+         if (!this.isShieldBlocking() && blockProgress > 0F) blockProgress--;
+         if (!this.level().isClientSide) {
+             if (blockTicks > 0) blockTicks--;
+             if (this.isShieldBlocking() && this.blockTicks == 0) {
+                 this.setShieldBlocking(false);
+             }
+             if (attackCooldown > 0) attackCooldown--;
+             if (blockCooldown > 0) blockCooldown--;
          }
-
-         if (attackCooldown > 0) attackCooldown--;
-         if (blockCooldown > 0) blockCooldown--;
      }
 
      public boolean isHoldingItem() {
@@ -230,14 +322,14 @@
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
          this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
          this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
-         this.blockAnimationState.animateWhen(this.blockProgress > 0.0F, this.tickCount);
+         this.blockAnimationState.animateWhen(this.blockProgress > 0.0F && this.getAttackState() == 0, this.tickCount);
      }
 
      @Override
      public void setupAnimationCooldowns() {
          if (attackTicks > 0) attackTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.attackCooldown = 10 + this.getRandom().nextInt(7);
+             this.blockCooldown();
              this.setPose(Pose.STANDING);
          }
      }
@@ -338,7 +430,7 @@
      protected void defineSynchedData() {
          super.defineSynchedData();
          this.entityData.define(TAME_ATTEMPTS, 0);
-         this.entityData.define(BLOCKING, false);
+         this.entityData.define(SHIELD_BLOCKING, false);
      }
 
      @Override
@@ -386,12 +478,12 @@
          return this.entityData.get(TAME_ATTEMPTS);
      }
 
-     public void setBlocking(boolean blocking) {
-         this.entityData.set(BLOCKING, blocking);
+     public void setShieldBlocking(boolean blocking) {
+         this.entityData.set(SHIELD_BLOCKING, blocking);
      }
 
-     public boolean isBlocking() {
-         return this.entityData.get(BLOCKING);
+     public boolean isShieldBlocking() {
+         return this.entityData.get(SHIELD_BLOCKING);
      }
 
      public float getBlockProgress(float partialTicks) {

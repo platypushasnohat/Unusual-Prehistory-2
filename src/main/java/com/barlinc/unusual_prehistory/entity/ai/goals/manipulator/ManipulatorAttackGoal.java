@@ -1,6 +1,7 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.manipulator;
 
 import com.barlinc.unusual_prehistory.entity.Manipulator;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;

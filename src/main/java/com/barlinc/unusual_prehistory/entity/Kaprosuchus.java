@@ -134,18 +134,6 @@
      }
 
      @Override
-     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-         super.addAdditionalSaveData(compoundTag);
-         compoundTag.putInt("TameAttempts", this.getTameAttempts());
-     }
-
-     @Override
-     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-         super.readAdditionalSaveData(compoundTag);
-         compoundTag.putInt("TameAttempts", this.getTameAttempts());
-     }
-
-     @Override
      public float getStepHeight() {
          return this.isRunning() ? 1.0F : 0.6F;
      }
@@ -338,6 +326,18 @@
          super.defineSynchedData();
          this.entityData.define(TAME_ATTEMPTS, 0);
          this.entityData.define(LEAPING, false);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
      }
 
      public void setTameAttempts(int tameAttempts) {

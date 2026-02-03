@@ -281,11 +281,15 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.TORCHFLOWER.asItem()
         );
 
-        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTags(
+        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
                 UP2ItemTags.ULUGHBEGSAURUS_FOOD
         );
 
         this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(
+                Items.BONE
+        );
+
+        this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
                 Items.BONE
         );
 

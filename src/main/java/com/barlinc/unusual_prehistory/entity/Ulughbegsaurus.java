@@ -176,7 +176,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, 0.3F, 0.15F);
+        return new Vec3(0.0F, 0.3F, 0.0F);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.leapImpulse = true;
             float f = 0.05F + jumpPower * 0.01F;
             float jump = f * this.getBlockJumpFactor() + this.getJumpBoostPower();
-            Vec3 jumpForwards = new Vec3(0F, jump * 0.75F, this.zza * 2.5F).yRot((float) Math.toRadians(-this.yBodyRot));
+            Vec3 jumpForwards = new Vec3(0F, jump * 0.9F, this.zza).yRot((float) Math.toRadians(-this.yBodyRot));
             this.setDeltaMovement(this.getDeltaMovement().add(jumpForwards));
         }
     }
@@ -262,7 +262,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-        return super.calculateFallDamage(fallDistance, damageMultiplier) - 8;
+        return super.calculateFallDamage(fallDistance, damageMultiplier) - 6;
     }
 
     @Override

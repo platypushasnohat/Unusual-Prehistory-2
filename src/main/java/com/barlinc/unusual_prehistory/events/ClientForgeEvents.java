@@ -93,10 +93,7 @@ public class ClientForgeEvents {
 
         if (player != null && player.isPassenger() && event.getCamera().isDetached()) {
             if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
-            if (player.getVehicle() instanceof Therizinosaurus) event.getCamera().move(-event.getCamera().getMaxZoom(2.8F), 0, 0);
-            if (player.getVehicle() instanceof Talpanas) event.getCamera().move(-event.getCamera().getMaxZoom(-1.3F), -0.7F, 0);
-            if (player.getVehicle() instanceof Brachiosaurus) event.getCamera().move(-event.getCamera().getMaxZoom(12.0F), 0, 0);
-            if (player.getVehicle() instanceof Kimmeridgebrachypteraeschnidium) event.getCamera().move(-event.getCamera().getMaxZoom(-1.35F), -0.6F, 0);
+            if (player.getVehicle() instanceof Megalania) event.getCamera().move(-event.getCamera().getMaxZoom(1.7F), 0, 0);
         }
     }
 

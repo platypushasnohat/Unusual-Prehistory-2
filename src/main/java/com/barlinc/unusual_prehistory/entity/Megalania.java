@@ -1,8 +1,12 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.megalania.MegalaniaSitGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -22,13 +26,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -42,6 +47,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,6 +60,7 @@ public class Megalania extends SemiAquaticMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.7F, 1.05F);
 
     public enum TemperatureStates {
@@ -96,7 +103,6 @@ public class Megalania extends SemiAquaticMob {
         super(entityType, level);
         this.setMaxUpStep(1.1F);
         this.switchNavigator(true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 20);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
@@ -104,23 +110,27 @@ public class Megalania extends SemiAquaticMob {
     @Override
     protected void registerGoals() {
         this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
+        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
-        this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
-        this.goalSelector.addGoal(4, this.randomStrollGoal);
-        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 600, 2400));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new MegalaniaSitGoal(this));
-        this.goalSelector.addGoal(8, new MegalaniaFlickTailGoal(this));
-        this.goalSelector.addGoal(8, new MegalaniaYawnGoal(this));
-        this.goalSelector.addGoal(8, new MegalaniaTongueGoal(this));
-        this.goalSelector.addGoal(9, new MegalaniaRoarGoal(this));
+        this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F, false));
+        this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
+        this.goalSelector.addGoal(6, this.randomStrollGoal);
+        this.goalSelector.addGoal(7, new LeaveWaterGoal(this, 1.0D, 600, 2400));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new MegalaniaSitGoal(this));
+        this.goalSelector.addGoal(10, new MegalaniaFlickTailGoal(this));
+        this.goalSelector.addGoal(10, new MegalaniaYawnGoal(this));
+        this.goalSelector.addGoal(10, new MegalaniaTongueGoal(this));
+        this.goalSelector.addGoal(10, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
-        this.targetSelector.addGoal(2, new MegalaniaTargetGoal<>(this, LivingEntity.class));
-        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, this::isHostileToEverything));
+        this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, false, this::isHostileToPlayers));
+        this.targetSelector.addGoal(4, new MegalaniaTargetGoal<>(this, LivingEntity.class));
+        this.targetSelector.addGoal(5, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, this::isHostileToEverything));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -134,10 +144,14 @@ public class Megalania extends SemiAquaticMob {
 
     protected void switchNavigator(boolean onLand) {
         if (onLand) {
-            this.moveControl = new MoveControl(this);
+            this.moveControl = new PrehistoricMoveControl(this);
+            this.lookControl = new PrehistoricLookControl(this);
+            this.navigation = new SmoothGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.6F, 0.1F, false);
+            this.lookControl = new SmoothSwimmingLookControl(this, 20);
+            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -160,6 +174,32 @@ public class Megalania extends SemiAquaticMob {
         } else {
             super.travel(travelVec);
         }
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+
+        if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_MEGALANIA)) {
+            this.gameEvent(GameEvent.ENTITY_INTERACT);
+            if (!this.level().isClientSide) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                    this.tame(player);
+                    this.setPacified(true);
+                    this.heal(this.getMaxHealth());
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                    this.setTameAttempts(this.getTameAttempts() + 1);
+                }
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        return type;
     }
 
     public boolean isHostileToPlayers(LivingEntity entity) {
@@ -206,7 +246,7 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        if (this.getTemperatureState() == TemperatureStates.NETHER) this.heal(4);
+        this.heal(4);
         return super.killedEntity(level, victim);
     }
 
@@ -223,6 +263,33 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
+    }
+
+    // Riding
+    @Override
+    protected float getRiddenSpeed(@NotNull Player rider) {
+        float sprintSpeed = rider.isSprinting() && this.getTemperatureState() != TemperatureStates.COLD ? 0.1F : 0.0F;
+        return ((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.4F) + sprintSpeed;
+    }
+
+    @Override
+    public boolean canSprint() {
+        return this.getTemperatureState() != TemperatureStates.COLD;
+    }
+
+    @Override
+    public Vec3 getRiderOffset() {
+        return new Vec3(0.0F, 0.2F, 0.0F);
+    }
+
+    @Override
+    public boolean canOwnerCommand(Player player) {
+        return player.isShiftKeyDown();
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player) {
+        return !this.isBaby();
     }
 
     public void applyPoison(@NotNull LivingEntity entity) {
@@ -263,17 +330,20 @@ public class Megalania extends SemiAquaticMob {
         super.defineSynchedData();
         this.entityData.define(TEMPERATURE_STATE, 0);
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
+        this.entityData.define(TAME_ATTEMPTS, 0);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("TemperatureState", this.getTemperatureState().ordinal());
+        compoundTag.putInt("TameAttempts", this.getTameAttempts());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(TEMPERATURE_STATE, compoundTag.getInt("TemperatureState"));
+        this.setTameAttempts(compoundTag.getInt("TameAttempts"));
     }
 
     public TemperatureStates getTemperatureState() {
@@ -281,7 +351,7 @@ public class Megalania extends SemiAquaticMob {
     }
 
     public void setTemperatureState(TemperatureStates state) {
-        if (getTemperatureState() != state) {
+        if (this.getTemperatureState() != state) {
             this.entityData.set(PREV_TEMPERATURE_STATE, this.entityData.get(TEMPERATURE_STATE));
         }
         this.entityData.set(TEMPERATURE_STATE, state.ordinal());
@@ -292,6 +362,14 @@ public class Megalania extends SemiAquaticMob {
             return null;
         }
         return TemperatureStates.values()[Mth.clamp(entityData.get(PREV_TEMPERATURE_STATE), 0, 3)];
+    }
+
+    public void setTameAttempts(int tameAttempts) {
+        this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+    }
+
+    public int getTameAttempts() {
+        return this.entityData.get(TAME_ATTEMPTS);
     }
 
     @Override
@@ -323,26 +401,27 @@ public class Megalania extends SemiAquaticMob {
     }
 
     private void tickTemperatureStates() {
-        if (!this.level().isClientSide) {
-            if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
-                if (this.level().dimension() == Level.NETHER) this.setTemperatureState(TemperatureStates.NETHER);
-                else this.setTemperatureState(TemperatureStates.WARM);
-            }
-            else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
-                this.setTemperatureState(TemperatureStates.COLD);
-            }
-            else {
-                this.setTemperatureState(TemperatureStates.TEMPERATE);
-            }
-        } else {
-            this.prevTempProgress = tempProgress;
-            if (localTemperatureState != this.getPrevTemperatureState()) {
-                localTemperatureState = this.getPrevTemperatureState();
-                tempProgress = 0.0F;
-            }
-            if (this.getPrevTemperatureState() != this.getTemperatureState() && tempProgress < 5.0F) tempProgress += 0.05F;
-            if (this.getPrevTemperatureState() == this.getTemperatureState() && tempProgress > 0F) tempProgress -= 0.05F;
+        if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() >= 1.0F) {
+            if (this.level().dimension() == Level.NETHER) this.setTemperatureState(TemperatureStates.NETHER);
+            else this.setTemperatureState(TemperatureStates.WARM);
         }
+        else if (this.level().getBiome(this.blockPosition()).value().getBaseTemperature() <= 0.0F) {
+            this.setTemperatureState(TemperatureStates.COLD);
+        }
+        else {
+            this.setTemperatureState(TemperatureStates.TEMPERATE);
+        }
+        this.prevTempProgress = tempProgress;
+        if (localTemperatureState != this.getPrevTemperatureState()) {
+            this.localTemperatureState = this.getPrevTemperatureState();
+            this.tempProgress = 0.0F;
+        }
+        if (this.getPrevTemperatureState() != this.getTemperatureState() && tempProgress < 5F) tempProgress += 0.4F;
+        if (this.getPrevTemperatureState() == this.getTemperatureState() && tempProgress > 0F) tempProgress -= 0.4F;
+    }
+
+    public float getTempProgress(float partialTicks) {
+        return (prevTempProgress + (tempProgress - prevTempProgress) * partialTicks) * 0.2F;
     }
 
     @Override
@@ -395,7 +474,7 @@ public class Megalania extends SemiAquaticMob {
             if (flickCooldown > 0) flickCooldown--;
             if (yawnCooldown > 0) yawnCooldown--;
             if (tongueCooldown > 0) tongueCooldown--;
-            if (roarCooldown > 0) roarCooldown--;
+            if (!this.hasControllingPassenger() && roarCooldown > 0) roarCooldown--;
         }
     }
 
@@ -626,7 +705,7 @@ public class Megalania extends SemiAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting();
+            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting() && !megalania.hasControllingPassenger();
         }
 
         @Override

@@ -98,9 +98,10 @@ public class UP2ItemTags {
     public static final TagKey<Item> VERDANT_DYES = modItemTag("verdant_dyes");
 
     // Taming items
-    public static final TagKey<Item> TAMES_ULUGHBEGSAURUS = modItemTag("tames_ulughbegsaurus");
     public static final TagKey<Item> TAMES_KAPROSUCHUS = modItemTag("tames_kaprosuchus");
     public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
+    public static final TagKey<Item> TAMES_MEGALANIA = modItemTag("tames_megalania");
+    public static final TagKey<Item> TAMES_ULUGHBEGSAURUS = modItemTag("tames_ulughbegsaurus");
 
     // Forge tags
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");
