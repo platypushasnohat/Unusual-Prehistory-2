@@ -124,10 +124,10 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.5 * getBbHeight();
+        return 0.5D * this.getBbHeight();
     }
 
     @Override

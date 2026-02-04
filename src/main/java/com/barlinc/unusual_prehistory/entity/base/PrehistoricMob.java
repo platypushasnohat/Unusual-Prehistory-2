@@ -23,6 +23,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -66,7 +68,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
-    public boolean useLowerFluidJumpThreshold = false;
     protected int eepyTicks;
 
     private BlockPos jukeboxPosition;
@@ -158,21 +159,21 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Floating
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.6 * getBbHeight();
+        return 0.6D * this.getBbHeight();
     }
 
-    private void setUseLowerFluidJumpThreshold(boolean jumpThreshold) {
-        this.useLowerFluidJumpThreshold = jumpThreshold;
+    protected void floatInWaterWhileRidden() {
+        if (this.isVehicle() && this.getFluidHeight(FluidTags.WATER) > this.getFluidJumpThreshold()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.04F, 0.0));
+        }
     }
 
-    @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        if (this.isInWater() && horizontalCollision) {
-            this.setUseLowerFluidJumpThreshold(true);
+    public void floatWhileRidden(Vec3 travelVec) {
+        if (this.isInWater() || (this.isInFluidType(this.getEyeInFluidType()) && !this.moveInFluid(this.level().getFluidState(BlockPos.containing(this.getEyePosition())), travelVec, this.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get())))) {
+            this.floatInWaterWhileRidden();
         }
     }
 

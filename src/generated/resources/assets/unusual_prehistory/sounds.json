@@ -188,20 +188,58 @@
     ],
     "subtitle": "subtitles.carnotaurus_step"
   },
+  "desmatosuchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/death1"
+    ],
+    "subtitle": "subtitles.desmatosuchus_death"
+  },
+  "desmatosuchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/hurt1",
+      "unusual_prehistory:entity/desmatosuchus/hurt2"
+    ],
+    "subtitle": "subtitles.desmatosuchus_hurt"
+  },
+  "desmatosuchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/idle1",
+      "unusual_prehistory:entity/desmatosuchus/idle2",
+      "unusual_prehistory:entity/desmatosuchus/idle3",
+      "unusual_prehistory:entity/desmatosuchus/idle4"
+    ],
+    "subtitle": "subtitles.desmatosuchus_idle"
+  },
+  "desmatosuchus_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.desmatosuchus_step"
+  },
   "diplocaulus_death": {
     "sounds": [
       "unusual_prehistory:entity/diplocaulus/death1"
     ],
     "subtitle": "subtitles.diplocaulus_death"
-  },
-  "diplocaulus_flop": {
-    "sounds": [
-      "unusual_prehistory:entity/diplocaulus/idle1",
-      "unusual_prehistory:entity/diplocaulus/idle2",
-      "unusual_prehistory:entity/diplocaulus/idle3",
-      "unusual_prehistory:entity/diplocaulus/idle4"
-    ],
-    "subtitle": "subtitles.diplocaulus_flop"
   },
   "diplocaulus_hurt": {
     "sounds": [
@@ -209,6 +247,15 @@
       "unusual_prehistory:entity/diplocaulus/hurt2"
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
+  },
+  "diplocaulus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/diplocaulus/idle1",
+      "unusual_prehistory:entity/diplocaulus/idle2",
+      "unusual_prehistory:entity/diplocaulus/idle3",
+      "unusual_prehistory:entity/diplocaulus/idle4"
+    ],
+    "subtitle": "subtitles.diplocaulus_idle"
   },
   "diplocaulus_step": {
     "sounds": [

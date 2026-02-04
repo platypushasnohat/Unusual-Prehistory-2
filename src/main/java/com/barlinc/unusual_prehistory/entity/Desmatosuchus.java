@@ -108,10 +108,10 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.5 * getBbHeight();
+        return 0.5D * this.getBbHeight();
     }
 
     @Override
@@ -347,24 +347,24 @@ public class Desmatosuchus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
+        return UP2SoundEvents.DESMATOSUCHUS_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-        return UP2SoundEvents.LYSTROSAURUS_HURT.get();
+        return UP2SoundEvents.DESMATOSUCHUS_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.LYSTROSAURUS_DEATH.get();
+        return UP2SoundEvents.DESMATOSUCHUS_DEATH.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.LYSTROSAURUS_STEP.get(), 0.15F, 1.0F);
+        this.playSound(UP2SoundEvents.DESMATOSUCHUS_STEP.get(), 0.15F, 1.0F);
     }
 
     @Override

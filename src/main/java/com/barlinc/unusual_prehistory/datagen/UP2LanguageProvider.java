@@ -135,6 +135,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT, "Carnotaurus headbutts");
         this.sound(UP2SoundEvents.CARNOTAURUS_ROAR, "Carnotaurus roars");
 
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_HURT, "Desmatosuchus hurts");
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_DEATH, "Desmatosuchus dies");
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE, "Desmatosuchus groans");
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP, "Desmatosuchus steps");
+
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE, "Diplocaulus croaks");

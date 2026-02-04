@@ -133,7 +133,7 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
             else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, entity.hasControllingPassenger() ? 2 : 1.5F, entity.hasControllingPassenger() ? 4 : 3);
         }
 		this.animateIdle(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
+        this.animate(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
         this.animate(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
 		this.animate(entity.sitStartAnimationState, UlughbegsaurusAnimations.SIT_START, ageInTicks);

@@ -104,6 +104,28 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
         );
 
+        // Desmatosuchus
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/death1"))
+        );
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle4"))
+        );
+        this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP,
+                sound("mob/pig/step1").pitch(0.8F),
+                sound("mob/pig/step2").pitch(0.8F),
+                sound("mob/pig/step3").pitch(0.8F),
+                sound("mob/pig/step4").pitch(0.8F),
+                sound("mob/pig/step5").pitch(0.8F)
+        );
+
         // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")),

@@ -130,14 +130,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
-            return super.getFluidJumpThreshold();
-        }
-        return 0.5 * getBbHeight();
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVec) {
         if (this.refuseToMove() && this.onGround()) {
             if (this.getNavigation().getPath() != null) {

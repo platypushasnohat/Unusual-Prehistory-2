@@ -162,6 +162,18 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         return (pose == UP2Poses.SITTING.get() || (this.getCommand() == 1 && this.isMobSitting()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
+    @Override
+    public void travel(@NotNull Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
+        this.floatWhileRidden(travelVec);
+        super.travel(travelVec);
+    }
+
     // Riding
     @Override
     protected float getRiddenSpeed(@NotNull Player rider) {
@@ -181,12 +193,16 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown() && (!(player.getItemInHand(InteractionHand.OFF_HAND).is(Tags.Items.DYES)) && !(player.getItemInHand(InteractionHand.MAIN_HAND).is(Tags.Items.DYES)) || this.isRainbow());
+        return player.isShiftKeyDown() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
     }
 
     @Override
     public boolean canOwnerMount(Player player) {
-        return !this.isBaby() && (!(player.getItemInHand(InteractionHand.OFF_HAND).is(Tags.Items.DYES)) && !(player.getItemInHand(InteractionHand.MAIN_HAND).is(Tags.Items.DYES)) || this.isRainbow());
+        return !this.isBaby() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
+    }
+
+    private boolean isPlayerHoldingDye(Player player) {
+        return player.getItemInHand(InteractionHand.OFF_HAND).is(Tags.Items.DYES) || player.getItemInHand(InteractionHand.MAIN_HAND).is(Tags.Items.DYES);
     }
 
     @Override
@@ -249,7 +265,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping();
+        return !this.isLeaping() && !this.isInWaterOrBubble();
     }
 
     @Override
@@ -274,7 +290,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         if (this.isLeaping() && leapProgress < 5F) leapProgress++;
         if (!this.isLeaping() && leapProgress > 0F) leapProgress--;
 
-        if (this.onGround() && this.isLeaping() && !leapImpulse) {
+        if ((this.onGround() || this.isInWaterOrBubble()) && this.isLeaping() && !leapImpulse) {
             this.setLeaping(false);
         }
         if (leapImpulse) {
@@ -298,7 +314,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
         this.jumpAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
 
