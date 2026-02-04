@@ -94,6 +94,7 @@ public class ClientForgeEvents {
         if (player != null && player.isPassenger() && event.getCamera().isDetached()) {
             if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
             if (player.getVehicle() instanceof Megalania) event.getCamera().move(-event.getCamera().getMaxZoom(1.7F), 0, 0);
+            if (player.getVehicle() instanceof Barinasuchus) event.getCamera().move(-event.getCamera().getMaxZoom(1.5F), 0, 0);
         }
     }
 

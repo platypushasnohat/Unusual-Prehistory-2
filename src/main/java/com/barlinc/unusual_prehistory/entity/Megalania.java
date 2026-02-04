@@ -26,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -314,20 +315,21 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
             this.setLeaping(true);
             if (this.onGround()) {
                 float jumpFactor = this.getBlockJumpFactor() + this.getJumpBoostPower();
-                this.addDeltaMovement(this.getLookAngle().multiply(1.0D, 0.0D, 1.0D).normalize().scale((0.08F * jumpPower) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) * this.getBlockSpeedFactor()).add(0.0D, (0.007F * jumpPower) * jumpFactor, 0.0D));
+                this.addDeltaMovement(this.getLookAngle().multiply(1.0D, 0.0D, 1.0D).normalize().scale((0.1F * jumpPower) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) * this.getBlockSpeedFactor()).add(0.0D, (0.01F * jumpPower) * jumpFactor, 0.0D));
                 this.leapImpulse = true;
-                this.leapCooldown = 50;
+                this.leapCooldown = 60;
             }
         }
     }
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping();
+        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting() && !this.isInSitPoseTransition();
     }
 
     @Override
     public void handleStartJump(int jumpPower) {
+        if (this.getRandom().nextInt(2000) == 0) this.playSound(UP2SoundEvents.MEGALANIA_JUMPSCARE.get(), 2.0F, 1.0F);
     }
 
     @Override

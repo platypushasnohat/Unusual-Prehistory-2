@@ -8,11 +8,16 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.util.RandomSource;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,11 +32,14 @@
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
  public class Barinasuchus extends PrehistoricMob {
+
+     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Barinasuchus.class, EntityDataSerializers.INT);
 
      private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.5F, 1.4F);
 
@@ -72,20 +80,24 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(2, new BarinasuchusAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BARINASUCHUS_FOOD), false));
-         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(6, new RandomSitGoal(this));
-         this.goalSelector.addGoal(6, new SleepingGoal(this));
-         this.goalSelector.addGoal(7, new BarinasuchusYawnGoal(this));
-         this.goalSelector.addGoal(7, new BarinasuchusShakeGoal(this));
-         this.goalSelector.addGoal(7, new BarinasuchusSnapGoal(this));
-         this.goalSelector.addGoal(7, new BarinasuchusScratchGoal(this));
-         this.goalSelector.addGoal(8, new BarinasuchusThreatenGoal(this));
+         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(3, new BarinasuchusAttackGoal(this));
+         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F, false));
+         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BARINASUCHUS_FOOD), false));
+         this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(8, new RandomSitGoal(this));
+         this.goalSelector.addGoal(8, new SleepingGoal(this));
+         this.goalSelector.addGoal(9, new BarinasuchusYawnGoal(this));
+         this.goalSelector.addGoal(9, new BarinasuchusShakeGoal(this));
+         this.goalSelector.addGoal(9, new BarinasuchusSnapGoal(this));
+         this.goalSelector.addGoal(9, new BarinasuchusScratchGoal(this));
+         this.goalSelector.addGoal(10, new BarinasuchusThreatenGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
      }
 
      @Override
@@ -106,12 +118,40 @@
              }
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
+         this.floatWhileRidden(travelVec);
          super.travel(travelVec);
      }
 
      @Override
      public float getStepHeight() {
-         return this.isRunning() ? 1.1F : 0.6F;
+         return 1.1F;
+     }
+
+     // Riding
+     @Override
+     protected float getRiddenSpeed(@NotNull Player rider) {
+         float sprintSpeed = rider.isSprinting() ? 0.12F : 0.0F;
+         return ((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F) + sprintSpeed;
+     }
+
+     @Override
+     public boolean canSprint() {
+         return true;
+     }
+
+     @Override
+     public Vec3 getRiderOffset() {
+         return new Vec3(0.0F, 0.0F, 0.25F);
+     }
+
+     @Override
+     public boolean canOwnerCommand(Player player) {
+         return player.isShiftKeyDown();
+     }
+
+     @Override
+     public boolean canOwnerMount(Player player) {
+         return !this.isBaby();
      }
 
      @Override
@@ -127,6 +167,31 @@
      @Override
      public boolean isPacifyItem(ItemStack itemStack) {
          return itemStack.is(UP2ItemTags.PACIFIES_BARINASUCHUS);
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         InteractionResult type = super.mobInteract(player, hand);
+         if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_BARINASUCHUS)) {
+             if (!this.level().isClientSide) {
+                 if (!player.getAbilities().instabuild) {
+                     itemstack.shrink(1);
+                 }
+                 this.gameEvent(GameEvent.ENTITY_INTERACT);
+                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                     this.level().broadcastEntityEvent(this, (byte) 7);
+                     this.tame(player);
+                     this.setPacified(true);
+                     this.heal(this.getMaxHealth());
+                 } else {
+                     this.level().broadcastEntityEvent(this, (byte) 6);
+                     this.setTameAttempts(this.getTameAttempts() + 1);
+                 }
+             }
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         return type;
      }
 
      @Override
@@ -279,6 +344,32 @@
 
      protected void threatenCooldown() {
          this.threatenCooldown = 2300 + this.getRandom().nextInt(2400);
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(TAME_ATTEMPTS, 0);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
+     }
+
+     public void setTameAttempts(int tameAttempts) {
+         this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+     }
+
+     public int getTameAttempts() {
+         return this.entityData.get(TAME_ATTEMPTS);
      }
 
      @Override

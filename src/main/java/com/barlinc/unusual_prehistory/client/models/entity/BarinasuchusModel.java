@@ -3,20 +3,23 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.BarinasuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Barinasuchus;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 
-    private final ModelPart root;
-    private final ModelPart body_main;
-    private final ModelPart body;
+    public final ModelPart root;
+    public final ModelPart body_main;
+    public final ModelPart body;
     private final ModelPart head;
     private final ModelPart jaw;
     private final ModelPart tail;
@@ -112,11 +115,11 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 	public void setupAnim(@NotNull Barinasuchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (!entity.isInWater()) {
-            if (entity.isRunning()) this.animateWalk(BarinasuchusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
+            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(BarinasuchusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(BarinasuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.3F, 2.6F);
         }
 		this.animateIdle(entity.idleAnimationState, BarinasuchusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 2);
+        this.animate(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks);
         this.animate(entity.attack1AnimationState, BarinasuchusAnimations.BITE_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, BarinasuchusAnimations.BITE_BLEND2, ageInTicks);
 		this.animate(entity.sitStartAnimationState, BarinasuchusAnimations.SIT_START, ageInTicks);
@@ -139,4 +142,14 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
+        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        armOffsetVec.mul(poseStack.last().pose());
+        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
+        poseStack.popPose();
+        return vec3;
+    }
 }

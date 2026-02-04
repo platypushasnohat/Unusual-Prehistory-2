@@ -277,6 +277,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         // Taming
+        this.tag(UP2ItemTags.TAMES_BARINASUCHUS).addTag(
+                UP2ItemTags.BARINASUCHUS_FOOD
+        );
+
         this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
                 Blocks.TORCHFLOWER.asItem()
         );

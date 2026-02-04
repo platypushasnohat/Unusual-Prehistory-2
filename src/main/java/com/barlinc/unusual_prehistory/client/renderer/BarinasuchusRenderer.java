@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.BarinasuchusModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.BarinasuchusRiderLayer;
 import com.barlinc.unusual_prehistory.entity.Barinasuchus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -19,6 +20,7 @@ public class BarinasuchusRenderer extends MobRenderer<Barinasuchus, Barinasuchus
 
     public BarinasuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new BarinasuchusModel(context.bakeLayer(UP2ModelLayers.BARINASUCHUS)), 0.9F);
+        this.addLayer(new BarinasuchusRiderLayer(this));
     }
 
     @Override

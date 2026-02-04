@@ -212,6 +212,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_STEP, "Megalania steps");
         this.sound(UP2SoundEvents.MEGALANIA_TAIL_SWING, "Megalania swings tail");
         this.sound(UP2SoundEvents.MEGALANIA_BITE, "Megalania bites");
+        this.sound(UP2SoundEvents.MEGALANIA_JUMPSCARE, "Megalania jumpscares");
 
         this.sound(UP2SoundEvents.METRIORHYNCHUS_HURT, "Metriorhynchus hurts");
         this.sound(UP2SoundEvents.METRIORHYNCHUS_DEATH, "Metriorhynchus dies");

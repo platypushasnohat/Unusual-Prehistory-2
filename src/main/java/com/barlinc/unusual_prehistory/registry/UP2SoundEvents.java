@@ -115,6 +115,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_STEP = registerSoundEvent("megalania_step");
     public static final RegistryObject<SoundEvent> MEGALANIA_TAIL_SWING = registerSoundEvent("megalania_tail_swing");
     public static final RegistryObject<SoundEvent> MEGALANIA_BITE = registerSoundEvent("megalania_bite");
+    public static final RegistryObject<SoundEvent> MEGALANIA_JUMPSCARE = registerSoundEvent("megalania_jumpscare");
 
     public static final RegistryObject<SoundEvent> METRIORHYNCHUS_HURT = registerSoundEvent("metriorhynchus_hurt");
     public static final RegistryObject<SoundEvent> METRIORHYNCHUS_DEATH = registerSoundEvent("metriorhynchus_death");

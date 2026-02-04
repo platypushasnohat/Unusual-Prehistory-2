@@ -433,6 +433,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/bite1")).volume(0.8F),
                 sound(UnusualPrehistory2.modPrefix("entity/megalania/bite2")).volume(0.8F)
         );
+        this.sound(UP2SoundEvents.MEGALANIA_JUMPSCARE,
+                sound(UnusualPrehistory2.modPrefix("entity/megalania/jumpscare1")).attenuationDistance(20)
+        );
 
         // Metriorhynchus
         this.sound(UP2SoundEvents.METRIORHYNCHUS_HURT,
