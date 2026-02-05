@@ -192,6 +192,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.sleepStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sleepAnimationState, TherizinosaurusAnimations.SIT, ageInTicks);
         this.animate(entity.sleepEndAnimationState, TherizinosaurusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.roarAnimationState, TherizinosaurusAttackAnimations.AGGRO_ROAR_BLEND, ageInTicks);
 
         this.head.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

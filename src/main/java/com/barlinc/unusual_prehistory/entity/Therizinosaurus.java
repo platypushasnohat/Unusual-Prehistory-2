@@ -45,6 +45,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     private static final EntityDataAccessor<Boolean> SHAVED = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FORAGING_TREE = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> ANGER_LEVEL = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(2.2F, 3.98F);
 
@@ -55,6 +57,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public int slashCooldown = 0;
     public int slashRushCooldown = 100 + this.getRandom().nextInt(60);
     public int chargeCooldown = 250 + this.getRandom().nextInt(400);
+
+    public int vibrationCooldown = 0;
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
@@ -69,6 +73,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public final AnimationState clickAnimationState = new AnimationState();
     public final AnimationState alert1AnimationState = new AnimationState();
     public final AnimationState alert2AnimationState = new AnimationState();
+    public final AnimationState roarAnimationState = new AnimationState();
 
     private int attackTicks;
     private int slashRushTicks;
@@ -77,6 +82,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     private int alertTicks;
     private int foragingTicks;
+    private int roarTicks;
 
     private int shakeCooldown = 1200 + this.getRandom().nextInt(1200);
     private int stretchCooldown = 1400 + this.getRandom().nextInt(1400);
@@ -186,6 +192,15 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (slashCooldown > 0) slashCooldown--;
         if (slashRushCooldown > 0) slashRushCooldown--;
         if (chargeCooldown > 0) chargeCooldown--;
+        if (vibrationCooldown > 0) vibrationCooldown--;
+        if (this.getAngerTime() > 0) this.setAngerTime(this.getAngerTime() - 1);
+
+        if (!this.level().isClientSide && this.getAngerTime() == 0) {
+            if (this.getAngerLevel() > 0) {
+                this.setAngerLevel(this.getAngerLevel() - 1);
+                this.setAngerTime(1200 + this.getRandom().nextInt(300));
+            }
+        }
     }
 
     @Override
@@ -196,12 +211,14 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (chargeEndTicks > 0) chargeEndTicks--;
         if (foragingTicks > 0) foragingTicks--;
         if (alertTicks > 0) alertTicks--;
+        if (roarTicks > 0) roarTicks--;
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (slashRushTicks == 0 && this.getPose() == UP2Poses.SLASH_RUSH.get()) this.setPose(Pose.STANDING);
         if (chargeStartTicks == 0 && this.getPose() == UP2Poses.START_CHARGING.get()) this.setPose(UP2Poses.CHARGING.get());
         if (chargeEndTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
         if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
         if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
+        if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
         if (!this.isMobEepy()) {
             if (shakeCooldown > 0) shakeCooldown--;
             if (stretchCooldown > 0) stretchCooldown--;
@@ -226,6 +243,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.alert1AnimationState.stop();
             this.alert2AnimationState.stop();
         }
+        if (roarTicks == 0 && this.roarAnimationState.isStarted()) this.roarAnimationState.stop();
 
         this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && !this.isInAttackingPose(), this.tickCount);
@@ -295,6 +313,10 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                 else this.alert2AnimationState.start(this.tickCount);
                 this.alertTicks = 80;
             }
+            else if (this.getPose() == UP2Poses.ENRAGED.get()) {
+                this.roarAnimationState.start(this.tickCount);
+                this.roarTicks = 60;
+            }
             else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
@@ -303,6 +325,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                 this.chargeEndAnimationState.stop();
                 this.forageLowAnimationState.stop();
                 this.forageHighAnimationState.stop();
+                this.roarAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -335,7 +358,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 2 || this.getPose() == UP2Poses.FORAGING.get() || this.getPose() == UP2Poses.ALERTED.get();
+        return super.refuseToMove() || this.getIdleState() == 2 || this.getPose() == UP2Poses.FORAGING.get() || this.getPose() == UP2Poses.ALERTED.get() || this.getPose() == UP2Poses.ENRAGED.get();
     }
 
     @Override
@@ -348,18 +371,24 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         super.defineSynchedData();
         this.entityData.define(SHAVED, false);
         this.entityData.define(FORAGING_TREE, false);
+        this.entityData.define(ANGER_LEVEL, 0);
+        this.entityData.define(ANGER_TIME, 0);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putBoolean("Shaved", this.isShaved());
+        compoundTag.putInt("AngerLevel", this.getAngerLevel());
+        compoundTag.putInt("AngerTime", this.getAngerTime());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setShaved(compoundTag.getBoolean("Shaved"));
+        this.setAngerLevel(compoundTag.getInt("AngerLevel"));
+        this.setAngerTime(compoundTag.getInt("AngerTime"));
     }
 
     public boolean isShaved() {
@@ -374,6 +403,20 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
     public void setForagingTree(boolean foragingTree) {
         this.entityData.set(FORAGING_TREE, foragingTree);
+    }
+
+    public int getAngerLevel() {
+        return this.entityData.get(ANGER_LEVEL);
+    }
+    public void setAngerLevel(int anger) {
+        this.entityData.set(ANGER_LEVEL, anger);
+    }
+
+    public int getAngerTime() {
+        return this.entityData.get(ANGER_TIME);
+    }
+    public void setAngerTime(int angerTime) {
+        this.entityData.set(ANGER_TIME, angerTime);
     }
 
     @Nullable
@@ -455,8 +498,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
 
         @Override
-        public boolean canReceiveVibration(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull GameEvent gameEvent, GameEvent.Context context) {
-            if (therizinosaurus.isNoAi() || therizinosaurus.isBaby() || therizinosaurus.isShaved()) return false;
+        public boolean canReceiveVibration(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull GameEvent gameEvent, GameEvent.@NotNull Context context) {
+            if (therizinosaurus.isNoAi() || therizinosaurus.isBaby() || therizinosaurus.isShaved() || therizinosaurus.vibrationCooldown > 0) return false;
             return therizinosaurus.getTarget() != null;
         }
 
@@ -493,10 +536,19 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
 
         @Override
-        public boolean handleGameEvent(@NotNull ServerLevel serverLevel, @NotNull GameEvent gameEvent, GameEvent.Context context, @NotNull Vec3 vec3) {
+        public boolean handleGameEvent(@NotNull ServerLevel serverLevel, @NotNull GameEvent gameEvent, GameEvent.@NotNull Context context, @NotNull Vec3 vec3) {
             BlockPos blockPos = BlockPos.containing(vec3);
             if (Therizinosaurus.isLoudNoise(gameEvent, serverLevel, blockPos)) {
-                this.therizinosaurus.setPose(UP2Poses.ALERTED.get());
+                if (therizinosaurus.getAngerLevel() < 3) {
+                    this.therizinosaurus.setPose(UP2Poses.ALERTED.get());
+                    this.therizinosaurus.setAngerLevel(therizinosaurus.getAngerLevel() + 1);
+                    this.therizinosaurus.setAngerTime(900 + therizinosaurus.getRandom().nextInt(300));
+                } else {
+                    this.therizinosaurus.setPose(UP2Poses.ENRAGED.get());
+                    this.therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_WARN.get(), 3.0F, 0.9F + therizinosaurus.getRandom().nextFloat() * 0.15F);
+                }
+                this.therizinosaurus.setAngerTime(1200 + therizinosaurus.getRandom().nextInt(300));
+                this.therizinosaurus.vibrationCooldown = 90;
                 return true;
             }
             return false;
