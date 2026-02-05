@@ -607,8 +607,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle1")),
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle3"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack1")),
@@ -620,9 +619,13 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step2")),
                 sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step3"))
         );
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_WARN,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn1")).attenuationDistance(32).pitch(0.85F),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/warn2")).attenuationDistance(32).pitch(0.85F)
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/roar1")).attenuationDistance(32),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/roar2")).attenuationDistance(32)
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_NOTICE,
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/notice1")),
+                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/notice2"))
         );
 
         // Ulughbegsaurus

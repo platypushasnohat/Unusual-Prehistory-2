@@ -259,7 +259,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus squawks");
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus slices");
         this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_WARN, "Therizinosaurus warns");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR, "Therizinosaurus screams");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_NOTICE, "Therizinosaurus takes notice");
 
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_HURT, "Ulughbegsaurus hurts");
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_DEATH, "Ulughbegsaurus dies");

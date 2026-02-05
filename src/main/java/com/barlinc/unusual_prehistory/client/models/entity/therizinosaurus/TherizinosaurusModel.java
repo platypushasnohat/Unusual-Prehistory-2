@@ -186,7 +186,6 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.forageHighAnimationState, TherizinosaurusAnimations.GRAZE_HIGH, ageInTicks);
         this.animate(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
         this.animate(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks);
-        this.animate(entity.clickAnimationState, TherizinosaurusAnimations.IDLE_CLICK_BLEND, ageInTicks);
         this.animate(entity.alert1AnimationState, TherizinosaurusAnimations.ALERT_LEFT_BLEND, ageInTicks);
         this.animate(entity.alert2AnimationState, TherizinosaurusAnimations.ALERT_RIGHT_BLEND, ageInTicks);
         this.animate(entity.sleepStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);

@@ -117,7 +117,7 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
 
         if (timer == 1) {
             therizinosaurus.setPose(UP2Poses.START_CHARGING.get());
-            therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_WARN.get(), 3.0F, therizinosaurus.getVoicePitch());
+            therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ROAR.get(), 3.0F, therizinosaurus.getVoicePitch());
         }
 
         if (timer < 30) {
