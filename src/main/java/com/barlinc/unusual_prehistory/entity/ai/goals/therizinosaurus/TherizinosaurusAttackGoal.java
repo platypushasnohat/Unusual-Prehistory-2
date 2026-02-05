@@ -56,7 +56,7 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             else if (attackState == 3) this.tickCharge();
             else if (attackState == 4) this.tickChargeEnd();
             else {
-                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.8D);
+                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.7D);
                 if (distance < 14 && therizinosaurus.chargeCooldown > 0 && !this.isInChargingPose()) {
                     if (therizinosaurus.getRandom().nextFloat() < 0.8F && therizinosaurus.slashCooldown == 0) therizinosaurus.setAttackState(1);
                     else if (therizinosaurus.slashRushCooldown == 0) therizinosaurus.setAttackState(2);

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumSet;
 import java.util.function.BiConsumer;
 
 public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
@@ -99,17 +101,29 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new TherizinosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new TherizinosaurusForageLeavesGoal(this, 1, 12));
-        this.goalSelector.addGoal(10, new TherizinosaurusShakeGoal(this));
-        this.goalSelector.addGoal(10, new TherizinosaurusStretchGoal(this));
+        this.goalSelector.addGoal(3, new TherizinosaurusFreakOutGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Therizinosaurus.this.getAngerLevel() < 4;
+            }
+        });
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Therizinosaurus.this.getAngerLevel() < 4;
+            }
+        });
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new TherizinosaurusSleepGoal(this));
+        this.goalSelector.addGoal(10, new TherizinosaurusForageLeavesGoal(this, 1, 12));
+        this.goalSelector.addGoal(11, new TherizinosaurusShakeGoal(this));
+        this.goalSelector.addGoal(11, new TherizinosaurusStretchGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new TargetNearbyPlayersGoal(this, 80, 5.0D));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Mob.class, 60, true, true, this::targetsEverything));
+        this.targetSelector.addGoal(2, new TargetNearbyPlayersGoal(this, 80, 5.0D));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -160,6 +174,10 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         return Math.abs(target.getY() - this.getY()) < 2;
     }
 
+    public boolean targetsEverything(Entity entity) {
+        return this.getAngerLevel() > 3;
+    }
+
     public void slashRushCooldown() {
         this.slashRushCooldown = 100 + this.getRandom().nextInt(60);
     }
@@ -195,7 +213,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (!this.level().isClientSide && this.getAngerTime() == 0) {
             if (this.getAngerLevel() > 0) {
                 this.setAngerLevel(this.getAngerLevel() - 1);
-                this.setAngerTime(1200 + this.getRandom().nextInt(300));
+                this.setAngerTime(900 + this.getRandom().nextInt(300));
             }
         }
     }
@@ -479,7 +497,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public int getListenerRadius() {
-            return 16;
+            return 24;
         }
 
         @Override
@@ -528,20 +546,17 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         @Override
         public boolean handleGameEvent(@NotNull ServerLevel serverLevel, @NotNull GameEvent gameEvent, GameEvent.@NotNull Context context, @NotNull Vec3 vec3) {
             BlockPos blockPos = BlockPos.containing(vec3);
-            if (Therizinosaurus.isLoudNoise(gameEvent, serverLevel, blockPos) && therizinosaurus.vibrationCooldown == 0) {
+            if (Therizinosaurus.isLoudNoise(gameEvent, serverLevel, blockPos) && therizinosaurus.vibrationCooldown == 0 && therizinosaurus.getAngerLevel() < 4) {
                 if (therizinosaurus.getAngerLevel() < 3) {
                     this.therizinosaurus.setPose(UP2Poses.ALERTED.get());
                     this.therizinosaurus.setAngerLevel(therizinosaurus.getAngerLevel() + 1);
                     this.therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_NOTICE.get(), 1.0F, 0.9F + therizinosaurus.getRandom().nextFloat() * 0.15F);
                 } else {
                     this.therizinosaurus.setPose(UP2Poses.ENRAGED.get());
+                    this.therizinosaurus.setAngerLevel(therizinosaurus.getAngerLevel() + 1);
                     this.therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ROAR.get(), 3.0F, 0.9F + therizinosaurus.getRandom().nextFloat() * 0.15F);
                 }
-                if (therizinosaurus.isMobEepy()) {
-                    this.therizinosaurus.stopEepy();
-                }
-                this.therizinosaurus.setAngerTime(1200 + serverLevel.getRandom().nextInt(300));
-                this.therizinosaurus.setEepyCooldown(therizinosaurus.getAngerTime());
+                this.therizinosaurus.setAngerTime(900 + serverLevel.getRandom().nextInt(300));
                 this.therizinosaurus.vibrationCooldown = 85;
                 return true;
             }
@@ -554,6 +569,84 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
 
     // Goals
+    private static class TherizinosaurusSleepGoal extends SleepingGoal {
+
+        private final Therizinosaurus therizinosaurus;
+
+        public TherizinosaurusSleepGoal(Therizinosaurus therizinosaurus) {
+            super(therizinosaurus);
+            this.therizinosaurus = therizinosaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && therizinosaurus.getAngerLevel() <= 0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && therizinosaurus.getAngerLevel() <= 0;
+        }
+    }
+
+    private static class TherizinosaurusFreakOutGoal extends Goal {
+
+        protected final Therizinosaurus therizinosaurus;
+        protected double wantedX;
+        protected double wantedY;
+        protected double wantedZ;
+
+        public TherizinosaurusFreakOutGoal(Therizinosaurus therizinosaurus) {
+            this.therizinosaurus = therizinosaurus;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (therizinosaurus.isVehicle() || therizinosaurus.getTarget() != null) {
+                return false;
+            } else {
+                Vec3 position = this.getPosition();
+                if (position == null) {
+                    return false;
+                } else if (therizinosaurus.getAngerLevel() > 3) {
+                    this.wantedX = position.x;
+                    this.wantedY = position.y;
+                    this.wantedZ = position.z;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            return LandRandomPos.getPos(therizinosaurus, 10, 4);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return therizinosaurus.getAngerLevel() > 3 && !therizinosaurus.getNavigation().isDone() && therizinosaurus.getTarget() == null;
+        }
+
+        @Override
+        public void start() {
+            this.therizinosaurus.getNavigation().moveTo(wantedX, wantedY, wantedZ, 1.5D);
+            this.therizinosaurus.setRunning(true);
+        }
+
+        @Override
+        public void tick() {
+            this.therizinosaurus.getLookControl().setLookAt(wantedX, wantedY, wantedZ, 30F, 30F);
+        }
+
+        @Override
+        public void stop() {
+            this.therizinosaurus.setRunning(false);
+            this.therizinosaurus.getNavigation().stop();
+        }
+    }
+
     private static class TherizinosaurusShakeGoal extends AnimationGoal {
 
         private final Therizinosaurus therizinosaurus;
@@ -565,7 +658,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
         }
 
         @Override
@@ -586,7 +679,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
         }
 
         @Override
