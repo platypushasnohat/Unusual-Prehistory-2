@@ -26,7 +26,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -349,18 +348,18 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     @Override
     public void onKeyPacket(Entity keyPresser, int type) {
         if (keyPresser.isPassengerOfSameVehicle(this)) {
-            if (type == 3) {
-                if (this.getPose() == Pose.STANDING) {
-                    this.setYHeadRot(keyPresser.getYHeadRot());
-                    this.setXRot(keyPresser.getXRot());
-                    if (this.isInWater()) {
-                        this.setPose(UP2Poses.ATTACKING.get());
-                    } else {
-                        if (this.getRandom().nextBoolean() && this.talWhipCooldown == 0) this.setPose(UP2Poses.TAIL_WHIPPING.get());
-                        else this.setPose(UP2Poses.ATTACKING.get());
-                    }
-                }
-            }
+//            if (type == 3) {
+//                if (this.getPose() == Pose.STANDING) {
+//                    this.setYHeadRot(keyPresser.getYHeadRot());
+//                    this.setXRot(keyPresser.getXRot());
+//                    if (this.isInWater()) {
+//                        this.setPose(UP2Poses.ATTACKING.get());
+//                    } else {
+//                        if (this.getRandom().nextBoolean() && this.talWhipCooldown == 0) this.setPose(UP2Poses.TAIL_WHIPPING.get());
+//                        else this.setPose(UP2Poses.ATTACKING.get());
+//                    }
+//                }
+//            }
         }
     }
 
@@ -547,8 +546,8 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         if (ground && !this.isLandNavigator) switchNavigator(true);
 
         this.tickTemperatureStates();
-        this.tickPlayerBite();
-        this.tickPlayerTailWhip();
+//        this.tickPlayerBite();
+//        this.tickPlayerTailWhip();
 
         if (this.biteCooldown > 0 && !this.isInWater()) this.biteCooldown--;
         if (this.talWhipCooldown > 0 && !this.isInWater()) this.talWhipCooldown--;
@@ -564,7 +563,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
             this.leapImpulse = false;
         }
 
-        if (this.leapCooldown > 0 && !this.isLeaping()) {
+        if (leapCooldown > 0 && !this.isLeaping()) {
             this.leapCooldown--;
         }
     }
