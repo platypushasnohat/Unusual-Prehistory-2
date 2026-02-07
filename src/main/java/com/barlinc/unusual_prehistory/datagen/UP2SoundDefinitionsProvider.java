@@ -21,16 +21,23 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Aegirocassis
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH,
-                sound("entity/fish/hurt1").pitch(0.3F),
-                sound("entity/fish/hurt2").pitch(0.3F),
-                sound("entity/fish/hurt3").pitch(0.3F),
-                sound("entity/fish/hurt4").pitch(0.3F)
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/death1"))
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT,
-                sound("entity/fish/hurt1").pitch(0.5F),
-                sound("entity/fish/hurt2").pitch(0.5F),
-                sound("entity/fish/hurt3").pitch(0.5F),
-                sound("entity/fish/hurt4").pitch(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt3"))
+        );
+        this.sound(UP2SoundEvents.AEGIROCASSIS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle5")),
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle6"))
+        );
+        this.sound(UP2SoundEvents.AEGIROCASSIS_HOVER,
+                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hover1"))
         );
 
         // Barinasuchus

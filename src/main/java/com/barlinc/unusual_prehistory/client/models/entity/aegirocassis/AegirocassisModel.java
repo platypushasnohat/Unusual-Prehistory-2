@@ -236,6 +236,11 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
     @Override
     public void setupAnim(@NotNull Aegirocassis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        float deg = ((float) Math.PI / 180F);
+        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
+
         if (entity.isInWater() || entity.isLeaping() && !entity.isTryingToFly()) {
             this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
             this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 1.625F, 3.25F);
@@ -246,10 +251,6 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         this.animate(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
         this.animate(entity.leapStartAnimationState, AegirocassisLeapAnimations.LEAP_START, ageInTicks);
         this.animate(entity.leapAnimationState, AegirocassisLeapAnimations.LEAP_HOLD, ageInTicks);
-
-        float deg = ((float) Math.PI / 180F);
-        float partialTicks = ageInTicks - entity.tickCount;
-        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
 
         double segment1Y = (entity.getTrailTransformation(10, partialTicks)) - bodyYRot;
         double segment2Y = (entity.getTrailTransformation(20, partialTicks)) - bodyYRot - segment1Y;

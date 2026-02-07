@@ -16,6 +16,8 @@ public class UP2SoundEvents {
     // Mobs
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_HURT = registerSoundEvent("aegirocassis_hurt");
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_DEATH = registerSoundEvent("aegirocassis_death");
+    public static final RegistryObject<SoundEvent> AEGIROCASSIS_IDLE = registerSoundEvent("aegirocassis_idle");
+    public static final RegistryObject<SoundEvent> AEGIROCASSIS_HOVER = registerSoundEvent("aegirocassis_hover");
 
     public static final RegistryObject<SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");

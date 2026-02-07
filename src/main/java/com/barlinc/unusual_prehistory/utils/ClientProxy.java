@@ -2,8 +2,10 @@ package com.barlinc.unusual_prehistory.utils;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.client.sounds.AegirocassisHoverSound;
 import com.barlinc.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSound;
 import com.barlinc.unusual_prehistory.client.sounds.TransmogrifierSound;
+import com.barlinc.unusual_prehistory.entity.Aegirocassis;
 import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
@@ -109,6 +111,21 @@ public class ClientProxy extends CommonProxy {
                         ENTITY_SOUND_INSTANCE_MAP.put(entity.getId(), sound);
                     } else {
                         sound = (KimmeridgebrachypteraeschnidiumSound) oldSound;
+                    }
+                    if (!isSoundPlaying(sound) && sound.canPlaySound()) {
+                        Minecraft.getInstance().getSoundManager().queueTickingSound(sound);
+                    }
+                }
+                break;
+            case 2:
+                if (soundEmitter instanceof Aegirocassis entity) {
+                    AegirocassisHoverSound sound;
+                    AbstractTickableSoundInstance oldSound = ENTITY_SOUND_INSTANCE_MAP.get(entity.getId());
+                    if (oldSound == null || !(oldSound instanceof AegirocassisHoverSound sound1 && sound1.isSameEntity(entity))) {
+                        sound = new AegirocassisHoverSound(entity);
+                        ENTITY_SOUND_INSTANCE_MAP.put(entity.getId(), sound);
+                    } else {
+                        sound = (AegirocassisHoverSound) oldSound;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
                         Minecraft.getInstance().getSoundManager().queueTickingSound(sound);

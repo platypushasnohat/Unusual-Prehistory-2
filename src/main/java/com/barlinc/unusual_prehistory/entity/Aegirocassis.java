@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
@@ -166,6 +167,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public void remove(@NotNull RemovalReason removalReason) {
+        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
         if (allParts != null) {
             for (AegirocassisPart aegirocassisPart : allParts) {
@@ -203,6 +205,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         if (this.getPose() == Pose.FALL_FLYING && (this.isInWaterOrBubble() || this.onGround())) {
             this.setPose(Pose.STANDING);
         }
+
+        if (this.level().isClientSide && this.isAlive() && this.isLeaping()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 2);
     }
 
     @Override
@@ -319,6 +323,12 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         this.entityData.set(LEAPING, leaping);
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return UP2SoundEvents.AEGIROCASSIS_IDLE.get();
+    }
+
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
@@ -335,6 +345,11 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Nullable
     protected SoundEvent getFlopSound() {
         return SoundEvents.EMPTY;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 400;
     }
 
     @Override
