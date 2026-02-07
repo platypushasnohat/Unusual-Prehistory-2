@@ -49,6 +49,26 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.tallPlant(LARGE_HORSETAIL);
         this.tallPlant(RAIGUENRAYUN);
 
+        // dryophyllum
+        this.pillar(DRYOPHYLLUM_LOG);
+        this.wood(DRYOPHYLLUM_WOOD, this.blockTexture(DRYOPHYLLUM_LOG.get()));
+        this.pillar(STRIPPED_DRYOPHYLLUM_LOG);
+        this.wood(STRIPPED_DRYOPHYLLUM_WOOD, this.blockTexture(STRIPPED_DRYOPHYLLUM_LOG.get()));
+        this.cubeAllBlock(DRYOPHYLLUM_PLANKS);
+        this.stairs(DRYOPHYLLUM_STAIRS, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+        this.slab(DRYOPHYLLUM_SLAB, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+        this.fence(DRYOPHYLLUM_FENCE, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+        this.fenceGate(DRYOPHYLLUM_FENCE_GATE, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+        this.doorCutout(DRYOPHYLLUM_DOOR);
+        this.trapdoorCutout(DRYOPHYLLUM_TRAPDOOR);
+        this.pressurePlate(DRYOPHYLLUM_PRESSURE_PLATE, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+        this.button(DRYOPHYLLUM_BUTTON, this.blockTexture(DRYOPHYLLUM_PLANKS.get()));
+
+        this.leaves(DRYOPHYLLUM_LEAVES);
+
+        this.pottedPlant(DRYOPHYLLUM_SAPLING, POTTED_DRYOPHYLLUM_SAPLING);
+
+        // ginkgo
         this.pillar(GINKGO_LOG);
         this.wood(GINKGO_WOOD, this.blockTexture(GINKGO_LOG.get()));
         this.pillar(STRIPPED_GINKGO_LOG);
@@ -69,6 +89,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.pottedPlant(GINKGO_SAPLING, POTTED_GINKGO_SAPLING);
         this.pottedPlant(GOLDEN_GINKGO_SAPLING, POTTED_GOLDEN_GINKGO_SAPLING);
 
+        // lepidodendron
         this.pillar(LEPIDODENDRON_LOG);
         this.wood(LEPIDODENDRON_WOOD, this.blockTexture(LEPIDODENDRON_LOG.get()));
         this.pillar(STRIPPED_LEPIDODENDRON_LOG);

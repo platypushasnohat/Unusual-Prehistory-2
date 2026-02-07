@@ -70,6 +70,11 @@ public class UP2Items {
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back");
 
+    // Dimorphodon
+    public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
+    public static final RegistryObject<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
+    public static final RegistryObject<Item> BILL_FOSSIL = registerFossilItem("bill");
+
     // Diplocaulus
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
     public static final RegistryObject<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new UP2MobBucketItem(UP2Entities.DIPLOCAULUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Diplocaulus.DiplocaulusVariant::byId)));
@@ -88,7 +93,7 @@ public class UP2Items {
     // Hibbertopterus
     public static final RegistryObject<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xe4b57c, 0x5d3a2f);
     public static final RegistryObject<Item> PLOW_FOSSIL = registerFossilItem("plow");
-    public static final RegistryObject<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(100), 1));
+    public static final RegistryObject<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 2));
 
     // Jawless Fish
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = registerSpawnEggItem("jawless_fish", UP2Entities.JAWLESS_FISH, 0x312e38, 0x917388);
@@ -213,8 +218,15 @@ public class UP2Items {
     public static final RegistryObject<Item> TEMPSKYA_FOSSIL = registerFossilItem("tempskya");
     public static final RegistryObject<Item> GINKGO_FOSSIL = registerFossilItem("ginkgo");
     public static final RegistryObject<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
+    public static final RegistryObject<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
+    public static final RegistryObject<Item> DRYOPHYLLUM_FOSSIL = registerFossilItem("dryophyllum");
 
     // Wood
+    public static final RegistryObject<Item> DRYOPHYLLUM_SIGN = registerItem("dryophyllum_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DRYOPHYLLUM_HANGING_SIGN = registerItem("dryophyllum_hanging_sign", () -> new HangingSignItem(UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
+    public static final RegistryObject<Item> DRYOPHYLLUM_BOAT = registerItem("dryophyllum_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DRYOPHYLLUM_CHEST_BOAT = registerItemNoLang("dryophyllum_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_WALL_SIGN.get()));
     public static final RegistryObject<Item> GINKGO_HANGING_SIGN = registerItem("ginkgo_hanging_sign", () -> new HangingSignItem(UP2Blocks.GINKGO_HANGING_SIGN.get(), UP2Blocks.GINKGO_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> GINKGO_BOAT = registerItem("ginkgo_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.GINKGO, new Item.Properties().stacksTo(1)));

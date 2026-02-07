@@ -106,10 +106,10 @@ public class Kentrosaurus extends PrehistoricMob {
 
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.35 * getBbHeight();
+        return 0.4D * this.getBbHeight();
     }
 
     @Override

@@ -154,6 +154,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
 
         // Jurassic
         reviveMobAdvancement("revive_brachiosaurus", jurassicRoot, UP2Blocks.BRACHIOSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_brachiosaurus"), helper);
+        reviveMobAdvancement("revive_dimorphodon", cretaceousRoot, UP2Items.DIMORPHODON_EGG.get(), UP2Entities.DIMORPHODON.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dimorphodon"), helper);
         reviveMobAdvancement("revive_kentrosaurus", jurassicRoot, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kentrosaurus"), helper);
         reviveMobAdvancement("revive_kimmeridgebrachypteraeschnidium", jurassicRoot, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kimmeridgebrachypteraeschnidium"), helper);
         reviveMobAdvancement("revive_manipulator", jurassicRoot, UP2Blocks.MANIPULATOR_OOTHECA.get(), UP2Entities.MANIPULATOR.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_manipulator"), helper);

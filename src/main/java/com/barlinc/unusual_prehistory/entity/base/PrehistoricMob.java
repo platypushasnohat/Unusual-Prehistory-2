@@ -22,6 +22,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,6 +42,8 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -64,7 +68,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
-    public boolean useLowerFluidJumpThreshold = false;
     protected int eepyTicks;
 
     private BlockPos jukeboxPosition;
@@ -72,6 +75,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public float prevEyeGlowProgress;
     public float eyeGlowProgress;
+
+    private float tailYaw;
+    private float prevTailYaw;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sleepStartAnimationState = new AnimationState();
@@ -88,6 +94,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.lookControl = new PrehistoricLookControl(this);
         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
+        this.tailYaw = this.getYRot();
+        this.prevTailYaw = this.getYRot();
     }
 
     @Override
@@ -151,21 +159,21 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Floating
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.6 * getBbHeight();
+        return 0.6D * this.getBbHeight();
     }
 
-    private void setUseLowerFluidJumpThreshold(boolean jumpThreshold) {
-        this.useLowerFluidJumpThreshold = jumpThreshold;
+    protected void floatInWaterWhileRidden() {
+        if (this.isVehicle() && this.getFluidHeight(FluidTags.WATER) > this.getFluidJumpThreshold()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.04F, 0.0));
+        }
     }
 
-    @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        if (this.isInWater() && horizontalCollision) {
-            this.setUseLowerFluidJumpThreshold(true);
+    public void floatWhileRidden(Vec3 travelVec) {
+        if (this.isInWater() || (this.isInFluidType(this.getEyeInFluidType()) && !this.moveInFluid(this.level().getFluidState(BlockPos.containing(this.getEyePosition())), travelVec, this.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get())))) {
+            this.floatInWaterWhileRidden();
         }
     }
 
@@ -233,7 +241,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
         InteractionResult type = super.mobInteract(player, hand);
         if (this.isFood(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
@@ -245,14 +252,47 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setForeverBaby(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.isPacifyItem(itemstack) && this.canPacify() && !this.isPacified() && !this.isBaby()) {
+        if (!type.consumesAction()) {
+            return this.interactTameCommands(player, hand);
+        }
+        if (this.canPacify()) {
+            return this.interactPacify(player, hand);
+        }
+        return type;
+    }
+
+    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
+            if (this.canOwnerCommand(player)) {
+                this.setCommand(this.getCommand() + 1);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
+                boolean sit = this.getCommand() == 1;
+                this.setOrderedToSit(sit);
+                return InteractionResult.SUCCESS;
+            } else if (this.canOwnerMount(player)) {
+                if (!level().isClientSide && player.startRiding(this)) {
+                    return InteractionResult.CONSUME;
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+
+    public InteractionResult interactPacify(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.setPacified(true);
             this.setPacifiedTicks(this.pacifiedTicks());
             this.level().broadcastEntityEvent(this, (byte) 9);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.isPermanentPacifyItem(itemstack) && this.canPacify() && (!this.isPacified() || this.getPacifiedTicks() > 0) && !this.isBaby()) {
+        if (this.isPermanentPacifyItem(itemstack) && (!this.isPacified() || this.getPacifiedTicks() > 0) && !this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.setPacified(true);
             this.setPacifiedTicks(-1);
@@ -260,26 +300,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (!interactionresult.consumesAction() && !type.consumesAction()) {
-            if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
-                if (this.canOwnerCommand(player)) {
-                    this.setCommand(this.getCommand() + 1);
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 1;
-                    this.setOrderedToSit(sit);
-                    return InteractionResult.SUCCESS;
-                } else if (this.canOwnerMount(player)) {
-                    if (!level().isClientSide && player.startRiding(this)) {
-                        return InteractionResult.CONSUME;
-                    }
-                    return InteractionResult.SUCCESS;
-                }
-            }
-        }
-        return type;
+        return InteractionResult.PASS;
     }
 
     // Entity events
@@ -307,6 +328,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         super.tick();
 
         this.tickEyeGlow();
+        this.tickTailYaw();
 
         if (this.isForeverBaby() && this.isBaby()) this.setAge(-24000);
 
@@ -374,6 +396,16 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public float getEyeGlowProgress(float partialTicks) {
         return (prevEyeGlowProgress + (eyeGlowProgress - prevEyeGlowProgress) * partialTicks) * 0.1F;
+    }
+
+    // Tail yaw
+    public void tickTailYaw() {
+        this.prevTailYaw = tailYaw;
+        this.tailYaw = Mth.approachDegrees(this.tailYaw, yBodyRot, 8);
+    }
+
+    public float getTailYaw(float partialTick) {
+        return (prevTailYaw + (tailYaw - prevTailYaw) * partialTick);
     }
 
     // Animation
@@ -647,6 +679,42 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setRot(player.getYRot(), player.getXRot() * 0.25F);
             this.setYHeadRot(player.getYHeadRot());
             this.setTarget(null);
+        }
+    }
+
+    // Prevent rider from taking fall damage
+    @Override
+    public boolean causeFallDamage(float f1, float f2, @NotNull DamageSource source) {
+        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
+        if (ret == null) return false;
+        f1 = ret[0];
+        f2 = ret[1];
+
+        boolean flag = causeInternalFallDamage(f1, f2, source);
+        int i = this.calculateFallDamage(f1, f2);
+        if (i > 0) {
+            this.playSound(i > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0F, 1.0F);
+            this.playBlockFallSound();
+            this.hurt(source, (float)i);
+            return true;
+        } else {
+            return flag;
+        }
+    }
+
+    private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
+        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
+        if (ret == null) return false;
+        f1 = ret[0];
+        f2 = ret[1];
+
+        int i = this.calculateFallDamage(f1, f2);
+        if (i > 0) {
+            this.playBlockFallSound();
+            this.hurt(damageSource, (float) i);
+            return true;
+        } else {
+            return this.getType().is(EntityTypeTags.FALL_DAMAGE_IMMUNE);
         }
     }
 

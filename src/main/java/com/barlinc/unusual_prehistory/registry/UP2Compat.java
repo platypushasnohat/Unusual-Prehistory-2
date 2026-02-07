@@ -39,14 +39,19 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.LARGE_PROTOTAXITES_NUB.get(), 0.65F);
         registerCompostable(UP2Blocks.AETHOPHYLLUM.get(), 0.65F);
 
+        registerCompostable(UP2Blocks.DRYOPHYLLUM_LEAVES.get(), 0.3F);
+        registerCompostable(UP2Blocks.DRYOPHYLLUM_SAPLING.get(), 0.3F);
+
         registerCompostable(UP2Blocks.GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.GINKGO_SAPLING.get(), 0.3F);
         registerCompostable(UP2Blocks.GOLDEN_GINKGO_SAPLING.get(), 0.3F);
 
         registerCompostable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 0.3F);
+        registerCompostable(UP2Blocks.LEPIDODENDRON_CONE.get(), 0.3F);
 
         registerCompostable(UP2Blocks.METASEQUOIA_LEAVES.get(), 0.3F);
+        registerCompostable(UP2Blocks.METASEQUOIA_SAPLING.get(), 0.3F);
 
         registerCompostable(UP2Blocks.BENNETTITALES.get(), 0.3F);
         registerCompostable(UP2Blocks.NEOMARIOPTERIS.get(), 0.3F);
@@ -75,6 +80,17 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.NEOMARIOPTERIS.get(), 60, 100);
         registerFlammable(UP2Blocks.BENNETTITALES.get(), 60, 100);
         registerFlammable(UP2Blocks.AETHOPHYLLUM.get(), 60, 100);
+
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get(), 5, 5);
+        registerFlammable(UP2Blocks.STRIPPED_DRYOPHYLLUM_WOOD.get(), 5, 5);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_PLANKS.get(), 5, 20);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_SLAB.get(), 5, 20);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_STAIRS.get(), 5, 20);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_FENCE.get(), 5, 20);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_FENCE_GATE.get(), 5, 20);
+        registerFlammable(UP2Blocks.DRYOPHYLLUM_LEAVES.get(), 30, 60);
 
         registerFlammable(UP2Blocks.GINKGO_LOG.get(), 5, 3);
         registerFlammable(UP2Blocks.GINKGO_WOOD.get(), 5, 3);
@@ -114,6 +130,7 @@ public class UP2Compat {
     }
 
     public static void registerDispenserBehaviours() {
+        registerEggDispenserBehaviour(UP2Items.DIMORPHODON_EGG, UP2Entities.DIMORPHODON_EGG::get);
         registerEggDispenserBehaviour(UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS_EGG::get);
         registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
         registerEggDispenserBehaviour(UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS_EGG::get);
@@ -134,6 +151,8 @@ public class UP2Compat {
     public static void registerSigns() {
         ImmutableSet.Builder<Block> signs = new ImmutableSet.Builder<>();
         signs.addAll(BlockEntityType.SIGN.validBlocks);
+        signs.add(UP2Blocks.DRYOPHYLLUM_SIGN.get());
+        signs.add(UP2Blocks.DRYOPHYLLUM_WALL_SIGN.get());
         signs.add(UP2Blocks.GINKGO_SIGN.get());
         signs.add(UP2Blocks.GINKGO_WALL_SIGN.get());
         signs.add(UP2Blocks.LEPIDODENDRON_SIGN.get());
@@ -146,6 +165,8 @@ public class UP2Compat {
     public static void registerHangingSigns() {
         ImmutableSet.Builder<Block> hangingSigns = new ImmutableSet.Builder<>();
         hangingSigns.addAll(BlockEntityType.HANGING_SIGN.validBlocks);
+        hangingSigns.add(UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get());
+        hangingSigns.add(UP2Blocks.DRYOPHYLLUM_WALL_HANGING_SIGN.get());
         hangingSigns.add(UP2Blocks.GINKGO_HANGING_SIGN.get());
         hangingSigns.add(UP2Blocks.GINKGO_WALL_HANGING_SIGN.get());
         hangingSigns.add(UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get());

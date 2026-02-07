@@ -31,6 +31,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "unusual_prehistory:bill_fossil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
           "name": "unusual_prehistory:arm_fossil",
           "weight": 1
         },

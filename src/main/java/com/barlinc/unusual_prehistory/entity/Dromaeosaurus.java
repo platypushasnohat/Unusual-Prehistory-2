@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
@@ -26,7 +26,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -47,39 +46,35 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState biteAnimationState = new AnimationState();
     public final AnimationState fallAnimationState = new AnimationState();
-    public final AnimationState sleepStartAnimationState = new AnimationState();
-    public final AnimationState sleepAnimationState = new AnimationState();
-    public final AnimationState sleepEndAnimationState = new AnimationState();
 
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(1);
-        this.moveControl = new DromaeosaurusMoveControl(this);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new DromaeosaurusLeapGoal(this));
-        this.goalSelector.addGoal(2, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
-        this.goalSelector.addGoal(4, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(6, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new DromaeosaurusSleepingGoal(this));
+        this.goalSelector.addGoal(2, new DromaeosaurusLeapGoal(this));
+        this.goalSelector.addGoal(3, new DromaeosaurusAttackGoal(this));
+        this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
+        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(7, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
+                return super.canUse() && !Dromaeosaurus.this.isMobEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
 
             @Override
             public boolean canContinueToUse(){
-                return super.canContinueToUse() && !Dromaeosaurus.this.isDromaeosaurusEeping() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
+                return super.canContinueToUse() && !Dromaeosaurus.this.isMobEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
         });
     }
@@ -122,26 +117,9 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     public void tick () {
         super.tick();
-
-        if (!this.level().isClientSide) {
-            if (this.isEepyTime()) {
-                this.eep();
-            } else {
-                this.stopEepy();
-            }
-        }
-
         this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
-        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, 60);
-
-        if (this.isDromaeosaurusEeping() && this.isInWaterOrBubble()) this.stopEepyInstantly();
-
-        if (leapCooldown > 0) this.leapCooldown--;
-    }
-
-    @Override
-    public boolean shouldDoEepyParticles() {
-        return this.isDromaeosaurusEeping();
+        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, 60);
+        if (leapCooldown > 0) leapCooldown--;
     }
 
     @Override
@@ -150,24 +128,29 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
+    public long getEepyPoseTransitionTime() {
+        return 5L;
+    }
+
+    @Override
     public void setupAnimationCooldowns() {
-        if (biteTicks > 0) this.biteTicks--;
-        if (this.biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (biteTicks > 0) biteTicks--;
+        if (biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
     public void setupAnimationStates() {
-        if (this.biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isDromaeosaurusEeping(), this.tickCount);
+        if (biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
+        this.idleAnimationState.animateWhen(!this.isMobEepy(), this.tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
 
-        if (this.isDromaeosaurusVisuallyEeping()) {
+        if (this.isMobVisuallyEepy()) {
             this.fallAnimationState.stop();
             this.biteAnimationState.stop();
             this.sleepEndAnimationState.stop();
             this.idleAnimationState.stop();
 
-            if (this.isVisuallyEeping()) {
+            if (this.isVisuallyEepy()) {
                 this.sleepStartAnimationState.startIfStopped(this.tickCount);
                 this.sleepAnimationState.stop();
             } else {
@@ -177,7 +160,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         } else {
             this.sleepStartAnimationState.stop();
             this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -231,59 +214,20 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 4.0F && this.isDromaeosaurusEeping() && !this.isInSitPoseTransition()) {
+        if (distance > 4.0F && this.isMobEepy() && !this.isInEepyPoseTransition()) {
             this.stopEepy();
         }
-    }
-
-    @Override
-    public boolean refuseToMove() {
-        return super.refuseToMove() || this.isDromaeosaurusEeping();
-    }
-
-    public boolean isDromaeosaurusEeping() {
-        return this.entityData.get(SIT_POSE_TICKS) < 0L;
-    }
-
-    public boolean isDromaeosaurusVisuallyEeping() {
-        return this.getSitPoseTime() < 0L != this.isDromaeosaurusEeping();
-    }
-
-    public boolean isInSitPoseTransition() {
-        long l = this.getSitPoseTime();
-        return l < (long) (5);
-    }
-
-    private boolean isVisuallyEeping() {
-        return this.isDromaeosaurusEeping() && this.getSitPoseTime() < 5L && this.getSitPoseTime() >= 0L;
-    }
-
-    public void eep() {
-        if (this.isDromaeosaurusEeping()) return;
-        this.setPose(UP2Poses.SLEEPING.get());
-        this.setSitPoseTicks(-(this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void stopEepy() {
-        if (!this.isDromaeosaurusEeping()) {
-            return;
-        }
-        this.setPose(Pose.STANDING);
-        this.setSitPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void stopEepyInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetSitPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isDromaeosaurusEeping() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
+        return this.isMobEepy() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
+    }
+
+    @Override
+    public boolean canPlayAmbientSound() {
+        return true;
     }
 
     @Nullable
@@ -302,23 +246,21 @@ public class Dromaeosaurus extends PrehistoricMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
-    private static class DromaeosaurusMoveControl extends PrehistoricMoveControl {
+    private static class DromaeosaurusSleepingGoal extends SleepingGoal {
 
-        private final Dromaeosaurus dromaeosaurus;
-
-        public DromaeosaurusMoveControl(Dromaeosaurus dromaeosaurus) {
-            super(dromaeosaurus);
-            this.dromaeosaurus = dromaeosaurus;
+        public DromaeosaurusSleepingGoal(PrehistoricMob prehistoricMob) {
+            super(prehistoricMob);
         }
 
         @Override
-        public void tick() {
-            if (!this.dromaeosaurus.refuseToMove()) {
-                if (this.operation == MoveControl.Operation.MOVE_TO && !this.dromaeosaurus.isLeashed() && this.dromaeosaurus.isDromaeosaurusEeping() && !this.dromaeosaurus.isInSitPoseTransition()) {
-                    this.dromaeosaurus.stopEepy();
-                }
-                super.tick();
-            }
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void stop() {
+            this.prehistoricMob.setEepyCooldown(20);
+            this.prehistoricMob.stopEepy();
         }
     }
 }

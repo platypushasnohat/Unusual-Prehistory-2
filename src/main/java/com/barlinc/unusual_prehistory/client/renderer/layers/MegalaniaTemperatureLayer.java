@@ -28,22 +28,16 @@ public class MegalaniaTemperatureLayer extends RenderLayer<Megalania, MegalaniaM
     }
 
     @Override
-    public void render (@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Megalania entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!entity.isInvisible()) {
-            float tempProgress = entity.prevTempProgress + (entity.tempProgress - entity.prevTempProgress) * partialTicks;
-            float a = 1F;
-            if (entity.getPrevTemperatureState() != null) {
-                float alphaPrev = 1 - tempProgress * 0.2F;
-                VertexConsumer prev = buffer.getBuffer(RenderType.entityTranslucent(getTexture(entity.getPrevTemperatureState())));
-                if (entity.getPrevTemperatureState() == entity.getTemperatureState()) {
-                    alphaPrev *= a;
-                }
-                this.getParentModel().renderToBuffer(poseStack, prev, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, alphaPrev);
-            }
-            float alphaCurrent = tempProgress * 0.2F;
-            VertexConsumer current = buffer.getBuffer(RenderType.entityTranslucent(getTexture(entity.getTemperatureState())));
-            this.getParentModel().renderToBuffer(poseStack, current, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, a * alphaCurrent);
-        }
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Megalania entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (entity.isInvisible()) return;
+        Megalania.TemperatureStates prev = entity.getPrevTemperatureState();
+        Megalania.TemperatureStates current = entity.getTemperatureState();
+        if (prev == null || prev == current) return;
+        float progress = entity.getTempProgress(partialTicks);
+        float alpha = 1.0F - progress;
+        if (alpha <= 0.0F) return;
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(this.getTexture(prev)));
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, alpha);
     }
 
     public ResourceLocation getTexture(Megalania.TemperatureStates state) {

@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.MegalaniaModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.MegalaniaRiderLayer;
 import com.barlinc.unusual_prehistory.client.renderer.layers.MegalaniaTemperatureLayer;
 import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
@@ -25,6 +26,7 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel(context.bakeLayer(UP2ModelLayers.MEGALANIA)), 0.9F);
         this.addLayer(new MegalaniaTemperatureLayer(this));
+        this.addLayer(new MegalaniaRiderLayer(this));
     }
 
     @Override

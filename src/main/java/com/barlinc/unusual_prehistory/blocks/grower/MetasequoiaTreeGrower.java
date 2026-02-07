@@ -13,7 +13,7 @@ public class MetasequoiaTreeGrower extends AbstractMegaTreeGrower {
     @Nullable
     @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource random, boolean bees) {
-        return UP2Features.METASEQUOIA_STRUCTURE;
+        return UP2Features.METASEQUOIA;
     }
 
     @Nullable

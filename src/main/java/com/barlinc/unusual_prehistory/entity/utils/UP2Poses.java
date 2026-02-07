@@ -29,6 +29,7 @@ public enum UP2Poses {
     FORAGING,
     MITOSIS,
     ALERTED,
+    ENRAGED,
     STOMPING;
 
     public Pose get() {

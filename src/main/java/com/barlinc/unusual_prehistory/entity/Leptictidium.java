@@ -68,10 +68,10 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
+        if (this.isInWater() && this.horizontalCollision) {
             return super.getFluidJumpThreshold();
         }
-        return 0.5 * getBbHeight();
+        return 0.7D * this.getBbHeight();
     }
 
     @Override

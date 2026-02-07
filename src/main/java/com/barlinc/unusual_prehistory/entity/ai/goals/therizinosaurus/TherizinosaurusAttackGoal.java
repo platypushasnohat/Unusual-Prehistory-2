@@ -56,8 +56,8 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
             else if (attackState == 3) this.tickCharge();
             else if (attackState == 4) this.tickChargeEnd();
             else {
-                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.8D);
-                if (distance < 14 && therizinosaurus.chargeCooldown > 0 && !this.isInChargingPose()) {
+                if (!this.isInChargingPose()) therizinosaurus.getNavigation().moveTo(target, 1.7D);
+                if (distance < 14 /*&& therizinosaurus.chargeCooldown > 0 && !this.isInChargingPose()*/) {
                     if (therizinosaurus.getRandom().nextFloat() < 0.8F && therizinosaurus.slashCooldown == 0) therizinosaurus.setAttackState(1);
                     else if (therizinosaurus.slashRushCooldown == 0) therizinosaurus.setAttackState(2);
                 }
@@ -117,7 +117,7 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
 
         if (timer == 1) {
             therizinosaurus.setPose(UP2Poses.START_CHARGING.get());
-            therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_WARN.get(), 3.0F, therizinosaurus.getVoicePitch());
+            therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ROAR.get(), 3.0F, therizinosaurus.getVoicePitch());
         }
 
         if (timer < 30) {

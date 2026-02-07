@@ -45,7 +45,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PETRIFIED_LUCA);
         this.item(LUCA);
 
-        this.handheldItem(DIRT_ON_A_STICK);
+        this.handheldRodItem(DIRT_ON_A_STICK);
 
         // fossils
         this.item(BRISTLE_FOSSIL);
@@ -54,6 +54,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(FURY_FOSSIL);
         this.item(GLUTTONOUS_FOSSIL);
         this.item(FLAT_BACK_FOSSIL);
+        this.item(BILL_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
         this.item(GUILLOTINE_FOSSIL);
@@ -88,6 +89,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.CARNOTAURUS_EGG);
         this.item(UP2Blocks.COELACANTHUS_ROE);
         this.item(UP2Blocks.DESMATOSUCHUS_EGG);
+        this.item(DIMORPHODON_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);
         this.item(UP2Blocks.DUNKLEOSTEUS_SAC);
@@ -131,10 +133,17 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(AETHOPHYLLUM_FOSSIL);
         this.item(BRACHYPHYLLUM_FOSSIL);
         this.item(HORSETAIL_FOSSIL);
+        this.item(METASEQUOIA_FOSSIL);
+        this.item(DRYOPHYLLUM_FOSSIL);
 
         this.item(UP2Blocks.TEMPSKYA);
         this.item(UP2Blocks.BRACHYPHYLLUM);
         this.item(UP2Blocks.AETHOPHYLLUM);
+
+        this.item(DRYOPHYLLUM_SIGN);
+        this.item(DRYOPHYLLUM_HANGING_SIGN);
+        this.item(DRYOPHYLLUM_BOAT);
+        this.item(DRYOPHYLLUM_CHEST_BOAT);
 
         this.item(GINKGO_SIGN);
         this.item(GINKGO_HANGING_SIGN);
@@ -168,6 +177,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.handheld(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
+    private void handheldRodItem(RegistryObject<?> item) {
+        this.handheldRod(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
+    }
+
     // utils
     private ItemModelBuilder generated(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/generated");
@@ -179,6 +192,13 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
     private void handheld(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/handheld");
+        for (int i = 0; i < layers.length; i++) {
+            builder = builder.texture("layer" + i, layers[i]);
+        }
+    }
+
+    private void handheldRod(String name, ResourceLocation... layers) {
+        ItemModelBuilder builder = withExistingParent(name, "item/handheld_rod");
         for (int i = 0; i < layers.length; i++) {
             builder = builder.texture("layer" + i, layers[i]);
         }

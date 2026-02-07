@@ -73,6 +73,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "dimorphodon_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dimorphodon_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "diplocaulus_eggs": {
       "conditions": {
         "items": [
@@ -427,6 +439,7 @@
       "tartuosteus_roe",
       "therizinosaurus_egg",
       "ulughbegsaurus_egg",
+      "dimorphodon_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",

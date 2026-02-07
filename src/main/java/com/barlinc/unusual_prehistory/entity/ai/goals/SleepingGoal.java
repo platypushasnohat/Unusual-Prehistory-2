@@ -15,29 +15,29 @@ public class SleepingGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		Level level = prehistoricMob.level();
-		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
-			if (!player.isShiftKeyDown()) return false;
-		}
+//		Level level = prehistoricMob.level();
+//		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
+//			if (!player.isShiftKeyDown()) return false;
+//		}
 		return prehistoricMob.isEepyTime() && prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWater() && !prehistoricMob.isInLava() && prehistoricMob.getEepyCooldown() == 0 && !prehistoricMob.isMobSitting() && !prehistoricMob.isBaby();
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		Level level = prehistoricMob.level();
-		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
-			if (player.isShiftKeyDown()) {
-				if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWater() || prehistoricMob.isInLava()) {
-                    this.stop();
-					return false;
-				}
-                else return true;
-			}
-            else {
-				this.stop();
-				return false;
-			}
-		}
+//		Level level = prehistoricMob.level();
+//		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
+//			if (player.isShiftKeyDown()) {
+//				if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWater() || prehistoricMob.isInLava()) {
+//                    this.stop();
+//					return false;
+//				}
+//                else return true;
+//			}
+//            else {
+//				this.stop();
+//				return false;
+//			}
+//		}
 		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWater() || prehistoricMob.isInLava()) {
 			this.stop();
 			return false;
@@ -58,12 +58,12 @@ public class SleepingGoal extends Goal {
 	public void tick() {
 		super.tick();
 		this.prehistoricMob.getNavigation().stop();;
-		Level level = prehistoricMob.level();
-		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
-			if (!player.isShiftKeyDown()) {
-				this.stop();
-			}
-		}
+//		Level level = prehistoricMob.level();
+//		for (Player player : level.getEntitiesOfClass(Player.class, prehistoricMob.getBoundingBox().inflate(0.5D))) {
+//			if (!player.isShiftKeyDown()) {
+//				this.stop();
+//			}
+//		}
 		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null || prehistoricMob.isInWater() || prehistoricMob.isInLava()) {
 			this.stop();
 		}

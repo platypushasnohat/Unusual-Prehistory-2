@@ -2,10 +2,7 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.grower.GinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.GoldenGinkgoTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.LepidodendronTreeGrower;
-import com.barlinc.unusual_prehistory.blocks.grower.MetasequoiaTreeGrower;
+import com.barlinc.unusual_prehistory.blocks.grower.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -174,6 +171,31 @@ public class UP2Blocks {
     public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 
     public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
+
+    // dryophyllum
+    public static final RegistryObject<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_LOG = registerBlock("stripped_dryophyllum_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_WOOD = registerBlock("stripped_dryophyllum_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_PLANKS = registerBlock("dryophyllum_planks", () -> new Block(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_STAIRS = registerBlock("dryophyllum_stairs", () -> new StairBlock(() -> DRYOPHYLLUM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
+    public static final RegistryObject<Block> DRYOPHYLLUM_SLAB = registerBlock("dryophyllum_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
+    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE = registerBlock("dryophyllum_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE_GATE = registerBlock("dryophyllum_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_DOOR = registerBlock("dryophyllum_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_TRAPDOOR = registerBlock("dryophyllum_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+
+    public static final RegistryObject<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+
+    public static final RegistryObject<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new DryophyllumTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_DRYOPHYLLUM_SAPLING = registerBlockWithoutItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYOPHYLLUM_SAPLING.get(), registerFlowerPot()));
+
+    public static final RegistryObject<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(DRYOPHYLLUM_HANGING_SIGN.get()), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
 
     // ginkgo
     public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));

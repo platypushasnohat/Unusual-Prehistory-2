@@ -84,6 +84,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "bill_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:bill_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "boar_tooth_fossil": {
       "conditions": {
         "items": [
@@ -252,6 +264,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "dimorphodon_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dimorphodon_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "diplocaulus_eggs": {
       "conditions": {
         "items": [
@@ -270,6 +294,18 @@
           {
             "items": [
               "unusual_prehistory:dromaeosaurus_egg"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dryophyllum_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:dryophyllum_fossil"
             ]
           }
         ]
@@ -606,6 +642,18 @@
           {
             "items": [
               "unusual_prehistory:meltdown_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "metasequoia_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:metasequoia_fossil"
             ]
           }
         ]
@@ -1015,6 +1063,7 @@
       "tartuosteus_roe",
       "therizinosaurus_egg",
       "ulughbegsaurus_egg",
+      "dimorphodon_egg",
       "dromaeosaurus_egg",
       "leptictidium_embryo",
       "metriorhynchus_embryo",
@@ -1029,6 +1078,7 @@
       "fury_fossil",
       "gluttonous_fossil",
       "flat_back_fossil",
+      "bill_fossil",
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",
@@ -1070,6 +1120,8 @@
       "tempskya_fossil",
       "ginkgo_fossil",
       "lepidodendron_fossil",
+      "metasequoia_fossil",
+      "dryophyllum_fossil",
       "aged_feather",
       "machine_parts"
     ]

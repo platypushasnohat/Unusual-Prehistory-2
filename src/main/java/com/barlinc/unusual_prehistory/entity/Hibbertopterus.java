@@ -191,7 +191,6 @@
      protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
          this.setRot(player.getYRot(), player.getXRot() * 0.5F);
          this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
-         this.steering.tickBoost();
      }
 
      @Override
@@ -228,9 +227,7 @@
          if (!this.level().isClientSide && this.steering.isBoosting()) {
              this.tickPlowing();
          }
-//         if (this.hasControllingPassenger() && this.isInWater()) {
-//             this.move(MoverType.PLAYER, new Vec3(0.0D, -0.1D, 0.0D));
-//         }
+         this.steering.tickBoost();
      }
 
      @Override

@@ -188,20 +188,80 @@
     ],
     "subtitle": "subtitles.carnotaurus_step"
   },
+  "desmatosuchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/death1"
+    ],
+    "subtitle": "subtitles.desmatosuchus_death"
+  },
+  "desmatosuchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/hurt1",
+      "unusual_prehistory:entity/desmatosuchus/hurt2"
+    ],
+    "subtitle": "subtitles.desmatosuchus_hurt"
+  },
+  "desmatosuchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/desmatosuchus/idle1",
+      "unusual_prehistory:entity/desmatosuchus/idle2",
+      "unusual_prehistory:entity/desmatosuchus/idle3",
+      "unusual_prehistory:entity/desmatosuchus/idle4"
+    ],
+    "subtitle": "subtitles.desmatosuchus_idle"
+  },
+  "desmatosuchus_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.desmatosuchus_step"
+  },
+  "dimorphodon_death": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/death1"
+    ],
+    "subtitle": "subtitles.dimorphodon_death"
+  },
+  "dimorphodon_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/hurt1",
+      "unusual_prehistory:entity/dimorphodon/hurt2"
+    ],
+    "subtitle": "subtitles.dimorphodon_hurt"
+  },
+  "dimorphodon_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/idle1",
+      "unusual_prehistory:entity/dimorphodon/idle2",
+      "unusual_prehistory:entity/dimorphodon/idle3",
+      "unusual_prehistory:entity/dimorphodon/idle4"
+    ],
+    "subtitle": "subtitles.dimorphodon_idle"
+  },
   "diplocaulus_death": {
     "sounds": [
       "unusual_prehistory:entity/diplocaulus/death1"
     ],
     "subtitle": "subtitles.diplocaulus_death"
-  },
-  "diplocaulus_flop": {
-    "sounds": [
-      "unusual_prehistory:entity/diplocaulus/idle1",
-      "unusual_prehistory:entity/diplocaulus/idle2",
-      "unusual_prehistory:entity/diplocaulus/idle3",
-      "unusual_prehistory:entity/diplocaulus/idle4"
-    ],
-    "subtitle": "subtitles.diplocaulus_flop"
   },
   "diplocaulus_hurt": {
     "sounds": [
@@ -209,6 +269,15 @@
       "unusual_prehistory:entity/diplocaulus/hurt2"
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
+  },
+  "diplocaulus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/diplocaulus/idle1",
+      "unusual_prehistory:entity/diplocaulus/idle2",
+      "unusual_prehistory:entity/diplocaulus/idle3",
+      "unusual_prehistory:entity/diplocaulus/idle4"
+    ],
+    "subtitle": "subtitles.diplocaulus_idle"
   },
   "diplocaulus_step": {
     "sounds": [
@@ -1017,6 +1086,15 @@
     ],
     "subtitle": "subtitles.megalania_idle"
   },
+  "megalania_jumpscare": {
+    "sounds": [
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/megalania/jumpscare1"
+      }
+    ],
+    "subtitle": "subtitles.megalania_jumpscare"
+  },
   "megalania_roar": {
     "sounds": [
       "unusual_prehistory:entity/megalania/roar1"
@@ -1430,10 +1508,29 @@
     "sounds": [
       "unusual_prehistory:entity/therizinosaurus/idle1",
       "unusual_prehistory:entity/therizinosaurus/idle2",
-      "unusual_prehistory:entity/therizinosaurus/idle3",
-      "unusual_prehistory:entity/therizinosaurus/idle4"
+      "unusual_prehistory:entity/therizinosaurus/idle3"
     ],
     "subtitle": "subtitles.therizinosaurus_idle"
+  },
+  "therizinosaurus_notice": {
+    "sounds": [
+      "unusual_prehistory:entity/therizinosaurus/notice1",
+      "unusual_prehistory:entity/therizinosaurus/notice2"
+    ],
+    "subtitle": "subtitles.therizinosaurus_notice"
+  },
+  "therizinosaurus_roar": {
+    "sounds": [
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/therizinosaurus/roar1"
+      },
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/therizinosaurus/roar2"
+      }
+    ],
+    "subtitle": "subtitles.therizinosaurus_roar"
   },
   "therizinosaurus_step": {
     "sounds": [
@@ -1442,21 +1539,6 @@
       "unusual_prehistory:entity/therizinosaurus/step3"
     ],
     "subtitle": "subtitles.therizinosaurus_step"
-  },
-  "therizinosaurus_warn": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/therizinosaurus/warn1",
-        "pitch": 0.85
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/therizinosaurus/warn2",
-        "pitch": 0.85
-      }
-    ],
-    "subtitle": "subtitles.therizinosaurus_warn"
   },
   "transmogrifier_loop": {
     "sounds": [

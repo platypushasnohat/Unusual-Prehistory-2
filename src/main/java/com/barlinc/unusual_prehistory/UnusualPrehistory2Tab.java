@@ -110,6 +110,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(FURY_FOSSIL.get());
                         output.accept(GLUTTONOUS_FOSSIL.get());
                         output.accept(FLAT_BACK_FOSSIL.get());
+                        output.accept(BILL_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());
                         output.accept(RUNNER_FOSSIL.get());
                         output.accept(GUILLOTINE_FOSSIL.get());
@@ -143,6 +144,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
+                        output.accept(DIMORPHODON_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
@@ -184,8 +186,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
                         output.accept(RHYNIA_FOSSIL.get());
                         output.accept(TEMPSKYA_FOSSIL.get());
+                        output.accept(DRYOPHYLLUM_FOSSIL.get());
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
+                        output.accept(METASEQUOIA_FOSSIL.get());
 
                         // plants
                         output.accept(UP2Blocks.AETHOPHYLLUM.get());
@@ -212,6 +216,26 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
 
                         // trees
+                        output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());
+                        output.accept(UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get());
+                        output.accept(UP2Blocks.STRIPPED_DRYOPHYLLUM_WOOD.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_PLANKS.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_STAIRS.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_SLAB.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_FENCE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_FENCE_GATE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_DOOR.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_TRAPDOOR.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_BUTTON.get());
+                        output.accept(DRYOPHYLLUM_SIGN.get());
+                        output.accept(DRYOPHYLLUM_HANGING_SIGN.get());
+                        output.accept(DRYOPHYLLUM_BOAT.get());
+                        output.accept(DRYOPHYLLUM_CHEST_BOAT.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_LEAVES.get());
+                        output.accept(UP2Blocks.DRYOPHYLLUM_SAPLING.get());
+
                         output.accept(UP2Blocks.GINKGO_LOG.get());
                         output.accept(UP2Blocks.GINKGO_WOOD.get());
                         output.accept(UP2Blocks.STRIPPED_GINKGO_LOG.get());

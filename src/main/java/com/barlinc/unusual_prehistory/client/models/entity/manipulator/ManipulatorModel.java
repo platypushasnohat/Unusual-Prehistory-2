@@ -1,11 +1,14 @@
 package com.barlinc.unusual_prehistory.client.models.entity.manipulator;
 
 import com.barlinc.unusual_prehistory.client.animations.manipulator.ManipulatorAnimations;
+import com.barlinc.unusual_prehistory.client.animations.manipulator.ManipulatorAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Manipulator;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -224,12 +227,19 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 	@Override
 	public void setupAnim(Manipulator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isRunning()) this.animateWalk(ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-        else this.animateWalk(ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
+        if (entity.isRunning()) this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+        else this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
 
-        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks,1, limbSwingAmount * 3);
+        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks, 1, limbSwingAmount * 4);
+        this.animateIdle(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
+        this.animate(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
+        this.animate(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
+        this.animateLerped(entity.blockAnimationState, ManipulatorAttackAnimations.SHIELDBLOCK_BLEND, ageInTicks, entity.getBlockProgress(partialTicks));
 
 		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
@@ -239,4 +249,21 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public void translateToHand(@NotNull HumanoidArm arm, @NotNull PoseStack poseStack) {
+        this.limb_control.translateAndRotate(poseStack);
+        if (arm == HumanoidArm.RIGHT) {
+            this.right_arm_pivot.translateAndRotate(poseStack);
+            this.right_arm1.translateAndRotate(poseStack);
+            this.right_arm2.translateAndRotate(poseStack);
+            this.right_arm3.translateAndRotate(poseStack);
+            this.right_arm4.translateAndRotate(poseStack);
+        } else {
+            this.left_arm_pivot.translateAndRotate(poseStack);
+            this.left_arm1.translateAndRotate(poseStack);
+            this.left_arm2.translateAndRotate(poseStack);
+            this.left_arm3.translateAndRotate(poseStack);
+            this.left_arm4.translateAndRotate(poseStack);
+        }
+    }
 }

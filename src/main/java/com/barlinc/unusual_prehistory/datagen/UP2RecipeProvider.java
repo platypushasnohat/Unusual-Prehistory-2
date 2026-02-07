@@ -8,12 +8,14 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -25,8 +27,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
-import static net.minecraft.data.recipes.RecipeCategory.BUILDING_BLOCKS;
-import static net.minecraft.data.recipes.RecipeCategory.MISC;
+import static net.minecraft.data.recipes.RecipeCategory.*;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 
@@ -40,6 +41,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.DIRT_ON_A_STICK.get(), 1).requires(Tags.Items.TOOLS_FISHING_RODS).requires(Blocks.DIRT.asItem()).unlockedBy("has_fishing_rod", has(Tags.Items.TOOLS_FISHING_RODS)).save(consumer);
+
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_STAIRS.get(), 4).define('G', GREYNITE.get()).pattern("G  ").pattern("GG ").pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_SLAB.get(), 6).define('G', GREYNITE.get()).pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
 
@@ -52,7 +55,10 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_SOUL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.SOUL_TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);
 
+        woodSet(UP2ItemTags.DRYOPHYLLUM_LOGS, DRYOPHYLLUM_PLANKS.get(), DRYOPHYLLUM_SLAB.get(), DRYOPHYLLUM_STAIRS.get(), DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(), STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(), UP2Items.DRYOPHYLLUM_BOAT.get(), UP2Items.DRYOPHYLLUM_CHEST_BOAT.get(), DRYOPHYLLUM_BUTTON.get(), DRYOPHYLLUM_DOOR.get(), DRYOPHYLLUM_TRAPDOOR.get(), DRYOPHYLLUM_FENCE.get(), DRYOPHYLLUM_FENCE_GATE.get(), DRYOPHYLLUM_PRESSURE_PLATE.get(), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get(), consumer);
+
         woodSet(UP2ItemTags.GINKGO_LOGS, GINKGO_PLANKS.get(), GINKGO_SLAB.get(), GINKGO_STAIRS.get(), GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(), UP2Items.GINKGO_BOAT.get(), UP2Items.GINKGO_CHEST_BOAT.get(), GINKGO_BUTTON.get(), GINKGO_DOOR.get(), GINKGO_TRAPDOOR.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_HANGING_SIGN.get(), consumer);
+
         woodSet(UP2ItemTags.LEPIDODENDRON_LOGS, LEPIDODENDRON_PLANKS.get(), LEPIDODENDRON_SLAB.get(), LEPIDODENDRON_STAIRS.get(), LEPIDODENDRON_LOG.get(), LEPIDODENDRON_WOOD.get(), STRIPPED_LEPIDODENDRON_LOG.get(), STRIPPED_LEPIDODENDRON_WOOD.get(), UP2Items.LEPIDODENDRON_BOAT.get(), UP2Items.LEPIDODENDRON_CHEST_BOAT.get(), LEPIDODENDRON_BUTTON.get(), LEPIDODENDRON_DOOR.get(), LEPIDODENDRON_TRAPDOOR.get(), LEPIDODENDRON_FENCE.get(), LEPIDODENDRON_FENCE_GATE.get(), LEPIDODENDRON_PRESSURE_PLATE.get(), UP2Blocks.LEPIDODENDRON_SIGN.get(), UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MOSSY_LEPIDODENDRON_WOOD.get(), 3).define('L', MOSSY_LEPIDODENDRON_LOG.get()).pattern("LL").pattern("LL").group("bark").unlockedBy("has_log", has(LEPIDODENDRON_LOG.get())).save(consumer);
 
@@ -87,6 +93,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         stonecutting(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_STAIRS.get(), 1, consumer);
         stonecutting(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_SLAB.get(), 2, consumer);
         stonecutting(FOSSILIZED_BONE_VERTEBRA.get(), FOSSILIZED_BONE_BLOCK.get(), 1, consumer);
+
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MOSSY_DIRT.get(), 8).define('D', Blocks.DIRT.asItem()).define('M', MOSS_LAYER.get()).pattern("DDD").pattern("DMD").pattern("DDD").unlockedBy("has_moss_layer", has(MOSS_LAYER.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_COLORLESS).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TINTED_REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_TINTED).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
@@ -130,6 +138,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.GLUTTONOUS_FOSSIL.get(), COELACANTHUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.FLAT_BACK_FOSSIL.get(), DESMATOSUCHUS_EGG.get().asItem(), 2400);
+        transmogrification(consumer, UP2Items.BILL_FOSSIL.get(), UP2Items.DIMORPHODON_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), DIPLOCAULUS_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), DUNKLEOSTEUS_SAC.get().asItem(), 2400);
@@ -173,6 +182,9 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.RAIGUENRAYUN_FOSSIL.get(), RAIGUENRAYUN.get().asItem(), 600);
         transmogrification(consumer, UP2Items.RHYNIA_FOSSIL.get(), RHYNIA.get().asItem(), 600);
         transmogrification(consumer, UP2Items.TEMPSKYA_FOSSIL.get(), TEMPSKYA.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.METASEQUOIA_FOSSIL.get(), METASEQUOIA_SAPLING.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.DRYOPHYLLUM_FOSSIL.get(), DRYOPHYLLUM_SAPLING.get().asItem(), 600);
+
     }
 
     private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {

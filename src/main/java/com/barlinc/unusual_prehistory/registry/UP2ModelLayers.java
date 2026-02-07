@@ -20,6 +20,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
     public static final ModelLayerLocation COELACANTHUS = main("coelacanthus");
     public static final ModelLayerLocation DESMATOSUCHUS = main("desmatosuchus");
+    public static final ModelLayerLocation DIMORPHODON = main("dimorphodon");
     public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS = main("diplocaulus_brevirostris");
     public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS = main("diplocaulus_magnicornis");
     public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS = main("diplocaulus_recurvatis");

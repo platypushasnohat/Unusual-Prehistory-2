@@ -38,9 +38,18 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> CARNOTAURUS_CHARGE = registerSoundEvent("carnotaurus_charge");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HEADBUTT = registerSoundEvent("carnotaurus_headbutt");
 
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_HURT = registerSoundEvent("desmatosuchus_hurt");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_DEATH = registerSoundEvent("desmatosuchus_death");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
+
+    public static final RegistryObject<SoundEvent> DIMORPHODON_HURT = registerSoundEvent("dimorphodon_hurt");
+    public static final RegistryObject<SoundEvent> DIMORPHODON_DEATH = registerSoundEvent("dimorphodon_death");
+    public static final RegistryObject<SoundEvent> DIMORPHODON_IDLE = registerSoundEvent("dimorphodon_idle");
+
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_HURT = registerSoundEvent("diplocaulus_hurt");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_DEATH = registerSoundEvent("diplocaulus_death");
-    public static final RegistryObject<SoundEvent> DIPLOCAULUS_IDLE = registerSoundEvent("diplocaulus_flop");
+    public static final RegistryObject<SoundEvent> DIPLOCAULUS_IDLE = registerSoundEvent("diplocaulus_idle");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_STEP = registerSoundEvent("diplocaulus_step");
 
     public static final RegistryObject<SoundEvent> DROMAEOSAURUS_HURT = registerSoundEvent("dromaeosaurus_hurt");
@@ -110,6 +119,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MEGALANIA_STEP = registerSoundEvent("megalania_step");
     public static final RegistryObject<SoundEvent> MEGALANIA_TAIL_SWING = registerSoundEvent("megalania_tail_swing");
     public static final RegistryObject<SoundEvent> MEGALANIA_BITE = registerSoundEvent("megalania_bite");
+    public static final RegistryObject<SoundEvent> MEGALANIA_JUMPSCARE = registerSoundEvent("megalania_jumpscare");
 
     public static final RegistryObject<SoundEvent> METRIORHYNCHUS_HURT = registerSoundEvent("metriorhynchus_hurt");
     public static final RegistryObject<SoundEvent> METRIORHYNCHUS_DEATH = registerSoundEvent("metriorhynchus_death");
@@ -156,7 +166,8 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_IDLE = registerSoundEvent("therizinosaurus_idle");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
-    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_WARN = registerSoundEvent("therizinosaurus_warn");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
+    public static final RegistryObject<SoundEvent> THERIZINOSAURUS_NOTICE = registerSoundEvent("therizinosaurus_notice");
 
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_HURT = registerSoundEvent("ulughbegsaurus_hurt");
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_DEATH = registerSoundEvent("ulughbegsaurus_death");

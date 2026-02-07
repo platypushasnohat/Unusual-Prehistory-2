@@ -100,14 +100,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    public double getFluidJumpThreshold() {
-        if (useLowerFluidJumpThreshold) {
-            return super.getFluidJumpThreshold();
-        }
-        return 0.5 * getBbHeight();
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVec) {
         if (this.refuseToMove() && this.onGround()) {
             if (this.getNavigation().getPath() != null) {
@@ -163,8 +155,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
             this.attack3AnimationState.stop();
         }
         if (warnTicks == 0 && this.warnAnimationState.isStarted()) this.warnAnimationState.stop();
-        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && !this.isInWater(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && this.getAttackState() != 2 && !this.isInWater(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWater() && this.getAttackState() != 2, this.tickCount);
 
         if (this.isMobVisuallySitting()) {
             this.attack1AnimationState.stop();

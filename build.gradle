@@ -71,14 +71,18 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        url "https://www.cursemaven.com"
+        url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
     maven {
-        name "JEI maven"
-        url "https://maven.blamejared.com/"
+        name = "JEI maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
     }
     flatDir {
         dirs 'libs'
@@ -105,6 +109,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:6172935")
     runtimeOnly fg.deobf("curse.maven:better-advancements-272515:5454907")
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:6164575")
+
+//    runtimeOnly fg.deobf("maven.modrinth:dye-depot:TxJLqc2c")
 }
 
 mixin {
