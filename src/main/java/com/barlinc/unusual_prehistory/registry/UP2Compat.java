@@ -130,6 +130,7 @@ public class UP2Compat {
     }
 
     public static void registerDispenserBehaviours() {
+        registerEggDispenserBehaviour(UP2Items.DIMORPHODON_EGG, UP2Entities.DIMORPHODON_EGG::get);
         registerEggDispenserBehaviour(UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS_EGG::get);
         registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
         registerEggDispenserBehaviour(UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS_EGG::get);

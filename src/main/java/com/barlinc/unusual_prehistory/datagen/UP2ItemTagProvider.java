@@ -37,6 +37,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ARM_FOSSIL.get(),
                 FURY_FOSSIL.get(),
                 GLUTTONOUS_FOSSIL.get(),
+                BILL_FOSSIL.get(),
                 BOOMERANG_FOSSIL.get(),
                 RUNNER_FOSSIL.get(),
                 GUILLOTINE_FOSSIL.get(),
@@ -135,6 +136,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
                 Blocks.CACTUS.asItem(),
                 Items.MELON
+        );
+
+        this.tag(UP2ItemTags.DIMORPHODON_FOOD).add(
+                Items.SPIDER_EYE
         );
 
         this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(

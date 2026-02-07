@@ -65,6 +65,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "desmatosuchus").toString())
     );
 
+    public static final RegistryObject<EntityType<Dimorphodon>> DIMORPHODON = ENTITY_TYPE.register(
+            "dimorphodon", () ->
+            EntityType.Builder.of(Dimorphodon::new, MobCategory.CREATURE)
+                    .sized(0.9F, 0.98F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dimorphodon").toString())
+    );
+
     public static final RegistryObject<EntityType<Diplocaulus>> DIPLOCAULUS = ENTITY_TYPE.register(
             "diplocaulus", () ->
             EntityType.Builder.of(Diplocaulus::new, MobCategory.CREATURE)
@@ -299,6 +307,14 @@ public class UP2Entities {
     );
 
     // Eggs
+    public static final RegistryObject<EntityType<ThrowableEgg>> DIMORPHODON_EGG = ENTITY_TYPE.register(
+            "dimorphodon_egg", () ->
+            EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DIMORPHODON_EGG, UP2Entities.DIMORPHODON::get), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dimorphodon_egg").toString())
+    );
+
     public static final RegistryObject<EntityType<ThrowableEgg>> DROMAEOSAURUS_EGG = ENTITY_TYPE.register(
             "dromaeosaurus_egg", () ->
             EntityType.Builder.<ThrowableEgg>of((entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC)

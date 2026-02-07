@@ -110,6 +110,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(FURY_FOSSIL.get());
                         output.accept(GLUTTONOUS_FOSSIL.get());
                         output.accept(FLAT_BACK_FOSSIL.get());
+                        output.accept(BILL_FOSSIL.get());
                         output.accept(BOOMERANG_FOSSIL.get());
                         output.accept(RUNNER_FOSSIL.get());
                         output.accept(GUILLOTINE_FOSSIL.get());
@@ -143,6 +144,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
+                        output.accept(DIMORPHODON_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());

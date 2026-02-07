@@ -49,6 +49,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "bill_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:bill_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "boar_tooth_fossil": {
       "conditions": {
         "items": [
@@ -613,6 +625,7 @@
       "fury_fossil",
       "gluttonous_fossil",
       "flat_back_fossil",
+      "bill_fossil",
       "boomerang_fossil",
       "runner_fossil",
       "guillotine_fossil",

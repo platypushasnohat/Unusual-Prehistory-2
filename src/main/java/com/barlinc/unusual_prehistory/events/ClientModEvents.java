@@ -70,6 +70,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.CARNOTAURUS.get(), CarnotaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELACANTHUS.get(), CoelacanthusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.DIPLOCAULUS.get(), DiplocaulusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS.get(), DromaeosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
@@ -99,6 +100,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.ULUGHBEGSAURUS.get(), UlughbegsaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
 
+        event.registerEntityRenderer(UP2Entities.DIMORPHODON_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.PSILOPTERUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS_EGG.get(), ThrownItemRenderer::new);
@@ -124,6 +126,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS, CephalaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELACANTHUS, CoelacanthusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DESMATOSUCHUS, DesmatosuchusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS, DiplocaulusBrevirostrisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS, DiplocaulusMagnicornisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_RECURVATIS, DiplocaulusRecurvatisModel::createBodyLayer);

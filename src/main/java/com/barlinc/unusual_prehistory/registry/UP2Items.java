@@ -70,6 +70,11 @@ public class UP2Items {
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back");
 
+    // Dimorphodon
+    public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
+    public static final RegistryObject<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
+    public static final RegistryObject<Item> BILL_FOSSIL = registerFossilItem("bill");
+
     // Diplocaulus
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
     public static final RegistryObject<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new UP2MobBucketItem(UP2Entities.DIPLOCAULUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Diplocaulus.DiplocaulusVariant::byId)));

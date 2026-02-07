@@ -54,6 +54,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(FURY_FOSSIL);
         this.item(GLUTTONOUS_FOSSIL);
         this.item(FLAT_BACK_FOSSIL);
+        this.item(BILL_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
         this.item(GUILLOTINE_FOSSIL);
@@ -88,6 +89,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UP2Blocks.CARNOTAURUS_EGG);
         this.item(UP2Blocks.COELACANTHUS_ROE);
         this.item(UP2Blocks.DESMATOSUCHUS_EGG);
+        this.item(DIMORPHODON_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);
         this.item(UP2Blocks.DUNKLEOSTEUS_SAC);

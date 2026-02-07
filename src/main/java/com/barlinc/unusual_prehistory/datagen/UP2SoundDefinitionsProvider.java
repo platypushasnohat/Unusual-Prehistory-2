@@ -126,6 +126,21 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step5").pitch(0.8F)
         );
 
+        // Dimorphodon
+        this.sound(UP2SoundEvents.DIMORPHODON_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/hurt2"))
+        );
+        this.sound(UP2SoundEvents.DIMORPHODON_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/death1"))
+        );
+        this.sound(UP2SoundEvents.DIMORPHODON_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle4"))
+        );
+
         // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")),

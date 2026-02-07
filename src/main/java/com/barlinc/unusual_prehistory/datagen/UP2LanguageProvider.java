@@ -47,6 +47,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.CARNOTAURUS);
         this.forEntity(UP2Entities.COELACANTHUS);
         this.forEntity(UP2Entities.DESMATOSUCHUS);
+        this.forEntity(UP2Entities.DIMORPHODON);
         this.forEntity(UP2Entities.DIPLOCAULUS);
         this.forEntity(UP2Entities.DROMAEOSAURUS);
         this.forEntity(UP2Entities.DUNKLEOSTEUS);
@@ -76,6 +77,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.ULUGHBEGSAURUS);
         this.forEntity(UP2Entities.UNICORN);
 
+        this.forEntity(UP2Entities.DIMORPHODON_EGG);
         this.forEntity(UP2Entities.DROMAEOSAURUS_EGG);
         this.forEntity(UP2Entities.PSILOPTERUS_EGG);
         this.forEntity(UP2Entities.PTERODACTYLUS_EGG);
@@ -139,6 +141,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DESMATOSUCHUS_DEATH, "Desmatosuchus dies");
         this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE, "Desmatosuchus groans");
         this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP, "Desmatosuchus steps");
+
+        this.sound(UP2SoundEvents.DIMORPHODON_HURT, "Dimorphodon hurts");
+        this.sound(UP2SoundEvents.DIMORPHODON_DEATH, "Dimorphodon dies");
+        this.sound(UP2SoundEvents.DIMORPHODON_IDLE, "Dimorphodon screeches");
 
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");
@@ -306,6 +312,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
         this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
+        this.translateAdvancement("revive_dimorphodon", "Up Up and Away!", "Revive a Dimorphodon");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");

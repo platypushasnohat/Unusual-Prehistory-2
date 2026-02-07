@@ -235,6 +235,28 @@
     ],
     "subtitle": "subtitles.desmatosuchus_step"
   },
+  "dimorphodon_death": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/death1"
+    ],
+    "subtitle": "subtitles.dimorphodon_death"
+  },
+  "dimorphodon_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/hurt1",
+      "unusual_prehistory:entity/dimorphodon/hurt2"
+    ],
+    "subtitle": "subtitles.dimorphodon_hurt"
+  },
+  "dimorphodon_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/dimorphodon/idle1",
+      "unusual_prehistory:entity/dimorphodon/idle2",
+      "unusual_prehistory:entity/dimorphodon/idle3",
+      "unusual_prehistory:entity/dimorphodon/idle4"
+    ],
+    "subtitle": "subtitles.dimorphodon_idle"
+  },
   "diplocaulus_death": {
     "sounds": [
       "unusual_prehistory:entity/diplocaulus/death1"

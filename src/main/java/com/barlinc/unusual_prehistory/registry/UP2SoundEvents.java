@@ -43,6 +43,10 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
     public static final RegistryObject<SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
 
+    public static final RegistryObject<SoundEvent> DIMORPHODON_HURT = registerSoundEvent("dimorphodon_hurt");
+    public static final RegistryObject<SoundEvent> DIMORPHODON_DEATH = registerSoundEvent("dimorphodon_death");
+    public static final RegistryObject<SoundEvent> DIMORPHODON_IDLE = registerSoundEvent("dimorphodon_idle");
+
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_HURT = registerSoundEvent("diplocaulus_hurt");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_DEATH = registerSoundEvent("diplocaulus_death");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_IDLE = registerSoundEvent("diplocaulus_idle");
