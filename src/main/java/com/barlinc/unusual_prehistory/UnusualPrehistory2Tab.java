@@ -90,6 +90,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MAGENTA_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.PINK_REINFORCED_GLASS.get());
 
+                        output.accept(BABY_AEGIROCASSIS_BUCKET.get());
                         output.accept(COELACANTHUS_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());

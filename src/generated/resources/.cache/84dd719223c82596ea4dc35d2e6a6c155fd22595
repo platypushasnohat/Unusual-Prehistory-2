@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-07T11:46:51.985702	Item Models: unusual_prehistory
+// 1.20.1	2026-02-07T14:01:59.9868427	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -6,6 +6,7 @@ cc50162b00151d47b9687a33d7f79caee8013e69 assets/unusual_prehistory/models/item/a
 7e1669126cc2e59b94655ff4d90078c8a4cdfc93 assets/unusual_prehistory/models/item/aged_feather.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 199293b31f64ff2f65a4ed395c34fca3c0e6e6ea assets/unusual_prehistory/models/item/arm_fossil.json
+943eae590104315acf4087296d8415d4d64b4633 assets/unusual_prehistory/models/item/baby_aegirocassis_bucket.json
 4b2d994666618f0af82f4c50b9f0113502b62a78 assets/unusual_prehistory/models/item/barinasuchus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/barinasuchus_spawn_egg.json
 22b7e5575cb590da8484e48780abd3d022c1b5b5 assets/unusual_prehistory/models/item/bennettitales_fossil.json

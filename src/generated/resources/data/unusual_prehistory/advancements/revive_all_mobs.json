@@ -1,6 +1,20 @@
 {
   "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
+    "aegirocassis": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:aegirocassis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "barinasuchus": {
       "conditions": {
         "entity": [
@@ -57,6 +71,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "dimorphodon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:dimorphodon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "diplocaulus": {
       "conditions": {
         "entity": [
@@ -93,6 +121,20 @@
             "entity": "this",
             "predicate": {
               "type": "unusual_prehistory:dunkleosteus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "hibbertopterus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:hibbertopterus"
             }
           }
         ]
@@ -191,6 +233,20 @@
             "entity": "this",
             "predicate": {
               "type": "unusual_prehistory:majungasaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "manipulator": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:manipulator"
             }
           }
         ]
@@ -384,6 +440,9 @@
   },
   "requirements": [
     [
+      "aegirocassis"
+    ],
+    [
       "barinasuchus"
     ],
     [
@@ -396,6 +455,9 @@
       "desmatosuchus"
     ],
     [
+      "dimorphodon"
+    ],
+    [
       "diplocaulus"
     ],
     [
@@ -403,6 +465,9 @@
     ],
     [
       "dunkleosteus"
+    ],
+    [
+      "hibbertopterus"
     ],
     [
       "jawless_fish"
@@ -424,6 +489,9 @@
     ],
     [
       "majungasaurus"
+    ],
+    [
+      "manipulator"
     ],
     [
       "megalania"

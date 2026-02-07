@@ -354,12 +354,12 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
+        return new ItemStack(UP2Items.BABY_AEGIROCASSIS_BUCKET.get());
     }
 
     @Override
     public boolean canBucket() {
-        return false;
+        return this.isBaby();
     }
 
     @Nullable

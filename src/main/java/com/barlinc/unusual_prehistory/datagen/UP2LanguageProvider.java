@@ -99,6 +99,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.LEPIDODENDRON_CHEST_BOAT, "Lepidodendron Boat with Chest");
         this.addItem(UP2Items.METASEQUOIA_CHEST_BOAT, "Metasequoia Boat with Chest");
 
+        this.addItem(UP2Items.BABY_AEGIROCASSIS_BUCKET, "Bucket of Baby Aegirocassis");
         this.addItem(UP2Items.COELACANTHUS_BUCKET, "Bucket of Coelacanthus");
         this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
         this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
@@ -146,7 +147,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.sound(UP2SoundEvents.DIMORPHODON_HURT, "Dimorphodon hurts");
         this.sound(UP2SoundEvents.DIMORPHODON_DEATH, "Dimorphodon dies");
-        this.sound(UP2SoundEvents.DIMORPHODON_IDLE, "Dimorphodon screeches");
+        this.sound(UP2SoundEvents.DIMORPHODON_IDLE, "Dimorphodon chatters");
 
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT, "Diplocaulus hurts");
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH, "Diplocaulus dies");

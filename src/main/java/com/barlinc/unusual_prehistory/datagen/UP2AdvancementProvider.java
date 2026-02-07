@@ -31,14 +31,17 @@ import java.util.stream.Collectors;
 public class UP2AdvancementProvider implements AdvancementGenerator {
 
     private static final EntityType<?>[] REVIVABLE_MOBS = new EntityType<?>[] {
+            UP2Entities.AEGIROCASSIS.get(),
             UP2Entities.BARINASUCHUS.get(), UP2Entities.BRACHIOSAURUS.get(),
             UP2Entities.CARNOTAURUS.get(),
-            UP2Entities.DESMATOSUCHUS.get(), UP2Entities.DIPLOCAULUS.get(), UP2Entities.DROMAEOSAURUS.get(),
-            UP2Entities.DUNKLEOSTEUS.get(),
+            UP2Entities.DESMATOSUCHUS.get(), UP2Entities.DIMORPHODON.get(), UP2Entities.DIPLOCAULUS.get(),
+            UP2Entities.DROMAEOSAURUS.get(), UP2Entities.DUNKLEOSTEUS.get(),
+            UP2Entities.HIBBERTOPTERUS.get(),
             UP2Entities.JAWLESS_FISH.get(),
             UP2Entities.KAPROSUCHUS.get(), UP2Entities.KENTROSAURUS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(),
             UP2Entities.LEPTICTIDIUM.get(), UP2Entities.LYSTROSAURUS.get(),
-            UP2Entities.MAJUNGASAURUS.get(), UP2Entities.MEGALANIA.get(), UP2Entities.METRIORHYNCHUS.get(),
+            UP2Entities.MAJUNGASAURUS.get(), UP2Entities.MANIPULATOR.get(), UP2Entities.MEGALANIA.get(),
+            UP2Entities.METRIORHYNCHUS.get(),
             UP2Entities.ONCHOPRISTIS.get(),
             UP2Entities.PACHYCEPHALOSAURUS.get(), UP2Entities.PRAEPUSA.get(), UP2Entities.PSILOPTERUS.get(),
             UP2Entities.PTERODACTYLUS.get(),

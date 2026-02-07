@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-07T11:46:51.985702	Advancements
+// 1.20.1	2026-02-07T13:57:23.4350915	Advancements
 959c59df801bfbd89258f1d3dc1fff5b383513da data/unusual_prehistory/advancements/breed_holocene_mobs.json
 e6c0560e007da877f98bf31e48e5efb3a83e6110 data/unusual_prehistory/advancements/cenozoic_root.json
 2673239cc158db4d51fa5eda2bf13bfaebf3165e data/unusual_prehistory/advancements/cretaceous_root.json
@@ -15,7 +15,7 @@ a0d7890df82c4c301be802530c7d9cdc01f1a6ed data/unusual_prehistory/advancements/ju
 48265159ebd7901f7a90ba6a022f65e08cafef4b data/unusual_prehistory/advancements/pacify_mob.json
 eab39ae08a544966ff2f5cd724a9d33dc059a0ae data/unusual_prehistory/advancements/paleozoic_root.json
 82a2cdef0767b601307275107389f4ad49f0e7df data/unusual_prehistory/advancements/revive_aegirocassis.json
-4450296511af1ec50604aece88df4c46dc9a8d94 data/unusual_prehistory/advancements/revive_all_mobs.json
+e1b41d4d1b8088f9c85567b3d74fe2d586aef407 data/unusual_prehistory/advancements/revive_all_mobs.json
 7c4bf10a34f3a5f7ac248d2a23cdb142c2904d93 data/unusual_prehistory/advancements/revive_barinasuchus.json
 113d726a4ee428813406624eb526273088594854 data/unusual_prehistory/advancements/revive_brachiosaurus.json
 d57fd09fccaf91977e5158f6a02125daa06b4aed data/unusual_prehistory/advancements/revive_carnotaurus.json

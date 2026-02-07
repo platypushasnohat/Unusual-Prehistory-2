@@ -48,6 +48,7 @@ public class UP2Items {
     // Aegirocassis
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle");
+    public static final RegistryObject<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new MobBucketItem(UP2Entities.AEGIROCASSIS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     // Barinasuchus
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x282d1a, 0xb8b44d);
