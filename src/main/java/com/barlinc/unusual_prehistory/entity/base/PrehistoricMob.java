@@ -682,7 +682,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         }
     }
 
-    // Prevent riding from taking fall damage
+    // Prevent rider from taking fall damage
     @Override
     public boolean causeFallDamage(float f1, float f2, @NotNull DamageSource source) {
         float[] ret = ForgeHooks.onLivingFall(this, f1, f2);

@@ -136,7 +136,7 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 
         if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
 
-        this.neck.xRot += entity.isDromaeosaurusEeping() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
+        this.neck.xRot += entity.isMobEepy() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
 		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 	}
 

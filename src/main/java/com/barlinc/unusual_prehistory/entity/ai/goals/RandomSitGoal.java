@@ -21,12 +21,12 @@ public class RandomSitGoal extends Goal {
     public boolean canUse() {
         if (prehistoricMob.getLastHurtByMob() != null) return false;
         else if (prehistoricMob.getTarget() != null) return false;
-        return !prehistoricMob.hasControllingPassenger() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy() && !prehistoricMob.isInWater() && prehistoricMob.getSitCooldown() <= 0 && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.hasControllingPassenger() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy() && !prehistoricMob.isInWater() && prehistoricMob.getSitCooldown() <= 0 && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !prehistoricMob.isInWater() && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.isInWater() && prehistoricMob.getSitPoseTime() >= (long) minimalPoseTicks && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override
