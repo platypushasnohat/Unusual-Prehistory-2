@@ -1,7 +1,10 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.entity.Barinasuchus;
+import com.barlinc.unusual_prehistory.entity.Manipulator;
+import com.barlinc.unusual_prehistory.entity.Megalania;
+import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
 import com.barlinc.unusual_prehistory.registry.UP2MapIcons;
 import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;

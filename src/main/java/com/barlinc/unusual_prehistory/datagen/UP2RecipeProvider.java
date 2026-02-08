@@ -8,7 +8,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -27,7 +26,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
-import static net.minecraft.data.recipes.RecipeCategory.*;
+import static net.minecraft.data.recipes.RecipeCategory.BUILDING_BLOCKS;
+import static net.minecraft.data.recipes.RecipeCategory.MISC;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 

@@ -1,7 +1,10 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
+import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
+import com.barlinc.unusual_prehistory.entity.Majungasaurus;
+import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
@@ -25,7 +28,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
