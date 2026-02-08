@@ -37,7 +37,7 @@ public class RandomFlightGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (mob.isVehicle() || (mob.getTarget() != null && mob.getTarget().isAlive()) || mob.isPassenger()) {
+        if (mob.isDancing() || mob.isVehicle() || (mob.getTarget() != null && mob.getTarget().isAlive()) || mob.isPassenger()) {
             return false;
         }
         if (!mob.isFlying() && mob.getRandom().nextInt(interval) != 0) {
