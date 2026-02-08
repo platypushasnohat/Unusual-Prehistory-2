@@ -193,12 +193,12 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
+        return player.isShiftKeyDown() && (!this.isPlayerHoldingDye(player) || this.isRainbow());
     }
 
     @Override
     public boolean canOwnerMount(Player player) {
-        return !this.isBaby() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
+        return !this.isBaby() && (!this.isPlayerHoldingDye(player) || this.isRainbow());
     }
 
     private boolean isPlayerHoldingDye(Player player) {
@@ -265,7 +265,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble();
+        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting();
     }
 
     @Override

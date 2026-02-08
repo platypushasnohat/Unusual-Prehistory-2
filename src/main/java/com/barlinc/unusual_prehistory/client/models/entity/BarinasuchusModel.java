@@ -119,7 +119,7 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
             else this.animateWalk(BarinasuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.3F, 2.6F);
         }
 		this.animateIdle(entity.idleAnimationState, BarinasuchusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks);
+        this.animate(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks, 2);
         this.animate(entity.attack1AnimationState, BarinasuchusAnimations.BITE_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, BarinasuchusAnimations.BITE_BLEND2, ageInTicks);
 		this.animate(entity.sitStartAnimationState, BarinasuchusAnimations.SIT_START, ageInTicks);
