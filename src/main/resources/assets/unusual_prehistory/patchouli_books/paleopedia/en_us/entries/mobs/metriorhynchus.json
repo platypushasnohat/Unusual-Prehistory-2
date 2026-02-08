@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/metriorhynchus.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Metriorhynchus is an aggressive predator that will perform a death roll on anything it attacks. It is also capable of crawling on land to chase its prey."
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "name": "Barinasuchus",
+  "icon": "unusual_prehistory:barinasuchus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_barinasuchus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Mid Eocene-Mid Miocene Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Jungles, Swamps"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/barinasuchus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Barinasuchus is a large terrestrial crocodilian known for it's speed and sheer brute strength. They are very quick and love to run for long distances. Barinasuchus get along well with other crocodilians, and they can be often found basking in the sun and bellowing together!"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can earn the trust of a Barinasuchus by feeding it raw meat, and it will serve as a loyal steed that provides a fast mode of transportation. It's not very enthusiastic about swimming, so you may have some trouble making the Barinasuchus cross a body of water."
+    }
+  ]
+}

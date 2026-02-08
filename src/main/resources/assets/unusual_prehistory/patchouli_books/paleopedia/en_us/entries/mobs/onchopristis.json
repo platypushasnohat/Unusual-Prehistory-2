@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/onchopristis.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Onchopristis love to bury themselves in the ground. If stepped on in this state, they will become aggressive to whoever disturbed them."
     }
   ]
 }

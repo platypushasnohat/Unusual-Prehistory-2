@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/telecrex.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The telecrex is a small bird that is scared of players, and will fly away from you if you get too close."
     }
   ]
 }

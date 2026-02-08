@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/majungasaurus.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Majungasaurus is a nocturnal predator that uses camouflage to its advantage. When it sees prey, it will turn invisible and stalk its victim before reappearing to begin its attack. Majunga will attack their young. If hatched at night, a Majungasaurus may develop a different color pattern."
     }
   ]
 }

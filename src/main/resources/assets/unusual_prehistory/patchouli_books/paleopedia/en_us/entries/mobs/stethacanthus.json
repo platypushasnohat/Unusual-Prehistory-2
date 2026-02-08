@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/stethacanthus.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Stethacanthus is a small, neutral shark that will swim away from players that get too close. They will hunt most aquatic prey smaller than them, including Jawless Fish."
     }
   ]
 }

@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/dunkleosteus.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Dunkleosteus comes in three sizes: small, medium, and large. While the small Dunkleosteus will not attack on sight, the other two variants will not be so friendly if you get too close. A Dunkleosteus bite is incredibly strong and will pierce through armor"
     }
   ]
 }

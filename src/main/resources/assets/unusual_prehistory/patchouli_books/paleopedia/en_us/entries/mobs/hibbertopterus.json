@@ -1,0 +1,23 @@
+{
+  "name": "Hibbertopterus",
+  "icon": "unusual_prehistory:hibbertopterus_eggs",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_hibbertopterus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Mid Devonian-Late Carboniferous Period $(br2)Temperament: Passive $(br2)Diet: Herbivorous $(br2)Preferred Habitats: Deep Lukewarm Oceans, Beaches"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/hibbertopterus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Hibbertopterus is a strange scorpion which doesn't do very much thinking. They feed by filtering substrate (dirt) through their front appendages, combing for tasty invertebrates. A Hibbertopterus' feeding habits make it very good at plowing and tilling. They can be ridden and controlled with a block of dirt on a stick in order to till soil underneath them and prime it for farming."
+    }
+  ]
+}
