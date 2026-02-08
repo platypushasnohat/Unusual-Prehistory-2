@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/jawless_fish.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Jawless fish are tiny fish that can hatch into five variants: Arandaspis, Cephalaspis, Doryaspis, Furcacauda, and Sacabambaspis."
     }
   ]
 }

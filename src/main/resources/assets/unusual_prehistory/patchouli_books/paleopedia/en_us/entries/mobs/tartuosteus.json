@@ -1,6 +1,6 @@
 {
   "name": "Tartuosteus",
-  "icon": "unusual_prehistory:jawless_fish_roe",
+  "icon": "unusual_prehistory:tartuosteus_roe",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_tartuosteus",
   "pages": [
@@ -14,6 +14,10 @@
       "images": [
         "unusual_prehistory:textures/gui/paleopedia/images/tartuosteus.png"
       ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Tartuosteus loves to leap high into the air and will do so often. A tartuosteus may rarely hatch from Jawless Fish Roe. When hatched at night, they will take on an evil, red appearance."
     }
   ]
 }

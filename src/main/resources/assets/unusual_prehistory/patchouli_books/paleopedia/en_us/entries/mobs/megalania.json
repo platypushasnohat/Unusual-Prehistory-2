@@ -20,6 +20,10 @@
       "text": "The Megalania is an ancient species of gigantic monitor lizard which was once a terrifying apex predator during the Pleistocene no doubt helped by their fast acting venom. It has been observed that depending on the conditions of the Megalania’s environment it’s appearance, temperament and behaviour will change in relation to these changes."
     },
     {
+      "type": "patchouli:text",
+      "text": "A Megalania may be tamed by feeding it rotten flesh. The Megalania may be ridden across land and through water, and can also perform a small jump."
+    },
+    {
       "type": "patchouli:empty",
       "draw_filler": false
     }

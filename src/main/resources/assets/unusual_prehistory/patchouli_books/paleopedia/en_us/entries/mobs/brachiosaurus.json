@@ -1,0 +1,27 @@
+{
+  "name": "Brachiosaurus",
+  "icon": "unusual_prehistory:brachiosaurus_egg",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_brachiosaurus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Neutral $(br2)Diet: Herbivorous $(br2)Preferred Habitats: Forests, Swamps"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/brachiosaurus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Brachiosaurus is a titan from the Jurassic period, and is recognizable for it's long neck and legs, which share a lot in common with the trunks of the mightiest trees. They spend most of their days grazing on leaves and going for leisurely strides in large bodies of water where they will nibble on seagrass and kelp."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Brachiosaurus is relatively docile unless provoked. If you incur the wrath of this behemoth, it would be best to vacate the area, as they will stomp the ground and destroy any who linger underneath it."
+    }
+  ]
+}
