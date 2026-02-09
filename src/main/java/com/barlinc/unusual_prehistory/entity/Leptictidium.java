@@ -35,8 +35,6 @@ import java.util.List;
 
 public class Leptictidium extends PrehistoricMob {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-
     public Leptictidium(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }

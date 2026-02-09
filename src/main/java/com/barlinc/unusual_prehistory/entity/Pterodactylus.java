@@ -117,9 +117,6 @@ public class Pterodactylus extends PrehistoricFlyingMob {
             }
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
-        if (this.isInWaterOrBubble() && !this.isFlying()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
-        }
         super.travel(travelVec);
     }
 
@@ -175,6 +172,10 @@ public class Pterodactylus extends PrehistoricFlyingMob {
         if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
 
         if (!level().isClientSide) this.tickHanging();
+
+        if (this.isInWaterOrBubble()) {
+            this.setFlying(true);
+        }
     }
 
     private void tickHanging() {
@@ -221,7 +222,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                if (horizontalCollision && !landingFlag) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }

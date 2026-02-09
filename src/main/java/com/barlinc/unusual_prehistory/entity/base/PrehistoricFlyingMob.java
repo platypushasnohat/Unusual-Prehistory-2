@@ -101,8 +101,8 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         if (this.isFlying()) {
             this.flightTicks++;
             this.setNoGravity(true);
-            if (this.isLandNavigator) this.switchNavigator(false);
             if (groundTicks > 0) this.setFlying(false);
+            if (this.isLandNavigator) this.switchNavigator(false);
         } else {
             this.flightTicks = 0;
             this.setNoGravity(false);
