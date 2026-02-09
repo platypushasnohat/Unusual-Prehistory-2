@@ -40,7 +40,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.setPersistenceRequired();
     }
 
     public void switchNavigator(boolean onLand) {
@@ -84,19 +83,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
-        if (this.isInWaterOrBubble() && !this.isFlying()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
-        }
-        super.travel(travelVec);
-    }
-
-    @Override
-    public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1;
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
@@ -122,12 +108,13 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.setNoGravity(false);
             if (!this.isLandNavigator) this.switchNavigator(true);
         }
+
         if (groundTicks > 0) groundTicks--;
 
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                if (horizontalCollision && !landingFlag && !this.isInWater()) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }

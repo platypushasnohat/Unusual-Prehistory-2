@@ -145,6 +145,9 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             }
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
+        if (this.isInWaterOrBubble() && !this.isFlying()) {
+            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
+        }
         super.travel(travelVec);
     }
 

@@ -117,6 +117,9 @@ public class Pterodactylus extends PrehistoricFlyingMob {
             }
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
+        if (this.isInWaterOrBubble() && !this.isFlying()) {
+            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
+        }
         super.travel(travelVec);
     }
 
@@ -396,7 +399,12 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging());
+            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging()) && !pterodactylus.isFlying();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !pterodactylus.isFlying();
         }
 
         @Override

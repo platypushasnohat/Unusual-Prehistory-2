@@ -99,6 +99,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
         this.tailYaw = this.getYRot();
         this.prevTailYaw = this.getYRot();
+        this.setPersistenceRequired();
     }
 
     @Override

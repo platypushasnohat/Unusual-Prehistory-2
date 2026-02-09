@@ -123,8 +123,12 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isFlying()) {
-            if (entity.isRunning()) this.animateWalk(DimorphodonAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-            else this.animateWalk(DimorphodonAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isInWater()) {
+                this.animateWalk(DimorphodonAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                if (entity.isRunning()) this.animateWalk(DimorphodonAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+                else this.animateWalk(DimorphodonAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
 		}
 
         this.animateIdle(entity.idleAnimationState, DimorphodonAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
@@ -133,6 +137,9 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
         this.animate(entity.flyFastAnimationState, DimorphodonAnimations.FLY_FAST, ageInTicks);
         this.animate(entity.danceAnimationState, DimorphodonAnimations.DANCE, ageInTicks);
         this.animate(entity.grabAnimationState, DimorphodonAnimations.GRAB, ageInTicks);
+        this.animate(entity.nip1AnimationState, DimorphodonAnimations.NIP_BLEND1, ageInTicks);
+        this.animate(entity.nip2AnimationState, DimorphodonAnimations.NIP_BLEND2, ageInTicks);
+        this.animate(entity.tailChaseAnimationState, DimorphodonAnimations.TAILCHASE, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
 
