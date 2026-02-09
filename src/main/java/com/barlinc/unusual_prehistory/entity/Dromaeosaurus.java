@@ -42,7 +42,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
-    private int biteTicks;
+    private int attackTicks;
 
     public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
 
@@ -134,13 +134,13 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (biteTicks > 0) biteTicks--;
-        if (biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
+        if (attackTicks > 0) attackTicks--;
+        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
     public void setupAnimationStates() {
-        if (biteTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
+        if (attackTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
         this.idleAnimationState.animateWhen(!this.isMobEepy(), this.tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
 
@@ -167,9 +167,9 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.BITING.get()) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.biteAnimationState.start(this.tickCount);
-                this.biteTicks = 10;
+                this.attackTicks = 10;
             }
             else {
                 this.biteAnimationState.stop();

@@ -41,7 +41,7 @@ public class DromaeosaurusAttackGoal extends AttackGoal {
 
             if (this.dromaeosaurus.getAttackState() == 1) {
                 timer++;
-                if (timer == 1) this.dromaeosaurus.setPose(UP2Poses.BITING.get());
+                if (timer == 1) this.dromaeosaurus.setPose(UP2Poses.ATTACKING.get());
                 if (timer == 6) {
                     if (this.dromaeosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
                         this.dromaeosaurus.doHurtTarget(target);

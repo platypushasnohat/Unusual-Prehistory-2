@@ -80,7 +80,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
     private void tickBite() {
         this.timer++;
         LivingEntity target = this.megalania.getTarget();
-        if (timer == 1) this.megalania.setPose(UP2Poses.BITING.get());
+        if (timer == 1) this.megalania.setPose(UP2Poses.ATTACKING.get());
         if (timer == 5) this.megalania.playSound(UP2SoundEvents.MEGALANIA_BITE.get(), 1.0F, 1.0F);
         if (this.timer == 11) {
             if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {

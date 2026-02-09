@@ -1,18 +1,23 @@
 package com.barlinc.unusual_prehistory.entity;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.DimorphodonGrabGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
+import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -22,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -34,11 +40,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Dimorphodon extends PrehistoricFlyingMob {
+public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
 
-    public final AnimationState flyAnimationState = new AnimationState();
-    public final AnimationState flyFastAnimationState = new AnimationState();
-    public final AnimationState hoverAnimationState = new AnimationState();
+    private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Dimorphodon.class, EntityDataSerializers.INT);
+
+    public int grabCooldown = 0;
+
+    public final AnimationState grabAnimationState = new AnimationState();
 
     public Dimorphodon(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -56,18 +64,25 @@ public class Dimorphodon extends PrehistoricFlyingMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIMORPHODON_FOOD), false));
-        this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D) {
+        this.goalSelector.addGoal(1, new DimorphodonGrabGoal(this));
+        this.goalSelector.addGoal(2, new LargePanicGoal(this, 2.0D, 10, 4) {
+            @Override
+            public boolean canUse() {
+                return !Dimorphodon.this.canPickUpTarget(Dimorphodon.this.getLastHurtByMob()) && super.canUse();
+            }
+        });
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIMORPHODON_FOOD), false));
+        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Dimorphodon.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 1.5F, 16, 5, 1500, 300));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new RandomFlightGoal(this, 1.0F, 1.5F, 16, 5, 1500, 300));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
     @Override
@@ -110,6 +125,25 @@ public class Dimorphodon extends PrehistoricFlyingMob {
         return !this.isFlying();
     }
 
+    private void positionHeldMob() {
+        Entity entity = this.level().getEntity(this.getHeldMobId());
+        if (entity != null) {
+            Vec3 heldPos = this.position().add(0.0D, -2.0D, 0.0D);
+            Vec3 minus = new Vec3(heldPos.x - entity.getX(), heldPos.y - entity.getY(), heldPos.z - entity.getZ());
+            entity.setDeltaMovement(minus);
+        }
+    }
+
+    public boolean canPickUpTarget(LivingEntity target) {
+        if (target == null) {
+            return false;
+        }
+        if (target.getType().is(UP2EntityTags.DIMORPHODON_CANT_GRAB)) {
+            return false;
+        }
+        return (target.getBbWidth() < this.getBbWidth() && target.getBbHeight() < this.getBbHeight()) || target.getType().is(UP2EntityTags.DIMORPHODON_CAN_GRAB) || target instanceof Player;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -117,6 +151,12 @@ public class Dimorphodon extends PrehistoricFlyingMob {
             if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
             if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
         }
+
+        if (this.getHeldMobId() != -1) {
+            this.positionHeldMob();
+        }
+
+        if (grabCooldown > 0) grabCooldown--;
     }
 
     @Override
@@ -128,15 +168,6 @@ public class Dimorphodon extends PrehistoricFlyingMob {
         return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
     }
 
-    @Override
-    public void setFlyingPose() {
-        if (this.isFlying()) {
-            this.setPose(Pose.FALL_FLYING);
-        } else {
-            this.setPose(Pose.STANDING);
-        }
-    }
-
     public int getFastFlyingTicks() {
         return 80 + this.getRandom().nextInt(60);
     }
@@ -144,10 +175,11 @@ public class Dimorphodon extends PrehistoricFlyingMob {
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isDancing() && !this.isFlying() && this.getIdleState() != 1 && this.getIdleState() != 2, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
-        this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning() && this.getAttackState() != 1, this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning() && this.getAttackState() != 1, this.tickCount);
+        this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getAttackState() != 1, this.tickCount);
         this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
+        this.grabAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
     }
 
     @Override
@@ -164,6 +196,22 @@ public class Dimorphodon extends PrehistoricFlyingMob {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.DIMORPHODON_FOOD);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HELD_MOB_ID, -1);
+    }
+
+    @Override
+    public void setHeldMobId(int id) {
+        this.entityData.set(HELD_MOB_ID, id);
+    }
+
+    @Override
+    public int getHeldMobId() {
+        return this.entityData.get(HELD_MOB_ID);
     }
 
     @Override
