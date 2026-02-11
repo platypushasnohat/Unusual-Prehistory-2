@@ -213,6 +213,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MANIPULATOR_DEATH, "Manipulator dies");
         this.sound(UP2SoundEvents.MANIPULATOR_IDLE, "Manipulator chatters");
         this.sound(UP2SoundEvents.MANIPULATOR_STEP, "Manipulator steps");
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL, "Manipulator prepares attack");
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH, "Manipulator slashes");
 
         this.sound(UP2SoundEvents.MEGALANIA_HURT, "Megalania hurts");
         this.sound(UP2SoundEvents.MEGALANIA_DEATH, "Megalania dies");

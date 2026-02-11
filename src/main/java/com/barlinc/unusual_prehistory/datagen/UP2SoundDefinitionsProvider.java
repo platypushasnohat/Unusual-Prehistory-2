@@ -401,25 +401,33 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Manipulator
         this.sound(UP2SoundEvents.MANIPULATOR_HURT,
-                sound("mob/spider/say1").pitch(0.6F),
-                sound("mob/spider/say2").pitch(0.6F),
-                sound("mob/spider/say3").pitch(0.6F),
-                sound("mob/spider/say4").pitch(0.6F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt3"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_DEATH,
-                sound("mob/spider/death").pitch(0.85F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/death1"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_IDLE,
-                sound("mob/spider/say1").pitch(0.85F),
-                sound("mob/spider/say2").pitch(0.85F),
-                sound("mob/spider/say3").pitch(0.85F),
-                sound("mob/spider/say4").pitch(0.85F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle5"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_STEP,
                 sound("mob/spider/step1").pitch(0.85F),
                 sound("mob/spider/step2").pitch(0.85F),
                 sound("mob/spider/step3").pitch(0.85F),
                 sound("mob/spider/step4").pitch(0.85F)
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL,
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal2"))
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH,
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash2"))
         );
 
         // Megalania

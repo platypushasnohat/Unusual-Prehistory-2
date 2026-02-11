@@ -126,6 +126,12 @@
      }
 
      @Override
+     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+         this.heal(8);
+         return super.killedEntity(level, victim);
+     }
+
+     @Override
      public float getStepHeight() {
          return this.isRunning() ? 1.1F : 0.6F;
      }
@@ -508,7 +514,7 @@
 
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         this.playSound(UP2SoundEvents.MANIPULATOR_STEP.get(), 0.4F, this.getStepPitch());
+         this.playSound(UP2SoundEvents.MANIPULATOR_STEP.get(), 0.25F, this.getStepPitch());
      }
 
      @Override
