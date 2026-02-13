@@ -408,29 +408,24 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.LYSTROSAURUS_IDLE.get();
+        return UP2SoundEvents.PSILOPTERUS_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.LYSTROSAURUS_HURT.get();
+        return UP2SoundEvents.PSILOPTERUS_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.LYSTROSAURUS_DEATH.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.LYSTROSAURUS_STEP.get(), 0.15F, 1.0F);
+        return UP2SoundEvents.PSILOPTERUS_DEATH.get();
     }
 
     @Override
     public int getAmbientSoundInterval() {
-        return 160;
+        return 180;
     }
 
     @Override

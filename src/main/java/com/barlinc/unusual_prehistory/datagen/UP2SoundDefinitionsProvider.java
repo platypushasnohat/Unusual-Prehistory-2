@@ -560,6 +560,36 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/praepusa/bounce1"))
         );
 
+        // Psilopterus
+        this.sound(UP2SoundEvents.PSILOPTERUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/death1"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle5"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_CALL,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/call1")).attenuationDistance(24)
+        );
+
         // Pterodactylus
         this.sound(UP2SoundEvents.PTERODACTYLUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/hurt1"))

@@ -1305,6 +1305,55 @@
     ],
     "subtitle": "subtitles.praepusa_mitosis"
   },
+  "psilopterus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/attack1",
+      "unusual_prehistory:entity/psilopterus/attack2",
+      "unusual_prehistory:entity/psilopterus/attack3"
+    ],
+    "subtitle": "subtitles.psilopterus_attack"
+  },
+  "psilopterus_bite": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/bite1",
+      "unusual_prehistory:entity/psilopterus/bite2",
+      "unusual_prehistory:entity/psilopterus/bite3"
+    ],
+    "subtitle": "subtitles.psilopterus_bite"
+  },
+  "psilopterus_call": {
+    "sounds": [
+      {
+        "attenuation_distance": 24,
+        "name": "unusual_prehistory:entity/psilopterus/call1"
+      }
+    ],
+    "subtitle": "subtitles.psilopterus_call"
+  },
+  "psilopterus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/death1"
+    ],
+    "subtitle": "subtitles.psilopterus_death"
+  },
+  "psilopterus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/hurt1",
+      "unusual_prehistory:entity/psilopterus/hurt2",
+      "unusual_prehistory:entity/psilopterus/hurt3"
+    ],
+    "subtitle": "subtitles.psilopterus_hurt"
+  },
+  "psilopterus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/idle1",
+      "unusual_prehistory:entity/psilopterus/idle2",
+      "unusual_prehistory:entity/psilopterus/idle3",
+      "unusual_prehistory:entity/psilopterus/idle4",
+      "unusual_prehistory:entity/psilopterus/idle5"
+    ],
+    "subtitle": "subtitles.psilopterus_idle"
+  },
   "pterodactylus_death": {
     "sounds": [
       "unusual_prehistory:entity/pterodactylus/death1"
