@@ -99,6 +99,11 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
+    @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return this.level().isNight() ? (level.getFluidState(pos).is(FluidTags.WATER) ? 10.0F : 0.0F) : this.getDepthPathfindingFavor(pos, level);
     }

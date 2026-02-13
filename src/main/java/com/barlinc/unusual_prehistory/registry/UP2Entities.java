@@ -57,6 +57,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "coelacanthus").toString())
     );
 
+    public static final RegistryObject<EntityType<Cotylorhynchus>> COTYLORHYNCHUS = ENTITY_TYPE.register(
+            "cotylorhynchus", () ->
+            EntityType.Builder.of(Cotylorhynchus::new, MobCategory.CREATURE)
+                    .sized(2.2F, 1.6F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "cotylorhynchus").toString())
+    );
+
     public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = ENTITY_TYPE.register(
             "desmatosuchus", () ->
             EntityType.Builder.of(Desmatosuchus::new, MobCategory.CREATURE)
@@ -95,6 +103,14 @@ public class UP2Entities {
                     .sized(0.75F, 0.6F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dunkleosteus").toString())
+    );
+
+    public static final RegistryObject<EntityType<Eryon>> ERYON = ENTITY_TYPE.register(
+            "eryon", () ->
+            EntityType.Builder.of(Eryon::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "eryon").toString())
     );
 
     public static final RegistryObject<EntityType<Hibbertopterus>> HIBBERTOPTERUS = ENTITY_TYPE.register(
@@ -175,6 +191,14 @@ public class UP2Entities {
                     .sized(1.2F, 1.9F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
+    );
+
+    public static final RegistryObject<EntityType<Mammoth>> MAMMOTH = ENTITY_TYPE.register(
+            "mammoth", () ->
+            EntityType.Builder.of(Mammoth::new, MobCategory.CREATURE)
+                    .sized(3.2F, 5.2F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "mammoth").toString())
     );
 
     public static final RegistryObject<EntityType<Manipulator>> MANIPULATOR = ENTITY_TYPE.register(

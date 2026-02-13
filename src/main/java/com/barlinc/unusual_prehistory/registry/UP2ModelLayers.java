@@ -19,6 +19,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation CARNOTAURUS = main("carnotaurus");
     public static final ModelLayerLocation CEPHALASPIS = main("cephalaspis");
     public static final ModelLayerLocation COELACANTHUS = main("coelacanthus");
+    public static final ModelLayerLocation COTYLORHYNCHUS = main("cotylorhynchus");
     public static final ModelLayerLocation DESMATOSUCHUS = main("desmatosuchus");
     public static final ModelLayerLocation DIMORPHODON = main("dimorphodon");
     public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS = main("diplocaulus_brevirostris");
@@ -30,6 +31,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation DUNKLEOSTEUS_LARGE = main("dunkleosteus_large");
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM = main("dunkleosteus_medium");
     public static final ModelLayerLocation DUNKLEOSTEUS_SMALL = main("dunkleosteus_small");
+    public static final ModelLayerLocation ERYON = main("eryon");
     public static final ModelLayerLocation EUSTHENOPTERON = main("eusthenopteron");
     public static final ModelLayerLocation FURACACAUDA = main("furacacauda");
     public static final ModelLayerLocation GOOLOOGONGIA = main("gooloogongia");
@@ -42,6 +44,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation LEPTICTIDIUM = main("leptictidium");
     public static final ModelLayerLocation LYSTROSAURUS = main("lystrosaurus");
     public static final ModelLayerLocation MAJUNGASAURUS = main("majungasaurus");
+    public static final ModelLayerLocation MAMMOTH = main("mammoth");
     public static final ModelLayerLocation MANIPULATOR = main("manipulator");
     public static final ModelLayerLocation MEGALANIA = main("megalania");
     public static final ModelLayerLocation METRIORHYNCHUS = main("metriorhynchus");

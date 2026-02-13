@@ -105,6 +105,11 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -484,12 +489,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL) || super.isInvulnerableTo(source);
-    }
-
-    @Override
-    @NotNull
-    public MobType getMobType() {
-        return MobType.ARTHROPOD;
     }
 
     @Nullable

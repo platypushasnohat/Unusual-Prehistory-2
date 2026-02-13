@@ -80,6 +80,11 @@
      }
 
      @Override
+     public @NotNull MobType getMobType() {
+         return MobType.ARTHROPOD;
+     }
+
+     @Override
      public @NotNull PathNavigation createNavigation(@NotNull Level level) {
          return new SmoothGroundPathNavigation(this, level);
      }

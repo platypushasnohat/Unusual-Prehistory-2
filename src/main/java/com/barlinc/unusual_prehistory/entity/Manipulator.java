@@ -110,6 +110,11 @@
      }
 
      @Override
+     public @NotNull MobType getMobType() {
+         return MobType.ARTHROPOD;
+     }
+
+     @Override
      protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
          return dimensions.height * 0.9F;
      }
