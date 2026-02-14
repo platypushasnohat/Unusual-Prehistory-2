@@ -67,6 +67,9 @@ public class UP2ModelLayers {
 
     public static final ModelLayerLocation LIVING_OOZE = main("living_ooze");
 
+    // Ambient
+    public static final ModelLayerLocation ZHANGSOLVA = main("zhangsolva");
+
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(new ResourceLocation(UnusualPrehistory2.MOD_ID, id), name);
     }

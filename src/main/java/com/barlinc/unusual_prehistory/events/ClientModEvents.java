@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.*;
 import com.barlinc.unusual_prehistory.client.models.entity.aegirocassis.AegirocassisBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.aegirocassis.AegirocassisModel;
+import com.barlinc.unusual_prehistory.client.models.entity.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
@@ -24,6 +25,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornSkeletonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.*;
+import com.barlinc.unusual_prehistory.client.renderer.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -114,6 +116,9 @@ public class ClientModEvents {
 
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
         event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
+
+        // Ambient
+        event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
     }
 
     @SubscribeEvent
@@ -174,5 +179,8 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.UNICORN, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LIVING_OOZE, LivingOozeModel::createBodyLayer);
+
+        // Ambient
+        event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
     }
 }

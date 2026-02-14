@@ -89,6 +89,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.forEntity(UP2Entities.BOAT);
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
+        // Ambient
+        this.forEntity(UP2Entities.ZHANGSOLVA);
+
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");
 
@@ -305,6 +308,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.musicDisc(UP2Items.MEGALANIA_DISC, "ValiantEnvoy - MEGALANIA");
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
         this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
+
+        // Ambient mob sounds
+        this.sound(UP2SoundEvents.BUG_HURT, "Bug hurts");
+        this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
+        this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
 
         // Advancements
         this.translateAdvancement("root", "Unusual Prehistory 2", "Revive creatures from the ancient past!");

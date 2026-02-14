@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.entity.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -328,6 +329,15 @@ public class UP2Entities {
                     .sized(0.98F, 0.98F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "living_ooze").toString())
+    );
+
+    // Ambient
+    public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = ENTITY_TYPE.register(
+            "zhangsolva", () ->
+            EntityType.Builder.of(Zhangsolva::new, MobCategory.AMBIENT)
+                    .sized(0.3F, 0.4F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "zhangsolva").toString())
     );
 
     // Eggs

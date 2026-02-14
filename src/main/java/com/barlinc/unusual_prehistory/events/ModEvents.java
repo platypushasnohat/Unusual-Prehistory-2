@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.entity.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -96,5 +97,8 @@ public class ModEvents {
         event.put(UP2Entities.ULUGHBEGSAURUS.get(), Ulughbegsaurus.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
         event.put(UP2Entities.LIVING_OOZE.get(), LivingOoze.createAttributes().build());
+
+        // Ambient
+        event.put(UP2Entities.ZHANGSOLVA.get(), Zhangsolva.createAttributes().build());
     }
 }

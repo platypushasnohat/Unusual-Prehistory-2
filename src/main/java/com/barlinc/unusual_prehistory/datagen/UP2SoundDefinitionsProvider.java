@@ -774,6 +774,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );
+
+        // Ambient mobs
+        this.sound(UP2SoundEvents.BUG_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+        );
+        this.sound(UP2SoundEvents.BUG_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+        );
+        this.sound(UP2SoundEvents.BUG_BUZZ,
+                sound(UnusualPrehistory2.modPrefix("entity/ambient/bug_buzz1")).attenuationDistance(4)
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

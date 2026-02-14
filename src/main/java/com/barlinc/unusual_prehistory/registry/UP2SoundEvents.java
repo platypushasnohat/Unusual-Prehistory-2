@@ -206,6 +206,11 @@ public class UP2SoundEvents {
 
     public static final RegistryObject<SoundEvent> TAR_POP = registerSoundEvent("tar_pop");
 
+    // Ambient
+    public static final RegistryObject<SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
+    public static final RegistryObject<SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
+    public static final RegistryObject<SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory2.MOD_ID, soundName)));
     }

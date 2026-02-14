@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -344,6 +345,11 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
         this.tag(UP2EntityTags.METRIORHYNCHUS_CAN_GRAB).add(
                 TARTUOSTEUS.get()
+        );
+
+        // Minecraft
+        this.tag(EntityTypeTags.FROG_FOOD).add(
+                ZHANGSOLVA.get()
         );
     }
 }

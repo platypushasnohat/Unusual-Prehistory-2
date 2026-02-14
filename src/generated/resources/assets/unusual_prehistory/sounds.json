@@ -106,6 +106,33 @@
     ],
     "subtitle": "subtitles.brachiosaurus_stomp"
   },
+  "bug_buzz": {
+    "sounds": [
+      {
+        "attenuation_distance": 4,
+        "name": "unusual_prehistory:entity/ambient/bug_buzz1"
+      }
+    ],
+    "subtitle": "subtitles.bug_buzz"
+  },
+  "bug_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1",
+        "pitch": 1.75
+      }
+    ],
+    "subtitle": "subtitles.bug_death"
+  },
+  "bug_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1",
+        "pitch": 1.75
+      }
+    ],
+    "subtitle": "subtitles.bug_hurt"
+  },
   "carnotaurus_bite": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/bite1",
