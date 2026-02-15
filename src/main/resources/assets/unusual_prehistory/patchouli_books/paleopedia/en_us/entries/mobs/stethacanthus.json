@@ -1,23 +1,33 @@
 {
   "name": "Stethacanthus",
-  "icon": "unusual_prehistory:stethacanthus_sac",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/stethacanthus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_stethacanthus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Devonian-Late Carboniferous Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Lukewarm Oceans, Reefs"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Stethacanthus",
+      "id": "stethacanthus",
+      "flavor_text": "spine-thorn",
+      "fossil_item": "unusual_prehistory:anvil_fossil",
+      "egg_item": "unusual_prehistory:stethacanthus_sac",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/stethacanthus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Stethacanthus is a small, neutral shark that will swim away from players that get too close. They will hunt most aquatic prey smaller than them, including Jawless Fish."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_carboniferous",
+      "era_tooltip_period": "Late Carboniferous Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "Aquatic Egg",
+      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

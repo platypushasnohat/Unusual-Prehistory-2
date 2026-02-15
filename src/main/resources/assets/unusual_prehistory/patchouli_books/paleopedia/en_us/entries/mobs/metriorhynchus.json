@@ -1,23 +1,33 @@
 {
   "name": "Metriorhynchus",
-  "icon": "unusual_prehistory:metriorhynchus_embryo",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/metriorhynchus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_metriorhynchus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Oceans"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Metriorhynchus",
+      "id": "metriorhynchus",
+      "flavor_text": "moderate-snout",
+      "fossil_item": "unusual_prehistory:meltdown_fossil",
+      "egg_item": "unusual_prehistory:metriorhynchus_embryo",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/metriorhynchus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Metriorhynchus is an aggressive predator that will perform a death roll on anything it attacks. It is also capable of crawling on land to chase its prey."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "Late Jurassic Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "Embryo",
+      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day"
     }
   ]
 }

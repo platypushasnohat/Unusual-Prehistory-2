@@ -1,23 +1,32 @@
 {
   "name": "Jawless Fish",
-  "icon": "unusual_prehistory:jawless_fish_roe",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/jawless_fish.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_jawless_fish",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Mid Ordovician-Early Devonian Period $(br2)Temperament: Passive $(br2)Diet: Omnivorous $(br2)Preferred Habitats: Warm Oceans"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Jawless Fish",
+      "id": "jawless_fish",
+      "fossil_item": "unusual_prehistory:jawless_fossil",
+      "egg_item": "unusual_prehistory:jawless_fish_roe",
+      "variant_key": "1 Doryaspis 2 Cephalaspis 3 Arandaspis 4 Sacabambaspis 5 Furcacauda",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/jawless_fish.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Jawless fish are tiny fish that can hatch into five variants: Arandaspis, Cephalaspis, Doryaspis, Furcacauda, and Sacabambaspis."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "jawless_fish",
+      "era_tooltip_period": "Mid Ordovician into Early Devonian Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "Raft Egg",
+      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

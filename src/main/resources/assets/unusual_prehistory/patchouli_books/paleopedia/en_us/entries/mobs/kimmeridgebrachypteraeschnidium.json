@@ -1,23 +1,33 @@
 {
   "name": "Kimmeridgebrachypteraeschnidium",
-  "icon": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kimmeridgebrachypteraeschnidium.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Jurassic Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Beaches, Mangroves"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Kimmeridgebrachypteraeschnidium",
+      "id": "kimmeridgebrachypteraeschnidium",
+      "flavor_text": "Kimmeridge-arm-winged-small-darner",
+      "fossil_item": "unusual_prehistory:imperative_fossil",
+      "egg_item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/kimmeridgebrachypteraeschnidium.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Kimmeridgebrachypteraeschnidium are born as small, flightless nymphs. When they grow up, they will develop a large variety of different colors and patterns."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "Late Jurassic Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "Raft Egg",
+      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

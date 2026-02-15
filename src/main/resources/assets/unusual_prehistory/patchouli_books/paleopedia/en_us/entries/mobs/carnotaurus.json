@@ -1,23 +1,43 @@
 {
   "name": "Carnotaurus",
-  "icon": "unusual_prehistory:carnotaurus_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/carnotaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_carnotaurus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Badlands, Jungles"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Carnotaurus",
+      "id": "carnotaurus",
+      "flavor_text": "meat-eating-bull",
+      "fossil_item": "unusual_prehistory:fury_fossil",
+      "egg_item": "unusual_prehistory:carnotaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "Late Cretaceous abelisaur with a short, deep skull and a massive pair of horns that give it its name"
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/carnotaurus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Carnotaurus is an extremely angry creature that will attack anything on sight. If pacified, the Carnotaurus will become neutral to players and most mobs, but will still attack monsters. Rarely, a Carnotaurus may be born with a different color pattern."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:skeleton_skull",
+      "feature_1.tooltip": "§7A furious animal, Carnotaurus will charge at any mob it sees, ramming them with it's horns",
+      "feature_1.title_one_line": "Furious",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:golden_apple",
+      "feature_2.tooltip": "§7After being §apacified§r, §7Carnotaurus will continue to attack most monsters",
+      "feature_2.title_one_line": "Bodyguard!",
+      "feature_2.title_two_line": ""
     }
   ]
 }

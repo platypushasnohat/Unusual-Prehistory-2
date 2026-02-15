@@ -1,23 +1,33 @@
 {
   "name": "Majungasaurus",
-  "icon": "unusual_prehistory:majungasaurus_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/majungasaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_majungasaurus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Jungles, Beaches"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Majungasaurus",
+      "id": "majungasaurus",
+      "flavor_text": "Mahajanga-lizard",
+      "fossil_item": "unusual_prehistory:rugose_fossil",
+      "egg_item": "unusual_prehistory:majungasaurus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/majungasaurus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Majungasaurus is a nocturnal predator that uses camouflage to its advantage. When it sees prey, it will turn invisible and stalk its victim before reappearing to begin its attack. Majunga will attack their young. If hatched at night, a Majungasaurus may develop a different color pattern."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "nocturnal",
+      "activity.activity_tooltip": "Active during the night"
     }
   ]
 }

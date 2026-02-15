@@ -1,27 +1,43 @@
 {
   "name": "Dromaeosaurus",
-  "icon": "unusual_prehistory:dromaeosaurus_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dromaeosaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_dromaeosaurus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Forests, Plains"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Dromaeosaurus",
+      "id": "dromaeosaurus",
+      "flavor_text": "running-lizard",
+      "fossil_item": "unusual_prehistory:runner_fossil",
+      "egg_item": "unusual_prehistory:dromaeosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/dromaeosaurus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Dromeosaurus is a small and rambunctious little critter, which is well known for its hyper personality. These quick footed little theropods are diurnal, and spend their days racing around and jumping over all kinds of obstacles. However, when night falls these dinosaurs fall into an incredibly deep sleep, which acts as a needed rest to make up for the incredible amounts of energy they use throughout their daily activities."
-    },
-    {
-      "type": "patchouli:empty",
-      "draw_filler": false
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "Projectile Egg",
+      "clone.clone_tooltip": "Egg must be thrown to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:red_bed",
+      "feature_1.tooltip": "§7Dromaeosaurus is hyperactive - this dinosaur will continuously run and jump around, however will instantly fall asleep as night falls",
+      "feature_1.title_one_line": "Dino-Run!",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:feather",
+      "feature_2.tooltip": "§7Dromaeosaurus may prey on Chickens and other fowl",
+      "feature_2.title_one_line": "Fowl Play",
+      "feature_2.title_two_line": ""
     }
   ]
 }

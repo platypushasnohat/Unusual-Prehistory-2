@@ -1,23 +1,33 @@
 {
   "name": "Onchopristis",
-  "icon": "unusual_prehistory:onchopristis_sac",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/onchopristis.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_onchopristis",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Cretaceous Period $(br2)Temperament: Neutral $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Rivers"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Onchopristis",
+      "id": "onchopristis",
+      "flavor_text": "barb-saw",
+      "fossil_item": "unusual_prehistory:saw_fossil",
+      "egg_item": "unusual_prehistory:onchopristis_sac",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/onchopristis.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Onchopristis love to bury themselves in the ground. If stepped on in this state, they will become aggressive to whoever disturbed them."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "Aquatic Egg",
+      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

@@ -1,23 +1,48 @@
 {
   "name": "Diplocaulus",
-  "icon": "unusual_prehistory:diplocaulus_eggs",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/diplocaulus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_diplocaulus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Carboniferous-Late Permian Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Swamps, Mangroves"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Diplocaulus",
+      "id": "diplocaulus",
+      "flavor_text": "double-stalk",
+      "fossil_item": "unusual_prehistory:boomerang_fossil",
+      "egg_item": "unusual_prehistory:diplocaulus_eggs",
+      "variant_key": "1 brevirostris 2 magnicornis 3 recurvartis 4 salamandroides",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/diplocaulus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "Diplocaulus are semi-aquatic creatures that hatch into four different variants: the green Magnicornis, the brown Recurvatis, the yellow Salamandroides, and the orange Brevirostris."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "diplocaulus",
+      "era_tooltip_period": "Late Carboniferous into Late Permian Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "Raft Egg",
+      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "unusual_prehistory:diplocaulus_bucket",
+      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Diplocaulus",
+      "feature_1.title_one_line": "Tactical Fishing",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:ice",
+      "feature_2.tooltip": "§7Loves to slide around on ice, snow and mud",
+      "feature_2.title_one_line": "Slip n' Slide!",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:mud",
+      "feature_3.tooltip": "§7Diplocaulus may occasionally bury itself in mud",
+      "feature_3.title_one_line": "In the Mud",
+      "feature_3.title_two_line": ""
     }
   ]
 }
