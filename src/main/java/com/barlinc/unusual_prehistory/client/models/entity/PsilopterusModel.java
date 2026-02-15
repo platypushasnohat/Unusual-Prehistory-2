@@ -104,15 +104,15 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     public void setupAnim(Psilopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isMobSitting() && !entity.isMobEepy()) {
+        if (!entity.isInWater() && !entity.isMobEepy()) {
             if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PsilopterusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PsilopterusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
         this.animateIdle(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.sitStartAnimationState, PsilopterusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, PsilopterusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, PsilopterusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, PsilopterusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, PsilopterusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, PsilopterusAnimations.SLEEP_END, ageInTicks);
         this.animate(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
         this.animate(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
         this.animate(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
@@ -125,7 +125,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
         this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
     }
 

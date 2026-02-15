@@ -42,11 +42,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPressingMob, LeverPullingMob, ChestLootingMob {
 
     private static final EntityDataAccessor<Boolean> PACK_LEADER = SynchedEntityData.defineId(Psilopterus.class, EntityDataSerializers.BOOLEAN);
-
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.8F, 0.7F);
 
     private Psilopterus priorPackMember;
     private Psilopterus afterPackMember;
@@ -54,10 +54,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     private int pushButtonCooldown = 0;
     private int pullLeverCooldown = 0;
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
@@ -94,19 +90,19 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(8, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(10, new RandomSitGoal(this));
+        this.goalSelector.addGoal(10, new SleepingGoal(this));
         this.goalSelector.addGoal(11, new PsilopterusDigGoal(this));
         this.goalSelector.addGoal(11, new PsilopterusPreenGoal(this));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this, Psilopterus.class)).setAlertOthers());
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_PACK_TARGETS)));
-        this.targetSelector.addGoal(2, new PackAnimalNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
-        this.targetSelector.addGoal(3, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS), 3));
-        this.targetSelector.addGoal(4, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS), 6));
+        this.targetSelector.addGoal(2, new PsilopterusNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
+        this.targetSelector.addGoal(3, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS), 3));
+        this.targetSelector.addGoal(4, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS), 6));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 14.0D)
+                .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.28F);
     }
@@ -143,11 +139,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Override
     public float getStepHeight() {
         return this.isRunning() ? 1.0F : 0.6F;
-    }
-
-    @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -213,6 +204,11 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
+    public Vec3 getLookVec() {
+        return new Vec3(0, 0, -this.getBbWidth() * 1.1F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
     public void tick() {
         super.tick();
         LivingEntity target = this.getTarget();
@@ -258,7 +254,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.idleAnimationState.animateWhen(this.canPlayIdleAnimation() && !this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.canPlayIdleAnimation() && this.isInWater(), this.tickCount);
 
-        if (this.isMobVisuallySitting()) {
+        if (this.isMobVisuallyEepy()) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.kickAnimationState.stop();
@@ -268,17 +264,17 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
             this.preen1AnimationState.stop();
             this.preen2AnimationState.stop();
 
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
+            if (this.isVisuallyEepy()) {
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 
@@ -302,7 +298,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 this.pokeAnimationState.start(this.tickCount);
                 this.pokeTicks = 20;
             }
-            else {
+            else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.kickAnimationState.stop();
@@ -425,7 +421,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     public int getAmbientSoundInterval() {
-        return 180;
+        return 130;
     }
 
     @Override
@@ -436,6 +432,32 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     public static boolean canSpawn(EntityType<Psilopterus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.PSILOPTERUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    private static class PsilopterusNearestAttackableTargetGoal<T extends LivingEntity> extends PackAnimalNearestAttackableTargetGoal<T> {
+
+        protected final Psilopterus psilopterus;
+
+        public PsilopterusNearestAttackableTargetGoal(Psilopterus psilopterus, Class<T> targetClass, int interval, boolean mustSee, boolean mustReach, @Nullable Predicate<LivingEntity> entityPredicate, int packSizeRequired) {
+            super(psilopterus, targetClass, interval, mustSee, mustReach, entityPredicate, packSizeRequired);
+            this.psilopterus = psilopterus;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            if (psilopterus.isPackLeader()) {
+                this.psilopterus.playSound(UP2SoundEvents.PSILOPTERUS_CALL.get(), 3.0F, 0.9F + psilopterus.getRandom().nextFloat() * 0.25F);
+            }
+        }
+
+        @Override
+        public boolean canUse() {
+            if (super.canUse()) {
+                return packAnimal.getPackSize() >= packSizeRequired && psilopterus.isPackLeader();
+            }
+            return false;
+        }
     }
 
     private static class PsilopterusDigGoal extends AnimationGoal {

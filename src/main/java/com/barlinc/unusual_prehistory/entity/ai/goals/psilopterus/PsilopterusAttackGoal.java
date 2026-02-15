@@ -25,7 +25,7 @@ public class PsilopterusAttackGoal extends AttackGoal {
 
             if (psilopterus.getAttackState() == 1) {
                 this.tickPeck();
-                this.psilopterus.getNavigation().moveTo(target, 1.4D);
+                this.psilopterus.getNavigation().moveTo(target, 1.3D);
             }
             else if (psilopterus.getAttackState() == 2) {
                 this.tickKick();
@@ -35,7 +35,7 @@ public class PsilopterusAttackGoal extends AttackGoal {
                     if (psilopterus.getRandom().nextFloat() < 0.3F && !psilopterus.isInWater()) psilopterus.setAttackState(2);
                     else psilopterus.setAttackState(1);
                 }
-                this.psilopterus.getNavigation().moveTo(target, 1.6D);
+                this.psilopterus.getNavigation().moveTo(target, 1.5D);
             }
         }
     }
