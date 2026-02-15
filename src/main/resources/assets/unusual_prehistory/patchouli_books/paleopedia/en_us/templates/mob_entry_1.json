@@ -1,0 +1,55 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#display_name",
+      "x": 57,
+      "y": -2,
+      "color": "988552"
+    },
+    {
+      "type": "patchouli:header",
+      "text": "\"#flavor_text#\"",
+      "x": 57,
+      "y": 7,
+      "color": "d8c697",
+      "guard": "#flavor_text->exists#"
+    },
+    {
+      "type": "patchouli:separator",
+      "y": 17,
+      "x": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/#id#.png",
+      "width": 200,
+      "height": 200,
+      "scale": 0.40,
+      "x": 17,
+      "y": 26
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": ["#display_name# §7§o#variant_key#", "§7#image_tooltip#"],
+      "width": 85,
+      "height": 85,
+      "x": 1,
+      "y": 10
+    },
+    {
+      "type": "patchouli:item",
+      "framed": "true",
+      "item": "#fossil_item",
+      "x": 34,
+      "y": 112
+    },
+    {
+      "type": "patchouli:item",
+      "framed": "true",
+      "item": "#egg_item",
+      "x": 64,
+      "y": 112
+    }
+  ]
+}

@@ -1,19 +1,33 @@
 {
   "name": "Telecrex",
-  "icon": "unusual_prehistory:telecrex_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/telecrex.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_telecrex",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Eocene Epoch $(br2)Temperament: Passive $(br2)Diet: Herbivorous, Insectivorous $(br2)Preferred Habitats: Plains, Savannas, Meadows"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Telecrex",
+      "id": "telecrex",
+      "flavor_text": "far-crake",
+      "fossil_item": "unusual_prehistory:plumage_fossil",
+      "egg_item": "unusual_prehistory:telecrex_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/telecrex.png"
-      ]
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "early_cenozoic",
+      "era_tooltip_period": "Early Cenozoic Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "Projectile Egg",
+      "clone.clone_tooltip": "Egg must be thrown to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/activity_#activity_type#.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§f#activity_type->fcapital#",
+        "§7#activity_tooltip#"
+      ],
+      "width": 16,
+      "height": 16
+    }
+  ]
+}

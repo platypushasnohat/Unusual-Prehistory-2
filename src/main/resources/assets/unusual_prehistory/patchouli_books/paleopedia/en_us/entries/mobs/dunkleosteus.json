@@ -1,19 +1,33 @@
 {
   "name": "Dunkleosteus",
-  "icon": "unusual_prehistory:dunkleosteus_sac",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dunkleosteus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_dunkleosteus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Devonian Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Deep Ocean Biomes"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Dunkleosteus",
+      "id": "dunkleosteus",
+      "flavor_text": "Dunkle's-bone",
+      "fossil_item": "unusual_prehistory:guillotine_fossil",
+      "egg_item": "unusual_prehistory:dunkleosteus_sac",
+      "variant_key": "1 raveri 2 marsaisi 3 terrelli",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/dunkleosteus.png"
-      ]
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_devonian",
+      "era_tooltip_period": "Late Devonian Period",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "Aquatic Egg",
+      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

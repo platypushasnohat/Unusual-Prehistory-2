@@ -1,19 +1,33 @@
 {
   "name": "Talpanas",
-  "icon": "unusual_prehistory:talpanas_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/talpanas.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_talpanas",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: 4050 BCE $(br2)Temperament: Passive $(br2)Diet: Omnivorous, bred with Hanging Roots $(br2)Preferred Habitats: Caves, Beaches, Islands"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Talpanas",
+      "id": "talpanas",
+      "flavor_text": "mole-duck",
+      "fossil_item": "unusual_prehistory:aged_feather",
+      "egg_item": "unusual_prehistory:talpanas_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/talpanas.png"
-      ]
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "holocene",
+      "era_tooltip_period": "Holocene Epoch",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "Projectile Egg",
+      "clone.clone_tooltip": "Egg must be thrown to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

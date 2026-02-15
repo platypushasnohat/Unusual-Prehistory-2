@@ -1,19 +1,33 @@
 {
   "name": "Tartuosteus",
-  "icon": "unusual_prehistory:jawless_fish_roe",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/tartuosteus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_tartuosteus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Devonian Period $(br2)Temperament: Passive $(br2)Diet: Omnivorous $(br2)Preferred Habitats: Warm Oceans, Open Oceans"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Tartuosteus",
+      "id": "tartuosteus",
+      "flavor_text": "Tartu-bone",
+      "fossil_item": "unusual_prehistory:mossy_fossil",
+      "egg_item": "unusual_prehistory:tartuosteus_roe",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/tartuosteus.png"
-      ]
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_devonian",
+      "era_tooltip_period": "Late Devonian Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "Raft Egg",
+      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

@@ -1,27 +1,33 @@
 {
   "name": "Megalania",
-  "icon": "unusual_prehistory:megalania_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/megalania.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_megalania",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Pleistocene Epoch $(br2)Temperament: Biome Dependent $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Warm Biomes"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Megalania",
+      "id": "megalania",
+      "flavor_text": "ancient-great-roamer",
+      "fossil_item": "unusual_prehistory:thermal_fossil",
+      "egg_item": "unusual_prehistory:megalania_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/megalania.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Megalania is an ancient species of gigantic monitor lizard which was once a terrifying apex predator during the Pleistocene no doubt helped by their fast acting venom. It has been observed that depending on the conditions of the Megalania’s environment it’s appearance, temperament and behaviour will change in relation to these changes."
-    },
-    {
-      "type": "patchouli:empty",
-      "draw_filler": false
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cenozoic",
+      "era_tooltip_period": "Late Cenozoic Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }
