@@ -46,7 +46,7 @@ public class MetriorhynchusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = metriorhynchus.getTarget();
         this.metriorhynchus.getNavigation().moveTo(target, metriorhynchus.isInWater() ? 1.1D : 1.3D);
-        if (timer == 1) metriorhynchus.setPose(UP2Poses.BITING.get());
+        if (timer == 1) metriorhynchus.setPose(UP2Poses.ATTACKING.get());
         if (timer == 2) metriorhynchus.playSound(UP2SoundEvents.METRIORHYNCHUS_BITE.get(), 1.0F, metriorhynchus.getVoicePitch());
         if (timer == 5) {
             if (metriorhynchus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
@@ -65,7 +65,7 @@ public class MetriorhynchusAttackGoal extends AttackGoal {
         this.timer++;
         this.metriorhynchus.getNavigation().stop();
         LivingEntity target = metriorhynchus.getTarget();
-        if (timer == 1) metriorhynchus.setPose(UP2Poses.DEATH_ROLL.get());
+        if (timer == 1) metriorhynchus.setPose(UP2Poses.GRABBING.get());
         if (timer == 3) metriorhynchus.playSound(UP2SoundEvents.METRIORHYNCHUS_BITE.get(), 1.0F, metriorhynchus.getVoicePitch() * 0.9F);
         if (timer == 5) {
             if (metriorhynchus.distanceTo(target) < 5.5F) {

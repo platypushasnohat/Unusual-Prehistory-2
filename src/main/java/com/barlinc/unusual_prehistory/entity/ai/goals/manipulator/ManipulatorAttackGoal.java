@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.manipulator;
 import com.barlinc.unusual_prehistory.entity.Manipulator;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -27,7 +28,7 @@ public class ManipulatorAttackGoal extends AttackGoal {
                 this.manipulator.getNavigation().stop();
                 this.tickAttack();
             } else {
-                this.manipulator.getNavigation().moveTo(target, 1.3D);
+                this.manipulator.getNavigation().moveTo(target, 1.4D);
                 if (distance <= this.getAttackReachSqr(target) && manipulator.attackCooldown == 0) {
                     this.manipulator.setAttackState(1);
                 }
@@ -38,17 +39,22 @@ public class ManipulatorAttackGoal extends AttackGoal {
     protected void tickAttack() {
         this.timer++;
         LivingEntity target = manipulator.getTarget();
-        if (timer == 1) manipulator.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 1) {
+            this.manipulator.setPose(UP2Poses.ATTACKING.get());
+            this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL.get(), 1.0F, 0.9F + manipulator.getRandom().nextFloat() * 0.2F);
+        }
         if (timer == 7) {
-            if (this.isInAttackRange(target, 1.5D)) {
+            this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH.get(), 0.8F, 1.0F + manipulator.getRandom().nextFloat() * 0.2F);
+            if (this.isInAttackRange(target, 2.0D)) {
                 this.manipulator.doHurtTarget(target);
-                this.manipulator.swing(InteractionHand.OFF_HAND);
+                this.manipulator.swing(InteractionHand.MAIN_HAND);
             }
         }
         if (timer == 17) {
-            if (this.isInAttackRange(target, 1.5D)) {
+            this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH.get(), 0.8F, 1.0F + manipulator.getRandom().nextFloat() * 0.2F);
+            if (this.isInAttackRange(target, 2.0D)) {
                 this.manipulator.doHurtTarget(target);
-                this.manipulator.swing(InteractionHand.MAIN_HAND);
+                this.manipulator.swing(InteractionHand.OFF_HAND);
             }
         }
         if (timer > 30) {

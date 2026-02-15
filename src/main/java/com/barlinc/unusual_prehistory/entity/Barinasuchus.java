@@ -106,11 +106,6 @@
      }
 
      @Override
-     protected float getWaterSlowDown() {
-         return 0.9F;
-     }
-
-     @Override
      public void travel(@NotNull Vec3 travelVec) {
          if (this.refuseToMove() && this.onGround()) {
              if (this.getNavigation().getPath() != null) {
@@ -118,7 +113,6 @@
              }
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
-         this.floatWhileRidden(travelVec);
          super.travel(travelVec);
      }
 

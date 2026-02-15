@@ -36,7 +36,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -193,12 +194,12 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
+        return player.isShiftKeyDown() && (!this.isPlayerHoldingDye(player) || this.isRainbow());
     }
 
     @Override
     public boolean canOwnerMount(Player player) {
-        return !this.isBaby() && !(this.isPlayerHoldingDye(player) || this.isRainbow());
+        return !this.isBaby() && (!this.isPlayerHoldingDye(player) || this.isRainbow());
     }
 
     private boolean isPlayerHoldingDye(Player player) {
@@ -265,7 +266,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble();
+        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting();
     }
 
     @Override

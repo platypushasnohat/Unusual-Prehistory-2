@@ -166,7 +166,7 @@ public class UP2Items {
     public static final RegistryObject<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
 
     // Psilopterus
-    public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x432f2a, 0xeddbc5);
+    public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak");
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 

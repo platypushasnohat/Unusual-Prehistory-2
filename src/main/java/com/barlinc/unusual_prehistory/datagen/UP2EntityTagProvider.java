@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -315,14 +316,40 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.ENDER_DRAGON
         );
 
-        this.tag(UP2EntityTags.METRIORHYNCHUS_CANT_DEATH_ROLL).add(
+        this.tag(UP2EntityTags.DIMORPHODON_CANT_GRAB).add(
+                DIMORPHODON.get(),
+                EntityType.ENDER_DRAGON,
+                EntityType.WITHER,
+                EntityType.VEX
+        );
+        this.tag(UP2EntityTags.DIMORPHODON_CAN_GRAB).add(
+                EntityType.COW,
+                EntityType.SHEEP,
+                EntityType.ZOMBIE,
+                EntityType.SKELETON,
+                EntityType.DROWNED,
+                EntityType.STRAY,
+                EntityType.SPIDER,
+                EntityType.ZOMBIE_VILLAGER,
+                EntityType.PIG,
+                EntityType.PIGLIN,
+                EntityType.VINDICATOR,
+                EntityType.EVOKER,
+                EntityType.CREEPER
+        );
+
+        this.tag(UP2EntityTags.METRIORHYNCHUS_CANT_GRAB).add(
                 METRIORHYNCHUS.get(),
                 EntityType.ENDER_DRAGON,
                 EntityType.WITHER
         );
-
-        this.tag(UP2EntityTags.METRIORHYNCHUS_CAN_DEATH_ROLL).add(
+        this.tag(UP2EntityTags.METRIORHYNCHUS_CAN_GRAB).add(
                 TARTUOSTEUS.get()
+        );
+
+        // Minecraft
+        this.tag(EntityTypeTags.FROG_FOOD).add(
+                ZHANGSOLVA.get()
         );
     }
 }

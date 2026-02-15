@@ -172,6 +172,10 @@ public class Pterodactylus extends PrehistoricFlyingMob {
         if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
 
         if (!level().isClientSide) this.tickHanging();
+
+        if (this.isInWaterOrBubble()) {
+            this.setFlying(true);
+        }
     }
 
     private void tickHanging() {
@@ -218,7 +222,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                if (horizontalCollision && !landingFlag) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }
@@ -396,7 +400,12 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging());
+            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging()) && !pterodactylus.isFlying();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && !pterodactylus.isFlying();
         }
 
         @Override

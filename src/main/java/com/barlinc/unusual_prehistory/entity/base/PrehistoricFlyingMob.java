@@ -9,13 +9,13 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricFlyingMob extends PrehistoricMob implements FlyingAnimal {
@@ -33,9 +33,12 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     public boolean isLandNavigator;
     public boolean landingFlag;
 
+    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState flyFastAnimationState = new AnimationState();
+    public final AnimationState hoverAnimationState = new AnimationState();
+
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.setPersistenceRequired();
     }
 
     public void switchNavigator(boolean onLand) {
@@ -79,19 +82,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
-        if (this.isInWaterOrBubble() && !this.isFlying()) {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.1D, 1.0D));
-        }
-        super.travel(travelVec);
-    }
-
-    @Override
-    public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1;
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
@@ -110,19 +100,20 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         if (this.isFlying()) {
             this.flightTicks++;
             this.setNoGravity(true);
-            if (this.isLandNavigator) this.switchNavigator(false);
             if (groundTicks > 0) this.setFlying(false);
+            if (this.isLandNavigator) this.switchNavigator(false);
         } else {
             this.flightTicks = 0;
             this.setNoGravity(false);
             if (!this.isLandNavigator) this.switchNavigator(true);
         }
+
         if (groundTicks > 0) groundTicks--;
 
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                if (horizontalCollision && !landingFlag && !this.isInWater()) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }

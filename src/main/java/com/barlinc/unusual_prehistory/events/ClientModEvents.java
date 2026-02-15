@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.*;
 import com.barlinc.unusual_prehistory.client.models.entity.aegirocassis.AegirocassisBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.aegirocassis.AegirocassisModel;
+import com.barlinc.unusual_prehistory.client.models.entity.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.brachiosaurus.BrachiosaurusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.diplocaulus.DiplocaulusBrevirostrisModel;
@@ -24,6 +25,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornModel;
 import com.barlinc.unusual_prehistory.client.models.entity.unicorn.UnicornSkeletonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.*;
+import com.barlinc.unusual_prehistory.client.renderer.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -69,11 +71,13 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.BRACHIOSAURUS.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.CARNOTAURUS.get(), CarnotaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELACANTHUS.get(), CoelacanthusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.DIPLOCAULUS.get(), DiplocaulusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS.get(), DromaeosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DUNKLEOSTEUS.get(), DunkleosteusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.ERYON.get(), EryonRenderer::new);
         event.registerEntityRenderer(UP2Entities.HIBBERTOPTERUS.get(), HibbertopterusRenderer::new);
         event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), JawlessFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.KAPROSUCHUS.get(), KaprosuchusRenderer::new);
@@ -84,6 +88,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.LYSTROSAURUS.get(), LystrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAJUNGASAURUS.get(), MajungasaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.MANIPULATOR.get(), ManipulatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.METRIORHYNCHUS.get(), MetriorhynchusRenderer::new);
@@ -111,6 +116,9 @@ public class ClientModEvents {
 
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
         event.registerEntityRenderer(UP2Entities.CHEST_BOAT.get(), UP2ChestBoatRenderer::new);
+
+        // Ambient
+        event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
     }
 
     @SubscribeEvent
@@ -125,6 +133,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.CARNOTAURUS, CarnotaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CEPHALASPIS, CephalaspisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELACANTHUS, CoelacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DESMATOSUCHUS, DesmatosuchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS, DiplocaulusBrevirostrisModel::createBodyLayer);
@@ -136,6 +145,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_LARGE, DunkleosteusLargeModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM, DunkleosteusMediumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_SMALL, DunkleosteusSmallModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.ERYON, EryonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.EUSTHENOPTERON, EusthenopteronModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.FURACACAUDA, FurcacaudaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.GOOLOOGONGIA, GooloogongiaModel::createBodyLayer);
@@ -148,6 +158,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.LEPTICTIDIUM, LeptictidiumModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LYSTROSAURUS, LystrosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAJUNGASAURUS, MajungasaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MANIPULATOR, ManipulatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MEGALANIA, MegalaniaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.METRIORHYNCHUS, MetriorhynchusModel::createBodyLayer);
@@ -168,5 +179,8 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.UNICORN, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LIVING_OOZE, LivingOozeModel::createBodyLayer);
+
+        // Ambient
+        event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
     }
 }

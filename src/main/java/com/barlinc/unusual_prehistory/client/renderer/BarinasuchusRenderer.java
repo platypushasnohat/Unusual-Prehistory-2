@@ -23,6 +23,21 @@ public class BarinasuchusRenderer extends MobRenderer<Barinasuchus, Barinasuchus
         this.addLayer(new BarinasuchusRiderLayer(this));
     }
 
+//    @Override
+//    public void render(Barinasuchus entity, float entityYaw, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
+//        poseStack.pushPose();
+//        if (entity.getClimbDirection() != Direction.UP || (entity.prevClimbDirection != Direction.UP && entity.climbProgress > 0)) {
+//            float progress = entity.getClimbProgress(partialTicks);
+//            Direction dir = entity.getClimbDirection() != Direction.UP ? entity.getClimbDirection() : entity.prevClimbDirection;
+//            float offset = entity.getBbWidth() / 2 * progress;
+//            poseStack.translate(dir.getStepX() * offset, 0.5 * progress, dir.getStepZ() * offset);
+//            Direction dirRot = dir.getClockWise();
+//            poseStack.mulPose(Axis.of(new Vector3f(dirRot.getStepX(), 0, dirRot.getStepZ())).rotationDegrees(90 * progress));
+//        }
+//        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+//        poseStack.popPose();
+//    }
+
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Barinasuchus entity) {
         return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;

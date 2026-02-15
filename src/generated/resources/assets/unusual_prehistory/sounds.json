@@ -106,6 +106,33 @@
     ],
     "subtitle": "subtitles.brachiosaurus_stomp"
   },
+  "bug_buzz": {
+    "sounds": [
+      {
+        "attenuation_distance": 4,
+        "name": "unusual_prehistory:entity/ambient/bug_buzz1"
+      }
+    ],
+    "subtitle": "subtitles.bug_buzz"
+  },
+  "bug_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1",
+        "pitch": 1.75
+      }
+    ],
+    "subtitle": "subtitles.bug_death"
+  },
+  "bug_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/kimmeridgebrachypteraeschnidium/death1",
+        "pitch": 1.75
+      }
+    ],
+    "subtitle": "subtitles.bug_hurt"
+  },
   "carnotaurus_bite": {
     "sounds": [
       "unusual_prehistory:entity/carnotaurus/bite1",
@@ -929,54 +956,41 @@
     ],
     "subtitle": "subtitles.majungasaurus_step"
   },
+  "manipulator_attack_slash": {
+    "sounds": [
+      "unusual_prehistory:entity/manipulator/attack_slash1",
+      "unusual_prehistory:entity/manipulator/attack_slash2"
+    ],
+    "subtitle": "subtitles.manipulator_attack_slash"
+  },
+  "manipulator_attack_vocal": {
+    "sounds": [
+      "unusual_prehistory:entity/manipulator/attack_vocal1",
+      "unusual_prehistory:entity/manipulator/attack_vocal2"
+    ],
+    "subtitle": "subtitles.manipulator_attack_vocal"
+  },
   "manipulator_death": {
     "sounds": [
-      {
-        "name": "mob/spider/death",
-        "pitch": 0.85
-      }
+      "unusual_prehistory:entity/manipulator/death1"
     ],
     "subtitle": "subtitles.manipulator_death"
   },
   "manipulator_hurt": {
     "sounds": [
-      {
-        "name": "mob/spider/say1",
-        "pitch": 0.6
-      },
-      {
-        "name": "mob/spider/say2",
-        "pitch": 0.6
-      },
-      {
-        "name": "mob/spider/say3",
-        "pitch": 0.6
-      },
-      {
-        "name": "mob/spider/say4",
-        "pitch": 0.6
-      }
+      "unusual_prehistory:entity/manipulator/hurt1",
+      "unusual_prehistory:entity/manipulator/hurt2",
+      "unusual_prehistory:entity/manipulator/hurt3"
     ],
     "subtitle": "subtitles.manipulator_hurt"
   },
   "manipulator_idle": {
     "sounds": [
-      {
-        "name": "mob/spider/say1",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/say2",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/say3",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/say4",
-        "pitch": 0.85
-      }
+      "unusual_prehistory:entity/manipulator/idle1",
+      "unusual_prehistory:entity/manipulator/idle2",
+      "unusual_prehistory:entity/manipulator/idle3",
+      "unusual_prehistory:entity/manipulator/idle4",
+      "unusual_prehistory:entity/manipulator/idle5"
     ],
     "subtitle": "subtitles.manipulator_idle"
   },
@@ -1317,6 +1331,55 @@
       }
     ],
     "subtitle": "subtitles.praepusa_mitosis"
+  },
+  "psilopterus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/attack1",
+      "unusual_prehistory:entity/psilopterus/attack2",
+      "unusual_prehistory:entity/psilopterus/attack3"
+    ],
+    "subtitle": "subtitles.psilopterus_attack"
+  },
+  "psilopterus_bite": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/bite1",
+      "unusual_prehistory:entity/psilopterus/bite2",
+      "unusual_prehistory:entity/psilopterus/bite3"
+    ],
+    "subtitle": "subtitles.psilopterus_bite"
+  },
+  "psilopterus_call": {
+    "sounds": [
+      {
+        "attenuation_distance": 24,
+        "name": "unusual_prehistory:entity/psilopterus/call1"
+      }
+    ],
+    "subtitle": "subtitles.psilopterus_call"
+  },
+  "psilopterus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/death1"
+    ],
+    "subtitle": "subtitles.psilopterus_death"
+  },
+  "psilopterus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/hurt1",
+      "unusual_prehistory:entity/psilopterus/hurt2",
+      "unusual_prehistory:entity/psilopterus/hurt3"
+    ],
+    "subtitle": "subtitles.psilopterus_hurt"
+  },
+  "psilopterus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/psilopterus/idle1",
+      "unusual_prehistory:entity/psilopterus/idle2",
+      "unusual_prehistory:entity/psilopterus/idle3",
+      "unusual_prehistory:entity/psilopterus/idle4",
+      "unusual_prehistory:entity/psilopterus/idle5"
+    ],
+    "subtitle": "subtitles.psilopterus_idle"
   },
   "pterodactylus_death": {
     "sounds": [

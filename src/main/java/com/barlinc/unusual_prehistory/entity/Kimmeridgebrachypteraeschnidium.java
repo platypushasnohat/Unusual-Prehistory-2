@@ -105,6 +105,11 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
+    public @NotNull MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -176,6 +181,10 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     public void tick() {
         super.tick();
 
+        if (this.isInWaterOrBubble()) {
+            this.setFlying(true);
+        }
+
         // It is imperative that the name be changed
         if (this.isAlive()) {
             this.oldSwell = this.swell;
@@ -240,7 +249,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         if (!level().isClientSide) {
             if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
                 if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if ((horizontalCollision || this.isInWaterOrBubble()) && !landingFlag) {
+                if (horizontalCollision && !landingFlag) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
                 }
             }
@@ -480,12 +489,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL) || super.isInvulnerableTo(source);
-    }
-
-    @Override
-    @NotNull
-    public MobType getMobType() {
-        return MobType.ARTHROPOD;
     }
 
     @Nullable

@@ -152,10 +152,10 @@
          if (target == null) {
              return false;
          }
-         if (target.getType().is(UP2EntityTags.METRIORHYNCHUS_CANT_DEATH_ROLL)) {
+         if (target.getType().is(UP2EntityTags.METRIORHYNCHUS_CANT_GRAB)) {
              return false;
          }
-         return (target.getBbWidth() < 1.3F && target.getBbHeight() < 1.4F) || target.getType().is(UP2EntityTags.METRIORHYNCHUS_CAN_DEATH_ROLL);
+         return (target.getBbWidth() < this.getBbWidth() && target.getBbHeight() < this.getBbHeight()) || target.getType().is(UP2EntityTags.METRIORHYNCHUS_CAN_GRAB);
      }
 
      @Override
@@ -169,7 +169,7 @@
              this.switchNavigator(true);
          }
 
-         if (this.getPose() == UP2Poses.DEATH_ROLL.get() && this.getHeldMobId() != -1) {
+         if (this.getPose() == UP2Poses.GRABBING.get() && this.getHeldMobId() != -1) {
              this.positionHeldMob();
          }
 
@@ -203,8 +203,8 @@
      public void setupAnimationCooldowns() {
          if (biteTicks > 0) biteTicks--;
          if (deathRollTicks > 0) deathRollTicks--;
-         if (biteTicks == 0 && this.getPose() == UP2Poses.BITING.get()) this.setPose(Pose.STANDING);
-         if (deathRollTicks == 0 && this.getPose() == UP2Poses.DEATH_ROLL.get()) this.setPose(Pose.STANDING);
+         if (biteTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+         if (deathRollTicks == 0 && this.getPose() == UP2Poses.GRABBING.get()) this.setPose(Pose.STANDING);
          if (bellowCooldown > 0) bellowCooldown--;
      }
 
@@ -219,18 +219,18 @@
              this.deathRoll2AnimationState.stop();
          }
          this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.DEATH_ROLL.get(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
      }
 
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.BITING.get()) {
+             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                  if (this.getRandom().nextBoolean()) this.bite1AnimationState.start(this.tickCount);
                  else this.bite2AnimationState.start(this.tickCount);
                  this.biteTicks = 10;
              }
-             else if (this.getPose() == UP2Poses.DEATH_ROLL.get()) {
+             else if (this.getPose() == UP2Poses.GRABBING.get()) {
                  if (this.getRandom().nextBoolean()) this.deathRoll1AnimationState.start(this.tickCount);
                  else this.deathRoll2AnimationState.start(this.tickCount);
                  this.deathRollTicks = 40;

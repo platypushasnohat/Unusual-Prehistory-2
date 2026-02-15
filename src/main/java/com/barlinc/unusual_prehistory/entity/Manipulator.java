@@ -44,13 +44,11 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.phys.Vec3;
- import net.minecraftforge.common.ForgeHooks;
  import net.minecraftforge.common.MinecraftForge;
  import net.minecraftforge.common.ToolActions;
  import net.minecraftforge.common.capabilities.Capability;
  import net.minecraftforge.common.capabilities.ForgeCapabilities;
  import net.minecraftforge.common.util.LazyOptional;
- import net.minecraftforge.event.entity.living.ShieldBlockEvent;
  import net.minecraftforge.event.entity.player.PlayerContainerEvent;
  import net.minecraftforge.items.wrapper.InvWrapper;
  import net.minecraftforge.network.PacketDistributor;
@@ -112,6 +110,11 @@
      }
 
      @Override
+     public @NotNull MobType getMobType() {
+         return MobType.ARTHROPOD;
+     }
+
+     @Override
      protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
          return dimensions.height * 0.9F;
      }
@@ -125,6 +128,12 @@
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
          super.travel(travelVec);
+     }
+
+     @Override
+     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+         this.heal(8);
+         return super.killedEntity(level, victim);
      }
 
      @Override
@@ -510,7 +519,7 @@
 
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         this.playSound(UP2SoundEvents.MANIPULATOR_STEP.get(), 0.4F, this.getStepPitch());
+         this.playSound(UP2SoundEvents.MANIPULATOR_STEP.get(), 0.25F, this.getStepPitch());
      }
 
      @Override

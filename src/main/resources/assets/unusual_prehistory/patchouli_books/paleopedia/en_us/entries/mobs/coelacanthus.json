@@ -1,0 +1,23 @@
+{
+  "name": "Coelacanthus",
+  "icon": "unusual_prehistory:coelacanthus_roe",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_coelacanthus",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Time Period: Late Permian Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Cold Oceans, Lukewarm Oceans"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "unusual_prehistory:textures/gui/paleopedia/images/coelacanthus.png"
+      ]
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The Coelacanthus is a simple fish. Their stomach has more input on their day to day life than their brain. The Coelacanthus will eat anything smaller than it, and it's constant need to eat means it will grow larger and larger. Eventually, if allowed to grow unimpeded, they will be able to swallow you whole."
+    }
+  ]
+}

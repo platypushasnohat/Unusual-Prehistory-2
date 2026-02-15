@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.Telecrex;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +75,7 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 	public void setupAnim(Telecrex entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isFlying()) {
+		if (!entity.isFlying() && !entity.hasSplat()) {
             this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
@@ -88,9 +87,11 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 		this.animate(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
         this.animate(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
         this.animate(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
+        this.animate(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks);
 
-		this.head.xRot += headPitch * Mth.DEG_TO_RAD / 2;
-		this.head.yRot += netHeadYaw * Mth.DEG_TO_RAD / 2;
+        float deg = ((float) Math.PI / 180F);
+		this.head.xRot += headPitch * deg / 2;
+		this.head.yRot += netHeadYaw * deg / 2;
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);

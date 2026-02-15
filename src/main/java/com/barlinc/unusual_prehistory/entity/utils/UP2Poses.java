@@ -6,7 +6,6 @@ public enum UP2Poses {
 
     ATTACKING,
     ATTACKING_FAST,
-    BITING,
     HEADBUTTING,
     HEADBUTTING_FAST,
     START_CAMO,
@@ -16,7 +15,7 @@ public enum UP2Poses {
     START_CHARGING,
     CHARGING,
     STOP_CHARGING,
-    DEATH_ROLL,
+    GRABBING,
     SPITTING,
     BELLOWING,
     START_FLYING,

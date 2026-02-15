@@ -82,9 +82,10 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> COELACANTHUS_NEVER_EATS = modEntityTag("coelacanthus_never_eats");
     public static final TagKey<EntityType<?>> COELACANTHUS_ALWAYS_EATS = modEntityTag("coelacanthus_always_eats");
 
-    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CANT_DEATH_ROLL = modEntityTag("metriorhynchus_cant_death_roll");
-    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CAN_DEATH_ROLL = modEntityTag("metriorhynchus_can_death_roll");
-
+    public static final TagKey<EntityType<?>> DIMORPHODON_CANT_GRAB = modEntityTag("dimorphodon_cant_grab");
+    public static final TagKey<EntityType<?>> DIMORPHODON_CAN_GRAB = modEntityTag("dimorphodon_can_grab");
+    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CANT_GRAB = modEntityTag("metriorhynchus_cant_grab");
+    public static final TagKey<EntityType<?>> METRIORHYNCHUS_CAN_GRAB = modEntityTag("metriorhynchus_can_grab");
 
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);

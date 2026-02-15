@@ -116,7 +116,7 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 
 		if (!entity.isInWater() && !entity.isLeaping()) {
 			this.animateWalk(MetriorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		} else if (entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
+		} else if (entity.getPose() != UP2Poses.GRABBING.get()) {
             this.animateWalk(entity.isRunning() ? MetriorhynchusAnimations.SWIMFAST : MetriorhynchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.25F, 2.5F);
         }
 
@@ -130,12 +130,12 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
         this.animate(entity.deathRoll2AnimationState, MetriorhynchusAnimations.DEATHROLL2, ageInTicks);
         this.animate(entity.bellowAnimationState, MetriorhynchusAnimations.BELLOW_BLEND, ageInTicks);
 
-        if (!entity.isLeaping() && entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
+        if (!entity.isLeaping() && entity.getPose() != UP2Poses.GRABBING.get()) {
             this.head.xRot += (headPitch * deg) / 2;
             this.head.yRot += (netHeadYaw * deg) / 2;
         }
 
-        if ((entity.isLeaping() || entity.isInWater())  && entity.getPose() != UP2Poses.DEATH_ROLL.get()) {
+        if ((entity.isLeaping() || entity.isInWater())  && entity.getPose() != UP2Poses.GRABBING.get()) {
             this.swim_control.xRot = headPitch * deg;
         }
 	}

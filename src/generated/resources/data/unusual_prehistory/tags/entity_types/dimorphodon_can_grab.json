@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:cow",
+    "minecraft:sheep",
+    "minecraft:zombie",
+    "minecraft:skeleton",
+    "minecraft:drowned",
+    "minecraft:stray",
+    "minecraft:spider",
+    "minecraft:zombie_villager",
+    "minecraft:pig",
+    "minecraft:piglin",
+    "minecraft:vindicator",
+    "minecraft:evoker",
+    "minecraft:creeper"
+  ]
+}

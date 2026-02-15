@@ -401,25 +401,33 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Manipulator
         this.sound(UP2SoundEvents.MANIPULATOR_HURT,
-                sound("mob/spider/say1").pitch(0.6F),
-                sound("mob/spider/say2").pitch(0.6F),
-                sound("mob/spider/say3").pitch(0.6F),
-                sound("mob/spider/say4").pitch(0.6F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt3"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_DEATH,
-                sound("mob/spider/death").pitch(0.85F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/death1"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_IDLE,
-                sound("mob/spider/say1").pitch(0.85F),
-                sound("mob/spider/say2").pitch(0.85F),
-                sound("mob/spider/say3").pitch(0.85F),
-                sound("mob/spider/say4").pitch(0.85F)
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle5"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_STEP,
                 sound("mob/spider/step1").pitch(0.85F),
                 sound("mob/spider/step2").pitch(0.85F),
                 sound("mob/spider/step3").pitch(0.85F),
                 sound("mob/spider/step4").pitch(0.85F)
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL,
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal2"))
+        );
+        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH,
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash1")),
+                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash2"))
         );
 
         // Megalania
@@ -550,6 +558,36 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
         this.sound(UP2SoundEvents.PRAEPUSA_BOUNCE,
                 sound(UnusualPrehistory2.modPrefix("entity/praepusa/bounce1"))
+        );
+
+        // Psilopterus
+        this.sound(UP2SoundEvents.PSILOPTERUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/death1"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle5"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_BITE,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack3"))
+        );
+        this.sound(UP2SoundEvents.PSILOPTERUS_CALL,
+                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/call1")).attenuationDistance(24)
         );
 
         // Pterodactylus
@@ -735,6 +773,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
+        );
+
+        // Ambient mobs
+        this.sound(UP2SoundEvents.BUG_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+        );
+        this.sound(UP2SoundEvents.BUG_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+        );
+        this.sound(UP2SoundEvents.BUG_BUZZ,
+                sound(UnusualPrehistory2.modPrefix("entity/ambient/bug_buzz1")).attenuationDistance(4)
         );
     }
 

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus;
 import com.barlinc.unusual_prehistory.entity.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -24,7 +25,7 @@ public class PsilopterusAttackGoal extends AttackGoal {
 
             if (psilopterus.getAttackState() == 1) {
                 this.tickPeck();
-                this.psilopterus.getNavigation().moveTo(target, 1.4D);
+                this.psilopterus.getNavigation().moveTo(target, 1.3D);
             }
             else if (psilopterus.getAttackState() == 2) {
                 this.tickKick();
@@ -34,7 +35,7 @@ public class PsilopterusAttackGoal extends AttackGoal {
                     if (psilopterus.getRandom().nextFloat() < 0.3F && !psilopterus.isInWater()) psilopterus.setAttackState(2);
                     else psilopterus.setAttackState(1);
                 }
-                this.psilopterus.getNavigation().moveTo(target, 1.6D);
+                this.psilopterus.getNavigation().moveTo(target, 1.5D);
             }
         }
     }
@@ -42,9 +43,12 @@ public class PsilopterusAttackGoal extends AttackGoal {
     protected void tickPeck() {
         timer++;
         LivingEntity target = this.psilopterus.getTarget();
-        if (timer == 1) this.psilopterus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 1) {
+            this.psilopterus.setPose(UP2Poses.ATTACKING.get());
+            this.psilopterus.playSound(UP2SoundEvents.PSILOPTERUS_BITE.get(), 1.0F, 0.9F + psilopterus.getRandom().nextFloat() * 0.2F);
+        }
         if (timer == 5) {
-            if (this.psilopterus.distanceTo(target) < this.getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 1.5D)) {
                 this.psilopterus.doHurtTarget(target);
                 this.psilopterus.swing(InteractionHand.MAIN_HAND);
             }
@@ -60,10 +64,11 @@ public class PsilopterusAttackGoal extends AttackGoal {
         LivingEntity target = this.psilopterus.getTarget();
         this.psilopterus.getNavigation().stop();
         if (timer == 1) this.psilopterus.setPose(UP2Poses.KICKING.get());
+        if (timer == 12) this.psilopterus.playSound(UP2SoundEvents.PSILOPTERUS_ATTACK.get(), 1.0F, 0.9F + psilopterus.getRandom().nextFloat() * 0.2F);
         if (timer == 14) {
-            if (this.psilopterus.distanceTo(target) < this.getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 1.75D)) {
                 this.psilopterus.doHurtTarget(target);
-                this.psilopterus.strongKnockback(target, 0.6D, 0.01D);
+                this.psilopterus.strongKnockback(target, 0.75D, 0.025D);
                 this.psilopterus.swing(InteractionHand.MAIN_HAND);
             }
         }

@@ -7,11 +7,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
 
-import java.util.List;
 import java.util.Objects;
 
 public class MegalaniaAttackGoal extends AttackGoal {
@@ -84,7 +80,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
     private void tickBite() {
         this.timer++;
         LivingEntity target = this.megalania.getTarget();
-        if (timer == 1) this.megalania.setPose(UP2Poses.BITING.get());
+        if (timer == 1) this.megalania.setPose(UP2Poses.ATTACKING.get());
         if (timer == 5) this.megalania.playSound(UP2SoundEvents.MEGALANIA_BITE.get(), 1.0F, 1.0F);
         if (this.timer == 11) {
             if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {

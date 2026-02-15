@@ -15,6 +15,8 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,6 +44,8 @@ import java.util.List;
 
 public class Telecrex extends PrehistoricFlyingMob {
 
+    private static final EntityDataAccessor<Boolean> SPLAT = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flyStartAnimationState = new AnimationState();
     public final AnimationState flyAnimationState = new AnimationState();
@@ -50,11 +54,13 @@ public class Telecrex extends PrehistoricFlyingMob {
     public final AnimationState peckAnimationState = new AnimationState();
     public final AnimationState preen1AnimationState = new AnimationState();
     public final AnimationState preen2AnimationState = new AnimationState();
+    public final AnimationState splatAnimationState = new AnimationState();
 
     public int preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
     public int peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
 
     private int flyStartTicks;
+    private int splatTicks;
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -139,6 +145,17 @@ public class Telecrex extends PrehistoricFlyingMob {
         super.tick();
         if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
         if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
+
+        if (this.isFlying() && this.horizontalCollision && this.getRandom().nextBoolean() && !this.level().isClientSide) {
+            this.setSplat(true);
+            this.setFlying(false);
+        }
+
+        if (this.hasSplat()) {
+            this.splatTicks++;
+            this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y * 0.3F, this.getDeltaMovement().z);
+        }
+        if (splatTicks > 60 || this.onGround() || this.isInWaterOrBubble()) this.setSplat(false);
     }
 
     @Override
@@ -156,7 +173,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2;
+        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.hasSplat();
     }
 
     @Override
@@ -179,6 +196,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
         this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
         this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.splatAnimationState.animateWhen(this.hasSplat(), this.tickCount);
     }
 
     @Override
@@ -219,6 +237,20 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     protected void peckCooldown() {
         this.peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(SPLAT, false);
+    }
+
+    public boolean hasSplat() {
+        return this.entityData.get(SPLAT);
+    }
+
+    public void setSplat(boolean splat) {
+        this.entityData.set(SPLAT, splat);
     }
 
     @Override
@@ -290,7 +322,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && telecrex.preenCooldown == 0 && !telecrex.isFlying();
+            return super.canUse() && !telecrex.hasSplat() && telecrex.preenCooldown == 0 && !telecrex.isFlying();
         }
 
         @Override
@@ -316,7 +348,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && telecrex.peckCooldown == 0 && !telecrex.isFlying() && telecrex.level().getBlockState(telecrex.blockPosition().below()).is(UP2BlockTags.TELECREX_PECKING_BLOCKS);
+            return super.canUse() && !telecrex.hasSplat() && telecrex.peckCooldown == 0 && !telecrex.isFlying() && telecrex.level().getBlockState(telecrex.blockPosition().below()).is(UP2BlockTags.TELECREX_PECKING_BLOCKS);
         }
 
         @Override

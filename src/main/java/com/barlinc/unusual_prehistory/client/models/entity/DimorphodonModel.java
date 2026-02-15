@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.DimorphodonAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Dimorphodon;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -122,8 +123,12 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		if (!entity.isFlying()) {
-            if (entity.isRunning()) this.animateWalk(DimorphodonAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-            else this.animateWalk(DimorphodonAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isInWater()) {
+                this.animateWalk(DimorphodonAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                if (entity.isRunning()) this.animateWalk(DimorphodonAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+                else this.animateWalk(DimorphodonAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
 		}
 
         this.animateIdle(entity.idleAnimationState, DimorphodonAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
@@ -131,6 +136,10 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
         this.animate(entity.flyAnimationState, DimorphodonAnimations.FLY, ageInTicks);
         this.animate(entity.flyFastAnimationState, DimorphodonAnimations.FLY_FAST, ageInTicks);
         this.animate(entity.danceAnimationState, DimorphodonAnimations.DANCE, ageInTicks);
+        this.animate(entity.grabAnimationState, DimorphodonAnimations.GRAB, ageInTicks);
+        this.animate(entity.nip1AnimationState, DimorphodonAnimations.NIP_BLEND1, ageInTicks);
+        this.animate(entity.nip2AnimationState, DimorphodonAnimations.NIP_BLEND2, ageInTicks);
+        this.animate(entity.tailChaseAnimationState, DimorphodonAnimations.TAILCHASE, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
 
@@ -142,8 +151,8 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
 		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
 
-		this.body_main.xRot += flightPitchAmount / 2;
-		this.body_main.zRot += rollAmount / 2;
+		this.flight_control.xRot += flightPitchAmount / 2;
+		this.flight_control.zRot += rollAmount / 2;
 
 		if (this.young) this.applyStatic(DimorphodonAnimations.BABY_TRANSFORM);
 	}
@@ -152,4 +161,9 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public void translateToFeet(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.leg_control.translateAndRotate(poseStack);
+    }
 }

@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 public class PackAnimalNearestAttackableTargetGoal<T extends LivingEntity> extends PrehistoricNearestAttackableTargetGoal<T> {
 
     protected final PackAnimal packAnimal;
-    private final int packSizeRequired;
+    protected final int packSizeRequired;
 
     public PackAnimalNearestAttackableTargetGoal(PrehistoricMob mob, Class<T> targetClass, boolean mustSee, int packSizeRequired) {
         super(mob, targetClass, mustSee);

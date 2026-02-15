@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.DimorphodonModel;
+import com.barlinc.unusual_prehistory.client.renderer.layers.DimorphodonHeldMobLayer;
 import com.barlinc.unusual_prehistory.entity.Dimorphodon;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +19,7 @@ public class DimorphodonRenderer extends MobRenderer<Dimorphodon, DimorphodonMod
 
     public DimorphodonRenderer(EntityRendererProvider.Context context) {
         super(context, new DimorphodonModel(context.bakeLayer(UP2ModelLayers.DIMORPHODON)), 0.5F);
+        this.addLayer(new DimorphodonHeldMobLayer(this));
     }
 
     @Override
