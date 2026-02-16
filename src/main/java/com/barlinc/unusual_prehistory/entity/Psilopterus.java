@@ -397,7 +397,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
         Psilopterus psilopterus = UP2Entities.PSILOPTERUS.get().create(level);
-        psilopterus.setVariant(this.getVariant());
+        psilopterus.setPackLeader(this.isPackLeader());
         return psilopterus;
     }
 
