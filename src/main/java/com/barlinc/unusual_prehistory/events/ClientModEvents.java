@@ -93,6 +93,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.METRIORHYNCHUS.get(), MetriorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PACHYCEPHALOSAURUS.get(), PachycephalosaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.PALAEOPHIS.get(), PalaeophisRenderer::new);
         event.registerEntityRenderer(UP2Entities.PRAEPUSA.get(), PraepusaRenderer::new);
         event.registerEntityRenderer(UP2Entities.PSILOPTERUS.get(), PsilopterusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS.get(), PterodactylusRenderer::new);
@@ -164,6 +165,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.METRIORHYNCHUS, MetriorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ONCHOPRISTIS, OnchopristisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PACHYCEPHALOSAURUS, PachycephalosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.PALAEOPHIS, PalaeophisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PRAEPUSA, PraepusaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PSILOPTERUS, PsilopterusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PTERODACTYLUS, PterodactylusModel::createBodyLayer);

@@ -242,6 +242,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pachycephalosaurus").toString())
     );
 
+    public static final RegistryObject<EntityType<Palaeophis>> PALAEOPHIS = ENTITY_TYPE.register(
+            "palaeophis", () ->
+            EntityType.Builder.of(Palaeophis::new, MobCategory.CREATURE)
+                    .sized(2.25F, 1.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "palaeophis").toString())
+    );
+
     public static final RegistryObject<EntityType<Praepusa>> PRAEPUSA = ENTITY_TYPE.register(
             "praepusa", () ->
             EntityType.Builder.of(Praepusa::new, MobCategory.CREATURE)
