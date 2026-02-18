@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
@@ -32,9 +33,9 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class Palaeophis extends PrehistoricAquaticMob {
 
-    public final PalaeophisPart head1Part;
-    public final PalaeophisPart head2Part;
-    public final PalaeophisPart head3Part;
+    public final PalaeophisPart body1Part;
+    public final PalaeophisPart body2Part;
+    public final PalaeophisPart body3Part;
     public final PalaeophisPart tail1Part;
     public final PalaeophisPart tail2Part;
     public final PalaeophisPart tail3Part;
@@ -49,21 +50,22 @@ public class Palaeophis extends PrehistoricAquaticMob {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.body1Part = new PalaeophisPart(this, this, 1.8F, 1.2F);
+        this.body2Part = new PalaeophisPart(this, body1Part, 1.8F, 1.2F);
+        this.body3Part = new PalaeophisPart(this, body2Part, 1.8F, 1.2F);
+        this.tail1Part = new PalaeophisPart(this, body3Part, 1.8F, 1.2F);
+        this.tail2Part = new PalaeophisPart(this, tail1Part, 1.8F, 1.2F);
+        this.tail3Part = new PalaeophisPart(this, tail2Part, 1.8F, 1.2F);
+        this.allParts = new PalaeophisPart[]{body1Part, body2Part, body3Part, tail1Part, tail2Part, tail3Part};
+        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fakeYRot = this.getYRot();
-        this.head1Part = new PalaeophisPart(this, this, 0.9F, 0.9F);
-        this.head2Part = new PalaeophisPart(this, head1Part, 1.5F, 0.9F);
-        this.head3Part = new PalaeophisPart(this, head2Part, 1.5F, 0.9F);
-        this.tail1Part = new PalaeophisPart(this, head3Part, 1.5F, 0.9F);
-        this.tail2Part = new PalaeophisPart(this, tail1Part, 1.5F, 0.9F);
-        this.tail3Part = new PalaeophisPart(this, tail2Part, 1.5F, 0.9F);
-        this.allParts = new PalaeophisPart[]{head1Part, head2Part, head3Part, tail1Part, tail2Part, tail3Part};
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.ARMOR, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.55F);
+                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F);
     }
 
     @Override
@@ -74,8 +76,16 @@ public class Palaeophis extends PrehistoricAquaticMob {
     }
 
     @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.allParts.length; i++) {
+            this.allParts[i].setId(id + i + 1);
+        }
+    }
+
+    @Override
     public int getHeadRotSpeed() {
-        return 4;
+        return 6;
     }
 
     @Override
@@ -126,7 +136,7 @@ public class Palaeophis extends PrehistoricAquaticMob {
     public void tick() {
         this.prevFishPitch = fishPitch;
         super.tick();
-        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, getHeadRotSpeed());
+        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, this.getHeadRotSpeed());
         this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
         this.tickMultipart();
         float targetPitch = this.isInWaterOrBubble() ? Mth.clamp((float) this.getDeltaMovement().y * 25, -1.4F, 1.4F) * -(float) (180F / (float) Math.PI) : 0;
@@ -151,12 +161,12 @@ public class Palaeophis extends PrehistoricAquaticMob {
         for (int j = 0; j < this.allParts.length; ++j) {
             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
         }
-        this.head1Part.setToTransformation(new Vec3(0, 0, 7.0F), this.getTrailTransformation(5, 0, 1.0F), this.getTrailTransformation(5, 1, 1.0F));
-        this.head2Part.setToTransformation(new Vec3(0, 0, -2.5F), this.getTrailTransformation(10, 0, 1.0F), this.getTrailTransformation(10, 1, 1.0F));
-        this.head3Part.setToTransformation(new Vec3(0, 0, -2.5F), this.getTrailTransformation(15, 0, 1.0F), this.getTrailTransformation(15, 1, 1.0F));
-        this.tail1Part.setToTransformation(new Vec3(0, 0, -5.0F), this.getTrailTransformation(20, 0, 1.0F), this.getTrailTransformation(20, 1, 1.0F));
-        this.tail2Part.setToTransformation(new Vec3(0, 0, -2.5F), this.getTrailTransformation(25, 0, 1.0F), this.getTrailTransformation(25, 1, 1.0F));
-        this.tail3Part.setToTransformation(new Vec3(0, 0, -2.5F), this.getTrailTransformation(30, 0, 1.0F), this.getTrailTransformation(30, 1, 1.0F));
+        this.body1Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(5, 0, 1.0F), this.getTrailTransformation(5, 1, 1.0F));
+        this.body2Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(10, 0, 1.0F), this.getTrailTransformation(10, 1, 1.0F));
+        this.body3Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(15, 0, 1.0F), this.getTrailTransformation(15, 1, 1.0F));
+        this.tail1Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(20, 0, 1.0F), this.getTrailTransformation(20, 1, 1.0F));
+        this.tail2Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(25, 0, 1.0F), this.getTrailTransformation(25, 1, 1.0F));
+        this.tail3Part.setToTransformation(new Vec3(0, 0, -2.0F), this.getTrailTransformation(30, 0, 1.0F), this.getTrailTransformation(30, 1, 1.0F));
         for (int l = 0; l < this.allParts.length; l++) {
             this.allParts[l].xo = avector3d[l].x;
             this.allParts[l].yo = avector3d[l].y;
@@ -190,6 +200,11 @@ public class Palaeophis extends PrehistoricAquaticMob {
         float d0 = this.trailTransformations[j][index];
         float d1 = this.trailTransformations[i][index] - d0;
         return d0 + d1 * partialTick;
+    }
+
+    @Override
+    public @NotNull AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(3, 3, 3);
     }
 
     @Override

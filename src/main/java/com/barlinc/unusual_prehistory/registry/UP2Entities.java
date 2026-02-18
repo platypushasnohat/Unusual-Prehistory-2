@@ -245,7 +245,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Palaeophis>> PALAEOPHIS = ENTITY_TYPE.register(
             "palaeophis", () ->
             EntityType.Builder.of(Palaeophis::new, MobCategory.CREATURE)
-                    .sized(2.25F, 1.5F)
+                    .sized(1.8F, 1.25F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "palaeophis").toString())
     );
