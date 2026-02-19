@@ -55,6 +55,7 @@ public class ModEvents {
         event.register(UP2Entities.THERIZINOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Therizinosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.ULUGHBEGSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ulughbegsaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(UP2Entities.UNICORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Unicorn::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.WONAMBI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wonambi::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent
@@ -98,6 +99,8 @@ public class ModEvents {
         event.put(UP2Entities.THERIZINOSAURUS.get(), Therizinosaurus.createAttributes().build());
         event.put(UP2Entities.ULUGHBEGSAURUS.get(), Ulughbegsaurus.createAttributes().build());
         event.put(UP2Entities.UNICORN.get(), Unicorn.createAttributes().build());
+        event.put(UP2Entities.WONAMBI.get(), Wonambi.createAttributes().build());
+
         event.put(UP2Entities.LIVING_OOZE.get(), LivingOoze.createAttributes().build());
 
         // Ambient

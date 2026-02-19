@@ -65,6 +65,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ULUGHBEGSAURUS = main("ulughbegsaurus");
     public static final ModelLayerLocation UNICORN = main("unicorn");
     public static final ModelLayerLocation UNICORN_SKELETON = main("unicorn_skeleton");
+    public static final ModelLayerLocation WONAMBI = main("wonambi");
 
     public static final ModelLayerLocation LIVING_OOZE = main("living_ooze");
 

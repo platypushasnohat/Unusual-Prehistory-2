@@ -330,6 +330,14 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
 
+    public static final RegistryObject<EntityType<Wonambi>> WONAMBI = ENTITY_TYPE.register(
+            "wonambi", () ->
+            EntityType.Builder.of(Wonambi::new, MobCategory.CREATURE)
+                    .sized(1.25F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "wonambi").toString())
+    );
+
     // Other
     public static final RegistryObject<EntityType<LivingOoze>> LIVING_OOZE = ENTITY_TYPE.register(
             "living_ooze", () ->

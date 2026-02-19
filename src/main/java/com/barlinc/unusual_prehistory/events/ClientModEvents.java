@@ -105,6 +105,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.THERIZINOSAURUS.get(), TherizinosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ULUGHBEGSAURUS.get(), UlughbegsaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
+        event.registerEntityRenderer(UP2Entities.WONAMBI.get(), WonambiRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.DIMORPHODON_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
@@ -180,6 +181,8 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ULUGHBEGSAURUS, UlughbegsaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN, UnicornModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.UNICORN_SKELETON, UnicornSkeletonModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.WONAMBI, WonambiModel::createBodyLayer);
+
         event.registerLayerDefinition(UP2ModelLayers.LIVING_OOZE, LivingOozeModel::createBodyLayer);
 
         // Ambient
