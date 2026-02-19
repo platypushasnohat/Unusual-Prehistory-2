@@ -75,8 +75,12 @@ public class ClientForgeEvents {
             while (groundShakeMomentIterator.hasNext()) {
                 ScreenShakeEvent groundShakeMoment = groundShakeMomentIterator.next();
                 groundShakeMoment.tick();
-                if (groundShakeMoment.isDone()) groundShakeMomentIterator.remove();
-                else shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
+                if (groundShakeMoment.isDone()) {
+                    groundShakeMomentIterator.remove();
+                }
+                else if (cameraEntity != null) {
+                    shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
+                }
             }
             shakeAmount = shake * minecraft.options.screenEffectScale().get().floatValue();
         }
