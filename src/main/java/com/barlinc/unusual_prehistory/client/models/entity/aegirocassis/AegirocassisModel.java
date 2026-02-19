@@ -252,11 +252,11 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
         this.animate(entity.leapStartAnimationState, AegirocassisLeapAnimations.LEAP_START, ageInTicks);
         this.animate(entity.leapAnimationState, AegirocassisLeapAnimations.LEAP_HOLD, ageInTicks);
 
-        double segment1Y = (entity.getTrailTransformation(10, partialTicks)) - bodyYRot;
-        double segment2Y = (entity.getTrailTransformation(20, partialTicks)) - bodyYRot - segment1Y;
-        double segment3Y = (entity.getTrailTransformation(30, partialTicks)) - bodyYRot - segment2Y;
-        double segment4Y = (entity.getTrailTransformation(40, partialTicks)) - bodyYRot - segment3Y;
-        double segment5Y = (entity.getTrailTransformation(50, partialTicks)) - bodyYRot - segment4Y;
+        double segment1Y = (entity.getTrailTransformation(5, partialTicks)) - bodyYRot;
+        double segment2Y = (entity.getTrailTransformation(10, partialTicks)) - bodyYRot - segment1Y;
+        double segment3Y = (entity.getTrailTransformation(15, partialTicks)) - bodyYRot - segment2Y;
+        double segment4Y = (entity.getTrailTransformation(20, partialTicks)) - bodyYRot - segment3Y;
+        double segment5Y = (entity.getTrailTransformation(25, partialTicks)) - bodyYRot - segment4Y;
 
         this.segment2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.4F);
         this.segment3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.3F);

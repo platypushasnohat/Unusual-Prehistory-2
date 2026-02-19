@@ -100,46 +100,36 @@ public class PalaeophisModel extends UP2Model<Palaeophis> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
-        float fishPitch = entity.getFishPitch(partialTicks);
-
-        double defaultX = Mth.wrapDegrees(fishPitch);
         double defaultY = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
-        double tail1X = (entity.getTrailTransformation(10, 0, partialTicks)) - defaultX;
-        double tail1Y = (entity.getTrailTransformation(10, 1, partialTicks)) - defaultY;
-        double tail2X = (entity.getTrailTransformation(20, 0, partialTicks)) - defaultX - tail1X;
-        double tail2Y = (entity.getTrailTransformation(20, 1, partialTicks)) - defaultY - tail1Y;
-        double tail3X = (entity.getTrailTransformation(30, 0, partialTicks)) - defaultX - tail2X;
-        double tail3Y = (entity.getTrailTransformation(30, 1, partialTicks)) - defaultY - tail2Y;
-        double tail4X = (entity.getTrailTransformation(40, 0, partialTicks)) - defaultX - tail3X;
-        double tail4Y = (entity.getTrailTransformation(40, 1, partialTicks)) - defaultY - tail3Y;
-        double tail5X = (entity.getTrailTransformation(50, 0, partialTicks)) - defaultX - tail4X;
-        double tail5Y = (entity.getTrailTransformation(50, 1, partialTicks)) - defaultY - tail4Y;
-        double tail6X = (entity.getTrailTransformation(60, 0, partialTicks)) - defaultX - tail5X;
-        double tail6Y = (entity.getTrailTransformation(60, 1, partialTicks)) - defaultY - tail5Y;
-        double tail7X = (entity.getTrailTransformation(70, 0, partialTicks)) - defaultX - tail6X;
-        double tail7Y = (entity.getTrailTransformation(70, 1, partialTicks)) - defaultY - tail6Y;
-//        double tail8X = (entity.getTrailTransformation(80, 0, partialTicks)) - defaultX - tail7X;
-//        double tail8Y = (entity.getTrailTransformation(80, 1, partialTicks)) - defaultY - tail7Y;
+        double tail1Y = (entity.getTrailTransformation(10, partialTicks)) - defaultY;
+        double tail2Y = (entity.getTrailTransformation(19, partialTicks)) - defaultY - tail1Y;
+        double tail3Y = (entity.getTrailTransformation(27, partialTicks)) - defaultY - tail2Y;
+        double tail4Y = (entity.getTrailTransformation(34, partialTicks)) - defaultY - tail3Y;
+        double tail5Y = (entity.getTrailTransformation(40, partialTicks)) - defaultY - tail4Y;
+        double tail6Y = (entity.getTrailTransformation(45, partialTicks)) - defaultY - tail5Y;
+        double tail7Y = (entity.getTrailTransformation(49, partialTicks)) - defaultY - tail6Y;
+        double tail8Y = (entity.getTrailTransformation(52, partialTicks)) - defaultY - tail7Y;
 
-        this.root.xRot = headPitch * deg / 4;
-//        this.root.xRot += (float) Math.toRadians(fishPitch * 0.5F);
-        this.body.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail1Y) * 0.5F);
-        this.body1.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail2Y) * 0.5F);
-        this.body2.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail2Y) * 0.5F);
-        this.body3.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail3Y) * 0.5F);
-        this.body4.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail4Y) * 0.5F);
-        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail5Y) * 0.4F);
-        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail6Y) * 0.3F);
-        this.tail3.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail7Y) * 0.2F);
+        float swimPitch = Mth.lerp(0.2F, this.body.xRot, Mth.clamp(headPitch * deg, -0.4F, 0.4F));
+        this.root.xRot += swimPitch * 0.35F;
+        this.head.xRot += swimPitch * 0.4F;
+        this.body.xRot += swimPitch * 0.4F;
+        this.body1.xRot += swimPitch * 0.35F;
+        this.body2.xRot += swimPitch * 0.35F;
+        this.body3.xRot += swimPitch * 0.3F;
+        this.body4.xRot += swimPitch * 0.3F;
+        this.tail1.xRot += swimPitch * 0.2F;
+        this.tail2.xRot += swimPitch * 0.25F;
+        this.tail3.xRot += swimPitch * 0.1F;
 
-        this.body.xRot += (float) Math.toRadians(tail1X * 0.5F);
-        this.body1.xRot += (float) Math.toRadians(tail2X * 0.5F);
-        this.body2.xRot += (float) Math.toRadians(tail2X * 0.5F);
-        this.body3.xRot += (float) Math.toRadians(tail3X * 0.5F);
-        this.body4.xRot += (float) Math.toRadians(tail4X * 0.5F);
-        this.tail1.xRot += (float) Math.toRadians(tail5X * 0.4F);
-        this.tail2.xRot += (float) Math.toRadians(tail6X * 0.3F);
-        this.tail3.xRot += (float) Math.toRadians(tail7X * 0.2F);
+        this.body.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail1Y) * 0.3F);
+        this.body1.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail2Y) * 0.35F);
+        this.body2.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail3Y) * 0.35F);
+        this.body3.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail4Y) * 0.4F);
+        this.body4.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail5Y) * 0.4F);
+        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail6Y) * 0.4F);
+        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail7Y) * 0.25F);
+        this.tail3.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail8Y) * 0.1F);
     }
 
 	@Override

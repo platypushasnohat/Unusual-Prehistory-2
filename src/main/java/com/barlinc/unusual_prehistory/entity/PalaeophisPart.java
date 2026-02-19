@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.entity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -93,27 +92,6 @@ public class PalaeophisPart extends PartEntity<Palaeophis> {
 
     public Vec3 centeredPosition() {
         return this.position().add(0, this.getBbHeight() * 0.5F, 0);
-    }
-
-    public Vec3 centeredPosition(float partialTicks) {
-        return this.getPosition(partialTicks).add(0, this.getBbHeight() * 0.5F, 0);
-    }
-
-    public float calculateAnimationAngle(float partialTicks, boolean pitch) {
-        float parentRot = parent == null ? 0 : (parent.yBodyRotO + (parent.yBodyRot - parent.yBodyRotO) * partialTicks);
-        Vec3 connection = connectedTo.getPosition(partialTicks).add(0, connectedTo.getBbHeight() * 0.5F, 0);
-        Vec3 center = centeredPosition(partialTicks);
-        Vec3 offset = connection.subtract(center).normalize();
-        Vec3 back = center.add(offset.scale(-1 * this.getBbWidth()));
-        double d0 = connection.x - back.x;
-        double d1 = connection.y - back.y;
-        double d2 = connection.z - back.z;
-        if (pitch) {
-            double d3 = Mth.sqrt((float) (d0 * d0 + d2 * d2));
-            return Mth.wrapDegrees((float) (-(Mth.atan2(d1, d3) * 180.0F / (float) Math.PI))) * 0.35F;
-        } else {
-            return (float) (Mth.atan2(d2, d0) * 57.2957763671875D) - 90.0F - parentRot;
-        }
     }
 
     @Override
