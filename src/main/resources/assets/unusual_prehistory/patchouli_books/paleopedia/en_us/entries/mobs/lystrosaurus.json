@@ -1,0 +1,33 @@
+{
+  "name": "Lystrosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/lystrosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_lystrosaurus",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Lystrosaurus",
+      "id": "lystrosaurus",
+      "flavor_text": "Shovel-lizard",
+      "fossil_item": "unusual_prehistory:impervious_fossil",
+      "egg_item": "unusual_prehistory:lystrosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "lystrosaurus",
+      "era_tooltip_period": "Late Permian into Early Triassic Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day"
+    }
+  ]
+}

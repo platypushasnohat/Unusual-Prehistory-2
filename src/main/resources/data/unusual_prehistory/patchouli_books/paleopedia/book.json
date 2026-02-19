@@ -15,18 +15,12 @@
     "show_progress": false,
     "text_overflow_mode": "resize",
     "nameplate_color": "f29a1f",
-    "header_color": "826a41",
-    "text_color": "826a41",
-    "link_color": "111111",
-    "link_hover_color": "0094FF",
+    "header_color": "968351",
+    "text_color": "bfac78",
+    "link_color": "968351",
+    "link_hover_color": "54fc54",
     "filler_texture": "unusual_prehistory:textures/gui/paleopedia/page_filler.png",
     "macros": {
-      "<vertical_0>": 0,
-      "<vertical_1>": 0,
-      "<vertical_2>": 0,
-      "<vertical_3>": 112,
-      "<horizontal_center>": 49,
-      "<horizontal_left>": 34,
-      "<horizontal_right>": 64
+      "$(highlight)": "$(#968351)"
     }
 }

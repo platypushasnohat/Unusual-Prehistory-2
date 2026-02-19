@@ -1,0 +1,33 @@
+{
+  "name": "Pachycephalosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pachycephalosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_pachycephalosaurus",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Pachycephalosaurus",
+      "id": "pachycephalosaurus",
+      "flavor_text": "Thick-Headed-Lizard",
+      "fossil_item": "unusual_prehistory:cranium_fossil",
+      "egg_item": "unusual_prehistory:pachycephalosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day"
+    }
+  ]
+}

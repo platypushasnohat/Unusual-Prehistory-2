@@ -1,0 +1,33 @@
+{
+  "name": "Pterodactylus ",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus .png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_pterodactylus ",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Pterodactylus ",
+      "id": "pterodactylus ",
+      "flavor_text": "Winged-Finger",
+      "fossil_item": "unusual_prehistory:wing_fossil",
+      "egg_item": "unusual_prehistory:pterodactylus _egg",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "Late Jurassic Period",
+
+      "temperab ment.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",  
+      "clone.clone_tooltip_heading": "Projectile Egg",  
+      "clone.clone_tooltip": "Egg must be thrown to hatch",
+
+      "activity.activity_type": "cathemeral",  
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+    }
+  ]
+}

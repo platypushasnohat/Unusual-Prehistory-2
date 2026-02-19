@@ -1,0 +1,33 @@
+{
+  "name": "Dimorphodon",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dimorphodon.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_dimorphodon",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Dimorphodon",
+      "id": "dimorphodon",
+      "flavor_text": "Two-Formed-Tooth",
+      "fossil_item": "unusual_prehistory:bill_fossil",
+      "egg_item": "unusual_prehistory:dimorphodon_egg",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "early_jurassic",
+      "era_tooltip_period": "Early Jurassic Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "projectile_egg",  
+      "clone.clone_tooltip_heading": "Projectile Egg",  
+      "clone.clone_tooltip": "Egg must be thrown to hatch",
+
+      "activity.activity_type": "cathemeral",  
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+    }
+  ]
+}

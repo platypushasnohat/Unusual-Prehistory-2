@@ -1,27 +1,33 @@
 {
   "name": "Barinasuchus",
-  "icon": "unusual_prehistory:barinasuchus_egg",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/barinasuchus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_barinasuchus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Mid Eocene-Mid Miocene Period $(br2)Temperament: Hostile $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Jungles, Swamps"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Barinasuchus",
+      "id": "barinasuchus",
+      "flavor_text": "Barinas-Crocodile",
+      "fossil_item": "unusual_prehistory:brute_fossil",
+      "egg_item": "unusual_prehistory:barinasuchus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/barinasuchus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Barinasuchus is a large terrestrial crocodilian known for it's speed and sheer brute strength. They are very quick and love to run for long distances. Barinasuchus get along well with other crocodilians, and they can be often found basking in the sun and bellowing together!"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "You can earn the trust of a Barinasuchus by feeding it raw meat, and it will serve as a loyal steed that provides a fast mode of transportation. It's not very enthusiastic about swimming, so you may have some trouble making the Barinasuchus cross a body of water."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "barinasuchus",
+      "era_tooltip_period": "Early Cenozoic into Mid Cenozoic Period",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "nest_egg",  
+      "clone.clone_tooltip_heading": "Nest Egg",  
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day"
     }
   ]
 }

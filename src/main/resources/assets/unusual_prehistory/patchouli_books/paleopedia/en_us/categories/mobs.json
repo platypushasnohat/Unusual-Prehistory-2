@@ -1,5 +1,7 @@
 {
   "name": "Mobs",
-  "description": "This chapter contains everything about every mob. Each entry is locked until you revive the creature.",
-  "icon": "unusual_prehistory:majungasaurus_egg"
+  "description": "A catalog for revived creatures.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_mobs.png",
+  "sortnum": 3,
+  "secret": true
 }

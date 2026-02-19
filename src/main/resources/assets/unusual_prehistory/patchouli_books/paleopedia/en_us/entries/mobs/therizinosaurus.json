@@ -1,0 +1,33 @@
+{
+  "name": "Therizinosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/therizinosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_therizinosaurus",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Therizinosaurus",
+      "id": "therizinosaurus",
+      "flavor_text": "Scythe-Lizard",
+      "fossil_item": "unusual_prehistory:scythe_fossil",
+      "egg_item": "unusual_prehistory:therizinosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",  
+      "clone.clone_tooltip_heading": "Nest Egg",  
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "nocturnal",  
+      "activity.activity_tooltip": "Active during the night"
+    }
+  ]
+}

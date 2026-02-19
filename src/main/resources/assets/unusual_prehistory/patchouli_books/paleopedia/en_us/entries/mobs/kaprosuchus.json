@@ -1,24 +1,24 @@
 {
-  "name": "Brachiosaurus",
-  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brachiosaurus.png",
+  "name": "Kaprosuchus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kaprosuchus.png",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_brachiosaurus",
+  "advancement": "unusual_prehistory:revive_kaprosuchus",
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Brachiosaurus",
-      "id": "brachiosaurus",
-      "flavor_text": "Arm-Lizard",
-      "fossil_item": "unusual_prehistory:arm_fossil",
-      "egg_item": "unusual_prehistory:brachiosaurus_egg",
+      "display_name": "Kaprosuchus",
+      "id": "kaprosuchus",
+      "flavor_text": "Boar-Crocodile",
+      "fossil_item": "unusual_prehistory:boar_tooth_fossil",
+      "egg_item": "unusual_prehistory:kaprosuchus_egg",
       "variant_key": "",
       "image_tooltip": ""
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "late_jurassic",
-      "era_tooltip_period": "Late Jurassic Period",
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
 
       "temperament.temperament_type": "neutral",
 

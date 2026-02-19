@@ -1,0 +1,33 @@
+{
+  "name": "Leptictidium",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/leptictidium.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_leptictidium",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Leptictidium",
+      "id": "leptictidium",
+      "flavor_text": "Graceful-Weasel",
+      "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
+      "egg_item": "unusual_prehistory:leptictidium_embryo",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "early_cenozoic",
+      "era_tooltip_period": "Early Cenozoic Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "Embryo",
+      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
+
+      "activity.activity_type": "cathemeral",  
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+    }
+  ]
+}

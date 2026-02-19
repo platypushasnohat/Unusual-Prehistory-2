@@ -1,0 +1,33 @@
+{
+  "name": "Manipulator",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/manipulator.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_manipulator",
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Manipulator",
+      "id": "manipulator",
+      "flavor_text": "",
+      "fossil_item": "unusual_prehistory:roach_fossil",
+      "egg_item": "unusual_prehistory:manipulator_ootheca",
+      "variant_key": "",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "manipulator",
+      "era_tooltip_period": "Late Jurassic into Late Cretaceous Period",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",  
+      "clone.clone_tooltip_heading": "Nest Egg",  
+      "clone.clone_tooltip": "Egg must be placed down to hatch",
+
+      "activity.activity_type": "cathemeral",  
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+    }
+  ]
+}

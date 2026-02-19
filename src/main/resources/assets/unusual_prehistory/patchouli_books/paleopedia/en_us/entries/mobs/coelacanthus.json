@@ -1,23 +1,33 @@
 {
   "name": "Coelacanthus",
-  "icon": "unusual_prehistory:coelacanthus_roe",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/coelacanthus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_coelacanthus",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "Time Period: Late Permian Period $(br2)Temperament: Passive $(br2)Diet: Carnivorous $(br2)Preferred Habitats: Cold Oceans, Lukewarm Oceans"
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Coelacanthus",
+      "id": "coelacanthus",
+      "flavor_text": "Hollow-Spine",
+      "fossil_item": "unusual_prehistory:gluttonous_fossil",
+      "egg_item": "unusual_prehistory:coelacanthus_roe",
+      "variant_key": "",
+      "image_tooltip": ""
     },
     {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "unusual_prehistory:textures/gui/paleopedia/images/coelacanthus.png"
-      ]
-    },
-    {
-      "type": "patchouli:text",
-      "text": "The Coelacanthus is a simple fish. Their stomach has more input on their day to day life than their brain. The Coelacanthus will eat anything smaller than it, and it's constant need to eat means it will grow larger and larger. Eventually, if allowed to grow unimpeded, they will be able to swallow you whole."
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_paleozoic",
+      "era_tooltip_period": "Late Paleozoic Period",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",  
+      "clone.clone_tooltip_heading": "Aquatic Egg",  
+      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
+
+      "activity.activity_type": "cathemeral",  
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
     }
   ]
 }

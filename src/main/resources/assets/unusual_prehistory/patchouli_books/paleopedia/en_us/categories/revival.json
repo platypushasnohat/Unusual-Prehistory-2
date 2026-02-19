@@ -1,5 +1,7 @@
 {
-  "name": "Fossils & Revival",
-  "description": "This chapter contains everything related to fossils and how to revive creatures and plants.",
-  "icon": "unusual_prehistory:machine_parts"
+  "name": "Revival",
+  "description": "Through the process of $(highlight)Transmogrification$() of fossils, ancient creatures and plants may be brought back to life.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_revival.png",
+  "sortnum": 1,
+  "secret": true
 }

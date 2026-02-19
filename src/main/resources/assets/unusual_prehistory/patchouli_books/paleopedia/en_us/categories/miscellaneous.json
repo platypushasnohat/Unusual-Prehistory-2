@@ -1,0 +1,7 @@
+{
+  "name": "Miscellaneous",
+  "description": "Various other techniques, tools and tips to help with handling and caring for prehistoric flora and fauna.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_miscellaneous.png",
+  "sortnum": 2,
+  "secret": true
+}
