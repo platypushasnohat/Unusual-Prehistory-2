@@ -1,0 +1,25 @@
+package com.barlinc.unusual_prehistory.mixins.client;
+
+import com.barlinc.unusual_prehistory.entity.Onchopristis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(EntityRenderDispatcher.class)
+public class EntityRenderDispatcherMixin {
+
+    @Inject(method = "renderHitbox", at = @At("TAIL"))
+    private static void unusualPrehistory2$renderHitbox(PoseStack poseStack, VertexConsumer consumer, Entity entity, float partialTicks, CallbackInfo ci) {
+        if (entity instanceof Onchopristis onchopristis) {
+            AABB aABB = onchopristis.getAggroHitbox().move(-entity.getX(), -entity.getY(), -entity.getZ());
+            LevelRenderer.renderLineBox(poseStack, consumer, aABB, 1, 0, 0, 1.0F);
+        }
+    }
+}

@@ -159,8 +159,8 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @NotNull
-    private AABB getAggroHitbox() {
-        return this.getBoundingBox().inflate(0.25, 0.0, 0.25).move(0, 0.36, 0);
+    public AABB getAggroHitbox() {
+        return this.getBoundingBox().inflate(0.1, 0, 0.1).deflate(0, 0.05, 0).move(0, 0.45, 0);
     }
 
     @Override
