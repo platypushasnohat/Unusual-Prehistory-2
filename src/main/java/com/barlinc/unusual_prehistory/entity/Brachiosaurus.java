@@ -71,13 +71,8 @@
 
      private boolean wasPreviouslyBaby;
 
-     public final AnimationState attack1AnimationState = new AnimationState();
-     public final AnimationState attack2AnimationState = new AnimationState();
-     public final AnimationState tailWhip1AnimationState = new AnimationState();
-     public final AnimationState tailWhip2AnimationState = new AnimationState();
      public final AnimationState stompAnimationState = new AnimationState();
 
-     private int attackTicks;
      private int stompTicks;
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
@@ -374,10 +369,6 @@
 
      @Override
      public void setupAnimationStates() {
-         if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-         }
          if (stompTicks == 0 && this.stompAnimationState.isStarted()) this.stompAnimationState.stop();
          this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get(), this.tickCount);
 
@@ -385,10 +376,6 @@
              this.sitEndAnimationState.stop();
              this.idleAnimationState.stop();
              this.stompAnimationState.stop();
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-             this.tailWhip1AnimationState.stop();
-             this.tailWhip2AnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -406,12 +393,7 @@
 
      @Override
      public void setupAnimationCooldowns() {
-         if (attackTicks > 0) attackTicks--;
          if (stompTicks > 0) stompTicks--;
-         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.attackCooldown = 6 + this.getRandom().nextInt(8);
-             this.setPose(Pose.STANDING);
-         }
          if (stompTicks == 0 && this.getPose() == UP2Poses.STOMPING.get()) {
              this.setPose(Pose.STANDING);
          }
@@ -422,18 +404,11 @@
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
-                 else this.attack2AnimationState.start(this.tickCount);
-                 this.attackTicks = 40;
-             }
-             else if (this.getPose() == UP2Poses.STOMPING.get()) {
+             if (this.getPose() == UP2Poses.STOMPING.get()) {
                  this.stompAnimationState.start(this.tickCount);
                  this.stompTicks = 70;
              }
              else if (this.getPose() == Pose.STANDING) {
-                 this.attack1AnimationState.stop();
-                 this.attack2AnimationState.stop();
                  this.stompAnimationState.stop();
              }
          }

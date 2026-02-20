@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.PachycephalosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -105,9 +106,9 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 	public void setupAnim(Pachycephalosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater() && !entity.isMobSitting()) {
-            if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PachycephalosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
-            else if (entity.getAttackState() == 2) this.animateWalk(PachycephalosaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+		if (!entity.isInWater() && !entity.isMobSitting() && entity.getPose() != UP2Poses.WARNING.get()) {
+            if (entity.isRunning() && entity.getAttackState() != 1) this.animateWalk(PachycephalosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+            else if (entity.getAttackState() == 1) this.animateWalk(PachycephalosaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
@@ -119,11 +120,8 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
         this.animate(entity.sitStartAnimationState, PachycephalosaurusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, PachycephalosaurusAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, PachycephalosaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
+        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
         this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
-        this.animate(entity.attack1AnimationState, PachycephalosaurusAnimations.ATTACK1, ageInTicks);
-        this.animate(entity.attack2AnimationState, PachycephalosaurusAnimations.ATTACK2, ageInTicks);
-        this.animate(entity.attack3AnimationState, PachycephalosaurusAnimations.ATTACK3, ageInTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 

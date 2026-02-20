@@ -1,11 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus.PachycephalosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus.PachycephalosaurusTargetNearbyPlayersGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -44,7 +40,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.8F, 0.7F);
 
-    public int chargeCooldown = 150 + this.getRandom().nextInt(150);
+    public int chargeCooldown = 0;
 
     private int grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
     private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
@@ -56,11 +52,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
     public final AnimationState grazeAnimationState = new AnimationState();
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState warnAnimationState = new AnimationState();
-    public final AnimationState attack1AnimationState = new AnimationState();
-    public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState attack3AnimationState = new AnimationState();
 
-    private int attackTicks;
     private int warnTicks;
 
     public Pachycephalosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
@@ -81,8 +73,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(9, new PachycephalosaurusGrazeGoal(this));
         this.goalSelector.addGoal(9, new PachycephalosaurusHuffGoal(this));
         this.goalSelector.addGoal(9, new PachycephalosaurusStompGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new PachycephalosaurusTargetNearbyPlayersGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this, Pachycephalosaurus.class));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Pachycephalosaurus.class, 600, true, true, this::canChargeAtOtherPachycephalosaurus));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -130,6 +122,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
         return stack.is(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD);
     }
 
+    public boolean canChargeAtOtherPachycephalosaurus(LivingEntity entity) {
+        return this.canAttack(entity) && !this.isInWaterOrBubble();
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -138,8 +134,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (attackTicks > 0) attackTicks--;
-        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
         if (warnTicks > 0) warnTicks--;
         if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) this.setPose(Pose.STANDING);
         if (huffCooldown > 0) huffCooldown--;
@@ -149,19 +143,11 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted() || this.attack3AnimationState.isStarted())) {
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.attack3AnimationState.stop();
-        }
         if (warnTicks == 0 && this.warnAnimationState.isStarted()) this.warnAnimationState.stop();
         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && this.getAttackState() != 2 && !this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && this.getAttackState() != 2, this.tickCount);
 
         if (this.isMobVisuallySitting()) {
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.attack3AnimationState.stop();
             this.idleAnimationState.stop();
             this.huffAnimationState.stop();
             this.stomp1AnimationState.stop();
@@ -186,20 +172,12 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                if (this.getRandom().nextFloat() < 0.33F) this.attack1AnimationState.start(this.tickCount);
-                else if (this.getRandom().nextFloat() < 0.66F) this.attack2AnimationState.start(this.tickCount);
-                else if (this.getRandom().nextFloat() < 1.0F) this.attack3AnimationState.start(this.tickCount);
-                this.attackTicks = 20;
-            }
-            else if (this.getPose() == UP2Poses.WARNING.get()) {
+            if (this.getPose() == UP2Poses.WARNING.get()) {
                 this.warnAnimationState.start(this.tickCount);
                 this.warnTicks = 50;
             }
-            else {
-                this.attack1AnimationState.stop();
-                this.attack2AnimationState.stop();
-                this.attack3AnimationState.stop();
+            else if (this.getPose() == Pose.STANDING) {
+                this.warnAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);

@@ -524,10 +524,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle4")),
                 sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle5"))
         );
-        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/attack1")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/attack2"))
-        );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN,
                 sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/warn1"))
         );
