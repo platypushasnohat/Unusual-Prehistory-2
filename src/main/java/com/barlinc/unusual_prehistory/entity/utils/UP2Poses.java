@@ -21,7 +21,6 @@ public enum UP2Poses {
     START_FLYING,
     SITTING,
     SLEEPING,
-    SLASH_RUSH,
     WARNING,
     KICKING,
     POKING,
