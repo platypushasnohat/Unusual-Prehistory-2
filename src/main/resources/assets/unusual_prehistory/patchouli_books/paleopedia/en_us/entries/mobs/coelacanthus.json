@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Coelacanthus",
       "id": "coelacanthus",
-      "flavor_text": "Hollow-Spine",
+      "flavor_text": "hollow-spine",
       "fossil_item": "unusual_prehistory:gluttonous_fossil",
       "egg_item": "unusual_prehistory:coelacanthus_roe",
       "variant_key": "",
@@ -17,8 +17,8 @@
     {
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "late_paleozoic",
-      "era_tooltip_period": "Late Paleozoic Period",
+      "era_image": "late_permian",
+      "era_tooltip_period": "Late Permian Period",
 
       "temperament.temperament_type": "passive",
 

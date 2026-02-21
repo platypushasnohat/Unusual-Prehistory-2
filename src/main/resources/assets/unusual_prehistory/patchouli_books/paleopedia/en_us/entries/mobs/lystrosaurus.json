@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Lystrosaurus",
       "id": "lystrosaurus",
-      "flavor_text": "Shovel-lizard",
+      "flavor_text": "shovel-lizard",
       "fossil_item": "unusual_prehistory:impervious_fossil",
       "egg_item": "unusual_prehistory:lystrosaurus_egg",
       "variant_key": "",
@@ -18,7 +18,7 @@
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "lystrosaurus",
-      "era_tooltip_period": "Late Permian into Early Triassic Period",
+      "era_tooltip_period": "Late Permian into the Early Triassic Period",
 
       "temperament.temperament_type": "passive",
 

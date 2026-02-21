@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Kaprosuchus",
       "id": "kaprosuchus",
-      "flavor_text": "Boar-Crocodile",
+      "flavor_text": "boar-crocodile",
       "fossil_item": "unusual_prehistory:boar_tooth_fossil",
       "egg_item": "unusual_prehistory:kaprosuchus_egg",
       "variant_key": "",

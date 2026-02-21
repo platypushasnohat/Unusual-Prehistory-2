@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Hibbertopterus",
       "id": "hibbertopterus",
-      "flavor_text": "Hibbert’s-Wing",
+      "flavor_text": "Hibbert’s-wing",
       "fossil_item": "unusual_prehistory:plow_fossil",
       "egg_item": "unusual_prehistory:hibbertopterus_eggs",
       "variant_key": "",
@@ -18,7 +18,7 @@
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "hibbertopterus",
-      "era_tooltip_period": "Mid Paleozoic into Late Paleozoic Period",
+      "era_tooltip_period": "Mid Devonian into the Late Carboniferous Period",
 
       "temperament.temperament_type": "passive",
 

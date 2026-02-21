@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Desmatosuchus",
       "id": "desmatosuchus",
-      "flavor_text": "Link-Crocodile",
+      "flavor_text": "link-crocodile",
       "fossil_item": "unusual_prehistory:flat_back_fossil",
       "egg_item": "unusual_prehistory:desmatosuchus_egg",
       "variant_key": "",
