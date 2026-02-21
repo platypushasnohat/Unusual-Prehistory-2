@@ -1,7 +1,6 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.pachycephalosaurus;
+package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.utils.MobAttackUtils;
@@ -35,6 +34,12 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
     }
 
     @Override
+    public void stop() {
+        super.stop();
+        this.pachycephalosaurus.setFightCooldown(1000 + pachycephalosaurus.getRandom().nextInt(1000));
+    }
+
+    @Override
     public void tick() {
         LivingEntity target = pachycephalosaurus.getTarget();
         if (target != null) {
@@ -51,7 +56,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
                 if (distance > 40) {
                     this.pachycephalosaurus.getNavigation().moveTo(target, 1.7D);
                 }
-                if (distance <= 50 && !pachycephalosaurus.isInWater() && pachycephalosaurus.chargeCooldown == 0 && pachycephalosaurus.canCharge()) {
+                if (distance <= 50 && !pachycephalosaurus.isInWater() && pachycephalosaurus.getChargeCooldown() == 0) {
                     this.pachycephalosaurus.setAttackState(1);
                 }
             }
@@ -75,7 +80,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
             this.timer = 0;
             this.pachycephalosaurus.setPose(Pose.STANDING);
             this.pachycephalosaurus.setAttackState(0);
-            this.pachycephalosaurus.chargeCooldown = 30 + pachycephalosaurus.getRandom().nextInt(15);
+            this.pachycephalosaurus.setChargeCooldown(30 + pachycephalosaurus.getRandom().nextInt(15));
             if (target instanceof Pachycephalosaurus) {
                 this.stop();
             }
@@ -95,9 +100,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
                 float effectSpeed = 0.15F * (speedFactor - slownessFactor);
                 float speedForce = Mth.clamp(pachycephalosaurus.getSpeed() * 1.5F, 0.2F, 3.0F) + effectSpeed;
                 float knockbackForce = entity.isDamageSourceBlocked(pachycephalosaurus.level().damageSources().mobAttack(pachycephalosaurus)) ? 1.5F : 2.0F;
-                if (entity instanceof Pachycephalosaurus) {
-                    entity.hurt(entity.damageSources().mobAttack(pachycephalosaurus), 1.0F);
-                } else {
+                if (!(entity instanceof Pachycephalosaurus)) {
                     entity.hurt(entity.damageSources().mobAttack(pachycephalosaurus), (float) pachycephalosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                 }
                 entity.knockback((knockbackForce * speedForce) * 1.5F, knockbackDirection.x(), knockbackDirection.z());

@@ -117,15 +117,15 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
         this.animate(entity.stomp1AnimationState, PachycephalosaurusAnimations.STOMP_BLEND1, ageInTicks);
         this.animate(entity.stomp2AnimationState, PachycephalosaurusAnimations.STOMP_BLEND2, ageInTicks);
         this.animate(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animate(entity.sitStartAnimationState, PachycephalosaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, PachycephalosaurusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, PachycephalosaurusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, PachycephalosaurusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
         this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
         this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
         this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
 	}
 
