@@ -53,10 +53,10 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
                 this.tickCharge();
             }
             else {
-                if (distance > 40) {
+                if (distance > 60) {
                     this.pachycephalosaurus.getNavigation().moveTo(target, 1.7D);
                 }
-                if (distance <= 50 && !pachycephalosaurus.isInWater() && pachycephalosaurus.getChargeCooldown() == 0) {
+                if (distance <= 80 && !pachycephalosaurus.isInWater() && pachycephalosaurus.getChargeCooldown() == 0) {
                     this.pachycephalosaurus.setAttackState(1);
                 }
             }

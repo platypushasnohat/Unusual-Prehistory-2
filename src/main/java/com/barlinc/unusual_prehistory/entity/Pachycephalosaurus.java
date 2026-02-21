@@ -127,6 +127,11 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
+    public boolean canSpawnSprintParticle() {
+        return this.getDeltaMovement().horizontalDistance() > 0.05D && this.getAttackState() == 1 && !this.isInWater() && !this.isSpectator() && !this.isCrouching() && !this.isInLava() && this.isAlive() && !this.isInFluidType();
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.getChargeCooldown() > 0) this.setChargeCooldown(this.getChargeCooldown() - 1);
@@ -292,7 +297,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     public enum PachycephalosaurusVariant {
         LAVENDER(0),
-        MAROON(1);
+        MAROON(1),
+        FOREST(2);
 
         private final int id;
 
