@@ -18,6 +18,8 @@
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
@@ -47,6 +49,8 @@
 
  public class Brachiosaurus extends SemiAquaticMob {
 
+     private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
+
      private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(4.1F, 6.1F);
 
      private final BrachiosaurusPart[] allParts;
@@ -55,9 +59,6 @@
      public final BrachiosaurusPart neckPart2;
      public final BrachiosaurusPart tailPart1;
      public final BrachiosaurusPart tailPart2;
-
-     public int attackCooldown = 0;
-     public int stompCooldown = 100;
 
      private double lastStompX = 0;
      private double lastStompZ = 0;
@@ -397,8 +398,7 @@
          if (stompTicks == 0 && this.getPose() == UP2Poses.STOMPING.get()) {
              this.setPose(Pose.STANDING);
          }
-         if (attackCooldown > 0) attackCooldown--;
-         if (stompCooldown > 0) stompCooldown--;
+         if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
      }
 
      @Override
@@ -413,6 +413,20 @@
              }
          }
          super.onSyncedDataUpdated(accessor);
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(STOMP_COOLDOWN, 0);
+     }
+
+     public void setStompCooldown(int cooldown) {
+         this.entityData.set(STOMP_COOLDOWN, cooldown);
+     }
+
+     public int getStompCooldown() {
+         return this.entityData.get(STOMP_COOLDOWN);
      }
 
      @Override

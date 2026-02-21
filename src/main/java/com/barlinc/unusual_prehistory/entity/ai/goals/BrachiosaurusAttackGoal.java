@@ -33,8 +33,8 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
                 if (distance > this.getAttackReachSqr(target)) {
                     this.brachiosaurus.getNavigation().moveTo(target, 1.5D);
                 }
-                if (distance <= this.getAttackReachSqr(target)) {
-                    if (brachiosaurus.stompCooldown == 0) brachiosaurus.setAttackState(1);
+                if (distance <= this.getAttackReachSqr(target) && brachiosaurus.getStompCooldown() <= 0) {
+                    brachiosaurus.setAttackState(1);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class BrachiosaurusAttackGoal extends AttackGoal {
         if (this.timer > 80) {
             this.timer = 0;
             this.brachiosaurus.setAttackState(0);
-            this.brachiosaurus.stompCooldown = 50 + brachiosaurus.getRandom().nextInt(40);
+            this.brachiosaurus.setStompCooldown(24 + brachiosaurus.getRandom().nextInt(20));
         }
     }
 }
