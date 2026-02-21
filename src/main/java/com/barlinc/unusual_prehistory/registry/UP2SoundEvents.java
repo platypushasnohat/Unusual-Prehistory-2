@@ -138,7 +138,6 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_HURT = registerSoundEvent("pachycephalosaurus_hurt");
     public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_DEATH = registerSoundEvent("pachycephalosaurus_death");
     public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_IDLE = registerSoundEvent("pachycephalosaurus_idle");
-    public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_ATTACK = registerSoundEvent("pachycephalosaurus_attack");
     public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_WARN = registerSoundEvent("pachycephalosaurus_warn");
     public static final RegistryObject<SoundEvent> PACHYCEPHALOSAURUS_STEP = registerSoundEvent("pachycephalosaurus_step");
 

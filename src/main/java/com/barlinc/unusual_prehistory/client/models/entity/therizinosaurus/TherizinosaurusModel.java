@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus;
 
 import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -166,22 +165,15 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 	public void setupAnim(Therizinosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isMobEepy()) {
-            if (!entity.isInAttackingPose()) {
-                if (entity.isRunning()) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
-                else this.animateWalk(entity.isShaved() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.6F, 3.2F);
-            } else if (entity.getPose() == UP2Poses.CHARGING.get()) {
-                this.animateWalk(TherizinosaurusAttackAnimations.CHARGE, limbSwing, limbSwingAmount, 1, 2);
-            }
+        if (!entity.isInWater() && !entity.isMobEepy() && entity.getPose() != UP2Poses.ATTACKING.get()) {
+            if (entity.isRunning()) this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.15F, 2.3F);
+            else this.animateWalk(entity.isShaved() ? TherizinosaurusAnimations.WALK : TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.6F, 3.2F);
         }
 
         this.animateIdle(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 2);
-        this.animate(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
-		this.animate(entity.attack1AnimationState, TherizinosaurusAttackAnimations.SLASH1, ageInTicks);
-		this.animate(entity.attack2AnimationState, TherizinosaurusAttackAnimations.SLASH2, ageInTicks);
-        this.animate(entity.chargeStartAnimationState, TherizinosaurusAttackAnimations.CHARGE_START, ageInTicks);
-        this.animate(entity.chargeEndAnimationState, TherizinosaurusAttackAnimations.CHARGE_END, ageInTicks);
-        this.animate(entity.slashRushAnimationState, TherizinosaurusAttackAnimations.SLASH_FRENZY, ageInTicks);
+        this.animate(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks);
+		this.animate(entity.attack1AnimationState, TherizinosaurusAnimations.SLASH1, ageInTicks);
+		this.animate(entity.attack2AnimationState, TherizinosaurusAnimations.SLASH2, ageInTicks);
         this.animate(entity.forageLowAnimationState, TherizinosaurusAnimations.GRAZE_LOW, ageInTicks);
         this.animate(entity.forageHighAnimationState, TherizinosaurusAnimations.GRAZE_HIGH, ageInTicks);
         this.animate(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
@@ -191,7 +183,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animate(entity.sleepStartAnimationState, TherizinosaurusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sleepAnimationState, TherizinosaurusAnimations.SIT, ageInTicks);
         this.animate(entity.sleepEndAnimationState, TherizinosaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.roarAnimationState, TherizinosaurusAttackAnimations.AGGRO_ROAR_BLEND, ageInTicks);
+        this.animate(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
 
         this.head.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

@@ -1228,13 +1228,6 @@
     ],
     "subtitle": "subtitles.onchopristis_hurt"
   },
-  "pachycephalosaurus_attack": {
-    "sounds": [
-      "unusual_prehistory:entity/pachycephalosaurus/attack1",
-      "unusual_prehistory:entity/pachycephalosaurus/attack2"
-    ],
-    "subtitle": "subtitles.pachycephalosaurus_attack"
-  },
   "pachycephalosaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/pachycephalosaurus/death1"

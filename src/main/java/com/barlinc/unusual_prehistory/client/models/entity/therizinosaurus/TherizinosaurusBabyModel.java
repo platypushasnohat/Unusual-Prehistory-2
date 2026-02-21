@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus;
 
 import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusBabyAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
 import net.minecraft.client.model.geom.ModelPart;
@@ -105,12 +106,12 @@ public class TherizinosaurusBabyModel extends UP2Model<Therizinosaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (!entity.isInWater() && !entity.isMobEepy()) {
-            if (entity.isRunning()) this.animateWalk(TherizinosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 1);
-            else this.animateWalk(TherizinosaurusAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isRunning()) this.animateWalk(TherizinosaurusBabyAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 1);
+            else this.animateWalk(TherizinosaurusBabyAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdle(entity.idleAnimationState, TherizinosaurusAnimations.BABY_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, TherizinosaurusAnimations.BABY_SWIM, ageInTicks, 1 + limbSwingAmount * 4);
+        this.animateIdle(entity.idleAnimationState, TherizinosaurusBabyAnimations.BABY_IDLE, ageInTicks, 1, limbSwingAmount * 4);
+        this.animate(entity.swimAnimationState, TherizinosaurusBabyAnimations.BABY_SWIM, ageInTicks, 1 + limbSwingAmount * 4);
 
         this.head.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.head.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

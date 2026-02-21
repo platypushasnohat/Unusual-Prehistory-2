@@ -57,17 +57,12 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     private final VibrationSystem.Data vibrationData;
 
     public int slashCooldown = 0;
-    public int slashRushCooldown = 100 + this.getRandom().nextInt(60);
-    public int chargeCooldown = 250 + this.getRandom().nextInt(400);
 
     public int vibrationCooldown = 0;
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState slashRushAnimationState = new AnimationState();
-    public final AnimationState chargeStartAnimationState = new AnimationState();
-    public final AnimationState chargeEndAnimationState = new AnimationState();
     public final AnimationState forageLowAnimationState = new AnimationState();
     public final AnimationState forageHighAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();
@@ -77,9 +72,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public final AnimationState roarAnimationState = new AnimationState();
 
     private int attackTicks;
-    private int slashRushTicks;
-    private int chargeStartTicks;
-    private int chargeEndTicks;
 
     private int alertTicks;
     private int foragingTicks;
@@ -169,21 +161,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         return stack.is(UP2ItemTags.THERIZINOSAURUS_FOOD);
     }
 
-    public boolean isWithinChargeYRange(LivingEntity target) {
-        if (target == null) return false;
-        return Math.abs(target.getY() - this.getY()) < 2;
-    }
-
     public boolean targetsEverything(Entity entity) {
         return this.getAngerLevel() > 3;
-    }
-
-    public void slashRushCooldown() {
-        this.slashRushCooldown = 100 + this.getRandom().nextInt(60);
-    }
-
-    public void chargeCooldown() {
-        this.chargeCooldown = 250 + this.getRandom().nextInt(400);
     }
 
     @Override
@@ -205,8 +184,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public void tick() {
         super.tick();
         if (slashCooldown > 0) slashCooldown--;
-        if (slashRushCooldown > 0) slashRushCooldown--;
-        if (chargeCooldown > 0) chargeCooldown--;
         if (vibrationCooldown > 0) vibrationCooldown--;
         if (this.getAngerTime() > 0) this.setAngerTime(this.getAngerTime() - 1);
 
@@ -221,16 +198,10 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     public void setupAnimationCooldowns() {
         if (attackTicks > 0) attackTicks--;
-        if (slashRushTicks > 0) slashRushTicks--;
-        if (chargeStartTicks > 0) chargeStartTicks--;
-        if (chargeEndTicks > 0) chargeEndTicks--;
         if (foragingTicks > 0) foragingTicks--;
         if (alertTicks > 0) alertTicks--;
         if (roarTicks > 0) roarTicks--;
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
-        if (slashRushTicks == 0 && this.getPose() == UP2Poses.SLASH_RUSH.get()) this.setPose(Pose.STANDING);
-        if (chargeStartTicks == 0 && this.getPose() == UP2Poses.START_CHARGING.get()) this.setPose(UP2Poses.CHARGING.get());
-        if (chargeEndTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
         if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
         if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
         if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
@@ -246,9 +217,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        if (slashRushTicks == 0 && this.slashRushAnimationState.isStarted()) this.slashRushAnimationState.stop();
-        if (chargeStartTicks == 0 && this.chargeStartAnimationState.isStarted()) this.chargeStartAnimationState.stop();
-        if (chargeEndTicks == 0 && this.chargeEndAnimationState.isStarted()) this.chargeEndAnimationState.stop();
         if (foragingTicks == 0 && (this.forageLowAnimationState.isStarted() || this.forageHighAnimationState.isStarted())) {
             this.forageLowAnimationState.stop();
             this.forageHighAnimationState.stop();
@@ -259,15 +227,12 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
         if (roarTicks == 0 && this.roarAnimationState.isStarted()) this.roarAnimationState.stop();
 
-        this.idleAnimationState.animateWhen(!this.isInAttackingPose() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater() && !this.isInAttackingPose(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
-            this.slashRushAnimationState.stop();
-            this.chargeStartAnimationState.stop();
-            this.chargeEndAnimationState.stop();
             this.idleAnimationState.stop();
             this.forageLowAnimationState.stop();
             this.forageHighAnimationState.stop();
@@ -289,10 +254,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    public boolean isInAttackingPose() {
-        return this.getPose() == UP2Poses.ATTACKING.get() || this.getPose() == UP2Poses.SLASH_RUSH.get() || this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get();
-    }
-
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
@@ -300,22 +261,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
                 else this.attack2AnimationState.start(this.tickCount);
                 this.attackTicks = 20;
-            }
-            else if (this.getPose() == UP2Poses.SLASH_RUSH.get()) {
-                this.slashRushAnimationState.start(this.tickCount);
-                this.slashRushTicks = 50;
-            }
-            else if (this.getPose() == UP2Poses.START_CHARGING.get()) {
-                this.chargeStartAnimationState.start(this.tickCount);
-                this.chargeStartTicks = 40;
-            }
-            else if (this.getPose() == UP2Poses.CHARGING.get()) {
-                this.chargeStartAnimationState.stop();
-            }
-            else if (this.getPose() == UP2Poses.STOP_CHARGING.get()) {
-                this.chargeStartAnimationState.stop();
-                this.chargeEndAnimationState.start(this.tickCount);
-                this.chargeEndTicks = 40;
             }
             else if (this.getPose() == UP2Poses.FORAGING.get()) {
                 if (this.isForagingTree()) this.forageHighAnimationState.start(this.tickCount);
@@ -334,9 +279,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
-                this.slashRushAnimationState.stop();
-                this.chargeStartAnimationState.stop();
-                this.chargeEndAnimationState.stop();
                 this.forageLowAnimationState.stop();
                 this.forageHighAnimationState.stop();
                 this.roarAnimationState.stop();

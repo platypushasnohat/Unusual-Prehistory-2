@@ -18,6 +18,8 @@
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
@@ -47,6 +49,8 @@
 
  public class Brachiosaurus extends SemiAquaticMob {
 
+     private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
+
      private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(4.1F, 6.1F);
 
      private final BrachiosaurusPart[] allParts;
@@ -55,9 +59,6 @@
      public final BrachiosaurusPart neckPart2;
      public final BrachiosaurusPart tailPart1;
      public final BrachiosaurusPart tailPart2;
-
-     public int attackCooldown = 0;
-     public int stompCooldown = 100;
 
      private double lastStompX = 0;
      private double lastStompZ = 0;
@@ -71,13 +72,8 @@
 
      private boolean wasPreviouslyBaby;
 
-     public final AnimationState attack1AnimationState = new AnimationState();
-     public final AnimationState attack2AnimationState = new AnimationState();
-     public final AnimationState tailWhip1AnimationState = new AnimationState();
-     public final AnimationState tailWhip2AnimationState = new AnimationState();
      public final AnimationState stompAnimationState = new AnimationState();
 
-     private int attackTicks;
      private int stompTicks;
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
@@ -374,10 +370,6 @@
 
      @Override
      public void setupAnimationStates() {
-         if (attackTicks == 0 && (this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted())) {
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-         }
          if (stompTicks == 0 && this.stompAnimationState.isStarted()) this.stompAnimationState.stop();
          this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get(), this.tickCount);
 
@@ -385,10 +377,6 @@
              this.sitEndAnimationState.stop();
              this.idleAnimationState.stop();
              this.stompAnimationState.stop();
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-             this.tailWhip1AnimationState.stop();
-             this.tailWhip2AnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -406,38 +394,39 @@
 
      @Override
      public void setupAnimationCooldowns() {
-         if (attackTicks > 0) attackTicks--;
          if (stompTicks > 0) stompTicks--;
-         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.attackCooldown = 6 + this.getRandom().nextInt(8);
-             this.setPose(Pose.STANDING);
-         }
          if (stompTicks == 0 && this.getPose() == UP2Poses.STOMPING.get()) {
              this.setPose(Pose.STANDING);
          }
-         if (attackCooldown > 0) attackCooldown--;
-         if (stompCooldown > 0) stompCooldown--;
+         if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
      }
 
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
-                 else this.attack2AnimationState.start(this.tickCount);
-                 this.attackTicks = 40;
-             }
-             else if (this.getPose() == UP2Poses.STOMPING.get()) {
+             if (this.getPose() == UP2Poses.STOMPING.get()) {
                  this.stompAnimationState.start(this.tickCount);
                  this.stompTicks = 70;
              }
              else if (this.getPose() == Pose.STANDING) {
-                 this.attack1AnimationState.stop();
-                 this.attack2AnimationState.stop();
                  this.stompAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(STOMP_COOLDOWN, 0);
+     }
+
+     public void setStompCooldown(int cooldown) {
+         this.entityData.set(STOMP_COOLDOWN, cooldown);
+     }
+
+     public int getStompCooldown() {
+         return this.entityData.get(STOMP_COOLDOWN);
      }
 
      @Override
