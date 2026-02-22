@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Aegirocassis",
       "id": "aegirocassis",
-      "flavor_text": "Aegir’s-Helmet",
+      "flavor_text": "Aegir’s-helmet",
       "fossil_item": "unusual_prehistory:bristle_fossil",
       "egg_item": "unusual_prehistory:aegirocassis_eggs",
       "variant_key": "",
@@ -17,8 +17,8 @@
     {
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "early_paleozoic",
-      "era_tooltip_period": "Early Paleozoic Period",
+      "era_image": "early_ordovician",
+      "era_tooltip_period": "Early Ordovician Period",
 
       "temperament.temperament_type": "passive",
 

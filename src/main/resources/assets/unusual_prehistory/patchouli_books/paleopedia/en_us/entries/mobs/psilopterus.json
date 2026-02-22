@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Psilopterus",
       "id": "psilopterus",
-      "flavor_text": "Bare-Wing",
+      "flavor_text": "bare-wing",
       "fossil_item": "unusual_prehistory:crooked_beak_fossil",
       "egg_item": "unusual_prehistory:psilopterus_egg",
       "variant_key": "",
@@ -18,7 +18,7 @@
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "psilopterus",
-      "era_tooltip_period": "Early Cenozoic into Late Cenozoic Period",
+      "era_tooltip_period": "Early Cenozoic into the Late Cenozoic Period",
 
       "temperament.temperament_type": "neutral",
 

@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Leptictidium",
       "id": "leptictidium",
-      "flavor_text": "Graceful-Weasel",
+      "flavor_text": "graceful-weasel",
       "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
       "egg_item": "unusual_prehistory:leptictidium_embryo",
       "variant_key": "",

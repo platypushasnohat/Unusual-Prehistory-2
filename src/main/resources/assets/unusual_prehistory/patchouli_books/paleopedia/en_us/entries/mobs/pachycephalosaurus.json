@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Pachycephalosaurus",
       "id": "pachycephalosaurus",
-      "flavor_text": "Thick-Headed-Lizard",
+      "flavor_text": "thick-head-lizard",
       "fossil_item": "unusual_prehistory:cranium_fossil",
       "egg_item": "unusual_prehistory:pachycephalosaurus_egg",
       "variant_key": "",

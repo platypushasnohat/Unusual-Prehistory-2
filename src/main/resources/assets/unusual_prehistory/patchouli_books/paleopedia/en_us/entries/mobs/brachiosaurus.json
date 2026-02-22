@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Brachiosaurus",
       "id": "brachiosaurus",
-      "flavor_text": "Arm-Lizard",
+      "flavor_text": "arm-lizard",
       "fossil_item": "unusual_prehistory:arm_fossil",
       "egg_item": "unusual_prehistory:brachiosaurus_egg",
       "variant_key": "",

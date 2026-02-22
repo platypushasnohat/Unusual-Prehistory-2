@@ -1,16 +1,16 @@
 {
-  "name": "Pterodactylus ",
-  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus .png",
+  "name": "Pterodactylus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus.png",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_pterodactylus ",
+  "advancement": "unusual_prehistory:revive_pterodactylus",
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Pterodactylus ",
-      "id": "pterodactylus ",
-      "flavor_text": "Winged-Finger",
+      "display_name": "Pterodactylus",
+      "id": "pterodactylus",
+      "flavor_text": "winged-finger",
       "fossil_item": "unusual_prehistory:wing_fossil",
-      "egg_item": "unusual_prehistory:pterodactylus _egg",
+      "egg_item": "unusual_prehistory:pterodactylus_egg",
       "variant_key": "",
       "image_tooltip": ""
     },
@@ -20,7 +20,7 @@
       "era_image": "late_jurassic",
       "era_tooltip_period": "Late Jurassic Period",
 
-      "temperab ment.temperament_type": "passive",
+      "temperament.temperament_type": "passive",
 
       "clone.clone_type": "projectile_egg",  
       "clone.clone_tooltip_heading": "Projectile Egg",  

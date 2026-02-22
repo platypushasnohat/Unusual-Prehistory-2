@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Therizinosaurus",
       "id": "therizinosaurus",
-      "flavor_text": "Scythe-Lizard",
+      "flavor_text": "scythe-lizard",
       "fossil_item": "unusual_prehistory:scythe_fossil",
       "egg_item": "unusual_prehistory:therizinosaurus_egg",
       "variant_key": "",

@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:cenozoic_root",
+  "criteria": {
+    "revive_leptictidium": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:leptictidium"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_leptictidium.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:leptictidium_embryo"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_leptictidium"
+    }
+  },
+  "requirements": [
+    [
+      "revive_leptictidium"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

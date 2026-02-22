@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:mob_entry_1",
       "display_name": "Praepusa",
       "id": "praepusa",
-      "flavor_text": "Early-Seal",
+      "flavor_text": "early-seal",
       "fossil_item": "unusual_prehistory:flipper_fossil",
       "egg_item": "unusual_prehistory:praepusa_embryo",
       "variant_key": "",
