@@ -175,6 +175,26 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).addTag(UP2EntityTags.TINY_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_AQUATIC_PREY);
 
+        this.tag(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS).add(
+                EntityType.COW,
+                EntityType.SHEEP,
+                EntityType.CHICKEN,
+                EntityType.PIG,
+                EntityType.VILLAGER,
+                EntityType.MOOSHROOM,
+                EntityType.STRIDER,
+                EntityType.SNOW_GOLEM,
+                LYSTROSAURUS.get(),
+                LEPTICTIDIUM.get(),
+                PRAEPUSA.get(),
+                TALPANAS.get(),
+                TELECREX.get()
+        );
+
+        this.tag(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS_TO_KILL).add(
+                EntityType.GOAT
+        );
+
         this.tag(UP2EntityTags.PRAEPUSA_TARGETS).add(
                 JAWLESS_FISH.get(), EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH
         );

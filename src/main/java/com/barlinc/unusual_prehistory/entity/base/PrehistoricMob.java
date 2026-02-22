@@ -82,6 +82,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private float tailYaw;
     private float prevTailYaw;
 
+    public int fleeTicks = 0;
+    public Vec3 fleeFromPosition;
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sleepStartAnimationState = new AnimationState();
     public final AnimationState sleepAnimationState = new AnimationState();
@@ -373,6 +376,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setDancing(false);
             this.jukeboxPosition = null;
         }
+
+        if (!this.level().isClientSide && fleeTicks > 0) fleeTicks--;
     }
 
     protected boolean isInRain() {

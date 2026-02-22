@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-14T11:49:12.4646151	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.20.1	2026-02-21T22:05:24.980829	Tags for minecraft:entity_type mod id unusual_prehistory
 a2fd5c638c5161eb3bd83ce5f3de631f284f0ffd data/minecraft/tags/entity_types/frog_food.json
 9fa2991b295c795deea931f2d122ba1e32298ea6 data/unusual_prehistory/tags/entity_types/aquatic_monsters.json
 aed0b301a9b400ac29141610eecf4ceabb56afe6 data/unusual_prehistory/tags/entity_types/big_dunkleosteus_targets.json
@@ -38,6 +38,8 @@ af4260aaeeae74e7c7a4c4af7af6ad20e342ad75 data/unusual_prehistory/tags/entity_typ
 6e16ab10b99fec8046e9377bd0bd5482b065ef9a data/unusual_prehistory/tags/entity_types/metriorhynchus_targets.json
 e95f0e4fa92096c873d481607631adeefdd7888f data/unusual_prehistory/tags/entity_types/monsters.json
 6e16ab10b99fec8046e9377bd0bd5482b065ef9a data/unusual_prehistory/tags/entity_types/onchopristis_targets.json
+62ae12aec23010054a705956b6bdbb8e78ea247f data/unusual_prehistory/tags/entity_types/pachycephalosaurus_targets.json
+8402c24b8872a973f5f97bfec0ac81ef2b167b89 data/unusual_prehistory/tags/entity_types/pachycephalosaurus_targets_to_kill.json
 533c8efa89ec82700f23e3dca8ea244f526b995d data/unusual_prehistory/tags/entity_types/praepusa_avoids.json
 5e7effbf585b098cb7a3c9750aaad64b17eb094d data/unusual_prehistory/tags/entity_types/praepusa_targets.json
 96a304ef1907663eb4036a17213a6291f32cf105 data/unusual_prehistory/tags/entity_types/small_animals.json

@@ -183,9 +183,11 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     public void tick() {
         super.tick();
-        if (slashCooldown > 0) slashCooldown--;
-        if (vibrationCooldown > 0) vibrationCooldown--;
-        if (this.getAngerTime() > 0) this.setAngerTime(this.getAngerTime() - 1);
+        if (!this.level().isClientSide) {
+            if (slashCooldown > 0) slashCooldown--;
+            if (vibrationCooldown > 0) vibrationCooldown--;
+            if (this.getAngerTime() > 0) this.setAngerTime(this.getAngerTime() - 1);
+        }
 
         if (!this.level().isClientSide && this.getAngerTime() == 0) {
             if (this.getAngerLevel() > 0) {
@@ -197,17 +199,19 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (attackTicks > 0) attackTicks--;
-        if (foragingTicks > 0) foragingTicks--;
-        if (alertTicks > 0) alertTicks--;
-        if (roarTicks > 0) roarTicks--;
-        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
-        if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
-        if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
-        if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
-        if (!this.isMobEepy()) {
-            if (shakeCooldown > 0) shakeCooldown--;
-            if (stretchCooldown > 0) stretchCooldown--;
+        if (!this.level().isClientSide) {
+            if (attackTicks > 0) attackTicks--;
+            if (foragingTicks > 0) foragingTicks--;
+            if (alertTicks > 0) alertTicks--;
+            if (roarTicks > 0) roarTicks--;
+            if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+            if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
+            if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
+            if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
+            if (!this.isMobEepy()) {
+                if (shakeCooldown > 0) shakeCooldown--;
+                if (stretchCooldown > 0) stretchCooldown--;
+            }
         }
     }
 
@@ -261,22 +265,18 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
                 else this.attack2AnimationState.start(this.tickCount);
                 this.attackTicks = 20;
-            }
-            else if (this.getPose() == UP2Poses.FORAGING.get()) {
+            } else if (this.getPose() == UP2Poses.FORAGING.get()) {
                 if (this.isForagingTree()) this.forageHighAnimationState.start(this.tickCount);
                 else this.forageLowAnimationState.start(this.tickCount);
                 this.foragingTicks = 60;
-            }
-            else if (this.getPose() == UP2Poses.ALERTED.get()) {
+            } else if (this.getPose() == UP2Poses.ALERTED.get()) {
                 if (this.getRandom().nextBoolean()) this.alert1AnimationState.start(this.tickCount);
                 else this.alert2AnimationState.start(this.tickCount);
                 this.alertTicks = 80;
-            }
-            else if (this.getPose() == UP2Poses.ENRAGED.get()) {
+            } else if (this.getPose() == UP2Poses.ENRAGED.get()) {
                 this.roarAnimationState.start(this.tickCount);
                 this.roarTicks = 60;
-            }
-            else if (this.getPose() == Pose.STANDING) {
+            } else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
                 this.forageLowAnimationState.stop();

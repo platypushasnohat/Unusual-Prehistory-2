@@ -527,6 +527,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN,
                 sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/warn1"))
         );
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_BONK,
+                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/bonk1"))
+        );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP,
                 sound("mob/pig/step1").pitch(0.85F),
                 sound("mob/pig/step2").pitch(0.85F),

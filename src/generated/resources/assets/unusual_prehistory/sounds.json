@@ -1228,6 +1228,12 @@
     ],
     "subtitle": "subtitles.onchopristis_hurt"
   },
+  "pachycephalosaurus_bonk": {
+    "sounds": [
+      "unusual_prehistory:entity/pachycephalosaurus/bonk1"
+    ],
+    "subtitle": "subtitles.pachycephalosaurus_bonk"
+  },
   "pachycephalosaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/pachycephalosaurus/death1"

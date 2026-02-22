@@ -52,6 +52,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = modEntityTag("megalania_targets");
     public static final TagKey<EntityType<?>> METRIORHYNCHUS_TARGETS = modEntityTag("metriorhynchus_targets");
     public static final TagKey<EntityType<?>> ONCHOPRISTIS_TARGETS = modEntityTag("onchopristis_targets");
+    public static final TagKey<EntityType<?>> PACHYCEPHALOSAURUS_TARGETS = modEntityTag("pachycephalosaurus_targets");
+    public static final TagKey<EntityType<?>> PACHYCEPHALOSAURUS_TARGETS_TO_KILL = modEntityTag("pachycephalosaurus_targets_to_kill");
     public static final TagKey<EntityType<?>> PRAEPUSA_TARGETS = modEntityTag("praepusa_targets");
     public static final TagKey<EntityType<?>> SMALL_PSILOPTERUS_PACK_TARGETS = modEntityTag("small_psilopterus_pack_targets");
     public static final TagKey<EntityType<?>> MEDIUM_PSILOPTERUS_PACK_TARGETS = modEntityTag("medium_psilopterus_pack_targets");

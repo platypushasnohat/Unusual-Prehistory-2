@@ -106,7 +106,7 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 	public void setupAnim(Pachycephalosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater() && !entity.isMobSitting() && entity.getPose() != UP2Poses.WARNING.get()) {
+		if (!entity.isInWater() && !entity.isMobEepy() && !entity.isInEepyPoseTransition() && entity.getPose() != UP2Poses.WARNING.get() && entity.getPose() != UP2Poses.RECOVERING.get()) {
             if (entity.isRunning() && entity.getAttackState() != 1) this.animateWalk(PachycephalosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else if (entity.getAttackState() == 1) this.animateWalk(PachycephalosaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
@@ -122,11 +122,14 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
         this.animate(entity.sleepEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
         this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
         this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
+        this.animate(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-        this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        if (!entity.isMobEepy()) {
+            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        }
 	}
 
 	@Override
