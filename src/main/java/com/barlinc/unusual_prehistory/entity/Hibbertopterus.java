@@ -72,7 +72,7 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4, true));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
          this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));

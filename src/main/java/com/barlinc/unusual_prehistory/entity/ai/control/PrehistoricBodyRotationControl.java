@@ -14,6 +14,6 @@ public class PrehistoricBodyRotationControl extends BodyRotationControl {
 
     @Override
     public void clientTick() {
-        if (!mob.refuseToMove()) super.clientTick();
+        if (!mob.refuseToLook()) super.clientTick();
     }
 }

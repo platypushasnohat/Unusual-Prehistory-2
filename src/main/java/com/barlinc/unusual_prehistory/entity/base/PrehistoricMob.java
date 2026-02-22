@@ -82,9 +82,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private float tailYaw;
     private float prevTailYaw;
 
-    public int fleeTicks = 0;
-    public Vec3 fleeFromPosition;
-
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sleepStartAnimationState = new AnimationState();
     public final AnimationState sleepAnimationState = new AnimationState();
@@ -93,6 +90,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public final AnimationState sitAnimationState = new AnimationState();
     public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState danceAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -376,8 +374,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setDancing(false);
             this.jukeboxPosition = null;
         }
-
-        if (!this.level().isClientSide && fleeTicks > 0) fleeTicks--;
     }
 
     protected boolean isInRain() {
@@ -445,6 +441,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean refuseToMove() {
+        return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isInEepyPoseTransition() || this.isMobEepy();
+    }
+
+    public boolean refuseToLook() {
         return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isInEepyPoseTransition() || this.isMobEepy();
     }
 

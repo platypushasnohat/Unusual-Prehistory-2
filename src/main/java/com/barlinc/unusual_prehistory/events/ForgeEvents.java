@@ -1,12 +1,11 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
-import com.barlinc.unusual_prehistory.entity.Majungasaurus;
-import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
+import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -63,6 +62,13 @@ public class ForgeEvents {
             if (mob instanceof Zombie zombie) {
                 zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
             }
+            if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getMobType() == MobType.ARTHROPOD) {
+                if (pathfinderMob instanceof PrehistoricMob prehistoricMob) {
+                    prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D));
+                } else {
+                    pathfinderMob.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinderMob, Leptictidium.class, 12.0F, 1.5D, 1.5D));
+                }
+            }
         }
     }
 
@@ -80,7 +86,10 @@ public class ForgeEvents {
         DamageSource damageSource = event.getSource();
 
         if (entity instanceof Guardian && damageSource.getEntity() instanceof Dunkleosteus) {
-            event.setAmount(event.getAmount() * 4);
+            event.setAmount(event.getAmount() * 2);
+        }
+        if (entity.getMobType() == MobType.ARTHROPOD && damageSource.getEntity() instanceof Leptictidium) {
+            event.setAmount(event.getAmount() * 2);
         }
     }
 

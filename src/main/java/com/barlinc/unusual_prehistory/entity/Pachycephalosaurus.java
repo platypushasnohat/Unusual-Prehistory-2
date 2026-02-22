@@ -55,7 +55,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
     public final AnimationState stomp1AnimationState = new AnimationState();
     public final AnimationState stomp2AnimationState = new AnimationState();
     public final AnimationState grazeAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState warnAnimationState = new AnimationState();
     public final AnimationState recoverAnimationState = new AnimationState();
 
@@ -69,7 +68,12 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FleeAttackerGoal(this, 1.7D));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.7D) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && Pachycephalosaurus.this.isBaby() || Pachycephalosaurus.this.getHealth() <= Pachycephalosaurus.this.getMaxHealth() * 0.5F;
+            }
+        });
         this.goalSelector.addGoal(2, new PachycephalosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
@@ -147,16 +151,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public boolean canSpawnSprintParticle() {
         return this.getDeltaMovement().horizontalDistance() > 0.05D && this.getAttackState() == 1 && !this.isInWater() && !this.isSpectator() && !this.isCrouching() && !this.isInLava() && this.isAlive() && !this.isInFluidType();
-    }
-
-    @Override
-    public boolean hurt(@NotNull DamageSource damageSource, float damageValue) {
-        boolean hurt = super.hurt(damageSource, damageValue);
-        if (hurt && (this.getHealth() <= this.getMaxHealth() * 0.5F || this.isBaby()) && damageSource.getEntity() != null && damageSource.getEntity().isAlive() && !(damageSource.getEntity() instanceof Player player && player.isCreative())) {
-            this.fleeTicks = 60 + random.nextInt(60);
-            this.fleeFromPosition = damageSource.getEntity().position();
-        }
-        return hurt;
     }
 
     @Override
@@ -253,7 +247,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     public void handleEntityEvent(byte id) {
         switch (id) {
-            case 39 -> this.spawnImpactParticles(6, 0.25D);
+            case 39 -> this.spawnImpactParticles(4, 0.25D);
             case 67 -> this.grazeAnimationState.start(this.tickCount);
             case 68 -> this.grazeAnimationState.stop();
             case 69 -> this.huffAnimationState.start(this.tickCount);

@@ -61,6 +61,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> STETHACANTHUS_TARGETS = modEntityTag("stethacanthus_targets");
     public static final TagKey<EntityType<?>> ULUGHBEGSAURUS_TARGETS = modEntityTag("ulughbegsaurus_targets");
 
+    public static final TagKey<EntityType<?>> LEPTICTIDIUM_DOESNT_TARGET = modEntityTag("leptictidium_doesnt_target");
+
     // Avoids
     public static final TagKey<EntityType<?>> COELACANTHUS_AVOIDS = modEntityTag("coelacanthus_avoids");
     public static final TagKey<EntityType<?>> DROMAEOSAURUS_AVOIDS = modEntityTag("dromaeosaurus_avoids");
