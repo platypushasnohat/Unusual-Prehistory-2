@@ -13,6 +13,7 @@
 	"use_resource_pack": true,
     "use_blocky_font": true,
     "show_progress": false,
+    "pause_game": true,
     "text_overflow_mode": "resize",
     "nameplate_color": "f29a1f",
     "header_color": "968351",

@@ -32,7 +32,7 @@ public class UP2LanguageProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
+        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory");
 
         // blocks
         UP2Blocks.BLOCK_TRANSLATIONS.forEach(this::forBlock);

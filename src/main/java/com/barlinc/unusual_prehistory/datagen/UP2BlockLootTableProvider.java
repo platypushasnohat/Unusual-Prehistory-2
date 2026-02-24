@@ -68,9 +68,13 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(VISTOSTONE_STAIRS.get());
         this.add(VISTOSTONE_SLAB.get(), this::createSlabItemTable);
 
-        this.dropSelf(FOSSILIZED_BONE_BLOCK.get());
-        this.dropSelf(FOSSILIZED_BONE_BARK.get());
-        this.dropSelf(FOSSILIZED_BONE_VERTEBRA.get());
+        this.add(FOSSILIZED_BONE_BLOCK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+        this.add(FOSSILIZED_BONE_BARK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+        this.add(FOSSILIZED_BONE_VERTEBRA.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+        this.add(FOSSILIZED_BONE_ROD.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+        this.add(FOSSILIZED_BONE_SPIKE.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+        this.add(FOSSILIZED_BONE_ROW.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
+
         this.dropSelf(FOSSILIZED_SKULL.get());
         this.dropSelf(FOSSILIZED_SKULL_LANTERN.get());
         this.dropSelf(FOSSILIZED_SKULL_SOUL_LANTERN.get());
@@ -78,10 +82,6 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(COBBLED_FOSSILIZED_BONE.get());
         this.dropSelf(COBBLED_FOSSILIZED_BONE_STAIRS.get());
         this.add(COBBLED_FOSSILIZED_BONE_SLAB.get(), this::createSlabItemTable);
-
-        this.dropSelf(FOSSILIZED_BONE_ROD.get());
-        this.dropSelf(FOSSILIZED_BONE_SPIKE.get());
-        this.dropSelf(FOSSILIZED_BONE_ROW.get());
 
         this.dropSelf(PETRIFIED_BUSH.get());
         this.dropSelf(PETRIFIED_LOG.get());
