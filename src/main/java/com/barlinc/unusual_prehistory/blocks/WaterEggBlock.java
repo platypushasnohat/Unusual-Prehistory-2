@@ -2,8 +2,6 @@ package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
 import com.barlinc.unusual_prehistory.blocks.blockentity.WaterEggBlockEntity;
-import com.barlinc.unusual_prehistory.entity.KimmeridgebrachypteraeschnidiumNymph;
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -51,14 +49,8 @@ public class WaterEggBlock extends WaterEggBlockEntity {
                     if (entity instanceof Animal animal) {
                         animal.setBaby(true);
                     }
-                    if (entity instanceof PrehistoricAquaticMob prehistoricAquaticMob) {
-                        prehistoricAquaticMob.setFromEgg(true);
-                    }
                     if (entity instanceof PrehistoricMob prehistoricMob) {
                         prehistoricMob.setFromEgg(true);
-                    }
-                    if (entity instanceof KimmeridgebrachypteraeschnidiumNymph nymph) {
-                        nymph.setFromEgg(true);
                     }
                     int k = random.nextInt(1, 361);
                     if (placer != null) {
