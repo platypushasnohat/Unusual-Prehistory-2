@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -48,7 +47,7 @@ public class Palaeophis extends PrehistoricAquaticMob {
     public Palaeophis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.lookControl = new SmoothSwimmingLookControl(this, 6);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.body1Part = new PalaeophisPart(this, this, 1.8F, 1.2F);
         this.body2Part = new PalaeophisPart(this, body1Part, 1.8F, 1.2F);
@@ -70,7 +69,6 @@ public class Palaeophis extends PrehistoricAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 10));
     }
@@ -133,11 +131,21 @@ public class Palaeophis extends PrehistoricAquaticMob {
     }
 
     @Override
+    public boolean shouldFlop() {
+        return false;
+    }
+
+    @Override
     public void tick() {
         super.tick();
-//        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, this.getHeadRotSpeed());
+        this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, yBodyRot, this.getHeadRotSpeed());
         this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
         this.tickMultipart();
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     private void tickMultipart() {
