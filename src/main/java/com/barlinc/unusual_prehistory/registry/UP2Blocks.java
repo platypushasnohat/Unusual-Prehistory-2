@@ -39,17 +39,17 @@ public class UP2Blocks {
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
 
     // Fossil stones
-    public static final RegistryObject<Block> GREYNITE = registerBlock("greynite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> GREYNITE_STAIRS = registerBlock("greynite_stairs", () -> new StairBlock(() -> GREYNITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(GREYNITE.get())));
-    public static final RegistryObject<Block> GREYNITE_SLAB = registerBlock("greynite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GREYNITE.get())));
+    public static final RegistryObject<Block> PALEOSTONE = registerBlock("paleostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> PALEOSTONE_STAIRS = registerBlock("paleostone_stairs", () -> new StairBlock(() -> PALEOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(PALEOSTONE.get())));
+    public static final RegistryObject<Block> PALEOSTONE_SLAB = registerBlock("paleostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(PALEOSTONE.get())));
 
-    public static final RegistryObject<Block> RANATITE = registerBlock("ranatite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> RANATITE_STAIRS = registerBlock("ranatite_stairs", () -> new StairBlock(() -> RANATITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(RANATITE.get())));
-    public static final RegistryObject<Block> RANATITE_SLAB = registerBlock("ranatite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(RANATITE.get())));
+    public static final RegistryObject<Block> MESONITE = registerBlock("mesonite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> MESONITE_STAIRS = registerBlock("mesonite_stairs", () -> new StairBlock(() -> MESONITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(MESONITE.get())));
+    public static final RegistryObject<Block> MESONITE_SLAB = registerBlock("mesonite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(MESONITE.get())));
 
-    public static final RegistryObject<Block> VISTOSTONE = registerBlock("vistostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> VISTOSTONE_STAIRS = registerBlock("vistostone_stairs", () -> new StairBlock(() -> VISTOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(VISTOSTONE.get())));
-    public static final RegistryObject<Block> VISTOSTONE_SLAB = registerBlock("vistostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(VISTOSTONE.get())));
+    public static final RegistryObject<Block> FLORALITE = registerBlock("floralite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> FLORALITE_STAIRS = registerBlock("floralite_stairs", () -> new StairBlock(() -> FLORALITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(FLORALITE.get())));
+    public static final RegistryObject<Block> FLORALITE_SLAB = registerBlock("floralite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(FLORALITE.get())));
 
     // Fossils
     public static final RegistryObject<Block> FOSSILIZED_BONE_BLOCK = registerBlock("fossilized_bone_block", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));

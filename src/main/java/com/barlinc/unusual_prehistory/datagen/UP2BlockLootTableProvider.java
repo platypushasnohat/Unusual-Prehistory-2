@@ -56,17 +56,17 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         this.dropSelf(ASPHALT.get());
 
-        this.dropSelf(GREYNITE.get());
-        this.dropSelf(GREYNITE_STAIRS.get());
-        this.add(GREYNITE_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(PALEOSTONE.get());
+        this.dropSelf(PALEOSTONE_STAIRS.get());
+        this.add(PALEOSTONE_SLAB.get(), this::createSlabItemTable);
 
-        this.dropSelf(RANATITE.get());
-        this.dropSelf(RANATITE_STAIRS.get());
-        this.add(RANATITE_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(MESONITE.get());
+        this.dropSelf(MESONITE_STAIRS.get());
+        this.add(MESONITE_SLAB.get(), this::createSlabItemTable);
 
-        this.dropSelf(VISTOSTONE.get());
-        this.dropSelf(VISTOSTONE_STAIRS.get());
-        this.add(VISTOSTONE_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(FLORALITE.get());
+        this.dropSelf(FLORALITE_STAIRS.get());
+        this.add(FLORALITE_SLAB.get(), this::createSlabItemTable);
 
         this.add(FOSSILIZED_BONE_BLOCK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
         this.add(FOSSILIZED_BONE_BARK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));

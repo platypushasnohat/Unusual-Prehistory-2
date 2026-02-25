@@ -55,7 +55,7 @@ public class PrototaxitesClusterBlock extends BushBlock implements BonemealableB
     }
 
     public boolean growPrototaxites(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        Optional<? extends Holder<ConfiguredFeature<?, ?>>> optional = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(UP2Features.GOLDEN_GINKGO);
+        Optional<? extends Holder<ConfiguredFeature<?, ?>>> optional = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(UP2Features.PROTOTAXITES);
         if (optional.isEmpty()) {
             return false;
         } else {

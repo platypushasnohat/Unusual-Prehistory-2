@@ -1,0 +1,17 @@
+{
+  "feature": "unusual_prehistory:prototaxites",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "unusual_prehistory:prototaxites_cluster",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

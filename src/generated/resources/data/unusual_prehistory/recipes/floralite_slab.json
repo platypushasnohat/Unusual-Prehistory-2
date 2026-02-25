@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "V": {
+      "item": "unusual_prehistory:floralite"
+    }
+  },
+  "pattern": [
+    "VVV"
+  ],
+  "result": {
+    "count": 6,
+    "item": "unusual_prehistory:floralite_slab"
+  },
+  "show_notification": true
+}

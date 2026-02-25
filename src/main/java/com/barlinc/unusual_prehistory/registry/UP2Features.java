@@ -33,7 +33,8 @@ public class UP2Features {
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEPIDODENDRON = createConfiguredFeatureKey("lepidodendron");
     public static final ResourceKey<ConfiguredFeature<?, ?>> METASEQUOIA = createConfiguredFeatureKey("metasequoia");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_METASEQUOIA = createConfiguredFeatureKey("mega_metasequoia");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> METASEQUOIA_STRUCTURE = createConfiguredFeatureKey("metasequoia_structure");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PROTOTAXITES = createConfiguredFeatureKey("prototaxites");
 
     private static ResourceKey<PlacedFeature> createPlacedFeatureKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, UnusualPrehistory2.modPrefix(name));

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "R": {
+      "item": "unusual_prehistory:mesonite"
+    }
+  },
+  "pattern": [
+    "R  ",
+    "RR ",
+    "RRR"
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:mesonite_stairs"
+  },
+  "show_notification": true
+}
