@@ -254,7 +254,7 @@ public class UP2Entities {
             EntityType.Builder.of(Palaeophis::new, MobCategory.CREATURE)
                     .sized(1.8F, 1.25F)
                     .clientTrackingRange(10)
-                    .noSummon()
+//                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "palaeophis").toString())
     );
 
