@@ -150,19 +150,18 @@ public class PalaeophisModel extends UP2Model<Palaeophis> {
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
         double defaultY = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
-        double tail1Y = (entity.getTrailTransformation(10, partialTicks)) - defaultY;
-        double tail2Y = (entity.getTrailTransformation(19, partialTicks)) - defaultY - tail1Y;
-        double tail3Y = (entity.getTrailTransformation(27, partialTicks)) - defaultY - tail2Y;
-        double tail4Y = (entity.getTrailTransformation(34, partialTicks)) - defaultY - tail3Y;
-        double tail5Y = (entity.getTrailTransformation(40, partialTicks)) - defaultY - tail4Y;
-        double tail6Y = (entity.getTrailTransformation(45, partialTicks)) - defaultY - tail5Y;
-        double tail7Y = (entity.getTrailTransformation(49, partialTicks)) - defaultY - tail6Y;
-        double tail8Y = (entity.getTrailTransformation(52, partialTicks)) - defaultY - tail7Y;
+        double tail1Y = (entity.getTrailTransformation(8, partialTicks)) - defaultY;
+        double tail2Y = (entity.getTrailTransformation(15, partialTicks)) - defaultY - tail1Y;
+        double tail3Y = (entity.getTrailTransformation(21, partialTicks)) - defaultY - tail2Y;
+        double tail4Y = (entity.getTrailTransformation(26, partialTicks)) - defaultY - tail3Y;
+        double tail5Y = (entity.getTrailTransformation(30, partialTicks)) - defaultY - tail4Y;
+        double tail6Y = (entity.getTrailTransformation(33, partialTicks)) - defaultY - tail5Y;
+        double tail7Y = (entity.getTrailTransformation(35, partialTicks)) - defaultY - tail6Y;
 
         float swimPitch = Mth.lerp(0.2F, this.root.xRot, Mth.clamp(headPitch * deg, -0.4F, 0.4F));
         this.root.xRot += swimPitch * 0.35F;
         this.head.xRot += swimPitch * 0.4F;
-//        this.body_main.xRot += swimPitch * 0.4F;
+        this.body_main.xRot += swimPitch * 0.4F;
         this.body1.xRot += swimPitch * 0.35F;
         this.body2.xRot += swimPitch * 0.35F;
         this.body3.xRot += swimPitch * 0.3F;
@@ -171,7 +170,6 @@ public class PalaeophisModel extends UP2Model<Palaeophis> {
         this.tail2.xRot += swimPitch * 0.25F;
         this.tail3.xRot += swimPitch * 0.1F;
 
-//        this.body_main.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail1Y) * 0.3F);
         this.body_rotate1.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail1Y) * 0.35F);
         this.body_rotate2.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail2Y) * 0.35F);
         this.body_rotate3.yRot += (float) Math.toRadians(Mth.wrapDegrees(tail3Y) * 0.4F);

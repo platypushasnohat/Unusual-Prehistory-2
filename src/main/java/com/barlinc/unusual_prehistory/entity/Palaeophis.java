@@ -46,8 +46,8 @@ public class Palaeophis extends PrehistoricAquaticMob {
 
     public Palaeophis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 6);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.body1Part = new PalaeophisPart(this, this, 1.8F, 1.2F);
         this.body2Part = new PalaeophisPart(this, body1Part, 1.8F, 1.2F);
@@ -83,7 +83,7 @@ public class Palaeophis extends PrehistoricAquaticMob {
 
     @Override
     public int getHeadRotSpeed() {
-        return 4;
+        return 5;
     }
 
     @Override
