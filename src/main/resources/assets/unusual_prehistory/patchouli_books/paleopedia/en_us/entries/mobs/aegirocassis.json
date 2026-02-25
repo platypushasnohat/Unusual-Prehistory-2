@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/aegirocassis.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_aegirocassis",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:bristle_fossil": 0,
+    "unusual_prehistory:aegirocassis_eggs": 0,
+    "unusual_prehistory:aegirocassis_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",
