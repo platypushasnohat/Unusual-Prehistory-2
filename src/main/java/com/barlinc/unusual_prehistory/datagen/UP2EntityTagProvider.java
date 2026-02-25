@@ -219,6 +219,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 CARNOTAURUS.get(), MAJUNGASAURUS.get(), MEGALANIA.get()
         );
 
+        this.tag(UP2EntityTags.DIMORPHODON_AVOIDS).add(
+                CARNOTAURUS.get(), MAJUNGASAURUS.get(), MEGALANIA.get(),
+                BRACHIOSAURUS.get(), BARINASUCHUS.get(), KENTROSAURUS.get(),
+                MANIPULATOR.get(), METRIORHYNCHUS.get(), ULUGHBEGSAURUS.get(),
+                THERIZINOSAURUS.get(), HIBBERTOPTERUS.get()
+        );
+
         this.tag(UP2EntityTags.DIPLOCAULUS_AVOIDS).add(
                 DUNKLEOSTEUS.get(), METRIORHYNCHUS.get(), ONCHOPRISTIS.get(), MEGALANIA.get(),
                 CARNOTAURUS.get(), MAJUNGASAURUS.get(), DROMAEOSAURUS.get(),

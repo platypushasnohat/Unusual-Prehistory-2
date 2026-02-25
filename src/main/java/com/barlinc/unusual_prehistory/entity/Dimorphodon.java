@@ -74,19 +74,20 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
                 return !Dimorphodon.this.canPickUpTarget(Dimorphodon.this.getLastHurtByMob()) && super.canUse();
             }
         });
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIMORPHODON_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D) {
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.DIMORPHODON_AVOIDS)));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIMORPHODON_FOOD), false));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Dimorphodon.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(4, new RandomFlightGoal(this, 1.0F, 1.5F, 16, 5, 1500, 300));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new DimorphodonNipGoal(this));
-        this.goalSelector.addGoal(7, new DimorphodonTailChaseGoal(this));
+        this.goalSelector.addGoal(5, new RandomFlightGoal(this, 1.0F, 1.5F, 16, 5, 1500, 300));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new DimorphodonNipGoal(this));
+        this.goalSelector.addGoal(8, new DimorphodonTailChaseGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
@@ -117,6 +118,12 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
+        if (hurt && this.getHeldMobId() != -1) {
+            this.setHeldMobId(-1);
+            if (this.getTarget() != null) {
+                this.setTarget(null);
+            }
+        }
         if (hurt && source.getEntity() != null && this.isAlive() && this.getHealth() < this.getMaxHealth() * 0.5F) {
             this.setFlying(true);
             this.setRunning(true);
@@ -152,16 +159,17 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isFlying()) {
-            if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
-            if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
-        }
-
         if (this.getHeldMobId() != -1) {
             this.positionHeldMob();
         }
 
-        if (grabCooldown > 0) grabCooldown--;
+        if (!this.level().isClientSide) {
+            if (this.isFlying()) {
+                if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
+                if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
+            }
+            if (grabCooldown > 0) grabCooldown--;
+        }
     }
 
     @Override

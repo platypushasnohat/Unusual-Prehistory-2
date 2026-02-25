@@ -1,10 +1,8 @@
 {
-	"format_version": "1.21.11",
-	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "manipulator_ootheca",
-		"particle": "manipulator_ootheca"
+		"0": "unusual_prehistory:block/manipulator_ootheca",
+		"particle": "unusual_prehistory:block/manipulator_ootheca_particle"
 	},
 	"elements": [
 		{
@@ -26,9 +24,6 @@
 			"name": "root",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"wynncraft_billboard_pivot": "none",
-			"wynncraft_block_brightness": -1,
-			"wynncraft_sky_brightness": -1,
 			"children": [0]
 		}
 	]

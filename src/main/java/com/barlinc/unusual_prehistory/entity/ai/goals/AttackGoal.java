@@ -32,8 +32,7 @@ public class AttackGoal extends Goal {
 
     @Override
     public void stop() {
-        LivingEntity target = this.mob.getTarget();
-        if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)) this.mob.setTarget(null);
+        this.mob.setTarget(null);
         this.mob.setAttackState(0);
         this.mob.setAggressive(false);
         this.mob.setRunning(false);

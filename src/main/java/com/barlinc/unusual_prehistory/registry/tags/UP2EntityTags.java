@@ -66,6 +66,7 @@ public class UP2EntityTags {
     // Avoids
     public static final TagKey<EntityType<?>> COELACANTHUS_AVOIDS = modEntityTag("coelacanthus_avoids");
     public static final TagKey<EntityType<?>> DROMAEOSAURUS_AVOIDS = modEntityTag("dromaeosaurus_avoids");
+    public static final TagKey<EntityType<?>> DIMORPHODON_AVOIDS = modEntityTag("dimorphodon_avoids");
     public static final TagKey<EntityType<?>> DIPLOCAULUS_AVOIDS = modEntityTag("diplocaulus_avoids");
     public static final TagKey<EntityType<?>> JAWLESS_FISH_AVOIDS = modEntityTag("jawless_fish_avoids");
     public static final TagKey<EntityType<?>> LEPTICTIDIUM_AVOIDS = modEntityTag("leptictidium_avoids");

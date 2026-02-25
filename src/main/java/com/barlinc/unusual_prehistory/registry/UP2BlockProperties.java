@@ -24,6 +24,7 @@ public class UP2BlockProperties {
 
     public static final BlockBehaviour.Properties EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).noOcclusion();
     public static final BlockBehaviour.Properties WATER_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().sound(SoundType.FROGSPAWN);
+    public static final BlockBehaviour.Properties SQUISHY_EGG = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.6F).sound(SoundType.CORAL_BLOCK).noOcclusion();
 
     public static final BlockBehaviour.Properties FOSSIL_BLOCK = BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK);
 
