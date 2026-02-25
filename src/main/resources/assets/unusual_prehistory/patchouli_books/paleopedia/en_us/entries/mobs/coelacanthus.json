@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/coelacanthus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_coelacanthus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:gluttonous_fossil": 0,
+    "unusual_prehistory:coelacanthus_roe": 0,
+    "unusual_prehistory:coelacanthus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

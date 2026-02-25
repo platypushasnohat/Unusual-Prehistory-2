@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/barinasuchus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_barinasuchus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:brute_fossil": 0,
+    "unusual_prehistory:barinasuchus_egg": 0,
+    "unusual_prehistory:barinasuchus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

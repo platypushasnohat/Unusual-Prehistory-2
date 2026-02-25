@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/diplocaulus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_diplocaulus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:boomerang_fossil": 0,
+    "unusual_prehistory:diplocaulus_eggs": 0,
+    "unusual_prehistory:diplocaulus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

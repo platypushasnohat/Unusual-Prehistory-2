@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/stethacanthus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_stethacanthus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:anvil_fossil": 0,
+    "unusual_prehistory:stethacanthus_sac": 0,
+    "unusual_prehistory:stethacanthus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

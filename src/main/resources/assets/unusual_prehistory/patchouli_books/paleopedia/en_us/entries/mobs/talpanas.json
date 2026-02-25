@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/talpanas.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_talpanas",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:aged_feather": 0,
+    "unusual_prehistory:talpanas_egg": 0,
+    "unusual_prehistory:talpanas_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

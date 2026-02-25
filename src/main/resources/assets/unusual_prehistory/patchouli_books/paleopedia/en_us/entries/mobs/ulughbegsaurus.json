@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ulughbegsaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_ulughbegsaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:dubious_fossil": 0,
+    "unusual_prehistory:ulughbegsaurus_egg": 0,
+    "unusual_prehistory:ulughbegsaurus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

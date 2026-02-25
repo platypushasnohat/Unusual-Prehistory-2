@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dunkleosteus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_dunkleosteus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:guillotine_fossil": 0,
+    "unusual_prehistory:dunkleosteus_sac": 0,
+    "unusual_prehistory:dunkleosteus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

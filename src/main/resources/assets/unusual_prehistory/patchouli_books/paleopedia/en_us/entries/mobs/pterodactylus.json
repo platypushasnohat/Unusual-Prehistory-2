@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_pterodactylus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:wing_fossil": 0,
+    "unusual_prehistory:pterodactylus_egg": 0,
+    "unusual_prehistory:pterodactylus_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",

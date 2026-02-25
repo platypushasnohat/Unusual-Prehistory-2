@@ -3,6 +3,11 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/jawless_fish.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:revive_jawless_fish",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:jawless_fossil": 0,
+    "unusual_prehistory:jawless_fish_roe": 0,
+    "unusual_prehistory:jawless_fish_spawn_egg": 0
+  },
   "pages": [
     {
       "type": "unusual_prehistory:mob_entry_1",
