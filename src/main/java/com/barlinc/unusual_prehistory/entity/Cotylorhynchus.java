@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;

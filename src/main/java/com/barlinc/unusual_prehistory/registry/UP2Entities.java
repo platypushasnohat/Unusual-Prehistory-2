@@ -58,11 +58,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "coelacanthus").toString())
     );
 
+    // no summon
     public static final RegistryObject<EntityType<Cotylorhynchus>> COTYLORHYNCHUS = ENTITY_TYPE.register(
             "cotylorhynchus", () ->
             EntityType.Builder.of(Cotylorhynchus::new, MobCategory.CREATURE)
                     .sized(2.2F, 1.6F)
                     .clientTrackingRange(10)
+                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "cotylorhynchus").toString())
     );
 
@@ -106,11 +108,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "dunkleosteus").toString())
     );
 
+    // no summon
     public static final RegistryObject<EntityType<Eryon>> ERYON = ENTITY_TYPE.register(
             "eryon", () ->
             EntityType.Builder.of(Eryon::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.3F)
                     .clientTrackingRange(10)
+                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "eryon").toString())
     );
 
@@ -194,11 +198,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "majungasaurus").toString())
     );
 
+    // no summon
     public static final RegistryObject<EntityType<Mammoth>> MAMMOTH = ENTITY_TYPE.register(
             "mammoth", () ->
             EntityType.Builder.of(Mammoth::new, MobCategory.CREATURE)
                     .sized(3.2F, 5.2F)
                     .clientTrackingRange(10)
+                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "mammoth").toString())
     );
 
@@ -242,11 +248,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "pachycephalosaurus").toString())
     );
 
+    // no summon
     public static final RegistryObject<EntityType<Palaeophis>> PALAEOPHIS = ENTITY_TYPE.register(
             "palaeophis", () ->
             EntityType.Builder.of(Palaeophis::new, MobCategory.CREATURE)
                     .sized(1.8F, 1.25F)
                     .clientTrackingRange(10)
+                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "palaeophis").toString())
     );
 
@@ -261,7 +269,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Psilopterus>> PSILOPTERUS = ENTITY_TYPE.register(
             "psilopterus", () ->
             EntityType.Builder.of(Psilopterus::new, MobCategory.CREATURE)
-                    .sized(0.6F, 1.2F)
+                    .sized(0.6F, 1.48F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "psilopterus").toString())
     );
@@ -330,11 +338,13 @@ public class UP2Entities {
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "unicorn").toString())
     );
 
+    // no summon
     public static final RegistryObject<EntityType<Wonambi>> WONAMBI = ENTITY_TYPE.register(
             "wonambi", () ->
             EntityType.Builder.of(Wonambi::new, MobCategory.CREATURE)
                     .sized(1.25F, 0.5F)
                     .clientTrackingRange(10)
+                    .noSummon()
                     .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "wonambi").toString())
     );
 

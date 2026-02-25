@@ -1,16 +1,15 @@
 package com.barlinc.unusual_prehistory.entity;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LeptictidiumRunLikeCrazyGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -35,6 +34,17 @@ import java.util.List;
 
 public class Leptictidium extends PrehistoricMob {
 
+    public int attackCooldown = 0;
+
+    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState sniffAnimationState = new AnimationState();
+    public final AnimationState preenAnimationState = new AnimationState();
+
+    private int sniffCooldown = 400 + this.getRandom().nextInt(400);
+    private int preenCooldown = 700 + this.getRandom().nextInt(700);
+
+    private int attackTicks;
+
     public Leptictidium(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -42,20 +52,25 @@ public class Leptictidium extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LeptictidiumRunLikeCrazyGoal(this));
-        this.goalSelector.addGoal(2, new LargePanicGoal(this, 1.6D, 10, 4));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.6D, entity -> entity.getType().is(UP2EntityTags.LEPTICTIDIUM_AVOIDS)));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LEPTICTIDIUM_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(1, new LeptictidiumAttackGoal(this));
+        this.goalSelector.addGoal(2, new LeptictidiumRunLikeCrazyGoal(this));
+        this.goalSelector.addGoal(3, new LargePanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.6D, entity -> entity.getType().is(UP2EntityTags.LEPTICTIDIUM_AVOIDS)));
+        this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LEPTICTIDIUM_FOOD), false));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new LeptictidiumPreenGoal(this));
+        this.goalSelector.addGoal(9, new LeptictidiumSniffGoal(this));
+        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 200, true, true, entity -> entity.getMobType() == MobType.ARTHROPOD && !entity.getType().is(UP2EntityTags.LEPTICTIDIUM_DOESNT_TARGET)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 4.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
@@ -103,6 +118,9 @@ public class Leptictidium extends PrehistoricMob {
         if (!this.level().isClientSide) {
             this.infectNearbyMobs();
             this.getInfectedByNearbyMobs();
+            if (attackTicks > 0) attackTicks--;
+            if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+            if (attackCooldown > 0) attackCooldown--;
         }
     }
 
@@ -132,22 +150,46 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
+        if (!this.level().isClientSide) {
+            if (preenCooldown > 0) preenCooldown--;
+            if (sniffCooldown > 0) sniffCooldown--;
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        if (this.attackAnimationState.isStarted() && this.attackTicks == 0) this.attackAnimationState.stop();
+        this.idleAnimationState.animateWhen(!this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get() && this.getIdleState() != 1, this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAnimationState.start(this.tickCount);
+                this.attackTicks = 20;
+            }
+            else if (this.getPose() == Pose.STANDING) {
+                this.attackAnimationState.stop();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
     }
 
     public void handleEntityEvent(byte id) {
         switch (id) {
+            case 67 -> this.preenAnimationState.start(this.tickCount);
+            case 68 -> this.preenAnimationState.stop();
+            case 69 -> this.sniffAnimationState.start(this.tickCount);
+            case 70 -> this.sniffAnimationState.stop();
             default -> super.handleEntityEvent(id);
         }
     }
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 4;
+        return super.refuseToMove() || this.getIdleState() == 1;
     }
 
     @Nullable
@@ -176,10 +218,52 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 170;
+        return 150;
     }
 
     public static boolean canSpawn(EntityType<Leptictidium> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    private static class LeptictidiumPreenGoal extends AnimationGoal {
+
+        private final Leptictidium leptictidium;
+
+        public LeptictidiumPreenGoal(Leptictidium leptictidium) {
+            super(leptictidium, 30, 1, (byte) 67, (byte) 68);
+            this.leptictidium = leptictidium;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && leptictidium.preenCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.leptictidium.preenCooldown = 700 + leptictidium.getRandom().nextInt(700);
+        }
+    }
+
+    private static class LeptictidiumSniffGoal extends AnimationGoal {
+
+        private final Leptictidium leptictidium;
+
+        public LeptictidiumSniffGoal(Leptictidium leptictidium) {
+            super(leptictidium, 30, 1, (byte) 69, (byte) 70, false);
+            this.leptictidium = leptictidium;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && leptictidium.sniffCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.leptictidium.sniffCooldown = 400 + leptictidium.getRandom().nextInt(400);
+        }
     }
 }

@@ -26,17 +26,17 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.cubeAllBlock(ASPHALT);
 
-        this.cubeAllBlock(GREYNITE);
-        this.stairs(GREYNITE_STAIRS, this.blockTexture(GREYNITE.get()));
-        this.slab(GREYNITE_SLAB, this.blockTexture(GREYNITE.get()));
+        this.cubeAllBlock(PALEOSTONE);
+        this.stairs(PALEOSTONE_STAIRS, this.blockTexture(PALEOSTONE.get()));
+        this.slab(PALEOSTONE_SLAB, this.blockTexture(PALEOSTONE.get()));
 
-        this.cubeAllBlock(RANATITE);
-        this.stairs(RANATITE_STAIRS, this.blockTexture(RANATITE.get()));
-        this.slab(RANATITE_SLAB, this.blockTexture(RANATITE.get()));
+        this.cubeAllBlock(MESONITE);
+        this.stairs(MESONITE_STAIRS, this.blockTexture(MESONITE.get()));
+        this.slab(MESONITE_SLAB, this.blockTexture(MESONITE.get()));
 
-        this.cubeAllBlock(VISTOSTONE);
-        this.stairs(VISTOSTONE_STAIRS, this.blockTexture(VISTOSTONE.get()));
-        this.slab(VISTOSTONE_SLAB, this.blockTexture(VISTOSTONE.get()));
+        this.cubeAllBlock(FLORALITE);
+        this.stairs(FLORALITE_STAIRS, this.blockTexture(FLORALITE.get()));
+        this.slab(FLORALITE_SLAB, this.blockTexture(FLORALITE.get()));
 
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
         this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ranatite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:mesonite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:mesonite_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ranatite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:mesonite_slab"
+    ]
+  },
+  "sends_telemetry_event": false
+}

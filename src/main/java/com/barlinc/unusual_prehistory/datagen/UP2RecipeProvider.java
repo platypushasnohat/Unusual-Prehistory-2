@@ -43,14 +43,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.DIRT_ON_A_STICK.get(), 1).requires(Tags.Items.TOOLS_FISHING_RODS).requires(Blocks.DIRT.asItem()).unlockedBy("has_fishing_rod", has(Tags.Items.TOOLS_FISHING_RODS)).save(consumer);
 
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_STAIRS.get(), 4).define('G', GREYNITE.get()).pattern("G  ").pattern("GG ").pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, GREYNITE_SLAB.get(), 6).define('G', GREYNITE.get()).pattern("GGG").unlockedBy("has_greynite", has(GREYNITE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PALEOSTONE_STAIRS.get(), 4).define('G', PALEOSTONE.get()).pattern("G  ").pattern("GG ").pattern("GGG").unlockedBy("has_greynite", has(PALEOSTONE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PALEOSTONE_SLAB.get(), 6).define('G', PALEOSTONE.get()).pattern("GGG").unlockedBy("has_greynite", has(PALEOSTONE.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, RANATITE_STAIRS.get(), 4).define('R', RANATITE.get()).pattern("R  ").pattern("RR ").pattern("RRR").unlockedBy("has_ranatite", has(RANATITE.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, RANATITE_SLAB.get(), 6).define('R', RANATITE.get()).pattern("RRR").unlockedBy("has_ranatite", has(RANATITE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MESONITE_STAIRS.get(), 4).define('R', MESONITE.get()).pattern("R  ").pattern("RR ").pattern("RRR").unlockedBy("has_ranatite", has(MESONITE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MESONITE_SLAB.get(), 6).define('R', MESONITE.get()).pattern("RRR").unlockedBy("has_ranatite", has(MESONITE.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, VISTOSTONE_STAIRS.get(), 4).define('V', VISTOSTONE.get()).pattern("V  ").pattern("VV ").pattern("VVV").unlockedBy("has_vistostone", has(VISTOSTONE.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, VISTOSTONE_SLAB.get(), 6).define('V', VISTOSTONE.get()).pattern("VVV").unlockedBy("has_vistostone", has(VISTOSTONE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, FLORALITE_STAIRS.get(), 4).define('V', FLORALITE.get()).pattern("V  ").pattern("VV ").pattern("VVV").unlockedBy("has_vistostone", has(FLORALITE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, FLORALITE_SLAB.get(), 6).define('V', FLORALITE.get()).pattern("VVV").unlockedBy("has_vistostone", has(FLORALITE.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_SOUL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.SOUL_TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);

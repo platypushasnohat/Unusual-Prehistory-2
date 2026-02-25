@@ -90,6 +90,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public final AnimationState sitAnimationState = new AnimationState();
     public final AnimationState sitEndAnimationState = new AnimationState();
     public final AnimationState danceAnimationState = new AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -440,6 +441,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean refuseToMove() {
+        return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isInEepyPoseTransition() || this.isMobEepy();
+    }
+
+    public boolean refuseToLook() {
         return this.isInSitPoseTransition() || this.isMobSitting() || this.isInSittingPose() || this.isInEepyPoseTransition() || this.isMobEepy();
     }
 

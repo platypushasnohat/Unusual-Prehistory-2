@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "item": "unusual_prehistory:paleostone"
+    }
+  },
+  "pattern": [
+    "G  ",
+    "GG ",
+    "GGG"
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:paleostone_stairs"
+  },
+  "show_notification": true
+}

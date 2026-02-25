@@ -17,9 +17,9 @@ import org.joml.Vector4f;
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 
-    public final ModelPart root;
-    public final ModelPart body_main;
-    public final ModelPart body;
+    private final ModelPart root;
+    private final ModelPart body_main;
+    private final ModelPart body;
     private final ModelPart head;
     private final ModelPart jaw;
     private final ModelPart tail;
@@ -70,7 +70,7 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
                 .texOffs(86, 109).addBox(-2.5F, -9.0F, -13.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, 12.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, 7.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(86, 109).mirror().addBox(-0.5F, -9.0F, 2.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, 2.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, -3.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, -8.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(86, 109).mirror().addBox(0.5F, -9.0F, -13.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
@@ -80,22 +80,22 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
                 .texOffs(86, 109).addBox(-2.5F, -9.0F, -8.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(86, 109).addBox(-2.5F, -9.0F, -3.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(132, 137).addBox(-4.0F, -6.0F, -5.0F, 8.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(86, 109).addBox(-3.0F, -6.0F, -18.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(86, 109).addBox(1.0F, -6.0F, -18.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(108, 52).addBox(-4.0F, -5.0F, -22.0F, 8.0F, 7.0F, 17.0F, new CubeDeformation(0.0F))
-                .texOffs(108, 106).addBox(-4.0F, 0.75F, -22.0F, 8.0F, 4.0F, 17.0F, new CubeDeformation(-0.1F))
-                .texOffs(132, 127).addBox(-4.0F, -6.0F, -14.0F, 8.0F, 1.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -17.0F));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(132, 137).addBox(-4.0F, -6.0F, -4.0F, 8.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
+                .texOffs(86, 109).addBox(-3.0F, -6.0F, -17.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(86, 109).addBox(1.0F, -6.0F, -17.0F, 2.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
+                .texOffs(108, 52).addBox(-4.0F, -5.0F, -21.0F, 8.0F, 7.0F, 17.0F, new CubeDeformation(0.0F))
+                .texOffs(108, 106).addBox(-4.0F, 0.75F, -21.0F, 8.0F, 4.0F, 17.0F, new CubeDeformation(-0.1F))
+                .texOffs(132, 127).addBox(-4.0F, -6.0F, -13.0F, 8.0F, 1.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -18.0F));
 
-        PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(0, 109).addBox(-4.0F, 2.0F, -22.0F, 8.0F, 3.0F, 14.0F, new CubeDeformation(0.2F))
-                .texOffs(44, 109).addBox(-4.0F, -2.0F, -22.0F, 8.0F, 5.0F, 13.0F, new CubeDeformation(0.1F))
-                .texOffs(30, 127).addBox(-5.0F, -1.0F, -8.0F, 10.0F, 7.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(0, 109).addBox(-4.0F, 1.0F, -21.0F, 8.0F, 3.0F, 14.0F, new CubeDeformation(0.2F))
+                .texOffs(44, 109).addBox(-4.0F, -3.0F, -21.0F, 8.0F, 5.0F, 13.0F, new CubeDeformation(0.1F))
+                .texOffs(30, 127).addBox(-5.0F, -2.0F, -7.0F, 10.0F, 7.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 0.0F));
 
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.0F, -1.0F, 5.0F, 11.0F, 48.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -9.0F, 16.0F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.0F, -1.0F, 5.0F, 11.0F, 48.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -5.0F, 18.0F));
 
-        PartDefinition Tail_r1 = tail.addOrReplaceChild("Tail_r1", CubeListBuilder.create().texOffs(106, 0).addBox(0.0F, -3.0F, -3.0F, 0.0F, 4.0F, 48.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, -3.0F, 5.0F, 0.0F, 0.0F, 0.2182F));
+        PartDefinition Tail_r1 = tail.addOrReplaceChild("Tail_r1", CubeListBuilder.create().texOffs(106, 0).addBox(0.0F, -3.0F, -3.0F, 0.0F, 4.0F, 48.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, -3.0F, 5.0F, 0.0F, 0.0F, -0.2182F));
 
-        PartDefinition Tail_r2 = tail.addOrReplaceChild("Tail_r2", CubeListBuilder.create().texOffs(106, 0).addBox(0.0F, -3.0F, -3.0F, 0.0F, 4.0F, 48.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-1.0F, -3.0F, 5.0F, 0.0F, 0.0F, -0.2182F));
+        PartDefinition Tail_r2 = tail.addOrReplaceChild("Tail_r2", CubeListBuilder.create().texOffs(106, 0).addBox(0.0F, -3.0F, -3.0F, 0.0F, 4.0F, 48.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(1.0F, -3.0F, 5.0F, 0.0F, 0.0F, 0.2182F));
 
         PartDefinition arm_control = body_main.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, 6.0F, -7.0F));
 
@@ -104,8 +104,8 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 
         PartDefinition left_arm2 = left_arm1.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(68, 127).addBox(-4.5F, -2.0F, -7.5F, 9.0F, 4.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, 15.0F, 0.5F));
 
-        PartDefinition right_arm1 = arm_control.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(0, 126).mirror().addBox(-7.0F, -4.0F, -4.0F, 7.0F, 21.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(78, 140).mirror().addBox(-7.0F, -4.0F, 4.0F, 0.0F, 16.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-6.0F, 0.0F, 0.0F));
+        PartDefinition right_arm1 = arm_control.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(78, 140).mirror().addBox(-7.0F, -4.0F, 4.0F, 0.0F, 16.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false)
+                .texOffs(0, 126).mirror().addBox(-7.0F, -4.0F, -4.0F, 7.0F, 21.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, 0.0F, 0.0F));
 
         PartDefinition right_arm2 = right_arm1.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(68, 127).mirror().addBox(-4.5F, -2.0F, -7.5F, 9.0F, 4.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-3.5F, 15.0F, 0.5F));
 
@@ -114,14 +114,14 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
         PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(108, 76).addBox(0.0F, -9.0F, -10.0F, 7.0F, 16.0F, 14.0F, new CubeDeformation(0.0F))
                 .texOffs(68, 140).addBox(7.0F, -9.0F, 4.0F, 0.0F, 16.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(104, 127).addBox(-3.0F, 0.0F, -4.0F, 7.0F, 10.0F, 7.0F, new CubeDeformation(-0.01F)), PartPose.offset(3.0F, 5.0F, 1.5F));
+        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(104, 127).addBox(-3.0F, 0.0F, -4.0F, 7.0F, 10.0F, 7.0F, new CubeDeformation(-0.1F)), PartPose.offset(3.0F, 5.0F, 1.5F));
 
         PartDefinition left_leg3 = left_leg2.addOrReplaceChild("left_leg3", CubeListBuilder.create().texOffs(68, 127).addBox(-4.5F, -2.0F, -7.0F, 9.0F, 4.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 8.0F, 0.5F));
 
         PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(108, 76).mirror().addBox(-7.0F, -9.0F, -10.0F, 7.0F, 16.0F, 14.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(68, 140).mirror().addBox(-7.0F, -9.0F, 4.0F, 0.0F, 16.0F, 5.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-12.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(104, 127).mirror().addBox(-4.0F, 0.0F, -4.0F, 7.0F, 10.0F, 7.0F, new CubeDeformation(-0.01F)).mirror(false), PartPose.offset(-3.0F, 5.0F, 1.5F));
+        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(104, 127).mirror().addBox(-4.0F, 0.0F, -4.0F, 7.0F, 10.0F, 7.0F, new CubeDeformation(-0.1F)).mirror(false), PartPose.offset(-3.0F, 5.0F, 1.5F));
 
         PartDefinition right_leg3 = right_leg2.addOrReplaceChild("right_leg3", CubeListBuilder.create().texOffs(68, 127).mirror().addBox(-4.5F, -2.0F, -7.0F, 9.0F, 4.0F, 9.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.5F, 8.0F, 0.5F));
 
@@ -151,8 +151,10 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        if (!entity.isMobEepy()) {
+            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
+            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        }
 	}
 
 	@Override
@@ -168,5 +170,11 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
         Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
         poseStack.popPose();
         return vec3;
+    }
+
+    public void translateRiderToBody(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
     }
 }

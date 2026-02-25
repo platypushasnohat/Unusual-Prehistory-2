@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "unusual_prehistory:block/vistostone",
-    "side": "unusual_prehistory:block/vistostone",
-    "top": "unusual_prehistory:block/vistostone"
-  }
-}

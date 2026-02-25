@@ -17,7 +17,8 @@ public class UnusualPrehistory2Tab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UNUSUAL_PREHISTORY.get()))
+            () -> CreativeModeTab.builder()
+                    .icon(() -> new ItemStack(UNUSUAL_PREHISTORY.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, output) -> {
 
@@ -33,17 +34,17 @@ public class UnusualPrehistory2Tab {
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
-                        output.accept(UP2Blocks.GREYNITE.get());
-                        output.accept(UP2Blocks.GREYNITE_STAIRS.get());
-                        output.accept(UP2Blocks.GREYNITE_SLAB.get());
+                        output.accept(UP2Blocks.PALEOSTONE.get());
+                        output.accept(UP2Blocks.PALEOSTONE_STAIRS.get());
+                        output.accept(UP2Blocks.PALEOSTONE_SLAB.get());
 
-                        output.accept(UP2Blocks.RANATITE.get());
-                        output.accept(UP2Blocks.RANATITE_STAIRS.get());
-                        output.accept(UP2Blocks.RANATITE_SLAB.get());
+                        output.accept(UP2Blocks.MESONITE.get());
+                        output.accept(UP2Blocks.MESONITE_STAIRS.get());
+                        output.accept(UP2Blocks.MESONITE_SLAB.get());
 
-                        output.accept(UP2Blocks.VISTOSTONE.get());
-                        output.accept(UP2Blocks.VISTOSTONE_STAIRS.get());
-                        output.accept(UP2Blocks.VISTOSTONE_SLAB.get());
+                        output.accept(UP2Blocks.FLORALITE.get());
+                        output.accept(UP2Blocks.FLORALITE_STAIRS.get());
+                        output.accept(UP2Blocks.FLORALITE_SLAB.get());
 
                         output.accept(UP2Blocks.PETRIFIED_BUSH.get());
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());

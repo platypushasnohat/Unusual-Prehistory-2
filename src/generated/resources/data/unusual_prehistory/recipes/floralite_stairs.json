@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "V": {
+      "item": "unusual_prehistory:floralite"
+    }
+  },
+  "pattern": [
+    "V  ",
+    "VV ",
+    "VVV"
+  ],
+  "result": {
+    "count": 4,
+    "item": "unusual_prehistory:floralite_stairs"
+  },
+  "show_notification": true
+}

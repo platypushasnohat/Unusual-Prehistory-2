@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.client.models.entity.therizinosaurus;
 
-import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusBabyAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Therizinosaurus;

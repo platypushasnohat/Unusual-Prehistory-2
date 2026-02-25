@@ -59,10 +59,10 @@ public class SnowflakeParticle extends TextureSheetParticle {
 
         @Override
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            SnowflakeParticle suspendedtownparticle = new SnowflakeParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
-            suspendedtownparticle.pickSprite(this.sprite);
-            suspendedtownparticle.setColor(1.0F, 1.0F, 1.0F);
-            return suspendedtownparticle;
+            SnowflakeParticle particle = new SnowflakeParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
+            particle.pickSprite(this.sprite);
+            particle.setColor(1.0F, 1.0F, 1.0F);
+            return particle;
         }
     }
 }

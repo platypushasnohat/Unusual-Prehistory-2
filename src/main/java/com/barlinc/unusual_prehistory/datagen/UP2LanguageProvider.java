@@ -32,7 +32,7 @@ public class UP2LanguageProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory 2");
+        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory");
 
         // blocks
         UP2Blocks.BLOCK_TRANSLATIONS.forEach(this::forBlock);
@@ -243,6 +243,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_IDLE, "Pachycephalosaurus grunts");
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN, "Pachycephalosaurus warns");
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP, "Pachycephalosaurus steps");
+        this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_BONK, "Pachycephalosaurus bonks");
 
         this.sound(UP2SoundEvents.PRAEPUSA_HURT, "Praepusa hurts");
         this.sound(UP2SoundEvents.PRAEPUSA_DEATH, "Praepusa dies");
@@ -340,6 +341,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("revive_leptictidium", "Plague Carriers", "Revive a Leptictidium");
+
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
@@ -356,6 +359,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
         this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
+        this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
 
         this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
         this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
