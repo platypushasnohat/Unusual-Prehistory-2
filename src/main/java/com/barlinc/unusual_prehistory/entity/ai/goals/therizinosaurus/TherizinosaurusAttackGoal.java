@@ -41,7 +41,10 @@ public class TherizinosaurusAttackGoal extends AttackGoal {
     protected void tickSlash() {
         this.timer++;
         LivingEntity target = therizinosaurus.getTarget();
-        if (timer == 10) therizinosaurus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 10) {
+            this.therizinosaurus.setPose(UP2Poses.ATTACKING.get());
+            this.therizinosaurus.attackTicks = 20;
+        }
         if (timer == 17) therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, 0.9F + therizinosaurus.getRandom().nextFloat() * 0.3F);
         if (timer == 24) {
             if (this.isInAttackRange(target, 3.0D)) {

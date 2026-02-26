@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.PachycephalosaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -112,17 +113,21 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
             else this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdle(entity.idleAnimationState, PachycephalosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.huffAnimationState, PachycephalosaurusAnimations.HUFF_BLEND, ageInTicks);
-        this.animate(entity.stomp1AnimationState, PachycephalosaurusAnimations.STOMP_BLEND1, ageInTicks);
-        this.animate(entity.stomp2AnimationState, PachycephalosaurusAnimations.STOMP_BLEND2, ageInTicks);
-        this.animate(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animate(entity.sleepStartAnimationState, PachycephalosaurusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.sleepAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.sleepEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
-        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
-        this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
-        this.animate(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
+//        this.animateIdle(entity.idleAnimationState, PachycephalosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
+//        this.animate(entity.huffAnimationState, PachycephalosaurusAnimations.HUFF_BLEND, ageInTicks);
+//        this.animate(entity.stomp1AnimationState, PachycephalosaurusAnimations.STOMP_BLEND1, ageInTicks);
+//        this.animate(entity.stomp2AnimationState, PachycephalosaurusAnimations.STOMP_BLEND2, ageInTicks);
+//        this.animate(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
+//        this.animate(entity.sleepStartAnimationState, PachycephalosaurusAnimations.SLEEP_START, ageInTicks);
+//        this.animate(entity.sleepAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
+//        this.animate(entity.sleepEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
+//        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
+//        this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
+//        this.animate(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
+
+        entity.idleAnimationState.animateIdle(this, PachycephalosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 1.5F);
+        entity.recoverAnimationState.animate(this, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
+        entity.warnAnimationState.animate(this, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
