@@ -3,13 +3,13 @@ package com.barlinc.unusual_prehistory.entity.base;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -33,9 +33,9 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     public boolean isLandNavigator;
     public boolean landingFlag;
 
-    public final AnimationState flyAnimationState = new AnimationState();
-    public final AnimationState flyFastAnimationState = new AnimationState();
-    public final AnimationState hoverAnimationState = new AnimationState();
+    public final SmoothAnimationState flyAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState flyFastAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState hoverAnimationState = new SmoothAnimationState();
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);

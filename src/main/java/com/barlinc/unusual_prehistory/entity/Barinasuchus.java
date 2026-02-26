@@ -1,12 +1,15 @@
  package com.barlinc.unusual_prehistory.entity;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,6 +30,7 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -45,15 +49,15 @@
 
      public int attackCooldown = 0;
 
-     public final AnimationState swimAnimationState = new AnimationState();
-     public final AnimationState attack1AnimationState = new AnimationState();
-     public final AnimationState attack2AnimationState = new AnimationState();
-     public final AnimationState yawnAnimationState = new AnimationState();
-     public final AnimationState shakeAnimationState = new AnimationState();
-     public final AnimationState scratch1AnimationState = new AnimationState();
-     public final AnimationState scratch2AnimationState = new AnimationState();
-     public final AnimationState snapAnimationState = new AnimationState();
-     public final AnimationState threatenAnimationState = new AnimationState();
+     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState scratch1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState scratch2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState snapAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState threatenAnimationState = new SmoothAnimationState();
 
      private int attackTicks;
 
@@ -98,6 +102,11 @@
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new NoSpinGroundPathNavigation(this, level);
      }
 
      @Override
@@ -211,6 +220,8 @@
          }
          this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 5 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
          this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+         this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
+         this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
 
          if (this.isMobVisuallySitting()) {
              this.sitEndAnimationState.stop();

@@ -131,15 +131,15 @@ public class DimorphodonModel extends UP2Model<Dimorphodon> {
             }
 		}
 
-        this.animateIdle(entity.idleAnimationState, DimorphodonAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.hoverAnimationState, DimorphodonAnimations.HOVER, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.flyAnimationState, DimorphodonAnimations.FLY, ageInTicks);
-        this.animate(entity.flyFastAnimationState, DimorphodonAnimations.FLY_FAST, ageInTicks);
-        this.animate(entity.danceAnimationState, DimorphodonAnimations.DANCE, ageInTicks);
-        this.animate(entity.grabAnimationState, DimorphodonAnimations.GRAB, ageInTicks);
-        this.animate(entity.nip1AnimationState, DimorphodonAnimations.NIP_BLEND1, ageInTicks);
-        this.animate(entity.nip2AnimationState, DimorphodonAnimations.NIP_BLEND2, ageInTicks);
-        this.animate(entity.tailChaseAnimationState, DimorphodonAnimations.TAILCHASE, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, DimorphodonAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.hoverAnimationState, DimorphodonAnimations.HOVER, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.flyAnimationState, DimorphodonAnimations.FLY, ageInTicks);
+        this.animateSmooth(entity.flyFastAnimationState, DimorphodonAnimations.FLY_FAST, ageInTicks);
+        this.animateSmooth(entity.danceAnimationState, DimorphodonAnimations.DANCE, ageInTicks);
+        this.animateSmooth(entity.grabAnimationState, DimorphodonAnimations.GRAB, ageInTicks);
+        this.animateSmooth(entity.nip1AnimationState, DimorphodonAnimations.NIP_BLEND1, ageInTicks);
+        this.animateSmooth(entity.nip2AnimationState, DimorphodonAnimations.NIP_BLEND2, ageInTicks);
+        this.animateSmooth(entity.tailChaseAnimationState, DimorphodonAnimations.TAILCHASE, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
 

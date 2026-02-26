@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundPathNavigation;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,8 +37,8 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     public float prevOnLandProgress;
     public float onLandProgress;
 
-    public final AnimationState swimIdleAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
+    public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
 
     protected PrehistoricAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);

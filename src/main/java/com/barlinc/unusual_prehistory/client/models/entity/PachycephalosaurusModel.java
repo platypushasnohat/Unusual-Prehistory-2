@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.client.animations.PachycephalosaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.therizinosaurus.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -125,9 +124,9 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 //        this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
 //        this.animate(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
 
-        entity.idleAnimationState.animateIdle(this, PachycephalosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 1.5F);
-        entity.recoverAnimationState.animate(this, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
-        entity.warnAnimationState.animate(this, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
+        this.animateSmooth(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 

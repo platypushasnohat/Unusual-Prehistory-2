@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.base;
 
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -80,6 +81,22 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     protected void animate(AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
         animationState.updateTime(ageInTicks, speed);
         animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, UP2Model.ANIMATION_VECTOR_CACHE));
+    }
+
+    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float limbSwingAmount) {
+        animationState.animateIdle(this, definition, ageInTicks, limbSwingAmount, 1.5F);
+    }
+
+    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float limbSwingAmount, float animationScaleFactor) {
+        animationState.animateIdle(this, definition, ageInTicks, limbSwingAmount, animationScaleFactor);
+    }
+
+    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks) {
+        this.animateSmooth(animationState, definition, ageInTicks, 1.0F);
+    }
+
+    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
+        animationState.animate(this, definition, ageInTicks, speed);
     }
 
     @Override

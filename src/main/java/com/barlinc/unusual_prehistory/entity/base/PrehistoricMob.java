@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -82,15 +83,15 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private float tailYaw;
     private float prevTailYaw;
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState sleepStartAnimationState = new AnimationState();
-    public final AnimationState sleepAnimationState = new AnimationState();
-    public final AnimationState sleepEndAnimationState = new AnimationState();
-    public final AnimationState sitStartAnimationState = new AnimationState();
-    public final AnimationState sitAnimationState = new AnimationState();
-    public final AnimationState sitEndAnimationState = new AnimationState();
-    public final AnimationState danceAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
+    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sleepStartAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sleepAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sleepEndAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sitStartAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sitAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sitEndAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);

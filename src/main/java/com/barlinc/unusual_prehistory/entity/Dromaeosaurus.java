@@ -14,8 +14,8 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,12 +42,10 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
 
-    private int attackTicks;
-
     public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
 
-    public final AnimationState biteAnimationState = new AnimationState();
-    public final AnimationState fallAnimationState = new AnimationState();
+    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState fallAnimationState = new SmoothAnimationState();
 
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
@@ -83,7 +81,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.38F);
+                .add(Attributes.MOVEMENT_SPEED, 0.36F);
     }
 
     @Override
@@ -129,53 +127,15 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public long getEepyPoseTransitionTime() {
-        return 5L;
-    }
-
-    @Override
-    public void setupAnimationCooldowns() {
-        if (attackTicks > 0) attackTicks--;
-        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+        return 1L;
     }
 
     @Override
     public void setupAnimationStates() {
-        if (attackTicks == 0 && this.biteAnimationState.isStarted()) this.biteAnimationState.stop();
         this.idleAnimationState.animateWhen(!this.isMobEepy(), this.tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
-
-        if (this.isMobVisuallyEepy()) {
-            this.fallAnimationState.stop();
-            this.biteAnimationState.stop();
-            this.sleepEndAnimationState.stop();
-            this.idleAnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
-            } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                this.biteAnimationState.start(this.tickCount);
-                this.attackTicks = 10;
-            }
-            else {
-                this.biteAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
+        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+        this.sleepAnimationState.animateWhen(this.isMobEepy(), this.tickCount);
     }
 
     @Override
