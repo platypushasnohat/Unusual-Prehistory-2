@@ -31,8 +31,8 @@
       "clone.clone_tooltip_heading": "Raft Egg",
       "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
 
-      "activity.activity_type": "cathemeral",
-      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "Does not sleep"
     }
   ]
 }
