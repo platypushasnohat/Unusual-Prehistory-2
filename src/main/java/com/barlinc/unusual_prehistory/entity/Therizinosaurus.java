@@ -155,7 +155,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         if (this.isBaby()) return super.getDimensions(pose).scale(0.6F, 0.5F);
-        else return pose == UP2Poses.EEPY.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        else return pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -244,21 +244,21 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.idleAnimationState.stop();
             this.forageLowAnimationState.stop();
             this.forageHighAnimationState.stop();
-            this.eepyEndAnimationState.stop();
+            this.sleepEndAnimationState.stop();
             this.alert1AnimationState.stop();
             this.alert2AnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

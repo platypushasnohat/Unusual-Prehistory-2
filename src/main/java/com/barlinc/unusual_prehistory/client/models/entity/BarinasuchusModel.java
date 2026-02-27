@@ -145,9 +145,9 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
         this.animateSmooth(entity.yawnAnimationState, BarinasuchusAnimations.YAWN_BLEND, ageInTicks);
         this.animateSmooth(entity.shakeAnimationState, BarinasuchusAnimations.SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.threatenAnimationState, BarinasuchusAnimations.THREATEN, ageInTicks);
-        this.animateSmooth(entity.eepyStartAnimationState, BarinasuchusAnimations.SLEEP_START, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, BarinasuchusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.eepyEndAnimationState, BarinasuchusAnimations.SLEEP_END, ageInTicks);
+        this.animateSmooth(entity.sleepStartAnimationState, BarinasuchusAnimations.SLEEP_START, ageInTicks);
+        this.animateSmooth(entity.sleepAnimationState, BarinasuchusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.sleepEndAnimationState, BarinasuchusAnimations.SLEEP_END, ageInTicks);
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 

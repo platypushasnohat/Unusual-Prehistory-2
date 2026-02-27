@@ -117,9 +117,9 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 //        this.animate(entity.stomp1AnimationState, PachycephalosaurusAnimations.STOMP_BLEND1, ageInTicks);
 //        this.animate(entity.stomp2AnimationState, PachycephalosaurusAnimations.STOMP_BLEND2, ageInTicks);
 //        this.animate(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
-//        this.animate(entity.eepyStartAnimationState, PachycephalosaurusAnimations.SLEEP_START, ageInTicks);
-//        this.animate(entity.eepyAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
-//        this.animate(entity.eepyEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
+//        this.animate(entity.sleepStartAnimationState, PachycephalosaurusAnimations.SLEEP_START, ageInTicks);
+//        this.animate(entity.sleepAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
+//        this.animate(entity.sleepEndAnimationState, PachycephalosaurusAnimations.SLEEP_END, ageInTicks);
 //        this.animate(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
 //        this.animate(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
 //        this.animate(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);

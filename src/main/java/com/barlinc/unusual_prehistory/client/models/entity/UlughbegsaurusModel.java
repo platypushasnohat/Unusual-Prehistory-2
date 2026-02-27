@@ -132,16 +132,16 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, entity.hasControllingPassenger() ? 2 : 1.5F, entity.hasControllingPassenger() ? 4 : 3);
         }
-		this.animateIdleSmooth(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
-		this.animateSmooth(entity.sitStartAnimationState, UlughbegsaurusAnimations.SIT_START, ageInTicks);
-		this.animateSmooth(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks);
-		this.animateSmooth(entity.sitEndAnimationState, UlughbegsaurusAnimations.SIT_END, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks);
+		this.animateIdle(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount * 4);
+        this.animate(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
+        this.animate(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
+        this.animate(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
+		this.animate(entity.sitStartAnimationState, UlughbegsaurusAnimations.SIT_START, ageInTicks);
+		this.animate(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks);
+		this.animate(entity.sitEndAnimationState, UlughbegsaurusAnimations.SIT_END, ageInTicks);
+        this.animate(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks);
+        this.animate(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateLerped(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks, entity.getLeapProgress(partialTicks));
 
         if (this.young) this.applyStatic(UlughbegsaurusAnimations.BABY_TRANSFORM);
 

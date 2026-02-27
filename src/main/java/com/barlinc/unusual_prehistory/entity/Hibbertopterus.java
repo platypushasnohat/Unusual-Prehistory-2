@@ -144,7 +144,7 @@
 
      @Override
      public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-         return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.EEPY.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+         return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
      }
 
      @Nullable

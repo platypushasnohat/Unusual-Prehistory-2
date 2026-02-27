@@ -265,16 +265,16 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
             this.preen2AnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

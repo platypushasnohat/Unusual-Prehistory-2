@@ -190,9 +190,9 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animate(entity.sniff2AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND2, ageInTicks);
         this.animate(entity.yawnAnimationState, CarnotaurusIdleAnimations.YAWN_BLEND, ageInTicks);
         this.animate(entity.shakeAnimationState, CarnotaurusIdleAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.eepyStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.eepyAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
-        this.animate(entity.eepyEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
 
         this.neck.xRot += entity.isMobEepy() ? 0.0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

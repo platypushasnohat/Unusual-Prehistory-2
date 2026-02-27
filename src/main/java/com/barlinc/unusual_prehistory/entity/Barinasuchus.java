@@ -2,6 +2,7 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -203,7 +204,7 @@
 
      @Override
      public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-         return (pose == UP2Poses.EEPY.get() || pose == UP2Poses.SITTING.get()) ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+         return (pose == UP2Poses.SLEEPING.get() || pose == UP2Poses.SITTING.get()) ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
      }
 
      @Override
@@ -229,9 +230,9 @@
              this.scratch1AnimationState.stop();
              this.scratch2AnimationState.stop();
              this.shakeAnimationState.stop();
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.stop();
+             this.sleepStartAnimationState.stop();
+             this.sleepAnimationState.stop();
+             this.sleepEndAnimationState.stop();
 
              if (this.isVisuallySitting()) {
                  this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -247,7 +248,7 @@
          }
 
          if (this.isMobVisuallyEepy()) {
-             this.eepyEndAnimationState.stop();
+             this.sleepEndAnimationState.stop();
              this.idleAnimationState.stop();
              this.threatenAnimationState.stop();
              this.scratch1AnimationState.stop();
@@ -258,16 +259,16 @@
              this.sitEndAnimationState.stop();
 
              if (this.isVisuallyEepy()) {
-                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                 this.eepyAnimationState.stop();
+                 this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                 this.sleepAnimationState.stop();
              } else {
-                 this.eepyStartAnimationState.stop();
-                 this.eepyAnimationState.startIfStopped(this.tickCount);
+                 this.sleepStartAnimationState.stop();
+                 this.sleepAnimationState.startIfStopped(this.tickCount);
              }
          } else {
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+             this.sleepStartAnimationState.stop();
+             this.sleepAnimationState.stop();
+             this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
          }
      }
 

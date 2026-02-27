@@ -177,7 +177,12 @@
      @Override
      public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
          if (this.isBaby()) return super.getDimensions(pose).scale(1.0F, 0.6F);
-         return pose == UP2Poses.EEPY.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+         return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+     }
+
+     @Override
+     public long getSitPoseTransitionTime() {
+         return 40L;
      }
 
      @Override
@@ -239,7 +244,7 @@
          float headAdditionalY = isMoving ? -0.8F : 0.0F;
          float headAdditionalZ = isMoving ? 3.0F : 0.0F;
 
-         if (this.isSitting()) {
+         if (this.isMobSitting()) {
              headAdditionalZ = -2.0F;
          }
 
@@ -366,10 +371,25 @@
      @Override
      public void setupAnimationStates() {
          if (stompTicks == 0 && this.stompAnimationState.isStarted()) this.stompAnimationState.stop();
-         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get() && !this.isInEepyPoseTransition() && !this.isEepy(), this.tickCount);
-         this.eepyStartAnimationState.animateWhen(this.getPose() == UP2Poses.START_EEPY.get(), this.tickCount);
-         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
-         this.eepyEndAnimationState.animateWhen(this.getPose() == UP2Poses.STOP_EEPY.get(), this.tickCount);
+         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get(), this.tickCount);
+
+         if (this.isMobVisuallySitting()) {
+             this.sitEndAnimationState.stop();
+             this.idleAnimationState.stop();
+             this.stompAnimationState.stop();
+
+             if (this.isVisuallySitting()) {
+                 this.sitStartAnimationState.startIfStopped(this.tickCount);
+                 this.sitAnimationState.stop();
+             } else {
+                 this.sitStartAnimationState.stop();
+                 this.sitAnimationState.startIfStopped(this.tickCount);
+             }
+         } else {
+             this.sitStartAnimationState.stop();
+             this.sitAnimationState.stop();
+             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+         }
      }
 
      @Override

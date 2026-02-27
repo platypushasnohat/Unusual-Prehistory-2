@@ -176,7 +176,7 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return pose == UP2Poses.EEPY.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        return pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -221,7 +221,7 @@ public class Carnotaurus extends PrehistoricMob {
         this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {
-            this.eepyEndAnimationState.stop();
+            this.sleepEndAnimationState.stop();
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
             this.attackFast1AnimationState.stop();
@@ -237,16 +237,16 @@ public class Carnotaurus extends PrehistoricMob {
             this.roarAnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
+                this.sleepStartAnimationState.startIfStopped(this.tickCount);
+                this.sleepAnimationState.stop();
             } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
+                this.sleepStartAnimationState.stop();
+                this.sleepAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.sleepStartAnimationState.stop();
+            this.sleepAnimationState.stop();
+            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

@@ -162,9 +162,9 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.animate(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
         this.animate(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
         this.animate(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.eepyStartAnimationState, MajungasaurusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.eepyEndAnimationState, MajungasaurusAnimations.SLEEP_END, ageInTicks);
+        this.animate(entity.sleepStartAnimationState, MajungasaurusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.sleepAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.sleepEndAnimationState, MajungasaurusAnimations.SLEEP_END, ageInTicks);
 
         this.neck.xRot += entity.isMobEepy() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
 		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;

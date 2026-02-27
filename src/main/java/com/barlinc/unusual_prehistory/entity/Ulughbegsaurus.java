@@ -13,7 +13,6 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -57,18 +56,22 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
 
+    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
+
     private boolean leapImpulse;
+    private float prevLeapProgress;
+    private float leapProgress;
 
     public int attackCooldown = 0;
 
-    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState jumpAnimationState = new SmoothAnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState attack1AnimationState = new AnimationState();
+    public final AnimationState attack2AnimationState = new AnimationState();
+    public final AnimationState yawnAnimationState = new AnimationState();
+    public final AnimationState shakeAnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
 
     private int attackTicks;
-    private boolean attackLeft = false;
 
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -153,6 +156,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             }
         }
         return type;
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+        return (pose == UP2Poses.SITTING.get() || (this.getCommand() == 1 && this.isMobSitting()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -258,7 +266,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isSitting();
+        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting();
     }
 
     @Override
@@ -278,6 +286,10 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     public void tick() {
         super.tick();
         this.tickPlayerBite();
+
+        this.prevLeapProgress = leapProgress;
+        if (this.isLeaping() && leapProgress < 5F) leapProgress++;
+        if (!this.isLeaping() && leapProgress > 0F) leapProgress--;
 
         if ((this.onGround() || this.isInWaterOrBubble()) && this.isLeaping() && !leapImpulse) {
             this.setLeaping(false);
@@ -303,21 +315,38 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        this.idleAnimationState.animateWhen(!this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isEepy() && !this.isSitting(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
-        this.jumpAnimationState.animateWhen(this.isLeaping(), this.tickCount);
-        this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackLeft, this.tickCount);
-        this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackLeft, this.tickCount);
-        this.sitStartAnimationState.animateWhen(this.sitStartAnimationState.isStarted(), this.tickCount);
-        this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
-        this.sitEndAnimationState.animateWhen(this.sitEndAnimationState.isStarted(), this.tickCount);
+        this.jumpAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
+
+        if (this.isMobVisuallySitting()) {
+            this.sitEndAnimationState.stop();
+            this.attack1AnimationState.stop();
+            this.attack2AnimationState.stop();
+            this.idleAnimationState.stop();
+            this.shakeAnimationState.stop();
+            this.jumpAnimationState.stop();
+
+            if (this.isVisuallySitting()) {
+                this.sitStartAnimationState.startIfStopped(this.tickCount);
+                this.sitAnimationState.stop();
+            } else {
+                this.sitStartAnimationState.stop();
+                this.sitAnimationState.startIfStopped(this.tickCount);
+            }
+        } else {
+            this.sitStartAnimationState.stop();
+            this.sitAnimationState.stop();
+            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+        }
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                this.attackLeft = this.getRandom().nextBoolean();
+                if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
+                else this.attack2AnimationState.start(this.tickCount);
                 this.attackTicks = 15;
             }
             else if (this.getPose() == Pose.STANDING) {
@@ -374,6 +403,10 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public void setLeaping(boolean leaping) {
         this.entityData.set(LEAPING, leaping);
+    }
+
+    public float getLeapProgress(float partialTicks) {
+        return (prevLeapProgress + (leapProgress - prevLeapProgress) * partialTicks) * 0.2F;
     }
 
     @Override

@@ -135,7 +135,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.idleAnimationState.animateWhen(!this.isMobEepy(), this.tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
-        this.eepyAnimationState.animateWhen(this.isMobEepy(), this.tickCount);
+        this.sleepAnimationState.animateWhen(this.isMobEepy(), this.tickCount);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.EEPY.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+        return (pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
