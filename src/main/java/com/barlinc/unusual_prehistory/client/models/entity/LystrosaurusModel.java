@@ -133,9 +133,9 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
         this.animate(entity.roll1AnimationState, LystrosaurusAnimations.SIT_ROLL1, ageInTicks);
         this.animate(entity.roll2AnimationState, LystrosaurusAnimations.SIT_ROLL2, ageInTicks);
         this.animate(entity.blinkAnimationState, LystrosaurusAnimations.IDLE_BLINK_BLEND, ageInTicks);
-        this.animate(entity.sleepStartAnimationState, LystrosaurusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.sleepAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.sleepEndAnimationState, LystrosaurusAnimations.SLEEP_END, ageInTicks);
+        this.animate(entity.eepyStartAnimationState, LystrosaurusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.eepyAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.eepyEndAnimationState, LystrosaurusAnimations.SLEEP_END, ageInTicks);
 
 		if (this.young) this.applyStatic(LystrosaurusAnimations.BABY_TRANSFORM);
 

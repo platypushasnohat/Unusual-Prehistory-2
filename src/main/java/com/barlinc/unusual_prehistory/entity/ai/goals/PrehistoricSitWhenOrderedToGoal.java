@@ -48,7 +48,7 @@ public class PrehistoricSitWhenOrderedToGoal extends Goal {
     @Override
     public void stop() {
         this.tamedMob.setInSittingPose(false);
-        if (tamedMob.isMobSitting() && tamedMob.getCommand() != 1) {
+        if (tamedMob.isSitting() && tamedMob.getCommand() != 1) {
             this.tamedMob.stopSitting();
         }
     }

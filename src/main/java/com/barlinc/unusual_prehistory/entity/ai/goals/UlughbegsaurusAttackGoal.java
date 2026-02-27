@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 
 public class UlughbegsaurusAttackGoal extends AttackGoal {
 
@@ -41,13 +42,14 @@ public class UlughbegsaurusAttackGoal extends AttackGoal {
         if (timer == 1) ulughbegsaurus.setPose(UP2Poses.ATTACKING.get());
         if (timer == 8) ulughbegsaurus.playSound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK.get(), 1.0F, 0.9F + ulughbegsaurus.getRandom().nextFloat() * 0.2F);
         if (timer == 10) {
-            if (this.ulughbegsaurus.distanceTo(target) < getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 1.5D)) {
                 this.ulughbegsaurus.doHurtTarget(target);
                 this.ulughbegsaurus.swing(InteractionHand.MAIN_HAND);
             }
         }
         if (timer > 15) {
             this.timer = 0;
+            this.ulughbegsaurus.setPose(Pose.STANDING);
             this.ulughbegsaurus.setAttackState(0);
         }
     }
