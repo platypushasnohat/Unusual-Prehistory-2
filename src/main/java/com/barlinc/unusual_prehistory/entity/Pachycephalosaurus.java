@@ -216,16 +216,16 @@ public class Pachycephalosaurus extends PrehistoricMob {
             this.warnAnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
+                this.eepyStartAnimationState.startIfStopped(this.tickCount);
+                this.eepyAnimationState.stop();
             } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
+                this.eepyStartAnimationState.stop();
+                this.eepyAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

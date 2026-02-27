@@ -70,7 +70,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Long> EEPY_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> EEPY_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected int eepyTicks;
 
@@ -84,9 +85,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private float prevTailYaw;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sleepStartAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sleepAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sleepEndAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eepyStartAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.15F);
+    public final SmoothAnimationState eepyEndAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sitStartAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sitAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sitEndAnimationState = new SmoothAnimationState();
@@ -114,6 +115,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
         double y = entity.getZ() - this.getZ();
         double scale = Math.max(x * x + y * y, 0.001D);
         entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isEepy();
     }
 
     // Jukebox detection
@@ -458,11 +464,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     @Override
-    public boolean canBeCollidedWith() {
-        return this.isMobSitting() || this.isMobEepy();
-    }
-
-    @Override
     protected void onLeashDistance(float distance) {
         if (distance > 6.0F) {
             if (this.isMobSitting() && !this.isInSitPoseTransition()) this.stopSitting();
@@ -569,23 +570,26 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public void startEepy() {
-        if (this.isMobEepy()) return;
+        if (this.isMobEepy() || this.isEepy()) return;
         this.setPose(UP2Poses.SLEEPING.get());
         this.setEepyPoseTicks(-(this.level()).getGameTime());
         this.refreshDimensions();
+        this.setEepy(true);
     }
 
     public void stopEepy() {
-        if (!this.isMobEepy()) return;
+        if (!this.isMobEepy() && !this.isEepy()) return;
         this.setPose(Pose.STANDING);
         this.setEepyPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
+        this.setEepy(false);
     }
 
     public void stopEepyInstantly() {
         this.setPose(Pose.STANDING);
         this.resetEepyPoseTicks((this.level()).getGameTime());
         this.refreshDimensions();
+        this.setEepy(false);
     }
 
     public void resetEepyPoseTicks(long l) {
@@ -762,6 +766,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(EEPY_COOLDOWN, 100);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(DANCING, false);
+        this.entityData.define(EEPY, false);
     }
 
     @Override
@@ -778,6 +783,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putLong("EepyPoseTicks", this.getEepyPoseTicks());
         compoundTag.putInt("EepyCooldown", this.getEepyCooldown());
         compoundTag.putInt("Command", this.getCommand());
+        compoundTag.putBoolean("Eepy", this.isEepy());
     }
 
     @Override
@@ -794,6 +800,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setEepyPoseTicks(compoundTag.getLong("EepyPoseTicks"));
         this.setEepyCooldown(compoundTag.getInt("EepyCooldown"));
         this.setCommand(compoundTag.getInt("Command"));
+        this.setEepy(compoundTag.getBoolean("Eepy"));
     }
 
     // Idle and attack states
@@ -915,6 +922,14 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
     public void setEepyCooldown(int cooldown) {
         this.entityData.set(EEPY_COOLDOWN, cooldown);
+    }
+
+    public boolean isEepy() {
+        return this.entityData.get(EEPY);
+    }
+
+    public void setEepy(boolean eepy) {
+        this.entityData.set(EEPY, eepy);
     }
 
     // Tame commands

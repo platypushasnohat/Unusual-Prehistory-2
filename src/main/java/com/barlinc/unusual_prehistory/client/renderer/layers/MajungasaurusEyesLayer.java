@@ -26,7 +26,7 @@ public class MajungasaurusEyesLayer extends RenderLayer<Majungasaurus, Majungasa
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Majungasaurus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible() || entity.isCamo() || entity.isCamoAvoiding()) return;
+        if (entity.isInvisible() || entity.isCamo()) return;
         float eyeGlowProgress = entity.getEyeGlowProgress(partialTicks);
         if (eyeGlowProgress <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(this.getEyeTexture(entity)));

@@ -237,9 +237,9 @@ public class Lystrosaurus extends PrehistoricMob {
             this.scratch1AnimationState.stop();
             this.scratch2AnimationState.stop();
             this.digAnimationState.stop();
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.stop();
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -255,7 +255,7 @@ public class Lystrosaurus extends PrehistoricMob {
         }
 
         if (this.isMobVisuallyEepy()) {
-            this.sleepEndAnimationState.stop();
+            this.eepyEndAnimationState.stop();
             this.attackAnimationState.stop();
             this.grazeAnimationState.stop();
             this.shakeAnimationState.stop();
@@ -270,16 +270,16 @@ public class Lystrosaurus extends PrehistoricMob {
             this.roll2AnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
+                this.eepyStartAnimationState.startIfStopped(this.tickCount);
+                this.eepyAnimationState.stop();
             } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
+                this.eepyStartAnimationState.stop();
+                this.eepyAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

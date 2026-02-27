@@ -244,21 +244,21 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.idleAnimationState.stop();
             this.forageLowAnimationState.stop();
             this.forageHighAnimationState.stop();
-            this.sleepEndAnimationState.stop();
+            this.eepyEndAnimationState.stop();
             this.alert1AnimationState.stop();
             this.alert2AnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
+                this.eepyStartAnimationState.startIfStopped(this.tickCount);
+                this.eepyAnimationState.stop();
             } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
+                this.eepyStartAnimationState.stop();
+                this.eepyAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

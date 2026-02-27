@@ -191,9 +191,9 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animateSmooth(entity.sniff2AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND2, ageInTicks);
         this.animateSmooth(entity.yawnAnimationState, CarnotaurusIdleAnimations.YAWN_BLEND, ageInTicks);
         this.animateSmooth(entity.shakeAnimationState, CarnotaurusIdleAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.sleepStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
-        this.animateSmooth(entity.sleepAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.sleepEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
+        this.animateSmooth(entity.eepyStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.eepyEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
 
         ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
     }

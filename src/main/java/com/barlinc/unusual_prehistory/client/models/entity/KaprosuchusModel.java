@@ -143,9 +143,9 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
         this.animate(entity.sitStartAnimationState, KaprosuchusAnimations.SIT_START, ageInTicks);
         this.animate(entity.sitAnimationState, KaprosuchusAnimations.SIT, ageInTicks);
         this.animate(entity.sitEndAnimationState, KaprosuchusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.sleepStartAnimationState, KaprosuchusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.sleepAnimationState, KaprosuchusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.sleepEndAnimationState, KaprosuchusAnimations.SLEEP_END, ageInTicks);
+        this.animate(entity.eepyStartAnimationState, KaprosuchusAnimations.SLEEP_START, ageInTicks);
+        this.animate(entity.eepyAnimationState, KaprosuchusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.eepyEndAnimationState, KaprosuchusAnimations.SLEEP_END, ageInTicks);
 
         if (this.young) this.applyStatic(KaprosuchusAnimations.BABY_TRANSFORM);
         if (entity.isInWater() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);
