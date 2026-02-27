@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -50,12 +51,13 @@ public class Pachycephalosaurus extends PrehistoricMob {
     private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
     private int stompCooldown = 500 + this.getRandom().nextInt(60 * 70);
 
-    public final AnimationState huffAnimationState = new AnimationState();
-    public final AnimationState stomp1AnimationState = new AnimationState();
-    public final AnimationState stomp2AnimationState = new AnimationState();
-    public final AnimationState grazeAnimationState = new AnimationState();
-    public final AnimationState warnAnimationState = new AnimationState();
-    public final AnimationState recoverAnimationState = new AnimationState();
+    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState huffAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState stomp1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState stomp2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState warnAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState recoverAnimationState = new SmoothAnimationState();
 
     private int warnTicks;
     private int recoverTicks;
@@ -202,6 +204,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
         if (recoverTicks == 0 && this.recoverAnimationState.isStarted()) this.recoverAnimationState.stop();
         this.idleAnimationState.animateWhen(this.getAttackState() != 1 && !this.isInWater() && !this.isInEepyPoseTransition() && this.getPose() != UP2Poses.RECOVERING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && this.getAttackState() != 1, this.tickCount);
+        this.recoverAnimationState.animateWhen(this.recoverAnimationState.isStarted(), this.tickCount);
+        this.warnAnimationState.animateWhen(this.warnAnimationState.isStarted(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {
             this.idleAnimationState.stop();

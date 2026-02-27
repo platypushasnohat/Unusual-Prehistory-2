@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -56,10 +57,10 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     private float[] yawBuffer = new float[128];
     private int yawPointer = -1;
 
-    public final AnimationState eyesAnimationState = new AnimationState();
-    public final AnimationState mouthAnimationState = new AnimationState();
-    public final AnimationState leapStartAnimationState = new AnimationState();
-    public final AnimationState leapAnimationState = new AnimationState();
+    public final SmoothAnimationState eyesAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState mouthAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState leapStartAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
 
     private int leapStartTicks;
     private int leapTicks;
@@ -222,7 +223,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         this.mouthAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isTryingToFly(), this.tickCount);
-        this.leapAnimationState.animateWhen(this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.leapStartAnimationState.animateWhen(this.leapStartAnimationState.isStarted(), this.tickCount);
+        this.leapAnimationState.animateWhen(this.leapAnimationState.isStarted(), this.tickCount);
     }
 
     public boolean isTryingToFly() {
@@ -354,7 +356,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 400;
+        return 350;
     }
 
     @Override

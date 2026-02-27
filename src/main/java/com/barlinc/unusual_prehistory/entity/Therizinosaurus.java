@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -60,18 +61,19 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     public int vibrationCooldown = 0;
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState attack1AnimationState = new AnimationState();
-    public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState forageLowAnimationState = new AnimationState();
-    public final AnimationState forageHighAnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
-    public final AnimationState stretchAnimationState = new AnimationState();
-    public final AnimationState alert1AnimationState = new AnimationState();
-    public final AnimationState alert2AnimationState = new AnimationState();
-    public final AnimationState roarAnimationState = new AnimationState();
+    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState forageLowAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState forageHighAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState alert1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState alert2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();
 
-    private int attackTicks;
+    public int attackTicks;
 
     private int alertTicks;
     private int foragingTicks;
@@ -233,6 +235,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+        this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
+        this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {
             this.attack1AnimationState.stop();

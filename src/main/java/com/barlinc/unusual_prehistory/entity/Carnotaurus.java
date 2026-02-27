@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -55,21 +56,21 @@ public class Carnotaurus extends PrehistoricMob {
     public int biteCooldown = 0;
     public int headbuttCooldown = 0;
 
-    public final AnimationState attack1AnimationState = new AnimationState();
-    public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState chargeStartAnimationState = new AnimationState();
-    public final AnimationState chargeEndAnimationState = new AnimationState();
-    public final AnimationState headbuttAnimationState = new AnimationState();
-    public final AnimationState angryAnimationState = new AnimationState();
-    public final AnimationState roarAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState attackFast1AnimationState = new AnimationState();
-    public final AnimationState attackFast2AnimationState = new AnimationState();
-    public final AnimationState headbuttFastAnimationState = new AnimationState();
-    public final AnimationState yawnAnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
-    public final AnimationState sniff1AnimationState = new AnimationState();
-    public final AnimationState sniff2AnimationState = new AnimationState();
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState chargeStartAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState chargeEndAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState headbuttAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attackFast1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attackFast2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState headbuttFastAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
 
     public int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
     public int shakeCooldown = 600 + this.getRandom().nextInt(50 * 50);
@@ -219,6 +220,15 @@ public class Carnotaurus extends PrehistoricMob {
         this.angryAnimationState.animateWhen(this.isAngry(), this.tickCount);
         this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
         this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
+        this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
+        this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
+        this.attackFast1AnimationState.animateWhen(this.attackFast1AnimationState.isStarted(), this.tickCount);
+        this.attackFast2AnimationState.animateWhen(this.attackFast2AnimationState.isStarted(), this.tickCount);
+        this.headbuttAnimationState.animateWhen(this.headbuttAnimationState.isStarted(), this.tickCount);
+        this.headbuttFastAnimationState.animateWhen(this.headbuttFastAnimationState.isStarted(), this.tickCount);
+        this.chargeEndAnimationState.animateWhen(this.chargeEndAnimationState.isStarted(), this.tickCount);
+        this.chargeStartAnimationState.animateWhen(this.chargeStartAnimationState.isStarted(), this.tickCount);
+        this.roarAnimationState.animateWhen(this.roarAnimationState.isStarted(), this.tickCount);
 
         if (this.isMobVisuallyEepy()) {
             this.sleepEndAnimationState.stop();

@@ -127,12 +127,11 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 	public void setupAnim(@NotNull Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-		this.animateIdle(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.biteAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
-		this.animate(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks);
-		this.animate(entity.sleepStartAnimationState, DromaeosaurusAnimations.SLEEP_START, ageInTicks);
-		this.animate(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
-		this.animate(entity.sleepEndAnimationState, DromaeosaurusAnimations.SLEEP_END, ageInTicks);
+
+		this.animateIdleSmooth(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.attackAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
+		this.animateSmooth(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks);
+		this.animateSmooth(entity.sleepAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks);
 
         if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
 

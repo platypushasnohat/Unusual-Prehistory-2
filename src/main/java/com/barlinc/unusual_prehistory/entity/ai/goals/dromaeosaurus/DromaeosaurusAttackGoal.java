@@ -5,8 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-
-import java.util.Objects;
+import net.minecraft.world.entity.Pose;
 
 public class DromaeosaurusAttackGoal extends AttackGoal {
 
@@ -31,30 +30,31 @@ public class DromaeosaurusAttackGoal extends AttackGoal {
     public void tick() {
         LivingEntity target = this.dromaeosaurus.getTarget();
         if (target != null) {
-            double distanceToTarget = this.dromaeosaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-
+            double distance = this.dromaeosaurus.distanceToSqr(target);
             this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
-
-            if (this.getAttackReachSqr(target) > 0) {
-                this.dromaeosaurus.getNavigation().moveTo(target, 1.0D);
-            }
-
+            this.dromaeosaurus.getNavigation().moveTo(target, 1.0D);
             if (this.dromaeosaurus.getAttackState() == 1) {
-                timer++;
-                if (timer == 1) this.dromaeosaurus.setPose(UP2Poses.ATTACKING.get());
-                if (timer == 6) {
-                    if (this.dromaeosaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
-                        this.dromaeosaurus.doHurtTarget(target);
-                        this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
-                    }
-                }
-                if (timer > 15) {
-                    timer = 0;
-                    this.dromaeosaurus.setAttackState(0);
-                }
-            } else if (distanceToTarget <= this.getAttackReachSqr(target)) {
+                this.tickAttack();
+            } else if (distance <= this.getAttackReachSqr(target)) {
                 this.dromaeosaurus.setAttackState(1);
             }
+        }
+    }
+
+    private void tickAttack() {
+        this.timer++;
+        LivingEntity target = dromaeosaurus.getTarget();
+        if (timer == 1) dromaeosaurus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 6) {
+            if (this.isInAttackRange(target, 1.25D)) {
+                this.dromaeosaurus.doHurtTarget(target);
+                this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
+            }
+        }
+        if (timer > 15) {
+            this.timer = 0;
+            this.dromaeosaurus.setPose(Pose.STANDING);
+            this.dromaeosaurus.setAttackState(0);
         }
     }
 

@@ -135,19 +135,19 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(BarinasuchusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(BarinasuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.3F, 2.6F);
         }
-		this.animateIdle(entity.idleAnimationState, BarinasuchusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks, 2);
-        this.animate(entity.attack1AnimationState, BarinasuchusAnimations.BITE_BLEND1, ageInTicks);
-        this.animate(entity.attack2AnimationState, BarinasuchusAnimations.BITE_BLEND2, ageInTicks);
-		this.animate(entity.sitStartAnimationState, BarinasuchusAnimations.SIT_START, ageInTicks);
-		this.animate(entity.sitAnimationState, BarinasuchusAnimations.SIT, ageInTicks);
-		this.animate(entity.sitEndAnimationState, BarinasuchusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.yawnAnimationState, BarinasuchusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.shakeAnimationState, BarinasuchusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.threatenAnimationState, BarinasuchusAnimations.THREATEN, ageInTicks);
-        this.animate(entity.sleepStartAnimationState, BarinasuchusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.sleepAnimationState, BarinasuchusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.sleepEndAnimationState, BarinasuchusAnimations.SLEEP_END, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, BarinasuchusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, BarinasuchusAnimations.SWIM, ageInTicks, 2);
+        this.animateSmooth(entity.attack1AnimationState, BarinasuchusAnimations.BITE_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, BarinasuchusAnimations.BITE_BLEND2, ageInTicks);
+		this.animateSmooth(entity.sitStartAnimationState, BarinasuchusAnimations.SIT_START, ageInTicks);
+		this.animateSmooth(entity.sitAnimationState, BarinasuchusAnimations.SIT, ageInTicks);
+		this.animateSmooth(entity.sitEndAnimationState, BarinasuchusAnimations.SIT_END, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, BarinasuchusAnimations.YAWN_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, BarinasuchusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.threatenAnimationState, BarinasuchusAnimations.THREATEN, ageInTicks);
+        this.animateSmooth(entity.sleepStartAnimationState, BarinasuchusAnimations.SLEEP_START, ageInTicks);
+        this.animateSmooth(entity.sleepAnimationState, BarinasuchusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.sleepEndAnimationState, BarinasuchusAnimations.SLEEP_END, ageInTicks);
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 

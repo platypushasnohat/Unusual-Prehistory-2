@@ -1,9 +1,12 @@
 package com.barlinc.unusual_prehistory.entity;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -11,6 +14,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,7 +26,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
@@ -43,10 +46,10 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
 
     public int grabCooldown = 0;
 
-    public final AnimationState grabAnimationState = new AnimationState();
-    public final AnimationState nip1AnimationState = new AnimationState();
-    public final AnimationState nip2AnimationState = new AnimationState();
-    public final AnimationState tailChaseAnimationState = new AnimationState();
+    public final SmoothAnimationState grabAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState nip1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState nip2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState tailChaseAnimationState = new SmoothAnimationState();
 
     private int nipCooldown = 900 + this.getRandom().nextInt(900);
     private int tailChaseCooldown = 1300 + this.getRandom().nextInt(1300);
@@ -94,12 +97,14 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Override
     public void switchNavigator(boolean onLand) {
         if (onLand) {
-            this.moveControl = new MoveControl(this);
-            this.navigation = new SmoothGroundPathNavigation(this, this.level());
+            this.lookControl = new PrehistoricLookControl(this);
+            this.moveControl = new PrehistoricMoveControl(this);
+            this.navigation = new NoSpinGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
+            this.lookControl = new PrehistoricFlyingLookControl(this, 85);
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 0.75F);
+            this.navigation = new NoSpinFlyingPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -192,11 +197,14 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isDancing() && !this.isFlying() && this.getIdleState() != 2, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning() && this.getAttackState() != 1, this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning() && this.getAttackState() != 1, this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && !this.isRunning() && this.getAttackState() != 1, this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning() && this.getAttackState() != 1, this.tickCount);
         this.hoverAnimationState.animateWhen(this.isFlying() && this.getAttackState() != 1, this.tickCount);
         this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
         this.grabAnimationState.animateWhen(this.getAttackState() == 1, this.tickCount);
+        this.nip1AnimationState.animateWhen(this.nip1AnimationState.isStarted(), this.tickCount);
+        this.nip2AnimationState.animateWhen(this.nip2AnimationState.isStarted(), this.tickCount);
+        this.tailChaseAnimationState.animateWhen(this.tailChaseAnimationState.isStarted(), this.tickCount);
     }
 
     @Override
@@ -318,7 +326,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
         private final Dimorphodon dimorphodon;
 
         public DimorphodonTailChaseGoal(Dimorphodon dimorphodon) {
-            super(dimorphodon, 60, 1, (byte) 69, (byte) 70);
+            super(dimorphodon, 60, 2, (byte) 69, (byte) 70);
             this.dimorphodon = dimorphodon;
         }
 
