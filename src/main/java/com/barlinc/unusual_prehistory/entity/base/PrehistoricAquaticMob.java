@@ -13,7 +13,6 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
@@ -175,7 +174,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         compoundTag.putInt("Age", this.getAge());
         compoundTag.putBoolean("Pacified", this.isPacified());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
-        compoundTag.putLong("LastPoseTick", this.getSitPoseTicks());
         compoundTag.putInt("EatingCooldown", this.getEatCooldown());
     }
 
@@ -188,7 +186,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         this.setAge(compoundTag.getInt("Age"));
         this.setPacified(compoundTag.getBoolean("Pacified"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
-        this.setSitPoseTicks(compoundTag.getLong("LastPoseTick"));
         this.setEatCooldown(compoundTag.getInt("EatingCooldown"));
     }
 
