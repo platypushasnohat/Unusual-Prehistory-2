@@ -99,7 +99,6 @@ public class ForgeEvents {
         if (event.getLookingEntity() != null) {
             if (entity instanceof Majungasaurus majungasaurus) {
                 if (majungasaurus.isCamo()) event.modifyVisibility(0.3F);
-                if (majungasaurus.isCamoAvoiding()) event.modifyVisibility(0.5F);
             }
         }
     }

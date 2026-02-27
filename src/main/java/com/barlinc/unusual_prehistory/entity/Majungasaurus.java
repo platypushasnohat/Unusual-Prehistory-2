@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -43,10 +44,7 @@ import java.util.function.Predicate;
 public class Majungasaurus extends PrehistoricMob {
 
     public static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> CAMO_AVOIDING = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
-
-    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.2F, 1.1F);
 
     public float prevCamoProgress;
     public float camoProgress;
@@ -54,21 +52,17 @@ public class Majungasaurus extends PrehistoricMob {
     public float prevAngryProgress;
     public float angryProgress;
 
-    public final AnimationState eyesAnimationState = new AnimationState();
-    public final AnimationState attack1AnimationState = new AnimationState();
-    public final AnimationState attack2AnimationState = new AnimationState();
-    public final AnimationState startCamoAnimationState = new AnimationState();
-    public final AnimationState camoIdleAnimationState = new AnimationState();
-    public final AnimationState stopCamoAnimationState = new AnimationState();
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState yawnAnimationState = new AnimationState();
-    public final AnimationState sniff1AnimationState = new AnimationState();
-    public final AnimationState sniff2AnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
+    public final SmoothAnimationState eyesAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState camoIdleAnimationState = new SmoothAnimationState(0.25F);
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
 
     private int attackTicks;
-    private int startCamoTicks;
-    private int stopCamoTicks;
 
     private int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
     private int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
@@ -116,7 +110,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        this.stopCamoInstantly();
+        this.stopCamo();
         super.actuallyHurt(damageSource, amount);
     }
 
@@ -144,7 +138,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     public float getAngryProgress(float partialTicks) {
-        return (prevAngryProgress + (angryProgress - prevAngryProgress) * partialTicks) * 0.1F;
+        return (prevAngryProgress + (angryProgress - prevAngryProgress) * partialTicks) * 0.2F;
     }
 
     public boolean canCannibalize(LivingEntity entity) {
@@ -175,11 +169,6 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return this.getPose() == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
-    }
-
-    @Override
     public boolean refuseToMove() {
         return super.refuseToMove() || this.getIdleState() == 3;
     }
@@ -199,10 +188,10 @@ public class Majungasaurus extends PrehistoricMob {
         if (this.attackTicks > 0) attackTicks--;
         if (this.attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
 
-        if ((this.isCamo() || this.isCamoAvoiding()) && camoProgress < 10.0F) camoProgress++;
-        else if (!(this.isCamo() || this.isCamoAvoiding()) && camoProgress > 0.0F) camoProgress--;
+        if ((this.isCamo()) && camoProgress < 10.0F) camoProgress++;
+        else if (!(this.isCamo()) && camoProgress > 0.0F) camoProgress--;
 
-        if (this.isAggressive() && angryProgress < 10.0F) angryProgress++;
+        if (this.isAggressive() && angryProgress < 5.0F) angryProgress++;
         else if (!this.isAggressive() && angryProgress > 0.0F) angryProgress--;
 
         if (this.getCamoCooldown() > 0) this.setCamoCooldown(this.getCamoCooldown() - 1);
@@ -210,10 +199,6 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (startCamoTicks > 0) startCamoTicks--;
-        if (stopCamoTicks > 0) stopCamoTicks--;
-        if (startCamoTicks == 0 && this.getPose() == UP2Poses.START_CAMO.get()) this.setPose(Pose.STANDING);
-        if (stopCamoTicks == 0 && this.getPose() == UP2Poses.STOP_CAMO.get()) this.setPose(Pose.STANDING);
         if (!this.isMobEepy()) {
             if (yawnCooldown > 0) yawnCooldown--;
             if (shakeCooldown > 0) shakeCooldown--;
@@ -227,35 +212,11 @@ public class Majungasaurus extends PrehistoricMob {
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        if (startCamoTicks == 0 && this.startCamoAnimationState.isStarted()) this.startCamoAnimationState.stop();
-        if (stopCamoTicks == 0 && this.stopCamoAnimationState.isStarted()) this.stopCamoAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
-        this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater() && this.getPose() != UP2Poses.START_CAMO.get() && this.getPose() != UP2Poses.STOP_CAMO.get(), this.tickCount);
-        this.eyesAnimationState.animateWhen(!this.isAggressive(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isCamo() && !this.isInWater() && !this.isEepy(), this.tickCount);
+        this.camoIdleAnimationState.animateWhen(this.isCamo() && !this.isInWater(), this.tickCount);
+        this.eyesAnimationState.animateWhen(!this.isAggressive() && !this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
-
-        if (this.isMobVisuallyEepy()) {
-            this.sleepEndAnimationState.stop();
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.eyesAnimationState.stop();
-            this.idleAnimationState.stop();
-            this.startCamoAnimationState.stop();
-            this.stopCamoAnimationState.stop();
-            this.camoIdleAnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
-            } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
     @Override
@@ -271,19 +232,9 @@ public class Majungasaurus extends PrehistoricMob {
                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
                 else this.attack2AnimationState.start(this.tickCount);
             }
-            else if (this.getPose() == UP2Poses.START_CAMO.get()) {
-                this.startCamoTicks = 20;
-                this.startCamoAnimationState.start(this.tickCount);
-            }
-            else if (this.getPose() == UP2Poses.STOP_CAMO.get()) {
-                this.stopCamoTicks = 20;
-                this.stopCamoAnimationState.start(this.tickCount);
-            }
             else if (this.getPose() == Pose.STANDING) {
                 this.attack1AnimationState.stop();
                 this.attack2AnimationState.stop();
-                this.startCamoAnimationState.stop();
-                this.stopCamoAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(entityDataAccessor);
@@ -325,7 +276,6 @@ public class Majungasaurus extends PrehistoricMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CAMO, false);
-        this.entityData.define(CAMO_AVOIDING, false);
         this.entityData.define(CAMO_COOLDOWN, 0);
     }
 
@@ -348,13 +298,6 @@ public class Majungasaurus extends PrehistoricMob {
         this.entityData.set(CAMO, camo);
     }
 
-    public boolean isCamoAvoiding() {
-        return this.entityData.get(CAMO_AVOIDING);
-    }
-    public void setCamoAvoiding(boolean camo) {
-        this.entityData.set(CAMO_AVOIDING, camo);
-    }
-
     public int getCamoCooldown() {
         return this.entityData.get(CAMO_COOLDOWN);
     }
@@ -367,18 +310,11 @@ public class Majungasaurus extends PrehistoricMob {
 
     public void startCamo() {
         if (this.isCamo()) return;
-        this.setPose(UP2Poses.START_CAMO.get());
         this.setCamo(true);
     }
 
     public void stopCamo() {
         if (!this.isCamo()) return;
-        this.setPose(UP2Poses.STOP_CAMO.get());
-        this.setCamo(false);
-        this.camoCooldown();
-    }
-
-    public void stopCamoInstantly() {
         this.setCamo(false);
         this.camoCooldown();
     }
@@ -393,7 +329,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public boolean canPlayAmbientSound() {
-        return !this.isCamo() && !this.isCamoAvoiding() && super.canPlayAmbientSound();
+        return !this.isCamo() && super.canPlayAmbientSound();
     }
 
     @Nullable
@@ -419,13 +355,13 @@ public class Majungasaurus extends PrehistoricMob {
        if (this.isCamo()) {
            this.playSound(SoundEvents.EMPTY);
        } else {
-           this.playSound(SoundEvents.CAMEL_STEP, this.isCamoAvoiding() ? 0.5F : 1.0F, 0.9F);
+           this.playSound(SoundEvents.CAMEL_STEP, 1.0F, 0.9F);
        }
     }
 
     @Override
     protected Entity.@NotNull MovementEmission getMovementEmission() {
-        return this.isCamo() || this.isCamoAvoiding() ? Entity.MovementEmission.NONE : super.getMovementEmission();
+        return this.isCamo() ? Entity.MovementEmission.NONE : super.getMovementEmission();
     }
 
     public enum MajungasaurusVariant {
@@ -472,20 +408,20 @@ public class Majungasaurus extends PrehistoricMob {
         private final Majungasaurus majungasaurus;
 
         public MajungasaurusAvoidEntityGoal(Majungasaurus mob, Class<T> classToAvoid, Predicate<LivingEntity> predicateOnAvoid) {
-            super(mob, classToAvoid, 12.0F, 1.5D, predicateOnAvoid, false);
+            super(mob, classToAvoid, 12.0F, 1.0D, predicateOnAvoid, false);
             this.majungasaurus = mob;
         }
 
         @Override
         public void start() {
             super.start();
-            if (majungasaurus.getCamoCooldown() == 0) this.majungasaurus.setCamoAvoiding(true);
+            if (majungasaurus.getCamoCooldown() == 0) this.majungasaurus.setCamo(true);
         }
 
         @Override
         public void stop() {
             super.stop();
-            this.majungasaurus.setCamoAvoiding(false);
+            this.majungasaurus.setCamo(false);
             this.majungasaurus.camoCooldown();
         }
     }

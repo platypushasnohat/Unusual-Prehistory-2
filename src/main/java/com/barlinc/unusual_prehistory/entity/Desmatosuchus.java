@@ -213,9 +213,9 @@ public class Desmatosuchus extends PrehistoricMob {
             this.sniff1AnimationState.stop();
             this.sniff2AnimationState.stop();
             this.rollAnimationState.stop();
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.stop();
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.stop();
 
             if (this.isVisuallySitting()) {
                 this.sitStartAnimationState.startIfStopped(this.tickCount);
@@ -231,7 +231,7 @@ public class Desmatosuchus extends PrehistoricMob {
         }
 
         if (this.isMobVisuallyEepy()) {
-            this.sleepEndAnimationState.stop();
+            this.eepyEndAnimationState.stop();
             this.grazeAnimationState.stop();
             this.idleAnimationState.stop();
             this.shakeAnimationState.stop();
@@ -243,16 +243,16 @@ public class Desmatosuchus extends PrehistoricMob {
             this.sitEndAnimationState.stop();
 
             if (this.isVisuallyEepy()) {
-                this.sleepStartAnimationState.startIfStopped(this.tickCount);
-                this.sleepAnimationState.stop();
+                this.eepyStartAnimationState.startIfStopped(this.tickCount);
+                this.eepyAnimationState.stop();
             } else {
-                this.sleepStartAnimationState.stop();
-                this.sleepAnimationState.startIfStopped(this.tickCount);
+                this.eepyStartAnimationState.stop();
+                this.eepyAnimationState.startIfStopped(this.tickCount);
             }
         } else {
-            this.sleepStartAnimationState.stop();
-            this.sleepAnimationState.stop();
-            this.sleepEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+            this.eepyStartAnimationState.stop();
+            this.eepyAnimationState.stop();
+            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
         }
     }
 

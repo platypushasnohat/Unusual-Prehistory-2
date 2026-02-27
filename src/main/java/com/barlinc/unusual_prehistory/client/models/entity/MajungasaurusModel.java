@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity;
 import com.barlinc.unusual_prehistory.client.animations.MajungasaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.base.UP2Model;
 import com.barlinc.unusual_prehistory.entity.Majungasaurus;
+import com.barlinc.unusual_prehistory.utils.ModelUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
@@ -141,7 +142,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (!entity.isInWater() && !entity.isMobSitting()) {
-            if (entity.isCamo()) this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2.5F, 5);
+            if (entity.isCamo()) this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 4, 8);
             else {
                 if (entity.isRunning()) this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
                 else this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
@@ -150,24 +151,19 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 
 		if (this.young) this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 
-        this.animateIdle(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
-		this.animate(entity.attack1AnimationState, MajungasaurusAnimations.ATTACK_BLEND1, ageInTicks);
-		this.animate(entity.attack2AnimationState, MajungasaurusAnimations.ATTACK_BLEND2, ageInTicks);
-		this.animate(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_BLEND, ageInTicks);
-        this.animate(entity.startCamoAnimationState, MajungasaurusAnimations.CAMO_START, ageInTicks);
-        this.animateIdle(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.stopCamoAnimationState, MajungasaurusAnimations.CAMO_END, ageInTicks);
-        this.animate(entity.yawnAnimationState, MajungasaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
-        this.animate(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
-        this.animate(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.sleepStartAnimationState, MajungasaurusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.sleepAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.sleepEndAnimationState, MajungasaurusAnimations.SLEEP_END, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks);
+		this.animateSmooth(entity.attack1AnimationState, MajungasaurusAnimations.ATTACK_BLEND1, ageInTicks);
+		this.animateSmooth(entity.attack2AnimationState, MajungasaurusAnimations.ATTACK_BLEND2, ageInTicks);
+		this.animateSmooth(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.yawnAnimationState, MajungasaurusAnimations.YAWN_BLEND, ageInTicks);
+        this.animateSmooth(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
+        this.animateSmooth(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
 
-        this.neck.xRot += entity.isMobEepy() ? 0F : (headPitch * ((float) Math.PI / 180)) / 2;
-		this.neck.yRot += (netHeadYaw * ((float) Math.PI / 180)) / 2;
+        ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
 	}
 
 	@Override
