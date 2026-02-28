@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Dromaeosaurus;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -29,7 +30,7 @@ public class DromaeosaurusRunGoal extends Goal {
             Vec3 vec3 = this.getPosition();
             if (vec3 == null) {
                 return false;
-            } else if ((this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) || this.dromaeosaurus.level().dimension() != Level.OVERWORLD) {
+            } else if ((!this.dromaeosaurus.isEepy() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && dromaeosaurus.getNavigation().isDone()) {
                 this.wantedX = vec3.x;
                 this.wantedY = vec3.y;
                 this.wantedZ = vec3.z;
@@ -41,7 +42,13 @@ public class DromaeosaurusRunGoal extends Goal {
 
     @Nullable
     protected Vec3 getPosition() {
-        return LandRandomPos.getPos(this.dromaeosaurus, 20, 7);
+        Vec3 randomPos;
+        if (dromaeosaurus.isInWater()) {
+            randomPos = LandRandomPos.getPos(dromaeosaurus, 30, 8);
+            return randomPos == null ? LandRandomPos.getPos(dromaeosaurus, 10, 7) : randomPos;
+        }
+        randomPos = dromaeosaurus.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(dromaeosaurus, 10, 7) : DefaultRandomPos.getPos(dromaeosaurus, 10, 7);
+        return randomPos;
     }
 
     @Override
@@ -52,11 +59,6 @@ public class DromaeosaurusRunGoal extends Goal {
     @Override
     public void start() {
         this.dromaeosaurus.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, 1.0D);
-    }
-
-    @Override
-    public void tick() {
-        this.dromaeosaurus.getLookControl().setLookAt(this.wantedX, this.wantedY, this.wantedZ, 30F, 30F);
     }
 
     @Override

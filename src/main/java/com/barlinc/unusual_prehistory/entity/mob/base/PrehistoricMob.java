@@ -459,8 +459,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Sitting & Sleeping
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (this.isMobSitting()) this.stopSittingInstantly();
-        else if (this.isMobEepy()) this.stopEepyInstantly();
+        if (this.isSitting()) this.stopSittingInstantly();
+        else if (this.isEepy()) this.stopEepyInstantly();
         super.actuallyHurt(damageSource, amount);
     }
 

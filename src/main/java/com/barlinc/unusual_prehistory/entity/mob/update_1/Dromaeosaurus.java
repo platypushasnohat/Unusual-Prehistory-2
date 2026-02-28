@@ -1,12 +1,13 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -18,8 +19,6 @@ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -40,39 +39,38 @@ import org.jetbrains.annotations.Nullable;
 
 public class Dromaeosaurus extends PrehistoricMob {
 
-    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(0.7F, 0.5F);
-
-    public int leapCooldown = 100 + this.getRandom().nextInt(20 * 20);
+    public int leapCooldown = 120 + this.getRandom().nextInt(120);
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState fallAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.25F);
 
     public Dromaeosaurus(EntityType<? extends Dromaeosaurus> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new DromaeosaurusSleepingGoal(this));
-        this.goalSelector.addGoal(2, new DromaeosaurusLeapGoal(this));
-        this.goalSelector.addGoal(3, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
-        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(7, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new DromaeosaurusSleepingGoal(this));
+        this.goalSelector.addGoal(3, new DromaeosaurusLeapGoal(this));
+        this.goalSelector.addGoal(4, new DromaeosaurusAttackGoal(this));
+        this.goalSelector.addGoal(5, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
+        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(7, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(8, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){
-                return super.canUse() && !Dromaeosaurus.this.isMobEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
+                return super.canUse() && !Dromaeosaurus.this.isEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
 
             @Override
             public boolean canContinueToUse(){
-                return super.canContinueToUse() && !Dromaeosaurus.this.isMobEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
+                return super.canContinueToUse() && !Dromaeosaurus.this.isEepy() && (Dromaeosaurus.this.level().isDay() || Dromaeosaurus.this.level().dimensionType().fixedTime().isPresent());
             }
         });
     }
@@ -81,15 +79,20 @@ public class Dromaeosaurus extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.36F);
+                .add(Attributes.MOVEMENT_SPEED, 0.4F);
     }
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);
         return navigation;
+    }
+
+    @Override
+    public float getStepHeight() {
+        return 1.1F;
     }
 
     @Override
@@ -108,15 +111,9 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    public SoundEvent getEatingSound() {
-        return SoundEvents.PARROT_EAT;
-    }
-
-    @Override
     public void tick () {
         super.tick();
         this.setSprinting(this.getDeltaMovement().horizontalDistance() > 0.05D);
-        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, 60);
         if (leapCooldown > 0) leapCooldown--;
     }
 
@@ -126,16 +123,11 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    public long getEepyPoseTransitionTime() {
-        return 1L;
-    }
-
-    @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isMobEepy(), this.tickCount);
-        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy(), this.tickCount);
+        this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger() && !this.isEepy(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
-        this.eepyAnimationState.animateWhen(this.isMobEepy(), this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
     @Override
@@ -153,17 +145,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        this.stopEepyInstantly();
-        super.actuallyHurt(damageSource, amount);
-    }
-
-    @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
-    }
-
-    @Override
     public void travel(@NotNull Vec3 vec3) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));
@@ -174,7 +155,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected void onLeashDistance(float distance) {
-        if (distance > 4.0F && this.isMobEepy() && !this.isInEepyPoseTransition()) {
+        if (distance > 4.0F && this.isEepy()) {
             this.stopEepy();
         }
     }
@@ -182,7 +163,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isMobEepy() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
+        return this.isEepy() ? UP2SoundEvents.DROMAEOSAURUS_EEPY.get() : UP2SoundEvents.DROMAEOSAURUS_IDLE.get();
     }
 
     @Override

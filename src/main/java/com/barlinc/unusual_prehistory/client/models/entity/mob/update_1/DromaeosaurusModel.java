@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.DromaeosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Dromaeosaurus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -126,7 +127,7 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 	@Override
 	public void setupAnim(@NotNull Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 3);
 
 		this.animateIdleSmooth(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
 		this.animateSmooth(entity.attackAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
@@ -135,8 +136,7 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 
         if (this.young) this.applyStatic(DromaeosaurusAnimations.BABY_TRANSFORM);
 
-        this.neck.xRot += entity.isMobEepy() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
-		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
+        UP2ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
 	}
 
 	@Override
