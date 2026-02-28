@@ -200,7 +200,7 @@ public class Majungasaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (!this.isMobEepy()) {
+        if (!this.isEepy()) {
             if (yawnCooldown > 0) yawnCooldown--;
             if (shakeCooldown > 0) shakeCooldown--;
             if (sniffCooldown > 0) sniffCooldown--;

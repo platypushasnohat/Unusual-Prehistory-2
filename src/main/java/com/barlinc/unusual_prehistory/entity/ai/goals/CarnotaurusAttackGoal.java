@@ -93,7 +93,10 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = carnotaurus.getTarget();
 
-        if (timer == 1) carnotaurus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 1) {
+            this.carnotaurus.setPose(UP2Poses.ATTACKING.get());
+            this.carnotaurus.attackAlt = carnotaurus.getRandom().nextBoolean();
+        }
         if (timer == 9) carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_BITE.get(), 1.0F, carnotaurus.getVoicePitch());
 
         if (timer == 11) {
@@ -113,7 +116,10 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = carnotaurus.getTarget();
 
-        if (timer == 1) carnotaurus.setPose(UP2Poses.ATTACKING_FAST.get());
+        if (timer == 1) {
+            this.carnotaurus.setPose(UP2Poses.ATTACKING_FAST.get());
+            this.carnotaurus.attackAlt = carnotaurus.getRandom().nextBoolean();
+        }
         if (timer == 3) carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_BITE.get(), 1.0F, 1.1F * carnotaurus.getVoicePitch());
         if (timer == 6) {
             if (carnotaurus.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
@@ -123,6 +129,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         }
         if (timer > 12) {
             this.timer = 0;
+            this.carnotaurus.setPose(Pose.STANDING);
             this.carnotaurus.biteCooldown = 1;
             this.carnotaurus.setAttackState(0);
         }
@@ -136,6 +143,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         if (timer == 12) this.headbuttNearbyEntities();
         if (timer > 20) {
             this.timer = 0;
+            this.carnotaurus.setPose(Pose.STANDING);
             this.carnotaurus.headbuttCooldown = 40 + carnotaurus.getRandom().nextInt(20);
             this.carnotaurus.setAttackState(0);
         }
@@ -149,6 +157,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         if (timer == 8) this.headbuttNearbyEntities();
         if (timer > 15) {
             this.timer = 0;
+            this.carnotaurus.setPose(Pose.STANDING);
             this.carnotaurus.headbuttCooldown = 20 + carnotaurus.getRandom().nextInt(10);
             this.carnotaurus.setAttackState(0);
         }
@@ -192,7 +201,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
     protected void tickRoar() {
         this.timer++;
         LivingEntity target = carnotaurus.getTarget();
-        if (timer == 1) carnotaurus.setPose(Pose.ROARING);
+        if (timer == 1) carnotaurus.setPose(UP2Poses.ROARING.get());
         if (timer == 5) carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_ROAR.get(), 2.0F, 1.0F);
         this.carnotaurus.lookAt(target, 360F, 30F);
         this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
@@ -201,6 +210,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
 
         if (timer > 40) {
             this.timer = 0;
+            this.carnotaurus.setPose(Pose.STANDING);
             this.carnotaurus.roarCooldown();
             this.carnotaurus.setAttackState(0);
         }

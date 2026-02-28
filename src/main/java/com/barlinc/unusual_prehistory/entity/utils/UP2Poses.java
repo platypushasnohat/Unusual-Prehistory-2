@@ -27,7 +27,8 @@ public enum UP2Poses {
     ALERTED,
     ENRAGED,
     STOMPING,
-    RECOVERING;
+    RECOVERING,
+    ROARING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

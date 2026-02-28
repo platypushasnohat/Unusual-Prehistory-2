@@ -5,6 +5,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -130,7 +131,7 @@
 
      @Override
      protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+         NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level, 1.0F);
          navigation.setCanWalkOverFences(true);
          return navigation;
      }

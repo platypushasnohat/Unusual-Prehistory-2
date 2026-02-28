@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.CarnotaurusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.CarnotaurusIdleAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -184,16 +183,14 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animateSmooth(entity.headbuttFastAnimationState, CarnotaurusAnimations.HEADBUTT_FAST_BLEND, ageInTicks);
         this.animateSmooth(entity.chargeStartAnimationState, CarnotaurusAnimations.CHARGE_START, ageInTicks);
         this.animateSmooth(entity.chargeEndAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
-		this.animateSmooth(entity.roarAnimationState, CarnotaurusAnimations.ROAR, ageInTicks);
-		this.animateSmooth(entity.angryAnimationState, CarnotaurusAnimations.ANGRY, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
-        this.animateSmooth(entity.sniff1AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND1, ageInTicks);
-        this.animateSmooth(entity.sniff2AnimationState, CarnotaurusIdleAnimations.SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, CarnotaurusIdleAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, CarnotaurusIdleAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.eepyStartAnimationState, CarnotaurusIdleAnimations.SLEEP_START, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, CarnotaurusIdleAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.eepyEndAnimationState, CarnotaurusIdleAnimations.SLEEP_END, ageInTicks);
+		this.animateSmooth(entity.roarAnimationState, CarnotaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
+		this.animateSmooth(entity.angryAnimationState, CarnotaurusAnimations.AGGRO_BLEND, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.sniff1AnimationState, CarnotaurusAnimations.SNIFF_BLEND1, ageInTicks);
+        this.animateSmooth(entity.sniff2AnimationState, CarnotaurusAnimations.SNIFF_BLEND2, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, CarnotaurusAnimations.YAWN_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, CarnotaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks);
 
         ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
     }
