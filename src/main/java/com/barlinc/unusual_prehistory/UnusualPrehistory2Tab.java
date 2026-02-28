@@ -180,6 +180,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CALAMOPHYTON_FOSSIL.get());
                         output.accept(CLADOPHLEBIS_FOSSIL.get());
                         output.accept(COOKSONIA_FOSSIL.get());
+                        output.accept(CYCAD_FOSSIL.get());
                         output.accept(HORSETAIL_FOSSIL.get());
                         output.accept(LEEFRUCTUS_FOSSIL.get());
                         output.accept(NEOMARIOPTERIS_FOSSIL.get());
