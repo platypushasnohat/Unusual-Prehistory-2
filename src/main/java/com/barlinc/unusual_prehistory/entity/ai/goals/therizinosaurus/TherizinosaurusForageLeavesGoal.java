@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.therizinosaurus;
 
-import com.barlinc.unusual_prehistory.entity.Therizinosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Therizinosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;

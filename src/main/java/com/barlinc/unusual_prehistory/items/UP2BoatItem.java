@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.items;
 
-import com.barlinc.unusual_prehistory.entity.UP2Boat;
-import com.barlinc.unusual_prehistory.entity.UP2ChestBoat;
+import com.barlinc.unusual_prehistory.entity.misc.UP2Boat;
+import com.barlinc.unusual_prehistory.entity.misc.UP2ChestBoat;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;

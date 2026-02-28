@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -27,7 +27,7 @@ public class PrehistoricAvoidEntityGoal<T extends LivingEntity> extends Goal {
     protected final Class<T> avoidClass;
     protected final Predicate<LivingEntity> avoidPredicate;
     protected final Predicate<LivingEntity> predicateOnAvoidEntity;
-    private final TargetingConditions avoidEntityTargeting;
+    protected final TargetingConditions avoidEntityTargeting;
     private final boolean shouldRun;
 
     public PrehistoricAvoidEntityGoal(PrehistoricMob mob, Class<T> classToAvoid, float distance, double speedModifier) {

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.projectile;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

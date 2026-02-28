@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus;
 
-import com.barlinc.unusual_prehistory.entity.Pterodactylus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.ClipContext;

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.control;
 
-import com.barlinc.unusual_prehistory.entity.LivingOoze;
+import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 

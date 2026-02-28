@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium;
 
-import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;

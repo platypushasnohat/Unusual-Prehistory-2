@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.sounds;
 
-import com.barlinc.unusual_prehistory.entity.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

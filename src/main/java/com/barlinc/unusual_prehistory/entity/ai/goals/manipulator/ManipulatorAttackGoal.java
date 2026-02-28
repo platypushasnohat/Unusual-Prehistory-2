@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.manipulator;
 
-import com.barlinc.unusual_prehistory.entity.Manipulator;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.control;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;

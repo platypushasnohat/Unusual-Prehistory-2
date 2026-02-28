@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Diplocaulus;
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.JawlessFish;
-import com.barlinc.unusual_prehistory.entity.LobeFinnedFish;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;

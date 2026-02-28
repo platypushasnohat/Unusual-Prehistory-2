@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.kentrosaurus;
 
-import com.barlinc.unusual_prehistory.entity.Kentrosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

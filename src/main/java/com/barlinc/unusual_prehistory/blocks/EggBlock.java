@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;

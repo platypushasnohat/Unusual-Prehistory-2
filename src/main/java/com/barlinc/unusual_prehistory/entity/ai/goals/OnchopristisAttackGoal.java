@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.Onchopristis;
+import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;

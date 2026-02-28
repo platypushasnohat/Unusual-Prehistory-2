@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;

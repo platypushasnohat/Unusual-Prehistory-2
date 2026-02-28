@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.screens;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Manipulator;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;

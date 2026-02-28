@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus;
 
-import com.barlinc.unusual_prehistory.entity.Dromaeosaurus;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Dromaeosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;

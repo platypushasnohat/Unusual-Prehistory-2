@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.items;
 
-import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

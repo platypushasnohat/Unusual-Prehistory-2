@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.diplocaulus;
 
-import com.barlinc.unusual_prehistory.entity.Diplocaulus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.world.entity.ai.goal.Goal;
 

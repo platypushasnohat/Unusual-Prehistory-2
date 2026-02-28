@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.Dimorphodon;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Dimorphodon;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DimorphodonGrabGoal extends AttackGoal {

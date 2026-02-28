@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.Kaprosuchus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Kaprosuchus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.megalania;
 
-import com.barlinc.unusual_prehistory.entity.Megalania;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 
 public class MegalaniaSitGoal extends RandomSitGoal {
 

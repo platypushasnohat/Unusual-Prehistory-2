@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Brachiosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Brachiosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;

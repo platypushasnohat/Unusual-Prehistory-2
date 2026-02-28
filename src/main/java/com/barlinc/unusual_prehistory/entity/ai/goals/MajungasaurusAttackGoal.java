@@ -1,12 +1,11 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.Majungasaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-
-import java.util.Objects;
+import net.minecraft.world.entity.Pose;
 
 public class MajungasaurusAttackGoal extends AttackGoal {
 
@@ -20,59 +19,57 @@ public class MajungasaurusAttackGoal extends AttackGoal {
     @Override
     public void start() {
         super.start();
-        this.majungasaurus.stopCamo();
+        this.majungasaurus.setCamo(false);
     }
 
     @Override
     public void stop() {
         super.stop();
-        this.majungasaurus.stopCamo();
+        this.majungasaurus.setCamo(false);
+        this.majungasaurus.camoCooldown();
     }
 
     @Override
     public void tick() {
-        LivingEntity target = this.majungasaurus.getTarget();
+        LivingEntity target = majungasaurus.getTarget();
         if (target != null) {
-            double distanceToTarget = this.majungasaurus.getPerceivedTargetDistanceSquareForMeleeAttack(target);
-            int attackState = this.majungasaurus.getAttackState();
-
+            double distance = majungasaurus.distanceToSqr(target);
             this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
-
-            if (distanceToTarget > 25 && this.majungasaurus.getCamoCooldown() == 0 && !this.majungasaurus.isInWaterOrBubble()) {
-                this.majungasaurus.startCamo();
-                this.majungasaurus.getNavigation().moveTo(target, 1.2D);
+            if (distance > 25 && majungasaurus.getCamoCooldown() == 0 && !majungasaurus.isInWaterOrBubble()) {
+                this.majungasaurus.setCamo(true);
+                this.majungasaurus.getNavigation().moveTo(target, 0.9D);
             }
-            if (distanceToTarget <= 25 || this.majungasaurus.getCamoCooldown() > 0) {
-                this.majungasaurus.stopCamo();
+            if (distance <= 25 || majungasaurus.getCamoCooldown() > 0) {
+                this.majungasaurus.setCamo(false);
+                this.majungasaurus.camoCooldown();
                 this.majungasaurus.getNavigation().moveTo(target, 2.0D);
             }
 
-            if (attackState == 1) tickBite();
-            else if (distanceToTarget <= this.getAttackReachSqr(target)) {
+            if (majungasaurus.getAttackState() == 1) this.tickAttack();
+            else if (distance <= this.getAttackReachSqr(target)) {
                 this.majungasaurus.setAttackState(1);
             }
         }
     }
 
-    protected void tickBite() {
-        timer++;
-        LivingEntity target = this.majungasaurus.getTarget();
-        if (timer == 1) majungasaurus.setPose(UP2Poses.ATTACKING.get());
-        if (this.timer == 9) this.majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_BITE.get(), 1.0F, majungasaurus.getVoicePitch());
+    protected void tickAttack() {
+        this.timer++;
+        LivingEntity target = majungasaurus.getTarget();
+        if (timer == 1) {
+            this.majungasaurus.attackAlt = majungasaurus.getRandom().nextBoolean();
+            this.majungasaurus.setPose(UP2Poses.ATTACKING.get());
+        }
+        if (timer == 9) majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_BITE.get(), 1.0F, 0.9F + majungasaurus.getRandom().nextFloat() * 0.25F);
         if (timer == 11) {
-            if (this.majungasaurus.distanceTo(Objects.requireNonNull(target)) < getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 1.5D)) {
                 this.majungasaurus.doHurtTarget(target);
                 this.majungasaurus.swing(InteractionHand.MAIN_HAND);
             }
         }
         if (timer > 17) {
-            timer = 0;
+            this.timer = 0;
+            this.majungasaurus.setPose(Pose.STANDING);
             this.majungasaurus.setAttackState(0);
         }
-    }
-
-    @Override
-    protected double getAttackReachSqr(LivingEntity target) {
-        return this.mob.getBbWidth() * 1.8F * this.mob.getBbWidth() * 1.8 + target.getBbWidth();
     }
 }

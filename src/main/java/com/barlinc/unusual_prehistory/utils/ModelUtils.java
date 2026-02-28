@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.utils;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.client.model.geom.ModelPart;
 
 public class ModelUtils {

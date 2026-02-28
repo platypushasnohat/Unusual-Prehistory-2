@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium;
 
-import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 
 public class KimmeridgebrachypteraeschnidiumLookAroundGoal extends RandomLookAroundGoal {

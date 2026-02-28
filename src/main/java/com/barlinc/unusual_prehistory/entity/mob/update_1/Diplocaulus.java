@@ -1,0 +1,457 @@
+ package com.barlinc.unusual_prehistory.entity.mob.update_1;
+
+ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.diplocaulus.DiplocaulusBurrowGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.diplocaulus.DiplocaulusSlideGoal;
+ import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+ import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Items;
+ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.particles.BlockParticleOption;
+ import net.minecraft.core.particles.ParticleTypes;
+ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.util.RandomSource;
+ import net.minecraft.world.DifficultyInstance;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
+ import net.minecraft.world.damagesource.DamageSource;
+ import net.minecraft.world.entity.*;
+ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+ import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.MoveControl;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.animal.Bucketable;
+ import net.minecraft.world.entity.player.Player;
+ import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.crafting.Ingredient;
+ import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.LevelReader;
+ import net.minecraft.world.level.ServerLevelAccessor;
+ import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.phys.Vec3;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+
+ @SuppressWarnings("deprecation")
+ public class Diplocaulus extends SemiAquaticMob implements Bucketable {
+
+     public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
+     private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
+
+     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.2F);
+
+     public final AnimationState idleAnimationState = new AnimationState();
+     public final AnimationState swimIdleAnimationState = new AnimationState();
+     public final AnimationState burrowStartAnimationState = new AnimationState();
+     public final AnimationState burrowIdleAnimationState = new AnimationState();
+     public final AnimationState quirkAnimationState = new AnimationState();
+
+     private int quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
+
+     public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+         super(entityType, level);
+         this.switchNavigator(true);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.lookControl = new SmoothSwimmingLookControl(this, 20);
+     }
+
+     public static AttributeSupplier.Builder createAttributes() {
+         return Mob.createMobAttributes()
+                 .add(Attributes.MAX_HEALTH, 10.0D)
+                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
+     }
+
+     @Override
+     protected void registerGoals() {
+         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
+         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
+         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(3, new DiplocaulusSlideGoal(this, 2.0D));
+         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 80));
+         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D) {
+             @Override
+             public boolean canUse() {
+                 return super.canUse() && !Diplocaulus.this.isSliding();
+             }
+         });
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500, 800));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(7, new DiplocaulusBurrowGoal(this));
+         this.goalSelector.addGoal(8, new DiplocaulusQuirkGoal(this));
+     }
+
+     protected void switchNavigator(boolean onLand) {
+         if (onLand) {
+             this.moveControl = new MoveControl(this);
+             this.isLandNavigator = true;
+         } else {
+             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
+             this.isLandNavigator = false;
+         }
+     }
+
+     @Override
+     public void travel(@NotNull Vec3 travelVec) {
+         if (this.refuseToMove() && this.onGround()) {
+             if (this.getNavigation().getPath() != null) {
+                 this.getNavigation().stop();
+             }
+             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+         }
+         if (this.isEffectiveAi() && this.isInWater()) {
+             this.moveRelative(this.getSpeed(), travelVec);
+             this.move(MoverType.SELF, this.getDeltaMovement());
+             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+         } else {
+             super.travel(travelVec);
+         }
+     }
+
+     @Override
+     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+         if (!this.isInWaterOrBubble() && level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS)) return 10.0F;
+         return super.getWalkTargetValue(pos, level);
+     }
+
+     @Override
+     public float getStepHeight() {
+         return this.isSliding() || this.isRunning() ? 1.0F : 0.6F;
+     }
+
+     @Override
+     public boolean isFood(ItemStack stack) {
+         return stack.is(UP2ItemTags.DIPLOCAULUS_FOOD);
+     }
+
+     @Override
+     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+         return (pose == UP2Poses.BURROWED.get() || this.isDiplocaulusBurrowed() ? BURROWED_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
+     }
+
+     @Override
+     public boolean canBeCollidedWith() {
+         return false;
+     }
+
+     @Override
+     public boolean isPushable() {
+         return !this.isDiplocaulusBurrowed();
+     }
+
+     @Override
+     public void doPush(@NotNull Entity entity) {
+         if (!this.isDiplocaulusBurrowed()) super.doPush(entity);
+     }
+
+     @Override
+     public void tick() {
+         super.tick();
+         final boolean ground = !this.isInWater();
+         if (!ground && this.isLandNavigator) this.switchNavigator(false);
+         if (ground && !this.isLandNavigator) this.switchNavigator(true);
+
+         if (this.isDiplocaulusBurrowed() && this.isInWaterOrBubble() || !this.onGround()) this.exitBurrow();
+
+         if (this.isSliding() && !this.isInWaterOrBubble()) {
+             for (int i = 0; i < 1; i++) {
+                 double velocityX = this.random.nextGaussian() * 0.15D;
+                 double velocityY = this.random.nextGaussian() * 0.15D;
+                 double velocityZ = this.random.nextGaussian() * 0.15D;
+                 this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, this.getBlockStateOn()), this.getRandomX(1), this.getRandomY() - 0.5D, this.getRandomZ(1) - 0.75D, velocityX, velocityY, velocityZ);
+             }
+         }
+     }
+
+     @Override
+     public void setupAnimationStates() {
+         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
+         if (this.isDiplocaulusVisuallyBurrowed()) {
+             this.quirkAnimationState.stop();
+             this.idleAnimationState.stop();
+             if (this.isVisuallyBurrowed()) {
+                 this.burrowStartAnimationState.startIfStopped(this.tickCount);
+                 this.burrowIdleAnimationState.stop();
+             } else {
+                 this.burrowStartAnimationState.stop();
+                 this.burrowIdleAnimationState.startIfStopped(this.tickCount);
+             }
+         } else {
+             this.burrowStartAnimationState.stop();
+             this.burrowIdleAnimationState.stop();
+         }
+     }
+
+     @Override
+     public void setupAnimationCooldowns() {
+         if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
+         if (quirkCooldown > 0) quirkCooldown--;
+     }
+
+     @Override
+     public void handleEntityEvent(byte id) {
+         if (id == 67) this.quirkAnimationState.start(this.tickCount);
+         else super.handleEntityEvent(id);
+     }
+
+     protected void quirkCooldown() {
+         this.quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
+     }
+
+     @Override
+     public boolean refuseToMove() {
+         return super.refuseToMove() || this.isDiplocaulusBurrowed();
+     }
+
+     @Override
+     protected void onLeashDistance(float distance) {
+         if (distance > 5.0F && this.isDiplocaulusBurrowed() && !this.isInSitPoseTransition()) this.exitBurrow();
+     }
+
+     @Override
+     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+         this.exitBurrow();
+         super.actuallyHurt(damageSource, amount);
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(BURROW_COOLDOWN, 40 * 40 + getRandom().nextInt(60 * 2 * 20));
+         this.entityData.define(SLIDING, false);
+         this.entityData.define(FROM_BUCKET, false);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("BurrowCooldown", this.getBurrowCooldown());
+         compoundTag.putBoolean("FromBucket", this.fromBucket());
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
+         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+     }
+
+     public int getBurrowCooldown() {
+         return this.entityData.get(BURROW_COOLDOWN);
+     }
+     public void setBurrowCooldown(int cooldown) {
+         this.entityData.set(BURROW_COOLDOWN, cooldown);
+     }
+     public void burrowCooldown() {
+         this.entityData.set(BURROW_COOLDOWN, 40 * 40 + random.nextInt(60 * 2 * 20));
+     }
+     public void exitBurrowCooldown() {
+         this.entityData.set(BURROW_COOLDOWN, 20 * 40 + random.nextInt(50 * 2 * 20));
+     }
+
+     public boolean isDiplocaulusBurrowed() {
+         return this.entityData.get(SIT_POSE_TICKS) < 0L;
+     }
+     public boolean isDiplocaulusVisuallyBurrowed() {
+         return this.getSitPoseTime() < 0L != this.isDiplocaulusBurrowed();
+     }
+
+     public boolean isSliding() {
+         return this.entityData.get(SLIDING);
+     }
+     public void setSliding(boolean sliding) {
+         this.entityData.set(SLIDING, sliding);
+     }
+
+     @Override
+     public boolean isInSitPoseTransition() {
+         long l = this.getSitPoseTime();
+         return l < (long) (40);
+     }
+
+     private boolean isVisuallyBurrowed() {
+         return this.isDiplocaulusBurrowed() && this.getSitPoseTime() < 40L && this.getSitPoseTime() >= 0L;
+     }
+
+     public void burrow() {
+         this.refreshDimensions();
+         if (this.isDiplocaulusBurrowed()) return;
+         this.setPose(UP2Poses.BURROWED.get());
+         this.setSitPoseTicks(-(this.level()).getGameTime());
+     }
+
+     public void exitBurrow() {
+         this.refreshDimensions();
+         this.setPose(Pose.STANDING);
+         this.resetSitPoseTicks((this.level()).getGameTime());
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getAmbientSound() {
+         return UP2SoundEvents.DIPLOCAULUS_IDLE.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+         return UP2SoundEvents.DIPLOCAULUS_HURT.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getDeathSound() {
+         return UP2SoundEvents.DIPLOCAULUS_DEATH.get();
+     }
+
+     @Override
+     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+         if (this.isSliding()) super.playStepSound(pos, state);
+         else this.playSound(UP2SoundEvents.DIPLOCAULUS_STEP.get(), 0.15F, 1.0F);
+     }
+
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+         Diplocaulus entity = UP2Entities.DIPLOCAULUS.get().create(level);
+         entity.setVariant(this.getVariant());
+         return entity;
+     }
+
+     @Override
+     public boolean fromBucket() {
+         return this.entityData.get(FROM_BUCKET);
+     }
+
+     @Override
+     public void setFromBucket(boolean fromBucket) {
+         this.entityData.set(FROM_BUCKET, fromBucket);
+     }
+
+     @Override
+     public @NotNull SoundEvent getPickupSound() {
+         return SoundEvents.BUCKET_FILL_FISH;
+     }
+
+     @Override
+     public void saveToBucketTag(@NotNull ItemStack bucket) {
+         if (this.hasCustomName()) {
+             bucket.setHoverName(this.getCustomName());
+         }
+         Bucketable.saveDefaultDataToBucketTag(this, bucket);
+         CompoundTag compoundTag = bucket.getOrCreateTag();
+         compoundTag.putInt("BucketVariantTag", this.getVariant());
+         compoundTag.putInt("Age", this.getAge());
+     }
+
+     @Override
+     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+         if (compoundTag.contains("BucketVariantTag", 3)) {
+             this.setVariant(compoundTag.getInt("BucketVariantTag"));
+         }
+         this.setAge(compoundTag.getInt("Age"));
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+     }
+
+     @Override
+     public @NotNull ItemStack getBucketItemStack() {
+         return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
+     }
+
+
+     public enum DiplocaulusVariant {
+         BREVIROSTRIS(0),
+         MAGNICORNIS(1),
+         RECURVATIS(2),
+         SALAMANDROIDES(3);
+
+         private final int id;
+
+         DiplocaulusVariant(int id) {
+             this.id = id;
+         }
+
+         public int getId() {
+             return this.id;
+         }
+
+         public static DiplocaulusVariant byId(int id) {
+             if (id < 0 || id >= DiplocaulusVariant.values().length) {
+                 id = 0;
+             }
+             return DiplocaulusVariant.values()[id];
+         }
+     }
+
+     @Override
+     public int getVariantCount() {
+         return DiplocaulusVariant.values().length;
+     }
+
+     @Override
+     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
+         if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+             this.setVariant(compoundTag.getInt("BucketVariantTag"));
+         } else {
+             this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
+         }
+         return spawnGroupData;
+     }
+
+     public static boolean canSpawn(EntityType<Diplocaulus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+         return level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+
+     // goals
+     private static class DiplocaulusQuirkGoal extends AnimationGoal {
+
+         private final Diplocaulus diplocaulus;
+
+         public DiplocaulusQuirkGoal(Diplocaulus diplocaulus) {
+             super(diplocaulus, 60, 1, (byte) 67, (byte) 68, false, false);
+             this.diplocaulus = diplocaulus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && diplocaulus.quirkCooldown == 0 && !diplocaulus.isDiplocaulusBurrowed();
+         }
+
+         @Override
+         public boolean canContinueToUse() {
+             return super.canContinueToUse() && !diplocaulus.isDiplocaulusBurrowed();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.diplocaulus.quirkCooldown();
+         }
+     }
+ }

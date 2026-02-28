@@ -1,0 +1,31 @@
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4;
+
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.DesmatosuchusModel;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Desmatosuchus;
+import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+
+@OnlyIn(Dist.CLIENT)
+public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, DesmatosuchusModel> {
+
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus.png");
+    private static final ResourceLocation TEXTURE_MOSSY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_eepy.png");
+    private static final ResourceLocation TEXTURE_MOSSY_EEPY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_mossy_eepy.png");
+
+    public DesmatosuchusRenderer(EntityRendererProvider.Context context) {
+        super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 0.8F);
+    }
+
+    @Override
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Desmatosuchus entity) {
+        if (entity.isMossy()) return entity.isMobEepy() ? TEXTURE_MOSSY_EEPY : TEXTURE_MOSSY;
+        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
+    }
+}
