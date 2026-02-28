@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-24T16:22:10.1707987	Item Models: unusual_prehistory
+// 1.20.1	2026-02-28T11:34:34.1090971	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -29,6 +29,7 @@ d1fb4be7fb40905a6b54161c4864cf7d0c1c5149 assets/unusual_prehistory/models/item/b
 6fb24554919870d291614a6232426cf3632beab3 assets/unusual_prehistory/models/item/cooksonia_fossil.json
 8df6f68904313f2019d6139f17e16d0e51fd0ddd assets/unusual_prehistory/models/item/cranium_fossil.json
 9271785516e0de1006cd3efabafe48789dad5b77 assets/unusual_prehistory/models/item/crooked_beak_fossil.json
+fd6d8d41d1232633e4272ebd13da1d2632c057f5 assets/unusual_prehistory/models/item/cycad_fossil.json
 12024720f11a1469553e274f206f3ee831c3678f assets/unusual_prehistory/models/item/desmatosuchus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/desmatosuchus_spawn_egg.json
 8057e8660cc405af1b06d4e51f9d11c59f5a50bb assets/unusual_prehistory/models/item/dimorphodon_egg.json

@@ -172,6 +172,11 @@ public class UP2Blocks {
 
     public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
 
+    //cycad
+    public static final RegistryObject<Block> CYCAD_SAPLING = registerBlock("cycad_sapling", () -> new CycadSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY).ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_STEM = registerBlock("cycad_stem", () -> new CycadPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(1.5F,2.0F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_TOP = registerBlock("cycad_top", () -> new CycadTopBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(1.5F, 1.5F).sound(SoundType.WOOD).ignitedByLava()));
+
     // dryophyllum
     public static final RegistryObject<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
     public static final RegistryObject<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));

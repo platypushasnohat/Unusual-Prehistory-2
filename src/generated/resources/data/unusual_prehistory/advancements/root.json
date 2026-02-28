@@ -252,6 +252,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "cycad_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:cycad_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "desmatosuchus_egg": {
       "conditions": {
         "items": [
@@ -1110,6 +1122,7 @@
       "calamophyton_fossil",
       "cladophlebis_fossil",
       "cooksonia_fossil",
+      "cycad_fossil",
       "horsetail_fossil",
       "leefructus_fossil",
       "neomariopteris_fossil",

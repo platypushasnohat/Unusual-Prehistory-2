@@ -387,6 +387,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
+                CYCAD_STEM.get(),
+                CYCAD_TOP.get(),
 
                 DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(),
                 STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(),
