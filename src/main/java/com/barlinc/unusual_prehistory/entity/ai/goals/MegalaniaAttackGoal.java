@@ -1,14 +1,11 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.megalania;
+package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-
-import java.util.Objects;
 
 public class MegalaniaAttackGoal extends AttackGoal {
 
@@ -22,28 +19,28 @@ public class MegalaniaAttackGoal extends AttackGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && this.megalania.getPose() != Pose.ROARING && !this.megalania.isMobSitting();
+        return super.canUse() && megalania.getPose() != Pose.ROARING && !megalania.isSitting();
     }
 
     @Override
     public void tick() {
-        LivingEntity target = this.megalania.getTarget();
+        LivingEntity target = megalania.getTarget();
         if (target != null) {
-            this.megalania.lookAt(this.megalania.getTarget(), 30F, 30F);
-            this.megalania.getLookControl().setLookAt(this.megalania.getTarget(), 30F, 30F);
+            this.megalania.lookAt(megalania.getTarget(), 30F, 30F);
+            this.megalania.getLookControl().setLookAt(megalania.getTarget(), 30F, 30F);
 
-            double distance = this.megalania.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            int attackState = this.megalania.getAttackState();
+            double distance = megalania.distanceToSqr(target.getX(), target.getY(), target.getZ());
+            int attackState = megalania.getAttackState();
 
             if (attackState == 1) {
-                this.megalania.getNavigation().moveTo(target, this.megalania.isInWater() ? this.getSpeedMultiplier() * 0.25F : this.getSpeedMultiplier() * 0.4F);
+                this.megalania.getNavigation().moveTo(target, megalania.isInWater() ? this.getSpeedMultiplier() * 0.25F : this.getSpeedMultiplier() * 0.4F);
                 this.tickBite();
             }
             else if (attackState == 2) {
                 this.tickTailWhip();
             }
             else {
-                this.megalania.getNavigation().moveTo(target, this.megalania.isInWater() ? this.getSpeedMultiplier() * 0.7F : this.getSpeedMultiplier());
+                this.megalania.getNavigation().moveTo(target, megalania.isInWater() ? this.getSpeedMultiplier() * 0.7F : this.getSpeedMultiplier());
                 if (distance <= this.getAttackReachSqr(target)) {
                     this.selectAttack();
                 }
@@ -69,28 +66,33 @@ public class MegalaniaAttackGoal extends AttackGoal {
     }
 
     private void selectAttack() {
-        if (megalania.isInWater()) {
-            if (megalania.biteCooldown == 0) this.megalania.setAttackState(1);
+        if (megalania.isInWater() && megalania.attackCooldown == 0) {
+            this.megalania.setAttackState(1);
         } else {
-            if (megalania.getRandom().nextBoolean() && megalania.talWhipCooldown == 0) this.megalania.setAttackState(2);
-            else if (megalania.biteCooldown == 0) this.megalania.setAttackState(1);
+            if (megalania.getRandom().nextBoolean() && megalania.talWhipCooldown == 0) megalania.setAttackState(2);
+            else if (megalania.attackCooldown == 0) megalania.setAttackState(1);
         }
     }
 
     private void tickBite() {
         this.timer++;
-        LivingEntity target = this.megalania.getTarget();
-        if (timer == 1) this.megalania.setPose(UP2Poses.ATTACKING.get());
-        if (timer == 5) this.megalania.playSound(UP2SoundEvents.MEGALANIA_BITE.get(), 1.0F, 1.0F);
-        if (this.timer == 11) {
-            if (this.megalania.distanceTo(Objects.requireNonNull(target)) <= this.getAttackReachSqr(target)) {
+        LivingEntity target = megalania.getTarget();
+        if (timer == 1) {
+            this.megalania.attackAlt = megalania.getRandom().nextBoolean();
+            this.megalania.setPose(UP2Poses.ATTACKING.get());
+        }
+        if (timer == 5) megalania.playSound(UP2SoundEvents.MEGALANIA_BITE.get(), 1.0F, 1.0F);
+        if (timer == 11) {
+            if (this.isInAttackRange(target, 1.4D)) {
                 this.megalania.swing(InteractionHand.MAIN_HAND);
                 this.megalania.doHurtTarget(target);
                 this.megalania.applyPoison(target);
             }
         }
-        if (this.timer > 20) {
+        if (timer > 20) {
             this.timer = 0;
+            this.megalania.attackCooldown = 5 + megalania.getRandom().nextInt(3);
+            this.megalania.setPose(Pose.STANDING);
             this.megalania.setAttackState(0);
         }
     }
@@ -99,14 +101,15 @@ public class MegalaniaAttackGoal extends AttackGoal {
         this.timer++;
         this.megalania.getNavigation().stop();
 
-        if (timer == 1) this.megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
-        if (timer == 9) this.megalania.playSound(UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), 1.0F, 1.0F);
-        if (this.timer == 12) this.megalania.addDeltaMovement(this.megalania.getLookAngle().scale(2.0D).multiply(0.25D, 0, 0.25D));
-        if (this.timer == 14) {
+        if (timer == 1) megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
+        if (timer == 9) megalania.playSound(UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), 1.0F, 1.0F);
+        if (timer == 14) {
             this.megalania.whipNearbyEnemies();
         }
-        if (this.timer > 30) {
+        if (timer > 30) {
             this.timer = 0;
+            this.megalania.talWhipCooldown = 100 + megalania.getRandom().nextInt(50);
+            this.megalania.setPose(Pose.STANDING);
             this.megalania.setAttackState(0);
         }
     }

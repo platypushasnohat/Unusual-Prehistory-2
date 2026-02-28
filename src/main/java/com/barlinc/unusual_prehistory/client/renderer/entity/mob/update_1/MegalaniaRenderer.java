@@ -22,6 +22,10 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     private static final ResourceLocation TEXTURE_COLD = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_cold.png");
     private static final ResourceLocation TEXTURE_WARM = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_warm.png");
     private static final ResourceLocation TEXTURE_NETHER = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_nether.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_temperate_eepy.png");
+    private static final ResourceLocation TEXTURE_COLD_EEPY = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_cold_eepy.png");
+    private static final ResourceLocation TEXTURE_WARM_EEPY = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_warm_eepy.png");
+    private static final ResourceLocation TEXTURE_NETHER_EEPY = UnusualPrehistory2.modPrefix("textures/entity/megalania/megalania_nether_eepy.png");
 
     public MegalaniaRenderer(EntityRendererProvider.Context context) {
         super(context, new MegalaniaModel(context.bakeLayer(UP2ModelLayers.MEGALANIA)), 0.9F);
@@ -32,10 +36,10 @@ public class MegalaniaRenderer extends MobRenderer<Megalania, MegalaniaModel> {
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Megalania entity) {
         return switch (entity.getTemperatureState()) {
-            case COLD -> TEXTURE_COLD;
-            case WARM -> TEXTURE_WARM;
-            case NETHER -> TEXTURE_NETHER;
-            default -> TEXTURE;
+            case COLD -> entity.isEepy() ? TEXTURE_COLD_EEPY : TEXTURE_COLD;
+            case WARM -> entity.isEepy() ? TEXTURE_WARM_EEPY : TEXTURE_WARM;
+            case NETHER -> entity.isEepy() ? TEXTURE_NETHER_EEPY : TEXTURE_NETHER;
+            default -> entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
         };
     }
 

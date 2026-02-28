@@ -90,7 +90,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.15F);
     public final SmoothAnimationState eepyEndAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sitStartAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sitAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(0.25F);
     public final SmoothAnimationState sitEndAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
@@ -366,7 +366,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
         if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble()) {
             if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
-            if (!this.isInRain() && !this.isMobEepy() && this.getSitCooldown() > 0 && !this.isBaby()) this.setSitCooldown(this.getSitCooldown() - 1);
+            if (!this.isInRain() && !this.isEepy() && this.getSitCooldown() > 0 && !this.isBaby()) this.setSitCooldown(this.getSitCooldown() - 1);
         }
 
         if (this.isMobSitting() && this.isInWaterOrBubble()) {
@@ -542,7 +542,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean shouldDoEepyParticles() {
-        return this.isMobEepy();
+        return this.isEepy();
     }
 
     public long getEepyPoseTime() {

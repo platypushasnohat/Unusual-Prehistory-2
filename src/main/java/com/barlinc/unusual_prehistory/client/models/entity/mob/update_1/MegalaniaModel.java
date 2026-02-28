@@ -146,42 +146,42 @@ public class MegalaniaModel extends UP2Model<Megalania> {
         this.tail2.yRot += tailYaw * 0.3F;
         this.tail3.yRot += tailYaw * 0.25F;
 
-		if (entity.getIdleState() != 4 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isLeaping()) {
-            if (!entity.isMobSitting()) {
-                if (!entity.isInWater()) {
-                    if (this.canMegalaniaRun(entity)) {
-                        this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-                    } else {
-                        this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-                    }
+		if (entity.getIdleState() != 4 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isLeaping() && !entity.isEepy() && !entity.isSitting()) {
+            if (!entity.isInWater()) {
+                if (this.canMegalaniaRun(entity)) {
+                    this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
                 } else {
-                    this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
-                    this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+                    this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
                 }
+            } else {
+                this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
+                this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
             }
-			this.head.xRot += entity.isMobSitting() ? 0F : headPitch * deg / 4;
-			this.head.yRot += entity.isMobSitting() ? 0F : netHeadYaw * deg / 4;
-			this.neck.xRot += entity.isMobSitting() ? 0F : headPitch * deg / 2;
-			this.neck.yRot += entity.isMobSitting() ? 0F : netHeadYaw * deg / 4;
 		}
 
 		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 
-        this.animateIdle(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, limbSwingAmount * (entity.getTemperatureState() == Megalania.TemperatureStates.NETHER ? 2 : 4));
-		this.animate(entity.tongueAnimationState, MegalaniaIdleAnimations.TONGUE, ageInTicks);
-		this.animate(entity.roarAnimationState, MegalaniaIdleAnimations.ROAR, ageInTicks);
-        this.animate(entity.flick1AnimationState, MegalaniaIdleAnimations.FLICK1, ageInTicks);
-        this.animate(entity.flick2AnimationState, MegalaniaIdleAnimations.FLICK2, ageInTicks);
-        this.animate(entity.yawnAnimationState, MegalaniaIdleAnimations.YAWN, ageInTicks);
-        this.animate(entity.sitStartAnimationState, MegalaniaIdleAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, MegalaniaIdleAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, MegalaniaIdleAnimations.SIT_END, ageInTicks);
-        this.animate(entity.bite1AnimationState, MegalaniaAnimations.BITE1, ageInTicks);
-        this.animate(entity.bite2AnimationState, MegalaniaAnimations.BITE2, ageInTicks);
-        this.animate(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
-        this.animate(entity.aggroAnimationState, MegalaniaAnimations.AGGRO, ageInTicks);
-        this.animateIdle(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
-        this.animateLerped(entity.leapAnimationState, MegalaniaIdleAnimations.LEAP, ageInTicks, entity.getLeapProgress(partialTicks));
+        this.animateIdleSmooth(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.tongueAnimationState, MegalaniaAnimations.TONGUE_BLEND, ageInTicks);
+		this.animateSmooth(entity.roarAnimationState, MegalaniaAnimations.ROAR, ageInTicks);
+        this.animateSmooth(entity.flick1AnimationState, MegalaniaAnimations.FLICK_BLEND1, ageInTicks);
+        this.animateSmooth(entity.flick2AnimationState, MegalaniaAnimations.FLICK_BLEND2, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, MegalaniaAnimations.YAWN_BLEND, ageInTicks);
+        this.animateSmooth(entity.sitAnimationState, MegalaniaIdleAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, MegalaniaIdleAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.attack1AnimationState, MegalaniaAnimations.BITE_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, MegalaniaAnimations.BITE_BLEND2, ageInTicks);
+        this.animateSmooth(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
+        this.animateSmooth(entity.aggroAnimationState, MegalaniaAnimations.AGGRO_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.leapAnimationState, MegalaniaAnimations.LEAP, ageInTicks);
+
+        if (!entity.isEepy() && !entity.isSitting()) {
+            this.head.xRot += headPitch * deg / 4;
+            this.head.yRot += netHeadYaw * deg / 4;
+            this.neck.xRot += headPitch * deg / 2;
+            this.neck.yRot += netHeadYaw * deg / 4;
+        }
     }
 
     private AnimationDefinition getIdleAnimation(Megalania entity) {
@@ -193,10 +193,10 @@ public class MegalaniaModel extends UP2Model<Megalania> {
                 return MegalaniaIdleAnimations.IDLE_WARM;
             }
             case NETHER -> {
-                return MegalaniaAnimations.IDLE_NETHER;
+                return MegalaniaIdleAnimations.IDLE_NETHER;
             }
             default -> {
-                return MegalaniaAnimations.IDLE;
+                return MegalaniaIdleAnimations.IDLE_TEMPERATE;
             }
         }
     }

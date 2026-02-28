@@ -14,7 +14,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, KentrosaurusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kentrosaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/kentrosaurus/kentrosaurus.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/kentrosaurus/kentrosaurus_eepy.png");
 
     public KentrosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new KentrosaurusModel(context.bakeLayer(UP2ModelLayers.KENTROSAURUS)), 1.0F);
@@ -22,6 +23,6 @@ public class KentrosaurusRenderer extends MobRenderer<Kentrosaurus, Kentrosaurus
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Kentrosaurus entity) {
-        return TEXTURE;
+        return entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

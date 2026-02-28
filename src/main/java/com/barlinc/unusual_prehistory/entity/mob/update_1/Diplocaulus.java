@@ -84,7 +84,7 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
-         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
+         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
          this.goalSelector.addGoal(3, new DiplocaulusSlideGoal(this, 2.0D));
          this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 80));
@@ -167,7 +167,7 @@
 
          if (this.isBurrowed() && this.isInWaterOrBubble() || !this.onGround()) this.setBurrowed(false);
 
-         if (this.isSliding() && !this.isInWaterOrBubble()) {
+         if (this.isSliding() && !this.isInWaterOrBubble() && this.getDeltaMovement().horizontalDistance() > 0.05D) {
              for (int i = 0; i < 1; i++) {
                  double velocityX = this.random.nextGaussian() * 0.15D;
                  double velocityY = this.random.nextGaussian() * 0.15D;
@@ -264,6 +264,10 @@
          this.entityData.set(SLIDING, sliding);
      }
 
+     protected boolean isSlideableBlockBelow() {
+         return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS);
+     }
+
      @Override
      @Nullable
      protected SoundEvent getAmbientSound() {
@@ -343,7 +347,6 @@
          return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
      }
 
-
      public enum DiplocaulusVariant {
          BREVIROSTRIS(0),
          MAGNICORNIS(1),
@@ -405,7 +408,7 @@
 
          @Override
          public boolean canUse() {
-             if (diplocaulus.isVehicle() || diplocaulus.isPathFinding() || diplocaulus.isInWaterOrBubble() && !this.isSlideableBlock()) {
+             if (diplocaulus.isVehicle() || diplocaulus.isPathFinding() || diplocaulus.isInWaterOrBubble() && !diplocaulus.isSlideableBlockBelow()) {
                  return false;
              } else {
                  if (diplocaulus.getNoActionTime() >= 100) return false;
@@ -421,10 +424,6 @@
              }
          }
 
-         protected boolean isSlideableBlock() {
-             return diplocaulus.level().getBlockState(diplocaulus.blockPosition().below()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS) || diplocaulus.level().getBlockState(diplocaulus.blockPosition()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS);
-         }
-
          @Override
          public void tick() {
              this.diplocaulus.getLookControl().setLookAt(wantedX, wantedY, wantedZ, 30F, 30F);
@@ -437,7 +436,7 @@
 
          @Override
          public boolean canContinueToUse() {
-             return !diplocaulus.getNavigation().isDone() && !diplocaulus.isVehicle() && !diplocaulus.isInWaterOrBubble() && this.isSlideableBlock();
+             return !diplocaulus.getNavigation().isDone() && !diplocaulus.isVehicle() && !diplocaulus.isInWaterOrBubble() && diplocaulus.isSlideableBlockBelow();
          }
 
          @Override

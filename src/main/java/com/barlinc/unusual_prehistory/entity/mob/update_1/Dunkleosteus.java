@@ -66,7 +66,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4) {
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 10, 4) {
             public boolean canUse() {
                 return super.canUse() && Dunkleosteus.this.getVariant() == 0 || Dunkleosteus.this.isBaby();
             }

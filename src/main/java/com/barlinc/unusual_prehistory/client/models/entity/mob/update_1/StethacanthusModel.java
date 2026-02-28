@@ -93,10 +93,10 @@ public class StethacanthusModel extends UP2Model<Stethacanthus> {
 	@Override
 	public void setupAnim(Stethacanthus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWater()) this.animateWalk(StethacanthusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdle(entity.swimIdleAnimationState, StethacanthusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.flopAnimationState, StethacanthusAnimations.FLOP, ageInTicks);
-		this.animate(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
+        if (entity.isInWaterOrBubble()) this.animateWalk(StethacanthusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, StethacanthusAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, StethacanthusAnimations.FLOP, ageInTicks);
+		this.animateSmooth(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
 		this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 

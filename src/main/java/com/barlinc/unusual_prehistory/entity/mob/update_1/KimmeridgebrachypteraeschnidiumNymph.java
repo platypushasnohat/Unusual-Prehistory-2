@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.EnterWaterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -61,7 +62,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.16F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.7D, 10, 4, true));
         this.goalSelector.addGoal(1, new EnterWaterGoal(this, 1.0D, 400));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.7D, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.7D, true, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -78,7 +79,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
 
     @Override
     public @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothGroundPathNavigation(this, level);
+        return new NoSpinGroundPathNavigation(this, level);
     }
 
     @Override
@@ -122,7 +123,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
             } else {
                 delta = delta.add(0, -0.05F, 0);
             }
-            this.setDeltaMovement(delta.multiply(0.125D, 1.0D, 0.125D));
+            this.setDeltaMovement(delta.multiply(0.1D, 1.0D, 0.1D));
         } else {
             super.travel(travelVec);
         }

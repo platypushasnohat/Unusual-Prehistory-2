@@ -1,20 +1,19 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
-import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
-import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
-import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2Developers;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -59,7 +58,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable, KeybindUsingMount {
+public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -74,16 +73,12 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     private int swell;
     private final int maxSwell = 60;
 
-    private int controlUpTicks = 0;
-    private int controlDownTicks = 0;
-
-    public final AnimationState flyingAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState preenAnimationState = new AnimationState();
+    public final SmoothAnimationState preenAnimationState = new SmoothAnimationState();
 
     public Kimmeridgebrachypteraeschnidium(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricFlyingMoveControl(this);
+        this.lookControl = new PrehistoricFlyingLookControl(this, 85);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
@@ -121,7 +116,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothFlyingPathNavigation(this, level, 0.75F);
+        return new NoSpinFlyingPathNavigation(this, level);
     }
 
     @Override
@@ -160,21 +155,14 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     @Override
     public void setupAnimationCooldowns() {
-        if (this.getPreenCooldown() > 0) this.setPreenCooldown(this.getPreenCooldown() - 1);
+        if (this.getPreenCooldown() > 0 && !this.level().isClientSide) this.setPreenCooldown(this.getPreenCooldown() - 1);
     }
 
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1, this.tickCount);
-        this.flyingAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 67 -> this.preenAnimationState.start(this.tickCount);
-            case 68 -> this.preenAnimationState.stop();
-            default -> super.handleEntityEvent(id);
-        }
+        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.preenAnimationState.animateWhen(!this.isFlying() && this.getIdleState() == 1, this.tickCount);
     }
 
     @Override
@@ -209,26 +197,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         }
 
         if (this.level().isClientSide && this.isAlive()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 1);
-
-        // flying mount stuff
-        if (this.isVehicle() && !this.isBaby()) {
-            this.setFlying(true);
-        }
-        if (this.level().isClientSide) {
-            Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
-            if (player != null && player.isPassengerOfSameVehicle(this)) {
-                if (UnusualPrehistory2.PROXY.isKeyDown(0) && !UnusualPrehistory2.PROXY.isKeyDown(1) && controlUpTicks < 2) {
-                    UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 0));
-                    this.controlUpTicks = 5;
-                }
-                if (UnusualPrehistory2.PROXY.isKeyDown(1) && !UnusualPrehistory2.PROXY.isKeyDown(0) && controlDownTicks < 2) {
-                    UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 1));
-                    this.controlDownTicks = 5;
-                }
-            }
-        }
-        if (controlDownTicks > 0) controlDownTicks--;
-        else if (controlUpTicks > 0) controlUpTicks--;
     }
 
     @Override
@@ -545,53 +513,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
 
     public static boolean canSpawn(EntityType<Kimmeridgebrachypteraeschnidium> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
-    }
-
-    // Dev taming stuff
-    @Override
-    public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown();
-    }
-
-    @Override
-    public boolean canOwnerMount(Player player) {
-        return !this.isBaby();
-    }
-
-    @Override
-    protected float getRiddenSpeed(@NotNull Player rider) {
-        return (float) this.getAttributeValue(Attributes.FLYING_SPEED) * 0.8F;
-    }
-
-    @Override
-    public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, -0.3F, 0.0F);
-    }
-
-    @Override
-    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
-        if (player.zza != 0 || player.xxa != 0) {
-            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
-            this.setTarget(null);
-        }
-    }
-
-    @Override
-    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 delta) {
-        float f = player.zza < 0.0F ? 0.5F : 1.0F;
-        return new Vec3(player.xxa * 0.25F, controlUpTicks > 0 ? 0.1D : controlDownTicks > 0 ? -0.1D : 0.0D, player.zza * 0.5F * f);
-    }
-
-    @Override
-    public void onKeyPacket(Entity keyPresser, int type) {
-        if (keyPresser.isPassengerOfSameVehicle(this)) {
-            if (type == 0) {
-                this.controlUpTicks = 10;
-            }
-            if (type == 1) {
-                this.controlDownTicks = 10;
-            }
-        }
     }
 
     // Goals

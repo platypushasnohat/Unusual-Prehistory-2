@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KimmeridgebrachypteraeschnidiumNymphAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KimmeridgebrachypteraeschnidiumAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.KimmeridgebrachypteraeschnidiumNymph;
 import net.minecraft.client.model.geom.ModelPart;
@@ -61,8 +61,8 @@ public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<Kimmerid
 	@Override
 	public void setupAnim(KimmeridgebrachypteraeschnidiumNymph entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateWalk(KimmeridgebrachypteraeschnidiumNymphAnimations.SCUTTLE, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdle(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumNymphAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+		this.animateWalk(KimmeridgebrachypteraeschnidiumAnimations.NYMPH_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateIdleSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.NYMPH_IDLE, ageInTicks, limbSwingAmount);
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class ForgeEvents {
             }
             if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getMobType() == MobType.ARTHROPOD) {
                 if (pathfinderMob instanceof PrehistoricMob prehistoricMob) {
-                    prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D));
+                    prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D, false));
                 } else {
                     pathfinderMob.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinderMob, Leptictidium.class, 12.0F, 1.5D, 1.5D));
                 }

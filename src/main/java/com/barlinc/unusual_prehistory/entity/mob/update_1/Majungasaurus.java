@@ -359,31 +359,8 @@ public class Majungasaurus extends PrehistoricMob {
         }
 
         @Override
-        public boolean canUse() {
-            double distance = majungasaurus.isEepy() ? 2.0F : 12.0F;
-            this.toAvoid = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.avoidClass, this.mob.getBoundingBox().inflate(distance, 3.0D, distance), (entity) -> true), this.avoidEntityTargeting, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ());
-            if (this.toAvoid == null) {
-                return false;
-            } else {
-                Vec3 vec3 = DefaultRandomPos.getPosAway(this.mob, 16, 7, this.toAvoid.position());
-                if (vec3 == null) {
-                    return false;
-                } else if (this.toAvoid.distanceToSqr(vec3.x, vec3.y, vec3.z) < this.toAvoid.distanceToSqr(this.mob)) {
-                    return false;
-                } else {
-                    this.path = this.pathNav.createPath(vec3.x, vec3.y, vec3.z, 0);
-                    return this.path != null;
-                }
-            }
-        }
-
-        @Override
         public void start() {
             super.start();
-            if (majungasaurus.isEepy()) {
-                this.majungasaurus.setEepy(false);
-                this.majungasaurus.setEepyCooldown(1000);
-            }
             if (majungasaurus.getCamoCooldown() == 0) majungasaurus.setCamo(true);
         }
 

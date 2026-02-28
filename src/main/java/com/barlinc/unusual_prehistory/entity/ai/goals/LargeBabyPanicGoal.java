@@ -12,13 +12,8 @@ public class LargeBabyPanicGoal extends LargePanicGoal {
     }
 
     @Override
-    public boolean canUse() {
-        return super.canUse() && prehistoricMob.isBaby();
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return super.canUse() && prehistoricMob.isBaby();
+    protected boolean shouldPanic() {
+        return (this.mob.getLastHurtByMob() != null || this.mob.isFreezing() || this.mob.isOnFire()) && mob.isBaby();
     }
 }
 

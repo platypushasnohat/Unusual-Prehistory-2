@@ -45,7 +45,6 @@ public class Talpanas extends BreedableMob {
 
     public static final EntityDataAccessor<Integer> LIGHT_THRESHOLD = SynchedEntityData.defineId(Talpanas.class, EntityDataSerializers.INT);
 
-    public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flapAnimationState = new AnimationState();
     public final AnimationState peckAnimationState = new AnimationState();
     public final AnimationState shakeAnimationState = new AnimationState();

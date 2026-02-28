@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KentrosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -105,11 +106,11 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 
         PartDefinition left_neckplates = head.addOrReplaceChild("left_neckplates", CubeListBuilder.create(), PartPose.offset(1.5F, -5.1F, -4.0F));
 
-        PartDefinition plates_r1 = left_neckplates.addOrReplaceChild("plates_r1", CubeListBuilder.create().texOffs(126, 95).addBox(1.0F, -5.0F, -1.0F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(-0.9653F, -0.197F, -3.0F, 0.0F, 0.0F, 0.1745F));
+        PartDefinition plates_r1 = left_neckplates.addOrReplaceChild("plates_r1", CubeListBuilder.create().texOffs(126, 95).addBox(1.0F, -5.0F, -1.0F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.025F)), PartPose.offsetAndRotation(-0.9653F, -0.197F, -3.0F, 0.0F, 0.0F, 0.1745F));
 
         PartDefinition right_neckplates = head.addOrReplaceChild("right_neckplates", CubeListBuilder.create(), PartPose.offset(-1.5F, -5.1F, -4.0F));
 
-        PartDefinition plates_r2 = right_neckplates.addOrReplaceChild("plates_r2", CubeListBuilder.create().texOffs(126, 95).mirror().addBox(-1.0F, -5.0F, -1.0F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(0.9653F, -0.197F, -3.0F, 0.0F, 0.0F, -0.1745F));
+        PartDefinition plates_r2 = right_neckplates.addOrReplaceChild("plates_r2", CubeListBuilder.create().texOffs(126, 95).mirror().addBox(-1.0F, -5.0F, -1.0F, 0.0F, 5.0F, 7.0F, new CubeDeformation(0.025F)).mirror(false), PartPose.offsetAndRotation(0.9653F, -0.197F, -3.0F, 0.0F, 0.0F, -0.1745F));
 
         PartDefinition left_shoulder = body.addOrReplaceChild("left_shoulder", CubeListBuilder.create().texOffs(0, 145).addBox(-2.0F, -1.0F, -1.5F, 21.0F, 2.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(57, 145).addBox(16.0F, -1.0F, 1.5F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.5F, 3.0F, -10.5F, -0.0873F, -0.3491F, -0.6109F));
@@ -176,27 +177,29 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 	public void setupAnim(Kentrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
-            this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+		if (!entity.isInWater() && !entity.isEepy()) {
+            if (entity.isRunning()) {
+                this.animateWalk(KentrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+            } else {
+                this.animateWalk(KentrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
         }
 
-        this.animateIdle(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-		this.animate(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks);
-		this.animate(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks);
-        this.animate(entity.sitStartAnimationState, KentrosaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
-		this.animate(entity.sitEndAnimationState, KentrosaurusAnimations.SIT_END, ageInTicks);
-		this.animate(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animate(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animate(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_BLEND1, ageInTicks);
-        this.animate(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_BLEND2, ageInTicks);
-        this.animate(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.swimAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
+        this.animateIdleSmooth(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks);
+		this.animateSmooth(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
+		this.animateSmooth(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND1, ageInTicks);
+        this.animateSmooth(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND2, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_IDLE_BLEND, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, KentrosaurusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.angryAnimationState, KentrosaurusAnimations.AGGRO_BLEND, ageInTicks);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += entity.isMobSitting() ? 0F : (headPitch * ((float) Math.PI / 180F)) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) - (netHeadYaw * ((float) Math.PI / 180F)) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

@@ -3,8 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KimmeridgebrachypteraeschnidiumAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -106,10 +104,10 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 	@Override
 	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
-		this.animate(entity.flyingAnimationState, KimmeridgebrachypteraeschnidiumAnimations.WINGS_OVERLAY, ageInTicks);
-		this.animate(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE, ageInTicks);
-		this.animate(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);
+		this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
+		this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY_OVERLAY, ageInTicks);
+		this.animateSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE1, ageInTicks);
+		this.animateSmooth(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);
@@ -118,11 +116,6 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 
 		this.body_main.xRot += flightPitchAmount;
 		this.body_main.zRot += rollAmount / 2;
-	}
-
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
