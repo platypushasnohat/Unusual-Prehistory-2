@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 270,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "unusual_prehistory:block/cycad_stem"
+    },
+    "axis=z": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 270
+    }
+  }
+}

@@ -218,6 +218,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
 
                         // trees
+                        output.accept(UP2Blocks.CYCAD_SAPLING.get());
+                        output.accept(UP2Blocks.CYCAD_STEM.get());
+                        output.accept(UP2Blocks.CYCAD_TOP.get());
+
                         output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
                         output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());
                         output.accept(UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get());

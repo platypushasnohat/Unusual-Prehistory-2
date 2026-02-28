@@ -24,6 +24,8 @@ public class UP2Features {
     public static final ResourceKey<PlacedFeature> MOSS_LAYER_BONEMEAL = createPlacedFeatureKey("moss_layer_bonemeal");
     public static final ResourceKey<PlacedFeature> HORSETAIL_BONEMEAL = createPlacedFeatureKey("horsetail_bonemeal");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM_BEES = createConfiguredFeatureKey("dryophyllum_bees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO = createConfiguredFeatureKey("ginkgo");
