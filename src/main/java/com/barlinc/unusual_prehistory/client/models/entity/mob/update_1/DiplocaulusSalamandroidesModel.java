@@ -125,18 +125,17 @@ public class DiplocaulusSalamandroidesModel extends UP2Model<Diplocaulus> {
             else this.animateWalk(DiplocaulusSalamandroidesAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdle(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.swimIdleAnimationState, DiplocaulusSalamandroidesAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.quirkAnimationState, DiplocaulusSalamandroidesAnimations.QUIRK_BLEND, ageInTicks);
-        this.animate(entity.burrowStartAnimationState, DiplocaulusSalamandroidesAnimations.BURROW_START, ageInTicks);
-        this.animate(entity.burrowIdleAnimationState, DiplocaulusSalamandroidesAnimations.BURROW_HOLD, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, DiplocaulusSalamandroidesAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, DiplocaulusSalamandroidesAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.quirkAnimationState, DiplocaulusSalamandroidesAnimations.QUIRK_BLEND, ageInTicks);
+        this.animateSmooth(entity.burrowAnimationState, DiplocaulusSalamandroidesAnimations.BURROW_HOLD, ageInTicks);
 
         if (this.young) this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);
 
-        if (entity.isDiplocaulusBurrowed() && entity.level().getBlockState(entity.blockPosition()).is(Blocks.MUD)) {
+        if (entity.isBurrowed() && entity.level().getBlockState(entity.blockPosition()).is(Blocks.MUD)) {
             this.body_main.y = 1.0F;
         }
-        if (!entity.isDiplocaulusBurrowed()) {
+        if (!entity.isBurrowed()) {
             this.head.xRot += headPitch * deg / 4;
             this.head.yRot += netHeadYaw * deg / 4;
         }

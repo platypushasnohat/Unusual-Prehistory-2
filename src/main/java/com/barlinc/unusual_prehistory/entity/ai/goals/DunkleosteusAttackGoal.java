@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class DunkleosteusAttackGoal extends AttackGoal {
@@ -51,7 +52,7 @@ public class DunkleosteusAttackGoal extends AttackGoal {
         if (timer == 1) dunkleosteus.setPose(UP2Poses.ATTACKING.get());
         if (timer == 2) dunkleosteus.playSound(dunkleosteus.getBiteSound(), 1.0F, dunkleosteus.getRandom().nextFloat() * 0.1F + 0.9F);
         if (timer == 5) {
-            if (dunkleosteus.distanceTo(target) < this.getAttackReachSqr(target)) {
+            if (this.isInAttackRange(target, 1.5D)) {
                 DamageSource damagesource = UP2DamageTypes.execute(dunkleosteus.level(), dunkleosteus, dunkleosteus);
                 target.hurt(damagesource, (float) dunkleosteus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                 this.dunkleosteus.doKnockback(target);
@@ -60,6 +61,8 @@ public class DunkleosteusAttackGoal extends AttackGoal {
         }
         if (timer > 10) {
             this.timer = 0;
+            this.dunkleosteus.setPose(Pose.STANDING);
+            this.dunkleosteus.attackCooldown = 5 + dunkleosteus.getRandom().nextInt(3);
             this.dunkleosteus.setAttackState(0);
         }
     }

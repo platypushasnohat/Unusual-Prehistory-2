@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,12 +45,10 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     public int attackCooldown = 0;
 
-    public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState quirkAnimationState = new AnimationState();
+    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
 
     private int quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
-
-    private int attackTicks;
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -129,18 +128,14 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (attackTicks > 0) attackTicks--;
-        if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-            this.setPose(Pose.STANDING);
-            this.attackCooldown = 4 + this.getRandom().nextInt(2);
-        }
         if (quirkCooldown > 0) quirkCooldown--;
     }
 
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-        if (this.attackTicks == 0 && this.attackAnimationState.isStarted()) this.attackAnimationState.stop();
+        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+        this.quirkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
     }
 
     @Override
@@ -148,15 +143,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         if (VARIANT.equals(accessor)) {
             this.refreshDimensions();
             this.setupSizeAttributes();
-        }
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                this.attackAnimationState.start(this.tickCount);
-                this.attackTicks = 10;
-            }
-            else {
-                this.attackAnimationState.stop();
-            }
         }
         super.onSyncedDataUpdated(accessor);
     }
@@ -184,12 +170,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.5D);
         }
         this.heal(50.0F);
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 67) this.quirkAnimationState.start(this.tickCount);
-        else super.handleEntityEvent(id);
     }
 
     protected void quirkCooldown() {
@@ -288,7 +268,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         Dunkleosteus dunkleosteus = UP2Entities.DUNKLEOSTEUS.get().create(serverLevel);
-        dunkleosteus.setVariant(this.getVariant());
+        if (dunkleosteus != null) {
+            dunkleosteus.setVariant(this.getVariant());
+        }
         return dunkleosteus;
     }
 

@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -85,14 +84,16 @@ public class DunkleosteusSmallModel extends UP2Model<Dunkleosteus> {
 	@Override
 	public void setupAnim(Dunkleosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-
-        this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
-        this.animateIdle(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
-        this.animate(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
-        this.animate(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks);
-
-        if (entity.isInWater()) this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+        if (entity.isRunning()) {
+            this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        } else {
+            this.animateWalk(DunkleosteusSmallAnimations.SWIM_CHASE, limbSwing, limbSwingAmount, 1, 2);
+        }
+        this.animateIdleSmooth(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
+        this.animateSmooth(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
+        this.animateSmooth(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks);
+        this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
 	}
 
 	@Override

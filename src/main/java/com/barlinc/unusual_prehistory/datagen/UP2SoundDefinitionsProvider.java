@@ -150,17 +150,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt2")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/death1")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle1")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle2")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle3")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle4")).volume(0.17F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_STEP,
                 sound("mob/frog/step1").pitch(0.95F),

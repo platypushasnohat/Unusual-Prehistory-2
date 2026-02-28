@@ -6,7 +6,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;

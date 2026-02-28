@@ -275,23 +275,44 @@
   },
   "diplocaulus_death": {
     "sounds": [
-      "unusual_prehistory:entity/diplocaulus/death1"
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/death1",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.diplocaulus_death"
   },
   "diplocaulus_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/diplocaulus/hurt1",
-      "unusual_prehistory:entity/diplocaulus/hurt2"
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/hurt1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/hurt2",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.diplocaulus_hurt"
   },
   "diplocaulus_idle": {
     "sounds": [
-      "unusual_prehistory:entity/diplocaulus/idle1",
-      "unusual_prehistory:entity/diplocaulus/idle2",
-      "unusual_prehistory:entity/diplocaulus/idle3",
-      "unusual_prehistory:entity/diplocaulus/idle4"
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/idle1",
+        "volume": 0.17
+      },
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/idle2",
+        "volume": 0.17
+      },
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/idle3",
+        "volume": 0.17
+      },
+      {
+        "name": "unusual_prehistory:entity/diplocaulus/idle4",
+        "volume": 0.17
+      }
     ],
     "subtitle": "subtitles.diplocaulus_idle"
   },
