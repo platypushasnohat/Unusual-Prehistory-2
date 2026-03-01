@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.TelecrexAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Telecrex;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -79,19 +80,16 @@ public class TelecrexModel extends UP2Model<Telecrex> {
             this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
-        this.animateIdle(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.hoverAnimationState, TelecrexAnimations.HOVER, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.flyStartAnimationState, TelecrexAnimations.TAKEOFF, ageInTicks);
-        this.animate(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks);
-        this.animate(entity.flyFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks);
-		this.animate(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
-        this.animate(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
-        this.animate(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
-        this.animate(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks);
+        this.animateSmooth(entity.flyFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks);
+		this.animateSmooth(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
+        this.animateSmooth(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
+        this.animateSmooth(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
+        this.animateSmooth(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
-		this.head.xRot += headPitch * deg / 2;
-		this.head.yRot += netHeadYaw * deg / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);

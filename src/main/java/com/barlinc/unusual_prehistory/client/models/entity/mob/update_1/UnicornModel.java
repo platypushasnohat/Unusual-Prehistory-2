@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.Unicorn;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -78,16 +77,17 @@ public class UnicornModel extends UP2Model<Unicorn> {
 	public void setupAnim(@NotNull Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 3, 6);
+        this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 
         if (this.young) this.applyStatic(UnicornAnimations.BABY_TRANSFORM);
 
-		this.animate(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks, limbSwingAmount);
 
-		this.head.xRot += headPitch * (Mth.DEG_TO_RAD) - (headPitch * (Mth.DEG_TO_RAD)) / 4;
-		this.head.yRot += netHeadYaw * (Mth.DEG_TO_RAD) - (netHeadYaw * (Mth.DEG_TO_RAD)) / 4;
-		this.neck.xRot += headPitch * (Mth.DEG_TO_RAD) / 4;
-		this.neck.yRot += netHeadYaw * (Mth.DEG_TO_RAD) / 4;
+        float deg = ((float) Math.PI / 180F);
+		this.head.xRot += headPitch * (deg) - (headPitch * (deg)) / 4;
+		this.head.yRot += netHeadYaw * (deg) - (netHeadYaw * (deg)) / 4;
+		this.neck.xRot += headPitch * (deg) / 4;
+		this.neck.yRot += netHeadYaw * (deg) / 4;
 	}
 
 	@Override

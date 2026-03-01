@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.TalpanasAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Talpanas;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -88,21 +89,20 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 	public void setupAnim(@NotNull Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (entity.onGround()) {
+        if (entity.onGround() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(TalpanasAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(TalpanasAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
 		if (this.young) this.applyStatic(TalpanasAnimations.BABY_TRANSFORM);
 
-        this.animateIdle(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
-		this.animate(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
-        this.animate(entity.shakeAnimationState, TalpanasAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
+		this.animateSmooth(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, TalpanasAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, TalpanasAnimations.SIT, ageInTicks);
 
-        float deg = ((float) Math.PI / 180F) / 2;
-		this.head.xRot += headPitch * deg;
-		this.head.yRot += netHeadYaw * deg;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
     }
 
 	@Override

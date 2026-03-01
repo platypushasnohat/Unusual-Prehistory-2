@@ -1,6 +1,11 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
@@ -43,12 +48,14 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     public void switchNavigator(boolean onLand) {
         if (onLand) {
-            this.moveControl = new MoveControl(this);
-            this.navigation = new SmoothGroundPathNavigation(this, this.level());
+            this.moveControl = new PrehistoricMoveControl(this);
+            this.lookControl = new PrehistoricLookControl(this);
+            this.navigation = new NoSpinGroundPathNavigation(this, this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 0.75F);
+            this.lookControl = new PrehistoricFlyingLookControl(this, 85);
+            this.navigation = new NoSpinFlyingPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }

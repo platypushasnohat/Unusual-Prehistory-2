@@ -1,18 +1,16 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.TelecrexScatterGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -26,7 +24,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,20 +43,16 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     private static final EntityDataAccessor<Boolean> SPLAT = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState flyStartAnimationState = new AnimationState();
-    public final AnimationState flyAnimationState = new AnimationState();
-    public final AnimationState flyFastAnimationState = new AnimationState();
-    public final AnimationState hoverAnimationState = new AnimationState();
-    public final AnimationState peckAnimationState = new AnimationState();
-    public final AnimationState preen1AnimationState = new AnimationState();
-    public final AnimationState preen2AnimationState = new AnimationState();
-    public final AnimationState splatAnimationState = new AnimationState();
+    public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState preen1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState preen2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState splatAnimationState = new SmoothAnimationState(0.75F);
+
+    private boolean preenAlt = false;
 
     public int preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
     public int peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
 
-    private int flyStartTicks;
     private int splatTicks;
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
@@ -92,19 +85,6 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new TelecrexPreenGoal(this));
         this.goalSelector.addGoal(6, new TelecrexPeckGoal(this));
-    }
-
-    @Override
-    public void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.moveControl = new MoveControl(this);
-            this.navigation = new SmoothGroundPathNavigation(this, this.level());
-            this.isLandNavigator = true;
-        } else {
-            this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new SmoothFlyingPathNavigation(this, this.level(), 0.75F);
-            this.isLandNavigator = false;
-        }
     }
 
     @Override
@@ -153,18 +133,13 @@ public class Telecrex extends PrehistoricFlyingMob {
 
         if (this.hasSplat()) {
             this.splatTicks++;
-            this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y * 0.3F, this.getDeltaMovement().z);
+            this.setDeltaMovement(this.getDeltaMovement().x * 0.1F, this.getDeltaMovement().y * 0.4F, this.getDeltaMovement().z * 0.1F);
         }
         if (splatTicks > 60 || this.onGround() || this.isInWaterOrBubble()) this.setSplat(false);
     }
 
     @Override
     public void setupAnimationCooldowns() {
-        if (flyStartTicks > 0) flyStartTicks--;
-        if (flyStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) {
-            this.setPose(Pose.FALL_FLYING);
-            this.setFlying(true);
-        }
         if (!this.isFlying()) {
             if (preenCooldown > 0) preenCooldown--;
             if (peckCooldown > 0) peckCooldown--;
@@ -177,12 +152,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public void setFlyingPose() {
-        if (this.isFlying()) {
-            if (this.getPose() == Pose.STANDING) this.setPose(UP2Poses.START_FLYING.get());
-        } else {
-            this.setPose(Pose.STANDING);
-        }
+    public boolean refuseToLook() {
+        return super.refuseToMove() || this.hasSplat();
     }
 
     public int getFastFlyingTicks() {
@@ -191,44 +162,13 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public void setupAnimationStates() {
-        if (flyStartTicks == 0 && this.flyStartAnimationState.isStarted()) this.flyStartAnimationState.stop();
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && this.getIdleState() != 2, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning(), this.tickCount);
-        this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && !this.isRunning(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.isRunning(), this.tickCount);
         this.splatAnimationState.animateWhen(this.hasSplat(), this.tickCount);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.START_FLYING.get()) {
-                this.flyStartAnimationState.start(this.tickCount);
-                this.flyStartTicks = 20;
-            }
-            else {
-                this.flyStartAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 67 -> {
-                if (this.getRandom().nextBoolean()) this.preen1AnimationState.start(this.tickCount);
-                else this.preen2AnimationState.start(this.tickCount);
-            }
-            case 68 -> {
-                this.preen1AnimationState.stop();
-                this.preen2AnimationState.stop();
-            }
-
-            case 69 -> this.peckAnimationState.start(this.tickCount);
-            case 70 -> this.peckAnimationState.stop();
-
-            default -> super.handleEntityEvent(id);
-        }
+        this.preen1AnimationState.animateWhen(this.getIdleState() == 1 && !preenAlt, this.tickCount);
+        this.preen2AnimationState.animateWhen(this.getIdleState() == 1 && preenAlt, this.tickCount);
+        this.peckAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }
 
     protected void preenCooldown() {
@@ -311,6 +251,41 @@ public class Telecrex extends PrehistoricFlyingMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.TELECREX_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
+    private static class TelecrexScatterGoal extends Goal {
+
+        private final Telecrex telecrex;
+
+        public TelecrexScatterGoal(Telecrex telecrex) {
+            this.telecrex = telecrex;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (telecrex.isFlying()) {
+                return false;
+            }
+            long worldTime = telecrex.level().getGameTime() % 10;
+            if (telecrex.getRandom().nextInt(10) != 0 && worldTime != 0) {
+                return false;
+            }
+            AABB aabb = telecrex.getBoundingBox().inflate(8);
+            List<Entity> list = telecrex.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.TELECREX_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
+            return !list.isEmpty();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return false;
+        }
+
+        @Override
+        public void start() {
+            this.telecrex.setFlying(true);
+            this.telecrex.setRunning(true);
+            this.telecrex.setRunningTicks(telecrex.getFastFlyingTicks());
+        }
+    }
+
     private static class TelecrexPreenGoal extends AnimationGoal {
 
         private final Telecrex telecrex;
@@ -328,6 +303,12 @@ public class Telecrex extends PrehistoricFlyingMob {
         @Override
         public boolean canContinueToUse() {
             return super.canUse() && !telecrex.isFlying();
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.telecrex.preenAlt = telecrex.getRandom().nextBoolean();
         }
 
         @Override
