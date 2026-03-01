@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:imperative_fossil",
       "egg_item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Dazzling,Tongue-Twisting Dragonflies coming in hundreds of designs"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,22 @@
       "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_1.tooltip": "§7They start their lives as aquatic nymphs before they grow into their flying adult forms",
+      "feature_1.title_one_line": "Bug Baby Biology",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle",
+      "feature_2.tooltip": "§7The Nymphs can be §aBucketed§7, while the Adults can be picked up with §aBottles§7",
+      "feature_2.title_one_line": "Ease of Transportation",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:cyan_dye",
+      "feature_3.tooltip": "§7Their body, wings and pattern all come in random colors",
+      "feature_3.title_one_line": "Thousands of Flavours!",
+      "feature_3.title_two_line": ""
     }
   ]
 }

@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:guillotine_fossil",
       "egg_item": "unusual_prehistory:dunkleosteus_sac",
       "variant_key": "1 raveri 2 marsaisi 3 terrelli",
-      "image_tooltip": ""
+      "image_tooltip": "Devonian Pioneers of the Deadly Jaws"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,22 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket",
+      "feature_1.tooltip": "§7While the smallest can fit in a bucket, the larger species are more aggressive",
+      "feature_1.title_one_line": "Size may Vary",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:prismarine",
+      "feature_2.tooltip": "§7Dunkleosteus' armour-piercing jaws are particularly threatening to guardians, who deeply fear these creatures",
+      "feature_2.title_one_line": "Crushing Crunch",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:skeleton_skull",
+      "feature_3.tooltip": "§7Their Guillotine jaws can cause victims to drop their heads",
+      "feature_3.title_one_line": "Off with their Heads!",
+      "feature_3.title_two_line": ""
     }
   ]
 }

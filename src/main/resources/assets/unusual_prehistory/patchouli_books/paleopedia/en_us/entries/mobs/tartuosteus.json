@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:mossy_fossil",
       "egg_item": "unusual_prehistory:tartuosteus_roe",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "A Jawless Drifter of the Devonian Seas"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "§7Tartuosteus can be seen jumping out of the water on occasion",
+      "feature_1.title_one_line": "Flying Fish",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:moss_block",
+      "feature_2.tooltip": "§7like other jawless fish, they enjoy nibbling on moss",
+      "feature_2.title_one_line": "Eating Your Greens",
+      "feature_2.title_two_line": ""
     }
   ]
 }
