@@ -51,8 +51,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     private static final EntityDataAccessor<Integer> ANGER_LEVEL = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANGER_TIME = SynchedEntityData.defineId(Therizinosaurus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(2.2F, 3.98F);
-
     private final TherizinosaurusVibrationUser vibrationUser;
     private final DynamicGameEventListener<TherizinosaurusVibrationListener> loudVibrationListener;
     private final VibrationSystem.Data vibrationData;
@@ -61,8 +59,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     public int vibrationCooldown = 0;
 
-    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState forageLowAnimationState = new SmoothAnimationState();
@@ -72,6 +68,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     public final SmoothAnimationState alert1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState alert2AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
 
     public int attackTicks;
 
@@ -155,7 +152,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
         if (this.isBaby()) return super.getDimensions(pose).scale(0.6F, 0.5F);
-        else return pose == UP2Poses.SLEEPING.get() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        return super.getDimensions(pose);
     }
 
     @Override
@@ -170,11 +167,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Override
     public boolean isEepyTime() {
         return this.level().isDay();
-    }
-
-    @Override
-    public long getEepyPoseTransitionTime() {
-        return 20L;
     }
 
     @Override
@@ -233,33 +225,12 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
         if (roarTicks == 0 && this.roarAnimationState.isStarted()) this.roarAnimationState.stop();
 
-        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get() && !this.isEepy() && !this.isInWater() && this.getPose() != UP2Poses.FORAGING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
         this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
-
-        if (this.isMobVisuallyEepy()) {
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.idleAnimationState.stop();
-            this.forageLowAnimationState.stop();
-            this.forageHighAnimationState.stop();
-            this.eepyEndAnimationState.stop();
-            this.alert1AnimationState.stop();
-            this.alert2AnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
-            } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.angryAnimationState.animateWhen(this.getAngerLevel() > 3, this.tickCount);
     }
 
     @Override
