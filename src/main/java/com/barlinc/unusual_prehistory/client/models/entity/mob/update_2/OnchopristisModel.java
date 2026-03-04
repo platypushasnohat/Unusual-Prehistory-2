@@ -89,7 +89,6 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 		this.animateSmooth(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
 		this.animateSmooth(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
         this.animateSmooth(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animateSmooth(entity.stepAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);
         this.animateSmooth(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks);
         if (!entity.isBurrowed()) {
             this.swim_control.xRot = headPitch * (((float) Math.PI / 180F) / 2);

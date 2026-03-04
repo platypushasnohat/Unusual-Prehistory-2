@@ -53,12 +53,9 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState stepAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState burrowAnimationState = new SmoothAnimationState();
 
-    private boolean steppedOn = false;
     private boolean attackAlt = false;
-    private int stepTicks;
 
     public Onchopristis(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -114,6 +111,11 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+        return size.height * 0.5F;
+    }
+
+    @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return this.getDepthPathfindingFavor(pos, level);
     }
@@ -134,7 +136,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
         if (attackCooldown > 0) attackCooldown--;
 
-        if (this.isAlive() && this.isBurrowed() && !this.level().isClientSide && this.getTarget() == null && stepTicks == 0 && tickCount % 20 == 0) {
+        if (this.isAlive() && this.isBurrowed() && !this.level().isClientSide && this.getTarget() == null && tickCount % 20 == 0) {
             this.getSteppedOn();
         }
 
@@ -168,15 +170,13 @@ public class Onchopristis extends PrehistoricAquaticMob {
                     this.setBurrowed(false);
                     this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
                 }
-                this.steppedOn = true;
-                this.stepTicks = 5;
             }
         });
     }
 
     @NotNull
     public AABB getAggroHitbox() {
-        return this.getBoundingBox().deflate(0, 0.1, 0).move(0, 0.5, 0);
+        return this.getBoundingBox().deflate(0, 0.1, 0).move(0, 0.4, 0);
     }
 
     @Override
@@ -202,14 +202,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
-        this.stepAnimationState.animateWhen(steppedOn, this.tickCount);
         this.burrowAnimationState.animateWhen(this.isBurrowed(), this.tickCount);
-    }
-
-    @Override
-    public void setupAnimationCooldowns() {
-        if (stepTicks > 0) stepTicks--;
-        if (stepTicks == 0 && steppedOn) steppedOn = false;
     }
 
     @Override
@@ -222,18 +215,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
         super.defineSynchedData();
         this.entityData.define(BURROWED, false);
         this.entityData.define(BURROW_COOLDOWN, 600 + this.getRandom().nextInt(600));
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("BurrowCooldown", this.getBurrowCooldown());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
     }
 
     public boolean isBurrowed() {

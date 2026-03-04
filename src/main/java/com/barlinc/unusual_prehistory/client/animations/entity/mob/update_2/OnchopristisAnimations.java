@@ -791,15 +791,6 @@ public class OnchopristisAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition STEP_BLEND = AnimationDefinition.Builder.withLength(0.25F)
-            .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.SCALE,
-                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
-                    new Keyframe(0.0417F, KeyframeAnimations.scaleVec(1.0F, 0.75F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
-                    new Keyframe(0.125F, KeyframeAnimations.scaleVec(1.1F, 0.75F, 1.1F), AnimationChannel.Interpolations.CATMULLROM),
-                    new Keyframe(0.25F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM)
-            ))
-            .build();
-
     public static final AnimationDefinition ATTACK_BLEND1 = AnimationDefinition.Builder.withLength(1.0F)
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
