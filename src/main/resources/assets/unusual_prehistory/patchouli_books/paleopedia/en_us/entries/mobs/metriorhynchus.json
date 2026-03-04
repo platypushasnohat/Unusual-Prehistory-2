@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:meltdown_fossil",
       "egg_item": "unusual_prehistory:metriorhynchus_embryo",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Marine Crocodiyliform that Hunted in Jurassic Seas"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:heart_of_the_sea",
+      "feature_1.tooltip": "§7They are capable of persuing their prey on land too, just lacking the agility they possess in the water",
+      "feature_1.title_one_line": "Risk on the Riverbanks",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:prismarine",
+      "feature_2.tooltip": "§7Metriorhynchus will perform a Death Roll on small prey",
+      "feature_2.title_one_line": "Diving Death",
+      "feature_2.title_two_line": ""
     }
   ]
 }

@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:saw_fossil",
       "egg_item": "unusual_prehistory:onchopristis_sac",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Barb-Bearing Sawskates of the North African Sediment"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:coarse_dirt",
+      "feature_1.tooltip": "§7Onchopristis live at the bottom of bodies of water and will often bury themselves in the sediment",
+      "feature_1.title_one_line": "Scales in the Soil",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:prismarine",
+      "feature_2.tooltip": "§7If disturbed while buried, they will use their toothy snouts to attack",
+      "feature_2.title_one_line": "I Saw That!",
+      "feature_2.title_two_line": ""
     }
   ]
 }
