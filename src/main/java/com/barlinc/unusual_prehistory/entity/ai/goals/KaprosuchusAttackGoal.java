@@ -142,7 +142,7 @@ public class KaprosuchusAttackGoal extends AttackGoal {
             this.kaprosuchus.setDeltaMovement(vec3.x, this.isTargetAbove(target) ? 1.3F : 0.98F, vec3.z);
         }
 
-        if (this.isInAttackRange(target, 2.0D) && timer > 20) {
+        if (this.isInAttackRange(target, 1.0D) && timer > 20) {
             this.kaprosuchus.doHurtTarget(target);
             this.kaprosuchus.strongKnockback(target, 0.5D, 0.05D);
             this.kaprosuchus.swing(InteractionHand.MAIN_HAND);

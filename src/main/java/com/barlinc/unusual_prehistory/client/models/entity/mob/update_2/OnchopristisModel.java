@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -83,16 +82,18 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 	@Override
 	public void setupAnim(Onchopristis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWater()) this.animateWalk(OnchopristisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdle(entity.swimIdleAnimationState, OnchopristisAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-		this.animate(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
-		this.animate(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animate(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animate(entity.steppedOnAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);
-        this.animate(entity.burrowStartAnimationState, OnchopristisAnimations.BURROW_START, ageInTicks);
-        this.animate(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks);
-        this.animate(entity.burrowEndAnimationState, OnchopristisAnimations.BURROW_END, ageInTicks);
-        if (!entity.isOnchopristisBurrowed()) this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
+        if (entity.isInWater() && !entity.isBurrowed()) {
+            this.animateWalk(OnchopristisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        }
+        this.animateIdleSmooth(entity.swimIdleAnimationState, OnchopristisAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
+		this.animateSmooth(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
+        this.animateSmooth(entity.stepAnimationState, OnchopristisAnimations.STEP_BLEND, ageInTicks);
+        this.animateSmooth(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks);
+        if (!entity.isBurrowed()) {
+            this.swim_control.xRot = headPitch * (((float) Math.PI / 180F) / 2);
+        }
 	}
 
 	@Override
