@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.items.EmbryoItem;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -67,9 +68,9 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     protected static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
 
-    public final AnimationState processingAnimationState = new AnimationState();
-    public final AnimationState spittingAnimationState = new AnimationState();
-    public final AnimationState cooldownAnimationState = new AnimationState();
+    public final SmoothAnimationState processingAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState spittingAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState cooldownAnimationState = new SmoothAnimationState();
 
     private int spittingTicks;
 
@@ -176,6 +177,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     public void setupAnimationStates() {
         this.processingAnimationState.animateWhen(this.hasEntity() && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
         this.cooldownAnimationState.animateWhen(this.getCooldown() > 0 && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
+        this.spittingAnimationState.animateWhen(this.spittingAnimationState.isStarted(), this.tickCount);
     }
 
     @Override

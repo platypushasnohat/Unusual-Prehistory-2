@@ -154,7 +154,9 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         Tartuosteus tartuosteus = UP2Entities.TARTUOSTEUS.get().create(serverLevel);
-        tartuosteus.setVariant(this.getVariant());
+        if (tartuosteus != null) {
+            tartuosteus.setVariant(this.getVariant());
+        }
         return tartuosteus;
     }
 

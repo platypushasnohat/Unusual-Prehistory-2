@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -61,10 +60,10 @@ public class TartuosteusModel extends UP2Model<Tartuosteus> {
             this.animateWalk(TartuosteusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdle(entity.swimIdleAnimationState, TartuosteusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-		this.animate(entity.flopAnimationState, TartuosteusAnimations.FLOP, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, TartuosteusAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, TartuosteusAnimations.FLOP, ageInTicks);
 
-        this.swim_control.xRot = headPitch * (Mth.DEG_TO_RAD);
+        this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
 	}
 
 	@Override

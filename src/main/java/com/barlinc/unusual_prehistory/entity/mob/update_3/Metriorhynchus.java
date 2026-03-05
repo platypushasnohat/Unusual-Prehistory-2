@@ -1,6 +1,11 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_3;
 
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -9,6 +14,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,7 +28,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.MoveControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -37,6 +42,7 @@
  import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -47,33 +53,35 @@
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.BOOLEAN);
 
-     public int deathRollCooldown = 0;
-     public int biteCooldown = 0;
+     public int grabCooldown = 0;
+     public int attackCooldown = 0;
 
-     public final AnimationState idleAnimationState = new AnimationState();
-     public final AnimationState swimIdleAnimationState = new AnimationState();
-     public final AnimationState bite1AnimationState = new AnimationState();
-     public final AnimationState bite2AnimationState = new AnimationState();
-     public final AnimationState deathRoll1AnimationState = new AnimationState();
-     public final AnimationState deathRoll2AnimationState = new AnimationState();
-     public final AnimationState bellowAnimationState = new AnimationState();
+     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState grab1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState grab2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState bellowAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
 
-     private int deathRollTicks;
-     private int biteTicks;
+     public boolean grabAlt = false;
+     public boolean attackAlt = false;
 
      public int bellowCooldown = 2000 + this.getRandom().nextInt(2000);
 
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
-         this.lookControl = new SmoothSwimmingLookControl(this, 20);
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 36.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.14F)
-                 .add(Attributes.ATTACK_DAMAGE, 6.0F);
+                 .add(Attributes.MAX_HEALTH, 30.0D)
+                 .add(Attributes.MOVEMENT_SPEED, 0.15F)
+                 .add(Attributes.ATTACK_DAMAGE, 7.0F);
      }
 
      @Override
@@ -100,10 +108,14 @@
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
-             this.moveControl = new MoveControl(this);
+             this.moveControl = new PrehistoricMoveControl(this);
+             this.lookControl = new MetriorhynchusLookControl(this);
+             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.98F, 0.1F, false);
+             this.lookControl = new SmoothSwimmingLookControl(this, 20);
+             this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -161,96 +173,37 @@
      @Override
      public void tick() {
          super.tick();
-         final boolean ground = !this.isInWater();
-         if (!ground && this.isLandNavigator) {
+         if (this.isInWater() && this.isLandNavigator) {
              this.switchNavigator(false);
          }
-         if (ground && !this.isLandNavigator) {
+         if (!this.isInWater() && !this.isLandNavigator) {
              this.switchNavigator(true);
          }
 
-         if (this.getPose() == UP2Poses.GRABBING.get() && this.getHeldMobId() != -1) {
-             this.positionHeldMob();
-         }
-
-         if (deathRollCooldown > 0) deathRollCooldown--;
-         if (biteCooldown > 0) biteCooldown--;
-     }
-
-     private void positionHeldMob() {
-         Entity entity = level().getEntity(this.getHeldMobId());
-         if (entity != null) {
-             if (deathRollTicks < 35) {
-                 Vec3 heldPos = this.getEyePosition().add(new Vec3(0.0F, 0.0F, 2.2F).yRot(-yBodyRot * ((float) Math.PI / 180F)));
-                 Vec3 minus = new Vec3(heldPos.x - entity.getX(), heldPos.y - entity.getY(), heldPos.z - entity.getZ());
-                 entity.setDeltaMovement(minus);
-                 entity.fallDistance = 0.0F;
-                 entity.setYRot(0.0F);
-                 entity.setYBodyRot(0.0F);
-                 entity.setYHeadRot(0.0F);
-                 entity.setXRot(0.0F);
-                 entity.setDeltaMovement(minus);
-                 if (deathRollTicks % 10 == 0) {
-                     entity.hurt(damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.6F);
-                 }
-             } else {
-                 entity.setDeltaMovement(entity.getDeltaMovement().scale(0.6F));
-             }
+         if (!this.level().isClientSide) {
+             if (grabCooldown > 0) grabCooldown--;
+             if (attackCooldown > 0) attackCooldown--;
          }
      }
 
      @Override
      public void setupAnimationCooldowns() {
-         if (biteTicks > 0) biteTicks--;
-         if (deathRollTicks > 0) deathRollTicks--;
-         if (biteTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
-         if (deathRollTicks == 0 && this.getPose() == UP2Poses.GRABBING.get()) this.setPose(Pose.STANDING);
-         if (bellowCooldown > 0) bellowCooldown--;
+         if (!this.level().isClientSide && this.getTarget() == null) {
+             if (bellowCooldown > 0) bellowCooldown--;
+         }
      }
 
      @Override
      public void setupAnimationStates() {
-         if (biteTicks == 0 && (this.bite1AnimationState.isStarted() || this.bite2AnimationState.isStarted())) {
-             this.bite1AnimationState.stop();
-             this.bite2AnimationState.stop();
-         }
-         if (deathRollTicks == 0 && (this.deathRoll1AnimationState.isStarted() || this.deathRoll2AnimationState.isStarted())) {
-             this.deathRoll1AnimationState.stop();
-             this.deathRoll2AnimationState.stop();
-         }
          this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
-     }
-
-     @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.getRandom().nextBoolean()) this.bite1AnimationState.start(this.tickCount);
-                 else this.bite2AnimationState.start(this.tickCount);
-                 this.biteTicks = 10;
-             }
-             else if (this.getPose() == UP2Poses.GRABBING.get()) {
-                 if (this.getRandom().nextBoolean()) this.deathRoll1AnimationState.start(this.tickCount);
-                 else this.deathRoll2AnimationState.start(this.tickCount);
-                 this.deathRollTicks = 40;
-             }
-             else if (this.getPose() == Pose.STANDING) {
-                 this.bite1AnimationState.stop();
-                 this.bite2AnimationState.stop();
-                 this.deathRoll1AnimationState.stop();
-                 this.deathRoll2AnimationState.stop();
-             }
-         }
-         super.onSyncedDataUpdated(accessor);
-     }
-
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             case 67 -> this.bellowAnimationState.start(this.tickCount);
-             case 68 -> this.bellowAnimationState.stop();
-             default -> super.handleEntityEvent(id);
-         }
+         this.bellowAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
+         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
+         this.grab1AnimationState.animateWhen(this.getPose() == UP2Poses.GRABBING.get() && !grabAlt, this.tickCount);
+         this.grab2AnimationState.animateWhen(this.getPose() == UP2Poses.GRABBING.get() && grabAlt, this.tickCount);
+         this.angryAnimationState.animateWhen(this.isAggressive() && this.getPose() != UP2Poses.GRABBING.get() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+         this.leapAnimationState.animateWhen(this.isLeaping() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
      }
 
      protected void bellowCooldown() {
@@ -352,13 +305,28 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && metriorhynchus.bellowCooldown == 0 && !metriorhynchus.isMobSitting();
+             return super.canUse() && metriorhynchus.bellowCooldown == 0;
          }
 
          @Override
          public void stop() {
              super.stop();
              this.metriorhynchus.bellowCooldown();
+         }
+     }
+
+     private static class MetriorhynchusLookControl extends PrehistoricLookControl {
+
+         private final Metriorhynchus metriorhynchus;
+
+         public MetriorhynchusLookControl(Metriorhynchus metriorhynchus) {
+             super(metriorhynchus);
+             this.metriorhynchus = metriorhynchus;
+         }
+
+         @Override
+         protected boolean resetXRotOnTick() {
+             return !metriorhynchus.isLeaping();
          }
      }
  }
