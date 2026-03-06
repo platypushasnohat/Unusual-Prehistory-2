@@ -31,8 +31,8 @@
       "clone.clone_tooltip_heading": "Embryo",
       "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
 
-      "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "minecraft:heart_of_the_sea",
       "feature_1.tooltip": "§7They are capable of persuing their prey on land too, just lacking the agility they possess in the water",
