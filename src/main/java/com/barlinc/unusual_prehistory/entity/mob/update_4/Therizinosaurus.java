@@ -170,7 +170,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
 
     @Override
-    public Vec3 getLookVec() {
+    public Vec3 getEepyParticleVec() {
         return new Vec3(0, 2.3F, -this.getBbWidth() * 0.8F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
     }
 

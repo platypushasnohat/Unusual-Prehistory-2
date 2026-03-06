@@ -204,7 +204,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public Vec3 getLookVec() {
+    public Vec3 getEepyParticleVec() {
         return new Vec3(0, 0, -this.getBbWidth() * 1.1F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
     }
 

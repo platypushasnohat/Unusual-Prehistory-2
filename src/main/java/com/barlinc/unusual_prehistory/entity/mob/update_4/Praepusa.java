@@ -1,7 +1,10 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -10,6 +13,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
@@ -56,18 +60,18 @@
 
      public int attackCooldown = 0;
 
-     public final AnimationState swimIdleAnimationState = new AnimationState();
-     public final AnimationState slap1AnimationState = new AnimationState();
-     public final AnimationState slap2AnimationState = new AnimationState();
-     public final AnimationState loafAnimationState = new AnimationState();
-     public final AnimationState applauseAnimationState = new AnimationState();
-     public final AnimationState mitosisAnimationState = new AnimationState();
-     public final AnimationState attackAnimationState = new AnimationState();
-     public final AnimationState bounceAnimationState = new AnimationState();
+     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState slap1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState slap2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState loafAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState applauseAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState mitosisAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState bounceAnimationState = new SmoothAnimationState();
 
      private int mitosisTicks;
-     private int attackTicks;
      private int bounceTicks = 0;
+     private boolean slapAlt = false;
 
      private int slapCooldown = 300 + this.getRandom().nextInt(300);
      private int loafCooldown = 400 + this.getRandom().nextInt(400);
@@ -76,8 +80,8 @@
      public Praepusa(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
-         this.lookControl = new SmoothSwimmingLookControl(this, 20);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -97,7 +101,7 @@
          this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(7, new RandomSitGoal(this));
          this.goalSelector.addGoal(8, new PraepusaSlapGoal(this));
@@ -109,9 +113,13 @@
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
+             this.lookControl = new PrehistoricLookControl(this);
+             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
+             this.lookControl = new SmoothSwimmingLookControl(this, 20);
+             this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -171,9 +179,8 @@
      @Override
      public void tick() {
          super.tick();
-         final boolean ground = !this.isInWater();
-         if (!ground && this.isLandNavigator) this.switchNavigator(false);
-         if (ground && !this.isLandNavigator) this.switchNavigator(true);
+         if (this.isInWater() && this.isLandNavigator) this.switchNavigator(false);
+         if (!this.isInWater() && !this.isLandNavigator) this.switchNavigator(true);
 
          if (this.getMitosisCooldown() > 0) this.setMitosisCooldown(this.getMitosisCooldown() - 1);
          if (this.getPose() == UP2Poses.MITOSIS.get()) {
@@ -236,40 +243,21 @@
      @Override
      public void setupAnimationStates() {
          if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
-         if (this.attackAnimationState.isStarted() && attackTicks == 0) this.attackAnimationState.stop();
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isSitting(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
-
-         if (this.isMobVisuallySitting()) {
-             this.sitEndAnimationState.stop();
-             this.slap1AnimationState.stop();
-             this.slap2AnimationState.stop();
-             this.idleAnimationState.stop();
-             this.applauseAnimationState.stop();
-             this.loafAnimationState.stop();
-             this.bounceAnimationState.stop();
-
-             if (this.isVisuallySitting()) {
-                 this.sitStartAnimationState.startIfStopped(this.tickCount);
-                 this.sitAnimationState.stop();
-             } else {
-                 this.sitStartAnimationState.stop();
-                 this.sitAnimationState.startIfStopped(this.tickCount);
-             }
-         } else {
-             this.sitStartAnimationState.stop();
-             this.sitAnimationState.stop();
-             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-         }
+         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
+         this.slap1AnimationState.animateWhen(this.getIdleState() == 1 && !slapAlt, this.tickCount);
+         this.slap2AnimationState.animateWhen(this.getIdleState() == 1 && slapAlt, this.tickCount);
+         this.loafAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+         this.applauseAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
      }
 
      @Override
      public void setupAnimationCooldowns() {
          if (mitosisTicks > 0) mitosisTicks--;
-         if (attackTicks > 0) attackTicks--;
          if (bounceTicks > 0) bounceTicks--;
          if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
-         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
          if (slapCooldown > 0) slapCooldown--;
          if (loafCooldown > 0) loafCooldown--;
          if (applauseCooldown > 0) applauseCooldown--;
@@ -282,14 +270,8 @@
              if (this.getPose() == UP2Poses.MITOSIS.get()) {
                  this.mitosisAnimationState.start(this.tickCount);
                  this.mitosisTicks = 40;
-             }
-             else if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 this.attackAnimationState.start(this.tickCount);
-                 this.attackTicks = 10;
-             }
-             else {
+             } else if (this.getPose() == Pose.STANDING) {
                  this.mitosisAnimationState.stop();
-                 this.attackAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
@@ -297,24 +279,8 @@
 
      public void handleEntityEvent(byte id) {
          switch (id) {
-             case 67 -> {
-                 if (this.getRandom().nextBoolean()) this.slap1AnimationState.start(this.tickCount);
-                 else this.slap2AnimationState.start(this.tickCount);
-             }
-             case 68 -> {
-                 this.slap1AnimationState.stop();
-                 this.slap2AnimationState.stop();
-             }
-
-             case 69 -> this.loafAnimationState.start(this.tickCount);
-             case 70 -> this.loafAnimationState.stop();
-
-             case 71 -> this.applauseAnimationState.start(this.tickCount);
-             case 72 -> this.applauseAnimationState.stop();
-
              case 73 -> this.bounceAnimationState.start(this.tickCount);
              case 74 -> this.bounceAnimationState.stop();
-
              default -> super.handleEntityEvent(id);
          }
      }
@@ -466,6 +432,12 @@
          public void stop() {
              super.stop();
              this.praepusa.slapCooldown();
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.praepusa.slapAlt = praepusa.getRandom().nextBoolean();
          }
      }
 

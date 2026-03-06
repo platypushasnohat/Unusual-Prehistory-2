@@ -94,17 +94,16 @@ public class PraepusaModel extends UP2Model<Praepusa> {
             if (entity.isRunning()) this.animateWalk(PraepusaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
-		this.animateIdle(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.sitStartAnimationState, PraepusaAnimations.ROLL_START, ageInTicks);
-        this.animate(entity.sitAnimationState, PraepusaAnimations.ROLL, ageInTicks);
-        this.animate(entity.sitEndAnimationState, PraepusaAnimations.ROLL_END, ageInTicks);
-        this.animate(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks);
-        this.animate(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks);
-        this.animate(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
-        this.animate(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
+
+		this.animateIdleSmooth(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.sitAnimationState, PraepusaAnimations.ROLL, ageInTicks);
+        this.animateSmooth(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks);
+        this.animateSmooth(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks);
+        this.animateSmooth(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
+        this.animateSmooth(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
+        this.animateSmooth(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks);
         this.animate(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
-        this.animate(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks);
         this.animate(entity.bounceAnimationState, PraepusaAnimations.BOUNCE_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);

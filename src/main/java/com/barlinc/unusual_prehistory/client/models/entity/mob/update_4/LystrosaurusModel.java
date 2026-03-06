@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.LystrosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Lystrosaurus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -87,24 +88,24 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
         PartDefinition left_arm1 = arm_control.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(0, 43).addBox(-2.0F, -2.0F, -1.5F, 7.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(52, 32).addBox(2.0F, 2.0F, -1.5F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, 0.0F, 0.0F));
 
-        PartDefinition left_arm2 = left_arm1.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)), PartPose.offset(3.5F, 4.0F, -0.5F));
+        PartDefinition left_arm2 = left_arm1.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.01F)), PartPose.offset(3.5F, 4.0F, -0.5F));
 
         PartDefinition right_arm1 = arm_control.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(0, 43).mirror().addBox(-5.0F, -2.0F, -1.5F, 7.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(52, 32).mirror().addBox(-5.0F, 2.0F, -1.5F, 3.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, 0.0F, 0.0F));
 
-        PartDefinition right_arm2 = right_arm1.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(-3.5F, 4.0F, -0.5F));
+        PartDefinition right_arm2 = right_arm1.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offset(-3.5F, 4.0F, -0.5F));
 
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(6.0F, 0.5F, 5.0F));
 
         PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(32, 37).addBox(-2.0F, -2.0F, -2.0F, 7.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 50).addBox(2.0F, 2.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)), PartPose.offset(3.5F, 4.0F, -1.0F));
+        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(21, 45).addBox(-2.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.01F)), PartPose.offset(3.5F, 4.0F, -1.0F));
 
         PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(32, 37).mirror().addBox(-5.0F, -2.0F, -2.0F, 7.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(0, 50).mirror().addBox(-5.0F, 2.0F, -2.0F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-12.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(-3.5F, 4.0F, -1.0F));
+        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(21, 45).mirror().addBox(-3.5F, 0.0F, -4.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offset(-3.5F, 4.0F, -1.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}
@@ -113,34 +114,25 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
 	public void setupAnim(Lystrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
+		if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(LystrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(LystrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-        } else {
-            this.animateWalk(LystrosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 4, 8);
         }
 
-        this.animateIdle(entity.idleAnimationState, LystrosaurusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.shakeAnimationState, LystrosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animate(entity.attackAnimationState, LystrosaurusAnimations.BITE_BLEND, ageInTicks);
-        this.animate(entity.grazeAnimationState, LystrosaurusAnimations.EAT_BLEND, ageInTicks);
-        this.animate(entity.sitStartAnimationState, LystrosaurusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, LystrosaurusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, LystrosaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.digAnimationState, LystrosaurusAnimations.DIG, ageInTicks);
-        this.animate(entity.scratch1AnimationState, LystrosaurusAnimations.IDLE_SCATCH1, ageInTicks);
-        this.animate(entity.scratch2AnimationState, LystrosaurusAnimations.IDLE_SCATCH2, ageInTicks);
-        this.animate(entity.roll1AnimationState, LystrosaurusAnimations.SIT_ROLL1, ageInTicks);
-        this.animate(entity.roll2AnimationState, LystrosaurusAnimations.SIT_ROLL2, ageInTicks);
-        this.animate(entity.blinkAnimationState, LystrosaurusAnimations.IDLE_BLINK_BLEND, ageInTicks);
-        this.animate(entity.eepyStartAnimationState, LystrosaurusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.eepyAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.eepyEndAnimationState, LystrosaurusAnimations.SLEEP_END, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, LystrosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.shakeAnimationState, LystrosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.attackAnimationState, LystrosaurusAnimations.BITE_BLEND, ageInTicks);
+        this.animateSmooth(entity.grazeAnimationState, LystrosaurusAnimations.EAT_BLEND, ageInTicks);
+        this.animateSmooth(entity.digAnimationState, LystrosaurusAnimations.DIG, ageInTicks);
+        this.animateSmooth(entity.scratch1AnimationState, LystrosaurusAnimations.IDLE_SCATCH1, ageInTicks);
+        this.animateSmooth(entity.scratch2AnimationState, LystrosaurusAnimations.IDLE_SCATCH2, ageInTicks);
+        this.animateSmooth(entity.blinkAnimationState, LystrosaurusAnimations.IDLE_BLINK_BLEND, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, LystrosaurusAnimations.SWIM, ageInTicks);
 
 		if (this.young) this.applyStatic(LystrosaurusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

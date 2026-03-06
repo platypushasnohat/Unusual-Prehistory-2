@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -161,8 +160,10 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        JawlessFish lobeFinnedFish = UP2Entities.JAWLESS_FISH.get().create(level);
-        lobeFinnedFish.setVariant(this.getVariant());
+        LobeFinnedFish lobeFinnedFish = UP2Entities.LOBE_FINNED_FISH.get().create(level);
+        if (lobeFinnedFish != null) {
+            lobeFinnedFish.setVariant(this.getVariant());
+        }
         return lobeFinnedFish;
     }
 

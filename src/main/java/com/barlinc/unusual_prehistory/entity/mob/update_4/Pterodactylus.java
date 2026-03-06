@@ -1,15 +1,17 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusFlyAndHangGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusScatterGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -56,19 +58,16 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     private BlockPos prevHangPos;
     public int timeHanging = 0;
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState hangIdleAnimationState = new AnimationState();
-    public final AnimationState flyAnimationState = new AnimationState();
-    public final AnimationState flyFastAnimationState = new AnimationState();
-    public final AnimationState hoverAnimationState = new AnimationState();
-    public final AnimationState stretchAnimationState = new AnimationState();
-    public final AnimationState hangingStretchAnimationState = new AnimationState();
+    public final SmoothAnimationState hangIdleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState hangingStretchAnimationState = new SmoothAnimationState();
 
     private int stretchCooldown = 400 + this.getRandom().nextInt(600);
 
     public Pterodactylus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricFlyingMoveControl(this);
+        this.lookControl = new PrehistoricFlyingLookControl(this, 85);
         this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
     }
 
@@ -92,7 +91,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothFlyingPathNavigation(this, level, 0.75F);
+        return new NoSpinFlyingPathNavigation(this, level);
     }
 
     @Override
@@ -248,23 +247,10 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && !this.isHanging(), this.tickCount);
         this.hangIdleAnimationState.animateWhen(!this.isFlying() && this.isHanging(), this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && !this.isRunning() && !this.isHanging(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5 && this.isRunning() && !this.isHanging(), this.tickCount);
-        this.hoverAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 67 -> {
-                if (this.isHanging()) this.hangingStretchAnimationState.start(this.tickCount);
-                else this.stretchAnimationState.start(this.tickCount);
-            }
-            case 68 -> {
-                this.hangingStretchAnimationState.stop();
-                this.stretchAnimationState.stop();
-            }
-            default -> super.handleEntityEvent(id);
-        }
+        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && !this.isRunning() && !this.isHanging(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.isRunning() && !this.isHanging(), this.tickCount);
+        this.stretchAnimationState.animateWhen(this.getIdleState() == 1 && !this.isHanging(), this.tickCount);
+        this.hangingStretchAnimationState.animateWhen(this.getIdleState() == 1 && this.isHanging(), this.tickCount);
     }
 
     protected void stretchCooldown() {
@@ -331,7 +317,9 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
         Pterodactylus pterodactylus = UP2Entities.PTERODACTYLUS.get().create(level);
-        pterodactylus.setVariant(this.getVariant());
+        if (pterodactylus != null) {
+            pterodactylus.setVariant(this.getVariant());
+        }
         return pterodactylus;
     }
 
