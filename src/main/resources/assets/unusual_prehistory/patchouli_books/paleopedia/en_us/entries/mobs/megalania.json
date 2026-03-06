@@ -45,7 +45,7 @@
       "feature_2.title_two_line": "",
 
       "feature_3.item": "minecraft:rotten_flesh",
-      "feature_3.tooltip": "§7These reptiles can be tamed with meat and can be ridden as a semi-aquatic mount",
+      "feature_3.tooltip": "§7These reptiles can be tamed with §r§arotten flesh§r§7 and can be ridden as a semi-aquatic mount§r",
       "feature_3.title_one_line": "An Unexpected Friend?",
       "feature_3.title_two_line": ""
     }
