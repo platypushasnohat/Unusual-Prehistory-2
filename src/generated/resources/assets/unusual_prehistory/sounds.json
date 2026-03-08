@@ -93,9 +93,26 @@
       {
         "attenuation_distance": 20,
         "name": "unusual_prehistory:entity/brachiosaurus/idle3"
+      },
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/brachiosaurus/idle4"
+      },
+      {
+        "attenuation_distance": 20,
+        "name": "unusual_prehistory:entity/brachiosaurus/idle5"
       }
     ],
     "subtitle": "subtitles.brachiosaurus_idle"
+  },
+  "brachiosaurus_step": {
+    "sounds": [
+      "unusual_prehistory:entity/brachiosaurus/step1",
+      "unusual_prehistory:entity/brachiosaurus/step2",
+      "unusual_prehistory:entity/brachiosaurus/step3",
+      "unusual_prehistory:entity/brachiosaurus/step4"
+    ],
+    "subtitle": "subtitles.brachiosaurus_step"
   },
   "brachiosaurus_stomp": {
     "sounds": [

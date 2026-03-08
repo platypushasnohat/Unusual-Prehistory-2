@@ -97,7 +97,7 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (entity.isRunning()) this.animateWalk(BrachiosaurusBabyAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
         else this.animateWalk(BrachiosaurusBabyAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdle(entity.idleAnimationState, BrachiosaurusBabyAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusBabyAnimations.IDLE, ageInTicks, limbSwingAmount);
 
         this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;

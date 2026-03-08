@@ -147,20 +147,20 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (!entity.isMobSitting() && !entity.isInSitPoseTransition() && entity.getPose() != UP2Poses.STOMPING.get()) {
+        if (!entity.isEepy() && entity.getPose() != UP2Poses.STOMPING.get()) {
             if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
         }
-		this.animateIdle(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 2);
-		this.animate(entity.sitStartAnimationState, BrachiosaurusAnimations.SIT_START, ageInTicks);
-		this.animate(entity.sitAnimationState, BrachiosaurusAnimations.SIT, ageInTicks);
-		this.animate(entity.sitEndAnimationState, BrachiosaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
-        this.neck1.xRot += headPitch * ((float) Math.PI / 180F) / 4;
-        this.neck1.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+        if (!entity.isEepy()) {
+            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
+            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+            this.neck1.xRot += headPitch * ((float) Math.PI / 180F) / 4;
+            this.neck1.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+        }
 	}
 
 	@Override
