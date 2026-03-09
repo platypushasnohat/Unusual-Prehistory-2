@@ -69,6 +69,11 @@
      private boolean wasPreviouslyBaby;
 
      public final SmoothAnimationState stompAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState callAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+
+     public int callCooldown = 1500 + this.getRandom().nextInt(1500);
+     public int shakeCooldown = 900 + this.getRandom().nextInt(900);
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -86,9 +91,9 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 350.0D)
+                 .add(Attributes.MAX_HEALTH, 300.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
-                 .add(Attributes.ATTACK_DAMAGE, 16.0D)
+                 .add(Attributes.ATTACK_DAMAGE, 24.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                  .add(Attributes.FOLLOW_RANGE, 20.0D);
      }
@@ -102,6 +107,8 @@
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(6, new SleepingGoal(this));
+         this.goalSelector.addGoal(7, new BrachiosaurusCallGoal(this));
+         this.goalSelector.addGoal(7, new BrachiosaurusShakeGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
      }
 
@@ -156,7 +163,7 @@
 
      @Override
      public boolean refuseToMove() {
-         return super.refuseToMove() || this.getPose() == UP2Poses.STOMPING.get() || this.getAttackState() == 1;
+         return super.refuseToMove() || this.getIdleState() == 1;
      }
 
      @Override
@@ -212,6 +219,8 @@
                  brachiosaurusPart.refreshDimensions();
              }
          }
+
+         if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
      }
 
      public float getScale() {
@@ -374,11 +383,16 @@
          this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get() && !this.isEepy(), this.tickCount);
          this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
          this.stompAnimationState.animateWhen(this.getPose() == UP2Poses.STOMPING.get(), this.tickCount);
+         this.callAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+         this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
      }
 
      @Override
      public void setupAnimationCooldowns() {
-         if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
+         if (!this.level().isClientSide && this.getTarget() == null && !this.isEepy()) {
+             if (callCooldown > 0) callCooldown--;
+             if (shakeCooldown > 0) shakeCooldown--;
+         }
      }
 
      @Override
@@ -455,6 +469,11 @@
          return 360;
      }
 
+     @Override
+     public boolean canPlayAmbientSound() {
+         return super.canPlayAmbientSound() && this.getIdleState() != 1;
+     }
+
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
@@ -501,17 +520,17 @@
          protected void tickStomp() {
              this.timer++;
              LivingEntity target = brachiosaurus.getTarget();
-             if (timer == 7) brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_STOMP.get(), 2.5F, 1.0F);
+             if (timer == 6) brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_ATTACK.get(), 4.0F, 1.0F);
              if (timer == 10) brachiosaurus.setPose(UP2Poses.STOMPING.get());
-             if (timer == 48) {
+             if (timer == 51) {
                  for (LivingEntity entity : brachiosaurus.level().getEntitiesOfClass(LivingEntity.class, brachiosaurus.getBoundingBox().inflate(6.0D, -0.5D, 6.0D))) {
                      if (entity == brachiosaurus) {
                          continue;
                      }
-                     entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F));
+                     entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE)));
                      this.brachiosaurus.strongKnockback(entity, 9.0D, 0.55D);
                  }
-                 UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 24, false));
+                 UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 32, false));
                  this.brachiosaurus.level().broadcastEntityEvent(brachiosaurus, (byte) 40);
              }
 
@@ -526,6 +545,54 @@
                  this.brachiosaurus.setAttackState(0);
                  this.brachiosaurus.setStompCooldown(24 + brachiosaurus.getRandom().nextInt(20));
              }
+         }
+     }
+
+     private static class BrachiosaurusCallGoal extends AnimationGoal {
+
+         private final Brachiosaurus brachiosaurus;
+
+         public BrachiosaurusCallGoal(Brachiosaurus brachiosaurus) {
+             super(brachiosaurus, 60, 1, (byte) 67, (byte) 68, true, false);
+             this.brachiosaurus = brachiosaurus;
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_CALL.get(), 4.0F, 0.9F + brachiosaurus.getRandom().nextFloat() * 0.15F);
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && brachiosaurus.callCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.brachiosaurus.callCooldown = 1500 + brachiosaurus.getRandom().nextInt(1500);
+         }
+     }
+
+     private static class BrachiosaurusShakeGoal extends AnimationGoal {
+
+         private final Brachiosaurus brachiosaurus;
+
+         public BrachiosaurusShakeGoal(Brachiosaurus brachiosaurus) {
+             super(brachiosaurus, 100, 2, (byte) 67, (byte) 68, false, false);
+             this.brachiosaurus = brachiosaurus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && brachiosaurus.shakeCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.brachiosaurus.shakeCooldown = 900 + brachiosaurus.getRandom().nextInt(900);
          }
      }
  }

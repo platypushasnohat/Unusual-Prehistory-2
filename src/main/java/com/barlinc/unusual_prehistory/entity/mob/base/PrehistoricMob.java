@@ -735,7 +735,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Sounds
     public boolean canPlayAmbientSound() {
-        return !this.isMobEepy();
+        return !this.isEepy();
     }
 
     @Override

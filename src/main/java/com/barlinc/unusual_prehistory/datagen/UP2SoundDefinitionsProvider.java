@@ -70,20 +70,23 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/death1"))
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle1")).attenuationDistance(20),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle2")).attenuationDistance(20),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle3")).attenuationDistance(20),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle4")).attenuationDistance(20),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle5")).attenuationDistance(20)
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle4"))
         );
-        this.sound(UP2SoundEvents.BRACHIOSAURUS_STOMP,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/stomp1")).attenuationDistance(32)
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/attack1")).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_STEP,
                 sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step1")),
                 sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step2")),
                 sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step3")),
                 sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step4"))
+        );
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_CALL,
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/call1")).attenuationDistance(32),
+                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/call2")).attenuationDistance(32)
         );
 
         // Carnotaurus

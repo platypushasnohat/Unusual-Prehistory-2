@@ -28,8 +28,9 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_HURT = registerSoundEvent("brachiosaurus_hurt");
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_DEATH = registerSoundEvent("brachiosaurus_death");
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_IDLE = registerSoundEvent("brachiosaurus_idle");
-    public static final RegistryObject<SoundEvent> BRACHIOSAURUS_STOMP = registerSoundEvent("brachiosaurus_stomp");
+    public static final RegistryObject<SoundEvent> BRACHIOSAURUS_ATTACK = registerSoundEvent("brachiosaurus_attack");
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_STEP = registerSoundEvent("brachiosaurus_step");
+    public static final RegistryObject<SoundEvent> BRACHIOSAURUS_CALL = registerSoundEvent("brachiosaurus_call");
 
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HURT = registerSoundEvent("carnotaurus_hurt");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_DEATH = registerSoundEvent("carnotaurus_death");

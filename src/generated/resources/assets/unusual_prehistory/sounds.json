@@ -67,6 +67,28 @@
     ],
     "subtitle": "subtitles.barinasuchus_threaten"
   },
+  "brachiosaurus_attack": {
+    "sounds": [
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/brachiosaurus/attack1"
+      }
+    ],
+    "subtitle": "subtitles.brachiosaurus_attack"
+  },
+  "brachiosaurus_call": {
+    "sounds": [
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/brachiosaurus/call1"
+      },
+      {
+        "attenuation_distance": 32,
+        "name": "unusual_prehistory:entity/brachiosaurus/call2"
+      }
+    ],
+    "subtitle": "subtitles.brachiosaurus_call"
+  },
   "brachiosaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/brachiosaurus/death1"
@@ -82,26 +104,10 @@
   },
   "brachiosaurus_idle": {
     "sounds": [
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/brachiosaurus/idle1"
-      },
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/brachiosaurus/idle2"
-      },
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/brachiosaurus/idle3"
-      },
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/brachiosaurus/idle4"
-      },
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/brachiosaurus/idle5"
-      }
+      "unusual_prehistory:entity/brachiosaurus/idle1",
+      "unusual_prehistory:entity/brachiosaurus/idle2",
+      "unusual_prehistory:entity/brachiosaurus/idle3",
+      "unusual_prehistory:entity/brachiosaurus/idle4"
     ],
     "subtitle": "subtitles.brachiosaurus_idle"
   },
@@ -113,15 +119,6 @@
       "unusual_prehistory:entity/brachiosaurus/step4"
     ],
     "subtitle": "subtitles.brachiosaurus_step"
-  },
-  "brachiosaurus_stomp": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/brachiosaurus/stomp1"
-      }
-    ],
-    "subtitle": "subtitles.brachiosaurus_stomp"
   },
   "bug_buzz": {
     "sounds": [

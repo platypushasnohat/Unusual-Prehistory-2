@@ -154,6 +154,8 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
 		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks);
         this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, BrachiosaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.callAnimationState, BrachiosaurusAnimations.BELLOW_BLEND, ageInTicks);
 
         if (!entity.isEepy()) {
             this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
