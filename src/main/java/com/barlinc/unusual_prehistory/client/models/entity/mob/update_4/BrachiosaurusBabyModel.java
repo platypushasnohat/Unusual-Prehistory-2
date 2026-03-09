@@ -99,8 +99,8 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
         else this.animateWalk(BrachiosaurusBabyAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusBabyAnimations.IDLE, ageInTicks, limbSwingAmount);
 
-        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+        this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
+		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;
         this.neck.xRot += headPitch * ((float) Math.PI / 180F) / 4;
         this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
 	}

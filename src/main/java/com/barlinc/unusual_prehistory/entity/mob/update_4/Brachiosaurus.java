@@ -208,7 +208,7 @@
          if (!this.isBaby()) this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 4);
 
          if (screenShakeAmount > 0) screenShakeAmount = Math.max(0, screenShakeAmount - 0.34F);
-         if (this.onGround() && !this.isInFluidType() && this.walkAnimation.speed() > 0.1F && !this.isBaby()) {
+         if (this.onGround() && this.walkAnimation.speed() > 0.1F && !this.isBaby()) {
              this.tickFootsteps();
          }
 
@@ -354,7 +354,11 @@
          float walkPosition = (float) Math.cos(this.walkAnimation.position() * 0.515F - 1.5F);
          if (Math.abs(walkPosition) < 0.2F) {
              if (this.screenShakeAmount <= 0.3F) {
-                 this.playSound(UP2SoundEvents.BRACHIOSAURUS_STEP.get(), 2.5F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                 if (this.isInFluidType()) {
+                     this.playSound(UP2SoundEvents.BRACHIOSAURUS_STEP.get(), 1.5F, 0.8F + this.getRandom().nextFloat() * 0.2F);
+                 } else {
+                     this.playSound(UP2SoundEvents.BRACHIOSAURUS_STEP.get(), 2.5F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                 }
                  UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(this.position(), 10, 2.5F, 16, false));
              }
              this.screenShakeAmount = 1F;

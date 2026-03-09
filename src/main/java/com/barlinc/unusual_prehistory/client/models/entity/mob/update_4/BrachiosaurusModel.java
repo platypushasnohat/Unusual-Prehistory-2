@@ -158,8 +158,8 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
         this.animateSmooth(entity.callAnimationState, BrachiosaurusAnimations.BELLOW_BLEND, ageInTicks);
 
         if (!entity.isEepy()) {
-            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 4;
-            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
+            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;
             this.neck1.xRot += headPitch * ((float) Math.PI / 180F) / 4;
             this.neck1.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
         }
