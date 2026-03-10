@@ -286,26 +286,21 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/death1")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/death2"))
+                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/death1"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle1")),
                 sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle4"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_STEP,
-                sound("mob/camel/step1").volume(0.45F).pitch(1.12F),
-                sound("mob/camel/step2").volume(0.45F).pitch(1.12F),
-                sound("mob/camel/step3").volume(0.45F).pitch(1.12F),
-                sound("mob/camel/step4").volume(0.45F).pitch(1.12F),
-                sound("mob/camel/step5").volume(0.45F).pitch(1.12F),
-                sound("mob/camel/step6").volume(0.45F).pitch(1.12F)
-        );
-        this.sound(UP2SoundEvents.KENTROSAURUS_EAT,
-                sound("mob/goat/eat1").pitch(0.86F),
-                sound("mob/goat/eat2").pitch(0.86F),
-                sound("mob/goat/eat3").pitch(0.86F)
+                sound("mob/camel/step1").volume(0.45F).pitch(0.9F),
+                sound("mob/camel/step2").volume(0.45F).pitch(0.9F),
+                sound("mob/camel/step3").volume(0.45F).pitch(0.9F),
+                sound("mob/camel/step4").volume(0.45F).pitch(0.9F),
+                sound("mob/camel/step5").volume(0.45F).pitch(0.9F),
+                sound("mob/camel/step6").volume(0.45F).pitch(0.9F)
         );
 
         // Kimmeridgebrachypteraeschnidium
@@ -381,22 +376,19 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Majungasaurus
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt2")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death2")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death1"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3"))
         );
-        this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")).pitch(1.2F),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")).pitch(1.2F),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3")).pitch(1.2F)
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/attack1"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/sniff1")).pitch(1.2F)

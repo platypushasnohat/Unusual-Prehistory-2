@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.MajungasaurusModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.MajungasaurusAngryEmissiveLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.MajungasaurusAngryLayer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.MajungasaurusEyesLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -27,7 +26,6 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
         super(context, new MajungasaurusModel(context.bakeLayer(UP2ModelLayers.MAJUNGASAURUS)), 0.8F);
         this.addLayer(new MajungasaurusAngryLayer(this));
         this.addLayer(new MajungasaurusAngryEmissiveLayer(this));
-        this.addLayer(new MajungasaurusEyesLayer(this));
     }
 
     @Override

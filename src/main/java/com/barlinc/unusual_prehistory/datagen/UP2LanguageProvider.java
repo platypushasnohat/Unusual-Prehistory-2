@@ -188,7 +188,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");
         this.sound(UP2SoundEvents.KENTROSAURUS_IDLE, "Kentrosaurus groans");
         this.sound(UP2SoundEvents.KENTROSAURUS_STEP, "Kentrosaurus steps");
-        this.sound(UP2SoundEvents.KENTROSAURUS_EAT, "Kentrosaurus eats");
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
@@ -210,7 +209,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
-        this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE, "Majungasaurus bites");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_ATTACK, "Majungasaurus bites");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF, "Majungasaurus sniffs");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP, "Majungasaurus steps");
 

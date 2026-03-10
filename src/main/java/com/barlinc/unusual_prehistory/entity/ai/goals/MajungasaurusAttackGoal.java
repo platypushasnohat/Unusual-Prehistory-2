@@ -59,7 +59,7 @@ public class MajungasaurusAttackGoal extends AttackGoal {
             this.majungasaurus.attackAlt = majungasaurus.getRandom().nextBoolean();
             this.majungasaurus.setPose(UP2Poses.ATTACKING.get());
         }
-        if (timer == 9) majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_BITE.get(), 1.0F, 0.9F + majungasaurus.getRandom().nextFloat() * 0.25F);
+        if (timer == 8) majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + majungasaurus.getRandom().nextFloat() * 0.25F);
         if (timer == 11) {
             if (this.isInAttackRange(target, 1.5D)) {
                 this.majungasaurus.doHurtTarget(target);

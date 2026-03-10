@@ -533,27 +533,9 @@
   },
   "kentrosaurus_death": {
     "sounds": [
-      "unusual_prehistory:entity/kentrosaurus/death1",
-      "unusual_prehistory:entity/kentrosaurus/death2"
+      "unusual_prehistory:entity/kentrosaurus/death1"
     ],
     "subtitle": "subtitles.kentrosaurus_death"
-  },
-  "kentrosaurus_eat": {
-    "sounds": [
-      {
-        "name": "mob/goat/eat1",
-        "pitch": 0.86
-      },
-      {
-        "name": "mob/goat/eat2",
-        "pitch": 0.86
-      },
-      {
-        "name": "mob/goat/eat3",
-        "pitch": 0.86
-      }
-    ],
-    "subtitle": "subtitles.kentrosaurus_eat"
   },
   "kentrosaurus_hurt": {
     "sounds": [
@@ -566,7 +548,8 @@
     "sounds": [
       "unusual_prehistory:entity/kentrosaurus/idle1",
       "unusual_prehistory:entity/kentrosaurus/idle2",
-      "unusual_prehistory:entity/kentrosaurus/idle3"
+      "unusual_prehistory:entity/kentrosaurus/idle3",
+      "unusual_prehistory:entity/kentrosaurus/idle4"
     ],
     "subtitle": "subtitles.kentrosaurus_idle"
   },
@@ -574,32 +557,32 @@
     "sounds": [
       {
         "name": "mob/camel/step1",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       },
       {
         "name": "mob/camel/step2",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       },
       {
         "name": "mob/camel/step3",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       },
       {
         "name": "mob/camel/step4",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       },
       {
         "name": "mob/camel/step5",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       },
       {
         "name": "mob/camel/step6",
-        "pitch": 1.12,
+        "pitch": 0.9,
         "volume": 0.45
       }
     ],
@@ -887,63 +870,30 @@
     ],
     "subtitle": "subtitles.lystrosaurus_step"
   },
-  "majungasaurus_bite": {
+  "majungasaurus_attack": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/carnotaurus/bite1",
-        "pitch": 1.2
-      },
-      {
-        "name": "unusual_prehistory:entity/carnotaurus/bite2",
-        "pitch": 1.2
-      },
-      {
-        "name": "unusual_prehistory:entity/carnotaurus/bite3",
-        "pitch": 1.2
-      }
+      "unusual_prehistory:entity/majungasaurus/attack1"
     ],
-    "subtitle": "subtitles.majungasaurus_bite"
+    "subtitle": "subtitles.majungasaurus_attack"
   },
   "majungasaurus_death": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/death1",
-        "pitch": 0.9
-      },
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/death2",
-        "pitch": 0.9
-      }
+      "unusual_prehistory:entity/majungasaurus/death1"
     ],
     "subtitle": "subtitles.majungasaurus_death"
   },
   "majungasaurus_hurt": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/hurt1",
-        "pitch": 0.9
-      },
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/hurt2",
-        "pitch": 0.9
-      }
+      "unusual_prehistory:entity/majungasaurus/hurt1",
+      "unusual_prehistory:entity/majungasaurus/hurt2"
     ],
     "subtitle": "subtitles.majungasaurus_hurt"
   },
   "majungasaurus_idle": {
     "sounds": [
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/idle1",
-        "pitch": 0.9
-      },
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/idle2",
-        "pitch": 0.9
-      },
-      {
-        "name": "unusual_prehistory:entity/majungasaurus/idle3",
-        "pitch": 0.9
-      }
+      "unusual_prehistory:entity/majungasaurus/idle1",
+      "unusual_prehistory:entity/majungasaurus/idle2",
+      "unusual_prehistory:entity/majungasaurus/idle3"
     ],
     "subtitle": "subtitles.majungasaurus_idle"
   },
