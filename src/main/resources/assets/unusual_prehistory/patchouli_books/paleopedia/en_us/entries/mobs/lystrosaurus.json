@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:impervious_fossil",
       "egg_item": "unusual_prehistory:lystrosaurus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "The Ultimate Survivor"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:nether_star",
+      "feature_1.tooltip": "§7Lystrosaurus are near-indestructable, completely immune to many types of damage",
+      "feature_1.title_one_line": "Invincible!",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:golden_apple",
+      "feature_2.tooltip": "§7They're also highly resistant to drowning, have high defense and regenerate fast",
+      "feature_2.title_one_line": "Indestructable!",
+      "feature_2.title_two_line": ""
     }
   ]
 }

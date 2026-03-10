@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:scythe_fossil",
       "egg_item": "unusual_prehistory:therizinosaurus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "A Threatening Vegan with Terrifying Claws"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,22 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "nocturnal",  
-      "activity.activity_tooltip": "Active during the night"
+      "activity.activity_tooltip": "Active during the night",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "Therizinosaurus are blinded by their own feathers, and rely on their hearing and large claws to gauge their surroundings",
+      "feature_1.title_one_line": "Optical Overgrowth",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:sculk_sensor",
+      "feature_2.tooltip": "§7They are easily agitated by loud noise or physical contact and will retaliate harshly",
+      "feature_2.title_one_line": "The Claw...",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:shears",
+      "feature_3.tooltip": "§7The feathers covering their eyes can be sheared, restoring their vision temporarily and making them less aggressive",
+      "feature_3.title_one_line": "Visual Clarity",
+      "feature_3.title_two_line": ""
     }
   ]
 }
