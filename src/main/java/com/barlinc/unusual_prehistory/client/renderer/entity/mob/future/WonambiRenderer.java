@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.future;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.WonambiModel;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Wonambi;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.WonambiModel;
+import com.barlinc.unusual_prehistory.entity.mob.future.Wonambi;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

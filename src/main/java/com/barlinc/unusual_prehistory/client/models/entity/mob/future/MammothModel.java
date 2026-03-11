@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.MammothAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.MammothAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Mammoth;
+import com.barlinc.unusual_prehistory.entity.mob.future.Mammoth;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

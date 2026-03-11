@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.entity.mob.future;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -15,13 +15,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class WonambiPart extends PartEntity<Wonambi> {
+public class PalaeophisPart extends PartEntity<Palaeophis> {
 
-    public final Wonambi parent;
+    public final Palaeophis parent;
     private final EntityDimensions dimensions;
     private final Entity connectedTo;
 
-    public WonambiPart(Wonambi parent, Entity connectedTo, float width, float height) {
+    public PalaeophisPart(Palaeophis parent, Entity connectedTo, float width, float height) {
         super(parent);
         this.parent = parent;
         this.connectedTo = connectedTo;

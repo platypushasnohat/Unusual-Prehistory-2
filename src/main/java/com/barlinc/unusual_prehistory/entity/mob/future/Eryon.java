@@ -1,4 +1,4 @@
- package com.barlinc.unusual_prehistory.entity.mob.update_5;
+ package com.barlinc.unusual_prehistory.entity.mob.future;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;

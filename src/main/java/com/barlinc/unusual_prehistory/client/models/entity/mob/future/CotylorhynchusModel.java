@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.CotylorhynchusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.CotylorhynchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Cotylorhynchus;
+import com.barlinc.unusual_prehistory.entity.mob.future.Cotylorhynchus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
