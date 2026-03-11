@@ -314,7 +314,7 @@ public class Talpanas extends BreedableMob {
         }
     }
 
-    private static class TalpanasPeckGoal extends AnimationGoal {
+    private static class TalpanasPeckGoal extends IdleAnimationGoal {
 
         private final Talpanas talpanas;
 
@@ -335,7 +335,7 @@ public class Talpanas extends BreedableMob {
         }
     }
 
-    private static class TalpanasShakeGoal extends AnimationGoal {
+    private static class TalpanasShakeGoal extends IdleAnimationGoal {
 
         private final Talpanas talpanas;
 

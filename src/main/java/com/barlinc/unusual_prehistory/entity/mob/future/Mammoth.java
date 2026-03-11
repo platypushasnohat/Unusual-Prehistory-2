@@ -91,7 +91,7 @@ public class Mammoth extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInEepyPoseTransition(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy(), this.tickCount);
     }
 
     @Override

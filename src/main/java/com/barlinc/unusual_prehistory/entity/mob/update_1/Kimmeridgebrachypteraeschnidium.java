@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
@@ -516,7 +516,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     // Goals
-    private static class KimmeridgebrachypteraeschnidiumPreenGoal extends AnimationGoal {
+    private static class KimmeridgebrachypteraeschnidiumPreenGoal extends IdleAnimationGoal {
 
         private final Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium;
 

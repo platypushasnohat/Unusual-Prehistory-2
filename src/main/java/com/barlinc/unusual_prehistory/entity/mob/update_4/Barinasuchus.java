@@ -217,58 +217,58 @@
              this.attack1AnimationState.stop();
              this.attack2AnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 5 && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 5 && !this.isSitting() && !this.isEepy(), this.tickCount);
          this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
          this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
 
-         if (this.isMobVisuallySitting()) {
-             this.sitEndAnimationState.stop();
-             this.idleAnimationState.stop();
-             this.threatenAnimationState.stop();
-             this.scratch1AnimationState.stop();
-             this.scratch2AnimationState.stop();
-             this.shakeAnimationState.stop();
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.stop();
-
-             if (this.isVisuallySitting()) {
-                 this.sitStartAnimationState.startIfStopped(this.tickCount);
-                 this.sitAnimationState.stop();
-             } else {
-                 this.sitStartAnimationState.stop();
-                 this.sitAnimationState.startIfStopped(this.tickCount);
-             }
-         } else {
-             this.sitStartAnimationState.stop();
-             this.sitAnimationState.stop();
-             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-         }
-
-         if (this.isMobVisuallyEepy()) {
-             this.eepyEndAnimationState.stop();
-             this.idleAnimationState.stop();
-             this.threatenAnimationState.stop();
-             this.scratch1AnimationState.stop();
-             this.scratch2AnimationState.stop();
-             this.shakeAnimationState.stop();
-             this.sitStartAnimationState.stop();
-             this.sitAnimationState.stop();
-             this.sitEndAnimationState.stop();
-
-             if (this.isVisuallyEepy()) {
-                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                 this.eepyAnimationState.stop();
-             } else {
-                 this.eepyStartAnimationState.stop();
-                 this.eepyAnimationState.startIfStopped(this.tickCount);
-             }
-         } else {
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-         }
+//         if (this.isMobVisuallySitting()) {
+//             this.sitEndAnimationState.stop();
+//             this.idleAnimationState.stop();
+//             this.threatenAnimationState.stop();
+//             this.scratch1AnimationState.stop();
+//             this.scratch2AnimationState.stop();
+//             this.shakeAnimationState.stop();
+//             this.eepyStartAnimationState.stop();
+//             this.eepyAnimationState.stop();
+//             this.eepyEndAnimationState.stop();
+//
+//             if (this.isVisuallySitting()) {
+//                 this.sitStartAnimationState.startIfStopped(this.tickCount);
+//                 this.sitAnimationState.stop();
+//             } else {
+//                 this.sitStartAnimationState.stop();
+//                 this.sitAnimationState.startIfStopped(this.tickCount);
+//             }
+//         } else {
+//             this.sitStartAnimationState.stop();
+//             this.sitAnimationState.stop();
+//             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+//         }
+//
+//         if (this.isMobVisuallyEepy()) {
+//             this.eepyEndAnimationState.stop();
+//             this.idleAnimationState.stop();
+//             this.threatenAnimationState.stop();
+//             this.scratch1AnimationState.stop();
+//             this.scratch2AnimationState.stop();
+//             this.shakeAnimationState.stop();
+//             this.sitStartAnimationState.stop();
+//             this.sitAnimationState.stop();
+//             this.sitEndAnimationState.stop();
+//
+//             if (this.isVisuallyEepy()) {
+//                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
+//                 this.eepyAnimationState.stop();
+//             } else {
+//                 this.eepyStartAnimationState.stop();
+//                 this.eepyAnimationState.startIfStopped(this.tickCount);
+//             }
+//         } else {
+//             this.eepyStartAnimationState.stop();
+//             this.eepyAnimationState.stop();
+//             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+//         }
      }
 
      @Override
@@ -279,7 +279,7 @@
              this.setPose(Pose.STANDING);
          }
          if (attackCooldown > 0) attackCooldown--;
-         if (!this.isMobEepy()) {
+         if (!this.isEepy()) {
              if (yawnCooldown > 0) yawnCooldown--;
              if (shakeCooldown > 0) shakeCooldown--;
              if (snapCooldown > 0) snapCooldown--;
@@ -405,7 +405,7 @@
      }
 
      // Goals
-     private static class BarinasuchusYawnGoal extends AnimationGoal {
+     private static class BarinasuchusYawnGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;
 
@@ -426,7 +426,7 @@
          }
      }
 
-     private static class BarinasuchusShakeGoal extends AnimationGoal {
+     private static class BarinasuchusShakeGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;
 
@@ -437,7 +437,7 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && barinasuchus.shakeCooldown == 0 && !barinasuchus.isMobSitting();
+             return super.canUse() && barinasuchus.shakeCooldown == 0 && !barinasuchus.isSitting();
          }
 
          @Override
@@ -447,7 +447,7 @@
          }
      }
 
-     private static class BarinasuchusSnapGoal extends AnimationGoal {
+     private static class BarinasuchusSnapGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;
 
@@ -468,7 +468,7 @@
          }
      }
 
-     private static class BarinasuchusScratchGoal extends AnimationGoal {
+     private static class BarinasuchusScratchGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;
 
@@ -479,7 +479,7 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && barinasuchus.scratchCooldown == 0 && !barinasuchus.isMobSitting();
+             return super.canUse() && barinasuchus.scratchCooldown == 0 && !barinasuchus.isSitting();
          }
 
          @Override
@@ -489,7 +489,7 @@
          }
      }
 
-     private static class BarinasuchusThreatenGoal extends AnimationGoal {
+     private static class BarinasuchusThreatenGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;
 
@@ -500,7 +500,7 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && barinasuchus.threatenCooldown == 0 && !barinasuchus.isMobSitting();
+             return super.canUse() && barinasuchus.threatenCooldown == 0 && !barinasuchus.isSitting();
          }
 
          @Override

@@ -107,12 +107,12 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
         if (this.isCamo()) {
             this.setCamo(false);
             this.camoCooldown();
         }
-        super.actuallyHurt(damageSource, amount);
+        super.actuallyHurt(source, amount);
     }
 
     @Override
@@ -376,7 +376,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusYawnGoal extends AnimationGoal {
+    private static class MajungasaurusYawnGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -397,7 +397,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusShakeGoal extends AnimationGoal {
+    private static class MajungasaurusShakeGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -408,7 +408,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.shakeCooldown == 0 && !majungasaurus.isMobSitting();
+            return super.canUse() && majungasaurus.shakeCooldown == 0;
         }
 
         @Override
@@ -418,7 +418,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusSniffGoal extends AnimationGoal {
+    private static class MajungasaurusSniffGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -429,7 +429,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.sniffCooldown == 0 && !majungasaurus.isMobSitting();
+            return super.canUse() && majungasaurus.sniffCooldown == 0;
         }
 
         @Override

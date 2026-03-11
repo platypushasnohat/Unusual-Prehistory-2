@@ -552,7 +552,7 @@
          }
      }
 
-     private static class BrachiosaurusCallGoal extends AnimationGoal {
+     private static class BrachiosaurusCallGoal extends IdleAnimationGoal {
 
          private final Brachiosaurus brachiosaurus;
 
@@ -579,7 +579,7 @@
          }
      }
 
-     private static class BrachiosaurusShakeGoal extends AnimationGoal {
+     private static class BrachiosaurusShakeGoal extends IdleAnimationGoal {
 
          private final Brachiosaurus brachiosaurus;
 

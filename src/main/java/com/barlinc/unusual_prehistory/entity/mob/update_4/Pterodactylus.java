@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusFlyAndHangGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
@@ -377,7 +377,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     // Goals
-    private static class PterodactylusStretchGoal extends AnimationGoal {
+    private static class PterodactylusStretchGoal extends IdleAnimationGoal {
 
         private final Pterodactylus pterodactylus;
 

@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWallClimberNavigation;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +34,7 @@ public abstract class ClimbingPrehistoricMob extends PrehistoricMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothWallClimberNavigation(this, level);
+        return new WallClimberNavigation(this, level);
     }
 
     @Override
@@ -76,7 +76,7 @@ public abstract class ClimbingPrehistoricMob extends PrehistoricMob {
     }
 
     protected boolean canClimb() {
-        return climbCooldown <= 0 && horizontalCollision && !this.isMobEepy() && !this.isMobSitting();
+        return climbCooldown <= 0 && horizontalCollision && !this.isEepy() && !this.isSitting();
     }
 
     public float getClimbProgress(float partialTicks) {

@@ -56,8 +56,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.35F, 1.25F);
-
     private boolean leapImpulse;
     private float prevLeapProgress;
     private float leapProgress;
@@ -156,11 +154,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             }
         }
         return type;
-    }
-
-    @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return (pose == UP2Poses.SITTING.get() || (this.getCommand() == 1 && this.isMobSitting()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose));
     }
 
     @Override
@@ -266,7 +259,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting();
+        return !this.isLeaping() && !this.isInWaterOrBubble();
     }
 
     @Override
@@ -315,30 +308,30 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.attack1AnimationState.stop();
             this.attack2AnimationState.stop();
         }
-        this.idleAnimationState.animateWhen(!this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy() && !this.isSitting(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
         this.jumpAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
-
-        if (this.isMobVisuallySitting()) {
-            this.sitEndAnimationState.stop();
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.idleAnimationState.stop();
-            this.shakeAnimationState.stop();
-            this.jumpAnimationState.stop();
-
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
-            } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-        }
+//
+//        if (this.isMobVisuallySitting()) {
+//            this.sitEndAnimationState.stop();
+//            this.attack1AnimationState.stop();
+//            this.attack2AnimationState.stop();
+//            this.idleAnimationState.stop();
+//            this.shakeAnimationState.stop();
+//            this.jumpAnimationState.stop();
+//
+//            if (this.isVisuallySitting()) {
+//                this.sitStartAnimationState.startIfStopped(this.tickCount);
+//                this.sitAnimationState.stop();
+//            } else {
+//                this.sitStartAnimationState.stop();
+//                this.sitAnimationState.startIfStopped(this.tickCount);
+//            }
+//        } else {
+//            this.sitStartAnimationState.stop();
+//            this.sitAnimationState.stop();
+//            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+//        }
     }
 
     @Override

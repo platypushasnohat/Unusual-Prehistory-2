@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
@@ -8,11 +9,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.ambient.Zhangsolva;
-import com.barlinc.unusual_prehistory.entity.mob.future.Cotylorhynchus;
-import com.barlinc.unusual_prehistory.entity.mob.future.Eryon;
-import com.barlinc.unusual_prehistory.entity.mob.future.Mammoth;
-import com.barlinc.unusual_prehistory.entity.mob.future.Palaeophis;
-import com.barlinc.unusual_prehistory.entity.mob.future.Wonambi;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;

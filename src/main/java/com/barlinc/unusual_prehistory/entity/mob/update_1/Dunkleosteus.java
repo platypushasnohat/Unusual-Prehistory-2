@@ -324,7 +324,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     // goals
-    private static class DunkleosteusQuirkGoal extends AnimationGoal {
+    private static class DunkleosteusQuirkGoal extends IdleAnimationGoal {
 
         private final Dunkleosteus dunkleosteus;
 

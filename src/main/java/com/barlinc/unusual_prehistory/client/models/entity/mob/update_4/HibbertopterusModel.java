@@ -164,9 +164,7 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 	@Override
 	public void setupAnim(@NotNull Hibbertopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (!entity.isMobSitting()) {
-            this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-        }
+        this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
         this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, 1, limbSwingAmount * 4);
         this.animate(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);

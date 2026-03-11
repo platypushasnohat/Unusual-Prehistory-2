@@ -23,6 +23,6 @@ public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, Dromaeosau
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Dromaeosaurus entity) {
-        return entity.isMobVisuallyEepy() ? TEXTURE_SLEEPING : TEXTURE;
+        return entity.isEepy() ? TEXTURE_SLEEPING : TEXTURE;
     }
 }

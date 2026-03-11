@@ -2,7 +2,7 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -86,7 +86,7 @@
 
      @Override
      public @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new SmoothGroundPathNavigation(this, level);
+         return new NoSpinGroundPathNavigation(this, level);
      }
 
      @Override
@@ -237,7 +237,7 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isDancing() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isDancing(), this.tickCount);
          this.plowAnimationState.animateWhen(this.steering.isBoosting() && this.hasControllingPassenger(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
      }

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.CotylorhynchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Cotylorhynchus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -105,8 +106,7 @@ public class CotylorhynchusModel extends UP2Model<Cotylorhynchus> {
 
 		if (this.young) this.applyStatic(CotylorhynchusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

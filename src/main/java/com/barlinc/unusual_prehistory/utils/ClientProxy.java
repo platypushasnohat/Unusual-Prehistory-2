@@ -165,8 +165,4 @@ public class ClientProxy extends CommonProxy {
     public void clearSoundCacheFor(BlockEntity entity) {
         BLOCK_ENTITY_SOUND_INSTANCE_MAP.remove(entity);
     }
-
-    public void renderMapDecoration(MapDecoration mapDecoration, int index) {
-        ClientForgeEvents.renderMapDecoration(mapDecoration, index + 1);
-    }
 }

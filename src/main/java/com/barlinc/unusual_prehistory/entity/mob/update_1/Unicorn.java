@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -48,7 +48,7 @@ public class Unicorn extends Animal {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothGroundPathNavigation(this, level);
+        return new NoSpinGroundPathNavigation(this, level);
     }
 
     public Unicorn(EntityType<? extends Animal> entityType, Level level) {

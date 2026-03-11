@@ -381,7 +381,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     // Goals
-    private static class CarnotaurusYawnGoal extends AnimationGoal {
+    private static class CarnotaurusYawnGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 
@@ -402,7 +402,7 @@ public class Carnotaurus extends PrehistoricMob {
         }
     }
 
-    private static class CarnotaurusShakeGoal extends AnimationGoal {
+    private static class CarnotaurusShakeGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 
@@ -423,7 +423,7 @@ public class Carnotaurus extends PrehistoricMob {
         }
     }
 
-    private static class CarnotaurusSniffGoal extends AnimationGoal {
+    private static class CarnotaurusSniffGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 

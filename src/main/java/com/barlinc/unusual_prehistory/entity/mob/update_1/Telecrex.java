@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
@@ -286,7 +286,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         }
     }
 
-    private static class TelecrexPreenGoal extends AnimationGoal {
+    private static class TelecrexPreenGoal extends IdleAnimationGoal {
 
         private final Telecrex telecrex;
 
@@ -318,7 +318,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         }
     }
 
-    private static class TelecrexPeckGoal extends AnimationGoal {
+    private static class TelecrexPeckGoal extends IdleAnimationGoal {
 
         private final Telecrex telecrex;
 

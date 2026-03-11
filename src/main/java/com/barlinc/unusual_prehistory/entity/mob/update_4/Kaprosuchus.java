@@ -3,8 +3,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -33,6 +32,7 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -105,12 +105,12 @@
          if (onLand) {
              this.lookControl = new KaprosuchusLookControl(this);
              this.moveControl = new PrehistoricMoveControl(this);
-             this.navigation = new SmoothGroundPathNavigation(this, this.level());
+             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
              this.isLandNavigator = true;
          } else {
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
-             this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
+             this.navigation = new WaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -226,61 +226,61 @@
              this.bash1AnimationState.stop();
              this.bash2AnimationState.stop();
          }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
 
-         if (this.isMobVisuallySitting()) {
-             this.sitEndAnimationState.stop();
-             this.swimIdleAnimationState.stop();
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-             this.idleAnimationState.stop();
-             this.bash1AnimationState.stop();
-             this.bash2AnimationState.stop();
-             this.leapAnimationState.stop();
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.stop();
-
-             if (this.isVisuallySitting()) {
-                 this.sitStartAnimationState.startIfStopped(this.tickCount);
-                 this.sitAnimationState.stop();
-             } else {
-                 this.sitStartAnimationState.stop();
-                 this.sitAnimationState.startIfStopped(this.tickCount);
-             }
-         } else {
-             this.sitStartAnimationState.stop();
-             this.sitAnimationState.stop();
-             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-         }
-
-         if (this.isMobVisuallyEepy()) {
-             this.eepyEndAnimationState.stop();
-             this.swimIdleAnimationState.stop();
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-             this.idleAnimationState.stop();
-             this.bash1AnimationState.stop();
-             this.bash2AnimationState.stop();
-             this.leapAnimationState.stop();
-             this.sitStartAnimationState.stop();
-             this.sitAnimationState.stop();
-             this.sitEndAnimationState.stop();
-
-             if (this.isVisuallyEepy()) {
-                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                 this.eepyAnimationState.stop();
-             } else {
-                 this.eepyStartAnimationState.stop();
-                 this.eepyAnimationState.startIfStopped(this.tickCount);
-             }
-         } else {
-             this.eepyStartAnimationState.stop();
-             this.eepyAnimationState.stop();
-             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-         }
+//         if (this.isMobVisuallySitting()) {
+//             this.sitEndAnimationState.stop();
+//             this.swimIdleAnimationState.stop();
+//             this.attack1AnimationState.stop();
+//             this.attack2AnimationState.stop();
+//             this.idleAnimationState.stop();
+//             this.bash1AnimationState.stop();
+//             this.bash2AnimationState.stop();
+//             this.leapAnimationState.stop();
+//             this.eepyStartAnimationState.stop();
+//             this.eepyAnimationState.stop();
+//             this.eepyEndAnimationState.stop();
+//
+//             if (this.isVisuallySitting()) {
+//                 this.sitStartAnimationState.startIfStopped(this.tickCount);
+//                 this.sitAnimationState.stop();
+//             } else {
+//                 this.sitStartAnimationState.stop();
+//                 this.sitAnimationState.startIfStopped(this.tickCount);
+//             }
+//         } else {
+//             this.sitStartAnimationState.stop();
+//             this.sitAnimationState.stop();
+//             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
+//         }
+//
+//         if (this.isMobVisuallyEepy()) {
+//             this.eepyEndAnimationState.stop();
+//             this.swimIdleAnimationState.stop();
+//             this.attack1AnimationState.stop();
+//             this.attack2AnimationState.stop();
+//             this.idleAnimationState.stop();
+//             this.bash1AnimationState.stop();
+//             this.bash2AnimationState.stop();
+//             this.leapAnimationState.stop();
+//             this.sitStartAnimationState.stop();
+//             this.sitAnimationState.stop();
+//             this.sitEndAnimationState.stop();
+//
+//             if (this.isVisuallyEepy()) {
+//                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
+//                 this.eepyAnimationState.stop();
+//             } else {
+//                 this.eepyStartAnimationState.stop();
+//                 this.eepyAnimationState.startIfStopped(this.tickCount);
+//             }
+//         } else {
+//             this.eepyStartAnimationState.stop();
+//             this.eepyAnimationState.stop();
+//             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
+//         }
      }
 
      @Override

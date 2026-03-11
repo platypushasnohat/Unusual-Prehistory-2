@@ -1,13 +1,16 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,7 +29,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -51,23 +53,20 @@ public class Desmatosuchus extends PrehistoricMob {
     private static final EntityDataAccessor<Boolean> MOSSY = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.8F);
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
 
     public static final ResourceLocation MOSS_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing");
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState sniff1AnimationState = new AnimationState();
-    public final AnimationState sniff2AnimationState = new AnimationState();
-    public final AnimationState shakeAnimationState = new AnimationState();
-    public final AnimationState grazeAnimationState = new AnimationState();
-    public final AnimationState chewAnimationState = new AnimationState();
-    public final AnimationState rollAnimationState = new AnimationState();
+    public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState rollAnimationState = new SmoothAnimationState();
 
-    public int sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
-    public int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
-    public int grazeCooldown = 800 + this.getRandom().nextInt(70 * 70);
-    public int chewCooldown = 700 + this.getRandom().nextInt(70 * 70);
+    private boolean sniffAlt = false;
+    private int sniffCooldown = 700 + this.getRandom().nextInt(700);
+    private int shakeCooldown = 600 + this.getRandom().nextInt(600);
+    private int grazeCooldown = 800 + this.getRandom().nextInt(800);
 
     public Desmatosuchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -77,19 +76,16 @@ public class Desmatosuchus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DESMATOSUCHUS_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new RandomSitGoal(this));
-        this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new DesmatosuchusRollGoal(this));
-        this.goalSelector.addGoal(9, new DesmatosuchusShakeGoal(this));
-        this.goalSelector.addGoal(9, new DesmatosuchusSniffGoal(this));
-        this.goalSelector.addGoal(9, new DesmatosuchusGrazeGoal(this));
-        this.goalSelector.addGoal(9, new DesmatosuchusChewGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DESMATOSUCHUS_FOOD), false));
+        this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new DesmatosuchusRollGoal(this));
+        this.goalSelector.addGoal(7, new DesmatosuchusShakeGoal(this));
+        this.goalSelector.addGoal(7, new DesmatosuchusSniffGoal(this));
+        this.goalSelector.addGoal(7, new DesmatosuchusGrazeGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -131,11 +127,6 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    public long getEepyPoseTransitionTime() {
-        return 30L;
-    }
-
-    @Override
     public boolean isEepyTime() {
         return this.level().isNight() && this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS);
     }
@@ -157,8 +148,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        if (pose == UP2Poses.SLEEPING.get()) return EEPY_DIMENSIONS.scale(this.getScale());
-        return pose == UP2Poses.SITTING.get() ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
+        return this.isEepy() ? EEPY_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }
 
     @Override
@@ -191,123 +181,45 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public void setupAnimationCooldowns() {
-        if (!this.isMobEepy()) {
+        super.setupAnimationCooldowns();
+        if (!this.isEepy()) {
             if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
             if (shakeCooldown > 0) shakeCooldown--;
             if (sniffCooldown > 0) sniffCooldown--;
-            if (chewCooldown > 0) chewCooldown--;
             if (grazeCooldown > 0) grazeCooldown--;
         }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
-
-        if (this.isMobVisuallySitting()) {
-            this.sitEndAnimationState.stop();
-            this.grazeAnimationState.stop();
-            this.idleAnimationState.stop();
-            this.shakeAnimationState.stop();
-            this.sniff1AnimationState.stop();
-            this.sniff2AnimationState.stop();
-            this.rollAnimationState.stop();
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.stop();
-
-            if (this.isVisuallySitting()) {
-                this.sitStartAnimationState.startIfStopped(this.tickCount);
-                this.sitAnimationState.stop();
-            } else {
-                this.sitStartAnimationState.stop();
-                this.sitAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-        }
-
-        if (this.isMobVisuallyEepy()) {
-            this.eepyEndAnimationState.stop();
-            this.grazeAnimationState.stop();
-            this.idleAnimationState.stop();
-            this.shakeAnimationState.stop();
-            this.sniff1AnimationState.stop();
-            this.sniff2AnimationState.stop();
-            this.rollAnimationState.stop();
-            this.sitStartAnimationState.stop();
-            this.sitAnimationState.stop();
-            this.sitEndAnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
-            } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 67 -> this.rollAnimationState.start(this.tickCount);
-            case 68 -> this.rollAnimationState.stop();
-
-            case 69 -> this.shakeAnimationState.start(this.tickCount);
-            case 70 -> this.shakeAnimationState.stop();
-
-            case 71 -> {
-                if (this.getRandom().nextBoolean()) this.sniff1AnimationState.start(this.tickCount);
-                else this.sniff2AnimationState.start(this.tickCount);
-            }
-            case 72 -> {
-                this.sniff1AnimationState.stop();
-                this.sniff2AnimationState.stop();
-            }
-
-            case 73 -> this.grazeAnimationState.start(this.tickCount);
-            case 74 -> this.grazeAnimationState.stop();
-
-            case 75 -> this.chewAnimationState.start(this.tickCount);
-            case 76 -> this.chewAnimationState.stop();
-
-            default -> super.handleEntityEvent(id);
-        }
-    }
-
-    protected void rollCooldown() {
-        this.setRollCooldown(1000 + this.getRandom().nextInt(70 * 70));
+        super.setupAnimationStates();
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isEepy() && this.getIdleState() != 1, this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.rollAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.sniff1AnimationState.animateWhen(this.getIdleState() == 3 && !sniffAlt, this.tickCount);
+        this.sniff2AnimationState.animateWhen(this.getIdleState() == 3 && sniffAlt, this.tickCount);
+        this.grazeAnimationState.animateWhen(this.getIdleState() == 4, this.tickCount);
     }
 
     protected void shakeCooldown() {
-        this.shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
+        this.shakeCooldown = 600 + this.getRandom().nextInt(600);
     }
 
     protected void sniffCooldown() {
-        this.sniffCooldown = 700 + this.getRandom().nextInt(60 * 60);
+        this.sniffCooldown = 700 + this.getRandom().nextInt(700);
     }
 
     protected void grazeCooldown() {
-        this.grazeCooldown = 800 + this.getRandom().nextInt(70 * 70);
-    }
-
-    protected void chewCooldown() {
-        this.chewCooldown = 700 + this.getRandom().nextInt(70 * 70);
+        this.grazeCooldown = 800 + this.getRandom().nextInt(800);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(MOSSY, false);
-        this.entityData.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
+        this.entityData.define(ROLL_COOLDOWN, 1200 + this.getRandom().nextInt(1200));
     }
 
     @Override
@@ -377,7 +289,7 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     // Goals
-    private static class DesmatosuchusRollGoal extends AnimationGoal {
+    private static class DesmatosuchusRollGoal extends IdleAnimationGoal {
 
         private final Desmatosuchus desmatosuchus;
 
@@ -388,13 +300,13 @@ public class Desmatosuchus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.getRollCooldown() == 0 && !desmatosuchus.isMobSitting() && this.isRollingBlock();
+            return super.canUse() && desmatosuchus.getRollCooldown() == 0 && this.isRollingBlock();
         }
 
         @Override
         public void stop() {
             super.stop();
-            this.desmatosuchus.rollCooldown();
+            this.desmatosuchus.setRollCooldown(1200 + desmatosuchus.getRandom().nextInt(1200));
         }
 
         @Override
@@ -410,7 +322,7 @@ public class Desmatosuchus extends PrehistoricMob {
         }
     }
 
-    private static class DesmatosuchusShakeGoal extends AnimationGoal {
+    private static class DesmatosuchusShakeGoal extends IdleAnimationGoal {
 
         private final Desmatosuchus desmatosuchus;
 
@@ -421,7 +333,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.shakeCooldown == 0 && !desmatosuchus.isMobSitting();
+            return super.canUse() && desmatosuchus.shakeCooldown == 0;
         }
 
         @Override
@@ -431,7 +343,7 @@ public class Desmatosuchus extends PrehistoricMob {
         }
     }
 
-    private static class DesmatosuchusSniffGoal extends AnimationGoal {
+    private static class DesmatosuchusSniffGoal extends IdleAnimationGoal {
 
         private final Desmatosuchus desmatosuchus;
 
@@ -442,7 +354,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.sniffCooldown == 0 && !desmatosuchus.isMobSitting();
+            return super.canUse() && desmatosuchus.sniffCooldown == 0;
         }
 
         @Override
@@ -450,9 +362,15 @@ public class Desmatosuchus extends PrehistoricMob {
             super.stop();
             this.desmatosuchus.sniffCooldown();
         }
+
+        @Override
+        public void start() {
+            super.start();
+            this.desmatosuchus.sniffAlt = desmatosuchus.getRandom().nextBoolean();
+        }
     }
 
-    private static class DesmatosuchusGrazeGoal extends AnimationGoal {
+    private static class DesmatosuchusGrazeGoal extends IdleAnimationGoal {
 
         private final Desmatosuchus desmatosuchus;
 
@@ -463,34 +381,13 @@ public class Desmatosuchus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.grazeCooldown == 0 && !desmatosuchus.isMobSitting() && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS);
+            return super.canUse() && desmatosuchus.grazeCooldown == 0 && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS);
         }
 
         @Override
         public void stop() {
             super.stop();
             this.desmatosuchus.grazeCooldown();
-        }
-    }
-
-    private static class DesmatosuchusChewGoal extends AnimationGoal {
-
-        private final Desmatosuchus desmatosuchus;
-
-        public DesmatosuchusChewGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 5, (byte) 75, (byte) 76, false);
-            this.desmatosuchus = desmatosuchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && desmatosuchus.chewCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.desmatosuchus.chewCooldown();
         }
     }
 }

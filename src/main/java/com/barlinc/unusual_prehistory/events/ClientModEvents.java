@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.jawless_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_2.OnchopristisModel;
@@ -10,14 +11,10 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.Tartuost
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_finned_fish.*;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.CotylorhynchusModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.EryonModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.MammothModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.PalaeophisModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.WonambiModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2BoatRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2ChestBoatRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.LivingOozeRenderer;
@@ -25,11 +22,6 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.Metrio
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.TartuosteusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambient.ZhangsolvaRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.CotylorhynchusRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.EryonRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.MammothRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.PalaeophisRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.WonambiRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;

@@ -100,7 +100,7 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWater() && !this.isInSitPoseTransition() && !this.isInEepyPoseTransition(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWater() && !this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
     }
 

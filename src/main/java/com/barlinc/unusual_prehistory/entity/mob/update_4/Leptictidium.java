@@ -225,7 +225,7 @@ public class Leptictidium extends PrehistoricMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
-    private static class LeptictidiumPreenGoal extends AnimationGoal {
+    private static class LeptictidiumPreenGoal extends IdleAnimationGoal {
 
         private final Leptictidium leptictidium;
 
@@ -246,7 +246,7 @@ public class Leptictidium extends PrehistoricMob {
         }
     }
 
-    private static class LeptictidiumSniffGoal extends AnimationGoal {
+    private static class LeptictidiumSniffGoal extends IdleAnimationGoal {
 
         private final Leptictidium leptictidium;
 

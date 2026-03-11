@@ -40,6 +40,6 @@ public class BarinasuchusRenderer extends MobRenderer<Barinasuchus, Barinasuchus
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Barinasuchus entity) {
-        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
+        return entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

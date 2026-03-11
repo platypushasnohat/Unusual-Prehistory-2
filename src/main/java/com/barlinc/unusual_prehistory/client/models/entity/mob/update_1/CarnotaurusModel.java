@@ -163,7 +163,7 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 	public void setupAnim(Carnotaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater() && !entity.isMobEepy()) {
+		if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.getPose() != UP2Poses.CHARGING.get()) {
                 if (entity.isRunning()) this.animateWalk(CarnotaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.3F, 2.6F);
                 else this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);

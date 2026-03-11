@@ -123,16 +123,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
-    @Override
-    public boolean isPushable() {
-        return !this.isMobEepy();
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD);
     }
@@ -161,10 +151,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
             if (this.getChargeCooldown() > 0) {
                 this.setChargeCooldown(this.getChargeCooldown() - 1);
             }
-            if (this.getFightCooldown() > 0 && !this.isMobEepy() && !this.isInWaterOrBubble()) {
+            if (this.getFightCooldown() > 0 && !this.isEepy() && !this.isInWaterOrBubble()) {
                 this.setFightCooldown(this.getFightCooldown() - 1);
             }
-            if (this.getFindTargetCooldown() > 0 && !this.isMobEepy() && !this.isInWaterOrBubble()) {
+            if (this.getFindTargetCooldown() > 0 && !this.isEepy() && !this.isInWaterOrBubble()) {
                 this.setFindTargetCooldown(this.getFindTargetCooldown() - 1);
             }
         }
@@ -190,7 +180,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
             if (recoverTicks > 0) recoverTicks--;
             if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) this.setPose(Pose.STANDING);
             if (recoverTicks == 0 && this.getPose() == UP2Poses.RECOVERING.get()) this.setPose(Pose.STANDING);
-            if (!this.isInWaterOrBubble() && !this.isMobEepy()) {
+            if (!this.isInWaterOrBubble() && !this.isEepy()) {
                 if (huffCooldown > 0) huffCooldown--;
                 if (stompCooldown > 0) stompCooldown--;
                 if (grazeCooldown > 0) grazeCooldown--;
@@ -202,31 +192,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
     public void setupAnimationStates() {
         if (warnTicks == 0 && this.warnAnimationState.isStarted()) this.warnAnimationState.stop();
         if (recoverTicks == 0 && this.recoverAnimationState.isStarted()) this.recoverAnimationState.stop();
-        this.idleAnimationState.animateWhen(this.getAttackState() != 1 && !this.isInWater() && !this.isInEepyPoseTransition() && this.getPose() != UP2Poses.RECOVERING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getAttackState() != 1 && !this.isInWater() && !this.isEepy() && this.getPose() != UP2Poses.RECOVERING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater() && this.getAttackState() != 1, this.tickCount);
         this.recoverAnimationState.animateWhen(this.recoverAnimationState.isStarted(), this.tickCount);
         this.warnAnimationState.animateWhen(this.warnAnimationState.isStarted(), this.tickCount);
-
-        if (this.isMobVisuallyEepy()) {
-            this.idleAnimationState.stop();
-            this.huffAnimationState.stop();
-            this.stomp1AnimationState.stop();
-            this.stomp2AnimationState.stop();
-            this.grazeAnimationState.stop();
-            this.warnAnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
-            } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
     }
 
     @Override
@@ -508,16 +477,16 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy();
+            return super.canUse() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && !prehistoricMob.isMobEepy();
+            return super.canContinueToUse() && !prehistoricMob.isEepy();
         }
     }
 
-    private static class PachycephalosaurusGrazeGoal extends AnimationGoal {
+    private static class PachycephalosaurusGrazeGoal extends IdleAnimationGoal {
 
         private final Pachycephalosaurus pachycephalosaurus;
 
@@ -528,7 +497,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && !pachycephalosaurus.isMobSitting() && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS);
+            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS);
         }
 
         @Override
@@ -538,7 +507,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         }
     }
 
-    private static class PachycephalosaurusHuffGoal extends AnimationGoal {
+    private static class PachycephalosaurusHuffGoal extends IdleAnimationGoal {
 
         private final Pachycephalosaurus pachycephalosaurus;
 
@@ -549,7 +518,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.huffCooldown == 0 && !pachycephalosaurus.isMobSitting();
+            return super.canUse() && pachycephalosaurus.huffCooldown == 0;
         }
 
         @Override
@@ -559,7 +528,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         }
     }
 
-    private static class PachycephalosaurusStompGoal extends AnimationGoal {
+    private static class PachycephalosaurusStompGoal extends IdleAnimationGoal {
 
         private final Pachycephalosaurus pachycephalosaurus;
 
@@ -570,7 +539,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.stompCooldown == 0 && !pachycephalosaurus.isMobSitting();
+            return super.canUse() && pachycephalosaurus.stompCooldown == 0;
         }
 
         @Override

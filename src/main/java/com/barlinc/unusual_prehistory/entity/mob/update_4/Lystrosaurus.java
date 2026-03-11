@@ -23,7 +23,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -120,11 +119,11 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) {
-            super.actuallyHurt(damageSource, amount * 0.1F);
+    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
+            super.actuallyHurt(source, amount * 0.1F);
         } else {
-            super.actuallyHurt(damageSource, amount * 0.2F);
+            super.actuallyHurt(source, amount * 0.2F);
         }
     }
 
@@ -275,7 +274,7 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     // Goals
-    private static class LystrosaurusScratchGoal extends AnimationGoal {
+    private static class LystrosaurusScratchGoal extends IdleAnimationGoal {
 
         private final Lystrosaurus lystrosaurus;
 
@@ -302,7 +301,7 @@ public class Lystrosaurus extends PrehistoricMob {
         }
     }
 
-    private static class LystrosaurusGrazeGoal extends AnimationGoal {
+    private static class LystrosaurusGrazeGoal extends IdleAnimationGoal {
 
         private final Lystrosaurus lystrosaurus;
 
@@ -323,7 +322,7 @@ public class Lystrosaurus extends PrehistoricMob {
         }
     }
 
-    private static class LystrosaurusDigGoal extends AnimationGoal {
+    private static class LystrosaurusDigGoal extends IdleAnimationGoal {
 
         private final Lystrosaurus lystrosaurus;
 
@@ -368,7 +367,7 @@ public class Lystrosaurus extends PrehistoricMob {
         }
     }
 
-    private static class LystrosaurusBlinkGoal extends AnimationGoal {
+    private static class LystrosaurusBlinkGoal extends IdleAnimationGoal {
 
         private final Lystrosaurus lystrosaurus;
 
@@ -389,7 +388,7 @@ public class Lystrosaurus extends PrehistoricMob {
         }
     }
 
-    private static class LystrosaurusShakeGoal extends AnimationGoal {
+    private static class LystrosaurusShakeGoal extends IdleAnimationGoal {
 
         private final Lystrosaurus lystrosaurus;
 

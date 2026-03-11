@@ -13,7 +13,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.utils.EntityDropsAccessor;
+import com.barlinc.unusual_prehistory.utils.MobAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -130,7 +130,7 @@ public class ForgeEvents {
                         }
                     }
                     DamageSource fakeCreeperDamage = mob.level().damageSources().mobAttack(fakeCreeperForSkullDrop);
-                    EntityDropsAccessor accessor = (EntityDropsAccessor) mob;
+                    MobAccessor accessor = (MobAccessor) mob;
                     accessor.unusualPrehistory2$dropCustomDeathLoot(fakeCreeperDamage, 0, false);
                 }
             }

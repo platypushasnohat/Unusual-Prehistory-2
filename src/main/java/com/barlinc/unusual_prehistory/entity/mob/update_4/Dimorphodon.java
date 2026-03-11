@@ -295,7 +295,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DIMORPHODON_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
-    private static class DimorphodonNipGoal extends AnimationGoal {
+    private static class DimorphodonNipGoal extends IdleAnimationGoal {
 
         private final Dimorphodon dimorphodon;
 
@@ -321,7 +321,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
         }
     }
 
-    private static class DimorphodonTailChaseGoal extends AnimationGoal {
+    private static class DimorphodonTailChaseGoal extends IdleAnimationGoal {
 
         private final Dimorphodon dimorphodon;
 

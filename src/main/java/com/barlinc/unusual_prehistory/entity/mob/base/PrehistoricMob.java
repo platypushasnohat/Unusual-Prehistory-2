@@ -3,9 +3,8 @@ package com.barlinc.unusual_prehistory.entity.mob.base;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -30,7 +29,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -39,7 +41,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
 import net.minecraft.world.level.gameevent.EntityPositionSource;
@@ -65,9 +66,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> FOREVER_BABY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
-    protected static final EntityDataAccessor<Long> SIT_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Long> EEPY_POSE_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.LONG);
     protected static final EntityDataAccessor<Integer> EEPY_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
@@ -78,9 +77,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     private BlockPos jukeboxPosition;
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
-
-    public float prevEyeGlowProgress;
-    public float eyeGlowProgress;
 
     private float tailYaw;
     private float prevTailYaw;
@@ -109,6 +105,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public int getExperienceReward() {
         return 0;
+    }
+
+    @Override
+    public boolean shouldDropExperience() {
+        return false;
     }
 
     public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
@@ -161,7 +162,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothGroundPathNavigation(this, level);
+        return new NoSpinGroundPathNavigation(this, level);
     }
 
     @Override
@@ -340,17 +341,26 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public void tick () {
         super.tick();
 
-        this.tickEyeGlow();
         this.tickTailYaw();
 
         if (this.isForeverBaby() && this.isBaby()) this.setAge(-24000);
 
-        if (this.level().isClientSide) this.setupAnimationStates();
+        if (this.level().isClientSide) {
+            this.setupAnimationStates();
+            if (this.shouldDoEepyParticles()) {
+                this.doEepyParticles();
+            }
+        } else {
+            if (this.canHealOverTime()) {
+                this.heal(2);
+            }
+            if (tickCount % 20 == 0 && this.shouldStopDancing() && this.isDancing()) {
+                this.setDancing(false);
+                this.jukeboxPosition = null;
+            }
+        }
+
         this.setupAnimationCooldowns();
-
-        if (this.canHealOverTime()) this.heal(2);
-
-        if (this.level().isClientSide && this.shouldDoEepyParticles()) this.doEepyParticles();
 
         if (this.isLeashed()) this.resetFallDistance();
 
@@ -369,18 +379,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (!this.isInRain() && !this.isEepy() && this.getSitCooldown() > 0 && !this.isBaby()) this.setSitCooldown(this.getSitCooldown() - 1);
         }
 
-        if (this.isSitting() && this.isInWaterOrBubble()) {
-            this.stopSittingInstantly();
-            this.setSitCooldown(6000 + random.nextInt(3000));
-        }
-        if (this.isInRain()) {
-            this.stopSitting();
-            this.setSitCooldown(6000 + random.nextInt(3000));
-        }
-
-        if (!this.level().isClientSide && tickCount % 20 == 0 && this.shouldStopDancing() && this.isDancing()) {
-            this.setDancing(false);
-            this.jukeboxPosition = null;
+        if (this.isSitting()) {
+            if (this.isInRain() || this.isInWaterOrBubble()) {
+                this.setSitting(false);
+                this.setSitCooldown(6000 + random.nextInt(3000));
+            }
         }
     }
 
@@ -390,25 +393,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public boolean canEat() {
         return true;
-    }
-
-    // Eye glow
-    public void tickEyeGlow() {
-        this.prevEyeGlowProgress = eyeGlowProgress;
-        long roundTime = this.level().getDayTime() % 24000;
-        boolean night = roundTime >= 13000 && roundTime <= 22000;
-        BlockPos pos = this.blockPosition();
-        int skyLight = this.level().getBrightness(LightLayer.SKY, pos);
-        int blockLight = this.level().getBrightness(LightLayer.BLOCK, pos);
-        int brightness;
-        if (night) brightness = blockLight;
-        else brightness = Math.max(skyLight, blockLight);
-        if (brightness < 7 && eyeGlowProgress < 10.0F) eyeGlowProgress++;
-        else if (eyeGlowProgress > 0.0F) eyeGlowProgress--;
-    }
-
-    public float getEyeGlowProgress(float partialTicks) {
-        return (prevEyeGlowProgress + (eyeGlowProgress - prevEyeGlowProgress) * partialTicks) * 0.1F;
     }
 
     // Tail yaw
@@ -445,7 +429,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean canHealOverTime() {
-        return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && !this.level().isClientSide && this.isAlive();
+        return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && this.isAlive();
     }
 
     public boolean refuseToMove() {
@@ -458,68 +442,30 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Sitting & Sleeping
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        if (this.isSitting()) this.stopSittingInstantly();
-        else if (this.isEepy()) this.stopEepyInstantly();
-        super.actuallyHurt(damageSource, amount);
+    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+        if (this.isSitting() && !this.isOrderedToSit()) {
+            this.setSitting(false);
+            this.setSitCooldown(400);
+        }
+        else if (this.isEepy()) {
+            this.setEepy(false);
+            this.setEatCooldown(400);
+        }
+        super.actuallyHurt(source, amount);
     }
 
     @Override
     protected void onLeashDistance(float distance) {
         if (distance > 6.0F) {
-            if (this.isSitting() && !this.isInSitPoseTransition()) this.stopSitting();
-            if (this.isEepy() && !this.isInEepyPoseTransition()) this.stopEepy();
+            if (this.isSitting() && !this.isOrderedToSit()) {
+                this.setSitting(false);
+                this.setSitCooldown(this.getSitCooldown() + 200);
+            }
+            if (this.isEepy()) {
+                this.setEepy(false);
+                this.setEepyCooldown(this.getEepyCooldown() + 200);
+            }
         }
-    }
-
-    // Sitting
-    public long getSitPoseTime() {
-        return (this.level()).getGameTime() - Math.abs(this.getSitPoseTicks());
-    }
-
-    public boolean isMobSitting() {
-        return this.getSitPoseTicks() < 0L;
-    }
-
-    public boolean isMobVisuallySitting() {
-        return this.getSitPoseTime() < 0L != this.isMobSitting();
-    }
-
-    public long getSitPoseTransitionTime() {
-        return 20L;
-    }
-
-    public boolean isInSitPoseTransition() {
-        long l = this.getSitPoseTime();
-        return l < this.getSitPoseTransitionTime();
-    }
-
-    public boolean isVisuallySitting() {
-        return this.isMobSitting() && this.getSitPoseTime() < this.getSitPoseTransitionTime() && this.getSitPoseTime() >= 0L;
-    }
-
-    public void startSitting() {
-        if (this.isMobSitting()) return;
-        this.setPose(UP2Poses.SITTING.get());
-        this.setSitPoseTicks(-(this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void stopSitting() {
-        if (!this.isMobSitting()) return;
-        this.setPose(Pose.STANDING);
-        this.setSitPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void stopSittingInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetSitPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
-    }
-
-    public void resetSitPoseTicks(long l) {
-        this.setSitPoseTicks(Math.max(0L, l - 52L - 1L));
     }
 
     // Sleeping
@@ -543,58 +489,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public boolean shouldDoEepyParticles() {
         return this.isEepy();
-    }
-
-    public long getEepyPoseTime() {
-        return (this.level()).getGameTime() - Math.abs(this.getEepyPoseTicks());
-    }
-
-    public boolean isMobEepy() {
-        return this.getEepyPoseTicks() < 0L;
-    }
-
-    public boolean isMobVisuallyEepy() {
-        return this.getEepyPoseTime() < 0L != this.isMobEepy();
-    }
-
-    public long getEepyPoseTransitionTime() {
-        return 40L;
-    }
-
-    public boolean isInEepyPoseTransition() {
-        long l = this.getEepyPoseTime();
-        return l < this.getEepyPoseTransitionTime();
-    }
-
-    public boolean isVisuallyEepy() {
-        return this.isMobEepy() && this.getEepyPoseTime() < this.getEepyPoseTransitionTime() && this.getEepyPoseTime() >= 0L;
-    }
-
-    public void startEepy() {
-        if (this.isMobEepy() || this.isEepy()) return;
-        this.setPose(UP2Poses.SLEEPING.get());
-        this.setEepyPoseTicks(-(this.level()).getGameTime());
-        this.refreshDimensions();
-        this.setEepy(true);
-    }
-
-    public void stopEepy() {
-        if (!this.isMobEepy() && !this.isEepy()) return;
-        this.setPose(Pose.STANDING);
-        this.setEepyPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
-        this.setEepy(false);
-    }
-
-    public void stopEepyInstantly() {
-        this.setPose(Pose.STANDING);
-        this.resetEepyPoseTicks((this.level()).getGameTime());
-        this.refreshDimensions();
-        this.setEepy(false);
-    }
-
-    public void resetEepyPoseTicks(long l) {
-        this.setEepyPoseTicks(Math.max(0L, l - 52L - 1L));
     }
 
     // Taming
@@ -640,8 +534,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected void removePassenger(@NotNull Entity passenger) {
         super.removePassenger(passenger);
         if (!this.level().isClientSide) {
-            if (this.getCommand() == 1 && !this.isMobSitting()) {
-                this.startSitting();
+            if (this.getCommand() == 1 && !this.isSitting()) {
+                this.setSitting(true);
             }
         }
     }
@@ -687,8 +581,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
         super.tickRidden(player, vec3);
         if (player.zza > 0.0F) {
-            if (this.isMobSitting() && !this.isInSitPoseTransition()) this.stopSitting();
-            if (this.isMobEepy() && !this.isInEepyPoseTransition()) this.stopEepy();
+            if (this.isSitting()) {
+                this.setSitting(false);
+            }
+            if (this.isEepy()) {
+                this.setEepy(false);
+            }
         }
         if (player.zza != 0 || player.xxa != 0) {
             this.setRot(player.getYRot(), player.getXRot() * 0.25F);
@@ -718,10 +616,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
-        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
-        if (ret == null) return false;
-        f1 = ret[0];
-        f2 = ret[1];
+        float[] livingFall = ForgeHooks.onLivingFall(this, f1, f2);
+        if (livingFall == null) return false;
+        f1 = livingFall[0];
+        f2 = livingFall[1];
 
         int i = this.calculateFallDamage(f1, f2);
         if (i > 0) {
@@ -748,6 +646,17 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Data
     @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (EEPY.equals(accessor)) {
+            this.refreshDimensions();
+        }
+        else if (SITTING.equals(accessor)) {
+            this.refreshDimensions();
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
@@ -761,9 +670,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(IDLE_STATE, 0);
         this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
         this.entityData.define(FOREVER_BABY, false);
-        this.entityData.define(SIT_POSE_TICKS, 0L);
         this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
-        this.entityData.define(EEPY_POSE_TICKS, 0L);
         this.entityData.define(EEPY_COOLDOWN, 100);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(DANCING, false);
@@ -780,9 +687,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
         compoundTag.putBoolean("ForeverBaby", this.isForeverBaby());
-        compoundTag.putLong("SitPoseTicks", this.getSitPoseTicks());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
-        compoundTag.putLong("EepyPoseTicks", this.getEepyPoseTicks());
         compoundTag.putInt("EepyCooldown", this.getEepyCooldown());
         compoundTag.putInt("Command", this.getCommand());
         compoundTag.putBoolean("Eepy", this.isEepy());
@@ -798,9 +703,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setForeverBaby(compoundTag.getBoolean("ForeverBaby"));
-        this.setSitPoseTicks(compoundTag.getLong("SitPoseTicks"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
-        this.setEepyPoseTicks(compoundTag.getLong("EepyPoseTicks"));
         this.setEepyCooldown(compoundTag.getInt("EepyCooldown"));
         this.setCommand(compoundTag.getInt("Command"));
         this.setEepy(compoundTag.getBoolean("Eepy"));
@@ -811,6 +714,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getAttackState() {
         return this.entityData.get(ATTACK_STATE);
     }
+
     public void setAttackState(int attackState) {
         this.entityData.set(ATTACK_STATE, attackState);
     }
@@ -818,6 +722,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getIdleState() {
         return this.entityData.get(IDLE_STATE);
     }
+
     public void setIdleState(int idleState) {
         this.entityData.set(IDLE_STATE, idleState);
     }
@@ -826,9 +731,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
+
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, Mth.clamp(variant, 0, this.getVariantCount()));
     }
+
     public int getVariantCount() {
         return 128;
     }
@@ -837,9 +744,11 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public boolean isPacified() {
         return this.entityData.get(PACIFIED);
     }
+
     public void setPacified(boolean pacified) {
         this.entityData.set(PACIFIED, pacified);
     }
+
     public boolean canPacify() {
         return false;
     }
@@ -847,6 +756,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getPacifiedTicks() {
         return this.entityData.get(PACIFIED_TICKS);
     }
+
     public void setPacifiedTicks(int ticks) {
         this.entityData.set(PACIFIED_TICKS, ticks);
     }
@@ -855,6 +765,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public boolean isFromEgg() {
         return this.entityData.get(FROM_EGG);
     }
+
     public void setFromEgg(boolean fromEgg) {
         this.entityData.set(FROM_EGG, fromEgg);
     }
@@ -863,6 +774,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public boolean wasShotFromOoze() {
         return this.entityData.get(SHOT_FROM_OOZE);
     }
+
     public void setShotFromOoze(boolean shotFromOoze) {
         this.entityData.set(SHOT_FROM_OOZE, shotFromOoze);
     }
@@ -871,6 +783,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public boolean isRunning() {
         return this.entityData.get(RUNNING);
     }
+
     public void setRunning(boolean running) {
         this.entityData.set(RUNNING, running);
     }
@@ -878,6 +791,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getRunningTicks() {
         return this.entityData.get(RUNNING_TICKS);
     }
+
     public void setRunningTicks(int ticks) {
         this.entityData.set(RUNNING_TICKS, ticks);
     }
@@ -886,6 +800,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getEatCooldown() {
         return this.entityData.get(EAT_COOLDOWN);
     }
+
     public void setEatCooldown(int cooldown) {
         this.entityData.set(EAT_COOLDOWN, cooldown);
     }
@@ -894,21 +809,16 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public boolean isForeverBaby() {
         return this.entityData.get(FOREVER_BABY);
     }
+
     public void setForeverBaby(boolean foreverBaby) {
         this.entityData.set(FOREVER_BABY, foreverBaby);
     }
 
     // Sitting
-    public long getSitPoseTicks() {
-        return this.entityData.get(SIT_POSE_TICKS);
-    }
-    public void setSitPoseTicks(long l) {
-        this.entityData.set(SIT_POSE_TICKS, l);
-    }
-
     public int getSitCooldown() {
         return this.entityData.get(SIT_COOLDOWN);
     }
+
     public void setSitCooldown(int cooldown) {
         this.entityData.set(SIT_COOLDOWN, cooldown);
     }
@@ -922,16 +832,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     // Sleeping
-    public long getEepyPoseTicks() {
-        return this.entityData.get(EEPY_POSE_TICKS);
-    }
-    public void setEepyPoseTicks(long l) {
-        this.entityData.set(EEPY_POSE_TICKS, l);
-    }
-
     public int getEepyCooldown() {
         return this.entityData.get(EEPY_COOLDOWN);
     }
+
     public void setEepyCooldown(int cooldown) {
         this.entityData.set(EEPY_COOLDOWN, cooldown);
     }
@@ -948,6 +852,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public int getCommand() {
         return this.entityData.get(COMMAND);
     }
+
     public void setCommand(int command) {
         this.entityData.set(COMMAND, command);
     }

@@ -202,7 +202,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
             if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
             if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
-            if (!this.isMobEepy()) {
+            if (!this.isEepy()) {
                 if (shakeCooldown > 0) shakeCooldown--;
                 if (stretchCooldown > 0) stretchCooldown--;
             }
@@ -564,7 +564,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    private static class TherizinosaurusShakeGoal extends AnimationGoal {
+    private static class TherizinosaurusShakeGoal extends IdleAnimationGoal {
 
         private final Therizinosaurus therizinosaurus;
 
@@ -575,7 +575,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isBaby();
         }
 
         @Override
@@ -585,7 +585,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    private static class TherizinosaurusStretchGoal extends AnimationGoal {
+    private static class TherizinosaurusStretchGoal extends IdleAnimationGoal {
 
         private final Therizinosaurus therizinosaurus;
 
@@ -596,7 +596,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isBaby();
         }
 
         @Override

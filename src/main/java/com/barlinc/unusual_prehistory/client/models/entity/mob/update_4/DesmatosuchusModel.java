@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.DesmatosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Desmatosuchus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -134,30 +135,23 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 	public void setupAnim(Desmatosuchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
+		if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(DesmatosuchusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(DesmatosuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdle(entity.idleAnimationState, DesmatosuchusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks, 1 + limbSwingAmount * 4);
-        this.animate(entity.sitStartAnimationState, DesmatosuchusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, DesmatosuchusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, DesmatosuchusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.grazeAnimationState, DesmatosuchusAnimations.IDLE_GRAZE_BLEND, ageInTicks);
-        this.animate(entity.chewAnimationState, DesmatosuchusAnimations.IDLE_CHEW_BLEND, ageInTicks);
-        this.animate(entity.rollAnimationState, DesmatosuchusAnimations.ROLL, ageInTicks);
-        this.animate(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animate(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks);
-        this.animate(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks);
-        this.animate(entity.eepyStartAnimationState, DesmatosuchusAnimations.BURROW_START, ageInTicks);
-        this.animate(entity.eepyAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
-        this.animate(entity.eepyEndAnimationState, DesmatosuchusAnimations.BURROW_END, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, DesmatosuchusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.grazeAnimationState, DesmatosuchusAnimations.IDLE_GRAZE_BLEND, ageInTicks);
+        this.animateSmooth(entity.rollAnimationState, DesmatosuchusAnimations.ROLL, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks);
+        this.animateSmooth(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
 
 		if (this.young) this.applyStatic(DesmatosuchusAnimations.BABY_TRANSFORM);
 
-		this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

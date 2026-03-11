@@ -172,18 +172,6 @@
      }
 
      @Override
-     public void startSitting() {
-     }
-
-     @Override
-     public void stopSitting() {
-     }
-
-     @Override
-     public void stopSittingInstantly() {
-     }
-
-     @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);

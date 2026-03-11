@@ -23,6 +23,6 @@ public class KaprosuchusRenderer extends MobRenderer<Kaprosuchus, KaprosuchusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Kaprosuchus entity) {
-        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
+        return entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

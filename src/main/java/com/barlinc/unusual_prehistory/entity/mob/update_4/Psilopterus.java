@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusOpenDoorGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -109,7 +109,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);
         return navigation;
@@ -253,29 +253,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
         this.idleAnimationState.animateWhen(this.canPlayIdleAnimation() && !this.isInWater(), this.tickCount);
         this.swimAnimationState.animateWhen(this.canPlayIdleAnimation() && this.isInWater(), this.tickCount);
-
-        if (this.isMobVisuallyEepy()) {
-            this.attack1AnimationState.stop();
-            this.attack2AnimationState.stop();
-            this.kickAnimationState.stop();
-            this.idleAnimationState.stop();
-            this.dig1AnimationState.stop();
-            this.dig2AnimationState.stop();
-            this.preen1AnimationState.stop();
-            this.preen2AnimationState.stop();
-
-            if (this.isVisuallyEepy()) {
-                this.eepyStartAnimationState.startIfStopped(this.tickCount);
-                this.eepyAnimationState.stop();
-            } else {
-                this.eepyStartAnimationState.stop();
-                this.eepyAnimationState.startIfStopped(this.tickCount);
-            }
-        } else {
-            this.eepyStartAnimationState.stop();
-            this.eepyAnimationState.stop();
-            this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-        }
     }
 
     private boolean canPlayIdleAnimation() {
@@ -460,7 +437,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         }
     }
 
-    private static class PsilopterusDigGoal extends AnimationGoal {
+    private static class PsilopterusDigGoal extends IdleAnimationGoal {
 
         private final Psilopterus psilopterus;
 
@@ -471,7 +448,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
         @Override
         public boolean canUse() {
-            return super.canUse() && psilopterus.digCooldown == 0 && !psilopterus.isMobSitting() && psilopterus.level().getBlockState(psilopterus.blockPosition().below()).is(UP2BlockTags.PSILOPTERUS_DIGGING_BLOCKS);
+            return super.canUse() && psilopterus.digCooldown == 0 && psilopterus.level().getBlockState(psilopterus.blockPosition().below()).is(UP2BlockTags.PSILOPTERUS_DIGGING_BLOCKS);
         }
 
         @Override
@@ -505,7 +482,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         }
     }
 
-    private static class PsilopterusPreenGoal extends AnimationGoal {
+    private static class PsilopterusPreenGoal extends IdleAnimationGoal {
 
         private final Psilopterus psilopterus;
 
@@ -516,7 +493,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
         @Override
         public boolean canUse() {
-            return super.canUse() && psilopterus.preenCooldown == 0 && !psilopterus.isMobSitting();
+            return super.canUse() && psilopterus.preenCooldown == 0;
         }
 
         @Override

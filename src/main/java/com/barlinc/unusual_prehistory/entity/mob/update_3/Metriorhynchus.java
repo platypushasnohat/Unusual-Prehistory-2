@@ -4,8 +4,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -34,6 +32,7 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -115,7 +114,7 @@
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.98F, 0.1F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
+             this.navigation = new WaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -288,7 +287,7 @@
      }
 
      // Goals
-     private static class MetriorhynchusBellowGoal extends AnimationGoal {
+     private static class MetriorhynchusBellowGoal extends IdleAnimationGoal {
 
          private final Metriorhynchus metriorhynchus;
 
