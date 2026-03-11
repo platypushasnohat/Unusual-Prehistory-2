@@ -16,7 +16,7 @@
       "fossil_item": "unusual_prehistory:roach_fossil",
       "egg_item": "unusual_prehistory:manipulator_ootheca",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Hellish Cockroach that lives for Violence"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -31,7 +31,22 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:spider_eye",
+      "feature_1.tooltip": "Manipulator becomes highly aggressive at night, attacking players as well as spiders and silverfish",
+      "feature_1.title_one_line": "Arthropod Aggression",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:iron_sword",
+      "feature_2.tooltip": "§7They can manipulate and dual-wield certain melee weapons",
+      "feature_2.title_one_line": "Tool Manipulator!!",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:torchflower",
+      "feature_3.tooltip": "§7By giving one a §aTorchflower§r, §7the player may be able to make use of their unique abilities...",
+      "feature_3.title_one_line": "Taming the Terrible",
+      "feature_3.title_two_line": ""
     }
   ]
 }
