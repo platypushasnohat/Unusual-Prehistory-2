@@ -1,6 +1,5 @@
 {
   "parent": "unusual_prehistory:block/cycad_crown",
-  "gui_light": "front",
   "display": {
     "gui": {
       "rotation": [ 30, 225, 0 ],
