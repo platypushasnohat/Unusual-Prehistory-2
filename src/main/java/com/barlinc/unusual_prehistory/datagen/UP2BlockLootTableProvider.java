@@ -153,6 +153,9 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(CLADOPHLEBIS.get());
         this.dropPottedContents(POTTED_CLADOPHLEBIS.get());
 
+        this.dropSelf(ARCHAEOSIGILLARIA.get());
+        this.dropPottedContents(POTTED_ARCHAEOSIGILLARIA.get());
+
         this.dropSelf(QUILLWORT.get());
         this.dropPottedContents(POTTED_QUILLWORT.get());
 
@@ -172,6 +175,11 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());
+
+        this.dropSelf(GUANGDEDENDRON_SPORE.get());
+        this.dropSelf(GUANGDEDENDRON_STEM.get());
+        this.dropSelf(LUSH_GUANGDEDENDRON_STEM.get());
+        this.dropSelf(GUANGDEDENDRON_CROWN.get());
 
         this.dropSelf(CYCAD_SEEDLING.get());
         this.dropSelf(CYCAD_STEM.get());

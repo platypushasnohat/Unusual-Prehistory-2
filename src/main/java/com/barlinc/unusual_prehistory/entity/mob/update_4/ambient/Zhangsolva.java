@@ -1,8 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4.ambient;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,7 +15,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
@@ -27,8 +28,8 @@ import java.util.EnumSet;
 
 public class Zhangsolva extends AmbientMob {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState flyAnimationState = new AnimationState();
+    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState flyAnimationState = new SmoothAnimationState(1.0F);
 
     public Zhangsolva(EntityType<? extends AmbientMob> entityType, Level level) {
         super(entityType, level);
@@ -51,7 +52,7 @@ public class Zhangsolva extends AmbientMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level){
+        NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, level){
             @Override
             public boolean isStableDestination(BlockPos blockPos) {
                 return !level().getBlockState(blockPos.below()).isAir();

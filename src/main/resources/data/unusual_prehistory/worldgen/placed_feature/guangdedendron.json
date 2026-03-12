@@ -1,0 +1,17 @@
+{
+  "feature": "unusual_prehistory:guangdedendron",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "unusual_prehistory:guangdedendron_spore",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

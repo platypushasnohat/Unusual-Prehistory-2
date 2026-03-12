@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -105,6 +106,7 @@ public class ModEvents {
         event.put(UP2Entities.BARINASUCHUS.get(), Barinasuchus.createAttributes().build());
         event.put(UP2Entities.BRACHIOSAURUS.get(), Brachiosaurus.createAttributes().build());
         event.put(UP2Entities.COELACANTHUS.get(), Coelacanthus.createAttributes().build());
+        event.put(UP2Entities.DELITZSCHALA.get(), Delitzschala.createAttributes().build());
         event.put(UP2Entities.DESMATOSUCHUS.get(), Desmatosuchus.createAttributes().build());
         event.put(UP2Entities.DIMORPHODON.get(), Dimorphodon.createAttributes().build());
         event.put(UP2Entities.HIBBERTOPTERUS.get(), Hibbertopterus.createAttributes().build());

@@ -387,6 +387,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
+
+                GUANGDEDENDRON_STEM.get(),
+                LUSH_GUANGDEDENDRON_STEM.get(),
+                GUANGDEDENDRON_CROWN.get(),
+
                 CYCAD_STEM.get(),
                 CYCAD_CROWN.get(),
 
@@ -422,6 +427,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 MOSSY_DIRT.get()
+        );
+
+        this.tag(BlockTags.SWORD_EFFICIENT).add(
+                GUANGDEDENDRON_CROWN.get(),
+                GUANGDEDENDRON_STEM.get(),
+                LUSH_GUANGDEDENDRON_STEM.get()
         );
 
         this.tag(BlockTags.SLABS).add(

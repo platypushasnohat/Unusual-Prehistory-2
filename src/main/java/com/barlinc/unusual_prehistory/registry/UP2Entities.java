@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
@@ -366,6 +367,14 @@ public class UP2Entities {
     );
 
     // Ambient
+    public static final RegistryObject<EntityType<Delitzschala>> DELITZSCHALA = ENTITY_TYPE.register(
+            "delitzschala", () ->
+            EntityType.Builder.of(Delitzschala::new, MobCategory.AMBIENT)
+                    .sized(0.4F, 0.1F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(UnusualPrehistory2.MOD_ID, "delitzschala").toString())
+    );
+
     public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = ENTITY_TYPE.register(
             "zhangsolva", () ->
             EntityType.Builder.of(Zhangsolva::new, MobCategory.AMBIENT)

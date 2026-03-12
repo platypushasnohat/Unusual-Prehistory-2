@@ -82,7 +82,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 BENNETTITALES_FOSSIL.get(),
                 AETHOPHYLLUM_FOSSIL.get(),
                 BRACHYPHYLLUM_FOSSIL.get(),
-                HORSETAIL_FOSSIL.get()
+                GUANGDEDENDRON_FOSSIL.get()
         );
 
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(

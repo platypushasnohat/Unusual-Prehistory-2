@@ -25,6 +25,7 @@ public class UP2Features {
     public static final ResourceKey<PlacedFeature> HORSETAIL_BONEMEAL = createPlacedFeatureKey("horsetail_bonemeal");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GUANGDEDENDRON = createConfiguredFeatureKey("guangdedendron");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM_BEES = createConfiguredFeatureKey("dryophyllum_bees");

@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-11T19:02:59.8370218	Tags for minecraft:block mod id unusual_prehistory
+// 1.20.1	2026-03-11T22:38:09.8085547	Tags for minecraft:block mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/blocks/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/blocks/fence_gates/wooden.json
 3a1fc9d3ceac65abe3490d25da3614524c4a92c9 data/minecraft/tags/blocks/cauldrons.json
@@ -8,7 +8,7 @@ cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/minecraft/tags/blocks/fence_gates.
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/minecraft/tags/blocks/impermeable.json
 3e88b9c036ecfd1caeb735dd3710140167acbeb1 data/minecraft/tags/blocks/leaves.json
 5b87460f66f64c341f03ada471b023e70443fce9 data/minecraft/tags/blocks/logs_that_burn.json
-3a26629628948f96b48b9e2284f12603f266a29a data/minecraft/tags/blocks/mineable/axe.json
+2a25650290862de7cc20adeaa71e061091f88b02 data/minecraft/tags/blocks/mineable/axe.json
 f1ee46d81dedac4390263ba920c07ea58ab65e3f data/minecraft/tags/blocks/mineable/hoe.json
 b77bd0daf926b467f4e41bb37931e16444442b84 data/minecraft/tags/blocks/mineable/pickaxe.json
 121a1e153124132b00e7312f4f4d2bea89a8d92e data/minecraft/tags/blocks/mineable/shovel.json
@@ -23,6 +23,7 @@ e30ebc6be24b539b7f2de8884a7a534c30e81e2b data/minecraft/tags/blocks/replaceable_
 6663c82abbd38483c8866e8ed5d71085f5222bce data/minecraft/tags/blocks/standing_signs.json
 5c36712c59e16d28f1a82637940ccf1ddb4e7a60 data/minecraft/tags/blocks/stone_buttons.json
 aa62418761cfcd44d26c6cc8395b1f4776ed8dee data/minecraft/tags/blocks/stone_pressure_plates.json
+10c75d656738aafc1a1ceebd52e93836c453de50 data/minecraft/tags/blocks/sword_efficient.json
 d54bdf4f72269a25f58ccf850e44cf424402d041 data/minecraft/tags/blocks/tall_flowers.json
 c610d6bcfb655bb2ed195d6ea8ce103f5b8f4245 data/minecraft/tags/blocks/wall_hanging_signs.json
 f4162180d428f56462fcb0eb7384576e30138558 data/minecraft/tags/blocks/wall_signs.json

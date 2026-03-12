@@ -3,6 +3,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"render_type": "cutout",
+	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "unusual_prehistory:block/cycad_seedling",

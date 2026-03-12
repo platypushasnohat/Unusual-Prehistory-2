@@ -44,6 +44,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.pottedPlant(QUILLWORT, POTTED_QUILLWORT);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
         this.pottedPlant(NEOMARIOPTERIS, POTTED_NEOMARIOPTERIS);
+        this.pottedPlant(ARCHAEOSIGILLARIA, POTTED_ARCHAEOSIGILLARIA);
 
         this.tintedPottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
 
