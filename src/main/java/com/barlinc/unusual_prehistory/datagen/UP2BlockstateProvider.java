@@ -39,12 +39,13 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.slab(FLORALITE_SLAB, this.blockTexture(FLORALITE.get()));
 
         this.pottedPlant(BENNETTITALES, POTTED_BENNETTITALES);
-        this.pottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
         this.pottedPlant(COOKSONIA, POTTED_COOKSONIA);
         this.pottedPlant(HORSETAIL, POTTED_HORSETAIL);
         this.pottedPlant(QUILLWORT, POTTED_QUILLWORT);
         this.pottedPlant(LEEFRUCTUS, POTTED_LEEFRUCTUS);
         this.pottedPlant(NEOMARIOPTERIS, POTTED_NEOMARIOPTERIS);
+
+        this.tintedPottedPlant(CLADOPHLEBIS, POTTED_CLADOPHLEBIS);
 
         this.tallPlant(LARGE_HORSETAIL);
         this.tallPlant(RAIGUENRAYUN);
@@ -267,6 +268,22 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     private void pottedPlant(RegistryObject<Block> plant, RegistryObject<Block> pot) {
         this.pot(pot, this.blockTexture(plant.get()));
         this.simpleCross(plant);
+        this.generatedItem(plant.get(), TextureFolder.BLOCK);
+    }
+
+    private void simpleTintedCross(RegistryObject<Block> block) {
+        this.simpleBlock(block.get(), this.models().withExistingParent(getItemName(block.get()), "block/tinted_cross").texture("cross", this.blockTexture(block.get())).renderType("cutout"));
+        this.itemModel(block);
+    }
+
+    private void tintedPot(RegistryObject<Block> pot, ResourceLocation texture) {
+        ModelFile model = this.models().withExistingParent(getBlockName(pot.get()), "block/tinted_flower_pot_cross").texture("plant", texture).renderType("cutout");
+        this.simpleBlock(pot.get(), model);
+    }
+
+    private void tintedPottedPlant(RegistryObject<Block> plant, RegistryObject<Block> pot) {
+        this.tintedPot(pot, this.blockTexture(plant.get()));
+        this.simpleTintedCross(plant);
         this.generatedItem(plant.get(), TextureFolder.BLOCK);
     }
 

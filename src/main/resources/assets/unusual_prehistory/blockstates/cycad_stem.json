@@ -1,16 +1,30 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "unusual_prehistory:block/cycad_stem",
-      "x": 270,
-      "y": 90
-    },
-    "axis=y": {
+    "facing=up": {
       "model": "unusual_prehistory:block/cycad_stem"
     },
-    "axis=z": {
+    "facing=down": {
       "model": "unusual_prehistory:block/cycad_stem",
-      "x": 270
+      "x": 180
+    },
+    "facing=north": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "unusual_prehistory:block/cycad_stem",
+      "x": 90,
+      "y": 270
     }
   }
 }

@@ -25,11 +25,16 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambien
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -114,13 +119,11 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
-        // Update 5
+        // Future
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ERYON.get(), EryonRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PALAEOPHIS.get(), PalaeophisRenderer::new);
-
-        // Update 6
         event.registerEntityRenderer(UP2Entities.WONAMBI.get(), WonambiRenderer::new);
 
         // Misc
@@ -192,13 +195,33 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ULUGHBEGSAURUS, UlughbegsaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
 
-        // Update 5
+        // Future
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ERYON, EryonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PALAEOPHIS, PalaeophisModel::createBodyLayer);
-
-        // Update 6
         event.registerLayerDefinition(UP2ModelLayers.WONAMBI, WonambiModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register((state, world, pos, tintIndex) -> {
+                    if (world == null || pos == null) {
+                        return FoliageColor.getDefaultColor();
+                    }
+                    return BiomeColors.getAverageFoliageColor(world, pos);
+                },
+                UP2Blocks.CLADOPHLEBIS.get()
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> {
+                    BlockState blockstate = ((BlockItem)stack.getItem()).getBlock().defaultBlockState();
+                    return event.getBlockColors().getColor(blockstate, null, null, tintIndex);
+                },
+                UP2Blocks.CLADOPHLEBIS.get()
+        );
     }
 }

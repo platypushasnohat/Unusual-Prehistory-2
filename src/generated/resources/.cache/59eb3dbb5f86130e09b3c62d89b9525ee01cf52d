@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-28T12:40:21.0171312	Loot Tables
+// 1.20.1	2026-03-11T19:02:59.8346574	Loot Tables
 a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_tables/blocks/aegirocassis_eggs.json
 0faf1bb4e2d155e8c124ced8904e28d4a35a8032 data/unusual_prehistory/loot_tables/blocks/aethophyllum.json
 86a581faab506fc6da41180e7ace6da287b6851a data/unusual_prehistory/loot_tables/blocks/asphalt.json
@@ -18,9 +18,9 @@ fa7a7a3e29b0770e4be995b455152b14f86ecc51 data/unusual_prehistory/loot_tables/blo
 af6e2f48f528b61ca55d45b41e22126642cbe42a data/unusual_prehistory/loot_tables/blocks/coelacanthus_roe.json
 9c4b6ab2c49c83d5eba2532671054e13d295cd3f data/unusual_prehistory/loot_tables/blocks/cooksonia.json
 55a64d6adb3aa7c83c1b9ffb715d78e5a1154940 data/unusual_prehistory/loot_tables/blocks/cyan_reinforced_glass.json
-bce14e7245ae3e882631c0ba29c56870a53ec0fa data/unusual_prehistory/loot_tables/blocks/cycad_sapling.json
+8b3ca88a39c7f7a7f1a716ceb1e40e63126710f4 data/unusual_prehistory/loot_tables/blocks/cycad_crown.json
+00d1231545391186cf517e09a6bb786956b425ad data/unusual_prehistory/loot_tables/blocks/cycad_seedling.json
 83209355d4a238055470e18b3aa6cd13a6482ef0 data/unusual_prehistory/loot_tables/blocks/cycad_stem.json
-40a5d197abdc740d3b95a3be5704d3a546f6cd93 data/unusual_prehistory/loot_tables/blocks/cycad_top.json
 3592bcd375fce39bdc577815bb6ec591dca3afa6 data/unusual_prehistory/loot_tables/blocks/desmatosuchus_egg.json
 b6f77fd5da30d2afb5b826b1c145c544eb31ac2e data/unusual_prehistory/loot_tables/blocks/diplocaulus_eggs.json
 2ede92fdc59397116af542274efb981c561a46c8 data/unusual_prehistory/loot_tables/blocks/dryophyllum_button.json

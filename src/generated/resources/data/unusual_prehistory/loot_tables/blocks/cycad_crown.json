@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:cycad_top"
+          "name": "unusual_prehistory:cycad_crown"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/cycad_top"
+  "random_sequence": "unusual_prehistory:blocks/cycad_crown"
 }

@@ -41,7 +41,7 @@ public class PrehistoricPlantBlock extends BushBlock implements BonemealableBloc
     }
 
     @Override
-    public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+    public boolean isBonemealSuccess(@NotNull Level level, RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 

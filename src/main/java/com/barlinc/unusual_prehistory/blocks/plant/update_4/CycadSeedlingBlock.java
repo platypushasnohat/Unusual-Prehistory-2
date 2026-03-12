@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks.plant.update_4;
 
+import com.barlinc.unusual_prehistory.blocks.plant.PrehistoricPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Features;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -11,10 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -24,11 +25,17 @@ import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
-public class CycadSaplingBlock extends BushBlock implements BonemealableBlock {
-    protected static final VoxelShape SHAPE = makeShape();
+@SuppressWarnings("deprecation")
+public class CycadSeedlingBlock extends PrehistoricPlantBlock implements BonemealableBlock {
 
-    public CycadSaplingBlock(BlockBehaviour.Properties properties) {
+    public static final VoxelShape SHAPE = buildShape(
+            Block.box(5, 0, 5, 11, 8, 11),
+            Block.box(6, 8, 6, 10, 12, 10)
+    );
+
+    public CycadSeedlingBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
@@ -38,23 +45,18 @@ public class CycadSaplingBlock extends BushBlock implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        return (double) pRandom.nextFloat() < 0.4D;
+    public boolean isBonemealSuccess(@NotNull Level level, RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        return random.nextFloat() < 0.4F;
     }
 
     @Override
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-        this.growCycad(pLevel, pPos, pState, pRandom);
-    }
-
-    @Override
-    protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return state.isSolidRender(level, pos);
+    public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
+        this.growCycad(level, pos, state, random);
     }
 
     public boolean growCycad(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
@@ -74,11 +76,22 @@ public class CycadSaplingBlock extends BushBlock implements BonemealableBlock {
         }
     }
 
-    public static VoxelShape makeShape(){
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Block.box(5.0D, 0, 5.0D, 11.0D, 8.0D, 11.0D), BooleanOp.OR);
-        shape = Shapes.join(shape, Block.box(6.0D, 8.0D, 6.0D, 10.0D, 12.0D, 10.0D), BooleanOp.OR);
-        return shape;
+    private static VoxelShape buildShape(VoxelShape... from) {
+        return Stream.of(from).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
     }
 
+    @Override
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+        return false;
+    }
+
+    @Override
+    public float getShadeBrightness(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos blockPos) {
+        return 1.0F;
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos blockPos) {
+        return true;
+    }
 }

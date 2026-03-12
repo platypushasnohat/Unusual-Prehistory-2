@@ -27,7 +27,7 @@
         "provider": {
           "type": "minecraft:simple_state_provider",
           "state": {
-            "Name": "unusual_prehistory:cycad_top"
+            "Name": "unusual_prehistory:cycad_crown"
           }
         }
       }

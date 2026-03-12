@@ -1,0 +1,11 @@
+{
+  "parent": "unusual_prehistory:block/cycad_crown",
+  "gui_light": "front",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "translation": [ 0, 0, 0],
+      "scale":[ 0.3, 0.3, 0.3 ]
+    }
+  }
+}

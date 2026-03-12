@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:cycad_sapling"
+          "name": "unusual_prehistory:cycad_seedling"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/cycad_sapling"
+  "random_sequence": "unusual_prehistory:blocks/cycad_seedling"
 }

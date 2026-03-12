@@ -388,7 +388,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
                 CYCAD_STEM.get(),
-                CYCAD_TOP.get(),
+                CYCAD_CROWN.get(),
 
                 DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(),
                 STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(),
