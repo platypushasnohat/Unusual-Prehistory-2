@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.worldgen.feature;
 
-import com.barlinc.unusual_prehistory.blocks.CalamophytonBlock;
+import com.barlinc.unusual_prehistory.blocks.plant.update_1.CalamophytonBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.mojang.serialization.Codec;

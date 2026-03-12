@@ -2,7 +2,11 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.grower.*;
+import com.barlinc.unusual_prehistory.blocks.egg.*;
+import com.barlinc.unusual_prehistory.blocks.plant.*;
+import com.barlinc.unusual_prehistory.blocks.plant.grower.*;
+import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
+import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;

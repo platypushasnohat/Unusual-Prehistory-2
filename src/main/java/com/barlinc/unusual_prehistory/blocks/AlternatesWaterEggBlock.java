@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks;
 
-import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
-import com.barlinc.unusual_prehistory.blocks.blockentity.WaterEggBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.WaterEggBlockEntity;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.utils;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.client.sounds.AegirocassisHoverSound;
 import com.barlinc.unusual_prehistory.client.sounds.BugBuzzSound;
 import com.barlinc.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSound;
