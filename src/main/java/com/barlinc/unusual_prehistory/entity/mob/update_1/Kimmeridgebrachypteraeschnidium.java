@@ -5,8 +5,8 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookCon
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumLookAroundGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumScatterGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.KimmeridgebrachypteraeschnidiumLookAroundGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.KimmeridgebrachypteraeschnidiumScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -154,7 +154,8 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (this.getPreenCooldown() > 0 && !this.level().isClientSide) this.setPreenCooldown(this.getPreenCooldown() - 1);
     }
 

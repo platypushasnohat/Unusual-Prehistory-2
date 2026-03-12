@@ -110,18 +110,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
-     }
-
-     @Override
      public float getWalkAnimationSpeed() {
          return this.isBaby() ? 4.0F : 10.0F;
-     }
-
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             default -> super.handleEntityEvent(id);
-         }
      }
 
      @Override

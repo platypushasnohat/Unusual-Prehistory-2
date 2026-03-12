@@ -132,7 +132,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacified(true);
+                    this.setPacifiedTicks(-1);
                     this.heal(this.getMaxHealth());
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
@@ -293,7 +293,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (attackTicks > 0) attackTicks--;
         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
             this.attackCooldown = 2 + this.getRandom().nextInt(2);
@@ -311,27 +312,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.idleAnimationState.animateWhen(!this.isEepy() && !this.isSitting(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
         this.jumpAnimationState.animateWhen(this.leapProgress > 0.0F, this.tickCount);
-//
-//        if (this.isMobVisuallySitting()) {
-//            this.sitEndAnimationState.stop();
-//            this.attack1AnimationState.stop();
-//            this.attack2AnimationState.stop();
-//            this.idleAnimationState.stop();
-//            this.shakeAnimationState.stop();
-//            this.jumpAnimationState.stop();
-//
-//            if (this.isVisuallySitting()) {
-//                this.sitStartAnimationState.startIfStopped(this.tickCount);
-//                this.sitAnimationState.stop();
-//            } else {
-//                this.sitStartAnimationState.stop();
-//                this.sitAnimationState.startIfStopped(this.tickCount);
-//            }
-//        } else {
-//            this.sitStartAnimationState.stop();
-//            this.sitAnimationState.stop();
-//            this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-//        }
     }
 
     @Override
@@ -530,5 +510,58 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     public static boolean canSpawn(EntityType<Ulughbegsaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.ULUGHBEGSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    // Goals
+    private static class UlughbegsaurusAttackGoal extends AttackGoal {
+
+        protected final Ulughbegsaurus ulughbegsaurus;
+
+        public UlughbegsaurusAttackGoal(Ulughbegsaurus ulughbegsaurus) {
+            super(ulughbegsaurus);
+            this.ulughbegsaurus = ulughbegsaurus;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = ulughbegsaurus.getTarget();
+            if (target != null) {
+                double distance = ulughbegsaurus.distanceToSqr(target);
+                this.ulughbegsaurus.lookAt(ulughbegsaurus.getTarget(), 30F, 30F);
+                this.ulughbegsaurus.getLookControl().setLookAt(target, 30F, 30F);
+
+                if (this.ulughbegsaurus.getAttackState() == 1) {
+                    this.ulughbegsaurus.getNavigation().moveTo(target, 1.5D);
+                    this.tickBite();
+                } else {
+                    this.ulughbegsaurus.getNavigation().moveTo(target, 1.7D);
+                    if (distance <= this.getAttackReachSqr(target) && ulughbegsaurus.attackCooldown == 0) {
+                        this.ulughbegsaurus.setAttackState(1);
+                    }
+                }
+            }
+        }
+
+        protected void tickBite() {
+            this.timer++;
+            LivingEntity target = ulughbegsaurus.getTarget();
+            if (timer == 1) ulughbegsaurus.setPose(UP2Poses.ATTACKING.get());
+            if (timer == 8) ulughbegsaurus.playSound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK.get(), 1.0F, 0.9F + ulughbegsaurus.getRandom().nextFloat() * 0.2F);
+            if (timer == 10) {
+                if (this.ulughbegsaurus.distanceTo(target) < getAttackReachSqr(target)) {
+                    this.ulughbegsaurus.doHurtTarget(target);
+                    this.ulughbegsaurus.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 15) {
+                this.timer = 0;
+                this.ulughbegsaurus.setAttackState(0);
+            }
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity target) {
+            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        }
     }
 }

@@ -184,7 +184,7 @@
                  if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                      this.level().broadcastEntityEvent(this, (byte) 7);
                      this.tame(player);
-                     this.setPacified(true);
+                     this.setPacifiedTicks(-1);
                      this.heal(this.getMaxHealth());
                  } else {
                      this.level().broadcastEntityEvent(this, (byte) 6);
@@ -221,58 +221,11 @@
          this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.attack1AnimationState.animateWhen(this.attack1AnimationState.isStarted(), this.tickCount);
          this.attack2AnimationState.animateWhen(this.attack2AnimationState.isStarted(), this.tickCount);
-
-//         if (this.isMobVisuallySitting()) {
-//             this.sitEndAnimationState.stop();
-//             this.idleAnimationState.stop();
-//             this.threatenAnimationState.stop();
-//             this.scratch1AnimationState.stop();
-//             this.scratch2AnimationState.stop();
-//             this.shakeAnimationState.stop();
-//             this.eepyStartAnimationState.stop();
-//             this.eepyAnimationState.stop();
-//             this.eepyEndAnimationState.stop();
-//
-//             if (this.isVisuallySitting()) {
-//                 this.sitStartAnimationState.startIfStopped(this.tickCount);
-//                 this.sitAnimationState.stop();
-//             } else {
-//                 this.sitStartAnimationState.stop();
-//                 this.sitAnimationState.startIfStopped(this.tickCount);
-//             }
-//         } else {
-//             this.sitStartAnimationState.stop();
-//             this.sitAnimationState.stop();
-//             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-//         }
-//
-//         if (this.isMobVisuallyEepy()) {
-//             this.eepyEndAnimationState.stop();
-//             this.idleAnimationState.stop();
-//             this.threatenAnimationState.stop();
-//             this.scratch1AnimationState.stop();
-//             this.scratch2AnimationState.stop();
-//             this.shakeAnimationState.stop();
-//             this.sitStartAnimationState.stop();
-//             this.sitAnimationState.stop();
-//             this.sitEndAnimationState.stop();
-//
-//             if (this.isVisuallyEepy()) {
-//                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
-//                 this.eepyAnimationState.stop();
-//             } else {
-//                 this.eepyStartAnimationState.stop();
-//                 this.eepyAnimationState.startIfStopped(this.tickCount);
-//             }
-//         } else {
-//             this.eepyStartAnimationState.stop();
-//             this.eepyAnimationState.stop();
-//             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-//         }
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (attackTicks > 0) attackTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
              this.attackCooldown = 3 + this.getRandom().nextInt(2);
@@ -405,6 +358,58 @@
      }
 
      // Goals
+     private static class BarinasuchusAttackGoal extends AttackGoal {
+
+         protected final Barinasuchus barinasuchus;
+
+         public BarinasuchusAttackGoal(Barinasuchus barinasuchus) {
+             super(barinasuchus);
+             this.barinasuchus = barinasuchus;
+         }
+
+         @Override
+         public void tick() {
+             LivingEntity target = barinasuchus.getTarget();
+             if (target != null) {
+                 double distance = barinasuchus.distanceToSqr(target);
+                 this.barinasuchus.lookAt(barinasuchus.getTarget(), 30F, 30F);
+                 this.barinasuchus.getLookControl().setLookAt(target, 30F, 30F);
+
+                 if (this.barinasuchus.getAttackState() == 1) {
+                     this.barinasuchus.getNavigation().moveTo(target, 1.5D);
+                     this.tickBite();
+                 } else {
+                     this.barinasuchus.getNavigation().moveTo(target, 1.8D);
+                     if (distance <= this.getAttackReachSqr(target) && barinasuchus.attackCooldown == 0) {
+                         this.barinasuchus.setAttackState(1);
+                     }
+                 }
+             }
+         }
+
+         protected void tickBite() {
+             this.timer++;
+             LivingEntity target = barinasuchus.getTarget();
+             if (timer == 1) barinasuchus.setPose(UP2Poses.ATTACKING.get());
+             if (timer == 7) barinasuchus.playSound(UP2SoundEvents.BARINASUCHUS_ATTACK.get(), 1.0F, 0.9F + barinasuchus.getRandom().nextFloat() * 0.2F);
+             if (timer == 11) {
+                 if (this.barinasuchus.distanceTo(target) < this.getAttackReachSqr(target)) {
+                     this.barinasuchus.doHurtTarget(target);
+                     this.barinasuchus.swing(InteractionHand.MAIN_HAND);
+                 }
+             }
+             if (timer > 15) {
+                 this.timer = 0;
+                 this.barinasuchus.setAttackState(0);
+             }
+         }
+
+         @Override
+         protected double getAttackReachSqr(LivingEntity target) {
+             return this.mob.getBbWidth() * 1.4F * this.mob.getBbWidth() * 1.4F + target.getBbWidth();
+         }
+     }
+
      private static class BarinasuchusYawnGoal extends IdleAnimationGoal {
 
          private final Barinasuchus barinasuchus;

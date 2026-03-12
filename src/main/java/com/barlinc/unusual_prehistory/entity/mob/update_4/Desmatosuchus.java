@@ -180,8 +180,8 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
-        super.setupAnimationCooldowns();
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isEepy()) {
             if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
             if (shakeCooldown > 0) shakeCooldown--;

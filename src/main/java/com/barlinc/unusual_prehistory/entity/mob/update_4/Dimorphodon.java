@@ -45,6 +45,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Dimorphodon.class, EntityDataSerializers.INT);
 
     public int grabCooldown = 0;
+    private int runTicks = 0;
 
     public final SmoothAnimationState grabAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState nip1AnimationState = new SmoothAnimationState();
@@ -132,7 +133,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
         if (hurt && source.getEntity() != null && this.isAlive() && this.getHealth() < this.getMaxHealth() * 0.5F) {
             this.setFlying(true);
             this.setRunning(true);
-            this.setRunningTicks(this.getFastFlyingTicks());
+            this.runTicks = this.getFastFlyingTicks();
         }
         return hurt;
     }
@@ -170,15 +171,16 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
 
         if (!this.level().isClientSide) {
             if (this.isFlying()) {
-                if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
-                if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
+                if (runTicks > 0) runTicks--;
+                if (this.isRunning() && runTicks == 0) this.setRunning(false);
             }
             if (grabCooldown > 0) grabCooldown--;
         }
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isFlying() && !this.isDancing()) {
             if (nipCooldown > 0) nipCooldown--;
             if (tailChaseCooldown > 0) tailChaseCooldown--;
@@ -293,6 +295,70 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
 
     public static boolean canSpawn(EntityType<Dimorphodon> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DIMORPHODON_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    // Goals
+    private static class DimorphodonGrabGoal extends AttackGoal {
+
+        private final Dimorphodon dimorphodon;
+
+        public DimorphodonGrabGoal(Dimorphodon dimorphodon) {
+            super(dimorphodon);
+            this.dimorphodon = dimorphodon;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && dimorphodon.grabCooldown == 0 && dimorphodon.canPickUpTarget(dimorphodon.getTarget());
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && dimorphodon.grabCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.dimorphodon.setTarget(null);
+            this.dimorphodon.grabCooldown = 100 + dimorphodon.getRandom().nextInt(100);
+            if (!dimorphodon.onGround()) {
+                this.dimorphodon.setFlying(true);
+            }
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = dimorphodon.getTarget();
+            if (target != null) {
+                double distance = dimorphodon.distanceToSqr(target);
+                if (dimorphodon.getAttackState() == 1) this.tickGrab();
+                else if (distance <= this.getAttackReachSqr(target) && dimorphodon.canPickUpTarget(target) && dimorphodon.grabCooldown == 0) {
+                    this.dimorphodon.setAttackState(1);
+                } else {
+                    this.dimorphodon.getLookControl().setLookAt(target, 30F, 30F);
+                    this.dimorphodon.getNavigation().moveTo(target, 2.0D);
+                }
+            }
+        }
+
+        protected void tickGrab() {
+            this.timer++;
+            this.dimorphodon.getNavigation().stop();
+            LivingEntity target = dimorphodon.getTarget();
+            if (timer == 1) {
+                if (this.isInAttackRange(target, 1.5D)) {
+                    this.dimorphodon.setHeldMobId(target.getId());
+                }
+            }
+            if (timer > 1 && dimorphodon.getHeldMobId() != -1) {
+                this.dimorphodon.setFlying(true);
+                this.dimorphodon.setDeltaMovement(dimorphodon.getDeltaMovement().x, 0.18D, dimorphodon.getDeltaMovement().z);
+            }
+            if (timer > 80 || (timer > 2 && dimorphodon.getHeldMobId() == -1)) {
+                this.stop();
+            }
+        }
     }
 
     private static class DimorphodonNipGoal extends IdleAnimationGoal {

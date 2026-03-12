@@ -392,7 +392,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (!this.level().isClientSide && this.getTarget() == null && !this.isEepy()) {
              if (callCooldown > 0) callCooldown--;
              if (shakeCooldown > 0) shakeCooldown--;

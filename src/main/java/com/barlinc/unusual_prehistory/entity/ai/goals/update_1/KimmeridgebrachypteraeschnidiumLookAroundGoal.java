@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.kimmeridgebrachypteraeschnidium;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_1;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;

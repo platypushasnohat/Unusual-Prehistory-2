@@ -1,6 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LeptictidiumAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LeptictidiumRunLikeCrazyGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -149,7 +151,8 @@ public class Leptictidium extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.level().isClientSide) {
             if (preenCooldown > 0) preenCooldown--;
             if (sniffCooldown > 0) sniffCooldown--;

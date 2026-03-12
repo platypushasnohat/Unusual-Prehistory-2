@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
@@ -210,7 +211,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
                 if (this.getTameAttempts() > 4 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacified(true);
+                    this.setPacifiedTicks(-1);
                     this.heal(this.getMaxHealth());
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
@@ -583,7 +584,8 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWater() && !this.level().isClientSide) {
             if (flickCooldown > 0) flickCooldown--;
             if (yawnCooldown > 0) yawnCooldown--;

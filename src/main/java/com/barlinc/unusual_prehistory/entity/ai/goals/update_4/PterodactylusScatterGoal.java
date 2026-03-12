@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -41,6 +41,6 @@ public class PterodactylusScatterGoal extends Goal {
         if (pterodactylus.isHanging()) pterodactylus.setHanging(false);
         this.pterodactylus.setFlying(true);
         this.pterodactylus.setRunning(true);
-        this.pterodactylus.setRunningTicks(pterodactylus.getFastFlyingTicks());
+        this.pterodactylus.runTicks = pterodactylus.getFastFlyingTicks();
     }
 }

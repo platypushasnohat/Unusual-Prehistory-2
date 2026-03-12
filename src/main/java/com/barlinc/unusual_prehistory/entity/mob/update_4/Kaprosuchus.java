@@ -3,6 +3,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -194,7 +195,7 @@
                  if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                      this.level().broadcastEntityEvent(this, (byte) 7);
                      this.tame(player);
-                     this.setPacified(true);
+                     this.setPacifiedTicks(-1);
                      this.heal(this.getMaxHealth());
                  } else {
                      this.level().broadcastEntityEvent(this, (byte) 6);
@@ -229,62 +230,11 @@
          this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
-
-//         if (this.isMobVisuallySitting()) {
-//             this.sitEndAnimationState.stop();
-//             this.swimIdleAnimationState.stop();
-//             this.attack1AnimationState.stop();
-//             this.attack2AnimationState.stop();
-//             this.idleAnimationState.stop();
-//             this.bash1AnimationState.stop();
-//             this.bash2AnimationState.stop();
-//             this.leapAnimationState.stop();
-//             this.eepyStartAnimationState.stop();
-//             this.eepyAnimationState.stop();
-//             this.eepyEndAnimationState.stop();
-//
-//             if (this.isVisuallySitting()) {
-//                 this.sitStartAnimationState.startIfStopped(this.tickCount);
-//                 this.sitAnimationState.stop();
-//             } else {
-//                 this.sitStartAnimationState.stop();
-//                 this.sitAnimationState.startIfStopped(this.tickCount);
-//             }
-//         } else {
-//             this.sitStartAnimationState.stop();
-//             this.sitAnimationState.stop();
-//             this.sitEndAnimationState.animateWhen(this.isInSitPoseTransition() && this.getSitPoseTime() >= 0L, this.tickCount);
-//         }
-//
-//         if (this.isMobVisuallyEepy()) {
-//             this.eepyEndAnimationState.stop();
-//             this.swimIdleAnimationState.stop();
-//             this.attack1AnimationState.stop();
-//             this.attack2AnimationState.stop();
-//             this.idleAnimationState.stop();
-//             this.bash1AnimationState.stop();
-//             this.bash2AnimationState.stop();
-//             this.leapAnimationState.stop();
-//             this.sitStartAnimationState.stop();
-//             this.sitAnimationState.stop();
-//             this.sitEndAnimationState.stop();
-//
-//             if (this.isVisuallyEepy()) {
-//                 this.eepyStartAnimationState.startIfStopped(this.tickCount);
-//                 this.eepyAnimationState.stop();
-//             } else {
-//                 this.eepyStartAnimationState.stop();
-//                 this.eepyAnimationState.startIfStopped(this.tickCount);
-//             }
-//         } else {
-//             this.eepyStartAnimationState.stop();
-//             this.eepyAnimationState.stop();
-//             this.eepyEndAnimationState.animateWhen(this.isInEepyPoseTransition() && this.getEepyPoseTime() >= 0L, this.tickCount);
-//         }
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (attackTicks > 0) attackTicks--;
          if (bashTicks > 0) bashTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);

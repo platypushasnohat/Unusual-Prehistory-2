@@ -152,7 +152,8 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.level().isClientSide) {
             if (attackCooldown > 0) attackCooldown--;
             if (!this.isEepy()) {

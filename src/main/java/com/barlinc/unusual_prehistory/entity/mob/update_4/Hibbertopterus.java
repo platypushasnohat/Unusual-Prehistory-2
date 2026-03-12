@@ -237,24 +237,15 @@
 
      @Override
      public void setupAnimationStates() {
+         super.setupAnimationStates();
          this.idleAnimationState.animateWhen(!this.isDancing(), this.tickCount);
          this.plowAnimationState.animateWhen(this.steering.isBoosting() && this.hasControllingPassenger(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
      }
 
      @Override
-     public void setupAnimationCooldowns() {
-     }
-
-     @Override
      public float getWalkAnimationSpeed() {
          return this.isBaby() ? 5.0F : 10.0F;
-     }
-
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             default -> super.handleEntityEvent(id);
-         }
      }
 
      @Override

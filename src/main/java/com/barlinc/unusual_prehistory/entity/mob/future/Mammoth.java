@@ -8,7 +8,6 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -81,29 +80,8 @@ public class Mammoth extends PrehistoricMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
-    public void setupAnimationCooldowns() {
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isEepy(), this.tickCount);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        super.onSyncedDataUpdated(accessor);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-
-            default -> super.handleEntityEvent(id);
-        }
     }
 
     @Nullable

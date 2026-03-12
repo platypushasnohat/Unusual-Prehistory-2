@@ -1,7 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.goals.manipulator.ManipulatorAttackGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.ManipulatorAttackGoal;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
@@ -183,7 +183,7 @@
                  if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                      this.level().broadcastEntityEvent(this, (byte) 7);
                      this.tame(player);
-                     this.setPacified(true);
+                     this.setPacifiedTicks(-1);
                      this.heal(this.getMaxHealth());
                  } else {
                      this.level().broadcastEntityEvent(this, (byte) 6);
@@ -323,7 +323,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (attackTicks > 0) attackTicks--;
          if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
              this.blockCooldown();

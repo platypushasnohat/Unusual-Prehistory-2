@@ -1,5 +1,6 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Leptictidium;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.world.InteractionHand;

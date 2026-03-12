@@ -1,5 +1,6 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;

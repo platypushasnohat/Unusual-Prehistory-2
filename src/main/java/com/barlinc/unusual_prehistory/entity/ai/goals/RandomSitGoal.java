@@ -15,12 +15,12 @@ public class RandomSitGoal extends Goal {
     public boolean canUse() {
         if (prehistoricMob.getLastHurtByMob() != null) return false;
         else if (prehistoricMob.getTarget() != null) return false;
-        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.hasControllingPassenger() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy() && !prehistoricMob.isInWater() && prehistoricMob.getSitCooldown() <= 0 && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.hasControllingPassenger() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy() && !prehistoricMob.isInWaterRainOrBubble() && prehistoricMob.getSitCooldown() <= 0 && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.isInWater() && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.isInWaterRainOrBubble() && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
     }
 
     @Override

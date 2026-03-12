@@ -1,5 +1,6 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_3;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;

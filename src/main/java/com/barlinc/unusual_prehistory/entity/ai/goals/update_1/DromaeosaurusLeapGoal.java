@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_1;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Dromaeosaurus;
 import net.minecraft.world.entity.ai.goal.Goal;

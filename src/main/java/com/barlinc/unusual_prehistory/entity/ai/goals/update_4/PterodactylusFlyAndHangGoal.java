@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;

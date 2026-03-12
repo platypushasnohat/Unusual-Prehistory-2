@@ -104,12 +104,6 @@ public class Cotylorhynchus extends PrehistoricMob {
         this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
     }
 
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            default -> super.handleEntityEvent(id);
-        }
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {

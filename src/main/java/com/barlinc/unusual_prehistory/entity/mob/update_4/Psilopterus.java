@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.psilopterus.PsilopterusOpenDoorGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PsilopterusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PsilopterusOpenDoorGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
@@ -231,7 +231,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (attackTicks > 0) attackTicks--;
         if (kickTicks > 0) kickTicks--;
         if (pokeTicks > 0) pokeTicks--;

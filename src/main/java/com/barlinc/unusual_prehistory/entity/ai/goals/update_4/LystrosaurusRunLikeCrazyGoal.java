@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals;
+package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Lystrosaurus;
 import net.minecraft.world.entity.ai.goal.Goal;

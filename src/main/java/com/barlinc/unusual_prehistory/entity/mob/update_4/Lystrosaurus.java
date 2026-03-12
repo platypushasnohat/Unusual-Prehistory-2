@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LystrosaurusRunLikeCrazyGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -174,7 +175,8 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isEepy() && !this.isInWaterOrBubble()) {
             if (scratchCooldown > 0) scratchCooldown--;
             if (grazeCooldown > 0) grazeCooldown--;
