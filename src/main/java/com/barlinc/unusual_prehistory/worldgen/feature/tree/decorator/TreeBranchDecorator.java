@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.worldgen.feature.tree;
+package com.barlinc.unusual_prehistory.worldgen.feature.tree.decorator;
 
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.mojang.serialization.Codec;

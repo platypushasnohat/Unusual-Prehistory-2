@@ -4,6 +4,8 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.worldgen.feature.CalamophytonFeature;
 import com.barlinc.unusual_prehistory.worldgen.feature.StructureFeature;
 import com.barlinc.unusual_prehistory.worldgen.feature.config.StructureFeatureConfig;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.config.TreeFromStructureConfig;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.TreeFromStructureFeature;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -19,7 +21,8 @@ public class UP2Features {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, UnusualPrehistory2.MOD_ID);
 
     public static final RegistryObject<CalamophytonFeature> CALAMOPHYTON = FEATURES.register("calamophyton", () -> new CalamophytonFeature(NoneFeatureConfiguration.CODEC));
-    public static final RegistryObject<Feature<StructureFeatureConfig>> STRUCTURE_FEATURE = FEATURES.register("structure_feature", () -> new StructureFeature<>(StructureFeatureConfig.CODEC));
+    public static final RegistryObject<Feature<StructureFeatureConfig>> STRUCTURE_FEATURE = FEATURES.register("structure_feature", () -> new StructureFeature(StructureFeatureConfig.CODEC));
+    public static final RegistryObject<Feature<TreeFromStructureConfig>> TREE_STRUCTURE_FEATURE = FEATURES.register("tree", () -> new TreeFromStructureFeature(TreeFromStructureConfig.CODEC));
 
     public static final ResourceKey<PlacedFeature> MOSS_LAYER_BONEMEAL = createPlacedFeatureKey("moss_layer_bonemeal");
     public static final ResourceKey<PlacedFeature> HORSETAIL_BONEMEAL = createPlacedFeatureKey("horsetail_bonemeal");
@@ -27,7 +30,7 @@ public class UP2Features {
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GUANGDEDENDRON = createConfiguredFeatureKey("guangdedendron");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum_test");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM_BEES = createConfiguredFeatureKey("dryophyllum_bees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO = createConfiguredFeatureKey("ginkgo");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO_BEES = createConfiguredFeatureKey("ginkgo_bees");

@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.TreeBranchDecorator;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.decorator.TreeBranchDecorator;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.ginkgo.GinkgoFoliagePlacer;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.HangingLepidodendronLeavesDecorator;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron.LepidodendronFoliagePlacer;
