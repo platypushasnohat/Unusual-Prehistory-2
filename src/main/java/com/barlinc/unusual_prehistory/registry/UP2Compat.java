@@ -69,7 +69,7 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.CYCAD_CROWN.get(), 0.5F);
 
         registerCompostable(UP2Blocks.GUANGDEDENDRON_SPORE.get(), 0.3F);
-        registerCompostable(UP2Blocks.GUANGDEDENDRON_CROWN.get(), 0.5F);
+        registerCompostable(UP2Blocks.GUANGDEDENDRON.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -90,9 +90,7 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 60, 100);
 
         registerFlammable(UP2Blocks.GUANGDEDENDRON_SPORE.get(), 20, 100);
-        registerFlammable(UP2Blocks.GUANGDEDENDRON_STEM.get(), 20, 100);
-        registerFlammable(UP2Blocks.LUSH_GUANGDEDENDRON_STEM.get(), 20, 100);
-        registerFlammable(UP2Blocks.GUANGDEDENDRON_CROWN.get(), 20, 100);
+        registerFlammable(UP2Blocks.GUANGDEDENDRON.get(), 20, 100);
 
         registerFlammable(UP2Blocks.CYCAD_STEM.get(), 20, 100);
         registerFlammable(UP2Blocks.CYCAD_CROWN.get(), 20, 100);

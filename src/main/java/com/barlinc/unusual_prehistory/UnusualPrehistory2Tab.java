@@ -224,10 +224,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.CYCAD_STEM.get());
                         output.accept(UP2Blocks.CYCAD_CROWN.get());
 
-                        output.accept(UP2Blocks.GUANGDEDENDRON_SPORE.get());
-                        output.accept(UP2Blocks.GUANGDEDENDRON_STEM.get());
-                        output.accept(UP2Blocks.LUSH_GUANGDEDENDRON_STEM.get());
-                        output.accept(UP2Blocks.GUANGDEDENDRON_CROWN.get());
+                        output.accept(UP2Blocks.GUANGDEDENDRON.get());
 
                         output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
                         output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());

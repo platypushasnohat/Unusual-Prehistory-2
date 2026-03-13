@@ -29,6 +29,8 @@ public class UP2BlockTags {
     public static final TagKey<Block> FOSSILIZED_BONE_BLOCKS = modBlockTag("fossilized_bone_blocks");
     public static final TagKey<Block> PETRIFIED_WOOD = modBlockTag("petrified_wood");
 
+    public static final TagKey<Block> GUANGDEDENDRON_PLANTABLE_ON = modBlockTag("guangdedendron_plantable_on");
+
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
 
     public static final TagKey<Block> BARINASUCHUS_SPAWNABLE_ON = modBlockTag("barinasuchus_spawnable_on");

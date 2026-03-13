@@ -176,10 +176,8 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());
 
-        this.dropSelf(GUANGDEDENDRON_SPORE.get());
-        this.dropSelf(GUANGDEDENDRON_STEM.get());
-        this.dropSelf(LUSH_GUANGDEDENDRON_STEM.get());
-        this.dropSelf(GUANGDEDENDRON_CROWN.get());
+        this.add(GUANGDEDENDRON_SPORE.get(), this.createSingleItemTable(GUANGDEDENDRON.get(), ConstantValue.exactly(1.0F)));
+        this.dropSelf(GUANGDEDENDRON.get());
 
         this.dropSelf(CYCAD_SEEDLING.get());
         this.dropSelf(CYCAD_STEM.get());

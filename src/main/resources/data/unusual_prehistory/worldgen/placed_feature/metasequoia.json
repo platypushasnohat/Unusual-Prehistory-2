@@ -1,5 +1,5 @@
 {
-  "feature": "unusual_prehistory:metasequoia_structure",
+  "feature": "unusual_prehistory:metasequoia",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",
