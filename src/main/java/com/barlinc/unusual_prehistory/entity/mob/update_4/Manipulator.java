@@ -68,7 +68,8 @@
      public int attackCooldown = 0;
      public int blockCooldown = 0;
 
-     public final SmoothAnimationState idleArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
+     public final SmoothAnimationState idleArmedAnimationState = new SmoothAnimationState(1.0F);
      public final SmoothAnimationState sitArmedAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState attackArmedAnimationState = new SmoothAnimationState();
