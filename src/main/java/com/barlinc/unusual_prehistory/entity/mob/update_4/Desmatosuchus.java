@@ -48,13 +48,15 @@ import java.util.List;
 
 public class Desmatosuchus extends PrehistoricMob {
 
-    private static final EntityDataAccessor<Boolean> MOSSY = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DIRTY = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.8F);
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
 
-    public static final ResourceLocation MOSS_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing");
+    public static final ResourceLocation[] SHEARING_LOOT = { UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing_moss"),
+                                                             UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing_mud"),
+                                                             UnusualPrehistory2.modPrefix("entities/desmatosuchus_shearing_snow") };
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState sniff1AnimationState = new AnimationState();
@@ -175,12 +177,14 @@ public class Desmatosuchus extends PrehistoricMob {
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (this.isMossy() && itemstack.is(Tags.Items.SHEARS)) {
+        if (this.isDirty() && itemstack.is(Tags.Items.SHEARS)) {
             this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
             this.gameEvent(GameEvent.SHEAR, player);
-            this.setMossy(false);
+            int dirtLevel = this.getDirtLevel();
+            this.setDirtLevel(0);
             if (!this.level().isClientSide) {
-                LootTable loottable = this.level().getServer().getLootData().getLootTable(MOSS_LOOT);
+                System.out.println(dirtLevel + "Dirt level. expected table" + SHEARING_LOOT[dirtLevel - 1]);
+                LootTable loottable = this.level().getServer().getLootData().getLootTable(SHEARING_LOOT[dirtLevel - 1]);
                 List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                 items.forEach(this::spawnAtLocation);
             }
@@ -306,29 +310,33 @@ public class Desmatosuchus extends PrehistoricMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(MOSSY, false);
+        this.entityData.define(DIRTY, 0);
         this.entityData.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putBoolean("Mossy", this.isMossy());
+        compoundTag.putInt("Dirty", this.getDirtLevel());
         compoundTag.putInt("RollCooldown", this.getRollCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setMossy(compoundTag.getBoolean("Mossy"));
+        this.setDirtLevel(compoundTag.getInt("Dirty"));
         this.setRollCooldown(compoundTag.getInt("RollCooldown"));
     }
 
-    public boolean isMossy() {
-        return this.entityData.get(MOSSY);
+    public boolean isDirty() {
+        return this.entityData.get(DIRTY) > 0;
     }
-    public void setMossy(boolean mossy) {
-        this.entityData.set(MOSSY, mossy);
+    public void setDirtLevel(int dirt) {
+        this.entityData.set(DIRTY, dirt);
+    }
+
+    public int getDirtLevel() {
+        return this.entityData.get(DIRTY);
     }
 
     public int getRollCooldown() {
@@ -400,8 +408,14 @@ public class Desmatosuchus extends PrehistoricMob {
         @Override
         public void tick() {
             super.tick();
-            if (timer == 30 && !desmatosuchus.isMossy() && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
-                desmatosuchus.setMossy(true);
+            if(timer == 30 && !desmatosuchus.isDirty()) {
+                if (desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
+                    desmatosuchus.setDirtLevel(1);
+                } else if (desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS)) {
+                    desmatosuchus.setDirtLevel(2);
+                } else if (desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS)) {
+                    desmatosuchus.setDirtLevel(3);
+                }
             }
         }
 

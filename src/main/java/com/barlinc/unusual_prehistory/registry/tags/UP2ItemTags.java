@@ -73,7 +73,7 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
-    public static final TagKey<Item> DRYOPHYLLUM_LOGS = modItemTag("ginkgo_logs");
+    public static final TagKey<Item> DRYOPHYLLUM_LOGS = modItemTag("dryophyllum_logs");
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
     public static final TagKey<Item> METASEQUOIA_LOGS = modItemTag("metasequoia_logs");

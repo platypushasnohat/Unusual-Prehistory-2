@@ -7,6 +7,8 @@
     "minecraft:dirt",
     "minecraft:rooted_dirt",
     "minecraft:coarse_dirt",
-    "minecraft:packed_mud"
+    "minecraft:packed_mud",
+    "minecraft:snow",
+    "minecraft:snow_block"
   ]
 }

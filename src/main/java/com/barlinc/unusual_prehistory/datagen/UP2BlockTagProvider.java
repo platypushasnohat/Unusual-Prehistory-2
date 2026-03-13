@@ -235,7 +235,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.DIRT,
                 Blocks.ROOTED_DIRT,
                 Blocks.COARSE_DIRT,
-                Blocks.PACKED_MUD
+                Blocks.PACKED_MUD,
+                Blocks.SNOW,
+                Blocks.SNOW_BLOCK
         );
 
         this.tag(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS);
@@ -243,6 +245,15 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK
+        );
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS).add(
+                Blocks.MUD
+        );
+
+        this.tag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).add(
+                Blocks.SNOW_BLOCK,
+                Blocks.SNOW
         );
 
         this.tag(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS).add(
