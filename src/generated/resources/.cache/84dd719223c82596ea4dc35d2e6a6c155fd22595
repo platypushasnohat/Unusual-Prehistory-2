@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-11T22:18:37.2472573	Item Models: unusual_prehistory
+// 1.20.1	2026-03-12T22:33:45.526436	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -61,7 +61,6 @@ f2c3ab60cbeaa9138de4096862825a6dfaca7433 assets/unusual_prehistory/models/item/g
 79ffdac28f679b5b8a6852e42b0405428ba2dfb7 assets/unusual_prehistory/models/item/ginkgo_sign.json
 676611a19876cd6b5ae9ac7c6003e5e2b6ad8062 assets/unusual_prehistory/models/item/gluttonous_fossil.json
 6efdb73cc36392b7374df29d7382388ef951fd67 assets/unusual_prehistory/models/item/guangdedendron_fossil.json
-a180114c897f4ee39044e6fe947934f98b137668 assets/unusual_prehistory/models/item/guangdedendron_spore.json
 f63d65398445b879f036d13bf25399296f57ad1f assets/unusual_prehistory/models/item/guillotine_fossil.json
 c001fa48cd7a0059a9c11e86b0001356cac4cb94 assets/unusual_prehistory/models/item/hibbertopterus_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/hibbertopterus_spawn_egg.json

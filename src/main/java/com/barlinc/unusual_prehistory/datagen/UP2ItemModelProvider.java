@@ -48,8 +48,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.handheldRodItem(DIRT_ON_A_STICK);
 
-        this.item(UP2Blocks.GUANGDEDENDRON_SPORE);
-
         this.item(UP2Blocks.CYCAD_SEEDLING);
 
         // fossils

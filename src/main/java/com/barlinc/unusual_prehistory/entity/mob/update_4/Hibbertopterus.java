@@ -5,12 +5,12 @@
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
- import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -49,17 +49,16 @@
 
  public class Hibbertopterus extends SemiAquaticMob implements ItemSteerable {
 
-     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.8F);
-
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
 
      private final SaddlelessItemBasedSteering steering = new SaddlelessItemBasedSteering(this.entityData, PLOW_TIME);
 
-     public final AnimationState plowAnimationState = new AnimationState();
+     public final SmoothAnimationState plowAnimationState = new SmoothAnimationState();
 
      public Hibbertopterus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -135,16 +134,6 @@
      @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.HIBBERTOPTERUS_FOOD);
-     }
-
-     @Override
-     public boolean refuseToMove() {
-         return super.refuseToMove();
-     }
-
-     @Override
-     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-         return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
      }
 
      @Nullable

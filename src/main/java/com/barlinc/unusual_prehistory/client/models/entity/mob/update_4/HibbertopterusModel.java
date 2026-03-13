@@ -17,9 +17,9 @@ import org.joml.Vector4f;
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 
-    public final ModelPart root;
-    public final ModelPart body_main;
-    public final ModelPart body;
+    private final ModelPart root;
+    private final ModelPart body_main;
+    private final ModelPart body;
     private final ModelPart left_arm1;
     private final ModelPart left_arm2;
     private final ModelPart right_arm1;
@@ -165,10 +165,10 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 	public void setupAnim(@NotNull Hibbertopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);
-        this.animate(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);
+        this.animateSmooth(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks);
     }
 
 	@Override
@@ -184,5 +184,11 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
         Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
         poseStack.popPose();
         return vec3;
+    }
+
+    public void positionRider(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
     }
 }
