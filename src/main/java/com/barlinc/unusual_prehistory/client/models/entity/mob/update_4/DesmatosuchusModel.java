@@ -104,23 +104,24 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 
         PartDefinition arm_control = body_main.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, 4.25F, -8.0F));
 
+        PartDefinition left_arm1 = arm_control.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(56, 84).addBox(-2.0F, -2.25F, -2.0F, 4.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, 0.0F, 0.0F));
+
+        PartDefinition left_arm2 = left_arm1.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(76, 15).addBox(-3.5F, -0.3F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 9.05F, -1.0F));
+
+        PartDefinition right_arm1 = arm_control.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(56, 84).mirror().addBox(-2.0F, -1.25F, -2.0F, 4.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-7.0F, -1.0F, 0.0F));
+
+        PartDefinition right_arm2 = right_arm1.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(76, 15).mirror().addBox(-3.5F, 0.7F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 9.05F, -1.0F));
+
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 1.5F, 7.5F));
 
-        PartDefinition left_leg = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(36, 68).addBox(-2.5F, -2.5F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, 0.0F, 0.0F));
+        PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(36, 68).addBox(-2.5F, -2.5F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg1 = left_leg.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(76, 15).addBox(-3.5F, 0.0F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 11.5F, -1.5F));
+        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(76, 15).addBox(-3.5F, 0.0F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 11.5F, -1.5F));
 
-        PartDefinition right_leg = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(36, 68).mirror().addBox(-2.5F, -2.5F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-7.0F, 0.0F, 0.0F));
+        PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(36, 68).mirror().addBox(-2.5F, -2.5F, -2.5F, 5.0F, 14.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-7.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg1 = right_leg.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(76, 15).mirror().addBox(-3.5F, 0.0F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 11.5F, -1.5F));
+        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(76, 15).mirror().addBox(-3.5F, 0.0F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 11.5F, -1.5F));
 
-        PartDefinition left_arm = arm_control.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(56, 84).addBox(-2.0F, -2.25F, -2.0F, 4.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, 0.0F, 0.0F));
-
-        PartDefinition left_arm1 = left_arm.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(76, 15).addBox(-3.5F, -0.3F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 9.05F, -1.0F));
-
-        PartDefinition right_arm = arm_control.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(56, 84).mirror().addBox(-2.0F, -1.25F, -2.0F, 4.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-7.0F, -1.0F, 0.0F));
-
-		PartDefinition right_arm1 = right_arm.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(76, 15).mirror().addBox(-3.5F, 0.7F, -4.0F, 7.0F, 0.0F, 6.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 9.05F, -1.0F));
 
 		return LayerDefinition.create(meshdefinition, 256, 256);
 	}
