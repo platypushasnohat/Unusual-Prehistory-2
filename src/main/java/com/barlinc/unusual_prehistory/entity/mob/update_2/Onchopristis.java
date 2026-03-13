@@ -13,7 +13,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -188,8 +187,8 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
-        super.actuallyHurt(damageSource, amount);
+    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+        super.actuallyHurt(source, amount);
         if (this.isBurrowed()) {
             this.setBurrowed(false);
             this.setBurrowCooldown(600 + this.getRandom().nextInt(600));

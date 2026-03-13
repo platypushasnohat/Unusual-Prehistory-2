@@ -95,18 +95,18 @@ public class LeptictidiumModel extends UP2Model<Leptictidium> {
 	public void setupAnim(Leptictidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
+		if (!entity.isInWaterOrBubble()) {
             if (entity.isRunning()) this.animateWalk(LeptictidiumAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
 			else this.animateWalk(LeptictidiumAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
 		if (this.young) this.applyStatic(LeptictidiumAnimations.BABY_TRANSFORM);
 
-		this.animateIdle(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.attackAnimationState, LeptictidiumAnimations.ATTACK, ageInTicks);
-        this.animate(entity.swimAnimationState, LeptictidiumAnimations.SWIM, ageInTicks);
-        this.animate(entity.preenAnimationState, LeptictidiumAnimations.IDLE_PREEN, ageInTicks);
-        this.animate(entity.sniffAnimationState, LeptictidiumAnimations.SNIFF_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.attackAnimationState, LeptictidiumAnimations.ATTACK, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, LeptictidiumAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.preenAnimationState, LeptictidiumAnimations.IDLE_PREEN, ageInTicks);
+        this.animateSmooth(entity.sniffAnimationState, LeptictidiumAnimations.SNIFF_BLEND, ageInTicks);
     }
 
 	@Override

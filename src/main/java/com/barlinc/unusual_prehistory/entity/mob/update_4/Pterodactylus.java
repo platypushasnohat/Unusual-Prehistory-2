@@ -2,9 +2,9 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusFlyAndHangGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.pterodactylus.PterodactylusScatterGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusFlyAndHangGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -57,6 +57,8 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     private int checkHangingTime;
     private BlockPos prevHangPos;
     public int timeHanging = 0;
+
+    public int runTicks = 0;
 
     public final SmoothAnimationState hangIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState();
@@ -127,13 +129,13 @@ public class Pterodactylus extends PrehistoricFlyingMob {
             this.setFlying(true);
             this.setRunning(true);
             if (this.isHanging()) this.setHanging(false);
-            this.setRunningTicks(this.getFastFlyingTicks());
+            this.runTicks = this.getFastFlyingTicks();
             List<? extends Pterodactylus> entities = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(range, range / 2, range));
             for (Pterodactylus pterodactylus : entities) {
                 pterodactylus.setFlying(true);
                 pterodactylus.setRunning(true);
                 if (pterodactylus.isHanging()) pterodactylus.setHanging(false);
-                pterodactylus.setRunningTicks(pterodactylus.getFastFlyingTicks());
+                pterodactylus.runTicks = pterodactylus.getFastFlyingTicks();
             }
         }
         return hurt;
@@ -167,8 +169,8 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
-        if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
+        if (runTicks > 0) runTicks--;
+        if (this.isRunning() && runTicks == 0) this.setRunning(false);
 
         if (!level().isClientSide) this.tickHanging();
 
@@ -230,7 +232,8 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (stretchCooldown > 0) stretchCooldown--;
     }
 
@@ -377,7 +380,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     // Goals
-    private static class PterodactylusStretchGoal extends AnimationGoal {
+    private static class PterodactylusStretchGoal extends IdleAnimationGoal {
 
         private final Pterodactylus pterodactylus;
 

@@ -29,7 +29,7 @@ public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, Desmatosuc
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Desmatosuchus entity) {
-        boolean eepy = entity.isMobEepy();
+        boolean eepy = entity.isEepy();
         switch (entity.getDirtLevel()) {
             case 1: return eepy ? TEXTURE_MOSSY_EEPY : TEXTURE_MOSSY;
             case 2: return eepy ? TEXTURE_MUDDY_EEPY : TEXTURE_MUDDY;

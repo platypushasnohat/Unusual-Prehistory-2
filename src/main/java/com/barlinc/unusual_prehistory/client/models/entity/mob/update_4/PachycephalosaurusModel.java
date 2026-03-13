@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.Pach
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -106,7 +107,7 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 	public void setupAnim(Pachycephalosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater() && !entity.isMobEepy() && !entity.isInEepyPoseTransition() && entity.getPose() != UP2Poses.WARNING.get() && entity.getPose() != UP2Poses.RECOVERING.get()) {
+		if (!entity.isInWater() && !entity.isEepy() && entity.getPose() != UP2Poses.WARNING.get() && entity.getPose() != UP2Poses.RECOVERING.get()) {
             if (entity.isRunning() && entity.getAttackState() != 1) this.animateWalk(PachycephalosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else if (entity.getAttackState() == 1) this.animateWalk(PachycephalosaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PachycephalosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
@@ -130,10 +131,7 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
-        if (!entity.isMobEepy()) {
-            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
-            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
-        }
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

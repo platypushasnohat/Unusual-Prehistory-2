@@ -8,16 +8,13 @@
     "BlockBehaviourMixin",
     "EvokerMixin",
     "LivingEntityMixin",
-    "MapDecorationMixin",
-    "MapDecorationTypeMixin",
     "MobMixin",
     "PoseMixin",
     "StructureTemplateAccessor",
     "SweetBerryBushBlockMixin"
   ],
   "client": [
-    "client.EntityRenderDispatcherMixin",
-    "client.MapRendererMapInstanceMixin"
+    "client.EntityRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1

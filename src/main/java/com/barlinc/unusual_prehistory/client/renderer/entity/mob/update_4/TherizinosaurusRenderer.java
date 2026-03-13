@@ -44,7 +44,7 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, UP2Mod
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Therizinosaurus entity) {
         if (entity.isBaby()) return TEXTURE_BABY;
-        else if (entity.isMobEepy()) return entity.isShaved() ? TEXTURE_SHAVED_EEPY : TEXTURE_EEPY;
+        else if (entity.isEepy()) return entity.isShaved() ? TEXTURE_SHAVED_EEPY : TEXTURE_EEPY;
         return entity.isShaved() ? TEXTURE_SHAVED : TEXTURE;
     }
 }

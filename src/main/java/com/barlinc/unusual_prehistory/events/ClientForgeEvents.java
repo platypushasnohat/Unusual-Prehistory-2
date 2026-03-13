@@ -6,23 +6,14 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Barinasuchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
-import com.barlinc.unusual_prehistory.registry.UP2MapIcons;
 import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
 import com.barlinc.unusual_prehistory.screens.ManipulatorInventoryScreen;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -31,7 +22,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,13 +35,6 @@ public class ClientForgeEvents {
     private static float prevShakeAmount;
 
     public static final List<ScreenShakeEvent> SCREEN_SHAKE_EVENTS = new ArrayList<>();
-
-    public static PoseStack lastMapPoseStack;
-    public static MultiBufferSource lastMapRenderBuffer;
-    public static int lastMapRenderPackedLight;
-    private static final RenderType PALEOZOIC_SITE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/paleozoic_fossil_site_icon.png"));
-    private static final RenderType MESOZOIC_SITE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/mesozoic_fossil_site_icon.png"));
-    private static final RenderType PETRIFIED_TREE_ICON = RenderType.text(UnusualPrehistory2.modPrefix("textures/map/petrified_tree_icon.png"));
 
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
@@ -102,52 +85,6 @@ public class ClientForgeEvents {
             if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
             if (player.getVehicle() instanceof Megalania) event.getCamera().move(-event.getCamera().getMaxZoom(1.7F), 0, 0);
             if (player.getVehicle() instanceof Barinasuchus) event.getCamera().move(-event.getCamera().getMaxZoom(1.5F), 0, 0);
-        }
-    }
-
-    public static void renderMapDecoration(MapDecoration mapdecoration, int index) {
-        if (mapdecoration.getType() == UP2MapIcons.PALEOZOIC_FOSSIL_SITE) {
-            renderDecoration(mapdecoration, index, PALEOZOIC_SITE_ICON);
-        }
-        else if (mapdecoration.getType() == UP2MapIcons.MESOZOIC_FOSSIL_SITE) {
-            renderDecoration(mapdecoration, index, MESOZOIC_SITE_ICON);
-        }
-        else if (mapdecoration.getType() == UP2MapIcons.PETRIFIED_TREE_SITE) {
-            renderDecoration(mapdecoration, index, PETRIFIED_TREE_ICON);
-        }
-    }
-
-    private static void renderDecoration(MapDecoration mapdecoration, int k, RenderType mapIcon) {
-        MultiBufferSource multiBufferSource = lastMapRenderBuffer == null ? Minecraft.getInstance().renderBuffers().bufferSource() : lastMapRenderBuffer;
-        PoseStack poseStack = lastMapPoseStack == null ? new PoseStack() : lastMapPoseStack;
-        poseStack.pushPose();
-        poseStack.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F, -0.02F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees((float) (mapdecoration.getRot() * 360) / 16.0F));
-        poseStack.scale(4.0F, 4.0F, 3.0F);
-        poseStack.translate(-0.125F, 0.125F, 0.0F);
-        byte iconOrdinal = UP2MapIcons.getMapIconRenderOrdinal(mapdecoration.getType());
-        float f1 = (float) (iconOrdinal % 16 + 0) / 16.0F;
-        float f2 = (float) (iconOrdinal / 16 + 0) / 16.0F;
-        float f3 = (float) (iconOrdinal % 16 + 1) / 16.0F;
-        float f4 = (float) (iconOrdinal / 16 + 1) / 16.0F;
-        Matrix4f matrix4f1 = poseStack.last().pose();
-        VertexConsumer icons = multiBufferSource.getBuffer(mapIcon);
-        icons.vertex(matrix4f1, -1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f2).uv2(lastMapRenderPackedLight).endVertex();
-        icons.vertex(matrix4f1, 1.0F, 1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f2).uv2(lastMapRenderPackedLight).endVertex();
-        icons.vertex(matrix4f1, 1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f3, f4).uv2(lastMapRenderPackedLight).endVertex();
-        icons.vertex(matrix4f1, -1.0F, -1.0F, (float) k * -0.001F).color(255, 255, 255, 255).uv(f1, f4).uv2(lastMapRenderPackedLight).endVertex();
-        poseStack.popPose();
-        if (mapdecoration.getName() != null) {
-            Font font = Minecraft.getInstance().font;
-            Component component = mapdecoration.getName();
-            float f6 = (float) font.width(component);
-            float f7 = Mth.clamp(25.0F / f6, 0.0F, 6.0F / 9.0F);
-            poseStack.pushPose();
-            poseStack.translate(0.0F + (float) mapdecoration.getX() / 2.0F + 64.0F - f6 * f7 / 2.0F, 0.0F + (float) mapdecoration.getY() / 2.0F + 64.0F + 4.0F, -0.025F);
-            poseStack.scale(f7, f7, 1.0F);
-            poseStack.translate(0.0F, 0.0F, -0.1F);
-            font.drawInBatch(component, 0.0F, 0.0F, -1, false, poseStack.last().pose(), multiBufferSource, Font.DisplayMode.NORMAL, Integer.MIN_VALUE, lastMapRenderPackedLight);
-            poseStack.popPose();
         }
     }
 

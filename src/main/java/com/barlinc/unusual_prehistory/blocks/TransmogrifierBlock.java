@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks;
 
-import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

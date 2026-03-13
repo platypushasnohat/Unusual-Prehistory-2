@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.jawless_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_2.OnchopristisModel;
@@ -8,36 +9,34 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.LivingOo
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.MetriorhynchusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.TartuosteusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_finned_fish.*;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.CotylorhynchusModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.EryonModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.MammothModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.PalaeophisModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.WonambiModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2BoatRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2ChestBoatRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.LivingOozeRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.MetriorhynchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.TartuosteusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambient.ZhangsolvaRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.CotylorhynchusRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.EryonRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.MammothRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PalaeophisRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.WonambiRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -103,6 +102,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.BARINASUCHUS.get(), BarinasuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.BRACHIOSAURUS.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELACANTHUS.get(), CoelacanthusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.DELITZSCHALA.get(), DelitzschalaRenderer::new);
         event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.HIBBERTOPTERUS.get(), HibbertopterusRenderer::new);
@@ -122,13 +122,11 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
-        // Update 5
+        // Future
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ERYON.get(), EryonRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PALAEOPHIS.get(), PalaeophisRenderer::new);
-
-        // Update 6
         event.registerEntityRenderer(UP2Entities.WONAMBI.get(), WonambiRenderer::new);
 
         // Misc
@@ -179,6 +177,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS, BrachiosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BRACHIOSAURUS_BABY, BrachiosaurusBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELACANTHUS, CoelacanthusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DELITZSCHALA, DelitzschalaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DESMATOSUCHUS, DesmatosuchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HIBBERTOPTERUS, HibbertopterusModel::createBodyLayer);
@@ -200,13 +199,33 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ULUGHBEGSAURUS, UlughbegsaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
 
-        // Update 5
+        // Future
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ERYON, EryonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PALAEOPHIS, PalaeophisModel::createBodyLayer);
-
-        // Update 6
         event.registerLayerDefinition(UP2ModelLayers.WONAMBI, WonambiModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register((state, world, pos, tintIndex) -> {
+                    if (world == null || pos == null) {
+                        return FoliageColor.getDefaultColor();
+                    }
+                    return BiomeColors.getAverageFoliageColor(world, pos);
+                },
+                UP2Blocks.CLADOPHLEBIS.get()
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> {
+                    BlockState blockstate = ((BlockItem)stack.getItem()).getBlock().defaultBlockState();
+                    return event.getBlockColors().getColor(blockstate, null, null, tintIndex);
+                },
+                UP2Blocks.CLADOPHLEBIS.get()
+        );
     }
 }

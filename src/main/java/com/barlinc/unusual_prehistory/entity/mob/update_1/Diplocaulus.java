@@ -4,7 +4,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -37,6 +36,7 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.ai.util.DefaultRandomPos;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
@@ -111,7 +111,7 @@
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
+             this.navigation = new WaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -186,7 +186,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
          if (quirkCooldown > 0) quirkCooldown--;
      }
@@ -206,9 +207,9 @@
      }
 
      @Override
-     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+     protected void actuallyHurt(@NotNull DamageSource source, float amount) {
          this.setBurrowed(false);
-         super.actuallyHurt(damageSource, amount);
+         super.actuallyHurt(source, amount);
      }
 
      @Override
@@ -486,7 +487,7 @@
          }
      }
 
-     private static class DiplocaulusQuirkGoal extends AnimationGoal {
+     private static class DiplocaulusQuirkGoal extends IdleAnimationGoal {
 
          private final Diplocaulus diplocaulus;
 

@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.therizinosaurus.TherizinosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.therizinosaurus.TherizinosaurusForageLeavesGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.TherizinosaurusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.TherizinosaurusForageLeavesGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -192,7 +192,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.level().isClientSide) {
             if (attackTicks > 0) attackTicks--;
             if (foragingTicks > 0) foragingTicks--;
@@ -202,7 +203,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             if (foragingTicks == 0 && this.getPose() == UP2Poses.FORAGING.get()) this.setPose(Pose.STANDING);
             if (alertTicks == 0 && this.getPose() == UP2Poses.ALERTED.get()) this.setPose(Pose.STANDING);
             if (roarTicks == 0 && this.getPose() == UP2Poses.ENRAGED.get()) this.setPose(Pose.STANDING);
-            if (!this.isMobEepy()) {
+            if (!this.isEepy()) {
                 if (shakeCooldown > 0) shakeCooldown--;
                 if (stretchCooldown > 0) stretchCooldown--;
             }
@@ -564,7 +565,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    private static class TherizinosaurusShakeGoal extends AnimationGoal {
+    private static class TherizinosaurusShakeGoal extends IdleAnimationGoal {
 
         private final Therizinosaurus therizinosaurus;
 
@@ -575,7 +576,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.shakeCooldown == 0 && !therizinosaurus.isBaby();
         }
 
         @Override
@@ -585,7 +586,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
     }
 
-    private static class TherizinosaurusStretchGoal extends AnimationGoal {
+    private static class TherizinosaurusStretchGoal extends IdleAnimationGoal {
 
         private final Therizinosaurus therizinosaurus;
 
@@ -596,7 +597,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isMobSitting() && !therizinosaurus.isBaby();
+            return super.canUse() && therizinosaurus.getAngerLevel() < 4 && therizinosaurus.stretchCooldown == 0 && !therizinosaurus.isBaby();
         }
 
         @Override

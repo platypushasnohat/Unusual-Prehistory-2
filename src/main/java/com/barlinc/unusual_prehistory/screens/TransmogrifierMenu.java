@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.screens;
 
-import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;

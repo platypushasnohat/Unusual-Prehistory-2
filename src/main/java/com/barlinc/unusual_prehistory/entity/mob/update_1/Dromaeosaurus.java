@@ -4,9 +4,9 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusLeapGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.dromaeosaurus.DromaeosaurusRunGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusLeapGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusRunGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -53,7 +53,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.0D));
-        this.goalSelector.addGoal(2, new DromaeosaurusSleepingGoal(this));
+        this.goalSelector.addGoal(2, new SleepingGoal(this));
         this.goalSelector.addGoal(3, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(4, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(5, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
@@ -153,13 +153,6 @@ public class Dromaeosaurus extends PrehistoricMob {
         super.travel(vec3);
     }
 
-    @Override
-    protected void onLeashDistance(float distance) {
-        if (distance > 4.0F && this.isEepy()) {
-            this.stopEepy();
-        }
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
@@ -185,23 +178,5 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     public static boolean canSpawn(EntityType<Dromaeosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
-    }
-
-    private static class DromaeosaurusSleepingGoal extends SleepingGoal {
-
-        public DromaeosaurusSleepingGoal(PrehistoricMob prehistoricMob) {
-            super(prehistoricMob);
-        }
-
-        @Override
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        @Override
-        public void stop() {
-            this.prehistoricMob.setEepyCooldown(20);
-            this.prehistoricMob.stopEepy();
-        }
     }
 }

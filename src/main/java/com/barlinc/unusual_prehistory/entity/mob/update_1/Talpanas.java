@@ -165,7 +165,8 @@ public class Talpanas extends BreedableMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.level().isClientSide && !this.isEepy()) {
             if (peckCooldown > 0) peckCooldown--;
             if (shakeCooldown > 0) shakeCooldown--;
@@ -314,7 +315,7 @@ public class Talpanas extends BreedableMob {
         }
     }
 
-    private static class TalpanasPeckGoal extends AnimationGoal {
+    private static class TalpanasPeckGoal extends IdleAnimationGoal {
 
         private final Talpanas talpanas;
 
@@ -335,7 +336,7 @@ public class Talpanas extends BreedableMob {
         }
     }
 
-    private static class TalpanasShakeGoal extends AnimationGoal {
+    private static class TalpanasShakeGoal extends IdleAnimationGoal {
 
         private final Talpanas talpanas;
 

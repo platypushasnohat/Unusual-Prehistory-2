@@ -63,6 +63,13 @@ public class UP2Compat {
         registerCompostable(UP2Blocks.QUILLWORT.get(), 0.3F);
         registerCompostable(UP2Blocks.CALAMOPHYTON.get(), 0.3F);
         registerCompostable(UP2Blocks.CLADOPHLEBIS.get(), 0.3F);
+        registerCompostable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 0.3F);
+
+        registerCompostable(UP2Blocks.CYCAD_SEEDLING.get(), 0.3F);
+        registerCompostable(UP2Blocks.CYCAD_CROWN.get(), 0.5F);
+
+        registerCompostable(UP2Blocks.GUANGDEDENDRON_SPORE.get(), 0.3F);
+        registerCompostable(UP2Blocks.GUANGDEDENDRON.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -80,6 +87,14 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.NEOMARIOPTERIS.get(), 60, 100);
         registerFlammable(UP2Blocks.BENNETTITALES.get(), 60, 100);
         registerFlammable(UP2Blocks.AETHOPHYLLUM.get(), 60, 100);
+        registerFlammable(UP2Blocks.ARCHAEOSIGILLARIA.get(), 60, 100);
+
+        registerFlammable(UP2Blocks.GUANGDEDENDRON_SPORE.get(), 20, 100);
+        registerFlammable(UP2Blocks.GUANGDEDENDRON.get(), 20, 100);
+
+        registerFlammable(UP2Blocks.CYCAD_STEM.get(), 20, 100);
+        registerFlammable(UP2Blocks.CYCAD_CROWN.get(), 20, 100);
+        registerFlammable(UP2Blocks.CYCAD_SEEDLING.get(), 20, 100);
 
         registerFlammable(UP2Blocks.DRYOPHYLLUM_LOG.get(), 5, 5);
         registerFlammable(UP2Blocks.DRYOPHYLLUM_WOOD.get(), 5, 5);

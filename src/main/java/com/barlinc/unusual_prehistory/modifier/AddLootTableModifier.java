@@ -18,6 +18,8 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public class AddLootTableModifier implements IGlobalLootModifier {
 
+    // todo: replace this with NeoForge modifiers on 1.21.1
+
     public static final Supplier<Codec<AddLootTableModifier>> CODEC = () ->
             RecordCodecBuilder.create(instance -> instance.group(
                             LOOT_CONDITIONS_CODEC.fieldOf("conditions").forGetter(modifier -> modifier.conditions),

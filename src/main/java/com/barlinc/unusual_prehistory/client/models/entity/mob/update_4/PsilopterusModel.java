@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.PsilopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Psilopterus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -104,7 +105,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     public void setupAnim(Psilopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isMobEepy()) {
+        if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PsilopterusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PsilopterusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
@@ -125,8 +126,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 
-        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-        this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
     }
 
     @Override

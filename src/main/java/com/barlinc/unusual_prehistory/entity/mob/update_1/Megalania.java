@@ -3,8 +3,8 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -170,7 +171,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.6F, 0.1F, false);
             this.lookControl = new SmoothSwimmingLookControl(this, 20);
-            this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
+            this.navigation = new WaterBoundPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -210,7 +211,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
                 if (this.getTameAttempts() > 4 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacified(true);
+                    this.setPacifiedTicks(-1);
                     this.heal(this.getMaxHealth());
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
@@ -373,7 +374,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
     @Override
     public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble() && !this.isMobSitting() && !this.isInSitPoseTransition();
+        return !this.isLeaping() && !this.isInWaterOrBubble();
     }
 
     @Override
@@ -583,7 +584,8 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWater() && !this.level().isClientSide) {
             if (flickCooldown > 0) flickCooldown--;
             if (yawnCooldown > 0) yawnCooldown--;
@@ -708,7 +710,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    private static class MegalaniaFlickTailGoal extends AnimationGoal {
+    private static class MegalaniaFlickTailGoal extends IdleAnimationGoal {
 
         private final Megalania megalania;
 
@@ -735,7 +737,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    private static class MegalaniaYawnGoal extends AnimationGoal {
+    private static class MegalaniaYawnGoal extends IdleAnimationGoal {
 
         private final Megalania megalania;
 
@@ -756,7 +758,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    private static class MegalaniaTongueGoal extends AnimationGoal {
+    private static class MegalaniaTongueGoal extends IdleAnimationGoal {
 
         private final Megalania megalania;
 
@@ -777,7 +779,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    private static class MegalaniaRoarGoal extends AnimationGoal {
+    private static class MegalaniaRoarGoal extends IdleAnimationGoal {
 
         private final Megalania megalania;
 
@@ -788,7 +790,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isMobSitting() && !megalania.hasControllingPassenger() && !megalania.isLeaping();
+            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isSitting() && !megalania.hasControllingPassenger() && !megalania.isLeaping();
         }
 
         @Override

@@ -88,7 +88,8 @@ public class PrehistoricAvoidEntityGoal<T extends LivingEntity> extends Goal {
     public void start() {
         this.mob.setRunning(true);
         if (mob.isSitting()) {
-            this.mob.stopSitting();
+            this.mob.setSitting(false);
+            this.mob.setSitCooldown(mob.getSitCooldown() + 200);
         }
         this.mob.getNavigation().moveTo(posX, posY, posZ, speedModifier);
     }

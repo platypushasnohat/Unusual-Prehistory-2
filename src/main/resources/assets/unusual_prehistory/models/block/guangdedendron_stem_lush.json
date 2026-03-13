@@ -1,0 +1,83 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "unusual_prehistory:block/guangdedendron_stem_lush",
+		"particle": "unusual_prehistory:block/guangdedendron_stem_particle"
+	},
+	"elements": [
+		{
+			"from": [6, 0, 6],
+			"to": [10, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [2, 2, 4, 10], "texture": "#0"},
+				"east": {"uv": [0, 2, 2, 10], "texture": "#0"},
+				"south": {"uv": [6, 2, 8, 10], "texture": "#0"},
+				"west": {"uv": [4, 2, 6, 10], "texture": "#0"},
+				"up": {"uv": [4, 2, 2, 0], "texture": "#0"},
+				"down": {"uv": [6, 0, 4, 2], "texture": "#0"}
+			}
+		},
+		{
+			"from": [-1.0025, -0.0025, 5.9975],
+			"to": [6.0025, 16.0025, 6.0025],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [6, 8, 6]},
+			"faces": {
+				"north": {"uv": [8, 0, 11.5, 8], "texture": "#0"},
+				"south": {"uv": [11.5, 0, 15, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [-1.0025, -0.0025, 9.9975],
+			"to": [6.0025, 16.0025, 10.0025],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [6, 8, 10]},
+			"faces": {
+				"north": {"uv": [8, 0, 11.5, 8], "texture": "#0"},
+				"south": {"uv": [11.5, 0, 15, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [9.9975, -0.0025, 5.9975],
+			"to": [17.0025, 16.0025, 6.0025],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [10, 8, 6]},
+			"faces": {
+				"north": {"uv": [11.5, 0, 8, 8], "texture": "#0"},
+				"south": {"uv": [15, 0, 11.5, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [9.9975, -0.0025, 9.9975],
+			"to": [17.0025, 16.0025, 10.0025],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [10, 8, 10]},
+			"faces": {
+				"north": {"uv": [11.5, 0, 8, 8], "texture": "#0"},
+				"south": {"uv": [15, 0, 11.5, 8], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "stem",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [
+				0,
+				{
+					"name": "leaves",
+					"origin": [0, 0, 0],
+					"color": 0,
+					"children": [1, 2, 3, 4]
+				}
+			]
+		}
+	]
+}

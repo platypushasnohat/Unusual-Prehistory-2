@@ -232,7 +232,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (leapStartTicks > 0) leapStartTicks--;
         if (leapTicks > 0) leapTicks--;
         if (leapStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) this.setPose(Pose.FALL_FLYING);

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron;
 
-import com.barlinc.unusual_prehistory.blocks.LepidodendronConeBlock;
+import com.barlinc.unusual_prehistory.blocks.plant.update_1.LepidodendronConeBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.mojang.serialization.Codec;

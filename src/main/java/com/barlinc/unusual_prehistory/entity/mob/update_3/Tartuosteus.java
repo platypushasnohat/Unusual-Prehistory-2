@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -201,5 +203,44 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
 
     public static boolean canSpawn(EntityType<Tartuosteus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return PrehistoricAquaticMob.checkSpawnRules(entityType, level, spawnType, pos, random);
+    }
+
+    // Goals
+    private static class TartuosteusGlideGoal extends AquaticLeapGoal {
+
+        private final Tartuosteus tartuosteus;
+
+        public TartuosteusGlideGoal(Tartuosteus tartuosteus) {
+            super(tartuosteus, 10, 1.0D, 0.5D);
+            this.tartuosteus = tartuosteus;
+        }
+
+        @Override
+        public void tick() {
+            boolean flag = this.breached;
+            tartuosteus.getNavigation().stop();
+            if (!flag) {
+                FluidState fluidstate = tartuosteus.level().getFluidState(tartuosteus.blockPosition());
+                this.breached = fluidstate.is(FluidTags.WATER);
+            }
+
+            if (this.breached && !flag) {
+                tartuosteus.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
+            }
+
+            Vec3 vec3 = tartuosteus.getDeltaMovement();
+            if (vec3.y * vec3.y < (double) 0.03F && tartuosteus.getXRot() != 0.0F) {
+                tartuosteus.setXRot(Mth.rotLerp(0.2F, tartuosteus.getXRot(), 0.0F));
+            } else if (vec3.length() > (double) 1.0E-5F) {
+                double d0 = vec3.horizontalDistance();
+                double d1 = Math.atan2(-vec3.y, d0) * (double) (180F / (float) Math.PI);
+                tartuosteus.setXRot((float) d1);
+            }
+
+            Vec3 movement = new Vec3(tartuosteus.getMotionDirection().getStepX(), 0, tartuosteus.getMotionDirection().getStepZ()).normalize().scale(0.53F);
+            Vec3 glide = new Vec3(movement.x, vec3.y, movement.z);
+            tartuosteus.setDeltaMovement(glide);
+            tartuosteus.setYRot(((float) Mth.atan2(tartuosteus.getMotionDirection().getStepZ(), tartuosteus.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
+        }
     }
 }

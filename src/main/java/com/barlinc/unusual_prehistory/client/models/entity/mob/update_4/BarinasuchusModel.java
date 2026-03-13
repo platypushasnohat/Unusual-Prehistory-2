@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.BarinasuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Barinasuchus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -151,10 +152,7 @@ public class BarinasuchusModel extends UP2Model<Barinasuchus> {
 
         if (this.young) this.applyStatic(BarinasuchusAnimations.BABY_TRANSFORM);
 
-        if (!entity.isMobEepy()) {
-            this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
-            this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
-        }
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

@@ -181,7 +181,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CLADOPHLEBIS_FOSSIL.get());
                         output.accept(COOKSONIA_FOSSIL.get());
                         output.accept(CYCAD_FOSSIL.get());
-                        output.accept(HORSETAIL_FOSSIL.get());
+                        output.accept(GUANGDEDENDRON_FOSSIL.get());
                         output.accept(LEEFRUCTUS_FOSSIL.get());
                         output.accept(NEOMARIOPTERIS_FOSSIL.get());
                         output.accept(PROTOTAXITES_FOSSIL.get());
@@ -196,6 +196,7 @@ public class UnusualPrehistory2Tab {
 
                         // plants
                         output.accept(UP2Blocks.AETHOPHYLLUM.get());
+                        output.accept(UP2Blocks.ARCHAEOSIGILLARIA.get());
                         output.accept(UP2Blocks.BENNETTITALES.get());
                         output.accept(UP2Blocks.BRACHYPHYLLUM.get());
                         output.accept(UP2Blocks.CALAMOPHYTON.get());
@@ -219,9 +220,11 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
 
                         // trees
-                        output.accept(UP2Blocks.CYCAD_SAPLING.get());
+                        output.accept(UP2Blocks.CYCAD_SEEDLING.get());
                         output.accept(UP2Blocks.CYCAD_STEM.get());
-                        output.accept(UP2Blocks.CYCAD_TOP.get());
+                        output.accept(UP2Blocks.CYCAD_CROWN.get());
+
+                        output.accept(UP2Blocks.GUANGDEDENDRON.get());
 
                         output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
                         output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());

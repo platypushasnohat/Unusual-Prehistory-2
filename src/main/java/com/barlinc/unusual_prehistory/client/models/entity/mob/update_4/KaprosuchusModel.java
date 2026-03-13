@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.KaprosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Kaprosuchus;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -125,7 +126,7 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
 	@Override
 	public void setupAnim(@NotNull Kaprosuchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (!entity.isLeaping() && !entity.isMobSitting()) {
+        if (!entity.isLeaping() && !entity.isSitting() && !entity.isEepy()) {
             if (entity.isInWater()) {
                 this.animateWalk(KaprosuchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
             } else {
@@ -150,9 +151,8 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
         if (this.young) this.applyStatic(KaprosuchusAnimations.BABY_TRANSFORM);
         if (entity.isInWater() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);
 
-        this.head.xRot += entity.isMobEepy() ? 0.0F : headPitch * ((float) Math.PI / 180F) / 2;
-        this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
-	}
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+    }
 
 	@Override
 	public @NotNull ModelPart root() {

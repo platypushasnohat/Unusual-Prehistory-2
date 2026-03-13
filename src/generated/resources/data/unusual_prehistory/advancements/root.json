@@ -420,6 +420,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "guangdedendron_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:guangdedendron_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "guillotine_fossil": {
       "conditions": {
         "items": [
@@ -438,18 +450,6 @@
           {
             "items": [
               "unusual_prehistory:hibbertopterus_eggs"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "horsetail_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:horsetail_fossil"
             ]
           }
         ]
@@ -1123,7 +1123,7 @@
       "cladophlebis_fossil",
       "cooksonia_fossil",
       "cycad_fossil",
-      "horsetail_fossil",
+      "guangdedendron_fossil",
       "leefructus_fossil",
       "neomariopteris_fossil",
       "prototaxites_fossil",

@@ -23,7 +23,7 @@ public class PachycephalosaurusRenderer extends MobRenderer<Pachycephalosaurus, 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Pachycephalosaurus entity) {
         Pachycephalosaurus.PachycephalosaurusVariant variant = Pachycephalosaurus.PachycephalosaurusVariant.byId(entity.getVariant());
-        if (entity.isMobEepy()) {
+        if (entity.isEepy()) {
             return UnusualPrehistory2.modPrefix("textures/entity/pachycephalosaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_eepy.png");
         }
         return UnusualPrehistory2.modPrefix("textures/entity/pachycephalosaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");

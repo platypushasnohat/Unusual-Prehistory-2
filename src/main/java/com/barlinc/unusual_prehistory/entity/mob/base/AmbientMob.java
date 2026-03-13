@@ -24,7 +24,7 @@ public abstract class AmbientMob extends PathfinderMob {
     }
 
     @Override
-    protected Entity.@NotNull MovementEmission getMovementEmission() {
+    protected @NotNull MovementEmission getMovementEmission() {
         return MovementEmission.NONE;
     }
 

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
@@ -42,6 +42,8 @@ import java.util.List;
 public class Telecrex extends PrehistoricFlyingMob {
 
     private static final EntityDataAccessor<Boolean> SPLAT = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
+
+    private int runTicks = 0;
 
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen1AnimationState = new SmoothAnimationState();
@@ -109,12 +111,12 @@ public class Telecrex extends PrehistoricFlyingMob {
             double range = 8;
             this.setFlying(true);
             this.setRunning(true);
-            this.setRunningTicks(this.getFastFlyingTicks());
+            this.runTicks = this.getFastFlyingTicks();
             List<? extends Telecrex> entities = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(range, range / 2, range));
             for (Telecrex telecrex : entities) {
                 telecrex.setFlying(true);
                 telecrex.setRunning(true);
-                telecrex.setRunningTicks(telecrex.getFastFlyingTicks());
+                telecrex.runTicks = telecrex.getFastFlyingTicks();
             }
         }
         return hurt;
@@ -123,8 +125,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.getRunningTicks() > 0) this.setRunningTicks(this.getRunningTicks() - 1);
-        if (this.isRunning() && this.getRunningTicks() == 0) this.setRunning(false);
+        if (runTicks > 0) runTicks--;
+        if (this.isRunning() && runTicks == 0) this.setRunning(false);
 
         if (this.isFlying() && this.horizontalCollision && this.getRandom().nextBoolean() && !this.level().isClientSide) {
             this.setSplat(true);
@@ -139,7 +141,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isFlying()) {
             if (preenCooldown > 0) preenCooldown--;
             if (peckCooldown > 0) peckCooldown--;
@@ -282,11 +285,11 @@ public class Telecrex extends PrehistoricFlyingMob {
         public void start() {
             this.telecrex.setFlying(true);
             this.telecrex.setRunning(true);
-            this.telecrex.setRunningTicks(telecrex.getFastFlyingTicks());
+            this.telecrex.runTicks = telecrex.getFastFlyingTicks();
         }
     }
 
-    private static class TelecrexPreenGoal extends AnimationGoal {
+    private static class TelecrexPreenGoal extends IdleAnimationGoal {
 
         private final Telecrex telecrex;
 
@@ -318,7 +321,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         }
     }
 
-    private static class TelecrexPeckGoal extends AnimationGoal {
+    private static class TelecrexPeckGoal extends IdleAnimationGoal {
 
         private final Telecrex telecrex;
 

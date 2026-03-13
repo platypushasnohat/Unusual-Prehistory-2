@@ -73,7 +73,6 @@ public class UP2Boat extends Boat implements UP2BoatType {
                         this.resetFallDistance();
                         return;
                     }
-
                     this.causeFallDamage(this.fallDistance, 1.0F, this.damageSources().fall());
                     if (!this.level().isClientSide && !this.isRemoved()) {
                         this.kill();
@@ -88,7 +87,6 @@ public class UP2Boat extends Boat implements UP2BoatType {
                         }
                     }
                 }
-
                 this.resetFallDistance();
             } else if (!this.level().getFluidState(this.blockPosition().below()).is(FluidTags.WATER) && y < 0.0D) {
                 this.fallDistance -= (float) y;

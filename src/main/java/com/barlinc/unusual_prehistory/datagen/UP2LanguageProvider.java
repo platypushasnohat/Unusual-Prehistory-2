@@ -90,6 +90,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
         // Ambient
+        this.forEntity(UP2Entities.DELITZSCHALA);
         this.forEntity(UP2Entities.ZHANGSOLVA);
 
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");

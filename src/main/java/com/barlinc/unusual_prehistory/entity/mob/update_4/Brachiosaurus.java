@@ -392,7 +392,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (!this.level().isClientSide && this.getTarget() == null && !this.isEepy()) {
              if (callCooldown > 0) callCooldown--;
              if (shakeCooldown > 0) shakeCooldown--;
@@ -552,7 +553,7 @@
          }
      }
 
-     private static class BrachiosaurusCallGoal extends AnimationGoal {
+     private static class BrachiosaurusCallGoal extends IdleAnimationGoal {
 
          private final Brachiosaurus brachiosaurus;
 
@@ -579,7 +580,7 @@
          }
      }
 
-     private static class BrachiosaurusShakeGoal extends AnimationGoal {
+     private static class BrachiosaurusShakeGoal extends IdleAnimationGoal {
 
          private final Brachiosaurus brachiosaurus;
 

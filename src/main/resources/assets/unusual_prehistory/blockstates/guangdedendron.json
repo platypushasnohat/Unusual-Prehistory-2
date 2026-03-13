@@ -1,0 +1,25 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "unusual_prehistory:block/guangdedendron_stem"
+      }
+    },
+    {
+      "when": {
+        "leaves": "small"
+      },
+      "apply": {
+        "model": "unusual_prehistory:block/guangdedendron_stem_lush"
+      }
+    },
+    {
+      "when": {
+        "leaves": "large"
+      },
+      "apply": {
+        "model": "unusual_prehistory:block/guangdedendron_crown"
+      }
+    }
+  ]
+}

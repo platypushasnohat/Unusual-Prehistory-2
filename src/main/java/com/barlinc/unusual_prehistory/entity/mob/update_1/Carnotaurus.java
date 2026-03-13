@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -221,7 +222,8 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isEepy()) {
             if (yawnCooldown > 0) yawnCooldown--;
             if (shakeCooldown > 0) shakeCooldown--;
@@ -381,7 +383,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     // Goals
-    private static class CarnotaurusYawnGoal extends AnimationGoal {
+    private static class CarnotaurusYawnGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 
@@ -402,7 +404,7 @@ public class Carnotaurus extends PrehistoricMob {
         }
     }
 
-    private static class CarnotaurusShakeGoal extends AnimationGoal {
+    private static class CarnotaurusShakeGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 
@@ -423,7 +425,7 @@ public class Carnotaurus extends PrehistoricMob {
         }
     }
 
-    private static class CarnotaurusSniffGoal extends AnimationGoal {
+    private static class CarnotaurusSniffGoal extends IdleAnimationGoal {
 
         private final Carnotaurus carnotaurus;
 

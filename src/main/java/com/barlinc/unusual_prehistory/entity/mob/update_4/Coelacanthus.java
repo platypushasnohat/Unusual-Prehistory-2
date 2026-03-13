@@ -180,7 +180,8 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (this.absorbTicks > 0) absorbTicks--;
         if (this.vomitTicks > 0) vomitTicks--;
         if (this.absorbTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);

@@ -31,6 +31,11 @@ public abstract class BreedableMob extends PrehistoricMob {
     }
 
     @Override
+    public boolean shouldDropExperience() {
+        return !this.isBaby();
+    }
+
+    @Override
     public boolean canFallInLove() {
         return true;
     }

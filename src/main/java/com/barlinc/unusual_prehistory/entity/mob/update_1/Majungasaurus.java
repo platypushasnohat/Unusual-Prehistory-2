@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MajungasaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -107,12 +108,12 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
         if (this.isCamo()) {
             this.setCamo(false);
             this.camoCooldown();
         }
-        super.actuallyHurt(damageSource, amount);
+        super.actuallyHurt(source, amount);
     }
 
     @Override
@@ -198,7 +199,8 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationCooldowns() {
+    public void tickCooldowns() {
+        super.tickCooldowns();
         if (!this.isEepy()) {
             if (yawnCooldown > 0) yawnCooldown--;
             if (shakeCooldown > 0) shakeCooldown--;
@@ -376,7 +378,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusYawnGoal extends AnimationGoal {
+    private static class MajungasaurusYawnGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -397,7 +399,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusShakeGoal extends AnimationGoal {
+    private static class MajungasaurusShakeGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -408,7 +410,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.shakeCooldown == 0 && !majungasaurus.isMobSitting();
+            return super.canUse() && majungasaurus.shakeCooldown == 0;
         }
 
         @Override
@@ -418,7 +420,7 @@ public class Majungasaurus extends PrehistoricMob {
         }
     }
 
-    private static class MajungasaurusSniffGoal extends AnimationGoal {
+    private static class MajungasaurusSniffGoal extends IdleAnimationGoal {
 
         private final Majungasaurus majungasaurus;
 
@@ -429,7 +431,7 @@ public class Majungasaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && majungasaurus.sniffCooldown == 0 && !majungasaurus.isMobSitting();
+            return super.canUse() && majungasaurus.sniffCooldown == 0;
         }
 
         @Override

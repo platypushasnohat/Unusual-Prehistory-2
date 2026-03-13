@@ -33,7 +33,7 @@ public class PsilopterusRenderer extends MobRenderer<Psilopterus, PsilopterusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Psilopterus entity) {
-        if (entity.isPackLeader()) return entity.isMobEepy() ? TEXTURE_ALPHA_EEPY : TEXTURE_ALPHA;
-        return entity.isMobEepy() ? TEXTURE_EEPY : TEXTURE;
+        if (entity.isPackLeader()) return entity.isEepy() ? TEXTURE_ALPHA_EEPY : TEXTURE_ALPHA;
+        return entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
     }
 }

@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.blocks.blockentity.ExtraDataBlockEntity;
-import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;

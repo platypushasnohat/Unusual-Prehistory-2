@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -105,6 +106,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(UP2BlockTags.PETRIFIED_WOOD).add(
                 PETRIFIED_LOG.get(),
                 PETRIFIED_WOOD.get()
+        );
+
+        this.tag(UP2BlockTags.GUANGDEDENDRON_PLANTABLE_ON).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(
+                GUANGDEDENDRON.get(),
+                GUANGDEDENDRON_SPORE.get(),
+                Blocks.GRAVEL,
+                Blocks.SUSPICIOUS_GRAVEL
         );
 
         this.tag(UP2BlockTags.GUARDED_BY_KENTROSAURUS).add(
@@ -398,8 +406,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
+
+                GUANGDEDENDRON.get(),
+                GUANGDEDENDRON_SPORE.get(),
+
                 CYCAD_STEM.get(),
-                CYCAD_TOP.get(),
+                CYCAD_CROWN.get(),
 
                 DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(),
                 STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(),
@@ -433,6 +445,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 MOSSY_DIRT.get()
+        );
+
+        this.tag(BlockTags.SWORD_EFFICIENT).add(
+                GUANGDEDENDRON_SPORE.get(),
+                GUANGDEDENDRON.get()
         );
 
         this.tag(BlockTags.SLABS).add(

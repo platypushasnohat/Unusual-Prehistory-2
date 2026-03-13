@@ -128,7 +128,7 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 	public void setupAnim(@NotNull Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
-        if (!entity.isInWater() && !entity.isMobSitting() && !entity.isLeaping()) {
+        if (!entity.isInWater() && !entity.isSitting() && !entity.isEepy() && !entity.isLeaping()) {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, entity.hasControllingPassenger() ? 2 : 1.5F, entity.hasControllingPassenger() ? 4 : 3);
         }

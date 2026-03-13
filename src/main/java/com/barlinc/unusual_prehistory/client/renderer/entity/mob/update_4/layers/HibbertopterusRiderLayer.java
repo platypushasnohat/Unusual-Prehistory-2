@@ -31,9 +31,7 @@ public class HibbertopterusRiderLayer extends RiderLayer<Hibbertopterus, Hibbert
                 }
                 UnusualPrehistory2.PROXY.releaseRenderingEntity(passenger.getUUID());
                 poseStack.pushPose();
-                this.getParentModel().root.translateAndRotate(poseStack);
-                this.getParentModel().body_main.translateAndRotate(poseStack);
-                this.getParentModel().body.translateAndRotate(poseStack);
+                this.getParentModel().positionRider(poseStack);
                 poseStack.translate(ridePos.x, ridePos.y - 2.0F + passenger.getBbHeight(), ridePos.z);
                 poseStack.mulPose(Axis.XP.rotationDegrees(180F));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw));

@@ -26,7 +26,7 @@ public class TherizinosaurusEyesLayer extends RenderLayer<Therizinosaurus, UP2Mo
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Therizinosaurus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible() || entity.isMobEepy()) return;
+        if (entity.isInvisible() || entity.isEepy()) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(TEXTURE));
         this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
     }

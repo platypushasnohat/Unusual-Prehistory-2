@@ -3,8 +3,8 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinWaterBoundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -37,6 +37,7 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
@@ -119,7 +120,7 @@
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new NoSpinWaterBoundPathNavigation(this, this.level());
+             this.navigation = new WaterBoundPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -254,7 +255,8 @@
      }
 
      @Override
-     public void setupAnimationCooldowns() {
+     public void tickCooldowns() {
+         super.tickCooldowns();
          if (mitosisTicks > 0) mitosisTicks--;
          if (bounceTicks > 0) bounceTicks--;
          if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
@@ -414,7 +416,7 @@
      }
 
      // Goals
-     private static class PraepusaSlapGoal extends AnimationGoal {
+     private static class PraepusaSlapGoal extends IdleAnimationGoal {
 
          private final Praepusa praepusa;
 
@@ -441,7 +443,7 @@
          }
      }
 
-     private static class PraepusaLoafGoal extends AnimationGoal {
+     private static class PraepusaLoafGoal extends IdleAnimationGoal {
 
          private final Praepusa praepusa;
 
@@ -462,7 +464,7 @@
          }
      }
 
-     private static class PraepusaApplauseGoal extends AnimationGoal {
+     private static class PraepusaApplauseGoal extends IdleAnimationGoal {
 
          private final Praepusa praepusa;
 
@@ -473,7 +475,7 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && praepusa.applauseCooldown == 0 && !praepusa.isMobSitting();
+             return super.canUse() && praepusa.applauseCooldown == 0 && !praepusa.isSitting();
          }
 
          @Override
