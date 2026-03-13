@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LeptictidiumAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LeptictidiumRunLikeCrazyGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -10,11 +8,12 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -22,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -32,20 +32,19 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumSet;
 import java.util.List;
 
 public class Leptictidium extends PrehistoricMob {
 
-    public int attackCooldown = 0;
+    private int attackCooldown = 0;
 
-    public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState sniffAnimationState = new AnimationState();
-    public final AnimationState preenAnimationState = new AnimationState();
+    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState sniffAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState preenAnimationState = new SmoothAnimationState();
 
     private int sniffCooldown = 400 + this.getRandom().nextInt(400);
     private int preenCooldown = 700 + this.getRandom().nextInt(700);
-
-    private int attackTicks;
 
     public Leptictidium(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -118,10 +117,10 @@ public class Leptictidium extends PrehistoricMob {
     public void tick() {
         super.tick();
         if (!this.level().isClientSide) {
-            this.infectNearbyMobs();
-            this.getInfectedByNearbyMobs();
-            if (attackTicks > 0) attackTicks--;
-            if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
+            if (this.tickCount % 20 == 0) {
+                this.infectNearbyMobs();
+                this.getInfectedByNearbyMobs();
+            }
             if (attackCooldown > 0) attackCooldown--;
         }
     }
@@ -161,33 +160,11 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        if (this.attackAnimationState.isStarted() && this.attackTicks == 0) this.attackAnimationState.stop();
-        this.idleAnimationState.animateWhen(!this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get() && this.getIdleState() != 1, this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                this.attackAnimationState.start(this.tickCount);
-                this.attackTicks = 20;
-            }
-            else if (this.getPose() == Pose.STANDING) {
-                this.attackAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 67 -> this.preenAnimationState.start(this.tickCount);
-            case 68 -> this.preenAnimationState.stop();
-            case 69 -> this.sniffAnimationState.start(this.tickCount);
-            case 70 -> this.sniffAnimationState.stop();
-            default -> super.handleEntityEvent(id);
-        }
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get() && this.getIdleState() != 1, this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+        this.attackAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+        this.preenAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.sniffAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }
 
     @Override
@@ -228,6 +205,118 @@ public class Leptictidium extends PrehistoricMob {
         return level.getBlockState(pos.below()).is(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
+    // Goals
+    private static class LeptictidiumRunLikeCrazyGoal extends Goal {
+
+        protected final Leptictidium leptictidium;
+        protected double wantedX;
+        protected double wantedY;
+        protected double wantedZ;
+
+        public LeptictidiumRunLikeCrazyGoal(Leptictidium leptictidium) {
+            this.leptictidium = leptictidium;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.leptictidium.isVehicle()) {
+                return false;
+            } else {
+                Vec3 vec3 = this.getPosition();
+                if (vec3 == null) {
+                    return false;
+                } else if (this.leptictidium.getHealth() <= this.leptictidium.getMaxHealth() * 0.5F) {
+                    this.wantedX = vec3.x;
+                    this.wantedY = vec3.y;
+                    this.wantedZ = vec3.z;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @javax.annotation.Nullable
+        protected Vec3 getPosition() {
+            return DefaultRandomPos.getPos(this.leptictidium, 15, 7);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return !this.leptictidium.isVehicle() && !this.leptictidium.getNavigation().isDone();
+        }
+
+        @Override
+        public void start() {
+            this.leptictidium.setRunning(true);
+            this.leptictidium.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, 1.6D + (0.25F * (1.0F - leptictidium.getHealth() / leptictidium.getMaxHealth())));
+        }
+
+        @Override
+        public void tick() {
+            this.leptictidium.getLookControl().setLookAt(this.wantedX, this.wantedY, this.wantedZ, 30F, 30F);
+        }
+
+        @Override
+        public void stop() {
+            this.leptictidium.setRunning(false);
+            this.leptictidium.getNavigation().stop();
+        }
+    }
+
+    private static class LeptictidiumAttackGoal extends AttackGoal {
+
+        private final Leptictidium leptictidium;
+
+        public LeptictidiumAttackGoal(Leptictidium leptictidium) {
+            super(leptictidium);
+            this.leptictidium = leptictidium;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = leptictidium.getTarget();
+            if (target != null) {
+                double distance = leptictidium.distanceToSqr(target);
+                this.leptictidium.lookAt(leptictidium.getTarget(), 30F, 30F);
+                this.leptictidium.getLookControl().setLookAt(target, 30F, 30F);
+
+                if (leptictidium.getAttackState() == 1) {
+                    this.leptictidium.getNavigation().stop();
+                    this.tickAttack();
+                } else {
+                    this.leptictidium.getNavigation().moveTo(target, 1.7D);
+                    if (distance <= this.getAttackReachSqr(target) && leptictidium.attackCooldown == 0) {
+                        this.leptictidium.setAttackState(1);
+                    }
+                }
+            }
+        }
+
+        protected void tickAttack() {
+            this.timer++;
+            LivingEntity target = leptictidium.getTarget();
+            if (timer == 1) leptictidium.setPose(UP2Poses.ATTACKING.get());
+            if (timer == 8) {
+                if (this.isInAttackRange(target, 1.5D)) {
+                    this.leptictidium.doHurtTarget(target);
+                    this.leptictidium.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 20) {
+                this.timer = 0;
+                this.leptictidium.setPose(Pose.STANDING);
+                this.leptictidium.setAttackState(0);
+                this.leptictidium.attackCooldown = 5 + leptictidium.getRandom().nextInt(5);
+            }
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity target) {
+            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        }
+    }
+
     private static class LeptictidiumPreenGoal extends IdleAnimationGoal {
 
         private final Leptictidium leptictidium;
@@ -254,7 +343,7 @@ public class Leptictidium extends PrehistoricMob {
         private final Leptictidium leptictidium;
 
         public LeptictidiumSniffGoal(Leptictidium leptictidium) {
-            super(leptictidium, 30, 1, (byte) 69, (byte) 70, false);
+            super(leptictidium, 30, 2, (byte) 69, (byte) 70, false);
             this.leptictidium = leptictidium;
         }
 

@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 
 public class ManipulatorAttackGoal extends AttackGoal {
 
@@ -45,26 +46,28 @@ public class ManipulatorAttackGoal extends AttackGoal {
         }
         if (timer == 7) {
             this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH.get(), 0.8F, 1.0F + manipulator.getRandom().nextFloat() * 0.2F);
-            if (this.isInAttackRange(target, 2.0D)) {
+            if (this.isInAttackRange(target, 2.1D)) {
                 this.manipulator.doHurtTarget(target);
                 this.manipulator.swing(InteractionHand.MAIN_HAND);
             }
         }
         if (timer == 17) {
             this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH.get(), 0.8F, 1.0F + manipulator.getRandom().nextFloat() * 0.2F);
-            if (this.isInAttackRange(target, 2.0D)) {
+            if (this.isInAttackRange(target, 2.1D)) {
                 this.manipulator.doHurtTarget(target);
                 this.manipulator.swing(InteractionHand.OFF_HAND);
             }
         }
         if (timer > 30) {
             this.timer = 0;
+            this.manipulator.blockCooldown();
+            this.manipulator.setPose(Pose.STANDING);
             this.manipulator.setAttackState(0);
         }
     }
 
     @Override
     protected double getAttackReachSqr(LivingEntity target) {
-        return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        return this.mob.getBbWidth() * 1.7F * this.mob.getBbWidth() * 1.7F + target.getBbWidth();
     }
 }

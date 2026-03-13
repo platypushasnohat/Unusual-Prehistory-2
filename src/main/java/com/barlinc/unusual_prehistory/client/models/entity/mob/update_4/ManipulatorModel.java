@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.Mani
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.ManipulatorAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
+import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -227,22 +228,23 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 	@Override
 	public void setupAnim(Manipulator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isRunning()) this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-        else this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 1.75F, 3.5F);
+        if (entity.isRunning()) {
+            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+        } else {
+            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+        }
 
-        this.animateIdle(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
-        this.animate(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
-        this.animate(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
-        this.animateLerped(entity.blockAnimationState, ManipulatorAttackAnimations.SHIELDBLOCK_BLEND, ageInTicks, entity.getBlockProgress(partialTicks));
+        this.animateIdleSmooth(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks);
+        this.animateSmooth(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
+        this.animateSmooth(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
+        this.animateSmooth(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
+        this.animateSmooth(entity.blockAnimationState, ManipulatorAttackAnimations.SHIELDBLOCK_BLEND, ageInTicks);
 
-		this.head.xRot += headPitch * ((float) Math.PI / 180F) / 2;
-		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

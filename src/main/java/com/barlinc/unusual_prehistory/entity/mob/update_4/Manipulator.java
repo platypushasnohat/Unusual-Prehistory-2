@@ -11,6 +11,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.nbt.CompoundTag;
@@ -67,17 +68,13 @@
      public int attackCooldown = 0;
      public int blockCooldown = 0;
 
-     public final AnimationState idleArmedAnimationState = new AnimationState();
-     public final AnimationState sitArmedAnimationState = new AnimationState();
-     public final AnimationState attackAnimationState = new AnimationState();
-     public final AnimationState attackArmedAnimationState = new AnimationState();
-     public final AnimationState blockAnimationState = new AnimationState();
+     public final SmoothAnimationState idleArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState sitArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attackArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState blockAnimationState = new SmoothAnimationState();
 
-     private int attackTicks;
-     public int blockTicks;
-
-     private float prevBlockProgress;
-     private float blockProgress;
+     private int blockTicks;
 
      public Manipulator(EntityType<? extends PrehistoricMob> entityType, Level level) {
          super(entityType, level);
@@ -287,9 +284,6 @@
      @Override
      public void tick() {
          super.tick();
-         this.prevBlockProgress = blockProgress;
-         if (this.isShieldBlocking() && blockProgress < 5F) blockProgress++;
-         if (!this.isShieldBlocking() && blockProgress > 0F) blockProgress--;
          if (!this.level().isClientSide) {
              if (blockTicks > 0) blockTicks--;
              if (this.isShieldBlocking() && this.blockTicks == 0) {
@@ -310,48 +304,14 @@
 
      @Override
      public void setupAnimationStates() {
-         if (attackTicks == 0 && (this.attackAnimationState.isStarted() || this.attackArmedAnimationState.isStarted())) {
-             this.attackAnimationState.stop();
-             this.attackArmedAnimationState.stop();
-         }
          this.idleAnimationState.animateWhen(!this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
          this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
          this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
          this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
-         this.blockAnimationState.animateWhen(this.blockProgress > 0.0F && this.getAttackState() == 0, this.tickCount);
-     }
-
-     @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (attackTicks > 0) attackTicks--;
-         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) {
-             this.blockCooldown();
-             this.setPose(Pose.STANDING);
-         }
-     }
-
-     @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.isHoldingItem()) this.attackArmedAnimationState.start(this.tickCount);
-                 else this.attackAnimationState.start(this.tickCount);
-                 this.attackTicks = 30;
-             }
-             else if (this.getPose() == Pose.STANDING) {
-                 this.attackAnimationState.stop();
-                 this.attackArmedAnimationState.stop();
-             }
-         }
-         super.onSyncedDataUpdated(accessor);
-     }
-
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             default -> super.handleEntityEvent(id);
-         }
+         this.blockAnimationState.animateWhen(this.isShieldBlocking() && this.getAttackState() == 0, this.tickCount);
+         this.attackAnimationState.animateWhen(!this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+         this.attackArmedAnimationState.animateWhen(this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
      }
 
      @Override
@@ -482,10 +442,6 @@
 
      public boolean isShieldBlocking() {
          return this.entityData.get(SHIELD_BLOCKING);
-     }
-
-     public float getBlockProgress(float partialTicks) {
-         return (prevBlockProgress + (blockProgress - prevBlockProgress) * partialTicks) * 0.2F;
      }
 
      @Override
