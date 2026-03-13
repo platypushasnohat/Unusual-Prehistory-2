@@ -173,7 +173,6 @@ public class Desmatosuchus extends PrehistoricMob {
             int dirtLevel = this.getDirtLevel();
             this.setDirtLevel(0);
             if (!this.level().isClientSide) {
-                System.out.println(dirtLevel + "Dirt level. expected table" + SHEARING_LOOT[dirtLevel - 1]);
                 LootTable loottable = this.level().getServer().getLootData().getLootTable(SHEARING_LOOT[dirtLevel - 1]);
                 List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                 items.forEach(this::spawnAtLocation);

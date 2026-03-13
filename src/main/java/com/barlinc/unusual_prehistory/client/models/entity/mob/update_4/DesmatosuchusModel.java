@@ -3,14 +3,10 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.DesmatosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Desmatosuchus;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
 public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
@@ -24,16 +20,16 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 	private final ModelPart left_shoulder;
     private final ModelPart right_shoulder;
 	private final ModelPart tail;
-	private final ModelPart left_leg;
 	private final ModelPart left_leg1;
-	private final ModelPart right_leg;
+	private final ModelPart left_leg2;
 	private final ModelPart right_leg1;
+	private final ModelPart right_leg2;
     private final ModelPart arm_control;
     private final ModelPart leg_control;
-	private final ModelPart left_arm;
 	private final ModelPart left_arm1;
-	private final ModelPart right_arm;
+	private final ModelPart left_arm2;
 	private final ModelPart right_arm1;
+	private final ModelPart right_arm2;
 
 	public DesmatosuchusModel(ModelPart root) {
         super(0.5F, 24);
@@ -48,14 +44,14 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 		this.tail = this.body.getChild("tail");
         this.arm_control = this.body_main.getChild("arm_control");
         this.leg_control = this.body_main.getChild("leg_control");
-		this.left_leg = this.leg_control.getChild("left_leg1");
-		this.left_leg1 = this.left_leg.getChild("left_leg2");
-		this.right_leg = this.leg_control.getChild("right_leg1");
-		this.right_leg1 = this.right_leg.getChild("right_leg2");
-		this.left_arm = this.arm_control.getChild("left_arm1");
-		this.left_arm1 = this.left_arm.getChild("left_arm2");
-		this.right_arm = this.arm_control.getChild("right_arm1");
-		this.right_arm1 = this.right_arm.getChild("right_arm2");
+		this.left_leg1 = this.leg_control.getChild("left_leg1");
+		this.left_leg2 = this.left_leg1.getChild("left_leg2");
+		this.right_leg1 = this.leg_control.getChild("right_leg1");
+		this.right_leg2 = this.right_leg1.getChild("right_leg2");
+		this.left_arm1 = this.arm_control.getChild("left_arm1");
+		this.left_arm2 = this.left_arm1.getChild("left_arm2");
+		this.right_arm1 = this.arm_control.getChild("right_arm1");
+		this.right_arm2 = this.right_arm1.getChild("right_arm2");
 	}
 
 	public static LayerDefinition createBodyLayer() {
