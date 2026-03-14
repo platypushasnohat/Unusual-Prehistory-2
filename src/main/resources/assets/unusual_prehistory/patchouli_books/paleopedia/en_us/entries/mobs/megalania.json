@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:thermal_fossil",
       "egg_item": "unusual_prehistory:megalania_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Cold-Blooded Predator of The Ancient Outback"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,22 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "cathemeral",
-      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
+
+      "feature_1.item": "minecraft:red_sand",
+      "feature_1.tooltip": "§7Being cold-blooded animals, they thrive in hotter climates, and will become more active and hostile in warmer biomes",
+      "feature_1.title_one_line": "Desert Danger!",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:spider_eye",
+      "feature_2.tooltip": "§7Their bite is highly venomous, much like other monitor lizards",
+      "feature_2.title_one_line": "Vile Bite",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:rotten_flesh",
+      "feature_3.tooltip": "§7These reptiles can be tamed with §r§arotten flesh§r§7 and can be ridden as a semi-aquatic mount§r",
+      "feature_3.title_one_line": "An Unexpected Friend?",
+      "feature_3.title_two_line": ""
     }
   ]
 }

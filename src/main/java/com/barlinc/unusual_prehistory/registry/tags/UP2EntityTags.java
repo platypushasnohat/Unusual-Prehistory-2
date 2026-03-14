@@ -8,6 +8,8 @@ import net.minecraft.world.entity.EntityType;
 
 public class UP2EntityTags {
 
+    public static final TagKey<EntityType<?>> NO_LEAF_COLLISIONS = modEntityTag("no_leaf_collisions");
+
     // Entity groups
     public static final TagKey<EntityType<?>> TINY_ANIMALS = modEntityTag("tiny_animals");
     public static final TagKey<EntityType<?>> SMALL_ANIMALS = modEntityTag("small_animals");
@@ -31,15 +33,12 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> SMALL_AQUATIC_PREY = modEntityTag("small_aquatic_prey");
     public static final TagKey<EntityType<?>> MEDIUM_AQUATIC_PREY = modEntityTag("medium_aquatic_prey");
     public static final TagKey<EntityType<?>> LARGE_AQUATIC_PREY = modEntityTag("large_aquatic_prey");
-    public static final TagKey<EntityType<?>> GIANT_AQUATIC_PREY = modEntityTag("giant_aquatic_prey");
 
     public static final TagKey<EntityType<?>> MONSTERS = modEntityTag("monsters");
     public static final TagKey<EntityType<?>> STRONG_MONSTERS = modEntityTag("strong_monsters");
 
     public static final TagKey<EntityType<?>> AQUATIC_MONSTERS = modEntityTag("aquatic_monsters");
     public static final TagKey<EntityType<?>> STRONG_AQUATIC_MONSTERS = modEntityTag("strong_aquatic_monsters");
-
-    public static final TagKey<EntityType<?>> BUGS = modEntityTag("bugs");
 
     // Targets
     public static final TagKey<EntityType<?>> CARNOTAURUS_TARGETS = modEntityTag("carnotaurus_targets");

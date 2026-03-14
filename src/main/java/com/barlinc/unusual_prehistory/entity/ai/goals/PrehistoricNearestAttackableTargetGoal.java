@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import org.jetbrains.annotations.Nullable;
@@ -33,11 +33,11 @@ public class PrehistoricNearestAttackableTargetGoal<T extends LivingEntity> exte
 
     @Override
     public boolean canUse() {
-        return super.canUse() && !prehistoricMob.isPacified() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy();
+        return super.canUse() && !prehistoricMob.isPacified() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && !prehistoricMob.isPacified() && !prehistoricMob.isMobEepy();
+        return super.canContinueToUse() && !prehistoricMob.isPacified() && !prehistoricMob.isEepy();
     }
 }

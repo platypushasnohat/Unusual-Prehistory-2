@@ -1,0 +1,603 @@
+ package com.barlinc.unusual_prehistory.entity.mob.update_4;
+
+ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+ import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
+ import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Particles;
+ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.utils.UP2Math;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.particles.BlockParticleOption;
+ import net.minecraft.core.particles.ParticleTypes;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.util.Mth;
+ import net.minecraft.util.RandomSource;
+ import net.minecraft.world.damagesource.DamageSource;
+ import net.minecraft.world.entity.*;
+ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+ import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
+ import net.minecraft.world.entity.player.Player;
+ import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.crafting.Ingredient;
+ import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.phys.AABB;
+ import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.entity.PartEntity;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+
+ public class Brachiosaurus extends SemiAquaticMob {
+
+     private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
+
+     private final BrachiosaurusPart[] allParts;
+     public final BrachiosaurusPart headPart;
+     public final BrachiosaurusPart neckPart1;
+     public final BrachiosaurusPart neckPart2;
+     public final BrachiosaurusPart tailPart1;
+     public final BrachiosaurusPart tailPart2;
+
+     private double lastStompX = 0;
+     private double lastStompZ = 0;
+     private float screenShakeAmount;
+
+     private float neckXRot;
+     private float neckYRot;
+
+     private float[] yawBuffer = new float[128];
+     private int yawPointer = -1;
+
+     private boolean wasPreviouslyBaby;
+
+     public final SmoothAnimationState stompAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState callAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+
+     public int callCooldown = 1500 + this.getRandom().nextInt(1500);
+     public int shakeCooldown = 900 + this.getRandom().nextInt(900);
+
+     public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+         super(entityType, level);
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
+         this.headPart = new BrachiosaurusPart(this, "head", 2.5F, 2.5F);
+         this.neckPart1 = new BrachiosaurusPart(this, "neck1", 2.5F, 6.0F);
+         this.neckPart2 = new BrachiosaurusPart(this, "neck2", 2.5F, 6.0F);
+         this.tailPart1 = new BrachiosaurusPart(this, "tail1", 2.5F, 2.5F);
+         this.tailPart2 = new BrachiosaurusPart(this, "tail2", 2.0F, 2.0F);
+         this.allParts = new BrachiosaurusPart[]{headPart, neckPart1, neckPart2, tailPart1, tailPart2};
+         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
+     }
+
+     public static AttributeSupplier.Builder createAttributes() {
+         return Mob.createMobAttributes()
+                 .add(Attributes.MAX_HEALTH, 300.0D)
+                 .add(Attributes.MOVEMENT_SPEED, 0.17F)
+                 .add(Attributes.ATTACK_DAMAGE, 24.0D)
+                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                 .add(Attributes.FOLLOW_RANGE, 20.0D);
+     }
+
+     @Override
+     protected void registerGoals() {
+         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(1, new BrachiosaurusAttackGoal(this));
+         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BRACHIOSAURUS_FOOD), false));
+         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(6, new SleepingGoal(this));
+         this.goalSelector.addGoal(7, new BrachiosaurusCallGoal(this));
+         this.goalSelector.addGoal(7, new BrachiosaurusShakeGoal(this));
+         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+     }
+
+     @Override
+     public void setId(int i1) {
+         super.setId(i1);
+         for (int i = 0; i < this.allParts.length; i++) {
+             this.allParts[i].setId(i1 + i + 1);
+         }
+     }
+
+     @Override
+     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+         return dimensions.height * 0.98F;
+     }
+
+     @Override
+     protected float getWaterSlowDown() {
+         return 0.9F;
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level, 1.0F);
+         navigation.setCanWalkOverFences(true);
+         return navigation;
+     }
+
+     @Override
+     public void travel(@NotNull Vec3 travelVec) {
+         if (this.refuseToMove() && this.onGround()) {
+             if (this.getNavigation().getPath() != null) {
+                 this.getNavigation().stop();
+             }
+             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+         }
+         if (this.isEffectiveAi() && this.isInWater() && !this.onGround()) {
+             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.01D, 0.0D));
+         }
+         super.travel(travelVec);
+     }
+
+     @Override
+     public float getStepHeight() {
+         return this.isBaby() ? 1.0F : 3.0F;
+     }
+
+     @Override
+     public boolean isFood(ItemStack stack) {
+         return stack.is(UP2ItemTags.BRACHIOSAURUS_FOOD);
+     }
+
+     @Override
+     public boolean refuseToMove() {
+         return super.refuseToMove() || this.getIdleState() == 1;
+     }
+
+     @Override
+     public boolean canBeCollidedWith() {
+         return !this.isAggressive() && !this.isBaby();
+     }
+
+     @Override
+     public boolean isPushable() {
+         return this.isBaby();
+     }
+
+     @Override
+     public void doEepyParticles() {
+         Vec3 lookVec = this.getEepyParticleVec();
+         Vec3 eyeVec = this.headPart.getEyePosition().add(lookVec);
+         if (this.eepyTicks == 0) {
+             this.eepyTicks = 40 + random.nextInt(20);
+             this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
+         }
+         if (this.eepyTicks > 0) this.eepyTicks--;
+     }
+
+     @Override
+     public Vec3 getEepyParticleVec() {
+         return new Vec3(0, -0.7F, -this.getBbWidth() * 0.4F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+     }
+
+     @Override
+     public void tick() {
+         if (this.isBaby()) {
+             this.tickMultipartBaby();
+         } else {
+             this.tickMultipart();
+         }
+
+         super.tick();
+
+         this.lastStompX = this.getX();
+         this.lastStompZ = this.getZ();
+
+         if (!this.isBaby()) this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 4);
+
+         if (screenShakeAmount > 0) screenShakeAmount = Math.max(0, screenShakeAmount - 0.34F);
+         if (this.onGround() && this.walkAnimation.speed() > 0.1F && !this.isBaby()) {
+             this.tickFootsteps();
+         }
+
+         if (wasPreviouslyBaby != this.isBaby()) {
+             this.wasPreviouslyBaby = this.isBaby();
+             this.refreshDimensions();
+             for (BrachiosaurusPart brachiosaurusPart : this.allParts) {
+                 brachiosaurusPart.refreshDimensions();
+             }
+         }
+
+         if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
+     }
+
+     public float getScale() {
+         return this.isBaby() ? 0.25F : 1.0F;
+     }
+
+     private void tickMultipart() {
+         if (yawPointer == -1) {
+             for (int i = 0; i < yawBuffer.length; i++) {
+                 yawBuffer[i] = this.yBodyRot;
+             }
+         }
+         if (++this.yawPointer == this.yawBuffer.length) {
+             this.yawPointer = 0;
+         }
+         this.yawBuffer[this.yawPointer] = this.yBodyRot;
+
+         Vec3[] avector3d = new Vec3[this.allParts.length];
+         for (int j = 0; j < this.allParts.length; ++j) {
+             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
+         }
+
+         Vec3 center = this.position().add(0, this.getBbHeight(), 0);
+         this.neckXRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckXRot, -30.0F, 45.0F));
+         this.neckYRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckYRot, this.getTargetNeckYRot(), 45.0F));
+         float headXStep = neckXRot / 4F;
+         float headYStep = neckYRot / 4F;
+
+         boolean isMoving = this.walkAnimation.speed() > 0.1F;
+
+         float headAdditionalY = isMoving ? -0.8F : 0.0F;
+         float headAdditionalZ = isMoving ? 3.0F : 0.0F;
+
+         if (this.isEepy()) {
+             headAdditionalZ = -2.0F;
+         }
+
+         float neck1AdditionalY = isMoving ? 0.8F : 0.0F;
+         float neck1AdditionalZ = isMoving ? -1.0F : 0.0F;
+
+         float neck2AdditionalY = isMoving ? 0.8F : 0.0F;
+         float neck2AdditionalZ = isMoving ? -1.0F : 0.0F;
+
+         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headAdditionalY, 7.8F + headAdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
+         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
+         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
+
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
+
+         for (int l = 0; l < this.allParts.length; ++l) {
+             this.allParts[l].xo = avector3d[l].x;
+             this.allParts[l].yo = avector3d[l].y;
+             this.allParts[l].zo = avector3d[l].z;
+             this.allParts[l].xOld = avector3d[l].x;
+             this.allParts[l].yOld = avector3d[l].y;
+             this.allParts[l].zOld = avector3d[l].z;
+         }
+     }
+
+     private void tickMultipartBaby() {
+         if (yawPointer == -1) {
+             for (int i = 0; i < yawBuffer.length; i++) {
+                 yawBuffer[i] = this.yBodyRot;
+             }
+         }
+         if (++this.yawPointer == this.yawBuffer.length) {
+             this.yawPointer = 0;
+         }
+         this.yawBuffer[this.yawPointer] = this.yBodyRot;
+
+         Vec3[] avector3d = new Vec3[this.allParts.length];
+         for (int j = 0; j < this.allParts.length; ++j) {
+             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
+         }
+
+         Vec3 center = this.position().add(0, this.getBbHeight(), 0);
+         this.neckXRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckXRot, -30.0F, 45.0F));
+         this.neckYRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckYRot, this.getTargetNeckYRot(), 45.0F));
+         float headXStep = neckXRot / 4F;
+         float headYStep = neckYRot / 4F;
+
+         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 5.1F, 6.8F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
+         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
+         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.0F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
+
+         for (int l = 0; l < this.allParts.length; ++l) {
+             this.allParts[l].xo = avector3d[l].x;
+             this.allParts[l].yo = avector3d[l].y;
+             this.allParts[l].zo = avector3d[l].z;
+             this.allParts[l].xOld = avector3d[l].x;
+             this.allParts[l].yOld = avector3d[l].y;
+             this.allParts[l].zOld = avector3d[l].z;
+         }
+     }
+
+     private float wrapNeckDegrees(float f) {
+         return f % 360.0F;
+     }
+
+     private Vec3 rotateOffsetVec(Vec3 offset, float xRot, float yRot) {
+         return offset.xRot(-xRot * ((float) Math.PI / 180F)).yRot(-yRot * ((float) Math.PI / 180F));
+     }
+
+     public float getYawFromBuffer(int pointer, float partialTick) {
+         int i = this.yawPointer - pointer & 127;
+         int j = this.yawPointer - pointer - 1 & 127;
+         float d0 = this.yawBuffer[j];
+         float d1 = this.yawBuffer[i] - d0;
+         return d0 + d1 * partialTick;
+     }
+
+     public float getTargetNeckYRot() {
+         float buffered = this.getYawFromBuffer(10, 1.0F) - this.yBodyRot;
+         return this.getYHeadRot() - this.yBodyRot + buffered;
+     }
+
+     @Override
+     public boolean isMultipartEntity() {
+         return true;
+     }
+
+     @Override
+     public PartEntity<?>[] getParts() {
+         return allParts;
+     }
+
+     private void tickFootsteps() {
+         float walkPosition = (float) Math.cos(this.walkAnimation.position() * 0.515F - 1.5F);
+         if (Math.abs(walkPosition) < 0.2F) {
+             if (this.screenShakeAmount <= 0.3F) {
+                 if (this.isInFluidType()) {
+                     this.playSound(UP2SoundEvents.BRACHIOSAURUS_STEP.get(), 1.5F, 0.8F + this.getRandom().nextFloat() * 0.2F);
+                 } else {
+                     this.playSound(UP2SoundEvents.BRACHIOSAURUS_STEP.get(), 2.5F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                 }
+                 UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(this.position(), 10, 2.5F, 16, false));
+             }
+             this.screenShakeAmount = 1F;
+         }
+     }
+
+     @Override
+     public void calculateEntityAnimation(boolean flying) {
+         float f1 = (float) Mth.length(this.getX() - this.lastStompX, 0, this.getZ() - this.lastStompZ);
+         float f2 = Math.min(f1 * this.getWalkAnimationSpeed(), 1.0F);
+         this.walkAnimation.update(f2, 0.4F);
+     }
+
+     @Override
+     public float getWalkAnimationSpeed() {
+         return this.isBaby() ? 3.0F : 4.0F;
+     }
+
+     @Override
+     public int getHeadRotSpeed() {
+         return this.isBaby() ? super.getHeadRotSpeed() : 4;
+     }
+
+     @Override
+     public void setupAnimationStates() {
+         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.STOMPING.get() && !this.isEepy(), this.tickCount);
+         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+         this.stompAnimationState.animateWhen(this.getPose() == UP2Poses.STOMPING.get(), this.tickCount);
+         this.callAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+         this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+     }
+
+     @Override
+     public void tickCooldowns() {
+         super.tickCooldowns();
+         if (!this.level().isClientSide && this.getTarget() == null && !this.isEepy()) {
+             if (callCooldown > 0) callCooldown--;
+             if (shakeCooldown > 0) shakeCooldown--;
+         }
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(STOMP_COOLDOWN, 0);
+     }
+
+     public void setStompCooldown(int cooldown) {
+         this.entityData.set(STOMP_COOLDOWN, cooldown);
+     }
+
+     public int getStompCooldown() {
+         return this.entityData.get(STOMP_COOLDOWN);
+     }
+
+     @Override
+     public @NotNull AABB getBoundingBoxForCulling() {
+         return this.getBoundingBox().inflate(4, 6, 4);
+     }
+
+     @Override
+     public boolean shouldRenderAtSqrDistance(double distance) {
+         return Math.sqrt(distance) < 1024.0D;
+     }
+
+     public void handleEntityEvent(byte id) {
+         if (id == 40) {
+             this.stompEffect();
+         } else {
+             super.handleEntityEvent(id);
+         }
+     }
+
+     private void stompEffect() {
+         Vec3 groundedVec = UP2Math.getGroundBelowPosition(level(), new Vec3(this.getRandomX(2.0D), this.getY() + 0.25F, this.getRandomZ(2.0D)));
+         BlockPos ground = BlockPos.containing(groundedVec.subtract(0, 0.5F, 0));
+         BlockState state = this.level().getBlockState(ground);
+         for (int i = 0; i <= (this.getRandom().nextInt(60) + 80); i++) {
+             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), true, this.getRandomX(2.0D), this.getY() + 0.25F, this.getRandomZ(2.0D), 0.0D, 0.0D, 0.0D);
+         }
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getAmbientSound() {
+         return UP2SoundEvents.BRACHIOSAURUS_IDLE.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+         return UP2SoundEvents.BRACHIOSAURUS_HURT.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getDeathSound() {
+         return UP2SoundEvents.BRACHIOSAURUS_DEATH.get();
+     }
+
+     @Override
+     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+         if (this.isBaby()) super.playStepSound(pos, state);
+     }
+
+     @Override
+     public float getSoundVolume() {
+         return this.isBaby() ? 1.0F : 3.0F;
+     }
+
+     @Override
+     public int getAmbientSoundInterval() {
+         return 360;
+     }
+
+     @Override
+     public boolean canPlayAmbientSound() {
+         return super.canPlayAmbientSound() && this.getIdleState() != 1;
+     }
+
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+         return UP2Entities.BRACHIOSAURUS.get().create(level);
+     }
+
+     public static boolean canSpawn(EntityType<Brachiosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+         return level.getBlockState(pos.below()).is(UP2BlockTags.BRACHIOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+
+     // Goals
+     private static class BrachiosaurusAttackGoal extends AttackGoal {
+
+         private final Brachiosaurus brachiosaurus;
+
+         public BrachiosaurusAttackGoal(Brachiosaurus brachiosaurus) {
+             super(brachiosaurus);
+             this.brachiosaurus = brachiosaurus;
+         }
+
+         @Override
+         public void tick() {
+             LivingEntity target = brachiosaurus.getTarget();
+             if (target != null) {
+                 double distance = brachiosaurus.distanceToSqr(target);
+                 this.brachiosaurus.lookAt(target, 30F, 30F);
+                 this.brachiosaurus.getLookControl().setLookAt(target, 30F, 30F);
+
+                 if (this.brachiosaurus.getAttackState() == 1) {
+                     this.brachiosaurus.getNavigation().stop();
+                     this.tickStomp();
+                 }
+                 else {
+                     if (distance > this.getAttackReachSqr(target)) {
+                         this.brachiosaurus.getNavigation().moveTo(target, 1.5D);
+                     }
+                     if (distance <= this.getAttackReachSqr(target) && brachiosaurus.getStompCooldown() <= 0) {
+                         brachiosaurus.setAttackState(1);
+                     }
+                 }
+             }
+         }
+
+         protected void tickStomp() {
+             this.timer++;
+             LivingEntity target = brachiosaurus.getTarget();
+             if (timer == 6) brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_ATTACK.get(), 4.0F, 1.0F);
+             if (timer == 10) brachiosaurus.setPose(UP2Poses.STOMPING.get());
+             if (timer == 51) {
+                 for (LivingEntity entity : brachiosaurus.level().getEntitiesOfClass(LivingEntity.class, brachiosaurus.getBoundingBox().inflate(6.0D, -0.5D, 6.0D))) {
+                     if (entity == brachiosaurus) {
+                         continue;
+                     }
+                     entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+                     this.brachiosaurus.strongKnockback(entity, 9.0D, 0.55D);
+                 }
+                 UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 32, false));
+                 this.brachiosaurus.level().broadcastEntityEvent(brachiosaurus, (byte) 40);
+             }
+
+             if (timer > 70) {
+                 this.brachiosaurus.lookAt(target, 30F, 30F);
+                 this.brachiosaurus.getLookControl().setLookAt(target, 30F, 30F);
+             }
+
+             if (this.timer > 80) {
+                 this.timer = 0;
+                 this.brachiosaurus.setPose(Pose.STANDING);
+                 this.brachiosaurus.setAttackState(0);
+                 this.brachiosaurus.setStompCooldown(24 + brachiosaurus.getRandom().nextInt(20));
+             }
+         }
+     }
+
+     private static class BrachiosaurusCallGoal extends IdleAnimationGoal {
+
+         private final Brachiosaurus brachiosaurus;
+
+         public BrachiosaurusCallGoal(Brachiosaurus brachiosaurus) {
+             super(brachiosaurus, 60, 1, (byte) 67, (byte) 68, true, false);
+             this.brachiosaurus = brachiosaurus;
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_CALL.get(), 4.0F, 0.9F + brachiosaurus.getRandom().nextFloat() * 0.15F);
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && brachiosaurus.callCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.brachiosaurus.callCooldown = 1500 + brachiosaurus.getRandom().nextInt(1500);
+         }
+     }
+
+     private static class BrachiosaurusShakeGoal extends IdleAnimationGoal {
+
+         private final Brachiosaurus brachiosaurus;
+
+         public BrachiosaurusShakeGoal(Brachiosaurus brachiosaurus) {
+             super(brachiosaurus, 100, 2, (byte) 67, (byte) 68, false, false);
+             this.brachiosaurus = brachiosaurus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && brachiosaurus.shakeCooldown == 0;
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.brachiosaurus.shakeCooldown = 900 + brachiosaurus.getRandom().nextInt(900);
+         }
+     }
+ }

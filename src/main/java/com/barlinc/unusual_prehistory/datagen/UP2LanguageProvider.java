@@ -90,6 +90,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
 
         // Ambient
+        this.forEntity(UP2Entities.DELITZSCHALA);
         this.forEntity(UP2Entities.ZHANGSOLVA);
 
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
@@ -131,7 +132,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.BRACHIOSAURUS_HURT, "Brachiosaurus hurts");
         this.sound(UP2SoundEvents.BRACHIOSAURUS_DEATH, "Brachiosaurus dies");
         this.sound(UP2SoundEvents.BRACHIOSAURUS_IDLE, "Brachiosaurus rumbles");
-        this.sound(UP2SoundEvents.BRACHIOSAURUS_STOMP, "Brachiosaurus stomps");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_ATTACK, "Brachiosaurus attacks");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_STEP, "Brachiosaurus stomps");
+        this.sound(UP2SoundEvents.BRACHIOSAURUS_CALL, "Brachiosaurus calls");
 
         this.sound(UP2SoundEvents.CARNOTAURUS_STEP, "Carnotaurus steps");
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT, "Carnotaurus hurts");
@@ -186,7 +189,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.KENTROSAURUS_DEATH, "Kentrosaurus dies");
         this.sound(UP2SoundEvents.KENTROSAURUS_IDLE, "Kentrosaurus groans");
         this.sound(UP2SoundEvents.KENTROSAURUS_STEP, "Kentrosaurus steps");
-        this.sound(UP2SoundEvents.KENTROSAURUS_EAT, "Kentrosaurus eats");
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT, "Kimmeridgebrachypteraeschnidium hurts");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
@@ -208,7 +210,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
-        this.sound(UP2SoundEvents.MAJUNGASAURUS_BITE, "Majungasaurus bites");
+        this.sound(UP2SoundEvents.MAJUNGASAURUS_ATTACK, "Majungasaurus bites");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF, "Majungasaurus sniffs");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP, "Majungasaurus steps");
 

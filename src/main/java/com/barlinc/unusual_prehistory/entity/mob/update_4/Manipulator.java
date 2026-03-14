@@ -1,0 +1,489 @@
+ package com.barlinc.unusual_prehistory.entity.mob.update_4;
+
+ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.ManipulatorAttackGoal;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+ import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
+ import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2Network;
+ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.Direction;
+ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.nbt.ListTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
+ import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.tags.DamageTypeTags;
+ import net.minecraft.util.Mth;
+ import net.minecraft.util.RandomSource;
+ import net.minecraft.world.*;
+ import net.minecraft.world.damagesource.DamageSource;
+ import net.minecraft.world.entity.*;
+ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+ import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.goal.FloatGoal;
+ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.player.Player;
+ import net.minecraft.world.entity.projectile.AbstractArrow;
+ import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.crafting.Ingredient;
+ import net.minecraft.world.item.enchantment.EnchantmentHelper;
+ import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.LevelAccessor;
+ import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.phys.Vec3;
+ import net.minecraftforge.common.MinecraftForge;
+ import net.minecraftforge.common.ToolActions;
+ import net.minecraftforge.common.capabilities.Capability;
+ import net.minecraftforge.common.capabilities.ForgeCapabilities;
+ import net.minecraftforge.common.util.LazyOptional;
+ import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+ import net.minecraftforge.items.wrapper.InvWrapper;
+ import net.minecraftforge.network.PacketDistributor;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+
+ public class Manipulator extends PrehistoricMob implements ContainerListener {
+
+     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.INT);
+     private static final EntityDataAccessor<Boolean> SHIELD_BLOCKING = SynchedEntityData.defineId(Manipulator.class, EntityDataSerializers.BOOLEAN);
+
+     public final SimpleContainer manipulatorInventory = new SimpleContainer(2);
+     private LazyOptional<?> itemHandler;
+     public boolean interacting;
+
+     public int attackCooldown = 0;
+     public int blockCooldown = 0;
+
+     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
+     public final SmoothAnimationState idleArmedAnimationState = new SmoothAnimationState(1.0F);
+     public final SmoothAnimationState sitArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attackArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState blockAnimationState = new SmoothAnimationState();
+
+     private int blockTicks;
+
+     public Manipulator(EntityType<? extends PrehistoricMob> entityType, Level level) {
+         super(entityType, level);
+         this.manipulatorInventory.addListener(this);
+         this.itemHandler = LazyOptional.of(() -> new InvWrapper(this.manipulatorInventory));
+     }
+
+     public static AttributeSupplier.Builder createAttributes() {
+         return Mob.createMobAttributes()
+                 .add(Attributes.MAX_HEALTH, 28.0D)
+                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
+                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                 .add(Attributes.FOLLOW_RANGE, 20.0D);
+     }
+
+     @Override
+     protected void registerGoals() {
+         this.goalSelector.addGoal(0, new FloatGoal(this));
+         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
+         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
+         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
+         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+     }
+
+     @Override
+     public @NotNull MobType getMobType() {
+         return MobType.ARTHROPOD;
+     }
+
+     @Override
+     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+         return dimensions.height * 0.9F;
+     }
+
+     @Override
+     public void travel(@NotNull Vec3 travelVec) {
+         if ((this.refuseToMove() || this.isDancing()) && this.onGround()) {
+             if (this.getNavigation().getPath() != null) {
+                 this.getNavigation().stop();
+             }
+             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+         }
+         super.travel(travelVec);
+     }
+
+     @Override
+     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+         this.heal(8);
+         return super.killedEntity(level, victim);
+     }
+
+     @Override
+     public float getStepHeight() {
+         return this.isRunning() ? 1.1F : 0.6F;
+     }
+
+     @Override
+     public boolean isFood(ItemStack stack) {
+         return stack.is(UP2ItemTags.MANIPULATOR_FOOD);
+     }
+
+     @Override
+     public boolean canPacify() {
+         return true;
+     }
+
+     @Override
+     public boolean isPacifyItem(ItemStack itemStack) {
+         return itemStack.is(UP2ItemTags.PACIFIES_MANIPULATOR);
+     }
+
+     @Override
+     public boolean canDanceToJukebox() {
+         return true;
+     }
+
+     @Override
+     public boolean refuseToMove() {
+         return super.refuseToMove() || this.interacting;
+     }
+
+     @Override
+     public boolean canOwnerCommand(Player player) {
+         return player.isShiftKeyDown();
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         InteractionResult type = super.mobInteract(player, hand);
+         if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_MANIPULATOR)) {
+             if (!this.level().isClientSide) {
+                 if (!player.getAbilities().instabuild) {
+                     itemstack.shrink(1);
+                 }
+                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
+                     this.level().broadcastEntityEvent(this, (byte) 7);
+                     this.tame(player);
+                     this.setPacifiedTicks(-1);
+                     this.heal(this.getMaxHealth());
+                 } else {
+                     this.level().broadcastEntityEvent(this, (byte) 6);
+                     this.setTameAttempts(this.getTameAttempts() + 1);
+                 }
+             }
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         if (this.isTame() && !player.isShiftKeyDown()) {
+             if (player instanceof ServerPlayer serverPlayer) {
+                 this.openGui(serverPlayer);
+                 return InteractionResult.SUCCESS;
+             }
+         }
+         return type;
+     }
+
+     @Override
+     protected void blockUsingShield(@NotNull LivingEntity entity) {
+         super.blockUsingShield(entity);
+         this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 1.0F);
+         this.onManipulatorBlock();
+         if (entity.getMainHandItem().canDisableShield(this.useItem, this, entity)) this.disableShield(true);
+     }
+
+     private boolean isHoldingShield() {
+         return this.getMainHandItem().canPerformAction(ToolActions.SHIELD_BLOCK) || this.getOffhandItem().canPerformAction(ToolActions.SHIELD_BLOCK);
+     }
+
+     public void onManipulatorBlock() {
+         this.setShieldBlocking(true);
+         this.blockTicks = 10;
+         this.blockCooldown();
+         this.attackCooldown();
+     }
+
+     @Override
+     protected void hurtCurrentlyUsedShield(float damage) {
+         if (this.useItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
+             if (damage >= 3.0F) {
+                 int i = 1 + Mth.floor(damage);
+                 InteractionHand hand = this.getUsedItemHand();
+                 this.damageManipulatorItem(i, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND, this.useItem);
+                 this.useItem.hurtAndBreak(i, this, (entity) -> entity.broadcastBreakEvent(hand));
+                 if (this.useItem.isEmpty()) {
+                     if (hand == InteractionHand.MAIN_HAND) {
+                         this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                     } else {
+                         this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+                     }
+                     this.useItem = ItemStack.EMPTY;
+                     this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + level().random.nextFloat() * 0.4F);
+                 }
+             }
+         }
+     }
+
+     public void damageManipulatorItem(int damage, EquipmentSlot slotToDamage, ItemStack item) {
+         item.hurtAndBreak(damage, this, (entity) -> entity.broadcastBreakEvent(slotToDamage));
+     }
+
+     public void disableShield(boolean increase) {
+         float chance = 0.25F + (float) EnchantmentHelper.getBlockEfficiency(this) * 0.05F;
+         if (increase) chance += 0.75F;
+         if (this.random.nextFloat() < chance) {
+             this.blockCooldown = 100;
+             this.stopUsingItem();
+             level().broadcastEntityEvent(this, (byte) 30);
+         }
+     }
+
+     @Override
+     public boolean isDamageSourceBlocked(DamageSource source) {
+         Entity entity = source.getDirectEntity();
+         boolean flag = false;
+         if (entity instanceof AbstractArrow abstractarrow) {
+             if (abstractarrow.getPierceLevel() > 0) {
+                 flag = true;
+             }
+         }
+         if (!source.is(DamageTypeTags.BYPASSES_SHIELD) && this.isHoldingShield() && !flag && this.blockCooldown == 0 && this.getAttackState() == 0) {
+             Vec3 sourcePosition = source.getSourcePosition();
+             if (sourcePosition != null) {
+                 Vec3 viewVector = this.getViewVector(1.0F);
+                 Vec3 normalize = sourcePosition.vectorTo(this.position()).normalize();
+                 normalize = new Vec3(normalize.x, 0.0D, normalize.z);
+                 return normalize.dot(viewVector) < 0.0D;
+             }
+         }
+         return false;
+     }
+
+     public void attackCooldown() {
+         this.attackCooldown = 10 + this.getRandom().nextInt(10);
+     }
+
+     public void blockCooldown() {
+         this.blockCooldown = 30 + this.getRandom().nextInt(10);
+     }
+
+     @Override
+     public void tick() {
+         super.tick();
+         if (!this.level().isClientSide) {
+             if (blockTicks > 0) blockTicks--;
+             if (this.isShieldBlocking() && this.blockTicks == 0) {
+                 this.setShieldBlocking(false);
+             }
+             if (attackCooldown > 0) attackCooldown--;
+             if (blockCooldown > 0) blockCooldown--;
+         }
+     }
+
+     public boolean isHoldingItem() {
+         return !this.getMainHandItem().isEmpty() || !this.getOffhandItem().isEmpty();
+     }
+
+     private boolean canPlayIdle() {
+         return !this.isInSittingPose() && !this.isDancing();
+     }
+
+     @Override
+     public void setupAnimationStates() {
+         this.idleAnimationState.animateWhen(!this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
+         this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
+         this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.blockAnimationState.animateWhen(this.isShieldBlocking() && this.getAttackState() == 0, this.tickCount);
+         this.attackAnimationState.animateWhen(!this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+         this.attackArmedAnimationState.animateWhen(this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+     }
+
+     @Override
+     protected void dropCustomDeathLoot(@NotNull DamageSource source, int looting, boolean recentlyHitIn) {
+         for (int i = 0; i < this.manipulatorInventory.getContainerSize(); i++) {
+             ItemStack itemstack = this.manipulatorInventory.getItem(i);
+             if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+                 this.spawnAtLocation(itemstack);
+             }
+         }
+     }
+
+     @Override
+     public @NotNull ItemStack getItemBySlot(EquipmentSlot slot) {
+         return switch (slot) {
+             case MAINHAND -> this.manipulatorInventory.getItem(0);
+             case OFFHAND -> this.manipulatorInventory.getItem(1);
+             default -> ItemStack.EMPTY;
+         };
+     }
+
+     @Override
+     public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {
+         super.setItemSlot(slot, stack);
+         switch (slot) {
+             case MAINHAND:
+                 this.manipulatorInventory.setItem(0, this.handItems.get(slot.getIndex()));
+                 break;
+             case OFFHAND:
+                 this.manipulatorInventory.setItem(1, this.handItems.get(slot.getIndex()));
+                 break;
+         }
+     }
+
+     @Override
+     protected void populateDefaultEquipmentSlots(@NotNull RandomSource source, @NotNull DifficultyInstance instance) {
+         this.handDropChances[EquipmentSlot.MAINHAND.getIndex()] = 100.0F;
+         this.handDropChances[EquipmentSlot.OFFHAND.getIndex()] = 100.0F;
+     }
+
+     @Override
+     public void containerChanged(@NotNull Container container) {
+     }
+
+     public void openGui(ServerPlayer player) {
+         if (player.containerMenu != player.inventoryMenu) {
+             player.closeContainer();
+         }
+         this.interacting = true;
+         player.nextContainerCounter();
+         UP2Network.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ManipulatorOpenInventoryPacket(player.containerCounter, this.manipulatorInventory.getContainerSize(), this.getId()));
+         player.containerMenu = new ManipulatorContainer(player.containerCounter, player.getInventory(), this.manipulatorInventory, this);
+         player.initMenu(player.containerMenu);
+         MinecraftForge.EVENT_BUS.post(new PlayerContainerEvent.Open(player, player.containerMenu));
+     }
+
+     @Override
+     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+         if (this.isAlive() && capability == ForgeCapabilities.ITEM_HANDLER && itemHandler != null) return itemHandler.cast();
+         return super.getCapability(capability, facing);
+     }
+
+     @Override
+     public void invalidateCaps() {
+         super.invalidateCaps();
+         if (itemHandler != null) {
+             LazyOptional<?> oldHandler = itemHandler;
+             this.itemHandler = null;
+             oldHandler.invalidate();
+         }
+     }
+
+     @Override
+     protected void defineSynchedData() {
+         super.defineSynchedData();
+         this.entityData.define(TAME_ATTEMPTS, 0);
+         this.entityData.define(SHIELD_BLOCKING, false);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+         compoundTag.putBoolean("Interacting", this.interacting);
+         ListTag list = new ListTag();
+         for (int i = 0; i < this.manipulatorInventory.getContainerSize(); i++) {
+             ItemStack itemstack = this.manipulatorInventory.getItem(i);
+             if (!itemstack.isEmpty()) {
+                 CompoundTag tag = new CompoundTag();
+                 tag.putByte("Slot", (byte) i);
+                 itemstack.save(tag);
+                 list.add(tag);
+             }
+         }
+         compoundTag.put("Inventory", list);
+     }
+
+     @Override
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
+         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
+         this.interacting = compoundTag.getBoolean("Interacting");
+         ListTag list = compoundTag.getList("Inventory", 9);
+         for (int i = 0; i < list.size(); i++) {
+             CompoundTag compoundnbt = list.getCompound(i);
+             int j = compoundnbt.getByte("Slot") & 255;
+             this.manipulatorInventory.setItem(j, ItemStack.of(compoundnbt));
+         }
+         if (compoundTag.contains("HandItems", 9)) {
+             ListTag handItems = compoundTag.getList("HandItems", 10);
+             for (int i = 0; i < this.handItems.size(); i++) {
+                 this.manipulatorInventory.setItem(i, ItemStack.of(handItems.getCompound(i)));
+             }
+         }
+     }
+
+     public void setTameAttempts(int tameAttempts) {
+         this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+     }
+
+     public int getTameAttempts() {
+         return this.entityData.get(TAME_ATTEMPTS);
+     }
+
+     public void setShieldBlocking(boolean blocking) {
+         this.entityData.set(SHIELD_BLOCKING, blocking);
+     }
+
+     public boolean isShieldBlocking() {
+         return this.entityData.get(SHIELD_BLOCKING);
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getAmbientSound() {
+         return UP2SoundEvents.MANIPULATOR_IDLE.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+         return UP2SoundEvents.MANIPULATOR_HURT.get();
+     }
+
+     @Override
+     @Nullable
+     protected SoundEvent getDeathSound() {
+         return UP2SoundEvents.MANIPULATOR_DEATH.get();
+     }
+
+     @Override
+     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+         this.playSound(UP2SoundEvents.MANIPULATOR_STEP.get(), 0.25F, this.getStepPitch());
+     }
+
+     @Override
+     protected float nextStep() {
+         return this.moveDist + 0.75F;
+     }
+
+     private float getStepPitch() {
+         return this.isBaby() ? 1.45F + this.getRandom().nextFloat() * 0.1F : 0.95F + this.getRandom().nextFloat() * 0.1F;
+     }
+
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+         return UP2Entities.MANIPULATOR.get().create(level);
+     }
+
+     public static boolean canSpawn(EntityType<Manipulator> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+         return level.getBlockState(pos.below()).is(UP2BlockTags.MANIPULATOR_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+     }
+ }

@@ -2,7 +2,11 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.grower.*;
+import com.barlinc.unusual_prehistory.blocks.egg.*;
+import com.barlinc.unusual_prehistory.blocks.plant.*;
+import com.barlinc.unusual_prehistory.blocks.plant.grower.*;
+import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
+import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
@@ -143,6 +147,9 @@ public class UP2Blocks {
     public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
 
+    public static final RegistryObject<Block> ARCHAEOSIGILLARIA = registerBlock("archaeosigillaria", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILLARIA = registerBlockWithoutItem("potted_archaeosigillaria", () -> new FlowerPotBlock(UP2Blocks.ARCHAEOSIGILLARIA.get(), registerFlowerPot()));
+
     public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new HorsetailBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
     public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new LargeHorsetailBlock(UP2BlockProperties.TALL_PLANT));
@@ -171,6 +178,15 @@ public class UP2Blocks {
     public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 
     public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
+
+    // cycad
+    public static final RegistryObject<Block> CYCAD_SEEDLING = registerBlock("cycad_seedling", () -> new CycadSeedlingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY).noOcclusion().ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_STEM = registerBlock("cycad_stem", () -> new CycadStemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_CROWN = registerBlock("cycad_crown", () -> new CycadCrownBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).noOcclusion().ignitedByLava()));
+
+    // guangdedendron
+    public static final RegistryObject<Block> GUANGDEDENDRON_SPORE = registerBlockWithoutItem("guangdedendron_spore", () -> new GuangdedendronSporeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> GUANGDEDENDRON = registerBlock("guangdedendron", () -> new GuangdedendronStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape().ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never)));
 
     // dryophyllum
     public static final RegistryObject<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));

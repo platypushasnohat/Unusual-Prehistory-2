@@ -61,7 +61,6 @@ public class UnusualPrehistory2 {
         UP2Particles.PARTICLE_TYPES.register(bus);
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
         PROXY.commonInit();
-
         eventBus.register(this);
     }
 

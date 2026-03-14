@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -46,16 +46,16 @@ public class AttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.mob.isBaby() && this.mob.getTarget() != null && this.mob.getTarget().isAlive() && !this.mob.isVehicle() && !this.mob.isMobSitting();
+        return !mob.isBaby() && mob.getTarget() != null && mob.getTarget().isAlive() && !mob.isVehicle() && !mob.isSitting() && !mob.isEepy();
     }
 
     @Override
     public boolean canContinueToUse() {
-        LivingEntity target = this.mob.getTarget();
+        LivingEntity target = mob.getTarget();
         if (target == null) return false;
         else if (!target.isAlive()) return false;
-        else if (!this.mob.isWithinRestriction(target.blockPosition())) return false;
-        else return !(target instanceof Player) || !target.isSpectator() && !((Player) target).isCreative() || !this.mob.getNavigation().isDone();
+        else if (!mob.isWithinRestriction(target.blockPosition())) return false;
+        else return !(target instanceof Player) || !target.isSpectator() && !((Player) target).isCreative() || !mob.getNavigation().isDone();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class AttackGoal extends Goal {
     }
 
     protected double getAttackReachSqr(LivingEntity target) {
-        return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + target.getBbWidth();
+        return mob.getBbWidth() * 2.0F * mob.getBbWidth() * 2.0F + target.getBbWidth();
     }
 
     protected boolean isInAttackRange(LivingEntity target, double reach) {

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.client;
 
-import com.barlinc.unusual_prehistory.entity.Onchopristis;
+import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LevelRenderer;

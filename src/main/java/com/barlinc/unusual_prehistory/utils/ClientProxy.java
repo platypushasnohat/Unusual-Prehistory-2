@@ -1,14 +1,14 @@
 package com.barlinc.unusual_prehistory.utils;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.blocks.blockentity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.client.sounds.AegirocassisHoverSound;
 import com.barlinc.unusual_prehistory.client.sounds.BugBuzzSound;
 import com.barlinc.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSound;
 import com.barlinc.unusual_prehistory.client.sounds.TransmogrifierSound;
-import com.barlinc.unusual_prehistory.entity.Aegirocassis;
-import com.barlinc.unusual_prehistory.entity.Kimmeridgebrachypteraeschnidium;
-import com.barlinc.unusual_prehistory.entity.base.AmbientMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Aegirocassis;
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -18,7 +18,6 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -164,9 +163,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void clearSoundCacheFor(BlockEntity entity) {
         BLOCK_ENTITY_SOUND_INSTANCE_MAP.remove(entity);
-    }
-
-    public void renderMapDecoration(MapDecoration mapDecoration, int index) {
-        ClientForgeEvents.renderMapDecoration(mapDecoration, index + 1);
     }
 }

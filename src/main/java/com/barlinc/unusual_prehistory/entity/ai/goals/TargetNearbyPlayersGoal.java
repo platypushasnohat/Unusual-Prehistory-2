@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 
@@ -21,7 +21,7 @@ public class TargetNearbyPlayersGoal extends NearestAttackableTargetGoal<Player>
 
     @Override
     public boolean canUse() {
-        return super.canUse() && !prehistoricMob.isBaby() && !prehistoricMob.isMobEepy();
+        return super.canUse() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy();
     }
 
     @Override

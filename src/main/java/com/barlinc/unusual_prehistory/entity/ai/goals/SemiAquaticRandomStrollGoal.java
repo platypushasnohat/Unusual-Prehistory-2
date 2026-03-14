@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.base.SemiAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 
 public class SemiAquaticRandomStrollGoal extends PrehistoricRandomStrollGoal {
 

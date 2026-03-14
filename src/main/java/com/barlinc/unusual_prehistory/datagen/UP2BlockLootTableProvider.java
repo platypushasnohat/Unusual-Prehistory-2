@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen;
 
-import com.barlinc.unusual_prehistory.blocks.TallEggBlock;
-import com.barlinc.unusual_prehistory.blocks.ThreeTallPlantBlock;
+import com.barlinc.unusual_prehistory.blocks.egg.TallEggBlock;
+import com.barlinc.unusual_prehistory.blocks.plant.ThreeTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
@@ -153,6 +153,9 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(CLADOPHLEBIS.get());
         this.dropPottedContents(POTTED_CLADOPHLEBIS.get());
 
+        this.dropSelf(ARCHAEOSIGILLARIA.get());
+        this.dropPottedContents(POTTED_ARCHAEOSIGILLARIA.get());
+
         this.dropSelf(QUILLWORT.get());
         this.dropPottedContents(POTTED_QUILLWORT.get());
 
@@ -172,6 +175,13 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
 
         this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
         this.dropSelf(MOSS_LAYER.get());
+
+        this.add(GUANGDEDENDRON_SPORE.get(), this.createSingleItemTable(GUANGDEDENDRON.get(), ConstantValue.exactly(1.0F)));
+        this.dropSelf(GUANGDEDENDRON.get());
+
+        this.dropSelf(CYCAD_SEEDLING.get());
+        this.dropSelf(CYCAD_STEM.get());
+        this.dropSelf(CYCAD_CROWN.get());
 
         this.dropSelf(DRYOPHYLLUM_LOG.get());
         this.dropSelf(DRYOPHYLLUM_WOOD.get());

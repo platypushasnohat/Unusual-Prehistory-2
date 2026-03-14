@@ -181,6 +181,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "cycad_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:cycad_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "dryophyllum_fossil": {
       "conditions": {
         "items": [
@@ -277,24 +289,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "guillotine_fossil": {
+    "guangdedendron_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:guillotine_fossil"
+              "unusual_prehistory:guangdedendron_fossil"
             ]
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "horsetail_fossil": {
+    "guillotine_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
-              "unusual_prehistory:horsetail_fossil"
+              "unusual_prehistory:guillotine_fossil"
             ]
           }
         ]
@@ -657,7 +669,8 @@
       "calamophyton_fossil",
       "cladophlebis_fossil",
       "cooksonia_fossil",
-      "horsetail_fossil",
+      "cycad_fossil",
+      "guangdedendron_fossil",
       "leefructus_fossil",
       "neomariopteris_fossil",
       "prototaxites_fossil",

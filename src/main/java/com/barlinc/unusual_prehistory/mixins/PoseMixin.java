@@ -17,6 +17,9 @@ import java.util.List;
 
 @Mixin(Pose.class)
 public class PoseMixin {
+
+    // todo: change to enum extension when on 1.21.1
+
     @Shadow
     @Mutable
     @Final

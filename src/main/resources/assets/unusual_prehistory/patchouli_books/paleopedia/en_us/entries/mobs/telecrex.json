@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:plumage_fossil",
       "egg_item": "unusual_prehistory:telecrex_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Fossilised Fowl known from a Single Bone"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be thrown to hatch",
 
       "activity.activity_type": "cathemeral",
-      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors"
+      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "§7Telecrex are skittish birds, fleeing from any perceived threats, including players",
+      "feature_1.title_one_line": "Fight or Flight?",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:glass",
+      "feature_2.tooltip": "§7May occasionally fly face-first into walls or windows",
+      "feature_2.title_one_line": "Faceplanting Fowl",
+      "feature_2.title_two_line": ""
     }
   ]
 }

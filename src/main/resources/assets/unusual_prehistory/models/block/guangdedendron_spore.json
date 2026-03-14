@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cross",
+  "ambientocclusion": false,
+  "render_type": "cutout",
+  "textures": {
+    "cross": "unusual_prehistory:block/guangdedendron_spore",
+    "particle": "unusual_prehistory:block/guangdedendron_spore_particle"
+  }
+}

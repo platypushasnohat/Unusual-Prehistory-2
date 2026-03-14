@@ -22,16 +22,16 @@ import java.util.List;
 import java.util.Optional;
 
 @SuppressWarnings("deprecation")
-public class StructureFeature<T extends StructureFeatureConfig> extends Feature<T> {
+public class StructureFeature extends Feature<StructureFeatureConfig> {
 
     private static final ResourceLocation EMPTY = new ResourceLocation("minecraft", "empty");
 
-    public StructureFeature(Codec<T> configFactory) {
+    public StructureFeature(Codec<StructureFeatureConfig> configFactory) {
         super(configFactory);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<T> context) {
+    public boolean place(FeaturePlaceContext<StructureFeatureConfig> context) {
         ResourceLocation entry = GeneralUtils.getRandomEntry(context.config().structureLocationAndWeights(), context.random());
         StructureTemplateManager structureManager = context.level().getLevel().getStructureManager();
         Optional<StructureTemplate> template = structureManager.get(entry);

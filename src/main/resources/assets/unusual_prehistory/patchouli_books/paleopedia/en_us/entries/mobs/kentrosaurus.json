@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:prickly_fossil",
       "egg_item": "unusual_prehistory:kentrosaurus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "A prickly plant-eater and protector of all that is ouch"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:cactus",
+      "feature_1.tooltip": "§7Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",
+      "feature_1.title_one_line": "Cactus-coded",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:chainmail_chestplate",
+      "feature_2.tooltip": "§7Those who cover themselves in thorns will find themselves under kentrosaurus' protection as well",
+      "feature_2.title_one_line": "Friend of the Thorny",
+      "feature_2.title_two_line": ""
     }
   ]
 }

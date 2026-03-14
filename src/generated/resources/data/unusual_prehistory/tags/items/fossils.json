@@ -35,6 +35,7 @@
     "unusual_prehistory:dryophyllum_fossil",
     "unusual_prehistory:raiguenrayun_fossil",
     "unusual_prehistory:ginkgo_fossil",
+    "unusual_prehistory:cycad_fossil",
     "unusual_prehistory:rhynia_fossil",
     "unusual_prehistory:tempskya_fossil",
     "unusual_prehistory:leefructus_fossil",
@@ -48,6 +49,6 @@
     "unusual_prehistory:bennettitales_fossil",
     "unusual_prehistory:aethophyllum_fossil",
     "unusual_prehistory:brachyphyllum_fossil",
-    "unusual_prehistory:horsetail_fossil"
+    "unusual_prehistory:guangdedendron_fossil"
   ]
 }

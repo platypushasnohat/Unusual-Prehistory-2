@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:anvil_fossil",
       "egg_item": "unusual_prehistory:stethacanthus_sac",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Small, Spiky Sharks of the Carboniferous Seas"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:bone",
+      "feature_1.tooltip": "§7With sharp teeth and spines, messing with them results in much pain",
+      "feature_1.title_one_line": "Watch your fingers!",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "unusual_prehistory:stethacanthus_bucket",
+      "feature_2.tooltip": "§7Stethacanthus are small enough to be §aBucketed§7",
+      "feature_2.title_one_line": "Buckets of Bites",
+      "feature_2.title_two_line": ""
     }
   ]
 }

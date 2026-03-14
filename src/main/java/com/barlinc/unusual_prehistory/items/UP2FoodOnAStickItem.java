@@ -16,9 +16,9 @@ public class UP2FoodOnAStickItem extends Item {
 
    private final int consumeItemDamage;
 
-   public UP2FoodOnAStickItem(Item.Properties pProperties, int pConsumeItemDamage) {
-      super(pProperties);
-      this.consumeItemDamage = pConsumeItemDamage;
+   public UP2FoodOnAStickItem(Properties properties, int consumeItemDamage) {
+      super(properties);
+      this.consumeItemDamage = consumeItemDamage;
    }
 
    @Override

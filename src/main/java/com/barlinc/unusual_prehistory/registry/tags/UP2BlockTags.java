@@ -29,6 +29,8 @@ public class UP2BlockTags {
     public static final TagKey<Block> FOSSILIZED_BONE_BLOCKS = modBlockTag("fossilized_bone_blocks");
     public static final TagKey<Block> PETRIFIED_WOOD = modBlockTag("petrified_wood");
 
+    public static final TagKey<Block> GUANGDEDENDRON_PLANTABLE_ON = modBlockTag("guangdedendron_plantable_on");
+
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
 
     public static final TagKey<Block> BARINASUCHUS_SPAWNABLE_ON = modBlockTag("barinasuchus_spawnable_on");
@@ -60,6 +62,9 @@ public class UP2BlockTags {
     public static final TagKey<Block> DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS = modBlockTag("desmatosuchus_preferred_walking_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_ROLLING_BLOCKS = modBlockTag("desmatosuchus_rolling_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_MOSSY_BLOCKS = modBlockTag("desmatosuchus_mossy_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_MUDDY_BLOCKS = modBlockTag("desmatosuchus_muddy_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_SNOWY_BLOCKS = modBlockTag("desmatosuchus_snowy_blocks");
+
 
     public static final TagKey<Block> DIPLOCAULUS_PREFERRED_WALKING_BLOCKS = modBlockTag("diplocaulus_preferred_walking_blocks");
     public static final TagKey<Block> DIPLOCAULUS_SLIDING_BLOCKS = modBlockTag("diplocaulus_sliding_blocks");

@@ -370,6 +370,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         // Minecraft
         this.tag(EntityTypeTags.FROG_FOOD).add(
+                DELITZSCHALA.get(),
                 ZHANGSOLVA.get()
         );
     }

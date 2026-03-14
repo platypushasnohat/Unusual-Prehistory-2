@@ -31,8 +31,8 @@
       "clone.clone_tooltip_heading": "Raft Egg",
       "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
 
-      "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:diplocaulus_bucket",
       "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Diplocaulus",

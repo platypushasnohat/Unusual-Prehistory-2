@@ -1,15 +1,19 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
-import com.barlinc.unusual_prehistory.entity.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Leptictidium;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.utils.EntityDropsAccessor;
+import com.barlinc.unusual_prehistory.utils.MobAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -64,7 +68,7 @@ public class ForgeEvents {
             }
             if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getMobType() == MobType.ARTHROPOD) {
                 if (pathfinderMob instanceof PrehistoricMob prehistoricMob) {
-                    prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D));
+                    prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D, false));
                 } else {
                     pathfinderMob.goalSelector.addGoal(1, new AvoidEntityGoal<>(pathfinderMob, Leptictidium.class, 12.0F, 1.5D, 1.5D));
                 }
@@ -99,7 +103,6 @@ public class ForgeEvents {
         if (event.getLookingEntity() != null) {
             if (entity instanceof Majungasaurus majungasaurus) {
                 if (majungasaurus.isCamo()) event.modifyVisibility(0.3F);
-                if (majungasaurus.isCamoAvoiding()) event.modifyVisibility(0.5F);
             }
         }
     }
@@ -127,7 +130,7 @@ public class ForgeEvents {
                         }
                     }
                     DamageSource fakeCreeperDamage = mob.level().damageSources().mobAttack(fakeCreeperForSkullDrop);
-                    EntityDropsAccessor accessor = (EntityDropsAccessor) mob;
+                    MobAccessor accessor = (MobAccessor) mob;
                     accessor.unusualPrehistory2$dropCustomDeathLoot(fakeCreeperDamage, 0, false);
                 }
             }

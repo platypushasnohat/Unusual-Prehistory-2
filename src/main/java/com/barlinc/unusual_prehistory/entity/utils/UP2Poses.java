@@ -8,8 +8,6 @@ public enum UP2Poses {
     ATTACKING_FAST,
     HEADBUTTING,
     HEADBUTTING_FAST,
-    START_CAMO,
-    STOP_CAMO,
     BURROWED,
     TAIL_WHIPPING,
     START_CHARGING,
@@ -29,7 +27,8 @@ public enum UP2Poses {
     ALERTED,
     ENRAGED,
     STOMPING,
-    RECOVERING;
+    RECOVERING,
+    ROARING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

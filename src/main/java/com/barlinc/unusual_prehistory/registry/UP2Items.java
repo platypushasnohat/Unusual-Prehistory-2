@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.Diplocaulus;
-import com.barlinc.unusual_prehistory.entity.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.JawlessFish;
-import com.barlinc.unusual_prehistory.entity.LobeFinnedFish;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
@@ -94,7 +94,7 @@ public class UP2Items {
     // Hibbertopterus
     public static final RegistryObject<Item> HIBBERTOPTERUS_SPAWN_EGG = registerSpawnEggItem("hibbertopterus", UP2Entities.HIBBERTOPTERUS, 0xe4b57c, 0x5d3a2f);
     public static final RegistryObject<Item> PLOW_FOSSIL = registerFossilItem("plow");
-    public static final RegistryObject<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 2));
+    public static final RegistryObject<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 4));
 
     // Jawless Fish
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = registerSpawnEggItem("jawless_fish", UP2Entities.JAWLESS_FISH, 0x312e38, 0x917388);
@@ -209,7 +209,8 @@ public class UP2Items {
     public static final RegistryObject<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
     public static final RegistryObject<Item> CLADOPHLEBIS_FOSSIL = registerFossilItem("cladophlebis");
     public static final RegistryObject<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
-    public static final RegistryObject<Item> HORSETAIL_FOSSIL = registerFossilItem("horsetail");
+    public static final RegistryObject<Item> CYCAD_FOSSIL = registerFossilItem("cycad");
+    public static final RegistryObject<Item> GUANGDEDENDRON_FOSSIL = registerFossilItem("guangdedendron");
     public static final RegistryObject<Item> LEEFRUCTUS_FOSSIL = registerFossilItem("leefructus");
     public static final RegistryObject<Item> NEOMARIOPTERIS_FOSSIL = registerFossilItem("neomariopteris");
     public static final RegistryObject<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");

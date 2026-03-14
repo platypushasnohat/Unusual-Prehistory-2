@@ -16,7 +16,7 @@
       "fossil_item": "unusual_prehistory:fish_fossil",
       "egg_item": "unusual_prehistory:lobe_finned_fish_roe",
       "variant_key": "1 Allenypterus 2 Scaumenacia 3 Laccognathus 4 Eusthenopteron 5 Gooloongia",
-      "image_tooltip": ""
+      "image_tooltip": "Familiar Inhabitants of the Devonian Waters"
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -31,7 +31,12 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "unusual_prehistory:lobe_finned_fish_bucket",
+      "feature_1.tooltip": "§7These Fish can be carried in a §aWater Bucket§7",
+      "feature_1.title_one_line": "Buckets of Seafood",
+      "feature_1.title_two_line": ""
     }
   ]
 }

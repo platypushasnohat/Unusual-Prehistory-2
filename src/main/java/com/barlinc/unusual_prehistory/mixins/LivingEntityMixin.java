@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityAccessor {
 
+    // todo: use this to prevent grabbed mobs from being grabbed multiple times?
+
     @Unique
     private static final EntityDataAccessor<Boolean> DATA_GRABBED = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BOOLEAN);
 
