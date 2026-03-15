@@ -35,19 +35,13 @@
       "activity.activity_tooltip": "Active during the night",
 
       "feature_1.item": "minecraft:glass",
-      "feature_1.tooltip": "§7With skin like a chameleon, they remain hidden until just before they strike their prey",
-      "feature_1.title_one_line": "The Invisible Man",
-      "feature_1.title_two_line": "",
+      "feature_1.tooltip": "§7With skin like a chameleon, they remain hidden until just before they strike their prey or hide from larger predators",
+      "feature_1.title_two_line": "The Invisible Man",
 
-      "feature_2.item": "minecraft:oak_leaves",
-      "feature_2.tooltip": "§7Majungasaurus will also use it's camouflage to hide from larger predators",
-      "feature_2.title_one_line": "There's always a Bigger Fish",
-      "feature_2.title_two_line": "",
-
-      "feature_3.item": "minecraft:iron_axe",
-      "feature_3.tooltip": "§7These dinosaurs are known to eat younger members of their species",
-      "feature_3.title_one_line": "Kids Meal",
-      "feature_3.title_two_line": ""
+      "feature_2.item": "minecraft:iron_axe",
+      "feature_2.tooltip": "§7These dinosaurs are known to eat younger members of their species",
+      "feature_2.title_one_line": "Kids Meal",
+      "feature_2.title_two_line": ""
     }
   ]
 }

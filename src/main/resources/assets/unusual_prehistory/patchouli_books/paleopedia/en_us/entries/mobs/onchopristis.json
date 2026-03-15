@@ -36,10 +36,9 @@
 
       "feature_1.item": "minecraft:coarse_dirt",
       "feature_1.tooltip": "§7Onchopristis live at the bottom of bodies of water and will often bury themselves in the sediment",
-      "feature_1.title_one_line": "Scales in the Soil",
-      "feature_1.title_two_line": "",
+      "feature_1.title_two_line": "Scales in the Soil",
 
-      "feature_2.item": "minecraft:prismarine",
+      "feature_2.item": "minecraft:redstone_block",
       "feature_2.tooltip": "§7If disturbed while buried, they will use their toothy snouts to attack",
       "feature_2.title_one_line": "I Saw That!",
       "feature_2.title_two_line": ""

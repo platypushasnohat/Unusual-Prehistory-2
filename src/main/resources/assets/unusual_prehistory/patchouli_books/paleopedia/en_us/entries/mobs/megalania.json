@@ -34,20 +34,19 @@
       "activity.activity_type": "cathemeral",
       "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
 
-      "feature_1.item": "minecraft:red_sand",
-      "feature_1.tooltip": "§7Being cold-blooded animals, they thrive in hotter climates, and will become more active and hostile in warmer biomes",
-      "feature_1.title_one_line": "Desert Danger!",
-      "feature_1.title_two_line": "",
-
-      "feature_2.item": "minecraft:spider_eye",
-      "feature_2.tooltip": "§7Their bite is highly venomous, much like other monitor lizards",
-      "feature_2.title_one_line": "Vile Bite",
+      "feature_2.item": "minecraft:red_sand",
+      "feature_2.tooltip": "§7Being cold-blooded animals, they thrive in hotter climates, and will become more active and hostile in warmer biomes",
+      "feature_2.title_one_line": "Desert Danger!",
       "feature_2.title_two_line": "",
 
-      "feature_3.item": "minecraft:rotten_flesh",
-      "feature_3.tooltip": "§7These reptiles can be tamed with §r§arotten flesh§r§7 and can be ridden as a semi-aquatic mount§r",
-      "feature_3.title_one_line": "An Unexpected Friend?",
-      "feature_3.title_two_line": ""
+      "feature_3.item": "minecraft:spider_eye",
+      "feature_3.tooltip": "§7Their bite is highly venomous, much like other monitor lizards",
+      "feature_3.title_one_line": "Vile Bite",
+      "feature_3.title_two_line": "",
+
+      "feature_1.item": "minecraft:rotten_flesh",
+      "feature_1.tooltip": "§7These reptiles can be tamed with §r§aRotten Flesh§r§7 and can be ridden as a semi-aquatic mount§r",
+      "feature_1.title_two_line": "An Unexpected Friend?"
     }
   ]
 }

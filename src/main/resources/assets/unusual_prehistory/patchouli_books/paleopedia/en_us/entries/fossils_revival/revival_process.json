@@ -1,7 +1,7 @@
 {
   "name": "Revival Process",
   "icon": "unusual_prehistory:machine_parts",
-  "category": "unusual_prehistory:revival",
+  "category": "unusual_prehistory:fossils_revival",
   "pages": [
     {
       "type": "patchouli:text",

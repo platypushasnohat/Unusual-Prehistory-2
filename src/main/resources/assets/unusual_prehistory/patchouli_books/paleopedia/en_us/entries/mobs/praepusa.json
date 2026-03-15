@@ -32,7 +32,24 @@
       "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
 
       "activity.activity_type": "sleepless",
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "tag:unusual_prehistory:praepusa_food",
+      "feature_1.tooltip": "Upon ingesting fish, the miracle of life ensues",
+      "feature_1.title_one_line": "Mitosis",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "unusual_prehistory:praepusa_bucket",
+      "feature_2.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Praepusa",
+      "feature_2.title_one_line": "Swuopp",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:slime_block",
+      "feature_3.tooltip": "Capable of withstanding great heights, these seals bounce harmlessly when dropped from any height",
+      "feature_3.title_one_line": "Boioioioioing",
+      "feature_3.title_two_line": ""
+
+
     }
   ]
 }

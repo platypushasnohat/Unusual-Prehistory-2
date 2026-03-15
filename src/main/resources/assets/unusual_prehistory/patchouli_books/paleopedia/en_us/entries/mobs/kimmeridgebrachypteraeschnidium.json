@@ -6,7 +6,8 @@
   "extra_recipe_mappings": {
     "unusual_prehistory:imperative_fossil": 0,
     "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs": 0,
-    "unusual_prehistory:kimmeridgebrachypteraeschnidium_spawn_egg": 0
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium_spawn_egg": 0,
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_spawn_egg": 0
   },
   "pages": [
     {
@@ -36,18 +37,15 @@
 
       "feature_1.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
       "feature_1.tooltip": "§7They start their lives as aquatic nymphs before they grow into their flying adult forms",
-      "feature_1.title_one_line": "Bug Baby Biology",
-      "feature_1.title_two_line": "",
+      "feature_1.title_two_line": "Bug Baby Biology",
 
-      "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle",
-      "feature_2.tooltip": "§7The Nymphs can be §aBucketed§7, while the Adults can be picked up with §aBottles§7",
-      "feature_2.title_one_line": "Ease of Transportation",
-      "feature_2.title_two_line": "",
+      "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle,unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_2.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport nymphs, and a §aGlass Bottle§7 can be used to collect and transport adults",
+      "feature_2.title_two_line": "Ease of Transportation",
 
-      "feature_3.item": "minecraft:cyan_dye",
+      "feature_3.item": "tag:forge:dyes",
       "feature_3.tooltip": "§7Their body, wings and pattern all come in random colors",
-      "feature_3.title_one_line": "Thousands of Flavours!",
-      "feature_3.title_two_line": ""
+      "feature_3.title_two_line": "Thousands of Flavours!"
     }
   ]
 }

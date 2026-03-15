@@ -32,7 +32,12 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:seagrass",
+      "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off and snack on aquatic plants",
+      "feature_1.title_one_line": "River-Stopper",
+      "feature_1.title_two_line": ""
     }
   ]
 }

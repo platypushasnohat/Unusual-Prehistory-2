@@ -39,8 +39,8 @@
       "feature_1.title_one_line": "Furious",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "minecraft:golden_apple",
-      "feature_2.tooltip": "§7After being §apacified§r, §7Carnotaurus will continue to attack most monsters",
+      "feature_2.item": "tag:unusual_prehistory:permanently_pacifies_mob",
+      "feature_2.tooltip": "§7After being §apacified§7, Carnotaurus will continue to attack most monsters",
       "feature_2.title_one_line": "Bodyguard!",
       "feature_2.title_two_line": ""
     }

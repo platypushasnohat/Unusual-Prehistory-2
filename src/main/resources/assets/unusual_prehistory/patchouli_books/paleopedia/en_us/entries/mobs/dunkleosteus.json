@@ -34,20 +34,18 @@
       "activity.activity_type": "sleepless",  
       "activity.activity_tooltip": "Does not sleep",
 
-      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket",
-      "feature_1.tooltip": "§7While the smallest can fit in a bucket, the larger species are more aggressive",
+      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:0},unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:1},unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:2}",
+      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Dunkleosteus",
       "feature_1.title_one_line": "Size may Vary",
       "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:prismarine",
       "feature_2.tooltip": "§7Dunkleosteus' armour-piercing jaws are particularly threatening to guardians, who deeply fear these creatures",
-      "feature_2.title_one_line": "Crushing Crunch",
-      "feature_2.title_two_line": "",
+      "feature_2.title_two_line": "Crushing Crunch",
 
-      "feature_3.item": "minecraft:skeleton_skull",
+      "feature_3.item": "tag:forge:heads",
       "feature_3.tooltip": "§7Their Guillotine jaws can cause victims to drop their heads",
-      "feature_3.title_one_line": "Off with their Heads!",
-      "feature_3.title_two_line": ""
+      "feature_3.title_two_line": "Off with their Heads!"
     }
   ]
 }

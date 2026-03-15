@@ -39,10 +39,9 @@
       "feature_1.title_one_line": "Flying Fish",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "minecraft:moss_block",
+      "feature_2.item": "tag:unusual_prehistory:tartuosteus_nibbling_blocks",
       "feature_2.tooltip": "§7Like other jawless fish, they enjoy nibbling on moss",
-      "feature_2.title_one_line": "Eating Your Greens",
-      "feature_2.title_two_line": ""
+      "feature_2.title_two_line": "Eating Your Greens"
     }
   ]
 }

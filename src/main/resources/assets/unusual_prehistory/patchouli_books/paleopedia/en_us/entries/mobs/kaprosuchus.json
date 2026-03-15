@@ -21,18 +21,24 @@
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
-
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",
-
       "temperament.temperament_type": "neutral",
-
-      "clone.clone_type": "nest_egg",  
-      "clone.clone_tooltip_heading": "Nest Egg",  
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
       "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_kaprosuchus",
+      "feature_1.tooltip": "Kaprosuchus can be loyal companions despite their gnarly exteriors - tame them using §aBones§7",
+      "feature_1.title_one_line": "Swamp Puppy",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:arrow",
+      "feature_2.tooltip": "Kaprosuchus is capable of bombastic leaps that carry them far and high in the air, escape is no easy task",
+      "feature_2.title_one_line": "CHARGE!",
+      "feature_2.title_two_line": ""
     }
   ]
 }

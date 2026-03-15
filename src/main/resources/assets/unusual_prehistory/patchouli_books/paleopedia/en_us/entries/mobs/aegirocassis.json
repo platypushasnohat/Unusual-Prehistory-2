@@ -32,7 +32,11 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"  
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "unusual_prehistory:baby_aegirocassis_bucket",
+      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport baby Aegirocassis",
+      "feature_1.title_two_line": "Humble Beginnings"
     }
   ]
 }

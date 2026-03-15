@@ -33,15 +33,14 @@
       "activity.activity_type": "sleepless",  
       "activity.activity_tooltip": "Does not sleep",
 
-      "feature_1.item": "unusual_prehistory:jawless_fish_bucket",
-      "feature_1.tooltip": "§7Their small size allows them to be transported using §aWater Buckets§7, making them easy to use for aquariums",
+      "feature_1.item": "unusual_prehistory:jawless_fish_bucket{BucketVariantTag:0},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:1},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:2},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:3},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:4}",
+      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Jawless Fish",
       "feature_1.title_one_line": "Portable Pisces",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "minecraft:moss_block",
-      "feature_2.tooltip": "§7Their lack of jaws limit their diets, but they will nibble on moss placed in their reach",
-      "feature_2.title_one_line": "Perpetuate the Cycle",
-      "feature_2.title_two_line": ""
+      "feature_2.item": "tag:unusual_prehistory:jawless_fish_nibbling_blocks",
+      "feature_2.tooltip": "§7Their lack of jaws limit their diets, but they will nibble on mossy blocks placed in their reach",
+      "feature_2.title_two_line": "Perpetuate the Cycle"
     }
   ]
 }

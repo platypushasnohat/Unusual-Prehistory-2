@@ -32,7 +32,17 @@
       "clone.clone_tooltip": "Egg must be placed underwater to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "unusual_prehistory:coelacanthus_bucket",
+      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Coelacanthus",
+      "feature_1.title_one_line": "Hungry Home",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:tropical_fish",
+      "feature_2.tooltip": "Coelacanthus indiscriminately devours anything smaller than itself, and grows with every feeding",
+      "feature_2.title_one_line": "Feed and Grow",
+      "feature_2.title_two_line": ""
     }
   ]
 }

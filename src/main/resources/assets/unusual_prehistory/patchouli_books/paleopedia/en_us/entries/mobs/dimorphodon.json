@@ -32,7 +32,12 @@
       "clone.clone_tooltip": "Egg must be thrown to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:anvil",
+      "feature_1.tooltip": "Dimorphodon attacks by pulling enemies high up into the sky - letting gravity handle the rest",
+      "feature_1.title_one_line": "Long Way Down!",
+      "feature_1.title_two_line": ""
     }
   ]
 }

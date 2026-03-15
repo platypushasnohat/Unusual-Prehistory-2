@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:flat_back_fossil",
       "egg_item": "unusual_prehistory:desmatosuchus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "An ancient archosaur that once roamed the Late Triassic, amongst the most heavily armored animals ever known, and unmatched in its ti,me."
     },
     {
       "type": "unusual_prehistory:mob_entry_2",
@@ -32,7 +32,40 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "minecraft:mud,minecraft:moss_block,minecraft:snow_block",
+      "feature_1.tooltip": "Desmatosuchus loves wallowing in §amud§7, §amoss blocks§7, and §asnow blocks§7, burrowing in these blocks when it sleeps.",
+      "feature_1.title_one_line": "Flourishing",
+      "feature_1.title_two_line": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "Desmatosuchus is an Aetosaur, an order of pseudosuchian archosaur, more closely related to crocodilians than to birds and non-avian dinosaurs. Though they did not survive past the Triassic–Jurassic extinction event and their temporal range - Carnian to Norian age, 228–210 million years ago - were comparatively short,"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "these reptiles were immensely abundant, achieving near-global distribution. A large quadrupedal reptile, its slanted posture supported by two comparatively short forelimbs and two robust hindlimbs. However, Desmatosuchus’ most defining feature is upon its backside, which sports a dense carapace of"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "osteoderms, sharp scutes lining its lateral side in pairs, and one pair of spikes protruding from its shoulder blades that greatly exceed any other. As Desmatosuchus was a large herbivore, but lacked means to evade or overpower predators such as the similarly large Postosuchus, its heavy armor would have"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "provided invaluable defense against such threats. Desmatosuchus likely enjoyed burrowing and excavating soft mud for vegetation, as their snouts were uniquely slender, flat, and upturned at the front like a shovelhead; further evidence for their behavior is the morphology of their mouth,"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "with blunt teeth for rending down food in the back, and a keratinous beak further on the front for shearing and cutting. In their constant grazing along rivers and lakesides, Desmatosuchus have been found to gather into large herds, perhaps an indicator of complex social behaviors."
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "Many lakes and dense river networks converged to create Desmatosuchus’ primary habitat, sediment-rich deposits form muddy banks, which in turn supports a verdant and thriving biota. Waterways would have connected every corner of this environment, and oftentimes, overflowing rivers"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_text",
+      "text": "could temporarily submerge surrounding forests."
     }
   ]
 }
