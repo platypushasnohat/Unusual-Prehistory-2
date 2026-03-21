@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:gluttonous_fossil",
       "egg_item": "unusual_prehistory:coelacanthus_roe",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "The first bearer of the name Coelacanth, this primordial pisces is a glutton, devouring anything and everything it can fit in its mouth "
     },
     {
+      "id": "coelacanthus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_permian",

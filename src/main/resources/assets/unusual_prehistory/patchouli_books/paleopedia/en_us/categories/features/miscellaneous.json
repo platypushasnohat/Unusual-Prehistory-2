@@ -1,0 +1,8 @@
+{
+  "name": "Miscellaneous",
+  "description": "Other tips to guide you along your paleontology journey.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_miscellaneous.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 3,
+  "secret": false
+}

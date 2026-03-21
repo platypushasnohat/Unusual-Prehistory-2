@@ -1,0 +1,8 @@
+{
+  "name": "Mobs",
+  "description": "Mobs or monsters that are not revived from fossils.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_mobs.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 2,
+  "secret": false
+}

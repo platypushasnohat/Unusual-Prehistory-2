@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:impervious_fossil",
       "egg_item": "unusual_prehistory:lystrosaurus_egg",
       "variant_key": "",
-      "image_tooltip": "The Ultimate Survivor"
+      "image_tooltip": "The most populous creature of the early triassic, Lystrosaurus is venerated for surviving the Permian extinction and subsequently thriving, a feat attributed to it being invulnerable, indestructible, impervious and..."
     },
     {
+      "id": "lystrosaurus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "lystrosaurus",
@@ -36,8 +37,8 @@
 
       "feature_1.item": "minecraft:nether_star",
       "feature_1.tooltip": "§7Lystrosaurus are near-indestructable, being completely immune to many types of damage, and become incredibly skittish when injured",
-      "feature_1.title_one_line": "Invincible!",
-      "feature_1.title_two_line": "",
+      "feature_1.title_one_line": "INVINCIBLE!",
+      "feature_1.title_two_line": ""
     }
   ]
 }

@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:guillotine_fossil",
       "egg_item": "unusual_prehistory:dunkleosteus_sac",
       "variant_key": "1 raveri 2 marsaisi 3 terrelli",
-      "image_tooltip": "Devonian Pioneers of the Deadly Jaws"
+      "image_tooltip": "The placoderm pioneer of jaws, the deadly Devonian Dunkleosteus is capable of using its bony jaws to slice any enemy clean in half "
     },
     {
+      "id": "dunkleosteus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_devonian",

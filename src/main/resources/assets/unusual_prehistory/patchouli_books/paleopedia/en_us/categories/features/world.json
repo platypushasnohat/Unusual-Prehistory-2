@@ -1,0 +1,8 @@
+{
+  "name": "World",
+  "description": "Structures, loot and other naturally generated features of the world.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_world.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 0,
+  "secret": false
+}

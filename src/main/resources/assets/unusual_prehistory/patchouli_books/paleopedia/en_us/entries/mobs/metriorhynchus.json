@@ -20,6 +20,7 @@
       "image_tooltip": "Marine Crocodiyliform that Hunted in Jurassic Seas"
     },
     {
+      "id": "metriorhynchus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",

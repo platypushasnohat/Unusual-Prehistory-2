@@ -1,0 +1,7 @@
+{
+  "name": "Getting Started",
+  "description": "A set of objectives to get you started on your journey to reviving ancient life.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_getting_started.png",
+  "sortnum": 0,
+  "secret": false
+}

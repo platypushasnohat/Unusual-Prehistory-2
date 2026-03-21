@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:arm_fossil",
       "egg_item": "unusual_prehistory:brachiosaurus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "An iconic sauropod from the Jurassic that requires little introduction, Brachiosaurus stands out from its peers with its highly distinct, majestic towering posture and spends a lot of its time wading in deep water "
     },
     {
+      "id": "brachiosaurus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",
@@ -35,7 +36,7 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:seagrass",
-      "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off and snack on aquatic plants",
+      "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off",
       "feature_1.title_one_line": "River-Stopper",
       "feature_1.title_two_line": ""
     }

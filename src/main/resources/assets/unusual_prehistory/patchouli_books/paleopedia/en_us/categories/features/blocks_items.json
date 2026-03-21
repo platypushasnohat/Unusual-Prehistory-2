@@ -1,0 +1,8 @@
+{
+  "name": "Blocks & Items",
+  "description": "Blocks and items and their unique mechanics.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_blocks_items.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 1,
+  "secret": false
+}

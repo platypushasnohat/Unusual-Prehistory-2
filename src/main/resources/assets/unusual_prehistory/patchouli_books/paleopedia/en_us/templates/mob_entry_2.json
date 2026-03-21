@@ -74,6 +74,16 @@
       "y": -20
     },
     {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/icons/#id#.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "x": 3,
+      "y": -12
+    },
+    {
       "type": "patchouli:separator",
       "y": 35
     }

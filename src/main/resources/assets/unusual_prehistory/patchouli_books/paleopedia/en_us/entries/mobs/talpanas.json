@@ -20,6 +20,7 @@
       "image_tooltip": "A cave-dwelling duck that can neither see nor swim"
     },
     {
+      "id": "talpanas",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "holocene",

@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:text",
+      "text": "#link##text#$(/l)",
+      "guard": "#guard",
+      "color": "bfac78"
+    }
+  ]
+}

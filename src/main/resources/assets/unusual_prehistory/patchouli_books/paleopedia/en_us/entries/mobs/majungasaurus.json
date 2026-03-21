@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:rugose_fossil",
       "egg_item": "unusual_prehistory:majungasaurus_egg",
       "variant_key": "",
-      "image_tooltip": "Cannibalistic Carnivore highly skilled in stealth hunting"
+      "image_tooltip": "The cannibalistic carnivorous chameleon of the late Jurassic, the abelisaur Majungasaurus uses its ability of metachrosis to stalk prey while being virtually invisible"
     },
     {
+      "id": "majungasaurus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",

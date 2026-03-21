@@ -20,6 +20,7 @@
       "image_tooltip": "Fossilised Fowl known from a Single Bone"
     },
     {
+      "id": "telecrex",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "early_cenozoic",

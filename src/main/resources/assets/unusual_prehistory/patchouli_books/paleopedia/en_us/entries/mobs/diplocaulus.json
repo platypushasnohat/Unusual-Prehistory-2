@@ -20,6 +20,7 @@
       "image_tooltip": ""
     },
     {
+      "id": "diplocaulus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "diplocaulus",

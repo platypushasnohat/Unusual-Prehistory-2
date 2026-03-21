@@ -18,9 +18,10 @@
       "fossil_item": "unusual_prehistory:imperative_fossil",
       "egg_item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
       "variant_key": "",
-      "image_tooltip": "Dazzling,Tongue-Twisting Dragonflies coming in hundreds of designs"
+      "image_tooltip": "Dazzling Dervish Darners dropping in dozens of distinct designs, delivering the drive for decoration. Try saying that ten times in a row."
     },
     {
+      "id": "kimmeridgebrachypteraeschnidium",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",
@@ -41,10 +42,10 @@
 
       "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle,unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
       "feature_2.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport nymphs, and a §aGlass Bottle§7 can be used to collect and transport adults",
-      "feature_2.title_two_line": "Ease of Transportation",
+      "feature_2.title_two_line": "Transportation Troubles",
 
       "feature_3.item": "tag:forge:dyes",
-      "feature_3.tooltip": "§7Their body, wings and pattern all come in random colors",
+      "feature_3.tooltip": "§7Their body, wings and pattern all come in random colors, providing near-infinite possibilities",
       "feature_3.title_two_line": "Thousands of Flavours!"
     }
   ]

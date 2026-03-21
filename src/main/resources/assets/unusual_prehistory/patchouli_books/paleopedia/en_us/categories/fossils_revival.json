@@ -1,7 +1,0 @@
-{
-  "name": "Fossils & Revival",
-  "description": "Fossils are the remnants of long-extinct creatures. They can be excavated using a $(highlight)Brush$() at fossil sites that may be found across the world. Through the process of $(highlight)Transmogrification$() of fossils, these ancient organisms may be brought back to life.",
-  "icon": "unusual_prehistory:textures/gui/paleopedia/category_fossils_revival.png",
-  "sortnum": 0,
-  "secret": false
-}

@@ -19,6 +19,7 @@
       "image_tooltip": "Familiar Inhabitants of the Devonian Waters"
     },
     {
+      "id": "lobe_finned_fish",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "lobe_finned_fish",
