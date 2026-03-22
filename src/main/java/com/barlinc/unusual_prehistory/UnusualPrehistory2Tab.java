@@ -1,12 +1,10 @@
 package com.barlinc.unusual_prehistory;
 
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
-import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -22,12 +20,34 @@ public class UnusualPrehistory2Tab {
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, output) -> {
 
-                        // Spawn eggs
-                        UP2Items.ITEMS.getEntries().forEach(spawnEgg -> {
-                            if ((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
-                                output.accept(spawnEgg.get());
-                            }
-                        });
+                        output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
+                        output.accept(CARNOTAURUS_SPAWN_EGG.get());
+                        output.accept(COELACANTHUS_SPAWN_EGG.get());
+                        output.accept(DIPLOCAULUS_SPAWN_EGG.get());
+                        output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
+                        output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
+                        output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
+                        output.accept(JAWLESS_FISH_SPAWN_EGG.get());
+                        output.accept(KAPROSUCHUS_SPAWN_EGG.get());
+                        output.accept(KENTROSAURUS_SPAWN_EGG.get());
+                        output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
+                        output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
+                        output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
+                        output.accept(LIVING_OOZE_SPAWN_EGG.get());
+                        output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
+                        output.accept(LYSTROSAURUS_SPAWN_EGG.get());
+                        output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
+                        output.accept(MEGALANIA_SPAWN_EGG.get());
+                        output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
+                        output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
+                        output.accept(PACHYCEPHALOSAURUS_SPAWN_EGG.get());
+                        output.accept(PRAEPUSA_SPAWN_EGG.get());
+                        output.accept(PTERODACTYLUS_SPAWN_EGG.get());
+                        output.accept(STETHACANTHUS_SPAWN_EGG.get());
+                        output.accept(TALPANAS_SPAWN_EGG.get());
+                        output.accept(TARTUOSTEUS_SPAWN_EGG.get());
+                        output.accept(TELECREX_SPAWN_EGG.get());
+                        output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         output.accept(ORGANIC_OOZE.get());
                         output.accept(LIVING_OOZE_BUCKET.get());
@@ -91,7 +111,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MAGENTA_REINFORCED_GLASS.get());
                         output.accept(UP2Blocks.PINK_REINFORCED_GLASS.get());
 
-                        output.accept(BABY_AEGIROCASSIS_BUCKET.get());
                         output.accept(COELACANTHUS_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
@@ -106,47 +125,36 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
 
-                        output.accept(BRISTLE_FOSSIL.get());
-                        output.accept(BRUTE_FOSSIL.get());
-                        output.accept(ARM_FOSSIL.get());
-                        output.accept(FURY_FOSSIL.get());
-                        output.accept(GLUTTONOUS_FOSSIL.get());
-                        output.accept(FLAT_BACK_FOSSIL.get());
-                        output.accept(BILL_FOSSIL.get());
-                        output.accept(BOOMERANG_FOSSIL.get());
-                        output.accept(RUNNER_FOSSIL.get());
-                        output.accept(GUILLOTINE_FOSSIL.get());
-                        output.accept(PLOW_FOSSIL.get());
-                        output.accept(JAWLESS_FOSSIL.get());
-                        output.accept(BOAR_TOOTH_FOSSIL.get());
-                        output.accept(PRICKLY_FOSSIL.get());
-                        output.accept(IMPERATIVE_FOSSIL.get());
-                        output.accept(TRUNK_MOUSE_FOSSIL.get());
-                        output.accept(FISH_FOSSIL.get());
-                        output.accept(IMPERVIOUS_FOSSIL.get());
-                        output.accept(RUGOSE_FOSSIL.get());
-                        output.accept(ROACH_FOSSIL.get());
-                        output.accept(THERMAL_FOSSIL.get());
-                        output.accept(MELTDOWN_FOSSIL.get());
-                        output.accept(SAW_FOSSIL.get());
-                        output.accept(CRANIUM_FOSSIL.get());
-                        output.accept(FLIPPER_FOSSIL.get());
-                        output.accept(CROOKED_BEAK_FOSSIL.get());
-                        output.accept(WING_FOSSIL.get());
-                        output.accept(ANVIL_FOSSIL.get());
-                        output.accept(AGED_FEATHER.get());
-                        output.accept(MOSSY_FOSSIL.get());
-                        output.accept(PLUMAGE_FOSSIL.get());
-                        output.accept(SCYTHE_FOSSIL.get());
-                        output.accept(DUBIOUS_FOSSIL.get());
+                        output.accept(ARM_FOSSIL.get()); // brachiosaurus
+                        output.accept(FURY_FOSSIL.get()); // carnotaurus
+                        output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
+                        output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
+                        output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
+                        output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
+                        output.accept(PLOW_FOSSIL.get()); // hibbertopterus
+                        output.accept(JAWLESS_FOSSIL.get()); // jawless fish
+                        output.accept(BOAR_TOOTH_FOSSIL.get()); // kaprosuchus
+                        output.accept(PRICKLY_FOSSIL.get()); // kentrosaurus
+                        output.accept(IMPERATIVE_FOSSIL.get()); // kimmeridgebrachypteraeschnidium
+                        output.accept(TRUNK_MOUSE_FOSSIL.get()); // leptictidium
+                        output.accept(FISH_FOSSIL.get()); // lobe finned fish
+                        output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
+                        output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
+                        output.accept(THERMAL_FOSSIL.get()); // megalania
+                        output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
+                        output.accept(SAW_FOSSIL.get()); // onchopristis
+                        output.accept(CRANIUM_FOSSIL.get()); // pachycephalosaurus
+                        output.accept(FLIPPER_FOSSIL.get()); // praepusa
+                        output.accept(WING_FOSSIL.get()); // pterodactylus
+                        output.accept(ANVIL_FOSSIL.get()); // stethacanthus
+                        output.accept(AGED_FEATHER.get()); // talpanas
+                        output.accept(MOSSY_FOSSIL.get()); // tartuosteus
+                        output.accept(PLUMAGE_FOSSIL.get()); // telecrex
+                        output.accept(DUBIOUS_FOSSIL.get()); // ulughbegsaurus
 
-                        output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
-                        output.accept(UP2Blocks.BARINASUCHUS_EGG.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
-                        output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
-                        output.accept(DIMORPHODON_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
@@ -159,19 +167,16 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
                         output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
-                        output.accept(UP2Blocks.MANIPULATOR_OOTHECA.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
                         output.accept(UP2Blocks.PACHYCEPHALOSAURUS_EGG.get());
                         output.accept(PRAEPUSA_EMBRYO.get());
-                        output.accept(PSILOPTERUS_EGG.get());
                         output.accept(PTERODACTYLUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
-                        output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
                         output.accept(AETHOPHYLLUM_FOSSIL.get());
