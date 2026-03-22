@@ -1,0 +1,47 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:template_advancement_checkbox",
+      "as": "checkbox",
+      "x": 43,
+      "y": 16
+    },
+    {
+      "template": "unusual_prehistory:template_hyperlink_button",
+      "as": "button_next",
+      "using": {
+      "text": ">",
+      "tooltip": "$(t:Next Objective)"
+    },
+      "x": 90,
+      "y": 160
+    },
+    {
+      "template": "unusual_prehistory:template_hyperlink_button",
+      "as": "button_previous",
+      "using": {
+        "text": "<",
+        "tooltip": "$(t:Previous Objective)"
+      },
+      "x": 21,
+      "y": 160
+    }
+  ],
+  "components":[
+    {
+      "type": "patchouli:header",
+      "text": "Objective",
+      "centered": true,
+      "x": -1,
+      "y": -1,
+      "color": "bfac78"
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "centered": true,
+      "x": -1,
+      "y": 12
+    }
+  ]
+}

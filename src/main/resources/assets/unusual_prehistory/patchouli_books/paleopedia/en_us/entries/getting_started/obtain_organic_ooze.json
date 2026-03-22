@@ -1,0 +1,25 @@
+{
+  "name": "Goo is Fuel",
+  "icon": "unusual_prehistory:organic_ooze",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_organic_ooze",
+  "advancement": "unusual_prehistory:obtain_machine_parts",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:organic_ooze",
+      "title": "Goo is Fuel",
+      "text": "The Transmogrifier is fuelled with Organic Ooze. Take care to make more for reviving larger creatures!"
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "Craft Organic Ooze",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_transmogrifier",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_egg)",
+      "button_previous.link": "$(l:unusual_prehistory:getting_started/obtain_transmogrifier)",
+      "button_next.guard": "true",
+      "button_previous.guard": "true"
+    }
+  ]
+}

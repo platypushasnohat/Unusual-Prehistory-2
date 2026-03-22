@@ -1,7 +1,0 @@
-{
-  "name": "Fossils",
-  "description": "Fossils are the remnants of long-extinct creatures. They can be excavated using a $(highlight)Brush$() at fossil sites that may be found across the world.",
-  "icon": "unusual_prehistory:textures/gui/paleopedia/category_fossils.png",
-  "sortnum": 0,
-  "secret": false
-}

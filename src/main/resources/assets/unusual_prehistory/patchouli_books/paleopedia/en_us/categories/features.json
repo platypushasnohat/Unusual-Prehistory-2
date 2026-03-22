@@ -1,0 +1,7 @@
+{
+  "name": "Features",
+  "description": "A catalog of materials, techniques, and tools used in reviving and taking care of extinct life.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features.png",
+  "sortnum": 1,
+  "secret": true
+}

@@ -2,6 +2,6 @@
   "name": "Mobs",
   "description": "A catalog for revived creatures.",
   "icon": "unusual_prehistory:textures/gui/paleopedia/category_mobs.png",
-  "sortnum": 3,
+  "sortnum": 2,
   "secret": true
 }

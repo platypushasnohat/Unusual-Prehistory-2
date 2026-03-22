@@ -17,9 +17,10 @@
       "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
       "egg_item": "unusual_prehistory:leptictidium_embryo",
       "variant_key": "",
-      "image_tooltip": "Strangely-Built Vermin of the Eocene European Jungles."
+      "image_tooltip": "Hailing from Eocene Europe, long-legged Leptictidium laces nearby life with lingering potion effects, leaving creatures hopping mad"
     },
     {
+      "id": "leptictidium",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "early_cenozoic",
@@ -39,15 +40,10 @@
       "feature_1.title_one_line": "Pest Control",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "minecraft:rotten_flesh",
+      "feature_2.item": "minecraft:splash_potion{Potion:\"minecraft:awkward\"}",
       "feature_2.tooltip": "§7They will carry and spread potion effects to other mobs",
       "feature_2.title_one_line": "Plague Rats",
-      "feature_2.title_two_line": "",
-
-      "feature_3.item": "minecraft:feather",
-      "feature_3.tooltip": "§7They're incredibly fast and skittish, especially while on low health",
-      "feature_3.title_one_line": "Running (not) Rodents",
-      "feature_3.title_two_line": ""
+      "feature_2.title_two_line": ""
     }
   ]
 }

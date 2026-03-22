@@ -20,6 +20,7 @@
       "image_tooltip": ""
     },
     {
+      "id": "diplocaulus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "diplocaulus",
@@ -34,18 +35,17 @@
       "activity.activity_type": "sleepless",
       "activity.activity_tooltip": "Does not sleep",
 
-      "feature_1.item": "unusual_prehistory:diplocaulus_bucket",
+      "feature_1.item": "unusual_prehistory:diplocaulus_bucket{BucketVariantTag:0},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:1},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:2},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:3}",
       "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Diplocaulus",
-      "feature_1.title_one_line": "Tactical Fishing",
-      "feature_1.title_two_line": "",
+      "feature_1.title_two_line": "Tactical Salamandering",
 
-      "feature_2.item": "minecraft:ice",
-      "feature_2.tooltip": "§7Loves to slide around on ice, snow and mud",
+      "feature_2.item": "tag:unusual_prehistory:diplocaulus_sliding_blocks",
+      "feature_2.tooltip": "§7Loves to slide around on various slippery blocks",
       "feature_2.title_one_line": "Slip n' Slide!",
       "feature_2.title_two_line": "",
 
-      "feature_3.item": "minecraft:mud",
-      "feature_3.tooltip": "§7Diplocaulus may occasionally bury itself in mud",
+      "feature_3.item": "tag:unusual_prehistory:diplocaulus_burrowing_blocks",
+      "feature_3.tooltip": "§7Diplocaulus may occasionally bury itself in sediment blocks",
       "feature_3.title_one_line": "In the Mud",
       "feature_3.title_two_line": ""
     }

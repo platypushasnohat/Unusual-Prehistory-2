@@ -1,0 +1,22 @@
+{
+  "name": "Fossil Hunting",
+  "icon": "unusual_prehistory:rugose_fossil",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_fossil",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:rugose_fossil",
+      "title": "Fossil Hunting",
+      "text": "One of the first steps in your journey is to find $(l:unusual_prehistory:features)Fossil Sites$() underground or on the surface. Fossils can be obtained using a $(highlight)Brush$() on suspicious blocks in these sites."
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "Obtain a Fossil",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_fossil",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_machine_parts)",
+      "button_next.guard": "true"
+    }
+  ]
+}

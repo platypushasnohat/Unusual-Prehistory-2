@@ -1,0 +1,25 @@
+{
+  "name": "Transmogrification",
+  "icon": "unusual_prehistory:transmogrifier",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_transmogrifier",
+  "advancement": "unusual_prehistory:obtain_machine_parts",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:transmogrifier",
+      "title": "Transmogrification",
+      "text": "Using $(highlight)$(l:unusual_prehistory:features/machine_parts)Machine Parts$(), one can create a $(highlight)$(l:unusual_prehistory:features/transmogrifier)Transmogrifier$() powered by $(highlight)$(l:unusual_prehistory:features/organic_ooze)Organic Ooze$()."
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "Craft a Transmogrifier",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_transmogrifier",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_organic_ooze)",
+      "button_previous.link": "$(l:unusual_prehistory:getting_started/obtain_machine_parts)",
+      "button_next.guard": "true",
+      "button_previous.guard": "true"
+    }
+  ]
+}

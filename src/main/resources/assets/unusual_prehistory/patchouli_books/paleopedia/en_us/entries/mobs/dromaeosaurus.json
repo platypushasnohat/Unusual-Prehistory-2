@@ -20,6 +20,7 @@
       "image_tooltip": ""
     },
     {
+      "id": "dromaeosaurus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
@@ -35,12 +36,12 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:red_bed",
-      "feature_1.tooltip": "§7Dromaeosaurus is hyperactive - this dinosaur will continuously run and jump around, however will instantly fall asleep as night falls",
+      "feature_1.tooltip": "§7Dromaeosaurus is hyperactive and will continuously run and jump around - however, it will instantly fall asleep as night falls",
       "feature_1.title_one_line": "Dino-Run!",
       "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:feather",
-      "feature_2.tooltip": "§7Dromaeosaurus may prey on Chickens and other fowl",
+      "feature_2.tooltip": "§7Dromaeosaurus may prey on §aChickens§7 and other fowl",
       "feature_2.title_one_line": "Fowl Play",
       "feature_2.title_two_line": ""
     }

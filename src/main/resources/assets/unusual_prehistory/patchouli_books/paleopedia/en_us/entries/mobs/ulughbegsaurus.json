@@ -20,6 +20,7 @@
       "image_tooltip": ""
     },
     {
+      "id": "ulughbegsaurus",
       "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
@@ -32,7 +33,17 @@
       "clone.clone_tooltip": "Egg must be placed down to hatch",
 
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day"
+      "activity.activity_tooltip": "Active during the day",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_ulughbegsaurus",
+      "feature_1.tooltip": "§7Large amounts of raw meat can be used to tame Ulughbegsaurus - tamed Ulughbegsaurus can be ridden and are able to jump up to [] blocks forward",
+      "feature_1.title_one_line": "Liftoff",
+
+      "feature_2.item": "tag:forge:dyes",
+      "feature_2.tooltip": "§7Dyes can be used to change the pattern color on Ulughbegsaurus",
+      "feature_2.title_one_line": "Taste the Rainbow"
+
+
     }
   ]
 }
