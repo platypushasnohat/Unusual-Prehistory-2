@@ -177,6 +177,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_IDLE, "Hibbertopterus rattles");
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_STEP, "Hibbertopterus steps");
 
+        this.sound(UP2SoundEvents.COELACANTHUS_DEATH, "Coelacanthus hurts");
+        this.sound(UP2SoundEvents.COELACANTHUS_HURT, "Coelacanthus dies");
+        this.sound(UP2SoundEvents.COELACANTHUS_FLOP, "Coelacanthus flops");
+
         this.sound(UP2SoundEvents.JAWLESS_FISH_HURT, "Jawless Fish hurts");
         this.sound(UP2SoundEvents.JAWLESS_FISH_DEATH, "Jawless Fish dies");
         this.sound(UP2SoundEvents.JAWLESS_FISH_FLOP, "Jawless Fish flops");

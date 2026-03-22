@@ -218,6 +218,45 @@
     ],
     "subtitle": "subtitles.carnotaurus_step"
   },
+  "coelacanthus_death": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.coelacanthus_death"
+  },
+  "coelacanthus_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop2",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop3",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop4",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.coelacanthus_flop"
+  },
+  "coelacanthus_hurt": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.coelacanthus_hurt"
+  },
   "desmatosuchus_death": {
     "sounds": [
       "unusual_prehistory:entity/desmatosuchus/death1"

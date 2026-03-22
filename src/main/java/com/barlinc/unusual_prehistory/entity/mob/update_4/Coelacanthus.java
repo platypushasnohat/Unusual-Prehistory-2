@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +20,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,6 +35,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -47,11 +50,9 @@ public class Coelacanthus extends PrehistoricAquaticMob {
 
     private int absorbCooldown = 0;
 
-    public final AnimationState absorbAnimationState = new AnimationState();
-    public final AnimationState vomitAnimationState = new AnimationState();
+    public final SmoothAnimationState absorbAnimationState = new SmoothAnimationState();
 
     private int absorbTicks;
-    private int vomitTicks;
 
     public Coelacanthus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -162,7 +163,6 @@ public class Coelacanthus extends PrehistoricAquaticMob {
                         entity.hurt(this.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     }
                 } else {
-                    entity.level().broadcastEntityEvent(entity, (byte) 20);
                     entity.discard();
                 }
                 return true;
@@ -174,18 +174,16 @@ public class Coelacanthus extends PrehistoricAquaticMob {
 
     @Override
     public void setupAnimationStates() {
-        super.setupAnimationStates();
-        if (absorbTicks == 0 && this.absorbAnimationState.isStarted()) this.absorbAnimationState.stop();
-        if (vomitTicks == 0 && this.vomitAnimationState.isStarted()) this.vomitAnimationState.stop();
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.absorbAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
     }
 
     @Override
     public void tickCooldowns() {
         super.tickCooldowns();
         if (this.absorbTicks > 0) absorbTicks--;
-        if (this.vomitTicks > 0) vomitTicks--;
         if (this.absorbTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
-        if (this.vomitTicks == 0 && this.getPose() == UP2Poses.SPITTING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
@@ -197,16 +195,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
         }
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                this.absorbAnimationState.start(this.tickCount);
                 this.absorbTicks = 10;
-            }
-            else if (this.getPose() == UP2Poses.SPITTING.get()) {
-                this.vomitAnimationState.start(this.tickCount);
-                this.vomitTicks = 20;
-            }
-            else if (this.getPose() == Pose.STANDING) {
-                this.absorbAnimationState.stop();
-                this.vomitAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -270,7 +259,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     public float getVoicePitch() {
         int size = this.getCoelacanthusSize();
         float pitch = Mth.clamp(size / 127.0F, 0.0F, 1.0F);
-        return Mth.lerp(pitch, 2.0F, 0.1F);
+        return Mth.lerp(pitch, 1.8F, 0.1F);
     }
 
     @Override
@@ -292,30 +281,73 @@ public class Coelacanthus extends PrehistoricAquaticMob {
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        super.loadFromBucketTag(compoundTag);
         this.setCoelacanthusSize(compoundTag.getInt("Size"));
     }
 
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.STETHACANTHUS_DEATH.get();
+        return UP2SoundEvents.COELACANTHUS_DEATH.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.STETHACANTHUS_HURT.get();
+        return UP2SoundEvents.COELACANTHUS_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
+        return UP2SoundEvents.COELACANTHUS_FLOP.get();
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.COELACANTHUS.get().create(level);
+        Coelacanthus coelacanthus = UP2Entities.COELACANTHUS.get().create(level);
+        if (coelacanthus != null) {
+            coelacanthus.setVariant(this.getVariant());
+        }
+        return coelacanthus;
+    }
+
+    public enum CoelacanthusVariant {
+        FISHY(0),
+        GOLDEN(1),
+        LILAC(2),
+        PEACH(3),
+        ROSE(4),
+        SILVER(5),
+        BLUE(5);
+
+        private final int id;
+
+        CoelacanthusVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static CoelacanthusVariant byId(int id) {
+            if (id < 0 || id >= CoelacanthusVariant.values().length) {
+                id = 0;
+            }
+            return CoelacanthusVariant.values()[id];
+        }
+    }
+
+    @Override
+    public int getVariantCount() {
+        return CoelacanthusVariant.values().length;
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnData, @org.jetbrains.annotations.Nullable CompoundTag compoundTag) {
+        this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

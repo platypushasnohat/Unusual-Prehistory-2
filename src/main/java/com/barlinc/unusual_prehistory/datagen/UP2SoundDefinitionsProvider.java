@@ -122,6 +122,26 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
         );
 
+        // Coelacanthus
+        this.sound(UP2SoundEvents.COELACANTHUS_HURT,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+        this.sound(UP2SoundEvents.COELACANTHUS_DEATH,
+                sound("entity/fish/hurt1"),
+                sound("entity/fish/hurt2"),
+                sound("entity/fish/hurt3"),
+                sound("entity/fish/hurt4")
+        );
+        this.sound(UP2SoundEvents.COELACANTHUS_FLOP,
+                sound("entity/fish/flop1").volume(0.3F),
+                sound("entity/fish/flop2").volume(0.3F),
+                sound("entity/fish/flop3").volume(0.3F),
+                sound("entity/fish/flop4").volume(0.3F)
+        );
+
         // Desmatosuchus
         this.sound(UP2SoundEvents.DESMATOSUCHUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/hurt1")),

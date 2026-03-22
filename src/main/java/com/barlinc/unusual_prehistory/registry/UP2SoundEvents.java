@@ -127,6 +127,10 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_STEP = registerSoundEvent("brachiosaurus_step");
     public static final RegistryObject<SoundEvent> BRACHIOSAURUS_CALL = registerSoundEvent("brachiosaurus_call");
 
+    public static final RegistryObject<SoundEvent> COELACANTHUS_HURT = registerSoundEvent("coelacanthus_hurt");
+    public static final RegistryObject<SoundEvent> COELACANTHUS_DEATH = registerSoundEvent("coelacanthus_death");
+    public static final RegistryObject<SoundEvent> COELACANTHUS_FLOP = registerSoundEvent("coelacanthus_flop");
+
     public static final RegistryObject<SoundEvent> HIBBERTOPTERUS_HURT = registerSoundEvent("hibbertopterus_hurt");
     public static final RegistryObject<SoundEvent> HIBBERTOPTERUS_DEATH = registerSoundEvent("hibbertopterus_death");
     public static final RegistryObject<SoundEvent> HIBBERTOPTERUS_IDLE = registerSoundEvent("hibbertopterus_idle");

@@ -12,10 +12,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 @OnlyIn(Dist.CLIENT)
 public class CoelacanthusRenderer extends MobRenderer<Coelacanthus, CoelacanthusModel> {
-
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/coelacanthus.png");
 
     public CoelacanthusRenderer(EntityRendererProvider.Context context) {
         super(context, new CoelacanthusModel(context.bakeLayer(UP2ModelLayers.COELACANTHUS)), 0.25F);
@@ -28,7 +28,8 @@ public class CoelacanthusRenderer extends MobRenderer<Coelacanthus, Coelacanthus
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull Coelacanthus entity) {
-        return TEXTURE;
+    public @NotNull ResourceLocation getTextureLocation(Coelacanthus entity) {
+        Coelacanthus.CoelacanthusVariant variant = Coelacanthus.CoelacanthusVariant.byId(entity.getVariant());
+        return UnusualPrehistory2.modPrefix("textures/entity/coelacanthus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }
