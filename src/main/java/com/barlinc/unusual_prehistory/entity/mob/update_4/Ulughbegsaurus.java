@@ -43,6 +43,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
@@ -59,7 +60,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     private boolean leapImpulse;
 
-    public int attackCooldown = 0;
+    private int attackCooldown = 0;
 
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
@@ -70,6 +71,10 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     private int attackTicks;
     private boolean attackAlt = false;
+
+    private int blinkCooldown = 60 + this.getRandom().nextInt(60);
+    private int shakeCooldown = 1000 + this.getRandom().nextInt(1000);
+    private int yawnCooldown = 600 + this.getRandom().nextInt(600);
 
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -89,6 +94,9 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new SleepingGoal(this));
+        this.goalSelector.addGoal(10, new UlughbegsaurusBlinkGoal(this));
+        this.goalSelector.addGoal(10, new UlughbegsaurusShakeGoal(this));
+        this.goalSelector.addGoal(10, new UlughbegsaurusYawnGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ULUGHBEGSAURUS_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
@@ -299,6 +307,13 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.setPose(Pose.STANDING);
         }
         if (attackCooldown > 0) attackCooldown--;
+        if (!this.level().isClientSide) {
+            if (blinkCooldown > 0) blinkCooldown--;
+            if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble()) {
+                if (shakeCooldown > 0) shakeCooldown--;
+                if (yawnCooldown > 0) yawnCooldown--;
+            }
+        }
     }
 
     @Override
@@ -310,6 +325,9 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.blinkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.yawnAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
     }
 
     @Override
@@ -396,6 +414,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.ULUGHBEGSAURUS_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+        this.playSound(UP2SoundEvents.ULUGHBEGSAURUS_STEP.get(), this.isBaby() ? 0.3F : 1.0F, this.isBaby() ? 1.2F : 1.0F);
     }
 
     @Override
@@ -541,7 +564,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             }
             if (timer == 8) ulughbegsaurus.playSound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK.get(), 1.0F, 0.9F + ulughbegsaurus.getRandom().nextFloat() * 0.2F);
             if (timer == 10) {
-                if (this.isInAttackRange(target, 1.75D)) {
+                if (this.isInAttackRange(target, 1.8D)) {
                     this.ulughbegsaurus.doHurtTarget(target);
                     this.ulughbegsaurus.swing(InteractionHand.MAIN_HAND);
                 }
@@ -552,10 +575,68 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
                 this.ulughbegsaurus.setAttackState(0);
             }
         }
+    }
+
+    private static class UlughbegsaurusBlinkGoal extends IdleAnimationGoal {
+
+        private final Ulughbegsaurus ulughbegsaurus;
+
+        public UlughbegsaurusBlinkGoal(Ulughbegsaurus ulughbegsaurus) {
+            super(ulughbegsaurus, 20, 1, false, false);
+            this.ulughbegsaurus = ulughbegsaurus;
+        }
 
         @Override
-        protected double getAttackReachSqr(LivingEntity target) {
-            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        public boolean canUse() {
+            return super.canUse() && ulughbegsaurus.blinkCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.ulughbegsaurus.blinkCooldown = 60 + ulughbegsaurus.getRandom().nextInt(60);
+        }
+    }
+
+    private static class UlughbegsaurusShakeGoal extends IdleAnimationGoal {
+
+        private final Ulughbegsaurus ulughbegsaurus;
+
+        public UlughbegsaurusShakeGoal(Ulughbegsaurus ulughbegsaurus) {
+            super(ulughbegsaurus, 80, 2, false);
+            this.ulughbegsaurus = ulughbegsaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && ulughbegsaurus.shakeCooldown == 0 && !ulughbegsaurus.isSitting();
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.ulughbegsaurus.shakeCooldown = 1000 + ulughbegsaurus.getRandom().nextInt(1000);
+        }
+    }
+
+    private static class UlughbegsaurusYawnGoal extends IdleAnimationGoal {
+
+        private final Ulughbegsaurus ulughbegsaurus;
+
+        public UlughbegsaurusYawnGoal(Ulughbegsaurus ulughbegsaurus) {
+            super(ulughbegsaurus, 60, 3, false);
+            this.ulughbegsaurus = ulughbegsaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && ulughbegsaurus.yawnCooldown == 0;
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.ulughbegsaurus.yawnCooldown = 600 + ulughbegsaurus.getRandom().nextInt(600);
         }
     }
 }

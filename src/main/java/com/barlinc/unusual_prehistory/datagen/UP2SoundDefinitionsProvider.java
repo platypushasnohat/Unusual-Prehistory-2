@@ -705,6 +705,10 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/bite1"))
         );
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step1")).pitch(1.13F).volume(0.6F),
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step2")).pitch(1.13F).volume(0.6F)
+        );
 
         // Unicorn
         this.sound(UP2SoundEvents.UNICORN_HURT,

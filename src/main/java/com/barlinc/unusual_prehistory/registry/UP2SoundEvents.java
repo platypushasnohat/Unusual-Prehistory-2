@@ -167,6 +167,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_DEATH = registerSoundEvent("ulughbegsaurus_death");
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_IDLE = registerSoundEvent("ulughbegsaurus_idle");
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_ATTACK = registerSoundEvent("ulughbegsaurus_attack");
+    public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_STEP = registerSoundEvent("ulughbegsaurus_step");
 
     // Future
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_HURT = registerSoundEvent("aegirocassis_hurt");

@@ -4,10 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
-import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
-import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -42,7 +39,6 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -52,7 +48,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
@@ -60,14 +55,11 @@ import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-public class Megalania extends SemiAquaticMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob {
+public class Megalania extends SemiAquaticMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.BOOLEAN);
 
     public enum TemperatureStates {
         TEMPERATE,
@@ -79,9 +71,6 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     public TemperatureStates localTemperatureState = TemperatureStates.TEMPERATE;
     public float tempProgress = 0F;
     public float prevTempProgress = 0F;
-
-    private boolean leapImpulse;
-    private int leapCooldown = 0;
 
     @Nullable
     private PrehistoricRandomStrollGoal randomStrollGoal;
@@ -95,16 +84,9 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState tailWhipAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState aggroAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState flick1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState flick2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
 
     public boolean attackAlt = false;
-    private boolean flickAlt = false;
 
-    private int flickCooldown = 300 + this.getRandom().nextInt(40 * 50);
-    private int yawnCooldown = 500 + this.getRandom().nextInt(60 * 50);
     private int tongueCooldown = 100 + this.getRandom().nextInt(100);
     private int roarCooldown = 650 + this.getRandom().nextInt(70 * 60);
 
@@ -129,20 +111,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         this.goalSelector.addGoal(7, new LeaveWaterGoal(this, 1.0D, 600, 2400));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new RandomSitGoal(this) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && Megalania.this.isRightTemperatureToSit();
-            }
-
-            @Override
-            public boolean canContinueToUse() {
-                return super.canContinueToUse() && Megalania.this.isRightTemperatureToSit();
-            }
-        });
         this.goalSelector.addGoal(9, new SleepingGoal(this));
-        this.goalSelector.addGoal(10, new MegalaniaFlickTailGoal(this));
-        this.goalSelector.addGoal(10, new MegalaniaYawnGoal(this));
         this.goalSelector.addGoal(10, new MegalaniaTongueGoal(this));
         this.goalSelector.addGoal(10, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
@@ -166,7 +135,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         if (onLand) {
             this.moveControl = new PrehistoricMoveControl(this);
             this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+            this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.6F, 0.1F, false);
@@ -248,28 +217,6 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    public int getHealCooldown() {
-        switch (this.getTemperatureState()) {
-            case COLD -> {
-                return 270;
-            }
-            case WARM -> {
-                return 130;
-            }
-            case NETHER -> {
-                return 60;
-            }
-            default -> {
-                return 200;
-            }
-        }
-    }
-
-    @Override
-    public boolean isEepyTime() {
-        return this.level().isNight() && this.isRightTemperatureToSit();
-    }
-
     @Override
     public Vec3 getEepyParticleVec() {
         return new Vec3(-0.8F, 0, -this.getBbWidth() * 1.2F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
@@ -296,122 +243,9 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
     }
 
-    // Riding
-    @Override
-    protected float getRiddenSpeed(@NotNull Player rider) {
-        float sprintSpeed = rider.isSprinting() && this.getTemperatureState() != TemperatureStates.COLD ? 0.1F : 0.0F;
-        return ((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (this.isInWater() ? 0.17F : 0.5F)) + sprintSpeed;
-    }
-
-    @Override
-    public boolean canSprint() {
-        return this.getTemperatureState() != TemperatureStates.COLD && !this.isInWater();
-    }
-
-    @Override
-    public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, 0.3F, 0.0F);
-    }
-
     @Override
     public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown();
-    }
-
-    @Override
-    public boolean canOwnerMount(Player player) {
-        return !this.isBaby();
-    }
-
-    @Override
-    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
-        if (this.isInWater()) {
-            float f = player.xxa;
-            float f1 = 0.0F;
-            float f2 = 0.0F;
-            if (player.zza != 0.0F) {
-                float f3 = Mth.cos(player.getXRot() * (float) (Math.PI / 180.0));
-                float f4 = -Mth.sin(player.getXRot() * (float) (Math.PI / 180.0));
-                if (player.zza < 0.0F) {
-                    f3 *= -0.5F;
-                    f4 *= -0.5F;
-                }
-                f2 = f4;
-                f1 = f3;
-            }
-            return new Vec3(f, f2, f1);
-        } else {
-            return super.getRiddenInput(player, vec3);
-        }
-    }
-
-    @Override
-    protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
-        if (this.isInWater()) {
-            Vec2 vec2 = new Vec2(player.getXRot() * 0.5F, player.getYRot());
-            float f = this.getYRot();
-            float f1 = Mth.wrapDegrees(vec2.y - f);
-            f += f1 * 0.5F;
-            this.setRot(f, vec2.x);
-            this.yRotO = this.yBodyRot = this.yHeadRot = f;
-        } else {
-            super.tickRidden(player, vec3);
-        }
-    }
-
-    @Override
-    public void onPlayerJump(int jumpPower) {
-        if (this.leapCooldown == 0) {
-            this.setLeaping(true);
-            if (this.onGround()) {
-                float jumpFactor = this.getBlockJumpFactor() + this.getJumpBoostPower();
-                this.addDeltaMovement(this.getLookAngle().multiply(1.0D, 0.0D, 1.0D).normalize().scale((0.1F * jumpPower) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) * this.getBlockSpeedFactor()).add(0.0D, (0.01F * jumpPower) * jumpFactor, 0.0D));
-                this.leapImpulse = true;
-                this.leapCooldown = 60;
-            }
-        }
-    }
-
-    @Override
-    public boolean canJump() {
-        return !this.isLeaping() && !this.isInWaterOrBubble();
-    }
-
-    @Override
-    public void handleStartJump(int jumpPower) {
-        if (this.getRandom().nextInt(2000) == 0) this.playSound(UP2SoundEvents.MEGALANIA_JUMPSCARE.get(), 2.0F, 1.0F);
-    }
-
-    @Override
-    public void handleStopJump() {
-    }
-
-    @Override
-    public int getJumpCooldown() {
-        return this.leapCooldown;
-    }
-
-    @Override
-    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-        return super.calculateFallDamage(fallDistance, damageMultiplier) - 5;
-    }
-
-    @Override
-    public void onKeyPacket(Entity keyPresser, int type) {
-    }
-
-    public void whipNearbyEnemies() {
-        List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, this.getBoundingBox().inflate(2.7, -0.25, 2.7));
-        if (!nearbyEntities.isEmpty()) {
-            nearbyEntities.stream().filter(entity -> !entity.is(this) && !entity.isAlliedTo(this)).limit(3).forEach(entity -> {
-                entity.hurt(entity.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                this.strongKnockback(entity, 1.3D, 0.2D);
-                if (entity.isDamageSourceBlocked(this.damageSources().mobAttack(this)) && entity instanceof Player player) {
-                    player.disableShield(true);
-                }
-                this.swing(InteractionHand.MAIN_HAND);
-            });
-        }
+        return true;
     }
 
     public void applyPoison(@NotNull LivingEntity entity) {
@@ -453,7 +287,6 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         this.entityData.define(TEMPERATURE_STATE, 0);
         this.entityData.define(PREV_TEMPERATURE_STATE, -1);
         this.entityData.define(TAME_ATTEMPTS, 0);
-        this.entityData.define(LEAPING, false);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
@@ -496,49 +329,23 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     }
 
     @Override
-    public boolean isLeaping() {
-        return this.entityData.get(LEAPING);
-    }
-
-    @Override
-    public void setLeaping(boolean leaping) {
-        this.entityData.set(LEAPING, leaping);
-    }
-
-    @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 4;
+        return super.refuseToMove() || this.getIdleState() == 2;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        final boolean ground = !this.isInWater();
-        if (!ground && this.isLandNavigator) switchNavigator(false);
-        if (ground && !this.isLandNavigator) switchNavigator(true);
+        if (this.isInWater() && this.isLandNavigator) switchNavigator(false);
+        if (!this.isInWater() && !this.isLandNavigator) switchNavigator(true);
 
         this.tickTemperatureStates();
 
         if (!this.level().isClientSide) {
             if (attackCooldown > 0) attackCooldown--;
-            if (talWhipCooldown > 0 && !this.isInWater()) talWhipCooldown--;
+            if (talWhipCooldown > 0 && !this.isInWaterOrBubble()) talWhipCooldown--;
         }
-
-        if ((this.onGround() || this.isInWaterOrBubble()) && this.isLeaping() && !leapImpulse) {
-            this.setLeaping(false);
-        }
-        if (leapImpulse) {
-            this.leapImpulse = false;
-        }
-
-        if (leapCooldown > 0 && !this.isLeaping()) {
-            this.leapCooldown--;
-        }
-    }
-
-    public boolean isRightTemperatureToSit() {
-        return this.getTemperatureState() == Megalania.TemperatureStates.TEMPERATE || this.getTemperatureState() == Megalania.TemperatureStates.COLD;
     }
 
     private void tickTemperatureStates() {
@@ -567,17 +374,13 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 4 && this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isSitting() && !this.isEepy(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 2 && this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isSitting() && !this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.isAggressive() && this.getPose() == Pose.STANDING, this.tickCount);
-        this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
-        this.flick1AnimationState.animateWhen(this.getIdleState() == 1 && !flickAlt, this.tickCount);
-        this.flick2AnimationState.animateWhen(this.getIdleState() == 1 && flickAlt, this.tickCount);
-        this.yawnAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
-        this.tongueAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
-        this.roarAnimationState.animateWhen(this.getIdleState() == 4, this.tickCount);
+        this.tongueAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.roarAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
         this.tailWhipAnimationState.animateWhen(this.getPose() == UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
@@ -587,19 +390,9 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
     public void tickCooldowns() {
         super.tickCooldowns();
         if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWater() && !this.level().isClientSide) {
-            if (flickCooldown > 0) flickCooldown--;
-            if (yawnCooldown > 0) yawnCooldown--;
             if (tongueCooldown > 0) tongueCooldown--;
-            if (!this.hasControllingPassenger() && roarCooldown > 0) roarCooldown--;
+            if (roarCooldown > 0) roarCooldown--;
         }
-    }
-
-    protected void flickCooldown() {
-        this.flickCooldown = 300 + this.getRandom().nextInt(40 * 50);
-    }
-
-    protected void yawnCooldown() {
-        this.yawnCooldown = 500 + this.getRandom().nextInt(60 * 50);
     }
 
     protected void tongueCooldown() {
@@ -710,66 +503,18 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         }
     }
 
-    private static class MegalaniaFlickTailGoal extends IdleAnimationGoal {
-
-        private final Megalania megalania;
-
-        public MegalaniaFlickTailGoal(Megalania megalania) {
-            super(megalania, 20, 1, false);
-            this.megalania = megalania;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && megalania.flickCooldown == 0 && !megalania.isLeaping();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.megalania.flickAlt = megalania.getRandom().nextBoolean();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.megalania.flickCooldown();
-        }
-    }
-
-    private static class MegalaniaYawnGoal extends IdleAnimationGoal {
-
-        private final Megalania megalania;
-
-        public MegalaniaYawnGoal(Megalania megalania) {
-            super(megalania, 80, 2, false);
-            this.megalania = megalania;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && megalania.yawnCooldown == 0 && !megalania.isLeaping();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.megalania.yawnCooldown();
-        }
-    }
-
     private static class MegalaniaTongueGoal extends IdleAnimationGoal {
 
         private final Megalania megalania;
 
         public MegalaniaTongueGoal(Megalania megalania) {
-            super(megalania, 20, 3, false, false);
+            super(megalania, 20, 1, false, false);
             this.megalania = megalania;
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.tongueCooldown == 0 && !megalania.isLeaping();
+            return super.canUse() && megalania.tongueCooldown == 0;
         }
 
         @Override
@@ -784,13 +529,13 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         private final Megalania megalania;
 
         public MegalaniaRoarGoal(Megalania megalania) {
-            super(megalania, 80, 4);
+            super(megalania, 80, 2);
             this.megalania = megalania;
         }
 
         @Override
         public boolean canUse() {
-            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isSitting() && !megalania.hasControllingPassenger() && !megalania.isLeaping();
+            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isSitting();
         }
 
         @Override

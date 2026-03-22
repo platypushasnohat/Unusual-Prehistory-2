@@ -7,6 +7,11 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+
+import java.util.List;
 
 public class MegalaniaAttackGoal extends AttackGoal {
 
@@ -105,13 +110,27 @@ public class MegalaniaAttackGoal extends AttackGoal {
         if (timer == 1) megalania.setPose(UP2Poses.TAIL_WHIPPING.get());
         if (timer == 9) megalania.playSound(UP2SoundEvents.MEGALANIA_TAIL_SWING.get(), 1.0F, 1.0F);
         if (timer == 14) {
-            this.megalania.whipNearbyEnemies();
+            this.whipNearbyEnemies();
         }
         if (timer > 30) {
             this.timer = 0;
             this.megalania.talWhipCooldown = 100 + megalania.getRandom().nextInt(50);
             this.megalania.setPose(Pose.STANDING);
             this.megalania.setAttackState(0);
+        }
+    }
+
+    private void whipNearbyEnemies() {
+        List<LivingEntity> nearbyEntities = megalania.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), megalania, megalania.getBoundingBox().inflate(2.7, -0.25, 2.7));
+        if (!nearbyEntities.isEmpty()) {
+            nearbyEntities.stream().filter(entity -> !entity.is(megalania) && !entity.isAlliedTo(megalania)).limit(3).forEach(entity -> {
+                entity.hurt(entity.damageSources().mobAttack(megalania), (float) megalania.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                this.megalania.strongKnockback(entity, 1.3D, 0.2D);
+                if (entity.isDamageSourceBlocked(megalania.damageSources().mobAttack(megalania)) && entity instanceof Player player) {
+                    player.disableShield(true);
+                }
+                this.megalania.swing(InteractionHand.MAIN_HAND);
+            });
         }
     }
 

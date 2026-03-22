@@ -1631,6 +1631,21 @@
     ],
     "subtitle": "subtitles.ulughbegsaurus_idle"
   },
+  "ulughbegsaurus_step": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/step1",
+        "pitch": 1.13,
+        "volume": 0.6
+      },
+      {
+        "name": "unusual_prehistory:entity/carnotaurus/step2",
+        "pitch": 1.13,
+        "volume": 0.6
+      }
+    ],
+    "subtitle": "subtitles.ulughbegsaurus_step"
+  },
   "unicorn_death": {
     "sounds": [
       "unusual_prehistory:entity/unicorn/death1"

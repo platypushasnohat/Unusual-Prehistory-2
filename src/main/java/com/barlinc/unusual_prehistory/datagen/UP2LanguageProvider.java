@@ -289,6 +289,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_DEATH, "Ulughbegsaurus dies");
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_IDLE, "Ulughbegsaurus groans");
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK, "Ulughbegsaurus bites");
+        this.sound(UP2SoundEvents.ULUGHBEGSAURUS_STEP, "Ulughbegsaurus steps");
 
         this.sound(UP2SoundEvents.UNICORN_HURT, "Unicorn hurts");
         this.sound(UP2SoundEvents.UNICORN_DEATH, "Unicorn dies");

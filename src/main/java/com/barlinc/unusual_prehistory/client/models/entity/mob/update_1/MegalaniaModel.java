@@ -5,17 +5,14 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.Mega
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -146,8 +143,8 @@ public class MegalaniaModel extends UP2Model<Megalania> {
         this.tail2.yRot += tailYaw * 0.3F;
         this.tail3.yRot += tailYaw * 0.25F;
 
-		if (entity.getIdleState() != 4 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isLeaping() && !entity.isEepy() && !entity.isSitting()) {
-            if (!entity.isInWater()) {
+		if (entity.getIdleState() != 2 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isEepy() && !entity.isSitting()) {
+            if (!entity.isInWaterOrBubble()) {
                 if (this.canMegalaniaRun(entity)) {
                     this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
                 } else {
@@ -164,17 +161,13 @@ public class MegalaniaModel extends UP2Model<Megalania> {
         this.animateIdleSmooth(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, limbSwingAmount);
 		this.animateSmooth(entity.tongueAnimationState, MegalaniaAnimations.TONGUE_BLEND, ageInTicks);
 		this.animateSmooth(entity.roarAnimationState, MegalaniaAnimations.ROAR, ageInTicks);
-        this.animateSmooth(entity.flick1AnimationState, MegalaniaAnimations.FLICK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.flick2AnimationState, MegalaniaAnimations.FLICK_BLEND2, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, MegalaniaAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.sitAnimationState, MegalaniaIdleAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, MegalaniaIdleAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.sitAnimationState, MegalaniaAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, MegalaniaAnimations.SLEEP, ageInTicks);
         this.animateSmooth(entity.attack1AnimationState, MegalaniaAnimations.BITE_BLEND1, ageInTicks);
         this.animateSmooth(entity.attack2AnimationState, MegalaniaAnimations.BITE_BLEND2, ageInTicks);
         this.animateSmooth(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
         this.animateSmooth(entity.aggroAnimationState, MegalaniaAnimations.AGGRO_BLEND, ageInTicks);
         this.animateIdleSmooth(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.leapAnimationState, MegalaniaAnimations.LEAP, ageInTicks);
 
         if (!entity.isEepy() && !entity.isSitting()) {
             this.head.xRot += headPitch * deg / 4;
@@ -202,17 +195,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
     }
 
     private boolean canMegalaniaRun(Megalania entity) {
-        return ((entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) || entity.getTemperatureState() == Megalania.TemperatureStates.NETHER) && entity.getTemperatureState() != Megalania.TemperatureStates.COLD;
-    }
-
-    public Vec3 getRiderPosition(Vec3 offset) {
-        PoseStack poseStack = new PoseStack();
-        poseStack.pushPose();
-        Vector4f armOffsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
-        armOffsetVec.mul(poseStack.last().pose());
-        Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
-        poseStack.popPose();
-        return vec3;
+        return ((entity.isRunning() || (entity.hasControllingPassenger())) || entity.getTemperatureState() == Megalania.TemperatureStates.NETHER) && entity.getTemperatureState() != Megalania.TemperatureStates.COLD;
     }
 
 	@Override
