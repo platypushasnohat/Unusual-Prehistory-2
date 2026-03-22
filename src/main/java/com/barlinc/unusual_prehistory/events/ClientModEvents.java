@@ -9,8 +9,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.LivingOo
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.MetriorhynchusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.TartuosteusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.ambient.DelitzschalaModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.ambient.ZhangsolvaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient.DelitzschalaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_finned_fish.*;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2BoatRenderer;
@@ -22,8 +22,8 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.Living
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.MetriorhynchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.TartuosteusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambient.DelitzschalaRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.ambient.ZhangsolvaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.ambient.DelitzschalaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;

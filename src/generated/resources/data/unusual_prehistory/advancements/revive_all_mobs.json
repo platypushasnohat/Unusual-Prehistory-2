@@ -1,34 +1,6 @@
 {
   "parent": "unusual_prehistory:obtain_egg",
   "criteria": {
-    "aegirocassis": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:aegirocassis"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
-    "barinasuchus": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:barinasuchus"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
     "brachiosaurus": {
       "conditions": {
         "entity": [
@@ -51,34 +23,6 @@
             "entity": "this",
             "predicate": {
               "type": "unusual_prehistory:carnotaurus"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
-    "desmatosuchus": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:desmatosuchus"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
-    "dimorphodon": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:dimorphodon"
             }
           }
         ]
@@ -239,20 +183,6 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "manipulator": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:manipulator"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
     "megalania": {
       "conditions": {
         "entity": [
@@ -323,20 +253,6 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "psilopterus": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:psilopterus"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
     "pterodactylus": {
       "conditions": {
         "entity": [
@@ -393,20 +309,6 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
-    "therizinosaurus": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "unusual_prehistory:therizinosaurus"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:summoned_entity"
-    },
     "ulughbegsaurus": {
       "conditions": {
         "entity": [
@@ -440,22 +342,10 @@
   },
   "requirements": [
     [
-      "aegirocassis"
-    ],
-    [
-      "barinasuchus"
-    ],
-    [
       "brachiosaurus"
     ],
     [
       "carnotaurus"
-    ],
-    [
-      "desmatosuchus"
-    ],
-    [
-      "dimorphodon"
     ],
     [
       "diplocaulus"
@@ -491,9 +381,6 @@
       "majungasaurus"
     ],
     [
-      "manipulator"
-    ],
-    [
       "megalania"
     ],
     [
@@ -509,9 +396,6 @@
       "praepusa"
     ],
     [
-      "psilopterus"
-    ],
-    [
       "pterodactylus"
     ],
     [
@@ -522,9 +406,6 @@
     ],
     [
       "telecrex"
-    ],
-    [
-      "therizinosaurus"
     ],
     [
       "ulughbegsaurus"

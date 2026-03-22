@@ -39,23 +39,87 @@ public class UP2Blocks {
 
     public static List<RegistryObject<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
-    // Science Doodads
+    // Update 1
+    public static final RegistryObject<Block> CARNOTAURUS_EGG = registerEggBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15, false));
+    public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
+    public static final RegistryObject<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
+    public static final RegistryObject<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new AlternatesWaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, UP2Entities.TARTUOSTEUS::get, 4));
+    public static final RegistryObject<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
+    public static final RegistryObject<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
+    public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerEggBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11, false));
+    public static final RegistryObject<Block> MEGALANIA_EGG = registerEggBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14, false));
+    public static final RegistryObject<Block> STETHACANTHUS_SAC = registerEggBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 2));
+
+    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutItem("potted_bennettitales", () -> new FlowerPotBlock(UP2Blocks.BENNETTITALES.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> CALAMOPHYTON = registerBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new PrehistoricFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_COOKSONIA = registerBlockWithoutItem("potted_cooksonia", () -> new FlowerPotBlock(UP2Blocks.COOKSONIA.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new HorsetailBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new LargeHorsetailBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> QUILLWORT = registerBlock("quillwort", () -> new QuillwortBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_QUILLWORT = registerBlockWithoutItem("potted_quillwort", () -> new FlowerPotBlock(UP2Blocks.QUILLWORT.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new PrehistoricFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new PrehistoricPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
+
+    public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(UP2SoundTypes.MOSSY_DIRT)));
+    public static final RegistryObject<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(() -> GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
+    public static final RegistryObject<Block> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
+    public static final RegistryObject<Block> GINKGO_FENCE = registerBlock("ginkgo_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> GINKGO_DOOR = registerBlock("ginkgo_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
+    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
+    public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(new GoldenGinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_GOLDEN_GINKGO_SAPLING = registerBlockWithoutItem("potted_golden_ginkgo_sapling", () -> new FlowerPotBlock(GOLDEN_GINKGO_SAPLING.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> GINKGO_SIGN = registerBlockWithoutItemNoLang("ginkgo_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_WALL_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.GINKGO_WOOD_TYPE));
+    public static final RegistryObject<Block> GINKGO_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(GINKGO_HANGING_SIGN.get()), UP2BlockProperties.GINKGO_WOOD_TYPE));
+
+    public static final RegistryObject<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_WOOD = registerBlock("lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_WOOD = registerBlock("mossy_lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_LOG = registerBlock("stripped_lepidodendron_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_WOOD = registerBlock("stripped_lepidodendron_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_PLANKS = registerBlock("lepidodendron_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_STAIRS = registerBlock("lepidodendron_stairs", () -> new StairBlock(() -> LEPIDODENDRON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
+    public static final RegistryObject<Block> LEPIDODENDRON_SLAB = registerBlock("lepidodendron_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
+    public static final RegistryObject<Block> LEPIDODENDRON_FENCE = registerBlock("lepidodendron_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> LEPIDODENDRON_FENCE_GATE = registerBlock("lepidodendron_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> LEPIDODENDRON_DOOR = registerBlock("lepidodendron_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_TRAPDOOR = registerBlock("lepidodendron_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+    public static final RegistryObject<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LepidodendronLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
+    public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> LEPIDODENDRON_SIGN = registerBlockWithoutItemNoLang("lepidodendron_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+    public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
+
     public static final RegistryObject<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
 
-    // Fossil stones
-    public static final RegistryObject<Block> PALEOSTONE = registerBlock("paleostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> PALEOSTONE_STAIRS = registerBlock("paleostone_stairs", () -> new StairBlock(() -> PALEOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(PALEOSTONE.get())));
-    public static final RegistryObject<Block> PALEOSTONE_SLAB = registerBlock("paleostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(PALEOSTONE.get())));
-
-    public static final RegistryObject<Block> MESONITE = registerBlock("mesonite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> MESONITE_STAIRS = registerBlock("mesonite_stairs", () -> new StairBlock(() -> MESONITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(MESONITE.get())));
-    public static final RegistryObject<Block> MESONITE_SLAB = registerBlock("mesonite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(MESONITE.get())));
-
-    public static final RegistryObject<Block> FLORALITE = registerBlock("floralite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final RegistryObject<Block> FLORALITE_STAIRS = registerBlock("floralite_stairs", () -> new StairBlock(() -> FLORALITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(FLORALITE.get())));
-    public static final RegistryObject<Block> FLORALITE_SLAB = registerBlock("floralite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(FLORALITE.get())));
-
-    // Fossils
     public static final RegistryObject<Block> FOSSILIZED_BONE_BLOCK = registerBlock("fossilized_bone_block", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> FOSSILIZED_BONE_BARK = registerBlock("fossilized_bone_bark", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final RegistryObject<Block> FOSSILIZED_BONE_VERTEBRA = registerBlock("fossilized_bone_vertebra", () -> new RotatedPillarBlock(UP2BlockProperties.FOSSIL_BLOCK));
@@ -69,7 +133,6 @@ public class UP2Blocks {
     public static final RegistryObject<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
     public static final RegistryObject<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
 
-    // Petrified Wood
     public static final RegistryObject<Block> PETRIFIED_BUSH = registerBlock("petrified_bush", () -> new PetrifiedBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion().noCollission().instrument(NoteBlockInstrument.HARP).strength(1.0F).instabreak().sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> PETRIFIED_LOG = registerBlock("petrified_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final RegistryObject<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
@@ -79,13 +142,98 @@ public class UP2Blocks {
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("polished_petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), BlockSetType.STONE, 20, false));
 
-    public static final RegistryObject<Block> OOZE_CAULDRON = registerBlockWithoutItem("ooze_cauldron", () -> new OozeCauldron(UP2BlockProperties.CAULDRON));
-
-    // Tar
     public static final RegistryObject<LiquidBlock> TAR = registerBlockWithoutItem("tar", () -> new TarBlock(UP2Fluids.TAR_FLUID_SOURCE, UP2BlockProperties.TAR));
     public static final RegistryObject<Block> ASPHALT = registerBlock("asphalt", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 5.0F).sound(SoundType.STONE).speedFactor(1.15F)));
 
-    // Decorations
+    // Update 2
+    public static final RegistryObject<Block> ONCHOPRISTIS_SAC = registerEggBlock("onchopristis_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.ONCHOPRISTIS::get, 1));
+
+    // Update 3
+    public static final RegistryObject<Block> TARTUOSTEUS_ROE = registerWaterEggBlock("tartuosteus_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.TARTUOSTEUS::get, 1));
+
+    public static final RegistryObject<Block> OOZE_CAULDRON = registerBlockWithoutItem("ooze_cauldron", () -> new OozeCauldron(UP2BlockProperties.CAULDRON));
+
+    // Update 4
+    public static final RegistryObject<Block> BRACHIOSAURUS_EGG = registerEggBlock("brachiosaurus_egg", () -> new TallEggBlock(UP2BlockProperties.EGG, UP2Entities.BRACHIOSAURUS::get, 16, 16, 16, 8, false));
+    public static final RegistryObject<Block> COELACANTHUS_ROE = registerWaterEggBlock("coelacanthus_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.COELACANTHUS::get, 1));
+    public static final RegistryObject<Block> HIBBERTOPTERUS_EGGS = registerWaterEggBlock("hibbertopterus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HIBBERTOPTERUS::get, 1));
+    public static final RegistryObject<Block> KAPROSUCHUS_EGG = registerEggBlock("kaprosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KAPROSUCHUS::get, 8, 12, false));
+    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
+    public static final RegistryObject<Block> LYSTROSAURUS_EGG = registerEggBlock("lystrosaurus_egg", () -> new MultipleEggBlock(UP2BlockProperties.EGG, UP2Entities.LYSTROSAURUS::get, 3, 6, 6, 12, 12, false));
+    public static final RegistryObject<Block> PACHYCEPHALOSAURUS_EGG = registerEggBlock("pachycephalosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.PACHYCEPHALOSAURUS::get, 10, 10, false));
+    public static final RegistryObject<Block> ULUGHBEGSAURUS_EGG = registerEggBlock("ulughbegsaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.ULUGHBEGSAURUS::get, 10, 14, false));
+
+    public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> ARCHAEOSIGILLARIA = registerBlock("archaeosigillaria", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILLARIA = registerBlockWithoutItem("potted_archaeosigillaria", () -> new FlowerPotBlock(UP2Blocks.ARCHAEOSIGILLARIA.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+    public static final RegistryObject<Block> CYCAD_SEEDLING = registerBlock("cycad_seedling", () -> new CycadSeedlingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY).noOcclusion().ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_STEM = registerBlock("cycad_stem", () -> new CycadStemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final RegistryObject<Block> CYCAD_CROWN = registerBlock("cycad_crown", () -> new CycadCrownBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).noOcclusion().ignitedByLava()));
+    public static final RegistryObject<Block> GUANGDEDENDRON_SPORE = registerBlockWithoutItem("guangdedendron_spore", () -> new GuangdedendronSporeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> GUANGDEDENDRON = registerBlock("guangdedendron", () -> new GuangdedendronStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape().ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never)));
+    public static final RegistryObject<Block> NEOMARIOPTERIS = registerBlock("neomariopteris", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
+    public static final RegistryObject<Block> POTTED_NEOMARIOPTERIS = registerBlockWithoutItem("potted_neomariopteris", () -> new FlowerPotBlock(UP2Blocks.NEOMARIOPTERIS.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> PROTOTAXITES_NUB = registerBlock("prototaxites_nub", () -> new PrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> LARGE_PROTOTAXITES_NUB = registerBlock("large_prototaxites_nub", () -> new LargePrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> PROTOTAXITES_CLUSTER = registerBlock("prototaxites_cluster", () -> new PrototaxitesClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
+    public static final RegistryObject<Block> TEMPSKYA = registerBlock("tempskya", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
+
+    public static final RegistryObject<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_LOG = registerBlock("stripped_dryophyllum_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_WOOD = registerBlock("stripped_dryophyllum_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_PLANKS = registerBlock("dryophyllum_planks", () -> new Block(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_STAIRS = registerBlock("dryophyllum_stairs", () -> new StairBlock(() -> DRYOPHYLLUM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
+    public static final RegistryObject<Block> DRYOPHYLLUM_SLAB = registerBlock("dryophyllum_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
+    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE = registerBlock("dryophyllum_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE_GATE = registerBlock("dryophyllum_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_DOOR = registerBlock("dryophyllum_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_TRAPDOOR = registerBlock("dryophyllum_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+    public static final RegistryObject<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new DryophyllumTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_DRYOPHYLLUM_SAPLING = registerBlockWithoutItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYOPHYLLUM_SAPLING.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(DRYOPHYLLUM_HANGING_SIGN.get()), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
+
+    public static final RegistryObject<Block> METASEQUOIA_LOG = registerBlock("metasequoia_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_WOOD = registerBlock("metasequoia_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_LOG = registerBlock("stripped_metasequoia_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_WOOD = registerBlock("stripped_metasequoia_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_PLANKS = registerBlock("metasequoia_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_STAIRS = registerBlock("metasequoia_stairs", () -> new StairBlock(() -> METASEQUOIA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
+    public static final RegistryObject<Block> METASEQUOIA_SLAB = registerBlock("metasequoia_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
+    public static final RegistryObject<Block> METASEQUOIA_FENCE = registerBlock("metasequoia_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final RegistryObject<Block> METASEQUOIA_FENCE_GATE = registerBlock("metasequoia_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> METASEQUOIA_DOOR = registerBlock("metasequoia_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_TRAPDOOR = registerBlock("metasequoia_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_PRESSURE_PLATE = registerBlock("metasequoia_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> METASEQUOIA_BUTTON = registerBlock("metasequoia_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
+    public static final RegistryObject<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(new MetasequoiaTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final RegistryObject<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
+    public static final RegistryObject<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+    public static final RegistryObject<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get()), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
+
+    public static final RegistryObject<Block> PALEOSTONE = registerBlock("paleostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> PALEOSTONE_STAIRS = registerBlock("paleostone_stairs", () -> new StairBlock(() -> PALEOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(PALEOSTONE.get())));
+    public static final RegistryObject<Block> PALEOSTONE_SLAB = registerBlock("paleostone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(PALEOSTONE.get())));
+
+    public static final RegistryObject<Block> MESONITE = registerBlock("mesonite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> MESONITE_STAIRS = registerBlock("mesonite_stairs", () -> new StairBlock(() -> MESONITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(MESONITE.get())));
+    public static final RegistryObject<Block> MESONITE_SLAB = registerBlock("mesonite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(MESONITE.get())));
+
+    public static final RegistryObject<Block> FLORALITE = registerBlock("floralite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
+    public static final RegistryObject<Block> FLORALITE_STAIRS = registerBlock("floralite_stairs", () -> new StairBlock(() -> FLORALITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(FLORALITE.get())));
+    public static final RegistryObject<Block> FLORALITE_SLAB = registerBlock("floralite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(FLORALITE.get())));
+
     public static final RegistryObject<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
     public static final RegistryObject<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
     public static final RegistryObject<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));
@@ -105,194 +253,12 @@ public class UP2Blocks {
     public static final RegistryObject<Block> MAGENTA_REINFORCED_GLASS = registerBlock("magenta_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> PINK_REINFORCED_GLASS = registerBlock("pink_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
 
-    // Eggs
+    // Future
     public static final RegistryObject<Block> AEGIROCASSIS_EGGS = registerEggBlock("aegirocassis_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.AEGIROCASSIS::get, 1));
     public static final RegistryObject<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));
-    public static final RegistryObject<Block> BRACHIOSAURUS_EGG = registerEggBlock("brachiosaurus_egg", () -> new TallEggBlock(UP2BlockProperties.EGG, UP2Entities.BRACHIOSAURUS::get, 16, 16, 16, 8, false));
-    public static final RegistryObject<Block> CARNOTAURUS_EGG = registerEggBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15, false));
-    public static final RegistryObject<Block> COELACANTHUS_ROE = registerWaterEggBlock("coelacanthus_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.COELACANTHUS::get, 1));
     public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
-    public static final RegistryObject<Block> DIPLOCAULUS_EGGS = registerWaterEggBlock("diplocaulus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DIPLOCAULUS::get, 2));
-    public static final RegistryObject<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
-    public static final RegistryObject<Block> HIBBERTOPTERUS_EGGS = registerWaterEggBlock("hibbertopterus_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HIBBERTOPTERUS::get, 1));
-    public static final RegistryObject<Block> JAWLESS_FISH_ROE = registerWaterEggBlock("jawless_fish_roe", () -> new AlternatesWaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, UP2Entities.TARTUOSTEUS::get, 4));
-    public static final RegistryObject<Block> KAPROSUCHUS_EGG = registerEggBlock("kaprosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KAPROSUCHUS::get, 8, 12, false));
-    public static final RegistryObject<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15, false));
-    public static final RegistryObject<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
-    public static final RegistryObject<Block> LOBE_FINNED_FISH_ROE = registerWaterEggBlock("lobe_finned_fish_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LOBE_FINNED_FISH::get, 3));
-    public static final RegistryObject<Block> LYSTROSAURUS_EGG = registerEggBlock("lystrosaurus_egg", () -> new MultipleEggBlock(UP2BlockProperties.EGG, UP2Entities.LYSTROSAURUS::get, 3, 6, 6, 12, 12, false));
-    public static final RegistryObject<Block> MAJUNGASAURUS_EGG = registerEggBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11, false));
     public static final RegistryObject<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new RotatableEggBlock(UP2BlockProperties.SQUISHY_EGG, UP2Entities.MANIPULATOR::get, 10, 6, false));
-    public static final RegistryObject<Block> MEGALANIA_EGG = registerEggBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14, false));
-    public static final RegistryObject<Block> ONCHOPRISTIS_SAC = registerEggBlock("onchopristis_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.ONCHOPRISTIS::get, 1));
-    public static final RegistryObject<Block> PACHYCEPHALOSAURUS_EGG = registerEggBlock("pachycephalosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.PACHYCEPHALOSAURUS::get, 10, 10, false));
-
-    public static final RegistryObject<Block> STETHACANTHUS_SAC = registerEggBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 2));
-    public static final RegistryObject<Block> TARTUOSTEUS_ROE = registerWaterEggBlock("tartuosteus_roe", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.TARTUOSTEUS::get, 1));
     public static final RegistryObject<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16, false));
-    public static final RegistryObject<Block> ULUGHBEGSAURUS_EGG = registerEggBlock("ulughbegsaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.ULUGHBEGSAURUS::get, 10, 14, false));
-
-    // plants
-    public static final RegistryObject<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(UP2SoundTypes.MOSSY_DIRT)));
-    public static final RegistryObject<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
-
-    public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennettitales", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutItem("potted_bennettitales", () -> new FlowerPotBlock(UP2Blocks.BENNETTITALES.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> CALAMOPHYTON = registerBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
-
-    public static final RegistryObject<Block> COOKSONIA = registerBlock("cooksonia", () -> new PrehistoricFlowerBlock(() -> MobEffects.REGENERATION, 9, UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_COOKSONIA = registerBlockWithoutItem("potted_cooksonia", () -> new FlowerPotBlock(UP2Blocks.COOKSONIA.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> CLADOPHLEBIS = registerBlock("cladophlebis", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutItem("potted_cladophlebis", () -> new FlowerPotBlock(UP2Blocks.CLADOPHLEBIS.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> ARCHAEOSIGILLARIA = registerBlock("archaeosigillaria", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILLARIA = registerBlockWithoutItem("potted_archaeosigillaria", () -> new FlowerPotBlock(UP2Blocks.ARCHAEOSIGILLARIA.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> HORSETAIL = registerBlock("horsetail", () -> new HorsetailBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutItem("potted_horsetail", () -> new FlowerPotBlock(UP2Blocks.HORSETAIL.get(), registerFlowerPot()));
-    public static final RegistryObject<Block> LARGE_HORSETAIL = registerBlock("large_horsetail", () -> new LargeHorsetailBlock(UP2BlockProperties.TALL_PLANT));
-
-    public static final RegistryObject<Block> QUILLWORT = registerBlock("quillwort", () -> new QuillwortBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_QUILLWORT = registerBlockWithoutItem("potted_quillwort", () -> new FlowerPotBlock(UP2Blocks.QUILLWORT.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> LEEFRUCTUS = registerBlock("leefructus", () -> new PrehistoricFlowerBlock(() -> MobEffects.ABSORPTION, 9, UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutItem("potted_leefructus", () -> new FlowerPotBlock(UP2Blocks.LEEFRUCTUS.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> NEOMARIOPTERIS = registerBlock("neomariopteris", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
-    public static final RegistryObject<Block> POTTED_NEOMARIOPTERIS = registerBlockWithoutItem("potted_neomariopteris", () -> new FlowerPotBlock(UP2Blocks.NEOMARIOPTERIS.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
-
-    public static final RegistryObject<Block> RHYNIA = registerBlock("rhynia", () -> new PrehistoricPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutItem("potted_rhynia", () -> new FlowerPotBlock(UP2Blocks.RHYNIA.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
-    public static final RegistryObject<Block> PROTOTAXITES_NUB = registerBlock("prototaxites_nub", () -> new PrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
-    public static final RegistryObject<Block> LARGE_PROTOTAXITES_NUB = registerBlock("large_prototaxites_nub", () -> new LargePrototaxitesNubBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
-    public static final RegistryObject<Block> PROTOTAXITES_CLUSTER = registerBlock("prototaxites_cluster", () -> new PrototaxitesClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
-
-    public static final RegistryObject<Block> TEMPSKYA = registerBlock("tempskya", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
-
-    public static final RegistryObject<Block> BRACHYPHYLLUM = registerBlock("brachyphyllum", () -> new ThreeTallPlantBlock(UP2BlockProperties.TALL_PLANT));
-
-    public static final RegistryObject<Block> AETHOPHYLLUM = registerBlock("aethophyllum", () -> new PrehistoricTallFlowerBlock(UP2BlockProperties.TALL_PLANT));
-
-    // cycad
-    public static final RegistryObject<Block> CYCAD_SEEDLING = registerBlock("cycad_seedling", () -> new CycadSeedlingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY).noOcclusion().ignitedByLava()));
-    public static final RegistryObject<Block> CYCAD_STEM = registerBlock("cycad_stem", () -> new CycadStemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava()));
-    public static final RegistryObject<Block> CYCAD_CROWN = registerBlock("cycad_crown", () -> new CycadCrownBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).noOcclusion().ignitedByLava()));
-
-    // guangdedendron
-    public static final RegistryObject<Block> GUANGDEDENDRON_SPORE = registerBlockWithoutItem("guangdedendron_spore", () -> new GuangdedendronSporeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> GUANGDEDENDRON = registerBlock("guangdedendron", () -> new GuangdedendronStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape().ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never)));
-
-    // dryophyllum
-    public static final RegistryObject<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_LOG = registerBlock("stripped_dryophyllum_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_DRYOPHYLLUM_WOOD = registerBlock("stripped_dryophyllum_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> DRYOPHYLLUM_PLANKS = registerBlock("dryophyllum_planks", () -> new Block(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> DRYOPHYLLUM_STAIRS = registerBlock("dryophyllum_stairs", () -> new StairBlock(() -> DRYOPHYLLUM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
-    public static final RegistryObject<Block> DRYOPHYLLUM_SLAB = registerBlock("dryophyllum_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
-    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE = registerBlock("dryophyllum_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> DRYOPHYLLUM_FENCE_GATE = registerBlock("dryophyllum_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final RegistryObject<Block> DRYOPHYLLUM_DOOR = registerBlock("dryophyllum_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> DRYOPHYLLUM_TRAPDOOR = registerBlock("dryophyllum_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
-
-    public static final RegistryObject<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
-
-    public static final RegistryObject<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new DryophyllumTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-    public static final RegistryObject<Block> POTTED_DRYOPHYLLUM_SAPLING = registerBlockWithoutItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYOPHYLLUM_SAPLING.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
-    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
-    public static final RegistryObject<Block> DRYOPHYLLUM_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
-    public static final RegistryObject<Block> DRYOPHYLLUM_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(DRYOPHYLLUM_HANGING_SIGN.get()), UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE));
-
-    // ginkgo
-    public static final RegistryObject<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(() -> GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
-    public static final RegistryObject<Block> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(GINKGO_PLANKS.get())));
-    public static final RegistryObject<Block> GINKGO_FENCE = registerBlock("ginkgo_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final RegistryObject<Block> GINKGO_DOOR = registerBlock("ginkgo_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
-
-    public static final RegistryObject<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
-    public static final RegistryObject<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
-
-    public static final RegistryObject<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(new GoldenGinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
-    public static final RegistryObject<Block> POTTED_GOLDEN_GINKGO_SAPLING = registerBlockWithoutItem("potted_golden_ginkgo_sapling", () -> new FlowerPotBlock(GOLDEN_GINKGO_SAPLING.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> GINKGO_SIGN = registerBlockWithoutItemNoLang("ginkgo_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
-    public static final RegistryObject<Block> GINKGO_WALL_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.GINKGO_WOOD_TYPE));
-    public static final RegistryObject<Block> GINKGO_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.GINKGO_WOOD_TYPE));
-    public static final RegistryObject<Block> GINKGO_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(GINKGO_HANGING_SIGN.get()), UP2BlockProperties.GINKGO_WOOD_TYPE));
-
-    // lepidodendron
-    public static final RegistryObject<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> LEPIDODENDRON_WOOD = registerBlock("lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> MOSSY_LEPIDODENDRON_WOOD = registerBlock("mossy_lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_LOG = registerBlock("stripped_lepidodendron_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_LEPIDODENDRON_WOOD = registerBlock("stripped_lepidodendron_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> LEPIDODENDRON_PLANKS = registerBlock("lepidodendron_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> LEPIDODENDRON_STAIRS = registerBlock("lepidodendron_stairs", () -> new StairBlock(() -> LEPIDODENDRON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
-    public static final RegistryObject<Block> LEPIDODENDRON_SLAB = registerBlock("lepidodendron_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(LEPIDODENDRON_PLANKS.get())));
-    public static final RegistryObject<Block> LEPIDODENDRON_FENCE = registerBlock("lepidodendron_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> LEPIDODENDRON_FENCE_GATE = registerBlock("lepidodendron_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final RegistryObject<Block> LEPIDODENDRON_DOOR = registerBlock("lepidodendron_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> LEPIDODENDRON_TRAPDOOR = registerBlock("lepidodendron_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
-
-    public static final RegistryObject<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LepidodendronLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
-    public static final RegistryObject<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
-
-    public static final RegistryObject<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-
-    public static final RegistryObject<Block> LEPIDODENDRON_SIGN = registerBlockWithoutItemNoLang("lepidodendron_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
-    public static final RegistryObject<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
-    public static final RegistryObject<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
-    public static final RegistryObject<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get()), UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE));
-
-    // metasequoia
-    public static final RegistryObject<Block> METASEQUOIA_LOG = registerBlock("metasequoia_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> METASEQUOIA_WOOD = registerBlock("metasequoia_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_LOG = registerBlock("stripped_metasequoia_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> STRIPPED_METASEQUOIA_WOOD = registerBlock("stripped_metasequoia_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> METASEQUOIA_PLANKS = registerBlock("metasequoia_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> METASEQUOIA_STAIRS = registerBlock("metasequoia_stairs", () -> new StairBlock(() -> METASEQUOIA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
-    public static final RegistryObject<Block> METASEQUOIA_SLAB = registerBlock("metasequoia_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(METASEQUOIA_PLANKS.get())));
-    public static final RegistryObject<Block> METASEQUOIA_FENCE = registerBlock("metasequoia_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final RegistryObject<Block> METASEQUOIA_FENCE_GATE = registerBlock("metasequoia_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final RegistryObject<Block> METASEQUOIA_DOOR = registerBlock("metasequoia_door", () -> new DoorBlock(UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> METASEQUOIA_TRAPDOOR = registerBlock("metasequoia_trapdoor", () -> new TrapDoorBlock(UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> METASEQUOIA_PRESSURE_PLATE = registerBlock("metasequoia_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> METASEQUOIA_BUTTON = registerBlock("metasequoia_button", () -> new ButtonBlock(UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), BlockSetType.CHERRY, 30, true));
-
-    public static final RegistryObject<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
-
-    public static final RegistryObject<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(new MetasequoiaTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-    public static final RegistryObject<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
-
-    public static final RegistryObject<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
-    public static final RegistryObject<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
-    public static final RegistryObject<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
-    public static final RegistryObject<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get()), UP2BlockProperties.METASEQUOIA_WOOD_TYPE));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

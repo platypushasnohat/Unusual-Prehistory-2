@@ -35,17 +35,17 @@ public class Cotylorhynchus extends PrehistoricMob {
         super(entityType, level);
     }
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DESMATOSUCHUS_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-    }
+//    @Override
+//    protected void registerGoals() {
+//        this.goalSelector.addGoal(0, new FloatGoal(this));
+//        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
+//        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DESMATOSUCHUS_FOOD), false));
+//        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
+//        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+//        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+//        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+//        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Psilopterus;
+import com.barlinc.unusual_prehistory.entity.mob.future.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.Pose;

@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.phys.Vec3;
 
 public class KaprosuchusAttackGoal extends AttackGoal {
@@ -70,20 +71,15 @@ public class KaprosuchusAttackGoal extends AttackGoal {
                 this.tickBite();
             }
             else if (kaprosuchus.getAttackState() == 2) {
-                this.kaprosuchus.getNavigation().stop();
-                this.tickBash();
-            }
-            else if (kaprosuchus.getAttackState() == 3) {
                 this.tickLeap();
             }
             else {
                 if (waitTimer == 0) this.kaprosuchus.getNavigation().moveTo(target, 1.9D);
                 if (distance > 12.0F && distance < 90.0F && kaprosuchus.leapCooldown == 0 && this.isPathClear(target) && waitTimer == 0) {
-                    this.kaprosuchus.setAttackState(3);
+                    this.kaprosuchus.setAttackState(2);
                 }
                 else if (distance <= this.getAttackReachSqr(target) && kaprosuchus.attackCooldown == 0 && waitTimer == 0) {
-                    if (kaprosuchus.getRandom().nextFloat() < 0.4F) kaprosuchus.setAttackState(2);
-                    else kaprosuchus.setAttackState(1);
+                    this.kaprosuchus.setAttackState(1);
                 }
             }
         }
@@ -92,7 +88,10 @@ public class KaprosuchusAttackGoal extends AttackGoal {
     protected void tickBite() {
         this.timer++;
         LivingEntity target = kaprosuchus.getTarget();
-        if (timer == 1) kaprosuchus.setPose(UP2Poses.ATTACKING.get());
+        if (timer == 1) {
+            this.kaprosuchus.attackAlt = kaprosuchus.getRandom().nextBoolean();
+            this.kaprosuchus.setPose(UP2Poses.ATTACKING.get());
+        }
         if (timer == 8) {
             if (this.isInAttackRange(target, 2.0D)) {
                 this.kaprosuchus.doHurtTarget(target);
@@ -101,27 +100,9 @@ public class KaprosuchusAttackGoal extends AttackGoal {
         }
         if (timer > 10) {
             this.timer = 0;
+            this.kaprosuchus.setPose(Pose.STANDING);
             this.kaprosuchus.attackCooldown = 4 + kaprosuchus.getRandom().nextInt(3);
             this.kaprosuchus.setAttackState(0);
-        }
-    }
-
-    protected void tickBash() {
-        this.timer++;
-        LivingEntity target = kaprosuchus.getTarget();
-        if (timer == 1) kaprosuchus.setPose(UP2Poses.HEADBUTTING.get());
-        if (timer == 9) {
-            if (this.isInAttackRange(target, 2.0D)) {
-                this.kaprosuchus.doHurtTarget(target);
-                this.kaprosuchus.strongKnockback(target, 0.4D, 0.5D);
-                this.kaprosuchus.swing(InteractionHand.MAIN_HAND);
-            }
-        }
-        if (timer > 15) {
-            this.timer = 0;
-            this.kaprosuchus.attackCooldown = 7 + kaprosuchus.getRandom().nextInt(5);
-            this.kaprosuchus.setAttackState(0);
-            this.waitTimer = 5;
         }
     }
 
@@ -143,15 +124,17 @@ public class KaprosuchusAttackGoal extends AttackGoal {
             this.kaprosuchus.setDeltaMovement(vec3.x, this.isTargetAbove(target) ? 1.3F : 0.98F, vec3.z);
         }
 
-        if (this.isInAttackRange(target, 1.0D) && timer > 20) {
+        if (this.isInAttackRange(target, 0.5D) && timer > 20) {
             this.kaprosuchus.doHurtTarget(target);
             this.kaprosuchus.strongKnockback(target, 0.5D, 0.05D);
             this.kaprosuchus.swing(InteractionHand.MAIN_HAND);
             this.kaprosuchus.setLeaping(false);
+            this.kaprosuchus.setPose(Pose.STANDING);
             this.kaprosuchus.setAttackState(0);
             this.kaprosuchus.leapCooldown();
             this.waitTimer = 15;
         } else if (timer > 80) {
+            this.kaprosuchus.setPose(Pose.STANDING);
             this.kaprosuchus.setLeaping(false);
             this.kaprosuchus.setAttackState(0);
             this.kaprosuchus.leapCooldown();

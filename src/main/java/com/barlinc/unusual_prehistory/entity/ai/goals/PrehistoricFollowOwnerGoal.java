@@ -5,8 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -18,23 +16,29 @@ public class PrehistoricFollowOwnerGoal extends Goal {
 
     protected final PrehistoricMob tamedMob;
     protected LivingEntity owner;
-    protected final LevelReader level;
     private final double speedModifier;
-    private final PathNavigation navigation;
     protected int timeToRecalcPath;
     private final float stopDistance;
     private final float startDistance;
     private float oldWaterCost;
     protected final boolean canFly;
+    protected final boolean shouldChangeMalus;
 
-    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly) {
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance) {
+        this(tamedMob, speedModifier, startDistance, stopDistance, false, false);
+    }
+
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean shouldChangeMalus) {
+        this(tamedMob, speedModifier, startDistance, stopDistance, false, shouldChangeMalus);
+    }
+
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly, boolean shouldChangeMalus) {
         this.tamedMob = tamedMob;
-        this.level = this.tamedMob.level();
         this.speedModifier = speedModifier;
-        this.navigation = this.tamedMob.getNavigation();
         this.startDistance = startDistance;
         this.stopDistance = stopDistance;
         this.canFly = canFly;
+        this.shouldChangeMalus = shouldChangeMalus;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
@@ -57,7 +61,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if (this.navigation.isDone()) {
+        if (tamedMob.getNavigation().isDone()) {
             return false;
         } else if (this.unableToMove()) {
             return false;
@@ -69,15 +73,19 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     @Override
     public void start() {
         this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.tamedMob.getPathfindingMalus(BlockPathTypes.WATER);
-        this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        if (shouldChangeMalus) {
+            this.oldWaterCost = this.tamedMob.getPathfindingMalus(BlockPathTypes.WATER);
+            this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        }
     }
 
     @Override
     public void stop() {
         this.owner = null;
-        this.navigation.stop();
-        this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+        this.tamedMob.getNavigation().stop();
+        if (shouldChangeMalus) {
+            this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+        }
     }
 
     @Override
@@ -88,7 +96,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
             if (this.tamedMob.distanceToSqr(this.owner) >= 144.0D) {
                 this.teleportToOwner();
             } else {
-                this.navigation.moveTo(this.owner, this.speedModifier);
+                this.tamedMob.getNavigation().moveTo(this.owner, this.speedModifier);
             }
         }
     }
@@ -117,22 +125,22 @@ public class PrehistoricFollowOwnerGoal extends Goal {
             return false;
         } else {
             this.tamedMob.moveTo((double) x + 0.5D, y, (double) z + 0.5D, this.tamedMob.getYRot(), this.tamedMob.getXRot());
-            this.navigation.stop();
+            this.tamedMob.getNavigation().stop();
             return true;
         }
     }
 
     protected boolean canTeleportTo(BlockPos blockPos) {
-        BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(this.level, blockPos.mutable());
+        BlockPathTypes blockpathtypes = WalkNodeEvaluator.getBlockPathTypeStatic(tamedMob.level(), blockPos.mutable());
         if (blockpathtypes != BlockPathTypes.WALKABLE) {
             return false;
         } else {
-            BlockState blockstate = this.level.getBlockState(blockPos.below());
+            BlockState blockstate = tamedMob.level().getBlockState(blockPos.below());
             if (!this.canFly && blockstate.getBlock() instanceof LeavesBlock) {
                 return false;
             } else {
                 BlockPos blockpos = blockPos.subtract(this.tamedMob.blockPosition());
-                return this.level.noCollision(this.tamedMob, this.tamedMob.getBoundingBox().move(blockpos));
+                return tamedMob.level().noCollision(this.tamedMob, this.tamedMob.getBoundingBox().move(blockpos));
             }
         }
     }

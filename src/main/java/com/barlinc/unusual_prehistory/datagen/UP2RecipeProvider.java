@@ -132,13 +132,9 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MAGENTA_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_MAGENTA).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("magenta_reinforced_glass_from_dye"));
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PINK_REINFORCED_GLASS.get(), 8).define('G', UP2ItemTags.REINFORCED_GLASS).define('D', Tags.Items.DYES_PINK).pattern("GGG").pattern("GDG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer, getSaveLocation("pink_reinforced_glass_from_dye"));
 
-        transmogrification(consumer, UP2Items.BRISTLE_FOSSIL.get(), AEGIROCASSIS_EGGS.get().asItem(), 3600);
-        transmogrification(consumer, UP2Items.BRUTE_FOSSIL.get(), BARINASUCHUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.ARM_FOSSIL.get(), BRACHIOSAURUS_EGG.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.FURY_FOSSIL.get(), CARNOTAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.GLUTTONOUS_FOSSIL.get(), COELACANTHUS_ROE.get().asItem(), 1200);
-        transmogrification(consumer, UP2Items.FLAT_BACK_FOSSIL.get(), DESMATOSUCHUS_EGG.get().asItem(), 2400);
-        transmogrification(consumer, UP2Items.BILL_FOSSIL.get(), UP2Items.DIMORPHODON_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.BOOMERANG_FOSSIL.get(), DIPLOCAULUS_EGGS.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.RUNNER_FOSSIL.get(), UP2Items.DROMAEOSAURUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.GUILLOTINE_FOSSIL.get(), DUNKLEOSTEUS_SAC.get().asItem(), 2400);
@@ -151,19 +147,16 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.FISH_FOSSIL.get(), LOBE_FINNED_FISH_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.IMPERVIOUS_FOSSIL.get(), LYSTROSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.RUGOSE_FOSSIL.get(), MAJUNGASAURUS_EGG.get().asItem(), 2400);
-        transmogrification(consumer, UP2Items.ROACH_FOSSIL.get(), MANIPULATOR_OOTHECA.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.THERMAL_FOSSIL.get(), MEGALANIA_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.MELTDOWN_FOSSIL.get(), UP2Items.METRIORHYNCHUS_EMBRYO.get(), 2400);
         transmogrification(consumer, UP2Items.SAW_FOSSIL.get(), ONCHOPRISTIS_SAC.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.CRANIUM_FOSSIL.get(), PACHYCEPHALOSAURUS_EGG.get().asItem(), 2400);
         transmogrification(consumer, UP2Items.FLIPPER_FOSSIL.get(), UP2Items.PRAEPUSA_EMBRYO.get(), 1200);
-        transmogrification(consumer, UP2Items.CROOKED_BEAK_FOSSIL.get(), UP2Items.PSILOPTERUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.WING_FOSSIL.get(), UP2Items.PTERODACTYLUS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.ANVIL_FOSSIL.get(), STETHACANTHUS_SAC.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.AGED_FEATHER.get(), UP2Items.TALPANAS_EGG.get(), 1200);
         transmogrification(consumer, UP2Items.MOSSY_FOSSIL.get(), TARTUOSTEUS_ROE.get().asItem(), 1200);
         transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
-        transmogrification(consumer, UP2Items.SCYTHE_FOSSIL.get(), THERIZINOSAURUS_EGG.get().asItem(), 3600);
         transmogrification(consumer, UP2Items.DUBIOUS_FOSSIL.get(), ULUGHBEGSAURUS_EGG.get().asItem(), 2400);
 
         transmogrification(consumer, UP2Items.AETHOPHYLLUM_FOSSIL.get(), AETHOPHYLLUM.get().asItem(), 600);
@@ -174,7 +167,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.COOKSONIA_FOSSIL.get(), COOKSONIA.get().asItem(), 600);
         transmogrification(consumer, UP2Items.CYCAD_FOSSIL.get(), CYCAD_SEEDLING.get().asItem(), 600);
         transmogrification(consumer, UP2Items.GINKGO_FOSSIL.get(), GINKGO_SAPLING.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.GUANGDEDENDRON_FOSSIL.get(), GUANGDEDENDRON_SPORE.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.GUANGDEDENDRON_FOSSIL.get(), GUANGDEDENDRON.get().asItem(), 600);
         transmogrification(consumer, UP2Items.NEOMARIOPTERIS_FOSSIL.get(), NEOMARIOPTERIS.get().asItem(), 600);
         transmogrification(consumer, UP2Items.PROTOTAXITES_FOSSIL.get(), PROTOTAXITES_CLUSTER.get().asItem(), 600);
         transmogrification(consumer, UP2Items.QUILLWORT_FOSSIL.get(), QUILLWORT.get().asItem(), 600);

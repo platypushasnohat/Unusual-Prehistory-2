@@ -4,7 +4,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -13,6 +12,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -49,27 +49,22 @@
  public class Kaprosuchus extends SemiAquaticMob implements LeapingMob {
 
      private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.INT);
-
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.BOOLEAN);
-
-     private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(0.9F, 0.8F);
 
      public int leapCooldown = 70 + this.getRandom().nextInt(80);
      public int attackCooldown = 0;
 
-     public final AnimationState swimIdleAnimationState = new AnimationState();
-     public final AnimationState attack1AnimationState = new AnimationState();
-     public final AnimationState attack2AnimationState = new AnimationState();
-     public final AnimationState bash1AnimationState = new AnimationState();
-     public final AnimationState bash2AnimationState = new AnimationState();
-     public final AnimationState leapAnimationState = new AnimationState();
+     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState(1.0F);
 
-     private int attackTicks;
-     private int bashTicks;
+     public boolean attackAlt = false;
 
      public Kaprosuchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
      }
 
@@ -106,7 +101,7 @@
          if (onLand) {
              this.lookControl = new KaprosuchusLookControl(this);
              this.moveControl = new PrehistoricMoveControl(this);
-             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
@@ -177,11 +172,6 @@
      }
 
      @Override
-     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-         return (pose == UP2Poses.SITTING.get() || pose == UP2Poses.SLEEPING.get()) ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
-     }
-
-     @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
@@ -210,64 +200,26 @@
      @Override
      public void tick() {
          super.tick();
-         final boolean ground = !this.isInWater();
-         if (!ground && this.isLandNavigator) this.switchNavigator(false);
-         if (ground && !this.isLandNavigator) this.switchNavigator(true);
-         if (leapCooldown > 0) leapCooldown--;
-         if (attackCooldown > 0) attackCooldown--;
+         if (this.isInWater() && this.isLandNavigator) this.switchNavigator(false);
+         if (!this.isInWater() && !this.isLandNavigator) this.switchNavigator(true);
      }
 
      @Override
      public void setupAnimationStates() {
-         if ((this.attack1AnimationState.isStarted() || this.attack2AnimationState.isStarted()) && attackTicks == 0) {
-             this.attack1AnimationState.stop();
-             this.attack2AnimationState.stop();
-         }
-         if ((this.bash1AnimationState.isStarted() || this.bash2AnimationState.isStarted()) && bashTicks == 0) {
-             this.bash1AnimationState.stop();
-             this.bash2AnimationState.stop();
-         }
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWater() && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
+         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
+         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
      }
 
      @Override
      public void tickCooldowns() {
          super.tickCooldowns();
-         if (attackTicks > 0) attackTicks--;
-         if (bashTicks > 0) bashTicks--;
-         if (attackTicks == 0 && this.getPose() == UP2Poses.ATTACKING.get()) this.setPose(Pose.STANDING);
-         if (bashTicks == 0 && this.getPose() == UP2Poses.HEADBUTTING.get()) this.setPose(Pose.STANDING);
-     }
-
-     @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         if (DATA_POSE.equals(accessor)) {
-             if (this.getPose() == UP2Poses.ATTACKING.get()) {
-                 if (this.getRandom().nextBoolean()) this.attack1AnimationState.start(this.tickCount);
-                 else this.attack2AnimationState.start(this.tickCount);
-                 this.attackTicks = 10;
-             }
-             if (this.getPose() == UP2Poses.HEADBUTTING.get()) {
-                 if (this.getRandom().nextBoolean()) this.bash1AnimationState.start(this.tickCount);
-                 else this.bash2AnimationState.start(this.tickCount);
-                 this.bashTicks = 15;
-             }
-             else if (this.getPose() == Pose.STANDING) {
-                 this.attack1AnimationState.stop();
-                 this.attack2AnimationState.stop();
-                 this.bash1AnimationState.stop();
-                 this.bash2AnimationState.stop();
-             }
-         }
-         super.onSyncedDataUpdated(accessor);
-     }
-
-     public void handleEntityEvent(byte id) {
-         switch (id) {
-             default -> super.handleEntityEvent(id);
-         }
+         if (leapCooldown > 0) leapCooldown--;
+         if (attackCooldown > 0) attackCooldown--;
      }
 
      @Override

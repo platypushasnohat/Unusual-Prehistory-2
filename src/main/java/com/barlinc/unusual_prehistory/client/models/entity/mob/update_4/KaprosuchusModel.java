@@ -126,27 +126,27 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
 	@Override
 	public void setupAnim(@NotNull Kaprosuchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+
         if (!entity.isLeaping() && !entity.isSitting() && !entity.isEepy()) {
-            if (entity.isInWater()) {
+            if (entity.isInWaterOrBubble()) {
                 this.animateWalk(KaprosuchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
             } else {
                 if (entity.isRunning()) this.animateWalk(KaprosuchusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
                 else this.animateWalk(KaprosuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
             }
         }
-		this.animateIdle(entity.idleAnimationState, KaprosuchusAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animateIdle(entity.swimIdleAnimationState, KaprosuchusAnimations.SWIM_IDLE, ageInTicks, 1, limbSwingAmount * 4);
-        this.animate(entity.attack1AnimationState, KaprosuchusAnimations.BITE_BLEND1, ageInTicks);
-        this.animate(entity.attack2AnimationState, KaprosuchusAnimations.BITE_BLEND2, ageInTicks);
-        this.animate(entity.bash1AnimationState, KaprosuchusAnimations.BASH_BLEND1, ageInTicks);
-        this.animate(entity.bash2AnimationState, KaprosuchusAnimations.BASH_BLEND2, ageInTicks);
-        this.animate(entity.leapAnimationState, KaprosuchusAnimations.POUNCE, ageInTicks);
-        this.animate(entity.sitStartAnimationState, KaprosuchusAnimations.SIT_START, ageInTicks);
-        this.animate(entity.sitAnimationState, KaprosuchusAnimations.SIT, ageInTicks);
-        this.animate(entity.sitEndAnimationState, KaprosuchusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.eepyStartAnimationState, KaprosuchusAnimations.SLEEP_START, ageInTicks);
-        this.animate(entity.eepyAnimationState, KaprosuchusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.eepyEndAnimationState, KaprosuchusAnimations.SLEEP_END, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, KaprosuchusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, KaprosuchusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
+        if (entity.isInWaterOrBubble()) {
+            this.animateSmooth(entity.attack1AnimationState, KaprosuchusAnimations.SWIM_BITE_BLEND1, ageInTicks);
+            this.animateSmooth(entity.attack2AnimationState, KaprosuchusAnimations.SWIM_BITE_BLEND2, ageInTicks);
+        } else {
+            this.animateSmooth(entity.attack1AnimationState, KaprosuchusAnimations.BITE_BLEND1, ageInTicks);
+            this.animateSmooth(entity.attack2AnimationState, KaprosuchusAnimations.BITE_BLEND2, ageInTicks);
+        }
+        this.animateSmooth(entity.leapAnimationState, KaprosuchusAnimations.POUNCE, ageInTicks);
+        this.animateSmooth(entity.sitAnimationState, KaprosuchusAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, KaprosuchusAnimations.SLEEP, ageInTicks);
 
         if (this.young) this.applyStatic(KaprosuchusAnimations.BABY_TRANSFORM);
         if (entity.isInWater() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);

@@ -33,17 +33,17 @@ public class Mammoth extends PrehistoricMob {
         super(entityType, level);
     }
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-    }
+//    @Override
+//    protected void registerGoals() {
+//        this.goalSelector.addGoal(0, new FloatGoal(this));
+//        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+//        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
+//        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
+//        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+//        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+//        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+//        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+//    }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()

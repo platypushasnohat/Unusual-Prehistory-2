@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.client.sounds.Kimmeridgebrachypteraeschnid
 import com.barlinc.unusual_prehistory.client.sounds.TransmogrifierSound;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.future.Aegirocassis;
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;

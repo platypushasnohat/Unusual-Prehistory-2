@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.screens;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
+import com.barlinc.unusual_prehistory.entity.mob.future.Manipulator;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;

@@ -50,6 +50,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.item(UP2Blocks.CYCAD_SEEDLING);
 
+        this.item(UP2Blocks.GUANGDEDENDRON);
+
         // fossils
         this.item(BRISTLE_FOSSIL);
         this.item(BRUTE_FOSSIL);

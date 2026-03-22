@@ -60,12 +60,12 @@ public class Wonambi extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.25F);
     }
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
-        this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-    }
+//    @Override
+//    protected void registerGoals() {
+//        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
+//        this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1.0D));
+//        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+//    }
 
     @Override
     public void setId(int id) {

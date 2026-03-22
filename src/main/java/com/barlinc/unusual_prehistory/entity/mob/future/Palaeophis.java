@@ -67,11 +67,11 @@ public class Palaeophis extends PrehistoricAquaticMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.75F);
     }
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 10));
-    }
+//    @Override
+//    protected void registerGoals() {
+//        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
+//        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 10));
+//    }
 
     @Override
     public void setId(int id) {

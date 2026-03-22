@@ -21,17 +21,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:flat_back_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
           "name": "unusual_prehistory:dubious_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:bill_fossil",
           "weight": 2
         },
         {
@@ -42,11 +32,6 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:fury_fossil",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:scythe_fossil",
           "weight": 1
         },
         {
@@ -82,11 +67,6 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:impervious_fossil",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:roach_fossil",
           "weight": 2
         }
       ],

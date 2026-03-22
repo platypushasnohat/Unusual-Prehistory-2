@@ -160,9 +160,9 @@ public class Leptictidium extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get() && this.getIdleState() != 1, this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
-        this.attackAnimationState.animateWhen(this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getPose() == Pose.STANDING && this.getIdleState() != 1, this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() == Pose.STANDING, this.tickCount);
+        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
         this.preenAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.sniffAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }

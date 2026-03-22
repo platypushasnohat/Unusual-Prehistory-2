@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Barinasuchus;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Manipulator;
+import com.barlinc.unusual_prehistory.entity.mob.future.Barinasuchus;
+import com.barlinc.unusual_prehistory.entity.mob.future.Manipulator;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
 import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
