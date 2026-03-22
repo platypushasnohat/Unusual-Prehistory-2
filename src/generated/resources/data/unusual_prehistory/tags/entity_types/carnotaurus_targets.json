@@ -1,6 +1,14 @@
 {
   "values": [
-    "#unusual_prehistory:medium_prey",
-    "#unusual_prehistory:large_prey"
+    "minecraft:cow",
+    "minecraft:goat",
+    "minecraft:horse",
+    "minecraft:pig",
+    "minecraft:sheep",
+    "minecraft:camel",
+    "minecraft:villager",
+    "unusual_prehistory:pachycephalosaurus",
+    "unusual_prehistory:majungasaurus",
+    "unusual_prehistory:kentrosaurus"
   ]
 }

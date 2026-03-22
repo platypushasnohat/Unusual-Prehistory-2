@@ -11,30 +11,26 @@ public class IdleAnimationGoal extends Goal {
     protected int timer;
     protected final int animationTime;
     protected final int idleState;
-    private final byte animationByte;
-    private final byte stopAnimationByte;
     protected final boolean stopMoving;
     protected final boolean stopIfHurt;
     protected final boolean stopInWater;
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte) {
-        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, true, true, true);
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState) {
+        this(prehistoricMob, animationTime, idleState, true, true, true);
     }
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving) {
-        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, stopMoving, true, true);
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving) {
+        this(prehistoricMob, animationTime, idleState, stopMoving, true, true);
     }
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopInWater) {
-        this(prehistoricMob, animationTime, idleState, animationByte, stopAnimationByte, stopMoving, true, stopInWater);
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, boolean stopInWater) {
+        this(prehistoricMob, animationTime, idleState, stopMoving, true, stopInWater);
     }
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, byte animationByte, byte stopAnimationByte, boolean stopMoving, boolean stopIfHurt, boolean stopInWater) {
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, boolean stopIfHurt, boolean stopInWater) {
         this.prehistoricMob = prehistoricMob;
         this.animationTime = animationTime;
         this.idleState = idleState;
-        this.animationByte = animationByte;
-        this.stopAnimationByte = stopAnimationByte;
         this.stopMoving = stopMoving;
         this.stopIfHurt = stopIfHurt;
         this.stopInWater = stopInWater;
@@ -52,7 +48,6 @@ public class IdleAnimationGoal extends Goal {
     public void start() {
         this.prehistoricMob.setIdleState(idleState);
         this.timer = animationTime;
-        this.prehistoricMob.level().broadcastEntityEvent(prehistoricMob, animationByte);
         if (stopMoving) this.prehistoricMob.getNavigation().stop();
     }
 
@@ -71,7 +66,6 @@ public class IdleAnimationGoal extends Goal {
 
     @Override
     public void stop() {
-        this.prehistoricMob.level().broadcastEntityEvent(prehistoricMob, stopAnimationByte);
         this.prehistoricMob.setIdleState(0);
     }
 

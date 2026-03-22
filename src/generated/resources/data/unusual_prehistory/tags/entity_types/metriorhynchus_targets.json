@@ -1,6 +1,9 @@
 {
   "values": [
-    "#unusual_prehistory:tiny_aquatic_prey",
-    "#unusual_prehistory:small_aquatic_prey"
+    "minecraft:tropical_fish",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "unusual_prehistory:jawless_fish",
+    "unusual_prehistory:lobe_finned_fish"
   ]
 }

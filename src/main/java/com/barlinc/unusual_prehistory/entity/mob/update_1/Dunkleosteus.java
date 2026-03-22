@@ -391,7 +391,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         private final Dunkleosteus dunkleosteus;
 
         public DunkleosteusQuirkGoal(Dunkleosteus dunkleosteus) {
-            super(dunkleosteus, 40, 1, (byte) 67, (byte) 68, false, false);
+            super(dunkleosteus, 40, 1, false, false);
             this.dunkleosteus = dunkleosteus;
         }
 

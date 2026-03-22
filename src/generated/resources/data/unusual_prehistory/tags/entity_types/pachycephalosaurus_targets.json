@@ -5,13 +5,6 @@
     "minecraft:chicken",
     "minecraft:pig",
     "minecraft:villager",
-    "minecraft:mooshroom",
-    "minecraft:strider",
-    "minecraft:snow_golem",
-    "unusual_prehistory:lystrosaurus",
-    "unusual_prehistory:leptictidium",
-    "unusual_prehistory:praepusa",
-    "unusual_prehistory:talpanas",
-    "unusual_prehistory:telecrex"
+    "minecraft:mooshroom"
   ]
 }

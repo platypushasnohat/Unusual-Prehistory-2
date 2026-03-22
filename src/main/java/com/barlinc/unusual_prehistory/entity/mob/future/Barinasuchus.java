@@ -1,6 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.future;
 
- import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -24,15 +25,9 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.goal.FloatGoal;
- import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
- import net.minecraft.world.entity.ai.goal.TemptGoal;
- import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.gameevent.GameEvent;
@@ -415,7 +410,7 @@
          private final Barinasuchus barinasuchus;
 
          public BarinasuchusYawnGoal(Barinasuchus barinasuchus) {
-             super(barinasuchus, 80, 1, (byte) 67, (byte) 68, false, false);
+             super(barinasuchus, 80, 1, false, false);
              this.barinasuchus = barinasuchus;
          }
 
@@ -436,7 +431,7 @@
          private final Barinasuchus barinasuchus;
 
          public BarinasuchusShakeGoal(Barinasuchus barinasuchus) {
-             super(barinasuchus, 60, 2, (byte) 69, (byte) 70, false);
+             super(barinasuchus, 60, 2, false);
              this.barinasuchus = barinasuchus;
          }
 
@@ -457,7 +452,7 @@
          private final Barinasuchus barinasuchus;
 
          public BarinasuchusSnapGoal(Barinasuchus barinasuchus) {
-             super(barinasuchus, 60, 3, (byte) 71, (byte) 72, false, false);
+             super(barinasuchus, 60, 3, false, false);
              this.barinasuchus = barinasuchus;
          }
 
@@ -478,7 +473,7 @@
          private final Barinasuchus barinasuchus;
 
          public BarinasuchusScratchGoal(Barinasuchus barinasuchus) {
-             super(barinasuchus, 30, 4, (byte) 73, (byte) 74);
+             super(barinasuchus, 30, 4);
              this.barinasuchus = barinasuchus;
          }
 
@@ -499,7 +494,7 @@
          private final Barinasuchus barinasuchus;
 
          public BarinasuchusThreatenGoal(Barinasuchus barinasuchus) {
-             super(barinasuchus, 60, 5, (byte) 75, (byte) 76);
+             super(barinasuchus, 60, 5);
              this.barinasuchus = barinasuchus;
          }
 

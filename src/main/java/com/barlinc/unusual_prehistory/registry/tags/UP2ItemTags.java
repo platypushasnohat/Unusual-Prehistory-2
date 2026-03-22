@@ -109,9 +109,6 @@ public class UP2ItemTags {
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");
     public static final TagKey<Item> FRUITS_GINKGO = forgeItemTag("fruits/ginkgo");
 
-    // Spawn tags
-    public static final TagKey<Item> CUSTOMIZABLE_MOB_ITEMS = itemTag("spawn", "customizable_mob_items");
-
     private static TagKey<Item> modItemTag(String name) {
         return itemTag(UnusualPrehistory2.MOD_ID, name);
     }

@@ -1,11 +1,13 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AnimationState;
@@ -102,5 +104,12 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     @Override
     protected void applyStatic(@NotNull AnimationDefinition definition) {
         KeyframeAnimations.animate(this, definition, 0L, 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
+    }
+
+    protected void animateHead(PrehistoricMob entity, ModelPart part, float netHeadYaw, float headPitch) {
+        if (!entity.isEepy() && !entity.isSitting()) {
+            part.xRot += headPitch * ((float) Math.PI / 180) / 2;
+            part.yRot += netHeadYaw * ((float) Math.PI / 180) / 2;
+        }
     }
 }

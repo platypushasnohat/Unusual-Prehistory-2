@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.Manipu
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.ManipulatorAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Manipulator;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -244,7 +243,7 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
         this.animateSmooth(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);
         this.animateSmooth(entity.blockAnimationState, ManipulatorAttackAnimations.SHIELDBLOCK_BLEND, ageInTicks);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

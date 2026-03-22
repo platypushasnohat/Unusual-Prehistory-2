@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.TherizinosaurusBabyAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Therizinosaurus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -113,7 +112,7 @@ public class TherizinosaurusBabyModel extends UP2Model<Therizinosaurus> {
         this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusBabyAnimations.BABY_IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.swimAnimationState, TherizinosaurusBabyAnimations.BABY_SWIM, ageInTicks);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

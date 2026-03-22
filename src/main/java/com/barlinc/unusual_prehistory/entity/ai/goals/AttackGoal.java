@@ -2,10 +2,14 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
@@ -69,5 +73,17 @@ public class AttackGoal extends Goal {
 
     protected boolean isInAttackRange(LivingEntity target, double reach) {
         return mob.hasLineOfSight(target) && mob.distanceTo(target) < mob.getBbWidth() + target.getBbWidth() + reach;
+    }
+
+    protected void chargeAtTarget(Entity target, float speed) {
+        int speedFactor = mob.hasEffect(MobEffects.MOVEMENT_SPEED) ? mob.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
+        int slownessFactor = mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? mob.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
+        float effectSpeed = 0.1F * (speedFactor - slownessFactor);
+        Vec3 chargeDirection = new Vec3(target.getX() - mob.getX(), target.getY() - mob.getY(), target.getZ() - mob.getZ()).normalize();
+        float YRot = Mth.approachDegrees(mob.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 0.5F);
+        speed = speed + effectSpeed;
+        this.mob.setYRot(YRot);
+        this.mob.setYBodyRot(YRot);
+        this.mob.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, mob.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
     }
 }

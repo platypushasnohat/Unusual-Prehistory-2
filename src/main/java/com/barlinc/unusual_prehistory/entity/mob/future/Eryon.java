@@ -1,7 +1,5 @@
  package com.barlinc.unusual_prehistory.entity.mob.future;
 
- import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -17,13 +15,8 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
- import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
- import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;

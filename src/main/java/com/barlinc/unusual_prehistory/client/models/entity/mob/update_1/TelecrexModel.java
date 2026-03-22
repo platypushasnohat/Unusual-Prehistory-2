@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.TelecrexAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Telecrex;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -88,8 +87,7 @@ public class TelecrexModel extends UP2Model<Telecrex> {
         this.animateSmooth(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
         this.animateSmooth(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks);
 
-        float deg = ((float) Math.PI / 180F);
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 
 		float partialTicks = ageInTicks - entity.tickCount;
 		float flyProgress = entity.getFlyProgress(partialTicks);

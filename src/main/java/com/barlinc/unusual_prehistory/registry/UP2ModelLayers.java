@@ -43,15 +43,9 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation TARTUOSTEUS = mainLayer("tartuosteus");
 
     // Update 4
-    public static final ModelLayerLocation AEGIROCASSIS = mainLayer("aegirocassis");
-    public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
-    public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
     public static final ModelLayerLocation BRACHIOSAURUS = mainLayer("brachiosaurus");
     public static final ModelLayerLocation BRACHIOSAURUS_BABY = mainLayer("brachiosaurus_baby");
     public static final ModelLayerLocation COELACANTHUS = mainLayer("coelacanthus");
-    public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
-    public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
-    public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
     public static final ModelLayerLocation HIBBERTOPTERUS = mainLayer("hibbertopterus");
     public static final ModelLayerLocation KAPROSUCHUS = mainLayer("kaprosuchus");
     public static final ModelLayerLocation LEPTICTIDIUM = mainLayer("leptictidium");
@@ -61,24 +55,28 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation LOBE_FINNED_FISH_LACCOGNATHUS = mainLayer("lobe_finned_fish_laccognathus");
     public static final ModelLayerLocation LOBE_FINNED_FISH_SCAUMENACIA = mainLayer("lobe_finned_fish_scaumenacia");
     public static final ModelLayerLocation LYSTROSAURUS = mainLayer("lystrosaurus");
-    public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
     public static final ModelLayerLocation PACHYCEPHALOSAURUS = mainLayer("pachycephalosaurus");
     public static final ModelLayerLocation PRAEPUSA = mainLayer("praepusa");
-    public static final ModelLayerLocation PSILOPTERUS = mainLayer("psilopterus");
     public static final ModelLayerLocation PTERODACTYLUS = mainLayer("pterodactylus");
-    public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
-    public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
     public static final ModelLayerLocation ULUGHBEGSAURUS = mainLayer("ulughbegsaurus");
-    public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
 
-    // Update 5
+    // Future
+    public static final ModelLayerLocation AEGIROCASSIS = mainLayer("aegirocassis");
+    public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
+    public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
+    public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
+    public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
+    public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
     public static final ModelLayerLocation ERYON = mainLayer("eryon");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
+    public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
     public static final ModelLayerLocation PALAEOPHIS = mainLayer("palaeophis");
-
-    // Update 6
+    public static final ModelLayerLocation PSILOPTERUS = mainLayer("psilopterus");
+    public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
+    public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
     public static final ModelLayerLocation WONAMBI = mainLayer("wonambi");
+    public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
 
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);

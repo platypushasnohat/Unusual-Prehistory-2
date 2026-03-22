@@ -294,7 +294,7 @@
          private final Metriorhynchus metriorhynchus;
 
          public MetriorhynchusBellowGoal(Metriorhynchus metriorhynchus) {
-             super(metriorhynchus, 40, 1, (byte) 67, (byte) 68, false, false);
+             super(metriorhynchus, 40, 1, false, false);
              this.metriorhynchus = metriorhynchus;
          }
 

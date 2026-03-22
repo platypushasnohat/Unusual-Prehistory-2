@@ -320,7 +320,7 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasPeckGoal(Talpanas talpanas) {
-            super(talpanas, 40, 1, (byte) 67, (byte) 68);
+            super(talpanas, 40, 1);
             this.talpanas = talpanas;
         }
 
@@ -341,7 +341,7 @@ public class Talpanas extends BreedableMob {
         private final Talpanas talpanas;
 
         public TalpanasShakeGoal(Talpanas talpanas) {
-            super(talpanas, 20, 2, (byte) 69, (byte) 70);
+            super(talpanas, 20, 2);
             this.talpanas = talpanas;
         }
 

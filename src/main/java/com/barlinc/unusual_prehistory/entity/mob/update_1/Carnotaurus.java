@@ -388,7 +388,7 @@ public class Carnotaurus extends PrehistoricMob {
         private final Carnotaurus carnotaurus;
 
         public CarnotaurusYawnGoal(Carnotaurus carnotaurus) {
-            super(carnotaurus, 60, 1, (byte) 67, (byte) 68, false);
+            super(carnotaurus, 60, 1, false);
             this.carnotaurus = carnotaurus;
         }
 
@@ -409,7 +409,7 @@ public class Carnotaurus extends PrehistoricMob {
         private final Carnotaurus carnotaurus;
 
         public CarnotaurusShakeGoal(Carnotaurus carnotaurus) {
-            super(carnotaurus, 40, 2, (byte) 69, (byte) 70, false);
+            super(carnotaurus, 40, 2, false);
             this.carnotaurus = carnotaurus;
         }
 
@@ -430,7 +430,7 @@ public class Carnotaurus extends PrehistoricMob {
         private final Carnotaurus carnotaurus;
 
         public CarnotaurusSniffGoal(Carnotaurus carnotaurus) {
-            super(carnotaurus, 80, 3, (byte) 71, (byte) 72);
+            super(carnotaurus, 80, 3);
             this.carnotaurus = carnotaurus;
         }
 

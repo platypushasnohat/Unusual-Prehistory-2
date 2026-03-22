@@ -322,7 +322,7 @@ public class Leptictidium extends PrehistoricMob {
         private final Leptictidium leptictidium;
 
         public LeptictidiumPreenGoal(Leptictidium leptictidium) {
-            super(leptictidium, 30, 1, (byte) 67, (byte) 68);
+            super(leptictidium, 30, 1);
             this.leptictidium = leptictidium;
         }
 
@@ -343,7 +343,7 @@ public class Leptictidium extends PrehistoricMob {
         private final Leptictidium leptictidium;
 
         public LeptictidiumSniffGoal(Leptictidium leptictidium) {
-            super(leptictidium, 30, 2, (byte) 69, (byte) 70, false);
+            super(leptictidium, 30, 2, false);
             this.leptictidium = leptictidium;
         }
 

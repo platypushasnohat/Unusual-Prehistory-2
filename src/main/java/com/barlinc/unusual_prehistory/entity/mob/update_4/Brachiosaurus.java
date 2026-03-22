@@ -558,7 +558,7 @@
          private final Brachiosaurus brachiosaurus;
 
          public BrachiosaurusCallGoal(Brachiosaurus brachiosaurus) {
-             super(brachiosaurus, 60, 1, (byte) 67, (byte) 68, true, false);
+             super(brachiosaurus, 60, 1, true, false);
              this.brachiosaurus = brachiosaurus;
          }
 
@@ -585,7 +585,7 @@
          private final Brachiosaurus brachiosaurus;
 
          public BrachiosaurusShakeGoal(Brachiosaurus brachiosaurus) {
-             super(brachiosaurus, 100, 2, (byte) 67, (byte) 68, false, false);
+             super(brachiosaurus, 100, 2, false, false);
              this.brachiosaurus = brachiosaurus;
          }
 

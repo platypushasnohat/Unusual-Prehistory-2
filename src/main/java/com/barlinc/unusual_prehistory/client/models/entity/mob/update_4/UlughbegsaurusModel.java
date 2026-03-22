@@ -17,9 +17,9 @@ import org.joml.Vector4f;
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 
-    public final ModelPart root;
-    public final ModelPart body_main;
-    public final ModelPart body;
+    private final ModelPart root;
+    private final ModelPart body_main;
+    private final ModelPart body;
     private final ModelPart neck;
     private final ModelPart head;
     private final ModelPart upper_jaw;
@@ -127,26 +127,24 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 	@Override
 	public void setupAnim(@NotNull Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        float partialTicks = ageInTicks - entity.tickCount;
-        if (!entity.isInWater() && !entity.isSitting() && !entity.isEepy() && !entity.isLeaping()) {
+        if (!entity.isInWaterOrBubble() && !entity.isSitting() && !entity.isEepy() && !entity.isLeaping()) {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
             else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, entity.hasControllingPassenger() ? 2 : 1.5F, entity.hasControllingPassenger() ? 4 : 3);
         }
-		this.animateIdle(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
-        this.animate(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animate(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
-		this.animate(entity.sitStartAnimationState, UlughbegsaurusAnimations.SIT_START, ageInTicks);
-		this.animate(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks);
-		this.animate(entity.sitEndAnimationState, UlughbegsaurusAnimations.SIT_END, ageInTicks);
-        this.animate(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animate(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateLerped(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks, entity.getLeapProgress(partialTicks));
+		this.animateIdleSmooth(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
+		this.animateSmooth(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, UlughbegsaurusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks);
+        this.animateSmooth(entity.blinkAnimationState, UlughbegsaurusAnimations.BLINK_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(UlughbegsaurusAnimations.BABY_TRANSFORM);
 
-        this.neck.xRot += headPitch * ((float) Math.PI / 180F) / 2;
-		this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) / 2;
+        this.animateHead(entity, this.neck, netHeadYaw, headPitch);
 	}
 
     public Vec3 getRiderPosition(Vec3 offset) {
@@ -157,6 +155,12 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
         Vec3 vec3 = new Vec3(armOffsetVec.x(), armOffsetVec.y(), armOffsetVec.z());
         poseStack.popPose();
         return vec3;
+    }
+
+    public void translateRiderToBody(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
     }
 
 	@Override

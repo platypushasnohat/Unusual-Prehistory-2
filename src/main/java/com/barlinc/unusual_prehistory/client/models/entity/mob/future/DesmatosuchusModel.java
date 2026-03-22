@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.DesmatosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Desmatosuchus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -146,7 +145,7 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 
         if (this.young) this.applyStatic(DesmatosuchusAnimations.BABY_TRANSFORM);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
     @Override

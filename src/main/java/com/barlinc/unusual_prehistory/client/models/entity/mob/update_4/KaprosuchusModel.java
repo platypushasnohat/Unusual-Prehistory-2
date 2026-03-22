@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.KaprosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Kaprosuchus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -151,7 +150,7 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
         if (this.young) this.applyStatic(KaprosuchusAnimations.BABY_TRANSFORM);
         if (entity.isInWater() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
     }
 
 	@Override

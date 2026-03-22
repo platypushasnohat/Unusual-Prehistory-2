@@ -492,7 +492,7 @@
          private final Diplocaulus diplocaulus;
 
          public DiplocaulusQuirkGoal(Diplocaulus diplocaulus) {
-             super(diplocaulus, 60, 1, (byte) 67, (byte) 68, false, false);
+             super(diplocaulus, 60, 1, false, false);
              this.diplocaulus = diplocaulus;
          }
 

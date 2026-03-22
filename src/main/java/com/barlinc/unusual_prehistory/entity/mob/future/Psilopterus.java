@@ -1,15 +1,13 @@
 package com.barlinc.unusual_prehistory.entity.mob.future;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PsilopterusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PsilopterusOpenDoorGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PackAnimalNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -27,12 +25,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -443,7 +438,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         private final Psilopterus psilopterus;
 
         public PsilopterusDigGoal(Psilopterus psilopterus) {
-            super(psilopterus, 60, 1, (byte) 67, (byte) 68);
+            super(psilopterus, 60, 1);
             this.psilopterus = psilopterus;
         }
 
@@ -488,7 +483,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         private final Psilopterus psilopterus;
 
         public PsilopterusPreenGoal(Psilopterus psilopterus) {
-            super(psilopterus, 80, 2, (byte) 69, (byte) 70);
+            super(psilopterus, 80, 2);
             this.psilopterus = psilopterus;
         }
 

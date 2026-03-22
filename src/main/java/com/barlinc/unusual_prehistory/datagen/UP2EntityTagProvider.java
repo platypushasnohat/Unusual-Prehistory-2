@@ -25,155 +25,84 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
 
-        // Entity groups
-        this.tag(UP2EntityTags.TINY_ANIMALS).add(
-                PTERODACTYLUS.get(),
-                KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), LEPTICTIDIUM.get(),
-                EntityType.BAT, EntityType.PARROT
-        );
-
-        this.tag(UP2EntityTags.SMALL_ANIMALS).add(
-                PRAEPUSA.get(), TALPANAS.get(), TELECREX.get(), DIPLOCAULUS.get(),
-                EntityType.CHICKEN, EntityType.BEE, EntityType.FROG,
-                EntityType.RABBIT, EntityType.AXOLOTL, EntityType.CAT
-        );
-
-        this.tag(UP2EntityTags.MEDIUM_ANIMALS).add(
-                PACHYCEPHALOSAURUS.get(), DESMATOSUCHUS.get(), DROMAEOSAURUS.get(),
-                KAPROSUCHUS.get(), LYSTROSAURUS.get(),
-                EntityType.PIG,
-                EntityType.COW, EntityType.GOAT, EntityType.SHEEP,
-                EntityType.WOLF, EntityType.OCELOT, EntityType.DONKEY,
-                EntityType.MULE, EntityType.LLAMA, EntityType.TURTLE
-        );
-
-        this.tag(UP2EntityTags.LARGE_ANIMALS).add(
-                BARINASUCHUS.get(),
-                CARNOTAURUS.get(), KENTROSAURUS.get(), MAJUNGASAURUS.get(),
-                MEGALANIA.get(), METRIORHYNCHUS.get(), ULUGHBEGSAURUS.get(),
-                EntityType.CAMEL, EntityType.HOGLIN, EntityType.HORSE,
-                EntityType.PANDA, EntityType.POLAR_BEAR, EntityType.SNIFFER
-        );
-
-        this.tag(UP2EntityTags.GIANT_ANIMALS).add(
-                BRACHIOSAURUS.get(),
-                THERIZINOSAURUS.get()
-        );
-
-        this.tag(UP2EntityTags.TINY_AQUATIC_ANIMALS).add(
-                JAWLESS_FISH.get()
-        );
-
-        this.tag(UP2EntityTags.SMALL_AQUATIC_ANIMALS).add(
-                EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, PRAEPUSA.get(),
-                STETHACANTHUS.get(), EntityType.FROG, EntityType.AXOLOTL
-        );
-
-        this.tag(UP2EntityTags.MEDIUM_AQUATIC_ANIMALS).add(
-                EntityType.DOLPHIN, EntityType.GLOW_SQUID, EntityType.SQUID, LOBE_FINNED_FISH.get(),
-                TARTUOSTEUS.get(), KAPROSUCHUS.get()
-        );
-
-        this.tag(UP2EntityTags.LARGE_AQUATIC_ANIMALS).add(
-                ONCHOPRISTIS.get(), DUNKLEOSTEUS.get(), METRIORHYNCHUS.get(),
-                MEGALANIA.get()
-        );
-
-        this.tag(UP2EntityTags.GIANT_AQUATIC_ANIMALS).add(
-                BRACHIOSAURUS.get(), COELACANTHUS.get()
-        );
-
-        this.tag(UP2EntityTags.TINY_AQUATIC_PREY).add(
-                JAWLESS_FISH.get()
-        );
-
-        this.tag(UP2EntityTags.SMALL_AQUATIC_PREY).add(
-                EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, PRAEPUSA.get(),
-                STETHACANTHUS.get(), EntityType.FROG, EntityType.AXOLOTL
-        );
-
-        this.tag(UP2EntityTags.MEDIUM_AQUATIC_PREY).add(
-                EntityType.DOLPHIN, EntityType.GLOW_SQUID, EntityType.SQUID, LOBE_FINNED_FISH.get(),
-                TARTUOSTEUS.get()
-        );
-
-        this.tag(UP2EntityTags.LARGE_AQUATIC_PREY).add(
-                ONCHOPRISTIS.get()
-        );
-
-        this.tag(UP2EntityTags.TINY_PREY).add(
-                PTERODACTYLUS.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(),
-                EntityType.BAT, EntityType.PARROT
-        );
-
-        this.tag(UP2EntityTags.SMALL_PREY).add(
-                PRAEPUSA.get(), TALPANAS.get(), TELECREX.get(), DIPLOCAULUS.get(),
-                LEPTICTIDIUM.get(), EntityType.CHICKEN, EntityType.BEE, EntityType.FROG,
-                EntityType.RABBIT, EntityType.AXOLOTL, EntityType.CAT
-        );
-
-        this.tag(UP2EntityTags.MEDIUM_PREY).add(
-                PACHYCEPHALOSAURUS.get(), DESMATOSUCHUS.get(), LYSTROSAURUS.get(),
-                EntityType.PIG, EntityType.COW, EntityType.GOAT,
-                EntityType.SHEEP, EntityType.OCELOT, EntityType.DONKEY,
-                EntityType.MULE, EntityType.LLAMA, EntityType.TRADER_LLAMA
-        );
-
-        this.tag(UP2EntityTags.LARGE_PREY).add(
-                KENTROSAURUS.get(),
-                EntityType.CAMEL, EntityType.HOGLIN, EntityType.HORSE, EntityType.SNIFFER
-        );
-
-        this.tag(UP2EntityTags.GIANT_PREY).add(
-                BRACHIOSAURUS.get(),
-                THERIZINOSAURUS.get()
-        );
-
-        this.tag(UP2EntityTags.MONSTERS).add(
-                EntityType.BLAZE, EntityType.CAVE_SPIDER, EntityType.CREEPER, EntityType.DROWNED,
-                EntityType.ENDERMITE, EntityType.PIGLIN, EntityType.PILLAGER, EntityType.SHULKER,
-                EntityType.SILVERFISH, EntityType.SKELETON, EntityType.SLIME, EntityType.SPIDER,
-                EntityType.STRAY, EntityType.VEX, EntityType.WITCH, EntityType.ZOMBIFIED_PIGLIN,
-                EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER
-        );
-
-        this.tag(UP2EntityTags.STRONG_MONSTERS).add(
-                EntityType.PIGLIN_BRUTE, EntityType.RAVAGER, EntityType.EVOKER, EntityType.ENDERMAN,
-                EntityType.VINDICATOR, EntityType.ZOGLIN
-        );
-
-        this.tag(UP2EntityTags.AQUATIC_MONSTERS).add(
-                EntityType.GUARDIAN, EntityType.DROWNED
-        );
-
-        this.tag(UP2EntityTags.STRONG_AQUATIC_MONSTERS).add(
-                EntityType.ELDER_GUARDIAN
-        );
-
         // Targets
-        this.tag(UP2EntityTags.CARNOTAURUS_TARGETS).addTag(UP2EntityTags.MEDIUM_PREY).addTag(UP2EntityTags.LARGE_PREY);
-
-        this.tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).addTag(UP2EntityTags.SMALL_PREY);
-
-        this.tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).addTag(UP2EntityTags.TINY_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_AQUATIC_PREY);
-
-        this.tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).addTag(UP2EntityTags.SMALL_AQUATIC_PREY).addTag(UP2EntityTags.MEDIUM_AQUATIC_PREY).add(
-                EntityType.DROWNED, EntityType.ZOMBIE, EntityType.PIGLIN, EntityType.SKELETON, EntityType.WITHER_SKELETON
+        this.tag(UP2EntityTags.CARNOTAURUS_TARGETS).add(
+                EntityType.COW,
+                EntityType.GOAT,
+                EntityType.HORSE,
+                EntityType.PIG,
+                EntityType.SHEEP,
+                EntityType.CAMEL,
+                EntityType.VILLAGER,
+                PACHYCEPHALOSAURUS.get(),
+                MAJUNGASAURUS.get(),
+                KENTROSAURUS.get()
         );
 
-        this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).addTag(UP2EntityTags.MEDIUM_AQUATIC_PREY).addTag(UP2EntityTags.LARGE_AQUATIC_PREY).add(
-                EntityType.TURTLE, EntityType.DROWNED, EntityType.GUARDIAN, EntityType.ZOMBIE, EntityType.PIGLIN, EntityType.SKELETON, EntityType.WITHER_SKELETON
+        this.tag(UP2EntityTags.DROMAEOSAURUS_TARGETS).add(
+                EntityType.CHICKEN
         );
 
-        this.tag(UP2EntityTags.KAPROSUCHUS_TARGETS).addTag(UP2EntityTags.SMALL_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_PREY);
+        this.tag(UP2EntityTags.SMALL_DUNKLEOSTEUS_TARGETS).add(
+                EntityType.TROPICAL_FISH,
+                EntityType.TADPOLE,
+                JAWLESS_FISH.get(),
+                EntityType.ZOMBIE,
+                EntityType.PIGLIN,
+                EntityType.SKELETON,
+                EntityType.WITHER_SKELETON
+        );
 
-        this.tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).addTag(UP2EntityTags.SMALL_PREY).addTag(UP2EntityTags.MEDIUM_PREY);
+        this.tag(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS).add(
+                EntityType.COD,
+                EntityType.SALMON,
+                JAWLESS_FISH.get(),
+                LOBE_FINNED_FISH.get(),
+                EntityType.ZOMBIE,
+                EntityType.PIGLIN,
+                EntityType.SKELETON,
+                EntityType.WITHER_SKELETON
+        );
 
-        this.tag(UP2EntityTags.MEGALANIA_TARGETS).addTag(UP2EntityTags.SMALL_PREY).addTag(UP2EntityTags.MEDIUM_PREY);
+        this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
+                EntityType.TURTLE,
+                EntityType.DROWNED,
+                EntityType.GUARDIAN,
+                EntityType.ZOMBIE,
+                EntityType.PIGLIN,
+                EntityType.SKELETON,
+                EntityType.WITHER_SKELETON
+        );
 
-        this.tag(UP2EntityTags.METRIORHYNCHUS_TARGETS).addTag(UP2EntityTags.TINY_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_AQUATIC_PREY);
+        this.tag(UP2EntityTags.KAPROSUCHUS_TARGETS).add(
+                EntityType.PIG,
+                EntityType.PIGLIN
+        );
 
-        this.tag(UP2EntityTags.ONCHOPRISTIS_TARGETS).addTag(UP2EntityTags.TINY_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_AQUATIC_PREY);
+        this.tag(UP2EntityTags.MAJUNGASAURUS_TARGETS).add(
+                EntityType.COW,
+                EntityType.GOAT,
+                EntityType.PIG,
+                EntityType.SHEEP
+        );
+
+        this.tag(UP2EntityTags.MEGALANIA_TARGETS).add(
+                EntityType.COW,
+                EntityType.GOAT,
+                EntityType.HORSE,
+                EntityType.PIG,
+                EntityType.SHEEP,
+                EntityType.CAMEL,
+                EntityType.VILLAGER
+        );
+
+        this.tag(UP2EntityTags.METRIORHYNCHUS_TARGETS).add(
+                EntityType.TROPICAL_FISH,
+                EntityType.COD,
+                EntityType.SALMON,
+                JAWLESS_FISH.get(),
+                LOBE_FINNED_FISH.get()
+        );
 
         this.tag(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS).add(
                 EntityType.COW,
@@ -181,14 +110,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.CHICKEN,
                 EntityType.PIG,
                 EntityType.VILLAGER,
-                EntityType.MOOSHROOM,
-                EntityType.STRIDER,
-                EntityType.SNOW_GOLEM,
-                LYSTROSAURUS.get(),
-                LEPTICTIDIUM.get(),
-                PRAEPUSA.get(),
-                TALPANAS.get(),
-                TELECREX.get()
+                EntityType.MOOSHROOM
         );
 
         this.tag(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS_TO_KILL).add(
@@ -196,18 +118,22 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.PRAEPUSA_TARGETS).add(
-                JAWLESS_FISH.get(), EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH
+                EntityType.COD,
+                EntityType.SALMON
         );
 
-        this.tag(UP2EntityTags.SMALL_PSILOPTERUS_PACK_TARGETS).addTag(UP2EntityTags.TINY_PREY).addTag(UP2EntityTags.SMALL_PREY);
+        this.tag(UP2EntityTags.STETHACANTHUS_TARGETS).add(
+                JAWLESS_FISH.get()
+        );
 
-        this.tag(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS).addTag(UP2EntityTags.SMALL_PREY).addTag(UP2EntityTags.MEDIUM_PREY);
-
-        this.tag(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS).addTag(UP2EntityTags.LARGE_PREY);
-
-        this.tag(UP2EntityTags.STETHACANTHUS_TARGETS).addTag(UP2EntityTags.TINY_AQUATIC_PREY).addTag(UP2EntityTags.SMALL_AQUATIC_PREY);
-
-        this.tag(UP2EntityTags.ULUGHBEGSAURUS_TARGETS).addTag(UP2EntityTags.MEDIUM_PREY);
+        this.tag(UP2EntityTags.ULUGHBEGSAURUS_TARGETS).add(
+                EntityType.COW,
+                EntityType.GOAT,
+                EntityType.HORSE,
+                EntityType.PIG,
+                EntityType.SHEEP,
+                EntityType.CAMEL
+        );
 
         // Avoids
         this.tag(UP2EntityTags.COELACANTHUS_AVOIDS).add(
@@ -217,13 +143,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.DROMAEOSAURUS_AVOIDS).add(
                 CARNOTAURUS.get(), MAJUNGASAURUS.get(), MEGALANIA.get()
-        );
-
-        this.tag(UP2EntityTags.DIMORPHODON_AVOIDS).add(
-                CARNOTAURUS.get(), MAJUNGASAURUS.get(), MEGALANIA.get(),
-                BRACHIOSAURUS.get(), BARINASUCHUS.get(), KENTROSAURUS.get(),
-                MANIPULATOR.get(), METRIORHYNCHUS.get(), ULUGHBEGSAURUS.get(),
-                THERIZINOSAURUS.get(), HIBBERTOPTERUS.get()
         );
 
         this.tag(UP2EntityTags.DIPLOCAULUS_AVOIDS).add(
@@ -335,28 +254,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.COELACANTHUS_NEVER_EATS).add(
                 EntityType.ENDER_DRAGON
-        );
-
-        this.tag(UP2EntityTags.DIMORPHODON_CANT_GRAB).add(
-                DIMORPHODON.get(),
-                EntityType.ENDER_DRAGON,
-                EntityType.WITHER,
-                EntityType.VEX
-        );
-        this.tag(UP2EntityTags.DIMORPHODON_CAN_GRAB).add(
-                EntityType.COW,
-                EntityType.SHEEP,
-                EntityType.ZOMBIE,
-                EntityType.SKELETON,
-                EntityType.DROWNED,
-                EntityType.STRAY,
-                EntityType.SPIDER,
-                EntityType.ZOMBIE_VILLAGER,
-                EntityType.PIG,
-                EntityType.PIGLIN,
-                EntityType.VINDICATOR,
-                EntityType.EVOKER,
-                EntityType.CREEPER
         );
 
         this.tag(UP2EntityTags.METRIORHYNCHUS_CANT_GRAB).add(

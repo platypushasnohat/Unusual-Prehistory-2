@@ -715,7 +715,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         private final Megalania megalania;
 
         public MegalaniaFlickTailGoal(Megalania megalania) {
-            super(megalania, 20, 1, (byte) 67, (byte) 68, false);
+            super(megalania, 20, 1, false);
             this.megalania = megalania;
         }
 
@@ -742,7 +742,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         private final Megalania megalania;
 
         public MegalaniaYawnGoal(Megalania megalania) {
-            super(megalania, 80, 2, (byte) 69, (byte) 70, false);
+            super(megalania, 80, 2, false);
             this.megalania = megalania;
         }
 
@@ -763,7 +763,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         private final Megalania megalania;
 
         public MegalaniaTongueGoal(Megalania megalania) {
-            super(megalania, 20, 3, (byte) 71, (byte) 72, false, false);
+            super(megalania, 20, 3, false, false);
             this.megalania = megalania;
         }
 
@@ -784,7 +784,7 @@ public class Megalania extends SemiAquaticMob implements KeybindUsingMount, Play
         private final Megalania megalania;
 
         public MegalaniaRoarGoal(Megalania megalania) {
-            super(megalania, 80, 4, (byte) 73, (byte) 74);
+            super(megalania, 80, 4);
             this.megalania = megalania;
         }
 

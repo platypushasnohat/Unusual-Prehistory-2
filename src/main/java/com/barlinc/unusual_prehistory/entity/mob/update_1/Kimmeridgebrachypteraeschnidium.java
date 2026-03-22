@@ -522,7 +522,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         private final Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium;
 
         public KimmeridgebrachypteraeschnidiumPreenGoal(Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium) {
-            super(kimmeridgebrachypteraeschnidium, 60, 1, (byte) 67, (byte) 68);
+            super(kimmeridgebrachypteraeschnidium, 60, 1);
             this.kimmeridgebrachypteraeschnidium = kimmeridgebrachypteraeschnidium;
         }
 

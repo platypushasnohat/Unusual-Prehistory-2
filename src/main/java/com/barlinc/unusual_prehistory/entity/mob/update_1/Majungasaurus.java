@@ -383,7 +383,7 @@ public class Majungasaurus extends PrehistoricMob {
         private final Majungasaurus majungasaurus;
 
         public MajungasaurusYawnGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 60, 1, (byte) 67, (byte) 68, false);
+            super(majungasaurus, 60, 1, false);
             this.majungasaurus = majungasaurus;
         }
 
@@ -404,7 +404,7 @@ public class Majungasaurus extends PrehistoricMob {
         private final Majungasaurus majungasaurus;
 
         public MajungasaurusShakeGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 80, 2, (byte) 69, (byte) 70, false);
+            super(majungasaurus, 80, 2, false);
             this.majungasaurus = majungasaurus;
         }
 
@@ -425,7 +425,7 @@ public class Majungasaurus extends PrehistoricMob {
         private final Majungasaurus majungasaurus;
 
         public MajungasaurusSniffGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 80, 3, (byte) 71, (byte) 72);
+            super(majungasaurus, 80, 3);
             this.majungasaurus = majungasaurus;
         }
 

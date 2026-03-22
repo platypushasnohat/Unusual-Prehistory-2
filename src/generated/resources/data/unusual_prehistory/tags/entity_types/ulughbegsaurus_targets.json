@@ -1,5 +1,10 @@
 {
   "values": [
-    "#unusual_prehistory:medium_prey"
+    "minecraft:cow",
+    "minecraft:goat",
+    "minecraft:horse",
+    "minecraft:pig",
+    "minecraft:sheep",
+    "minecraft:camel"
   ]
 }

@@ -50,17 +50,13 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
     private int grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
     private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
-    private int stompCooldown = 500 + this.getRandom().nextInt(60 * 70);
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState huffAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState stomp1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState stomp2AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState warnAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState recoverAnimationState = new SmoothAnimationState();
 
-    private int warnTicks;
     private int recoverTicks;
 
     public Pachycephalosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
@@ -85,7 +81,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(7, new SleepingGoal(this));
         this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
         this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
-        this.goalSelector.addGoal(8, new PachycephalosaurusStompGoal(this));
         this.targetSelector.addGoal(0, new PachycephalosaurusHurtByTargetGoal(this, Pachycephalosaurus.class));
         this.targetSelector.addGoal(1, new PachycephalosaurusTargetToKillGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS_TO_KILL)));
         this.targetSelector.addGoal(2, new PachycephalosaurusTargetOthersGoal<>(this, Pachycephalosaurus.class));
@@ -161,6 +156,55 @@ public class Pachycephalosaurus extends PrehistoricMob {
         }
     }
 
+    @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (recoverTicks > 0) recoverTicks--;
+        if (recoverTicks == 0 && this.getPose() == UP2Poses.RECOVERING.get()) this.setPose(Pose.STANDING);
+        if (!this.level().isClientSide) {
+            if (!this.isInWaterOrBubble() && !this.isEepy()) {
+                if (huffCooldown > 0) huffCooldown--;
+                if (grazeCooldown > 0) grazeCooldown--;
+            }
+        }
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(this.getAttackState() != 1 && !this.isInWaterOrBubble() && !this.isEepy() && this.getPose() != UP2Poses.RECOVERING.get(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && this.getAttackState() != 1, this.tickCount);
+        this.recoverAnimationState.animateWhen(this.getPose() == UP2Poses.RECOVERING.get(), this.tickCount);
+        this.warnAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
+        this.grazeAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.huffAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.RECOVERING.get()) {
+                this.recoverTicks = 70;
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    protected void grazeCooldown() {
+        this.grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
+    }
+
+    protected void huffCooldown() {
+        this.huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
+    }
+
+    public void handleEntityEvent(byte id) {
+        if (id == 39) {
+            this.spawnImpactParticles(4, 0.25D);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
     public void spawnImpactParticles(int amount, double speed) {
         Vec3 impactPos = this.getEyePosition().add(this.getViewVector(0.0F).scale(2.5F).add(0, -0.25F, -this.getBbWidth() * 0.5F));
         Vec3 forward = this.getViewVector(0.0F).normalize().scale(-1);
@@ -172,82 +216,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
             double zVelocity = rotated.z * this.getRandom().nextFloat() * 0.6F;
             this.level().addParticle(UP2Particles.IMPACT_STUN.get(), false, impactPos.x, impactPos.y, impactPos.z, xVelocity * speed, yVelocity * speed, zVelocity * speed);
         }
-    }
-
-    @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.level().isClientSide) {
-            if (warnTicks > 0) warnTicks--;
-            if (recoverTicks > 0) recoverTicks--;
-            if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) this.setPose(Pose.STANDING);
-            if (recoverTicks == 0 && this.getPose() == UP2Poses.RECOVERING.get()) this.setPose(Pose.STANDING);
-            if (!this.isInWaterOrBubble() && !this.isEepy()) {
-                if (huffCooldown > 0) huffCooldown--;
-                if (stompCooldown > 0) stompCooldown--;
-                if (grazeCooldown > 0) grazeCooldown--;
-            }
-        }
-    }
-
-    @Override
-    public void setupAnimationStates() {
-        if (warnTicks == 0 && this.warnAnimationState.isStarted()) this.warnAnimationState.stop();
-        if (recoverTicks == 0 && this.recoverAnimationState.isStarted()) this.recoverAnimationState.stop();
-        this.idleAnimationState.animateWhen(this.getAttackState() != 1 && !this.isInWater() && !this.isEepy() && this.getPose() != UP2Poses.RECOVERING.get(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater() && this.getAttackState() != 1, this.tickCount);
-        this.recoverAnimationState.animateWhen(this.recoverAnimationState.isStarted(), this.tickCount);
-        this.warnAnimationState.animateWhen(this.warnAnimationState.isStarted(), this.tickCount);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.WARNING.get()) {
-                this.warnAnimationState.start(this.tickCount);
-                this.warnTicks = 50;
-            }
-            else if (this.getPose() == UP2Poses.RECOVERING.get()) {
-                this.recoverAnimationState.start(this.tickCount);
-                this.recoverTicks = 70;
-            }
-            else if (this.getPose() == Pose.STANDING) {
-                this.warnAnimationState.stop();
-                this.recoverAnimationState.stop();
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
-    }
-
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 39 -> this.spawnImpactParticles(4, 0.25D);
-            case 67 -> this.grazeAnimationState.start(this.tickCount);
-            case 68 -> this.grazeAnimationState.stop();
-            case 69 -> this.huffAnimationState.start(this.tickCount);
-            case 70 -> this.huffAnimationState.stop();
-            case 71 -> {
-                if (this.getRandom().nextBoolean()) this.stomp1AnimationState.start(this.tickCount);
-                else this.stomp2AnimationState.start(this.tickCount);
-            }
-            case 72 -> {
-                this.stomp1AnimationState.stop();
-                this.stomp2AnimationState.stop();
-            }
-            default -> super.handleEntityEvent(id);
-        }
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
-    }
-
-    protected void huffCooldown() {
-        this.huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
-    }
-
-    protected void stompCooldown() {
-        this.stompCooldown = 500 + this.getRandom().nextInt(60 * 70);
     }
 
     @Override
@@ -323,7 +291,9 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
         Pachycephalosaurus pachycephalosaurus = UP2Entities.PACHYCEPHALOSAURUS.get().create(level);
-        pachycephalosaurus.setVariant(this.getVariant());
+        if (pachycephalosaurus != null) {
+            pachycephalosaurus.setVariant(this.getVariant());
+        }
         return pachycephalosaurus;
     }
 
@@ -493,7 +463,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         private final Pachycephalosaurus pachycephalosaurus;
 
         public PachycephalosaurusGrazeGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 60, 1, (byte) 67, (byte) 68);
+            super(pachycephalosaurus, 60, 1);
             this.pachycephalosaurus = pachycephalosaurus;
         }
 
@@ -514,7 +484,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         private final Pachycephalosaurus pachycephalosaurus;
 
         public PachycephalosaurusHuffGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 30, 2, (byte) 69, (byte) 70, false);
+            super(pachycephalosaurus, 30, 2, false);
             this.pachycephalosaurus = pachycephalosaurus;
         }
 
@@ -527,27 +497,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
         public void stop() {
             super.stop();
             this.pachycephalosaurus.huffCooldown();
-        }
-    }
-
-    private static class PachycephalosaurusStompGoal extends IdleAnimationGoal {
-
-        private final Pachycephalosaurus pachycephalosaurus;
-
-        public PachycephalosaurusStompGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 10, 3, (byte) 71, (byte) 72);
-            this.pachycephalosaurus = pachycephalosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.stompCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pachycephalosaurus.stompCooldown();
         }
     }
 }

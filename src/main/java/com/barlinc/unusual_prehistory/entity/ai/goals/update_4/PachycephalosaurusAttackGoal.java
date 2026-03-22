@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.utils.MobAttackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -90,7 +89,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
                     this.stop();
                 }
             } else {
-                MobAttackUtils.chargeAtTarget(pachycephalosaurus, target, 0.85F);
+                this.chargeAtTarget(target, 0.85F);
             }
         }
         if (pachycephalosaurus.horizontalCollision && timer > 50) {

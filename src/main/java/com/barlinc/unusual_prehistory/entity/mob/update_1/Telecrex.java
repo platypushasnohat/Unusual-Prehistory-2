@@ -294,7 +294,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         private final Telecrex telecrex;
 
         public TelecrexPreenGoal(Telecrex telecrex) {
-            super(telecrex, 60, 1, (byte) 67, (byte) 68);
+            super(telecrex, 60, 1);
             this.telecrex = telecrex;
         }
 
@@ -326,7 +326,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         private final Telecrex telecrex;
 
         public TelecrexPeckGoal(Telecrex telecrex) {
-            super(telecrex, 60, 2, (byte) 69, (byte) 70);
+            super(telecrex, 60, 2);
             this.telecrex = telecrex;
         }
 

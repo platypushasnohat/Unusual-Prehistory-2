@@ -87,13 +87,13 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
         BlockPos abovePos = pos.above();
         BlockState blockState = UP2Blocks.HORSETAIL.get().defaultBlockState();
         Optional<Holder.Reference<PlacedFeature>> mossLayer = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.MOSS_LAYER_BONEMEAL);
-        Optional<Holder.Reference<PlacedFeature>> horsetail = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.HORSETAIL_BONEMEAL);
+        Optional<Holder.Reference<PlacedFeature>> patch = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.PATCH_MOSSY_DIRT_PLANTS);
 
         outerLoop:
-        for(int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 128; ++i) {
             BlockPos blockpos = abovePos;
 
-            for(int j = 0; j < i / 16; ++j) {
+            for (int j = 0; j < i / 16; ++j) {
                 blockpos = blockpos.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
                 if (!level.getBlockState(blockpos.below()).is(this) || level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
                     continue outerLoop;
@@ -108,10 +108,10 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
             if (state1.isAir()) {
                 Holder<PlacedFeature> featureHolder;
                 if (random.nextInt(4) == 0) {
-                    if (horsetail.isEmpty()) {
+                    if (patch.isEmpty()) {
                         continue;
                     }
-                    featureHolder = horsetail.get();
+                    featureHolder = patch.get();
                 } else {
                     if (mossLayer.isEmpty()) {
                         continue;

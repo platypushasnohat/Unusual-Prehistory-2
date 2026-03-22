@@ -421,7 +421,7 @@
          private final Praepusa praepusa;
 
          public PraepusaSlapGoal(Praepusa praepusa) {
-             super(praepusa, 40, 1, (byte) 67, (byte) 68);
+             super(praepusa, 40, 1);
              this.praepusa = praepusa;
          }
 
@@ -448,7 +448,7 @@
          private final Praepusa praepusa;
 
          public PraepusaLoafGoal(Praepusa praepusa) {
-             super(praepusa, 80, 2, (byte) 69, (byte) 70);
+             super(praepusa, 80, 2);
              this.praepusa = praepusa;
          }
 
@@ -469,7 +469,7 @@
          private final Praepusa praepusa;
 
          public PraepusaApplauseGoal(Praepusa praepusa) {
-             super(praepusa, 60, 3, (byte) 71, (byte) 72);
+             super(praepusa, 60, 3);
              this.praepusa = praepusa;
          }
 

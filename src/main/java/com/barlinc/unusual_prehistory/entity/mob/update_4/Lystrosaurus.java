@@ -281,7 +281,7 @@ public class Lystrosaurus extends PrehistoricMob {
         private final Lystrosaurus lystrosaurus;
 
         public LystrosaurusScratchGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 30, 1, (byte) 67, (byte) 68);
+            super(lystrosaurus, 30, 1);
             this.lystrosaurus = lystrosaurus;
         }
 
@@ -308,7 +308,7 @@ public class Lystrosaurus extends PrehistoricMob {
         private final Lystrosaurus lystrosaurus;
 
         public LystrosaurusGrazeGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 40, 2, (byte) 69, (byte) 70);
+            super(lystrosaurus, 40, 2);
             this.lystrosaurus = lystrosaurus;
         }
 
@@ -329,7 +329,7 @@ public class Lystrosaurus extends PrehistoricMob {
         private final Lystrosaurus lystrosaurus;
 
         public LystrosaurusDigGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 80, 3, (byte) 73, (byte) 74);
+            super(lystrosaurus, 80, 3);
             this.lystrosaurus = lystrosaurus;
         }
 
@@ -374,7 +374,7 @@ public class Lystrosaurus extends PrehistoricMob {
         private final Lystrosaurus lystrosaurus;
 
         public LystrosaurusBlinkGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 60, 4, (byte) 75, (byte) 76, false, false);
+            super(lystrosaurus, 60, 4, false, false);
             this.lystrosaurus = lystrosaurus;
         }
 
@@ -395,7 +395,7 @@ public class Lystrosaurus extends PrehistoricMob {
         private final Lystrosaurus lystrosaurus;
 
         public LystrosaurusShakeGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 40, 5, (byte) 77, (byte) 78, false);
+            super(lystrosaurus, 40, 5, false);
             this.lystrosaurus = lystrosaurus;
         }
 

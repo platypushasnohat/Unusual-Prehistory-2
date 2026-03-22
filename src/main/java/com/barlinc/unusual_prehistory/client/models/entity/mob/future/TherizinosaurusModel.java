@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.Theriz
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Therizinosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -185,7 +184,7 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
         this.animateSmooth(entity.angryAnimationState, TherizinosaurusAnimations.AGGRO_BLEND, ageInTicks);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

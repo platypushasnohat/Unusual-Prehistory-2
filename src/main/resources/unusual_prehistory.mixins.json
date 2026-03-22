@@ -5,7 +5,6 @@
   "refmap": "unusual_prehistory.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockBehaviourMixin",
     "EvokerMixin",
     "LivingEntityMixin",
     "MobMixin",

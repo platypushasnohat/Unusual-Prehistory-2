@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.future.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.future.TherizinosaurusModel;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.layers.TherizinosaurusEyesLayer;
 import com.barlinc.unusual_prehistory.entity.mob.future.Therizinosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,9 +19,6 @@ import org.jetbrains.annotations.NotNull;
 public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, UP2Model<Therizinosaurus>> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus.png");
-    private static final ResourceLocation TEXTURE_SHAVED = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_shaved.png");
-    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_eepy.png");
-    private static final ResourceLocation TEXTURE_SHAVED_EEPY = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_shaved_eepy.png");
     private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/therizinosaurus/therizinosaurus_baby.png");
 
     private final TherizinosaurusModel adultModel;
@@ -30,7 +26,6 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, UP2Mod
 
     public TherizinosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new TherizinosaurusModel(context.bakeLayer(UP2ModelLayers.THERIZINOSAURUS)), 1.3F);
-        this.addLayer(new TherizinosaurusEyesLayer(this));
         this.adultModel = new TherizinosaurusModel(context.bakeLayer(UP2ModelLayers.THERIZINOSAURUS));
         this.babyModel = new TherizinosaurusBabyModel(context.bakeLayer(UP2ModelLayers.THERIZINOSAURUS_BABY));
     }
@@ -44,7 +39,6 @@ public class TherizinosaurusRenderer extends MobRenderer<Therizinosaurus, UP2Mod
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Therizinosaurus entity) {
         if (entity.isBaby()) return TEXTURE_BABY;
-        else if (entity.isEepy()) return entity.isShaved() ? TEXTURE_SHAVED_EEPY : TEXTURE_EEPY;
-        return entity.isShaved() ? TEXTURE_SHAVED : TEXTURE;
+        return TEXTURE;
     }
 }

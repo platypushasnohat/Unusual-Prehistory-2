@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.Carn
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -192,7 +191,7 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animateSmooth(entity.shakeAnimationState, CarnotaurusAnimations.SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks);
 
-        UP2ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
+        this.animateHead(entity, this.neck, netHeadYaw, headPitch);
     }
 
 	@Override

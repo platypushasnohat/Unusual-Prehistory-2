@@ -385,7 +385,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
         private final Pterodactylus pterodactylus;
 
         public PterodactylusStretchGoal(Pterodactylus pterodactylus) {
-            super(pterodactylus, 40, 1, (byte) 67, (byte) 68);
+            super(pterodactylus, 40, 1);
             this.pterodactylus = pterodactylus;
         }
 

@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KentrosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -199,7 +198,7 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
 	}
 
 	@Override

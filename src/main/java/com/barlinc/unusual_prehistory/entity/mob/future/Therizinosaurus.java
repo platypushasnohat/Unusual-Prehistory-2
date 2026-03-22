@@ -1,8 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.future;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.TherizinosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.TherizinosaurusForageLeavesGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -24,12 +23,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -570,7 +566,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         private final Therizinosaurus therizinosaurus;
 
         public TherizinosaurusShakeGoal(Therizinosaurus therizinosaurus) {
-            super(therizinosaurus, 40, 1, (byte) 67, (byte) 68, false);
+            super(therizinosaurus, 40, 1, false);
             this.therizinosaurus = therizinosaurus;
         }
 
@@ -591,7 +587,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         private final Therizinosaurus therizinosaurus;
 
         public TherizinosaurusStretchGoal(Therizinosaurus therizinosaurus) {
-            super(therizinosaurus, 100, 2, (byte) 69, (byte) 70);
+            super(therizinosaurus, 100, 2);
             this.therizinosaurus = therizinosaurus;
         }
 

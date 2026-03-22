@@ -2,9 +2,6 @@ package com.barlinc.unusual_prehistory.entity.mob.future;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -28,10 +25,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -301,7 +296,7 @@ public class Desmatosuchus extends PrehistoricMob {
         private final Desmatosuchus desmatosuchus;
 
         public DesmatosuchusRollGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 80, 1, (byte) 67, (byte) 68);
+            super(desmatosuchus, 80, 1);
             this.desmatosuchus = desmatosuchus;
         }
 
@@ -340,7 +335,7 @@ public class Desmatosuchus extends PrehistoricMob {
         private final Desmatosuchus desmatosuchus;
 
         public DesmatosuchusShakeGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 2, (byte) 69, (byte) 70, false);
+            super(desmatosuchus, 40, 2, false);
             this.desmatosuchus = desmatosuchus;
         }
 
@@ -361,7 +356,7 @@ public class Desmatosuchus extends PrehistoricMob {
         private final Desmatosuchus desmatosuchus;
 
         public DesmatosuchusSniffGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 3, (byte) 71, (byte) 72);
+            super(desmatosuchus, 40, 3);
             this.desmatosuchus = desmatosuchus;
         }
 
@@ -388,7 +383,7 @@ public class Desmatosuchus extends PrehistoricMob {
         private final Desmatosuchus desmatosuchus;
 
         public DesmatosuchusGrazeGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 4, (byte) 73, (byte) 74);
+            super(desmatosuchus, 40, 4);
             this.desmatosuchus = desmatosuchus;
         }
 

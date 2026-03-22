@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.PsilopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.Psilopterus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -126,7 +125,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 
-        UP2ModelUtils.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.animateHead(entity, this.head, netHeadYaw, headPitch);
     }
 
     @Override

@@ -2,14 +2,14 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.mob.future.*;
+import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Delitzschala;
+import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Delitzschala;
-import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;

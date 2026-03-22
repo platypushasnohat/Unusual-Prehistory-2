@@ -49,10 +49,8 @@ import java.util.*;
 
 public class TreeFromStructureFeature extends Feature<TreeFromStructureConfig> {
 
-    private static final boolean DEBUG = false;
-
-    public TreeFromStructureFeature(Codec<TreeFromStructureConfig> $$0) {
-        super($$0);
+    public TreeFromStructureFeature(Codec<TreeFromStructureConfig> config) {
+        super(config);
     }
 
     @Override

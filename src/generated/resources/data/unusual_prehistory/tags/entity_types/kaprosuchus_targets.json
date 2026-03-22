@@ -1,6 +1,6 @@
 {
   "values": [
-    "#unusual_prehistory:small_aquatic_prey",
-    "#unusual_prehistory:small_prey"
+    "minecraft:pig",
+    "minecraft:piglin"
   ]
 }

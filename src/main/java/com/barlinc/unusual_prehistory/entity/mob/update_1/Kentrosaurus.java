@@ -428,7 +428,7 @@ public class Kentrosaurus extends PrehistoricMob {
         private final Kentrosaurus kentrosaurus;
 
         public KentrosaurusGrazeGoal(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus, 40, 1, (byte) 67, (byte) 68);
+            super(kentrosaurus, 40, 1);
             this.kentrosaurus = kentrosaurus;
         }
 
@@ -449,7 +449,7 @@ public class Kentrosaurus extends PrehistoricMob {
         private final Kentrosaurus kentrosaurus;
 
         public KentrosaurusShakeGoal(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus, 40, 2, (byte) 69, (byte) 70, false);
+            super(kentrosaurus, 40, 2, false);
             this.kentrosaurus = kentrosaurus;
         }
 
@@ -470,7 +470,7 @@ public class Kentrosaurus extends PrehistoricMob {
         private final Kentrosaurus kentrosaurus;
 
         public KentrosaurusYawnGoal(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus, 80, 3, (byte) 71, (byte) 72, false);
+            super(kentrosaurus, 80, 3, false);
             this.kentrosaurus = kentrosaurus;
         }
 
@@ -491,7 +491,7 @@ public class Kentrosaurus extends PrehistoricMob {
         private final Kentrosaurus kentrosaurus;
 
         public KentrosaurusStretchGoal(Kentrosaurus kentrosaurus) {
-            super(kentrosaurus, 60, 4, (byte) 73, (byte) 74);
+            super(kentrosaurus, 60, 4);
             this.kentrosaurus = kentrosaurus;
         }
 

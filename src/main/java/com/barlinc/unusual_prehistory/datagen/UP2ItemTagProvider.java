@@ -114,16 +114,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
-        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.BARINASUCHUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
-        );
-
         this.tag(UP2ItemTags.BRACHIOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
                 Blocks.KELP.asItem(),
                 Blocks.SEAGRASS.asItem()
@@ -132,15 +122,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
-        );
-
-        this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
-                Blocks.CACTUS.asItem(),
-                Items.MELON
-        );
-
-        this.tag(UP2ItemTags.DIMORPHODON_FOOD).add(
-                Items.SPIDER_EYE
         );
 
         this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
@@ -206,8 +187,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2ItemTags.COOKED_MEATS
         );
 
-        this.tag(UP2ItemTags.MANIPULATOR_FOOD).addTag(ItemTags.SMALL_FLOWERS);
-
         this.tag(UP2ItemTags.MEGALANIA_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
@@ -234,11 +213,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.SALMON,
                 Items.COOKED_COD,
                 Items.COOKED_SALMON
-        );
-
-        this.tag(UP2ItemTags.PSILOPTERUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
         );
 
         this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
@@ -269,10 +243,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.GLOW_BERRIES
         );
 
-        this.tag(UP2ItemTags.THERIZINOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
-                Items.SWEET_BERRIES
-        );
-
         this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
@@ -283,14 +253,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         // Taming
-        this.tag(UP2ItemTags.TAMES_BARINASUCHUS).addTag(
-                UP2ItemTags.BARINASUCHUS_FOOD
-        );
-
-        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
-                Blocks.TORCHFLOWER.asItem()
-        );
-
         this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
                 UP2ItemTags.ULUGHBEGSAURUS_FOOD
         );
@@ -305,13 +267,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         // Pacifying
         this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
-        this.tag(UP2ItemTags.PACIFIES_BARINASUCHUS).addTag(UP2ItemTags.BARINASUCHUS_FOOD);
+
         this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS).addTag(UP2ItemTags.CARNOTAURUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS).addTag(UP2ItemTags.DROMAEOSAURUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_KAPROSUCHUS).addTag(UP2ItemTags.KAPROSUCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_MANIPULATOR).addTag(UP2ItemTags.MANIPULATOR_FOOD).remove(UP2ItemTags.TAMES_MANIPULATOR);
         this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
@@ -320,10 +281,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.TROPICAL_FISH
         );
         this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
-
-        this.tag(UP2ItemTags.LIVING_OOZE_CANNOT_ABSORB).add(
-                Items.DEBUG_STICK
-        );
 
         // Dye Depot compat
         this.tag(UP2ItemTags.AMBER_DYES).addOptional(new ResourceLocation("dye_depot", "amber_dye"));
@@ -413,11 +370,5 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         // Forge
         this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
         this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());
-
-        // Mod Compat
-        this.tag(UP2ItemTags.CUSTOMIZABLE_MOB_ITEMS).add(
-                JAWLESS_FISH_BUCKET.get(),
-                LOBE_FINNED_FISH_BUCKET.get()
-        );
     }
 }

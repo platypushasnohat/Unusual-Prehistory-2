@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.MajungasaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
-import com.barlinc.unusual_prehistory.utils.UP2ModelUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
@@ -159,7 +158,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
 
-        UP2ModelUtils.animateHead(entity, this.neck, netHeadYaw, headPitch);
+        this.animateHead(entity, this.neck, netHeadYaw, headPitch);
 	}
 
 	@Override

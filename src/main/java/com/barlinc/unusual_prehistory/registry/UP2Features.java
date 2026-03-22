@@ -4,8 +4,8 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.worldgen.feature.CalamophytonFeature;
 import com.barlinc.unusual_prehistory.worldgen.feature.StructureFeature;
 import com.barlinc.unusual_prehistory.worldgen.feature.config.StructureFeatureConfig;
-import com.barlinc.unusual_prehistory.worldgen.feature.tree.config.TreeFromStructureConfig;
 import com.barlinc.unusual_prehistory.worldgen.feature.tree.TreeFromStructureFeature;
+import com.barlinc.unusual_prehistory.worldgen.feature.tree.config.TreeFromStructureConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -25,11 +25,11 @@ public class UP2Features {
     public static final RegistryObject<Feature<TreeFromStructureConfig>> TREE_STRUCTURE_FEATURE = FEATURES.register("tree", () -> new TreeFromStructureFeature(TreeFromStructureConfig.CODEC));
 
     public static final ResourceKey<PlacedFeature> MOSS_LAYER_BONEMEAL = createPlacedFeatureKey("moss_layer_bonemeal");
-    public static final ResourceKey<PlacedFeature> HORSETAIL_BONEMEAL = createPlacedFeatureKey("horsetail_bonemeal");
+    public static final ResourceKey<PlacedFeature> PATCH_MOSSY_DIRT_PLANTS = createPlacedFeatureKey("patch_mossy_dirt_plants");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum_test");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM_BEES = createConfiguredFeatureKey("dryophyllum_bees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO = createConfiguredFeatureKey("ginkgo");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO_BEES = createConfiguredFeatureKey("ginkgo_bees");
