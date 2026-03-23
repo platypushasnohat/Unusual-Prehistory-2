@@ -119,6 +119,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(LOBE_FINNED_FISH_BUCKET.get());
                         output.accept(PRAEPUSA_BUCKET.get());
+                        output.accept(PTERODACTYLUS_POT.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DIRT_ON_A_STICK.get());
                         output.accept(DOOMSURF_DISC.get());

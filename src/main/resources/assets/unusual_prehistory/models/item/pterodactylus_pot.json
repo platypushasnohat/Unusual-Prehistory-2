@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusual_prehistory:item/pterodactylus_pot"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "variant": 0
+      },
+      "model": "unusual_prehistory:item/pterodactylus_pot"
+    },
+    {
+      "predicate": {
+        "variant": 1
+      },
+      "model": "unusual_prehistory:item/pterodactylus_pot_banana"
+    }
+  ]
+}

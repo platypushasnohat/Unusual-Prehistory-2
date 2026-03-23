@@ -114,6 +114,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.LOBE_FINNED_FISH_BUCKET, "Bucket of Lobe Finned Fish");
         this.addItem(UP2Items.PRAEPUSA_BUCKET, "Bucket of Praepusa");
         this.addItem(UP2Items.STETHACANTHUS_BUCKET, "Bucket of Stethacanthus");
+        this.addItem(UP2Items.PTERODACTYLUS_POT, "Pot of Pterodactylus");
 
         // sounds
         this.sound(UP2SoundEvents.TAR_POP, "Tar pops");
@@ -460,6 +461,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.lobe_finned_fish.variant_gooloogongia", "Gooloogongia");
         this.add("entity.unusual_prehistory.lobe_finned_fish.variant_laccognathus", "Laccognathus");
         this.add("entity.unusual_prehistory.lobe_finned_fish.variant_scaumenacia", "Scaumenacia");
+
+        this.add("entity.unusual_prehistory.pterodactylus.variant_brown", "Brown");
+        this.add("entity.unusual_prehistory.pterodactylus.variant_banana", "Banana");
 
         this.add("entity.unusual_prehistory.coelacanthus.variant_fishy", "Fishy");
         this.add("entity.unusual_prehistory.coelacanthus.variant_golden", "Golden");

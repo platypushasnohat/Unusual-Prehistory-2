@@ -8,10 +8,12 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusScat
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,10 +21,13 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -33,8 +38,10 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -49,9 +56,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Pterodactylus extends PrehistoricFlyingMob {
+public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.BOOLEAN);
 
     private boolean validHangingPos = false;
     private int checkHangingTime;
@@ -266,9 +274,73 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (itemstack.getItem() == Items.FLOWER_POT && this.isAlive()) {
+            playSound(SoundEvents.ITEM_PICKUP, 0.5F, 1.1F);
+            itemstack.shrink(1);
+            ItemStack pot = new ItemStack(UP2Items.PTERODACTYLUS_POT.get());
+            this.saveToBucketTag(pot);
+            if (!this.level().isClientSide) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, pot);
+            if (itemstack.isEmpty() && !player.isCreative()) player.setItemInHand(hand, pot);
+            else if (!player.getInventory().add(pot)) player.drop(pot, false);
+            this.discard();
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(HANGING, false);
+        this.entityData.define(FROM_BUCKET, false);
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        CompoundTag compoundTag = bucket.getOrCreateTag();
+        compoundTag.putInt("BucketVariantTag", this.getVariant());
+        compoundTag.putInt("Age", this.getAge());
+        compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
+        compoundTag.putBoolean("FromEgg", this.isFromEgg());
+        compoundTag.putInt("EatingCooldown", this.getEatCooldown());
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        if (compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(compoundTag.getInt("BucketVariantTag"));
+        }
+        this.setAge(compoundTag.getInt("Age"));
+        this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
+        this.setFromEgg(compoundTag.getBoolean("FromEgg"));
+        this.setEatCooldown(compoundTag.getInt("EatingCooldown"));
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.PTERODACTYLUS_POT.get());
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.ITEM_PICKUP;
     }
 
     public boolean isHanging() {
@@ -342,7 +414,7 @@ public class Pterodactylus extends PrehistoricFlyingMob {
     }
 
     public enum PterodactylusVariant {
-        PTERODACTYLUS(0),
+        BROWN(0),
         BANANA(1);
 
         private final int id;

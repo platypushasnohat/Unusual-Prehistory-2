@@ -32,8 +32,8 @@ import java.util.Objects;
 
 public class KimmeridgebrachypteraeschnidiumBottleItem extends Item {
 
-    public KimmeridgebrachypteraeschnidiumBottleItem(Properties builder) {
-        super(builder.stacksTo(1));
+    public KimmeridgebrachypteraeschnidiumBottleItem(Properties properties) {
+        super(properties.stacksTo(1));
     }
 
     @Override
