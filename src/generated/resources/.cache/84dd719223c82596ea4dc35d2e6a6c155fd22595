@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-21T22:46:42.8224696	Item Models: unusual_prehistory
+// 1.20.1	2026-03-22T19:40:58.9396152	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -23,7 +23,6 @@ d1fb4be7fb40905a6b54161c4864cf7d0c1c5149 assets/unusual_prehistory/models/item/b
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
 638859679d069225efaf137e5c816f90f0dfdb56 assets/unusual_prehistory/models/item/cladophlebis_fossil.json
-27e24bffefe7527c6938bfeb9d4f2dc4340ad1de assets/unusual_prehistory/models/item/coelacanthus_bucket.json
 37d5895d5027d27e428436de32c1ba6579c9e6d2 assets/unusual_prehistory/models/item/coelacanthus_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/coelacanthus_spawn_egg.json
 6fb24554919870d291614a6232426cf3632beab3 assets/unusual_prehistory/models/item/cooksonia_fossil.json

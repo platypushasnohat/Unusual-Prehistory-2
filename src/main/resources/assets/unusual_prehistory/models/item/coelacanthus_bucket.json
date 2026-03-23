@@ -1,0 +1,50 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusual_prehistory:item/coelacanthus_bucket"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "variant": 0
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket"
+    },
+    {
+      "predicate": {
+        "variant": 1
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_golden"
+    },
+    {
+      "predicate": {
+        "variant": 2
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_lilac"
+    },
+    {
+      "predicate": {
+        "variant": 3
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_peach"
+    },
+    {
+      "predicate": {
+        "variant": 4
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_rose"
+    },
+    {
+      "predicate": {
+        "variant": 5
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_silver"
+    },
+    {
+      "predicate": {
+        "variant": 6
+      },
+      "model": "unusual_prehistory:item/coelacanthus_bucket_blue"
+    }
+  ]
+}

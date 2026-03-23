@@ -1,5 +1,7 @@
 package com.barlinc.unusual_prehistory.items;
 
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Coelacanthus;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -37,11 +39,11 @@ public class UP2MobBucketItem extends MobBucketItem {
 
         if (variantNameGetter == null) return;
         ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-        CompoundTag tag = stack.getTag();
+        CompoundTag compoundTag = stack.getTag();
 
-        if (tag == null || !tag.contains("BucketVariantTag", 3)) return;
+        if (compoundTag == null || !compoundTag.contains("BucketVariantTag", 3)) return;
 
-        int variantId = tag.getInt("BucketVariantTag");
+        int variantId = compoundTag.getInt("BucketVariantTag");
         String variantName = variantNameGetter.apply(variantId);
 
         EntityType<?> type = this.getFishType();
@@ -50,5 +52,13 @@ public class UP2MobBucketItem extends MobBucketItem {
         String translationKey = "entity." + key.getNamespace() + "." + key.getPath() + ".variant_" + variantName;
 
         tooltip.add(Component.translatable(translationKey).withStyle(grayChatFormatting));
+
+        if (type == UP2Entities.COELACANTHUS.get()) {
+            if (compoundTag.contains("Size", 3)) {
+                int i = compoundTag.getInt("Size");
+                String size = "entity." + key.getNamespace() + "." + key.getPath() + ".size";
+                tooltip.add((Component.translatable(size, i)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+        }
     }
 }

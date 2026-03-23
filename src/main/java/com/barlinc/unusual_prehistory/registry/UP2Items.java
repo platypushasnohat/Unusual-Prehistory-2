@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Coelacanthus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
@@ -150,9 +151,9 @@ public class UP2Items {
     public static final RegistryObject<Item> PRAEPUSA_EMBRYO = registerEmbryoItem("praepusa", UP2Entities.PRAEPUSA);
     public static final RegistryObject<Item> PTERODACTYLUS_EGG = registerEggItem("pterodactylus", UP2Entities.PTERODACTYLUS_EGG);
 
-    public static final RegistryObject<Item> COELACANTHUS_BUCKET = registerItemNoLang("coelacanthus_bucket", () -> new MobBucketItem(UP2Entities.COELACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> LOBE_FINNED_FISH_BUCKET = registerItemNoLang("lobe_finned_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.LOBE_FINNED_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(LobeFinnedFish.LobeFinnedFishVariant::byId)));
-    public static final RegistryObject<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
+    public static final RegistryObject<Item> COELACANTHUS_BUCKET = registerItemNoLang("coelacanthus_bucket", () -> new UP2MobBucketItem(UP2Entities.COELACANTHUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(Coelacanthus.CoelacanthusVariant::byId)));
+    public static final RegistryObject<Item> LOBE_FINNED_FISH_BUCKET = registerItemNoLang("lobe_finned_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.LOBE_FINNED_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(LobeFinnedFish.LobeFinnedFishVariant::byId)));
+    public static final RegistryObject<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 4));
 

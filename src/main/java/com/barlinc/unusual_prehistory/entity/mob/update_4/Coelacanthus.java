@@ -320,7 +320,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
         PEACH(3),
         ROSE(4),
         SILVER(5),
-        BLUE(5);
+        BLUE(6);
 
         private final int id;
 

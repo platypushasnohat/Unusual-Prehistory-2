@@ -461,6 +461,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.lobe_finned_fish.variant_laccognathus", "Laccognathus");
         this.add("entity.unusual_prehistory.lobe_finned_fish.variant_scaumenacia", "Scaumenacia");
 
+        this.add("entity.unusual_prehistory.coelacanthus.variant_fishy", "Fishy");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_golden", "Golden");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_lilac", "Lilac");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_peach", "Peach");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_rose", "Rose");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_silver", "Silver");
+        this.add("entity.unusual_prehistory.coelacanthus.variant_blue", "Blue");
+        this.add("entity.unusual_prehistory.coelacanthus.size", "Size: %s");
+
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
 
         // tame commands
