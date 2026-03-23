@@ -176,6 +176,12 @@
     ],
     "subtitle": "subtitles.carnotaurus_headbutt"
   },
+  "carnotaurus_headbutt_vocal": {
+    "sounds": [
+      "unusual_prehistory:entity/carnotaurus/headbutt_vocal1"
+    ],
+    "subtitle": "subtitles.carnotaurus_headbutt_vocal"
+  },
   "carnotaurus_hurt": {
     "sounds": [
       {

@@ -23,6 +23,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> CARNOTAURUS_BITE = registerSoundEvent("carnotaurus_bite");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_CHARGE = registerSoundEvent("carnotaurus_charge");
     public static final RegistryObject<SoundEvent> CARNOTAURUS_HEADBUTT = registerSoundEvent("carnotaurus_headbutt");
+    public static final RegistryObject<SoundEvent> CARNOTAURUS_HEADBUTT_VOCAL = registerSoundEvent("carnotaurus_headbutt_vocal");
 
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_HURT = registerSoundEvent("diplocaulus_hurt");
     public static final RegistryObject<SoundEvent> DIPLOCAULUS_DEATH = registerSoundEvent("diplocaulus_death");

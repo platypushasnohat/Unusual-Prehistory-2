@@ -121,6 +121,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT,
                 sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
         );
+        this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT_VOCAL,
+                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt_vocal1"))
+        );
 
         // Coelacanthus
         this.sound(UP2SoundEvents.COELACANTHUS_HURT,

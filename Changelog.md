@@ -1,3 +1,7 @@
+## Version 1.3.2
+- Added a carnotaurus headbutt vocal sound
+- Increased golden emperor carnotaurus variant spawn chance by 5%
+
 ## Version 1.3.1
 - Fixed semiaquatic mobs getting stuck in water
 - Fixed some pachycephalosaurus animations not playing

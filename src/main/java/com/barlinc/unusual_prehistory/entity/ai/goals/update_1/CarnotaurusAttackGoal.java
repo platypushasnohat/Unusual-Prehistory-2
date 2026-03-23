@@ -140,8 +140,10 @@ public class CarnotaurusAttackGoal extends AttackGoal {
     protected void tickHeadbutt() {
         this.timer++;
 
-        if (timer == 1) carnotaurus.setPose(UP2Poses.HEADBUTTING.get());
-        if (timer == 9) carnotaurus.addDeltaMovement(carnotaurus.getLookAngle().scale(2.0D).multiply(0.2D, 0, 0.2D));
+        if (timer == 1) {
+            this.carnotaurus.setPose(UP2Poses.HEADBUTTING.get());
+            this.carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_HEADBUTT_VOCAL.get(), 1.5F, 0.9F + carnotaurus.getRandom().nextFloat() * 0.2F);
+        }
         if (timer == 12) this.headbuttNearbyEntities();
         if (timer > 20) {
             this.timer = 0;
@@ -154,8 +156,10 @@ public class CarnotaurusAttackGoal extends AttackGoal {
     protected void tickHeadbuttFast() {
         this.timer++;
 
-        if (timer == 1) carnotaurus.setPose(UP2Poses.HEADBUTTING_FAST.get());
-        if (timer == 4) carnotaurus.addDeltaMovement(carnotaurus.getLookAngle().scale(2.0D).multiply(0.2D, 0, 0.2D));
+        if (timer == 1) {
+            this.carnotaurus.setPose(UP2Poses.HEADBUTTING_FAST.get());
+            this.carnotaurus.playSound(UP2SoundEvents.CARNOTAURUS_HEADBUTT_VOCAL.get(), 1.5F, 1.0F + carnotaurus.getRandom().nextFloat() * 0.2F);
+        }
         if (timer == 8) this.headbuttNearbyEntities();
         if (timer > 15) {
             this.timer = 0;

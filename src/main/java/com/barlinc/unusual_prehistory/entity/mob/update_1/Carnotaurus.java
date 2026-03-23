@@ -341,7 +341,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public enum CarnotaurusVariant {
-        CARNOTAURUS(0),
+        DEMON(0),
         GOLDEN_EMPEROR(1);
 
         private final int id;
@@ -369,7 +369,9 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        if (level.getRandom().nextFloat() < 0.2F) this.setVariant(1);
+        if (level.getRandom().nextFloat() < 0.25F) {
+            this.setVariant(1);
+        }
         else this.setVariant(0);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
