@@ -4,6 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -36,7 +37,6 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
- import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.ai.util.DefaultRandomPos;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
@@ -106,12 +106,12 @@
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = new NoSpinGroundPathNavigation(this, this.level(), 0.2F);
+             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new WaterBoundPathNavigation(this, this.level());
+             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -162,8 +162,13 @@
      @Override
      public void tick() {
          super.tick();
-         if (this.isInWater() && this.isLandNavigator) this.switchNavigator(false);
-         if (!this.isInWater() && !this.isLandNavigator) this.switchNavigator(true);
+         final boolean ground = !this.isInWaterOrBubble();
+         if (!ground && this.isLandNavigator) {
+             this.switchNavigator(false);
+         }
+         if (ground && !this.isLandNavigator) {
+             this.switchNavigator(true);
+         }
 
          if (this.isBurrowed() && this.isInWaterOrBubble() || !this.onGround()) this.setBurrowed(false);
 
@@ -179,8 +184,8 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWater() && !this.isBurrowed(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWater() && !this.isBurrowed(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isBurrowed(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isBurrowed(), this.tickCount);
          this.burrowAnimationState.animateWhen(this.isBurrowed(), this.tickCount);
          this.quirkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
      }

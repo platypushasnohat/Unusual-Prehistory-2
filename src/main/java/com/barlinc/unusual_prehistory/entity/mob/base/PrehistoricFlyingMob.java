@@ -5,7 +5,6 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveCon
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,7 +13,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,7 +45,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         if (onLand) {
             this.moveControl = new PrehistoricMoveControl(this);
             this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+            this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
@@ -72,20 +70,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        this.setFlyingPose();
-    }
-
-    public void setFlyingPose() {
-        if (this.isFlying()) {
-            this.setPose(Pose.FALL_FLYING);
-        } else {
-            this.setPose(Pose.STANDING);
-        }
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
@@ -105,11 +89,15 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.flightTicks++;
             this.setNoGravity(true);
             if (groundTicks > 0) this.setFlying(false);
-            if (this.isLandNavigator) this.switchNavigator(false);
+            if (this.isLandNavigator) {
+                this.switchNavigator(false);
+            }
         } else {
             this.flightTicks = 0;
             this.setNoGravity(false);
-            if (!this.isLandNavigator) this.switchNavigator(true);
+            if (!this.isLandNavigator) {
+                this.switchNavigator(true);
+            }
         }
 
         if (groundTicks > 0) groundTicks--;

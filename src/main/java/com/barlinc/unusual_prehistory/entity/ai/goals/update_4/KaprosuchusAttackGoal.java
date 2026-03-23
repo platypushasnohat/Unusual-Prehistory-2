@@ -119,9 +119,9 @@ public class KaprosuchusAttackGoal extends AttackGoal {
             Vec3 deltaMovement = kaprosuchus.getDeltaMovement();
             Vec3 vec3 = new Vec3(target.getX() - kaprosuchus.getX(), 0.0D, target.getZ() - kaprosuchus.getZ());
             if (vec3.lengthSqr() > 1.0E-7D) {
-                vec3 = vec3.normalize().scale(this.isTargetAbove(target) ? 0.9D : 1.3D).add(deltaMovement.scale(0.5D));
+                vec3 = vec3.normalize().scale(1.1D).add(deltaMovement.scale(0.5D));
             }
-            this.kaprosuchus.setDeltaMovement(vec3.x, this.isTargetAbove(target) ? 1.3F : 0.98F, vec3.z);
+            this.kaprosuchus.setDeltaMovement(vec3.x, 1.1F, vec3.z);
         }
 
         if (this.isInAttackRange(target, 0.5D) && timer > 20) {
@@ -157,9 +157,5 @@ public class KaprosuchusAttackGoal extends AttackGoal {
             }
         }
         return true;
-    }
-
-    public boolean isTargetAbove(LivingEntity target) {
-        return target.getY() - kaprosuchus.getY() > 4.0D;
     }
 }

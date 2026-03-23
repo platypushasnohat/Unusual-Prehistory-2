@@ -4,6 +4,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -33,7 +34,6 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
- import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -57,7 +57,7 @@
      public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
      public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
-     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState(1.0F);
+     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
 
      public boolean attackAlt = false;
 
@@ -81,7 +81,6 @@
          this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
-         // todo: fix this not working properly
          this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
          this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50));
@@ -106,7 +105,7 @@
          } else {
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
-             this.navigation = new WaterBoundPathNavigation(this, this.level());
+             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -200,8 +199,13 @@
      @Override
      public void tick() {
          super.tick();
-         if (this.isInWater() && this.isLandNavigator) this.switchNavigator(false);
-         if (!this.isInWater() && !this.isLandNavigator) this.switchNavigator(true);
+         final boolean ground = !this.isInWaterOrBubble();
+         if (!ground && this.isLandNavigator) {
+             this.switchNavigator(false);
+         }
+         if (ground && !this.isLandNavigator) {
+             this.switchNavigator(true);
+         }
      }
 
      @Override

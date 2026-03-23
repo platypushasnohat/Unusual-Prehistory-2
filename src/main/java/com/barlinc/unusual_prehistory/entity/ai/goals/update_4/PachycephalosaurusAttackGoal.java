@@ -80,6 +80,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
             this.pachycephalosaurus.lookAt(target, 360F, 30F);
             this.pachycephalosaurus.getLookControl().setLookAt(target, 30F, 30F);
         }
+        if (timer == 50) pachycephalosaurus.setPose(Pose.STANDING);
         if (timer == 27 && !pachycephalosaurus.isFightPartner()) pachycephalosaurus.playSound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN.get(), 1.8F, 0.9F + pachycephalosaurus.getRandom().nextFloat() * 0.3F);
         if (timer > 50 && timer < 70) {
             if (this.isInAttackRange(target, target instanceof Pachycephalosaurus ? 0.1D : 1.1D) && !hitTarget) {

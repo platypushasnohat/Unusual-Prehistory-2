@@ -2,15 +2,17 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusFlyAndHangGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Telecrex;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -33,10 +35,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -66,8 +65,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     private BlockPos prevHangPos;
     public int timeHanging = 0;
 
-    public int runTicks = 0;
-
     public final SmoothAnimationState hangIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState hangingStretchAnimationState = new SmoothAnimationState();
@@ -91,12 +88,13 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PterodactylusScatterGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PTERODACTYLUS_FOOD), true));
-        this.goalSelector.addGoal(3, new PterodactylusFlyAndHangGoal(this));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new PterodactylusStretchGoal(this));
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
+        this.goalSelector.addGoal(2, new PterodactylusScatterGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PTERODACTYLUS_FOOD), true));
+        this.goalSelector.addGoal(4, new PterodactylusFlyAndHangGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new PterodactylusStretchGoal(this));
     }
 
     @Override
@@ -132,18 +130,11 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() != null && this.isAlive()) {
+        if (hurt && source.getEntity() != null && this.isAlive() && source.getEntity() instanceof LivingEntity livingEntity) {
             double range = 8;
-            this.setFlying(true);
-            this.setRunning(true);
-            if (this.isHanging()) this.setHanging(false);
-            this.runTicks = this.getFastFlyingTicks();
             List<? extends Pterodactylus> entities = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(range, range / 2, range));
             for (Pterodactylus pterodactylus : entities) {
-                pterodactylus.setFlying(true);
-                pterodactylus.setRunning(true);
-                if (pterodactylus.isHanging()) pterodactylus.setHanging(false);
-                pterodactylus.runTicks = pterodactylus.getFastFlyingTicks();
+                pterodactylus.setLastHurtByMob(livingEntity);
             }
         }
         return hurt;
@@ -177,8 +168,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     @Override
     public void tick() {
         super.tick();
-        if (runTicks > 0) runTicks--;
-        if (this.isRunning() && runTicks == 0) this.setRunning(false);
 
         if (!level().isClientSide) this.tickHanging();
 
@@ -258,8 +247,8 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && !this.isHanging(), this.tickCount);
         this.hangIdleAnimationState.animateWhen(!this.isFlying() && this.isHanging(), this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && !this.isRunning() && !this.isHanging(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.isRunning() && !this.isHanging(), this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && !this.isRunning() && !this.isHanging(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning() && !this.isHanging(), this.tickCount);
         this.stretchAnimationState.animateWhen(this.getIdleState() == 1 && !this.isHanging(), this.tickCount);
         this.hangingStretchAnimationState.animateWhen(this.getIdleState() == 1 && this.isHanging(), this.tickCount);
     }
@@ -452,6 +441,45 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     }
 
     // Goals
+    private static class PterodactylusScatterGoal extends Goal {
+
+        private final Pterodactylus pterodactylus;
+
+        public PterodactylusScatterGoal(Pterodactylus pterodactylus) {
+            this.pterodactylus = pterodactylus;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (pterodactylus.isFlying()) {
+                return false;
+            }
+            long worldTime = pterodactylus.level().getGameTime() % 10;
+            if (pterodactylus.getRandom().nextInt(10) != 0 && worldTime != 0) {
+                return false;
+            }
+            AABB aabb = pterodactylus.getBoundingBox().inflate(6);
+            List<Entity> list = pterodactylus.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.TELECREX_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
+            return !list.isEmpty();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return false;
+        }
+
+        @Override
+        public void start() {
+            if (pterodactylus.isHanging()) {
+                pterodactylus.setHanging(false);
+            }
+            this.pterodactylus.setFlying(true);
+            if (pterodactylus.onGround()) {
+                this.pterodactylus.setDeltaMovement(pterodactylus.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
+            }
+        }
+    }
+
     private static class PterodactylusStretchGoal extends IdleAnimationGoal {
 
         private final Pterodactylus pterodactylus;

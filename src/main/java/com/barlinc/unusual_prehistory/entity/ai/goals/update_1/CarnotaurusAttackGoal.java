@@ -108,6 +108,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         }
         if (timer > 15) {
             this.timer = 0;
+            this.carnotaurus.setPose(Pose.STANDING);
             this.carnotaurus.biteCooldown = 3;
             this.carnotaurus.setAttackState(0);
         }

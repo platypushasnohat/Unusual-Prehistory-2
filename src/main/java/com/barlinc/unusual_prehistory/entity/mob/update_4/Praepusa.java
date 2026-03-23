@@ -5,6 +5,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -120,7 +121,7 @@
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new WaterBoundPathNavigation(this, this.level());
+             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -180,8 +181,13 @@
      @Override
      public void tick() {
          super.tick();
-         if (this.isInWater() && this.isLandNavigator) this.switchNavigator(false);
-         if (!this.isInWater() && !this.isLandNavigator) this.switchNavigator(true);
+         final boolean ground = !this.isInWaterOrBubble();
+         if (!ground && this.isLandNavigator) {
+             this.switchNavigator(false);
+         }
+         if (ground && !this.isLandNavigator) {
+             this.switchNavigator(true);
+         }
 
          if (this.getMitosisCooldown() > 0) this.setMitosisCooldown(this.getMitosisCooldown() - 1);
          if (this.getPose() == UP2Poses.MITOSIS.get()) {
@@ -244,8 +250,8 @@
      @Override
      public void setupAnimationStates() {
          if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
-         this.idleAnimationState.animateWhen(!this.isInWater() && this.getIdleState() != 3 && !this.isSitting(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 3 && !this.isSitting(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
          this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
          this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
          this.slap1AnimationState.animateWhen(this.getIdleState() == 1 && !slapAlt, this.tickCount);

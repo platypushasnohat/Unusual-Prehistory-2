@@ -114,7 +114,7 @@ public class DiplocaulusRecurvatisModel extends UP2Model<Diplocaulus> {
 
         float deg = ((float) Math.PI / 180F);
 
-        if (entity.isInWater()) {
+        if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * deg;
             this.animateWalk(DiplocaulusRecurvatisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         } else {
