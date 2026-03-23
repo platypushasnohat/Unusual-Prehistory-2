@@ -1,7 +1,6 @@
 {
   "name": "Revival Process",
   "icon": "unusual_prehistory:machine_parts",
-  "category": "unusual_prehistory:features",
   "pages": [
     {
       "type": "patchouli:text",

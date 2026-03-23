@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:wing_fossil",
       "egg_item": "unusual_prehistory:pterodactylus_egg",
       "variant_key": "",
-      "image_tooltip": ""
+      "image_tooltip": "Peep Peep"
     },
     {
       "id": "pterodactylus",
@@ -33,7 +33,12 @@
       "clone.clone_tooltip": "Egg must be thrown to hatch",
 
       "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep"
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:flower_pot",
+      "feature_1.tooltip": "§7A §aFlower Pot§7 can be used to collect and transport Jawless Fish",
+      "feature_1.title_one_line": "Portable Pterodactyl",
+      "feature_1.title_two_line": ""
     }
   ]
 }

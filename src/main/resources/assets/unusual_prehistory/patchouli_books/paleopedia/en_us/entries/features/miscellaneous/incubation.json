@@ -1,7 +1,6 @@
 {
   "name": "Eggs and Embryos",
   "icon": "unusual_prehistory:majungasaurus_egg",
-  "category": "unusual_prehistory:features",
   "pages": [
     {
       "type": "patchouli:text",
