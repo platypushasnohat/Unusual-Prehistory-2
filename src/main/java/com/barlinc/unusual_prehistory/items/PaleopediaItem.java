@@ -1,16 +1,5 @@
 package com.barlinc.unusual_prehistory.items;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-import vazkii.patchouli.common.item.ItemModBook;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
 // todo: figure out how to get this working
 //public class PaleopediaItem extends ItemModBook {
 //
