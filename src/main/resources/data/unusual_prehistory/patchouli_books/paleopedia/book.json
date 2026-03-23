@@ -23,5 +23,6 @@
     "filler_texture": "unusual_prehistory:textures/gui/paleopedia/page_filler.png",
     "macros": {
       "$(highlight)": "$(#968351)"
-    }
+    },
+  "custom_book_item": "unusual_prehistory:paleopedia"
 }
