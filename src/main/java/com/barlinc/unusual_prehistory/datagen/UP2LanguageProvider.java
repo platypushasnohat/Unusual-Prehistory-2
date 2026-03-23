@@ -476,12 +476,12 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
 
+        this.add("item.unusual_prehistory.paleopedia.desc", "By Dr. Professor Peeko Noneyah Jr., PhD.");
+
         // tame commands
         this.add("entity.unusual_prehistory.all.command_0", "%s is wandering");
         this.add("entity.unusual_prehistory.all.command_1", "%s is staying");
         this.add("entity.unusual_prehistory.all.command_2", "%s is following");
-
-        this.add("item.unusual_prehistory.fossil_explorer_map", "Fossil Site Map");
 
         // Book
         this.add("unusual_prehistory.patchouli.book.name", "Paleopedia");

@@ -260,11 +260,23 @@ public abstract class PrehistoricMob extends TamableAnimal {
             this.setForeverBaby(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
+        if (this.canPacify()) {
+            if (this.isPermanentPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
+                this.feedItemToMob(player, hand, itemstack);
+                this.setPacifiedTicks(-1);
+                this.level().broadcastEntityEvent(this, (byte) 10);
+                if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+            if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
+                this.feedItemToMob(player, hand, itemstack);
+                this.setPacifiedTicks(this.getPacifiedTicks() + this.pacifiedTicks());
+                this.level().broadcastEntityEvent(this, (byte) 9);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+        }
         if (!type.consumesAction()) {
             return this.interactTameCommands(player, hand);
-        }
-        if (this.canPacify()) {
-            return this.interactPacify(player, hand);
         }
         return type;
     }
@@ -286,24 +298,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
                 }
                 return InteractionResult.SUCCESS;
             }
-        }
-        return InteractionResult.PASS;
-    }
-
-    public InteractionResult interactPacify(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
-            this.feedItemToMob(player, hand, itemstack);
-            this.setPacifiedTicks(this.getPacifiedTicks() + this.pacifiedTicks());
-            this.level().broadcastEntityEvent(this, (byte) 9);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
-        if (this.isPermanentPacifyItem(itemstack) && this.getPacifiedTicks() >= 0 && !this.isBaby()) {
-            this.feedItemToMob(player, hand, itemstack);
-            this.setPacifiedTicks(-1);
-            this.level().broadcastEntityEvent(this, (byte) 10);
-            if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
     }
@@ -729,7 +723,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean isPacified() {
-        return this.getPacifiedTicks() > 0 || this.getPacifiedTicks() == -1;
+        return this.getPacifiedTicks() > 0 || this.getPacifiedTicks() <= -1;
     }
 
     public int getPacifiedTicks() {

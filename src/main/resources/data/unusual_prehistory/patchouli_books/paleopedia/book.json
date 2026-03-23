@@ -1,5 +1,5 @@
 {
-	"name": "unusual_prehistory.patchouli.book.name",
+	"name": "item.unusual_prehistory.paleopedia",
     "book_texture": "unusual_prehistory:textures/gui/paleopedia/paleopedia.png",
     "crafting_texture": "unusual_prehistory:textures/gui/paleopedia/crafting.png",
 	"landing_text": "unusual_prehistory.patchouli.book.landing",
@@ -11,6 +11,7 @@
 	"version": 2,
 	"model": "unusual_prehistory:paleopedia",
 	"use_resource_pack": true,
+    "i18n": true,
     "use_blocky_font": true,
     "show_progress": false,
     "pause_game": true,
@@ -23,6 +24,5 @@
     "filler_texture": "unusual_prehistory:textures/gui/paleopedia/page_filler.png",
     "macros": {
       "$(highlight)": "$(#968351)"
-    },
-  "custom_book_item": "unusual_prehistory:paleopedia"
+    }
 }

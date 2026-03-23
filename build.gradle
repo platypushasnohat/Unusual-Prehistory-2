@@ -99,7 +99,10 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
-    
+
+//    compileOnly fg.deobf("curse.maven:patchouli-306770:6164575")
+//    implementation fg.deobf("curse.maven:patchouli-306770:6164575")
+
     runtimeOnly fg.deobf("curse.maven:jade-324717:6855440")
     runtimeOnly fg.deobf("curse.maven:cyanide-541676:5778405")
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")

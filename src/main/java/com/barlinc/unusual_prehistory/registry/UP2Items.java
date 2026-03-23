@@ -179,6 +179,8 @@ public class UP2Items {
     public static final RegistryObject<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new Item(new Item.Properties()));
+
     // Future
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);

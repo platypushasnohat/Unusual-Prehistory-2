@@ -229,7 +229,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     public void setCoelacanthusSize(int size) {
-        int maxSize = Mth.clamp(size, 1, 127);
+        int maxSize = Mth.clamp(size, 1, 2048);
         this.entityData.set(SIZE, maxSize);
         this.reapplyPosition();
         this.refreshDimensions();
