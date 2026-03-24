@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.ai.goals.update_4;
+package com.barlinc.unusual_prehistory.entity.ai.goals.future;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.future.Manipulator;

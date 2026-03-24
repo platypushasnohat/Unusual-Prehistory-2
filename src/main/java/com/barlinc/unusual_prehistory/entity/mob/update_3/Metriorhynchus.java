@@ -5,6 +5,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -33,7 +34,6 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
- import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -115,7 +115,7 @@
          } else {
              this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.98F, 0.1F, false);
              this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.navigation = new WaterBoundPathNavigation(this, this.level());
+             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -173,10 +173,11 @@
      @Override
      public void tick() {
          super.tick();
-         if (this.isInWater() && this.isLandNavigator) {
+         final boolean ground = !this.isInWaterOrBubble();
+         if (!ground && this.isLandNavigator) {
              this.switchNavigator(false);
          }
-         if (!this.isInWater() && !this.isLandNavigator) {
+         if (ground && !this.isLandNavigator) {
              this.switchNavigator(true);
          }
 
@@ -196,8 +197,8 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWater(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWater() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
          this.bellowAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
          this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
          this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);

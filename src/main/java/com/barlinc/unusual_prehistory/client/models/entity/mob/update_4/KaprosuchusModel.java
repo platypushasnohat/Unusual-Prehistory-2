@@ -143,12 +143,12 @@ public class KaprosuchusModel extends UP2Model<Kaprosuchus> {
             this.animateSmooth(entity.attack1AnimationState, KaprosuchusAnimations.BITE_BLEND1, ageInTicks);
             this.animateSmooth(entity.attack2AnimationState, KaprosuchusAnimations.BITE_BLEND2, ageInTicks);
         }
-        this.animateSmooth(entity.leapAnimationState, KaprosuchusAnimations.POUNCE, ageInTicks);
         this.animateSmooth(entity.sitAnimationState, KaprosuchusAnimations.SIT, ageInTicks);
         this.animateSmooth(entity.eepyAnimationState, KaprosuchusAnimations.SLEEP, ageInTicks);
+        this.animate(entity.leapAnimationState, KaprosuchusAnimations.POUNCE, ageInTicks);
 
         if (this.young) this.applyStatic(KaprosuchusAnimations.BABY_TRANSFORM);
-        if (entity.isInWater() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);
+        if (entity.isInWaterOrBubble() || entity.isLeaping()) this.root.xRot = headPitch * ((float) Math.PI / 180F);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
     }

@@ -1,66 +1,32 @@
+## Version 1.3.2
+- Added a carnotaurus headbutt vocal sound
+- Increased golden emperor carnotaurus variant spawn chance by 5%
+
+## Version 1.3.1
+- Fixed semiaquatic mobs getting stuck in water
+- Fixed some pachycephalosaurus animations not playing
+- Tweaked kaprosuchus leap attack
+- Increased brachiosaurus health to 400
+- Mobs will no longer sleep when following their owner
+- Changed pachycephalosaurus warn sound
+- Fixed carnotaurus animations not playing properly
+- Misc tweaks
+
 ## Version 1.3.0
-- Added Barinasuchus
-- Added Desmatosuchus
+- Added Brachiosaurus
+- Added Coelacanthus
+- Added Hibbertopterus
 - Added Kaprosuchus
 - Added Leptictidium
+- Added Lobe Finned Fish
 - Added Lystrosaurus
 - Added Pachycephalosaurus
 - Added Praepusa
-- Added Psilopterus
-- Added Therizinosaurus
+- Added Pterodactylus
 - Added Ulughbegsaurus
-- Added Prototaxites
-- Added Reinforced Glass
-- Jawless fish and Tartuosteus will now nibble on blocks sometimes
-- Reduced swimming sound volume for schooling mobs based on how many mobs are in the school
-- Improved fish flopping
-- Mobs will now pathfind out of water more consistently instead of getting stuck
-- Mobs now move faster in water
-- Mobs that can be pacified can now be temporarily pacified with their tempt item
-- Added Tartuosteus fossil and roe
-- Reduced chance for Tartuosteus to appear from jawless fish roe
-- Fixed mobs moving sideways sometimes
-- Majungasaurus is now aggressive to players at night and turns slightly translucent at night
-- Mob detection range is reduced for Majungasaurus in camo mode
-- Majungasaurus will now avoid large carnivores and strong mobs like Carnotaurus
-- Majungasaurus now enters camo mode when avoiding mobs
-- Reduced Majungasaurus camo cooldown time
-- Added more Majungasaurus idle animations
-- Majungasaurus now goes fully invisible when in camouflage mode
-- Majungasaurus is now fully silent when camo
-- Added nighttime textures for Majungasaurus
-- Added angry textures for Majungasaurus
-- Decreased time it takes for Majungasaurus camo to transition to invisible
-- Added Majungasaurus step sound event
-- Added Golden Emperor Carnotaurus variant
-- Reduced Carnotaurus charge turn radius
-- Reduced Carnotaurus maximum charge time
-- Increased Carnotaurus charge speed
-- Merged Carnotaurus charge and roar goals into Carnotaurus attack goal
-- Carnotaurus charge speed now scales with speed attribute 
-- Replaced Carnotaurus roar effects with a new Fury effect that increases speed and attack speed
-- Reduced chance for Carnotaurus to headbutt
-- Increased Carnotaurus health
-- Slightly reduced the amount of health Carnotaurus gains on kill
-- Added more Carnotaurus idle animations
-- Increased Carnotaurus roar cooldown
-- Added more Telecrex idle animations
-- Increased Diplocaulus movement speed
-- Diplocaulus can now slide around on mud and ice
-- Tweaked Diplocaulus sound volume
-- Added Diplocaulus step sound event
-- Diplocaulus now prefers to walk on mud
-- Diplocaulus can now burrow into sand and gravel alongside mud
-- Reduced Diplocaulus panic speed
-- Added new Diplocaulus sounds to replace frog sounds
-- Dunkleosteus bites now bypass armor
-- Dunkleosteus now have a chance to cause mobs to drop their head on death, including players which has a 100% chance
-- Added mobs that drop skulls as medium and large Dunkleosteus targets
-- Fixed Dunkleosteus attack animation
-- Added more armor to small and medium Dunkleosteus variants
-- Slightly tweaked some spawn egg colors
-- Added translation entries for thrown egg entities
-- Misc tweaks
+- Added many new plants
+- Removed fossil site maps and changed how fossils generate
+- Many misc tweaks, fixes, and additions
 
 ## Version 1.2.3
 - Fixed a server crash

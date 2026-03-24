@@ -87,7 +87,7 @@ public class PraepusaModel extends UP2Model<Praepusa> {
 	@Override
 	public void setupAnim(@NotNull Praepusa entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWater()) {
+        if (entity.isInWaterOrBubble()) {
             if (entity.isRunning()) this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         } else {
@@ -107,7 +107,7 @@ public class PraepusaModel extends UP2Model<Praepusa> {
         this.animate(entity.bounceAnimationState, PraepusaAnimations.BOUNCE_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);
-        if (entity.isInWater()) this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
+        if (entity.isInWaterOrBubble()) this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
 	}
 
 	@Override

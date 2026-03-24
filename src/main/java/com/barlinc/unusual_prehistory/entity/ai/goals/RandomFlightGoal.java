@@ -54,6 +54,9 @@ public class RandomFlightGoal extends Goal {
     public void start() {
         this.mob.setFlying(true);
         this.mob.getNavigation().moveTo(this.x, this.y, this.z, mob.isRunning() ? runningSpeedModifier : speedModifier);
+        if (mob.onGround()) {
+            this.mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
+        }
     }
 
     @Override

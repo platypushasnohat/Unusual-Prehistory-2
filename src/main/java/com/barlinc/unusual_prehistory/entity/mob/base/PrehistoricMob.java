@@ -822,6 +822,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.set(COMMAND, command);
     }
 
+    public boolean isFollowingOwner() {
+        return this.getCommand() == 2;
+    }
+
     // Dancing
     public boolean isDancing() {
         return this.entityData.get(DANCING);

@@ -3,15 +3,15 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.KimmeridgebrachypteraeschnidiumLookAroundGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.KimmeridgebrachypteraeschnidiumScatterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2Developers;
@@ -36,6 +36,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -56,6 +58,7 @@ import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implements Bucketable {
@@ -92,11 +95,12 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
-        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 60, 600));
-        this.goalSelector.addGoal(4, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
+        this.goalSelector.addGoal(2, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
+        this.goalSelector.addGoal(4, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 60, 600));
+        this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
 
     @Override
@@ -129,15 +133,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-        boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() != null) {
-            this.setFlying(true);
-        }
-        return hurt;
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVec) {
         if (this.refuseToMove() || this.onGround()) {
             if (this.getNavigation().getPath() != null) {
@@ -162,7 +157,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING, this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying(), this.tickCount);
         this.preenAnimationState.animateWhen(!this.isFlying() && this.getIdleState() == 1, this.tickCount);
     }
 
@@ -517,6 +512,62 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     // Goals
+    private static class KimmeridgebrachypteraeschnidiumScatterGoal extends Goal {
+
+        private final Kimmeridgebrachypteraeschnidium dragonfly;
+
+        public KimmeridgebrachypteraeschnidiumScatterGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
+            this.dragonfly = dragonfly;
+        }
+
+        @Override
+        public boolean canUse() {
+            if (dragonfly.isFlying()) {
+                return false;
+            }
+            long worldTime = dragonfly.level().getGameTime() % 10;
+            if (dragonfly.getRandom().nextInt(10) != 0 && worldTime != 0) {
+                return false;
+            }
+            AABB aabb = dragonfly.getBoundingBox().inflate(4);
+            List<Entity> list = dragonfly.level().getEntitiesOfClass(Entity.class, aabb, (entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_AVOIDS) || entity instanceof Player && !((Player) entity).isCreative()));
+            return !list.isEmpty();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return false;
+        }
+
+        @Override
+        public void start() {
+            this.dragonfly.setFlying(true);
+            if (dragonfly.onGround()) {
+                this.dragonfly.setDeltaMovement(dragonfly.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
+            }
+        }
+    }
+
+    private static class KimmeridgebrachypteraeschnidiumLookAroundGoal extends RandomLookAroundGoal {
+
+        private final Kimmeridgebrachypteraeschnidium dragonfly;
+
+        public KimmeridgebrachypteraeschnidiumLookAroundGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
+            super(dragonfly);
+            this.dragonfly = dragonfly;
+        }
+
+        @Override
+        public boolean canUse() {
+            return this.dragonfly.onGround() && super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.dragonfly.onGround() && super.canContinueToUse();
+        }
+    }
+
     private static class KimmeridgebrachypteraeschnidiumPreenGoal extends IdleAnimationGoal {
 
         private final Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium;

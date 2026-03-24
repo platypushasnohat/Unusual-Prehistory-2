@@ -177,6 +177,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.warnAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
         this.grazeAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.huffAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
     @Override

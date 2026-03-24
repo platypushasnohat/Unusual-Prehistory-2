@@ -200,9 +200,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public void setupAnimationStates() {
-        if (startChargeTicks == 0 && this.chargeStartAnimationState.isStarted()) this.chargeStartAnimationState.stop();
-        if (stopChargeTicks == 0 && this.chargeEndAnimationState.isStarted()) this.chargeEndAnimationState.stop();
-        this.angryAnimationState.animateWhen(this.isAngry(), this.tickCount);
+        this.angryAnimationState.animateWhen(this.canPlayAngryAnimation(), this.tickCount);
         this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater() && !this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
@@ -211,14 +209,21 @@ public class Carnotaurus extends PrehistoricMob {
         this.attackFast2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING_FAST.get() && attackAlt, this.tickCount);
         this.headbuttAnimationState.animateWhen(this.getPose() == UP2Poses.HEADBUTTING.get(), this.tickCount);
         this.headbuttFastAnimationState.animateWhen(this.getPose() == UP2Poses.HEADBUTTING_FAST.get(), this.tickCount);
-        this.chargeEndAnimationState.animateWhen(this.chargeEndAnimationState.isStarted(), this.tickCount);
-        this.chargeStartAnimationState.animateWhen(this.chargeStartAnimationState.isStarted(), this.tickCount);
+        this.chargeStartAnimationState.animateWhen(this.getPose() == UP2Poses.START_CHARGING.get(), this.tickCount);
+        this.chargeEndAnimationState.animateWhen(this.getPose() == UP2Poses.STOP_CHARGING.get(), this.tickCount);
         this.roarAnimationState.animateWhen(this.getPose() == UP2Poses.ROARING.get(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.yawnAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.sniff1AnimationState.animateWhen(this.getIdleState() == 3 && !sniffAlt, this.tickCount);
         this.sniff2AnimationState.animateWhen(this.getIdleState() == 3 && sniffAlt, this.tickCount);
+    }
+
+    private boolean canPlayAngryAnimation() {
+        if (this.getPose() == UP2Poses.ROARING.get() && this.getPose() == UP2Poses.ATTACKING.get() && this.getPose() == UP2Poses.ATTACKING_FAST.get() && this.getPose() == UP2Poses.HEADBUTTING.get() && this.getPose() == UP2Poses.HEADBUTTING_FAST.get()) {
+            return false;
+        }
+        return this.isAngry();
     }
 
     @Override
@@ -245,18 +250,9 @@ public class Carnotaurus extends PrehistoricMob {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.START_CHARGING.get()) {
                 this.startChargeTicks = 30;
-                this.chargeStartAnimationState.start(this.tickCount);
-            }
-            else if (this.getPose() == UP2Poses.CHARGING.get()) {
-                this.chargeStartAnimationState.stop();
             }
             else if (this.getPose() == UP2Poses.STOP_CHARGING.get()) {
                 this.stopChargeTicks = 15;
-                this.chargeEndAnimationState.start(this.tickCount);
-            }
-            else if (this.getPose() == Pose.STANDING) {
-                this.chargeStartAnimationState.stop();
-                this.chargeEndAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -345,7 +341,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     public enum CarnotaurusVariant {
-        CARNOTAURUS(0),
+        DEMON(0),
         GOLDEN_EMPEROR(1);
 
         private final int id;
@@ -373,7 +369,9 @@ public class Carnotaurus extends PrehistoricMob {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        if (level.getRandom().nextFloat() < 0.2F) this.setVariant(1);
+        if (level.getRandom().nextFloat() < 0.25F) {
+            this.setVariant(1);
+        }
         else this.setVariant(0);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }

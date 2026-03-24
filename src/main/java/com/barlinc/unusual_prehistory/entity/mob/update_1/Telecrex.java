@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -43,8 +43,6 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     private static final EntityDataAccessor<Boolean> SPLAT = SynchedEntityData.defineId(Telecrex.class, EntityDataSerializers.BOOLEAN);
 
-    private int runTicks = 0;
-
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen2AnimationState = new SmoothAnimationState();
@@ -73,20 +71,21 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TelecrexScatterGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
-        this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D) {
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
+        this.goalSelector.addGoal(2, new TelecrexScatterGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
+        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && !Telecrex.this.isFlying();
             }
         });
-        this.goalSelector.addGoal(3, new RandomFlightGoal(this, 0.8F, 1.4F, 16, 4, 1600, 200));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new TelecrexPreenGoal(this));
-        this.goalSelector.addGoal(6, new TelecrexPeckGoal(this));
+        this.goalSelector.addGoal(5, new RandomFlightGoal(this, 0.8F, 1.4F, 16, 4, 1600, 200));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new TelecrexPreenGoal(this));
+        this.goalSelector.addGoal(8, new TelecrexPeckGoal(this));
     }
 
     @Override
@@ -97,26 +96,17 @@ public class Telecrex extends PrehistoricFlyingMob {
             }
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
-        if (this.isEffectiveAi() && this.getPose() == UP2Poses.START_FLYING.get()) {
-            double horizontalSpeed = this.isRunning() ? 0.4D : 0.7D;
-            travelVec = travelVec.multiply(horizontalSpeed, 1.0D, horizontalSpeed);
-        }
         super.travel(travelVec);
     }
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() != null && this.isAlive()) {
+        if (hurt && source.getEntity() != null && this.isAlive() && source.getEntity() instanceof LivingEntity livingEntity) {
             double range = 8;
-            this.setFlying(true);
-            this.setRunning(true);
-            this.runTicks = this.getFastFlyingTicks();
             List<? extends Telecrex> entities = this.level().getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(range, range / 2, range));
             for (Telecrex telecrex : entities) {
-                telecrex.setFlying(true);
-                telecrex.setRunning(true);
-                telecrex.runTicks = telecrex.getFastFlyingTicks();
+                telecrex.setLastHurtByMob(livingEntity);
             }
         }
         return hurt;
@@ -125,8 +115,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public void tick() {
         super.tick();
-        if (runTicks > 0) runTicks--;
-        if (this.isRunning() && runTicks == 0) this.setRunning(false);
 
         if (this.isFlying() && this.horizontalCollision && this.getRandom().nextBoolean() && !this.level().isClientSide) {
             this.setSplat(true);
@@ -159,15 +147,11 @@ public class Telecrex extends PrehistoricFlyingMob {
         return super.refuseToMove() || this.hasSplat();
     }
 
-    public int getFastFlyingTicks() {
-        return 100 + this.getRandom().nextInt(50);
-    }
-
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && this.getIdleState() != 2, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && !this.isRunning(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.getPose() == Pose.FALL_FLYING && this.isRunning(), this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && !this.isRunning(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning(), this.tickCount);
         this.splatAnimationState.animateWhen(this.hasSplat(), this.tickCount);
         this.preen1AnimationState.animateWhen(this.getIdleState() == 1 && !preenAlt, this.tickCount);
         this.preen2AnimationState.animateWhen(this.getIdleState() == 1 && preenAlt, this.tickCount);
@@ -284,8 +268,9 @@ public class Telecrex extends PrehistoricFlyingMob {
         @Override
         public void start() {
             this.telecrex.setFlying(true);
-            this.telecrex.setRunning(true);
-            this.telecrex.runTicks = telecrex.getFastFlyingTicks();
+            if (telecrex.onGround()) {
+                this.telecrex.setDeltaMovement(telecrex.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
+            }
         }
     }
 
