@@ -720,5 +720,25 @@
   "subtitles.unicorn_idle": "Unicorn grunts",
   "unusual_prehistory.jei.transmogrification": "Transmogrification",
   "unusual_prehistory.patchouli.book.landing": "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.",
-  "unusual_prehistory.patchouli.book.name": "Paleopedia"
+  "unusual_prehistory.patchouli.book.name": "Paleopedia",
+
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.nest_egg": "Nest Egg",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip.nest_egg": "Egg must be placed down to hatch",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.projectile_egg": "Projectile Egg",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip.projectile_egg": "Egg must be thrown to hatch",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.aquatic_egg": "Aquatic Egg",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip.aquatic_egg": "Egg must be placed underwater to hatch",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.raft_egg": "Raft Egg",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip.raft_egg": "Egg must be placed on-top of water to hatch",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.embryo": "Embryo",
+  "unusual_prehistory.patchouli.entry.clone.clone_tooltip.embryo": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
+
+  "unusual_prehistory.patchouli.entry.activity.activity_tooltip.nocturnal": "Active during the day",
+  "unusual_prehistory.patchouli.entry.activity.activity_tooltip.diurnal": "Active during the night",
+  "unusual_prehistory.patchouli.entry.activity.activity_tooltip.cathemeral": "Active randomly throughout the day or based on specific factors",
+  "unusual_prehistory.patchouli.entry.activity.activity_tooltip.crepuscular": "Active at dusk or dawn",
+  "unusual_prehistory.patchouli.entry.activity.activity_tooltip.sleepless": "Does not sleep",
+
+  "unusual_prehistory.patchouli.entry.recipe_title": ""
+
 }

@@ -1,0 +1,8 @@
+{
+  "name": "Tar Pit",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_cenozoic.png",
+  "category": "unusual_prehistory:features/world",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+  ]
+}

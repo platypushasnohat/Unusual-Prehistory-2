@@ -1,0 +1,26 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:template_clone",
+      "as": "clone",
+      "x": 49,
+      "y": 16
+    }
+  ],
+    "components": [
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "max_width": 108,
+      "x": 4,
+      "y": 40
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "centered": true,
+      "x": -1,
+      "y": -1
+    }
+  ]
+}

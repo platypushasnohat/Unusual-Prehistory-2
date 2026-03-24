@@ -1,0 +1,8 @@
+{
+  "name": "Paleozoic Fossil",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_paleozoic.png",
+  "category": "unusual_prehistory:features/world",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+  ]
+}

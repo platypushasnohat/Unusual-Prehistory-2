@@ -1,0 +1,7 @@
+{
+  "name": "Creative",
+  "description": "Creative-mode entries. Cheats must be enabled to run commands.",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_creative.png",
+  "sortnum": -1,
+  "secret": true
+}

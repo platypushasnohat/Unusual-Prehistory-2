@@ -10,7 +10,7 @@
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:majungasaurus_egg",
       "title": "Life Finds a Way",
-      "text": "Using the process of transmogrification, new life may be created from a fossil. $(highlight)Incubate your newly made egg and let extinct creatures roam the Overworld once more."
+      "text": "Using the process of transmogrification, new life may be created from a fossil. $(highlight)Incubate$() your newly made egg and let extinct creatures roam the Overworld once more."
     },
     {
       "type": "unusual_prehistory:quest",

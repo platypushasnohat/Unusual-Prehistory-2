@@ -1,0 +1,20 @@
+{
+  "name": "block.unusual_prehistory.tar",
+  "icon": "unusual_prehistory:tar_bucket",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:tar_bucket",
+      "title": "block.unusual_prehistory.tar",
+      "text": "Tar..."
+    },
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:asphalt",
+      "title": "block.unusual_prehistory.asphalt",
+      "text": "Asphalt..."
+    }
+  ]
+}
