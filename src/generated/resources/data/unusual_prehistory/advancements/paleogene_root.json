@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_tartuosteus",
+  "parent": "unusual_prehistory:cenozoic_root",
   "criteria": {
     "aegirocassis_eggs": {
       "conditions": {
@@ -401,16 +401,16 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancement.unusual_prehistory.paleozoic_root.desc"
+      "translate": "advancement.unusual_prehistory.paleogene_root.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:paleozoic_fossil"
+      "item": "unusual_prehistory:cenozoic_fossil"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.paleozoic_root"
+      "translate": "advancement.unusual_prehistory.paleogene_root"
     }
   },
   "requirements": [

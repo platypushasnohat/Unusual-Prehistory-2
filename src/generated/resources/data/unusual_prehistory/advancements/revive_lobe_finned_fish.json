@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_jawless_fish",
+  "parent": "unusual_prehistory:revive_hibbertopterus",
   "criteria": {
     "revive_lobe_finned_fish": {
       "conditions": {

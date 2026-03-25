@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:paleogene_root",
   "criteria": {
     "revive_leptictidium": {
       "conditions": {

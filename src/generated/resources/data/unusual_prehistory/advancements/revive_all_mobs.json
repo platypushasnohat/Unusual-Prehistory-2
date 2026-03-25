@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:root",
   "criteria": {
     "brachiosaurus": {
       "conditions": {

@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_praepusa",
+  "parent": "unusual_prehistory:revive_leptictidium",
   "criteria": {
     "revive_telecrex": {
       "conditions": {

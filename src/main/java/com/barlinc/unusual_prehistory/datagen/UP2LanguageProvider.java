@@ -326,18 +326,38 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
         this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
 
-        // Advancements
-        this.translateAdvancement("root", "Unusual Prehistory 2", "Revive creatures from the ancient past!");
+        // Progression & Misc Advancements
+        this.translateAdvancement("root", "Unusual Prehistory", "Revive creatures from the ancient past!");
+        this.translateAdvancement("obtain_fossil", "Rock and Bone", "Use a Brush to uncover fossils at a Fossil Site or Tar Pit");
+        this.translateAdvancement("obtain_machine_parts", "Electrical Doodads", "Find some Machine Parts in a loot chest");
+        this.translateAdvancement("obtain_transmogrifier", "Jesse, We Have to Cook", "Craft a Transmogrifier, the key component in creature revival");
+        this.translateAdvancement("obtain_organic_ooze", "It's Looking at Me...", "Craft some Organic Ooze to fuel the revival process");
+        this.translateAdvancement("obtain_egg", "E G G S", "Recreate your first prehistoric egg or embryo");
+        this.translateAdvancement("obtain_living_ooze", "Alakagoo!", "Create a Living Ooze in a cauldron to incubate embryos with");
 
+        this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
+        this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
+        this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
+
+        // Revival Advancements
         this.translateAdvancement("paleozoic_root", "Paleozoic Era", "Paleozoic era creatures");
+        this.translateAdvancement("ordovician_root", "Ordovician Period", "Ordovician period creatures");
+        this.translateAdvancement("silurian_root", "Silurian Period", "Silurian period creatures");
+        this.translateAdvancement("devonian_root", "Devonian Period", "Devonian period creatures");
+        this.translateAdvancement("carboniferous_root", "Carboniferous Period", "Carboniferous period creatures");
+        this.translateAdvancement("permian_root", "Permian Period", "Permian period creatures");
+
         this.translateAdvancement("mesozoic_root", "Mesozoic Era", "Mesozoic era creatures");
         this.translateAdvancement("triassic_root", "Triassic Period", "Triassic period creatures");
         this.translateAdvancement("jurassic_root", "Jurassic Period", "Jurassic period creatures");
         this.translateAdvancement("cretaceous_root", "Cretaceous Period", "Cretaceous period creatures");
+
         this.translateAdvancement("cenozoic_root", "Cenozoic Era", "Cenozoic era creatures");
+        this.translateAdvancement("paleogene_root", "Paleogene Period", "Paleogene period creatures");
+        this.translateAdvancement("neogene_root", "Neogene Period", "Neogene period creatures");
+        this.translateAdvancement("quaternary_root", "Quaternary Period", "Quaternary period creatures");
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
-        this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
         this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
@@ -372,15 +392,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
         this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
-
-        this.translateAdvancement("pacify_mob", "Chill Pill", "Feed an Enchanted Golden Apple to an aggressive creature to make it permanently neutral");
-        this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
-        this.translateAdvancement("obtain_fossil", "Rock and Bone", "Use a Brush to uncover fossils at a Fossil Site or Tar Pit");
-        this.translateAdvancement("obtain_machine_parts", "Electrical Doodads", "Find some Machine Parts in a loot chest");
-        this.translateAdvancement("obtain_transmogrifier", "Jesse, We Have to Cook", "Craft a Transmogrifier, the key component in creature revival");
-        this.translateAdvancement("obtain_organic_ooze", "It's Looking at Me...", "Craft some Organic Ooze to fuel the revival process");
-        this.translateAdvancement("obtain_egg", "E G G S", "Recreate your first prehistoric egg or embryo");
-        this.translateAdvancement("obtain_living_ooze", "Alakagoo!", "Create a Living Ooze in a cauldron to incubate embryos with");
 
         this.translateEffect(UP2MobEffects.FURY, "Gain increased speed and attack speed as your health gets lower");
 

@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_dunkleosteus",
+  "parent": "unusual_prehistory:revive_diplocaulus",
   "criteria": {
     "revive_hibbertopterus": {
       "conditions": {

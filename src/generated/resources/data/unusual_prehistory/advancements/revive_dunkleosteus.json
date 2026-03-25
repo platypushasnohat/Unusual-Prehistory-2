@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_diplocaulus",
+  "parent": "unusual_prehistory:devonian_root",
   "criteria": {
     "revive_dunkleosteus": {
       "conditions": {

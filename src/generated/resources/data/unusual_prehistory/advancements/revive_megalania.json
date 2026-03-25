@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_leptictidium",
+  "parent": "unusual_prehistory:quaternary_root",
   "criteria": {
     "revive_megalania": {
       "conditions": {

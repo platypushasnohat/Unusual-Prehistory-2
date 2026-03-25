@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_lobe_finned_fish",
+  "parent": "unusual_prehistory:revive_jawless_fish",
   "criteria": {
     "revive_stethacanthus": {
       "conditions": {
