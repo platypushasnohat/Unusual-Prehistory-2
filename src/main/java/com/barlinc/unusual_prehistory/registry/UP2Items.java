@@ -59,7 +59,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose"); // majungasaurus
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil"); // stethacanthus
-    public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
+    public static final RegistryObject<Item> AGED_FEATHER = registerHoloceneFossilItem("aged_feather"); // talpanas
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
     public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
@@ -188,6 +188,11 @@ public class UP2Items {
 
     public static final RegistryObject<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PLANT_FOSSIL = registerItem("plant_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CENOZOIC_FOSSIL = registerItem("cenozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> HOLOCENE_FOSSIL = registerItem("holocene_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MESOZOIC_FOSSIL = registerItem("mesozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
 
     // Future
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
@@ -240,6 +245,12 @@ public class UP2Items {
 
     private static RegistryObject<Item> registerFossilItem(String name) {
         RegistryObject<Item> item = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        FOSSILS.add(item);
+        return item;
+    }
+
+    private static RegistryObject<Item> registerHoloceneFossilItem(String name) {
+        RegistryObject<Item> item = registerItem(name, () -> new Item(new Item.Properties()));
         FOSSILS.add(item);
         return item;
     }

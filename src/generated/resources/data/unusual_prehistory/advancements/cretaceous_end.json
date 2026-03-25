@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:revive_ulughbegsaurus",
   "criteria": {
     "aegirocassis_eggs": {
       "conditions": {
@@ -401,16 +401,16 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancement.unusual_prehistory.holocene_root.desc"
+      "translate": "advancement.unusual_prehistory.cretaceous_root.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:holocene_fossil"
+      "item": "unusual_prehistory:dromaeosaurus_egg"
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.holocene_root"
+      "translate": "advancement.unusual_prehistory.cretaceous_root"
     }
   },
   "requirements": [

@@ -47,10 +47,6 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
             UP2Entities.ULUGHBEGSAURUS.get()
     };
 
-    private static final ItemLike[] HOLOCENE_REMAINS = new ItemLike[] {
-            UP2Items.AGED_FEATHER.get()
-    };
-
     private static final ItemLike[] ROOT = new ItemLike[] {
             UP2Items.MACHINE_PARTS.get()
     };
@@ -74,10 +70,6 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         Advancement fossils = this.addItemList(ALL_FOSSILS, Advancement.Builder.advancement().parent(root).display(UP2Items.RUGOSE_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.obtain_fossil"), Component.translatable("advancement.unusual_prehistory.obtain_fossil.desc"), null, FrameType.TASK, true, true, false)
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_fossil"), helper);
-
-        this.addItemList(HOLOCENE_REMAINS, Advancement.Builder.advancement().parent(root).display(UP2Items.AGED_FEATHER.get(), Component.translatable("advancement.unusual_prehistory.obtain_holocene_remains"), Component.translatable("advancement.unusual_prehistory.obtain_holocene_remains.desc"), null, FrameType.TASK, true, true, false)
-                .requirements(RequirementsStrategy.OR))
-                .save(consumer, UnusualPrehistory2.modPrefix("obtain_holocene_remains"), helper);
 
         Advancement machineParts = createAdvancement("obtain_machine_parts", fossils, UP2Items.MACHINE_PARTS.get(), FrameType.TASK, false)
                 .addCriterion("machine_parts", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.MACHINE_PARTS.get()))
@@ -109,11 +101,11 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .save(consumer, UnusualPrehistory2.modPrefix("revive_all_mobs"), helper);
 
-        Advancement paleozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Blocks.DIPLOCAULUS_EGGS.get(), Component.translatable("advancement.unusual_prehistory.paleozoic_root"), Component.translatable("advancement.unusual_prehistory.paleozoic_root.desc"), null, FrameType.TASK, false, false, false)
+        Advancement paleozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleozoic_root"), Component.translatable("advancement.unusual_prehistory.paleozoic_root.desc"), null, FrameType.TASK, false, false, false)
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("paleozoic_root"), helper);
 
-        Advancement mesozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Blocks.CARNOTAURUS_EGG.get(), Component.translatable("advancement.unusual_prehistory.mesozoic_root"), Component.translatable("advancement.unusual_prehistory.mesozoic_root.desc"), null, FrameType.TASK, false, false, false)
+        Advancement mesozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.mesozoic_root"), Component.translatable("advancement.unusual_prehistory.mesozoic_root.desc"), null, FrameType.TASK, false, false, false)
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("mesozoic_root"), helper);
 
@@ -129,11 +121,11 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("cretaceous_root"), helper);
 
-        Advancement cenozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Blocks.MEGALANIA_EGG.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, FrameType.TASK, false, false, false)
+        Advancement cenozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, FrameType.TASK, false, false, false)
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("cenozoic_root"), helper);
 
-        Advancement holoceneRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.TALPANAS_EGG.get(), Component.translatable("advancement.unusual_prehistory.holocene_root"), Component.translatable("advancement.unusual_prehistory.holocene_root.desc"), null, FrameType.TASK, false, false, false)
+        Advancement holoceneRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.HOLOCENE_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.holocene_root"), Component.translatable("advancement.unusual_prehistory.holocene_root.desc"), null, FrameType.TASK, false, false, false)
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
 
@@ -175,6 +167,27 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
 
         // Holocene
         Advancement reviveTalpanas = reviveMobAdvancement("revive_talpanas", holoceneRoot, UP2Items.TALPANAS_EGG.get(), UP2Entities.TALPANAS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_talpanas"), helper);
+
+        // Advancement line filler
+        Advancement paleozoicEnd = this.addAllEggs(Advancement.Builder.advancement().parent(reviveTartuosteus).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleozoic_root"), Component.translatable("advancement.unusual_prehistory.paleozoic_root.desc"), null, FrameType.TASK, false, false, false)
+                .requirements(RequirementsStrategy.OR))
+                .save(consumer, UnusualPrehistory2.modPrefix("paleozoic_end"), helper);
+
+        Advancement cenozoicEnd = this.addAllEggs(Advancement.Builder.advancement().parent(reviveTelecrex).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, FrameType.TASK, false, false, false)
+                .requirements(RequirementsStrategy.OR))
+                .save(consumer, UnusualPrehistory2.modPrefix("cenozoic_end"), helper);
+
+        Advancement triassicEnd = this.addAllEggs(Advancement.Builder.advancement().parent(reviveLystrosaurus).display(UP2Blocks.DESMATOSUCHUS_EGG.get(), Component.translatable("advancement.unusual_prehistory.triassic_root"), Component.translatable("advancement.unusual_prehistory.triassic_root.desc"), null, FrameType.TASK, false, false, false)
+                .requirements(RequirementsStrategy.OR))
+                .save(consumer, UnusualPrehistory2.modPrefix("triassic_end"), helper);
+
+        Advancement jurassicEnd = this.addAllEggs(Advancement.Builder.advancement().parent(revivePterodactylus).display(UP2Blocks.KENTROSAURUS_EGG.get(), Component.translatable("advancement.unusual_prehistory.jurassic_root"), Component.translatable("advancement.unusual_prehistory.jurassic_root.desc"), null, FrameType.TASK, false, false, false)
+                .requirements(RequirementsStrategy.OR))
+                .save(consumer, UnusualPrehistory2.modPrefix("jurassic_end"), helper);
+
+        Advancement cretaceousEnd = this.addAllEggs(Advancement.Builder.advancement().parent(reviveUlughbegsaurus).display(UP2Items.DROMAEOSAURUS_EGG.get(), Component.translatable("advancement.unusual_prehistory.cretaceous_root"), Component.translatable("advancement.unusual_prehistory.cretaceous_root.desc"), null, FrameType.TASK, false, false, false)
+                .requirements(RequirementsStrategy.OR))
+                .save(consumer, UnusualPrehistory2.modPrefix("cretaceous_end"), helper);
 
         // Mob interactions
         createAdvancement("breed_holocene_mobs", holoceneRoot, Items.HANGING_ROOTS, FrameType.TASK, false)
@@ -236,7 +249,6 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         this.addItemList(ALL_EGG_BLOCKS, builder);
         this.addItemList(ALL_EGG_ITEMS, builder);
         this.addItemList(ALL_FOSSILS, builder);
-        this.addItemList(HOLOCENE_REMAINS, builder);
         this.addItemList(ROOT, builder);
         return builder;
     }

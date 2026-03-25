@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "aged_feather": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aged_feather"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "anvil_fossil": {
       "conditions": {
         "items": [
@@ -641,6 +653,7 @@
       "rugose_fossil",
       "thermal_fossil",
       "anvil_fossil",
+      "aged_feather",
       "plumage_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",

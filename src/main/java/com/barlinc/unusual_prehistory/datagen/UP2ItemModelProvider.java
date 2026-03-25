@@ -48,6 +48,12 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(UNKNOWN_FOSSIL);
         this.item(UNKNOWN_EGG);
 
+        this.item(CENOZOIC_FOSSIL);
+        this.item(PLANT_FOSSIL);
+        this.item(HOLOCENE_FOSSIL);
+        this.item(MESOZOIC_FOSSIL);
+        this.item(PALEOZOIC_FOSSIL);
+
         this.handheldRodItem(DIRT_ON_A_STICK);
 
         this.item(UP2Blocks.CYCAD_SEEDLING);

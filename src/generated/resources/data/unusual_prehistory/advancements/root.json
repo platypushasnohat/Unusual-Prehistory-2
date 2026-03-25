@@ -1094,6 +1094,7 @@
       "rugose_fossil",
       "thermal_fossil",
       "anvil_fossil",
+      "aged_feather",
       "plumage_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",
@@ -1135,7 +1136,6 @@
       "roach_fossil",
       "crooked_beak_fossil",
       "scythe_fossil",
-      "aged_feather",
       "machine_parts"
     ]
   ],

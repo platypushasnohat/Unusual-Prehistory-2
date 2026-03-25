@@ -6,6 +6,7 @@
 - Fixed potted metasequoia model
 - Fixed random sit goal
 - Praepusa now sleeps on the surface of water at night
+- Tweaked advancements
 - Misc tweaks
 
 ## Version 1.3.1
