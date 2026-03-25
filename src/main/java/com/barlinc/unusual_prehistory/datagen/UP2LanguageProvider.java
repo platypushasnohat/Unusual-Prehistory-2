@@ -490,16 +490,14 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
 
-        this.add("item.unusual_prehistory.paleopedia.desc", "By Dr. Professor Peeko Noneyah Jr., PhD.");
-
         // tame commands
         this.add("entity.unusual_prehistory.all.command_0", "%s is wandering");
         this.add("entity.unusual_prehistory.all.command_1", "%s is staying");
         this.add("entity.unusual_prehistory.all.command_2", "%s is following");
 
         // Book
-        this.add("unusual_prehistory.patchouli.book.name", "Paleopedia");
-        this.add("unusual_prehistory.patchouli.book.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
+        this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
+        this.add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah Jr.");
 
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
     }

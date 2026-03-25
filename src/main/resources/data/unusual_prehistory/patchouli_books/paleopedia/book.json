@@ -2,13 +2,12 @@
 	"name": "item.unusual_prehistory.paleopedia",
     "book_texture": "unusual_prehistory:textures/gui/paleopedia/paleopedia.png",
     "crafting_texture": "unusual_prehistory:textures/gui/paleopedia/crafting.png",
-	"landing_text": "unusual_prehistory.patchouli.book.landing",
-	"creative_tab": "unusual_prehistory:unusual_prehistory",
+	"landing_text": "item.unusual_prehistory.paleopedia.landing",
 	"advancements_tab": "unusual_prehistory",
 	"advancement_namespaces": [
 		"unusual_prehistory"
 	],
-	"version": 2,
+    "version": "3",
 	"model": "unusual_prehistory:paleopedia",
     "index_icon": "unusual_prehistory:textures/gui/paleopedia/category_index.png",
 	"use_resource_pack": true,
@@ -23,6 +22,8 @@
     "link_color": "968351",
     "link_hover_color": "54fc54",
     "filler_texture": "unusual_prehistory:textures/gui/paleopedia/page_filler.png",
+    "dont_generate_book": true,
+    "custom_book_item": "unusual_prehistory:paleopedia",
     "macros": {
       "$(highlight)": "$(#968351)"
     }

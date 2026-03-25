@@ -54,6 +54,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(MESOZOIC_FOSSIL);
         this.item(PALEOZOIC_FOSSIL);
 
+        this.item(PALEOPEDIA);
+
         this.handheldRodItem(DIRT_ON_A_STICK);
 
         this.item(UP2Blocks.CYCAD_SEEDLING);

@@ -1,12 +1,15 @@
 ## Version 1.4.0
 - Added Desmatosuchus
-- Added a carnotaurus headbutt vocal sound
+- Added Delitzschala ambient mob
+- Added Zhangsolva ambient mob
+- Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
 - Fixed guangdedendron model not being transparent sometimes
 - Fixed potted metasequoia model
 - Fixed random sit goal
 - Praepusa now sleeps on the surface of water at night
 - Tweaked advancements
+- Patchouli is now a required dependency
 - Misc tweaks
 
 ## Version 1.3.1

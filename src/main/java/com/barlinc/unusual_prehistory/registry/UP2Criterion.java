@@ -9,5 +9,6 @@ public class UP2Criterion {
 
     public static final UP2CriteriaTriggers PACIFY_MOB_PERMANENT = CriteriaTriggers.register(new UP2CriteriaTriggers("pacify_mob"));
     public static final UP2CriteriaTriggers BREED_HOLOCENE_MOBS = CriteriaTriggers.register(new UP2CriteriaTriggers("breed_holocene_mobs"));
+    public static final UP2CriteriaTriggers CREATIVE_MODE = CriteriaTriggers.register(new UP2CriteriaTriggers("creative_mode"));
 
 }

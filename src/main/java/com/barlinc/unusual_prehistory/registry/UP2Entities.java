@@ -75,12 +75,15 @@ public class UP2Entities {
 
     public static final RegistryObject<EntityType<ThrowableEgg>> PTERODACTYLUS_EGG = registerEntity("pterodactylus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS::get), MobCategory.MISC, 0.25F, 0.25F);
 
+    // Update 5
+    public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = registerLivingEntity("desmatosuchus", Desmatosuchus::new, MobCategory.CREATURE, 1.3F, 1.2F);
+    public static final RegistryObject<EntityType<Delitzschala>> DELITZSCHALA = registerLivingEntity("delitzschala", Delitzschala::new, MobCategory.AMBIENT, 0.4F, 0.1F);
+    public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = registerLivingEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, 0.3F, 0.4F);
+
     // Future
     public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = registerLivingEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, 4.1F, 4.1F);
     public static final RegistryObject<EntityType<Barinasuchus>> BARINASUCHUS = registerLivingEntity("barinasuchus", Barinasuchus::new, MobCategory.CREATURE, 1.5F, 2.1F);
     public static final RegistryObject<EntityType<Cotylorhynchus>> COTYLORHYNCHUS = registerLivingEntity("cotylorhynchus", Cotylorhynchus::new, MobCategory.CREATURE, 2.2F, 1.6F);
-    public static final RegistryObject<EntityType<Delitzschala>> DELITZSCHALA = registerLivingEntity("delitzschala", Delitzschala::new, MobCategory.AMBIENT, 0.4F, 0.1F);
-    public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = registerLivingEntity("desmatosuchus", Desmatosuchus::new, MobCategory.CREATURE, 1.3F, 1.2F);
     public static final RegistryObject<EntityType<Dimorphodon>> DIMORPHODON = registerLivingEntity("dimorphodon", Dimorphodon::new, MobCategory.CREATURE, 0.9F, 0.9F);
     public static final RegistryObject<EntityType<Eryon>> ERYON = registerLivingEntity("eryon", Eryon::new, MobCategory.CREATURE, 0.5F, 0.3F);
     public static final RegistryObject<EntityType<Mammoth>> MAMMOTH = registerLivingEntity("mammoth", Mammoth::new, MobCategory.CREATURE, 3.2F, 5.2F);
@@ -89,7 +92,6 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Psilopterus>> PSILOPTERUS = registerLivingEntity("psilopterus", Psilopterus::new, MobCategory.CREATURE, 0.6F, 1.4F);
     public static final RegistryObject<EntityType<Therizinosaurus>> THERIZINOSAURUS = registerLivingEntity("therizinosaurus", Therizinosaurus::new, MobCategory.CREATURE, 2.2F, 5.4F);
     public static final RegistryObject<EntityType<Wonambi>> WONAMBI = registerLivingEntity("wonambi", Wonambi::new, MobCategory.CREATURE, 1.25F, 0.5F);
-    public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = registerLivingEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, 0.3F, 0.4F);
 
     public static final RegistryObject<EntityType<ThrowableEgg>> DIMORPHODON_EGG = registerEntity("dimorphodon_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DIMORPHODON_EGG, UP2Entities.DIMORPHODON::get), MobCategory.MISC, 0.25F, 0.25F);
     public static final RegistryObject<EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, 0.25F, 0.25F);

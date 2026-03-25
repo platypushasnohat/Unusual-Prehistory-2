@@ -461,6 +461,7 @@
   "item.unusual_prehistory.cranium_fossil": "Cranium Fossil",
   "item.unusual_prehistory.crooked_beak_fossil": "Crooked Beak Fossil",
   "item.unusual_prehistory.cycad_fossil": "Cycad Fossil",
+  "item.unusual_prehistory.delitzschala_spawn_egg": "Delitzschala Spawn Egg",
   "item.unusual_prehistory.desmatosuchus_spawn_egg": "Desmatosuchus Spawn Egg",
   "item.unusual_prehistory.dimorphodon_egg": "Dimorphodon Egg",
   "item.unusual_prehistory.dimorphodon_spawn_egg": "Dimorphodon Spawn Egg",
@@ -532,7 +533,8 @@
   "item.unusual_prehistory.organic_ooze": "Organic Ooze",
   "item.unusual_prehistory.pachycephalosaurus_spawn_egg": "Pachycephalosaurus Spawn Egg",
   "item.unusual_prehistory.paleopedia": "Paleopedia",
-  "item.unusual_prehistory.paleopedia.desc": "By Dr. Professor Peeko Noneyah Jr., PhD.",
+  "item.unusual_prehistory.paleopedia.desc": "By Professor Peeko Noneyah Jr.",
+  "item.unusual_prehistory.paleopedia.landing": "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.",
   "item.unusual_prehistory.paleozoic_fossil": "Paleozoic Fossil",
   "item.unusual_prehistory.petrified_luca": "Petrified L.U.C.A",
   "item.unusual_prehistory.plant_fossil": "Plant Fossil",
@@ -575,6 +577,7 @@
   "item.unusual_prehistory.unknown_fossil": "??? Fossil",
   "item.unusual_prehistory.unusual_prehistory": "Unusual Prehistory",
   "item.unusual_prehistory.wing_fossil": "Wing Fossil",
+  "item.unusual_prehistory.zhangsolva_spawn_egg": "Zhangsolva Spawn Egg",
   "itemGroup.unusual_prehistory": "Unusual Prehistory",
   "subtitles.aegirocassis_death": "Aegirocassis dies",
   "subtitles.aegirocassis_hover": "Aegirocassis tries to fly",
@@ -740,7 +743,5 @@
   "subtitles.unicorn_death": "Unicorn dies",
   "subtitles.unicorn_hurt": "Unicorn hurts",
   "subtitles.unicorn_idle": "Unicorn grunts",
-  "unusual_prehistory.jei.transmogrification": "Transmogrification",
-  "unusual_prehistory.patchouli.book.landing": "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.",
-  "unusual_prehistory.patchouli.book.name": "Paleopedia"
+  "unusual_prehistory.jei.transmogrification": "Transmogrification"
 }

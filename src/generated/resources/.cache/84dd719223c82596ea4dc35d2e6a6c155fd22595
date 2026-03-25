@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-25T14:46:42.1400363	Item Models: unusual_prehistory
+// 1.20.1	2026-03-25T17:39:08.990603	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -31,6 +31,7 @@ d1fb4be7fb40905a6b54161c4864cf7d0c1c5149 assets/unusual_prehistory/models/item/b
 9271785516e0de1006cd3efabafe48789dad5b77 assets/unusual_prehistory/models/item/crooked_beak_fossil.json
 fd6d8d41d1232633e4272ebd13da1d2632c057f5 assets/unusual_prehistory/models/item/cycad_fossil.json
 5cfae1e04bc54dd6846c41fbda00fffad2162c1c assets/unusual_prehistory/models/item/cycad_seedling.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/delitzschala_spawn_egg.json
 12024720f11a1469553e274f206f3ee831c3678f assets/unusual_prehistory/models/item/desmatosuchus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/desmatosuchus_spawn_egg.json
 8057e8660cc405af1b06d4e51f9d11c59f5a50bb assets/unusual_prehistory/models/item/dimorphodon_egg.json
@@ -118,6 +119,7 @@ a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/m
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
 258da8d1d8983d5ce5d47e66d72d814cb884e13a assets/unusual_prehistory/models/item/pachycephalosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/pachycephalosaurus_spawn_egg.json
+3c7ee31fb0641da1c54858a6392d61ae566628e4 assets/unusual_prehistory/models/item/paleopedia.json
 5a048f0675051e3ef750ccce8b0f4d9182a544d8 assets/unusual_prehistory/models/item/paleozoic_fossil.json
 1ad3314b14e47b06eb5011a9185282bc107ab749 assets/unusual_prehistory/models/item/petrified_luca.json
 a7ac1f6d8dd1be8a153c663f5d18e96973f68a83 assets/unusual_prehistory/models/item/plant_fossil.json
@@ -163,3 +165,4 @@ cd207ccf136b9777d88059086bf9ae115b24df97 assets/unusual_prehistory/models/item/u
 d0f63b7653ddbd9374023e429cac3518c9a5e99c assets/unusual_prehistory/models/item/unknown_fossil.json
 47c95f585a9c2e315356feab91694204d7948f97 assets/unusual_prehistory/models/item/unusual_prehistory.json
 45afe2413e80b1caccb95c95ea8dd713eb2b6feb assets/unusual_prehistory/models/item/wing_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/zhangsolva_spawn_egg.json

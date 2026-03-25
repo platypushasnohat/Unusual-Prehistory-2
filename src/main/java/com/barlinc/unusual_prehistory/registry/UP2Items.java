@@ -179,10 +179,12 @@ public class UP2Items {
     public static final RegistryObject<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new PaleopediaItem(new Item.Properties().stacksTo(1)));
 
     // Update 5
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
+    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
+    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
 
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
 
