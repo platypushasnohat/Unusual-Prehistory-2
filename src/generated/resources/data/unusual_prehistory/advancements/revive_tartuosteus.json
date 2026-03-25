@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:paleozoic_root",
+  "parent": "unusual_prehistory:revive_stethacanthus",
   "criteria": {
     "revive_tartuosteus": {
       "conditions": {

@@ -1,6 +1,12 @@
-## Version 1.3.2
+## Version 1.4.0
+- Added Desmatosuchus
 - Added a carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
+- Fixed guangdedendron model not being transparent sometimes
+- Fixed potted metasequoia model
+- Fixed random sit goal
+- Praepusa now sleeps on the surface of water at night
+- Misc tweaks
 
 ## Version 1.3.1
 - Fixed semiaquatic mobs getting stuck in water

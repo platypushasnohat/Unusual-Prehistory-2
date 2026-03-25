@@ -29,6 +29,20 @@
       },
       "trigger": "minecraft:summoned_entity"
     },
+    "desmatosuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:desmatosuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
     "diplocaulus": {
       "conditions": {
         "entity": [
@@ -346,6 +360,9 @@
     ],
     [
       "carnotaurus"
+    ],
+    [
+      "desmatosuchus"
     ],
     [
       "diplocaulus"

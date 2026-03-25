@@ -9,6 +9,7 @@
     "LivingEntityMixin",
     "MobMixin",
     "PoseMixin",
+    "SnowballMixin",
     "StructureTemplateAccessor",
     "SweetBerryBushBlockMixin"
   ],

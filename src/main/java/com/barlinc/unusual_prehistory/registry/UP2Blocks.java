@@ -170,8 +170,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> CYCAD_SEEDLING = registerBlock("cycad_seedling", () -> new CycadSeedlingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY).noOcclusion().ignitedByLava()));
     public static final RegistryObject<Block> CYCAD_STEM = registerBlock("cycad_stem", () -> new CycadStemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava()));
     public static final RegistryObject<Block> CYCAD_CROWN = registerBlock("cycad_crown", () -> new CycadCrownBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).noOcclusion().ignitedByLava()));
-    public static final RegistryObject<Block> GUANGDEDENDRON_SPORE = registerBlockWithoutItem("guangdedendron_spore", () -> new GuangdedendronSporeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> GUANGDEDENDRON = registerBlock("guangdedendron", () -> new GuangdedendronStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).forceSolidOn().randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape().ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never)));
+    public static final RegistryObject<Block> GUANGDEDENDRON_SPORE = registerBlockWithoutItem("guangdedendron_spore", () -> new GuangdedendronSporeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> GUANGDEDENDRON = registerBlock("guangdedendron", () -> new GuangdedendronStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape().ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(UP2BlockProperties::never)));
     public static final RegistryObject<Block> NEOMARIOPTERIS = registerBlock("neomariopteris", () -> new PrehistoricPlantBlock(UP2BlockProperties.PLANT));
     public static final RegistryObject<Block> POTTED_NEOMARIOPTERIS = registerBlockWithoutItem("potted_neomariopteris", () -> new FlowerPotBlock(UP2Blocks.NEOMARIOPTERIS.get(), registerFlowerPot()));
     public static final RegistryObject<Block> PROTOTAXITES = registerBlock("prototaxites", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sound(SoundType.CORAL_BLOCK).ignitedByLava()));
@@ -253,10 +253,12 @@ public class UP2Blocks {
     public static final RegistryObject<Block> MAGENTA_REINFORCED_GLASS = registerBlock("magenta_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> PINK_REINFORCED_GLASS = registerBlock("pink_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_PINK)));
 
+    // Update 5
+    public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
+
     // Future
     public static final RegistryObject<Block> AEGIROCASSIS_EGGS = registerEggBlock("aegirocassis_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.AEGIROCASSIS::get, 1));
     public static final RegistryObject<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));
-    public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
     public static final RegistryObject<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new RotatableEggBlock(UP2BlockProperties.SQUISHY_EGG, UP2Entities.MANIPULATOR::get, 10, 6, false));
     public static final RegistryObject<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16, false));
 

@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.Metriorh
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.TartuosteusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_finned_fish.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.DesmatosuchusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2BoatRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2ChestBoatRenderer;
@@ -62,10 +63,11 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.GOLDEN_GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.EEPY.get(), EepyParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OozeBubbleParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), TarBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), TarBubbleParticle.TarBubbleFactory::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_HEART.get(), GrowingHeartParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SNOWFLAKE.get(), SnowflakeParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.IMPACT_STUN.get(), ImpactStunParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.POPPING_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
     }
 
     @SubscribeEvent

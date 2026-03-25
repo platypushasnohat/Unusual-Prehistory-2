@@ -11,6 +11,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -122,6 +123,19 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
+        );
+
+        this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
+                Items.SPIDER_EYE,
+                Items.EGG,
+                Items.CARROT,
+                Items.POTATO,
+                Items.BAKED_POTATO,
+                Items.BEETROOT,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Blocks.BROWN_MUSHROOM.asItem(),
+                Blocks.RED_MUSHROOM.asItem()
         );
 
         this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
@@ -307,6 +321,23 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
+
+        // Update 5
+        this.tag(UP2ItemTags.SNOW).add(
+                Items.SNOWBALL,
+                Blocks.SNOW.asItem(),
+                Blocks.SNOW_BLOCK.asItem()
+        );
+
+        this.tag(UP2ItemTags.MOSS).add(
+                UP2Blocks.MOSS_LAYER.get().asItem(),
+                Blocks.MOSS_BLOCK.asItem(),
+                Blocks.MOSS_CARPET.asItem()
+        );
+
+        this.tag(UP2ItemTags.MUD).add(
+                Blocks.MUD.asItem()
+        );
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);

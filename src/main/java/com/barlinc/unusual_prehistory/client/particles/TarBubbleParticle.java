@@ -47,10 +47,10 @@ public class TarBubbleParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
+    public static class TarBubbleFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 
-        public Provider(SpriteSet sprites) {
+        public TarBubbleFactory(SpriteSet sprites) {
             this.sprites = sprites;
         }
 

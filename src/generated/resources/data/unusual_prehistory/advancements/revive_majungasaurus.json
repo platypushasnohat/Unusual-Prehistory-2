@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cretaceous_root",
+  "parent": "unusual_prehistory:revive_kaprosuchus",
   "criteria": {
     "revive_majungasaurus": {
       "conditions": {

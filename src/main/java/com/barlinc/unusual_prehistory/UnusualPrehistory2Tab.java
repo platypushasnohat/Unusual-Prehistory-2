@@ -20,9 +20,11 @@ public class UnusualPrehistory2Tab {
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, output) -> {
 
+                        // Prehistoric
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
+                        output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
@@ -33,7 +35,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
-                        output.accept(LIVING_OOZE_SPAWN_EGG.get());
                         output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
                         output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
@@ -48,6 +49,11 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARTUOSTEUS_SPAWN_EGG.get());
                         output.accept(TELECREX_SPAWN_EGG.get());
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
+
+                        // Ambient
+
+                        // Misc
+                        output.accept(LIVING_OOZE_SPAWN_EGG.get());
 
                         output.accept(ORGANIC_OOZE.get());
                         output.accept(LIVING_OOZE_BUCKET.get());
@@ -129,6 +135,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
+                        output.accept(FLAT_BACK_FOSSIL.get()); // desmatosuchus
                         output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
                         output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
@@ -156,6 +163,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
+                        output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());

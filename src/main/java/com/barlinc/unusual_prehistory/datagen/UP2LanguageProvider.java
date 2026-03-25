@@ -96,6 +96,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");
 
+        this.addItem(UP2Items.UNKNOWN_FOSSIL, "??? Fossil");
+        this.addItem(UP2Items.UNKNOWN_EGG, "??? Egg");
+
         this.addItem(UP2Items.DIRT_ON_A_STICK, "Dirt on a Stick");
 
         this.addItem(UP2Items.DRYOPHYLLUM_CHEST_BOAT, "Dryophyllum Boat with Chest");

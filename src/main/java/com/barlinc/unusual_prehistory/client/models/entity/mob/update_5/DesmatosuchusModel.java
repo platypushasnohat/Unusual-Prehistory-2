@@ -1,13 +1,17 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.DesmatosuchusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.DesmatosuchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.future.Desmatosuchus;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
 
 	private final ModelPart root;
@@ -141,7 +145,8 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
         this.animateSmooth(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks);
         this.animateSmooth(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, DesmatosuchusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.sitAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
 
         if (this.young) this.applyStatic(DesmatosuchusAnimations.BABY_TRANSFORM);
 

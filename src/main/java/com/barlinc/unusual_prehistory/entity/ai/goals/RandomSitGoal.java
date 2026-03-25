@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 public class RandomSitGoal extends Goal {
 
     protected final PrehistoricMob prehistoricMob;
+    protected int timer;
 
     public RandomSitGoal(PrehistoricMob prehistoricMob) {
         this.prehistoricMob = prehistoricMob;
@@ -13,24 +14,44 @@ public class RandomSitGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (prehistoricMob.getLastHurtByMob() != null) return false;
-        else if (prehistoricMob.getTarget() != null) return false;
-        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.hasControllingPassenger() && !prehistoricMob.isBaby() && !prehistoricMob.isEepy() && !prehistoricMob.isInWaterRainOrBubble() && prehistoricMob.getSitCooldown() <= 0 && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        return prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWaterOrBubble() && !prehistoricMob.isInLava() && prehistoricMob.getSitCooldown() == 0 && !prehistoricMob.isEepy() && !prehistoricMob.isBaby() && !prehistoricMob.isFollowingOwner();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return !prehistoricMob.isOrderedToSit() && !prehistoricMob.isInWaterRainOrBubble() && !prehistoricMob.isLeashed() && prehistoricMob.onGround();
+        if (prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner() || prehistoricMob.isLeashed()) {
+            this.stop();
+            return false;
+        }
+        else return prehistoricMob.getSittingTicks() > 0;
     }
 
     @Override
     public void start() {
-        if (prehistoricMob.isSitting()) {
-            this.prehistoricMob.setSitCooldown(6000 + prehistoricMob.getRandom().nextInt(3000));
-            this.prehistoricMob.setSitting(false);
-        } else {
-            this.prehistoricMob.setSitCooldown(1200 + prehistoricMob.getRandom().nextInt(2000));;
-            this.prehistoricMob.setSitting(true);
+        this.timer = 0;
+        this.prehistoricMob.xxa = 0.0F;
+        this.prehistoricMob.yya = 0.0F;
+        this.prehistoricMob.zza = 0.0F;
+        this.prehistoricMob.getNavigation().stop();
+        if (prehistoricMob.getSittingTicks() == 0) {
+            this.prehistoricMob.setSittingTicks(1200 + prehistoricMob.getRandom().nextInt(1200));
+        }
+        this.prehistoricMob.setSitting(true);
+    }
+
+    @Override
+    public void stop() {
+        this.prehistoricMob.setSittingTicks(0);
+        this.prehistoricMob.setSitCooldown(3000 + prehistoricMob.getRandom().nextInt(3000));
+        this.prehistoricMob.setSitting(false);
+    }
+
+    @Override
+    public void tick() {
+        this.timer++;
+        this.prehistoricMob.getNavigation().stop();
+        if (prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner() || prehistoricMob.isLeashed()) {
+            this.stop();
         }
     }
 }

@@ -13,12 +13,12 @@ public class SleepingGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return prehistoricMob.isEepyTime() && prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWaterOrBubble() && !prehistoricMob.isInLava() && prehistoricMob.getEepyCooldown() == 0 && !prehistoricMob.isSitting() && !prehistoricMob.isBaby() && !prehistoricMob.isFollowingOwner();
+		return prehistoricMob.isEepyTime() && prehistoricMob.getLastHurtByMob() == null && prehistoricMob.getTarget() == null && !prehistoricMob.isInWaterOrBubble() && !prehistoricMob.isInLava() && prehistoricMob.getEepyCooldown() == 0 && !prehistoricMob.isSitting() && !prehistoricMob.isBaby() && !prehistoricMob.isFollowingOwner() && !prehistoricMob.isLeashed();
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner()) {
+		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || !super.canContinueToUse() || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner() || prehistoricMob.isLeashed()) {
 			this.stop();
 			return false;
 		}
@@ -36,9 +36,8 @@ public class SleepingGoal extends Goal {
 
     @Override
 	public void tick() {
-		super.tick();
 		this.prehistoricMob.getNavigation().stop();
-		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner()) {
+		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null || prehistoricMob.isInWaterOrBubble() || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner() || prehistoricMob.isLeashed()) {
 			this.stop();
 		}
 	}

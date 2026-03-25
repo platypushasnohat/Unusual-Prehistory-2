@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;

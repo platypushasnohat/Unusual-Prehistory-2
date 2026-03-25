@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:revive_praepusa",
   "criteria": {
     "revive_telecrex": {
       "conditions": {

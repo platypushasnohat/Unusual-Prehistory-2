@@ -59,12 +59,11 @@ public class UP2BlockTags {
     public static final TagKey<Block> ULUGHBEGSAURUS_SPAWNABLE_ON = modBlockTag("spawnable_blocks/ulughbegsaurus_spawnable_on");
     public static final TagKey<Block> UNICORN_SPAWNABLE_ON = modBlockTag("spawnable_blocks/unicorn_spawnable_on");
 
-    public static final TagKey<Block> DESMATOSUCHUS_PREFERRED_WALKING_BLOCKS = modBlockTag("desmatosuchus_preferred_walking_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_BURROWING_BLOCKS = modBlockTag("desmatosuchus_burrowing_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_ROLLING_BLOCKS = modBlockTag("desmatosuchus_rolling_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_MOSSY_BLOCKS = modBlockTag("desmatosuchus_mossy_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_MUDDY_BLOCKS = modBlockTag("desmatosuchus_muddy_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_SNOWY_BLOCKS = modBlockTag("desmatosuchus_snowy_blocks");
-
 
     public static final TagKey<Block> DIPLOCAULUS_PREFERRED_WALKING_BLOCKS = modBlockTag("diplocaulus_preferred_walking_blocks");
     public static final TagKey<Block> DIPLOCAULUS_SLIDING_BLOCKS = modBlockTag("diplocaulus_sliding_blocks");

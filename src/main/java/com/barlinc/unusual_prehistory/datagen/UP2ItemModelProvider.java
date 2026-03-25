@@ -45,6 +45,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PETRIFIED_LUCA);
         this.item(LUCA);
 
+        this.item(UNKNOWN_FOSSIL);
+        this.item(UNKNOWN_EGG);
+
         this.handheldRodItem(DIRT_ON_A_STICK);
 
         this.item(UP2Blocks.CYCAD_SEEDLING);

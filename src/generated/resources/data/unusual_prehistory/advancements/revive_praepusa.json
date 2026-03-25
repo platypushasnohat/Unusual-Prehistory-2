@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:revive_megalania",
   "criteria": {
     "revive_praepusa": {
       "conditions": {
