@@ -1,0 +1,19 @@
+{
+  "name": "block.unusual_prehistory.transmogrifier",
+  "icon": "unusual_prehistory:transmogrifier",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:transmogrifier",
+      "title": "block.unusual_prehistory.transmogrifier",
+      "text": "Transmogrifier..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:transmogrifier",
+      "title": "unusual_prehistory.patchouli.entry.recipe_title"
+    }
+  ]
+}

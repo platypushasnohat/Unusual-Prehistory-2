@@ -1,0 +1,8 @@
+{
+  "name": "Petrified Tree",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_plant.png",
+  "category": "unusual_prehistory:features/world",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+  ]
+}

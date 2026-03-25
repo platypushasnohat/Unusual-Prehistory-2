@@ -1,0 +1,8 @@
+{
+  "name": "Holocene Artifacts",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_holocene.png",
+  "category": "unusual_prehistory:features/world",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+  ]
+}

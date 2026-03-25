@@ -1,0 +1,19 @@
+{
+  "name": "item.unusual_prehistory.organic_ooze",
+  "icon": "unusual_prehistory:organic_ooze",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:organic_ooze",
+      "title": "item.unusual_prehistory.organic_ooze",
+      "text": "Organic Ooze..."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:organic_ooze",
+      "title": "unusual_prehistory.patchouli.entry.recipe_title"
+    }
+  ]
+}

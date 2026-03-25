@@ -1,0 +1,14 @@
+{
+  "name": "Pacification",
+  "icon": "minecraft:enchanted_golden_apple",
+  "category": "unusual_prehistory:features/miscellaneous",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "tag:unusual_prehistory:permanently_pacifies_mob",
+      "title": "Pacification",
+      "text": "Greedy"
+    }
+  ]
+}

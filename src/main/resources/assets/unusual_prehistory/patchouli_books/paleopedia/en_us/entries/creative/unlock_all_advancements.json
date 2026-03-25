@@ -1,0 +1,13 @@
+{
+  "name": "Unlock All Entries",
+  "icon": "minecraft:command_block",
+  "category": "unusual_prehistory:creative",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "unusual_prehistory:text",
+      "title": "Unlock All Entries",
+      "text": "$(c:/advancement grant @s from unusual_prehistory:root)Click Here$(/c) to unlock all advancements from the mod. Doing so will unlock all entries within this book. $(br2)$(c:/advancement revoke @s from unusual_prehistory:root)Click Here$(/c) to revoke all advancements from the mod."
+    }
+  ]
+}

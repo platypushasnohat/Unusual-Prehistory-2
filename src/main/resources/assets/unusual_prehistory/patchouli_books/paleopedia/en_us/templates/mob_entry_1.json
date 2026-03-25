@@ -31,7 +31,7 @@
     },
     {
       "type": "patchouli:tooltip",
-      "tooltip": ["#display_name# §7§o#variant_key#", "§7#image_tooltip#"],
+      "tooltip": ["#display_name# §e§o#variant_key#", "§7#image_tooltip#"],
       "width": 85,
       "height": 85,
       "x": 1,
