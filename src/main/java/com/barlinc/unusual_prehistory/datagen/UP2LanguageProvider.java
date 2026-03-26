@@ -40,58 +40,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         // items
         UP2Items.ITEM_TRANSLATIONS.forEach(this::forItem);
 
-        // entities
-        this.forEntity(UP2Entities.AEGIROCASSIS);
-        this.forEntity(UP2Entities.BARINASUCHUS);
-        this.forEntity(UP2Entities.BRACHIOSAURUS);
-        this.forEntity(UP2Entities.CARNOTAURUS);
-        this.forEntity(UP2Entities.COELACANTHUS);
-        this.forEntity(UP2Entities.DESMATOSUCHUS);
-        this.forEntity(UP2Entities.DIMORPHODON);
-        this.forEntity(UP2Entities.DIPLOCAULUS);
-        this.forEntity(UP2Entities.DROMAEOSAURUS);
-        this.forEntity(UP2Entities.DUNKLEOSTEUS);
-        this.forEntity(UP2Entities.HIBBERTOPTERUS);
-        this.forEntity(UP2Entities.JAWLESS_FISH);
-        this.forEntity(UP2Entities.KAPROSUCHUS);
-        this.forEntity(UP2Entities.KENTROSAURUS);
-        this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM);
-        this.forEntity(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH);
-        this.forEntity(UP2Entities.LEPTICTIDIUM);
-        this.forEntity(UP2Entities.LOBE_FINNED_FISH);
-        this.forEntity(UP2Entities.LYSTROSAURUS);
-        this.forEntity(UP2Entities.MAJUNGASAURUS);
-        this.forEntity(UP2Entities.MANIPULATOR);
-        this.forEntity(UP2Entities.MEGALANIA);
-        this.forEntity(UP2Entities.METRIORHYNCHUS);
-        this.forEntity(UP2Entities.ONCHOPRISTIS);
-        this.forEntity(UP2Entities.PACHYCEPHALOSAURUS);
-        this.forEntity(UP2Entities.PRAEPUSA);
-        this.forEntity(UP2Entities.PSILOPTERUS);
-        this.forEntity(UP2Entities.PTERODACTYLUS);
-        this.forEntity(UP2Entities.STETHACANTHUS);
-        this.forEntity(UP2Entities.TALPANAS);
-        this.forEntity(UP2Entities.TARTUOSTEUS);
-        this.forEntity(UP2Entities.TELECREX);
-        this.forEntity(UP2Entities.THERIZINOSAURUS);
-        this.forEntity(UP2Entities.ULUGHBEGSAURUS);
-        this.forEntity(UP2Entities.UNICORN);
+        // Entities
+        UP2Entities.ENTITY_TRANSLATIONS.forEach(this::forEntity);
 
-        this.forEntity(UP2Entities.DIMORPHODON_EGG);
-        this.forEntity(UP2Entities.DROMAEOSAURUS_EGG);
-        this.forEntity(UP2Entities.PSILOPTERUS_EGG);
-        this.forEntity(UP2Entities.PTERODACTYLUS_EGG);
-        this.forEntity(UP2Entities.TALPANAS_EGG);
-        this.forEntity(UP2Entities.TELECREX_EGG);
-
-        this.forEntity(UP2Entities.LIVING_OOZE);
-
-        this.forEntity(UP2Entities.BOAT);
         this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
-
-        // Ambient
-        this.forEntity(UP2Entities.DELITZSCHALA);
-        this.forEntity(UP2Entities.ZHANGSOLVA);
 
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");

@@ -25,8 +25,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UP2Entities {
+
+    public static List<RegistryObject<? extends EntityType<?>>> ENTITY_TRANSLATIONS = new ArrayList<>();
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, UnusualPrehistory2.MOD_ID);
 
@@ -51,7 +56,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<ThrowableEgg>> TELECREX_EGG = registerEntity("telecrex_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC, 0.25F, 0.25F);
 
     public static final RegistryObject<EntityType<UP2Boat>> BOAT = registerEntity("boat", UP2Boat::new, MobCategory.MISC, 1.375F, 0.5625F);
-    public static final RegistryObject<EntityType<UP2ChestBoat>> CHEST_BOAT = registerEntity("chest_boat", UP2ChestBoat::new, MobCategory.MISC, 1.375F, 0.5625F);
+    public static final RegistryObject<EntityType<UP2ChestBoat>> CHEST_BOAT = registerEntityNoLang("chest_boat", UP2ChestBoat::new, MobCategory.MISC, 1.375F, 0.5625F);
 
     // Update 2
     public static final RegistryObject<EntityType<Onchopristis>> ONCHOPRISTIS = registerLivingEntity("onchopristis", Onchopristis::new, MobCategory.WATER_CREATURE, 1.2F, 0.5F);
@@ -98,10 +103,22 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, 0.25F, 0.25F);
 
     private static <E extends LivingEntity> RegistryObject<EntityType<E>> registerLivingEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, float width, float height) {
-        return ENTITY_TYPE.register(name, () -> registerLivingEntity(factory, entityClassification, name, width, height));
+        RegistryObject<EntityType<E>> entity = ENTITY_TYPE.register(name, () -> registerLivingEntity(factory, entityClassification, name, width, height));
+        ENTITY_TRANSLATIONS.add(entity);
+        return entity;
     }
 
     private static <E extends Entity> RegistryObject<EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, float width, float height) {
+        RegistryObject<EntityType<E>> entity = ENTITY_TYPE.register(name, () -> registerEntity(factory, entityClassification, name, width, height));
+        ENTITY_TRANSLATIONS.add(entity);
+        return entity;
+    }
+
+    private static <E extends LivingEntity> RegistryObject<EntityType<E>> registerLivingEntityNoLang(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, float width, float height) {
+        return ENTITY_TYPE.register(name, () -> registerLivingEntity(factory, entityClassification, name, width, height));
+    }
+
+    private static <E extends Entity> RegistryObject<EntityType<E>> registerEntityNoLang(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, float width, float height) {
         return ENTITY_TYPE.register(name, () -> registerEntity(factory, entityClassification, name, width, height));
     }
 
