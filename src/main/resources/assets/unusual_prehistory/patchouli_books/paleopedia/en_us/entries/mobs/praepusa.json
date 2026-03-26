@@ -32,8 +32,8 @@
       "clone.clone_tooltip_heading": "Embryo",  
       "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
 
-      "activity.activity_type": "sleepless",
-      "activity.activity_tooltip": "Does not sleep",
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:praepusa_food",
       "feature_1.tooltip": "Upon ingesting live or raw fish, the miracle of life ensues",
@@ -49,8 +49,6 @@
       "feature_3.tooltip": "Capable of withstanding great heights, these seals bounce harmlessly when dropped from any height",
       "feature_3.title_one_line": "Boioioioioing",
       "feature_3.title_two_line": ""
-
-
     }
   ]
 }

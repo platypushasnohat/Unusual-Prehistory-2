@@ -1,0 +1,30 @@
+{
+  "parent": "unusual_prehistory:root",
+  "criteria": {
+    "open_book_creative": {
+      "conditions": {},
+      "trigger": "unusual_prehistory:open_book_creative_mode"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.unusual_prehistory.open_book_creative.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "unusual_prehistory:creative_lock"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.unusual_prehistory.open_book_creative"
+    }
+  },
+  "requirements": [
+    [
+      "open_book_creative"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

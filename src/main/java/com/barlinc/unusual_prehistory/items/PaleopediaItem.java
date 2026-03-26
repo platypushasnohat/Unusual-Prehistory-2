@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.items;
 
+import com.barlinc.unusual_prehistory.registry.UP2Criterion;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -40,6 +41,9 @@ public class PaleopediaItem extends Item {
         if (player instanceof ServerPlayer serverPlayer) {
             PatchouliAPI.get().openBookGUI(serverPlayer, BuiltInRegistries.ITEM.getKey(this));
             player.playSound(SoundEvents.BOOK_PAGE_TURN, 1F, 0.9F + level.getRandom ().nextFloat() * 0.25F);
+            if (serverPlayer.isCreative()) {
+                UP2Criterion.OPEN_BOOK_CREATIVE_MODE.trigger(serverPlayer);
+            }
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }

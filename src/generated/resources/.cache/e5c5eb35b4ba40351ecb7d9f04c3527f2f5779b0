@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-25T16:22:23.3061745	Advancements
+// 1.20.1	2026-03-25T17:57:03.2442787	Advancements
 321a8495d93c96938ec74c6c1e9652daa87a2f7d data/unusual_prehistory/advancements/breed_holocene_mobs.json
 9bc8c7f7fa2bdc9ac39a167052c69f535c7f25d8 data/unusual_prehistory/advancements/carboniferous_root.json
 38caa81b8568618c113ec64d2a5a9bfc3d69146c data/unusual_prehistory/advancements/cenozoic_root.json
@@ -14,6 +14,7 @@ eb777922acbe63c1367526d13274ad27a9bc7110 data/unusual_prehistory/advancements/ob
 4d221363a1d9d10a6c18b3398b0152a6aee9e606 data/unusual_prehistory/advancements/obtain_machine_parts.json
 5a609f7f09a5970a243b07fd5d18f739f4a40645 data/unusual_prehistory/advancements/obtain_organic_ooze.json
 019176541350c0032c7f3485c1793fd7d0325b88 data/unusual_prehistory/advancements/obtain_transmogrifier.json
+ac054c0c9f458c0240778c83d7a16f710284b30d data/unusual_prehistory/advancements/open_book_creative.json
 b8c7532f390aaa795502f55a4e8834f6c22ea7a9 data/unusual_prehistory/advancements/ordovician_root.json
 17043de86c2e4b17a02efff26b37360059f07507 data/unusual_prehistory/advancements/pacify_mob.json
 98955e1f1846356a0bc604e48f8faaf6426148da data/unusual_prehistory/advancements/paleogene_root.json

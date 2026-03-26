@@ -104,6 +104,10 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .rewards(AdvancementRewards.Builder.experience(50))
                 .save(consumer, UnusualPrehistory2.modPrefix("pacify_mob"), helper);
 
+        createAdvancement("open_book_creative", root, UP2Items.CREATIVE_LOCK.get(), FrameType.TASK, false, false, true)
+                .addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
+                .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
+
         this.addMobList(REVIVABLE_MOBS, Advancement.Builder.advancement().parent(root).display(Items.BRUSH, Component.translatable("advancement.unusual_prehistory.revive_all_mobs"), Component.translatable("advancement.unusual_prehistory.revive_all_mobs.desc"), null, FrameType.CHALLENGE, true, true, true)
                         .requirements(RequirementsStrategy.AND))
                 .rewards(AdvancementRewards.Builder.experience(100))

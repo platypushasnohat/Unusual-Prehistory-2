@@ -53,6 +53,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(HOLOCENE_FOSSIL);
         this.item(MESOZOIC_FOSSIL);
         this.item(PALEOZOIC_FOSSIL);
+        this.item(CREATIVE_LOCK);
 
         this.item(PALEOPEDIA);
 

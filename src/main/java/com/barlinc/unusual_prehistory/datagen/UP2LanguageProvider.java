@@ -339,6 +339,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("breed_holocene_mobs", "Repopulation!", "Breed a pair of Holocene animals");
         this.translateAdvancement("revive_all_mobs", "Unusual Prehistorian", "Revive all known prehistoric creatures");
 
+        this.translateAdvancement("open_book_creative", "Entry Unlocker", "Used to allow entry unlocking in the Paleopedia");
+
         // Revival Advancements
         this.translateAdvancement("paleozoic_root", "Paleozoic Era", "Paleozoic era creatures");
         this.translateAdvancement("ordovician_root", "Ordovician Period", "Ordovician period creatures");

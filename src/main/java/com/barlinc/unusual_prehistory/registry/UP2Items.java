@@ -195,6 +195,7 @@ public class UP2Items {
     public static final RegistryObject<Item> HOLOCENE_FOSSIL = registerItem("holocene_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MESOZOIC_FOSSIL = registerItem("mesozoic_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CREATIVE_LOCK = registerItem("creative_lock", () -> new Item(new Item.Properties()));
 
     // Future
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
