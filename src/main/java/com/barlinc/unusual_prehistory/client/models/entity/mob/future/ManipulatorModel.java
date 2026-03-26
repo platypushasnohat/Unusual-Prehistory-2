@@ -229,15 +229,15 @@ public class ManipulatorModel extends UP2Model<Manipulator> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
         if (entity.isRunning()) {
-            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.RUN_ARMED : ManipulatorAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 1.5F);
         } else {
-            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            this.animateWalk(entity.isHoldingItem() ? ManipulatorAttackAnimations.WALK_ARMED : ManipulatorAnimations.WALK, limbSwing, limbSwingAmount, 2, 2);
         }
 
         this.animateIdleSmooth(entity.idleAnimationState, ManipulatorAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.idleArmedAnimationState, ManipulatorAttackAnimations.IDLE_ARMED, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks);
+        this.animateIdleSmooth(entity.sitAnimationState, ManipulatorAnimations.SIT, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.sitArmedAnimationState, ManipulatorAttackAnimations.SIT_ARMED, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.danceAnimationState, ManipulatorAnimations.DANCE, ageInTicks);
         this.animateSmooth(entity.attackAnimationState, ManipulatorAttackAnimations.ATTACK_UNARMED_BLEND, ageInTicks);
         this.animateSmooth(entity.attackArmedAnimationState, ManipulatorAttackAnimations.ATTACK_ARMED_BLEND, ageInTicks);

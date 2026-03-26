@@ -44,8 +44,12 @@ public class WaterSleepingGoal extends Goal {
     @Override
 	public void tick() {
 		this.prehistoricMob.getNavigation().stop();
-        if (prehistoricMob.getFluidHeight(FluidTags.WATER) > prehistoricMob.getFluidJumpThreshold() && shouldFloat) {
-            this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(0.0D, 0.0034D, 0.0D));
+        if (shouldFloat) {
+            if (prehistoricMob.getFluidHeight(FluidTags.WATER) > prehistoricMob.getFluidJumpThreshold()) {
+                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+            } else {
+                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D));
+            }
         }
 		if (!prehistoricMob.isEepyTime() || prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null || prehistoricMob.isInLava() || prehistoricMob.isFollowingOwner() || prehistoricMob.isLeashed()) {
 			this.stop();

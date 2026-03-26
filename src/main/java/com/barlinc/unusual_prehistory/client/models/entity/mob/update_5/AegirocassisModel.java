@@ -243,9 +243,9 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
 
         if ((entity.isInWaterOrBubble() || entity.isLeaping()) && !entity.isTryingToFly()) {
             if (entity.getIdleState() != 2) {
-                this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
+                this.animateWalk(AegirocassisAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 1.5F);
             }
-            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 2);
         }
         this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, limbSwingAmount);

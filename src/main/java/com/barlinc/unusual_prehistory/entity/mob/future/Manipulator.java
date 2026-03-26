@@ -1,5 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.future;
 
+ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.future.ManipulatorAttackGoal;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
@@ -29,9 +31,15 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.goal.FloatGoal;
+ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+ import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.entity.projectile.AbstractArrow;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.item.enchantment.EnchantmentHelper;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
@@ -62,7 +70,8 @@
 
      public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
      public final SmoothAnimationState idleArmedAnimationState = new SmoothAnimationState(1.0F);
-     public final SmoothAnimationState sitArmedAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(1.0F);
+     public final SmoothAnimationState sitArmedAnimationState = new SmoothAnimationState(1.0F);
      public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState attackArmedAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState blockAnimationState = new SmoothAnimationState();
@@ -77,27 +86,27 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 28.0D)
+                 .add(Attributes.MAX_HEALTH, 24.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.3F)
                  .add(Attributes.ATTACK_DAMAGE, 4.0D)
                  .add(Attributes.FOLLOW_RANGE, 20.0D);
      }
 
-//     @Override
-//     protected void registerGoals() {
-//         this.goalSelector.addGoal(0, new FloatGoal(this));
-//         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
-//         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-//         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
-//         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
-//         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
-//         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
-//         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-//         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-//         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-//         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
-//         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
-//     }
+     @Override
+     protected void registerGoals() {
+         this.goalSelector.addGoal(0, new FloatGoal(this));
+         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
+         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
+         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
+         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+     }
 
      @Override
      public @NotNull MobType getMobType() {
@@ -266,6 +275,33 @@
          return false;
      }
 
+     // todo: fix this
+     public boolean doHurtTargetOffhand(Entity entity) {
+         float f = this.getOffhandItem().getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE).size();
+         float f1 = this.getOffhandItem().getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_KNOCKBACK).size();
+         if (entity instanceof LivingEntity living) {
+             f += EnchantmentHelper.getDamageBonus(this.getOffhandItem(), living.getMobType());
+             f1 += (float) EnchantmentHelper.getKnockbackBonus(this);
+         }
+         int i = EnchantmentHelper.getFireAspect(this);
+         if (i > 0) {
+             entity.setSecondsOnFire(i * 4);
+         }
+         boolean flag = entity.hurt(this.damageSources().mobAttack(this), f);
+         if (flag) {
+             if (f1 > 0.0F && entity instanceof LivingEntity living) {
+                 living.knockback(f1 * 0.5F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+             }
+             if (entity instanceof Player player) {
+                 this.maybeDisableShield(player, this.getOffhandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+             }
+             this.doEnchantDamageEffects(this, entity);
+             this.setLastHurtMob(entity);
+         }
+         return flag;
+     }
+
      public void attackCooldown() {
          this.attackCooldown = 10 + this.getRandom().nextInt(10);
      }
@@ -292,7 +328,7 @@
      }
 
      private boolean canPlayIdle() {
-         return !this.isInSittingPose() && !this.isDancing();
+         return !this.isSitting() && !this.isDancing();
      }
 
      @Override
@@ -300,8 +336,8 @@
          this.idleAnimationState.animateWhen(!this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
          this.idleArmedAnimationState.animateWhen(this.isHoldingItem() && this.canPlayIdle(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);
-         this.sitAnimationState.animateWhen(this.isInSittingPose() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
-         this.sitArmedAnimationState.animateWhen(this.isInSittingPose() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isSitting() && !this.isHoldingItem() && !this.isDancing(), this.tickCount);
+         this.sitArmedAnimationState.animateWhen(this.isSitting() && this.isHoldingItem() && !this.isDancing(), this.tickCount);
          this.blockAnimationState.animateWhen(this.isShieldBlocking() && this.getAttackState() == 0, this.tickCount);
          this.attackAnimationState.animateWhen(!this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
          this.attackArmedAnimationState.animateWhen(this.isHoldingItem() && this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);

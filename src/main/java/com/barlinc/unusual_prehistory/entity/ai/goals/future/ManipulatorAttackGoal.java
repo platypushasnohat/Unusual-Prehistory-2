@@ -54,7 +54,7 @@ public class ManipulatorAttackGoal extends AttackGoal {
         if (timer == 17) {
             this.manipulator.playSound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH.get(), 0.8F, 1.0F + manipulator.getRandom().nextFloat() * 0.2F);
             if (this.isInAttackRange(target, 2.1D)) {
-                this.manipulator.doHurtTarget(target);
+                this.manipulator.doHurtTargetOffhand(target);
                 this.manipulator.swing(InteractionHand.OFF_HAND);
             }
         }

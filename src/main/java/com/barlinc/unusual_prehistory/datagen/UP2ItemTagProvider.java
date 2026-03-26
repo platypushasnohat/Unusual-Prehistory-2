@@ -283,6 +283,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.BONE
         );
 
+//        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
+//                Blocks.TORCHFLOWER.asItem()
+//        );
+
         this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
                 Items.ROTTEN_FLESH
         );

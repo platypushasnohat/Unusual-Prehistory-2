@@ -26,6 +26,12 @@ public class ManipulatorInventoryScreen extends AbstractContainerScreen<Manipula
         int i = (width - imageWidth) / 2;
         int j = (height - imageHeight) / 2;
         graphics.blit(GUI_TEXTURE, i, j, 0, 0, imageWidth, imageHeight);
+        if (!this.menu.getSlot(0).hasItem()) {
+            graphics.blit(GUI_TEXTURE, i + 7, j + 35 - 18, 0, imageHeight, 18, 18);
+        }
+        if (!this.menu.getSlot(1).hasItem()) {
+            graphics.blit(GUI_TEXTURE, i + 7, j + 35, 18, imageHeight, 18, 18);
+        }
         InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, i + 62, j + 60, 12, (float) (i + 51) - mousePosX, (float) (j + 75 - 50) - mousePosY, manipulator);
     }
 

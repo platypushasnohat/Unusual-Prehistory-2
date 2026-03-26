@@ -16,6 +16,7 @@
 - Coelacanthus will continue to eat mobs even if max size unless pacified
 - Added missing coelacanthus food tags
 - Many paleopedia fixes
+- Switched some raft eggs to water eggs
 - Misc tweaks
 
 ## Version 1.3.1
