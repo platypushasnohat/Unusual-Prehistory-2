@@ -15,6 +15,7 @@
 - Increased coelacanthus max size cap to 200
 - Coelacanthus will continue to eat mobs even if max size unless pacified
 - Added missing coelacanthus food tags
+- Many paleopedia fixes
 - Misc tweaks
 
 ## Version 1.3.1
