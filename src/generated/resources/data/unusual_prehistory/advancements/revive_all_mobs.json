@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:obtain_egg",
+  "parent": "unusual_prehistory:root",
   "criteria": {
     "brachiosaurus": {
       "conditions": {
@@ -23,6 +23,20 @@
             "entity": "this",
             "predicate": {
               "type": "unusual_prehistory:carnotaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    },
+    "desmatosuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:desmatosuchus"
             }
           }
         ]
@@ -346,6 +360,9 @@
     ],
     [
       "carnotaurus"
+    ],
+    [
+      "desmatosuchus"
     ],
     [
       "diplocaulus"

@@ -110,10 +110,10 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     public void tickFlopping() {
         if (!this.isInWaterOrBubble() && onLandProgress < 5F) {
-            onLandProgress++;
+            this.onLandProgress++;
         }
         if (this.isInWaterOrBubble() && onLandProgress > 0F) {
-            onLandProgress--;
+            this.onLandProgress--;
         }
 
         if (!this.isInWater() && this.onGround() && this.getRandom().nextFloat() < this.flopChance() && this.shouldFlop()) {

@@ -1,5 +1,8 @@
 {
   "values": [
-    "#unusual_prehistory:desmatosuchus_preferred_walking_blocks"
+    "#minecraft:snow",
+    "minecraft:mud",
+    "unusual_prehistory:mossy_dirt",
+    "minecraft:moss_block"
   ]
 }

@@ -70,6 +70,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> EEPY_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Integer> SITTING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     protected int eepyTicks;
 
@@ -80,12 +81,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     private float prevTailYaw;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState eepyStartAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.15F);
-    public final SmoothAnimationState eepyEndAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sitStartAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(0.25F);
-    public final SmoothAnimationState sitEndAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
 
@@ -366,10 +363,15 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.getEatCooldown() > 0 && this.canEat()) {
             this.setEatCooldown(this.getEatCooldown() - 1);
         }
-        if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble() && !this.isBaby()) {
+        if (this.getLastHurtByMob() == null && this.getTarget() == null && this.canSleepCooldown() && !this.isBaby()) {
             if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
-            if (!this.isEepy() && this.getSitCooldown() > 0) this.setSitCooldown(this.getSitCooldown() - 1);
+            if (!this.isEepy() && this.getSitCooldown() > 0 && !this.isSitting()) this.setSitCooldown(this.getSitCooldown() - 1);
         }
+        if (this.getSittingTicks() > 0) this.setSittingTicks(this.getSittingTicks() - 1);
+    }
+
+    public boolean canSleepCooldown() {
+        return !this.isInWaterOrBubble();
     }
 
     public boolean canEat() {
@@ -645,12 +647,13 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.entityData.define(IDLE_STATE, 0);
         this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
         this.entityData.define(FOREVER_BABY, false);
-        this.entityData.define(SIT_COOLDOWN, 6000 + random.nextInt(3000));
+        this.entityData.define(SIT_COOLDOWN, 3000 + random.nextInt(3000));
         this.entityData.define(EEPY_COOLDOWN, 100);
         this.entityData.define(COMMAND, 0);
         this.entityData.define(DANCING, false);
         this.entityData.define(EEPY, false);
         this.entityData.define(SITTING, false);
+        this.entityData.define(SITTING_TICKS, 0);
     }
 
     @Override
@@ -666,6 +669,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putInt("Command", this.getCommand());
         compoundTag.putBoolean("Eepy", this.isEepy());
         compoundTag.putBoolean("Sitting", this.isSitting());
+        compoundTag.putInt("SittingTicks", this.getSittingTicks());
     }
 
     @Override
@@ -681,6 +685,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setCommand(compoundTag.getInt("Command"));
         this.setEepy(compoundTag.getBoolean("Eepy"));
         this.setSitting(compoundTag.getBoolean("Sitting"));
+        this.setSittingTicks(compoundTag.getInt("SittingTicks"));
     }
 
     // Idle and attack states
@@ -794,6 +799,14 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public void setSitting(boolean sitting) {
         this.entityData.set(SITTING, sitting);
+    }
+
+    public int getSittingTicks() {
+        return this.entityData.get(SITTING_TICKS);
+    }
+
+    public void setSittingTicks(int ticks) {
+        this.entityData.set(SITTING_TICKS, ticks);
     }
 
     // Sleeping

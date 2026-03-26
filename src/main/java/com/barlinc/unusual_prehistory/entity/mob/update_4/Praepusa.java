@@ -2,9 +2,10 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -26,6 +27,7 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.sounds.SoundSource;
+ import net.minecraft.tags.FluidTags;
  import net.minecraft.util.RandomSource;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -35,10 +37,10 @@
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+ import net.minecraft.world.entity.ai.goal.FloatGoal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
- import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
@@ -95,20 +97,31 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
-         this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
-         this.goalSelector.addGoal(2, new PraepusaAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
-         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50));
-         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(7, new RandomSitGoal(this));
-         this.goalSelector.addGoal(8, new PraepusaSlapGoal(this));
-         this.goalSelector.addGoal(8, new PraepusaLoafGoal(this));
-         this.goalSelector.addGoal(8, new PraepusaApplauseGoal(this));
+//         this.goalSelector.addGoal(0, new FloatGoal(this) {
+//             @Override
+//             public boolean canUse() {
+//                 return super.canUse() && Praepusa.this.isEepy();
+//             }
+//
+//             @Override
+//             public boolean canContinueToUse() {
+//                 return super.canContinueToUse() && Praepusa.this.isEepy();
+//             }
+//         });
+         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.6D, 10, 4, true));
+         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
+         this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
+         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
+         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50));
+         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
+         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(8, new WaterSleepingGoal(this, true));
+         this.goalSelector.addGoal(9, new PraepusaSlapGoal(this));
+         this.goalSelector.addGoal(10, new PraepusaLoafGoal(this));
+         this.goalSelector.addGoal(10, new PraepusaApplauseGoal(this));
          this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, this::canHuntFish));
      }
 
@@ -116,11 +129,11 @@
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
-             this.lookControl = new SmoothSwimmingLookControl(this, 20);
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
@@ -141,6 +154,11 @@
          } else {
              super.travel(travelVec);
          }
+     }
+
+     @Override
+     public double getFluidJumpThreshold() {
+         return 0.25D * this.getBbHeight();
      }
 
      @Override
@@ -176,6 +194,11 @@
 
      public boolean canHuntFish(Entity entity) {
          return this.getMitosisCooldown() == 0 && entity.getType().is(UP2EntityTags.PRAEPUSA_TARGETS);
+     }
+
+     @Override
+     public boolean canSleepCooldown() {
+         return this.isInWaterOrBubble();
      }
 
      @Override
@@ -250,10 +273,10 @@
      @Override
      public void setupAnimationStates() {
          if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
-         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 3 && !this.isSitting(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 3 && !this.isEepy(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
          this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
-         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
+         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
          this.slap1AnimationState.animateWhen(this.getIdleState() == 1 && !slapAlt, this.tickCount);
          this.slap2AnimationState.animateWhen(this.getIdleState() == 1 && slapAlt, this.tickCount);
          this.loafAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);

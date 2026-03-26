@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "aged_feather": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:aged_feather"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "anvil_fossil": {
       "conditions": {
         "items": [
@@ -641,6 +653,7 @@
       "rugose_fossil",
       "thermal_fossil",
       "anvil_fossil",
+      "aged_feather",
       "plumage_fossil",
       "bennettitales_fossil",
       "calamophyton_fossil",
@@ -676,8 +689,8 @@
       "metasequoia_fossil",
       "dryophyllum_fossil",
       "bristle_fossil",
-      "brute_fossil",
       "flat_back_fossil",
+      "brute_fossil",
       "bill_fossil",
       "roach_fossil",
       "crooked_beak_fossil",

@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:triassic_root",
+  "parent": "unusual_prehistory:revive_desmatosuchus",
   "criteria": {
     "revive_lystrosaurus": {
       "conditions": {

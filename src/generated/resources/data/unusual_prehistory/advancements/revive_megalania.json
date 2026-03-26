@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cenozoic_root",
+  "parent": "unusual_prehistory:quaternary_root",
   "criteria": {
     "revive_megalania": {
       "conditions": {

@@ -60,13 +60,16 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation PTERODACTYLUS = mainLayer("pterodactylus");
     public static final ModelLayerLocation ULUGHBEGSAURUS = mainLayer("ulughbegsaurus");
 
-    // Future
+    // Update 5
     public static final ModelLayerLocation AEGIROCASSIS = mainLayer("aegirocassis");
     public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
+    public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
+    public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
+    public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
+
+    // Future
     public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
-    public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
-    public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
     public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
     public static final ModelLayerLocation ERYON = mainLayer("eryon");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
@@ -76,7 +79,6 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
     public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
     public static final ModelLayerLocation WONAMBI = mainLayer("wonambi");
-    public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
 
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);

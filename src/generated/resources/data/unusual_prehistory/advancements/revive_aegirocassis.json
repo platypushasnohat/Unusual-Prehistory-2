@@ -1,0 +1,40 @@
+{
+  "parent": "unusual_prehistory:ordovician_root",
+  "criteria": {
+    "revive_aegirocassis": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:aegirocassis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.unusual_prehistory.revive_aegirocassis.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "unusual_prehistory:aegirocassis_eggs"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.unusual_prehistory.revive_aegirocassis"
+    }
+  },
+  "requirements": [
+    [
+      "revive_aegirocassis"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

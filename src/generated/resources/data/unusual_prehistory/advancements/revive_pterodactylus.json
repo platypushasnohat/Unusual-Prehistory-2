@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:jurassic_root",
+  "parent": "unusual_prehistory:revive_metriorhynchus",
   "criteria": {
     "revive_pterodactylus": {
       "conditions": {

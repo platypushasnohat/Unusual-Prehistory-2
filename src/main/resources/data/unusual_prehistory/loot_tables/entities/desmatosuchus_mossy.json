@@ -1,0 +1,26 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:moss_block"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "unusual_prehistory:entities/desmatosuchus_mossy"
+}

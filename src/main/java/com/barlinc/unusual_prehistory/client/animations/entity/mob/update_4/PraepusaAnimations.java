@@ -16,6 +16,21 @@ public class PraepusaAnimations {
 			))
 			.build();
 
+    public static final AnimationDefinition SLEEP_BLEND = AnimationDefinition.Builder.withLength(0.0F).looping()
+            .addAnimation("right_eye", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.15F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("right_eye", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("left_eye", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.15F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("left_eye", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .build();
+
     public static final AnimationDefinition SLAP_BLEND1 = AnimationDefinition.Builder.withLength(2.0F)
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.SCALE,
                     new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),

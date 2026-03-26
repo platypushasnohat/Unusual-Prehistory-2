@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:jurassic_root",
+  "parent": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
   "criteria": {
     "revive_metriorhynchus": {
       "conditions": {

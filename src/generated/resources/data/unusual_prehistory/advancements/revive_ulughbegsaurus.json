@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cretaceous_root",
+  "parent": "unusual_prehistory:revive_pachycephalosaurus",
   "criteria": {
     "revive_ulughbegsaurus": {
       "conditions": {

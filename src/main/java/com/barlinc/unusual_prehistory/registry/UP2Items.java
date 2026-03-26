@@ -59,7 +59,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose"); // majungasaurus
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil"); // stethacanthus
-    public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
+    public static final RegistryObject<Item> AGED_FEATHER = registerHoloceneFossilItem("aged_feather"); // talpanas
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
     public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
@@ -179,20 +179,36 @@ public class UP2Items {
     public static final RegistryObject<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALEOPEDIA = registerItem("paleopedia", () -> new PaleopediaItem(new Item.Properties().stacksTo(1)));
+
+    // Update 5
+    public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
+    public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
+    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
+    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
+
+    public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
+    public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
+
+    public static final RegistryObject<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PLANT_FOSSIL = registerItem("plant_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CENOZOIC_FOSSIL = registerItem("cenozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> HOLOCENE_FOSSIL = registerItem("holocene_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MESOZOIC_FOSSIL = registerItem("mesozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CREATIVE_LOCK = registerItem("creative_lock", () -> new Item(new Item.Properties()));
 
     // Future
-    public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);
-    public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
     public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
     public static final RegistryObject<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
     public static final RegistryObject<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x141017, 0x514699);
 
-    public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
     public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute"); // barinasuchus
-    public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
     public static final RegistryObject<Item> BILL_FOSSIL = registerFossilItem("bill"); // dimorphodon
     public static final RegistryObject<Item> ROACH_FOSSIL = registerFossilItem("roach"); // manipulator
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
@@ -201,7 +217,6 @@ public class UP2Items {
     public static final RegistryObject<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
-    public static final RegistryObject<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new MobBucketItem(UP2Entities.AEGIROCASSIS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));
@@ -234,6 +249,12 @@ public class UP2Items {
 
     private static RegistryObject<Item> registerFossilItem(String name) {
         RegistryObject<Item> item = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        FOSSILS.add(item);
+        return item;
+    }
+
+    private static RegistryObject<Item> registerHoloceneFossilItem(String name) {
+        RegistryObject<Item> item = registerItem(name, () -> new Item(new Item.Properties()));
         FOSSILS.add(item);
         return item;
     }

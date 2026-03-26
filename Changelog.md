@@ -1,6 +1,22 @@
-## Version 1.3.2
-- Added a carnotaurus headbutt vocal sound
+## Version 1.4.0
+- Added Aegirocassis
+- Added Desmatosuchus
+- Added Delitzschala ambient mob
+- Added Zhangsolva ambient mob
+- Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
+- Fixed guangdedendron model not being transparent sometimes
+- Fixed potted metasequoia model
+- Fixed random sit goal
+- Praepusa now sleeps on the surface of water at night
+- Tweaked advancements
+- Patchouli is now a required dependency
+- Paleopedia is now a custom item instead of the normal patchouli book
+- Increased coelacanthus max size cap to 200
+- Coelacanthus will continue to eat mobs even if max size unless pacified
+- Added missing coelacanthus food tags
+- Many paleopedia fixes
+- Misc tweaks
 
 ## Version 1.3.1
 - Fixed semiaquatic mobs getting stuck in water

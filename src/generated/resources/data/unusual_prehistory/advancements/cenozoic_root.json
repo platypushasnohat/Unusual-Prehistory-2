@@ -406,7 +406,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:megalania_egg"
+      "item": "unusual_prehistory:cenozoic_fossil"
     },
     "show_toast": false,
     "title": {
@@ -435,8 +435,8 @@
       "pachycephalosaurus_egg",
       "ulughbegsaurus_egg",
       "aegirocassis_eggs",
-      "barinasuchus_egg",
       "desmatosuchus_egg",
+      "barinasuchus_egg",
       "manipulator_ootheca",
       "therizinosaurus_egg",
       "dromaeosaurus_egg",

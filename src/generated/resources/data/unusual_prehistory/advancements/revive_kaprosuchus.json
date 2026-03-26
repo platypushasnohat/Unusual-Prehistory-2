@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:cretaceous_root",
+  "parent": "unusual_prehistory:revive_dromaeosaurus",
   "criteria": {
     "revive_kaprosuchus": {
       "conditions": {

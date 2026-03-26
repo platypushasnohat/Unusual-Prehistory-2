@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-22T11:37:29.3709814	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-03-25T21:09:02.4682557	Tags for minecraft:item mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -9,6 +9,7 @@ a462aa44c522ac8f4f8df387fa33068c401bdc45 data/forge/tags/items/glass.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/minecraft/tags/items/fence_gates.json
 86c9959407fbfd28c756653bfde6fd0136484559 data/minecraft/tags/items/hanging_signs.json
 3e88b9c036ecfd1caeb735dd3710140167acbeb1 data/minecraft/tags/items/leaves.json
+1f43b4da60bdb9d413b613b7bff818b98d43fa2f data/minecraft/tags/items/lectern_books.json
 5b87460f66f64c341f03ada471b023e70443fce9 data/minecraft/tags/items/logs_that_burn.json
 613ea07216cbdb08fcef8761926108704412da7f data/minecraft/tags/items/music_discs.json
 2879aa29bd929a346b8c6fda6e424017abb945bd data/minecraft/tags/items/planks.json
@@ -26,14 +27,17 @@ dbbb037f8fb5ad65ce084e1eb552058507238b1a data/minecraft/tags/items/wooden_fences
 a1028f77bca62be7ec9e555cdfff47a11360c4b2 data/minecraft/tags/items/wooden_slabs.json
 562b7c2f6447c6f6679eaa694f6fa039495ea952 data/minecraft/tags/items/wooden_stairs.json
 69dce2765e41e9577a4c342633510d06e15bca2e data/minecraft/tags/items/wooden_trapdoors.json
+8eeab6448dd6076a212959e471057cb1a16e3950 data/unusual_prehistory/tags/items/aegirocassis_food.json
 ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/items/amber_dyes.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/items/aqua_dyes.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/items/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/items/brachiosaurus_food.json
 bc9ba32936e2d1b31a500d4d7655077f5ae78194 data/unusual_prehistory/tags/items/carnotaurus_food.json
+eb1d0ec034e2c5bad4bf308701147794a62a6806 data/unusual_prehistory/tags/items/coelacanthus_food.json
 bc229f680fa773a41269c1569f5a700f669eb8e5 data/unusual_prehistory/tags/items/cooked_fish.json
 536bbb03d548d88eee2292cd8b33731dd15b4ac4 data/unusual_prehistory/tags/items/cooked_meats.json
 f22c81dcc6d03c60668a59e6563c5bcee8440bb4 data/unusual_prehistory/tags/items/coral_dyes.json
+322a88ffc9519449dbf456c7ba0696e7234c6f19 data/unusual_prehistory/tags/items/desmatosuchus_food.json
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/items/diplocaulus_food.json
 61884f4ffc6d4d74bf78255a6219ff5ae67fc376 data/unusual_prehistory/tags/items/dromaeosaurus_food.json
 cddcf8efa0da5db637b9a56b31fe6a0e73126835 data/unusual_prehistory/tags/items/dryophyllum_logs.json
@@ -58,11 +62,14 @@ bc9ba32936e2d1b31a500d4d7655077f5ae78194 data/unusual_prehistory/tags/items/mega
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/items/metasequoia_logs.json
 9f30719c72089afae65ef1b638cd4c978a7cfd00 data/unusual_prehistory/tags/items/metriorhynchus_food.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/items/mint_dyes.json
+6aad8cb8d98b57dcefe6d6330dd287d8dac3e47f data/unusual_prehistory/tags/items/moss.json
+33742694a14bb2697530757a24d4fd44291813bf data/unusual_prehistory/tags/items/mud.json
 2e180d4a596d414c896bd7eb7c296d4d71b3c5a1 data/unusual_prehistory/tags/items/navy_dyes.json
 70315add23e98c47f6db7088b4b86001fac8ec6d data/unusual_prehistory/tags/items/olive_dyes.json
 9f30719c72089afae65ef1b638cd4c978a7cfd00 data/unusual_prehistory/tags/items/onchopristis_food.json
 3f8de0b35529bc568180cc093eef809af6d10406 data/unusual_prehistory/tags/items/pachycephalosaurus_food.json
 d42ac46c7683860454cb1980513532d7601a325b data/unusual_prehistory/tags/items/pacifies_carnotaurus.json
+58748f381d8f3508e8f58a62b0d64e706b06bc78 data/unusual_prehistory/tags/items/pacifies_coelacanthus.json
 6330eab91cd2d85e29764317f8031015b8d3b08d data/unusual_prehistory/tags/items/pacifies_dromaeosaurus.json
 aa3841b6b6fb425bffe6a3624c29d902668bce6d data/unusual_prehistory/tags/items/pacifies_dunkleosteus.json
 c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/pacifies_kaprosuchus.json
@@ -81,6 +88,7 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/paci
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/items/reinforced_glass.json
 ff07c521dd33e35f38a8521b108c24c6a1140cfa data/unusual_prehistory/tags/items/rose_dyes.json
 5c3fdf7c03d991baa3ae630b81d755c98d4bcfc7 data/unusual_prehistory/tags/items/slate_dyes.json
+4ca652d1ece692235830c4e0b8aed29b068d2d80 data/unusual_prehistory/tags/items/snow.json
 9f30719c72089afae65ef1b638cd4c978a7cfd00 data/unusual_prehistory/tags/items/stethacanthus_food.json
 635de4c7559d65c52269150e0f5edf6de7379583 data/unusual_prehistory/tags/items/stops_mob_aging.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/items/talpanas_food.json

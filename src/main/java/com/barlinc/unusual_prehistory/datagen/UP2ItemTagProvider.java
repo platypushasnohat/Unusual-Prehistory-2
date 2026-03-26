@@ -11,6 +11,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -119,9 +120,26 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.SEAGRASS.asItem()
         );
 
+        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
+                Items.TROPICAL_FISH
+        );
+
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
+        );
+
+        this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
+                Items.SPIDER_EYE,
+                Items.EGG,
+                Items.CARROT,
+                Items.POTATO,
+                Items.BAKED_POTATO,
+                Items.BEETROOT,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Blocks.BROWN_MUSHROOM.asItem(),
+                Blocks.RED_MUSHROOM.asItem()
         );
 
         this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
@@ -252,6 +270,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.CAKE
         );
 
+        this.tag(UP2ItemTags.COELACANTHUS_FOOD).add(
+                Items.PUMPKIN_PIE
+        );
+
         // Taming
         this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
                 UP2ItemTags.ULUGHBEGSAURUS_FOOD
@@ -277,6 +299,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_COELACANTHUS).add(
+                Items.PUFFERFISH
+        );
         this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(
                 Items.TROPICAL_FISH
         );
@@ -307,6 +332,23 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
+
+        // Update 5
+        this.tag(UP2ItemTags.SNOW).add(
+                Items.SNOWBALL,
+                Blocks.SNOW.asItem(),
+                Blocks.SNOW_BLOCK.asItem()
+        );
+
+        this.tag(UP2ItemTags.MOSS).add(
+                UP2Blocks.MOSS_LAYER.get().asItem(),
+                Blocks.MOSS_BLOCK.asItem(),
+                Blocks.MOSS_CARPET.asItem()
+        );
+
+        this.tag(UP2ItemTags.MUD).add(
+                Blocks.MUD.asItem()
+        );
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
@@ -365,6 +407,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 DOOMSURF_DISC.get(),
                 MEGALANIA_DISC.get(),
                 TARIFYING_DISC.get()
+        );
+
+        this.tag(ItemTags.LECTERN_BOOKS).add(
+                PALEOPEDIA.get()
         );
 
         // Forge

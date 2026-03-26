@@ -36,7 +36,6 @@ import javax.annotation.Nullable;
 public class GuangdedendronStalkBlock extends Block implements BonemealableBlock, IPlantable {
 
     protected static final VoxelShape SMALL_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
-    protected static final VoxelShape LARGE_SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
     protected static final VoxelShape COLLISION_SHAPE = Block.box(6.5D, 0.0D, 6.5D, 9.5D, 16.0D, 9.5D);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
     public static final EnumProperty<BambooLeaves> LEAVES = BlockStateProperties.BAMBOO_LEAVES;
@@ -59,9 +58,8 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
 
     @Override
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        VoxelShape shape = state.getValue(LEAVES) == BambooLeaves.LARGE ? LARGE_SHAPE : SMALL_SHAPE;
         Vec3 vec3 = state.getOffset(getter, pos);
-        return shape.move(vec3.x, vec3.y, vec3.z);
+        return SMALL_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override

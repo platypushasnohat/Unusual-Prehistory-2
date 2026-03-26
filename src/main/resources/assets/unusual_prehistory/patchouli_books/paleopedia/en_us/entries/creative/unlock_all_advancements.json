@@ -2,6 +2,7 @@
   "name": "Unlock All Entries",
   "icon": "minecraft:command_block",
   "category": "unusual_prehistory:creative",
+  "advancement": "unusual_prehistory:open_book_creative",
   "sortnum": 0,
   "pages": [
     {

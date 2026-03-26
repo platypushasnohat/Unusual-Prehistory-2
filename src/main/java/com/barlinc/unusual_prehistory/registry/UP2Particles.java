@@ -23,6 +23,7 @@ public class UP2Particles {
     public static final RegistryObject<SimpleParticleType> GOLDEN_HEART = registerParticle("golden_heart", ()-> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> SNOWFLAKE = registerParticle("snowflake", ()-> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> IMPACT_STUN = registerParticle("impact_stun", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> POPPING_BUBBLE = registerParticle("popping_bubble", ()-> new SimpleParticleType(false));
 
     private static <P extends ParticleType<?>> RegistryObject<P> registerParticle(String name, Supplier<P> particle ) {
         return PARTICLE_TYPES.register(name, particle);

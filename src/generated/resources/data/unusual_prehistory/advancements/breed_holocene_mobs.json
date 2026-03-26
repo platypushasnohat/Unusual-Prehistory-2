@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:holocene_root",
+  "parent": "unusual_prehistory:root",
   "criteria": {
     "breed_holocene_mobs": {
       "conditions": {},
