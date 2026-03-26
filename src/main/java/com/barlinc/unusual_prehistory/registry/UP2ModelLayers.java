@@ -61,13 +61,13 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ULUGHBEGSAURUS = mainLayer("ulughbegsaurus");
 
     // Update 5
+    public static final ModelLayerLocation AEGIROCASSIS = mainLayer("aegirocassis");
+    public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
     public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
     public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
     public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
 
     // Future
-    public static final ModelLayerLocation AEGIROCASSIS = mainLayer("aegirocassis");
-    public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
     public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
     public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");

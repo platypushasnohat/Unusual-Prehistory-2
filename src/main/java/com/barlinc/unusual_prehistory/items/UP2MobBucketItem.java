@@ -1,16 +1,24 @@
 package com.barlinc.unusual_prehistory.items;
 
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +38,25 @@ public class UP2MobBucketItem extends MobBucketItem {
     public UP2MobBucketItem(Supplier<? extends EntityType<?>> entityType, Fluid fluid, SoundEvent sound, Properties properties, @Nullable IntFunction<String> variantNameGetter) {
         super(entityType, () -> fluid, () -> sound, properties.stacksTo(1));
         this.variantNameGetter = variantNameGetter;
+    }
+
+    @Override
+    public void checkExtraContent(@Nullable Player player, @NotNull Level level, @NotNull ItemStack stack, @NotNull BlockPos pos) {
+        if (level instanceof ServerLevel) {
+            this.spawn((ServerLevel)level, stack, pos);
+            level.gameEvent(player, GameEvent.ENTITY_PLACE, pos);
+        }
+    }
+
+    private void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
+        Entity entity = this.getFishType().spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
+        if (entity instanceof Bucketable bucketable) {
+            bucketable.loadFromBucketTag(stack.getOrCreateTag());
+            bucketable.setFromBucket(true);
+        }
+        if (entity instanceof Aegirocassis aegirocassis && !aegirocassis.isBaby()) {
+            aegirocassis.setBaby(true);
+        }
     }
 
     @Override

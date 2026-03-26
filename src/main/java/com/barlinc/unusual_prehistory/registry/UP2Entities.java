@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
@@ -76,12 +77,12 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<ThrowableEgg>> PTERODACTYLUS_EGG = registerEntity("pterodactylus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS::get), MobCategory.MISC, 0.25F, 0.25F);
 
     // Update 5
+    public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = registerLivingEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, 3.5F, 3.9F);
     public static final RegistryObject<EntityType<Desmatosuchus>> DESMATOSUCHUS = registerLivingEntity("desmatosuchus", Desmatosuchus::new, MobCategory.CREATURE, 1.3F, 1.2F);
     public static final RegistryObject<EntityType<Delitzschala>> DELITZSCHALA = registerLivingEntity("delitzschala", Delitzschala::new, MobCategory.AMBIENT, 0.4F, 0.1F);
     public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = registerLivingEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, 0.3F, 0.4F);
 
     // Future
-    public static final RegistryObject<EntityType<Aegirocassis>> AEGIROCASSIS = registerLivingEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, 4.1F, 4.1F);
     public static final RegistryObject<EntityType<Barinasuchus>> BARINASUCHUS = registerLivingEntity("barinasuchus", Barinasuchus::new, MobCategory.CREATURE, 1.5F, 2.1F);
     public static final RegistryObject<EntityType<Cotylorhynchus>> COTYLORHYNCHUS = registerLivingEntity("cotylorhynchus", Cotylorhynchus::new, MobCategory.CREATURE, 2.2F, 1.6F);
     public static final RegistryObject<EntityType<Dimorphodon>> DIMORPHODON = registerLivingEntity("dimorphodon", Dimorphodon::new, MobCategory.CREATURE, 0.9F, 0.9F);

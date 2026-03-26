@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.future;
+package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

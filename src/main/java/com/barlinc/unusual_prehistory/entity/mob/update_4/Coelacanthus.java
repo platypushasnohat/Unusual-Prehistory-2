@@ -48,7 +48,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
 
     private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(Coelacanthus.class, EntityDataSerializers.INT);
 
-    private int absorbCooldown = 0;
+    private int absorbCooldown = 60;
 
     public final SmoothAnimationState absorbAnimationState = new SmoothAnimationState();
 
@@ -78,7 +78,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
             }
         });
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.COELACANTHUS_FOOD), false));
         this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.8D, EntitySelector.NO_SPECTATORS::test) {
             @Override
             public boolean canUse() {
@@ -106,12 +106,12 @@ public class Coelacanthus extends PrehistoricAquaticMob {
 
     @Override
     public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_STETHACANTHUS);
+        return itemStack.is(UP2ItemTags.PACIFIES_COELACANTHUS);
     }
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.STETHACANTHUS_FOOD);
+        return stack.is(UP2ItemTags.COELACANTHUS_FOOD);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     public void tick() {
         super.tick();
         if (absorbCooldown > 0) absorbCooldown--;
-        if (this.getCoelacanthusSize() < 127 && this.isAlive() && absorbCooldown == 0) {
+        if (!this.isPacified() && this.isAlive() && absorbCooldown == 0) {
             if (this.consumeNearbyMobs()) {
                 this.gameEvent(GameEvent.EAT);
                 this.playSound(SoundEvents.GENERIC_EAT, this.getSoundVolume(), this.getVoicePitch());
@@ -229,7 +229,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     public void setCoelacanthusSize(int size) {
-        int maxSize = Mth.clamp(size, 1, 2048);
+        int maxSize = Mth.clamp(size, 1, 200);
         this.entityData.set(SIZE, maxSize);
         this.reapplyPosition();
         this.refreshDimensions();

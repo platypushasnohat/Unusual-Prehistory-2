@@ -165,6 +165,9 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
 
+        // Ordovician
+        Advancement reviveAegirocassis = reviveMobAdvancement("revive_aegirocassis", ordovicianRoot, UP2Blocks.AEGIROCASSIS_EGGS.get(), UP2Entities.AEGIROCASSIS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_aegirocassis"), helper);
+
         // Devonian
         Advancement reviveDunkleosteus = reviveMobAdvancement("revive_dunkleosteus", devonianRoot, UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Entities.DUNKLEOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dunkleosteus"), helper);
         Advancement reviveJawlessFish = reviveMobAdvancement("revive_jawless_fish", reviveDunkleosteus, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_jawless_fish"), helper);

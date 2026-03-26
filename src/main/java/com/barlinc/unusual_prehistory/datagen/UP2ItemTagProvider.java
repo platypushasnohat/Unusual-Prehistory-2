@@ -120,6 +120,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.SEAGRASS.asItem()
         );
 
+        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
+                Items.TROPICAL_FISH
+        );
+
         this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
                 UP2ItemTags.RAW_MEATS,
                 UP2ItemTags.COOKED_MEATS
@@ -266,6 +270,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.CAKE
         );
 
+        this.tag(UP2ItemTags.COELACANTHUS_FOOD).add(
+                Items.PUMPKIN_PIE
+        );
+
         // Taming
         this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
                 UP2ItemTags.ULUGHBEGSAURUS_FOOD
@@ -291,6 +299,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_COELACANTHUS).add(
+                Items.PUFFERFISH
+        );
         this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(
                 Items.TROPICAL_FISH
         );

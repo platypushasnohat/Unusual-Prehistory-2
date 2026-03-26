@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.AegirocassisBabyAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.AegirocassisBabyAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.future.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -173,14 +173,19 @@ public class AegirocassisBabyModel extends UP2Model<Aegirocassis> {
     @Override
     public void setupAnim(@NotNull Aegirocassis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWater()) {
-            this.animateWalk(AegirocassisBabyAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
-            this.animateWalk(AegirocassisBabyAnimations.SWIM, limbSwing, limbSwingAmount, 1.625F, 3.25F);
+        if (entity.isInWaterOrBubble()) {
+            if (entity.getIdleState() != 2) {
+                this.animateWalk(AegirocassisBabyAnimations.MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
+            this.animateWalk(AegirocassisBabyAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
-        this.animateIdle(entity.swimIdleAnimationState, AegirocassisBabyAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 3);
-        this.animate(entity.flopAnimationState, AegirocassisBabyAnimations.BEACHED, ageInTicks);
-        this.animate(entity.eyesAnimationState, AegirocassisBabyAnimations.EYE_OVERLAY, ageInTicks);
-        this.animateIdle(entity.mouthAnimationState, AegirocassisBabyAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, 1, limbSwingAmount * 3);
+
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisBabyAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisBabyAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, AegirocassisBabyAnimations.BEACHED, ageInTicks);
+        this.animateSmooth(entity.eyesAnimationState, AegirocassisBabyAnimations.EYE_OVERLAY, ageInTicks);
+        this.animateSmooth(entity.eatAnimationState, AegirocassisBabyAnimations.EAT_OVERLAY, ageInTicks);
+        this.animate(entity.rollAnimationState, AegirocassisBabyAnimations.ROLL_BLEND, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;

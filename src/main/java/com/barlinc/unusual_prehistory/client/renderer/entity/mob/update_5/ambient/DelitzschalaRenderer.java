@@ -1,7 +1,7 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.ambient;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient.DelitzschalaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

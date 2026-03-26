@@ -29,6 +29,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PACIFIES_PRAEPUSA = modItemTag("pacifies_praepusa");
     public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
     public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
+    public static final TagKey<Item> PACIFIES_COELACANTHUS = modItemTag("pacifies_coelacanthus");
 
     // Food Categories
     public static final TagKey<Item> RAW_MEATS = modItemTag("raw_meats");
@@ -41,6 +42,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
     public static final TagKey<Item> BRACHIOSAURUS_FOOD = modItemTag("brachiosaurus_food");
     public static final TagKey<Item> CARNOTAURUS_FOOD = modItemTag("carnotaurus_food");
+    public static final TagKey<Item> COELACANTHUS_FOOD = modItemTag("coelacanthus_food");
     public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
     public static final TagKey<Item> DIMORPHODON_FOOD = modItemTag("dimorphodon_food");
     public static final TagKey<Item> DIPLOCAULUS_FOOD = modItemTag("diplocaulus_food");

@@ -1,4 +1,5 @@
 ## Version 1.4.0
+- Added Aegirocassis
 - Added Desmatosuchus
 - Added Delitzschala ambient mob
 - Added Zhangsolva ambient mob
@@ -10,6 +11,10 @@
 - Praepusa now sleeps on the surface of water at night
 - Tweaked advancements
 - Patchouli is now a required dependency
+- Paleopedia is now a custom item instead of the normal patchouli book
+- Increased coelacanthus max size cap to 200
+- Coelacanthus will continue to eat mobs even if max size unless pacified
+- Added missing coelacanthus food tags
 - Misc tweaks
 
 ## Version 1.3.1

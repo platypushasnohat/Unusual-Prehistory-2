@@ -1,10 +1,11 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.AegirocassisBabyModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.AegirocassisModel;
-import com.barlinc.unusual_prehistory.entity.mob.future.Aegirocassis;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.AegirocassisBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.AegirocassisModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layers.AegirocassisGlowLayer;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,6 +29,7 @@ public class AegirocassisRenderer extends MobRenderer<Aegirocassis, UP2Model<Aeg
         super(context, new AegirocassisModel(context.bakeLayer(UP2ModelLayers.AEGIROCASSIS)), 1.5F);
         this.adultModel = new AegirocassisModel(context.bakeLayer(UP2ModelLayers.AEGIROCASSIS));
         this.babyModel = new AegirocassisBabyModel(context.bakeLayer(UP2ModelLayers.AEGIROCASSIS_BABY));
+        this.addLayer(new AegirocassisGlowLayer(this));
     }
 
     @Override

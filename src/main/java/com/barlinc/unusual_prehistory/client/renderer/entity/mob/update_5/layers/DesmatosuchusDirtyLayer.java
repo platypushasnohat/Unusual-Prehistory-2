@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.layers;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.DesmatosuchusModel;
