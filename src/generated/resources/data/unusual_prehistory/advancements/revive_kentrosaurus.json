@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_kentrosaurus.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:kentrosaurus_egg"
     },
@@ -36,5 +36,8 @@
       "revive_kentrosaurus"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

@@ -55,17 +55,17 @@ public class Carnotaurus extends PrehistoricMob {
     public int biteCooldown = 0;
     public int headbuttCooldown = 0;
 
-    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState chargeStartAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState chargeEndAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState headbuttAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState headbuttAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attackFast1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attackFast2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState headbuttFastAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attackFast1AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState attackFast2AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState headbuttFastAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();

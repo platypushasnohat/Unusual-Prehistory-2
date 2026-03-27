@@ -634,7 +634,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "unusual_prehistory:rugose_fossil"
+      "item": "unusual_prehistory:unknown_fossil"
     },
     "show_toast": true,
     "title": {
@@ -690,10 +690,10 @@
       "dryophyllum_fossil",
       "bristle_fossil",
       "flat_back_fossil",
+      "crooked_beak_fossil",
       "brute_fossil",
       "bill_fossil",
       "roach_fossil",
-      "crooked_beak_fossil",
       "scythe_fossil"
     ]
   ],

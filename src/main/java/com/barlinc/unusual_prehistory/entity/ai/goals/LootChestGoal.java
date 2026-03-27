@@ -143,7 +143,7 @@ public class LootChestGoal extends MoveToBlockGoal {
         if (blockEntity instanceof Container container) {
             double distance = mob.distanceToSqr(blockPos.getX() + 0.5F, blockPos.getY() + 0.5F, blockPos.getZ() + 0.5F);
             this.mob.getNavigation().moveTo(blockPos.getX() + 0.5F, blockPos.getY() - 1, blockPos.getZ() + 0.5F, 1.0F);
-            if (hasLineOfSightChest()) {
+            if (this.hasLineOfSightChest()) {
                 this.mob.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(blockPos));
                 if (distance <= acceptedDistance()) {
                     this.mob.getNavigation().stop();

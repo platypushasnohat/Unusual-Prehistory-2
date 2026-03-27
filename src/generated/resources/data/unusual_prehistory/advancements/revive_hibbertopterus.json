@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_hibbertopterus.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:hibbertopterus_eggs"
     },
@@ -36,5 +36,8 @@
       "revive_hibbertopterus"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

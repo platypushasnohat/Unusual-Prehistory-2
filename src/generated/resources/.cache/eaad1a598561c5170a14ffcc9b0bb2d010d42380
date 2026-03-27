@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-26T15:42:55.3215519	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-03-26T17:56:49.2008961	Tags for minecraft:item mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -82,6 +82,7 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/items/paci
 642aea9945ecb1b7852cd1df9869f26f60f5ed81 data/unusual_prehistory/tags/items/pacifies_ulughbegsaurus.json
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/items/permanently_pacifies_mob.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/items/praepusa_food.json
+ede3aa53f4fa18b21572791eed68b72a7007b0d8 data/unusual_prehistory/tags/items/psilopterus_food.json
 40c0304f5a5d6fbd0a5f1bf1d29f27e765e1e63e data/unusual_prehistory/tags/items/pterodactylus_food.json
 4fa4ef3fee986b3a9f5d145b9430d8c911716691 data/unusual_prehistory/tags/items/raw_fish.json
 601842f29ede5ec3edbc19a93d51d11f67f2836d data/unusual_prehistory/tags/items/raw_meats.json

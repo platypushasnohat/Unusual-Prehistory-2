@@ -65,7 +65,6 @@ public abstract class BreedableMob extends PrehistoricMob {
         Optional.ofNullable(this.getLoveCause()).or(() -> Optional.ofNullable(animal.getLoveCause())).ifPresent((serverPlayer) -> {
             serverPlayer.awardStat(Stats.ANIMALS_BRED);
             CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, this, animal, baby);
-            UP2Criterion.BREED_HOLOCENE_MOBS.trigger(serverPlayer);
         });
         this.setAge(6000);
         animal.setAge(6000);

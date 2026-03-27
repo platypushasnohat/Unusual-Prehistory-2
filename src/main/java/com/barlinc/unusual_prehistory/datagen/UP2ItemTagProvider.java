@@ -233,6 +233,19 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.PSILOPTERUS_FOOD).add(
+                Items.RABBIT,
+                Items.MUTTON,
+                Items.BEEF,
+                Items.CHICKEN,
+                Items.PORKCHOP,
+                Items.COOKED_RABBIT,
+                Items.COOKED_MUTTON,
+                Items.COOKED_BEEF,
+                Items.COOKED_CHICKEN,
+                Items.COOKED_PORKCHOP
+        );
+
         this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
                 Items.APPLE,
                 Items.SWEET_BERRIES,

@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_talpanas.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:talpanas_egg"
     },
@@ -36,5 +36,8 @@
       "revive_talpanas"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

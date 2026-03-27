@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_lobe_finned_fish.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:lobe_finned_fish_roe"
     },
@@ -36,5 +36,8 @@
       "revive_lobe_finned_fish"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

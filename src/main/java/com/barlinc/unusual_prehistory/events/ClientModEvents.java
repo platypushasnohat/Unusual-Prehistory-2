@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.future.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.PsilopterusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
@@ -21,6 +22,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.UP2ChestBoatRendere
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.AegirocassisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.DesmatosuchusRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PsilopterusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;

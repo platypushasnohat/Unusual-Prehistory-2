@@ -446,8 +446,8 @@
       "leptictidium_embryo",
       "praepusa_embryo",
       "pterodactylus_egg",
-      "dimorphodon_egg",
-      "psilopterus_egg"
+      "psilopterus_egg",
+      "dimorphodon_egg"
     ]
   ],
   "sends_telemetry_event": true

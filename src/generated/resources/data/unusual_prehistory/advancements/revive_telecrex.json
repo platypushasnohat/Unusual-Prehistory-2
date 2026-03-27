@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_leptictidium",
+  "parent": "unusual_prehistory:revive_psilopterus",
   "criteria": {
     "revive_telecrex": {
       "conditions": {
@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_telecrex.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:telecrex_egg"
     },
@@ -36,5 +36,8 @@
       "revive_telecrex"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

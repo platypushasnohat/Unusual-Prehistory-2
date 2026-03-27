@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_pachycephalosaurus.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:pachycephalosaurus_egg"
     },
@@ -36,5 +36,8 @@
       "revive_pachycephalosaurus"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

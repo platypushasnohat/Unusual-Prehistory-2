@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_stethacanthus.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:stethacanthus_sac"
     },
@@ -36,5 +36,8 @@
       "revive_stethacanthus"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

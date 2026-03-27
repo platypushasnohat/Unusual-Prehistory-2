@@ -262,7 +262,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
                 this.feedItemToMob(player, hand, itemstack);
                 this.setPacifiedTicks(-1);
                 this.level().broadcastEntityEvent(this, (byte) 10);
-                if (player instanceof ServerPlayer serverPlayer) UP2Criterion.PACIFY_MOB_PERMANENT.trigger(serverPlayer);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
             if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {

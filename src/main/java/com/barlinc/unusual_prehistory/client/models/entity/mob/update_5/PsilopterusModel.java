@@ -1,8 +1,9 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.PsilopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.future.Psilopterus;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -104,22 +105,22 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     public void setupAnim(Psilopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isEepy()) {
+        if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
             if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PsilopterusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PsilopterusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdle(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.eepyAnimationState, PsilopterusAnimations.SLEEP, ageInTicks);
-        this.animate(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
-        this.animate(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animate(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animate(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks);
-        this.animate(entity.pokeAnimationState, PsilopterusAnimations.POKE_BLEND, ageInTicks);
-        this.animate(entity.dig1AnimationState, PsilopterusAnimations.DIG1, ageInTicks);
-        this.animate(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks);
-        this.animate(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks);
-        this.animate(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.eepyAnimationState, PsilopterusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
+        this.animateSmooth(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks);
+        this.animateSmooth(entity.pokeAnimationState, PsilopterusAnimations.POKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.dig1AnimationState, PsilopterusAnimations.DIG1, ageInTicks);
+        this.animateSmooth(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks);
+        this.animateSmooth(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks);
+        this.animateSmooth(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks);
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 
@@ -129,5 +130,13 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     @Override
     public @NotNull ModelPart root() {
         return this.root;
+    }
+
+    public void translateToMouth(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.head.translateAndRotate(poseStack);
+        this.jaw.translateAndRotate(poseStack);
     }
 }

@@ -1,5 +1,4 @@
 {
-  "parent": "unusual_prehistory:root",
   "criteria": {
     "open_book_creative": {
       "conditions": {},
@@ -8,6 +7,7 @@
   },
   "display": {
     "announce_to_chat": false,
+    "background": "unusual_prehistory:textures/block/living_ooze.png",
     "description": {
       "translate": "advancement.unusual_prehistory.open_book_creative.desc"
     },

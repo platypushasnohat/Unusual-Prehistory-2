@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;

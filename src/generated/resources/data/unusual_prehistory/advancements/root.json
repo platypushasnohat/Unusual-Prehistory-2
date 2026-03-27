@@ -1035,7 +1035,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "unusual_prehistory:textures/block/mossy_dirt_top.png",
+    "background": "unusual_prehistory:textures/block/cobbled_fossilized_bone.png",
     "description": {
       "translate": "advancement.unusual_prehistory.root.desc"
     },
@@ -1082,8 +1082,8 @@
       "leptictidium_embryo",
       "praepusa_embryo",
       "pterodactylus_egg",
-      "dimorphodon_egg",
       "psilopterus_egg",
+      "dimorphodon_egg",
       "fury_fossil",
       "boomerang_fossil",
       "runner_fossil",
@@ -1131,10 +1131,10 @@
       "dryophyllum_fossil",
       "bristle_fossil",
       "flat_back_fossil",
+      "crooked_beak_fossil",
       "brute_fossil",
       "bill_fossil",
       "roach_fossil",
-      "crooked_beak_fossil",
       "scythe_fossil",
       "machine_parts"
     ]

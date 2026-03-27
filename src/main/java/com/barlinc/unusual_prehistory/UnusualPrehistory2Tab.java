@@ -44,6 +44,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
                         output.accept(PACHYCEPHALOSAURUS_SPAWN_EGG.get());
                         output.accept(PRAEPUSA_SPAWN_EGG.get());
+                        output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
                         output.accept(STETHACANTHUS_SPAWN_EGG.get());
                         output.accept(TALPANAS_SPAWN_EGG.get());
@@ -160,6 +161,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SAW_FOSSIL.get()); // onchopristis
                         output.accept(CRANIUM_FOSSIL.get()); // pachycephalosaurus
                         output.accept(FLIPPER_FOSSIL.get()); // praepusa
+                        output.accept(CROOKED_BEAK_FOSSIL.get()); // desmatosuchus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus
                         output.accept(AGED_FEATHER.get()); // talpanas
@@ -189,6 +191,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
                         output.accept(UP2Blocks.PACHYCEPHALOSAURUS_EGG.get());
                         output.accept(PRAEPUSA_EMBRYO.get());
+                        output.accept(PSILOPTERUS_EGG.get());
                         output.accept(PTERODACTYLUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());

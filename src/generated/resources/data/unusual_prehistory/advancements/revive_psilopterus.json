@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_majungasaurus",
+  "parent": "unusual_prehistory:revive_leptictidium",
   "criteria": {
-    "revive_onchopristis": {
+    "revive_psilopterus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:onchopristis"
+              "type": "unusual_prehistory:psilopterus"
             }
           }
         ]
@@ -19,21 +19,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.unusual_prehistory.revive_onchopristis.desc"
+      "translate": "advancement.unusual_prehistory.revive_psilopterus.desc"
     },
     "frame": "task",
     "hidden": true,
     "icon": {
-      "item": "unusual_prehistory:onchopristis_sac"
+      "item": "unusual_prehistory:psilopterus_egg"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.unusual_prehistory.revive_onchopristis"
+      "translate": "advancement.unusual_prehistory.revive_psilopterus"
     }
   },
   "requirements": [
     [
-      "revive_onchopristis"
+      "revive_psilopterus"
     ]
   ],
   "rewards": {

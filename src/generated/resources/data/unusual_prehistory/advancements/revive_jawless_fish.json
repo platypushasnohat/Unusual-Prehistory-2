@@ -22,7 +22,7 @@
       "translate": "advancement.unusual_prehistory.revive_jawless_fish.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
       "item": "unusual_prehistory:jawless_fish_roe"
     },
@@ -36,5 +36,8 @@
       "revive_jawless_fish"
     ]
   ],
+  "rewards": {
+    "experience": 5
+  },
   "sends_telemetry_event": true
 }

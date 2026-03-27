@@ -1,8 +1,9 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.future.PsilopterusModel;
-import com.barlinc.unusual_prehistory.entity.mob.future.Psilopterus;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.PsilopterusModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layers.PsilopterusHeldItemLayer;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -22,10 +23,12 @@ public class PsilopterusRenderer extends MobRenderer<Psilopterus, PsilopterusMod
 
     public PsilopterusRenderer(EntityRendererProvider.Context context) {
         super(context, new PsilopterusModel(context.bakeLayer(UP2ModelLayers.PSILOPTERUS)), 0.4F);
+        this.addLayer(new PsilopterusHeldItemLayer(this));
     }
 
     @Override
-    protected void scale(Psilopterus entity, @NotNull PoseStack poseStack, float partialTicks) {
+    protected void scale(@NotNull Psilopterus entity, @NotNull PoseStack poseStack, float partialTicks) {
+        super.scale(entity, poseStack, partialTicks);
         if (entity.isPackLeader()) {
             poseStack.scale(1.1F, 1.1F, 1.1F);
         }
