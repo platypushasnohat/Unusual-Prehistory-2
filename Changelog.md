@@ -1,6 +1,7 @@
 ## Version 1.4.0
 - Added Aegirocassis
 - Added Desmatosuchus
+- Added Psilopterus
 - Added Delitzschala ambient mob
 - Added Zhangsolva ambient mob
 - Added carnotaurus headbutt vocal sound

@@ -265,6 +265,31 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 TARTUOSTEUS.get()
         );
 
+        // Update 5
+        this.tag(UP2EntityTags.PSILOPTERUS_KICK_TARGETS).add(
+                EntityType.CHICKEN,
+                EntityType.RABBIT,
+                EntityType.SLIME,
+                EntityType.MAGMA_CUBE,
+                PRAEPUSA.get(),
+                LYSTROSAURUS.get(),
+                TALPANAS.get(),
+                LIVING_OOZE.get()
+        );
+
+        this.tag(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS).add(
+                EntityType.COW,
+                EntityType.SHEEP,
+                EntityType.PIG,
+                EntityType.GOAT
+        );
+
+        this.tag(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS).add(
+                EntityType.LLAMA,
+                EntityType.HORSE,
+                EntityType.CAMEL
+        );
+
         // Minecraft
         this.tag(EntityTypeTags.FROG_FOOD).add(
                 DELITZSCHALA.get(),

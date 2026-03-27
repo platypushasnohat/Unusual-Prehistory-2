@@ -106,10 +106,10 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(13, new PsilopterusDigGoal(this));
         this.goalSelector.addGoal(13, new PsilopterusPreenGoal(this));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this, Psilopterus.class)).setAlertOthers());
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.SMALL_PSILOPTERUS_PACK_TARGETS)));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.PSILOPTERUS_KICK_TARGETS)));
         this.targetSelector.addGoal(2, new PsilopterusNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttack, 3));
-        this.targetSelector.addGoal(3, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS), 3));
-        this.targetSelector.addGoal(4, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS), 5));
+        this.targetSelector.addGoal(3, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS), 3));
+        this.targetSelector.addGoal(4, new PsilopterusNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS), 5));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -209,7 +209,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     public void afterLooting(BlockPos stealPos) {
         this.fleeFromPosition = Vec3.atCenterOf(stealPos);
         this.fleeTicks = 30 + random.nextInt(30);
-        this.eatTimer = 100 + random.nextInt(80);
+        this.eatTimer = 70 + random.nextInt(70);
     }
 
     @Override
@@ -438,10 +438,21 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 else if (psilopterus.getAttackState() == 2) {
                     this.tickKick();
                 }
+                else if (psilopterus.getAttackState() == 3) {
+                    this.tickKickBabies();
+                }
                 else {
                     if (distance < this.getAttackReachSqr(target)) {
-                        if (psilopterus.getRandom().nextFloat() < 0.3F && !psilopterus.isInWater()) psilopterus.setAttackState(2);
-                        else psilopterus.setAttackState(1);
+                        if (target.getType().is(UP2EntityTags.PSILOPTERUS_KICK_TARGETS)) {
+                            this.psilopterus.setAttackState(3);
+                        } else {
+                            if (psilopterus.getRandom().nextFloat() < 0.3F && !psilopterus.isInWater()) {
+                                this.psilopterus.setAttackState(2);
+                            }
+                            else {
+                                this.psilopterus.setAttackState(1);
+                            }
+                        }
                     }
                     this.psilopterus.getNavigation().moveTo(target, 1.5D);
                 }
@@ -486,6 +497,23 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 this.timer = 0;
                 this.psilopterus.setPose(Pose.STANDING);
                 this.psilopterus.setAttackState(0);
+            }
+        }
+
+        protected void tickKickBabies() {
+            this.timer++;
+            LivingEntity target = psilopterus.getTarget();
+            this.psilopterus.getNavigation().stop();
+            if (timer == 1) psilopterus.setPose(UP2Poses.KICKING.get());
+            if (timer == 12) psilopterus.playSound(UP2SoundEvents.PSILOPTERUS_ATTACK.get(), 1.0F, 0.9F + psilopterus.getRandom().nextFloat() * 0.2F);
+            if (timer == 14) {
+                if (this.isInAttackRange(target, 2.0D)) {
+                    this.psilopterus.strongKnockback(target, 1.8D, 0.3D);
+                    this.psilopterus.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 30) {
+                this.stop();
             }
         }
 

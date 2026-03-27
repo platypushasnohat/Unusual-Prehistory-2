@@ -294,28 +294,18 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS).add(
-                MOSS_LAYER.get(),
-                MOSSY_LEPIDODENDRON_LOG.get(),
-                MOSSY_LEPIDODENDRON_WOOD.get(),
-                Blocks.SEAGRASS,
-                Blocks.TALL_SEAGRASS,
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
-        ).addTag(Tags.Blocks.COBBLESTONE_MOSSY);
+        );
 
         this.tag(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
 
         this.tag(UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS).add(
-                MOSS_LAYER.get(),
-                MOSSY_LEPIDODENDRON_LOG.get(),
-                MOSSY_LEPIDODENDRON_WOOD.get(),
-                Blocks.SEAGRASS,
-                Blocks.TALL_SEAGRASS,
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
-        ).addTag(Tags.Blocks.COBBLESTONE_MOSSY);
+        );
 
         this.tag(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS).add(
                 MOSSY_DIRT.get(),
@@ -345,20 +335,13 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS).add(
-                MOSS_LAYER.get(),
-                MOSSY_LEPIDODENDRON_LOG.get(),
-                MOSSY_LEPIDODENDRON_WOOD.get(),
-                Blocks.SEAGRASS,
-                Blocks.TALL_SEAGRASS,
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
-        ).addTag(Tags.Blocks.COBBLESTONE_MOSSY);
+        );
 
         this.tag(UP2BlockTags.TELECREX_PECKING_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
-
-        this.tag(UP2BlockTags.THERIZINOSAURUS_FORAGING_BLOCKS).addTag(BlockTags.LEAVES);
 
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(

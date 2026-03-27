@@ -92,21 +92,21 @@
                  .add(Attributes.FOLLOW_RANGE, 20.0D);
      }
 
-     @Override
-     protected void registerGoals() {
-         this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
-         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
-         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
-         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
-         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
-         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
-         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
-     }
+//     @Override
+//     protected void registerGoals() {
+//         this.goalSelector.addGoal(0, new FloatGoal(this));
+//         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+//         this.goalSelector.addGoal(2, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+//         this.goalSelector.addGoal(4, new ManipulatorAttackGoal(this));
+//         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 6.0F, 4.0F, false));
+//         this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MANIPULATOR_FOOD), false));
+//         this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
+//         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+//         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+//         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+//         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+//         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+//     }
 
      @Override
      public @NotNull MobType getMobType() {

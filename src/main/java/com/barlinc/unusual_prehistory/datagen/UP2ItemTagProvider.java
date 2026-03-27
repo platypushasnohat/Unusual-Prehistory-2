@@ -367,6 +367,16 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.MUD.asItem()
         );
 
+        this.copy(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS, UP2ItemTags.DIPLOCAULUS_SLIDING_BLOCKS);
+        this.copy(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS, UP2ItemTags.DIPLOCAULUS_BURROWING_BLOCKS);
+        this.copy(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS, UP2ItemTags.JAWLESS_FISH_NIBBLING_BLOCKS);
+//        this.copy(UP2BlockTags.GUARDED_BY_KENTROSAURUS, UP2ItemTags.GUARDED_BY_KENTROSAURUS);
+        this.tag(UP2ItemTags.GUARDED_BY_KENTROSAURUS).add(
+                Blocks.CACTUS.asItem(),
+                Items.SWEET_BERRIES
+        );
+        this.copy(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS, UP2ItemTags.TARTUOSTEUS_NIBBLING_BLOCKS);
+
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
