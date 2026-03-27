@@ -57,9 +57,14 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> COELACANTHUS_ALWAYS_EATS = modEntityTag("coelacanthus_always_eats");
 
     // Update 5
+    public static final TagKey<EntityType<?>> MOSASAURUS_TARGETS = modEntityTag("mosasaurus_targets");
+    public static final TagKey<EntityType<?>> MOSASAURUS_FIGHT_TARGETS = modEntityTag("mosasaurus_fight_targets");
     public static final TagKey<EntityType<?>> PSILOPTERUS_KICK_TARGETS = modEntityTag("psilopterus_kick_targets");
     public static final TagKey<EntityType<?>> MEDIUM_PSILOPTERUS_PACK_TARGETS = modEntityTag("medium_psilopterus_pack_targets");
     public static final TagKey<EntityType<?>> LARGE_PSILOPTERUS_PACK_TARGETS = modEntityTag("large_psilopterus_pack_targets");
+
+    public static final TagKey<EntityType<?>> MOSASAURUS_CANT_GRAB = modEntityTag("mosasaurus_cant_grab");
+    public static final TagKey<EntityType<?>> MOSASAURUS_CAN_GRAB = modEntityTag("mosasaurus_can_grab");
 
     // Future
     public static final TagKey<EntityType<?>> DIMORPHODON_AVOIDS = modEntityTag("dimorphodon_avoids");

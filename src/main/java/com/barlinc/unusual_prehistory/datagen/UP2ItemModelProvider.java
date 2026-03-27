@@ -70,6 +70,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(FURY_FOSSIL);
         this.item(GLUTTONOUS_FOSSIL);
         this.item(FLAT_BACK_FOSSIL);
+        this.item(SURGE_FOSSIL);
         this.item(BILL_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
@@ -132,6 +133,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(TELECREX_EGG);
         this.item(UP2Blocks.THERIZINOSAURUS_EGG);
         this.item(UP2Blocks.ULUGHBEGSAURUS_EGG);
+        this.item(MOSASAURUS_EMBRYO);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);

@@ -174,22 +174,40 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_ATTACK = registerSoundEvent("ulughbegsaurus_attack");
     public static final RegistryObject<SoundEvent> ULUGHBEGSAURUS_STEP = registerSoundEvent("ulughbegsaurus_step");
 
-    // Future
+    // Update 5
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_HURT = registerSoundEvent("aegirocassis_hurt");
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_DEATH = registerSoundEvent("aegirocassis_death");
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_IDLE = registerSoundEvent("aegirocassis_idle");
     public static final RegistryObject<SoundEvent> AEGIROCASSIS_HOVER = registerSoundEvent("aegirocassis_hover");
+
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_HURT = registerSoundEvent("desmatosuchus_hurt");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_DEATH = registerSoundEvent("desmatosuchus_death");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
+    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
+
+    public static final RegistryObject<SoundEvent> MOSASAURUS_HURT = registerSoundEvent("mosasaurus_hurt");
+    public static final RegistryObject<SoundEvent> MOSASAURUS_DEATH = registerSoundEvent("mosasaurus_death");
+    public static final RegistryObject<SoundEvent> MOSASAURUS_IDLE = registerSoundEvent("mosasaurus_idle");
+    public static final RegistryObject<SoundEvent> MOSASAURUS_ATTACK = registerSoundEvent("mosasaurus_attack");
+
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_HURT = registerSoundEvent("psilopterus_hurt");
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_DEATH = registerSoundEvent("psilopterus_death");
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_IDLE = registerSoundEvent("psilopterus_idle");
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_ATTACK = registerSoundEvent("psilopterus_attack");
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_BITE = registerSoundEvent("psilopterus_bite");
+    public static final RegistryObject<SoundEvent> PSILOPTERUS_CALL = registerSoundEvent("psilopterus_call");
+
+    public static final RegistryObject<SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
+    public static final RegistryObject<SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
+    public static final RegistryObject<SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
+
+    // Future
 
     public static final RegistryObject<SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_ATTACK = registerSoundEvent("barinasuchus_attack");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_THREATEN = registerSoundEvent("barinasuchus_threaten");
-
-    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_HURT = registerSoundEvent("desmatosuchus_hurt");
-    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_DEATH = registerSoundEvent("desmatosuchus_death");
-    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
-    public static final RegistryObject<SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
 
     public static final RegistryObject<SoundEvent> DIMORPHODON_HURT = registerSoundEvent("dimorphodon_hurt");
     public static final RegistryObject<SoundEvent> DIMORPHODON_DEATH = registerSoundEvent("dimorphodon_death");
@@ -202,13 +220,6 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> MANIPULATOR_ATTACK_VOCAL = registerSoundEvent("manipulator_attack_vocal");
     public static final RegistryObject<SoundEvent> MANIPULATOR_ATTACK_SLASH = registerSoundEvent("manipulator_attack_slash");
 
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_HURT = registerSoundEvent("psilopterus_hurt");
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_DEATH = registerSoundEvent("psilopterus_death");
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_IDLE = registerSoundEvent("psilopterus_idle");
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_ATTACK = registerSoundEvent("psilopterus_attack");
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_BITE = registerSoundEvent("psilopterus_bite");
-    public static final RegistryObject<SoundEvent> PSILOPTERUS_CALL = registerSoundEvent("psilopterus_call");
-
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_HURT = registerSoundEvent("therizinosaurus_hurt");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_DEATH = registerSoundEvent("therizinosaurus_death");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_IDLE = registerSoundEvent("therizinosaurus_idle");
@@ -216,10 +227,6 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
     public static final RegistryObject<SoundEvent> THERIZINOSAURUS_NOTICE = registerSoundEvent("therizinosaurus_notice");
-
-    public static final RegistryObject<SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
-    public static final RegistryObject<SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
-    public static final RegistryObject<SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory2.MOD_ID, soundName)));

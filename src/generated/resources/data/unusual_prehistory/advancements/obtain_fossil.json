@@ -577,6 +577,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "surge_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:surge_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "tempskya_fossil": {
       "conditions": {
         "items": [
@@ -690,6 +702,7 @@
       "dryophyllum_fossil",
       "bristle_fossil",
       "flat_back_fossil",
+      "surge_fossil",
       "crooked_beak_fossil",
       "brute_fossil",
       "bill_fossil",

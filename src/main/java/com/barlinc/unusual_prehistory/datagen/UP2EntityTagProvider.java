@@ -266,6 +266,14 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         // Update 5
+        this.tag(UP2EntityTags.MOSASAURUS_TARGETS).add(
+                EntityType.TURTLE,
+                EntityType.DOLPHIN
+        );
+        this.tag(UP2EntityTags.MOSASAURUS_FIGHT_TARGETS).add(
+                MOSASAURUS.get()
+        );
+
         this.tag(UP2EntityTags.PSILOPTERUS_KICK_TARGETS).add(
                 EntityType.CHICKEN,
                 EntityType.RABBIT,
@@ -276,18 +284,20 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 TALPANAS.get(),
                 LIVING_OOZE.get()
         );
-
         this.tag(UP2EntityTags.MEDIUM_PSILOPTERUS_PACK_TARGETS).add(
                 EntityType.COW,
                 EntityType.SHEEP,
                 EntityType.PIG,
                 EntityType.GOAT
         );
-
         this.tag(UP2EntityTags.LARGE_PSILOPTERUS_PACK_TARGETS).add(
                 EntityType.LLAMA,
                 EntityType.HORSE,
                 EntityType.CAMEL
+        );
+
+        this.tag(UP2EntityTags.MOSASAURUS_CANT_GRAB).add(
+                EntityType.ENDER_DRAGON
         );
 
         // Minecraft

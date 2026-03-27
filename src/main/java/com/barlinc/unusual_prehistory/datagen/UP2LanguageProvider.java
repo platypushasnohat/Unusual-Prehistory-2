@@ -221,6 +221,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PSILOPTERUS_BITE, "Psilopterus bites");
         this.sound(UP2SoundEvents.PSILOPTERUS_CALL, "Psilopterus calls");
 
+        this.sound(UP2SoundEvents.MOSASAURUS_HURT, "Mosasaurus hurts");
+        this.sound(UP2SoundEvents.MOSASAURUS_DEATH, "Mosasaurus dies");
+        this.sound(UP2SoundEvents.MOSASAURUS_IDLE, "Mosasaurus bellows");
+        this.sound(UP2SoundEvents.MOSASAURUS_ATTACK, "Mosasaurus attacks");
+
         this.sound(UP2SoundEvents.PTERODACTYLUS_HURT, "Pterodactylus hurts");
         this.sound(UP2SoundEvents.PTERODACTYLUS_DEATH, "Pterodactylus dies");
         this.sound(UP2SoundEvents.PTERODACTYLUS_IDLE, "Pterodactylus chirps");
@@ -328,13 +333,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
         this.translateAdvancement("revive_leptictidium", "Plague Carriers", "Revive a Leptictidium");
-
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
         this.translateAdvancement("revive_manipulator", "Mandibles", "Revive a Manipulator");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
+        this.translateAdvancement("revive_mosasaurus", "Great Beast of Maastricht", "Revive a Mosasaurus");
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
         this.translateAdvancement("revive_pachycephalosaurus", "Thick-Headed", "Revive a Pachycephalosaurus");
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");

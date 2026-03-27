@@ -1219,6 +1219,35 @@
     ],
     "subtitle": "subtitles.metriorhynchus_idle"
   },
+  "mosasaurus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/mosasaurus/attack1",
+      "unusual_prehistory:entity/mosasaurus/attack2"
+    ],
+    "subtitle": "subtitles.mosasaurus_attack"
+  },
+  "mosasaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mosasaurus/death1"
+    ],
+    "subtitle": "subtitles.mosasaurus_death"
+  },
+  "mosasaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mosasaurus/hurt1",
+      "unusual_prehistory:entity/mosasaurus/hurt2"
+    ],
+    "subtitle": "subtitles.mosasaurus_hurt"
+  },
+  "mosasaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mosasaurus/idle1",
+      "unusual_prehistory:entity/mosasaurus/idle2",
+      "unusual_prehistory:entity/mosasaurus/idle3",
+      "unusual_prehistory:entity/mosasaurus/idle4"
+    ],
+    "subtitle": "subtitles.mosasaurus_idle"
+  },
   "onchopristis_death": {
     "sounds": [
       "entity/fish/hurt1",

@@ -118,7 +118,10 @@ public class UP2ItemTags {
     // Update 5
     public static final TagKey<Item> AEGIROCASSIS_FOOD = modItemTag("aegirocassis_food");
     public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
+    public static final TagKey<Item> MOSASAURUS_FOOD = modItemTag("mosasaurus_food");
     public static final TagKey<Item> PSILOPTERUS_FOOD = modItemTag("psilopterus_food");
+
+    public static final TagKey<Item> PACIFIES_MOSASAURUS = modItemTag("pacifies_mosasaurus");
 
     public static final TagKey<Item> SNOW = modItemTag("snow");
     public static final TagKey<Item> MOSS = modItemTag("moss");

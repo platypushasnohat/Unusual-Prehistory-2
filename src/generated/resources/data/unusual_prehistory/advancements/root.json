@@ -684,6 +684,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "mosasaurus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:mosasaurus_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "mossy_fossil": {
       "conditions": {
         "items": [
@@ -924,6 +936,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "surge_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:surge_fossil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "talpanas_egg": {
       "conditions": {
         "items": [
@@ -1082,6 +1106,7 @@
       "leptictidium_embryo",
       "praepusa_embryo",
       "pterodactylus_egg",
+      "mosasaurus_embryo",
       "psilopterus_egg",
       "dimorphodon_egg",
       "fury_fossil",
@@ -1131,6 +1156,7 @@
       "dryophyllum_fossil",
       "bristle_fossil",
       "flat_back_fossil",
+      "surge_fossil",
       "crooked_beak_fossil",
       "brute_fossil",
       "bill_fossil",

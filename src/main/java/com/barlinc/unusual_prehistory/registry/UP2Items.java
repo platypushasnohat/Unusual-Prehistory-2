@@ -185,13 +185,16 @@ public class UP2Items {
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
     public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
+    public static final RegistryObject<Item> MOSASAURUS_SPAWN_EGG = registerSpawnEggItem("mosasaurus", UP2Entities.MOSASAURUS, 0x0a100d, 0x66666a);
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
     public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
 
     public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
+    public static final RegistryObject<Item> SURGE_FOSSIL = registerFossilItem("surge"); // mosasaurus
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
 
+    public static final RegistryObject<Item> MOSASAURUS_EMBRYO = registerEmbryoItem("mosasaurus", UP2Entities.MOSASAURUS);
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
     public static final RegistryObject<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));

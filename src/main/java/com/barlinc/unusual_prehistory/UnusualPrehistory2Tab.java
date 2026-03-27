@@ -41,6 +41,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         output.accept(MEGALANIA_SPAWN_EGG.get());
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
+                        output.accept(MOSASAURUS_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
                         output.accept(PACHYCEPHALOSAURUS_SPAWN_EGG.get());
                         output.accept(PRAEPUSA_SPAWN_EGG.get());
@@ -158,6 +159,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
                         output.accept(THERMAL_FOSSIL.get()); // megalania
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
+                        output.accept(SURGE_FOSSIL.get()); // mosasaurus
                         output.accept(SAW_FOSSIL.get()); // onchopristis
                         output.accept(CRANIUM_FOSSIL.get()); // pachycephalosaurus
                         output.accept(FLIPPER_FOSSIL.get()); // praepusa
@@ -188,6 +190,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
+                        output.accept(MOSASAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
                         output.accept(UP2Blocks.PACHYCEPHALOSAURUS_EGG.get());
                         output.accept(PRAEPUSA_EMBRYO.get());

@@ -113,7 +113,7 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
 	public void setupAnim(Lystrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater() && !entity.isEepy()) {
+		if ((entity.isInWaterOrBubble() && entity.onGround()) || !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(LystrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(LystrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }

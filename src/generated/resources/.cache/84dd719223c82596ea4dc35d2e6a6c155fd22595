@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-26T16:59:44.6870745	Item Models: unusual_prehistory
+// 1.20.1	2026-03-27T15:05:06.6781454	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -111,6 +111,8 @@ a175c33aeb7477cec8879d5e8590b4f62ce09247 assets/unusual_prehistory/models/item/m
 a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/metasequoia_sign.json
 7cd4e02cd2b15d832535d0a76a162b9e50108b1f assets/unusual_prehistory/models/item/metriorhynchus_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/metriorhynchus_spawn_egg.json
+6c400333fca98cd124fb078b92e6fafda3ae40ce assets/unusual_prehistory/models/item/mosasaurus_embryo.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/mosasaurus_spawn_egg.json
 4a54d305848cbf29d37b6ea84eee3bacf023861b assets/unusual_prehistory/models/item/mossy_fossil.json
 4567518ac24c9a8e9d8009ecd21f5a26484177bf assets/unusual_prehistory/models/item/neomariopteris_fossil.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json
@@ -143,6 +145,7 @@ a9ab3bf8a96f9d6f6de571f77bd26e995ad2e630 assets/unusual_prehistory/models/item/r
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json
+01ed97914fe3a448fd6f89fdf20d39f6a7ec4544 assets/unusual_prehistory/models/item/surge_fossil.json
 98c3fcbb4daa1049985090b78782071bd00fc5fe assets/unusual_prehistory/models/item/talpanas_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/talpanas_spawn_egg.json
 33fd89ddf0ae56c74069e81efe0513be8e38c8da assets/unusual_prehistory/models/item/tarifying_disc.json

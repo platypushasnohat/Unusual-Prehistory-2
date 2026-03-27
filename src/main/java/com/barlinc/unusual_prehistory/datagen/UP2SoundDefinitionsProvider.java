@@ -814,6 +814,25 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.BUG_BUZZ,
                 sound(UnusualPrehistory2.modPrefix("entity/ambient/bug_buzz1")).attenuationDistance(4)
         );
+
+        // Update 5
+        this.sound(UP2SoundEvents.MOSASAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.MOSASAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.MOSASAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle4"))
+        );
+        this.sound(UP2SoundEvents.MOSASAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/attack2"))
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

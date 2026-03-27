@@ -1,6 +1,7 @@
 ## Version 1.4.0
 - Added Aegirocassis
 - Added Desmatosuchus
+- Added Mosasaurus
 - Added Psilopterus
 - Added Delitzschala ambient mob
 - Added Zhangsolva ambient mob
@@ -18,6 +19,7 @@
 - Added missing coelacanthus food tags
 - Many paleopedia fixes
 - Switched some raft eggs to water eggs
+- Fixed lystrosaurus not playing its walk animation when walking underwater
 - Misc tweaks
 
 ## Version 1.3.1

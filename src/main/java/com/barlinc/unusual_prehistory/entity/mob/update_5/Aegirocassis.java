@@ -76,8 +76,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
-        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 8, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
         this.headPart = new AegirocassisPart(this, this, 3.5F, 3.9F);
         this.tailPart1 = new AegirocassisPart(this, this, 3.5F, 3.9F);
         this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.5F, 3.9F);
@@ -99,7 +99,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(1, new AegirocassisTryToFlyGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AEGIROCASSIS_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 30, 15, 10, 3, true));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 40, 30, 15, 3, true));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
             @Override
             public boolean canUse() {
@@ -195,7 +195,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public int getHeadRotSpeed() {
-        return 5;
+        return 4;
     }
 
     @Override
@@ -212,7 +212,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         if (this.isInWaterOrBubble() && glowProgress < 5.0F) glowProgress++;
         else if (!this.isInWaterOrBubble() && glowProgress > 0.0F) glowProgress--;
 
-        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, this.getHeadRotSpeed());
+//        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, this.getHeadRotSpeed());
         this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
 
         if (wasPreviouslyBaby != this.isBaby()) {
@@ -399,7 +399,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public float getSoundVolume() {
-        return this.isBaby() ? 1.0F : 3.0F;
+        return this.isBaby() ? 1.0F : 4.0F;
     }
 
     // Goals

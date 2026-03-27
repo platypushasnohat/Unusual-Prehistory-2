@@ -265,6 +265,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "mosasaurus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:mosasaurus_embryo"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "onchopristis_sac": {
       "conditions": {
         "items": [
@@ -446,6 +458,7 @@
       "leptictidium_embryo",
       "praepusa_embryo",
       "pterodactylus_egg",
+      "mosasaurus_embryo",
       "psilopterus_egg",
       "dimorphodon_egg"
     ]

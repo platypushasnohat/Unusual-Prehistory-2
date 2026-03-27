@@ -59,6 +59,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERVIOUS_FOSSIL.get(),
                 CRANIUM_FOSSIL.get(),
                 FLAT_BACK_FOSSIL.get(),
+                SURGE_FOSSIL.get(),
                 MOSSY_FOSSIL.get(),
                 SCYTHE_FOSSIL.get(),
                 CROOKED_BEAK_FOSSIL.get(),
@@ -302,6 +303,20 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
                 Items.ROTTEN_FLESH
+        );
+
+        // Update 5
+        this.tag(UP2ItemTags.MOSASAURUS_FOOD).add(
+                Items.COD,
+                Items.COOKED_COD,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Items.TROPICAL_FISH,
+                Items.PUFFERFISH
+        );
+
+        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).add(
+                Items.TROPICAL_FISH
         );
 
         // Pacifying
