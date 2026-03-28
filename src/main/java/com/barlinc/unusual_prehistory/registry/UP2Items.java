@@ -9,6 +9,8 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
+import com.barlinc.unusual_prehistory.registry.tags.UP2BannerPatternTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -196,6 +198,10 @@ public class UP2Items {
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
     public static final RegistryObject<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> PALEOZOIC_BANNER_PATTERN = registerItemNoLang("paleozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.PALEOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MESOZOIC_BANNER_PATTERN = registerItemNoLang("mesozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.MESOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CENOZOIC_BANNER_PATTERN = registerItemNoLang("cenozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.CENOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));

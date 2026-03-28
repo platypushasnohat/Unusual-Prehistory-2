@@ -138,6 +138,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PSILOPTERUS_EGG);
         this.item(MOSASAURUS_EMBRYO);
 
+        this.item(PALEOZOIC_BANNER_PATTERN);
+        this.item(MESOZOIC_BANNER_PATTERN);
+        this.item(CENOZOIC_BANNER_PATTERN);
+
         // Future
 //        this.item(BRUTE_FOSSIL);
 //        this.item(BILL_FOSSIL);

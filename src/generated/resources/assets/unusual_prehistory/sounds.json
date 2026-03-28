@@ -1119,15 +1119,6 @@
     ],
     "subtitle": "subtitles.megalania_idle"
   },
-  "megalania_jumpscare": {
-    "sounds": [
-      {
-        "attenuation_distance": 20,
-        "name": "unusual_prehistory:entity/megalania/jumpscare1"
-      }
-    ],
-    "subtitle": "subtitles.megalania_jumpscare"
-  },
   "megalania_roar": {
     "sounds": [
       "unusual_prehistory:entity/megalania/roar1"

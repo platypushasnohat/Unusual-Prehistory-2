@@ -48,8 +48,7 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .requirements(RequirementsStrategy.OR))
                 .save(consumer, UnusualPrehistory2.modPrefix("root"), helper);
 
-        Advancement.Builder.advancement().display(UP2Items.CREATIVE_LOCK.get(), Component.translatable("advancement." + UnusualPrehistory2.MOD_ID + "." + "open_book_creative"), Component.translatable("advancement." + UnusualPrehistory2.MOD_ID + "." + "open_book_creative" + ".desc"), UnusualPrehistory2.modPrefix("textures/block/living_ooze.png"), FrameType.TASK, false, false, true)
-                .addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
+        Advancement.Builder.advancement().addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
                 .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
 
         // Progression & misc

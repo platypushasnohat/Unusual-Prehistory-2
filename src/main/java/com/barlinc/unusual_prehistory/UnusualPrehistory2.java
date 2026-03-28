@@ -60,6 +60,7 @@ public class UnusualPrehistory2 {
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
+        UP2BannerPatterns.BANNER_PATTERNS.register(bus);
         PROXY.commonInit();
         eventBus.register(this);
     }
@@ -101,6 +102,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
+        generator.addProvider(server, new UP2BannerPatternTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2DamageTypeTagProvider(output, provider, helper));
         generator.addProvider(server, UP2LootProvider.register(output));
         generator.addProvider(server, new UP2RecipeProvider(output));

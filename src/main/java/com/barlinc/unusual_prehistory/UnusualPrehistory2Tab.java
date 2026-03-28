@@ -136,9 +136,14 @@ public class UnusualPrehistory2Tab {
                         output.accept(PTERODACTYLUS_POT.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DIRT_ON_A_STICK.get());
+
                         output.accept(DOOMSURF_DISC.get());
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
+
+                        output.accept(PALEOZOIC_BANNER_PATTERN.get());
+                        output.accept(MESOZOIC_BANNER_PATTERN.get());
+                        output.accept(CENOZOIC_BANNER_PATTERN.get());
 
                         output.accept(BRISTLE_FOSSIL.get()); // brachiosaurus
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
