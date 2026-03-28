@@ -47,7 +47,6 @@ public class UP2ItemTags {
     public static final TagKey<Item> FRUITS = forgeItemTag("fruits");
     public static final TagKey<Item> FRUITS_GINKGO = forgeItemTag("fruits/ginkgo");
 
-    public static final TagKey<Item> FOSSILS = modItemTag("fossils");
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
     // Update 2

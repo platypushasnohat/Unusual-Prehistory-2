@@ -214,12 +214,12 @@ public class UP2Items {
 //    public static final RegistryObject<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
 //    public static final RegistryObject<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x141017, 0x514699);
 
-    public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute"); // barinasuchus
-    public static final RegistryObject<Item> BILL_FOSSIL = registerFossilItem("bill"); // dimorphodon
-    public static final RegistryObject<Item> ROACH_FOSSIL = registerFossilItem("roach"); // manipulator
-    public static final RegistryObject<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
+//    public static final RegistryObject<Item> BRUTE_FOSSIL = registerFossilItem("brute"); // barinasuchus
+//    public static final RegistryObject<Item> BILL_FOSSIL = registerFossilItem("bill"); // dimorphodon
+//    public static final RegistryObject<Item> ROACH_FOSSIL = registerFossilItem("roach"); // manipulator
+//    public static final RegistryObject<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
 
-    public static final RegistryObject<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
+//    public static final RegistryObject<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
 
     public static final RegistryObject<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));

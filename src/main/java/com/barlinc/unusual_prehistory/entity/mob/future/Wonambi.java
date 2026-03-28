@@ -195,9 +195,7 @@ public class Wonambi extends PrehistoricMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        Wonambi wonambi = UP2Entities.WONAMBI.get().create(serverLevel);
-        wonambi.setVariant(this.getVariant());
-        return wonambi;
+        return UP2Entities.LYSTROSAURUS.get().create(serverLevel);
     }
 
     public static boolean canSpawn(EntityType<Wonambi> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

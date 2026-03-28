@@ -278,7 +278,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.DIMORPHODON.get().create(serverLevel);
+        return UP2Entities.LYSTROSAURUS.get().create(serverLevel);
     }
 
     @Override

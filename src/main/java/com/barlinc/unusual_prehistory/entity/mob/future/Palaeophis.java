@@ -236,9 +236,7 @@ public class Palaeophis extends PrehistoricAquaticMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        Palaeophis palaeophis = UP2Entities.PALAEOPHIS.get().create(serverLevel);
-        palaeophis.setVariant(this.getVariant());
-        return palaeophis;
+        return UP2Entities.LYSTROSAURUS.get().create(serverLevel);
     }
 
     public static boolean canSpawn(EntityType<Palaeophis> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

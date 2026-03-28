@@ -63,77 +63,91 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         this.item(UP2Blocks.GUANGDEDENDRON);
 
-        // fossils
-        this.item(BRISTLE_FOSSIL);
-        this.item(BRUTE_FOSSIL);
-        this.item(ARM_FOSSIL);
+        // Update 1
         this.item(FURY_FOSSIL);
-        this.item(GLUTTONOUS_FOSSIL);
-        this.item(FLAT_BACK_FOSSIL);
-        this.item(SURGE_FOSSIL);
-        this.item(BILL_FOSSIL);
         this.item(BOOMERANG_FOSSIL);
         this.item(RUNNER_FOSSIL);
         this.item(GUILLOTINE_FOSSIL);
-        this.item(PLOW_FOSSIL);
         this.item(JAWLESS_FOSSIL);
-        this.item(BOAR_TOOTH_FOSSIL);
         this.item(PRICKLY_FOSSIL);
         this.item(IMPERATIVE_FOSSIL);
-        this.item(TRUNK_MOUSE_FOSSIL);
-        this.item(FISH_FOSSIL);
-        this.item(IMPERVIOUS_FOSSIL);
         this.item(RUGOSE_FOSSIL);
-        this.item(ROACH_FOSSIL);
         this.item(THERMAL_FOSSIL);
-        this.item(MELTDOWN_FOSSIL);
-        this.item(SAW_FOSSIL);
         this.item(ANVIL_FOSSIL);
-        this.item(CRANIUM_FOSSIL);
-        this.item(FLIPPER_FOSSIL);
-        this.item(CROOKED_BEAK_FOSSIL);
-        this.item(WING_FOSSIL);
-        this.item(MOSSY_FOSSIL);
-        this.item(PLUMAGE_FOSSIL);
-        this.item(SCYTHE_FOSSIL);
         this.item(AGED_FEATHER);
-        this.item(DUBIOUS_FOSSIL);
+        this.item(PLUMAGE_FOSSIL);
 
-        // eggs
-        this.item(UP2Blocks.AEGIROCASSIS_EGGS);
-        this.item(UP2Blocks.BARINASUCHUS_EGG);
-        this.item(UP2Blocks.BRACHIOSAURUS_EGG);
         this.item(UP2Blocks.CARNOTAURUS_EGG);
-        this.item(UP2Blocks.COELACANTHUS_ROE);
-        this.item(UP2Blocks.DESMATOSUCHUS_EGG);
-        this.item(DIMORPHODON_EGG);
         this.item(UP2Blocks.DIPLOCAULUS_EGGS);
         this.item(DROMAEOSAURUS_EGG);
         this.item(UP2Blocks.DUNKLEOSTEUS_SAC);
-        this.item(UP2Blocks.HIBBERTOPTERUS_EGGS);
         this.item(UP2Blocks.JAWLESS_FISH_ROE);
-        this.item(UP2Blocks.KAPROSUCHUS_EGG);
         this.item(UP2Blocks.KENTROSAURUS_EGG);
         this.item(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS);
+        this.item(UP2Blocks.MAJUNGASAURUS_EGG);
+        this.item(UP2Blocks.MEGALANIA_EGG);
+        this.item(UP2Blocks.STETHACANTHUS_SAC);
+        this.item(TALPANAS_EGG);
+        this.item(TELECREX_EGG);
+
+        // Update 2
+        this.item(SAW_FOSSIL);
+
+        this.item(UP2Blocks.ONCHOPRISTIS_SAC);
+
+        // Update 3
+        this.item(MELTDOWN_FOSSIL);
+        this.item(MOSSY_FOSSIL);
+
+        this.item(METRIORHYNCHUS_EMBRYO);
+        this.item(UP2Blocks.TARTUOSTEUS_ROE);
+
+        // Update 4
+        this.item(ARM_FOSSIL);
+        this.item(GLUTTONOUS_FOSSIL);
+        this.item(PLOW_FOSSIL);
+        this.item(BOAR_TOOTH_FOSSIL);
+        this.item(TRUNK_MOUSE_FOSSIL);
+        this.item(FISH_FOSSIL);
+        this.item(IMPERVIOUS_FOSSIL);
+        this.item(CRANIUM_FOSSIL);
+        this.item(FLIPPER_FOSSIL);
+        this.item(WING_FOSSIL);
+        this.item(DUBIOUS_FOSSIL);
+
+        this.item(UP2Blocks.BRACHIOSAURUS_EGG);
+        this.item(UP2Blocks.COELACANTHUS_ROE);
+        this.item(UP2Blocks.HIBBERTOPTERUS_EGGS);
+        this.item(UP2Blocks.KAPROSUCHUS_EGG);
         this.item(LEPTICTIDIUM_EMBRYO);
         this.item(UP2Blocks.LOBE_FINNED_FISH_ROE);
         this.item(UP2Blocks.LYSTROSAURUS_EGG);
-        this.item(UP2Blocks.MAJUNGASAURUS_EGG);
-        this.item(UP2Blocks.MANIPULATOR_OOTHECA);
-        this.item(UP2Blocks.MEGALANIA_EGG);
-        this.item(METRIORHYNCHUS_EMBRYO);
-        this.item(UP2Blocks.ONCHOPRISTIS_SAC);
         this.item(UP2Blocks.PACHYCEPHALOSAURUS_EGG);
         this.item(PRAEPUSA_EMBRYO);
-        this.item(PSILOPTERUS_EGG);
         this.item(PTERODACTYLUS_EGG);
-        this.item(UP2Blocks.STETHACANTHUS_SAC);
-        this.item(TALPANAS_EGG);
-        this.item(UP2Blocks.TARTUOSTEUS_ROE);
-        this.item(TELECREX_EGG);
-        this.item(UP2Blocks.THERIZINOSAURUS_EGG);
         this.item(UP2Blocks.ULUGHBEGSAURUS_EGG);
+
+        // Update 5
+        this.item(BRISTLE_FOSSIL);
+        this.item(FLAT_BACK_FOSSIL);
+        this.item(SURGE_FOSSIL);
+        this.item(CROOKED_BEAK_FOSSIL);
+
+        this.item(UP2Blocks.AEGIROCASSIS_EGGS);
+        this.item(UP2Blocks.DESMATOSUCHUS_EGG);
+        this.item(PSILOPTERUS_EGG);
         this.item(MOSASAURUS_EMBRYO);
+
+        // Future
+//        this.item(BRUTE_FOSSIL);
+//        this.item(BILL_FOSSIL);
+//        this.item(ROACH_FOSSIL);
+//        this.item(SCYTHE_FOSSIL);
+
+//        this.item(UP2Blocks.BARINASUCHUS_EGG);
+//        this.item(DIMORPHODON_EGG);
+//        this.item(UP2Blocks.MANIPULATOR_OOTHECA);
+//        this.item(UP2Blocks.THERIZINOSAURUS_EGG);
 
         this.item(CALAMOPHYTON_FOSSIL);
         this.item(RAIGUENRAYUN_FOSSIL);

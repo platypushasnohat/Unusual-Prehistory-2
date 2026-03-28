@@ -258,9 +258,9 @@ public class UP2Blocks {
     public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
 
     // Future
-    public static final RegistryObject<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));
-    public static final RegistryObject<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new RotatableEggBlock(UP2BlockProperties.SQUISHY_EGG, UP2Entities.MANIPULATOR::get, 10, 6, false));
-    public static final RegistryObject<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16, false));
+//    public static final RegistryObject<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));
+//    public static final RegistryObject<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new RotatableEggBlock(UP2BlockProperties.SQUISHY_EGG, UP2Entities.MANIPULATOR::get, 10, 6, false));
+//    public static final RegistryObject<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16, false));
 
     private static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);

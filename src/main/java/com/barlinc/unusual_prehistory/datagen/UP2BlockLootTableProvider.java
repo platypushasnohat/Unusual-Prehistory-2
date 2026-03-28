@@ -113,30 +113,41 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(MAGENTA_REINFORCED_GLASS.get());
         this.dropSelf(PINK_REINFORCED_GLASS.get());
 
-        this.dropSelf(AEGIROCASSIS_EGGS.get());
-        this.dropSelf(BARINASUCHUS_EGG.get());
-        this.add(BRACHIOSAURUS_EGG.get(), (block) -> this.createSinglePropConditionTable(block, TallEggBlock.HALF, DoubleBlockHalf.LOWER));
+        // Update 1
         this.dropSelf(CARNOTAURUS_EGG.get());
-        this.dropSelf(COELACANTHUS_ROE.get());
-        this.dropSelf(DESMATOSUCHUS_EGG.get());
         this.dropSelf(DIPLOCAULUS_EGGS.get());
         this.dropSelf(DUNKLEOSTEUS_SAC.get());
-        this.dropSelf(HIBBERTOPTERUS_EGGS.get());
         this.dropSelf(JAWLESS_FISH_ROE.get());
-        this.dropSelf(KAPROSUCHUS_EGG.get());
         this.dropSelf(KENTROSAURUS_EGG.get());
         this.dropSelf(KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+        this.dropSelf(MAJUNGASAURUS_EGG.get());
+        this.dropSelf(MEGALANIA_EGG.get());
+        this.dropSelf(STETHACANTHUS_SAC.get());
+
+        // Update 2
+        this.dropSelf(ONCHOPRISTIS_SAC.get());
+
+        // Update 3
+        this.dropSelf(TARTUOSTEUS_ROE.get());
+
+        // Update 4
+        this.add(BRACHIOSAURUS_EGG.get(), (block) -> this.createSinglePropConditionTable(block, TallEggBlock.HALF, DoubleBlockHalf.LOWER));
+        this.dropSelf(COELACANTHUS_ROE.get());
+        this.dropSelf(HIBBERTOPTERUS_EGGS.get());
+        this.dropSelf(KAPROSUCHUS_EGG.get());
         this.dropSelf(LOBE_FINNED_FISH_ROE.get());
         this.dropSelf(LYSTROSAURUS_EGG.get());
-        this.dropSelf(MAJUNGASAURUS_EGG.get());
-        this.dropSelf(MANIPULATOR_OOTHECA.get());
-        this.dropSelf(MEGALANIA_EGG.get());
-        this.dropSelf(ONCHOPRISTIS_SAC.get());
         this.dropSelf(PACHYCEPHALOSAURUS_EGG.get());
-        this.dropSelf(STETHACANTHUS_SAC.get());
-        this.dropSelf(TARTUOSTEUS_ROE.get());
-        this.dropSelf(THERIZINOSAURUS_EGG.get());
         this.dropSelf(ULUGHBEGSAURUS_EGG.get());
+
+        // Update 5
+        this.dropSelf(AEGIROCASSIS_EGGS.get());
+        this.dropSelf(DESMATOSUCHUS_EGG.get());
+
+        // Future
+//        this.dropSelf(BARINASUCHUS_EGG.get());
+//        this.dropSelf(MANIPULATOR_OOTHECA.get());
+//        this.dropSelf(THERIZINOSAURUS_EGG.get());
 
         this.dropSelf(BENNETTITALES.get());
         this.dropPottedContents(POTTED_BENNETTITALES.get());

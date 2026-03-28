@@ -152,7 +152,7 @@
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-         return UP2Entities.ERYON.get().create(level);
+         return UP2Entities.LYSTROSAURUS.get().create(level);
      }
 
      public static boolean canSpawn(EntityType<Eryon> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

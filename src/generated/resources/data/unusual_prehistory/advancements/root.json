@@ -60,36 +60,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "barinasuchus_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:barinasuchus_egg"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "bennettitales_fossil": {
       "conditions": {
         "items": [
           {
             "items": [
               "unusual_prehistory:bennettitales_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "bill_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:bill_fossil"
             ]
           }
         ]
@@ -150,18 +126,6 @@
           {
             "items": [
               "unusual_prehistory:bristle_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "brute_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:brute_fossil"
             ]
           }
         ]
@@ -270,18 +234,6 @@
           {
             "items": [
               "unusual_prehistory:desmatosuchus_egg"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "dimorphodon_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:dimorphodon_egg"
             ]
           }
         ]
@@ -624,18 +576,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "manipulator_ootheca": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:manipulator_ootheca"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "megalania_egg": {
       "conditions": {
         "items": [
@@ -864,18 +804,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "roach_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:roach_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "rugose_fossil": {
       "conditions": {
         "items": [
@@ -906,18 +834,6 @@
           {
             "items": [
               "unusual_prehistory:saw_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "scythe_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:scythe_fossil"
             ]
           }
         ]
@@ -990,18 +906,6 @@
           {
             "items": [
               "unusual_prehistory:tempskya_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "therizinosaurus_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:therizinosaurus_egg"
             ]
           }
         ]
@@ -1096,9 +1000,6 @@
       "ulughbegsaurus_egg",
       "aegirocassis_eggs",
       "desmatosuchus_egg",
-      "barinasuchus_egg",
-      "manipulator_ootheca",
-      "therizinosaurus_egg",
       "dromaeosaurus_egg",
       "talpanas_egg",
       "telecrex_egg",
@@ -1108,7 +1009,6 @@
       "pterodactylus_egg",
       "mosasaurus_embryo",
       "psilopterus_egg",
-      "dimorphodon_egg",
       "fury_fossil",
       "boomerang_fossil",
       "runner_fossil",
@@ -1158,10 +1058,6 @@
       "flat_back_fossil",
       "surge_fossil",
       "crooked_beak_fossil",
-      "brute_fossil",
-      "bill_fossil",
-      "roach_fossil",
-      "scythe_fossil",
       "machine_parts"
     ]
   ],

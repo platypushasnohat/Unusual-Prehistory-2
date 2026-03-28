@@ -32,61 +32,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
 
-        this.tag(UP2ItemTags.FOSSILS).add(
-                BRISTLE_FOSSIL.get(),
-                BRUTE_FOSSIL.get(),
-                ARM_FOSSIL.get(),
-                FURY_FOSSIL.get(),
-                GLUTTONOUS_FOSSIL.get(),
-                BILL_FOSSIL.get(),
-                BOOMERANG_FOSSIL.get(),
-                RUNNER_FOSSIL.get(),
-                GUILLOTINE_FOSSIL.get(),
-                PLOW_FOSSIL.get(),
-                JAWLESS_FOSSIL.get(),
-                BOAR_TOOTH_FOSSIL.get(),
-                PRICKLY_FOSSIL.get(),
-                IMPERATIVE_FOSSIL.get(),
-                RUGOSE_FOSSIL.get(),
-                ROACH_FOSSIL.get(),
-                THERMAL_FOSSIL.get(),
-                MELTDOWN_FOSSIL.get(),
-                SAW_FOSSIL.get(),
-                ANVIL_FOSSIL.get(),
-                PLUMAGE_FOSSIL.get(),
-                FISH_FOSSIL.get(),
-                TRUNK_MOUSE_FOSSIL.get(),
-                IMPERVIOUS_FOSSIL.get(),
-                CRANIUM_FOSSIL.get(),
-                FLAT_BACK_FOSSIL.get(),
-                SURGE_FOSSIL.get(),
-                MOSSY_FOSSIL.get(),
-                SCYTHE_FOSSIL.get(),
-                CROOKED_BEAK_FOSSIL.get(),
-                WING_FOSSIL.get(),
-                DUBIOUS_FOSSIL.get(),
-
-                CALAMOPHYTON_FOSSIL.get(),
-                DRYOPHYLLUM_FOSSIL.get(),
-                RAIGUENRAYUN_FOSSIL.get(),
-                GINKGO_FOSSIL.get(),
-                CYCAD_FOSSIL.get(),
-                RHYNIA_FOSSIL.get(),
-                TEMPSKYA_FOSSIL.get(),
-                LEEFRUCTUS_FOSSIL.get(),
-                NEOMARIOPTERIS_FOSSIL.get(),
-                METASEQUOIA_FOSSIL.get(),
-                PROTOTAXITES_FOSSIL.get(),
-                QUILLWORT_FOSSIL.get(),
-                LEPIDODENDRON_FOSSIL.get(),
-                COOKSONIA_FOSSIL.get(),
-                CLADOPHLEBIS_FOSSIL.get(),
-                BENNETTITALES_FOSSIL.get(),
-                AETHOPHYLLUM_FOSSIL.get(),
-                BRACHYPHYLLUM_FOSSIL.get(),
-                GUANGDEDENDRON_FOSSIL.get()
-        );
-
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(
                 ORGANIC_OOZE.get()
         );

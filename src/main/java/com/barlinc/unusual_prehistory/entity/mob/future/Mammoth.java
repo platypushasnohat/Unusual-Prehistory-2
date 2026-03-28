@@ -81,9 +81,7 @@ public class Mammoth extends PrehistoricMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Mammoth mammoth = UP2Entities.MAMMOTH.get().create(level);
-        mammoth.setVariant(this.getVariant());
-        return mammoth;
+        return UP2Entities.LYSTROSAURUS.get().create(level);
     }
 
     @Nullable

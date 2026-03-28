@@ -91,6 +91,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TALPANAS.get(), TalpanasRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UP2Entities.UNICORN.get(), UnicornRenderer::new);
+
         event.registerEntityRenderer(UP2Entities.DROMAEOSAURUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TALPANAS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.TELECREX_EGG.get(), ThrownItemRenderer::new);
@@ -104,39 +105,41 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TARTUOSTEUS.get(), TartuosteusRenderer::new);
 
         // Update 4
-        event.registerEntityRenderer(UP2Entities.AEGIROCASSIS.get(), AegirocassisRenderer::new);
-        event.registerEntityRenderer(UP2Entities.BARINASUCHUS.get(), BarinasuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.BRACHIOSAURUS.get(), BrachiosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELACANTHUS.get(), CoelacanthusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DELITZSCHALA.get(), DelitzschalaRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.HIBBERTOPTERUS.get(), HibbertopterusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KAPROSUCHUS.get(), KaprosuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.LEPTICTIDIUM.get(), LeptictidiumRenderer::new);
         event.registerEntityRenderer(UP2Entities.LOBE_FINNED_FISH.get(), LobeFinnedFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.LYSTROSAURUS.get(), LystrosaurusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.MANIPULATOR.get(), ManipulatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.PACHYCEPHALOSAURUS.get(), PachycephalosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PRAEPUSA.get(), PraepusaRenderer::new);
         event.registerEntityRenderer(UP2Entities.PSILOPTERUS.get(), PsilopterusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS.get(), PterodactylusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.THERIZINOSAURUS.get(), TherizinosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ULUGHBEGSAURUS.get(), UlughbegsaurusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.DIMORPHODON_EGG.get(), ThrownItemRenderer::new);
+
         event.registerEntityRenderer(UP2Entities.PSILOPTERUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.PTERODACTYLUS_EGG.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
         // Update 5
+        event.registerEntityRenderer(UP2Entities.AEGIROCASSIS.get(), AegirocassisRenderer::new);
+        event.registerEntityRenderer(UP2Entities.DELITZSCHALA.get(), DelitzschalaRenderer::new);
+        event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MOSASAURUS.get(), MosasaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
         // Future
-        event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.ERYON.get(), EryonRenderer::new);
-        event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
-        event.registerEntityRenderer(UP2Entities.PALAEOPHIS.get(), PalaeophisRenderer::new);
-        event.registerEntityRenderer(UP2Entities.WONAMBI.get(), WonambiRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.BARINASUCHUS.get(), BarinasuchusRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.DIMORPHODON.get(), DimorphodonRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.ERYON.get(), EryonRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.MANIPULATOR.get(), ManipulatorRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.PALAEOPHIS.get(), PalaeophisRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.THERIZINOSAURUS.get(), TherizinosaurusRenderer::new);
+//        event.registerEntityRenderer(UP2Entities.WONAMBI.get(), WonambiRenderer::new);
+
+//        event.registerEntityRenderer(UP2Entities.DIMORPHODON_EGG.get(), ThrownItemRenderer::new);
 
         // Misc
         event.registerEntityRenderer(UP2Entities.BOAT.get(), UP2BoatRenderer::new);
@@ -207,16 +210,16 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
 
         // Future
-        event.registerLayerDefinition(UP2ModelLayers.BARINASUCHUS, BarinasuchusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.ERYON, EryonModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.MANIPULATOR, ManipulatorModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.PALAEOPHIS, PalaeophisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS, TherizinosaurusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS_BABY, TherizinosaurusBabyModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.WONAMBI, WonambiModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.BARINASUCHUS, BarinasuchusModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.DIMORPHODON, DimorphodonModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.ERYON, EryonModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.MANIPULATOR, ManipulatorModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.PALAEOPHIS, PalaeophisModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS, TherizinosaurusModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS_BABY, TherizinosaurusBabyModel::createBodyLayer);
+//        event.registerLayerDefinition(UP2ModelLayers.WONAMBI, WonambiModel::createBodyLayer);
     }
 
     @SubscribeEvent

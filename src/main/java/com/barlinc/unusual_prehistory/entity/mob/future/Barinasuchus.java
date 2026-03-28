@@ -345,7 +345,7 @@
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-         return UP2Entities.BARINASUCHUS.get().create(level);
+         return UP2Entities.LYSTROSAURUS.get().create(level);
      }
 
      public static boolean canSpawn(EntityType<Barinasuchus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

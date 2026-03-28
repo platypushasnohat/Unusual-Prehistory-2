@@ -61,18 +61,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "bill_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:bill_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "boar_tooth_fossil": {
       "conditions": {
         "items": [
@@ -115,18 +103,6 @@
           {
             "items": [
               "unusual_prehistory:bristle_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "brute_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:brute_fossil"
             ]
           }
         ]
@@ -517,18 +493,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "roach_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:roach_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "rugose_fossil": {
       "conditions": {
         "items": [
@@ -559,18 +523,6 @@
           {
             "items": [
               "unusual_prehistory:saw_fossil"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "scythe_fossil": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:scythe_fossil"
             ]
           }
         ]
@@ -703,11 +655,7 @@
       "bristle_fossil",
       "flat_back_fossil",
       "surge_fossil",
-      "crooked_beak_fossil",
-      "brute_fossil",
-      "bill_fossil",
-      "roach_fossil",
-      "scythe_fossil"
+      "crooked_beak_fossil"
     ]
   ],
   "sends_telemetry_event": true

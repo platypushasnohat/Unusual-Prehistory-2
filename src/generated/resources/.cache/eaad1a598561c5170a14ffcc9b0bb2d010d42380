@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-27T15:05:06.6781454	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-03-27T18:08:22.2216647	Tags for minecraft:item mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -45,7 +45,6 @@ b1ec8eb71e51dd2382f705b80b7c0231936f2537 data/unusual_prehistory/tags/items/dipl
 cddcf8efa0da5db637b9a56b31fe6a0e73126835 data/unusual_prehistory/tags/items/dryophyllum_logs.json
 9f30719c72089afae65ef1b638cd4c978a7cfd00 data/unusual_prehistory/tags/items/dunkleosteus_food.json
 b94e7da08bf5d9472f2ae57332e111bf6a903dcf data/unusual_prehistory/tags/items/forest_dyes.json
-48622975590c2546a05d07751f5b854c58058820 data/unusual_prehistory/tags/items/fossils.json
 397128112cd61dfb32343ba143157ceaf3f68ea9 data/unusual_prehistory/tags/items/ginger_dyes.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/items/ginkgo_logs.json
 8da8f34a416bead74cb50fb5e02a0dd8490f6b4c data/unusual_prehistory/tags/items/guarded_by_kentrosaurus.json

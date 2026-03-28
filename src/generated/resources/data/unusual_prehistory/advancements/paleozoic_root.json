@@ -13,18 +13,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "barinasuchus_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:barinasuchus_egg"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "brachiosaurus_egg": {
       "conditions": {
         "items": [
@@ -67,18 +55,6 @@
           {
             "items": [
               "unusual_prehistory:desmatosuchus_egg"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "dimorphodon_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:dimorphodon_egg"
             ]
           }
         ]
@@ -229,18 +205,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "manipulator_ootheca": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:manipulator_ootheca"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "megalania_egg": {
       "conditions": {
         "items": [
@@ -385,18 +349,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "therizinosaurus_egg": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "unusual_prehistory:therizinosaurus_egg"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "ulughbegsaurus_egg": {
       "conditions": {
         "items": [
@@ -448,9 +400,6 @@
       "ulughbegsaurus_egg",
       "aegirocassis_eggs",
       "desmatosuchus_egg",
-      "barinasuchus_egg",
-      "manipulator_ootheca",
-      "therizinosaurus_egg",
       "dromaeosaurus_egg",
       "talpanas_egg",
       "telecrex_egg",
@@ -459,8 +408,7 @@
       "praepusa_embryo",
       "pterodactylus_egg",
       "mosasaurus_embryo",
-      "psilopterus_egg",
-      "dimorphodon_egg"
+      "psilopterus_egg"
     ]
   ],
   "sends_telemetry_event": true

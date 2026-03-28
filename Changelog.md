@@ -5,6 +5,7 @@
 - Added Psilopterus
 - Added Delitzschala ambient mob
 - Added Zhangsolva ambient mob
+- Removed unfinished 1.3 and future mobs
 - Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
 - Fixed guangdedendron model not being transparent sometimes

@@ -508,7 +508,7 @@
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
-         return UP2Entities.MANIPULATOR.get().create(level);
+         return UP2Entities.LYSTROSAURUS.get().create(level);
      }
 
      public static boolean canSpawn(EntityType<Manipulator> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

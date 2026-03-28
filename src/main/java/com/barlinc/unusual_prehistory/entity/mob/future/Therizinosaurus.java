@@ -344,9 +344,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        Therizinosaurus therizinosaurus = UP2Entities.THERIZINOSAURUS.get().create(level);
-        therizinosaurus.setVariant(this.getVariant());
-        return therizinosaurus;
+        return UP2Entities.LYSTROSAURUS.get().create(level);
     }
 
     @Nullable
