@@ -10,7 +10,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BannerPatternTags;
-import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
