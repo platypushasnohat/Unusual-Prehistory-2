@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.future.*;
 import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.*;
