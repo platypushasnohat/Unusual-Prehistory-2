@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.PsilopterusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.PsilopterusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -105,7 +105,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     public void setupAnim(Psilopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
+        if (!entity.isInWaterOrBubble() && !entity.isEepy() && entity.onGround()) {
             if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PsilopterusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PsilopterusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
@@ -121,6 +121,7 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
         this.animateSmooth(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks);
         this.animateSmooth(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks);
         this.animateSmooth(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks);
+        this.animateSmooth(entity.flapAnimationState, PsilopterusAnimations.FALL, ageInTicks);
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 

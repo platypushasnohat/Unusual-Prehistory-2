@@ -10,8 +10,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.Tartuost
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_finned_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient.DelitzschalaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2BoatRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.UP2ChestBoatRenderer;
@@ -25,8 +25,8 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.Aegiro
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.DesmatosuchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.MosasaurusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PsilopterusRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.ambient.DelitzschalaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.future.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;

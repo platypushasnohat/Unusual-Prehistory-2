@@ -1,6 +1,6 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.future.ambient;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.ambient.ZhangsolvaAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.ambient.ZhangsolvaAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.future.ambient.Zhangsolva;
 import net.minecraft.client.model.geom.ModelPart;

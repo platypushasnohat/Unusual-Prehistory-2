@@ -27,6 +27,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -73,6 +75,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     public final SmoothAnimationState dig2AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState flapAnimationState = new SmoothAnimationState();
 
     public boolean attackAlt = false;
     private int pokeTicks;
@@ -134,8 +137,17 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     }
 
     @Override
-    public int getMaxFallDistance() {
-        return super.getMaxFallDistance() + 10;
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source.is(DamageTypes.FALL);
+    }
+
+    @Override
+    protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+    }
+
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+        return false;
     }
 
     @Override
@@ -147,6 +159,18 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         super.travel(travelVec);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        Vec3 vec3 = this.getDeltaMovement();
+        if (!this.onGround() && !this.isInWaterOrBubble() && vec3.y < 0.0) {
+            this.setDeltaMovement(vec3.multiply(1.0, 0.75, 1.0));
+            if (this.getMovementEmission().emitsEvents()) {
+                this.gameEvent(GameEvent.FLAP);
+            }
+        }
     }
 
     @Override
@@ -288,7 +312,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.canPlayIdleAnimation() && !this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.canPlayIdleAnimation() && this.onGround() && !this.isInWaterOrBubble(), this.tickCount);
         this.swimAnimationState.animateWhen(this.canPlayIdleAnimation() && this.isInWaterOrBubble(), this.tickCount);
         this.pokeAnimationState.animateWhen(this.getPose() == UP2Poses.POKING.get(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
@@ -299,6 +323,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.preen1AnimationState.animateWhen(this.getIdleState() == 2 && !preenAlt, this.tickCount);
         this.preen2AnimationState.animateWhen(this.getIdleState() == 2 && preenAlt, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.flapAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
     }
 
     private boolean canPlayIdleAnimation() {

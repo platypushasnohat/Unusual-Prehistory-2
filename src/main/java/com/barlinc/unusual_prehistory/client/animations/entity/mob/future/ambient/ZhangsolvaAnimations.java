@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.ambient;
+package com.barlinc.unusual_prehistory.client.animations.entity.mob.future.ambient;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
