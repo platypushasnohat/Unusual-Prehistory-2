@@ -36,13 +36,24 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
 
     @Override
     public void start() {
-        super.start();
+        this.mob.setPose(Pose.STANDING);
+        this.mob.setAttackState(0);
+        this.mob.setAggressive(true);
+        this.mob.setRunning(true);
+        this.timer = 0;
         this.hitTarget = false;
     }
 
     @Override
     public void stop() {
-        super.stop();
+        if (this.mob.getPose() != UP2Poses.RECOVERING.get()) {
+            this.mob.setPose(Pose.STANDING);
+        }
+        this.mob.setTarget(null);
+        this.mob.setAttackState(0);
+        this.mob.setAggressive(false);
+        this.mob.setRunning(false);
+        this.mob.getNavigation().stop();
         this.pachycephalosaurus.setFightCooldown(1000 + pachycephalosaurus.getRandom().nextInt(1000));
         this.pachycephalosaurus.setFindTargetCooldown(1200 + pachycephalosaurus.getRandom().nextInt(1200));
         this.pachycephalosaurus.setFightPartner(false);

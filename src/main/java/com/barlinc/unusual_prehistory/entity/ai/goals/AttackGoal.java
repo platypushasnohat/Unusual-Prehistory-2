@@ -1,7 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Pachycephalosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;

@@ -27,7 +27,7 @@ public class MosasaurusHeldMobLayer extends RiderLayer<Mosasaurus, MosasaurusMod
             poseStack.translate(1.5F * entity.getScale(), -0.7F * entity.getScale(), -2.0F * entity.getScale());
             poseStack.mulPose(Axis.XN.rotationDegrees(90.0F));
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
-            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+//            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
             if (!UnusualPrehistory2.PROXY.isFirstPersonPlayer(heldMob)) {
                 renderPassenger(heldMob, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
             }
