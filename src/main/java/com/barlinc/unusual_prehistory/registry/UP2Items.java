@@ -184,10 +184,8 @@ public class UP2Items {
     // Update 5
     public static final RegistryObject<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final RegistryObject<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
-    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
     public static final RegistryObject<Item> MOSASAURUS_SPAWN_EGG = registerSpawnEggItem("mosasaurus", UP2Entities.MOSASAURUS, 0x0a100d, 0x66666a);
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
-    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
 
     public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
@@ -209,6 +207,9 @@ public class UP2Items {
     public static final RegistryObject<Item> CREATIVE_LOCK = registerItem("creative_lock", () -> new Item(new Item.Properties()));
 
     // Future
+    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
+    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
+
 //    public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);
 //    public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
 //    public static final RegistryObject<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
