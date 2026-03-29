@@ -10,7 +10,7 @@
       "template": "unusual_prehistory:template_hyperlink_button",
       "as": "button_next",
       "using": {
-      "text": ">",
+      "text": ">>>",
       "tooltip": "$(t:Next Objective)"
     },
       "x": 90,
@@ -20,7 +20,7 @@
       "template": "unusual_prehistory:template_hyperlink_button",
       "as": "button_previous",
       "using": {
-        "text": "<",
+        "text": "<<<",
         "tooltip": "$(t:Previous Objective)"
       },
       "x": 21,
