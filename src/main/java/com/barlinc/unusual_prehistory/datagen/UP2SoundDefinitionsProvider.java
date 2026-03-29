@@ -612,6 +612,22 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/psilopterus/call1")).attenuationDistance(24)
         );
 
+        // Grug
+        this.sound(UP2SoundEvents.GRUG_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/grug/death1"))
+        );
+        this.sound(UP2SoundEvents.GRUG_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/grug/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/grug/hurt2"))
+        );
+        this.sound(UP2SoundEvents.GRUG_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/grug/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/grug/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/grug/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/grug/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/grug/idle5"))
+        );
+
         // Pterodactylus
         this.sound(UP2SoundEvents.PTERODACTYLUS_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/hurt1"))

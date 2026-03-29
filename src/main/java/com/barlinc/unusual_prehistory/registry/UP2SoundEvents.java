@@ -196,17 +196,20 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> PSILOPTERUS_BITE = registerSoundEvent("psilopterus_bite");
     public static final RegistryObject<SoundEvent> PSILOPTERUS_CALL = registerSoundEvent("psilopterus_call");
 
-    public static final RegistryObject<SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
-    public static final RegistryObject<SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
-    public static final RegistryObject<SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
+    public static final RegistryObject<SoundEvent> GRUG_HURT = registerSoundEvent("grug_hurt");
+    public static final RegistryObject<SoundEvent> GRUG_DEATH = registerSoundEvent("grug_death");
+    public static final RegistryObject<SoundEvent> GRUG_IDLE = registerSoundEvent("grug_idle");
 
     // Future
-
     public static final RegistryObject<SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_ATTACK = registerSoundEvent("barinasuchus_attack");
     public static final RegistryObject<SoundEvent> BARINASUCHUS_THREATEN = registerSoundEvent("barinasuchus_threaten");
+
+    public static final RegistryObject<SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
+    public static final RegistryObject<SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
+    public static final RegistryObject<SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
 
     public static final RegistryObject<SoundEvent> DIMORPHODON_HURT = registerSoundEvent("dimorphodon_hurt");
     public static final RegistryObject<SoundEvent> DIMORPHODON_DEATH = registerSoundEvent("dimorphodon_death");

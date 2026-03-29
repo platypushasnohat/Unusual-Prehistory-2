@@ -487,6 +487,29 @@
     ],
     "subtitle": "subtitles.dunkleosteus_hurt"
   },
+  "grug_death": {
+    "sounds": [
+      "unusual_prehistory:entity/grug/death1"
+    ],
+    "subtitle": "subtitles.grug_death"
+  },
+  "grug_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/grug/hurt1",
+      "unusual_prehistory:entity/grug/hurt2"
+    ],
+    "subtitle": "subtitles.grug_hurt"
+  },
+  "grug_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/grug/idle1",
+      "unusual_prehistory:entity/grug/idle2",
+      "unusual_prehistory:entity/grug/idle3",
+      "unusual_prehistory:entity/grug/idle4",
+      "unusual_prehistory:entity/grug/idle5"
+    ],
+    "subtitle": "subtitles.grug_idle"
+  },
   "hibbertopterus_death": {
     "sounds": [
       "unusual_prehistory:entity/hibbertopterus/death1"
