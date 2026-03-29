@@ -1,6 +1,18 @@
 {
   "values": [
     "unusual_prehistory:brachiosaurus",
-    "unusual_prehistory:carnotaurus"
+    "unusual_prehistory:carnotaurus",
+    "unusual_prehistory:desmatosuchus",
+    "unusual_prehistory:dromaeosaurus",
+    "unusual_prehistory:kaprosuchus",
+    "unusual_prehistory:kentrosaurus",
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium",
+    "unusual_prehistory:lystrosaurus",
+    "unusual_prehistory:majungasaurus",
+    "unusual_prehistory:metriorhynchus",
+    "unusual_prehistory:mosasaurus",
+    "unusual_prehistory:onchopristis",
+    "unusual_prehistory:pterodactylus",
+    "unusual_prehistory:ulughbegsaurus"
   ]
 }

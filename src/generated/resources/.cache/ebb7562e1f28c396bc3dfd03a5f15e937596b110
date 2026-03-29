@@ -1,4 +1,5 @@
-// 1.20.1	2026-03-28T14:43:11.6127194	Tags for minecraft:banner_pattern mod id unusual_prehistory
-0f2afd79dc5588c603b0dd4bd375728156cd50ae data/unusual_prehistory/tags/banner_pattern/cenozoic_banner_pattern.json
-b1c14d075274f2d61b11cf19c855b6bd27541e5f data/unusual_prehistory/tags/banner_pattern/mesozoic_banner_pattern.json
-e69d17529c34e13559cf674da298314596f9237f data/unusual_prehistory/tags/banner_pattern/paleozoic_banner_pattern.json
+// 1.20.1	2026-03-28T21:06:50.085829	Tags for minecraft:banner_pattern mod id unusual_prehistory
+11d68440e8a1c2b2e5fe71de4307c6b399f2f25a data/unusual_prehistory/tags/banner_pattern/cenozoic_banner_pattern.json
+9439f84164bcc752c52ab4829abc660ba9643896 data/unusual_prehistory/tags/banner_pattern/mesozoic_banner_pattern.json
+0b71a802c98134ffef6eda02e6baedf32ecc5e83 data/unusual_prehistory/tags/banner_pattern/ooze_banner_pattern.json
+dc527f3da658b2d0c6e477d802bd7e85aee8b4df data/unusual_prehistory/tags/banner_pattern/paleozoic_banner_pattern.json

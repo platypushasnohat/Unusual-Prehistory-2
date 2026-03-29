@@ -141,6 +141,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PALEOZOIC_BANNER_PATTERN);
         this.item(MESOZOIC_BANNER_PATTERN);
         this.item(CENOZOIC_BANNER_PATTERN);
+        this.item(OOZE_BANNER_PATTERN);
 
         // Future
 //        this.item(BRUTE_FOSSIL);

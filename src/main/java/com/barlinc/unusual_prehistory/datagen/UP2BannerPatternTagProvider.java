@@ -20,17 +20,48 @@ public class UP2BannerPatternTagProvider extends BannerPatternTagsProvider {
 
 	@Override
 	public void addTags(@NotNull Provider provider) {
+
 		this.tag(UP2BannerPatternTags.PALEOZOIC_BANNER_PATTERN).add(
-                DIPLOCAULUS.getKey()
+                AEGIROCASSIS.getKey(),
+                COELACANTHUS.getKey(),
+                DIPLOCAULUS.getKey(),
+                DUNKLEOSTEUS.getKey(),
+                HIBBERTOPTERUS.getKey(),
+                JAWLESS_FISH.getKey(),
+                LOBE_FINNED_FISH.getKey(),
+                LYSTROSAURUS.getKey(),
+                STETHACANTHUS.getKey(),
+                TARTUOSTEUS.getKey()
         );
 
         this.tag(UP2BannerPatternTags.MESOZOIC_BANNER_PATTERN).add(
                 BRACHIOSAURUS.getKey(),
-                CARNOTAURUS.getKey()
+                CARNOTAURUS.getKey(),
+                DESMATOSUCHUS.getKey(),
+                DROMAEOSAURUS.getKey(),
+                KAPROSUCHUS.getKey(),
+                KENTROSAURUS.getKey(),
+                KIMMERIDGEBRACHYPTERAESCHNIDIUM.getKey(),
+                LYSTROSAURUS.getKey(),
+                MAJUNGASAURUS.getKey(),
+                METRIORHYNCHUS.getKey(),
+                MOSASAURUS.getKey(),
+                ONCHOPRISTIS.getKey(),
+                PTERODACTYLUS.getKey(),
+                ULUGHBEGSAURUS.getKey()
         );
 
         this.tag(UP2BannerPatternTags.CENOZOIC_BANNER_PATTERN).add(
-                MEGALANIA.getKey()
+                LEPTICTIDIUM.getKey(),
+                MEGALANIA.getKey(),
+                PRAEPUSA.getKey(),
+                PSILOPTERUS.getKey(),
+                TALPANAS.getKey(),
+                TELECREX.getKey()
+        );
+
+        this.tag(UP2BannerPatternTags.OOZE_BANNER_PATTERN).add(
+                OOZE.getKey()
         );
 	}
 }

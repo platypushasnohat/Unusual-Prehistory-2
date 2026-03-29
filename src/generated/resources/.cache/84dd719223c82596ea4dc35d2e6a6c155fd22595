@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-28T14:07:29.0658647	Item Models: unusual_prehistory
+// 1.20.1	2026-03-28T20:56:12.1540709	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -114,6 +114,7 @@ a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/m
 4567518ac24c9a8e9d8009ecd21f5a26484177bf assets/unusual_prehistory/models/item/neomariopteris_fossil.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
+7c3c18cdc0de068c4f202dfbebb1f29f81299c2a assets/unusual_prehistory/models/item/ooze_banner_pattern.json
 258da8d1d8983d5ce5d47e66d72d814cb884e13a assets/unusual_prehistory/models/item/pachycephalosaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/pachycephalosaurus_spawn_egg.json
 3c7ee31fb0641da1c54858a6392d61ae566628e4 assets/unusual_prehistory/models/item/paleopedia.json

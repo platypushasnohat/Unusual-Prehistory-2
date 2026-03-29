@@ -201,6 +201,7 @@ public class UP2Items {
     public static final RegistryObject<Item> PALEOZOIC_BANNER_PATTERN = registerItemNoLang("paleozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.PALEOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> MESOZOIC_BANNER_PATTERN = registerItemNoLang("mesozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.MESOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CENOZOIC_BANNER_PATTERN = registerItemNoLang("cenozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.CENOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> OOZE_BANNER_PATTERN = registerItemNoLang("ooze_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.OOZE_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));

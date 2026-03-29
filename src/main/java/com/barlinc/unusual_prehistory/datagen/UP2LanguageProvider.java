@@ -60,7 +60,16 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.translateBannerPattern("carnotaurus");
         this.translateBannerPattern("diplocaulus");
+        this.translateBannerPattern("dromaeosaurus");
+        this.translateBannerPattern("dunkleosteus");
+        this.translateBannerPattern("jawless_fish");
+        this.translateBannerPattern("kentrosaurus");
+        this.translateBannerPattern("kimmeridgebrachypteraeschnidium");
+        this.translateBannerPattern("majungasaurus");
         this.translateBannerPattern("megalania");
+        this.translateBannerPattern("stethacanthus");
+        this.translateBannerPattern("talpanas");
+        this.translateBannerPattern("telecrex");
 
         this.sound(UP2SoundEvents.TAR_POP, "Tar pops");
 
@@ -238,6 +247,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.MEGALANIA_DISC, "Music Disc");
         this.musicDisc(UP2Items.MEGALANIA_DISC, "ValiantEnvoy - MEGALANIA");
 
+        this.translateBannerPattern("onchopristis");
+
         // Update 3
         this.addItem(UP2Items.LIVING_OOZE_BUCKET, "Bucket of Living Ooze");
 
@@ -253,6 +264,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.METRIORHYNCHUS_BITE, "Metriorhynchus bites");
         this.sound(UP2SoundEvents.METRIORHYNCHUS_BELLOW, "Metriorhynchus bellows");
 
+        this.translateBannerPattern("ooze");
+        this.translateBannerPattern("metriorhynchus");
+        this.translateBannerPattern("tartuosteus");
+
         // Update 4
         this.addItem(UP2Items.COELACANTHUS_BUCKET, "Bucket of Coelacanthus");
         this.addItem(UP2Items.LOBE_FINNED_FISH_BUCKET, "Bucket of Lobe Finned Fish");
@@ -265,6 +280,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.DIRT_ON_A_STICK, "Dirt on a Stick");
 
         this.translateBannerPattern("brachiosaurus");
+        this.translateBannerPattern("coelacanthus");
+        this.translateBannerPattern("hibbertopterus");
+        this.translateBannerPattern("kaprosuchus");
+        this.translateBannerPattern("leptictidium");
+        this.translateBannerPattern("lobe_finned_fish");
+        this.translateBannerPattern("lystrosaurus");
+        this.translateBannerPattern("pachycephalosaurus");
+        this.translateBannerPattern("praepusa");
+        this.translateBannerPattern("pterodactylus");
+        this.translateBannerPattern("ulughbegsaurus");
 
         this.sound(UP2SoundEvents.BRACHIOSAURUS_HURT, "Brachiosaurus hurts");
         this.sound(UP2SoundEvents.BRACHIOSAURUS_DEATH, "Brachiosaurus dies");
@@ -343,9 +368,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.UNKNOWN_FOSSIL, "??? Fossil");
         this.addItem(UP2Items.UNKNOWN_EGG, "??? Egg");
 
-        this.translateBannerPatternItem(UP2Items.PALEOZOIC_BANNER_PATTERN, "Paleozoic");
-        this.translateBannerPatternItem(UP2Items.MESOZOIC_BANNER_PATTERN, "Mesozoic");
-        this.translateBannerPatternItem(UP2Items.CENOZOIC_BANNER_PATTERN, "Cenozoic");
+        this.translateBannerPatternItem(UP2Items.PALEOZOIC_BANNER_PATTERN, "Paleozoic Creatures");
+        this.translateBannerPatternItem(UP2Items.MESOZOIC_BANNER_PATTERN, "Mesozoic Creatures");
+        this.translateBannerPatternItem(UP2Items.CENOZOIC_BANNER_PATTERN, "Cenozoic Creatures");
+        this.translateBannerPatternItem(UP2Items.OOZE_BANNER_PATTERN, "Ooze");
+
+        this.translateBannerPattern("aegirocassis");
+        this.translateBannerPattern("desmatosuchus");
+        this.translateBannerPattern("mosasaurus");
+        this.translateBannerPattern("psilopterus");
 
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT, "Aegirocassis hurts");
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH, "Aegirocassis dies");
