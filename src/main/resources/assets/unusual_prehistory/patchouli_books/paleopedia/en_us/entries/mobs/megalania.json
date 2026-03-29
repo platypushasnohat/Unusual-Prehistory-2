@@ -17,14 +17,14 @@
       "fossil_item": "unusual_prehistory:thermal_fossil",
       "egg_item": "unusual_prehistory:megalania_egg",
       "variant_key": "",
-      "image_tooltip": "Cold-blooded killers of The Pleistocene Outback, the giant monitor Megalania would have spent its time basking in the sun and soaking up heat."
+      "image_tooltip": "One of the largest lizards of all time, Megalania displays a fondness for sunny skies and hot sand, using its nasty bite and whip-like tail to fiercely hunt across the great desert landscape."
     },
     {
       "id": "megalania",
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "late_cenozoic",
-      "era_tooltip_period": "Late Cenozoic Period",
+      "era_image": "quaternary",
+      "era_tooltip_period": "Quaternary Period",
 
       "temperament.temperament_type": "neutral",
 

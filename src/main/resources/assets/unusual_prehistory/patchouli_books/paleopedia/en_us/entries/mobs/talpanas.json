@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:aged_feather",
       "egg_item": "unusual_prehistory:talpanas_egg",
       "variant_key": "",
-      "image_tooltip": "A cave-dwelling duck that can neither see nor swim."
+      "image_tooltip": "A small cave-dwelling duck inhabiting tropical islands, Talpanas is unable to see, swim, or fly, unfortunately making it the perfect target for §obfuscate, at the hands of whom it met its extinction. "
     },
     {
       "id": "talpanas",
@@ -42,7 +42,6 @@
 
       "feature_1.item": "unusual_prehistory:aged_feather",
       "feature_1.tooltip": "§7The artifact used to revive Talpanas is found in §aWarm Ocean Ruins§7",
-      "feature_1.title_one_line": "",
       "feature_1.title_one_line": "Duck Island",
 
       "feature_2.item": "minecraft:hanging_roots",

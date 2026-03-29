@@ -17,14 +17,14 @@
       "fossil_item": "unusual_prehistory:plumage_fossil",
       "egg_item": "unusual_prehistory:telecrex_egg",
       "variant_key": "",
-      "image_tooltip": "Fossilised fowl known from a single bone"
+      "image_tooltip": "A guineafowl with poor eyesight, Telecrex clumsily flees at the sight of any movement, often slamming into unseen obstacles."
     },
     {
       "id": "telecrex",
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "early_cenozoic",
-      "era_tooltip_period": "Early Cenozoic Period",
+      "era_image": "mid_paleogene",
+      "era_tooltip_period": "Mid Paleogene Period",
 
       "temperament.temperament_type": "passive",
 

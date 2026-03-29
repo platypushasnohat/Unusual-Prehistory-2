@@ -17,14 +17,14 @@
       "fossil_item": "unusual_prehistory:flipper_fossil",
       "egg_item": "unusual_prehistory:praepusa_embryo",
       "variant_key": "",
-      "image_tooltip": "Paradoxical Pinniped"
+      "image_tooltip": "An earless seal with big eyes and a stout body, Praepusa has the remarkable ability to reproduce itself seemingly out of thin air"
     },
     {
       "id": "praepusa",
       "type": "unusual_prehistory:mob_entry_2",
 
-      "era_image": "mid_cenozoic",
-      "era_tooltip_period": "Mid Cenozoic Period",
+      "era_image": "neogene",
+      "era_tooltip_period": "Neogene Period",
 
       "temperament.temperament_type": "passive",
 
