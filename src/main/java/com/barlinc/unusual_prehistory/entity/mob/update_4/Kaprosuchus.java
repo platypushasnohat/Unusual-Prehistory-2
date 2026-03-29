@@ -2,6 +2,8 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
@@ -28,8 +30,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -78,7 +78,7 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
+         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
          this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
@@ -103,8 +103,8 @@
              this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
-             this.lookControl = new SmoothSwimmingLookControl(this, 20);
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 1.0F, false);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
              this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
@@ -112,11 +112,15 @@
 
      @Override
      public void travel(@NotNull Vec3 travelVec) {
-         if (this.refuseToMove() && this.onGround()) {
+         if (this.refuseToMove()) {
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }
-             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+             if (this.onGround()) {
+                 travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+             } else if (this.isInWaterOrBubble()) {
+                 travelVec = travelVec.multiply(0.0, 0.0, 0.0);
+             }
          }
          if (this.isEffectiveAi() && this.isInWater()) {
              this.moveRelative(this.getSpeed(), travelVec);
@@ -210,10 +214,10 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWater() && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWater(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isLeaping() && !this.isSitting() && !this.isEepy(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
          this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
-         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isSitting() && !this.isInWaterOrBubble(), this.tickCount);
          this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
          this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
          this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);

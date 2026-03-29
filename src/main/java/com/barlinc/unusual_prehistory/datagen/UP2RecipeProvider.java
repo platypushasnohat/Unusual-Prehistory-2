@@ -26,8 +26,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
-import static net.minecraft.data.recipes.RecipeCategory.BUILDING_BLOCKS;
-import static net.minecraft.data.recipes.RecipeCategory.MISC;
+import static net.minecraft.data.recipes.RecipeCategory.*;
 
 public class UP2RecipeProvider extends RecipeProvider implements IConditionBuilder {
 
@@ -54,6 +53,11 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(MISC, FOSSILIZED_SKULL_SOUL_LANTERN.get(), 1).requires(FOSSILIZED_SKULL.get()).requires(Items.SOUL_TORCH).unlockedBy("has_fossilized_skull", has(FOSSILIZED_SKULL.get())).save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(DECORATIONS, UP2Items.PALEOZOIC_BANNER_PATTERN.get(), 1).requires(Items.PAPER).requires(UP2ItemTags.PALEOZOIC_FOSSILS).unlockedBy("has_paleozoic_fossil", has(UP2ItemTags.PALEOZOIC_FOSSILS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(DECORATIONS, UP2Items.MESOZOIC_BANNER_PATTERN.get(), 1).requires(Items.PAPER).requires(UP2ItemTags.MESOZOIC_FOSSILS).unlockedBy("has_mesozoic_fossil", has(UP2ItemTags.MESOZOIC_FOSSILS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(DECORATIONS, UP2Items.CENOZOIC_BANNER_PATTERN.get(), 1).requires(Items.PAPER).requires(UP2ItemTags.CENOZOIC_FOSSILS).unlockedBy("has_cenozoic_fossil", has(UP2ItemTags.CENOZOIC_FOSSILS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(DECORATIONS, UP2Items.OOZE_BANNER_PATTERN.get(), 1).requires(Items.PAPER).requires(UP2Items.ORGANIC_OOZE.get()).unlockedBy("has_organic_ooze", has(UP2Items.ORGANIC_OOZE.get())).save(consumer);
 
         woodSet(UP2ItemTags.DRYOPHYLLUM_LOGS, DRYOPHYLLUM_PLANKS.get(), DRYOPHYLLUM_SLAB.get(), DRYOPHYLLUM_STAIRS.get(), DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(), STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(), UP2Items.DRYOPHYLLUM_BOAT.get(), UP2Items.DRYOPHYLLUM_CHEST_BOAT.get(), DRYOPHYLLUM_BUTTON.get(), DRYOPHYLLUM_DOOR.get(), DRYOPHYLLUM_TRAPDOOR.get(), DRYOPHYLLUM_FENCE.get(), DRYOPHYLLUM_FENCE_GATE.get(), DRYOPHYLLUM_PRESSURE_PLATE.get(), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get(), consumer);
 

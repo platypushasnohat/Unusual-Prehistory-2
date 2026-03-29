@@ -60,6 +60,8 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> PACIFIES_METRIORHYNCHUS = modItemTag("pacifies_metriorhynchus");
 
+    public static final TagKey<Item> TAMES_METRIORHYNCHUS = modItemTag("tames_metriorhynchus");
+
     public static final TagKey<Item> TARTUOSTEUS_NIBBLING_BLOCKS = modItemTag("tartuosteus_nibbling_blocks");
 
     public static final TagKey<Item> LIVING_OOZE_CANNOT_ABSORB = modItemTag("living_ooze_cannot_absorb");

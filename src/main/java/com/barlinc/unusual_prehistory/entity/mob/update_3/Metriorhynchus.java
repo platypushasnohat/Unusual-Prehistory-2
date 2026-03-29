@@ -2,9 +2,10 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
@@ -24,24 +25,26 @@
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.util.RandomSource;
+ import net.minecraft.world.InteractionHand;
+ import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
@@ -75,30 +78,35 @@
          this.switchNavigator(true);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
          this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setMaxUpStep(1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 30.0D)
+                 .add(Attributes.MAX_HEALTH, 28.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.15F)
                  .add(Attributes.ATTACK_DAMAGE, 7.0F);
      }
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
-         this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
-         this.goalSelector.addGoal(2, new MetriorhynchusAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
-         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 400));
-         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(7, new MetriorhynchusBellowGoal(this));
+         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
+         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
+         this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
+         this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
+         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F));
+         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
+         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
+         this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(7, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(9, new MetriorhynchusBellowGoal(this));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.METRIORHYNCHUS_TARGETS)));
-         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
+         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+         this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.METRIORHYNCHUS_TARGETS)));
+         this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
      @Override
@@ -110,11 +118,11 @@
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new MetriorhynchusLookControl(this);
-             this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.98F, 0.1F, false);
-             this.lookControl = new SmoothSwimmingLookControl(this, 20);
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.98F);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
@@ -122,11 +130,15 @@
 
      @Override
      public void travel(@NotNull Vec3 travelVec) {
-         if (this.refuseToMove() && this.onGround()) {
+         if (this.refuseToMove()) {
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }
-             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+             if (this.onGround()) {
+                 travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+             } else if (this.isInWaterOrBubble()) {
+                 travelVec = travelVec.multiply(0.0, 0.0, 0.0);
+             }
          }
          if (this.isEffectiveAi() && this.isInWater()) {
              this.moveRelative(this.getSpeed(), travelVec);
@@ -141,6 +153,12 @@
      }
 
      @Override
+     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+         this.heal(4);
+         return super.killedEntity(level, victim);
+     }
+
+     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.METRIORHYNCHUS_FOOD);
      }
@@ -148,6 +166,36 @@
      @Override
      public boolean isPacifyItem(ItemStack itemStack) {
          return itemStack.is(UP2ItemTags.PACIFIES_METRIORHYNCHUS);
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         ItemStack itemstack = player.getItemInHand(hand);
+         InteractionResult type = super.mobInteract(player, hand);
+         if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_METRIORHYNCHUS)) {
+             if (!this.level().isClientSide) {
+                 if (!player.getAbilities().instabuild) {
+                     if (itemstack.is(Items.TROPICAL_FISH_BUCKET)) {
+                         player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
+                     } else {
+                         itemstack.shrink(1);
+                     }
+                 }
+                 this.gameEvent(GameEvent.ENTITY_INTERACT);
+                 this.level().broadcastEntityEvent(this, (byte) 7);
+                 this.tame(player);
+                 this.setPacifiedTicks(-1);
+                 this.heal(this.getMaxHealth());
+                 this.level().broadcastEntityEvent(this, (byte) 6);
+             }
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
+         }
+         return type;
+     }
+
+     @Override
+     public boolean canOwnerCommand(Player player) {
+         return true;
      }
 
      @Override
@@ -197,7 +245,8 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
+         this.sitAnimationState.animateWhen(!this.isInWaterOrBubble() && this.isSitting(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
          this.bellowAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
          this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);

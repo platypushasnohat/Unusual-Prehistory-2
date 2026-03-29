@@ -17,11 +17,11 @@ public class SemiAquaticRandomStrollGoal extends PrehistoricRandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWater();
+        return super.canUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWaterOrBubble();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWater();
+        return super.canContinueToUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWaterOrBubble();
     }
 }

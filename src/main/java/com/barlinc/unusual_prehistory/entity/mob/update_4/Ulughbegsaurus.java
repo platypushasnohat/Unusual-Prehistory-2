@@ -129,6 +129,12 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
+    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+        this.heal(5);
+        return super.killedEntity(level, victim);
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);

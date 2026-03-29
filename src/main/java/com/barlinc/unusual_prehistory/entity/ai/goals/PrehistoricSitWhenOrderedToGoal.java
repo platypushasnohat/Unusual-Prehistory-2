@@ -9,9 +9,15 @@ import java.util.EnumSet;
 public class PrehistoricSitWhenOrderedToGoal extends Goal {
 
     protected final PrehistoricMob tamedMob;
+    protected final boolean stopSittingInWater;
 
     public PrehistoricSitWhenOrderedToGoal(PrehistoricMob mob) {
+        this(mob, true);
+    }
+
+    public PrehistoricSitWhenOrderedToGoal(PrehistoricMob mob, boolean stopSittingInWater) {
         this.tamedMob = mob;
+        this.stopSittingInWater = stopSittingInWater;
         this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
 
@@ -24,9 +30,9 @@ public class PrehistoricSitWhenOrderedToGoal extends Goal {
     public boolean canUse() {
         if (!this.tamedMob.isTame()) {
             return false;
-        } else if (this.tamedMob.isInWaterOrBubble()) {
+        } else if (this.tamedMob.isInWaterOrBubble() && this.stopSittingInWater) {
             return false;
-        } else if (!this.tamedMob.onGround()) {
+        } else if (!this.tamedMob.onGround() && !this.tamedMob.isInWaterOrBubble()) {
             return false;
         } else {
             LivingEntity livingentity = this.tamedMob.getOwner();

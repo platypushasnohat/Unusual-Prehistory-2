@@ -22,6 +22,9 @@
 - Fixed lystrosaurus not playing its walk animation when walking underwater
 - Fixed pachycephalosaurus not playing recover animation after sparring
 - Tweaked most mob and item tags
+- Metriorhynchus is now tamable with a bucket of tropical fish
+- Metriorhynchus and ulughbegsaurus now heal a bit of health on kill
+- Kaprosuchus can now be ordered to sit still in water
 - Misc tweaks and fixes
 
 ## Version 1.3.1
