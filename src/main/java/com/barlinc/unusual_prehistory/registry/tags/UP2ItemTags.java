@@ -92,11 +92,6 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> STOPS_MOB_AGING = modItemTag("stops_mob_aging");
 
-    public static final TagKey<Item> RAW_MEATS = modItemTag("raw_meats");
-    public static final TagKey<Item> COOKED_MEATS = modItemTag("cooked_meats");
-    public static final TagKey<Item> RAW_FISH = modItemTag("raw_fish");
-    public static final TagKey<Item> COOKED_FISH = modItemTag("cooked_fish");
-
     public static final TagKey<Item> AMBER_DYES = modItemTag("amber_dyes");
     public static final TagKey<Item> AQUA_DYES = modItemTag("aqua_dyes");
     public static final TagKey<Item> BEIGE_DYES = modItemTag("beige_dyes");
@@ -125,6 +120,11 @@ public class UP2ItemTags {
     public static final TagKey<Item> SNOW = modItemTag("snow");
     public static final TagKey<Item> MOSS = modItemTag("moss");
     public static final TagKey<Item> MUD = modItemTag("mud");
+
+    public static final TagKey<Item> PALEOZOIC_FOSSILS = modItemTag("paleozoic_fossils");
+    public static final TagKey<Item> MESOZOIC_FOSSILS = modItemTag("mesozoic_fossils");
+    public static final TagKey<Item> CENOZOIC_FOSSILS = modItemTag("cenozoic_fossils");
+    public static final TagKey<Item> PLANT_FOSSILS = modItemTag("plant_fossils");
 
     // Future
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");

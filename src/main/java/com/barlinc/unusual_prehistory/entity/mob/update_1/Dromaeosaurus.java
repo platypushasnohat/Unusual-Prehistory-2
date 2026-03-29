@@ -56,12 +56,11 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(2, new SleepingGoal(this));
         this.goalSelector.addGoal(3, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(4, new DromaeosaurusAttackGoal(this));
-        this.goalSelector.addGoal(5, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 12.0F,1.0D, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_AVOIDS)));
-        this.goalSelector.addGoal(6, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(7, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(8, new DromaeosaurusRunGoal(this));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(7, new DromaeosaurusRunGoal(this));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)) {
             @Override
             public boolean canUse(){

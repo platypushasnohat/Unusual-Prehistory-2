@@ -31,49 +31,177 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
 
+        // Update 1
+        this.tag(UP2ItemTags.CARNOTAURUS_FOOD).add(
+                Items.BEEF, Items.COOKED_BEEF,
+                Items.PORKCHOP, Items.COOKED_PORKCHOP,
+                Items.MUTTON, Items.COOKED_MUTTON
+        );
+        this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
+                Items.SPIDER_EYE
+        );
+        this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
+                Items.CHICKEN,
+                Items.COOKED_CHICKEN
+        );
+        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).add(
+                Items.COD,
+                Items.COOKED_COD,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Items.TROPICAL_FISH
+        );
+        this.tag(UP2ItemTags.JAWLESS_FISH_FOOD).add(
+                Blocks.MOSS_BLOCK.asItem()
+        );
+        this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
+                Items.CACTUS,
+                Items.SWEET_BERRIES
+        );
+        this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).add(
+                Items.SPIDER_EYE
+        );
+        this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).add(
+                Items.BEEF, Items.COOKED_BEEF,
+                Items.PORKCHOP, Items.COOKED_PORKCHOP,
+                Items.MUTTON, Items.COOKED_MUTTON
+        );
+        this.tag(UP2ItemTags.MEGALANIA_FOOD).add(
+                Items.BEEF, Items.COOKED_BEEF,
+                Items.PORKCHOP, Items.COOKED_PORKCHOP,
+                Items.MUTTON, Items.COOKED_MUTTON
+        );
+        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).add(
+                Items.TROPICAL_FISH
+        );
+        this.tag(UP2ItemTags.TALPANAS_FOOD).add(
+                Blocks.HANGING_ROOTS.asItem(),
+                Items.SWEET_BERRIES
+        );
+        this.tag(UP2ItemTags.TELECREX_FOOD).add(
+                Items.SWEET_BERRIES,
+                Items.GLOW_BERRIES
+        );
+        this.tag(UP2ItemTags.UNICORN_FOOD).add(
+                Items.CAKE
+        );
+
+        this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
+                Items.ROTTEN_FLESH
+        );
+
         this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(
                 ORGANIC_OOZE.get()
         );
 
-        // Food
-        this.tag(UP2ItemTags.RAW_MEATS).add(
-                Items.BEEF,
-                Items.PORKCHOP,
-                Items.CHICKEN,
-                Items.MUTTON,
-                Items.RABBIT);
+        this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
 
-        this.tag(UP2ItemTags.COOKED_MEATS).add(
-                Items.COOKED_BEEF,
-                Items.COOKED_PORKCHOP,
-                Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON,
-                Items.COOKED_RABBIT);
+        this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS).addTag(UP2ItemTags.CARNOTAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS).addTag(UP2ItemTags.DROMAEOSAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
 
-        this.tag(UP2ItemTags.RAW_FISH).add(
-                Items.COD,
-                Items.SALMON,
-                Items.TROPICAL_FISH);
+        this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
+        this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
 
-        this.tag(UP2ItemTags.COOKED_FISH).add(
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
+        this.copy(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS, UP2ItemTags.DIPLOCAULUS_SLIDING_BLOCKS);
+        this.copy(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS, UP2ItemTags.DIPLOCAULUS_BURROWING_BLOCKS);
+
+        this.copy(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS, UP2ItemTags.JAWLESS_FISH_NIBBLING_BLOCKS);
+
+        this.tag(UP2ItemTags.GUARDED_BY_KENTROSAURUS).add(Blocks.CACTUS.asItem(), Items.SWEET_BERRIES);
+
+        this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
+        this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());
+
+        // Update 2
+        this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).add(
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD, Items.COD,
+                Items.SALMON, Items.COOKED_SALMON
         );
 
+        this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
+
+        // Update 3
+        this.tag(UP2ItemTags.METRIORHYNCHUS_FOOD).add(
+                Items.TROPICAL_FISH,
+                Items.COOKED_COD, Items.COD,
+                Items.SALMON, Items.COOKED_SALMON
+        );
+        this.tag(UP2ItemTags.TARTUOSTEUS_FOOD).add(
+                Blocks.MOSS_BLOCK.asItem()
+        );
+
+        this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
+
+        this.copy(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS, UP2ItemTags.TARTUOSTEUS_NIBBLING_BLOCKS);
+
+        // Update 4
         this.tag(UP2ItemTags.BRACHIOSAURUS_FOOD).addTag(ItemTags.LEAVES).add(
                 Blocks.KELP.asItem(),
                 Blocks.SEAGRASS.asItem()
         );
+        this.tag(UP2ItemTags.COELACANTHUS_FOOD).add(
+                Items.PUMPKIN_PIE
+        );
+        this.tag(UP2ItemTags.HIBBERTOPTERUS_FOOD).add(
+                Blocks.DIRT.asItem(),
+                Blocks.COARSE_DIRT.asItem(),
+                Blocks.PODZOL.asItem(),
+                Blocks.FARMLAND.asItem()
+        );
+        this.tag(UP2ItemTags.KAPROSUCHUS_FOOD).add(
+                Items.PORKCHOP,
+                Items.COOKED_PORKCHOP
+        );
+        this.tag(UP2ItemTags.LEPTICTIDIUM_FOOD).add(
+                Items.SWEET_BERRIES
+        );
+        this.tag(UP2ItemTags.LOBE_FINNED_FISH_FOOD).add(
+                Blocks.SEAGRASS.asItem()
+        );
+        this.tag(UP2ItemTags.LYSTROSAURUS_FOOD).add(
+                UP2Blocks.HORSETAIL.get().asItem()
+        );
+        this.tag(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD).add(
+                Items.SWEET_BERRIES,
+                Items.APPLE,
+                Items.MELON
+        );
+        this.tag(UP2ItemTags.PRAEPUSA_FOOD).add(
+                Items.COD,
+                Items.SALMON,
+                Items.COOKED_COD,
+                Items.COOKED_SALMON
+        );
+        this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
+                Items.APPLE,
+                Items.SWEET_BERRIES,
+                Items.MELON_SLICE
+        );
+        this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).add(
+                Items.MUTTON,
+                Items.BEEF,
+                Items.PORKCHOP,
+                Items.COOKED_MUTTON,
+                Items.COOKED_BEEF,
+                Items.COOKED_PORKCHOP
+        );
 
+        this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(
+                Items.BONE
+        );
+        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
+                UP2ItemTags.ULUGHBEGSAURUS_FOOD
+        );
+
+        // Update 5
         this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
                 Items.TROPICAL_FISH
         );
-
-        this.tag(UP2ItemTags.CARNOTAURUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
-        );
-
         this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
                 Items.SPIDER_EYE,
                 Items.EGG,
@@ -86,98 +214,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.BROWN_MUSHROOM.asItem(),
                 Blocks.RED_MUSHROOM.asItem()
         );
-
-        this.tag(UP2ItemTags.DIPLOCAULUS_FOOD).add(
-                Items.SPIDER_EYE
-        );
-
-        this.tag(UP2ItemTags.DROMAEOSAURUS_FOOD).add(
-                Items.CHICKEN,
-                Items.COOKED_CHICKEN
-        );
-
-        this.tag(UP2ItemTags.DUNKLEOSTEUS_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.HIBBERTOPTERUS_FOOD).add(
-                Blocks.DIRT.asItem(),
-                Blocks.COARSE_DIRT.asItem(),
-                Blocks.PODZOL.asItem(),
-                Blocks.FARMLAND.asItem()
-        );
-
-        this.tag(UP2ItemTags.JAWLESS_FISH_FOOD).add(
-                Items.SEAGRASS
-        );
-
-        this.tag(UP2ItemTags.KAPROSUCHUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS,
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.KENTROSAURUS_FOOD).add(
-                Items.CACTUS,
-                Items.SWEET_BERRIES
-        );
-
-        this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).add(
-                Items.SPIDER_EYE
-        );
-
-        this.tag(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.LEPTICTIDIUM_FOOD).add(
-                Items.SWEET_BERRIES
-        );
-
-        this.tag(UP2ItemTags.LOBE_FINNED_FISH_FOOD).add(
-                Blocks.SEAGRASS.asItem()
-        );
-
-        this.tag(UP2ItemTags.LYSTROSAURUS_FOOD).add(
-                Blocks.GRASS.asItem()
-        );
-
-        this.tag(UP2ItemTags.MAJUNGASAURUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
-        );
-
-        this.tag(UP2ItemTags.MEGALANIA_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
-        );
-
-        this.tag(UP2ItemTags.METRIORHYNCHUS_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.ONCHOPRISTIS_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD).add(
-                Items.SWEET_BERRIES,
-                Items.APPLE,
-                Items.MELON
-        );
-
-        this.tag(UP2ItemTags.PRAEPUSA_FOOD).add(
-                Items.COD,
-                Items.SALMON,
-                Items.COOKED_COD,
-                Items.COOKED_SALMON
-        );
-
         this.tag(UP2ItemTags.PSILOPTERUS_FOOD).add(
                 Items.RABBIT,
                 Items.MUTTON,
@@ -191,99 +227,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_PORKCHOP
         );
 
-        this.tag(UP2ItemTags.PTERODACTYLUS_FOOD).add(
-                Items.APPLE,
-                Items.SWEET_BERRIES,
-                Items.MELON_SLICE
-        );
-
-        this.tag(UP2ItemTags.STETHACANTHUS_FOOD).addTags(
-                UP2ItemTags.RAW_FISH,
-                UP2ItemTags.COOKED_FISH
-        );
-
-        this.tag(UP2ItemTags.TALPANAS_FOOD).add(
-                Blocks.HANGING_ROOTS.asItem(),
-                Items.SWEET_BERRIES
-        );
-
-        this.tag(UP2ItemTags.TARTUOSTEUS_FOOD).add(
-                Blocks.SEAGRASS.asItem(),
-                Blocks.MOSS_BLOCK.asItem(),
-                Blocks.MOSS_CARPET.asItem(),
-                UP2Blocks.MOSS_LAYER.get().asItem()
-        );
-
-        this.tag(UP2ItemTags.TELECREX_FOOD).add(
-                Items.SWEET_BERRIES,
-                Items.GLOW_BERRIES
-        );
-
-        this.tag(UP2ItemTags.ULUGHBEGSAURUS_FOOD).addTags(
-                UP2ItemTags.RAW_MEATS,
-                UP2ItemTags.COOKED_MEATS
-        );
-
-        this.tag(UP2ItemTags.UNICORN_FOOD).add(
-                Items.CAKE
-        );
-
-        this.tag(UP2ItemTags.COELACANTHUS_FOOD).add(
-                Items.PUMPKIN_PIE
-        );
-
-        // Taming
-        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
-                UP2ItemTags.ULUGHBEGSAURUS_FOOD
-        );
-
-        this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(
-                Items.BONE
-        );
-
-//        this.tag(UP2ItemTags.TAMES_MANIPULATOR).add(
-//                Blocks.TORCHFLOWER.asItem()
-//        );
-
-        this.tag(UP2ItemTags.TAMES_MEGALANIA).add(
-                Items.ROTTEN_FLESH
-        );
-
-        // Update 5
-        this.tag(UP2ItemTags.MOSASAURUS_FOOD).add(
-                Items.COD,
-                Items.COOKED_COD,
-                Items.SALMON,
-                Items.COOKED_SALMON,
-                Items.TROPICAL_FISH,
-                Items.PUFFERFISH
-        );
-
-        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).add(
-                Items.TROPICAL_FISH
-        );
-
-        // Pacifying
-        this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
-
-        this.tag(UP2ItemTags.PACIFIES_CARNOTAURUS).addTag(UP2ItemTags.CARNOTAURUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_DROMAEOSAURUS).addTag(UP2ItemTags.DROMAEOSAURUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_DUNKLEOSTEUS).addTag(UP2ItemTags.DUNKLEOSTEUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_COELACANTHUS).addTag(UP2ItemTags.COELACANTHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_KAPROSUCHUS).addTag(UP2ItemTags.KAPROSUCHUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_MAJUNGASAURUS).addTag(UP2ItemTags.MAJUNGASAURUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_MEGALANIA).addTag(UP2ItemTags.MEGALANIA_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_METRIORHYNCHUS).addTag(UP2ItemTags.METRIORHYNCHUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_ONCHOPRISTIS).addTag(UP2ItemTags.ONCHOPRISTIS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_STETHACANTHUS).addTag(UP2ItemTags.STETHACANTHUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_COELACANTHUS).add(
-                Items.PUFFERFISH
-        );
-        this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(
-                Items.TROPICAL_FISH
-        );
+        this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(Items.TROPICAL_FISH);
         this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
-        // Dye Depot compat
         this.tag(UP2ItemTags.AMBER_DYES).addOptional(new ResourceLocation("dye_depot", "amber_dye"));
         this.tag(UP2ItemTags.AQUA_DYES).addOptional(new ResourceLocation("dye_depot", "aqua_dye"));
         this.tag(UP2ItemTags.BEIGE_DYES).addOptional(new ResourceLocation("dye_depot", "beige_dye"));
@@ -301,40 +249,95 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.TEAL_DYES).addOptional(new ResourceLocation("dye_depot", "teal_dye"));
         this.tag(UP2ItemTags.VERDANT_DYES).addOptional(new ResourceLocation("dye_depot", "verdant_dye"));
 
-        // Misc
         this.tag(UP2ItemTags.STOPS_MOB_AGING).add(Items.POISONOUS_POTATO);
 
         this.copy(UP2BlockTags.DRYOPHYLLUM_LOGS, UP2ItemTags.DRYOPHYLLUM_LOGS);
-        this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
-        this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
 
         // Update 5
+        this.tag(UP2ItemTags.MOSASAURUS_FOOD).add(
+                Items.COD,
+                Items.COOKED_COD,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Items.TROPICAL_FISH,
+                Items.PUFFERFISH
+        );
+
+        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).add(Items.SCUTE);
+
         this.tag(UP2ItemTags.SNOW).add(
                 Items.SNOWBALL,
                 Blocks.SNOW.asItem(),
                 Blocks.SNOW_BLOCK.asItem()
         );
-
         this.tag(UP2ItemTags.MOSS).add(
                 UP2Blocks.MOSS_LAYER.get().asItem(),
                 Blocks.MOSS_BLOCK.asItem(),
                 Blocks.MOSS_CARPET.asItem()
         );
-
         this.tag(UP2ItemTags.MUD).add(
                 Blocks.MUD.asItem()
         );
 
-        this.copy(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS, UP2ItemTags.DIPLOCAULUS_SLIDING_BLOCKS);
-        this.copy(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS, UP2ItemTags.DIPLOCAULUS_BURROWING_BLOCKS);
-        this.copy(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS, UP2ItemTags.JAWLESS_FISH_NIBBLING_BLOCKS);
-//        this.copy(UP2BlockTags.GUARDED_BY_KENTROSAURUS, UP2ItemTags.GUARDED_BY_KENTROSAURUS);
-        this.tag(UP2ItemTags.GUARDED_BY_KENTROSAURUS).add(
-                Blocks.CACTUS.asItem(),
-                Items.SWEET_BERRIES
+        this.tag(UP2ItemTags.PALEOZOIC_FOSSILS).add(
+                BRISTLE_FOSSIL.get(),
+                GUILLOTINE_FOSSIL.get(),
+                JAWLESS_FOSSIL.get(),
+                ANVIL_FOSSIL.get(),
+                MOSSY_FOSSIL.get(),
+                BOOMERANG_FOSSIL.get(),
+                PLOW_FOSSIL.get(),
+                FISH_FOSSIL.get(),
+                GLUTTONOUS_FOSSIL.get(),
+                IMPERVIOUS_FOSSIL.get()
         );
-        this.copy(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS, UP2ItemTags.TARTUOSTEUS_NIBBLING_BLOCKS);
+        this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
+                IMPERVIOUS_FOSSIL.get(),
+                FLAT_BACK_FOSSIL.get(),
+                ARM_FOSSIL.get(),
+                PRICKLY_FOSSIL.get(),
+                IMPERATIVE_FOSSIL.get(),
+                MELTDOWN_FOSSIL.get(),
+                WING_FOSSIL.get(),
+                FURY_FOSSIL.get(),
+                RUNNER_FOSSIL.get(),
+                BOAR_TOOTH_FOSSIL.get(),
+                RUGOSE_FOSSIL.get(),
+                SURGE_FOSSIL.get(),
+                SAW_FOSSIL.get(),
+                CRANIUM_FOSSIL.get(),
+                DUBIOUS_FOSSIL.get()
+        );
+        this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
+                TRUNK_MOUSE_FOSSIL.get(),
+                CROOKED_BEAK_FOSSIL.get(),
+                PLUMAGE_FOSSIL.get(),
+                FLIPPER_FOSSIL.get(),
+                THERMAL_FOSSIL.get(),
+                AGED_FEATHER.get()
+        );
+        this.tag(UP2ItemTags.PLANT_FOSSILS).add(
+                BENNETTITALES_FOSSIL.get(),
+                CALAMOPHYTON_FOSSIL.get(),
+                CLADOPHLEBIS_FOSSIL.get(),
+                COOKSONIA_FOSSIL.get(),
+                LEEFRUCTUS_FOSSIL.get(),
+                QUILLWORT_FOSSIL.get(),
+                RAIGUENRAYUN_FOSSIL.get(),
+                RHYNIA_FOSSIL.get(),
+                GINKGO_FOSSIL.get(),
+                LEPIDODENDRON_FOSSIL.get(),
+                AETHOPHYLLUM_FOSSIL.get(),
+                BRACHYPHYLLUM_FOSSIL.get(),
+                CYCAD_FOSSIL.get(),
+                GUANGDEDENDRON_FOSSIL.get(),
+                NEOMARIOPTERIS_FOSSIL.get(),
+                PROTOTAXITES_FOSSIL.get(),
+                TEMPSKYA_FOSSIL.get(),
+                METASEQUOIA_FOSSIL.get(),
+                DRYOPHYLLUM_FOSSIL.get()
+        );
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
@@ -398,9 +401,5 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.LECTERN_BOOKS).add(
                 PALEOPEDIA.get()
         );
-
-        // Forge
-        this.tag(UP2ItemTags.FRUITS).addTag(UP2ItemTags.FRUITS_GINKGO);
-        this.tag(UP2ItemTags.FRUITS_GINKGO).add(GINKGO_FRUIT.get());
     }
 }

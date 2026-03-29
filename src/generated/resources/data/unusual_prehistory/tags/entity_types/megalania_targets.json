@@ -6,6 +6,9 @@
     "minecraft:pig",
     "minecraft:sheep",
     "minecraft:camel",
-    "minecraft:villager"
+    "minecraft:villager",
+    "minecraft:zombie",
+    "minecraft:zombie_villager",
+    "minecraft:zombie_horse"
   ]
 }

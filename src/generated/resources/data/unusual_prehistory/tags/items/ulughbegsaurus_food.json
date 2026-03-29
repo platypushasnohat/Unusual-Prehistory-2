@@ -1,6 +1,10 @@
 {
   "values": [
-    "#unusual_prehistory:raw_meats",
-    "#unusual_prehistory:cooked_meats"
+    "minecraft:mutton",
+    "minecraft:beef",
+    "minecraft:porkchop",
+    "minecraft:cooked_mutton",
+    "minecraft:cooked_beef",
+    "minecraft:cooked_porkchop"
   ]
 }

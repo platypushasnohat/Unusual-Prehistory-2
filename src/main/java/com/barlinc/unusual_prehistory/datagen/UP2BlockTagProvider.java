@@ -303,8 +303,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS).add(
-                Blocks.MOSS_BLOCK,
-                Blocks.MOSS_CARPET
+                Blocks.SEAGRASS
         );
 
         this.tag(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS).add(

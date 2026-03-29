@@ -19,7 +19,6 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> STETHACANTHUS_TARGETS = modEntityTag("stethacanthus_targets");
 
     public static final TagKey<EntityType<?>> DIPLOCAULUS_AVOIDS = modEntityTag("diplocaulus_avoids");
-    public static final TagKey<EntityType<?>> DROMAEOSAURUS_AVOIDS = modEntityTag("dromaeosaurus_avoids");
     public static final TagKey<EntityType<?>> JAWLESS_FISH_AVOIDS = modEntityTag("jawless_fish_avoids");
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_avoids");
     public static final TagKey<EntityType<?>> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS = modEntityTag("kimmeridgebrachypteraeschnidium_nymph_avoids");
@@ -65,6 +64,10 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> MOSASAURUS_CANT_GRAB = modEntityTag("mosasaurus_cant_grab");
     public static final TagKey<EntityType<?>> MOSASAURUS_CAN_GRAB = modEntityTag("mosasaurus_can_grab");
+
+    public static final TagKey<EntityType<?>> PALEOZOIC_MOBS = modEntityTag("paleozoic_mobs");
+    public static final TagKey<EntityType<?>> MESOZOIC_MOBS = modEntityTag("mesozoic_mobs");
+    public static final TagKey<EntityType<?>> CENOZOIC_MOBS = modEntityTag("cenozoic_mobs");
 
     // Future
     public static final TagKey<EntityType<?>> DIMORPHODON_AVOIDS = modEntityTag("dimorphodon_avoids");

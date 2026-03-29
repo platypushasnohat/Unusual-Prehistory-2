@@ -1,6 +1,9 @@
 {
   "values": [
-    "#unusual_prehistory:raw_fish",
-    "#unusual_prehistory:cooked_fish"
+    "minecraft:cod",
+    "minecraft:cooked_cod",
+    "minecraft:salmon",
+    "minecraft:cooked_salmon",
+    "minecraft:tropical_fish"
   ]
 }

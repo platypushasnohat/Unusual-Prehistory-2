@@ -21,6 +21,7 @@
 - Switched some raft eggs to water eggs
 - Fixed lystrosaurus not playing its walk animation when walking underwater
 - Fixed pachycephalosaurus not playing recover animation after sparring
+- Tweaked most mob and item tags
 - Misc tweaks and fixes
 
 ## Version 1.3.1
