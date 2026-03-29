@@ -5,8 +5,10 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavig
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
+import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -110,6 +112,29 @@ public class Grug extends PrehistoricMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
         return null;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return UP2SoundEvents.GRUG_IDLE.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return UP2SoundEvents.GRUG_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return UP2SoundEvents.GRUG_DEATH.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 300;
     }
 
     // goals

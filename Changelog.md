@@ -3,6 +3,7 @@
 - Added Desmatosuchus
 - Added Mosasaurus
 - Added Psilopterus
+- Added banner patterns for mob icons
 - Removed unfinished 1.3 and future mobs
 - Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
@@ -20,7 +21,7 @@
 - Switched some raft eggs to water eggs
 - Fixed lystrosaurus not playing its walk animation when walking underwater
 - Fixed pachycephalosaurus not playing recover animation after sparring
-- Misc tweaks
+- Misc tweaks and fixes
 
 ## Version 1.3.1
 - Fixed semiaquatic mobs getting stuck in water
