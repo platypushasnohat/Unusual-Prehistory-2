@@ -11,10 +11,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Mosasaurus;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -89,6 +86,8 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Mosasaurus>> MOSASAURUS = registerLivingEntity("mosasaurus", Mosasaurus::new, MobCategory.WATER_CREATURE, 2.9F, 2.7F);
     public static final RegistryObject<EntityType<Psilopterus>> PSILOPTERUS = registerLivingEntity("psilopterus", Psilopterus::new, MobCategory.CREATURE, 0.6F, 1.4F);
     public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = registerLivingEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, 0.3F, 0.4F);
+
+    public static final RegistryObject<EntityType<Grug>> GRUG = registerLivingEntity("grug", Grug::new, MobCategory.CREATURE, 0.9F, 1.9F);
 
     public static final RegistryObject<EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, 0.25F, 0.25F);
 

@@ -509,6 +509,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah Jr.");
 
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
+
+        this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

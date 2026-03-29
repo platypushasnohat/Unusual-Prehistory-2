@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.barlinc.unusual_prehistory.registry.UP2DamageTypes.EXECUTE;
+import static com.barlinc.unusual_prehistory.registry.UP2DamageTypes.*;
 
 public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
 
@@ -41,7 +41,8 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
         ).addTag(DamageTypeTags.IS_FIRE).addTag(DamageTypeTags.IS_FREEZING).addTag(DamageTypeTags.IS_FALL).addTag(DamageTypeTags.IS_PROJECTILE);
 
         this.tag(DamageTypeTags.BYPASSES_ARMOR).add(
-                EXECUTE
+                EXECUTE,
+                GRUG
         );
     }
 }

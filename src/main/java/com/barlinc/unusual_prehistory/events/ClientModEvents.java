@@ -23,10 +23,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.Living
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.MetriorhynchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.TartuosteusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.AegirocassisRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.DesmatosuchusRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.MosasaurusRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PsilopterusRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -126,6 +123,8 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.MOSASAURUS.get(), MosasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
+        event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
+
         // Future
 //        event.registerEntityRenderer(UP2Entities.BARINASUCHUS.get(), BarinasuchusRenderer::new);
 //        event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
@@ -206,6 +205,8 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.MOSASAURUS, MosasaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PSILOPTERUS, PsilopterusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
+
+        event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
 
         // Future
 //        event.registerLayerDefinition(UP2ModelLayers.BARINASUCHUS, BarinasuchusModel::createBodyLayer);

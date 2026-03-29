@@ -9,10 +9,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Metriorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.Tartuosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Mosasaurus;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -126,6 +123,8 @@ public class ModEvents {
         event.put(UP2Entities.DESMATOSUCHUS.get(), Desmatosuchus.createAttributes().build());
         event.put(UP2Entities.MOSASAURUS.get(), Mosasaurus.createAttributes().build());
         event.put(UP2Entities.ZHANGSOLVA.get(), Zhangsolva.createAttributes().build());
+
+        event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
 
         // Future
 //        event.put(UP2Entities.BARINASUCHUS.get(), Barinasuchus.createAttributes().build());

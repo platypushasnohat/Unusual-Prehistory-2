@@ -13,9 +13,14 @@ import javax.annotation.Nullable;
 public class UP2DamageTypes {
 
     public static final ResourceKey<DamageType> EXECUTE = register("execute");
+    public static final ResourceKey<DamageType> GRUG = register("grug");
 
     public static DamageSource execute(Level level, Entity source, @Nullable Entity causingEntity) {
         return level.damageSources().source(EXECUTE, source, causingEntity);
+    }
+
+    public static DamageSource grug(Level level, Entity source, @Nullable Entity causingEntity) {
+        return level.damageSources().source(GRUG, source, causingEntity);
     }
 
     public static ResourceKey<DamageType> register(String name) {

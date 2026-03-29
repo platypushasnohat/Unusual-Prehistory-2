@@ -77,7 +77,7 @@ public class UnicornModel extends UP2Model<Unicorn> {
 	public void setupAnim(@NotNull Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 
         if (this.young) this.applyStatic(UnicornAnimations.BABY_TRANSFORM);
 

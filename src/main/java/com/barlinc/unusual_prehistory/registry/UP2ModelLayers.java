@@ -66,7 +66,10 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
     public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
     public static final ModelLayerLocation MOSASAURUS = mainLayer("mosasaurus");
+    public static final ModelLayerLocation PSILOPTERUS = mainLayer("psilopterus");
     public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
+
+    public static final ModelLayerLocation GRUG = mainLayer("grug");
 
     // Future
     public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
@@ -76,7 +79,6 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
     public static final ModelLayerLocation PALAEOPHIS = mainLayer("palaeophis");
-    public static final ModelLayerLocation PSILOPTERUS = mainLayer("psilopterus");
     public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
     public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
     public static final ModelLayerLocation WONAMBI = mainLayer("wonambi");

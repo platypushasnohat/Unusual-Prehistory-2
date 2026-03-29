@@ -1,12 +1,12 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,7 +15,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,8 +23,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -39,19 +36,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class Unicorn extends Animal {
+public class Unicorn extends BreedableMob {
 
     private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(Unicorn.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
 
-    public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new NoSpinGroundPathNavigation(this, level);
-    }
-
-    public Unicorn(EntityType<? extends Animal> entityType, Level level) {
+    public Unicorn(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -62,7 +52,7 @@ public class Unicorn extends Animal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.UNICORN_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
@@ -72,30 +62,18 @@ public class Unicorn extends Animal {
     }
 
     @Override
-    public void tick () {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.setupAnimationStates();
-        } else {
-            if (this.tickCount % 200 == 0 && this.getHealth() < this.getMaxHealth()) {
-                this.heal(2);
-            }
-        }
+    public float getStepHeight() {
+        return 1.0F;
     }
 
-    private void setupAnimationStates() {
+    @Override
+    public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override
-    public void calculateEntityAnimation(boolean flying) {
-        float pos = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float speed = Math.min(pos * this.getWalkAnimationSpeed(), 1.0F);
-        this.walkAnimation.update(speed, 0.4F);
-    }
-
     public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 3.0F : 10.0F;
+        return this.isBaby() ? 3.0F : 6.0F;
     }
 
     @Override
