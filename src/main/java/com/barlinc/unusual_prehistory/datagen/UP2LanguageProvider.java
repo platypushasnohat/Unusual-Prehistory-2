@@ -508,6 +508,52 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
         this.add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah Jr.");
 
+        this.add("item.unusual_prehistory.paleopedia.recipe_title", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.machine_parts", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.organic_ooze", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.transmogrifier", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.tar", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.asphalt", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.reinforced_glass", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.pacification.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.pacification.desc", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.tooltip", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.nocturnal.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.nocturnal.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.crepuscular.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.crepuscular.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.cathemeral.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.cathemeral.tooltip", "");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.sleepless.title", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.activity.sleepless.tooltip", "");
+
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
 
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
