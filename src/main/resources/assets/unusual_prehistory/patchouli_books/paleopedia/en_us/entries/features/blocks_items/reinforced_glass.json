@@ -2,13 +2,13 @@
   "name": "block.unusual_prehistory.reinforced_glass",
   "icon": "unusual_prehistory:reinforced_glass",
   "category": "unusual_prehistory:features/blocks_items",
-  "advancement": "unusual_prehistory:root",
+  "advancement": "unusual_prehistory:obtain_egg",
   "pages": [
     {
       "type": "unusual_prehistory:spotlight",
       "item": "tag:unusual_prehistory:reinforced_glass",
       "title": "block.unusual_prehistory.reinforced_glass",
-      "text": "Reinforced Glass is blast-resistant and dinosaur-resistant glass, used to protect viewing areas from aggressive mobs."
+      "text": "item.unusual_prehistory.paleopedia.entry.reinforced_glass.desc"
     },
     {
       "type": "patchouli:crafting",

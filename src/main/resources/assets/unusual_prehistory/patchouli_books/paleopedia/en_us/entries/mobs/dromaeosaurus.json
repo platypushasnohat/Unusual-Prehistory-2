@@ -41,7 +41,7 @@
       "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:feather",
-      "feature_2.tooltip": "§7Dromaeosaurus may prey on §aChickens§7 and other fowl",
+      "feature_2.tooltip": "§7Dromaeosaurus preys on §aChickens§7 and other fowl",
       "feature_2.title_one_line": "Fowl Play",
       "feature_2.title_two_line": ""
     }

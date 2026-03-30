@@ -50,9 +50,9 @@
     {
       "type": "unusual_prehistory:mob_entry_features",
 
-      "feature_1.item": "minecraft:target_block",
-      "feature_1.tooltip": "Psilopterus will lash out and unleash light kicks on small mobs",
-      "feature_1.title_two_line": "Strike!"
+      "feature_1.item": "minecraft:target",
+      "feature_1.tooltip": "Psilopterus is temperamental and lashes out by kicking small mobs",
+      "feature_1.title_one_line": "Strike!"
     }
   ]
 }

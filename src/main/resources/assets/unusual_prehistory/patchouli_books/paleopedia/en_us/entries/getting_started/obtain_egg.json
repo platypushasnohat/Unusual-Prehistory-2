@@ -1,6 +1,6 @@
 {
-  "name": "Life Finds a Way",
-  "icon": "unusual_prehistory:majungasaurus_egg",
+  "name": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.title",
+  "icon": "unusual_prehistory:unknown_egg",
   "category": "unusual_prehistory:getting_started",
   "turnin": "unusual_prehistory:obtain_egg",
   "advancement": "unusual_prehistory:obtain_transmogrifier",
@@ -8,9 +8,9 @@
   "pages": [
     {
       "type": "unusual_prehistory:spotlight",
-      "item": "unusual_prehistory:majungasaurus_egg",
-      "title": "Life Finds a Way",
-      "text": "Using the process of transmogrification, new life may be created from a fossil. $(highlight)Incubate$() your newly made egg and let extinct creatures roam the Overworld once more."
+      "item": "unusual_prehistory:unknown_egg",
+      "title": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.desc"
     },
     {
       "type": "unusual_prehistory:quest",

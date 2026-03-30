@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "obtain_asphalt": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "unusual_prehistory:asphalt"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_asphalt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

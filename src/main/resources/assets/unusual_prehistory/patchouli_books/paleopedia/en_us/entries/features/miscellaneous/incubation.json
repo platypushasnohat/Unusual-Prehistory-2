@@ -1,13 +1,13 @@
 {
-  "name": "Incubation",
+  "name": "item.unusual_prehistory.paleopedia.entry.incubation.title",
   "icon": "minecraft:egg",
   "category": "unusual_prehistory:features/miscellaneous",
-  "advancement": "unusual_prehistory:root",
+  "advancement": "unusual_prehistory:obtain_egg",
   "pages": [
     {
       "type": "unusual_prehistory:spotlight_incubation",
-      "title": "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.nest_egg",
-      "text": "Eggssssssss",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc",
       "advancement": "unusual_prehistory:root",
       "clone.clone_type": "nest_egg",
       "clone.clone_tooltip_heading": "Nest Egg",
@@ -15,8 +15,8 @@
     },
     {
       "type": "unusual_prehistory:spotlight_incubation",
-      "title": "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.projectile_egg",
-      "text": "Eggssssssss",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc",
       "advancement": "unusual_prehistory:root",
       "clone.clone_type": "projectile_egg",
       "clone.clone_tooltip_heading": "Projectile Egg",
@@ -24,8 +24,8 @@
     },
     {
       "type": "unusual_prehistory:spotlight_incubation",
-      "title": "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.aquatic_egg",
-      "text": "Eggssssssss",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc",
       "advancement": "unusual_prehistory:root",
       "clone.clone_type": "aquatic_egg",
       "clone.clone_tooltip_heading": "Aquatic Egg",
@@ -33,8 +33,8 @@
     },
     {
       "type": "unusual_prehistory:spotlight_incubation",
-      "title": "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.raft_egg",
-      "text": "Eggssssssss",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc",
       "advancement": "unusual_prehistory:root",
       "clone.clone_type": "raft_egg",
       "clone.clone_tooltip_heading": "Raft Egg",
@@ -42,8 +42,8 @@
     },
     {
       "type": "unusual_prehistory:spotlight_incubation",
-      "title": "unusual_prehistory.patchouli.entry.clone.clone_tooltip_heading.embryo",
-      "text": "Eggssssssss",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.embryo.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc",
       "advancement": "unusual_prehistory:root",
       "clone.clone_type": "embryo",
       "clone.clone_tooltip_heading": "Embryo",

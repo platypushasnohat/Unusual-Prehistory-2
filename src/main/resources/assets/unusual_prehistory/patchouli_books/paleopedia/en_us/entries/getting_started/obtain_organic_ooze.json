@@ -1,5 +1,5 @@
 {
-  "name": "Goo is Fuel",
+  "name": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.title",
   "icon": "unusual_prehistory:organic_ooze",
   "category": "unusual_prehistory:getting_started",
   "turnin": "unusual_prehistory:obtain_organic_ooze",
@@ -9,8 +9,8 @@
     {
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:organic_ooze",
-      "title": "Goo is Fuel",
-      "text": "The Transmogrifier is fuelled with Organic Ooze. Take care to make more for reviving larger creatures!"
+      "title": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.desc"
     },
     {
       "type": "unusual_prehistory:quest",
