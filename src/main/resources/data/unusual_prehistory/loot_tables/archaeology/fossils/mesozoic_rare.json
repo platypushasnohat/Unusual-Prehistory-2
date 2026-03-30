@@ -6,32 +6,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:thermal_fossil",
-          "weight": 2
+          "name": "unusual_prehistory:fury_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:flipper_fossil",
-          "weight": 2
+          "name": "unusual_prehistory:prickly_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:plumage_fossil",
-          "weight": 4
+          "name": "unusual_prehistory:rugose_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:trunk_mouse_fossil",
-          "weight": 3
+          "name": "unusual_prehistory:boar_tooth_fossil",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:tarifying_disc",
+          "name": "unusual_prehistory:meltdown_fossil",
           "weight": 1
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:archaeology/tar_pit_epic"
+  "random_sequence": "unusual_prehistory:archaeology/fossils/mesozoic_rare"
 }

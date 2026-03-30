@@ -534,7 +534,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
             if (timer == 12) psilopterus.playSound(UP2SoundEvents.PSILOPTERUS_ATTACK.get(), 1.0F, 0.9F + psilopterus.getRandom().nextFloat() * 0.2F);
             if (timer == 14) {
                 if (this.isInAttackRange(target, 2.0D)) {
-                    this.psilopterus.strongKnockback(target, 1.8D, 0.3D);
+                    this.psilopterus.strongKnockback(target, 2.0D, 0.4D);
                     this.psilopterus.swing(InteractionHand.MAIN_HAND);
                 }
             }

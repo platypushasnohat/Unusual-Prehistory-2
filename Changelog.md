@@ -25,6 +25,7 @@
 - Metriorhynchus is now tamable with a bucket of tropical fish
 - Metriorhynchus and ulughbegsaurus now heal a bit of health on kill
 - Kaprosuchus can now be ordered to sit still in water
+- Overhauled loot tables for fossil structures. Now there are common, uncommon, rare, and epic fossil and junk loot tables for each era
 - Misc tweaks and fixes
 
 ## Version 1.3.1

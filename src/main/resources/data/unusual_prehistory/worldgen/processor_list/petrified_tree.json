@@ -38,7 +38,7 @@
           {
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/petrified_tree_common"
+              "loot_table": "unusual_prehistory:archaeology/plant_fossils"
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
@@ -56,63 +56,7 @@
           }
         ]
       },
-      "limit": 8,
-      "processor_type": "minecraft:capped"
-    },
-    {
-      "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/petrified_tree_rare"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:fossil_replaceable"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_gravel",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
-      },
-      "limit": 5,
-      "processor_type": "minecraft:capped"
-    },
-    {
-      "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/petrified_tree_epic"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:fossil_replaceable"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_gravel",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
-      },
-      "limit": 12,
+      "limit": 16,
       "processor_type": "minecraft:capped"
     }
   ]

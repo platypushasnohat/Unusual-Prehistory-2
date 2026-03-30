@@ -38,63 +38,7 @@
           {
             "block_entity_modifier": {
               "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/mesozoic_fossil_common"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:fossil_replaceable"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_gravel",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
-      },
-      "limit": 8,
-      "processor_type": "minecraft:capped"
-    },
-    {
-      "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/mesozoic_fossil_rare"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "unusual_prehistory:fossil_replaceable"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_gravel",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
-      },
-      "limit": 5,
-      "processor_type": "minecraft:capped"
-    },
-    {
-      "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "unusual_prehistory:archaeology/mesozoic_fossil_epic"
+              "loot_table": "unusual_prehistory:archaeology/mesozoic_junk"
             },
             "input_predicate": {
               "predicate_type": "minecraft:tag_match",
@@ -113,6 +57,34 @@
         ]
       },
       "limit": 12,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "minecraft:rule",
+        "rules": [
+          {
+            "block_entity_modifier": {
+              "type": "minecraft:append_loot",
+              "loot_table": "unusual_prehistory:archaeology/mesozoic_fossils"
+            },
+            "input_predicate": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "unusual_prehistory:fossil_replaceable"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "Name": "minecraft:suspicious_gravel",
+              "Properties": {
+                "dusted": "0"
+              }
+            }
+          }
+        ]
+      },
+      "limit": 8,
       "processor_type": "minecraft:capped"
     }
   ]

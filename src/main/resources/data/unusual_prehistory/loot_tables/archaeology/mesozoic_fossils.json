@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "unusual_prehistory:archaeology/fossils/mesozoic_common",
+          "weight": 60
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "unusual_prehistory:archaeology/fossils/mesozoic_uncommon",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "unusual_prehistory:archaeology/fossils/mesozoic_rare",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "unusual_prehistory:archaeology/fossils/mesozoic_epic",
+          "weight": 5
+        }
+      ]
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/mesozoic_fossils"
+}
