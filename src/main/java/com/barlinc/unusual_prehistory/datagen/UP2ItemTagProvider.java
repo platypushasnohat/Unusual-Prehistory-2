@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.HolderLookup.Provider;
@@ -341,6 +342,57 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 DRYOPHYLLUM_FOSSIL.get()
         );
 
+        this.tag(UP2ItemTags.MOB_FOSSILS)
+                .addTag(UP2ItemTags.PALEOZOIC_FOSSILS)
+                .addTag(UP2ItemTags.MESOZOIC_FOSSILS)
+                .addTag(UP2ItemTags.CENOZOIC_FOSSILS);
+
+        this.tag(UP2ItemTags.FOSSILS)
+                .addTag(UP2ItemTags.MOB_FOSSILS)
+                .addTag(UP2ItemTags.PLANT_FOSSILS);
+
+        this.tag(UP2ItemTags.PALEOZOIC_EGGS).add(
+                UP2Blocks.AEGIROCASSIS_EGGS.get().asItem(),
+                UP2Blocks.COELACANTHUS_ROE.get().asItem(),
+                UP2Blocks.DIPLOCAULUS_EGGS.get().asItem(),
+                UP2Blocks.DUNKLEOSTEUS_SAC.get().asItem(),
+                UP2Blocks.HIBBERTOPTERUS_EGGS.get().asItem(),
+                UP2Blocks.JAWLESS_FISH_ROE.get().asItem(),
+                UP2Blocks.LOBE_FINNED_FISH_ROE.get().asItem(),
+                UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
+                UP2Blocks.STETHACANTHUS_SAC.get().asItem(),
+                UP2Blocks.TARTUOSTEUS_ROE.get().asItem()
+        );
+        this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
+                UP2Blocks.BRACHIOSAURUS_EGG.get().asItem(),
+                UP2Blocks.CARNOTAURUS_EGG.get().asItem(),
+                UP2Blocks.DESMATOSUCHUS_EGG.get().asItem(),
+                DROMAEOSAURUS_EGG.get(),
+                UP2Blocks.KAPROSUCHUS_EGG.get().asItem(),
+                UP2Blocks.KENTROSAURUS_EGG.get().asItem(),
+                UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(),
+                UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
+                UP2Blocks.MAJUNGASAURUS_EGG.get().asItem(),
+                METRIORHYNCHUS_EMBRYO.get(),
+                MOSASAURUS_EMBRYO.get(),
+                UP2Blocks.ONCHOPRISTIS_SAC.get().asItem(),
+                UP2Blocks.PACHYCEPHALOSAURUS_EGG.get().asItem(),
+                PTERODACTYLUS_EGG.get(),
+                UP2Blocks.ULUGHBEGSAURUS_EGG.get().asItem()
+        );
+        this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
+                LEPTICTIDIUM_EMBRYO.get(),
+                UP2Blocks.MEGALANIA_EGG.get().asItem(),
+                PRAEPUSA_EMBRYO.get(),
+                PSILOPTERUS_EGG.get(),
+                TALPANAS_EGG.get(),
+                TELECREX_EGG.get()
+        );
+        this.tag(UP2ItemTags.EGGS)
+                .addTag(UP2ItemTags.PALEOZOIC_EGGS)
+                .addTag(UP2ItemTags.MESOZOIC_EGGS)
+                .addTag(UP2ItemTags.CENOZOIC_EGGS);
+
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
@@ -397,7 +449,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.MUSIC_DISCS).add(
                 DOOMSURF_DISC.get(),
                 MEGALANIA_DISC.get(),
-                TARIFYING_DISC.get()
+                TARIFYING_DISC.get(),
+                PUMMEL_AND_SNATCH_DISC.get()
         );
 
         this.tag(ItemTags.LECTERN_BOOKS).add(

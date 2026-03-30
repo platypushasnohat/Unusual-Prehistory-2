@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-28T22:24:55.1026567	Item Models: unusual_prehistory
+// 1.20.1	2026-03-29T17:31:18.2945978	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -134,6 +134,7 @@ e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/p
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/psilopterus_spawn_egg.json
 6eee7ac99fa77ec2aa8ed7e0eccf8cf5bc46c0ff assets/unusual_prehistory/models/item/pterodactylus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/pterodactylus_spawn_egg.json
+8b12cdd6d4647ca2391b54aff43796c5a83b3568 assets/unusual_prehistory/models/item/pummel_and_snatch_disc.json
 e7a945291047943937e99a76bbcff9026ac08077 assets/unusual_prehistory/models/item/quillwort_fossil.json
 a9ab3bf8a96f9d6f6de571f77bd26e995ad2e630 assets/unusual_prehistory/models/item/raiguenrayun_fossil.json
 2d3d57c9dbd913e79db8d72360d35436cf19c38e assets/unusual_prehistory/models/item/rhynia_fossil.json

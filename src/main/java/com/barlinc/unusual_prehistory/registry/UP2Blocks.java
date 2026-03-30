@@ -291,7 +291,7 @@ public class UP2Blocks {
         return entry;
     }
 
-    public static <T extends Block> RegistryObject<T> registerEggBlock(String name, Supplier<T> supplier) {
+    private static <T extends Block> RegistryObject<T> registerEggBlock(String name, Supplier<T> supplier) {
         RegistryObject<T> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         BLOCK_TRANSLATIONS.add(block);

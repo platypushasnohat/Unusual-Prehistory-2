@@ -32,9 +32,6 @@ public class UP2Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory2.MOD_ID);
     public static List<RegistryObject<? extends Item>> ITEM_TRANSLATIONS = new ArrayList<>();
 
-    public static final List<Supplier<? extends Item>> EGG_EMBRYO_ITEMS = new ArrayList<>();
-    public static final List<Supplier<? extends Item>> FOSSILS = new ArrayList<>();
-
     // Update 1
     public static final RegistryObject<Item> CARNOTAURUS_SPAWN_EGG = registerSpawnEggItem("carnotaurus", UP2Entities.CARNOTAURUS, 0x8c2f27, 0x252b33);
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = registerSpawnEggItem("diplocaulus", UP2Entities.DIPLOCAULUS, 0xe5721e, 0x292733);
@@ -62,7 +59,7 @@ public class UP2Items {
     public static final RegistryObject<Item> RUGOSE_FOSSIL = registerFossilItem("rugose"); // majungasaurus
     public static final RegistryObject<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
     public static final RegistryObject<Item> ANVIL_FOSSIL = registerFossilItem("anvil"); // stethacanthus
-    public static final RegistryObject<Item> AGED_FEATHER = registerHoloceneFossilItem("aged_feather"); // talpanas
+    public static final RegistryObject<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
     public static final RegistryObject<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
     public static final RegistryObject<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
@@ -207,6 +204,8 @@ public class UP2Items {
     public static final RegistryObject<Item> CENOZOIC_BANNER_PATTERN = registerItemNoLang("cenozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.CENOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> OOZE_BANNER_PATTERN = registerItemNoLang("ooze_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.OOZE_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> PUMMEL_AND_SNATCH_DISC = registerItemNoLang("pummel_and_snatch_disc", () -> new RecordItem(15, UP2SoundEvents.PUMMEL_AND_SNATCH_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1820));
+
     public static final RegistryObject<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PLANT_FOSSIL = registerItem("plant_fossil", () -> new Item(new Item.Properties()));
@@ -242,15 +241,11 @@ public class UP2Items {
     }
 
     private static RegistryObject<Item> registerEggItem(String name, Supplier<? extends EntityType<?>> entityType) {
-        RegistryObject<Item> item = registerItem(name + "_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), entityType));
-        EGG_EMBRYO_ITEMS.add(item);
-        return item;
+        return registerItem(name + "_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), entityType));
     }
 
     private static RegistryObject<Item> registerEmbryoItem(String name, Supplier<? extends EntityType<?>> entityType) {
-        RegistryObject<Item> item = registerItem(name + "_embryo", () -> new EmbryoItem(new Item.Properties(), entityType));
-        EGG_EMBRYO_ITEMS.add(item);
-        return item;
+        return registerItem(name + "_embryo", () -> new EmbryoItem(new Item.Properties(), entityType));
     }
 
     private static <I extends Item> RegistryObject<I> registerItemNoLang(String name, Supplier<? extends I> supplier) {
@@ -262,15 +257,7 @@ public class UP2Items {
     }
 
     private static RegistryObject<Item> registerFossilItem(String name) {
-        RegistryObject<Item> item = registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
-        FOSSILS.add(item);
-        return item;
-    }
-
-    private static RegistryObject<Item> registerHoloceneFossilItem(String name) {
-        RegistryObject<Item> item = registerItem(name, () -> new Item(new Item.Properties()));
-        FOSSILS.add(item);
-        return item;
+        return registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
     }
 
     public static Item.Properties registerFoodValue(FoodProperties food) {

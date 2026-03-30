@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
@@ -17,7 +16,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,30 +35,18 @@ public class Grug extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new GrugAttackGoal(this));
         this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 20.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 20.0F));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 1000.0D)
-                .add(Attributes.ATTACK_DAMAGE, 1000.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 10.0D)
+                .add(Attributes.MAX_HEALTH, 450.0D)
+                .add(Attributes.ATTACK_DAMAGE, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .add(Attributes.ARMOR, 30.0F)
-                .add(Attributes.ARMOR_TOUGHNESS, 20.0F)
-                .add(Attributes.FOLLOW_RANGE, 64.0D);
-    }
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
-        navigation.setCanOpenDoors(true);
-        navigation.setCanPassDoors(true);
-        return navigation;
+                .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     @Override
@@ -100,12 +86,12 @@ public class Grug extends PrehistoricMob {
 
     @Override
     public float getStepHeight() {
-        return 10.0F;
+        return 1.0F;
     }
 
     @Override
     public int getHealCooldown() {
-        return 2;
+        return 150;
     }
 
     @Nullable
@@ -172,7 +158,7 @@ public class Grug extends PrehistoricMob {
                 if (this.isInAttackRange(target, 2.5D)) {
                     DamageSource damagesource = UP2DamageTypes.grug(grug.level(), grug, grug);
                     target.hurt(damagesource, (float) grug.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.grug.strongKnockback(target, 5.0D, 0.5D);
+                    this.grug.strongKnockback(target, 4.0D, 0.5D);
                     this.grug.swing(InteractionHand.MAIN_HAND);
                 }
             }

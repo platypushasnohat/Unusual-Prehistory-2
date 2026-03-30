@@ -1473,6 +1473,15 @@
     ],
     "subtitle": "subtitles.pterodactylus_idle"
   },
+  "pummel_and_snatch_disc": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:music/pummel_and_snatch_disc",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.pummel_and_snatch_disc"
+  },
   "small_dunkleosteus_bite": {
     "sounds": [
       {

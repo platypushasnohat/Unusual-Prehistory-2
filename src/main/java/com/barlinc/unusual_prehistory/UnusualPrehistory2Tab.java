@@ -138,6 +138,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DIRT_ON_A_STICK.get());
 
                         output.accept(DOOMSURF_DISC.get());
+                        output.accept(PUMMEL_AND_SNATCH_DISC.get());
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
 

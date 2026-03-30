@@ -127,6 +127,13 @@ public class UP2ItemTags {
     public static final TagKey<Item> MESOZOIC_FOSSILS = modItemTag("mesozoic_fossils");
     public static final TagKey<Item> CENOZOIC_FOSSILS = modItemTag("cenozoic_fossils");
     public static final TagKey<Item> PLANT_FOSSILS = modItemTag("plant_fossils");
+    public static final TagKey<Item> MOB_FOSSILS = modItemTag("mob_fossils");
+    public static final TagKey<Item> FOSSILS = modItemTag("fossils");
+
+    public static final TagKey<Item> PALEOZOIC_EGGS = modItemTag("paleozoic_eggs");
+    public static final TagKey<Item> MESOZOIC_EGGS = modItemTag("mesozoic_eggs");
+    public static final TagKey<Item> CENOZOIC_EGGS = modItemTag("cenozoic_eggs");
+    public static final TagKey<Item> EGGS = modItemTag("eggs");
 
     // Future
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");

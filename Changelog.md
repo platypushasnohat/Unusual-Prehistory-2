@@ -11,7 +11,7 @@
 - Fixed potted metasequoia model
 - Fixed random sit goal
 - Praepusa now sleeps on the surface of water at night
-- Tweaked advancements
+- Overhauled advancements
 - Patchouli is now a required dependency
 - Paleopedia is now a custom item instead of the normal patchouli book
 - Increased coelacanthus max size cap to 200

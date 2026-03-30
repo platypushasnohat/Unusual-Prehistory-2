@@ -2,14 +2,12 @@ package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.*;
+import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.SummonedEntityTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -24,18 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class UP2AdvancementProvider implements AdvancementGenerator {
-
-    private static final ItemLike[] ROOT = new ItemLike[] {
-            UP2Items.MACHINE_PARTS.get()
-    };
-
-    public static List<ItemLike> ALL_EGG_BLOCKS = UP2Blocks.EGG_BLOCKS.stream().map(Supplier::get).collect(Collectors.toList());
-    public static List<ItemLike> ALL_EGG_ITEMS = UP2Items.EGG_EMBRYO_ITEMS.stream().map(Supplier::get).collect(Collectors.toList());
-    public static List<ItemLike> ALL_FOSSILS = UP2Items.FOSSILS.stream().map(Supplier::get).collect(Collectors.toList());
 
     public static ForgeAdvancementProvider register(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
         return new ForgeAdvancementProvider(output, provider, helper, List.of(new UP2AdvancementProvider()));
@@ -44,16 +32,24 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
     @Override
     public void generate(@NotNull Provider provider, @NotNull Consumer<Advancement> consumer, @NotNull ExistingFileHelper helper) {
 
-        Advancement root = this.addRoot(Advancement.Builder.advancement().display(UP2Items.UNUSUAL_PREHISTORY.get(), Component.translatable("advancement.unusual_prehistory.root"), Component.translatable("advancement.unusual_prehistory.root.desc"), UnusualPrehistory2.modPrefix("textures/block/cobbled_fossilized_bone.png"), FrameType.TASK, false, false, false)
-                .requirements(RequirementsStrategy.OR))
+        Advancement root = Advancement.Builder.advancement().display(UP2Items.UNUSUAL_PREHISTORY.get(), Component.translatable("advancement.unusual_prehistory.root"), Component.translatable("advancement.unusual_prehistory.root.desc"), UnusualPrehistory2.modPrefix("textures/block/cobbled_fossilized_bone.png"), FrameType.TASK, false, false, false)
+                .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.EGGS).build()))
+                .addCriterion("machine_parts", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.MACHINE_PARTS.get()))
+                .addCriterion("paleopedia", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.PALEOPEDIA.get()))
+                .addCriterion("transmogrifier", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.TRANSMOGRIFIER.get()))
+                .addCriterion("organic_ooze", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.ORGANIC_OOZE.get()))
+                .addCriterion("living_ooze", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.LIVING_OOZE_BUCKET.get()))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("root"), helper);
 
         Advancement.Builder.advancement().addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
                 .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
 
         // Progression & misc
-        Advancement fossils = this.addItemList(ALL_FOSSILS, Advancement.Builder.advancement().parent(root).display(UP2Items.UNKNOWN_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.obtain_fossil"), Component.translatable("advancement.unusual_prehistory.obtain_fossil.desc"), null, FrameType.TASK, true, true, false)
-                .requirements(RequirementsStrategy.OR))
+        Advancement fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), FrameType.TASK, false)
+                .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_fossil"), helper);
 
         Advancement machineParts = createAdvancement("obtain_machine_parts", fossils, UP2Items.MACHINE_PARTS.get(), FrameType.TASK, false)
@@ -68,8 +64,9 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .addCriterion("organic_ooze", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.ORGANIC_OOZE.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_organic_ooze"), helper);
 
-        Advancement eggs = this.addAllEggs(Advancement.Builder.advancement().parent(organicOoze).display(UP2Items.UNKNOWN_EGG.get(), Component.translatable("advancement.unusual_prehistory.obtain_egg"), Component.translatable("advancement.unusual_prehistory.obtain_egg.desc"), null, FrameType.GOAL, true, true, false)
-                .requirements(RequirementsStrategy.OR))
+        Advancement eggs = Advancement.Builder.advancement().parent(organicOoze).display(UP2Items.UNKNOWN_EGG.get(), Component.translatable("advancement.unusual_prehistory.obtain_egg"), Component.translatable("advancement.unusual_prehistory.obtain_egg.desc"), null, FrameType.GOAL, true, true, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.EGGS).build()))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_egg"), helper);
 
         createAdvancement("obtain_living_ooze", organicOoze, UP2Items.LIVING_OOZE_BUCKET.get(), FrameType.GOAL, false)
@@ -77,28 +74,57 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_living_ooze"), helper);
 
         // Paleozoic periods
-        Advancement paleozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleozoic_root"), Component.translatable("advancement.unusual_prehistory.paleozoic_root.desc"), null, FrameType.TASK, false, false, false)
-                .requirements(RequirementsStrategy.OR))
+        Advancement paleozoicRoot = Advancement.Builder.advancement().parent(eggs).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleozoic_root"), Component.translatable("advancement.unusual_prehistory.paleozoic_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("paleozoic_root"), helper);
 
-        Advancement ordovicianRoot = this.addAllEggs(Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.ordovician_root"), Component.translatable("advancement.unusual_prehistory.ordovician_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("ordovician_root"), helper);
-        Advancement silurianRoot = this.addAllEggs(Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.silurian_root"), Component.translatable("advancement.unusual_prehistory.silurian_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("silurian_root"), helper);
-        Advancement devonianRoot = this.addAllEggs(Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.devonian_root"), Component.translatable("advancement.unusual_prehistory.devonian_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("devonian_root"), helper);
-        Advancement carboniferousRoot = this.addAllEggs(Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.carboniferous_root"), Component.translatable("advancement.unusual_prehistory.carboniferous_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("carboniferous_root"), helper);
-        Advancement permianRoot = this.addAllEggs(Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.permian_root"), Component.translatable("advancement.unusual_prehistory.permian_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("permian_root"), helper);
+        Advancement ordovicianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.ordovician_root"), Component.translatable("advancement.unusual_prehistory.ordovician_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("ordovician_root"), helper);
+        Advancement silurianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.silurian_root"), Component.translatable("advancement.unusual_prehistory.silurian_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("silurian_root"), helper);
+        Advancement devonianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.devonian_root"), Component.translatable("advancement.unusual_prehistory.devonian_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("devonian_root"), helper);
+        Advancement carboniferousRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.carboniferous_root"), Component.translatable("advancement.unusual_prehistory.carboniferous_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("carboniferous_root"), helper);
+        Advancement permianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PALEOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.permian_root"), Component.translatable("advancement.unusual_prehistory.permian_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("permian_root"), helper);
 
-        Advancement mesozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.mesozoic_root"), Component.translatable("advancement.unusual_prehistory.mesozoic_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("mesozoic_root"), helper);
+        Advancement mesozoicRoot = Advancement.Builder.advancement().parent(eggs).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.mesozoic_root"), Component.translatable("advancement.unusual_prehistory.mesozoic_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.MESOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("mesozoic_root"), helper);
 
-        Advancement triassicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.triassic_root"), Component.translatable("advancement.unusual_prehistory.triassic_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("triassic_root"), helper);
-        Advancement jurassicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.jurassic_root"), Component.translatable("advancement.unusual_prehistory.jurassic_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("jurassic_root"), helper);
-        Advancement cretaceousRoot = this.addAllEggs(Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cretaceous_root"), Component.translatable("advancement.unusual_prehistory.cretaceous_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("cretaceous_root"), helper);
+        Advancement triassicRoot = Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.triassic_root"), Component.translatable("advancement.unusual_prehistory.triassic_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.MESOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("triassic_root"), helper);
+        Advancement jurassicRoot = Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.jurassic_root"), Component.translatable("advancement.unusual_prehistory.jurassic_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.MESOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("jurassic_root"), helper);
+        Advancement cretaceousRoot = Advancement.Builder.advancement().parent(mesozoicRoot).display(UP2Items.MESOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cretaceous_root"), Component.translatable("advancement.unusual_prehistory.cretaceous_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.MESOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("cretaceous_root"), helper);
 
-        Advancement cenozoicRoot = this.addAllEggs(Advancement.Builder.advancement().parent(eggs).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("cenozoic_root"), helper);
+        Advancement cenozoicRoot = Advancement.Builder.advancement().parent(eggs).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("cenozoic_root"), helper);
 
-        Advancement paleogeneRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleogene_root"), Component.translatable("advancement.unusual_prehistory.paleogene_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("paleogene_root"), helper);
-        Advancement neogeneRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.neogene_root"), Component.translatable("advancement.unusual_prehistory.neogene_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("neogene_root"), helper);
-        Advancement quaternaryRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.quaternary_root"), Component.translatable("advancement.unusual_prehistory.quaternary_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("quaternary_root"), helper);
-        Advancement holoceneRoot = this.addAllEggs(Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.HOLOCENE_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.holocene_root"), Component.translatable("advancement.unusual_prehistory.holocene_root.desc"), null, FrameType.TASK, false, false, false).requirements(RequirementsStrategy.OR)).save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
+        Advancement paleogeneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.paleogene_root"), Component.translatable("advancement.unusual_prehistory.paleogene_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("paleogene_root"), helper);
+        Advancement neogeneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.neogene_root"), Component.translatable("advancement.unusual_prehistory.neogene_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("neogene_root"), helper);
+        Advancement quaternaryRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.quaternary_root"), Component.translatable("advancement.unusual_prehistory.quaternary_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("quaternary_root"), helper);
+        Advancement holoceneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.HOLOCENE_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.holocene_root"), Component.translatable("advancement.unusual_prehistory.holocene_root.desc"), null, FrameType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
+                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
 
         // Ordovician
         Advancement reviveAegirocassis = reviveMobAdvancement("revive_aegirocassis", ordovicianRoot, UP2Blocks.AEGIROCASSIS_EGGS.get(), UP2Entities.AEGIROCASSIS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_aegirocassis"), helper);
@@ -191,20 +217,6 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
         for (EntityType<?> entity : entityTypes) {
             builder.addCriterion(EntityType.getKey(entity).getPath(), SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(entity)));
         }
-        return builder;
-    }
-
-    private Advancement.Builder addAllEggs(Advancement.Builder builder) {
-        this.addItemList(ALL_EGG_BLOCKS, builder);
-        this.addItemList(ALL_EGG_ITEMS, builder);
-        return builder;
-    }
-
-    private Advancement.Builder addRoot(Advancement.Builder builder) {
-        this.addItemList(ALL_EGG_BLOCKS, builder);
-        this.addItemList(ALL_EGG_ITEMS, builder);
-        this.addItemList(ALL_FOSSILS, builder);
-        this.addItemList(ROOT, builder);
         return builder;
     }
 }

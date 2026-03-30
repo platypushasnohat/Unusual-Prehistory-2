@@ -38,6 +38,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(DOOMSURF_DISC);
         this.item(MEGALANIA_DISC);
         this.item(TARIFYING_DISC);
+        this.item(PUMMEL_AND_SNATCH_DISC);
 
         this.item(TAR_BUCKET);
         this.item(LIVING_OOZE_BUCKET);

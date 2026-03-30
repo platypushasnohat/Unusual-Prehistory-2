@@ -816,6 +816,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.TARIFYING_DISC,
                 sound(UnusualPrehistory2.modPrefix("music/tarifying_disc")).stream()
         );
+        this.sound(UP2SoundEvents.PUMMEL_AND_SNATCH_DISC,
+                sound(UnusualPrehistory2.modPrefix("music/pummel_and_snatch_disc")).stream()
+        );
 
         // Ambient mobs
         this.sound(UP2SoundEvents.BUG_HURT,

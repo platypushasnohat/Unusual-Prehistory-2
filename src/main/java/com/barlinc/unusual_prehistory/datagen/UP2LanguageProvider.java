@@ -378,6 +378,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateIconBannerPattern("mosasaurus");
         this.translateIconBannerPattern("psilopterus");
 
+        this.sound(UP2SoundEvents.PUMMEL_AND_SNATCH_DISC, "Music Disc");
+        this.musicDisc(UP2Items.PUMMEL_AND_SNATCH_DISC, "ChipsTheCat - Pummel and Snatch");
+
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT, "Aegirocassis hurts");
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH, "Aegirocassis dies");
         this.sound(UP2SoundEvents.AEGIROCASSIS_IDLE, "Aegirocassis rumbles");
