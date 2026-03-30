@@ -517,34 +517,56 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.paleopedia.recipe_title", "");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.machine_parts", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.organic_ooze", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.transmogrifier", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.tar", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.asphalt", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.reinforced_glass", "");
+        //Questline
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.title", "Fossil Hunting");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.desc", "One of the first steps in your journey is to find $(l:unusual_prehistory:features/world)Fossil Sites$() underground or on the surface. Fossils can be obtained using a $(highlight)Brush$() on suspicious blocks in these sites.");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.pacification.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.pacification.desc", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.title", "Ancient Machines");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.desc", "Finding $(l:unusual_prehistory:features/blocks_items/machine_parts)Machine Parts$() is essential to the revival process.");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.tooltip", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.title", "Goo is Fuel");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.desc", "The Transmogrifier is fueled with Organic Ooze. Take care to make more for reviving larger creatures!");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.tooltip", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.title", "Transmogrification");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.desc", "Using $(l:unusual_prehistory:features/machine_parts)Machine Parts$(), one can create a $(l:unusual_prehistory:features/transmogrifier)Transmogrifier$() fueled by $(l:unusual_prehistory:features/organic_ooze)Organic Ooze$().");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.tooltip", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.tooltip", "");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.title", "Life Finds a Way");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.desc", "Using the process of transmogrification, new life may be created from a fossil. $(l:unusual_prehistory:features/miscellaneous/incubation)Incubate$(/l) your newly made egg and let extinct creatures roam the Overworld once more.");
 
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.tooltip", "");
+        //Features
+        this.add("item.unusual_prehistory.paleopedia.entry.machine_parts.desc", "Machine Parts can be found within $(highlight)Dungeons$(), $(highlight)Jungle Temples$(), $(highlight)Desert Pyramids$() or $(highlight)Mineshafts$().");
+        this.add("item.unusual_prehistory.paleopedia.entry.organic_ooze.desc", "Organic Ooze is used as fuel for the $(l:unusual_prehistory:features/blocks_items/transmogrifier)Transmogrifier$(/l), and also to make $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l).");
+        this.add("item.unusual_prehistory.paleopedia.entry.transmogrifier.desc", "The Transmogrifier is a machine used to transmogrify fossils into living organisms. It is fueled with $(l:unusual_prehistory:features/blocks_items/organic_ooze)Organic Ooze$(/l) and any fossil can be placed within it to begin conversion. Larger mobs require more fuel.");
+        this.add("item.unusual_prehistory.paleopedia.entry.tar.desc", "Tar is found in $(l:unusual_prehistory:features/world/tar_pit)Tar Pits$(/l). All mobs and the player sink in tar, and can suffocate if left under for too long. Tar can be picked up with a bucket.");
+        this.add("item.unusual_prehistory.paleopedia.entry.asphalt.desc", "Asphalt forms when tar comes into contact with lava or water. Mobs on asphalt gain increased movement speed.");
+        this.add("item.unusual_prehistory.paleopedia.entry.reinforced_glass.desc", "Reinforced Glass is blast-resistant and mob-resistant glass, and can be used to protect viewing areas from aggressive mobs.");
+
+
+        //Misc
+        this.add("item.unusual_prehistory.paleopedia.entry.pacification.title", "Pacification");
+        this.add("item.unusual_prehistory.paleopedia.entry.pacification.desc", "Aggressive mobs may be pacified for a little less than a day by feeding them their favorite foods. An $(highlight)Enchanted Golden Apple$() can be used to pacify mobs permanently.");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.title", "Incubation");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title", "Raft Egg");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc", "Egg must be placed on-top of water to hatch.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.tooltip", "Egg must be placed on-top of water to hatch");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title", "Nest Egg");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc", "Egg must be placed down to hatch. $(highlight)Wool$(), $(highlight)Moss$() or $(highlight)Hay Bales$() may be placed under nest eggs to speed up hatching.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.tooltip", "Egg must be placed down to hatch");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title", "Projectile Egg");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc", "Egg must be thrown to hatch.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.tooltip", "Egg must be thrown to hatch");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.title", "Embryo");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "Embryos must be placed in $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l)to gestate.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.tooltip", "Embryo must be placed in §aLiving Ooze§7to gestate");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title", "Aquatic Egg");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc", "Egg must be placed underwater to hatch.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.tooltip", "Egg must be placed underwater to hatch");
 
         this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.title", "");
         this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.tooltip", "");

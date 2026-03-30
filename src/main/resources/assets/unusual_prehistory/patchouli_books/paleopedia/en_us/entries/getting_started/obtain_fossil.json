@@ -1,15 +1,15 @@
 {
-  "name": "Fossil Hunting",
-  "icon": "unusual_prehistory:rugose_fossil",
+  "name": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.title",
+  "icon": "unusual_prehistory:unknown_fossil",
   "category": "unusual_prehistory:getting_started",
   "turnin": "unusual_prehistory:obtain_fossil",
   "sortnum": 0,
   "pages": [
     {
       "type": "unusual_prehistory:spotlight",
-      "item": "unusual_prehistory:rugose_fossil",
-      "title": "Fossil Hunting",
-      "text": "One of the first steps in your journey is to find $(l:unusual_prehistory:features)Fossil Sites$() underground or on the surface. Fossils can be obtained using a $(highlight)Brush$() on suspicious blocks in these sites."
+      "item": "unusual_prehistory:unknown_fossil",
+      "title": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.desc"
     },
     {
       "type": "unusual_prehistory:quest",

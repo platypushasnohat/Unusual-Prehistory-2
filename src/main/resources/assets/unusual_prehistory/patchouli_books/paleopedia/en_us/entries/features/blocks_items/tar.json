@@ -8,13 +8,15 @@
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:tar_bucket",
       "title": "block.unusual_prehistory.tar",
-      "text": "Tar..."
+      "text": "item.unusual_prehistory.paleopedia.entry.tar.desc",
+      "advancement": "unusual_prehistory:root"
     },
     {
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:asphalt",
       "title": "block.unusual_prehistory.asphalt",
-      "text": "Asphalt..."
+      "text": "item.unusual_prehistory.paleopedia.entry.asphalt.desc",
+      "advancement": "unusual_prehistory:root"
     }
   ]
 }

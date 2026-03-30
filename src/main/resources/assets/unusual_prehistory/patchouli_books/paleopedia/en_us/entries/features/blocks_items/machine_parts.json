@@ -8,7 +8,7 @@
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:machine_parts",
       "title": "item.unusual_prehistory.machine_parts",
-      "text": "Machine Parts..."
+      "text": "item.unusual_prehistory.paleopedia.entry.machine_parts.desc"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Transmogrification",
+  "name": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.title",
   "icon": "unusual_prehistory:transmogrifier",
   "category": "unusual_prehistory:getting_started",
   "turnin": "unusual_prehistory:obtain_transmogrifier",
@@ -9,8 +9,8 @@
     {
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:transmogrifier",
-      "title": "Transmogrification",
-      "text": "Using $(highlight)$(l:unusual_prehistory:features/machine_parts)Machine Parts$(), one can create a $(highlight)$(l:unusual_prehistory:features/transmogrifier)Transmogrifier$() powered by $(highlight)$(l:unusual_prehistory:features/organic_ooze)Organic Ooze$()."
+      "title": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.desc"
     },
     {
       "type": "unusual_prehistory:quest",

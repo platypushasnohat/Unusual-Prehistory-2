@@ -39,9 +39,9 @@
       "feature_1.tooltip": "§7Baby Aegirocassis can be collected and transported using a §aWater Bucket§7",
       "feature_1.title_two_line": "Humble Beginnings",
 
-      "feature_2.item": "unusual_prehistory:gravel",
+      "feature_2.item": "minecraft:gravel",
       "feature_2.tooltip": "Aegirocassis prefers deep water",
-      "feature_2.title_two_line": "Depth Dweller"
+      "feature_2.title_one_line": "Depth Dweller"
     }
   ]
 }

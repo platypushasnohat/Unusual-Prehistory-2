@@ -52,7 +52,7 @@
       "type": "unusual_prehistory:mob_entry_features",
 
       "feature_1.item": "minecraft:torch",
-      "feature_1.tooltip": "§7What remains of their eyes are highly sensitive, Talpanas will avoid both natural and player-placed light",
+      "feature_1.tooltip": "§7What remains of their eyes are highly sensitive, Talpanas avoids both natural and player-placed light",
       "feature_1.title_two_line": "Light at the End of the Tunnel"
     }
   ]

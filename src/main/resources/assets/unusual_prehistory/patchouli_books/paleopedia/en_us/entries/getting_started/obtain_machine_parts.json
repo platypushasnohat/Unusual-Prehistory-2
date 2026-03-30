@@ -1,5 +1,5 @@
 {
-  "name": "Ancient Machines",
+  "name": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.title",
   "icon": "unusual_prehistory:machine_parts",
   "category": "unusual_prehistory:getting_started",
   "turnin": "unusual_prehistory:obtain_machine_parts",
@@ -8,8 +8,8 @@
     {
       "type": "unusual_prehistory:spotlight",
       "item": "unusual_prehistory:machine_parts",
-      "title": "Ancient Machines",
-      "text": "Finding $(highlight)Machine Parts$() is essential to the revival process. Machine Parts can be found in chests within $(highlight)Dungeons$(), $(highlight)Jungle Temples$(), $(highlight)Desert Pyramids$() or $(highlight)Mineshafts$()."
+      "title": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.desc"
     },
     {
       "type": "unusual_prehistory:quest",
