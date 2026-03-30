@@ -36,11 +36,11 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:tames_ulughbegsaurus",
-      "feature_1.tooltip": "§7Meat can be used to tame Ulughbegsaurus - tamed Ulughbegsaurus can be ridden and are able to jump up to 3 blocks forward",
+      "feature_1.tooltip": "Ulughbegsaurus can be tamed using various meats; tamed Ulughbegsaurus can be ridden and are able to jump up to 3 blocks forward",
       "feature_1.title_one_line": "Liftoff",
 
       "feature_2.item": "tag:forge:dyes",
-      "feature_2.tooltip": "§7Dyes can be used to change the pattern color on Ulughbegsaurus",
+      "feature_2.tooltip": "Ulughbegsaurus' pattern color can be changed using dye",
       "feature_2.title_two_line": "Taste the Rainbow"
 
 

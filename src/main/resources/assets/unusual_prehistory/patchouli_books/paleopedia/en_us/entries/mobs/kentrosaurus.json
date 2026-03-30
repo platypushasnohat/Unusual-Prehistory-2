@@ -36,11 +36,11 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:guarded_by_kentrosaurus",
-      "feature_1.tooltip": "§7Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",
+      "feature_1.tooltip": "Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",
       "feature_1.title_one_line": "Cactus-coded",
 
       "feature_2.item": "minecraft:chainmail_chestplate{Enchantments:[{id:thorns,lvl:1}]}",
-      "feature_2.tooltip": "§7Those who cover themselves in thorns will find themselves under kentrosaurus' protection",
+      "feature_2.tooltip": "Those who cover themselves in §aThorns§7 will find themselves under Kentrosaurus' protection",
       "feature_2.title_two_line": "Friend of the Thorny"
     }
   ]

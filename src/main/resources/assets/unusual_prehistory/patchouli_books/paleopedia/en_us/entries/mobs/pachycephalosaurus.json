@@ -36,11 +36,11 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:iron_helmet",
-      "feature_1.tooltip": "§7Pachycephalosaurus uses powerful charges to ram attackers, and will also engage in head-butting contests with other individuals or nearby mobs",
+      "feature_1.tooltip": "Pachycephalosaurus uses powerful charges to ram attackers, and will also engage in head-butting contests with other individuals or nearby mobs",
       "feature_1.title_one_line": "Way to Use Your Head!",
 
       "feature_2.item": "minecraft:shield",
-      "feature_2.tooltip": "§7They may get reckless and stun themselves by ramming headfirst into hard surfaces like blocks and §r§aShields§r§7",
+      "feature_2.tooltip": "Pachycephalosaurus may get reckless and stun themselves by ramming headfirst into hard surfaces like blocks and §r§aShields§r§7",
       "feature_2.title_one_line": "Concussive"
     }
   ]

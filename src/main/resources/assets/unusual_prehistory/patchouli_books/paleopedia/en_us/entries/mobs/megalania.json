@@ -36,18 +36,18 @@
       "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
 
       "feature_2.item": "minecraft:red_sand",
-      "feature_2.tooltip": "§7Being cold-blooded animals, they thrive in hotter climates, and will become more active and hostile in warmer biomes",
+      "feature_2.tooltip": "Megalania are cold-blooded, and will become more active and hostile in warmer biomes",
       "feature_2.title_one_line": "Desert Danger!",
       "feature_2.title_two_line": "",
 
       "feature_3.item": "minecraft:spider_eye",
-      "feature_3.tooltip": "§7Their bite is highly venomous",
+      "feature_3.tooltip": "Megalania's bite is highly venomous",
       "feature_3.title_one_line": "Vile Bite",
       "feature_3.title_two_line": "",
 
       "feature_1.item": "tag:unusual_prehistory:tames_megalania",
-      "feature_1.tooltip": "§7These reptiles can be tamed with §r§aRotten Flesh§r§7 - tamed Megalania will attack targeted enemies",
-      "feature_1.title_two_line": "An Unexpected Friend?"
+      "feature_1.tooltip": "Megalania can be tamed using §aRotten Flesh§7; tamed Megalania can be commanded to attack",
+      "feature_1.title_two_line": "Unexpected Friend?"
     }
   ]
 }

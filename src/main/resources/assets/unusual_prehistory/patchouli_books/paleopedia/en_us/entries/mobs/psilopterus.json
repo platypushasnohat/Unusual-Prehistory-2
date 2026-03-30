@@ -36,14 +36,23 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:feather",
-      "feature_1.tooltip": "Psilopterus hunt in packs led by an alpha, becoming very aggressive in large groups",
-      "feature_1.title_one_line": "Birds of Prey",
-      "feature_1.title_two_line": "",
+      "feature_1.tooltip": "Psilopterus hunt in packs led by an alpha, becoming more aggressive and bolder in larger groups",
+      "feature_1.title_one_line": "Crooked Gang",
 
       "feature_2.item": "minecraft:lever,minecraft:oak_door,minecraft:oak_button",
-      "feature_2.tooltip": "ยง7These birds can open doors and activate buttons and levers",
+      "feature_2.tooltip": "Psilopterus can open doors and activate buttons and levers",
       "feature_2.title_one_line": "Clever Girl...?",
-      "feature_2.title_two_line": ""
+
+      "feature_3.item": "minecraft:chest",
+      "feature_3.tooltip": "Psilopterus steals food from chests",
+      "feature_3.title_one_line": "Raptor Robber"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_features",
+
+      "feature_1.item": "minecraft:target_block",
+      "feature_1.tooltip": "Psilopterus will lash out and unleash light kicks on small mobs",
+      "feature_1.title_two_line": "Strike!"
     }
   ]
 }

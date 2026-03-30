@@ -36,7 +36,7 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:pterodactylus_pot",
-      "feature_1.tooltip": "§7A §aFlower Pot§7 can be used to collect and transport Pterodactylus",
+      "feature_1.tooltip": "Pterodactylus can be collected and transported using a §aFlower Pot§7",
       "feature_1.title_two_line": "Portable Pterodactyl"
     }
   ]

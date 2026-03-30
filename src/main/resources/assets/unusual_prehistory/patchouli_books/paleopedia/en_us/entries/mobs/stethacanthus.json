@@ -36,11 +36,11 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_2.item": "minecraft:bone",
-      "feature_2.tooltip": "§7With sharp teeth and spines, messing with them results in much pain",
+      "feature_2.tooltip": "Stethacanthus is covered in spines, messing with them results in much pain",
       "feature_2.title_two_line": "Watch your fingers!",
 
       "feature_1.item": "unusual_prehistory:stethacanthus_bucket",
-      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Stethacanthus",
+      "feature_1.tooltip": "Stethacanthus can be collected and transported using a §aWater Bucket§7",
       "feature_1.title_two_line": "Buckets of Bites"
     }
   ]

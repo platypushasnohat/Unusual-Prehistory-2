@@ -36,12 +36,12 @@
       "activity.activity_tooltip": "Active during the night",
 
       "feature_1.item": "minecraft:glass",
-      "feature_1.tooltip": "§7With skin like a chameleon, they remain hidden until just before they strike their prey or hide from larger predators",
+      "feature_1.tooltip": "Majungasaurus is equipped with skin like a chameleon, using it to camouflage from prey or larger predators",
       "feature_1.title_two_line": "The Invisible Man",
 
       "feature_2.item": "minecraft:iron_axe",
-      "feature_2.tooltip": "§7These dinosaurs are known to eat younger members of their species",
-      "feature_2.title_one_line": "Kids Meal",
+      "feature_2.tooltip": "Majungasaurus is known to eat younger members of their species",
+      "feature_2.title_one_line": "Kids' Meal",
       "feature_2.title_two_line": ""
     }
   ]

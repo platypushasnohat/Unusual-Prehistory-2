@@ -35,9 +35,13 @@
       "activity.activity_type": "sleepless",
       "activity.activity_tooltip": "Does not sleep",
 
-      "feature_1.item": "minecraft:sand",
-      "feature_1.tooltip": "§7They are capable of pursuing their prey on land too, just lacking the agility they possess in the water",
-      "feature_1.title_two_line": "Risk on the Riverbanks"
+      "feature_1.item": "minecraft:barrier",
+      "feature_1.tooltip": "Metriorhynchus can be tamed using §aTropical Fish§7; tamed Metriorhynchus can be commanded to attack",
+      "feature_1.title_two_line": "Amphibious Ally",
+
+      "feature_2.item": "minecraft:sand",
+      "feature_2.tooltip": "Metriorhynchus is capable of pursuing their prey on land too, just lacking the agility they possess in the water",
+      "feature_2.title_two_line": "Risk on the Riverbanks"
     }
   ]
 }

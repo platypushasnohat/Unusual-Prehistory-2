@@ -35,7 +35,7 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:0},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:1},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:2},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:3},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:4}",
-      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Lobe Finned Fish",
+      "feature_1.tooltip": "Lobe Finned Fish can be collected and transported using a §aWater Bucket§7",
       "feature_1.title_two_line": "Buckets of Seafood"
     }
   ]

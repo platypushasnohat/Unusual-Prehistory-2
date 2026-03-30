@@ -36,12 +36,12 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "minecraft:water_bucket",
-      "feature_1.tooltip": "Hibbertopterus’ home is the water, but it can survive indefinitely on land - The only thing it cannot do yet is fly",
+      "feature_1.tooltip": "Hibbertopterus’ home is the water, but it can survive indefinitely on land—the only thing it cannot do yet is fly",
       "feature_1.title_one_line": "All-Terrain",
       "feature_1.title_two_line": "",
 
       "feature_2.item": "unusual_prehistory:dirt_on_a_stick",
-      "feature_2.tooltip": "Not at all concerned with players climbing on its back, one can even command Hibbertopterus to till vast areas of farmland with §aDirt on a Stick§7",
+      "feature_2.tooltip": "Hibbertopterus is not at all concerned with players climbing on its back, and one can even command it to till vast areas of farmland with §aDirt on a Stick§7",
       "feature_2.title_two_line": "No Thoughts, Only Plow"
     }
   ]

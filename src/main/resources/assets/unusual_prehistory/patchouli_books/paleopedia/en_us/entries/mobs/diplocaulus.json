@@ -16,7 +16,6 @@
       "flavor_text": "double-stalk",
       "fossil_item": "unusual_prehistory:boomerang_fossil",
       "egg_item": "unusual_prehistory:diplocaulus_eggs",
-      "variant_key": "1 brevirostris 2 magnicornis 3 recurvartis 4 salamandroides",
       "image_tooltip": "Small salamandrine amphibians with bizzare, boomerang-shaped heads, Diplocaulus may look like an unfortunate accident, but they are entirely as natural as they are striking"
     },
     {
@@ -36,16 +35,16 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:diplocaulus_bucket{BucketVariantTag:0},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:1},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:2},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:3}",
-      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Diplocaulus",
+      "feature_1.tooltip": "Diplocaulus can be collected and transported using a §aWater Bucket§7",
       "feature_1.title_two_line": "Tactical Salamandering",
 
       "feature_2.item": "tag:unusual_prehistory:diplocaulus_sliding_blocks",
-      "feature_2.tooltip": "§7Loves to slide around on various slippery blocks",
+      "feature_2.tooltip": "Diplocaulus loves to slide around on various slippery blocks",
       "feature_2.title_one_line": "Slip n' Slide!",
       "feature_2.title_two_line": "",
 
       "feature_3.item": "tag:unusual_prehistory:diplocaulus_burrowing_blocks",
-      "feature_3.tooltip": "§7Diplocaulus may occasionally bury itself in sediment blocks",
+      "feature_3.tooltip": "Diplocaulus may occasionally bury itself in sediment blocks",
       "feature_3.title_one_line": "In the Mud",
       "feature_3.title_two_line": ""
     }

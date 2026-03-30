@@ -36,11 +36,11 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "minecraft:coarse_dirt",
-      "feature_1.tooltip": "§7Onchopristis live at the bottom of bodies of water and will often bury themselves in the sediment",
+      "feature_1.tooltip": "§7Onchopristis dwell at the bottom of water bodies and will often bury themselves in the sediment",
       "feature_1.title_two_line": "Scales in the Soil",
 
       "feature_2.item": "minecraft:redstone_block",
-      "feature_2.tooltip": "§7If stepped on while buried, they will spring into a toothy attack",
+      "feature_2.tooltip": "§7If stepped on while buried, Onchopristis will spring into a toothy attack",
       "feature_2.title_one_line": "I Saw That!",
       "feature_2.title_two_line": ""
     }

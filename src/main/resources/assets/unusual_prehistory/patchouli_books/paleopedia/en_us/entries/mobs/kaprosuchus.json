@@ -32,13 +32,13 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:tames_kaprosuchus",
-      "feature_1.tooltip": "Kaprosuchus can be loyal companions despite their gnarly exteriors - tame them using §aBones§7",
+      "feature_1.tooltip": "Kaprosuchus can be tamed using §aBones§7; tamed Kaprosuchus can be commanded to attack",
       "feature_1.title_one_line": "Swamp Puppy",
       "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:leather_boots",
       "feature_2.tooltip": "Kaprosuchus is capable of bombastic leaps that carry them far and high in the air, escape is no easy task",
-      "feature_2.title_one_line": "CHARGE!",
+      "feature_2.title_one_line": "Kinetic Crocodile",
       "feature_2.title_two_line": ""
     }
   ]

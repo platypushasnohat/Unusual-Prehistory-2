@@ -36,7 +36,7 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:coelacanthus_bucket{BucketVariantTag:0},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:0},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:1},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:2},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:3},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:4},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:5},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:6}",
-      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport Coelacanthus",
+      "feature_1.tooltip": "Coelacanthus can be collected and transported using a §aWater Bucket§7",
       "feature_1.title_one_line": "Hungry Home",
       "feature_1.title_two_line": "",
 

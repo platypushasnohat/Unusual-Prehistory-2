@@ -36,12 +36,12 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "minecraft:spider_eye",
-      "feature_1.tooltip": "§7Leptictidium will prey on any and all arthropods, regardless of size",
+      "feature_1.tooltip": "Leptictidium will prey on all arthropods",
       "feature_1.title_one_line": "Pest Control",
       "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:splash_potion{Potion:\"minecraft:awkward\"}",
-      "feature_2.tooltip": "§7They will carry and spread potion effects to other mobs",
+      "feature_2.tooltip": "Leptictidium will carry and spread potion effects to other mobs",
       "feature_2.title_one_line": "Plague Rats",
       "feature_2.title_two_line": ""
     }

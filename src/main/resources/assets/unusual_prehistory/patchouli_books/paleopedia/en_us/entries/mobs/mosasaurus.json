@@ -35,9 +35,13 @@
       "activity.activity_type": "sleepless",
       "activity.activity_tooltip": "Does not sleep",
 
-      "feature_1.item": "minecraft:sand",
-      "feature_1.tooltip": "§7They are capable of pursuing their prey on land too, just lacking the agility they possess in the water",
-      "feature_1.title_two_line": "Risk on the Riverbanks"
+      "feature_1.item": "minecraft:scute",
+      "feature_1.tooltip": "Mosasaurus grabs smaller mobs and thrashes them with its jaws",
+      "feature_1.title_two_line": "Tide Titan",
+
+      "feature_2.item": "minecraft:sand",
+      "feature_2.tooltip": "Mosasaurus is highly territorial and will brawl with nearby Mosasaurus, even when §apacified§7",
+      "feature_2.title_two_line": "Turf War"
     }
   ]
 }

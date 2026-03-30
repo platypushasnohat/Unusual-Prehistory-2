@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:aged_feather",
       "egg_item": "unusual_prehistory:talpanas_egg",
       "variant_key": "",
-      "image_tooltip": "A small cave-dwelling duck inhabiting tropical islands, Talpanas is unable to see, swim, or fly, unfortunately making it the perfect target for §obfuscate, at the hands of whom it met its extinction. "
+      "image_tooltip": "A small cave-dwelling duck inhabiting tropical islands, Talpanas is unable to see, swim, or fly, unfortunately making it the perfect target for §kobfuscate§7, at the hands of whom it met its extinction."
     },
     {
       "id": "talpanas",
@@ -36,7 +36,7 @@
       "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
 
       "feature_3.item": "minecraft:lava_bucket",
-      "feature_3.tooltip": "§7Their blindness makes them susceptible to walking into hazards, ensure enclosures are safe!",
+      "feature_3.tooltip": "§7Talpanas' blindness makes them susceptible to walking into hazards, ensure enclosures are safe!",
       "feature_3.title_one_line": "",
       "feature_3.title_two_line": "Workplace Hazards",
 
@@ -45,14 +45,14 @@
       "feature_1.title_one_line": "Duck Island",
 
       "feature_2.item": "minecraft:hanging_roots",
-      "feature_2.tooltip": "§7Being recently-extinct animals, they are able to breed after eating §aHanging Roots§7",
+      "feature_2.tooltip": "Being recently-extinct, Talpanas are able to breed after being fed §aHanging Roots§7",
       "feature_2.title_two_line": "Subterraneous Snack"
     },
     {
       "type": "unusual_prehistory:mob_entry_features",
 
       "feature_1.item": "minecraft:torch",
-      "feature_1.tooltip": "§7What remains of their eyes are highly sensitive, they will avoid both natural and player-placed light",
+      "feature_1.tooltip": "§7What remains of their eyes are highly sensitive, Talpanas will avoid both natural and player-placed light",
       "feature_1.title_two_line": "Light at the End of the Tunnel"
     }
   ]

@@ -17,7 +17,7 @@
       "fossil_item": "unusual_prehistory:bristle_fossil",
       "egg_item": "unusual_prehistory:aegirocassis_eggs",
       "variant_key": "",
-      "image_tooltip": "A giant radiodont, Aegirocassis drifts through the water using its bristles to filter-feed. It can be seen occasionally launching itself out of the water, seemingly in an attempt to… fly?"
+      "image_tooltip": "The whale of the radiodonts, Aegirocassis drifts through the water using its bristles to filter-feed. It can be seen occasionally launching itself out of the water, seemingly in an attempt to… fly?"
     },
     {
       "id": "aegirocassis",
@@ -36,8 +36,12 @@
       "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:baby_aegirocassis_bucket",
-      "feature_1.tooltip": "§7A §aWater Bucket§7 can be used to collect and transport baby Aegirocassis",
-      "feature_1.title_two_line": "Humble Beginnings"
+      "feature_1.tooltip": "§7Baby Aegirocassis can be collected and transported using a §aWater Bucket§7",
+      "feature_1.title_two_line": "Humble Beginnings",
+
+      "feature_2.item": "unusual_prehistory:gravel",
+      "feature_2.tooltip": "Aegirocassis prefers deep water",
+      "feature_2.title_two_line": "Depth Dweller"
     }
   ]
 }
