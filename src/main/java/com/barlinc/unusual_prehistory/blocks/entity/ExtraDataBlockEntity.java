@@ -13,8 +13,8 @@ public class ExtraDataBlockEntity extends BlockEntity {
 
     private UUID owner;
 
-    public ExtraDataBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(UP2BlockEntities.EXTRA_DATA_BLOCK_ENTITY.get(), pPos, pBlockState);
+    public ExtraDataBlockEntity(BlockPos pos, BlockState state) {
+        super(UP2BlockEntities.EXTRA_DATA_BLOCK_ENTITY.get(), pos, state);
     }
 
     public UUID getOwner() {
@@ -23,7 +23,7 @@ public class ExtraDataBlockEntity extends BlockEntity {
 
     public void setOwner(UUID owner) {
         this.owner = owner;
-        setChanged();
+        this.setChanged();
     }
 
     @Override

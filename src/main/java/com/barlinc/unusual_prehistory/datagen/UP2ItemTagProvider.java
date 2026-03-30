@@ -161,7 +161,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_PORKCHOP
         );
         this.tag(UP2ItemTags.LEPTICTIDIUM_FOOD).add(
-                Items.SWEET_BERRIES
+                Items.SPIDER_EYE
         );
         this.tag(UP2ItemTags.LOBE_FINNED_FISH_FOOD).add(
                 Blocks.SEAGRASS.asItem()

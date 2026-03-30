@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-27T18:08:22.2196714	Loot Tables
+// 1.20.1	2026-03-29T20:44:47.0984587	Loot Tables
 a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_tables/blocks/aegirocassis_eggs.json
 0faf1bb4e2d155e8c124ced8904e28d4a35a8032 data/unusual_prehistory/loot_tables/blocks/aethophyllum.json
 14a54c323011581bd4a258e5c9a55f45881b03a4 data/unusual_prehistory/loot_tables/blocks/archaeosigillaria.json
@@ -184,3 +184,4 @@ f7da209cff8b1c77df34008de76cdec6a25022cb data/unusual_prehistory/loot_tables/blo
 7ba62a6366f05dd054174cb0ad7b847ee4f1614d data/unusual_prehistory/loot_tables/blocks/ulughbegsaurus_egg.json
 41ff4c544055ab725ce53c0234e3a5fd9b55db87 data/unusual_prehistory/loot_tables/blocks/white_reinforced_glass.json
 e05113544b250d5d04a5d6d7418fcc8024db2286 data/unusual_prehistory/loot_tables/blocks/yellow_reinforced_glass.json
+5eaf27bf448d7b06989d6f11e0234b7e0d4b2218 data/unusual_prehistory/loot_tables/blocks/zhangsolva_bloom.json

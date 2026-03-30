@@ -27,6 +27,8 @@
 - Kaprosuchus can now be ordered to sit still in water
 - Overhauled loot tables for fossil structures. Now there are common, uncommon, rare, and epic fossil and junk loot tables for each era
 - Adjusted the rarity of fossil geodes
+- Changed variant names for diplocaulus and dunkleosteus to be more generic
+- Dunkleosteus variants now spawn based on the depth of the water or randomly if they spawn on land, deeper equals bigger. Any depth above 12 is large, above 6 is medium, and any shallower is small
 - Misc tweaks and fixes
 
 ## Version 1.3.1

@@ -288,9 +288,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     public enum DunkleosteusVariant {
-        RAVERI(0),
-        MARSAISI(1),
-        TERRELLI(2);
+        SMALL(0),
+        MEDIUM(1),
+        LARGE(2);
 
         private final int id;
 
@@ -315,13 +315,35 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         return DunkleosteusVariant.values().length;
     }
 
+    private int getWaterDepthAbove(LevelReader level, BlockPos pos) {
+        int depth = 0;
+        BlockPos.MutableBlockPos checkPos = pos.mutable();
+        while (level.getFluidState(checkPos).is(FluidTags.WATER)) {
+            depth++;
+            checkPos.move(0, 1, 0);
+            if (depth > 20) break;
+        }
+        return depth;
+    }
+
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnGroupData, @org.jetbrains.annotations.Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
         if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
             this.setVariant(compoundTag.getInt("BucketVariantTag"));
         } else {
-            this.setVariant(random.nextInt(DunkleosteusVariant.values().length));
+            int depth = this.getWaterDepthAbove(level, this.blockPosition());
+            if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {
+                if (depth > 12) {
+                    this.setVariant(2);
+                } else if (depth > 6) {
+                    this.setVariant(1);
+                } else {
+                    this.setVariant(0);
+                }
+            } else {
+                this.setVariant(random.nextInt(DunkleosteusVariant.values().length));
+            }
         }
         return spawnGroupData;
     }

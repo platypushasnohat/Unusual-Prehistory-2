@@ -221,14 +221,14 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("entity.unusual_prehistory.jawless_fish.variant_furcacauda", "Furcacauda");
         this.add("entity.unusual_prehistory.jawless_fish.variant_sacabambaspis", "Sacabambaspis");
 
-        this.add("entity.unusual_prehistory.diplocaulus.variant_brevirostris", "D. brevirostris");
-        this.add("entity.unusual_prehistory.diplocaulus.variant_magnicornis", "D. magnicornis");
-        this.add("entity.unusual_prehistory.diplocaulus.variant_recurvatis", "D. recurvatis");
-        this.add("entity.unusual_prehistory.diplocaulus.variant_salamandroides", "D. salamandroides");
+        this.add("entity.unusual_prehistory.diplocaulus.variant_brevirostris", "Tiger");
+        this.add("entity.unusual_prehistory.diplocaulus.variant_magnicornis", "Swampy");
+        this.add("entity.unusual_prehistory.diplocaulus.variant_recurvatis", "Muddy");
+        this.add("entity.unusual_prehistory.diplocaulus.variant_salamandroides", "Dwarf");
 
-        this.add("entity.unusual_prehistory.dunkleosteus.variant_raveri", "D. raveri");
-        this.add("entity.unusual_prehistory.dunkleosteus.variant_marsaisi", "D. marsaisi");
-        this.add("entity.unusual_prehistory.dunkleosteus.variant_terrelli", "D. terrelli");
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_small", "Small");
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_medium", "Medium");
+        this.add("entity.unusual_prehistory.dunkleosteus.variant_large", "Large");
 
         this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
 

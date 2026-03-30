@@ -245,6 +245,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.RAIGUENRAYUN.get());
                         output.accept(UP2Blocks.RHYNIA.get());
                         output.accept(UP2Blocks.TEMPSKYA.get());
+                        output.accept(UP2Blocks.ZHANGSOLVA_BLOOM.get());
                         output.accept(UP2Blocks.MOSS_LAYER.get());
                         output.accept(UP2Blocks.MOSSY_DIRT.get());
 

@@ -50,6 +50,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.tallPlant(LARGE_HORSETAIL);
         this.tallPlant(RAIGUENRAYUN);
+        this.tallPlant(ZHANGSOLVA_BLOOM);
 
         // dryophyllum
         this.pillar(DRYOPHYLLUM_LOG);
