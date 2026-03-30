@@ -60,8 +60,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.HAY_BLOCK,
                 Blocks.MOSS_BLOCK
         );
-
-        this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).addTag(BlockTags.ICE);
+        this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
 
         this.tag(UP2BlockTags.FOSSIL_REPLACEABLE).addTag(BlockTags.DIRT).add(
                 Blocks.GRAVEL

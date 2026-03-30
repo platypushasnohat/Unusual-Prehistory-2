@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class AegirocassisGlowLayer extends RenderLayer<Aegirocassis, UP2Model<Aegirocassis>> {
 
-    private static final ResourceLocation GLOW_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/aegirocassis/aegirocassis_glow.png");
+    private static final ResourceLocation GLOW_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/aegirocassis/aegirocassis_glow.png");
 
     public AegirocassisGlowLayer(RenderLayerParent<Aegirocassis, UP2Model<Aegirocassis>> parent) {
         super(parent);

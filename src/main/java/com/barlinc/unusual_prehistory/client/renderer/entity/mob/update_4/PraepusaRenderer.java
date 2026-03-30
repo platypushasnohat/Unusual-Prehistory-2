@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class PraepusaRenderer extends MobRenderer<Praepusa, PraepusaModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/praepusa.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/praepusa.png");
 
     public PraepusaRenderer(EntityRendererProvider.Context context) {
         super(context, new PraepusaModel(context.bakeLayer(UP2ModelLayers.PRAEPUSA)), 0.4F);

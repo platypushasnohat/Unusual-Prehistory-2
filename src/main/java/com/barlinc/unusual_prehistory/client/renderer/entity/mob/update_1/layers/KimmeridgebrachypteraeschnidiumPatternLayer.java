@@ -25,7 +25,7 @@ public class KimmeridgebrachypteraeschnidiumPatternLayer extends RenderLayer<Kim
     }
 
     public ResourceLocation patternTextures(Kimmeridgebrachypteraeschnidium entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/patterns/" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "/pattern_" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "_" + entity.getPatternColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/patterns/" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "/pattern_" + Kimmeridgebrachypteraeschnidium.getPatternName(entity.getPattern()) + "_" + entity.getPatternColor() + ".png");
     }
 
     @Override

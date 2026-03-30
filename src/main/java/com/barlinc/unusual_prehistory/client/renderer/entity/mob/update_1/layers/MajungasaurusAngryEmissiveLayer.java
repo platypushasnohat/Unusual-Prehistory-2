@@ -35,6 +35,6 @@ public class MajungasaurusAngryEmissiveLayer extends RenderLayer<Majungasaurus, 
 
     public ResourceLocation getAngryTexture(Majungasaurus entity) {
         Majungasaurus.MajungasaurusVariant variant = Majungasaurus.MajungasaurusVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_angry_glow.png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_angry_glow.png");
     }
 }

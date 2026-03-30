@@ -90,9 +90,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.lookControl = new PrehistoricLookControl(this);
         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
-        this.tailYaw = this.getYRot();
-        this.prevTailYaw = this.getYRot();
-        this.setPersistenceRequired();
+//        this.setPersistenceRequired();
     }
 
     @Override
@@ -377,8 +375,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Tail yaw
     public void tickTailYaw() {
-        this.prevTailYaw = tailYaw;
-        this.tailYaw = Mth.approachDegrees(this.tailYaw, yBodyRot, 8);
+        this.prevTailYaw = this.tailYaw;
+        this.tailYaw += (-(this.yBodyRot - this.yBodyRotO) - this.tailYaw) * 0.15F;
     }
 
     public float getTailYaw(float partialTick) {
@@ -721,7 +719,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public int pacifiedTicks() {
-        return 1500 + this.getRandom().nextInt(1500);
+        return 12000 + this.getRandom().nextInt(6000);
     }
 
     public boolean isPacified() {

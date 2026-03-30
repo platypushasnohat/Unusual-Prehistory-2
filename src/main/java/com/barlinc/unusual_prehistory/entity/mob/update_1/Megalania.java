@@ -101,7 +101,7 @@ public class Megalania extends SemiAquaticMob {
     @Override
     protected void registerGoals() {
         this.randomStrollGoal = new PrehistoricRandomStrollGoal(this, 1.0D, false);
-        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F, false));
         this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
@@ -147,11 +147,15 @@ public class Megalania extends SemiAquaticMob {
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
+        if (this.refuseToMove()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+            if (this.onGround()) {
+                travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+            } else if (this.isInWaterOrBubble()) {
+                travelVec = travelVec.multiply(0.0, 0.0, 0.0);
+            }
         }
         if (this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVec);
@@ -382,7 +386,7 @@ public class Megalania extends SemiAquaticMob {
         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 2 && this.getPose() != UP2Poses.TAIL_WHIPPING.get() && !this.isSitting() && !this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.aggroAnimationState.animateWhen(this.isAggressive() && this.getPose() == Pose.STANDING, this.tickCount);
-        this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
+        this.sitAnimationState.animateWhen(!this.isInWaterOrBubble() && this.isSitting(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.tongueAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.roarAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);

@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class BrachiosaurusRenderer extends MobRenderer<Brachiosaurus, UP2Model<Brachiosaurus>> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/brachiosaurus/brachiosaurus.png");
-    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/brachiosaurus/brachiosaurus_eepy.png");
-    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/brachiosaurus/brachiosaurus_baby.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/brachiosaurus/brachiosaurus.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/mob/brachiosaurus/brachiosaurus_eepy.png");
+    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/mob/brachiosaurus/brachiosaurus_baby.png");
 
     private final BrachiosaurusModel adultModel;
     private final BrachiosaurusBabyModel babyModel;

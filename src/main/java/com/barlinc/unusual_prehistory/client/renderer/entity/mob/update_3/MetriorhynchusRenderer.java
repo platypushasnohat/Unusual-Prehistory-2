@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class MetriorhynchusRenderer extends MobRenderer<Metriorhynchus, MetriorhynchusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/metriorhynchus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/metriorhynchus.png");
 
     public MetriorhynchusRenderer(EntityRendererProvider.Context context) {
         super(context, new MetriorhynchusModel(context.bakeLayer(UP2ModelLayers.METRIORHYNCHUS)), 0.8F);

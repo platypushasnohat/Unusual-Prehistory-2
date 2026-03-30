@@ -60,7 +60,7 @@ public class LobeFinnedFishRenderer extends MobRenderer<LobeFinnedFish, Hierarch
     @Override
     public @NotNull ResourceLocation getTextureLocation(LobeFinnedFish entity) {
         LobeFinnedFish.LobeFinnedFishVariant variant = LobeFinnedFish.LobeFinnedFishVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/lobe_finned_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/lobe_finned_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override

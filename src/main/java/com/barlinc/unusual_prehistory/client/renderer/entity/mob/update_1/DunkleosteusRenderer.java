@@ -53,6 +53,6 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
     @Override
     public @NotNull ResourceLocation getTextureLocation(Dunkleosteus entity) {
         Dunkleosteus.DunkleosteusVariant variant = Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/dunkleosteus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/dunkleosteus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

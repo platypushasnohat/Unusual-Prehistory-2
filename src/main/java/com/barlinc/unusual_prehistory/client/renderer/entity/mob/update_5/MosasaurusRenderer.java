@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class MosasaurusRenderer extends MobRenderer<Mosasaurus, MosasaurusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mosasaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/mosasaurus.png");
 
     public MosasaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new MosasaurusModel(context.bakeLayer(UP2ModelLayers.MOSASAURUS)), 1.0F);

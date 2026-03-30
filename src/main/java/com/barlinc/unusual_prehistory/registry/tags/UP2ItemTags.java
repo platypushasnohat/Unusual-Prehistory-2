@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class UP2ItemTags {
 
@@ -134,6 +135,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> MESOZOIC_EGGS = modItemTag("mesozoic_eggs");
     public static final TagKey<Item> CENOZOIC_EGGS = modItemTag("cenozoic_eggs");
     public static final TagKey<Item> EGGS = modItemTag("eggs");
+
+    public static final TagKey<Item> ACCELERATES_EGG_HATCHING = modItemTag("accelerates_egg_hatching");
+    public static final TagKey<Item> PREVENTS_EGG_HATCHING = modItemTag("prevents_egg_hatching");
 
     // Future
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");

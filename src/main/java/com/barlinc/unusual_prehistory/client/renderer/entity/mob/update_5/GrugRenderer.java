@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class GrugRenderer extends MobRenderer<Grug, GrugModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/grug.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/grug.png");
 
     public GrugRenderer(EntityRendererProvider.Context context) {
         super(context, new GrugModel(context.bakeLayer(UP2ModelLayers.GRUG)), 0.5F);

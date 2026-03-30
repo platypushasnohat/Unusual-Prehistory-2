@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -21,7 +22,9 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -44,9 +47,9 @@ public class Grug extends PrehistoricMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 450.0D)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35F)
+                .add(Attributes.MAX_HEALTH, 600.0D)
+                .add(Attributes.ATTACK_DAMAGE, 100.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }
@@ -87,13 +90,25 @@ public class Grug extends PrehistoricMob {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (this.horizontalCollision && ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive()) {
+            boolean flag = false;
+            AABB aabb = this.getBoundingBox().inflate(3.0D, 4.0D, 3.0D);
+            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+                flag = this.level().destroyBlock(blockpos, false, this) || flag;
+            }
+        }
+    }
+
+    @Override
     public float getStepHeight() {
-        return 1.0F;
+        return 2.0F;
     }
 
     @Override
     public int getHealCooldown() {
-        return 150;
+        return 20;
     }
 
     @Nullable
@@ -143,7 +158,7 @@ public class Grug extends PrehistoricMob {
                 this.grug.getLookControl().setLookAt(target, 30F, 30F);
                 double distance = this.grug.distanceToSqr(target);
                 int attackState = this.grug.getAttackState();
-                this.grug.getNavigation().moveTo(target, 2.0D);
+                this.grug.getNavigation().moveTo(target, 1.5D);
 
                 if (attackState == 1) {
                     this.tickAttack();

@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-29T21:24:51.2231535	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-03-30T12:41:16.7690484	Tags for minecraft:item mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -27,6 +27,7 @@ dbbb037f8fb5ad65ce084e1eb552058507238b1a data/minecraft/tags/items/wooden_fences
 a1028f77bca62be7ec9e555cdfff47a11360c4b2 data/minecraft/tags/items/wooden_slabs.json
 562b7c2f6447c6f6679eaa694f6fa039495ea952 data/minecraft/tags/items/wooden_stairs.json
 69dce2765e41e9577a4c342633510d06e15bca2e data/minecraft/tags/items/wooden_trapdoors.json
+db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/items/accelerates_egg_hatching.json
 8eeab6448dd6076a212959e471057cb1a16e3950 data/unusual_prehistory/tags/items/aegirocassis_food.json
 ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/items/amber_dyes.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/items/aqua_dyes.json
@@ -95,6 +96,7 @@ a250f116190619d63829f167d5d6c233158545dd data/unusual_prehistory/tags/items/pale
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/items/permanently_pacifies_mob.json
 b31a850fc471ea49f830b645d5a85b66a9bb226a data/unusual_prehistory/tags/items/plant_fossils.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/items/praepusa_food.json
+52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/items/prevents_egg_hatching.json
 ede3aa53f4fa18b21572791eed68b72a7007b0d8 data/unusual_prehistory/tags/items/psilopterus_food.json
 40c0304f5a5d6fbd0a5f1bf1d29f27e765e1e63e data/unusual_prehistory/tags/items/pterodactylus_food.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/items/reinforced_glass.json

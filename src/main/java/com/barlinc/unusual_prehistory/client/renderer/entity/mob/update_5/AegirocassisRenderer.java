@@ -19,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class AegirocassisRenderer extends MobRenderer<Aegirocassis, UP2Model<Aegirocassis>> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/aegirocassis/aegirocassis.png");
-    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/aegirocassis/aegirocassis_baby.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/aegirocassis/aegirocassis.png");
+    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/mob/aegirocassis/aegirocassis_baby.png");
 
     private final AegirocassisModel adultModel;
     private final AegirocassisBabyModel babyModel;

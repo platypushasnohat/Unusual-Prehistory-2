@@ -19,12 +19,12 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class LivingOozeOuterLayer extends RenderLayer<LivingOoze, LivingOozeModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/normal.png");
-    private static final ResourceLocation TEXTURE_GULPING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/gulping.png");
-    private static final ResourceLocation TEXTURE_SPITTING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/spitting.png");
-    private static final ResourceLocation TEXTURE_COOLDOWN = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/clarity.png");
-    private static final ResourceLocation TEXTURE_SAD = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/sad.png");
-    private static final ResourceLocation TEXTURE_SCREAMING = UnusualPrehistory2.modPrefix("textures/entity/living_ooze/screaming.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/normal.png");
+    private static final ResourceLocation TEXTURE_GULPING = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/gulping.png");
+    private static final ResourceLocation TEXTURE_SPITTING = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/spitting.png");
+    private static final ResourceLocation TEXTURE_COOLDOWN = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/clarity.png");
+    private static final ResourceLocation TEXTURE_SAD = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/sad.png");
+    private static final ResourceLocation TEXTURE_SCREAMING = UnusualPrehistory2.modPrefix("textures/entity/mob/living_ooze/screaming.png");
 
     public LivingOozeOuterLayer(LivingOozeRenderer render) {
         super(render);

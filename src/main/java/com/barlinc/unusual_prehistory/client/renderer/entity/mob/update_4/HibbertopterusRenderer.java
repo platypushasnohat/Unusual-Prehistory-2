@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class HibbertopterusRenderer extends MobRenderer<Hibbertopterus, HibbertopterusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/hibbertopterus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/hibbertopterus.png");
 
     public HibbertopterusRenderer(EntityRendererProvider.Context context) {
         super(context, new HibbertopterusModel(context.bakeLayer(UP2ModelLayers.HIBBERTOPTERUS)), 1.2F);

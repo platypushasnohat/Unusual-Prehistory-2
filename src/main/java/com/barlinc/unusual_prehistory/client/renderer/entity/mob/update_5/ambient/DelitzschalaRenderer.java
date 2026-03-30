@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class DelitzschalaRenderer extends MobRenderer<Delitzschala, DelitzschalaModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/ambient/delitzschala.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/ambient/delitzschala.png");
 
     public DelitzschalaRenderer(EntityRendererProvider.Context context) {
         super(context, new DelitzschalaModel(context.bakeLayer(UP2ModelLayers.DELITZSCHALA)), 0.0F);

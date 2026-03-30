@@ -56,6 +56,6 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
     @Override
     public @NotNull ResourceLocation getTextureLocation(Diplocaulus entity) {
         Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

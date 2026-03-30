@@ -25,7 +25,7 @@ public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmer
     }
 
     public ResourceLocation baseTextures(Kimmeridgebrachypteraeschnidium entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
     }
 
     @Override
