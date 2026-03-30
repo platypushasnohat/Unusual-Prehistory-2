@@ -43,8 +43,13 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("root"), helper);
 
-        Advancement.Builder.advancement().addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
+        Advancement.Builder.advancement()
+                .addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
                 .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
+
+        Advancement.Builder.advancement()
+                .addCriterion("obtain_tar_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.TAR_BUCKET.get()))
+                .save(consumer, UnusualPrehistory2.modPrefix("obtain_tar_bucket"), helper);
 
         // Progression & misc
         Advancement fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), FrameType.TASK, false)

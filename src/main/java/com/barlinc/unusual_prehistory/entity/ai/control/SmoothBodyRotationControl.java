@@ -36,7 +36,7 @@ public class SmoothBodyRotationControl extends BodyRotationControl {
 
         if (distSq > MOVE_THRESHOLD) {
             float moveAngle = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, 45.0F, 0.8F);
+            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, 45.0F, 0.9F);
             this.entity.yHeadRot = entity.yBodyRot;
             this.rotateHeadIfNecessary();
             this.lastStableYHeadRot = entity.yHeadRot;

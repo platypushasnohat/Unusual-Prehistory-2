@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-29T18:17:02.9459369	Advancements
+// 1.20.1	2026-03-30T13:26:33.1563871	Advancements
 4a7553092b4c4f62aedc3e9543796a09f72b0495 data/unusual_prehistory/advancements/carboniferous_root.json
 4210208b088bdb80322385ce7cb6b802117e2a85 data/unusual_prehistory/advancements/cenozoic_root.json
 527b62036be7f24653fc30304ee751b378eab163 data/unusual_prehistory/advancements/cretaceous_root.json
@@ -12,6 +12,7 @@ f900ad6cec4aa3b0a0cf0d210dc43ceee40798f2 data/unusual_prehistory/advancements/me
 528680eaefee34bfe11535d386fbc67bd8f8943f data/unusual_prehistory/advancements/obtain_living_ooze.json
 4d221363a1d9d10a6c18b3398b0152a6aee9e606 data/unusual_prehistory/advancements/obtain_machine_parts.json
 5a609f7f09a5970a243b07fd5d18f739f4a40645 data/unusual_prehistory/advancements/obtain_organic_ooze.json
+d05efc1bdbfe109de837b3123d906bb3dd6ef7a8 data/unusual_prehistory/advancements/obtain_tar_bucket.json
 019176541350c0032c7f3485c1793fd7d0325b88 data/unusual_prehistory/advancements/obtain_transmogrifier.json
 f39e5e7e4d583603922217e5ee02f2b5d1dc6531 data/unusual_prehistory/advancements/open_book_creative.json
 fa8ca2f87d0d210e3708f651ead3f475ff981ae8 data/unusual_prehistory/advancements/ordovician_root.json
