@@ -77,7 +77,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.33F);
+                .add(Attributes.MOVEMENT_SPEED, 0.34F);
     }
 
     @Override

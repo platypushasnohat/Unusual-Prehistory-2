@@ -126,7 +126,7 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 	@Override
 	public void setupAnim(@NotNull Dromaeosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 1.1F);
 
 		this.animateIdleSmooth(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
 		this.animateSmooth(entity.attackAnimationState, DromaeosaurusAnimations.BITE, ageInTicks);
