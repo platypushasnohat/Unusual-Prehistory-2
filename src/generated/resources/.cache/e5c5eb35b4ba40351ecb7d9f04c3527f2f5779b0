@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-30T13:26:33.1563871	Advancements
+// 1.20.1	2026-03-31T01:08:09.3242409	Advancements
 4a7553092b4c4f62aedc3e9543796a09f72b0495 data/unusual_prehistory/advancements/carboniferous_root.json
 4210208b088bdb80322385ce7cb6b802117e2a85 data/unusual_prehistory/advancements/cenozoic_root.json
 527b62036be7f24653fc30304ee751b378eab163 data/unusual_prehistory/advancements/cretaceous_root.json
@@ -7,6 +7,7 @@
 fa8ed15d782d84cfcc86d826c5e724dae4695c6f data/unusual_prehistory/advancements/jurassic_root.json
 f900ad6cec4aa3b0a0cf0d210dc43ceee40798f2 data/unusual_prehistory/advancements/mesozoic_root.json
 069fcaa88705b375a257a7d7c03de15b1bb5812a data/unusual_prehistory/advancements/neogene_root.json
+43d16fdd64c604c0b6243302c008b5f9046f5466 data/unusual_prehistory/advancements/obtain_asphalt.json
 368e17238b96eaba80ad6ec1c9cc39cbf6eecaee data/unusual_prehistory/advancements/obtain_egg.json
 34c7f7670a21e8afc749a28063fbaad914699318 data/unusual_prehistory/advancements/obtain_fossil.json
 528680eaefee34bfe11535d386fbc67bd8f8943f data/unusual_prehistory/advancements/obtain_living_ooze.json

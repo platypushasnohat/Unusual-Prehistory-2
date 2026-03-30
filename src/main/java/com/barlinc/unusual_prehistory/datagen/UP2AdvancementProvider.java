@@ -51,6 +51,10 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .addCriterion("obtain_tar_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.TAR_BUCKET.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_tar_bucket"), helper);
 
+        Advancement.Builder.advancement()
+                .addCriterion("obtain_asphalt", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.ASPHALT.get()))
+                .save(consumer, UnusualPrehistory2.modPrefix("obtain_asphalt"), helper);
+
         // Progression & misc
         Advancement fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), FrameType.TASK, false)
                 .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))

@@ -561,7 +561,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.tooltip", "Egg must be thrown to hatch");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.title", "Embryo");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "Embryos must be placed in $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l)to gestate.");
+        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "Embryos must be placed in $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l) to gestate.");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.tooltip", "Embryo must be placed in §aLiving Ooze§7to gestate");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title", "Aquatic Egg");
