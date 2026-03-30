@@ -25,7 +25,7 @@ public class KimmeridgebrachypteraeschnidiumWingLayer extends RenderLayer<Kimmer
     }
 
     public ResourceLocation wingTextures(Kimmeridgebrachypteraeschnidium entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/wings/wings_" + entity.getWingColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/wings/wings_" + entity.getWingColor() + ".png");
     }
 
     @Override

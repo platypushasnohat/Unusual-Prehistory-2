@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class LeptictidiumRenderer extends MobRenderer<Leptictidium, LeptictidiumModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/leptictidium.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/leptictidium.png");
 
     public LeptictidiumRenderer(EntityRendererProvider.Context context) {
         super(context, new LeptictidiumModel(context.bakeLayer(UP2ModelLayers.LEPTICTIDIUM)), 0.2F);

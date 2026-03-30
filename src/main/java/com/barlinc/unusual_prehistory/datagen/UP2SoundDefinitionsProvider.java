@@ -21,108 +21,108 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Aegirocassis
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/death1"))
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt2")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hurt3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt3"))
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle5")),
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/idle6"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle5")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle6"))
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HOVER,
-                sound(UnusualPrehistory2.modPrefix("entity/aegirocassis/hover1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hover1"))
         );
 
         // Barinasuchus
         this.sound(UP2SoundEvents.BARINASUCHUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/hurt2"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/death1"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/idle4"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/bite1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/bite1"))
         );
         this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN,
-                sound(UnusualPrehistory2.modPrefix("entity/barinasuchus/threaten1")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/barinasuchus/threaten1")).attenuationDistance(32)
         );
 
         // Brachiosaurus
         this.sound(UP2SoundEvents.BRACHIOSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/death1"))
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/idle4"))
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/attack1")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/attack1")).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step1")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step2")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step3")),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/step4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/step2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/step3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/step4"))
         );
         this.sound(UP2SoundEvents.BRACHIOSAURUS_CALL,
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/call1")).attenuationDistance(32),
-                sound(UnusualPrehistory2.modPrefix("entity/brachiosaurus/call2")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/call1")).attenuationDistance(32),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/brachiosaurus/call2")).attenuationDistance(32)
         );
 
         // Carnotaurus
         this.sound(UP2SoundEvents.CARNOTAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/hurt1")).pitch(1.2F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/hurt1")).pitch(1.2F)
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/death1"))
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/idle2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/idle2"))
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step1")),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/step2"))
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_ROAR,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/roar1")).pitch(0.9F).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/roar1")).pitch(0.9F).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_SNIFF,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/sniff1")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/sniff1")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite1")),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite2")),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/bite3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/bite2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/bite3"))
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_CHARGE,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/charge1")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/charge1")).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/headbutt1"))
         );
         this.sound(UP2SoundEvents.CARNOTAURUS_HEADBUTT_VOCAL,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/headbutt_vocal1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/headbutt_vocal1"))
         );
 
         // Coelacanthus
@@ -147,17 +147,17 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Desmatosuchus
         this.sound(UP2SoundEvents.DESMATOSUCHUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/hurt2"))
         );
         this.sound(UP2SoundEvents.DESMATOSUCHUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/death1"))
         );
         this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/desmatosuchus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/desmatosuchus/idle4"))
         );
         this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP,
                 sound("mob/pig/step1").pitch(0.8F),
@@ -169,32 +169,32 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Dimorphodon
         this.sound(UP2SoundEvents.DIMORPHODON_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/hurt2"))
         );
         this.sound(UP2SoundEvents.DIMORPHODON_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/death1"))
         );
         this.sound(UP2SoundEvents.DIMORPHODON_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/dimorphodon/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dimorphodon/idle4"))
         );
 
         // Diplocaulus
         this.sound(UP2SoundEvents.DIPLOCAULUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt1")).volume(0.5F),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/hurt2")).volume(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt2")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/death1")).volume(0.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/death1")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle1")).volume(0.17F),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle2")).volume(0.17F),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle3")).volume(0.17F),
-                sound(UnusualPrehistory2.modPrefix("entity/diplocaulus/idle4")).volume(0.17F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle1")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle2")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle3")).volume(0.17F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle4")).volume(0.17F)
         );
         this.sound(UP2SoundEvents.DIPLOCAULUS_STEP,
                 sound("mob/frog/step1").pitch(0.95F),
@@ -205,20 +205,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Dromaeosaurus
         this.sound(UP2SoundEvents.DROMAEOSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_0")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/hurt_1")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/hurt_0")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/hurt_1")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/death_0")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/death_0")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_0")),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_1")),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/idle_2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/idle_0")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/idle_1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/idle_2"))
         );
         this.sound(UP2SoundEvents.DROMAEOSAURUS_EEPY,
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_0")).volume(0.7F),
-                sound(UnusualPrehistory2.modPrefix("entity/dromaeosaurus/sleep_1")).volume(0.7F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/sleep_0")).volume(0.7F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dromaeosaurus/sleep_1")).volume(0.7F)
         );
 
         // Dunkleosteus
@@ -241,32 +241,32 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3F)
         );
         this.sound(UP2SoundEvents.SMALL_DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/small_bite1")).volume(0.7F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dunkleosteus/small_bite1")).volume(0.7F)
         );
         this.sound(UP2SoundEvents.MEDIUM_DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/medium_bite1")).volume(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dunkleosteus/medium_bite1")).volume(0.9F)
         );
         this.sound(UP2SoundEvents.LARGE_DUNKLEOSTEUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/dunkleosteus/large_bite1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dunkleosteus/large_bite1"))
         );
 
         // Hibbertopterus
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/hurt2"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/death1"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/idle4"))
         );
         this.sound(UP2SoundEvents.HIBBERTOPTERUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/step1")),
-                sound(UnusualPrehistory2.modPrefix("entity/hibbertopterus/step2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hibbertopterus/step2"))
         );
 
         // Jawless fish
@@ -291,31 +291,31 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Kaprosuchus
         this.sound(UP2SoundEvents.KAPROSUCHUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/hurt2"))
         );
         this.sound(UP2SoundEvents.KAPROSUCHUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/idle3"))
         );
         this.sound(UP2SoundEvents.KAPROSUCHUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kaprosuchus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kaprosuchus/death1"))
         );
 
         // Kentrosaurus
         this.sound(UP2SoundEvents.KENTROSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/death1"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/kentrosaurus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kentrosaurus/idle4"))
         );
         this.sound(UP2SoundEvents.KENTROSAURUS_STEP,
                 sound("mob/camel/step1").volume(0.45F).pitch(0.9F),
@@ -328,61 +328,61 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Kimmeridgebrachypteraeschnidium
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt1")).pitch(1.4F),
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt2")).pitch(1.4F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt1")).pitch(1.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt2")).pitch(1.4F)
         );
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/death1"))
         );
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/loop1")).volume(0.6F).attenuationDistance(8)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/loop1")).volume(0.6F).attenuationDistance(8)
         );
 
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt1")).pitch(2.0F),
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/hurt2")).pitch(2.0F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt1")).pitch(2.0F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt2")).pitch(2.0F)
         );
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
         );
 
         // Leptictidium
         this.sound(UP2SoundEvents.LEPTICTIDIUM_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt2")),
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/hurt3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/hurt3"))
         );
         this.sound(UP2SoundEvents.LEPTICTIDIUM_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/death1")),
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/death2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/death1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/death2"))
         );
         this.sound(UP2SoundEvents.LEPTICTIDIUM_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle1")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle2")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/leptictidium/idle3")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/idle3")).volume(0.8F)
         );
 
         // Lystrosaurus
         this.sound(UP2SoundEvents.LYSTROSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt2")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt3")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt4")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/hurt5")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/hurt1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/hurt2")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/hurt3")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/hurt4")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/hurt5")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.LYSTROSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death2")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/death3")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/death1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/death2")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/death3")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.LYSTROSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle5")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle6")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/idle7"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle5")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle6")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/idle7"))
         );
         this.sound(UP2SoundEvents.LYSTROSAURUS_STEP,
                 sound("mob/pig/step1").pitch(0.9F),
@@ -392,29 +392,29 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step5").pitch(0.9F)
         );
         this.sound(UP2SoundEvents.LYSTROSAURUS_CHAINSMOKER,
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough1")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough2")),
-                sound(UnusualPrehistory2.modPrefix("entity/lystrosaurus/cough3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/cough1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/cough2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lystrosaurus/cough3"))
         );
 
         // Majungasaurus
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/death1"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/idle3"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/majungasaurus/attack1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/majungasaurus/attack1"))
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_SNIFF,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/sniff1")).pitch(1.2F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/sniff1")).pitch(1.2F)
         );
         this.sound(UP2SoundEvents.MAJUNGASAURUS_STEP,
                 sound("mob/camel/step1").volume(0.4F).pitch(0.8F),
@@ -427,19 +427,19 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Manipulator
         this.sound(UP2SoundEvents.MANIPULATOR_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt2")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/hurt3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/hurt3"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/death1"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/idle5"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/idle5"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_STEP,
                 sound("mob/spider/step1").pitch(0.85F),
@@ -448,30 +448,30 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/spider/step4").pitch(0.85F)
         );
         this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL,
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal1")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_vocal2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/attack_vocal1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/attack_vocal2"))
         );
         this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH,
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash1")),
-                sound(UnusualPrehistory2.modPrefix("entity/manipulator/attack_slash2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/attack_slash1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/manipulator/attack_slash2"))
         );
 
         // Megalania
         this.sound(UP2SoundEvents.MEGALANIA_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/hurt2")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/hurt1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/hurt2")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MEGALANIA_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/death1")).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/death2")).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/death1")).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/death2")).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MEGALANIA_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle1")).pitch(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle2")).pitch(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/idle3")).pitch(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/idle1")).pitch(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/idle2")).pitch(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/idle3")).pitch(0.8F)
         );
         this.sound(UP2SoundEvents.MEGALANIA_ROAR,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/roar1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/roar1"))
         );
         this.sound(UP2SoundEvents.MEGALANIA_STEP,
                 sound("mob/camel/step1").volume(0.5F).pitch(0.87F),
@@ -482,34 +482,34 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/camel/step6").volume(0.5F).pitch(0.87F)
         );
         this.sound(UP2SoundEvents.MEGALANIA_TAIL_SWING,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/tail_swing1")).volume(0.9F).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/tail_swing2")).volume(0.9F).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/tail_swing1")).volume(0.9F).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/tail_swing2")).volume(0.9F).pitch(0.9F)
         );
         this.sound(UP2SoundEvents.MEGALANIA_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/bite1")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/megalania/bite2")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/bite1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/megalania/bite2")).volume(0.8F)
         );
 
         // Metriorhynchus
         this.sound(UP2SoundEvents.METRIORHYNCHUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/hurt2"))
         );
         this.sound(UP2SoundEvents.METRIORHYNCHUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/death1"))
         );
         this.sound(UP2SoundEvents.METRIORHYNCHUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/idle4"))
         );
         this.sound(UP2SoundEvents.METRIORHYNCHUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bite1")),
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bite2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/bite2"))
         );
         this.sound(UP2SoundEvents.METRIORHYNCHUS_BELLOW,
-                sound(UnusualPrehistory2.modPrefix("entity/metriorhynchus/bellow1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/metriorhynchus/bellow1"))
         );
 
         // Onchopristis
@@ -534,24 +534,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Pachycephalosaurus
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/death1"))
         );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/idle5"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/idle5"))
         );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_WARN,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/warn1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/warn1"))
         );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_BONK,
-                sound(UnusualPrehistory2.modPrefix("entity/pachycephalosaurus/bonk1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachycephalosaurus/bonk1"))
         );
         this.sound(UP2SoundEvents.PACHYCEPHALOSAURUS_STEP,
                 sound("mob/pig/step1").pitch(0.85F),
@@ -563,82 +563,82 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Praepusa
         this.sound(UP2SoundEvents.PRAEPUSA_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/hurt2"))
         );
         this.sound(UP2SoundEvents.PRAEPUSA_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/death1")).pitch(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/death1")).pitch(0.8F)
         );
         this.sound(UP2SoundEvents.PRAEPUSA_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/idle3"))
         );
         this.sound(UP2SoundEvents.PRAEPUSA_MITOSIS,
                 sound("mob/slime/attack1").pitch(1.3F),
                 sound("mob/slime/attack2").pitch(1.3F)
         );
         this.sound(UP2SoundEvents.PRAEPUSA_BOUNCE,
-                sound(UnusualPrehistory2.modPrefix("entity/praepusa/bounce1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/praepusa/bounce1"))
         );
 
         // Psilopterus
         this.sound(UP2SoundEvents.PSILOPTERUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/death1"))
         );
         this.sound(UP2SoundEvents.PSILOPTERUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt2")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/hurt3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/hurt3"))
         );
         this.sound(UP2SoundEvents.PSILOPTERUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/idle5"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/idle5"))
         );
         this.sound(UP2SoundEvents.PSILOPTERUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite1")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite2")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/bite3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/bite1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/bite2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/bite3"))
         );
         this.sound(UP2SoundEvents.PSILOPTERUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack1")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack2")),
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/attack3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/attack3"))
         );
         this.sound(UP2SoundEvents.PSILOPTERUS_CALL,
-                sound(UnusualPrehistory2.modPrefix("entity/psilopterus/call1")).attenuationDistance(24)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/psilopterus/call1")).attenuationDistance(24)
         );
 
         // Grug
         this.sound(UP2SoundEvents.GRUG_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/grug/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/death1"))
         );
         this.sound(UP2SoundEvents.GRUG_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/grug/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/grug/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/hurt2"))
         );
         this.sound(UP2SoundEvents.GRUG_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/grug/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/grug/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/grug/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/grug/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/grug/idle5"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle5"))
         );
 
         // Pterodactylus
         this.sound(UP2SoundEvents.PTERODACTYLUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/hurt1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pterodactylus/hurt1"))
         );
         this.sound(UP2SoundEvents.PTERODACTYLUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pterodactylus/death1"))
         );
         this.sound(UP2SoundEvents.PTERODACTYLUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/pterodactylus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pterodactylus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pterodactylus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pterodactylus/idle3"))
         );
 
         // Stethacanthus
@@ -661,103 +661,103 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop4").volume(0.3F)
         );
         this.sound(UP2SoundEvents.STETHACANTHUS_BITE,
-                sound(UnusualPrehistory2.modPrefix("entity/stethacanthus/bite1")).volume(0.6F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/stethacanthus/bite1")).volume(0.6F)
         );
 
         // Talpanas
         this.sound(UP2SoundEvents.TALPANAS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt1")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/hurt2")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/hurt1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/hurt2")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.TALPANAS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death1")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/death2")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/death1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/death2")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.TALPANAS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle1")).volume(0.8F),
-                sound(UnusualPrehistory2.modPrefix("entity/talpanas/idle2")).volume(0.8F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/talpanas/idle2")).volume(0.8F)
         );
 
         // Telecrex
         this.sound(UP2SoundEvents.TELECREX_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/hurt2"))
         );
         this.sound(UP2SoundEvents.TELECREX_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/death1")),
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/death2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/death1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/death2"))
         );
         this.sound(UP2SoundEvents.TELECREX_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/telecrex/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/telecrex/idle4"))
         );
 
         // Therizinosaurus
         this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/death1"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle3"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack1")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack2")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/attack3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack3"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step1")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step2")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/step3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/step2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/step3"))
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/roar1")).attenuationDistance(32),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/roar2")).attenuationDistance(32)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/roar1")).attenuationDistance(32),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/roar2")).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_NOTICE,
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/notice1")),
-                sound(UnusualPrehistory2.modPrefix("entity/therizinosaurus/notice2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/notice1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/notice2"))
         );
 
         // Ulughbegsaurus
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/hurt1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/hurt1"))
         );
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/death1"))
         );
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle3"))
         );
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/ulughbegsaurus/bite1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/bite1"))
         );
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step1")).pitch(1.13F).volume(0.6F),
-                sound(UnusualPrehistory2.modPrefix("entity/carnotaurus/step2")).pitch(1.13F).volume(0.6F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/step1")).pitch(1.13F).volume(0.6F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/step2")).pitch(1.13F).volume(0.6F)
         );
 
         // Unicorn
         this.sound(UP2SoundEvents.UNICORN_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/hurt1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/hurt1"))
         );
         this.sound(UP2SoundEvents.UNICORN_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/death1"))
         );
         this.sound(UP2SoundEvents.UNICORN_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/unicorn/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/unicorn/idle4"))
         );
 
         // Living Ooze
@@ -822,32 +822,32 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Ambient mobs
         this.sound(UP2SoundEvents.BUG_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
         );
         this.sound(UP2SoundEvents.BUG_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/death1")).pitch(1.75F)
         );
         this.sound(UP2SoundEvents.BUG_BUZZ,
-                sound(UnusualPrehistory2.modPrefix("entity/ambient/bug_buzz1")).attenuationDistance(4)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ambient/bug_buzz1")).attenuationDistance(4)
         );
 
         // Update 5
         this.sound(UP2SoundEvents.MOSASAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/death1"))
         );
         this.sound(UP2SoundEvents.MOSASAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/hurt2"))
         );
         this.sound(UP2SoundEvents.MOSASAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/idle4"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle4"))
         );
         this.sound(UP2SoundEvents.MOSASAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/attack1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mosasaurus/attack2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/attack2"))
         );
     }
 

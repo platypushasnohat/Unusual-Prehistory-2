@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class LystrosaurusRenderer extends MobRenderer<Lystrosaurus, LystrosaurusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/lystrosaurus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/lystrosaurus.png");
 
     public LystrosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new LystrosaurusModel(context.bakeLayer(UP2ModelLayers.LYSTROSAURUS)), 0.7F);

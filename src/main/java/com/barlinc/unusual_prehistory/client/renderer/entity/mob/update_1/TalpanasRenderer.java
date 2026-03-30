@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class TalpanasRenderer extends MobRenderer<Talpanas, TalpanasModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/talpanas/talpanas.png");
-    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/talpanas/talpanas_eepy.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/talpanas/talpanas.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/mob/talpanas/talpanas_eepy.png");
 
     public TalpanasRenderer(EntityRendererProvider.Context context) {
         super(context, new TalpanasModel(context.bakeLayer(UP2ModelLayers.TALPANAS)), 0.3F);

@@ -19,7 +19,7 @@ public class DromaeosaurusRunGoal extends Goal {
 
     public DromaeosaurusRunGoal(Dromaeosaurus dromaeosaurus) {
         this.dromaeosaurus = dromaeosaurus;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override

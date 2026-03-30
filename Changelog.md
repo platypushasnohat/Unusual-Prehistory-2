@@ -28,13 +28,14 @@
 - Tweaked most mob and item tags
 - Metriorhynchus is now tamable with a bucket of tropical fish
 - Metriorhynchus and ulughbegsaurus now heal a bit of health on kill
-- Kaprosuchus can now be ordered to sit still in water
+- Kaprosuchus and megalania can now be ordered to sit still in water
 - Overhauled loot tables for fossil structures. Now there are common, uncommon, rare, and epic fossil and junk loot tables for each era
 - Adjusted the rarity of fossil geodes
 - Changed variant names for diplocaulus and dunkleosteus to be more generic
 - Dunkleosteus variants now spawn based on the depth of the water or randomly if they spawn on land, deeper equals bigger. Any depth above 12 is large, above 6 is medium, and any shallower is small
-- Added 
-- Misc tweaks and fixes
+- Fixed mobs sometimes moving sideways
+- Moved all mob textures and sounds to entity/mob/
+- Many misc tweaks and fixes
 
 ## Version 1.3.1
 - Fixed semiaquatic mobs getting stuck in water

@@ -392,6 +392,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 .addTag(UP2ItemTags.MESOZOIC_EGGS)
                 .addTag(UP2ItemTags.CENOZOIC_EGGS);
 
+//        this.tag(UP2ItemTags.ACCELERATES_EGG_HATCHING).add(Blocks.HAY_BLOCK.asItem(), Blocks.MOSS_BLOCK.asItem());
+//        this.tag(UP2ItemTags.PREVENTS_EGG_HATCHING);
+
+        this.copy(UP2BlockTags.ACCELERATES_EGG_HATCHING, UP2ItemTags.ACCELERATES_EGG_HATCHING);
+        this.copy(UP2BlockTags.PREVENTS_EGG_HATCHING, UP2ItemTags.PREVENTS_EGG_HATCHING);
+
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);

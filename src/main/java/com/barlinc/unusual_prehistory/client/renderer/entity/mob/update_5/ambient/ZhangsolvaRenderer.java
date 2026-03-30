@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class ZhangsolvaRenderer extends MobRenderer<Zhangsolva, ZhangsolvaModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/ambient/zhangsolva.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/ambient/zhangsolva.png");
 
     public ZhangsolvaRenderer(EntityRendererProvider.Context context) {
         super(context, new ZhangsolvaModel(context.bakeLayer(UP2ModelLayers.ZHANGSOLVA)), 0.0F);

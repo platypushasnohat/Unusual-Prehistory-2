@@ -31,7 +31,7 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Kimmeridgebrachypteraeschnidium entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
     }
 
     @Override

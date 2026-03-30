@@ -23,8 +23,8 @@ public class UnicornRenderer extends MobRenderer<Unicorn, HierarchicalModel<Unic
     private final UnicornModel unicornModel;
     private final UnicornSkeletonModel unicornSkeletonModel;
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/unicorn/unicorn.png");
-    private static final ResourceLocation TEXTURE_SKELETON = UnusualPrehistory2.modPrefix("textures/entity/unicorn/unicorn_skeleton.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/unicorn/unicorn.png");
+    private static final ResourceLocation TEXTURE_SKELETON = UnusualPrehistory2.modPrefix("textures/entity/mob/unicorn/unicorn_skeleton.png");
 
     public UnicornRenderer(EntityRendererProvider.Context context) {
         super(context, new UnicornModel(context.bakeLayer(UP2ModelLayers.UNICORN)), 0.9F);

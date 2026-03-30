@@ -60,7 +60,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<Jawle
     @Override
     public @NotNull ResourceLocation getTextureLocation(JawlessFish entity) {
         JawlessFish.JawlessFishVariant variant = JawlessFish.JawlessFishVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override

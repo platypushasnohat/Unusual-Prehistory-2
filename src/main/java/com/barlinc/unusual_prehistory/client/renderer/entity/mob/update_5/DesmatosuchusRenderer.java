@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class DesmatosuchusRenderer extends MobRenderer<Desmatosuchus, DesmatosuchusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus.png");
-    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/desmatosuchus_eepy.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/desmatosuchus/desmatosuchus.png");
+    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/mob/desmatosuchus/desmatosuchus_eepy.png");
 
     public DesmatosuchusRenderer(EntityRendererProvider.Context context) {
         super(context, new DesmatosuchusModel(context.bakeLayer(UP2ModelLayers.DESMATOSUCHUS)), 0.8F);

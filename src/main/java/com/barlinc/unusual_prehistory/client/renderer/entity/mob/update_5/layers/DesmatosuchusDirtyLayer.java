@@ -32,6 +32,6 @@ public class DesmatosuchusDirtyLayer extends RenderLayer<Desmatosuchus, Desmatos
     }
 
     public ResourceLocation getDirtyTexture(Desmatosuchus entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/desmatosuchus/" + entity.getDirtType().name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/desmatosuchus/" + entity.getDirtType().name().toLowerCase(Locale.ROOT) + ".png");
     }
 }
