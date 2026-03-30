@@ -3,7 +3,11 @@
 - Added Desmatosuchus
 - Added Mosasaurus
 - Added Psilopterus
+- Added Delitzschala ambient mob
+- Added Zhangsolva ambient mob
+- Both ambient mobs spawn from their respective plants
 - Added banner patterns for mob icons
+- Added Pummel and Snatch disc
 - Removed unfinished 1.3 and future mobs
 - Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
@@ -29,6 +33,7 @@
 - Adjusted the rarity of fossil geodes
 - Changed variant names for diplocaulus and dunkleosteus to be more generic
 - Dunkleosteus variants now spawn based on the depth of the water or randomly if they spawn on land, deeper equals bigger. Any depth above 12 is large, above 6 is medium, and any shallower is small
+- Added 
 - Misc tweaks and fixes
 
 ## Version 1.3.1

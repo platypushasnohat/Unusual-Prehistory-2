@@ -187,6 +187,9 @@ public class UP2Items {
     public static final RegistryObject<Item> MOSASAURUS_SPAWN_EGG = registerSpawnEggItem("mosasaurus", UP2Entities.MOSASAURUS, 0x0a100d, 0x66666a);
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
 
+    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
+    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
+
     public static final RegistryObject<Item> GRUG_SPAWN_EGG = registerSpawnEggItem("grug", UP2Entities.GRUG, 0x433536, 0xffc27d);
 
     public static final RegistryObject<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
@@ -214,10 +217,6 @@ public class UP2Items {
     public static final RegistryObject<Item> MESOZOIC_FOSSIL = registerItem("mesozoic_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CREATIVE_LOCK = registerItem("creative_lock", () -> new Item(new Item.Properties()));
-
-    // Future
-    public static final RegistryObject<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
-    public static final RegistryObject<Item> ZHANGSOLVA_SPAWN_EGG = registerSpawnEggItem("zhangsolva", UP2Entities.ZHANGSOLVA, 0x4e371d, 0xff4731);
 
 //    public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);
 //    public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);

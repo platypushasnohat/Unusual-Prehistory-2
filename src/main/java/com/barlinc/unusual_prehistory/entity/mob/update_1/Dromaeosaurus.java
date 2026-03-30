@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusAttackGoal;

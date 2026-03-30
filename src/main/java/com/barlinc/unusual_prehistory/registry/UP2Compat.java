@@ -69,6 +69,10 @@ public class UP2Compat {
 
         registerCompostable(UP2Blocks.METASEQUOIA_LEAVES.get(), 0.3F);
         registerCompostable(UP2Blocks.METASEQUOIA_SAPLING.get(), 0.3F);
+
+        // Update 5
+        registerCompostable(UP2Blocks.ZHANGSOLVA_BLOOM.get(), 0.3F);
+        registerCompostable(UP2Blocks.DELITZSCHALA_FERN.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -143,6 +147,10 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.METASEQUOIA_FENCE.get(), 5, 20);
         registerFlammable(UP2Blocks.METASEQUOIA_FENCE_GATE.get(), 5, 20);
         registerFlammable(UP2Blocks.METASEQUOIA_LEAVES.get(), 30, 60);
+
+        // Update 5
+        registerFlammable(UP2Blocks.DELITZSCHALA_FERN.get(), 60, 100);
+        registerFlammable(UP2Blocks.ZHANGSOLVA_BLOOM.get(), 60, 100);
     }
 
     public static void registerDispenserBehaviours() {

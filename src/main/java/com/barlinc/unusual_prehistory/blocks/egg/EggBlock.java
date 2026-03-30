@@ -185,7 +185,6 @@ public class EggBlock extends BaseEntityBlock {
                 UP2ParticleUtils.queueParticlesOnBlockFaces(level, pos, UP2Particles.SNOWFLAKE.get(), UniformInt.of(3, 6));
             }
         }
-
         int hatchTime = hatchBoost ? 12000 : 24000;
         int delay = hatchTime / 3;
         level.gameEvent(GameEvent.BLOCK_PLACE, pos, GameEvent.Context.of(state));

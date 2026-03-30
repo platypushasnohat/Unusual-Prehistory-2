@@ -54,8 +54,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         // Ambient
-//                        output.accept(DELITZSCHALA_SPAWN_EGG.get());
-//                        output.accept(ZHANGSOLVA_SPAWN_EGG.get());
+                        output.accept(DELITZSCHALA_SPAWN_EGG.get());
+                        output.accept(ZHANGSOLVA_SPAWN_EGG.get());
 
                         // Misc
                         output.accept(LIVING_OOZE_SPAWN_EGG.get());
@@ -237,6 +237,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.CALAMOPHYTON.get());
                         output.accept(UP2Blocks.CLADOPHLEBIS.get());
                         output.accept(UP2Blocks.COOKSONIA.get());
+                        output.accept(UP2Blocks.DELITZSCHALA_FERN.get());
                         output.accept(UP2Blocks.HORSETAIL.get());
                         output.accept(UP2Blocks.LARGE_HORSETAIL.get());
                         output.accept(UP2Blocks.LEEFRUCTUS.get());

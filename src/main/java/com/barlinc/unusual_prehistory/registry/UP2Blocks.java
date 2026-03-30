@@ -257,7 +257,8 @@ public class UP2Blocks {
     public static final RegistryObject<Block> AEGIROCASSIS_EGGS = registerEggBlock("aegirocassis_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.AEGIROCASSIS::get, 1));
     public static final RegistryObject<Block> DESMATOSUCHUS_EGG = registerEggBlock("desmatosuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.DESMATOSUCHUS::get, 8, 13, false));
 
-    public static final RegistryObject<Block> ZHANGSOLVA_BLOOM = registerBlock("zhangsolva_bloom", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.ZHANGSOLVA::get));
+    public static final RegistryObject<Block> ZHANGSOLVA_BLOOM = registerBlock("zhangsolva_bloom", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.ZHANGSOLVA::get, 2));
+    public static final RegistryObject<Block> DELITZSCHALA_FERN = registerBlock("delitzschala_fern", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
 
     // Future
 //    public static final RegistryObject<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));

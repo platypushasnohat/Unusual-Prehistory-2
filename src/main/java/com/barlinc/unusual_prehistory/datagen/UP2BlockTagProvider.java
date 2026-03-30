@@ -459,7 +459,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 HORSETAIL.get(),
                 LARGE_HORSETAIL.get(),
                 RAIGUENRAYUN.get(),
-                AETHOPHYLLUM.get()
+                AETHOPHYLLUM.get(),
+                ZHANGSOLVA_BLOOM.get(),
+                DELITZSCHALA_FERN.get()
         );
 
         this.tag(BlockTags.DIRT).add(
@@ -473,7 +475,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.TALL_FLOWERS).add(
                 AETHOPHYLLUM.get(),
-                RAIGUENRAYUN.get()
+                RAIGUENRAYUN.get(),
+                ZHANGSOLVA_BLOOM.get()
         );
 
         this.tag(BlockTags.SAPLINGS).add(

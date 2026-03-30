@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -14,7 +14,9 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public abstract class AmbientMob extends PathfinderMob {
 
     protected static final EntityDataAccessor<Integer> DESPAWN_TIME = SynchedEntityData.defineId(AmbientMob.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> SHOULD_BE_RESTRICTED = SynchedEntityData.defineId(AmbientMob.class, EntityDataSerializers.BOOLEAN);
 
     protected AmbientMob(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -82,14 +83,22 @@ public abstract class AmbientMob extends PathfinderMob {
     @Override
     public void tick () {
         super.tick();
-        if (!this.level().isClientSide) {
-            if (this.getDespawnTime() > 0) {
-                this.setDespawnTime(this.getDespawnTime() - 1);
-            } else if (this.getDespawnTime() == 0) {
-                this.discard();
+        boolean persistent = this.requiresCustomPersistence() || this.isPersistenceRequired();
+        if (!level().isClientSide) {
+            if (!persistent) {
+                if (this.getDespawnTime() > 0) this.setDespawnTime(this.getDespawnTime() - 1);
+                else discard();
+            } else if (this.getDespawnTime() > 0) {
+                this.setDespawnTime(0);
             }
-        }
-        else {
+            if (this.shouldBeRestricted()) {
+                if (!this.hasRestriction() && !persistent) restrictTo(this.blockPosition(), 16);
+                else if (persistent) {
+                    this.clearRestriction();
+                    this.setShouldBeRestricted(false);
+                }
+            }
+        } else {
             this.setupAnimationStates();
         }
     }
@@ -101,18 +110,21 @@ public abstract class AmbientMob extends PathfinderMob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DESPAWN_TIME, 1200 + this.getRandom().nextInt(600));
+        this.entityData.define(SHOULD_BE_RESTRICTED, false);
+        this.entityData.define(DESPAWN_TIME, 2400 + this.getRandom().nextInt(1200));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("ShouldBeRestricted", this.shouldBeRestricted());
         compoundTag.putInt("DespawnTime", this.getDespawnTime());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setShouldBeRestricted(compoundTag.getBoolean("ShouldBeRestricted"));
         this.setDespawnTime(compoundTag.getInt("DespawnTime"));
     }
 
@@ -124,9 +136,17 @@ public abstract class AmbientMob extends PathfinderMob {
         this.entityData.set(DESPAWN_TIME, despawnTime);
     }
 
+    public boolean shouldBeRestricted() {
+        return this.entityData.get(SHOULD_BE_RESTRICTED);
+    }
+
+    public void setShouldBeRestricted(boolean restricted) {
+        this.entityData.set(SHOULD_BE_RESTRICTED, restricted);
+    }
+
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        this.setDespawnTime(1200 + this.getRandom().nextInt(600));
+        this.setDespawnTime(2400 + this.getRandom().nextInt(1200));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
     }
 }
