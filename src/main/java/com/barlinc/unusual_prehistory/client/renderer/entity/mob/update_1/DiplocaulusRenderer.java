@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.DiplocaulusBrevirostrisModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.DiplocaulusMagnicornisModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.DiplocaulusRecurvatisModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.DiplocaulusSalamandroidesModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusTigerModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusSwampyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusMuddyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusDwarfModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,33 +22,33 @@ import java.util.Locale;
 @OnlyIn(Dist.CLIENT)
 public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalModel<Diplocaulus>> {
 
-    private final DiplocaulusBrevirostrisModel brevirostrisModel;
-    private final DiplocaulusMagnicornisModel magnicornisModel;
-    private final DiplocaulusRecurvatisModel recurvatisModel;
-    private final DiplocaulusSalamandroidesModel salamandroidesModel;
+    private final DiplocaulusTigerModel tigerModel;
+    private final DiplocaulusSwampyModel swampyModel;
+    private final DiplocaulusMuddyModel muddyModel;
+    private final DiplocaulusDwarfModel dwarfModel;
 
     public DiplocaulusRenderer(EntityRendererProvider.Context context) {
-        super(context, new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS)), 0.3F);
-        this.brevirostrisModel = new DiplocaulusBrevirostrisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS));
-        this.magnicornisModel = new DiplocaulusMagnicornisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS));
-        this.recurvatisModel = new DiplocaulusRecurvatisModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_RECURVATIS));
-        this.salamandroidesModel = new DiplocaulusSalamandroidesModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_SALAMANDROIDES));
+        super(context, new DiplocaulusTigerModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_TIGER)), 0.3F);
+        this.tigerModel = new DiplocaulusTigerModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_TIGER));
+        this.swampyModel = new DiplocaulusSwampyModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_SWAMPY));
+        this.muddyModel = new DiplocaulusMuddyModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_MUDDY));
+        this.dwarfModel = new DiplocaulusDwarfModel(context.bakeLayer(UP2ModelLayers.DIPLOCAULUS_DWARF));
     }
 
     @Override
     public void render(Diplocaulus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
         switch (Diplocaulus.DiplocaulusVariant.byId(entity.getVariant()).getId()) {
             case 1:
-                this.model = magnicornisModel;
+                this.model = swampyModel;
                 break;
             case 2:
-                this.model = recurvatisModel;
+                this.model = muddyModel;
                 break;
             case 3:
-                this.model = salamandroidesModel;
+                this.model = dwarfModel;
                 break;
             default:
-                this.model = brevirostrisModel;
+                this.model = tigerModel;
         }
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
@@ -56,6 +56,6 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
     @Override
     public @NotNull ResourceLocation getTextureLocation(Diplocaulus entity) {
         Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
-        return UnusualPrehistory2.modPrefix("textures/entity/mob/diplocaulus/diplocaulus_" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/diplocaulus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

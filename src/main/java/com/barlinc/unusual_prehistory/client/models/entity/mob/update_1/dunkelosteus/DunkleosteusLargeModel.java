@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.dunkelosteus;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.DunkleosteusLargeAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
