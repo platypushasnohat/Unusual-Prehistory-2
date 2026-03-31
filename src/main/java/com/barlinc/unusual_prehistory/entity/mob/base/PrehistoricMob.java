@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -88,7 +88,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.lookControl = new PrehistoricLookControl(this);
         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
-//        this.setPersistenceRequired();
+        this.setPersistenceRequired();
     }
 
     @Override
@@ -146,12 +146,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
-        return new SmoothBodyRotationControl(this);
+        return new PrehistoricBodyRotationControl(this);
     }
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new NoSpinGroundPathNavigation(this, level);
+        return new SmoothGroundPathNavigation(this, level);
     }
 
     @Override

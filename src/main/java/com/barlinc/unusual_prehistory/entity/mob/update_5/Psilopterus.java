@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -125,7 +125,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);
         return navigation;

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -145,6 +146,10 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
         if (this.young) this.applyStatic(UlughbegsaurusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
 	}
 
     public Vec3 getRiderPosition(Vec3 offset) {

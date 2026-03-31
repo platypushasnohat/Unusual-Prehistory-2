@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -91,7 +91,7 @@ public class Talpanas extends BreedableMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setAvoidSun(true);
         return navigation;
     }

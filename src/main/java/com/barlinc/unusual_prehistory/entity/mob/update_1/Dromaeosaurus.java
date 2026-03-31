@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusRunGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -82,7 +82,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level);
+        SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
         navigation.setCanOpenDoors(true);
         navigation.setCanPassDoors(true);
         return navigation;
