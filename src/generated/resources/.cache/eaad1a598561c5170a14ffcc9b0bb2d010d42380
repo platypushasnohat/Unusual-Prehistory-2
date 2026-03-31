@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-30T12:41:16.7690484	Tags for minecraft:item mod id unusual_prehistory
+// 1.20.1	2026-03-30T23:34:22.483058	Tags for minecraft:item mod id unusual_prehistory
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates.json
 cf31c2c417a2f1e7284cf267d0566e5661fa31f7 data/forge/tags/items/fence_gates/wooden.json
 f9ce89492b67066db9e45d2c473287cb0be2943a data/forge/tags/items/fruits.json
@@ -38,7 +38,13 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/items/carn
 869a3a34945ee30125053fd1533cc30d2ad51f25 data/unusual_prehistory/tags/items/cenozoic_fossils.json
 eb1d0ec034e2c5bad4bf308701147794a62a6806 data/unusual_prehistory/tags/items/coelacanthus_food.json
 f22c81dcc6d03c60668a59e6563c5bcee8440bb4 data/unusual_prehistory/tags/items/coral_dyes.json
+92c294cc8a442371dbeeeb4c2ca3102115703e44 data/unusual_prehistory/tags/items/desmatosuchus_burrowing_blocks.json
 322a88ffc9519449dbf456c7ba0696e7234c6f19 data/unusual_prehistory/tags/items/desmatosuchus_food.json
+dea3635c1f01e7174c39f14aefa3620f384bec74 data/unusual_prehistory/tags/items/desmatosuchus_grazing_blocks.json
+99c11e418770256f7559fca10b5e80e5d050d3e6 data/unusual_prehistory/tags/items/desmatosuchus_mossy_blocks.json
+33742694a14bb2697530757a24d4fd44291813bf data/unusual_prehistory/tags/items/desmatosuchus_muddy_blocks.json
+138249cc50aefeb5b7286b94739440058f97d7c3 data/unusual_prehistory/tags/items/desmatosuchus_rolling_blocks.json
+982aebe67588122cd46ef1ca31f079c705713d48 data/unusual_prehistory/tags/items/desmatosuchus_snowy_blocks.json
 b1ec8eb71e51dd2382f705b80b7c0231936f2537 data/unusual_prehistory/tags/items/diplocaulus_burrowing_blocks.json
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/items/diplocaulus_food.json
 8e597328e4babaee30b4d67a98f853fab13d414e data/unusual_prehistory/tags/items/diplocaulus_sliding_blocks.json

@@ -36,6 +36,13 @@ public class UP2ItemTags {
     public static final TagKey<Item> DIPLOCAULUS_SLIDING_BLOCKS = modItemTag("diplocaulus_sliding_blocks");
     public static final TagKey<Item> DIPLOCAULUS_BURROWING_BLOCKS = modItemTag("diplocaulus_burrowing_blocks");
 
+    public static final TagKey<Item> DESMATOSUCHUS_GRAZING_BLOCKS = modItemTag("desmatosuchus_grazing_blocks");
+    public static final TagKey<Item> DESMATOSUCHUS_BURROWING_BLOCKS = modItemTag("desmatosuchus_burrowing_blocks");
+    public static final TagKey<Item> DESMATOSUCHUS_ROLLING_BLOCKS = modItemTag("desmatosuchus_rolling_blocks");
+    public static final TagKey<Item> DESMATOSUCHUS_MOSSY_BLOCKS = modItemTag("desmatosuchus_mossy_blocks");
+    public static final TagKey<Item> DESMATOSUCHUS_MUDDY_BLOCKS = modItemTag("desmatosuchus_muddy_blocks");
+    public static final TagKey<Item> DESMATOSUCHUS_SNOWY_BLOCKS = modItemTag("desmatosuchus_snowy_blocks");
+
     public static final TagKey<Item> JAWLESS_FISH_NIBBLING_BLOCKS = modItemTag("jawless_fish_nibbling_blocks");
 
     public static final TagKey<Item> GUARDED_BY_KENTROSAURUS = modItemTag("guarded_by_kentrosaurus");

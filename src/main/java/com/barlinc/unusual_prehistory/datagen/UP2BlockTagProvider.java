@@ -233,14 +233,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS).addTag(BlockTags.SNOW).add(
-                Blocks.MUD,
-                MOSSY_DIRT.get(),
-                Blocks.MOSS_BLOCK
+        this.tag(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).addTag(
+                UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS
         );
 
-        this.tag(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS).addTag(BlockTags.SNOW).addTag(BlockTags.SAND).addTag(Tags.Blocks.GRAVEL).add(
-                Blocks.MUD
+        this.tag(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).addTag(BlockTags.SAND).addTag(Tags.Blocks.GRAVEL).addTag(
+                UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS
         );
 
         this.tag(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS).add(
