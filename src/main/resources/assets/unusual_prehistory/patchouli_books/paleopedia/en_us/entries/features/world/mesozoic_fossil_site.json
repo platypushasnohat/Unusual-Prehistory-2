@@ -2,7 +2,7 @@
   "name": "item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title",
   "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_mesozoic.png",
   "category": "unusual_prehistory:features/world",
-  "advancement": "unusual_prehistory:root",
+  "advancement": "unusual_prehistory:obtain_mesozoic_fossil",
   "pages": [
     {
       "type": "unusual_prehistory:image",

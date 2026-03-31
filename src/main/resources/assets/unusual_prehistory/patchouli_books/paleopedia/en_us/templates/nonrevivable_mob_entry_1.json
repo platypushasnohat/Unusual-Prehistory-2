@@ -1,0 +1,41 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:template_temperament",
+      "as": "temperament",
+      "y": 112,
+      "x": 51
+    }
+    ],
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#display_name",
+      "x": 57,
+      "y": 2,
+      "color": "988552"
+    },
+    {
+      "type": "patchouli:separator",
+      "y": 17,
+      "x": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/#id#.png",
+      "width": 200,
+      "height": 200,
+      "scale": 0.40,
+      "x": 17,
+      "y": 26
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": ["#display_name# §e§o#variant_key#", "§7#image_tooltip#"],
+      "width": 85,
+      "height": 85,
+      "x": 1,
+      "y": 10
+    }
+  ]
+}
