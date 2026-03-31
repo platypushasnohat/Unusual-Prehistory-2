@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
@@ -95,14 +96,14 @@ public class Grug extends PrehistoricMob {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove() && this.onGround()) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-        }
-        super.travel(travelVec);
+    public double getFluidJumpThreshold() {
+        return (double) this.getEyeHeight() < 0.4D ? 0.0D : 0.4D;
+    }
+
+    @Override
+    public void remove(Entity.@NotNull RemovalReason removalReason) {
+        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
+        super.remove(removalReason);
     }
 
     @Override
@@ -114,6 +115,10 @@ public class Grug extends PrehistoricMob {
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
                 flag = this.level().destroyBlock(blockpos, false, this) || flag;
             }
+        }
+
+        if (this.level().isClientSide && this.isAlive() && this.isAggressive()) {
+            UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 4);
         }
     }
 

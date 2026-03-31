@@ -487,6 +487,12 @@
     ],
     "subtitle": "subtitles.dunkleosteus_hurt"
   },
+  "grug_chase": {
+    "sounds": [
+      "unusual_prehistory:music/pummel_and_snatch_disc"
+    ],
+    "subtitle": "subtitles.grug_chase"
+  },
   "grug_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/grug/death1"

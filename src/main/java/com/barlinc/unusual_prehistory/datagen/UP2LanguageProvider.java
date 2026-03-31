@@ -406,6 +406,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.GRUG_HURT, "Grug hurts");
         this.sound(UP2SoundEvents.GRUG_DEATH, "Grug dies");
         this.sound(UP2SoundEvents.GRUG_IDLE, "Grug speaks his wisdom");
+        this.sound(UP2SoundEvents.GRUG_CHASE, "Grug runs");
 
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
