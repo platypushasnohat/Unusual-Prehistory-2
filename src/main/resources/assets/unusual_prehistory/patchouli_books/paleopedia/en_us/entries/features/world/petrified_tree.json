@@ -1,8 +1,17 @@
 {
-  "name": "Petrified Tree",
+  "name": "item.unusual_prehistory.paleopedia.entry.petrified_tree.title",
   "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_plant.png",
   "category": "unusual_prehistory:features/world",
   "advancement": "unusual_prehistory:root",
   "pages": [
+    {
+      "type": "unusual_prehistory:image",
+      "image": "unusual_prehistory:/textures/gui/paleopedia/images/petrified_tree.png",
+      "title": "item.unusual_prehistory.paleopedia.entry.petrified_tree.title"
+    },
+    {
+      "type": "unusual_prehistory:text_no_title",
+      "text": "item.unusual_prehistory.paleopedia.entry.petrified_tree.desc"
+    }
   ]
 }

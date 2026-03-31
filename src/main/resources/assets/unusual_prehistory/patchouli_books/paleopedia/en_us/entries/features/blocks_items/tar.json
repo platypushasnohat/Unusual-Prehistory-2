@@ -2,7 +2,7 @@
   "name": "block.unusual_prehistory.tar",
   "icon": "unusual_prehistory:tar_bucket",
   "category": "unusual_prehistory:features/blocks_items",
-  "advancement": "unusual_prehistory:root",
+  "advancement": "unusual_prehistory:obtain_tar_bucket",
   "pages": [
     {
       "type": "unusual_prehistory:spotlight",

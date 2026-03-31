@@ -47,19 +47,19 @@ public class UP2AdvancementProvider implements AdvancementGenerator {
                 .addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
                 .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
 
-        Advancement.Builder.advancement()
-                .addCriterion("obtain_tar_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.TAR_BUCKET.get()))
-                .save(consumer, UnusualPrehistory2.modPrefix("obtain_tar_bucket"), helper);
-
-        Advancement.Builder.advancement()
-                .addCriterion("obtain_asphalt", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.ASPHALT.get()))
-                .save(consumer, UnusualPrehistory2.modPrefix("obtain_asphalt"), helper);
-
         // Progression & misc
         Advancement fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), FrameType.TASK, false)
                 .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
                 .requirements(RequirementsStrategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_fossil"), helper);
+
+        Advancement tarBucket = createAdvancement("obtain_tar_bucket", fossils, UP2Items.TAR_BUCKET.get(), FrameType.TASK, true)
+                .addCriterion("tar_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.TAR_BUCKET.get()))
+                .save(consumer, UnusualPrehistory2.modPrefix("obtain_tar_bucket"), helper);
+
+        Advancement asphalt = createAdvancement("obtain_asphalt", fossils, UP2Blocks.ASPHALT.get(), FrameType.TASK, true)
+                .addCriterion("asphalt", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.ASPHALT.get()))
+                .save(consumer, UnusualPrehistory2.modPrefix("obtain_asphalt"), helper);
 
         Advancement machineParts = createAdvancement("obtain_machine_parts", fossils, UP2Items.MACHINE_PARTS.get(), FrameType.TASK, false)
                 .addCriterion("machine_parts", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.MACHINE_PARTS.get()))

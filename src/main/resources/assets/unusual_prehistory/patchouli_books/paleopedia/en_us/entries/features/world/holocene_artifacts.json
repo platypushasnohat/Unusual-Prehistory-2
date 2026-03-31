@@ -1,8 +1,17 @@
 {
-  "name": "Holocene Artifacts",
+  "name": "item.unusual_prehistory.paleopedia.entry.holocene_artifact.title",
   "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_holocene.png",
   "category": "unusual_prehistory:features/world",
   "advancement": "unusual_prehistory:root",
   "pages": [
+    {
+      "type": "unusual_prehistory:image",
+      "image": "unusual_prehistory:/textures/gui/paleopedia/images/holocene_artifact.png",
+      "title": "item.unusual_prehistory.paleopedia.entry.holocene_artifact.title"
+    },
+    {
+      "type": "unusual_prehistory:text_no_title",
+      "text": "item.unusual_prehistory.paleopedia.entry.holocene_artifact.desc"
+    }
   ]
 }
