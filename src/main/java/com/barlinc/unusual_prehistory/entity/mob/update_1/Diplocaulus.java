@@ -56,15 +56,16 @@
  @SuppressWarnings("deprecation")
  public class Diplocaulus extends SemiAquaticMob implements Bucketable {
 
-     public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState burrowAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState boomerangAnimationState = new SmoothAnimationState(1.0F);
 
-     private int quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
+     private int quirkCooldown = 600 + this.getRandom().nextInt(600);
+     private int boomerangCooldown = 800 + this.getRandom().nextInt(800);
 
      public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
@@ -108,6 +109,7 @@
              }
          });
          this.goalSelector.addGoal(8, new DiplocaulusQuirkGoal(this));
+         this.goalSelector.addGoal(8, new DiplocaulusBoomerangGoal(this));
      }
 
      protected void switchNavigator(boolean onLand) {
@@ -190,20 +192,20 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting() && this.getIdleState() != 2, this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting() && this.getIdleState() != 2, this.tickCount);
          this.burrowAnimationState.animateWhen(this.isSitting(), this.tickCount);
          this.quirkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+         this.boomerangAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
      }
 
      @Override
      public void tickCooldowns() {
          super.tickCooldowns();
          if (quirkCooldown > 0) quirkCooldown--;
-     }
-
-     protected void quirkCooldown() {
-         this.quirkCooldown = 600 + this.getRandom().nextInt(60 * 60);
+         if (this.isInWaterOrBubble()) {
+             if (boomerangCooldown > 0) boomerangCooldown--;
+         }
      }
 
      @Override
@@ -214,7 +216,6 @@
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
-         this.entityData.define(BURROW_COOLDOWN, 800 + this.getRandom().nextInt(800));
          this.entityData.define(SLIDING, false);
          this.entityData.define(FROM_BUCKET, false);
      }
@@ -455,7 +456,40 @@
          @Override
          public void stop() {
              super.stop();
-             this.diplocaulus.quirkCooldown();
+             this.diplocaulus.quirkCooldown = 600 + diplocaulus.getRandom().nextInt(600);
+         }
+     }
+
+     private static class DiplocaulusBoomerangGoal extends IdleAnimationGoal {
+
+         private final Diplocaulus diplocaulus;
+
+         public DiplocaulusBoomerangGoal(Diplocaulus diplocaulus) {
+             super(diplocaulus, 20, 2, false, false);
+             this.diplocaulus = diplocaulus;
+         }
+
+         @Override
+         public boolean canUse() {
+             return super.canUse() && diplocaulus.boomerangCooldown == 0 && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
+         }
+
+         @Override
+         public boolean canContinueToUse() {
+             return super.canContinueToUse() && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
+         }
+
+         @Override
+         public void stop() {
+             super.stop();
+             this.diplocaulus.boomerangCooldown = 800 + diplocaulus.getRandom().nextInt(800);
+         }
+
+         @Override
+         public void start() {
+             super.start();
+             this.diplocaulus.getNavigation().stop();
+             this.diplocaulus.addDeltaMovement(diplocaulus.calculateViewVector(0.0F, diplocaulus.getYRot()).scale(2.0D).multiply(0.5D, diplocaulus.getDeltaMovement().y * 0.5D, 0.5D));
          }
      }
  }

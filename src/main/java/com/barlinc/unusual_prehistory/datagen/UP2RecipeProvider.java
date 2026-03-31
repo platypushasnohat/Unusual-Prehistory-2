@@ -36,6 +36,8 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.PALEOPEDIA.get(), 1).requires(Items.BOOK).requires(Tags.Items.BONES).unlockedBy("has_book", has(Items.BOOK)).save(consumer);
+
         ShapedRecipeBuilder.shaped(MISC, UP2Blocks.TRANSMOGRIFIER.get()).define('#', Tags.Items.INGOTS_GOLD).define('X', UP2Items.MACHINE_PARTS.get()).define('Y', Tags.Items.DUSTS_REDSTONE).define('Z', Tags.Items.INGOTS_COPPER).pattern("###").pattern("ZXZ").pattern("#Y#").unlockedBy("has_machine_parts", has(UP2Items.MACHINE_PARTS.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);

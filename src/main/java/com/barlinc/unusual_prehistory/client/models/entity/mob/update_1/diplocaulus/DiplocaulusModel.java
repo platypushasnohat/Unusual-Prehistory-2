@@ -59,18 +59,22 @@ public class DiplocaulusModel extends UP2Model<Diplocaulus> {
 
         float deg = ((float) Math.PI / 180F);
 
-        if (entity.isInWaterOrBubble()) {
-			this.root.xRot = headPitch * deg;
-            this.animateWalk(DiplocaulusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-		} else {
-            if (entity.isSliding()) this.animateWalk(DiplocaulusAnimations.SLIDE, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(DiplocaulusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		}
+        if (entity.getIdleState() != 2) {
+            if (entity.isInWaterOrBubble()) {
+                this.root.xRot = headPitch * deg;
+                this.animateWalk(DiplocaulusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                if (entity.isSliding())
+                    this.animateWalk(DiplocaulusAnimations.SLIDE, limbSwing, limbSwingAmount, 1.5F, 3);
+                else this.animateWalk(DiplocaulusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            }
+        }
 
 		this.animateIdleSmooth(entity.idleAnimationState, DiplocaulusAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.swimIdleAnimationState, DiplocaulusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.quirkAnimationState, this.getQuirkAnimation(), ageInTicks);
 		this.animateSmooth(entity.burrowAnimationState, DiplocaulusAnimations.BURROW_HOLD, ageInTicks);
+        this.animate(entity.boomerangAnimationState, DiplocaulusAnimations.BOOMERANG, ageInTicks);
 
 		if (this.young) this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);
 

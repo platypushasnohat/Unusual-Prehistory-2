@@ -72,7 +72,7 @@ public class UP2Compat {
 
         // Update 5
         registerCompostable(UP2Blocks.ZHANGSOLVA_BLOOM.get(), 0.3F);
-        registerCompostable(UP2Blocks.DELITZSCHALA_FERN.get(), 0.3F);
+        registerCompostable(UP2Blocks.DELITZSCHALA_STALK.get(), 0.3F);
     }
 
     public static void registerFlammables() {
@@ -149,7 +149,7 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.METASEQUOIA_LEAVES.get(), 30, 60);
 
         // Update 5
-        registerFlammable(UP2Blocks.DELITZSCHALA_FERN.get(), 60, 100);
+        registerFlammable(UP2Blocks.DELITZSCHALA_STALK.get(), 60, 100);
         registerFlammable(UP2Blocks.ZHANGSOLVA_BLOOM.get(), 60, 100);
     }
 

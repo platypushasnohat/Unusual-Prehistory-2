@@ -177,7 +177,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.add(TEMPSKYA.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(AETHOPHYLLUM.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(ZHANGSOLVA_BLOOM.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-        this.add(DELITZSCHALA_FERN.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.add(DELITZSCHALA_STALK.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.dropSelf(RHYNIA.get());
         this.dropPottedContents(POTTED_RHYNIA.get());

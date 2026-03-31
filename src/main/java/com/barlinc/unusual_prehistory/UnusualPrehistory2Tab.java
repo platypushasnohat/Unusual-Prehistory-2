@@ -237,7 +237,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.CALAMOPHYTON.get());
                         output.accept(UP2Blocks.CLADOPHLEBIS.get());
                         output.accept(UP2Blocks.COOKSONIA.get());
-                        output.accept(UP2Blocks.DELITZSCHALA_FERN.get());
+                        output.accept(UP2Blocks.DELITZSCHALA_STALK.get());
                         output.accept(UP2Blocks.HORSETAIL.get());
                         output.accept(UP2Blocks.LARGE_HORSETAIL.get());
                         output.accept(UP2Blocks.LEEFRUCTUS.get());

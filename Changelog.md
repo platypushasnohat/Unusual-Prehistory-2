@@ -39,6 +39,7 @@
 - Dromaeosaurus will now stop sometimes for a very brief period
 - Jawless fish and dunkleosteus no longer prefer swimming toward the bottom of water
 - Added tail rotations to many mobs
+- Diplocaulus can now perform a boomerang dash in water
 - Many misc tweaks and fixes
 
 ## Version 1.3.1

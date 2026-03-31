@@ -458,7 +458,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 RAIGUENRAYUN.get(),
                 AETHOPHYLLUM.get(),
                 ZHANGSOLVA_BLOOM.get(),
-                DELITZSCHALA_FERN.get()
+                DELITZSCHALA_STALK.get()
         );
 
         this.tag(BlockTags.DIRT).add(

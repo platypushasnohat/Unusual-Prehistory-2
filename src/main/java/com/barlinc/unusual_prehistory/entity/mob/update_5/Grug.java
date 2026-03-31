@@ -4,9 +4,14 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -24,7 +29,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -34,12 +38,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class Grug extends PrehistoricMob {
+public class Grug extends PrehistoricMob implements LeapingMob {
+
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Grug.class, EntityDataSerializers.BOOLEAN);
+
+    public final SmoothAnimationState jumpAnimationState = new SmoothAnimationState();
 
     public Grug(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     @Override
@@ -120,6 +126,16 @@ public class Grug extends PrehistoricMob {
         if (this.level().isClientSide && this.isAlive() && this.isAggressive()) {
             UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 4);
         }
+
+        if ((this.onGround() || this.isInWaterOrBubble() || this.onClimbable()) && this.isLeaping()) {
+            this.setLeaping(false);
+        }
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(!this.isLeaping(), this.tickCount);
+        this.jumpAnimationState.animateWhen(this.isLeaping(), this.tickCount);
     }
 
     @Override
@@ -129,12 +145,28 @@ public class Grug extends PrehistoricMob {
 
     @Override
     protected float getWaterSlowDown() {
-        return 0.98F;
+        return 0.9F;
     }
 
     @Override
     public int getHealCooldown() {
-        return 2;
+        return 4;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LEAPING, false);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
+    }
+
+    @Override
+    public boolean isLeaping() {
+        return this.entityData.get(LEAPING);
     }
 
     @Nullable
@@ -163,7 +195,7 @@ public class Grug extends PrehistoricMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 300;
+        return 220;
     }
 
     // goals
@@ -194,6 +226,7 @@ public class Grug extends PrehistoricMob {
                 if ((target.getY() > grug.getY() + 4) && grug.onGround() && horizontalDistanceSqr <= 100) {
                     this.grug.addDeltaMovement(new Vec3(0, 2.0D, 0));
                     this.grug.addDeltaMovement(this.grug.getLookAngle().scale(2.0D).multiply(0.6D, 0, 0.6D));
+                    this.grug.setLeaping(true);
                 }
                 if (attackState == 1) {
                     this.tickAttack();
