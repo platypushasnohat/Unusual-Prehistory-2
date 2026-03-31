@@ -2,7 +2,6 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -97,11 +96,6 @@
 //         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
 //         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
 //     }
-
-     @Override
-     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new NoSpinGroundPathNavigation(this, level);
-     }
 
      @Override
      protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {

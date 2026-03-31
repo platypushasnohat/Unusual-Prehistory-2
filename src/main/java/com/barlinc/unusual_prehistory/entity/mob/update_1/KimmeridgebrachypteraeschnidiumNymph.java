@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.EnterWaterGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -78,7 +78,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
 
     @Override
     public @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new NoSpinGroundPathNavigation(this, level);
+        return new SmoothGroundPathNavigation(this, level);
     }
 
     @Override

@@ -98,11 +98,6 @@ public class StethacanthusModel extends UP2Model<Stethacanthus> {
 		this.animateSmooth(entity.flopAnimationState, StethacanthusAnimations.FLOP, ageInTicks);
 		this.animateSmooth(entity.attackAnimationState, StethacanthusAnimations.ATTACK, ageInTicks);
 		this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
-
-        float partialTicks = ageInTicks - entity.tickCount;
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.25F);
-        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.2F);
 	}
 
 	@Override

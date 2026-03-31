@@ -37,7 +37,8 @@
 - Decreased dromaeosaurus speed
 - Increased dromaeosaurus run distance
 - Dromaeosaurus will now stop sometimes for a very brief period
-- Jawless fish no longer prefer swimming toward the bottom of water
+- Jawless fish and dunkleosteus no longer prefer swimming toward the bottom of water
+- Added tail rotations to many mobs
 - Many misc tweaks and fixes
 
 ## Version 1.3.1

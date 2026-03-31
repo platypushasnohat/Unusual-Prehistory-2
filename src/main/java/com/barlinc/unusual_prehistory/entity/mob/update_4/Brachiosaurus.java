@@ -2,7 +2,7 @@
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
@@ -132,7 +132,7 @@
 
      @Override
      protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         NoSpinGroundPathNavigation navigation = new NoSpinGroundPathNavigation(this, level, 1.0F);
+         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
          navigation.setCanWalkOverFences(true);
          return navigation;
      }
@@ -268,8 +268,10 @@
          this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
          this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
 
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
+//         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
+//         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
 
          for (int l = 0; l < this.allParts.length; ++l) {
              this.allParts[l].xo = avector3d[l].x;
@@ -328,6 +330,17 @@
      }
 
      public float getYawFromBuffer(int pointer, float partialTick) {
+         int i = this.yawPointer - pointer & 127;
+         int j = this.yawPointer - pointer - 1 & 127;
+         float d0 = this.yawBuffer[j];
+         float d1 = this.yawBuffer[i] - d0;
+         return d0 + d1 * partialTick;
+     }
+
+     public float getTrailTransformation(int pointer, float partialTick) {
+         if (this.isRemoved()) {
+             partialTick = 1.0F;
+         }
          int i = this.yawPointer - pointer & 127;
          int j = this.yawPointer - pointer - 1 & 127;
          float d0 = this.yawBuffer[j];

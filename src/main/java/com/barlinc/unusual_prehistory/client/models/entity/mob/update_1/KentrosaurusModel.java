@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -199,6 +200,10 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.3F, this.tail1.yRot, tailYaw * 0.15F);
+        this.tail2.yRot = Mth.lerp(0.3F, this.tail2.yRot, tailYaw * 0.1F);
 	}
 
 	@Override

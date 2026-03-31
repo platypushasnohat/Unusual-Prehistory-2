@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -101,6 +102,10 @@ public class DunkleosteusMediumModel extends UP2Model<Dunkleosteus> {
         this.animateSmooth(entity.attackAnimationState, DunkleosteusMediumAnimations.ATTACK_BLEND, ageInTicks);
         this.animateSmooth(entity.quirkAnimationState, DunkleosteusMediumAnimations.QUIRK_BLEND, ageInTicks);
         this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
 	}
 
 	@Override

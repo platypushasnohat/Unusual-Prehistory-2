@@ -1,6 +1,6 @@
  package com.barlinc.unusual_prehistory.entity.mob.future;
 
- import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -50,7 +50,7 @@
 
      @Override
      public @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new NoSpinGroundPathNavigation(this, level);
+         return new SmoothGroundPathNavigation(this, level);
      }
 
      @Override

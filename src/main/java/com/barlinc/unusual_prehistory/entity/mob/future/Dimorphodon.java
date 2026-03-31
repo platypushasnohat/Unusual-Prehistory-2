@@ -7,7 +7,6 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -98,7 +97,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
         if (onLand) {
             this.lookControl = new PrehistoricLookControl(this);
             this.moveControl = new PrehistoricMoveControl(this);
-            this.navigation = new NoSpinGroundPathNavigation(this, this.level());
+            this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
             this.lookControl = new PrehistoricFlyingLookControl(this, 85);
