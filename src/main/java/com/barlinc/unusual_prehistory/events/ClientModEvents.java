@@ -2,6 +2,13 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusDwarfModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusMuddyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusSwampyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusTigerModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.dunkelosteus.DunkleosteusLargeModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.dunkelosteus.DunkleosteusMediumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.dunkelosteus.DunkleosteusSmallModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.jawless_fish.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_2.OnchopristisModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_3.LivingOozeModel;
@@ -147,10 +154,10 @@ public class ClientModEvents {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         // Update 1
         event.registerLayerDefinition(UP2ModelLayers.CARNOTAURUS, CarnotaurusModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_BREVIROSTRIS, DiplocaulusBrevirostrisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MAGNICORNIS, DiplocaulusMagnicornisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_RECURVATIS, DiplocaulusRecurvatisModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_SALAMANDROIDES, DiplocaulusSalamandroidesModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_TIGER, DiplocaulusTigerModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_SWAMPY, DiplocaulusSwampyModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_MUDDY, DiplocaulusMuddyModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIPLOCAULUS_DWARF, DiplocaulusDwarfModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DROMAEOSAURUS, DromaeosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_LARGE, DunkleosteusLargeModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DUNKLEOSTEUS_MEDIUM, DunkleosteusMediumModel::createBodyLayer);

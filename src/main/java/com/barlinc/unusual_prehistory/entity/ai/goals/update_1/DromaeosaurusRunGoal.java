@@ -24,7 +24,9 @@ public class DromaeosaurusRunGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (this.dromaeosaurus.isVehicle()) {
+        if (this.dromaeosaurus.getRandom().nextInt(reducedTickDelay(12)) != 0) {
+            return false;
+        } else if (this.dromaeosaurus.isVehicle()) {
             return false;
         } else {
             Vec3 vec3 = this.getPosition();
@@ -45,9 +47,9 @@ public class DromaeosaurusRunGoal extends Goal {
         Vec3 randomPos;
         if (dromaeosaurus.isInWater()) {
             randomPos = LandRandomPos.getPos(dromaeosaurus, 30, 8);
-            return randomPos == null ? LandRandomPos.getPos(dromaeosaurus, 10, 7) : randomPos;
+            return randomPos == null ? LandRandomPos.getPos(dromaeosaurus, 16, 4) : randomPos;
         }
-        randomPos = dromaeosaurus.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(dromaeosaurus, 10, 7) : DefaultRandomPos.getPos(dromaeosaurus, 10, 7);
+        randomPos = dromaeosaurus.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(dromaeosaurus, 16, 4) : DefaultRandomPos.getPos(dromaeosaurus, 16, 4);
         return randomPos;
     }
 

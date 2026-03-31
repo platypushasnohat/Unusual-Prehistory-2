@@ -199,6 +199,7 @@ public class UP2SoundEvents {
     public static final RegistryObject<SoundEvent> GRUG_HURT = registerSoundEvent("grug_hurt");
     public static final RegistryObject<SoundEvent> GRUG_DEATH = registerSoundEvent("grug_death");
     public static final RegistryObject<SoundEvent> GRUG_IDLE = registerSoundEvent("grug_idle");
+    public static final RegistryObject<SoundEvent> GRUG_CHASE = registerSoundEvent("grug_chase");
 
     public static final RegistryObject<SoundEvent> PUMMEL_AND_SNATCH_DISC = registerSoundEvent("pummel_and_snatch_disc");
 

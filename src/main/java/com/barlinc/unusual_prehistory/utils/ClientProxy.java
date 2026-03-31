@@ -2,13 +2,11 @@ package com.barlinc.unusual_prehistory.utils;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
-import com.barlinc.unusual_prehistory.client.sounds.AegirocassisHoverSound;
-import com.barlinc.unusual_prehistory.client.sounds.BugBuzzSound;
-import com.barlinc.unusual_prehistory.client.sounds.KimmeridgebrachypteraeschnidiumSound;
-import com.barlinc.unusual_prehistory.client.sounds.TransmogrifierSound;
+import com.barlinc.unusual_prehistory.client.sounds.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Grug;
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -142,6 +140,21 @@ public class ClientProxy extends CommonProxy {
                         ENTITY_SOUND_INSTANCE_MAP.put(entity.getId(), sound);
                     } else {
                         sound = (BugBuzzSound) oldSound;
+                    }
+                    if (!isSoundPlaying(sound) && sound.canPlaySound()) {
+                        Minecraft.getInstance().getSoundManager().queueTickingSound(sound);
+                    }
+                }
+                break;
+            case 4:
+                if (soundEmitter instanceof Grug entity) {
+                    GrugSound sound;
+                    AbstractTickableSoundInstance oldSound = ENTITY_SOUND_INSTANCE_MAP.get(entity.getId());
+                    if (oldSound == null || !(oldSound instanceof GrugSound sound1 && sound1.isSameEntity(entity))) {
+                        sound = new GrugSound(entity);
+                        ENTITY_SOUND_INSTANCE_MAP.put(entity.getId(), sound);
+                    } else {
+                        sound = (GrugSound) oldSound;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
                         Minecraft.getInstance().getSoundManager().queueTickingSound(sound);

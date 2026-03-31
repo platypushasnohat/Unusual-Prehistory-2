@@ -60,7 +60,6 @@
      public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> BURROWED = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState burrowAnimationState = new SmoothAnimationState();
@@ -98,7 +97,17 @@
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
          this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(7, new DiplocaulusBurrowGoal(this));
+         this.goalSelector.addGoal(7, new RandomSitGoal(this) {
+             @Override
+             public boolean canUse() {
+                 return super.canUse() && Diplocaulus.this.canBurrow();
+             }
+
+             @Override
+             public boolean canContinueToUse() {
+                 return super.canContinueToUse() && Diplocaulus.this.canBurrow();
+             }
+         });
          this.goalSelector.addGoal(8, new DiplocaulusQuirkGoal(this));
      }
 
@@ -151,12 +160,12 @@
 
      @Override
      public boolean isPushable() {
-         return !this.isBurrowed();
+         return !this.isSitting();
      }
 
      @Override
      public void doPush(@NotNull Entity entity) {
-         if (!this.isBurrowed()) super.doPush(entity);
+         if (!this.isSitting()) super.doPush(entity);
      }
 
      @Override
@@ -170,8 +179,6 @@
              this.switchNavigator(true);
          }
 
-         if (this.isBurrowed() && this.isInWaterOrBubble() || !this.onGround()) this.setBurrowed(false);
-
          if (this.isSliding() && !this.isInWaterOrBubble() && this.getDeltaMovement().horizontalDistance() > 0.05D) {
              for (int i = 0; i < 1; i++) {
                  double velocityX = this.random.nextGaussian() * 0.15D;
@@ -184,16 +191,15 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isBurrowed(), this.tickCount);
-         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isBurrowed(), this.tickCount);
-         this.burrowAnimationState.animateWhen(this.isBurrowed(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
+         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
+         this.burrowAnimationState.animateWhen(this.isSitting(), this.tickCount);
          this.quirkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
      }
 
      @Override
      public void tickCooldowns() {
          super.tickCooldowns();
-         if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
          if (quirkCooldown > 0) quirkCooldown--;
      }
 
@@ -202,19 +208,8 @@
      }
 
      @Override
-     public boolean refuseToMove() {
-         return super.refuseToMove() || this.isBurrowed();
-     }
-
-     @Override
-     protected void onLeashDistance(float distance) {
-         if (distance > 5.0F && this.isBurrowed()) this.setBurrowed(false);
-     }
-
-     @Override
-     protected void actuallyHurt(@NotNull DamageSource source, float amount) {
-         this.setBurrowed(false);
-         super.actuallyHurt(source, amount);
+     public boolean refuseToLook() {
+         return this.isEepy();
      }
 
      @Override
@@ -223,43 +218,18 @@
          this.entityData.define(BURROW_COOLDOWN, 800 + this.getRandom().nextInt(800));
          this.entityData.define(SLIDING, false);
          this.entityData.define(FROM_BUCKET, false);
-         this.entityData.define(BURROWED, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
-         compoundTag.putInt("BurrowCooldown", this.getBurrowCooldown());
          compoundTag.putBoolean("FromBucket", this.fromBucket());
-         compoundTag.putBoolean("Burrowed", this.isBurrowed());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
-         this.setBurrowCooldown(compoundTag.getInt("BurrowCooldown"));
          this.setFromBucket(compoundTag.getBoolean("FromBucket"));
-         this.setBurrowed(compoundTag.getBoolean("Burrowed"));
-     }
-
-     public boolean isBurrowed() {
-         return this.entityData.get(BURROWED);
-     }
-
-     public void setBurrowed(boolean burrowed) {
-         this.entityData.set(BURROWED, burrowed);
-     }
-
-     public int getBurrowCooldown() {
-         return this.entityData.get(BURROW_COOLDOWN);
-     }
-
-     public void setBurrowCooldown(int cooldown) {
-         this.entityData.set(BURROW_COOLDOWN, cooldown);
-     }
-
-     public void burrowCooldown() {
-         this.entityData.set(BURROW_COOLDOWN, 800 + this.getRandom().nextInt(800));
      }
 
      public boolean isSliding() {
@@ -272,6 +242,10 @@
 
      protected boolean isSlideableBlockBelow() {
          return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS);
+     }
+
+     private boolean canBurrow() {
+         return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS);
      }
 
      @Override
@@ -354,10 +328,10 @@
      }
 
      public enum DiplocaulusVariant {
-         BREVIROSTRIS(0),
-         MAGNICORNIS(1),
-         RECURVATIS(2),
-         SALAMANDROIDES(3);
+         TIGER(0),
+         SWAMPY(1),
+         MUDDY(2),
+         DWARF(3);
 
          private final int id;
 
@@ -414,7 +388,9 @@
 
          @Override
          public boolean canUse() {
-             if (diplocaulus.isVehicle() || diplocaulus.isPathFinding() || diplocaulus.isInWaterOrBubble() && !diplocaulus.isSlideableBlockBelow()) {
+             if (!diplocaulus.isSlideableBlockBelow()) {
+                 return false;
+             } else if (diplocaulus.isVehicle() || diplocaulus.isPathFinding() || diplocaulus.isInWaterOrBubble()) {
                  return false;
              } else {
                  if (diplocaulus.getNoActionTime() >= 100) return false;
@@ -458,40 +434,6 @@
          }
      }
 
-     private static class DiplocaulusBurrowGoal extends Goal {
-
-         private final Diplocaulus diplocaulus;
-
-         public DiplocaulusBurrowGoal(Diplocaulus diplocaulus) {
-             this.diplocaulus = diplocaulus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return !diplocaulus.isInWater() && diplocaulus.getBurrowCooldown() == 0 && !diplocaulus.isLeashed() && diplocaulus.onGround() && diplocaulus.getLastHurtByMob() == null && this.isBurrowBlock();
-         }
-
-         @Override
-         public boolean canContinueToUse() {
-             return !diplocaulus.isInWater() && !diplocaulus.isLeashed() && diplocaulus.onGround();
-         }
-
-         @Override
-         public void start() {
-             if (diplocaulus.isBurrowed()) {
-                 this.diplocaulus.burrowCooldown();
-                 this.diplocaulus.setBurrowed(false);
-             } else {
-                 this.diplocaulus.burrowCooldown();
-                 this.diplocaulus.setBurrowed(true);
-             }
-         }
-
-         protected boolean isBurrowBlock() {
-             return diplocaulus.level().getBlockState(diplocaulus.blockPosition()).is(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS) || diplocaulus.level().getBlockState(diplocaulus.blockPosition().below()).is(UP2BlockTags.DIPLOCAULUS_BURROWING_BLOCKS);
-         }
-     }
-
      private static class DiplocaulusQuirkGoal extends IdleAnimationGoal {
 
          private final Diplocaulus diplocaulus;
@@ -503,12 +445,12 @@
 
          @Override
          public boolean canUse() {
-             return super.canUse() && diplocaulus.quirkCooldown == 0 && !diplocaulus.isBurrowed();
+             return super.canUse() && diplocaulus.quirkCooldown == 0 && !diplocaulus.isSitting();
          }
 
          @Override
          public boolean canContinueToUse() {
-             return super.canContinueToUse() && !diplocaulus.isBurrowed();
+             return super.canContinueToUse() && !diplocaulus.isSitting();
          }
 
          @Override

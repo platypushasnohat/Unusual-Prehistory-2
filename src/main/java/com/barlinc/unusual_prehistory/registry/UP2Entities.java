@@ -87,7 +87,7 @@ public class UP2Entities {
     public static final RegistryObject<EntityType<Psilopterus>> PSILOPTERUS = registerLivingEntity("psilopterus", Psilopterus::new, MobCategory.CREATURE, 0.6F, 1.4F);
     public static final RegistryObject<EntityType<Zhangsolva>> ZHANGSOLVA = registerLivingEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, 0.3F, 0.4F);
 
-    public static final RegistryObject<EntityType<Grug>> GRUG = registerLivingEntity("grug", Grug::new, MobCategory.CREATURE, 0.9F, 3.1F);
+    public static final RegistryObject<EntityType<Grug>> GRUG = registerLivingEntity("grug", Grug::new, MobCategory.CREATURE, 1.5F, 3.1F);
 
     public static final RegistryObject<EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, 0.25F, 0.25F);
 

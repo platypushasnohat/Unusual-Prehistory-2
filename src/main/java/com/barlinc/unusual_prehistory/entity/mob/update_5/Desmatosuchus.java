@@ -178,6 +178,11 @@ public class Desmatosuchus extends PrehistoricMob {
         return true;
     }
 
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
+
     private boolean canBurrow() {
         return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS);
     }

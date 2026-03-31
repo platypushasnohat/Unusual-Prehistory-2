@@ -10,10 +10,10 @@ public class UP2ModelLayers {
 
     // Update 1
     public static final ModelLayerLocation CARNOTAURUS = mainLayer("carnotaurus");
-    public static final ModelLayerLocation DIPLOCAULUS_BREVIROSTRIS = mainLayer("diplocaulus_brevirostris");
-    public static final ModelLayerLocation DIPLOCAULUS_MAGNICORNIS = mainLayer("diplocaulus_magnicornis");
-    public static final ModelLayerLocation DIPLOCAULUS_RECURVATIS = mainLayer("diplocaulus_recurvatis");
-    public static final ModelLayerLocation DIPLOCAULUS_SALAMANDROIDES = mainLayer("diplocaulus_salamandroides");
+    public static final ModelLayerLocation DIPLOCAULUS_TIGER = mainLayer("diplocaulus_tiger");
+    public static final ModelLayerLocation DIPLOCAULUS_SWAMPY = mainLayer("diplocaulus_swampy");
+    public static final ModelLayerLocation DIPLOCAULUS_MUDDY = mainLayer("diplocaulus_muddy");
+    public static final ModelLayerLocation DIPLOCAULUS_DWARF = mainLayer("diplocaulus_dwarf");
     public static final ModelLayerLocation DROMAEOSAURUS = mainLayer("dromaeosaurus");
     public static final ModelLayerLocation DUNKLEOSTEUS_LARGE = mainLayer("dunkleosteus_large");
     public static final ModelLayerLocation DUNKLEOSTEUS_MEDIUM = mainLayer("dunkleosteus_medium");

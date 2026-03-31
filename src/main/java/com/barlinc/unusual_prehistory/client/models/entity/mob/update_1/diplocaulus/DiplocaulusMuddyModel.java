@@ -1,59 +1,25 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.DiplocaulusAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.DiplocaulusRecurvatisAnimations;
-import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
+import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class DiplocaulusRecurvatisModel extends UP2Model<Diplocaulus> {
+public class DiplocaulusMuddyModel extends DiplocaulusModel {
 
-	private final ModelPart root;
-	private final ModelPart body_main;
-	private final ModelPart body;
-	private final ModelPart neck;
-	private final ModelPart head;
-	private final ModelPart jaw;
-	private final ModelPart tail;
-	private final ModelPart arm_control;
-	private final ModelPart left_arm1;
-	private final ModelPart left_arm2;
-	private final ModelPart right_arm1;
-	private final ModelPart right_arm2;
-	private final ModelPart leg_control;
-	private final ModelPart left_leg1;
-	private final ModelPart left_leg2;
-	private final ModelPart right_leg1;
-	private final ModelPart right_leg2;
-
-	public DiplocaulusRecurvatisModel(ModelPart root) {
-        super(0.5F, 24);
-        this.root = root.getChild("root");
-        this.body_main = this.root.getChild("body_main");
-        this.body = this.body_main.getChild("body");
-        this.neck = this.body.getChild("neck");
-        this.head = this.neck.getChild("head");
-        this.jaw = this.head.getChild("jaw");
-        this.tail = this.body.getChild("tail");
-        this.arm_control = this.body_main.getChild("arm_control");
-        this.left_arm1 = this.arm_control.getChild("left_arm1");
-        this.left_arm2 = this.left_arm1.getChild("left_arm2");
-        this.right_arm1 = this.arm_control.getChild("right_arm1");
-        this.right_arm2 = this.right_arm1.getChild("right_arm2");
-        this.leg_control = this.body_main.getChild("leg_control");
-        this.left_leg1 = this.leg_control.getChild("left_leg1");
-        this.left_leg2 = this.left_leg1.getChild("left_leg2");
-        this.right_leg1 = this.leg_control.getChild("right_leg1");
-        this.right_leg2 = this.right_leg1.getChild("right_leg2");
+	public DiplocaulusMuddyModel(ModelPart root) {
+        super(root);
 	}
+
+    @Override
+    protected AnimationDefinition getQuirkAnimation() {
+        return DiplocaulusAnimations.QUIRK_BLEND_MUDDY;
+    }
 
 	public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
@@ -106,40 +72,5 @@ public class DiplocaulusRecurvatisModel extends UP2Model<Diplocaulus> {
         PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(-1, 33).mirror().addBox(-1.0F, 0.0F, -2.01F, 2.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-3.0F, 1.59F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-    @Override
-    public void setupAnim(Diplocaulus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-
-        float deg = ((float) Math.PI / 180F);
-
-        if (entity.isInWaterOrBubble()) {
-            this.root.xRot = headPitch * deg;
-            this.animateWalk(DiplocaulusRecurvatisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-        } else {
-            if (entity.isSliding()) this.animateWalk(DiplocaulusRecurvatisAnimations.SLIDE, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(DiplocaulusRecurvatisAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-        }
-
-        this.animateIdleSmooth(entity.idleAnimationState, DiplocaulusRecurvatisAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, DiplocaulusRecurvatisAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.quirkAnimationState, DiplocaulusRecurvatisAnimations.QUIRK_BLEND, ageInTicks);
-        this.animateSmooth(entity.burrowAnimationState, DiplocaulusRecurvatisAnimations.BURROW_HOLD, ageInTicks);
-
-        if (this.young) this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);
-
-        if (entity.isBurrowed() && entity.level().getBlockState(entity.blockPosition()).is(Blocks.MUD)) {
-            this.body_main.y = 1.0F;
-        }
-        if (!entity.isBurrowed()) {
-            this.head.xRot += headPitch * deg / 4;
-            this.head.yRot += netHeadYaw * deg / 4;
-        }
-    }
-
-	@Override
-	public @NotNull ModelPart root() {
-		return this.root;
 	}
 }

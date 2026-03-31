@@ -627,6 +627,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle4")),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/grug/idle5"))
         );
+        this.sound(UP2SoundEvents.GRUG_CHASE,
+                sound(UnusualPrehistory2.modPrefix("music/pummel_and_snatch_disc"))
+        );
 
         // Pterodactylus
         this.sound(UP2SoundEvents.PTERODACTYLUS_HURT,
