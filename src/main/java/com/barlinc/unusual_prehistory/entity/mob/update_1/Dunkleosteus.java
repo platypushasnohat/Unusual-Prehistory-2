@@ -103,11 +103,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         }
     }
 
-    @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return this.getDepthPathfindingFavor(pos, level);
-    }
-
     public double getChaseSpeed() {
         switch (this.getVariant()) {
             case 1 -> {
