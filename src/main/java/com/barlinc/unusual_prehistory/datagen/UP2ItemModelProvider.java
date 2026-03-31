@@ -56,6 +56,22 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(PALEOZOIC_FOSSIL);
         this.item(CREATIVE_LOCK);
 
+        this.item(PERIOD_CAMBRIAN);
+        this.item(PERIOD_ORDOVICIAN);
+        this.item(PERIOD_SILURIAN);
+        this.item(PERIOD_DEVONIAN);
+        this.item(PERIOD_CARBONIFEROUS);
+        this.item(PERIOD_PERMIAN);
+
+        this.item(PERIOD_TRIASSIC);
+        this.item(PERIOD_JURASSIC);
+        this.item(PERIOD_CRETACEOUS);
+
+        this.item(PERIOD_PALEOGENE);
+        this.item(PERIOD_NEOGENE);
+        this.item(PERIOD_QUATERNARY);
+        this.item(PERIOD_HOLOCENE);
+
         this.item(PALEOPEDIA);
 
         this.handheldRodItem(DIRT_ON_A_STICK);

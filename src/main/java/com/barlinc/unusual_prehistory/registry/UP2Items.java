@@ -218,6 +218,22 @@ public class UP2Items {
     public static final RegistryObject<Item> PALEOZOIC_FOSSIL = registerItem("paleozoic_fossil", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CREATIVE_LOCK = registerItem("creative_lock", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> PERIOD_CAMBRIAN = registerItem("period_cambrian", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_ORDOVICIAN = registerItem("period_ordovician", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_SILURIAN = registerItem("period_silurian", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_DEVONIAN = registerItem("period_devonian", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_CARBONIFEROUS = registerItem("period_carboniferous", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_PERMIAN = registerItem("period_permian", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PERIOD_TRIASSIC = registerItem("period_triassic", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_JURASSIC = registerItem("period_jurassic", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_CRETACEOUS = registerItem("period_cretaceous", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PERIOD_PALEOGENE = registerItem("period_paleogene", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_NEOGENE = registerItem("period_neogene", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_QUATERNARY = registerItem("period_quaternary", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
+
 //    public static final RegistryObject<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);
 //    public static final RegistryObject<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
 //    public static final RegistryObject<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
