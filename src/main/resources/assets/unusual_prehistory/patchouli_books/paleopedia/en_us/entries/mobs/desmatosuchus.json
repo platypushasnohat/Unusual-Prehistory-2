@@ -35,10 +35,28 @@
       "activity.activity_type": "diurnal",
       "activity.activity_tooltip": "Active during the day",
 
-      "feature_1.item": "minecraft:mud,minecraft:moss_block,minecraft:snow_block",
-      "feature_1.tooltip": "Desmatosuchus loves wallowing in §amud§7, §amoss blocks§7, and §asnow blocks§7, burrowing in these blocks when it sleeps.",
-      "feature_1.title_one_line": "Flourishing",
-      "feature_1.title_two_line": ""
+      "feature_1.item": "tag:unusual_prehistory:desmatosuchus_rolling_blocks",
+      "feature_1.tooltip": "Desmatosuchus loves wallowing in §aMud§7, §aMoss§7, and §aSnow§7 and get dirty—or can be made dirty by using Mud, Snow, or Moss on it",
+      "feature_1.title_one_line": "Unbothered.",
+
+      "feature_2.item": "minecraft:water_bucket",
+      "feature_2.tooltip": "Muddy Desmatosuchus can be cleaned with water, and may also get washed in the rain or in water",
+      "feature_2.title_one_line": "Moisturized.",
+
+      "feature_3.item": "minecraft:iron_shovel,minecraft:snowball,minecraft:mud",
+      "feature_3.tooltip": "Snowy and Muddy Desmatosuchus can be cleaned with a shovel and drops §aSnowballs§7 or §aMud§7 respectively",
+      "feature_3.title_two_line": "Happy, In My Lane."
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_features",
+
+      "feature_1.item": "minecraft:shears,minecraft:moss_block",
+      "feature_1.tooltip": "Mossy Desmatosuchus be sheared and drops §aMoss§7",
+      "feature_1.title_one_line": "Focused.",
+
+      "feature_2.item": "tag:unusual_prehistory:desmatosuchus_burrowing_blocks",
+      "feature_2.tooltip": "Desmatosuchus can bury itself in certain blocks",
+      "feature_2.title_one_line": "Flourishing."
     }
   ]
 }

@@ -1,8 +1,17 @@
 {
-  "name": "Mesozoic Fossil",
+  "name": "item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title",
   "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_mesozoic.png",
   "category": "unusual_prehistory:features/world",
   "advancement": "unusual_prehistory:root",
   "pages": [
+    {
+      "type": "unusual_prehistory:image",
+      "image": "unusual_prehistory:/textures/gui/paleopedia/images/mesozoic_fossil.png",
+      "title": "item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title"
+    },
+    {
+      "type": "unusual_prehistory:text_no_title",
+      "text": "item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.desc"
+    }
   ]
 }

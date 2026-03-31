@@ -526,10 +526,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_machine_parts.desc", "Finding $(l:unusual_prehistory:features/blocks_items/machine_parts)Machine Parts$() is essential to the revival process.");
 
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.title", "Goo is Fuel");
-        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.desc", "The Transmogrifier is fueled with Organic Ooze. Take care to make more for reviving larger creatures!");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_organic_ooze.desc", "The $(l:unusual_prehistory:features/blocks_items/transmogrifier)Transmogrifier$() is fueled with Organic Ooze. Take care to make more for reviving larger creatures!");
 
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.title", "Transmogrification");
-        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.desc", "Using $(l:unusual_prehistory:features/machine_parts)Machine Parts$(), one can create a $(l:unusual_prehistory:features/transmogrifier)Transmogrifier$() fueled by $(l:unusual_prehistory:features/organic_ooze)Organic Ooze$().");
+        this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_transmogrifier.desc", "Using $(l:unusual_prehistory:features/blocks_items/machine_parts)Machine Parts$(), one can create a $(l:unusual_prehistory:features/blocks_items/transmogrifier)Transmogrifier$() fueled by $(l:unusual_prehistory:features/mobs/organic_ooze)Organic Ooze$().");
 
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.title", "Life Finds a Way");
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.desc", "Using the process of transmogrification, new life may be created from a fossil. $(l:unusual_prehistory:features/miscellaneous/incubation)Incubate$(/l) your newly made egg and let extinct creatures roam the Overworld once more.");
@@ -542,6 +542,21 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.asphalt.desc", "Asphalt forms when tar comes into contact with lava or water. Mobs on asphalt gain increased movement speed.");
         this.add("item.unusual_prehistory.paleopedia.entry.reinforced_glass.desc", "Reinforced Glass is blast-resistant and mob-resistant glass, and can be used to protect viewing areas from aggressive mobs.");
 
+        //World
+        this.add("item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.desc", "Mesozoic Fossil Sites are encased large fossils found underground. They are surrounded by $(highlight)Mesonite$(). Excavating fossils from mesozoic fossil sites yields mesozoic fossils.");
+        this.add("item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title", "Mesozoic Fossil Site");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.tar_pit.desc", "Tar Pits are found on the surface. They are pools of bubbling $(l:unusual_prehistory:features/blocks_items/tar)Tar$(/l), with a large fossil in their center. Excavating fossils from tar pits yields cenozoic fossils. ");
+        this.add("item.unusual_prehistory.paleopedia.entry.tar_pit.title", "Tar Pit");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.paleozoic_fossil_site.desc", "Paleozoic Fossil Sites are encased large fossils found deep underground. They are surrounded by $(highlight)Paleostone$(). Excavating fossils from paleozoic fossil sites yields paleozoic fossils.");
+        this.add("item.unusual_prehistory.paleopedia.entry.paleozoic_fossil_site.title", "Paleozoic Fossil Site");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.petrified_tree.desc", "Petrified Trees are structures found underground. They are encased in $(highlight)Floralite$(). Excavating fossils from petrified trees yields plant fossils.");
+        this.add("item.unusual_prehistory.paleopedia.entry.petrified_tree.title", "Petrified Tree");
+
+        this.add("item.unusual_prehistory.paleopedia.entry.holocene_artifact.desc", "Recently extinct mobs have left behind traces—artifacts—of themselves in the world. Use these remains to bring them back once more.");
+        this.add("item.unusual_prehistory.paleopedia.entry.holocene_artifact.title", "Holocene Artifact");
 
         //Misc
         this.add("item.unusual_prehistory.paleopedia.entry.pacification.title", "Pacification");
