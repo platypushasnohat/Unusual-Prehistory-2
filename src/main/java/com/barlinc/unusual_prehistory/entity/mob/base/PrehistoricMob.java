@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
@@ -148,7 +146,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
-        return new PrehistoricBodyRotationControl(this);
+        return new SmoothBodyRotationControl(this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -173,6 +174,11 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
     }
 
 	@Override

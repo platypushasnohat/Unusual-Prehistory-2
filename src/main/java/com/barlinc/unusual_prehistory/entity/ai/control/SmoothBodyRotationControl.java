@@ -6,91 +6,42 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 
 public class SmoothBodyRotationControl extends BodyRotationControl {
 
-    private static final int HISTORY_SIZE = 4;
-    private static final double MOVE_THRESHOLD = 2.5e-7;
-
+    public float bodyLagMoving;
+    public float bodyLagStill;
+    public float bodyMax;
     protected final Mob entity;
-    protected int headStableTime;
-    protected float lastStableYHeadRot;
-
-    private final double[] histPosX = new double[HISTORY_SIZE];
-    private final double[] histPosZ = new double[HISTORY_SIZE];
 
     public SmoothBodyRotationControl(Mob entity) {
         super(entity);
         this.entity = entity;
+        this.bodyLagMoving = 0.45F;
+        this.bodyLagStill = 0.225F;
+        this.bodyMax = 45.0F;
     }
 
     @Override
     public void clientTick() {
-        for (int i = HISTORY_SIZE - 1; i > 0; i--) {
-            this.histPosX[i] = histPosX[i - 1];
-            this.histPosZ[i] = histPosZ[i - 1];
-        }
-        this.histPosX[0] = entity.getX();
-        this.histPosZ[0] = entity.getZ();
-
-        double dx = this.avgDelta(histPosX);
-        double dz = this.avgDelta(histPosZ);
-        double distSqr = dx * dx + dz * dz;
-
-        if (distSqr > MOVE_THRESHOLD) {
-            float moveAngle = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, 45.0F, 1.0F);
+        if (this.isMoving()) {
+            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.getYRot(), bodyLagMoving, bodyMax);
             this.rotateHeadIfNecessary();
-            this.lastStableYHeadRot = entity.yHeadRot;
-            this.headStableTime = 0;
         } else {
-            if (this.notCarryingMobPassengers()) {
-                if (Math.abs(this.entity.yHeadRot - lastStableYHeadRot) > 15.0F) {
-                    this.headStableTime = 0;
-                    this.lastStableYHeadRot = entity.yHeadRot;
-                    this.rotateBodyIfNecessary();
-                } else {
-                    this.headStableTime++;
-                    if (this.headStableTime > 10) {
-                        this.rotateHeadTowardsFront();
-                    }
-                }
-            }
+            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.yHeadRot, bodyLagStill, bodyMax);
         }
     }
 
-    protected void rotateBodyIfNecessary() {
-        this.entity.yBodyRot = Mth.rotateIfNecessary(entity.yBodyRot, entity.yHeadRot, (float) entity.getMaxHeadYRot());
+    protected float approachAngle(float current, float target, float factor, float maxDelta) {
+        float diff = Mth.degreesDifference(current, target);
+        diff = Mth.clamp(diff, -maxDelta, maxDelta);
+        return current + diff * factor;
     }
 
     protected void rotateHeadIfNecessary() {
         this.entity.yHeadRot = Mth.rotateIfNecessary(entity.yHeadRot, entity.yBodyRot, (float) entity.getMaxHeadYRot());
     }
 
-    protected void rotateHeadTowardsFront() {
-        int i = headStableTime - 10;
-        float f = Mth.clamp((float) i / 10.0F, 0.0F, 1.0F);
-        float f1 = (float) entity.getMaxHeadYRot() * (1.0F - f);
-        this.entity.yBodyRot = Mth.rotateIfNecessary(entity.yBodyRot, entity.yHeadRot, f1);
-    }
-
-    protected boolean notCarryingMobPassengers() {
-        return !(entity.getFirstPassenger() instanceof Mob);
-    }
-
-    protected float approachAngle(float current, float target, float degree, float factor) {
-        float diff = Mth.degreesDifference(current, target);
-        diff = Mth.clamp(diff, -degree, degree);
-        return current + diff * factor;
-    }
-
-    protected double avgDelta(double[] arr) {
-        return this.mean(arr, 0) - this.mean(arr, HISTORY_SIZE / 2);
-    }
-
-    protected double mean(double[] arr, int start) {
-        double s = 0;
-        int half = HISTORY_SIZE / 2;
-        for (int i = 0; i < half; i++) {
-            s += arr[start + i];
-        }
-        return s / half;
+    protected boolean isMoving() {
+        double dx = entity.getX() - entity.xo;
+        double dz = entity.getZ() - entity.zo;
+        return dx * dx + dz * dz > (double) 2.5000003E-7F;
     }
 }

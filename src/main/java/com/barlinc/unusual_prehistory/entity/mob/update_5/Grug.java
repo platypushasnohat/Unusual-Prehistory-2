@@ -134,7 +134,7 @@ public class Grug extends PrehistoricMob {
 
     @Override
     public int getHealCooldown() {
-        return 5;
+        return 2;
     }
 
     @Nullable

@@ -57,8 +57,8 @@ public class Carnotaurus extends PrehistoricMob {
 
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState chargeStartAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState chargeEndAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState chargeStartAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState chargeEndAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState headbuttAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();

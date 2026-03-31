@@ -33,11 +33,11 @@
 - Adjusted the rarity of fossil geodes
 - Changed variant names for diplocaulus and dunkleosteus to be more generic
 - Dunkleosteus variants now spawn based on the depth of the water or randomly if they spawn on land, deeper equals bigger. Any depth above 12 is large, above 6 is medium, and any shallower is small
-- Fixed mobs sometimes moving sideways
 - Moved all mob textures and sounds to entity/mob/
 - Decreased dromaeosaurus speed
 - Increased dromaeosaurus run distance
 - Dromaeosaurus will now stop sometimes for a very brief period
+- Jawless fish no longer prefer swimming toward the bottom of water
 - Many misc tweaks and fixes
 
 ## Version 1.3.1

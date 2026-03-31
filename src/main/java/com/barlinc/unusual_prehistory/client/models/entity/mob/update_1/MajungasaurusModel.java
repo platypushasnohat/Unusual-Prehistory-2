@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -159,6 +160,11 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
 	}
 
 	@Override

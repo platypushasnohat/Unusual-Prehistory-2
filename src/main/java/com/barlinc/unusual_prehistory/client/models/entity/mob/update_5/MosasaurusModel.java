@@ -131,8 +131,8 @@ public class MosasaurusModel extends UP2Model<Mosasaurus> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
-            if (entity.isRunning()) this.animateWalk(MosasaurusAnimations.SWIMFAST, limbSwing, limbSwingAmount, 0.75F, 1.5F);
-            else this.animateWalk(MosasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isRunning()) this.animateWalk(MosasaurusAnimations.SWIMFAST, limbSwing, limbSwingAmount, 0.8F, 1);
+            else this.animateWalk(MosasaurusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2);
         }
 
         if (this.young) this.applyStatic(MosasaurusAnimations.BABY_TRANSFORM);
@@ -149,11 +149,7 @@ public class MosasaurusModel extends UP2Model<Mosasaurus> {
         this.animateSmooth(entity.nip2AnimationState, MosasaurusAnimations.NIP_BLEND2, ageInTicks);
         this.animate(entity.leapAnimationState, MosasaurusAnimations.JUMP, ageInTicks);
 
-        if (entity.isLeaping()) {
-            this.head.xRot = 0.0F;
-            this.head.zRot = 0.0F;
-        } else {
-            this.head.xRot += headPitch * deg / 4;
+        if (!entity.isLeaping()) {
             this.head.yRot += netHeadYaw * deg - netHeadYaw * deg / 4;
         }
 
@@ -168,9 +164,9 @@ public class MosasaurusModel extends UP2Model<Mosasaurus> {
         double segment2Y = (entity.getTrailTransformation(20, partialTicks)) - bodyYRot - segment1Y;
         double segment3Y = (entity.getTrailTransformation(30, partialTicks)) - bodyYRot - segment2Y;
 
-        this.tail1_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.3F);
-        this.tail2_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.25F);
-        this.tail3_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.2F);
+        this.tail1_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.35F);
+        this.tail2_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.3F);
+        this.tail3_rot.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.25F);
 	}
 
     @Override
@@ -183,7 +179,6 @@ public class MosasaurusModel extends UP2Model<Mosasaurus> {
         this.swim_control.translateAndRotate(poseStack);
         this.body.translateAndRotate(poseStack);
         this.head.translateAndRotate(poseStack);
-//        this.jaw_upper.translateAndRotate(poseStack);
         this.jaw_lower1.translateAndRotate(poseStack);
         this.jaw_lower2.translateAndRotate(poseStack);
     }

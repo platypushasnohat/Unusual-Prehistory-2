@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
@@ -24,6 +25,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.BreathAirGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -106,11 +109,12 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.7D, 16, 8));
         this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 1.0D, 1.25D));
         this.goalSelector.addGoal(2, new MosasaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MOSASAURUS_FOOD), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
-        this.goalSelector.addGoal(5, new MosasaurusYawnGoal(this));
-        this.goalSelector.addGoal(5, new MosasaurusTongueGoal(this));
-        this.goalSelector.addGoal(5, new MosasaurusNipGoal(this));
+        this.goalSelector.addGoal(3, new BreathAirGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MOSASAURUS_FOOD), false));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
+        this.goalSelector.addGoal(6, new MosasaurusYawnGoal(this));
+        this.goalSelector.addGoal(6, new MosasaurusTongueGoal(this));
+        this.goalSelector.addGoal(6, new MosasaurusNipGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, false, entity -> entity.getType().is(UP2EntityTags.MOSASAURUS_FIGHT_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MOSASAURUS_TARGETS)));
@@ -150,7 +154,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
-            if (!this.isEyeInFluid(FluidTags.WATER)) {
+            if (!this.isEyeInFluid(FluidTags.WATER) && this.getTarget() != null) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
             }
         } else {
