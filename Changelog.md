@@ -1,3 +1,6 @@
+## Version 1.4.1
+- Crash fix
+
 ## Version 1.4.0
 - Added Aegirocassis
 - Added Desmatosuchus
