@@ -1,0 +1,47 @@
+{
+  "name": "钉状龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kentrosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_kentrosaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:prickly_fossil": 0,
+    "unusual_prehistory:kentrosaurus_egg": 0,
+    "unusual_prehistory:kentrosaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "钉状龙",
+      "id": "kentrosaurus",
+      "flavor_text": "尖刺蜥蜴",
+      "fossil_item": "unusual_prehistory:prickly_fossil",
+      "egg_item": "unusual_prehistory:kentrosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "一种多刺的食草动物，也是世间的保护者——嗷呦"
+    },
+    {
+      "id": "kentrosaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "晚侏罗世",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "tag:unusual_prehistory:guarded_by_kentrosaurus",
+      "feature_1.tooltip": "§7钉状龙会保护它附近的带刺方块，并会攻击破坏这些方块的玩家",
+      "feature_1.title_one_line": "仙人掌法则",
+
+      "feature_2.item": "minecraft:chainmail_chestplate{Enchantments:[{id:thorns,lvl:1}]}",
+      "feature_2.tooltip": "§7盔甲上附魔荆棘的人会受到钉状龙的保护",
+      "feature_2.title_two_line": "好棘友"
+    }
+  ]
+}

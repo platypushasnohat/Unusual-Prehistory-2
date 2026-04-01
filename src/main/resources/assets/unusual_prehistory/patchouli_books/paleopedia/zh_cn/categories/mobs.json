@@ -1,0 +1,7 @@
+{
+  "name": "生物",
+  "description": "复活生物的目录。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_mobs.png",
+  "sortnum": 2,
+  "secret": true
+}

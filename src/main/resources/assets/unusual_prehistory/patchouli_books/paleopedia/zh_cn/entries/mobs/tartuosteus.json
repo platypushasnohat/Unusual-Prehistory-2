@@ -1,0 +1,48 @@
+{
+  "name": "塔尔图鱼",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/tartuosteus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_tartuosteus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:mossy_fossil": 0,
+    "unusual_prehistory:tartuosteus_roe": 0,
+    "unusual_prehistory:tartuosteus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "塔尔图鱼",
+      "id": "tartuosteus",
+      "flavor_text": "塔尔图的骨头",
+      "fossil_item": "unusual_prehistory:mossy_fossil",
+      "egg_item": "unusual_prehistory:tartuosteus_roe",
+      "variant_key": "",
+      "image_tooltip": "泥盆纪海洋中飘荡的无颌鱼"
+    },
+    {
+      "id": "tartuosteus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_devonian",
+      "era_tooltip_period": "晚泥盆世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "水面卵",
+      "clone.clone_tooltip": "卵必须放在水面才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "§7塔尔图鱼有时会跃出水面",
+      "feature_1.title_one_line": "飞翔的鱼",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "tag:unusual_prehistory:tartuosteus_nibbling_blocks",
+      "feature_2.tooltip": "§7像其他无颌鱼一样，它们喜欢啃食苔藓",
+      "feature_2.title_two_line": "吃掉你的一抹绿"
+    }
+  ]
+}

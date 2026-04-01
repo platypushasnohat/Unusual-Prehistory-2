@@ -1,0 +1,62 @@
+{
+  "name": "链鳄",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/desmatosuchus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_desmatosuchus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:flat_back_fossil": 0,
+    "unusual_prehistory:desmatosuchus_egg": 0,
+    "unusual_prehistory:desmatosuchus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "链鳄",
+      "id": "desmatosuchus",
+      "flavor_text": "链条鳄鱼",
+      "fossil_item": "unusual_prehistory:flat_back_fossil",
+      "egg_item": "unusual_prehistory:desmatosuchus_egg",
+      "variant_key": "",
+      "image_tooltip": "一种古老的装甲爬行动物，背部突出一对锋利的尖刺，链鳄实际上非常害羞，经常选择把自己埋入地下并在泥巴中打滚。"
+    },
+    {
+      "id": "desmatosuchus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_triassic",
+      "era_tooltip_period": "晚三叠世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放下才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "tag:unusual_prehistory:desmatosuchus_rolling_blocks",
+      "feature_1.tooltip": "链鳄喜欢在§a泥巴§7，§a苔藓§7和§a雪§7中打滚弄脏——或者可以通过使用泥巴、雪或苔藓手动把它弄脏",
+      "feature_1.title_one_line": "免打扰",
+
+      "feature_2.item": "minecraft:water_bucket",
+      "feature_2.tooltip": "泥泞的链鳄可以用水洗干净，也可在雨中或水中被冲洗感觉",
+      "feature_2.title_one_line": "保水保湿.",
+
+      "feature_3.item": "minecraft:iron_shovel,minecraft:snowball,minecraft:mud",
+      "feature_3.tooltip": "覆雪和泥泞的链鳄可以用锹清理，分别掉落§a雪球§7或§a泥巴§7",
+      "feature_3.title_two_line": "开心，在自己的区域。"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_features",
+
+      "feature_1.item": "minecraft:shears,minecraft:moss_block",
+      "feature_1.tooltip": "覆藓的链鳄被剪刀交互并掉落§a苔藓§7",
+      "feature_1.title_one_line": "专注。",
+
+      "feature_2.item": "tag:unusual_prehistory:desmatosuchus_burrowing_blocks",
+      "feature_2.tooltip": "链鳄可以将自己埋入某些方块中",
+      "feature_2.title_one_line": "蒸蒸日上."
+    }
+  ]
+}

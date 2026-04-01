@@ -1,0 +1,48 @@
+{
+  "name": "帆锯鳐",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/onchopristis.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_onchopristis",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:saw_fossil": 0,
+    "unusual_prehistory:onchopristis_sac": 0,
+    "unusual_prehistory:onchopristis_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "帆锯鳐",
+      "id": "onchopristis",
+      "flavor_text": "钩状的锯",
+      "fossil_item": "unusual_prehistory:saw_fossil",
+      "egg_item": "unusual_prehistory:onchopristis_sac",
+      "variant_key": "",
+      "image_tooltip": "白垩世水底里带有钩状锯的锯鳐"
+    },
+    {
+      "id": "onchopristis",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "水生卵",
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:coarse_dirt",
+      "feature_1.tooltip": "§7帆锯鳐生活在水体底部，常常会把自己埋在泥中",
+      "feature_1.title_two_line": "土中鳞",
+
+      "feature_2.item": "minecraft:redstone_block",
+      "feature_2.tooltip": "§7如果被埋着的它们被踩到，它们会突然发起攻击",
+      "feature_2.title_one_line": "我被锯了！",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

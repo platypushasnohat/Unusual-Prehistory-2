@@ -1,0 +1,26 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:template_framed_image",
+      "as": "framed_image",
+      "using": {
+        "image": "#image"
+      },
+      "y": 24
+    }
+  ],
+  "components": [
+    {
+      "type": "patchouli:separator",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "patchouli:header",
+      "text": "#title",
+      "centered": true,
+      "x": -1,
+      "y": -1
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "特点",
+  "description": "一本关于复活和照料已灭绝生命所使用的材料、技术和工具的目录。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features.png",
+  "sortnum": 1,
+  "secret": true
+}

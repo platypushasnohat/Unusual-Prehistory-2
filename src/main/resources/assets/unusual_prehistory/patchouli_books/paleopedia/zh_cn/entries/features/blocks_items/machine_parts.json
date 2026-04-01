@@ -1,0 +1,14 @@
+{
+  "name": "item.unusual_prehistory.machine_parts",
+  "icon": "unusual_prehistory:machine_parts",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:root",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:machine_parts",
+      "title": "item.unusual_prehistory.machine_parts",
+      "text": "item.unusual_prehistory.paleopedia.entry.machine_parts.desc"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "世界",
+  "description": "世界中的结构、战利品和其他自然生成的特征。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_world.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 0,
+  "secret": false
+}

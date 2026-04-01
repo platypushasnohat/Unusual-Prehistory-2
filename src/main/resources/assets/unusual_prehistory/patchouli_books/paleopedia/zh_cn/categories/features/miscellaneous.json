@@ -1,0 +1,8 @@
+{
+  "name": "杂项",
+  "description": "其他提示，指导你开展古生物学之旅。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_miscellaneous.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 3,
+  "secret": false
+}

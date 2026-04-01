@@ -1,0 +1,48 @@
+{
+  "name": "希伯特氏翅鲎",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/hibbertopterus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_hibbertopterus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:plow_fossil": 0,
+    "unusual_prehistory:hibbertopterus_eggs": 0,
+    "unusual_prehistory:hibbertopterus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "希伯特氏翅鲎",
+      "id": "hibbertopterus",
+      "flavor_text": "希伯特的翅膀",
+      "fossil_item": "unusual_prehistory:plow_fossil",
+      "egg_item": "unusual_prehistory:hibbertopterus_eggs",
+      "variant_key": "",
+      "image_tooltip": "一种来自泥盆世和石炭世的板足鲎，这种温顺的巨兽喜欢花时间在沉积物中耙来耙去，常常在这个过程中使沉积物变得更肥沃——无忧、湿润、快乐、专注自己、犁地"
+    },
+    {
+      "id": "hibbertopterus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "hibbertopterus",
+      "era_tooltip_period": "中泥盆世-晚石炭世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",  
+      "clone.clone_tooltip_heading": "水生卵",  
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:water_bucket",
+      "feature_1.tooltip": "希伯特氏翅鲎的家在水中，但它可以在陆地上一直生存——它唯一还做不到的是飞",
+      "feature_1.title_one_line": "全地形通用",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "unusual_prehistory:dirt_on_a_stick",
+      "feature_2.tooltip": "它完全不担心玩家爬到它背上，你甚至可以用§a泥土钓竿§7指使希伯特氏翅鲎对大片农田进行犁地",
+      "feature_2.title_two_line": "没有头脑，只有耕作"
+    }
+  ]
+}

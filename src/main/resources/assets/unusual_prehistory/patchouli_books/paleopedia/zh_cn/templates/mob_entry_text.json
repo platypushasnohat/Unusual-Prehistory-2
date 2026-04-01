@@ -1,0 +1,12 @@
+{
+  "components": [
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "color": "968351",
+      "max_width": 108,
+      "x": 4,
+      "y": -6
+    }
+  ]
+}

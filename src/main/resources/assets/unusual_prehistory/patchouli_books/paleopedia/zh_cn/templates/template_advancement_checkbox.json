@@ -1,0 +1,41 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/checkbox.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 2
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/checkmark.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 2,
+      "advancement": "#advancement_checkbox"
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§6Incomplete"
+      ],
+      "width": 32,
+      "height": 32,
+      "negate_advancement": "#advancement_checkbox"
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§aComplete"
+      ],
+      "width": 32,
+      "height": 32,
+      "advancement": "#advancement_checkbox"
+    }
+  ]
+}

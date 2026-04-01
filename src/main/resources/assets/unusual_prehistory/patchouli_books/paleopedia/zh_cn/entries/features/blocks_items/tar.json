@@ -1,0 +1,22 @@
+{
+  "name": "block.unusual_prehistory.tar",
+  "icon": "unusual_prehistory:tar_bucket",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:obtain_tar_bucket",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:tar_bucket",
+      "title": "block.unusual_prehistory.tar",
+      "text": "item.unusual_prehistory.paleopedia.entry.tar.desc",
+      "advancement": "unusual_prehistory:obtain_tar_bucket"
+    },
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:asphalt",
+      "title": "block.unusual_prehistory.asphalt",
+      "text": "item.unusual_prehistory.paleopedia.entry.asphalt.desc",
+      "advancement": "unusual_prehistory:obtain_asphalt"
+    }
+  ]
+}

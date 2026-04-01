@@ -1,0 +1,53 @@
+{
+  "name": "盲鼹鸭",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/talpanas.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_talpanas",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:aged_feather": 0,
+    "unusual_prehistory:talpanas_egg": 0,
+    "unusual_prehistory:talpanas_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "盲鼹鸭",
+      "id": "talpanas",
+      "flavor_text": "鼹鼠鸭子",
+      "fossil_item": "unusual_prehistory:aged_feather",
+      "egg_item": "unusual_prehistory:talpanas_egg",
+      "variant_key": "",
+      "image_tooltip": "一种既看不见也不会游泳的穴居鸭"
+    },
+    {
+      "id": "talpanas",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "holocene",
+      "era_tooltip_period": "全新世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "投掷蛋",
+      "clone.clone_tooltip": "蛋必须被扔出去才能孵化",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "全天随机活跃或根据特定因素活跃",
+
+      "feature_3.item": "minecraft:lava_bucket",
+      "feature_3.tooltip": "§7它们的失明使它们容易走入危险，确保饲养它们的围场是安全的！",
+      "feature_3.title_one_line": "",
+      "feature_3.title_two_line": "工作场合危险",
+
+      "feature_2.item": "minecraft:torch",
+      "feature_2.tooltip": "§7它们残余的眼睛非常敏感，会避开自然光和玩家放置的光源",
+      "feature_2.title_one_line": "",
+      "feature_2.title_two_line": "隧道尽头的光",
+
+      "feature_1.item": "minecraft:hanging_roots",
+      "feature_1.tooltip": "§7作为最近灭绝的动物，它们能够在喂食§a垂根§7的情况下进行繁殖",
+      "feature_1.title_two_line": "地下零食"
+    }
+  ]
+}

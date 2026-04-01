@@ -1,0 +1,49 @@
+{
+  "name": "驰龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dromaeosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_dromaeosaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:runner_fossil": 0,
+    "unusual_prehistory:dromaeosaurus_egg": 0,
+    "unusual_prehistory:dromaeosaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "驰龙",
+      "id": "dromaeosaurus",
+      "flavor_text": "奔跑的蜥蜴",
+      "fossil_item": "unusual_prehistory:runner_fossil",
+      "egg_item": "unusual_prehistory:dromaeosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "速度与激情"
+    },
+    {
+      "id": "dromaeosaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "投掷蛋",
+      "clone.clone_tooltip": "蛋必须被扔出去才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:red_bed",
+      "feature_1.tooltip": "§7驰龙非常活跃，会不断地跑来跑去和跳跃——然而，夜幕降临时它会立刻入睡",
+      "feature_1.title_one_line": "恐龙快跑！",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:feather",
+      "feature_2.tooltip": "§7驰龙可能会捕食§a鸡§7和其他禽类",
+      "feature_2.title_one_line": "禽类行为",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

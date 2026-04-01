@@ -1,0 +1,58 @@
+{
+  "name": "裸翼鸟",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/psilopterus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_psilopterus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:crooked_beak_fossil": 0,
+    "unusual_prehistory:psilopterus_egg": 0,
+    "unusual_prehistory:psilopterus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "裸翼鸟",
+      "id": "psilopterus",
+      "flavor_text": "裸露的翅膀",
+      "fossil_item": "unusual_prehistory:crooked_beak_fossil",
+      "egg_item": "unusual_prehistory:psilopterus_egg",
+      "variant_key": "",
+      "image_tooltip": "一种高大的窃鹤类，拥有强壮的双腿，裸翼鸟是群居鸟类，在群体结构中跟随一只首领，会用=踢击和扫击攻击敌人或猎物。"
+    },
+    {
+      "id": "psilopterus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "psilopterus",
+      "era_tooltip_period": "晚古近纪至第四纪",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "投掷蛋",
+      "clone.clone_tooltip": "蛋必须被投掷才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "裸翼鸟成群狩猎，由一个首领领导，群体越大，它们越具有攻击性和大胆",
+      "feature_1.title_one_line": "歪曲帮",
+
+      "feature_2.item": "minecraft:lever,minecraft:oak_door,minecraft:oak_button",
+      "feature_2.tooltip": "裸翼鸟可以开门并激活按钮和拉杆",
+      "feature_2.title_one_line": "聪明的女孩...？",
+
+      "feature_3.item": "minecraft:chest",
+      "feature_3.tooltip": "裸翼鸟可以从箱子里偷食物",
+      "feature_3.title_one_line": "强盗伶盗龙"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_features",
+
+      "feature_1.item": "minecraft:target",
+      "feature_1.tooltip": "裸翼鸟性情多变，会通过踢击小型生物发泄",
+      "feature_1.title_one_line": "打击！"
+    }
+  ]
+}

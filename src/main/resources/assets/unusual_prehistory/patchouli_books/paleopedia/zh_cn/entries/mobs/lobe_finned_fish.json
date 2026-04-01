@@ -1,0 +1,42 @@
+{
+  "name": "肉鳍鱼",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/lobe_finned_fish.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_lobe_finned_fish",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:fish_fossil": 0,
+    "unusual_prehistory:lobe_finned_fish_roe": 0,
+    "unusual_prehistory:lobe_finned_fish_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "肉鳍鱼",
+      "id": "lobe_finned_fish",
+      "fossil_item": "unusual_prehistory:fish_fossil",
+      "egg_item": "unusual_prehistory:lobe_finned_fish_roe",
+      "variant_key": "1.异鳍鱼 2.斯考梅纳克鱼 3.孔颌鱼 4.真掌鳍鱼 5.古勒冈鱼",
+      "image_tooltip": "泥盆世水域的熟悉生物"
+    },
+    {
+      "id": "lobe_finned_fish",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "lobe_finned_fish",
+      "era_tooltip_period": "早泥盆世-晚泥盆世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",  
+      "clone.clone_tooltip_heading": "水生卵",  
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:0},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:1},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:2},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:3},unusual_prehistory:lobe_finned_fish_bucket{BucketVariantTag:4}",
+      "feature_1.tooltip": "§7§a水桶§7可以捕捉和运输肉鳍鱼",
+      "feature_1.title_two_line": "桶装海鲜"
+    }
+  ]
+}

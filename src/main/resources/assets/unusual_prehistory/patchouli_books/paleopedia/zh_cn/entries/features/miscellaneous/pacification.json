@@ -1,0 +1,14 @@
+{
+  "name": "item.unusual_prehistory.paleopedia.entry.pacification.title",
+  "icon": "minecraft:enchanted_golden_apple",
+  "category": "unusual_prehistory:features/miscellaneous",
+  "advancement": "unusual_prehistory:obtain_egg",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "tag:unusual_prehistory:permanently_pacifies_mob",
+      "title": "item.unusual_prehistory.paleopedia.entry.pacification.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.pacification.desc"
+    }
+  ]
+}

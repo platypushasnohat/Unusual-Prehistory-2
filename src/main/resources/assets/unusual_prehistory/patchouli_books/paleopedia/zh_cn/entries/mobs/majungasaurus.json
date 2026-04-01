@@ -1,0 +1,48 @@
+{
+  "name": "玛君龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/majungasaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_majungasaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:rugose_fossil": 0,
+    "unusual_prehistory:majungasaurus_egg": 0,
+    "unusual_prehistory:majungasaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "玛君龙",
+      "id": "majungasaurus",
+      "flavor_text": "马哈赞加的蜥蜴",
+      "fossil_item": "unusual_prehistory:rugose_fossil",
+      "egg_item": "unusual_prehistory:majungasaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "晚白垩世时期同类互食的肉食性变色恐龙，阿贝力龙中的玛君龙凭借其变色能力在几乎能做到隐形无踪的情况下进行捕猎"
+    },
+    {
+      "id": "majungasaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "nocturnal",
+      "activity.activity_tooltip": "只在晚上活跃",
+
+      "feature_1.item": "minecraft:glass",
+      "feature_1.tooltip": "§7皮肤像变色龙一样，它们会一直隐藏，直到在攻击猎物或躲避更大的捕食者之前会这样做",
+      "feature_1.title_two_line": "不存在之人",
+
+      "feature_2.item": "minecraft:iron_axe",
+      "feature_2.tooltip": "§7这种恐龙会吃掉比自己小的同类",
+      "feature_2.title_one_line": "儿童餐",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

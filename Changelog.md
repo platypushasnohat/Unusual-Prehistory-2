@@ -1,3 +1,6 @@
+## Version 1.4.2
+- Updated Simplified Chinese translations thanks to Oldazhai
+
 ## Version 1.4.1
 - Crash fix
 

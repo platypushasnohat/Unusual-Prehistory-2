@@ -1,0 +1,44 @@
+{
+  "name": "水龙兽",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/lystrosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_lystrosaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:impervious_fossil": 0,
+    "unusual_prehistory:lystrosaurus_egg": 0,
+    "unusual_prehistory:lystrosaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "水龙兽",
+      "id": "lystrosaurus",
+      "flavor_text": "铲子蜥蜴",
+      "fossil_item": "unusual_prehistory:impervious_fossil",
+      "egg_item": "unusual_prehistory:lystrosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "早三叠世存在最多的生物，水龙兽因在二叠纪灭绝中幸存并随后繁荣而受到尊敬，这一成就归功于它不可战胜坚不可摧刀枪不入以及……"
+    },
+    {
+      "id": "lystrosaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "lystrosaurus",
+      "era_tooltip_period": "晚二叠世-早三叠世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:nether_star",
+      "feature_1.tooltip": "§7水龙兽几乎坚不可摧，对许多类型的伤害完全免疫，并且在受伤时会变得非常易受惊",
+      "feature_1.title_one_line": "无敌之人！",
+      "feature_1.title_two_line": ""
+    }
+  ]
+}

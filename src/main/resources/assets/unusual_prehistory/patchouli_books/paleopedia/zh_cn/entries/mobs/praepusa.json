@@ -1,0 +1,56 @@
+{
+  "name": "昔海豹",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/praepusa.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_praepusa",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:flipper_fossil": 0,
+    "unusual_prehistory:praepusa_embryo": 0,
+    "unusual_prehistory:praepusa_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "昔海豹",
+      "id": "praepusa",
+      "flavor_text": "早的海豹",
+      "fossil_item": "unusual_prehistory:flipper_fossil",
+      "egg_item": "unusual_prehistory:praepusa_embryo",
+      "variant_key": "",
+      "image_tooltip": "矛盾的鳍脚类动物"
+    },
+    {
+      "id": "praepusa",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "neogene",
+      "era_tooltip_period": "新近纪",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "embryo",  
+      "clone.clone_tooltip_heading": "胚胎",
+      "clone.clone_tooltip": "胚胎必须放入§a活化软泥§r中§7以培育",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "tag:unusual_prehistory:praepusa_food",
+      "feature_1.tooltip": "吃掉鱼后，生命的奇迹便随之而来",
+      "feature_1.title_one_line": "有丝分裂",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "unusual_prehistory:praepusa_bucket",
+      "feature_2.tooltip": "§7A§a水桶§7可用于捕捉和运输昔海豹",
+      "feature_2.title_one_line": "噗叽啪",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:slime_block",
+      "feature_3.tooltip": "就算在极高的高度，这些海豹都能在掉下时都会无伤地弹起",
+      "feature_3.title_one_line": "啪叽——",
+      "feature_3.title_two_line": ""
+
+
+    }
+  ]
+}

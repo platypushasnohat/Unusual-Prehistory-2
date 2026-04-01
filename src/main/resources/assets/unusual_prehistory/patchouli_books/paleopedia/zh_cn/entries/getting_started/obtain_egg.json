@@ -1,0 +1,24 @@
+{
+  "name": "生命总会找到出路",
+  "icon": "unusual_prehistory:majungasaurus_egg",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_egg",
+  "advancement": "unusual_prehistory:obtain_transmogrifier",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:majungasaurus_egg",
+      "title": "生命总会找到出路",
+      "text": "使用形变器可以从化石中创造新生命。$(highlight)孵化你新形变的蛋，让灭绝的生物再次在主世界中漫游。"
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "创造一颗蛋",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_egg",
+      "button_previous.link": "$(l:unusual_prehistory:getting_started/obtain_organic_ooze)",
+      "button_next.guard": "",
+      "button_previous.guard": "true"
+    }
+  ]
+}

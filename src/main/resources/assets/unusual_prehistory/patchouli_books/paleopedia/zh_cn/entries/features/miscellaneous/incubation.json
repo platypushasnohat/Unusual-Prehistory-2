@@ -1,0 +1,54 @@
+{
+  "name": "item.unusual_prehistory.paleopedia.entry.incubation.title",
+  "icon": "minecraft:egg",
+  "category": "unusual_prehistory:features/miscellaneous",
+  "advancement": "unusual_prehistory:obtain_egg",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight_incubation",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc",
+      "advancement": "unusual_prehistory:root",
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "Nest Egg",
+      "clone.clone_tooltip": "Egg must be placed down to hatch"
+    },
+    {
+      "type": "unusual_prehistory:spotlight_incubation",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc",
+      "advancement": "unusual_prehistory:root",
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "Projectile Egg",
+      "clone.clone_tooltip": "Egg must be thrown to hatch"
+    },
+    {
+      "type": "unusual_prehistory:spotlight_incubation",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc",
+      "advancement": "unusual_prehistory:root",
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "Aquatic Egg",
+      "clone.clone_tooltip": "Egg must be placed underwater to hatch"
+    },
+    {
+      "type": "unusual_prehistory:spotlight_incubation",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc",
+      "advancement": "unusual_prehistory:root",
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "Raft Egg",
+      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch"
+    },
+    {
+      "type": "unusual_prehistory:spotlight_incubation",
+      "title": "item.unusual_prehistory.paleopedia.entry.incubation.embryo.title",
+      "text": "item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc",
+      "advancement": "unusual_prehistory:root",
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "Embryo",
+      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate"
+    }
+
+  ]
+}

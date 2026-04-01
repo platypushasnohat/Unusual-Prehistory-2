@@ -1,0 +1,99 @@
+{
+  "name": "block.unusual_prehistory.reinforced_glass",
+  "icon": "unusual_prehistory:reinforced_glass",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:obtain_egg",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "tag:unusual_prehistory:reinforced_glass",
+      "title": "block.unusual_prehistory.reinforced_glass",
+      "text": "item.unusual_prehistory.paleopedia.entry.reinforced_glass.desc"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:reinforced_glass",
+      "recipe2": "unusual_prehistory:tinted_reinforced_glass"
+    },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:white_reinforced_glass",
+        "recipe2": "unusual_prehistory:white_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:light_gray_reinforced_glass",
+        "recipe2": "unusual_prehistory:light_gray_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:gray_reinforced_glass",
+        "recipe2": "unusual_prehistory:gray_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:black_reinforced_glass",
+        "recipe2": "unusual_prehistory:black_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:brown_reinforced_glass",
+        "recipe2": "unusual_prehistory:brown_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:red_reinforced_glass",
+        "recipe2": "unusual_prehistory:red_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:orange_reinforced_glass",
+        "recipe2": "unusual_prehistory:orange_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:yellow_reinforced_glass",
+        "recipe2": "unusual_prehistory:yellow_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:lime_reinforced_glass",
+        "recipe2": "unusual_prehistory:lime_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:green_reinforced_glass",
+        "recipe2": "unusual_prehistory:green_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:cyan_reinforced_glass",
+        "recipe2": "unusual_prehistory:cyan_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:light_blue_reinforced_glass",
+        "recipe2": "unusual_prehistory:light_blue_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:blue_reinforced_glass",
+        "recipe2": "unusual_prehistory:blue_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:purple_reinforced_glass",
+        "recipe2": "unusual_prehistory:purple_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:magenta_reinforced_glass",
+        "recipe2": "unusual_prehistory:magenta_reinforced_glass_from_dye"
+      },
+      {
+        "type": "patchouli:crafting",
+        "recipe": "unusual_prehistory:pink_reinforced_glass",
+        "recipe2": "unusual_prehistory:pink_reinforced_glass_from_dye"
+      }
+    ]
+}

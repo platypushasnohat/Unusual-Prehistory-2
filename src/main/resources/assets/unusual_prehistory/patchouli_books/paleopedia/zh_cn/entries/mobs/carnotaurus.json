@@ -1,0 +1,49 @@
+{
+  "name": "食肉牛龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/carnotaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_carnotaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:fury_fossil": 0,
+    "unusual_prehistory:carnotaurus_egg": 0,
+    "unusual_prehistory:carnotaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "食肉牛龙",
+      "id": "carnotaurus",
+      "flavor_text": "吃肉的牛",
+      "fossil_item": "unusual_prehistory:fury_fossil",
+      "egg_item": "unusual_prehistory:carnotaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "食肉牛龙是一种晚白垩世的阿贝力龙类恐龙，拥有短而深的头骨和一对巨大的角，这也是其名字的由来。它是一种狂怒的动物，会在盲目的愤怒中向玩家和敌人冲锋，其咆哮可以让它们在攻击时变得更强并陷入狂暴"
+    },
+    {
+      "id": "carnotaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:skeleton_skull",
+      "feature_1.tooltip": "§7一头狂怒的动物，食肉牛龙会向它看到的任何生物冲去，用它的角撞击它们",
+      "feature_1.title_one_line": "Furious",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "tag:unusual_prehistory:permanently_pacifies_mob",
+      "feature_2.tooltip": "§7被§安抚§7后，食肉牛龙仍会攻击大部分怪物",
+      "feature_2.title_one_line": "随身保镖！",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "邓氏鱼",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dunkleosteus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_dunkleosteus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:guillotine_fossil": 0,
+    "unusual_prehistory:dunkleosteus_sac": 0,
+    "unusual_prehistory:dunkleosteus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "邓氏鱼",
+      "id": "dunkleosteus",
+      "flavor_text": "邓克尔的骨头",
+      "fossil_item": "unusual_prehistory:guillotine_fossil",
+      "egg_item": "unusual_prehistory:dunkleosteus_sac",
+      "variant_key": "1.瑞弗邓氏鱼 2.马赛邓氏鱼 3.泰雷尔邓氏鱼",
+      "image_tooltip": "颌部进化的盾皮鱼先锋，致命的邓氏鱼能够用它的骨质下颌将任何敌人咬成两半"
+    },
+    {
+      "id": "dunkleosteus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_devonian",
+      "era_tooltip_period": "晚泥盆世",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "水生卵",
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:0},unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:1},unusual_prehistory:dunkleosteus_bucket{BucketVariantTag:2}",
+      "feature_1.tooltip": "§7§a水桶§7可用于收集和运输邓氏鱼",
+      "feature_1.title_one_line": "尺寸不同",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:prismarine",
+      "feature_2.tooltip": "§7邓氏鱼的巨颌对守卫者特别具有威胁，守卫者对这些生物非常恐惧",
+      "feature_2.title_two_line": "挤压粉碎",
+
+      "feature_3.item": "tag:forge:heads",
+      "feature_3.tooltip": "§7它们的断头台式的颌骨能让受害者“分头行动”",
+      "feature_3.title_two_line": "砍掉他们的头！"
+    }
+  ]
+}

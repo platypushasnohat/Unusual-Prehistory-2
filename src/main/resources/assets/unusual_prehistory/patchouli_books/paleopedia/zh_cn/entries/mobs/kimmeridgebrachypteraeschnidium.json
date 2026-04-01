@@ -1,0 +1,52 @@
+{
+  "name": "钦莫利枝翼衍蜓",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kimmeridgebrachypteraeschnidium.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:imperative_fossil": 0,
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs": 0,
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium_spawn_egg": 0,
+    "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "钦莫利枝翼衍蜓",
+      "id": "kimmeridgebrachypteraeschnidium",
+      "flavor_text": "钦莫利的-枝状-翼-小-衍蜓",
+      "fossil_item": "unusual_prehistory:imperative_fossil",
+      "egg_item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+      "variant_key": "",
+      "image_tooltip": "挺亮的不停转的蜓有挺多挺怪的外观听说还挺爱力挺世界，试试快速念十遍这句话"
+    },
+    {
+      "id": "kimmeridgebrachypteraeschnidium",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "晚侏罗世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "水面卵",
+      "clone.clone_tooltip": "卵必须放在水面才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_1.tooltip": "§7它们在成长为会飞的成虫之前，先以水生若虫的形式开始它们的生命",
+      "feature_1.title_two_line": "幼虫生态学",
+
+      "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle,unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_2.tooltip": "§7§a水桶§7可以捕捉和运输若虫，§a玻璃瓶§7可以捕捉和运输成虫",
+      "feature_2.title_two_line": "麻烦运输",
+
+      "feature_3.item": "tag:forge:dyes",
+      "feature_3.tooltip": "§7它们的身体、翅膀和花纹都有随机颜色，提供近乎无限的可能性",
+      "feature_3.title_two_line": "成千上万种样式！"
+    }
+  ]
+}

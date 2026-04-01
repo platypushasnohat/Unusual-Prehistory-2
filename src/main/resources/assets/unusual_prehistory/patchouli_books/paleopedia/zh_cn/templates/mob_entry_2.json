@@ -1,0 +1,91 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:template_feature",
+      "as": "feature_3",
+      "y": 112
+    },
+    {
+      "template": "unusual_prehistory:template_feature",
+      "as": "feature_2",
+      "y": 81
+    },
+    {
+      "template": "unusual_prehistory:template_feature",
+      "as": "feature_1",
+      "y": 50
+    },
+    {
+      "template": "unusual_prehistory:template_temperament",
+      "as": "temperament",
+      "y": 15,
+      "x": 25
+    },
+    {
+      "template": "unusual_prehistory:template_clone",
+      "as": "clone",
+      "y": 15,
+      "x": 51
+    },
+    {
+      "template": "unusual_prehistory:template_activity",
+      "as": "activity",
+      "y": 15,
+      "x": 77
+    }
+  ],
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/eras/era_bar.png",
+      "width": 132,
+      "height": 20,
+      "scale": 0.875,
+      "x": 1,
+      "y": -4
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/eras/#era_image#.png",
+      "width": 132,
+      "height": 20,
+      "scale": 0.875,
+      "x": 1,
+      "y": -4
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§7Lived during the §f#era_tooltip_period#"
+      ],
+      "width": 112,
+      "height": 18,
+      "x": 1,
+      "y": -4
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/era_clock.png",
+      "width": 32,
+      "height": 32,
+      "texture_width": 32,
+      "texture_height": 32,
+      "x": 43,
+      "y": -20
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/icons/#id#.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "x": 3,
+      "y": -12
+    },
+    {
+      "type": "patchouli:separator",
+      "y": 35
+    }
+  ]
+}

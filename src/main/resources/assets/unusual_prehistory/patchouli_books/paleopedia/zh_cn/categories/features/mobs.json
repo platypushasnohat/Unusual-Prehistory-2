@@ -1,0 +1,8 @@
+{
+  "name": "生物",
+  "description": "没有从化石复活的生物或怪物。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_mobs.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 2,
+  "secret": false
+}

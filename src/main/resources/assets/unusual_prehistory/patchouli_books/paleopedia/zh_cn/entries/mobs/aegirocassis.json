@@ -1,0 +1,47 @@
+{
+  "name": "海神盔虾",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/aegirocassis.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_aegirocassis",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:bristle_fossil": 0,
+    "unusual_prehistory:aegirocassis_eggs": 0,
+    "unusual_prehistory:aegirocassis_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "海神盔虾",
+      "id": "aegirocassis",
+      "flavor_text": "海神埃吉尔的头盔",
+      "fossil_item": "unusual_prehistory:bristle_fossil",
+      "egg_item": "unusual_prehistory:aegirocassis_eggs",
+      "variant_key": "",
+      "image_tooltip": "作为射齿类中的巨人，海神盔虾用它的刚毛在水中漂游滤食。偶尔能看到它越出水面，似乎是在试图……飞？"
+    },
+    {
+      "id": "aegirocassis",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "early_ordovician",
+      "era_tooltip_period": "早奥陶世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "水生卵",
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:baby_aegirocassis_bucket",
+      "feature_1.tooltip": "可以使用§a水桶§7收集和运输幼年海神盔虾",
+      "feature_1.title_two_line": "卑微的起点",
+
+      "feature_2.item": "minecraft:gravel",
+      "feature_2.tooltip": "海神盔虾偏好较深的水域",
+      "feature_2.title_one_line": "深渊居民"
+    }
+  ]
+}

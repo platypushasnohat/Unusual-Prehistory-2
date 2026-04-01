@@ -1,0 +1,47 @@
+{
+  "name": "沧龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/mosasaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_mosasaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:surge_fossil": 0,
+    "unusual_prehistory:mosasaurus_embryo": 0,
+    "unusual_prehistory:mosasaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "沧龙",
+      "id": "mosasaurus",
+      "flavor_text": "默兹河的蜥蜴",
+      "fossil_item": "unusual_prehistory:surge_fossil",
+      "egg_item": "unusual_prehistory:mosasaurus_embryo",
+      "variant_key": "",
+      "image_tooltip": "一只巨大，流线型的海洋爬行动物，拥有巨大的，密布牙齿的下颚，沧龙是一种惊人敏捷的捕食者，经常跃出水面以抓住猎物。"
+    },
+    {
+      "id": "mosasaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "胚胎",
+      "clone.clone_tooltip": "胚胎必须要放入活化软泥中进行培育",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:scute",
+      "feature_1.tooltip": "沧龙会抓住较小的生物并用它的嘴甩出去它们",
+      "feature_1.title_one_line": "潮汐泰坦",
+
+      "feature_2.item": "minecraft:sand",
+      "feature_2.tooltip": "沧龙具有很强的领地意识，即使在§被安抚§7的状态下，也会与附近的沧龙打斗",
+      "feature_2.title_one_line": "地盘战争"
+    }
+  ]
+}

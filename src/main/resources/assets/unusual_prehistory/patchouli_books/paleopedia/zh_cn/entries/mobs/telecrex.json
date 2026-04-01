@@ -1,0 +1,48 @@
+{
+  "name": "远秧鸡",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/telecrex.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_telecrex",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:plumage_fossil": 0,
+    "unusual_prehistory:telecrex_egg": 0,
+    "unusual_prehistory:telecrex_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "远秧鸡",
+      "id": "telecrex",
+      "flavor_text": "遥远的秧鸡",
+      "fossil_item": "unusual_prehistory:plumage_fossil",
+      "egg_item": "unusual_prehistory:telecrex_egg",
+      "variant_key": "",
+      "image_tooltip": "从一块单侧股骨得知的鸟类"
+    },
+    {
+      "id": "telecrex",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "mid_paleogene",
+      "era_tooltip_period": "中古新世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",
+      "clone.clone_tooltip_heading": "投掷蛋",
+      "clone.clone_tooltip": "蛋必须被扔出去才能孵化",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "全天随机活跃或根据特定因素活跃",
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "§7远秧鸡是容易受惊的鸟类，会逃避任何感知到的威胁，包括玩家",
+      "feature_1.title_one_line": "战斗还是逃跑？",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:glass",
+      "feature_2.tooltip": "§7有时会面朝前撞到墙或窗户",
+      "feature_2.title_two_line": "摔地鸡"
+    }
+  ]
+}

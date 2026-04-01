@@ -1,0 +1,49 @@
+{
+  "name": "长鼻跳鼠",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/leptictidium.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_leptictidium",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:trunk_mouse_fossil": 0,
+    "unusual_prehistory:leptictidium_embryo": 0,
+    "unusual_prehistory:leptictidium_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "长鼻跳鼠",
+      "id": "leptictidium",
+      "flavor_text": "优雅的鼬鼠",
+      "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
+      "egg_item": "unusual_prehistory:leptictidium_embryo",
+      "variant_key": "",
+      "image_tooltip": "始新世欧洲，长腿的长鼻跳鼠为周围的生命带来持久的药水效果，使生物跳得疯狂"
+    },
+    {
+      "id": "leptictidium",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "early_cenozoic",
+      "era_tooltip_period": "早始新世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "胚胎",
+      "clone.clone_tooltip": "胚胎必须放入§a活化软泥§r中§7以培育",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:spider_eye",
+      "feature_1.tooltip": "§7长鼻跳鼠会捕食任何大小的节肢动物",
+      "feature_1.title_one_line": "害虫防治",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:splash_potion{Potion:\"minecraft:awkward\"}",
+      "feature_2.tooltip": "§7它们会携带并将药水效果传播给其他生物",
+      "feature_2.title_one_line": "鼠疫",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

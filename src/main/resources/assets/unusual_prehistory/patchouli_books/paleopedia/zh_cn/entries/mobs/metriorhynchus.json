@@ -1,0 +1,43 @@
+{
+  "name": "中喙鳄",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/metriorhynchus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_metriorhynchus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:meltdown_fossil": 0,
+    "unusual_prehistory:metriorhynchus_embryo": 0,
+    "unusual_prehistory:metriorhynchus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "中喙鳄",
+      "id": "metriorhynchus",
+      "flavor_text": "中等的鼻子",
+      "fossil_item": "unusual_prehistory:meltdown_fossil",
+      "egg_item": "unusual_prehistory:metriorhynchus_embryo",
+      "variant_key": "",
+      "image_tooltip": "遨游于侏罗世海洋中的海生鳄类"
+    },
+    {
+      "id": "metriorhynchus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "晚侏罗世",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "胚胎",
+      "clone.clone_tooltip": "胚胎必须放入§a活化软泥§r中§7以培育",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "minecraft:sand",
+      "feature_1.tooltip": "§7它们也能够在陆地上追捕猎物，但会缺乏在水中所具有的敏捷性",
+      "feature_1.title_two_line": "岸边风险"
+    }
+  ]
+}

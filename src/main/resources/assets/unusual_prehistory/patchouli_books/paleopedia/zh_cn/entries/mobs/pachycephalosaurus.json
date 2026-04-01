@@ -1,0 +1,47 @@
+{
+  "name": "肿头龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pachycephalosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_pachycephalosaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:cranium_fossil": 0,
+    "unusual_prehistory:pachycephalosaurus_egg": 0,
+    "unusual_prehistory:pachycephalosaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "肿头龙",
+      "id": "pachycephalosaurus",
+      "flavor_text": "厚头的蜥蜴",
+      "fossil_item": "unusual_prehistory:cranium_fossil",
+      "egg_item": "unusual_prehistory:pachycephalosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "骨脑袋！"
+    },
+    {
+      "id": "pachycephalosaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:iron_helmet",
+      "feature_1.tooltip": "§7肿头龙使用强力冲撞来撞击攻击者，也会与其他个体或附近的生物进行互撞比赛",
+      "feature_1.title_one_line": "开动你的脑袋瓜！",
+
+      "feature_2.item": "minecraft:shield",
+      "feature_2.tooltip": "§7它们有时会很莽撞，一头猛撞在方块或§r§a盾牌§r§7之类的坚硬表面上，把自己撞晕。",
+      "feature_2.title_one_line": "脑震荡"
+    }
+  ]
+}

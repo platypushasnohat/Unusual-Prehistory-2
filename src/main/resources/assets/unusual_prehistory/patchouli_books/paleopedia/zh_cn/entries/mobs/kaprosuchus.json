@@ -1,0 +1,45 @@
+{
+  "name": "猪鳄",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kaprosuchus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_kaprosuchus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:boar_tooth_fossil": 0,
+    "unusual_prehistory:kaprosuchus_egg": 0,
+    "unusual_prehistory:kaprosuchus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "猪鳄",
+      "id": "kaprosuchus",
+      "flavor_text": "野猪鳄鱼",
+      "fossil_item": "unusual_prehistory:boar_tooth_fossil",
+      "egg_item": "unusual_prehistory:kaprosuchus_egg",
+      "variant_key": "",
+      "image_tooltip": "一种高度活跃于白垩世的鳄类，其名字反映了布满嘴部的粗糙獠牙状牙齿，以及它可能的凶猛脾气。此外，猪鳄异常强壮的腿部能够将它直接推进你的视线中，并紧紧用嘴咬住你的头部
+    },
+    {
+      "id": "kaprosuchus",
+      "type": "unusual_prehistory:mob_entry_2",
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+      "temperament.temperament_type": "neutral",
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_kaprosuchus",
+      "feature_1.tooltip": "猪鳄尽管外表粗犷，但也可以成为忠诚的伙伴——使用§a骨头§7来驯服它们",
+      "feature_1.title_one_line": "沼泽小狗",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:leather_boots",
+      "feature_2.tooltip": "猪鳄能够进行夸张的跳跃，使它们在空中跳得又高又远，逃脱它们可并非易事",
+      "feature_2.title_one_line": "冲刺！",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "block.unusual_prehistory.transmogrifier",
+  "icon": "unusual_prehistory:transmogrifier",
+  "category": "unusual_prehistory:features/blocks_items",
+  "advancement": "unusual_prehistory:obtain_machine_parts",
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:transmogrifier",
+      "title": "block.unusual_prehistory.transmogrifier",
+      "text": "item.unusual_prehistory.paleopedia.entry.transmogrifier.desc"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "unusual_prehistory:transmogrifier",
+      "title": "item.unusual_prehistory.paleopedia.recipe_title"
+    }
+  ]
+}

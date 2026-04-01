@@ -1,0 +1,47 @@
+{
+  "name": "胸脊鲛",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/stethacanthus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_stethacanthus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:anvil_fossil": 0,
+    "unusual_prehistory:stethacanthus_sac": 0,
+    "unusual_prehistory:stethacanthus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "胸脊鲛",
+      "id": "stethacanthus",
+      "flavor_text": "脊柱尖刺",
+      "fossil_item": "unusual_prehistory:anvil_fossil",
+      "egg_item": "unusual_prehistory:stethacanthus_sac",
+      "variant_key": "",
+      "image_tooltip": "在石炭纪海洋中遨游的小型多刺软骨鱼"
+    },
+    {
+      "id": "stethacanthus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_carboniferous",
+      "era_tooltip_period": "晚石炭世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",
+      "clone.clone_tooltip_heading": "水生卵",
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_2.item": "minecraft:bone",
+      "feature_2.tooltip": "§7它们有锋利的牙齿和刺，惹它们会带来很大的痛苦",
+      "feature_2.title_two_line": "注意你的手指头！",
+
+      "feature_1.item": "unusual_prehistory:stethacanthus_bucket",
+      "feature_1.tooltip": "§7§a水桶§7可用于捕捉和运输胸脊鲛",
+      "feature_1.title_two_line": "桶中咬合"
+    }
+  ]
+}

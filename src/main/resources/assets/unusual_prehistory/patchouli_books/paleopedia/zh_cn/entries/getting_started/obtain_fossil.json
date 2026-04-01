@@ -1,0 +1,22 @@
+{
+  "name": "化石狩猎",
+  "icon": "unusual_prehistory:rugose_fossil",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_fossil",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:rugose_fossil",
+      "title": "化石狩猎",
+      "text": "你旅程的第一步之一是寻找$(l:unusual_prehistory:features)化石遗址$()，这些遗址可能位于地下或地表。可以使用$(highlight)刷子$()在这些遗址里的可疑的方块中刷取获得化石。"
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "获取化石",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_fossil",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_machine_parts)",
+      "button_next.guard": "true"
+    }
+  ]
+}

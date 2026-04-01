@@ -1,0 +1,7 @@
+{
+  "name": "入门操作",
+  "description": "一套目标，帮助你开始复活古代生命的旅程。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_getting_started.png",
+  "sortnum": 0,
+  "secret": false
+}

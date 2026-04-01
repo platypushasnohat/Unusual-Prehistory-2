@@ -1,0 +1,44 @@
+{
+  "name": "翼手龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_pterodactylus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:wing_fossil": 0,
+    "unusual_prehistory:pterodactylus_egg": 0,
+    "unusual_prehistory:pterodactylus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "翼手龙",
+      "id": "pterodactylus",
+      "flavor_text": "带翼手指",
+      "fossil_item": "unusual_prehistory:wing_fossil",
+      "egg_item": "unusual_prehistory:pterodactylus_egg",
+      "variant_key": "",
+      "image_tooltip": "哔哔"
+    },
+    {
+      "id": "pterodactylus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "晚侏罗世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "projectile_egg",  
+      "clone.clone_tooltip_heading": "投掷蛋",
+      "clone.clone_tooltip": "蛋必须被扔出去才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:pterodactylus_pot",
+      "feature_1.tooltip": "§7§a花盆§7可用于捕捉和运输翼手龙",
+      "feature_1.title_one_line": "便携翼龙",
+      "feature_1.title_two_line": ""
+    }
+  ]
+}

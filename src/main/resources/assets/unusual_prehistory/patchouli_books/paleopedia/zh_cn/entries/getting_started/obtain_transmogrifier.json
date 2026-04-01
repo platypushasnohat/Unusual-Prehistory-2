@@ -1,0 +1,25 @@
+{
+  "name": "形变器",
+  "icon": "unusual_prehistory:transmogrifier",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_transmogrifier",
+  "advancement": "unusual_prehistory:obtain_machine_parts",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:transmogrifier",
+      "title": "形变器",
+      "text": "使用 $(highlight)$(l:unusual_prehistory:features/machine_parts)机械部件$()，可以制造一个由 $(highlight)$(l:unusual_prehistory:features/organic_ooze)活性软泥$()提供动力的 $(highlight)$(l:unusual_prehistory:features/transmogrifier)形变器$()。"
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "合成一台形变器",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_transmogrifier",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_organic_ooze)",
+      "button_previous.link": "$(l:unusual_prehistory:getting_started/obtain_machine_parts)",
+      "button_next.guard": "true",
+      "button_previous.guard": "true"
+    }
+  ]
+}

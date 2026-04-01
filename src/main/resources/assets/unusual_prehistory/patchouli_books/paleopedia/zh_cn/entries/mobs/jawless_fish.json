@@ -1,0 +1,47 @@
+{
+  "name": "无颌鱼",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/jawless_fish.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_jawless_fish",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:jawless_fossil": 0,
+    "unusual_prehistory:jawless_fish_roe": 0,
+    "unusual_prehistory:jawless_fish_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "无颌鱼",
+      "id": "jawless_fish",
+      "fossil_item": "unusual_prehistory:jawless_fossil",
+      "egg_item": "unusual_prehistory:jawless_fish_roe",
+      "variant_key": "1.矛甲鱼 2.头甲鱼 3.阿兰达甲鱼 4.萨卡班甲鱼 5.叉尾鱼",
+      "image_tooltip": "在奥陶世的古代怪异海洋中，最早一批形态熟悉的生物，无颌鱼，尽管名字如此，实际上是相当好斗的啃食者——但不用担心，它们的首选食物是柔软的苔藓"
+    },
+    {
+      "id": "jawless_fish",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "jawless_fish",
+      "era_tooltip_period": "中奥陶世-早泥盆世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "水面卵",
+      "clone.clone_tooltip": "卵必须放在水面才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:jawless_fish_bucket{BucketVariantTag:0},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:1},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:2},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:3},unusual_prehistory:jawless_fish_bucket{BucketVariantTag:4}",
+      "feature_1.tooltip": "§7§a水桶§7可以捕捉和运输无颌鱼",
+      "feature_1.title_one_line": "便携式鱼",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "tag:unusual_prehistory:jawless_fish_nibbling_blocks",
+      "feature_2.tooltip": "§7它们缺乏下颌，这限制了它们的食性，但它们会啃食放在可及范围内的长满苔藓的方块",
+      "feature_2.title_two_line": "延续循环"
+    }
+  ]
+}

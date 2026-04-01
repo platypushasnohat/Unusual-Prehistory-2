@@ -1,0 +1,33 @@
+{
+  "name": "Living Ooze",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/living_ooze.png",
+  "category": "unusual_prehistory:features/mobs",
+  "advancement": "unusual_prehistory:obtain_egg",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:living_ooze_bucket": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:nonrevivable_mob_entry_1",
+      "display_name": "Living Ooze",
+      "id": "living_ooze",
+      "image_tooltip": "A variant of the slime made with magic, organic ooze, and a little bit of love; Living Ooze is the perfect incubator for embryos.",
+      "temperament.temperament_type": "passive"
+    },
+    {
+      "type": "unusual_prehistory:mob_entry_features",
+
+      "feature_1.item": "minecraft:cauldron,unusual_prehistory:organic_ooze",
+      "feature_1.tooltip": "Fill a §aCauldron§7 with §aOrganic Ooze§7 to create your very own Living Ooze",
+      "feature_1.title_one_line": "Lab-Grown",
+
+      "feature_2.item": "unusual_prehistory:living_ooze_bucket",
+      "feature_2.tooltip": "Living Ooze can be collected and transported using a §aBucket§7",
+      "feature_2.title_two_line": "Bucket of Smiles",
+
+      "feature_3.item": "unusual_prehistory:unknown_egg",
+      "feature_3.tooltip": "Living Ooze can be right clicked with an embryo to begin gestation; after a certain amount of time has passed, the ooze will spit out the developed baby",
+      "feature_3.title_one_line": "Nurture"
+    }
+  ]
+}

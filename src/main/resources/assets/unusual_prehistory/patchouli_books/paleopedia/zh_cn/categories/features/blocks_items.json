@@ -1,0 +1,8 @@
+{
+  "name": "方块与物品",
+  "description": "方块和物品，还有独特的机制。",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/category_features_blocks_items.png",
+  "parent": "unusual_prehistory:features",
+  "sortnum": 1,
+  "secret": false
+}

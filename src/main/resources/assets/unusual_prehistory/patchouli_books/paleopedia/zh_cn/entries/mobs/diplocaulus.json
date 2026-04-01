@@ -1,0 +1,53 @@
+{
+  "name": "笠头螈",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/diplocaulus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_diplocaulus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:boomerang_fossil": 0,
+    "unusual_prehistory:diplocaulus_eggs": 0,
+    "unusual_prehistory:diplocaulus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "笠头螈",
+      "id": "diplocaulus",
+      "flavor_text": "双峰结构",
+      "fossil_item": "unusual_prehistory:boomerang_fossil",
+      "egg_item": "unusual_prehistory:diplocaulus_eggs",
+      "variant_key": "1.短吻笠头螈 2.大角笠头螈 3.弯曲笠头螈 4.蝾形笠头螈",
+      "image_tooltip": ""
+    },
+    {
+      "id": "diplocaulus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "diplocaulus",
+      "era_tooltip_period": "晚石炭世-晚二叠世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "raft_egg",
+      "clone.clone_tooltip_heading": "水面卵",
+      "clone.clone_tooltip": "卵必须放在水面才能孵化",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:diplocaulus_bucket{BucketVariantTag:0},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:1},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:2},unusual_prehistory:diplocaulus_bucket{BucketVariantTag:3}",
+      "feature_1.tooltip": "§7§a水桶§7可用于捕捉和运输笠头螈",
+      "feature_1.title_two_line": "Tactical Salamandering",
+
+      "feature_2.item": "tag:unusual_prehistory:diplocaulus_sliding_blocks",
+      "feature_2.tooltip": "§7喜欢在各种滑的方块上滑行",
+      "feature_2.title_one_line": "滑滑乐！",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "tag:unusual_prehistory:diplocaulus_burrowing_blocks",
+      "feature_3.tooltip": "§7笠头螈偶尔会把自己埋在泥里",
+      "feature_3.title_one_line": "在泥里",
+      "feature_3.title_two_line": ""
+    }
+  ]
+}

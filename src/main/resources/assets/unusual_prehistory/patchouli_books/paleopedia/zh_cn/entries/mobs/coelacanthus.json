@@ -1,0 +1,49 @@
+{
+  "name": "腔棘鱼",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/coelacanthus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_coelacanthus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:gluttonous_fossil": 0,
+    "unusual_prehistory:coelacanthus_roe": 0,
+    "unusual_prehistory:coelacanthus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "腔棘鱼",
+      "id": "coelacanthus",
+      "flavor_text": "中空脊柱",
+      "fossil_item": "unusual_prehistory:gluttonous_fossil",
+      "egg_item": "unusual_prehistory:coelacanthus_roe",
+      "variant_key": "",
+      "image_tooltip": "作为“腔棘鱼”这个名字的第一个承载者，这种贪食的原始鱼类会吞食它能塞进嘴里的任何东西"
+    },
+    {
+      "id": "coelacanthus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_permian",
+      "era_tooltip_period": "晚二叠世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "aquatic_egg",  
+      "clone.clone_tooltip_heading": "水生卵",  
+      "clone.clone_tooltip": "卵必须放在水下才能孵化",
+
+      "activity.activity_type": "sleepless",  
+      "activity.activity_tooltip": "不会睡觉",
+
+      "feature_1.item": "unusual_prehistory:coelacanthus_bucket{BucketVariantTag:0},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:0},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:1},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:2},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:3},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:4},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:5},unusual_prehistory:coelacanthus_bucket{BucketVariantTag:6}",
+      "feature_1.tooltip": "§a水桶§7可用于捕捉和运输腔棘鱼",
+      "feature_1.title_one_line": "饥饿之家",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:tropical_fish",
+      "feature_2.tooltip": "腔棘鱼不加区别地吞食比自己小的任何东西，并随着每次进食而长大",
+      "feature_2.title_one_line": "喂食和成长",
+      "feature_2.title_two_line": ""
+    }
+  ]
+}

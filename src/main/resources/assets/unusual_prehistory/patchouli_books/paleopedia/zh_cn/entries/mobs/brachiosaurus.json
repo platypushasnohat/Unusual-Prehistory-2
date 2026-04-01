@@ -1,0 +1,44 @@
+{
+  "name": "腕龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brachiosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_brachiosaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:arm_fossil": 0,
+    "unusual_prehistory:brachiosaurus_egg": 0,
+    "unusual_prehistory:brachiosaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "腕龙",
+      "id": "brachiosaurus",
+      "flavor_text": "手臂蜥蜴",
+      "fossil_item": "unusual_prehistory:arm_fossil",
+      "egg_item": "unusual_prehistory:brachiosaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "腕龙是侏罗纪时期一种标志性的蜥脚类恐龙，几乎不需要过多介绍，凭借其高度独特、雄伟的高耸姿态在同类中脱颖而出，并且大部分时间都在深水中涉水"
+    },
+    {
+      "id": "brachiosaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_jurassic",
+      "era_tooltip_period": "晚侏罗世",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",  
+      "clone.clone_tooltip_heading": "巢穴蛋",  
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "minecraft:seagrass",
+      "feature_1.tooltip": "腕龙能够轻松地在深水中跋涉来降温",
+      "feature_1.title_one_line": "河流阻碍者",
+      "feature_1.title_two_line": ""
+    }
+  ]
+}

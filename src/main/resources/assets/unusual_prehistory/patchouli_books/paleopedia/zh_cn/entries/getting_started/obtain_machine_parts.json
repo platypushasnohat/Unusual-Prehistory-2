@@ -1,0 +1,24 @@
+{
+  "name": "古代机器",
+  "icon": "unusual_prehistory:machine_parts",
+  "category": "unusual_prehistory:getting_started",
+  "turnin": "unusual_prehistory:obtain_machine_parts",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "unusual_prehistory:spotlight",
+      "item": "unusual_prehistory:machine_parts",
+      "title": "古代机器",
+      "text": "寻找$(highlight)机械部件$()对于复活过程至关重要。机械部件可以在$(highlight)地牢$()、$(highlight)丛林神庙$()、$(highlight)沙漠神殿$()或$(highlight)废弃矿井$()的箱子战利品中找到。"
+    },
+    {
+      "type": "unusual_prehistory:quest",
+      "title": "获取机械部件",
+      "checkbox.advancement_checkbox": "unusual_prehistory:obtain_machine_parts",
+      "button_next.link": "$(l:unusual_prehistory:getting_started/obtain_transmogrifier)",
+      "button_previous.link": "$(l:unusual_prehistory:getting_started/obtain_fossil)",
+      "button_next.guard": "true",
+      "button_previous.guard": "true"
+    }
+  ]
+}

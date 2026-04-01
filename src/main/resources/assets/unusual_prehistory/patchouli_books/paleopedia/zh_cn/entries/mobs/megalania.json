@@ -1,0 +1,53 @@
+{
+  "name": "古巨蜥",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/megalania.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_megalania",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:thermal_fossil": 0,
+    "unusual_prehistory:megalania_egg": 0,
+    "unusual_prehistory:megalania_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "古巨蜥",
+      "id": "megalania",
+      "flavor_text": "古代的巨型蜥蜴",
+      "fossil_item": "unusual_prehistory:thermal_fossil",
+      "egg_item": "unusual_prehistory:megalania_egg",
+      "variant_key": "",
+      "image_tooltip": "更新世内陆荒原的冷血杀手，古巨蜥会花时间晒太阳取暖并吸收热量。"
+    },
+    {
+      "id": "megalania",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "quaternary",
+      "era_tooltip_period": "第四纪",
+
+      "temperament.temperament_type": "neutral",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "cathemeral",
+      "activity.activity_tooltip": "全天随机活跃或根据特定因素活跃",
+
+      "feature_2.item": "minecraft:red_sand",
+      "feature_2.tooltip": "§7作为变温动物，它们在较热的气候中茁壮成长，并且在更温暖的生物群系中会变得更加活跃和具有敌意",
+      "feature_2.title_one_line": "沙漠危险！",
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:spider_eye",
+      "feature_3.tooltip": "§7它们的撕咬是带毒的",
+      "feature_3.title_one_line": "剧毒之咬",
+      "feature_3.title_two_line": "",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_megalania",
+      "feature_1.tooltip": "§7这些爬行动物可以用§r§a腐肉§r§7驯服——驯服的古巨蜥会攻击指定的敌人",
+      "feature_1.title_two_line": "意外的朋友？"
+    }
+  ]
+}

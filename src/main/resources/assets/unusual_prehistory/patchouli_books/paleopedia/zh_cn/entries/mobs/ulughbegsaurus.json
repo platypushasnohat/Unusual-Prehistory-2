@@ -1,0 +1,49 @@
+{
+  "name": "兀鲁伯龙",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ulughbegsaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_ulughbegsaurus",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:dubious_fossil": 0,
+    "unusual_prehistory:ulughbegsaurus_egg": 0,
+    "unusual_prehistory:ulughbegsaurus_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "兀鲁伯龙",
+      "id": "ulughbegsaurus",
+      "flavor_text": "兀鲁伯格的蜥蜴",
+      "fossil_item": "unusual_prehistory:dubious_fossil",
+      "egg_item": "unusual_prehistory:ulughbegsaurus_egg",
+      "variant_key": "",
+      "image_tooltip": "哈？"
+    },
+    {
+      "id": "ulughbegsaurus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "晚白垩世",
+
+      "temperament.temperament_type": "passive",
+
+      "clone.clone_type": "nest_egg",
+      "clone.clone_tooltip_heading": "巢穴蛋",
+      "clone.clone_tooltip": "蛋必须放在地上才能孵化",
+
+      "activity.activity_type": "diurnal",
+      "activity.activity_tooltip": "只在白天活跃",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_ulughbegsaurus",
+      "feature_1.tooltip": "§7大量生肉可以用来驯服兀鲁伯龙——被驯服的兀鲁伯龙可以被骑乘，并且能够向前跳跃最多[]格",
+      "feature_1.title_one_line": "呜呼起飞",
+
+      "feature_2.item": "tag:forge:dyes",
+      "feature_2.tooltip": "§7染料可以用来改变兀鲁伯龙上的花纹颜色",
+      "feature_2.title_one_line": "吃定彩虹"
+
+
+    }
+  ]
+}
