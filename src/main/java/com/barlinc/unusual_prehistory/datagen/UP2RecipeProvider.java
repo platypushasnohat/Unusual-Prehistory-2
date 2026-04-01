@@ -173,12 +173,12 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
         transmogrification(consumer, UP2Items.BENNETTITALES_FOSSIL.get(), BENNETTITALES.get().asItem(), 600);
         transmogrification(consumer, UP2Items.BRACHYPHYLLUM_FOSSIL.get(), BRACHYPHYLLUM.get().asItem(), 600);
         transmogrification(consumer, UP2Items.CALAMOPHYTON_FOSSIL.get(), CALAMOPHYTON.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.CLADOPHLEBIS_FOSSIL.get(), CLADOPHLEBIS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.DELITZSCHALA_FOSSIL.get(), DELITZSCHALA_STALK.get().asItem(), 600);
         transmogrification(consumer, UP2Items.COOKSONIA_FOSSIL.get(), COOKSONIA.get().asItem(), 600);
         transmogrification(consumer, UP2Items.CYCAD_FOSSIL.get(), CYCAD_SEEDLING.get().asItem(), 600);
         transmogrification(consumer, UP2Items.GINKGO_FOSSIL.get(), GINKGO_SAPLING.get().asItem(), 600);
         transmogrification(consumer, UP2Items.GUANGDEDENDRON_FOSSIL.get(), GUANGDEDENDRON.get().asItem(), 600);
-        transmogrification(consumer, UP2Items.NEOMARIOPTERIS_FOSSIL.get(), NEOMARIOPTERIS.get().asItem(), 600);
+        transmogrification(consumer, UP2Items.ZHANGSOLVA_FOSSIL.get(), ZHANGSOLVA_BLOOM.get().asItem(), 600);
         transmogrification(consumer, UP2Items.PROTOTAXITES_FOSSIL.get(), PROTOTAXITES_CLUSTER.get().asItem(), 600);
         transmogrification(consumer, UP2Items.QUILLWORT_FOSSIL.get(), QUILLWORT.get().asItem(), 600);
         transmogrification(consumer, UP2Items.LEEFRUCTUS_FOSSIL.get(), LEEFRUCTUS.get().asItem(), 600);

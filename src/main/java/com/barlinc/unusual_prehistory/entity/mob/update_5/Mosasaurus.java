@@ -146,6 +146,11 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
     }
 
     @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new PrehistoricBodyRotationControl(this, 0.4F, 30.0F);
+    }
+
+    @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
@@ -450,6 +455,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
                 int attackState = this.mosasaurus.getAttackState();
 
                 this.mosasaurus.getLookControl().setLookAt(target, 30F, 30F);
+                this.mosasaurus.lookAt(target, 30F, 30F);
 
                 if (attackState == 1) this.tickBite();
                 else if (attackState == 2) {

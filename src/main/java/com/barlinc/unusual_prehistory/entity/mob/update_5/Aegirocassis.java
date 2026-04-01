@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
@@ -28,6 +29,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.ItemStack;
@@ -204,6 +206,11 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new PrehistoricBodyRotationControl(this, 0.3F, 30.0F);
+    }
+
+    @Override
     public void tick() {
         this.tickMultipart();
         super.tick();
@@ -212,7 +219,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         if (this.isInWaterOrBubble() && glowProgress < 5.0F) glowProgress++;
         else if (!this.isInWaterOrBubble() && glowProgress > 0.0F) glowProgress--;
 
-//        this.yBodyRot = Mth.approachDegrees(yBodyRotO, yBodyRot, this.getHeadRotSpeed());
         this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
 
         if (wasPreviouslyBaby != this.isBaby()) {

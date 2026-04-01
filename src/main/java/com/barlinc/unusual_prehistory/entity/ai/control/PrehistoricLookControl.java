@@ -14,6 +14,8 @@ public class PrehistoricLookControl extends LookControl {
 
     @Override
     public void tick() {
-        if (!mob.refuseToLook()) super.tick();
+        if (!mob.refuseToLook()) {
+            super.tick();
+        }
     }
 }

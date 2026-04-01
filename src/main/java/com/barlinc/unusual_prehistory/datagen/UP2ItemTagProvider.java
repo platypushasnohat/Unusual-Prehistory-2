@@ -329,7 +329,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 BENNETTITALES_FOSSIL.get(),
                 CALAMOPHYTON_FOSSIL.get(),
-                CLADOPHLEBIS_FOSSIL.get(),
+                DELITZSCHALA_FOSSIL.get(),
                 COOKSONIA_FOSSIL.get(),
                 LEEFRUCTUS_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
@@ -341,7 +341,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 BRACHYPHYLLUM_FOSSIL.get(),
                 CYCAD_FOSSIL.get(),
                 GUANGDEDENDRON_FOSSIL.get(),
-                NEOMARIOPTERIS_FOSSIL.get(),
+                ZHANGSOLVA_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
                 TEMPSKYA_FOSSIL.get(),
                 METASEQUOIA_FOSSIL.get(),

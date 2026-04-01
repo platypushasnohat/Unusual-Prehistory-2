@@ -19,6 +19,18 @@
                   "Name": "unusual_prehistory:archaeosigillaria"
                 },
                 "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "unusual_prehistory:cladophlebis"
+                },
+                "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "unusual_prehistory:neomariopteris"
+                },
+                "weight": 1
               }
             ]
           }

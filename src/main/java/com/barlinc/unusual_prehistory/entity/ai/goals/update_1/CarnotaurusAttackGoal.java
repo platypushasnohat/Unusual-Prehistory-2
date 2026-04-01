@@ -49,8 +49,8 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         LivingEntity target = carnotaurus.getTarget();
         if (target != null) {
             if (!this.isInChargingPose()) {
-                this.carnotaurus.lookAt(carnotaurus.getTarget(), 30F, 30F);
-                this.carnotaurus.getLookControl().setLookAt(carnotaurus.getTarget(), 30F, 30F);
+                this.carnotaurus.lookAt(target, 30F, 30F);
+                this.carnotaurus.getLookControl().setLookAt(target, 30F, 30F);
             }
 
             double distance = carnotaurus.distanceToSqr(target.getX(), target.getY(), target.getZ());

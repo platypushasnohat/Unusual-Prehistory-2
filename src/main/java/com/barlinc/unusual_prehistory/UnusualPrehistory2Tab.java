@@ -213,17 +213,17 @@ public class UnusualPrehistory2Tab {
                         output.accept(BENNETTITALES_FOSSIL.get());
                         output.accept(BRACHYPHYLLUM_FOSSIL.get());
                         output.accept(CALAMOPHYTON_FOSSIL.get());
-                        output.accept(CLADOPHLEBIS_FOSSIL.get());
+                        output.accept(DELITZSCHALA_FOSSIL.get());
                         output.accept(COOKSONIA_FOSSIL.get());
-                        output.accept(CYCAD_FOSSIL.get());
-                        output.accept(GUANGDEDENDRON_FOSSIL.get());
                         output.accept(LEEFRUCTUS_FOSSIL.get());
-                        output.accept(NEOMARIOPTERIS_FOSSIL.get());
-                        output.accept(PROTOTAXITES_FOSSIL.get());
                         output.accept(QUILLWORT_FOSSIL.get());
                         output.accept(RAIGUENRAYUN_FOSSIL.get());
                         output.accept(RHYNIA_FOSSIL.get());
                         output.accept(TEMPSKYA_FOSSIL.get());
+                        output.accept(ZHANGSOLVA_FOSSIL.get());
+                        output.accept(CYCAD_FOSSIL.get());
+                        output.accept(GUANGDEDENDRON_FOSSIL.get());
+                        output.accept(PROTOTAXITES_FOSSIL.get());
                         output.accept(DRYOPHYLLUM_FOSSIL.get());
                         output.accept(GINKGO_FOSSIL.get());
                         output.accept(LEPIDODENDRON_FOSSIL.get());
@@ -247,21 +247,15 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.RHYNIA.get());
                         output.accept(UP2Blocks.TEMPSKYA.get());
                         output.accept(UP2Blocks.ZHANGSOLVA_BLOOM.get());
-                        output.accept(UP2Blocks.MOSS_LAYER.get());
-                        output.accept(UP2Blocks.MOSSY_DIRT.get());
 
-                        // fungus
+                        output.accept(UP2Blocks.CYCAD_SEEDLING.get());
+                        output.accept(UP2Blocks.CYCAD_STEM.get());
+                        output.accept(UP2Blocks.CYCAD_CROWN.get());
+                        output.accept(UP2Blocks.GUANGDEDENDRON.get());
                         output.accept(UP2Blocks.PROTOTAXITES_CLUSTER.get());
                         output.accept(UP2Blocks.PROTOTAXITES.get());
                         output.accept(UP2Blocks.PROTOTAXITES_NUB.get());
                         output.accept(UP2Blocks.LARGE_PROTOTAXITES_NUB.get());
-
-                        // trees
-                        output.accept(UP2Blocks.CYCAD_SEEDLING.get());
-                        output.accept(UP2Blocks.CYCAD_STEM.get());
-                        output.accept(UP2Blocks.CYCAD_CROWN.get());
-
-                        output.accept(UP2Blocks.GUANGDEDENDRON.get());
 
                         output.accept(UP2Blocks.DRYOPHYLLUM_LOG.get());
                         output.accept(UP2Blocks.DRYOPHYLLUM_WOOD.get());
@@ -328,6 +322,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.LEPIDODENDRON_LEAVES.get());
                         output.accept(UP2Blocks.HANGING_LEPIDODENDRON_LEAVES.get());
                         output.accept(UP2Blocks.LEPIDODENDRON_CONE.get());
+                        output.accept(UP2Blocks.MOSS_LAYER.get());
+                        output.accept(UP2Blocks.MOSSY_DIRT.get());
 
                         output.accept(UP2Blocks.METASEQUOIA_LOG.get());
                         output.accept(UP2Blocks.METASEQUOIA_WOOD.get());

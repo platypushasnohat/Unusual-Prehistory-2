@@ -18,6 +18,16 @@
           "type": "minecraft:item",
           "name": "unusual_prehistory:cycad_fossil",
           "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:delitzschala_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:zhangsolva_fossil",
+          "weight": 1
         }
       ],
       "rolls": 1.0

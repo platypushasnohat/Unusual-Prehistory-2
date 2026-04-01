@@ -1,6 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
@@ -27,6 +28,7 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -63,6 +65,7 @@
      private float neckXRot;
      private float neckYRot;
 
+     private float fakeYRot = 0;
      private float[] yawBuffer = new float[128];
      private int yawPointer = -1;
 
@@ -193,6 +196,11 @@
      }
 
      @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         return new PrehistoricBodyRotationControl(this, 0.25F, 25.0F);
+     }
+
+     @Override
      public void tick() {
          if (this.isBaby()) {
              this.tickMultipartBaby();
@@ -205,7 +213,7 @@
          this.lastStompX = this.getX();
          this.lastStompZ = this.getZ();
 
-         if (!this.isBaby()) this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 4);
+         this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
 
          if (screenShakeAmount > 0) screenShakeAmount = Math.max(0, screenShakeAmount - 0.34F);
          if (this.onGround() && this.walkAnimation.speed() > 0.1F && !this.isBaby()) {
@@ -229,14 +237,15 @@
 
      private void tickMultipart() {
          if (yawPointer == -1) {
+             this.fakeYRot = this.yBodyRot;
              for (int i = 0; i < yawBuffer.length; i++) {
-                 yawBuffer[i] = this.yBodyRot;
+                 this.yawBuffer[i] = this.fakeYRot;
              }
          }
          if (++this.yawPointer == this.yawBuffer.length) {
              this.yawPointer = 0;
          }
-         this.yawBuffer[this.yawPointer] = this.yBodyRot;
+         this.yawBuffer[this.yawPointer] = this.fakeYRot;
 
          Vec3[] avector3d = new Vec3[this.allParts.length];
          for (int j = 0; j < this.allParts.length; ++j) {
@@ -267,9 +276,6 @@
          this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headAdditionalY, 7.8F + headAdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
          this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
          this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-
-//         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
-//         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
          this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
          this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
 
@@ -308,8 +314,8 @@
          this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 5.1F, 6.8F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
          this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
          this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.0F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F).scale(this.getScale()), headXStep, yBodyRot).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F).scale(this.getScale()), headXStep, yBodyRot).add(this.tailPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
 
          for (int l = 0; l < this.allParts.length; ++l) {
              this.allParts[l].xo = avector3d[l].x;
@@ -546,7 +552,7 @@
                          continue;
                      }
                      entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-                     this.brachiosaurus.strongKnockback(entity, 9.0D, 0.55D);
+                     this.brachiosaurus.strongKnockback(entity, 6.0D, 0.6D);
                  }
                  UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 32, false));
                  this.brachiosaurus.level().broadcastEntityEvent(brachiosaurus, (byte) 40);

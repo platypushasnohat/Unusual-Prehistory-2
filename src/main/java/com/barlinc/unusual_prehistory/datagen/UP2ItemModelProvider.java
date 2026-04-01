@@ -177,12 +177,12 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.item(RHYNIA_FOSSIL);
         this.item(TEMPSKYA_FOSSIL);
         this.item(LEEFRUCTUS_FOSSIL);
-        this.item(NEOMARIOPTERIS_FOSSIL);
+        this.item(ZHANGSOLVA_FOSSIL);
         this.item(PROTOTAXITES_FOSSIL);
         this.item(QUILLWORT_FOSSIL);
         this.item(LEPIDODENDRON_FOSSIL);
         this.item(COOKSONIA_FOSSIL);
-        this.item(CLADOPHLEBIS_FOSSIL);
+        this.item(DELITZSCHALA_FOSSIL);
         this.item(BENNETTITALES_FOSSIL);
         this.item(AETHOPHYLLUM_FOSSIL);
         this.item(BRACHYPHYLLUM_FOSSIL);

@@ -40,6 +40,8 @@
 - Jawless fish and dunkleosteus no longer prefer swimming toward the bottom of water
 - Added tail rotations to many mobs
 - Diplocaulus can now perform a boomerang dash in water
+- Fixed mobs sometimes moving sideways
+- Mob rotations are now smoother
 - Many misc tweaks and fixes
 
 ## Version 1.3.1

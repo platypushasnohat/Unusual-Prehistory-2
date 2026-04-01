@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Brachiosaurus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -103,6 +104,13 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;
         this.neck.xRot += headPitch * ((float) Math.PI / 180F) / 4;
         this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
+        double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
+        double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;
+        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.3F);
+        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.25F);
 	}
 
 	@Override

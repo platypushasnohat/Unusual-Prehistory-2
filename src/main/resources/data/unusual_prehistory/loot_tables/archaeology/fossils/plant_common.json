@@ -11,11 +11,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:cladophlebis_fossil",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
           "name": "unusual_prehistory:cooksonia_fossil",
           "weight": 1
         },
@@ -32,11 +27,6 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:rhynia_fossil",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:neomariopteris_fossil",
           "weight": 1
         }
       ],

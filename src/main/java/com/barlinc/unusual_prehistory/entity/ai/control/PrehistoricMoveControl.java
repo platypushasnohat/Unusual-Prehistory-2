@@ -76,8 +76,8 @@ public class PrehistoricMoveControl extends MoveControl {
             this.mob.setZza(0.0F);
             return;
         }
-        float f9 = (float) (Mth.atan2(z, x) * (double) (180F / (float) Math.PI)) - 90.0F;
-        this.mob.setYRot(this.rotlerp(mob.getYRot(), f9, 90.0F));
+        float moveAngle = (float) (Mth.atan2(z, x) * (double) (180F / (float) Math.PI)) - 90.0F;
+        this.mob.setYRot(this.rotlerp(mob.getYRot(), moveAngle, 90.0F));
         this.mob.setSpeed((float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
         if (mob.isInWater()) {
             mob.setSpeed(mob.getSpeed() * 2);

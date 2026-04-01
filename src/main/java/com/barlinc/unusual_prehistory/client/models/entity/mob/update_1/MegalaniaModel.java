@@ -139,13 +139,13 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		if (entity.getIdleState() != 2 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isEepy()) {
             if (entity.isInWaterOrBubble()) {
-                this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+                this.animateWalk(MegalaniaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 1.5F);
                 this.root.xRot = headPitch * (Mth.DEG_TO_RAD) / 2;
             } else if (!entity.isSitting()) {
                 if (this.canMegalaniaRun(entity)) {
-                    this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
+                    this.animateWalk(MegalaniaAnimations.RUN, limbSwing, limbSwingAmount, 1, 1.5F);
                 } else {
-                    this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+                    this.animateWalk(MegalaniaAnimations.WALK, limbSwing, limbSwingAmount, 2, 1.5F);
                 }
             }
 		}
@@ -172,9 +172,9 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1_rot.yRot = Mth.lerp(0.2F, this.tail1_rot.yRot, tailYaw * 0.35F);
-        this.tail2_rot.yRot = Mth.lerp(0.2F, this.tail2_rot.yRot, tailYaw * 0.3F);
-        this.tail3_rot.yRot = Mth.lerp(0.2F, this.tail3_rot.yRot, tailYaw * 0.25F);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.35F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.3F);
+        this.tail3.yRot = Mth.lerp(0.2F, this.tail3.yRot, tailYaw * 0.25F);
     }
 
     private AnimationDefinition getIdleAnimation(Megalania entity) {

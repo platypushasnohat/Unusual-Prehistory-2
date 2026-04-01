@@ -2,7 +2,7 @@
   "name": "item.unusual_prehistory.paleopedia.entry.holocene_artifact.title",
   "icon": "unusual_prehistory:textures/gui/paleopedia/fossil_holocene.png",
   "category": "unusual_prehistory:features/world",
-  "advancement": "unusual_prehistory:obtain_holocene_artifact",
+  "advancement": "unusual_prehistory:obtain_fossil",
   "pages": [
     {
       "type": "unusual_prehistory:image",

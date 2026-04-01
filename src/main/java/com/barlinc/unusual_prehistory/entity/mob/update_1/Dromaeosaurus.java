@@ -1,11 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusLeapGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.DromaeosaurusRunGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -19,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -26,6 +25,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,6 +36,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
 
 public class Dromaeosaurus extends PrehistoricMob {
 
@@ -176,5 +179,153 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     public static boolean canSpawn(EntityType<Dromaeosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+    }
+
+    // Goals
+    private static class DromaeosaurusAttackGoal extends AttackGoal {
+
+        protected final Dromaeosaurus dromaeosaurus;
+
+        public DromaeosaurusAttackGoal(Dromaeosaurus dromaeosaurus) {
+            super(dromaeosaurus);
+            this.dromaeosaurus = dromaeosaurus;
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return super.canContinueToUse() && this.dromaeosaurus.getHealth() >= this.dromaeosaurus.getMaxHealth() * 0.5F;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.dromaeosaurus.getTarget();
+            if (target != null) {
+                double distance = this.dromaeosaurus.distanceToSqr(target);
+                this.dromaeosaurus.getLookControl().setLookAt(target, 30F, 30F);
+                this.dromaeosaurus.getNavigation().moveTo(target, 1.0D);
+                if (this.dromaeosaurus.getAttackState() == 1) {
+                    this.tickAttack();
+                } else if (distance <= this.getAttackReachSqr(target)) {
+                    this.dromaeosaurus.setAttackState(1);
+                }
+            }
+        }
+
+        private void tickAttack() {
+            this.timer++;
+            LivingEntity target = dromaeosaurus.getTarget();
+            if (timer == 1) dromaeosaurus.setPose(UP2Poses.ATTACKING.get());
+            if (timer == 6) {
+                if (this.isInAttackRange(target, 1.5D)) {
+                    this.dromaeosaurus.doHurtTarget(target);
+                    this.dromaeosaurus.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 15) {
+                this.timer = 0;
+                this.dromaeosaurus.setPose(Pose.STANDING);
+                this.dromaeosaurus.setAttackState(0);
+            }
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity target) {
+            return this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + target.getBbWidth();
+        }
+    }
+
+    private static class DromaeosaurusRunGoal extends Goal {
+
+        protected final Dromaeosaurus dromaeosaurus;
+        protected double wantedX;
+        protected double wantedY;
+        protected double wantedZ;
+
+        public DromaeosaurusRunGoal(Dromaeosaurus dromaeosaurus) {
+            this.dromaeosaurus = dromaeosaurus;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.dromaeosaurus.getRandom().nextInt(reducedTickDelay(8)) != 0) {
+                return false;
+            } else if (this.dromaeosaurus.isVehicle()) {
+                return false;
+            } else {
+                Vec3 vec3 = this.getPosition();
+                if (vec3 == null) {
+                    return false;
+                } else if ((!this.dromaeosaurus.isEepy() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && dromaeosaurus.getNavigation().isDone()) {
+                    this.wantedX = vec3.x;
+                    this.wantedY = vec3.y;
+                    this.wantedZ = vec3.z;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Nullable
+        protected Vec3 getPosition() {
+            Vec3 randomPos;
+            if (dromaeosaurus.isInWater()) {
+                randomPos = LandRandomPos.getPos(dromaeosaurus, 30, 8);
+                return randomPos == null ? LandRandomPos.getPos(dromaeosaurus, 16, 4) : randomPos;
+            }
+            randomPos = dromaeosaurus.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(dromaeosaurus, 16, 4) : DefaultRandomPos.getPos(dromaeosaurus, 16, 4);
+            return randomPos;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return (this.dromaeosaurus.level().isDay() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F || this.dromaeosaurus.level().dimension() != Level.OVERWORLD) && !this.dromaeosaurus.isVehicle() && !this.dromaeosaurus.getNavigation().isDone();
+        }
+
+        @Override
+        public void start() {
+            this.dromaeosaurus.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, 1.0D);
+        }
+
+        @Override
+        public void stop() {
+            this.dromaeosaurus.setSprinting(false);
+            this.dromaeosaurus.getNavigation().stop();
+        }
+    }
+
+    private static class DromaeosaurusLeapGoal extends Goal {
+
+        protected final Dromaeosaurus dromaeosaurus;
+
+        public DromaeosaurusLeapGoal(Dromaeosaurus dromaeosaurus) {
+            this.dromaeosaurus = dromaeosaurus;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            return (!this.dromaeosaurus.isEepy() || this.dromaeosaurus.getHealth() <= this.dromaeosaurus.getMaxHealth() * 0.5F) && !this.dromaeosaurus.isVehicle() && this.dromaeosaurus.isSprinting() && this.dromaeosaurus.leapCooldown == 0;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.canUse();
+        }
+
+        @Override
+        public void tick() {
+            this.dromaeosaurus.getNavigation().stop();
+            if (this.dromaeosaurus.onGround()) {
+                this.dromaeosaurus.addDeltaMovement(new Vec3(0, 0.8D, 0));
+                this.dromaeosaurus.addDeltaMovement(this.dromaeosaurus.getLookAngle().scale(2.0D).multiply(0.6D, 0, 0.6D));
+                this.dromaeosaurus.leapCooldown = 120 + dromaeosaurus.getRandom().nextInt(120);
+            }
+        }
     }
 }

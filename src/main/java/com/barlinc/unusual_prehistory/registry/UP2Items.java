@@ -75,7 +75,6 @@ public class UP2Items {
 
     public static final RegistryObject<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
     public static final RegistryObject<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
-    public static final RegistryObject<Item> CLADOPHLEBIS_FOSSIL = registerFossilItem("cladophlebis");
     public static final RegistryObject<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
     public static final RegistryObject<Item> LEEFRUCTUS_FOSSIL = registerFossilItem("leefructus");
     public static final RegistryObject<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
@@ -163,7 +162,6 @@ public class UP2Items {
     public static final RegistryObject<Item> BRACHYPHYLLUM_FOSSIL = registerFossilItem("brachyphyllum");
     public static final RegistryObject<Item> CYCAD_FOSSIL = registerFossilItem("cycad");
     public static final RegistryObject<Item> GUANGDEDENDRON_FOSSIL = registerFossilItem("guangdedendron");
-    public static final RegistryObject<Item> NEOMARIOPTERIS_FOSSIL = registerFossilItem("neomariopteris");
     public static final RegistryObject<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");
     public static final RegistryObject<Item> TEMPSKYA_FOSSIL = registerFossilItem("tempskya");
     public static final RegistryObject<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
@@ -196,6 +194,9 @@ public class UP2Items {
     public static final RegistryObject<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
     public static final RegistryObject<Item> SURGE_FOSSIL = registerFossilItem("surge"); // mosasaurus
     public static final RegistryObject<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
+
+    public static final RegistryObject<Item> DELITZSCHALA_FOSSIL = registerFossilItem("delitzschala");
+    public static final RegistryObject<Item> ZHANGSOLVA_FOSSIL = registerFossilItem("zhangsolva");
 
     public static final RegistryObject<Item> MOSASAURUS_EMBRYO = registerEmbryoItem("mosasaurus", UP2Entities.MOSASAURUS);
     public static final RegistryObject<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
