@@ -15,6 +15,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at
+ * https://mozilla.org/MPL/2.0/.
+ *
+ * Source: SmartBrainLib - https://github.com/Tslat/SmartBrainLib/tree/1.20
+ * Modifications by: Unusual Prehistory 2 - 3/31/2026
+ */
+
 public class SmoothGroundPathNavigation extends GroundPathNavigation implements ExtendedNavigator {
 
     public SmoothGroundPathNavigation(Mob mob, Level level) {
