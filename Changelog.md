@@ -11,17 +11,17 @@
 - Removed unfinished 1.3 and future mobs
 - Added carnotaurus headbutt vocal sound
 - Increased golden emperor carnotaurus variant spawn chance by 5%
-- Fixed guangdedendron model not being transparent sometimes
 - Fixed potted metasequoia model
 - Fixed random sit goal
 - Praepusa now sleeps on the surface of water at night
 - Overhauled advancements
 - Patchouli is now a required dependency
 - Paleopedia is now a custom item instead of the normal patchouli book
+- Fixed many paleopedia errors
+- Added many new entries to paleopedia related to progression
 - Increased coelacanthus max size cap to 200
 - Coelacanthus will continue to eat mobs even if max size unless pacified
 - Added missing coelacanthus food tags
-- Many paleopedia fixes
 - Switched some raft eggs to water eggs
 - Fixed lystrosaurus not playing its walk animation when walking underwater
 - Fixed pachycephalosaurus not playing recover animation after sparring
