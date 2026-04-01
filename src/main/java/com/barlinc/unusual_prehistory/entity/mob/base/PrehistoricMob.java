@@ -1,6 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.*;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;

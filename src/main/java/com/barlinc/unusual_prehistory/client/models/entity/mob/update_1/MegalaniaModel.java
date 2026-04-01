@@ -5,7 +5,6 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.Mega
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
