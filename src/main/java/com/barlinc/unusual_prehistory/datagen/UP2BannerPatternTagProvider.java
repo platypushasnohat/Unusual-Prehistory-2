@@ -47,6 +47,7 @@ public class UP2BannerPatternTagProvider extends BannerPatternTagsProvider {
                 METRIORHYNCHUS.getKey(),
                 MOSASAURUS.getKey(),
                 ONCHOPRISTIS.getKey(),
+                PACHYCEPHALOSAURUS.getKey(),
                 PTERODACTYLUS.getKey(),
                 ULUGHBEGSAURUS.getKey()
         );

@@ -215,7 +215,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(DRYOPHYLLUM_SAPLING.get());
         this.dropPottedContents(POTTED_DRYOPHYLLUM_SAPLING.get());
 
-        this.add(DRYOPHYLLUM_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, DRYOPHYLLUM_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+        this.add(DRYOPHYLLUM_LEAVES.get(), (block) -> this.createLeavesDrops(block, DRYOPHYLLUM_SAPLING.get(), LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(GINKGO_LOG.get());
         this.dropSelf(GINKGO_WOOD.get());
@@ -238,7 +238,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(GOLDEN_GINKGO_SAPLING.get());
         this.dropPottedContents(POTTED_GOLDEN_GINKGO_SAPLING.get());
 
-        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+        this.add(GOLDEN_GINKGO_LEAVES.get(), (block) -> this.createGinkgoLeavesDrops(block, GOLDEN_GINKGO_SAPLING.get(), LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(LEPIDODENDRON_LOG.get());
         this.dropSelf(LEPIDODENDRON_WOOD.get());
@@ -282,7 +282,7 @@ public class UP2BlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(METASEQUOIA_SAPLING.get());
         this.dropPottedContents(POTTED_METASEQUOIA_SAPLING.get());
 
-        this.add(METASEQUOIA_LEAVES.get(), (block) -> createGinkgoLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+        this.add(METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(PROTOTAXITES_NUB.get());
         this.dropSelf(PROTOTAXITES_CLUSTER.get());

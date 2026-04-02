@@ -1,3 +1,9 @@
+## Version 1.4.3
+- Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit
+- Fixed pachycephalosaurus banner pattern not being tagged as a mesozoic banner pattern
+- Slightly decreased the rarity of fossil sites
+- Misc tweaks
+
 ## Version 1.4.2
 - Updated Simplified Chinese translations thanks to Oldazhai
 - Mobs now rotate their head first before their body when moving
