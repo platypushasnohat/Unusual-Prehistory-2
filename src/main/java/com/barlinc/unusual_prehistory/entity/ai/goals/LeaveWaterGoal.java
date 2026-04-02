@@ -14,23 +14,20 @@ public class LeaveWaterGoal extends Goal {
     protected final SemiAquaticMob semiAquaticMob;
     private final double speedModifier;
     private final int maxTimeInWater;
-    private final int maxTimeOnLand;
     private BlockPos landPos;
 
-    public LeaveWaterGoal(SemiAquaticMob semiAquaticMob, double speedModifier, int maxTimeInWater, int maxTimeOnLand) {
+    public LeaveWaterGoal(SemiAquaticMob semiAquaticMob, double speedModifier, int maxTimeInWater) {
         this.semiAquaticMob = semiAquaticMob;
         this.speedModifier = speedModifier;
         this.maxTimeInWater = maxTimeInWater;
-        this.maxTimeOnLand = maxTimeOnLand;
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
     public boolean canUse() {
-        if (!semiAquaticMob.isInWater()) {
+        if (!semiAquaticMob.isInWaterOrBubble()) {
             return false;
-        }
-        if (semiAquaticMob.getTimeInWater() <= maxTimeInWater || semiAquaticMob.getTimeOnLand() >= maxTimeOnLand) {
+        } else if (semiAquaticMob.getTimeInWater() < maxTimeInWater) {
             return false;
         }
         return this.findLandPos();
@@ -38,7 +35,7 @@ public class LeaveWaterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return semiAquaticMob.isInWater();
+        return semiAquaticMob.isInWaterOrBubble();
     }
 
     @Override
@@ -48,9 +45,9 @@ public class LeaveWaterGoal extends Goal {
 
     @Override
     public void tick() {
-        if (semiAquaticMob.horizontalCollision && semiAquaticMob.isInWater()) {
+        if (semiAquaticMob.horizontalCollision && semiAquaticMob.isInWaterOrBubble()) {
             float yRot = semiAquaticMob.getYRot() * Mth.DEG_TO_RAD;
-            this.semiAquaticMob.setDeltaMovement(semiAquaticMob.getDeltaMovement().add(-Mth.sin(yRot) * 0.2F, 0.1D, Mth.cos(yRot) * 0.2F));
+            this.semiAquaticMob.setDeltaMovement(semiAquaticMob.getDeltaMovement().add(-Mth.sin(yRot) * 0.3F, 0.26D, Mth.cos(yRot) * 0.3F));
         }
     }
 
@@ -61,7 +58,7 @@ public class LeaveWaterGoal extends Goal {
         for (int i = 0; i < 10; i++) {
             mutablePos.move(random.nextInt(20) - 10, 1 + random.nextInt(6), random.nextInt(20) - 10);
             if (level.getBlockState(mutablePos).isSolidRender(level, mutablePos) && level.getBlockState(mutablePos.above()).isAir() && mutablePos.getY() >= semiAquaticMob.blockPosition().getY()) {
-                landPos = mutablePos.immutable();
+                this.landPos = mutablePos.immutable();
                 return true;
             }
         }

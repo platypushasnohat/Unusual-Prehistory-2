@@ -65,7 +65,7 @@
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -81,12 +81,12 @@
          this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
-         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
+         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.9D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
-         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50));
-         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
-         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
+         this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(8, new SleepingGoal(this));

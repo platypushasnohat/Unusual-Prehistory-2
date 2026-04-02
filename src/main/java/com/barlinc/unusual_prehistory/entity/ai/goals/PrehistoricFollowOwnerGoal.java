@@ -17,6 +17,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     protected final PrehistoricMob tamedMob;
     protected LivingEntity owner;
     private final double speedModifier;
+    private final double sprintSpeedModifier;
     protected int timeToRecalcPath;
     private final float stopDistance;
     private final float startDistance;
@@ -24,17 +25,18 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     protected final boolean canFly;
     protected final boolean shouldChangeMalus;
 
-    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance) {
-        this(tamedMob, speedModifier, startDistance, stopDistance, false, false);
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, double sprintSpeedModifier, float startDistance, float stopDistance) {
+        this(tamedMob, speedModifier, sprintSpeedModifier, startDistance, stopDistance, false, false);
     }
 
-    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean shouldChangeMalus) {
-        this(tamedMob, speedModifier, startDistance, stopDistance, false, shouldChangeMalus);
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, double sprintSpeedModifier, float startDistance, float stopDistance, boolean shouldChangeMalus) {
+        this(tamedMob, speedModifier, sprintSpeedModifier, startDistance, stopDistance, false, shouldChangeMalus);
     }
 
-    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, float startDistance, float stopDistance, boolean canFly, boolean shouldChangeMalus) {
+    public PrehistoricFollowOwnerGoal(PrehistoricMob tamedMob, double speedModifier, double sprintSpeedModifier, float startDistance, float stopDistance, boolean canFly, boolean shouldChangeMalus) {
         this.tamedMob = tamedMob;
         this.speedModifier = speedModifier;
+        this.sprintSpeedModifier = sprintSpeedModifier;
         this.startDistance = startDistance;
         this.stopDistance = stopDistance;
         this.canFly = canFly;
@@ -44,7 +46,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        LivingEntity owner = this.tamedMob.getOwner();
+        LivingEntity owner = tamedMob.getOwner();
         if (owner == null) {
             return false;
         } else if (owner.isSpectator()) {
@@ -66,7 +68,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         } else if (this.unableToMove()) {
             return false;
         } else {
-            return !(this.tamedMob.distanceToSqr(this.owner) <= (double) (this.stopDistance * this.stopDistance)) && this.shouldFollow() && !this.isInCombat();
+            return !(tamedMob.distanceToSqr(owner) <= (double) (stopDistance * stopDistance)) && this.shouldFollow() && !this.isInCombat();
         }
     }
 
@@ -74,7 +76,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     public void start() {
         this.timeToRecalcPath = 0;
         if (shouldChangeMalus) {
-            this.oldWaterCost = this.tamedMob.getPathfindingMalus(BlockPathTypes.WATER);
+            this.oldWaterCost = tamedMob.getPathfindingMalus(BlockPathTypes.WATER);
             this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         }
     }
@@ -83,30 +85,36 @@ public class PrehistoricFollowOwnerGoal extends Goal {
     public void stop() {
         this.owner = null;
         this.tamedMob.getNavigation().stop();
+        this.tamedMob.setRunning(false);
         if (shouldChangeMalus) {
-            this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+            this.tamedMob.setPathfindingMalus(BlockPathTypes.WATER, oldWaterCost);
         }
     }
 
     @Override
     public void tick() {
-        this.tamedMob.getLookControl().setLookAt(this.owner, 10.0F, (float)this.tamedMob.getMaxHeadXRot());
+        this.tamedMob.getLookControl().setLookAt(owner, 10.0F, (float) tamedMob.getMaxHeadXRot());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
-            if (this.tamedMob.distanceToSqr(this.owner) >= 144.0D) {
+            if (this.tamedMob.distanceToSqr(owner) >= 256.0D) {
+                this.tamedMob.setRunning(false);
                 this.teleportToOwner();
+            } else if (this.tamedMob.distanceToSqr(owner) >= 64.0D) {
+                this.tamedMob.setRunning(true);
+                this.tamedMob.getNavigation().moveTo(owner, sprintSpeedModifier);
             } else {
-                this.tamedMob.getNavigation().moveTo(this.owner, this.speedModifier);
+                this.tamedMob.setRunning(false);
+                this.tamedMob.getNavigation().moveTo(owner, speedModifier);
             }
         }
     }
 
-    private boolean unableToMove() {
-        return this.tamedMob.isOrderedToSit() || this.tamedMob.isPassenger() || this.tamedMob.isLeashed();
+    protected boolean unableToMove() {
+        return tamedMob.isOrderedToSit() || tamedMob.isPassenger() || tamedMob.isLeashed();
     }
 
-    private void teleportToOwner() {
-        BlockPos blockpos = this.owner.blockPosition();
+    protected void teleportToOwner() {
+        BlockPos blockpos = owner.blockPosition();
         for (int i = 0; i < 10; ++i) {
             int j = this.randomIntInclusive(-3, 3);
             int k = this.randomIntInclusive(-1, 1);
@@ -118,13 +126,13 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         }
     }
 
-    private boolean maybeTeleportTo(int x, int y, int z) {
-        if (Math.abs((double) x - this.owner.getX()) < 2.0D && Math.abs((double) z - this.owner.getZ()) < 2.0D) {
+    protected boolean maybeTeleportTo(int x, int y, int z) {
+        if (Math.abs((double) x - owner.getX()) < 2.0D && Math.abs((double) z - owner.getZ()) < 2.0D) {
             return false;
         } else if (!this.canTeleportTo(new BlockPos(x, y, z))) {
             return false;
         } else {
-            this.tamedMob.moveTo((double) x + 0.5D, y, (double) z + 0.5D, this.tamedMob.getYRot(), this.tamedMob.getXRot());
+            this.tamedMob.moveTo((double) x + 0.5D, y, (double) z + 0.5D, tamedMob.getYRot(), tamedMob.getXRot());
             this.tamedMob.getNavigation().stop();
             return true;
         }
@@ -136,20 +144,20 @@ public class PrehistoricFollowOwnerGoal extends Goal {
             return false;
         } else {
             BlockState blockstate = tamedMob.level().getBlockState(blockPos.below());
-            if (!this.canFly && blockstate.getBlock() instanceof LeavesBlock) {
+            if (!canFly && blockstate.getBlock() instanceof LeavesBlock) {
                 return false;
             } else {
-                BlockPos blockpos = blockPos.subtract(this.tamedMob.blockPosition());
-                return tamedMob.level().noCollision(this.tamedMob, this.tamedMob.getBoundingBox().move(blockpos));
+                BlockPos blockpos = blockPos.subtract(tamedMob.blockPosition());
+                return tamedMob.level().noCollision(tamedMob, tamedMob.getBoundingBox().move(blockpos));
             }
         }
     }
 
-    private boolean shouldFollow() {
+    protected boolean shouldFollow() {
         return tamedMob.getCommand() == 2;
     }
 
-    private boolean isInCombat() {
+    protected boolean isInCombat() {
         Entity owner = tamedMob.getOwner();
         if (owner != null) {
             return tamedMob.distanceTo(owner) < 30 && tamedMob.getTarget() != null && tamedMob.getTarget().isAlive();
@@ -157,7 +165,7 @@ public class PrehistoricFollowOwnerGoal extends Goal {
         return false;
     }
 
-    private int randomIntInclusive(int min, int max) {
+    protected int randomIntInclusive(int min, int max) {
         return this.tamedMob.getRandom().nextInt(max - min + 1) + min;
     }
 }

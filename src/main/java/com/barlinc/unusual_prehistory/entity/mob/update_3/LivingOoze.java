@@ -86,6 +86,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         this.moveControl = new LivingOozeMoveControl(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPersistenceRequired();
     }
 
     @Override
@@ -137,6 +138,16 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
         this.setSadTime(10);
         super.actuallyHurt(damageSource, amount);
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return !this.requiresCustomPersistence();
     }
 
     @Override

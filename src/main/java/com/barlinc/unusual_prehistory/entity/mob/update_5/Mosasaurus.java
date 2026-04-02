@@ -86,7 +86,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
 
     public Mosasaurus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 8, 0.02F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
         this.headPart = new MosasaurusPart(this, this, 2.5F, 2.1F);
         this.tailPart1 = new MosasaurusPart(this, this, 2.3F, 2.4F);
@@ -98,7 +98,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 240.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.9F)
+                .add(Attributes.MOVEMENT_SPEED, 0.95F)
                 .add(Attributes.ATTACK_DAMAGE, 18.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D);
@@ -119,6 +119,11 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, false, entity -> entity.getType().is(UP2EntityTags.MOSASAURUS_FIGHT_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.MOSASAURUS_TARGETS)));
         this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 400, true, true, this::canAttack));
+    }
+
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new PrehistoricBodyRotationControl(this, 0.4F, 25.0F, 0.2F, 20.0F, 0.8F, this.getMaxHeadYRot());
     }
 
     @Override
@@ -146,11 +151,6 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
     }
 
     @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new PrehistoricBodyRotationControl(this, 0.4F, 30.0F);
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
@@ -159,7 +159,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
-            if (!this.isEyeInFluid(FluidTags.WATER) && this.getTarget() != null) {
+            if (!this.isEyeInFluid(FluidTags.WATER)) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
             }
         } else {

@@ -152,7 +152,7 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
             if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
         }
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 2);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
 		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks);
         this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks);
         this.animateSmooth(entity.shakeAnimationState, BrachiosaurusAnimations.SHAKE_BLEND, ageInTicks);

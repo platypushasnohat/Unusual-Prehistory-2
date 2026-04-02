@@ -24,10 +24,9 @@ public class EnterWaterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (semiAquaticMob.isInWater()) {
+        if (semiAquaticMob.isInWaterOrBubble()) {
             return false;
-        }
-        if (semiAquaticMob.getTimeInWater() != 0 || semiAquaticMob.getTimeOnLand() <= maxTimeOnLand) {
+        } else if (semiAquaticMob.getTimeOnLand() < maxTimeOnLand) {
             return false;
         }
         return this.findWaterPos();
@@ -40,7 +39,7 @@ public class EnterWaterGoal extends Goal {
 
     @Override
     public void start() {
-        semiAquaticMob.getNavigation().moveTo(waterPos.getX(), waterPos.getY(), waterPos.getZ(), speedModifier);
+        this.semiAquaticMob.getNavigation().moveTo(waterPos.getX(), waterPos.getY(), waterPos.getZ(), speedModifier);
     }
 
     private boolean findWaterPos() {

@@ -1,12 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public abstract class SemiAquaticMob extends PrehistoricMob {
@@ -23,7 +21,7 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isInWater()) {
+        if (this.isInWaterOrBubble()) {
             this.setTimeInWater(this.getTimeInWater() + 1);
             this.setTimeOnLand(0);
         } else {
@@ -37,20 +35,6 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
         super.defineSynchedData();
         this.entityData.define(TIME_IN_WATER, 0);
         this.entityData.define(TIME_ON_LAND, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("TimeInWater", this.getTimeInWater());
-        compoundTag.putInt("TimeOnLand", this.getTimeOnLand());
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setTimeInWater(compoundTag.getInt("TimeInWater"));
-        this.setTimeOnLand(compoundTag.getInt("TimeOnLand"));
     }
 
     @Override

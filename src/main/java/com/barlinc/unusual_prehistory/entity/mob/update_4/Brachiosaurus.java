@@ -197,7 +197,7 @@
 
      @Override
      protected @NotNull BodyRotationControl createBodyControl() {
-         return new PrehistoricBodyRotationControl(this, 0.25F, 25.0F);
+         return new PrehistoricBodyRotationControl(this, 0.35F, 30.0F, 0.17F, 22.0F, 0.8F, this.getMaxHeadYRot());
      }
 
      @Override

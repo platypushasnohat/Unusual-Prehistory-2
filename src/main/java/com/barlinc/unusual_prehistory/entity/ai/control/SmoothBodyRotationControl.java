@@ -7,16 +7,22 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 public class SmoothBodyRotationControl extends BodyRotationControl {
 
     protected final Mob entity;
-    protected final float bodyLag;
-    protected final float bodyMax;
-    protected int headStableTime;
-    protected float lastStableYHeadRot;
+    protected final float bodyLagMoving;
+    protected final float bodyLagStill;
+    protected final float headLag;
+    protected final float bodyMaxStill;
+    protected final float bodyMaxMoving;
+    protected final float headMax;
 
-    public SmoothBodyRotationControl(Mob entity, float bodyLagMoving, float bodyMax) {
+    public SmoothBodyRotationControl(Mob entity, float bodyLagMoving, float bodyMaxMoving, float bodyLagStill, float bodyMaxStill, float headLag, float headMax) {
         super(entity);
         this.entity = entity;
-        this.bodyLag = bodyLagMoving;
-        this.bodyMax = bodyMax;
+        this.bodyLagMoving = bodyLagMoving;
+        this.bodyMaxMoving = bodyMaxMoving;
+        this.bodyLagStill = bodyLagStill;
+        this.bodyMaxStill = bodyMaxStill;
+        this.headLag = headLag;
+        this.headMax = headMax;
     }
 
     @Override
@@ -25,29 +31,34 @@ public class SmoothBodyRotationControl extends BodyRotationControl {
             double dx = entity.getX() - entity.xo;
             double dz = entity.getZ() - entity.zo;
             float moveAngle = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, bodyLag, bodyMax);
-            this.rotateHeadIfNecessary();
-            this.lastStableYHeadRot = entity.yHeadRot;
-            this.headStableTime = 0;
+            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, bodyLagMoving, bodyMaxMoving);
+            this.entity.yHeadRot = this.approachAngle(entity.yHeadRot, moveAngle, headLag, headMax);
+            this.clampHeadBodyDifference();
         } else {
-            this.rotateHeadIfNecessary();
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.yHeadRot, bodyLag * 0.66F, bodyMax * 0.33F);
+            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.yHeadRot, bodyLagStill, bodyMaxStill);
+            this.clampHeadBodyDifference();
         }
     }
 
-    protected float approachAngle(float current, float target, float factor, float maxDelta) {
-        float diff = Mth.degreesDifference(current, target);
-        diff = Mth.clamp(diff, -maxDelta, maxDelta);
-        return current + diff * factor;
+    protected void clampHeadBodyDifference() {
+        float diff = Mth.wrapDegrees(entity.yHeadRot - entity.yBodyRot);
+        float clamped = Mth.clamp(diff, -headMax, headMax);
+        this.entity.yHeadRot = entity.yBodyRot + clamped;
     }
 
-    protected void rotateHeadIfNecessary() {
-        this.entity.yHeadRot = Mth.rotateIfNecessary(entity.yHeadRot, entity.yBodyRot, (float) entity.getMaxHeadYRot());
+    protected float approachAngle(float current, float target, float factor, float maxDelta) {
+        float d = Mth.wrapDegrees(target - current);
+        if (d < -maxDelta) {
+            d = -maxDelta;
+        } else if (d > maxDelta) {
+            d = maxDelta;
+        }
+        return current + d * factor;
     }
 
     protected boolean isMoving() {
-        double dx = this.entity.getX() - this.entity.xo;
-        double dz = this.entity.getZ() - this.entity.zo;
+        double dx = entity.getX() - entity.xo;
+        double dz = entity.getZ() - entity.zo;
         return dx * dx + dz * dz > (double) 2.5000003E-7F;
     }
 }

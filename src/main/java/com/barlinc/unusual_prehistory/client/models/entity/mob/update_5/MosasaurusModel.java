@@ -149,25 +149,26 @@ public class MosasaurusModel extends UP2Model<Mosasaurus> {
         this.animateSmooth(entity.nip2AnimationState, MosasaurusAnimations.NIP_BLEND2, ageInTicks);
         this.animate(entity.leapAnimationState, MosasaurusAnimations.JUMP, ageInTicks);
 
-        if (!entity.isLeaping()) {
-            this.head.yRot += netHeadYaw * deg / 4;
-        }
-
         if (entity.isInWaterOrBubble() && !entity.isLeaping()) {
             this.swim_control.xRot = headPitch * deg / 3;
         } else if (entity.isLeaping()) {
             this.swim_control.xRot = headPitch * deg;
         }
 
-        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
-        double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
-        double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;
-        double segment3Y = (entity.getTrailTransformation(24, partialTicks)) - bodyYRot - segment2Y;
+//        double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
+//        double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
+//        double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;
+//        double segment3Y = (entity.getTrailTransformation(24, partialTicks)) - bodyYRot - segment2Y;
+//
+//        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.3F);
+//        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.26F);
+//        this.tail3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.2F);
 
-        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.3F);
-        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.26F);
-        this.tail3.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment3Y) * 0.2F);
-	}
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.35F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.3F);
+        this.tail3.yRot = Mth.lerp(0.2F, this.tail3.yRot, tailYaw * 0.25F);
+    }
 
     @Override
     public @NotNull ModelPart root() {

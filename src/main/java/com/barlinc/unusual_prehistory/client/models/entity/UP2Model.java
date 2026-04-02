@@ -112,4 +112,14 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
             part.yRot += netHeadYaw * ((float) Math.PI / 180) / 2;
         }
     }
+
+    public void faceTarget(float yaw, float pitch, float rotationDivisor, ModelPart... parts) {
+        float actualRotationDivisor = rotationDivisor * parts.length;
+        float yawAmount = yaw / (180.0F / (float) Math.PI) / actualRotationDivisor;
+        float pitchAmount = pitch / (180.0F / (float) Math.PI) / actualRotationDivisor;
+        for (ModelPart part : parts) {
+            part.yRot += yawAmount;
+            part.xRot += pitchAmount;
+        }
+    }
 }

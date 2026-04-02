@@ -78,8 +78,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 8, 0.02F);
-        this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 3, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 2);
         this.headPart = new AegirocassisPart(this, this, 3.5F, 3.9F);
         this.tailPart1 = new AegirocassisPart(this, this, 3.5F, 3.9F);
         this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.5F, 3.9F);
@@ -110,6 +110,11 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         });
         this.goalSelector.addGoal(6, new AegirocassisRollGoal(this));
         this.goalSelector.addGoal(6, new AegirocassisEatGoal(this));
+    }
+
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new PrehistoricBodyRotationControl(this, 0.3F, 25.0F, 0.15F, 20.0F, 0.8F, this.getMaxHeadYRot());
     }
 
     @Override
@@ -203,11 +208,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public boolean refuseToLook() {
         return super.refuseToLook() && this.getIdleState() != 2;
-    }
-
-    @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new PrehistoricBodyRotationControl(this, 0.3F, 30.0F);
     }
 
     @Override

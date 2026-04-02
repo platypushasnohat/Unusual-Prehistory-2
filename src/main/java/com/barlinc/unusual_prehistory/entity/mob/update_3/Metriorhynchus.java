@@ -77,7 +77,7 @@
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
          this.setMaxUpStep(1.0F);
      }
 
@@ -94,11 +94,11 @@
          this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
          this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
-         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F));
+         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
-         this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(7, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
+         this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(9, new MetriorhynchusBellowGoal(this));

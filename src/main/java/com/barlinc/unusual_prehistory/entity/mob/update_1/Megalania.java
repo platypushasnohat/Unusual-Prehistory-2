@@ -95,25 +95,25 @@ public class Megalania extends SemiAquaticMob {
         this.setMaxUpStep(1.1F);
         this.switchNavigator(true);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
     }
 
     @Override
     protected void registerGoals() {
-        this.randomStrollGoal = new PrehistoricRandomStrollGoal(this, 1.0D, false);
+        this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
-        this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 7.0F, 4.0F, false));
+        this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.8D, 7.0F, 4.0F, false));
         this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
+        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 700));
+        this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
         this.goalSelector.addGoal(6, this.randomStrollGoal);
-        this.goalSelector.addGoal(7, new LeaveWaterGoal(this, 1.0D, 600, 2400));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new SleepingGoal(this));
-        this.goalSelector.addGoal(10, new MegalaniaTongueGoal(this));
-        this.goalSelector.addGoal(10, new MegalaniaRoarGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new SleepingGoal(this));
+        this.goalSelector.addGoal(9, new MegalaniaTongueGoal(this));
+        this.goalSelector.addGoal(9, new MegalaniaRoarGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));

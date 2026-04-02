@@ -1,5 +1,12 @@
 ## Version 1.4.2
 - Updated Simplified Chinese translations thanks to Oldazhai
+- Mobs now rotate their head first before their body when moving
+- Tweaked body rotation values a bit
+- Time on land and time on water is no longer saved data for semiaquatic mobs
+- Fixed semiaquatic mobs not prioritizing leaving/entering water over wandering
+- Fixed living ooze despawning
+- Following mobs will now teleport when you are 16 blocks away and sprint when 8 blocks away
+- Misc tweaks
 
 ## Version 1.4.1
 - Crash fix

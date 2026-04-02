@@ -57,7 +57,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
     public KimmeridgebrachypteraeschnidiumNymph(EntityType<? extends SemiAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

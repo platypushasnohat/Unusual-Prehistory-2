@@ -27,6 +27,11 @@ public abstract class AmbientMob extends PathfinderMob {
     }
 
     @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new SmoothBodyRotationControl(this, 0.5F, 30.0F, 0.25F, 20.0F, 0.9F, 180.0F);
+    }
+
+    @Override
     protected @NotNull MovementEmission getMovementEmission() {
         return MovementEmission.NONE;
     }
@@ -80,11 +85,6 @@ public abstract class AmbientMob extends PathfinderMob {
     @Override
     protected float getSoundVolume() {
         return 0.25F;
-    }
-
-    @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new SmoothBodyRotationControl(this, 0.5F, 30.0F);
     }
 
     @Override

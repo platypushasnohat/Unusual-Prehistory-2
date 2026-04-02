@@ -93,25 +93,14 @@
 
      @Override
      protected void registerGoals() {
-//         this.goalSelector.addGoal(0, new FloatGoal(this) {
-//             @Override
-//             public boolean canUse() {
-//                 return super.canUse() && Praepusa.this.isEepy();
-//             }
-//
-//             @Override
-//             public boolean canContinueToUse() {
-//                 return super.canContinueToUse() && Praepusa.this.isEepy();
-//             }
-//         });
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
-         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50));
-         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D, 1200, 1500));
-         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
+         this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(8, new WaterSleepingGoal(this, true));

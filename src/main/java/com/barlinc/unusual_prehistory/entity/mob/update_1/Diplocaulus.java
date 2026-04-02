@@ -71,7 +71,7 @@
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -85,16 +85,16 @@
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
-         this.goalSelector.addGoal(3, new DiplocaulusSlideGoal(this, 2.0D));
-         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 80));
-         this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D) {
+         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
+         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 80));
+         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D) {
              @Override
              public boolean canUse() {
                  return super.canUse() && !Diplocaulus.this.isSliding();
              }
          });
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500, 800));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 800));
          this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(7, new RandomSitGoal(this) {
