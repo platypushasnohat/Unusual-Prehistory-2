@@ -116,6 +116,11 @@
      }
 
      @Override
+     protected @NotNull BodyRotationControl createBodyControl() {
+         return new PrehistoricBodyRotationControl(this, 0.25F, 22.0F, 0.15F, 15.0F, 0.8F, 180.0F);
+     }
+
+     @Override
      public void setId(int i1) {
          super.setId(i1);
          for (int i = 0; i < this.allParts.length; i++) {
@@ -193,11 +198,6 @@
      @Override
      public Vec3 getEepyParticleVec() {
          return new Vec3(0, -0.7F, -this.getBbWidth() * 0.4F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
-     }
-
-     @Override
-     protected @NotNull BodyRotationControl createBodyControl() {
-         return new PrehistoricBodyRotationControl(this, 0.35F, 30.0F, 0.17F, 22.0F, 0.8F, this.getMaxHeadYRot());
      }
 
      @Override

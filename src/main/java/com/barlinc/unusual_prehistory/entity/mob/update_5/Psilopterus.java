@@ -62,7 +62,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     private int fleeTicks = 0;
     private Vec3 fleeFromPosition;
-    private int eatTimer;
 
     private int pushButtonCooldown = 0;
     private int pullLeverCooldown = 0;
@@ -272,32 +271,9 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         }
 
         if (!this.level().isClientSide) {
-            if (eatTimer > 0) {
-                this.eatTimer--;
-            } else if (this.shouldLootItem(this.getMainHandItem())) {
-                ItemStack stack = this.getMainHandItem();
-                this.level().broadcastEntityEvent(this, (byte) 45);
-                this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
-                this.heal(4);
-                stack.shrink(1);
-            }
             if (fleeTicks > 0) fleeTicks--;
             if (pushButtonCooldown > 0) pushButtonCooldown--;
             if (pullLeverCooldown > 0) pullLeverCooldown--;
-        }
-    }
-
-    public void handleEntityEvent(byte id) {
-        if (id == 45) {
-            ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-            if (!itemstack.isEmpty()) {
-                for (int i = 0; i < 8; ++i) {
-                    Vec3 headPos = (new Vec3(0, 0.8D, 1.1D)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.yBodyRot * ((float) Math.PI / 180F));
-                    this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + headPos.x, this.getY(0.5) + headPos.y, this.getZ() + headPos.z, (random.nextFloat() - 0.5F) * 0.1F, random.nextFloat() * 0.15F, (random.nextFloat() - 0.5F) * 0.1F);
-                }
-            }
-        } else {
-            super.handleEntityEvent(id);
         }
     }
 

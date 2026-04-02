@@ -6,6 +6,9 @@
 - Fixed semiaquatic mobs not prioritizing leaving/entering water over wandering
 - Fixed living ooze despawning
 - Following mobs will now teleport when you are 16 blocks away and sprint when 8 blocks away
+- Mosasaurus and praepusa now use their food tags for temporary pacification to be more consistent
+- Temporary pacification time has been increased to 1 hour
+- Mobs can now be fed their food item to heal them
 - Misc tweaks
 
 ## Version 1.4.1

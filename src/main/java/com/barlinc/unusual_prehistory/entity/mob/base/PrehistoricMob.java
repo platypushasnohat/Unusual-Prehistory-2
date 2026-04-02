@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -27,10 +29,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -71,6 +70,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Integer> SITTING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     protected int eepyTicks;
+    protected int eatTimer;
 
     private BlockPos jukeboxPosition;
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
@@ -243,30 +243,42 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (this.isFood(itemstack) && this.isBaby()) {
-            this.feedItemToMob(player, hand, itemstack);
-            this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
+
         if (this.isForeverBabyItem(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
             this.setForeverBaby(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.canPacify()) {
-            if (this.isPermanentPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
+
+        if (this.isFood(itemstack)) {
+            if (this.getHealth() < this.getMaxHealth() && this.eatTimer <= 0) {
+                this.feedItemToMob(player, hand, itemstack);
+                this.heal(itemstack.getFoodProperties(this).getNutrition());
+                this.level().broadcastEntityEvent(this, (byte) 11);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+            if (this.isBaby()) {
+                this.feedItemToMob(player, hand, itemstack);
+                this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+        }
+
+        if (this.canPacify() && !this.isPacified() && !this.isBaby()) {
+            if (this.isPermanentPacifyItem(itemstack)) {
                 this.feedItemToMob(player, hand, itemstack);
                 this.setPacifiedTicks(-1);
                 this.level().broadcastEntityEvent(this, (byte) 10);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
-            if (this.isPacifyItem(itemstack) && !this.isPacified() && !this.isBaby()) {
+            if (this.isPacifyItem(itemstack)) {
                 this.feedItemToMob(player, hand, itemstack);
                 this.setPacifiedTicks(this.getPacifiedTicks() + this.pacifiedTicks());
                 this.level().broadcastEntityEvent(this, (byte) 9);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
+
         if (!type.consumesAction()) {
             return this.interactTameCommands(player, hand);
         }
@@ -300,18 +312,38 @@ public abstract class PrehistoricMob extends TamableAnimal {
         switch (id) {
             case 9 -> this.spawnPacifyParticles(false);
             case 10 -> this.spawnPacifyParticles(true);
+            case 11 -> this.spawnHeart();
+            case 45 -> this.spawnEatParticles();
             default -> super.handleEntityEvent(id);
         }
     }
 
+    protected void spawnHeart() {
+        this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
+    }
+
     protected void spawnPacifyParticles(boolean permanent) {
         ParticleOptions particleoptions = permanent ? UP2Particles.GOLDEN_HEART.get() : ParticleTypes.HEART;
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             double xspeed = this.random.nextGaussian() * 0.02D;
             double yspeed = this.random.nextGaussian() * 0.08D;
             double zspeed = this.random.nextGaussian() * 0.02D;
             this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), xspeed, yspeed, zspeed);
         }
+    }
+
+    protected void spawnEatParticles() {
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        if (!itemstack.isEmpty()) {
+            for (int i = 0; i < 8; i++) {
+                Vec3 headPos = this.getEatParticlePos();
+                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + headPos.x, this.getY(0.5) + headPos.y, this.getZ() + headPos.z, (random.nextFloat() - 0.5F) * 0.1F, random.nextFloat() * 0.15F, (random.nextFloat() - 0.5F) * 0.1F);
+            }
+        }
+    }
+
+    protected Vec3 getEatParticlePos() {
+        return (new Vec3(0, 0.8D, 1.1D)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.yBodyRot * ((float) Math.PI / 180F));
     }
 
     @Override
@@ -333,6 +365,16 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (tickCount % 20 == 0 && this.shouldStopDancing() && this.isDancing()) {
                 this.setDancing(false);
                 this.jukeboxPosition = null;
+            }
+
+            if (eatTimer > 0) {
+                this.eatTimer--;
+            } else if (this.isFood(this.getMainHandItem())) {
+                ItemStack stack = this.getMainHandItem();
+                this.level().broadcastEntityEvent(this, (byte) 45);
+                this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                this.heal(stack.getFoodProperties(this).getNutrition());
+                stack.shrink(1);
             }
         }
 
@@ -719,7 +761,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public int pacifiedTicks() {
-        return 12000 + this.getRandom().nextInt(6000);
+        return 72000; // 1 hour
     }
 
     public boolean isPacified() {

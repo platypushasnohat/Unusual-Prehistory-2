@@ -200,17 +200,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_PORKCHOP
         );
 
-        this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(
-                Items.BONE
-        );
-        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(
-                UP2ItemTags.ULUGHBEGSAURUS_FOOD
-        );
+        this.tag(UP2ItemTags.TAMES_KAPROSUCHUS).add(Items.BONE);
+        this.tag(UP2ItemTags.TAMES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
         // Update 5
-        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(
-                Items.TROPICAL_FISH
-        );
+        this.tag(UP2ItemTags.AEGIROCASSIS_FOOD).add(Items.TROPICAL_FISH);
         this.tag(UP2ItemTags.DESMATOSUCHUS_FOOD).add(
                 Items.SPIDER_EYE,
                 Items.EGG,
@@ -238,7 +232,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.PACIFIES_COELACANTHUS).addTag(UP2ItemTags.COELACANTHUS_FOOD);
         this.tag(UP2ItemTags.PACIFIES_KAPROSUCHUS).addTag(UP2ItemTags.KAPROSUCHUS_FOOD);
-        this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).add(Items.TROPICAL_FISH);
+        this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).addTag(UP2ItemTags.PRAEPUSA_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
         this.tag(UP2ItemTags.AMBER_DYES).addOptional(new ResourceLocation("dye_depot", "amber_dye"));
@@ -273,7 +267,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.PUFFERFISH
         );
 
-        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).add(Items.SCUTE);
+        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).addTag(UP2ItemTags.MOSASAURUS_FOOD);
 
         this.tag(UP2ItemTags.SNOW).add(
                 Items.SNOWBALL,
@@ -398,9 +392,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 .addTag(UP2ItemTags.PALEOZOIC_EGGS)
                 .addTag(UP2ItemTags.MESOZOIC_EGGS)
                 .addTag(UP2ItemTags.CENOZOIC_EGGS);
-
-//        this.tag(UP2ItemTags.ACCELERATES_EGG_HATCHING).add(Blocks.HAY_BLOCK.asItem(), Blocks.MOSS_BLOCK.asItem());
-//        this.tag(UP2ItemTags.PREVENTS_EGG_HATCHING);
 
         this.copy(UP2BlockTags.ACCELERATES_EGG_HATCHING, UP2ItemTags.ACCELERATES_EGG_HATCHING);
         this.copy(UP2BlockTags.PREVENTS_EGG_HATCHING, UP2ItemTags.PREVENTS_EGG_HATCHING);
