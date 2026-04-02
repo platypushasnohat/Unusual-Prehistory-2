@@ -2,6 +2,7 @@
 - Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit
 - Fixed pachycephalosaurus banner pattern not being tagged as a mesozoic banner pattern
 - Slightly decreased the rarity of fossil sites
+- Fossil sites now have more fossils than junk items (around 60% fossils and 40% junk)
 - Misc tweaks
 
 ## Version 1.4.2
