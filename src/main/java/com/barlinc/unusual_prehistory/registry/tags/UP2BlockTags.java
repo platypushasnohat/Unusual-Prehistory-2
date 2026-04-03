@@ -105,11 +105,11 @@ public class UP2BlockTags {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }
 
-    private static TagKey<Block> forgeBlockTag(String name) {
-        return blockTag("forge", name);
+    private static TagKey<Block> commonBlockTag(String name) {
+        return blockTag("c", name);
     }
 
     public static TagKey<Block> blockTag(String modid, String name) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

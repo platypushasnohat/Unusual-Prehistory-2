@@ -21,9 +21,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.chunk.ChunkStatus;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
@@ -41,7 +41,7 @@ public class ZombieAttackEggGoal extends MoveToBlockGoal {
 
     @Override
     public boolean canUse() {
-        if (!ForgeEventFactory.getMobGriefingEvent(this.removerMob.level(), this.removerMob)) {
+        if (!EventHooks.canEntityGrief(this.removerMob.level(), this.removerMob)) {
             return false;
         } else if (this.nextStartTick > 0) {
             --this.nextStartTick;

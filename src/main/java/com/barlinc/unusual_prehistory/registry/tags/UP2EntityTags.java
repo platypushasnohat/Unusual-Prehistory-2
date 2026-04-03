@@ -79,11 +79,11 @@ public class UP2EntityTags {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }
 
-    private static TagKey<EntityType<?>> forgeEntityTag(String name) {
-        return entityTag("forge", name);
+    private static TagKey<EntityType<?>> commonEntityTag(String name) {
+        return entityTag("c", name);
     }
 
     public static TagKey<EntityType<?>> entityTag(String modid, String name) {
-        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

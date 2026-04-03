@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -41,7 +40,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     protected PrehistoricAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
     @Override
@@ -59,10 +58,11 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         return 1.0F / (float) (y == 0 ? 1 : y);
     }
 
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+    // Now a tag
+//    @Override
+//    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+//        return fluidType != NeoForgeMod.WATER_TYPE.value();
+//    }
 
     @Override
     public boolean isPushedByFluid() {
@@ -131,9 +131,9 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    protected void defineSynchedData() {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
+        builder.define(FROM_BUCKET, false);
     }
 
     @Override

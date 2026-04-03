@@ -42,6 +42,7 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
         return false;
     }
 
+    // entity tag
     @Override
     public boolean canBreatheUnderwater() {
         return true;

@@ -19,6 +19,6 @@ public class UP2BannerPatternTags {
     }
 
     public static TagKey<BannerPattern> bannerPatternTag(String modid, String name) {
-        return TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.BANNER_PATTERN, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

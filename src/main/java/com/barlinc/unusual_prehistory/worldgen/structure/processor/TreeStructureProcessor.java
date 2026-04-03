@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.worldgen.structure.processor;
 
 import com.barlinc.unusual_prehistory.registry.UP2StructureProcessors;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelReader;
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class TreeStructureProcessor extends StructureProcessor {
 
-    public static final Codec<TreeStructureProcessor> CODEC = Codec.unit(() -> TreeStructureProcessor.INSTANCE);
+    public static final MapCodec<TreeStructureProcessor> CODEC = MapCodec.unit(() -> TreeStructureProcessor.INSTANCE);
 
     public static final TreeStructureProcessor INSTANCE = new TreeStructureProcessor();
 

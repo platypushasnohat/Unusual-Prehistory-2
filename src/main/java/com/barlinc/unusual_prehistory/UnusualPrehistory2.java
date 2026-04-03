@@ -10,16 +10,15 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
 
 import java.util.Locale;
@@ -30,11 +29,9 @@ public class UnusualPrehistory2 {
 
     public static final String MOD_ID = "unusual_prehistory";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
 
-    public UnusualPrehistory2() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus eventBus = MinecraftForge.EVENT_BUS;
+    public UnusualPrehistory2(IEventBus bus, ModContainer container) {
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::loadComplete);
@@ -56,13 +53,10 @@ public class UnusualPrehistory2 {
         UP2Trees.FOLIAGE_PLACERS.register(bus);
         UP2Structures.STRUCTURE_TYPES.register(bus);
         UP2StructureProcessors.PROCESSOR_TYPES.register(bus);
-        UP2LootModifiers.LOOT_MODIFIERS.register(bus);
         UP2SoundEvents.SOUND_EVENTS.register(bus);
         UP2Particles.PARTICLE_TYPES.register(bus);
         UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
-        UP2BannerPatterns.BANNER_PATTERNS.register(bus);
         PROXY.commonInit();
-        eventBus.register(this);
     }
 
     public void commonSetup(final FMLCommonSetupEvent event) {
@@ -110,7 +104,7 @@ public class UnusualPrehistory2 {
     }
 
     public static ResourceLocation modPrefix(String name) {
-        return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name.toLowerCase(Locale.ROOT));
     }
 }
 

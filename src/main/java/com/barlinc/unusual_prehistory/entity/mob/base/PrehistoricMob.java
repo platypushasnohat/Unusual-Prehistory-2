@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -44,8 +46,7 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -89,12 +90,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.moveControl = new PrehistoricMoveControl(this);
         this.lookControl = new PrehistoricLookControl(this);
         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
-        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
+        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
         this.setPersistenceRequired();
     }
 
     @Override
-    public int getExperienceReward() {
+    public int getBaseExperienceReward() {
         return 0;
     }
 
@@ -138,7 +139,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public boolean shouldStopDancing() {
-        return this.getLastHurtByMob() != null || this.getTarget() != null || this.hasControllingPassenger() || jukeboxPosition == null || !jukeboxPosition.closerToCenterThan(position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !level().getBlockState(jukeboxPosition).is(Blocks.JUKEBOX);
+        return this.getLastHurtByMob() != null || this.getTarget() != null || this.hasControllingPassenger() || jukeboxPosition == null || !jukeboxPosition.closerToCenterThan(position(), GameEvent.JUKEBOX_PLAY.value().notificationRadius()) || !level().getBlockState(jukeboxPosition).is(Blocks.JUKEBOX);
     }
 
     public boolean canDanceToJukebox() {
@@ -223,10 +224,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
         Item item = food.getItem();
-        if (item.isEdible()) {
-            for (Pair<MobEffectInstance, Float> pair : food.getFoodProperties(this).getEffects()) {
-                if (!level.isClientSide && pair.getFirst() != null && level.random.nextFloat() < pair.getSecond()) {
-                    livingEntity.addEffect(new MobEffectInstance(pair.getFirst()));
+        if (item.components().has(DataComponents.FOOD)) {
+            for (FoodProperties.PossibleEffect effect : food.getFoodProperties(this).effects()) {
+                if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
+                    livingEntity.addEffect(new MobEffectInstance(effect.effect()));
                 }
             }
         }
@@ -253,7 +254,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.isFood(itemstack)) {
             if (this.getHealth() < this.getMaxHealth() && this.eatTimer <= 0) {
                 this.feedItemToMob(player, hand, itemstack);
-                this.heal(itemstack.getFoodProperties(this).getNutrition());
+                this.heal(itemstack.getFoodProperties(this).nutrition());
                 this.level().broadcastEntityEvent(this, (byte) 11);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
@@ -373,7 +374,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
                 ItemStack stack = this.getMainHandItem();
                 this.level().broadcastEntityEvent(this, (byte) 45);
                 this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
-                this.heal(stack.getFoodProperties(this).getNutrition());
+                this.heal(stack.getFoodProperties(this).nutrition());
                 stack.shrink(1);
             }
         }
@@ -619,7 +620,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         f1 = ret[0];
         f2 = ret[1];
 
-        boolean flag = causeInternalFallDamage(f1, f2, source);
+        boolean flag = this.causeInternalFallDamage(f1, f2, source);
         int i = this.calculateFallDamage(f1, f2);
         if (i > 0) {
             this.playSound(i > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0F, 1.0F);
@@ -632,7 +633,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
-        float[] livingFall = ForgeHooks.onLivingFall(this, f1, f2);
+        float[] livingFall = EventHooks.onLivingFall(this, f1, f2);
         if (livingFall == null) return false;
         f1 = livingFall[0];
         f2 = livingFall[1];
@@ -673,24 +674,24 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(ATTACK_STATE, 0);
-        this.entityData.define(PACIFIED_TICKS, 0);
-        this.entityData.define(FROM_EGG, false);
-        this.entityData.define(SHOT_FROM_OOZE, false);
-        this.entityData.define(RUNNING, false);
-        this.entityData.define(IDLE_STATE, 0);
-        this.entityData.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
-        this.entityData.define(FOREVER_BABY, false);
-        this.entityData.define(SIT_COOLDOWN, 3000 + random.nextInt(3000));
-        this.entityData.define(EEPY_COOLDOWN, 100);
-        this.entityData.define(COMMAND, 0);
-        this.entityData.define(DANCING, false);
-        this.entityData.define(EEPY, false);
-        this.entityData.define(SITTING, false);
-        this.entityData.define(SITTING_TICKS, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(ATTACK_STATE, 0);
+        builder.define(PACIFIED_TICKS, 0);
+        builder.define(FROM_EGG, false);
+        builder.define(SHOT_FROM_OOZE, false);
+        builder.define(RUNNING, false);
+        builder.define(IDLE_STATE, 0);
+        builder.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
+        builder.define(FOREVER_BABY, false);
+        builder.define(SIT_COOLDOWN, 3000 + random.nextInt(3000));
+        builder.define(EEPY_COOLDOWN, 100);
+        builder.define(COMMAND, 0);
+        builder.define(DANCING, false);
+        builder.define(EEPY, false);
+        builder.define(SITTING, false);
+        builder.define(SITTING_TICKS, 0);
     }
 
     @Override

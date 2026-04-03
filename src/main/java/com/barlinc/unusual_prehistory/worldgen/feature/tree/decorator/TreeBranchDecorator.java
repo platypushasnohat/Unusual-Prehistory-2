@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.worldgen.feature.tree.decorator;
 
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class TreeBranchDecorator extends TreeDecorator {
 
-    public static final Codec<TreeBranchDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final MapCodec<TreeBranchDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter((treeDecorator) -> treeDecorator.probability),
             BlockStateProvider.CODEC.fieldOf("leaf_provider").forGetter((treeDecorator) -> treeDecorator.leafProvider)
     ).apply(instance, TreeBranchDecorator::new));

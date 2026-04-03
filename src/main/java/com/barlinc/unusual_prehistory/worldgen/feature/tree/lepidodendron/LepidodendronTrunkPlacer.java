@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ import java.util.function.BiConsumer;
 
 public class LepidodendronTrunkPlacer extends TrunkPlacer {
 
-    public static final Codec<LepidodendronTrunkPlacer> CODEC = RecordCodecBuilder.create(lepidodendron ->
+    public static final MapCodec<LepidodendronTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(lepidodendron ->
             trunkPlacerParts(lepidodendron).apply(lepidodendron, LepidodendronTrunkPlacer::new));
 
     public LepidodendronTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {

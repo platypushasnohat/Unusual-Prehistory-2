@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.blocks.plant;
 
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -19,13 +20,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
 public class PrehistoricFlowerBlock extends FlowerBlock implements SuspiciousEffectHolder, BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-    public PrehistoricFlowerBlock(Supplier<MobEffect> effect, int duration, BlockBehaviour.Properties properties) {
+    public PrehistoricFlowerBlock(Holder<MobEffect> effect, int duration, BlockBehaviour.Properties properties) {
         super(effect, duration, properties);
     }
 
@@ -35,7 +34,7 @@ public class PrehistoricFlowerBlock extends FlowerBlock implements SuspiciousEff
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 

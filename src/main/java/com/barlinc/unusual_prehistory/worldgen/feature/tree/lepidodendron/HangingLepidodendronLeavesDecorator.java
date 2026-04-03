@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.blocks.plant.update_1.LepidodendronConeBlo
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class HangingLepidodendronLeavesDecorator extends TreeDecorator {
 
     public static final HangingLepidodendronLeavesDecorator INSTANCE = new HangingLepidodendronLeavesDecorator();
-    public static final Codec<HangingLepidodendronLeavesDecorator> CODEC = Codec.unit(() -> INSTANCE);
+    public static final MapCodec<HangingLepidodendronLeavesDecorator> CODEC = MapCodec.unit(() -> INSTANCE);
 
     @Override
     protected @NotNull TreeDecoratorType<?> type() {

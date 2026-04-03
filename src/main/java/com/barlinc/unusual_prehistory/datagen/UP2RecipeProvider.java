@@ -15,11 +15,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -42,7 +40,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapelessRecipeBuilder.shapeless(MISC, UP2Items.ORGANIC_OOZE.get(), 2).requires(Tags.Items.SLIMEBALLS).requires(Items.ROTTEN_FLESH).requires(Items.SUGAR).requires(Tags.Items.MUSHROOMS).unlockedBy("has_slime", has(Items.SLIME_BALL)).save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.DIRT_ON_A_STICK.get(), 1).requires(Tags.Items.TOOLS_FISHING_RODS).requires(Blocks.DIRT.asItem()).unlockedBy("has_fishing_rod", has(Tags.Items.TOOLS_FISHING_RODS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(MISC, UP2Items.DIRT_ON_A_STICK.get(), 1).requires(Tags.Items.TOOLS_FISHING_ROD).requires(Blocks.DIRT.asItem()).unlockedBy("has_fishing_rod", has(Tags.Items.TOOLS_FISHING_RODS)).save(consumer);
 
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PALEOSTONE_STAIRS.get(), 4).define('G', PALEOSTONE.get()).pattern("G  ").pattern("GG ").pattern("GGG").unlockedBy("has_greynite", has(PALEOSTONE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, PALEOSTONE_SLAB.get(), 6).define('G', PALEOSTONE.get()).pattern("GGG").unlockedBy("has_greynite", has(PALEOSTONE.get())).save(consumer);
@@ -102,7 +100,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, MOSSY_DIRT.get(), 8).define('D', Blocks.DIRT.asItem()).define('M', MOSS_LAYER.get()).pattern("DDD").pattern("DMD").pattern("DDD").unlockedBy("has_moss_layer", has(MOSS_LAYER.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_COLORLESS).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
+        ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_COLORLESS).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.GLASS)).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, TINTED_REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_TINTED).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, WHITE_REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_WHITE).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);
         ShapedRecipeBuilder.shaped(BUILDING_BLOCKS, LIGHT_GRAY_REINFORCED_GLASS.get(), 8).define('G', Tags.Items.GLASS_LIGHT_GRAY).define('I', Tags.Items.INGOTS_IRON).pattern("GGG").pattern("GIG").pattern("GGG").unlockedBy("has_glass", has(Tags.Items.GLASS)).save(consumer);

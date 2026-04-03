@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class MultipleEggBlock extends EggBlock {
 
     private final VoxelShape multipleShape;

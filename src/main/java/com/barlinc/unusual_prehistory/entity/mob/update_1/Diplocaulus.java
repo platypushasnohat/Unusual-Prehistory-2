@@ -46,7 +46,7 @@
  import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -70,8 +70,8 @@
      public Diplocaulus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
+         this.setPathfindingMalus(PathType.WATER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {

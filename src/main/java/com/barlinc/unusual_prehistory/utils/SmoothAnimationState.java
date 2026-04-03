@@ -6,8 +6,8 @@ import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 public class SmoothAnimationState extends AnimationState {
@@ -41,7 +41,7 @@ public class SmoothAnimationState extends AnimationState {
 
     @OnlyIn(Dist.CLIENT)
     public float factor() {
-        return Mth.lerp(Minecraft.getInstance().getPartialTick(), this.factorOld, this.factor);
+        return Mth.lerp(Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false), this.factorOld, this.factor);
     }
 
     @OnlyIn(Dist.CLIENT)

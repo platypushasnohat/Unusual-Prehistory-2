@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class PressButtonGoal extends MoveToBlockGoal {
@@ -55,7 +55,7 @@ public class PressButtonGoal extends MoveToBlockGoal {
     }
 
     protected void onReachedTarget() {
-        if (ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)) {
+        if (EventHooks.canEntityGrief(mob.level(), mob)) {
             BlockState blockstate = mob.level().getBlockState(blockPos);
             if (blockstate.getBlock() instanceof ButtonBlock && !blockstate.getValue(ButtonBlock.POWERED)) {
                 this.pushButton();
@@ -75,7 +75,7 @@ public class PressButtonGoal extends MoveToBlockGoal {
 
     @Override
     protected @NotNull BlockPos getMoveToTarget() {
-        return this.blockPos;
+        return blockPos;
     }
 
     @Override
@@ -88,6 +88,6 @@ public class PressButtonGoal extends MoveToBlockGoal {
         ((ButtonPressingMob) mob).pressButton();
         this.nextStartTick = this.nextStartTick(mob);
         BlockState state = mob.level().getBlockState(blockPos);
-        ((ButtonBlock) state.getBlock()).use(state, mob.level(), blockPos, null, null, null);
+        ((ButtonBlock) state.getBlock()).press(state, mob.level(), blockPos, null);
     }
 }

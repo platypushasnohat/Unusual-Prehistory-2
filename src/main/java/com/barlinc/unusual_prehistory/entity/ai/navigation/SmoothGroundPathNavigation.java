@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.navigation;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -129,14 +130,14 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation {
             int z1 = ldi[2] + stepz;
             for (int x = x0; x != x1; x += stepx) {
                 for (int z = z0; z != z1; z += stepz) {
-                    BlockPathTypes below = this.nodeEvaluator.getBlockPathType(this.level, x, y0 - 1, z);
-                    BlockPathTypes in = this.nodeEvaluator.getBlockPathType(this.level, x, y0, z, this.mob);
+                    PathType below = this.nodeEvaluator.getPathType(this.mob, BlockPos.containing(x, y0 - 1, z));
+                    PathType in = this.nodeEvaluator.getPathType(this.mob, BlockPos.containing(x, y0, z));
                     float priority = this.mob.getPathfindingMalus(in);
                     if (priority < 0.0F || priority >= 8.0F) {
                         return false;
                     }
                     if (!this.mob.getType().fireImmune()) {
-                        if (in == BlockPathTypes.DAMAGE_FIRE || in == BlockPathTypes.DANGER_FIRE || in == BlockPathTypes.DAMAGE_OTHER || below == BlockPathTypes.LAVA) {
+                        if (in == PathType.DAMAGE_FIRE || in == PathType.DANGER_FIRE || in == PathType.DAMAGE_OTHER || below == PathType.LAVA) {
                             return false;
                         }
                     }

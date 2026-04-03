@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.worldgen.feature.tree.ginkgo;
 
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GinkgoFoliagePlacer extends FoliagePlacer {
 
-    public static final Codec<GinkgoFoliagePlacer> CODEC = RecordCodecBuilder.create((foliagePlacerInstance) ->
+    public static final MapCodec<GinkgoFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((foliagePlacerInstance) ->
             foliagePlacerParts(foliagePlacerInstance)
                     .and(IntProvider.codec(0, 24).fieldOf("trunk_height").forGetter((foliagePlacer) -> foliagePlacer.trunkHeight))
                     .apply(foliagePlacerInstance, GinkgoFoliagePlacer::new));

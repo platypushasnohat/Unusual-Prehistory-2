@@ -16,11 +16,11 @@ public class UP2BiomeTags {
         return biomeTag(UnusualPrehistory2.MOD_ID, name);
     }
 
-    private static TagKey<Biome> forgeBiomeTag(String name) {
-        return biomeTag("forge", name);
+    private static TagKey<Biome> commonBiomeTag(String name) {
+        return biomeTag("c", name);
     }
 
     public static TagKey<Biome> biomeTag(String modid, String name) {
-        return TagKey.create(Registries.BIOME, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

@@ -68,7 +68,7 @@ public abstract class AmbientMob extends PathfinderMob {
     }
 
     @Override
-    public int getExperienceReward() {
+    public int getBaseExperienceReward() {
         return 0;
     }
 
@@ -115,10 +115,10 @@ public abstract class AmbientMob extends PathfinderMob {
 
     // Data
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SHOULD_BE_RESTRICTED, false);
-        this.entityData.define(DESPAWN_TIME, 2400 + this.getRandom().nextInt(1200));
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SHOULD_BE_RESTRICTED, false);
+        builder.define(DESPAWN_TIME, 2400 + this.getRandom().nextInt(1200));
     }
 
     @Override

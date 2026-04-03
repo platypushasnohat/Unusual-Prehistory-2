@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.blocks.plant.grower;
 import com.barlinc.unusual_prehistory.registry.UP2Features;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.grower.AbstractMegaTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -51,8 +51,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
 
-    public static final TagKey<Item> FRUITS = forgeItemTag("fruits");
-    public static final TagKey<Item> FRUITS_GINKGO = forgeItemTag("fruits/ginkgo");
+    public static final TagKey<Item> FRUITS = commonItemTag("fruits");
+    public static final TagKey<Item> FRUITS_GINKGO = commonItemTag("fruits/ginkgo");
 
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
@@ -161,11 +161,11 @@ public class UP2ItemTags {
         return itemTag(UnusualPrehistory2.MOD_ID, name);
     }
 
-    private static TagKey<Item> forgeItemTag(String name) {
-        return itemTag("forge", name);
+    private static TagKey<Item> commonItemTag(String name) {
+        return itemTag("c", name);
     }
 
     public static TagKey<Item> itemTag(String modid, String name) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

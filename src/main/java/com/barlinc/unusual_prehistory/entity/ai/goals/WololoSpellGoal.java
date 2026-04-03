@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.monster.SpellcasterIllager;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -42,7 +42,7 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
             return false;
         } else if (evoker.tickCount < this.nextAttackTickCount) {
             return false;
-        } else if (!ForgeEventFactory.getMobGriefingEvent(evoker.level(), evoker)) {
+        } else if (!EventHooks.canEntityGrief(evoker.level(), evoker)) {
             return false;
         } else {
             List<T> list = evoker.level().getNearbyEntities(targetType, targetConditions, evoker, evoker.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));

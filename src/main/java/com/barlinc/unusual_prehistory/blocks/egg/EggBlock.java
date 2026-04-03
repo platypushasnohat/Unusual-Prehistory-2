@@ -35,7 +35,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class EggBlock extends BaseEntityBlock {
 
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
@@ -156,7 +155,7 @@ public class EggBlock extends BaseEntityBlock {
                 }
                 entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
                 level.addFreshEntity(entity);
-                ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
+                EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null);
             }
         }
     }
@@ -169,7 +168,7 @@ public class EggBlock extends BaseEntityBlock {
         if (!(trampler instanceof LivingEntity)) {
             return false;
         } else {
-            return (trampler instanceof Player || ForgeEventFactory.getMobGriefingEvent(level, trampler)) && this.canTrample;
+            return (trampler instanceof Player || EventHooks.canEntityGrief(level, trampler)) && this.canTrample;
         }
     }
 

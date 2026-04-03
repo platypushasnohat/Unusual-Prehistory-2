@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron;
 
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LepidodendronFoliagePlacer extends FoliagePlacer {
 
-    public static final Codec<LepidodendronFoliagePlacer> CODEC = RecordCodecBuilder.create((lepidodendron) ->
+    public static final MapCodec<LepidodendronFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((lepidodendron) ->
             foliagePlacerParts(lepidodendron)
                     .and(Codec.intRange(0, 16).fieldOf("height").forGetter((lepidodendronHeight) -> lepidodendronHeight.height))
                     .apply(lepidodendron, LepidodendronFoliagePlacer::new));

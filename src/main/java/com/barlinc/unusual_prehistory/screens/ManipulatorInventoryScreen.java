@@ -37,7 +37,7 @@ public class ManipulatorInventoryScreen extends AbstractContainerScreen<Manipula
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
         this.mousePosX = (float) mouseX;
         this.mousePosY = (float) mouseY;
         super.render(graphics, mouseX, mouseY, partialTicks);

@@ -29,14 +29,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class UnderwaterEggBlock extends WaterEggBlockEntity implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -77,7 +76,7 @@ public class UnderwaterEggBlock extends WaterEggBlockEntity implements SimpleWat
                     }
                     entity.moveTo(pos.getX(), (double) pos.getY() + 0.5D, pos.getZ(), (float) k, 0.0F);
                     level.addFreshEntity(entity);
-                    ForgeEventFactory.onFinalizeSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
+                    EventHooks.finalizeMobSpawn(mob, level,level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null);
                 }
             }
         }
