@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -30,7 +30,7 @@ public class MajungasaurusAngryEmissiveLayer extends RenderLayer<Majungasaurus, 
         float angryProgress = entity.getAngryProgress(partialTicks);
         if (angryProgress <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(this.getAngryTexture(entity)));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, angryProgress);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), (int) angryProgress);
     }
 
     public ResourceLocation getAngryTexture(Majungasaurus entity) {

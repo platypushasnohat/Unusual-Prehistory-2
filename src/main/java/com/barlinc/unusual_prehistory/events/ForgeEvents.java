@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.events;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
@@ -17,6 +16,7 @@ import com.barlinc.unusual_prehistory.utils.MobAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -30,17 +30,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
-@Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber()
 public class ForgeEvents {
 
     @SubscribeEvent
@@ -66,7 +65,7 @@ public class ForgeEvents {
             if (mob instanceof Zombie zombie) {
                 zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
             }
-            if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getMobType() == MobType.ARTHROPOD) {
+            if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getType().is(EntityTypeTags.ARTHROPOD)) {
                 if (pathfinderMob instanceof PrehistoricMob prehistoricMob) {
                     prehistoricMob.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(prehistoricMob, Leptictidium.class, 12.0F, 1.5D, false));
                 } else {

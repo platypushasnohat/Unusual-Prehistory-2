@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.utils;
 
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class UP2LoadedMods {
 

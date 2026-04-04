@@ -1,13 +1,13 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.ambient.ZhangsolvaAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.ambient.ZhangsolvaAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)

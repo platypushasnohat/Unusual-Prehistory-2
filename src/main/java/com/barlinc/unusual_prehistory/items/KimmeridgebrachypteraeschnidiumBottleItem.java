@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -19,13 +19,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -55,20 +55,20 @@ public class KimmeridgebrachypteraeschnidiumBottleItem extends Item {
                 blockpos1 = blockpos.relative(direction);
             }
 
-            CompoundTag compoundTag = itemstack.getOrCreateTag();
+            CustomData customdata = itemstack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             if (!context.getPlayer().getAbilities().instabuild) {
                 context.getPlayer().setItemInHand(context.getHand(), new ItemStack(Items.GLASS_BOTTLE));
             }
             Entity entity = UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get().spawn((ServerLevel) level, itemstack, context.getPlayer(), blockpos1, MobSpawnType.BUCKET, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP);
 
             if (entity instanceof Kimmeridgebrachypteraeschnidium mob) {
-                int age = compoundTag.contains("Age") ? compoundTag.getInt("Age") : 0;
-                float health = compoundTag.contains("Health") ? compoundTag.getFloat("Health") : 6.0F;
-                int base_color = compoundTag.contains("BaseColor") ? compoundTag.getInt("BaseColor") : level.random.nextInt(16);
-                int pattern = compoundTag.contains("Pattern") ? compoundTag.getInt("Pattern") : level.random.nextInt(7);
-                int pattern_color = compoundTag.contains("PatternColor") ? compoundTag.getInt("PatternColor") : level.random.nextInt(16);
-                int wing_color = compoundTag.contains("WingColor") ? compoundTag.getInt("WingColor") : level.random.nextInt(16);
-                boolean hasPattern = compoundTag.contains("HasPattern") && compoundTag.getBoolean("HasPattern");
+                int age = customdata.contains("Age") ? customdata.copyTag().getInt("Age") : 0;
+                float health = customdata.contains("Health") ? customdata.copyTag().getFloat("Health") : 6.0F;
+                int base_color = customdata.contains("BaseColor") ? customdata.copyTag().getInt("BaseColor") : level.random.nextInt(16);
+                int pattern = customdata.contains("Pattern") ? customdata.copyTag().getInt("Pattern") : level.random.nextInt(7);
+                int pattern_color = customdata.contains("PatternColor") ? customdata.copyTag().getInt("PatternColor") : level.random.nextInt(16);
+                int wing_color = customdata.contains("WingColor") ? customdata.copyTag().getInt("WingColor") : level.random.nextInt(16);
+                boolean hasPattern = customdata.contains("HasPattern") && customdata.copyTag().getBoolean("HasPattern");
                 mob.setAge(age);
                 mob.setHealth(health);
                 mob.setPersistenceRequired();
@@ -84,17 +84,17 @@ public class KimmeridgebrachypteraeschnidiumBottleItem extends Item {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
+        super.appendHoverText(stack, context, components, flag);
         ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-        CompoundTag compoundTag = stack.getTag();
-        if (compoundTag != null && compoundTag.contains("BaseColor", 3)) {
+        CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+        if (!customdata.isEmpty() && customdata.contains("BaseColor")) {
 
-            int base_color = compoundTag.getInt("BaseColor");
-            int pattern = compoundTag.getInt("Pattern");
-            int pattern_color = compoundTag.getInt("PatternColor");
-            int wing_color = compoundTag.getInt("WingColor");
-            boolean hasPattern = compoundTag.getBoolean("HasPattern");
+            int base_color = customdata.copyTag().getInt("BaseColor");
+            int pattern = customdata.copyTag().getInt("Pattern");
+            int pattern_color = customdata.copyTag().getInt("PatternColor");
+            int wing_color = customdata.copyTag().getInt("WingColor");
+            boolean hasPattern = customdata.copyTag().getBoolean("HasPattern");
 
             String base = "entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_" + base_color;
             String patterns = "entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.pattern_" + Kimmeridgebrachypteraeschnidium.getPatternName(pattern);
@@ -105,10 +105,10 @@ public class KimmeridgebrachypteraeschnidiumBottleItem extends Item {
             patternInfo.append(CommonComponents.SPACE).append(Component.translatable(patterns));
             patternInfo.withStyle(grayChatFormatting);
 
-            tooltip.add(Component.translatable(base).withStyle(grayChatFormatting));
-            tooltip.add(Component.translatable(wingColor).withStyle(grayChatFormatting));
+            components.add(Component.translatable(base).withStyle(grayChatFormatting));
+            components.add(Component.translatable(wingColor).withStyle(grayChatFormatting));
             if (hasPattern) {
-                tooltip.add(patternInfo);
+                components.add(patternInfo);
             }
         }
     }

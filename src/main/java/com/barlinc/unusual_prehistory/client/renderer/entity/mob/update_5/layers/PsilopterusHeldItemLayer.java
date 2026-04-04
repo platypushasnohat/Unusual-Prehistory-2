@@ -11,8 +11,11 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class PsilopterusHeldItemLayer extends RenderLayer<Psilopterus, PsilopterusModel> {
 
     public PsilopterusHeldItemLayer(RenderLayerParent<Psilopterus, PsilopterusModel> parent) {

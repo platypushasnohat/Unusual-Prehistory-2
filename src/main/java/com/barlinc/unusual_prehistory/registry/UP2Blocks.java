@@ -4,10 +4,8 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
 import com.barlinc.unusual_prehistory.blocks.egg.*;
 import com.barlinc.unusual_prehistory.blocks.plant.*;
-import com.barlinc.unusual_prehistory.blocks.plant.grower.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -19,11 +17,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -35,6 +35,7 @@ public class UP2Blocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(UnusualPrehistory2.MOD_ID);
 
     public static final List<Supplier<? extends Block>> EGG_BLOCKS = new ArrayList<>();
+    public static List<WoodSet> WOOD_SETS = new ArrayList<>();
 
     public static List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
@@ -70,52 +71,56 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> MOSSY_DIRT = registerBlock("mossy_dirt", () -> new MossyDirtBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(UP2SoundTypes.MOSSY_DIRT)));
     public static final DeferredBlock<Block> MOSS_LAYER = registerBlock("moss_layer", () -> new MossLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).replaceable().noCollission().strength(0.2F).sound(SoundType.GLOW_LICHEN).ignitedByLava().pushReaction(PushReaction.DESTROY)));
 
-    public static final DeferredBlock<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(GINKGO_PLANKS.get())));
-    public static final DeferredBlock<Block> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GINKGO_PLANKS.get())));
-    public static final DeferredBlock<Block> GINKGO_FENCE = registerBlock("ginkgo_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final DeferredBlock<Block> GINKGO_DOOR = registerBlock("ginkgo_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final WoodSet GINKGO = new WoodSet("ginkgo");
     public static final DeferredBlock<Block> GINKGO_LEAVES = registerBlock("ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES), UP2Particles.GINKGO_LEAVES));
     public static final DeferredBlock<Block> GOLDEN_GINKGO_LEAVES = registerBlock("golden_ginkgo_leaves", () -> new FallingLeavesBlock(UP2BlockProperties.leaves(MapColor.GOLD, SoundType.AZALEA_LEAVES), UP2Particles.GOLDEN_GINKGO_LEAVES));
-    public static final DeferredBlock<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final DeferredBlock<Block> GINKGO_SAPLING = registerBlock("ginkgo_sapling", () -> new SaplingBlock(UP2TreeGrowers.GINKGO, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_GINKGO_SAPLING = registerBlockWithoutItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), registerFlowerPot()));
-    public static final DeferredBlock<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(new GoldenGinkgoTreeGrower(), UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
+    public static final DeferredBlock<Block> GOLDEN_GINKGO_SAPLING = registerBlock("golden_ginkgo_sapling", () -> new SaplingBlock(UP2TreeGrowers.GOLDEN_GINKGO, UP2BlockProperties.sapling(MapColor.GOLD, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_GOLDEN_GINKGO_SAPLING = registerBlockWithoutItem("potted_golden_ginkgo_sapling", () -> new FlowerPotBlock(GOLDEN_GINKGO_SAPLING.get(), registerFlowerPot()));
-    public static final DeferredBlock<Block> GINKGO_SIGN = registerBlockWithoutItemNoLang("ginkgo_sign", () -> new StandingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> GINKGO_WALL_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_sign", () -> new WallSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> GINKGO_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
-    public static final DeferredBlock<Block> GINKGO_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(GINKGO_HANGING_SIGN.get())));
 
-    public static final DeferredBlock<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_WOOD = registerBlock("lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> MOSSY_LEPIDODENDRON_WOOD = registerBlock("mossy_lepidodendron_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_LEPIDODENDRON_LOG = registerBlock("stripped_lepidodendron_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_LEPIDODENDRON_WOOD = registerBlock("stripped_lepidodendron_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_PLANKS = registerBlock("lepidodendron_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_STAIRS = registerBlock("lepidodendron_stairs", () -> new StairBlock(LEPIDODENDRON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LEPIDODENDRON_PLANKS.get())));
-    public static final DeferredBlock<Block> LEPIDODENDRON_SLAB = registerBlock("lepidodendron_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LEPIDODENDRON_PLANKS.get())));
-    public static final DeferredBlock<Block> LEPIDODENDRON_FENCE = registerBlock("lepidodendron_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_FENCE_GATE = registerBlock("lepidodendron_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final DeferredBlock<Block> LEPIDODENDRON_DOOR = registerBlock("lepidodendron_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_TRAPDOOR = registerBlock("lepidodendron_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_LOG = registerBlock("ginkgo_log", () -> new WoodBlock(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_WOOD = registerBlock("ginkgo_wood", () -> new WoodBlock(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_GINKGO_LOG = registerBlock("stripped_ginkgo_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_GINKGO_WOOD = registerBlock("stripped_ginkgo_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_PLANKS = registerBlock("ginkgo_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_STAIRS = registerBlock("ginkgo_stairs", () -> new StairBlock(GINKGO_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(GINKGO_PLANKS.get())));
+//    public static final DeferredBlock<Block> GINKGO_SLAB = registerBlock("ginkgo_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(GINKGO_PLANKS.get())));
+//    public static final DeferredBlock<Block> GINKGO_FENCE = registerBlock("ginkgo_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_FENCE_GATE = registerBlock("ginkgo_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+//    public static final DeferredBlock<Block> GINKGO_DOOR = registerBlock("ginkgo_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_TRAPDOOR = registerBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_PRESSURE_PLATE = registerBlock("ginkgo_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_YELLOW, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_BUTTON = registerBlock("ginkgo_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> GINKGO_SIGN = registerBlockWithoutItemNoLang("ginkgo_sign", () -> new StandingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> GINKGO_WALL_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_sign", () -> new WallSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> GINKGO_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
+//    public static final DeferredBlock<Block> GINKGO_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("ginkgo_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(GINKGO_HANGING_SIGN.get())));
+
+    public static final WoodSet LEPIDODENDRON = new WoodSet("lepidodendron");
+    public static final DeferredBlock<Block> MOSSY_LEPIDODENDRON_LOG = registerBlock("mossy_lepidodendron_log", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final DeferredBlock<Block> MOSSY_LEPIDODENDRON_WOOD = registerBlock("mossy_lepidodendron_wood", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
     public static final DeferredBlock<Block> LEPIDODENDRON_LEAVES = registerBlock("lepidodendron_leaves", () -> new LepidodendronLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
     public static final DeferredBlock<Block> HANGING_LEPIDODENDRON_LEAVES = registerBlock("hanging_lepidodendron_leaves", () -> new HangingLeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES).noCollission()));
-    public static final DeferredBlock<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(new LepidodendronTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_SIGN = registerBlockWithoutItemNoLang("lepidodendron_sign", () -> new StandingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
-    public static final DeferredBlock<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get())));
+    public static final DeferredBlock<Block> LEPIDODENDRON_CONE = registerBlock("lepidodendron_cone", () -> new LepidodendronConeBlock(UP2TreeGrowers.LEPIDODENDRON, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+
+//    public static final DeferredBlock<Block> LEPIDODENDRON_LOG = registerBlock("lepidodendron_log", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_WOOD = registerBlock("lepidodendron_wood", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_LEPIDODENDRON_LOG = registerBlock("stripped_lepidodendron_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_LEPIDODENDRON_WOOD = registerBlock("stripped_lepidodendron_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_PLANKS = registerBlock("lepidodendron_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_STAIRS = registerBlock("lepidodendron_stairs", () -> new StairBlock(LEPIDODENDRON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LEPIDODENDRON_PLANKS.get())));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_SLAB = registerBlock("lepidodendron_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LEPIDODENDRON_PLANKS.get())));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_FENCE = registerBlock("lepidodendron_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_FENCE_GATE = registerBlock("lepidodendron_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_DOOR = registerBlock("lepidodendron_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_TRAPDOOR = registerBlock("lepidodendron_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_PRESSURE_PLATE = registerBlock("lepidodendron_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_BLACK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_BUTTON = registerBlock("lepidodendron_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_SIGN = registerBlockWithoutItemNoLang("lepidodendron_sign", () -> new StandingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_WALL_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_sign", () -> new WallSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
+//    public static final DeferredBlock<Block> LEPIDODENDRON_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("lepidodendron_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.LEPIDODENDRON_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(LEPIDODENDRON_HANGING_SIGN.get())));
 
     public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().noOcclusion().strength(5.0F, 6.0F).sound(SoundType.METAL).lightLevel(litBlockEmission(7))));
 
@@ -126,7 +131,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> FOSSILIZED_SKULL_LANTERN = registerBlock("fossilized_skull_lantern", () -> new FossilizedSkullBlock(UP2BlockProperties.fossilLantern(15)));
     public static final DeferredBlock<Block> FOSSILIZED_SKULL_SOUL_LANTERN = registerBlock("fossilized_skull_soul_lantern", () -> new FossilizedSkullBlock(UP2BlockProperties.fossilLantern(10)));
     public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE = registerBlock("cobbled_fossilized_bone", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
-    public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_STAIRS = registerBlock("cobbled_fossilized_bone_stairs", () -> new StairBlock(COBBLED_FOSSILIZED_BONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(COBBLED_FOSSILIZED_BONE.get())));
+    public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_STAIRS = registerBlock("cobbled_fossilized_bone_stairs", () -> new StairBlock(COBBLED_FOSSILIZED_BONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
     public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_SLAB = registerBlock("cobbled_fossilized_bone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_ROD = registerBlock("fossilized_bone_rod", () -> new FossilizedBoneRodBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(UP2BlockProperties.FOSSIL_BLOCK.noOcclusion()));
@@ -136,7 +141,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> PETRIFIED_LOG = registerBlock("petrified_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final DeferredBlock<Block> PETRIFIED_WOOD = registerBlock("petrified_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD = registerBlock("polished_petrified_wood", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK)));
-    public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD_STAIRS = registerBlock("polished_petrified_wood_stairs", () -> new StairBlock(POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(POLISHED_PETRIFIED_WOOD.get())));
+    public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD_STAIRS = registerBlock("polished_petrified_wood_stairs", () -> new StairBlock(POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(POLISHED_PETRIFIED_WOOD.get())));
     public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD_SLAB = registerBlock("polished_petrified_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_PETRIFIED_WOOD.get())));
     public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE = registerBlock("polished_petrified_wood_pressure_plate", () -> new PressurePlateBlock(BlockSetType.STONE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.HARP).requiresCorrectToolForDrops().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> POLISHED_PETRIFIED_WOOD_BUTTON = registerBlock("polished_petrified_wood_button", () -> new ButtonBlock(BlockSetType.STONE, 20, BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
@@ -179,47 +184,51 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> PROTOTAXITES_CLUSTER = registerBlock("prototaxites_cluster", () -> new PrototaxitesClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).noCollission().sound(SoundType.CORAL_BLOCK).ignitedByLava()));
     public static final DeferredBlock<Block> TEMPSKYA = registerBlock("tempskya", () -> new PrehistoricTallPlantBlock(UP2BlockProperties.TALL_PLANT));
 
-    public static final DeferredBlock<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_DRYOPHYLLUM_LOG = registerBlock("stripped_dryophyllum_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_DRYOPHYLLUM_WOOD = registerBlock("stripped_dryophyllum_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_PLANKS = registerBlock("dryophyllum_planks", () -> new Block(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_STAIRS = registerBlock("dryophyllum_stairs", () -> new StairBlock(() -> DRYOPHYLLUM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(DRYOPHYLLUM_PLANKS.get())));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_SLAB = registerBlock("dryophyllum_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DRYOPHYLLUM_PLANKS.get())));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_FENCE = registerBlock("dryophyllum_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_FENCE_GATE = registerBlock("dryophyllum_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_DOOR = registerBlock("dryophyllum_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_TRAPDOOR = registerBlock("dryophyllum_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+    public static final WoodSet DRYOPHYLLUM = new WoodSet("dryophyllum");
     public static final DeferredBlock<Block> DRYOPHYLLUM_LEAVES = registerBlock("dryophyllum_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(new DryophyllumTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final DeferredBlock<Block> DRYOPHYLLUM_SAPLING = registerBlock("dryophyllum_sapling", () -> new SaplingBlock(UP2TreeGrowers.DRYOPHYLLUM, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_DRYOPHYLLUM_SAPLING = registerBlockWithoutItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYOPHYLLUM_SAPLING.get(), registerFlowerPot()));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_WALL_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_sign", () -> new WallSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
-    public static final DeferredBlock<Block> DRYOPHYLLUM_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(DRYOPHYLLUM_HANGING_SIGN.get())));
 
-    public static final DeferredBlock<Block> METASEQUOIA_LOG = registerBlock("metasequoia_log", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_WOOD = registerBlock("metasequoia_wood", () -> new WoodBlocks(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_METASEQUOIA_LOG = registerBlock("stripped_metasequoia_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> STRIPPED_METASEQUOIA_WOOD = registerBlock("stripped_metasequoia_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_PLANKS = registerBlock("metasequoia_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_STAIRS = registerBlock("metasequoia_stairs", () -> new StairBlock(METASEQUOIA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(METASEQUOIA_PLANKS.get())));
-    public static final DeferredBlock<Block> METASEQUOIA_SLAB = registerBlock("metasequoia_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(METASEQUOIA_PLANKS.get())));
-    public static final DeferredBlock<Block> METASEQUOIA_FENCE = registerBlock("metasequoia_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_FENCE_GATE = registerBlock("metasequoia_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final DeferredBlock<Block> METASEQUOIA_DOOR = registerBlock("metasequoia_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_TRAPDOOR = registerBlock("metasequoia_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_PRESSURE_PLATE = registerBlock("metasequoia_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
-    public static final DeferredBlock<Block> METASEQUOIA_BUTTON = registerBlock("metasequoia_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_LOG = registerBlock("dryophyllum_log", () -> new WoodBlock(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_WOOD = registerBlock("dryophyllum_wood", () -> new WoodBlock(UP2BlockProperties.log(MapColor.COLOR_GRAY, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_DRYOPHYLLUM_LOG = registerBlock("stripped_dryophyllum_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_DRYOPHYLLUM_WOOD = registerBlock("stripped_dryophyllum_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_PLANKS = registerBlock("dryophyllum_planks", () -> new Block(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_STAIRS = registerBlock("dryophyllum_stairs", () -> new StairBlock(DRYOPHYLLUM_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(DRYOPHYLLUM_PLANKS.get())));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_SLAB = registerBlock("dryophyllum_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DRYOPHYLLUM_PLANKS.get())));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_FENCE = registerBlock("dryophyllum_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_FENCE_GATE = registerBlock("dryophyllum_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_DOOR = registerBlock("dryophyllum_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_TRAPDOOR = registerBlock("dryophyllum_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_PRESSURE_PLATE = registerBlock("dryophyllum_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.COLOR_PINK, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_BUTTON = registerBlock("dryophyllum_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_SIGN = registerBlockWithoutItemNoLang("dryophyllum_sign", () -> new StandingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_WALL_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_sign", () -> new WallSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
+//    public static final DeferredBlock<Block> DRYOPHYLLUM_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("dryophyllum_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.DRYOPHYLLUM_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(DRYOPHYLLUM_HANGING_SIGN.get())));
+
+    public static final WoodSet METASEQUOIA = new WoodSet("metasequoia");
     public static final DeferredBlock<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
-    public static final DeferredBlock<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(new MetasequoiaTreeGrower(), UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
+    public static final DeferredBlock<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(UP2TreeGrowers.METASEQUOIA, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
-    public static final DeferredBlock<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
-    public static final DeferredBlock<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
-    public static final DeferredBlock<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get())));
+
+//    public static final DeferredBlock<Block> METASEQUOIA_LOG = registerBlock("metasequoia_log", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_WOOD = registerBlock("metasequoia_wood", () -> new WoodBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_METASEQUOIA_LOG = registerBlock("stripped_metasequoia_log", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> STRIPPED_METASEQUOIA_WOOD = registerBlock("stripped_metasequoia_wood", () -> new RotatedPillarBlock(UP2BlockProperties.log(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_PLANKS = registerBlock("metasequoia_planks", () -> new Block(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_STAIRS = registerBlock("metasequoia_stairs", () -> new StairBlock(METASEQUOIA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(METASEQUOIA_PLANKS.get())));
+//    public static final DeferredBlock<Block> METASEQUOIA_SLAB = registerBlock("metasequoia_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(METASEQUOIA_PLANKS.get())));
+//    public static final DeferredBlock<Block> METASEQUOIA_FENCE = registerBlock("metasequoia_fence", () -> new FenceBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_FENCE_GATE = registerBlock("metasequoia_fence_gate", () -> new FenceGateBlock(UP2BlockProperties.plank(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+//    public static final DeferredBlock<Block> METASEQUOIA_DOOR = registerBlock("metasequoia_door", () -> new DoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenDoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_TRAPDOOR = registerBlock("metasequoia_trapdoor", () -> new TrapDoorBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenTrapdoor(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_PRESSURE_PLATE = registerBlock("metasequoia_pressure_plate", () -> new PressurePlateBlock(BlockSetType.CHERRY, UP2BlockProperties.woodenPressurePlate(MapColor.TERRACOTTA_RED, SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_BUTTON = registerBlock("metasequoia_button", () -> new ButtonBlock(BlockSetType.CHERRY, 30, UP2BlockProperties.woodenButton(SoundType.CHERRY_WOOD, NoteBlockInstrument.BASS)));
+//    public static final DeferredBlock<Block> METASEQUOIA_SIGN = registerBlockWithoutItemNoLang("metasequoia_sign", () -> new StandingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> METASEQUOIA_WALL_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_sign", () -> new WallSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD)));
+//    public static final DeferredBlock<Block> METASEQUOIA_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_hanging_sign", () -> new CeilingHangingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F)));
+//    public static final DeferredBlock<Block> METASEQUOIA_WALL_HANGING_SIGN = registerBlockWithoutItemNoLang("metasequoia_wall_hanging_sign", () -> new WallHangingSignBlock(UP2BlockProperties.METASEQUOIA_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(METASEQUOIA_HANGING_SIGN.get())));
 
     public static final DeferredBlock<Block> PALEOSTONE = registerBlock("paleostone", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
     public static final DeferredBlock<Block> PALEOSTONE_STAIRS = registerBlock("paleostone_stairs", () -> new StairBlock(PALEOSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(PALEOSTONE.get())));
@@ -258,11 +267,6 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> ZHANGSOLVA_BLOOM = registerBlock("zhangsolva_bloom", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.ZHANGSOLVA::get, 2));
     public static final DeferredBlock<Block> DELITZSCHALA_STALK = registerBlock("delitzschala_stalk", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
-
-    // Future
-//    public static final DeferredBlock<Block> BARINASUCHUS_EGG = registerEggBlock("barinasuchus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.BARINASUCHUS::get, 12, 12, false));
-//    public static final DeferredBlock<Block> MANIPULATOR_OOTHECA = registerWaterEggBlock("manipulator_ootheca", () -> new RotatableEggBlock(UP2BlockProperties.SQUISHY_EGG, UP2Entities.MANIPULATOR::get, 10, 6, false));
-//    public static final DeferredBlock<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16, false));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
@@ -313,5 +317,115 @@ public class UP2Blocks {
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightLevel) {
         return (state) -> state.getValue(BlockStateProperties.LIT) ? lightLevel : 0;
+    }
+
+    public static class WoodSet {
+
+        private final DeferredBlock<Block> PLANKS;
+        private final DeferredBlock<Block> STAIRS;
+        private final DeferredBlock<Block> SLAB;
+        private final DeferredBlock<Block> LOG;
+        private final DeferredBlock<Block> WOOD;
+        private final DeferredBlock<Block> STRIPPED_LOG;
+        private final DeferredBlock<Block> STRIPPED_WOOD;
+        private final DeferredBlock<Block> FENCE;
+        private final DeferredBlock<Block> FENCE_GATE;
+        private final DeferredBlock<Block> BUTTON;
+        private final DeferredBlock<Block> PRESSURE_PLATE;
+        private final DeferredBlock<Block> DOOR;
+        private final DeferredBlock<Block> TRAPDOOR;
+        private final DeferredBlock<Block> SIGN;
+        private final DeferredBlock<Block> WALL_SIGN;
+        private final DeferredBlock<Block> HANGING_SIGN;
+        private final DeferredBlock<Block> HANGING_WALL_SIGN;
+
+        public WoodSet(String name) {
+            BlockSetType blockSetType = BlockSetType.register(new BlockSetType(UnusualPrehistory2.MOD_ID + ":" + name));
+            WoodType woodType = WoodType.register(new WoodType(UnusualPrehistory2.MOD_ID + ":" + name, blockSetType));
+            WOOD_SETS.add(this);
+            PLANKS = registerBlock(name + "_planks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+            STAIRS = registerBlock(name + "_stairs", () -> new StairBlock(PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(PLANKS.get())));
+            SLAB = registerBlock(name + "_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PLANKS.get())));
+            LOG = registerBlock(name + "_log", () -> new WoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+            WOOD = registerBlock(name + "_wood", () -> new WoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+            STRIPPED_LOG = registerBlock("stripped_" + name + "_log", () -> new WoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+            STRIPPED_WOOD = registerBlock("stripped_" + name + "_wood", () -> new WoodBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+            FENCE = registerBlock(name + "_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+            FENCE_GATE = registerBlock(name + "_fence_gate", () -> new FenceGateBlock(woodType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
+            BUTTON = registerBlock(name + "_button", () -> new ButtonBlock(blockSetType, 15, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)));
+            PRESSURE_PLATE = registerBlock(name + "_pressure_plate", () -> new PressurePlateBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
+            DOOR = registerBlock(name + "_door", () -> new DoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)));
+            TRAPDOOR = registerBlock(name + "_trapdoor", () -> new TrapDoorBlock(blockSetType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)));
+            SIGN = registerBlockWithoutItemNoLang(name + "_sign", () -> new StandingSignBlock(woodType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+            WALL_SIGN = registerBlockWithoutItemNoLang(name + "_wall_sign", () -> new WallSignBlock(woodType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).lootFrom(SIGN)));
+            HANGING_SIGN = registerBlockWithoutItemNoLang(name + "_hanging_sign", () -> new CeilingHangingSignBlock(woodType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+            HANGING_WALL_SIGN = registerBlockWithoutItemNoLang(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(woodType, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).lootFrom(HANGING_SIGN)));
+        }
+
+        public DeferredBlock<Block> planks() {
+            return PLANKS;
+        }
+        public DeferredBlock<Block> stairs() {
+            return STAIRS;
+        }
+        public DeferredBlock<Block> slab() {
+            return SLAB;
+        }
+        public DeferredBlock<Block> log() {
+            return LOG;
+        }
+        public DeferredBlock<Block> wood() {
+            return WOOD;
+        }
+        public DeferredBlock<Block> strippedLog() {
+            return STRIPPED_LOG;
+        }
+        public DeferredBlock<Block> strippedWood() {
+            return STRIPPED_WOOD;
+        }
+        public DeferredBlock<Block> fence() {
+            return FENCE;
+        }
+        public DeferredBlock<Block> fenceGate() {
+            return FENCE_GATE;
+        }
+        public DeferredBlock<Block> button() {
+            return BUTTON;
+        }
+        public DeferredBlock<Block> pressurePlate() {
+            return PRESSURE_PLATE;
+        }
+        public DeferredBlock<Block> door() {
+            return DOOR;
+        }
+        public DeferredBlock<Block> trapdoor() {
+            return TRAPDOOR;
+        }
+        public DeferredBlock<Block> sign() {
+            return SIGN;
+        }
+        public DeferredBlock<Block> wallSign() {
+            return WALL_SIGN;
+        }
+        public DeferredBlock<Block> hangingSign() {
+            return HANGING_SIGN;
+        }
+        public DeferredBlock<Block> hangingWallSign() {
+            return HANGING_WALL_SIGN;
+        }
+
+        public void setFlammables() {
+            FireBlock fireBlock = (FireBlock) Blocks.FIRE;
+            fireBlock.setFlammable(PLANKS.get(), 5, 20);
+            fireBlock.setFlammable(STAIRS.get(), 5, 20);
+            fireBlock.setFlammable(SLAB.get(), 5, 20);
+            fireBlock.setFlammable(FENCE.get(), 5, 20);
+        }
+
+        public @Nullable BlockState checkLogStripping(BlockState state) {
+            if (state.is(LOG.get())) return STRIPPED_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            if (state.is(WOOD.get())) return STRIPPED_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            return null;
+        }
     }
 }

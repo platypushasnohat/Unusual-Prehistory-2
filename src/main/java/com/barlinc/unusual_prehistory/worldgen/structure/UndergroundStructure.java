@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.worldgen.structure;
 
 import com.barlinc.unusual_prehistory.registry.UP2Structures;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 public class UndergroundStructure extends Structure {
 
-    public static final Codec<UndergroundStructure> CODEC = RecordCodecBuilder.<UndergroundStructure>mapCodec(instance ->
+    public static final MapCodec<UndergroundStructure> CODEC = RecordCodecBuilder.<UndergroundStructure>mapCodec(instance ->
             instance.group(UndergroundStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),

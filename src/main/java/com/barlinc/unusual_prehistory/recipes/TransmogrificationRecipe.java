@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.recipes;
 
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.google.gson.JsonObject;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,13 +37,18 @@ public class TransmogrificationRecipe implements Recipe<Container> {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull Container container, @NotNull RegistryAccess registryAccess) {
+    public @NotNull ItemStack assemble(@NotNull Container container, HolderLookup.@NotNull Provider provider) {
         return this.output.copy();
     }
 
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
         return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider provider) {
+        return null;
     }
 
     @Override

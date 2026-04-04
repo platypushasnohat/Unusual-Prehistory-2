@@ -31,10 +31,10 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TIME_IN_WATER, 0);
-        this.entityData.define(TIME_ON_LAND, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(TIME_IN_WATER, 0);
+        builder.define(TIME_ON_LAND, 0);
     }
 
     @Override

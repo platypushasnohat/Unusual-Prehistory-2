@@ -14,7 +14,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
-import com.barlinc.unusual_prehistory.utils.UP2Developers;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -51,10 +50,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -82,7 +80,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         super(entityType, level);
         this.moveControl = new PrehistoricFlyingMoveControl(this);
         this.lookControl = new PrehistoricFlyingLookControl(this, 85);
-        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
+        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -101,11 +99,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(4, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 60, 600));
         this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
         this.goalSelector.addGoal(6, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
-    }
-
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
     }
 
     @Override
@@ -253,18 +246,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             this.discard();
             return InteractionResult.SUCCESS;
         }
-
-        // Dev tame
-        if (!this.isTame() && (itemstack.is(Items.DEBUG_STICK) && UP2Developers.isDeveloper(player.getUUID())) || (itemstack.is(Tags.Items.GEMS_DIAMOND) && player.getUUID().equals(UP2Developers.CRYDIGO.getUuid()))) {
-            if (!player.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            this.tame(player);
-            this.level().broadcastEntityEvent(this, (byte) 9);
-            this.heal(this.getMaxHealth());
-            return InteractionResult.SUCCESS;
-        }
         return super.mobInteract(player, hand);
     }
 
@@ -274,16 +255,16 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(BASE_COLOR, 0);
-        this.entityData.define(PATTERN, 0);
-        this.entityData.define(PATTERN_COLOR, 0);
-        this.entityData.define(HAS_PATTERN, false);
-        this.entityData.define(WING_COLOR, 0);
-        this.entityData.define(PREEN_COOLDOWN, 20 + random.nextInt(10 * 20));
-        this.entityData.define(SWELL_DURATION, -1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FROM_BUCKET, false);
+        builder.define(BASE_COLOR, 0);
+        builder.define(PATTERN, 0);
+        builder.define(PATTERN_COLOR, 0);
+        builder.define(HAS_PATTERN, false);
+        builder.define(WING_COLOR, 0);
+        builder.define(PREEN_COOLDOWN, 20 + random.nextInt(10 * 20));
+        builder.define(SWELL_DURATION, -1);
     }
 
     @Override

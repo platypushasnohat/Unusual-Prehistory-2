@@ -1,11 +1,11 @@
-package com.barlinc.unusual_prehistory.client.animations.entity.mob.future.ambient;
+package com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.ambient;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ZhangsolvaAnimations {

@@ -13,7 +13,7 @@ public record StructureFeatureConfig(ResourceLocation processor, ResourceLocatio
 
     public static final Codec<StructureFeatureConfig> CODEC = RecordCodecBuilder.create((configInstance) -> configInstance.group(
             ResourceLocation.CODEC.fieldOf("processors").forGetter(featureConfig -> featureConfig.processor),
-            ResourceLocation.CODEC.fieldOf("post_processors").orElse(new ResourceLocation("minecraft:empty")).forGetter(featureConfig -> featureConfig.postProcessor),
+            ResourceLocation.CODEC.fieldOf("post_processors").orElse(ResourceLocation.withDefaultNamespace("empty")).forGetter(featureConfig -> featureConfig.postProcessor),
             Codec.mapPair(ResourceLocation.CODEC.fieldOf("structure"), ExtraCodecs.POSITIVE_INT.fieldOf("weight")).codec().listOf().fieldOf("structures").forGetter(featureConfig -> featureConfig.structureLocationAndWeights),
             Codec.INT.fieldOf("y_offset").orElse(0).forGetter(featureConfig -> featureConfig.structureYOffset)
     ).apply(configInstance, StructureFeatureConfig::new));

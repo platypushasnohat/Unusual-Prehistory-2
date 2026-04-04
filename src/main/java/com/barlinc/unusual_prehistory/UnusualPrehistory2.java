@@ -31,31 +31,32 @@ public class UnusualPrehistory2 {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
 
-    public UnusualPrehistory2(IEventBus bus, ModContainer container) {
-        bus.addListener(this::commonSetup);
-        bus.addListener(this::clientSetup);
-        bus.addListener(this::loadComplete);
-        bus.addListener(this::dataSetup);
+    public UnusualPrehistory2(IEventBus modEventBus, ModContainer modContainer) {
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::loadComplete);
+        modEventBus.addListener(this::dataSetup);
 
-        UP2Entities.ENTITY_TYPE.register(bus);
-        UP2Blocks.BLOCKS.register(bus);
-        UP2Items.ITEMS.register(bus);
-        UP2Fluids.FLUIDS.register(bus);
-        UP2Fluids.TYPES.register(bus);
-        UP2BlockEntities.BLOCK_ENTITIES.register(bus);
-        UP2MobEffects.MOB_EFFECTS.register(bus);
-        UP2MenuTypes.MENUS.register(bus);
-        UP2Recipes.RECIPE_TYPES.register(bus);
-        UP2Recipes.RECIPE_SERIALIZERS.register(bus);
-        UP2Features.FEATURES.register(bus);
-        UP2Trees.TREE_DECORATORS.register(bus);
-        UP2Trees.TRUNK_PLACERS.register(bus);
-        UP2Trees.FOLIAGE_PLACERS.register(bus);
-        UP2Structures.STRUCTURE_TYPES.register(bus);
-        UP2StructureProcessors.PROCESSOR_TYPES.register(bus);
-        UP2SoundEvents.SOUND_EVENTS.register(bus);
-        UP2Particles.PARTICLE_TYPES.register(bus);
-        UnusualPrehistory2Tab.CREATIVE_TABS.register(bus);
+        UP2Entities.ENTITY_TYPE.register(modEventBus);
+        UP2Blocks.BLOCKS.register(modEventBus);
+        UP2Items.ITEMS.register(modEventBus);
+        UP2Fluids.FLUIDS.register(modEventBus);
+        UP2Fluids.TYPES.register(modEventBus);
+        UP2BlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        UP2MobEffects.MOB_EFFECTS.register(modEventBus);
+        UP2MenuTypes.MENUS.register(modEventBus);
+        UP2Recipes.RECIPE_TYPES.register(modEventBus);
+        UP2Recipes.RECIPE_SERIALIZERS.register(modEventBus);
+        UP2Features.FEATURES.register(modEventBus);
+        UP2Trees.TREE_DECORATORS.register(modEventBus);
+        UP2Trees.TRUNK_PLACERS.register(modEventBus);
+        UP2Trees.FOLIAGE_PLACERS.register(modEventBus);
+        UP2Structures.STRUCTURE_TYPES.register(modEventBus);
+        UP2SoundEvents.SOUND_EVENTS.register(modEventBus);
+        UP2Particles.PARTICLE_TYPES.register(modEventBus);
+        UnusualPrehistory2Tab.CREATIVE_TABS.register(modEventBus);
+
+        modEventBus.addListener(UP2BlockEntities::addBlockEntities);
         PROXY.commonInit();
     }
 

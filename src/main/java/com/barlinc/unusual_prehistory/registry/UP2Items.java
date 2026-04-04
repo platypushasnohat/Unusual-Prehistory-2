@@ -7,7 +7,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Coelacanthus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
-import com.barlinc.unusual_prehistory.entity.utils.UP2BoatType;
 import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BannerPatternTags;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
@@ -64,12 +63,12 @@ public class UP2Items {
     public static final DeferredItem<Item> TALPANAS_EGG = registerEggItem("talpanas", UP2Entities.TALPANAS_EGG);
     public static final DeferredItem<Item> TELECREX_EGG = registerEggItem("telecrex", UP2Entities.TELECREX_EGG);
 
-    public static final DeferredItem<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new UP2MobBucketItem(UP2Entities.DIPLOCAULUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Diplocaulus.DiplocaulusVariant::byId)));
-    public static final DeferredItem<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new UP2MobBucketItem(UP2Entities.DUNKLEOSTEUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Dunkleosteus.DunkleosteusVariant::byId)));
-    public static final DeferredItem<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.JAWLESS_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(JawlessFish.JawlessFishVariant::byId)));
+    public static final DeferredItem<Item> DIPLOCAULUS_BUCKET = registerItemNoLang("diplocaulus_bucket", () -> new UP2MobBucketItem(UP2Entities.DIPLOCAULUS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Diplocaulus.DiplocaulusVariant::byId)));
+    public static final DeferredItem<Item> DUNKLEOSTEUS_BUCKET = registerItemNoLang("dunkleosteus_bucket", () -> new UP2MobBucketItem(UP2Entities.DUNKLEOSTEUS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(Dunkleosteus.DunkleosteusVariant::byId)));
+    public static final DeferredItem<Item> JAWLESS_FISH_BUCKET = registerItemNoLang("jawless_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.JAWLESS_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties(), VariantHelper.nameOf(JawlessFish.JawlessFishVariant::byId)));
     public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE = registerItemNoLang("kimmeridgebrachypteraeschnidium_bottle", () -> new KimmeridgebrachypteraeschnidiumBottleItem(new Item.Properties()));
-    public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
-    public static final DeferredItem<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new MobBucketItem(UP2Entities.STETHACANTHUS, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
+    public static final DeferredItem<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new UP2MobBucketItem(UP2Entities.STETHACANTHUS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
 
     public static final DeferredItem<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
     public static final DeferredItem<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
@@ -82,15 +81,15 @@ public class UP2Items {
     public static final DeferredItem<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
 
     public static final DeferredItem<Item> GINKGO_FRUIT = registerItem("ginkgo_fruit", () -> new Item(registerFoodValue(UP2FoodValues.GINKGO_FRUIT)));
-    public static final DeferredItem<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO_SIGN.get(), UP2Blocks.GINKGO_WALL_SIGN.get()));
-    public static final DeferredItem<Item> GINKGO_HANGING_SIGN = registerItem("ginkgo_hanging_sign", () -> new HangingSignItem(UP2Blocks.GINKGO_HANGING_SIGN.get(), UP2Blocks.GINKGO_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
-    public static final DeferredItem<Item> GINKGO_BOAT = registerItem("ginkgo_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.GINKGO, new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> GINKGO_CHEST_BOAT = registerItemNoLang("ginkgo_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.GINKGO, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> GINKGO_SIGN = registerItem("ginkgo_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.GINKGO.sign().get(), UP2Blocks.GINKGO.wallSign().get()));
+    public static final DeferredItem<Item> GINKGO_HANGING_SIGN = registerItem("ginkgo_hanging_sign", () -> new HangingSignItem(UP2Blocks.GINKGO.hangingSign().get(), UP2Blocks.GINKGO.hangingWallSign().get(), (new Item.Properties()).stacksTo(16)));
+    public static final DeferredItem<Item> GINKGO_BOAT = registerItem("ginkgo_boat", () -> new BoatItem(false, UP2EnumProxy.GINKGO_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> GINKGO_CHEST_BOAT = registerItemNoLang("ginkgo_chest_boat", () -> new BoatItem(true, UP2EnumProxy.GINKGO_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
 
-    public static final DeferredItem<Item> LEPIDODENDRON_SIGN = registerItem("lepidodendron_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.LEPIDODENDRON_SIGN.get(), UP2Blocks.LEPIDODENDRON_WALL_SIGN.get()));
-    public static final DeferredItem<Item> LEPIDODENDRON_HANGING_SIGN = registerItem("lepidodendron_hanging_sign", () -> new HangingSignItem(UP2Blocks.LEPIDODENDRON_HANGING_SIGN.get(), UP2Blocks.LEPIDODENDRON_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
-    public static final DeferredItem<Item> LEPIDODENDRON_BOAT = registerItem("lepidodendron_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.LEPIDODENDRON, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> LEPIDODENDRON_SIGN = registerItem("lepidodendron_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.LEPIDODENDRON.sign().get(), UP2Blocks.LEPIDODENDRON.wallSign().get()));
+    public static final DeferredItem<Item> LEPIDODENDRON_HANGING_SIGN = registerItem("lepidodendron_hanging_sign", () -> new HangingSignItem(UP2Blocks.LEPIDODENDRON.hangingSign().get(), UP2Blocks.LEPIDODENDRON.hangingWallSign().get(), (new Item.Properties()).stacksTo(16)));
+    public static final DeferredItem<Item> LEPIDODENDRON_BOAT = registerItem("lepidodendron_boat", () -> new BoatItem(false, UP2EnumProxy.LEPIDODENDRON_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> LEPIDODENDRON_CHEST_BOAT = registerItemNoLang("lepidodendron_chest_boat", () -> new BoatItem(true, UP2EnumProxy.LEPIDODENDRON_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> UNUSUAL_PREHISTORY = registerItem("unusual_prehistory", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ORGANIC_OOZE = registerItem("organic_ooze", () -> new Item(new Item.Properties()));
@@ -98,15 +97,15 @@ public class UP2Items {
 
     public static final DeferredItem<Item> TAR_BUCKET = registerItem("tar_bucket", () -> new BucketItem(UP2Fluids.TAR_FLUID_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
 
-    public static final DeferredItem<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new RecordItem(13, UP2SoundEvents.TARIFYING_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5180));
+    public static final DeferredItem<Item> TARIFYING_DISC = registerItemNoLang("tarifying_disc", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(UP2JukeboxSongs.TARIFYING)));
 
     // Update 2
     public static final DeferredItem<Item> ONCHOPRISTIS_SPAWN_EGG = registerSpawnEggItem("onchopristis", UP2Entities.ONCHOPRISTIS, 0xa27e47, 0x382b1e);
 
     public static final DeferredItem<Item> SAW_FOSSIL = registerFossilItem("saw"); // onchopristis
 
-    public static final DeferredItem<Item> DOOMSURF_DISC = registerItemNoLang("doomsurf_disc", () -> new RecordItem(15, UP2SoundEvents.DOOMSURF_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3920));
-    public static final DeferredItem<Item> MEGALANIA_DISC = registerItemNoLang("megalania_disc", () -> new RecordItem(14, UP2SoundEvents.MEGALANIA_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1400));
+    public static final DeferredItem<Item> DOOMSURF_DISC = registerItemNoLang("doomsurf_disc", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(UP2JukeboxSongs.DOOMSURF)));
+    public static final DeferredItem<Item> MEGALANIA_DISC = registerItemNoLang("megalania_disc", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(UP2JukeboxSongs.MEGALANIA)));
 
     // Update 3
     public static final DeferredItem<Item> LIVING_OOZE_SPAWN_EGG = registerSpawnEggItem("living_ooze", UP2Entities.LIVING_OOZE, 0x51da69, 0x055b2f);
@@ -149,9 +148,9 @@ public class UP2Items {
     public static final DeferredItem<Item> PRAEPUSA_EMBRYO = registerEmbryoItem("praepusa", UP2Entities.PRAEPUSA);
     public static final DeferredItem<Item> PTERODACTYLUS_EGG = registerEggItem("pterodactylus", UP2Entities.PTERODACTYLUS_EGG);
 
-    public static final DeferredItem<Item> COELACANTHUS_BUCKET = registerItemNoLang("coelacanthus_bucket", () -> new UP2MobBucketItem(UP2Entities.COELACANTHUS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(Coelacanthus.CoelacanthusVariant::byId)));
-    public static final DeferredItem<Item> LOBE_FINNED_FISH_BUCKET = registerItemNoLang("lobe_finned_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.LOBE_FINNED_FISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(LobeFinnedFish.LobeFinnedFishVariant::byId)));
-    public static final DeferredItem<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> COELACANTHUS_BUCKET = registerItemNoLang("coelacanthus_bucket", () -> new UP2MobBucketItem(UP2Entities.COELACANTHUS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(Coelacanthus.CoelacanthusVariant::byId)));
+    public static final DeferredItem<Item> LOBE_FINNED_FISH_BUCKET = registerItemNoLang("lobe_finned_fish_bucket", () -> new UP2MobBucketItem(UP2Entities.LOBE_FINNED_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(LobeFinnedFish.LobeFinnedFishVariant::byId)));
+    public static final DeferredItem<Item> PRAEPUSA_BUCKET = registerItemNoLang("praepusa_bucket", () -> new UP2MobBucketItem(UP2Entities.PRAEPUSA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> PTERODACTYLUS_POT = registerItemNoLang("pterodactylus_pot", () -> new PterodactylusPotItem(new Item.Properties().stacksTo(1), VariantHelper.nameOf(Pterodactylus.PterodactylusVariant::byId)));
 
     public static final DeferredItem<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 4));
@@ -165,15 +164,15 @@ public class UP2Items {
     public static final DeferredItem<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
     public static final DeferredItem<Item> DRYOPHYLLUM_FOSSIL = registerFossilItem("dryophyllum");
 
-    public static final DeferredItem<Item> DRYOPHYLLUM_SIGN = registerItem("dryophyllum_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.DRYOPHYLLUM_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_SIGN.get()));
-    public static final DeferredItem<Item> DRYOPHYLLUM_HANGING_SIGN = registerItem("dryophyllum_hanging_sign", () -> new HangingSignItem(UP2Blocks.DRYOPHYLLUM_HANGING_SIGN.get(), UP2Blocks.DRYOPHYLLUM_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
-    public static final DeferredItem<Item> DRYOPHYLLUM_BOAT = registerItem("dryophyllum_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> DRYOPHYLLUM_CHEST_BOAT = registerItemNoLang("dryophyllum_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.DRYOPHYLLUM, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DRYOPHYLLUM_SIGN = registerItem("dryophyllum_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.DRYOPHYLLUM.sign().get(), UP2Blocks.DRYOPHYLLUM.wallSign().get()));
+    public static final DeferredItem<Item> DRYOPHYLLUM_HANGING_SIGN = registerItem("dryophyllum_hanging_sign", () -> new HangingSignItem(UP2Blocks.DRYOPHYLLUM.hangingSign().get(), UP2Blocks.DRYOPHYLLUM.hangingWallSign().get(), (new Item.Properties()).stacksTo(16)));
+    public static final DeferredItem<Item> DRYOPHYLLUM_BOAT = registerItem("dryophyllum_boat", () -> new BoatItem(false, UP2EnumProxy.DRYOPHYLLUM_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DRYOPHYLLUM_CHEST_BOAT = registerItemNoLang("dryophyllum_chest_boat", () -> new BoatItem(true, UP2EnumProxy.DRYOPHYLLUM_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
 
-    public static final DeferredItem<Item> METASEQUOIA_SIGN = registerItem("metasequoia_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.METASEQUOIA_SIGN.get(), UP2Blocks.METASEQUOIA_WALL_SIGN.get()));
-    public static final DeferredItem<Item> METASEQUOIA_HANGING_SIGN = registerItem("metasequoia_hanging_sign", () -> new HangingSignItem(UP2Blocks.METASEQUOIA_HANGING_SIGN.get(), UP2Blocks.METASEQUOIA_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
-    public static final DeferredItem<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new UP2BoatItem(false, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new UP2BoatItem(true, UP2BoatType.Type.METASEQUOIA, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> METASEQUOIA_SIGN = registerItem("metasequoia_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), UP2Blocks.METASEQUOIA.sign().get(), UP2Blocks.METASEQUOIA.wallSign().get()));
+    public static final DeferredItem<Item> METASEQUOIA_HANGING_SIGN = registerItem("metasequoia_hanging_sign", () -> new HangingSignItem(UP2Blocks.METASEQUOIA.hangingSign().get(), UP2Blocks.METASEQUOIA.hangingWallSign().get(), (new Item.Properties()).stacksTo(16)));
+    public static final DeferredItem<Item> METASEQUOIA_BOAT = registerItem("metasequoia_boat", () -> new BoatItem(false, UP2EnumProxy.METASEQUOIA_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> METASEQUOIA_CHEST_BOAT = registerItemNoLang("metasequoia_chest_boat", () -> new BoatItem(true, UP2EnumProxy.METASEQUOIA_BOAT_TYPE.getValue(), new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> PALEOPEDIA = registerItem("paleopedia", () -> new PaleopediaItem(new Item.Properties().stacksTo(1)));
 
@@ -199,14 +198,14 @@ public class UP2Items {
     public static final DeferredItem<Item> MOSASAURUS_EMBRYO = registerEmbryoItem("mosasaurus", UP2Entities.MOSASAURUS);
     public static final DeferredItem<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
-    public static final DeferredItem<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> PALEOZOIC_BANNER_PATTERN = registerItemNoLang("paleozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.PALEOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> MESOZOIC_BANNER_PATTERN = registerItemNoLang("mesozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.MESOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> CENOZOIC_BANNER_PATTERN = registerItemNoLang("cenozoic_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.CENOZOIC_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> OOZE_BANNER_PATTERN = registerItemNoLang("ooze_banner_pattern", () -> new BannerPatternItem(UP2BannerPatternTags.OOZE_BANNER_PATTERN, new Item.Properties().stacksTo(1)));
 
-    public static final DeferredItem<Item> PUMMEL_AND_SNATCH_DISC = registerItemNoLang("pummel_and_snatch_disc", () -> new Item(15, UP2SoundEvents.PUMMEL_AND_SNATCH_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1820));
+    public static final DeferredItem<Item> PUMMEL_AND_SNATCH_DISC = registerItemNoLang("pummel_and_snatch_disc", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(UP2JukeboxSongs.PUMMEL_AND_SNATCH)));
 
     public static final DeferredItem<Item> UNKNOWN_FOSSIL = registerItemNoLang("unknown_fossil", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> UNKNOWN_EGG = registerItemNoLang("unknown_egg", () -> new Item(new Item.Properties()));
@@ -232,18 +231,6 @@ public class UP2Items {
     public static final DeferredItem<Item> PERIOD_NEOGENE = registerItem("period_neogene", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERIOD_QUATERNARY = registerItem("period_quaternary", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
-
-//    public static final DeferredItem<Item> BARINASUCHUS_SPAWN_EGG = registerSpawnEggItem("barinasuchus", UP2Entities.BARINASUCHUS, 0x252b12, 0xad9b0e);
-//    public static final DeferredItem<Item> DIMORPHODON_SPAWN_EGG = registerSpawnEggItem("dimorphodon", UP2Entities.DIMORPHODON, 0x35355a, 0xffffff);
-//    public static final DeferredItem<Item> MANIPULATOR_SPAWN_EGG = registerSpawnEggItem("manipulator", UP2Entities.MANIPULATOR, 0x0f0a0f, 0x9c9c9c);
-//    public static final DeferredItem<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x141017, 0x514699);
-
-//    public static final DeferredItem<Item> BRUTE_FOSSIL = registerFossilItem("brute"); // barinasuchus
-//    public static final DeferredItem<Item> BILL_FOSSIL = registerFossilItem("bill"); // dimorphodon
-//    public static final DeferredItem<Item> ROACH_FOSSIL = registerFossilItem("roach"); // manipulator
-//    public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
-
-//    public static final DeferredItem<Item> DIMORPHODON_EGG = registerEggItem("dimorphodon", UP2Entities.DIMORPHODON_EGG);
 
     public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));

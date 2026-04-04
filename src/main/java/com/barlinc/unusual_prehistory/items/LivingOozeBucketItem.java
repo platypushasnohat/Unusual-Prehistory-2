@@ -15,13 +15,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 public class LivingOozeBucketItem extends MobBucketItem {
 
     public LivingOozeBucketItem(Properties properties) {
-        super(UP2Entities.LIVING_OOZE, () -> Fluids.EMPTY, () -> SoundEvents.SLIME_BLOCK_PLACE, properties);
+        super(UP2Entities.LIVING_OOZE.get(), Fluids.EMPTY, SoundEvents.SLIME_BLOCK_PLACE, properties);
     }
 
     @Override

@@ -8,7 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,7 +24,7 @@ public class LepidodendronConeBlock extends SaplingBlock {
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 13.0D, 12.0D);
     protected static final VoxelShape HANGING_SHAPE = Block.box(4.0D, 2.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
-    public LepidodendronConeBlock(AbstractTreeGrower tree, Properties properties) {
+    public LepidodendronConeBlock(TreeGrower tree, Properties properties) {
         super(tree, properties);
         this.registerDefaultState(this.defaultBlockState().setValue(HANGING, false).setValue(STAGE, 0));
     }
@@ -48,7 +48,7 @@ public class LepidodendronConeBlock extends SaplingBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos blockPos, @NotNull BlockState state, boolean valid) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos blockPos, @NotNull BlockState state) {
         return !isHanging(state);
     }
 

@@ -30,8 +30,8 @@ public class PaleopediaItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level level, List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.unusual_prehistory.paleopedia.desc").withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
+        components.add(Component.translatable("item.unusual_prehistory.paleopedia.desc").withStyle(ChatFormatting.GRAY));
     }
 
     @NotNull

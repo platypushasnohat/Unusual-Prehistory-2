@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.datagen;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2BannerPatterns;
+import com.barlinc.unusual_prehistory.registry.UP2JukeboxSongs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class UP2DatapackProvider extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+            .add(Registries.JUKEBOX_SONG, UP2JukeboxSongs::bootstrap)
             .add(Registries.BANNER_PATTERN, UP2BannerPatterns::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, UP2BiomeModifierProvider::bootstrap);
 

@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.worldgen.feature.tree.lepidodendron;
 import com.barlinc.unusual_prehistory.blocks.plant.update_1.LepidodendronConeBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Trees;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;

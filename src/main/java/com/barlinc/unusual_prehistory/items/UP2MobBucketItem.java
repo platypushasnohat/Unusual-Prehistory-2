@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -25,19 +27,20 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.IntFunction;
-import java.util.function.Supplier;
 
 public class UP2MobBucketItem extends MobBucketItem {
 
-    private final IntFunction<String> variantNameGetter;
+    protected final IntFunction<String> variantNameGetter;
+    protected final EntityType<?> entityType;
 
-    public UP2MobBucketItem(Supplier<? extends EntityType<?>> entityType, Fluid fluid, SoundEvent sound, Properties properties) {
+    public UP2MobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent sound, Properties properties) {
         this(entityType, fluid, sound, properties, null);
     }
 
-    public UP2MobBucketItem(Supplier<? extends EntityType<?>> entityType, Fluid fluid, SoundEvent sound, Properties properties, @Nullable IntFunction<String> variantNameGetter) {
-        super(entityType, () -> fluid, () -> sound, properties.stacksTo(1));
+    public UP2MobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent sound, Properties properties, @Nullable IntFunction<String> variantNameGetter) {
+        super(entityType, fluid, sound, properties.stacksTo(1));
         this.variantNameGetter = variantNameGetter;
+        this.entityType = entityType;
     }
 
     @Override
@@ -49,9 +52,10 @@ public class UP2MobBucketItem extends MobBucketItem {
     }
 
     private void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
-        Entity entity = this.getFishType().spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
+        Entity entity = this.entityType.spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable bucketable) {
-            bucketable.loadFromBucketTag(stack.getOrCreateTag());
+            CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+            bucketable.loadFromBucketTag(customdata.copyTag());
             bucketable.setFromBucket(true);
         }
         if (entity instanceof Aegirocassis aegirocassis && !aegirocassis.isBaby()) {
@@ -60,30 +64,30 @@ public class UP2MobBucketItem extends MobBucketItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
+        super.appendHoverText(stack, context, components, flag);
 
         if (variantNameGetter == null) return;
         ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-        CompoundTag compoundTag = stack.getTag();
+        CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-        if (compoundTag == null || !compoundTag.contains("BucketVariantTag", 3)) return;
+        if (customdata.isEmpty() || !customdata.contains("BucketVariantTag")) return;
 
-        int variantId = compoundTag.getInt("BucketVariantTag");
+        int variantId = customdata.copyTag().getInt("BucketVariantTag");
         String variantName = variantNameGetter.apply(variantId);
 
-        EntityType<?> type = this.getFishType();
+        EntityType<?> type = this.entityType;
         ResourceLocation key = EntityType.getKey(type);
 
         String translationKey = "entity." + key.getNamespace() + "." + key.getPath() + ".variant_" + variantName;
 
-        tooltip.add(Component.translatable(translationKey).withStyle(grayChatFormatting));
+        components.add(Component.translatable(translationKey).withStyle(grayChatFormatting));
 
         if (type == UP2Entities.COELACANTHUS.get()) {
-            if (compoundTag.contains("Size", 3)) {
-                int i = compoundTag.getInt("Size");
+            if (customdata.contains("Size")) {
+                int i = customdata.copyTag().getInt("Size");
                 String size = "entity." + key.getNamespace() + "." + key.getPath() + ".size";
-                tooltip.add((Component.translatable(size, i)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+                components.add((Component.translatable(size, i)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
             }
         }
     }

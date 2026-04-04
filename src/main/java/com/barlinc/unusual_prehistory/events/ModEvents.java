@@ -11,70 +11,59 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
-@Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent
-    public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+    public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         // Update 1
-        event.register(UP2Entities.CARNOTAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Carnotaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.DIPLOCAULUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Diplocaulus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.DROMAEOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dromaeosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.DUNKLEOSTEUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dunkleosteus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.JAWLESS_FISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JawlessFish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.KENTROSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kentrosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kimmeridgebrachypteraeschnidium::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, KimmeridgebrachypteraeschnidiumNymph::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.MAJUNGASAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Majungasaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.MEGALANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Megalania::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.STETHACANTHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stethacanthus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.TALPANAS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.TELECREX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Telecrex::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.UNICORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Unicorn::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.CARNOTAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Carnotaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.DIPLOCAULUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Diplocaulus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.DROMAEOSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dromaeosaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.DUNKLEOSTEUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dunkleosteus::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.JAWLESS_FISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JawlessFish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.KENTROSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kentrosaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kimmeridgebrachypteraeschnidium::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, KimmeridgebrachypteraeschnidiumNymph::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.MAJUNGASAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Majungasaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.MEGALANIA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Megalania::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.STETHACANTHUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stethacanthus::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.TALPANAS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Talpanas::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.TELECREX.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Telecrex::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.UNICORN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Unicorn::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
 
         // Update 2
-        event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.ONCHOPRISTIS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Onchopristis::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 
         // Update 3
-        event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.TARTUOSTEUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tartuosteus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.METRIORHYNCHUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Metriorhynchus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.TARTUOSTEUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tartuosteus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
 
         // Update 4
-        event.register(UP2Entities.BRACHIOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Brachiosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.COELACANTHUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Coelacanthus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.HIBBERTOPTERUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hibbertopterus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.KAPROSUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kaprosuchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.LEPTICTIDIUM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Leptictidium::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.LOBE_FINNED_FISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LobeFinnedFish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.LYSTROSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lystrosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.PACHYCEPHALOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pachycephalosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.PRAEPUSA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Praepusa::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.PTERODACTYLUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pterodactylus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.ULUGHBEGSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ulughbegsaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.BRACHIOSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Brachiosaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.COELACANTHUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Coelacanthus::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.HIBBERTOPTERUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hibbertopterus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.KAPROSUCHUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Kaprosuchus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.LEPTICTIDIUM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Leptictidium::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.LOBE_FINNED_FISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LobeFinnedFish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.LYSTROSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lystrosaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.PACHYCEPHALOSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pachycephalosaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.PRAEPUSA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Praepusa::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.PTERODACTYLUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pterodactylus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.ULUGHBEGSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ulughbegsaurus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
 
         // Update 5
-        event.register(UP2Entities.AEGIROCASSIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Aegirocassis::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.DESMATOSUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Desmatosuchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.MOSASAURUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mosasaurus::checkSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
-        event.register(UP2Entities.PSILOPTERUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Psilopterus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-
-        // Future
-//        event.register(UP2Entities.BARINASUCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Barinasuchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.COTYLORHYNCHUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Cotylorhynchus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.DIMORPHODON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Dimorphodon::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.ERYON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Eryon::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.MAMMOTH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mammoth::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.MANIPULATOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Manipulator::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.PALAEOPHIS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Palaeophis::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.THERIZINOSAURUS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Therizinosaurus::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-//        event.register(UP2Entities.WONAMBI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wonambi::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(UP2Entities.AEGIROCASSIS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Aegirocassis::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.DESMATOSUCHUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Desmatosuchus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.MOSASAURUS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mosasaurus::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(UP2Entities.PSILOPTERUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Psilopterus::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
     }
 
     @SubscribeEvent
@@ -125,16 +114,5 @@ public class ModEvents {
         event.put(UP2Entities.ZHANGSOLVA.get(), Zhangsolva.createAttributes().build());
 
         event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
-
-        // Future
-//        event.put(UP2Entities.BARINASUCHUS.get(), Barinasuchus.createAttributes().build());
-//        event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
-//        event.put(UP2Entities.DIMORPHODON.get(), Dimorphodon.createAttributes().build());
-//        event.put(UP2Entities.ERYON.get(), Eryon.createAttributes().build());
-//        event.put(UP2Entities.MAMMOTH.get(), Mammoth.createAttributes().build());
-//        event.put(UP2Entities.MANIPULATOR.get(), Manipulator.createAttributes().build());
-//        event.put(UP2Entities.PALAEOPHIS.get(), Palaeophis.createAttributes().build());
-//        event.put(UP2Entities.THERIZINOSAURUS.get(), Therizinosaurus.createAttributes().build());
-//        event.put(UP2Entities.WONAMBI.get(), Wonambi.createAttributes().build());
     }
 }

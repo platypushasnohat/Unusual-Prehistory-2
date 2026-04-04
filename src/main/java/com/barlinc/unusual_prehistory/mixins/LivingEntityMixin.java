@@ -27,8 +27,8 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
     }
 
     @Inject(at = @At("TAIL"), method = "defineSynchedData")
-    private void unusualPrehistory2$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_GRABBED, false);
+    private void unusualPrehistory2$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DATA_GRABBED, false);
     }
 
     @Override

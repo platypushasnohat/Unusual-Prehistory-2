@@ -9,8 +9,11 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.world.entity.Entity;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class MosasaurusHeldMobLayer extends RiderLayer<Mosasaurus, MosasaurusModel> {
 
     public MosasaurusHeldMobLayer(RenderLayerParent<Mosasaurus, MosasaurusModel> parent) {

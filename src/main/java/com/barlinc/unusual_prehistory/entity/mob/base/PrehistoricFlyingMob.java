@@ -134,7 +134,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData();
+        super.defineSynchedData(builder);
         builder.define(FLYING, false);
     }
 

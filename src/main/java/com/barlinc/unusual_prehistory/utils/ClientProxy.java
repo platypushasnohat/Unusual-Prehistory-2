@@ -16,16 +16,16 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, value = Dist.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     public static final Int2ObjectMap<AbstractTickableSoundInstance> ENTITY_SOUND_INSTANCE_MAP = new Int2ObjectOpenHashMap<>();
@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void clientInit() {
-        MinecraftForge.EVENT_BUS.register(new ClientForgeEvents());
+        NeoForge.EVENT_BUS.register(new ClientForgeEvents());
     }
 
     @Override

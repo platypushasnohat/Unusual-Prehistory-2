@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.misc.UP2Boat;
-import com.barlinc.unusual_prehistory.entity.misc.UP2ChestBoat;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_2.Onchopristis;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
@@ -27,7 +25,7 @@ import java.util.List;
 
 public class UP2Entities {
 
-    public static List<DeferredHolder<EntityType<?>, EntityType<?>>> ENTITY_TRANSLATIONS = new ArrayList<>();
+    public static List<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> ENTITY_TRANSLATIONS = new ArrayList<>();
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(Registries.ENTITY_TYPE, UnusualPrehistory2.MOD_ID);
 
@@ -50,9 +48,6 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> DROMAEOSAURUS_EGG = registerEntity("dromaeosaurus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS::get), MobCategory.MISC, 0.25F, 0.25F);
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> TALPANAS_EGG = registerEntity("talpanas_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS::get), MobCategory.MISC, 0.25F, 0.25F);
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> TELECREX_EGG = registerEntity("telecrex_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.TELECREX_EGG, UP2Entities.TELECREX::get), MobCategory.MISC, 0.25F, 0.25F);
-
-    public static final DeferredHolder<EntityType<?>, EntityType<UP2Boat>> BOAT = registerEntity("boat", UP2Boat::new, MobCategory.MISC, 1.375F, 0.5625F);
-    public static final DeferredHolder<EntityType<?>, EntityType<UP2ChestBoat>> CHEST_BOAT = registerEntityNoLang("chest_boat", UP2ChestBoat::new, MobCategory.MISC, 1.375F, 0.5625F);
 
     // Update 2
     public static final DeferredHolder<EntityType<?>, EntityType<Onchopristis>> ONCHOPRISTIS = registerLivingEntity("onchopristis", Onchopristis::new, MobCategory.WATER_CREATURE, 1.2F, 0.5F);

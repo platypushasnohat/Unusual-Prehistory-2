@@ -11,8 +11,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class UlughbegsaurusRiderLayer extends RiderLayer<Ulughbegsaurus, UlughbegsaurusModel> {
 
     public UlughbegsaurusRiderLayer(RenderLayerParent<Ulughbegsaurus, UlughbegsaurusModel> parent) {

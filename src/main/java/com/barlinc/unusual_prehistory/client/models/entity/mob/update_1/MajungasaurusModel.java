@@ -9,8 +9,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
@@ -168,13 +168,13 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         poseStack.pushPose();
         if (this.young) {
             poseStack.scale(this.youngScaleFactor, this.youngScaleFactor, this.youngScaleFactor);
             poseStack.translate(0.0F, this.bodyYOffset / 16.0F, 0.0F);
         }
-        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha * this.alpha);
+        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, (int) (color * this.alpha));
         poseStack.popPose();
     }
 

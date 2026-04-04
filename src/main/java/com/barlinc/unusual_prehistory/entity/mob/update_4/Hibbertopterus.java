@@ -40,10 +40,10 @@
  import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.BlockHitResult;
  import net.minecraft.world.phys.Vec3;
- import net.minecraftforge.common.ToolActions;
+ import net.neoforged.neoforge.common.ItemAbilities;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
@@ -57,8 +57,8 @@
 
      public Hibbertopterus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER, 0.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -76,11 +76,6 @@
          this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-     }
-
-     @Override
-     public @NotNull MobType getMobType() {
-         return MobType.ARTHROPOD;
      }
 
      @Override
@@ -116,10 +111,10 @@
          return true;
      }
 
-     @Override
-     public float getStepHeight() {
-         return 1.1F;
-     }
+//     @Override
+//     public float getStepHeight() {
+//         return 1.1F;
+//     }
 
      @Override
      public boolean canCollideWith(@NotNull Entity entity) {
@@ -207,7 +202,7 @@
              if (replaceable && !aboveState.isAir()) this.level().destroyBlock(above, true);
              if (!replaceable) continue;
              UseOnContext context = new UseOnContext(player.level(), player, InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_HOE), new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false));
-             BlockState modified = state.getToolModifiedState(context, ToolActions.HOE_TILL, false);
+             BlockState modified = state.getToolModifiedState(context, ItemAbilities.HOE_TILL, false);
              if (modified != null) {
                  this.level().setBlock(pos, modified, 11);
                  this.level().levelEvent(2001, pos, Block.getId(state));
@@ -246,9 +241,9 @@
      }
 
      @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
-         this.entityData.define(PLOW_TIME, 0);
+     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+         super.defineSynchedData(builder);
+         builder.define(PLOW_TIME, 0);
      }
 
      @Override
