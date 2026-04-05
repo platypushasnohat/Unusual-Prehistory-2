@@ -149,10 +149,10 @@
          return super.getWalkTargetValue(pos, level);
      }
 
-     @Override
-     public float getStepHeight() {
-         return this.isSliding() || this.isRunning() ? 1.0F : 0.6F;
-     }
+//     @Override
+//     public float getStepHeight() {
+//         return this.isSliding() || this.isRunning() ? 1.0F : 0.6F;
+//     }
 
      @Override
      public boolean isFood(ItemStack stack) {
@@ -365,10 +365,6 @@
              this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
          }
          return spawnGroupData;
-     }
-
-     public static boolean canSpawn(EntityType<Diplocaulus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
 
      // goals

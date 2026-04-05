@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks.plant.update_1;
 
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -25,8 +26,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
 public class QuillwortBlock extends BushBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+
+    public static final MapCodec<QuillwortBlock> CODEC = simpleCodec(QuillwortBlock::new);
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
@@ -34,6 +36,11 @@ public class QuillwortBlock extends BushBlock implements SimpleWaterloggedBlock,
     public QuillwortBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected @NotNull MapCodec<QuillwortBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -82,7 +89,7 @@ public class QuillwortBlock extends BushBlock implements SimpleWaterloggedBlock,
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 

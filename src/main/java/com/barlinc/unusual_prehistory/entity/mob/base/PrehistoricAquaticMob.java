@@ -32,9 +32,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PrehistoricAquaticMob.class, EntityDataSerializers.BOOLEAN);
 
-    public float prevOnLandProgress;
-    public float onLandProgress;
-
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
 
@@ -70,11 +67,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     @Override
-    public @NotNull MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
     public boolean checkSpawnObstruction(LevelReader level) {
         return level.isUnobstructed(this);
     }
@@ -90,7 +82,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     @Override
     public void tick() {
         super.tick();
-        prevOnLandProgress = onLandProgress;
         this.tickFlopping();
     }
 
@@ -109,13 +100,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     }
 
     public void tickFlopping() {
-        if (!this.isInWaterOrBubble() && onLandProgress < 5F) {
-            this.onLandProgress++;
-        }
-        if (this.isInWaterOrBubble() && onLandProgress > 0F) {
-            this.onLandProgress--;
-        }
-
         if (!this.isInWater() && this.onGround() && this.getRandom().nextFloat() < this.flopChance() && this.shouldFlop()) {
             this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F, 0.5D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F));
             if (this.getRandom().nextFloat() < 0.3F) this.setYRot(this.getRandom().nextFloat() * 360.0F);
@@ -132,7 +116,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData();
+        super.defineSynchedData(builder);
         builder.define(FROM_BUCKET, false);
     }
 
@@ -215,15 +199,5 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         int i = level.getSeaLevel();
         int j = i - 13;
         return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
-    }
-
-    @Override
-    public boolean requiresCustomPersistence() {
-        return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double distanceToPlayer) {
-        return !this.requiresCustomPersistence();
     }
 }

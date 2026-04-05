@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -8,7 +8,7 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -89,7 +89,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
 
         this.tag(UP2EntityTags.CARNOTAURUS_IGNORES).add(
                 EntityType.CREEPER
-        ).addOptional(new ResourceLocation("species", "quake"));
+        ).addOptional(ResourceLocation.fromNamespaceAndPath("species", "quake"));
 
         this.tag(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE).add(
                 KENTROSAURUS.get()

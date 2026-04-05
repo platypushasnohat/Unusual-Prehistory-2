@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.*;
@@ -8,24 +8,25 @@ import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGenerator {
 
-    public static AdvancementProvider create(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
+    public static AdvancementProvider register(PackOutput output, CompletableFuture<Provider> provider, ExistingFileHelper helper) {
         return new AdvancementProvider(output, provider, helper, List.of(new UP2AdvancementProvider()));
     }
 
     @Override
-    public void generate(Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper helper) {
+    public void generate(@NotNull Provider provider, @NotNull Consumer<AdvancementHolder> consumer, @NotNull ExistingFileHelper helper) {
 
         AdvancementHolder root = Advancement.Builder.advancement().display(UP2Items.UNUSUAL_PREHISTORY.get(), Component.translatable("advancement.unusual_prehistory.root"), Component.translatable("advancement.unusual_prehistory.root.desc"), UnusualPrehistory2.modPrefix("textures/block/cobbled_fossilized_bone.png"), AdvancementType.TASK, false, false, false)
                 .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
@@ -39,7 +40,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
                 .save(consumer, UnusualPrehistory2.modPrefix("root"), helper);
 
         Advancement.Builder.advancement()
-                .addCriterion("open_book_creative", new UP2CriteriaTriggers.TriggerInstance(UP2Criterion.OPEN_BOOK_CREATIVE_MODE.getId(), ContextAwarePredicate.ANY))
+                .addCriterion("open_book_creative", UP2CriteriaTriggers.OPEN_BOOK_CREATIVE_MODE.get().createCriterion(new PlayerTrigger.TriggerInstance(Optional.empty())))
                 .save(consumer, UnusualPrehistory2.modPrefix("open_book_creative"), helper);
 
         Advancement.Builder.advancement()
@@ -51,20 +52,20 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_asphalt"), helper);
 
         // Progression & misc
-        AdvancementHolder fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), AdvancementType.TASK, false)
+        AdvancementHolder fossils = createAdvancement("obtain_fossil", root, UP2Items.UNKNOWN_FOSSIL.get(), AdvancementType.TASK)
                 .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_fossil"), helper);
 
-        AdvancementHolder machineParts = createAdvancement("obtain_machine_parts", fossils, UP2Items.MACHINE_PARTS.get(), AdvancementType.TASK, false)
+        AdvancementHolder machineParts = createAdvancement("obtain_machine_parts", fossils, UP2Items.MACHINE_PARTS.get(), AdvancementType.TASK)
                 .addCriterion("machine_parts", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.MACHINE_PARTS.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_machine_parts"), helper);
 
-        AdvancementHolder transmogrifier = createAdvancement("obtain_transmogrifier", machineParts, UP2Blocks.TRANSMOGRIFIER.get(), AdvancementType.GOAL, false)
+        AdvancementHolder transmogrifier = createAdvancement("obtain_transmogrifier", machineParts, UP2Blocks.TRANSMOGRIFIER.get(), AdvancementType.GOAL)
                 .addCriterion("transmogrifier", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.TRANSMOGRIFIER.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_transmogrifier"), helper);
 
-        AdvancementHolder organicOoze = createAdvancement("obtain_organic_ooze", transmogrifier, UP2Items.ORGANIC_OOZE.get(), AdvancementType.TASK, false)
+        AdvancementHolder organicOoze = createAdvancement("obtain_organic_ooze", transmogrifier, UP2Items.ORGANIC_OOZE.get(), AdvancementType.TASK)
                 .addCriterion("organic_ooze", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.ORGANIC_OOZE.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_organic_ooze"), helper);
 
@@ -73,7 +74,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_egg"), helper);
 
-        createAdvancement("obtain_living_ooze", organicOoze, UP2Items.LIVING_OOZE_BUCKET.get(), AdvancementType.GOAL, false)
+        createAdvancement("obtain_living_ooze", organicOoze, UP2Items.LIVING_OOZE_BUCKET.get(), AdvancementType.GOAL, false, false, false)
                 .addCriterion("living_ooze_bucket", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.LIVING_OOZE_BUCKET.get()))
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_living_ooze"), helper);
 
@@ -112,20 +113,20 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         AdvancementHolder cenozoicRoot = Advancement.Builder.advancement().parent(eggs).display(UP2Items.CENOZOIC_FOSSIL.get(), Component.translatable("advancement.unusual_prehistory.cenozoic_root"), Component.translatable("advancement.unusual_prehistory.cenozoic_root.desc"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
-                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("cenozoic_root"), helper);
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("cenozoic_root"), helper);
 
         AdvancementHolder paleogeneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.PERIOD_PALEOGENE.get(), Component.translatable("advancement.unusual_prehistory.paleogene_root"), Component.translatable("advancement.unusual_prehistory.paleogene_root.desc"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
-                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("paleogene_root"), helper);
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("paleogene_root"), helper);
         AdvancementHolder neogeneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.PERIOD_NEOGENE.get(), Component.translatable("advancement.unusual_prehistory.neogene_root"), Component.translatable("advancement.unusual_prehistory.neogene_root.desc"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
-                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("neogene_root"), helper);
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("neogene_root"), helper);
         AdvancementHolder quaternaryRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.PERIOD_QUATERNARY.get(), Component.translatable("advancement.unusual_prehistory.quaternary_root"), Component.translatable("advancement.unusual_prehistory.quaternary_root.desc"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
-                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("quaternary_root"), helper);
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("quaternary_root"), helper);
         AdvancementHolder holoceneRoot = Advancement.Builder.advancement().parent(cenozoicRoot).display(UP2Items.PERIOD_HOLOCENE.get(), Component.translatable("advancement.unusual_prehistory.holocene_root"), Component.translatable("advancement.unusual_prehistory.holocene_root.desc"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.CENOZOIC_EGGS).build()))
-                .requirements(RequirementsStrategy.OR).save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("holocene_root"), helper);
 
         // Ordovician
         AdvancementHolder reviveAegirocassis = reviveMobAdvancement("revive_aegirocassis", ordovicianRoot, UP2Blocks.AEGIROCASSIS_EGGS.get(), UP2Entities.AEGIROCASSIS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_aegirocassis"), helper);
@@ -180,18 +181,18 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder reviveTalpanas = reviveMobAdvancement("revive_talpanas", holoceneRoot, UP2Items.TALPANAS_EGG.get(), UP2Entities.TALPANAS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_talpanas"), helper);
     }
 
-    private static Advancement.Builder createAdvancement(String name, String category, AdvancementHolder parent, ItemLike icon, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+    private static Advancement.Builder createAdvancement(String name, AdvancementHolder parent, ItemLike icon, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
         return Advancement.Builder.advancement().parent(parent).display(icon,
-                Component.translatable("advancements." + UnusualPrehistory2.MOD_ID + "." + category + "." + name + ".title"),
-                Component.translatable("advancements." + UnusualPrehistory2.MOD_ID + "." + category + "." + name + ".description"),
+                Component.translatable("advancements." + UnusualPrehistory2.MOD_ID + "." + name + ".title"),
+                Component.translatable("advancements." + UnusualPrehistory2.MOD_ID + "." + name + ".description"),
                 null, frame, showToast, announceToChat, hidden);
     }
 
-    private static Advancement.Builder createAdvancement(String name, String category, ResourceLocation parent, ItemLike icon, AdvancementType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        return createAdvancement(name, category, Advancement.Builder.advancement().build(parent), icon, frame, showToast, announceToChat, hidden);
+    private static Advancement.Builder createAdvancement(String name, AdvancementHolder parent, ItemLike icon, AdvancementType frame) {
+        return createAdvancement(name, parent, icon, frame, true, true, false);
     }
 
-    private static Advancement.Builder reviveMobAdvancement(String name, Advancement parent, ItemLike icon, EntityType<?> entityType) {
+    private static Advancement.Builder reviveMobAdvancement(String name, AdvancementHolder parent, ItemLike icon, EntityType<?> entityType) {
         return createAdvancement(name, parent, icon, AdvancementType.TASK, true, true, true)
                 .addCriterion(name, SummonedEntityTrigger.TriggerInstance.summonedEntity(EntityPredicate.Builder.entity().of(entityType)))
                 .rewards(AdvancementRewards.Builder.experience(5));

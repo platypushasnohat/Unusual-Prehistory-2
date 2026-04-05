@@ -43,10 +43,10 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
     }
 
     // entity tag
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+//    @Override
+//    public boolean canBreatheUnderwater() {
+//        return true;
+//    }
 
     public int getTimeInWater() {
         return this.entityData.get(TIME_IN_WATER);

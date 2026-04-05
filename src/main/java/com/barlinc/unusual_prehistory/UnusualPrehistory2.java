@@ -1,6 +1,10 @@
 package com.barlinc.unusual_prehistory;
 
-import com.barlinc.unusual_prehistory.datagen.*;
+import com.barlinc.unusual_prehistory.datagen.client.UP2BlockstateProvider;
+import com.barlinc.unusual_prehistory.datagen.client.UP2ItemModelProvider;
+import com.barlinc.unusual_prehistory.datagen.client.UP2LanguageProvider;
+import com.barlinc.unusual_prehistory.datagen.client.UP2SoundDefinitionsProvider;
+import com.barlinc.unusual_prehistory.datagen.server.*;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.barlinc.unusual_prehistory.utils.CommonProxy;
@@ -54,6 +58,7 @@ public class UnusualPrehistory2 {
         UP2Structures.STRUCTURE_TYPES.register(modEventBus);
         UP2SoundEvents.SOUND_EVENTS.register(modEventBus);
         UP2Particles.PARTICLE_TYPES.register(modEventBus);
+        UP2CriteriaTriggers.TRIGGERS.register(modEventBus);
         UnusualPrehistory2Tab.CREATIVE_TABS.register(modEventBus);
 
         modEventBus.addListener(UP2BlockEntities::addBlockEntities);
@@ -80,12 +85,6 @@ public class UnusualPrehistory2 {
         CompletableFuture<HolderLookup.Provider> provider = data.getLookupProvider();
         ExistingFileHelper helper = data.getExistingFileHelper();
 
-        boolean client = data.includeClient();
-        generator.addProvider(client, new UP2BlockstateProvider(data));
-        generator.addProvider(client, new UP2ItemModelProvider(data));
-        generator.addProvider(client, new UP2SoundDefinitionsProvider(output, helper));
-        generator.addProvider(client, new UP2LanguageProvider(data));
-
         boolean server = data.includeServer();
 
         UP2DatapackProvider datapackEntries = new UP2DatapackProvider(output, provider);
@@ -99,9 +98,16 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2BannerPatternTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2DamageTypeTagProvider(output, provider, helper));
-        generator.addProvider(server, UP2LootProvider.register(output));
+        generator.addProvider(server, new UP2LootTableProvider(output, provider));
         generator.addProvider(server, new UP2RecipeProvider(output));
         generator.addProvider(server, UP2AdvancementProvider.register(output, provider, helper));
+
+        boolean client = data.includeClient();
+
+        generator.addProvider(client, new UP2BlockstateProvider(output, helper));
+        generator.addProvider(client, new UP2ItemModelProvider(data));
+        generator.addProvider(client, new UP2SoundDefinitionsProvider(output, helper));
+        generator.addProvider(client, new UP2LanguageProvider(data));
     }
 
     public static ResourceLocation modPrefix(String name) {

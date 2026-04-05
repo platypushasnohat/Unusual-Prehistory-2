@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
 public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock {
 
     public MossyDirtBlock(BlockBehaviour.Properties pProperties) {
@@ -73,7 +72,7 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean valid) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state) {
         return level.getBlockState(pos.above()).isAir();
     }
 

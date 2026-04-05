@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks.plant.update_1;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -20,8 +21,9 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
+
+    public static final MapCodec<MossLayerBlock> CODEC = simpleCodec(MossLayerBlock::new);
 
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private final MultifaceSpreader spreader = new MultifaceSpreader(this);
@@ -29,6 +31,11 @@ public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock,
     public MossLayerBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected @NotNull MapCodec<MossLayerBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -51,7 +58,7 @@ public class MossLayerBlock extends MultifaceBlock implements BonemealableBlock,
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean client) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return Direction.stream().anyMatch((direction) -> this.spreader.canSpreadInAnyDirection(state, level, pos, direction.getOpposite()));
     }
 

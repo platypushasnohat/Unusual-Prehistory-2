@@ -21,10 +21,9 @@ import net.minecraft.world.level.block.state.properties.BambooLeaves;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class GuangdedendronSporeBlock extends Block implements BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 12.0D, 12.0D);
@@ -64,12 +63,12 @@ public class GuangdedendronSporeBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return new ItemStack(UP2Blocks.GUANGDEDENDRON.get());
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, @NotNull BlockState state) {
         return level.getBlockState(pos.above()).isAir();
     }
 
@@ -85,7 +84,7 @@ public class GuangdedendronSporeBlock extends Block implements BonemealableBlock
 
     @Override
     public float getDestroyProgress(@NotNull BlockState state, Player player, @NotNull BlockGetter getter, @NotNull BlockPos pos) {
-        return player.getMainHandItem().canPerformAction(ToolActions.SWORD_DIG) ? 1.0F : super.getDestroyProgress(state, player, getter, pos);
+        return player.getMainHandItem().canPerformAction(ItemAbilities.SWORD_DIG) ? 1.0F : super.getDestroyProgress(state, player, getter, pos);
     }
 
     protected void growGuangdedendron(Level level, BlockPos state) {

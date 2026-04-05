@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks.plant;
 
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,8 +17,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class PrehistoricPlantBlock extends BushBlock implements BonemealableBlock {
+
+    public static final MapCodec<PrehistoricPlantBlock> CODEC = simpleCodec(PrehistoricPlantBlock::new);
 
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
@@ -26,7 +28,12 @@ public class PrehistoricPlantBlock extends BushBlock implements BonemealableBloc
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
@@ -36,7 +43,7 @@ public class PrehistoricPlantBlock extends BushBlock implements BonemealableBloc
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 

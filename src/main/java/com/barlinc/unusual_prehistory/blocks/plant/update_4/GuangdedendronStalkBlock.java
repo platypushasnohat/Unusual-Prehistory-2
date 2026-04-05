@@ -25,15 +25,14 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.SpecialPlantable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class GuangdedendronStalkBlock extends Block implements BonemealableBlock, IPlantable {
+public class GuangdedendronStalkBlock extends Block implements BonemealableBlock, SpecialPlantable {
 
     protected static final VoxelShape SMALL_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     protected static final VoxelShape COLLISION_SHAPE = Block.box(6.5D, 0.0D, 6.5D, 9.5D, 16.0D, 9.5D);
@@ -62,10 +61,10 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
         return SMALL_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
-    @Override
-    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-        return false;
-    }
+//    @Override
+//    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+//        return false;
+//    }
 
     @Override
     public @NotNull VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
@@ -144,7 +143,7 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         int aboveMax = this.getHeightAboveUpToMax(level, pos);
         int belowMax = this.getHeightBelowUpToMax(level, pos);
         return aboveMax + belowMax + 1 < 16 && level.getBlockState(pos.above(aboveMax)).getValue(STAGE) != 1;
@@ -176,7 +175,7 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
 
     @Override
     public float getDestroyProgress(@NotNull BlockState state, Player player, @NotNull BlockGetter getter, @NotNull BlockPos pos) {
-        return player.getMainHandItem().canPerformAction(ToolActions.SWORD_DIG) ? 1.0F : super.getDestroyProgress(state, player, getter, pos);
+        return player.getMainHandItem().canPerformAction(ItemAbilities.SWORD_DIG) ? 1.0F : super.getDestroyProgress(state, player, getter, pos);
     }
 
     protected void growGuangdedendron(BlockState state, Level level, BlockPos pos, RandomSource random, int age) {
@@ -217,10 +216,10 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
         return i;
     }
 
-    @Override
-    public BlockState getPlant(BlockGetter getter, BlockPos pos) {
-        BlockState state = getter.getBlockState(pos);
-        if (state.getBlock() != this) return this.defaultBlockState();
-        return state;
-    }
+//    @Override
+//    public BlockState getPlant(BlockGetter getter, BlockPos pos) {
+//        BlockState state = getter.getBlockState(pos);
+//        if (state.getBlock() != this) return this.defaultBlockState();
+//        return state;
+//    }
 }

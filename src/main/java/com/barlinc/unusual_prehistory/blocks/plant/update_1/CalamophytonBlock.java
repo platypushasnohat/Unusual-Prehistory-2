@@ -20,8 +20,8 @@ public class CalamophytonBlock extends ThreeTallPlantBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(blockGetter, pos);
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        Vec3 offset = state.getOffset(level, pos);
         if (state.getValue(LAYER) == 2) {
             return TOP_SHAPE.move(offset.x, offset.y, offset.z);
         }

@@ -10,7 +10,6 @@
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Particles;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
- import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.utils.UP2Math;
@@ -23,7 +22,6 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.Mth;
- import net.minecraft.util.RandomSource;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -38,12 +36,11 @@
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.AABB;
  import net.minecraft.world.phys.Vec3;
- import net.minecraftforge.entity.PartEntity;
+ import net.neoforged.neoforge.entity.PartEntity;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
@@ -80,9 +77,9 @@
 
      public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
+         this.setPathfindingMalus(PathType.WATER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(PathType.FENCE, 0.0F);
          this.headPart = new BrachiosaurusPart(this, "head", 2.5F, 2.5F);
          this.neckPart1 = new BrachiosaurusPart(this, "neck1", 2.5F, 6.0F);
          this.neckPart2 = new BrachiosaurusPart(this, "neck2", 2.5F, 6.0F);
@@ -159,10 +156,10 @@
          super.travel(travelVec);
      }
 
-     @Override
-     public float getStepHeight() {
-         return this.isBaby() ? 1.0F : 3.0F;
-     }
+//     @Override
+//     public float getStepHeight() {
+//         return this.isBaby() ? 1.0F : 3.0F;
+//     }
 
      @Override
      public boolean isFood(ItemStack stack) {
@@ -420,9 +417,9 @@
      }
 
      @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
-         this.entityData.define(STOMP_COOLDOWN, 0);
+     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+         super.defineSynchedData(builder);
+         builder.define(STOMP_COOLDOWN, 0);
      }
 
      public void setStompCooldown(int cooldown) {
@@ -502,10 +499,6 @@
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.BRACHIOSAURUS.get().create(level);
-     }
-
-     public static boolean canSpawn(EntityType<Brachiosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.BRACHIOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
 
      // Goals

@@ -17,7 +17,7 @@ public class LepidodendronLeavesBlock extends LeavesBlock implements Bonemealabl
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos blockPos, @NotNull BlockState state, boolean valid) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos blockPos, @NotNull BlockState state) {
         return level.getBlockState(blockPos.below()).isAir();
     }
 

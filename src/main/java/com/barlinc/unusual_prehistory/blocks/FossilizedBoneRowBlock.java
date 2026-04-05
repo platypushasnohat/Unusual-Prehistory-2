@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.blocks;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -25,8 +26,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-@SuppressWarnings("deprecation")
 public class FossilizedBoneRowBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+
+    public static final MapCodec<FossilizedBoneRowBlock> CODEC = simpleCodec(FossilizedBoneRowBlock::new);
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
@@ -53,6 +55,11 @@ public class FossilizedBoneRowBlock extends HorizontalDirectionalBlock implement
     public FossilizedBoneRowBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHED, false));
+    }
+
+    @Override
+    protected @NotNull MapCodec<FossilizedBoneRowBlock> codec() {
+        return CODEC;
     }
 
     @Override

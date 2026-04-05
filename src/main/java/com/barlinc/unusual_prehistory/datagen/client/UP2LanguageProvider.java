@@ -1,9 +1,10 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.client;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2Tab;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.UP2TextUtils;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -13,13 +14,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import org.apache.commons.lang3.text.WordUtils;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -46,8 +45,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         UP2Entities.ENTITY_TRANSLATIONS.forEach(this::forEntity);
 
         // Update 1
-        this.addEntityType(UP2Entities.CHEST_BOAT, "Boat with Chest");
-
         this.addItem(UP2Items.DIPLOCAULUS_BUCKET, "Bucket of Diplocaulus");
         this.addItem(UP2Items.DUNKLEOSTEUS_BUCKET, "Bucket of Dunkleosteus");
         this.addItem(UP2Items.JAWLESS_FISH_BUCKET, "Bucket of Jawless Fish");
@@ -605,15 +602,15 @@ public class UP2LanguageProvider extends LanguageProvider {
     }
 
     private void forBlock(Supplier<? extends Block> block) {
-        this.addBlock(block, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
+        this.addBlock(block, UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block.get())).getPath()));
     }
 
     private void forItem(Supplier<? extends Item> item) {
-        this.addItem(item, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get())).getPath()));
+        this.addItem(item, UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item.get())).getPath()));
     }
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
-        this.addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
+        this.addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity.get())).getPath()));
     }
 
     private String format(ResourceLocation registryName) {
@@ -632,28 +629,28 @@ public class UP2LanguageProvider extends LanguageProvider {
     }
 
     public void translateAdvancement(String key, String name, String desc) {
-        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key, name);
-        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".desc", desc);
+        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".title", name);
+        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".description", desc);
     }
 
-    private void translateEffect(RegistryObject<? extends MobEffect> effect, String desc) {
-        this.add(effect.get(), toUpper(ForgeRegistries.MOB_EFFECTS, effect));
+    private void translateEffect(DeferredHolder<? extends MobEffect, ?> effect, String desc) {
+        this.add(effect.get(), UP2TextUtils.createTranslation(effect.get().toString()));
         this.add(effect.get().getDescriptionId() + ".description", desc);
     }
 
-    private void translateBannerPatternItem(RegistryObject<? extends Item> item, String name) {
-        String desc = toUpper(name);
+    private void translateBannerPatternItem(DeferredItem<? extends Item> item, String name) {
+        String desc = UP2TextUtils.createTranslation(name);
         this.add(item.get(), "Banner Pattern");
         this.addDescription(item, desc);
     }
 
     private void translateBannerPattern(String name) {
         for (DyeColor dye : DyeColor.values()) {
-            this.add("block.minecraft.banner." + UnusualPrehistory2.MOD_ID + "." + name + "." + dye.getName(), toUpper(dye.getName()) + " " + toUpper(name));
+            this.add("block.minecraft.banner." + UnusualPrehistory2.MOD_ID + "." + name + "." + dye.getName(), UP2TextUtils.createTranslation(dye.getName()) + " " + UP2TextUtils.createTranslation(name));
         }
     }
 
-    private void addDescription(RegistryObject<? extends ItemLike> item, String desc) {
+    private void addDescription(DeferredHolder<? extends ItemLike, ?> item, String desc) {
         this.add(item.get().asItem().getDescriptionId() + ".desc", desc);
     }
 
@@ -663,13 +660,5 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
         this.add("subtitles." + key.get().getLocation().getPath(), subtitle);
-    }
-
-    private static <T> String toUpper(IForgeRegistry<T> registry, RegistryObject<? extends T> object) {
-        return toUpper(registry.getKey(object.get()).getPath());
-    }
-
-    private static String toUpper(String string) {
-        return StringUtils.capitaliseAllWords(string.replace('_', ' '));
     }
 }

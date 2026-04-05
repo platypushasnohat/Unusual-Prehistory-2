@@ -93,7 +93,7 @@ public class TallEggBlock extends EggBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @NotNull Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @NotNull Player player) {
         if (!level.isClientSide) {
             if (player.isCreative()) {
                 TallEggBlock.preventCreativeDropFromBottomPart(level, blockPos, blockState, player);
@@ -101,7 +101,7 @@ public class TallEggBlock extends EggBlock {
                 TallEggBlock.dropResources(blockState, level, blockPos, null, player, player.getMainHandItem());
             }
         }
-        super.playerWillDestroy(level, blockPos, blockState, player);
+        return super.playerWillDestroy(level, blockPos, blockState, player);
     }
 
     @Override

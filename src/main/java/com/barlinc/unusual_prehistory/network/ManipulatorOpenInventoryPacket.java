@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.network;
 
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 

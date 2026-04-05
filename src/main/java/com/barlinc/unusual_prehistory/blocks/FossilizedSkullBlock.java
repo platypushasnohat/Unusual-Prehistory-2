@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Equipable;
@@ -13,11 +14,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class FossilizedSkullBlock extends HorizontalDirectionalBlock implements Equipable {
 
+    public static final MapCodec<FossilizedSkullBlock> CODEC = simpleCodec(FossilizedSkullBlock::new);
+
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public FossilizedSkullBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected @NotNull MapCodec<FossilizedSkullBlock> codec() {
+        return CODEC;
     }
 
     @Override

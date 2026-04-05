@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.core.HolderSet;

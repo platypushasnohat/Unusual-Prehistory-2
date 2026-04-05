@@ -15,12 +15,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class TallAmbientPlantBlock extends PrehistoricTallPlantBlock {
 
     private final Supplier<EntityType<?>> toSpawn;
@@ -47,7 +46,7 @@ public class TallAmbientPlantBlock extends PrehistoricTallPlantBlock {
                     mob.setShouldBeRestricted(true);
                     entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(level.random.nextFloat() * 360.0F), 0.0F);
                     level.addFreshEntity(entity);
-                    ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null, null);
+                    EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.NATURAL, null);
                 }
             }
             level.scheduleTick(pos, this, 2600 + level.getRandom().nextInt(1200));

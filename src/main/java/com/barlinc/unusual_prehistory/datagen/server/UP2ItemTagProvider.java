@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
@@ -14,8 +14,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -235,22 +235,22 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACIFIES_PRAEPUSA).addTag(UP2ItemTags.PRAEPUSA_FOOD);
         this.tag(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS).addTag(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
 
-        this.tag(UP2ItemTags.AMBER_DYES).addOptional(new ResourceLocation("dye_depot", "amber_dye"));
-        this.tag(UP2ItemTags.AQUA_DYES).addOptional(new ResourceLocation("dye_depot", "aqua_dye"));
-        this.tag(UP2ItemTags.BEIGE_DYES).addOptional(new ResourceLocation("dye_depot", "beige_dye"));
-        this.tag(UP2ItemTags.CORAL_DYES).addOptional(new ResourceLocation("dye_depot", "coral_dye"));
-        this.tag(UP2ItemTags.FOREST_DYES).addOptional(new ResourceLocation("dye_depot", "forest_dye"));
-        this.tag(UP2ItemTags.GINGER_DYES).addOptional(new ResourceLocation("dye_depot", "ginger_dye"));
-        this.tag(UP2ItemTags.INDIGO_DYES).addOptional(new ResourceLocation("dye_depot", "indigo_dye"));
-        this.tag(UP2ItemTags.MAROON_DYES).addOptional(new ResourceLocation("dye_depot", "maroon_dye"));
-        this.tag(UP2ItemTags.MINT_DYES).addOptional(new ResourceLocation("dye_depot", "mint_dye"));
-        this.tag(UP2ItemTags.NAVY_DYES).addOptional(new ResourceLocation("dye_depot", "navy_dye"));
-        this.tag(UP2ItemTags.OLIVE_DYES).addOptional(new ResourceLocation("dye_depot", "olive_dye"));
-        this.tag(UP2ItemTags.ROSE_DYES).addOptional(new ResourceLocation("dye_depot", "rose_dye"));
-        this.tag(UP2ItemTags.SLATE_DYES).addOptional(new ResourceLocation("dye_depot", "slate_dye"));
-        this.tag(UP2ItemTags.TAN_DYES).addOptional(new ResourceLocation("dye_depot", "tan_dye"));
-        this.tag(UP2ItemTags.TEAL_DYES).addOptional(new ResourceLocation("dye_depot", "teal_dye"));
-        this.tag(UP2ItemTags.VERDANT_DYES).addOptional(new ResourceLocation("dye_depot", "verdant_dye"));
+        this.tag(UP2ItemTags.AMBER_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "amber_dye"));
+        this.tag(UP2ItemTags.AQUA_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "aqua_dye"));
+        this.tag(UP2ItemTags.BEIGE_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "beige_dye"));
+        this.tag(UP2ItemTags.CORAL_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "coral_dye"));
+        this.tag(UP2ItemTags.FOREST_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "forest_dye"));
+        this.tag(UP2ItemTags.GINGER_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "ginger_dye"));
+        this.tag(UP2ItemTags.INDIGO_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "indigo_dye"));
+        this.tag(UP2ItemTags.MAROON_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "maroon_dye"));
+        this.tag(UP2ItemTags.MINT_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "mint_dye"));
+        this.tag(UP2ItemTags.NAVY_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "navy_dye"));
+        this.tag(UP2ItemTags.OLIVE_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "olive_dye"));
+        this.tag(UP2ItemTags.ROSE_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "rose_dye"));
+        this.tag(UP2ItemTags.SLATE_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "slate_dye"));
+        this.tag(UP2ItemTags.TAN_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "tan_dye"));
+        this.tag(UP2ItemTags.TEAL_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "teal_dye"));
+        this.tag(UP2ItemTags.VERDANT_DYES).addOptional(ResourceLocation.fromNamespaceAndPath("dye_depot", "verdant_dye"));
 
         this.tag(UP2ItemTags.STOPS_MOB_AGING).add(Items.POISONOUS_POTATO);
 
@@ -419,7 +419,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.copy(UP2BlockTags.REINFORCED_GLASS, UP2ItemTags.REINFORCED_GLASS);
 
-        this.tag(Tags.Items.GLASS).addTag(UP2ItemTags.REINFORCED_GLASS);
+        this.tag(Tags.Items.GLASS_BLOCKS).addTag(UP2ItemTags.REINFORCED_GLASS);
 
         this.tag(ItemTags.SIGNS).add(
                 DRYOPHYLLUM_SIGN.get(),
@@ -449,12 +449,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 METASEQUOIA_CHEST_BOAT.get()
         );
 
-        this.tag(ItemTags.MUSIC_DISCS).add(
-                DOOMSURF_DISC.get(),
-                MEGALANIA_DISC.get(),
-                TARIFYING_DISC.get(),
-                PUMMEL_AND_SNATCH_DISC.get()
-        );
+//        this.tag(ItemTags.MUSIC_DISCS).add(
+//                DOOMSURF_DISC.get(),
+//                MEGALANIA_DISC.get(),
+//                TARIFYING_DISC.get(),
+//                PUMMEL_AND_SNATCH_DISC.get()
+//        );
 
         this.tag(ItemTags.LECTERN_BOOKS).add(
                 PALEOPEDIA.get()

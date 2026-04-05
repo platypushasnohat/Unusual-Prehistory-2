@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -6,9 +6,9 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -118,126 +118,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.CACTUS
         );
 
-        // Spawnable blocks
-        this.tag(UP2BlockTags.BARINASUCHUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.BRACHIOSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.CARNOTAURUS_SPAWNABLE_ON).add(
-                Blocks.COARSE_DIRT,
-                Blocks.RED_SAND,
-                Blocks.GRASS_BLOCK
-        ).addTag(BlockTags.TERRACOTTA);
-
-        this.tag(UP2BlockTags.DESMATOSUCHUS_SPAWNABLE_ON).add(
-                Blocks.SAND,
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.DIMORPHODON_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.DIPLOCAULUS_SPAWNABLE_ON).add(
-                Blocks.MUD,
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.DROMAEOSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.HIBBERTOPTERUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.MUD
-        );
-
-        this.tag(UP2BlockTags.KAPROSUCHUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.GRAVEL,
-                Blocks.SAND
-        );
-
-        this.tag(UP2BlockTags.KENTROSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.MUD
-        );
-
-        this.tag(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.LYSTROSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.MAJUNGASAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.MANIPULATOR_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.MEGALANIA_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.SAND,
-                Blocks.RED_SAND
-        );
-
-        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.PRAEPUSA_SPAWNABLE_ON).add(
-                Blocks.SAND
-        );
-
-        this.tag(UP2BlockTags.PSILOPTERUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.COARSE_DIRT
-        );
-
-        this.tag(UP2BlockTags.PTERODACTYLUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.STONE
-        );
-
-        this.tag(UP2BlockTags.TALPANAS_SPAWNABLE_ON).add(
-                Blocks.MOSS_BLOCK,
-                Blocks.CLAY,
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.TELECREX_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.THERIZINOSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.ULUGHBEGSAURUS_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.UNICORN_SPAWNABLE_ON).add(
-                Blocks.GRASS_BLOCK
-        );
-
         this.tag(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).addTag(
                 UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS
         );
 
-        this.tag(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).addTag(BlockTags.SAND).addTag(Tags.Blocks.GRAVEL).addTag(
+        this.tag(UP2BlockTags.DESMATOSUCHUS_BURROWING_BLOCKS).addTag(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS).addTag(BlockTags.SAND).addTag(Tags.Blocks.GRAVELS).addTag(
                 UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS
         );
 

@@ -1,10 +1,11 @@
-package com.barlinc.unusual_prehistory.datagen;
+package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.data.TransmogrificationBuilder;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -237,7 +238,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("PP")
                 .pattern("PP")
                 .define('P', plankIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(plankIn.get()).getPath(), has(plankIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(plankIn.get()).getPath(), has(plankIn.get()));
     }
 
     public ShapedRecipeBuilder trapdoor(Supplier<? extends Block> trapdoorOut, Supplier<? extends Block> plankIn) {
@@ -245,20 +246,20 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("PPP")
                 .pattern("PPP")
                 .define('P', plankIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(plankIn.get()).getPath(), has(plankIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(plankIn.get()).getPath(), has(plankIn.get()));
     }
 
     public ShapelessRecipeBuilder button(Supplier<? extends Block> buttonOut, Supplier<? extends Block> blockIn) {
         return ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, buttonOut.get())
                 .requires(blockIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder pressurePlate(Supplier<? extends Block> pressurePlateOut, Supplier<? extends Block> blockIn) {
         return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pressurePlateOut.get())
                 .pattern("BB")
                 .define('B', blockIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder stairs(Supplier<? extends Block> stairsOut, Supplier<? extends Block> blockIn) {
@@ -267,14 +268,14 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("MM ")
                 .pattern("MMM")
                 .define('M', blockIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder slab(Supplier<? extends Block> slabOut, Supplier<? extends Block> blockIn) {
         return ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slabOut.get(), 6)
                 .pattern("MMM")
                 .define('M', blockIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder fence(Supplier<? extends Block> fenceOut, Supplier<? extends Block> blockIn) {
@@ -283,7 +284,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("M/M")
                 .define('M', blockIn.get())
                 .define('/', Tags.Items.RODS_WOODEN)
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapedRecipeBuilder fenceGate(Supplier<? extends Block> fenceGateOut, Supplier<? extends Block> blockIn) {
@@ -292,7 +293,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("/M/")
                 .define('M', blockIn.get())
                 .define('/', Tags.Items.RODS_WOODEN)
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn.get()).getPath(), has(blockIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn.get()).getPath(), has(blockIn.get()));
     }
 
     public ShapelessRecipeBuilder planks(Supplier<? extends Block> plankOut, TagKey<Item> logIn) {
@@ -307,7 +308,7 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("MM")
                 .pattern("MM")
                 .define('M', logIn.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(logIn.get()).getPath(), has(logIn.get()));
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(logIn.get()).getPath(), has(logIn.get()));
     }
 
     private static void stonecutting(ItemLike ingredient, ItemLike result, int amount, Consumer<FinishedRecipe> consumer) {
@@ -320,11 +321,11 @@ public class UP2RecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static String getName(ItemLike object) {
-        return ForgeRegistries.ITEMS.getKey(object.asItem()).getPath();
+        return BuiltInRegistries.ITEM.getKey(object.asItem()).getPath();
     }
 
     private static ResourceLocation getSaveLocation(ItemLike item) {
-        return ForgeRegistries.ITEMS.getKey(item.asItem());
+        return BuiltInRegistries.ITEM.getKey(item.asItem());
     }
 
     private static ResourceLocation getSaveLocation(String name) {

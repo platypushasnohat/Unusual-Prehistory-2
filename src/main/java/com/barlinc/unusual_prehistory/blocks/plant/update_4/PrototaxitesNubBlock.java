@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.blocks.plant.update_4;
 
 import com.barlinc.unusual_prehistory.blocks.plant.PrehistoricTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -19,13 +20,19 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("deprecation")
 public class PrototaxitesNubBlock extends BushBlock implements BonemealableBlock {
+
+    public static final MapCodec<PrototaxitesNubBlock> CODEC = simpleCodec(PrototaxitesNubBlock::new);
 
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
     public PrototaxitesNubBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected @NotNull MapCodec<PrototaxitesNubBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -50,7 +57,7 @@ public class PrototaxitesNubBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 

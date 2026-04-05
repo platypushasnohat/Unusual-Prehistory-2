@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -12,10 +13,17 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("deprecation")
 public class PetrifiedBushBlock extends BushBlock {
 
+    public static final MapCodec<PetrifiedBushBlock> CODEC = simpleCodec(PetrifiedBushBlock::new);
+
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
     public PetrifiedBushBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected @NotNull MapCodec<PetrifiedBushBlock> codec() {
+        return CODEC;
     }
 
     @Override

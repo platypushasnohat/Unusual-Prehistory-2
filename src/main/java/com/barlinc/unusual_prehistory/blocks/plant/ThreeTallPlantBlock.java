@@ -57,7 +57,7 @@ public class ThreeTallPlantBlock extends PrehistoricPlantBlock implements Boneme
     }
 
     @Override
-    public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, BlockState state, @NotNull Player player) {
+    public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, BlockState state, @NotNull Player player) {
         if (state.getValue(LAYER) == 0) {
             if (!player.isCreative()) {
                 level.destroyBlock(pos, true);
@@ -89,7 +89,7 @@ public class ThreeTallPlantBlock extends PrehistoricPlantBlock implements Boneme
                 level.destroyBlock(pos, false);
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ThreeTallPlantBlock extends PrehistoricPlantBlock implements Boneme
     }
 
     @Override
-    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
@@ -113,8 +113,8 @@ public class ThreeTallPlantBlock extends PrehistoricPlantBlock implements Boneme
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(blockGetter, pos);
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        Vec3 offset = state.getOffset(level, pos);
         if (state.getValue(LAYER) == 2) {
             return TOP_SHAPE.move(offset.x, offset.y, offset.z);
         }

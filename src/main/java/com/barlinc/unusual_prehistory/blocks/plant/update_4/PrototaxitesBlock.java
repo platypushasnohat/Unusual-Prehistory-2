@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-@SuppressWarnings("deprecation")
 public class PrototaxitesBlock extends Block {
 
     public static final BooleanProperty NORTH = PipeBlock.NORTH;

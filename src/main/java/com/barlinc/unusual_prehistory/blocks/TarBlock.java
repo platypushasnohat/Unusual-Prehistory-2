@@ -15,24 +15,22 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class TarBlock extends LiquidBlock {
 
-    public TarBlock(Supplier<? extends FlowingFluid> fluid, Properties properties) {
+    public TarBlock(FlowingFluid fluid, Properties properties) {
         super(fluid, properties);
     }
 
     @Override
     public void entityInside(@NotNull BlockState state, @NotNull Level level, BlockPos pos, Entity entity) {
         if (entity.getY() < pos.getY() + STABLE_SHAPE.max(Direction.Axis.Y)) {
-            if (!(entity instanceof LivingEntity) || entity.getFeetBlockState().is(this)) {
+            if (!(entity instanceof LivingEntity) || entity.getBlockStateOn().is(this)) {
                 entity.makeStuckInBlock(state, new Vec3(0.9F, 1.0D, 0.9F));
             }
         }

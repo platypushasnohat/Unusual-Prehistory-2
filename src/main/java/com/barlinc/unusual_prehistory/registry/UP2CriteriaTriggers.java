@@ -1,38 +1,16 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.google.gson.JsonObject;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class UP2CriteriaTriggers extends SimpleCriterionTrigger<UP2CriteriaTriggers.TriggerInstance> {
+public class UP2CriteriaTriggers {
 
-    private final ResourceLocation CRITERIA;
+    public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, UnusualPrehistory2.MOD_ID);
 
-    public UP2CriteriaTriggers(String name) {
-        CRITERIA = UnusualPrehistory2.modPrefix(name);
-    }
+    public static final DeferredHolder<CriterionTrigger<?>, PlayerTrigger> OPEN_BOOK_CREATIVE_MODE = TRIGGERS.register("open_book_creative_mode", PlayerTrigger::new);
 
-    @Override
-    public @NotNull ResourceLocation getId() {
-        return CRITERIA;
-    }
-
-    public void trigger(ServerPlayer player) {
-        this.trigger(player, conditions -> true);
-    }
-
-    @Override
-    protected @NotNull TriggerInstance createInstance(@NotNull JsonObject object, @NotNull ContextAwarePredicate predicate, @NotNull DeserializationContext context) {
-        return new TriggerInstance(CRITERIA, predicate);
-    }
-
-    public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-        public TriggerInstance(ResourceLocation id, ContextAwarePredicate predicate) {
-            super(id, predicate);
-        }
-    }
 }
