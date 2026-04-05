@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -73,10 +72,10 @@ public class Delitzschala extends AmbientMob {
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
+//    @Override
+//    public @NotNull MobType getMobType() {
+//        return MobType.ARTHROPOD;
+//    }
 
     @Override
     public void remove(@NotNull RemovalReason removalReason) {

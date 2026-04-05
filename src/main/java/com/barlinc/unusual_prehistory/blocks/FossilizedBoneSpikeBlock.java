@@ -126,7 +126,7 @@ public class FossilizedBoneSpikeBlock extends Block implements SimpleWaterlogged
     }
 
     @Override
-    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull PathComputationType computationType) {
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType pathComputationType) {
         return false;
     }
 

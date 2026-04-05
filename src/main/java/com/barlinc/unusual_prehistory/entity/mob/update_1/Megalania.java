@@ -9,7 +9,6 @@ import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
@@ -22,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -43,15 +41,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -92,10 +88,10 @@ public class Megalania extends SemiAquaticMob {
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.1F);
+//        this.setMaxUpStep(1.1F);
         this.switchNavigator(true);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
     }
 
     @Override
@@ -271,14 +267,16 @@ public class Megalania extends SemiAquaticMob {
     @Override
     public boolean canBeAffected(MobEffectInstance effect) {
         if (effect.getEffect() == MobEffects.POISON) {
-            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect);
-            MinecraftForge.EVENT_BUS.post(event);
-            return event.getResult() == Event.Result.ALLOW;
+            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect, null);
+            NeoForge.EVENT_BUS.post(event);
+//            return event.getResult() == Event.Result.ALLOW;
+            return true;
         }
         if (effect.getEffect() == MobEffects.WITHER && this.getTemperatureState() == TemperatureStates.NETHER) {
-            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect);
-            MinecraftForge.EVENT_BUS.post(event);
-            return event.getResult() == Event.Result.ALLOW;
+            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect, null);
+            NeoForge.EVENT_BUS.post(event);
+//            return event.getResult() == Event.Result.ALLOW;
+            return true;
         }
         else {
             return super.canBeAffected(effect);
@@ -286,11 +284,11 @@ public class Megalania extends SemiAquaticMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TEMPERATURE_STATE, 0);
-        this.entityData.define(PREV_TEMPERATURE_STATE, -1);
-        this.entityData.define(TAME_ATTEMPTS, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(TEMPERATURE_STATE, 0);
+        builder.define(PREV_TEMPERATURE_STATE, -1);
+        builder.define(TAME_ATTEMPTS, 0);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
@@ -477,14 +475,10 @@ public class Megalania extends SemiAquaticMob {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.entityData.set(PREV_TEMPERATURE_STATE, 0);
         this.setTemperatureState(TemperatureStates.TEMPERATE);
-        return super.finalizeSpawn(levelAccessor, difficulty, spawnType, spawnDataIn, compoundTag);
-    }
-
-    public static boolean canSpawn(EntityType<Megalania> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.MEGALANIA_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+        return super.finalizeSpawn(levelAccessor, difficulty, spawnType, spawnData);
     }
 
     // Goals

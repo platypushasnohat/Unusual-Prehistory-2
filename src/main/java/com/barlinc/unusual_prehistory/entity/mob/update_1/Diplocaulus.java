@@ -13,6 +13,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.nbt.CompoundTag;
@@ -22,7 +23,6 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
- import net.minecraft.util.RandomSource;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -40,9 +40,9 @@
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.item.component.CustomData;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
@@ -214,10 +214,10 @@
      }
 
      @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
-         this.entityData.define(SLIDING, false);
-         this.entityData.define(FROM_BUCKET, false);
+     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+         super.defineSynchedData(builder);
+         builder.define(SLIDING, false);
+         builder.define(FROM_BUCKET, false);
      }
 
      @Override
@@ -299,13 +299,11 @@
 
      @Override
      public void saveToBucketTag(@NotNull ItemStack bucket) {
-         if (this.hasCustomName()) {
-             bucket.setHoverName(this.getCustomName());
-         }
          Bucketable.saveDefaultDataToBucketTag(this, bucket);
-         CompoundTag compoundTag = bucket.getOrCreateTag();
-         compoundTag.putInt("BucketVariantTag", this.getVariant());
-         compoundTag.putInt("Age", this.getAge());
+         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+             compoundTag.putInt("BucketVariantTag", this.getVariant());
+             compoundTag.putInt("Age", this.getAge());
+         });
      }
 
      @Override
@@ -357,10 +355,10 @@
      }
 
      @Override
-     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
-         if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-             this.setVariant(compoundTag.getInt("BucketVariantTag"));
+     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+         if (spawnType == MobSpawnType.BUCKET) {
+             return spawnGroupData;
          } else {
              this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
          }

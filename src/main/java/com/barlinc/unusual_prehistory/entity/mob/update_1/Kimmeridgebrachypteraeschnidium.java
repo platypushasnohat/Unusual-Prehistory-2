@@ -10,12 +10,12 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavig
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,7 +25,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,9 +42,9 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -101,15 +100,15 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(6, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
     }
 
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.6F;
-    }
+//    @Override
+//    public boolean canBreatheUnderwater() {
+//        return true;
+//    }
+//
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.6F;
+//    }
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
@@ -239,7 +238,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, 1.0F);
             itemstack.shrink(1);
             ItemStack bottle = new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
-            this.setBucketData(bottle);
+            this.saveToBucketTag(bottle);
             if (!this.level().isClientSide) CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bottle);
             if (itemstack.isEmpty() && !player.isCreative()) player.setItemInHand(hand, bottle);
             else if (!player.getInventory().add(bottle)) player.drop(bottle, false);
@@ -290,34 +289,17 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundTag = bucket.getOrCreateTag();
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        compoundTag.putFloat("Health", this.getHealth());
-        compoundTag.putInt("BaseColor", this.getBaseColor());
-        compoundTag.putInt("Pattern", this.getPattern());
-        compoundTag.putInt("PatternColor", this.getPatternColor());
-        compoundTag.putInt("WingColor", this.getWingColor());
-        compoundTag.putBoolean("HasPattern", this.getHasPattern());
-        compoundTag.putInt("Age", this.getAge());
-
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-    }
-
-    private void setBucketData(ItemStack bucket) {
-        CompoundTag compoundTag = bucket.getOrCreateTag();
-        compoundTag.putFloat("Health", this.getHealth());
-        compoundTag.putInt("BaseColor", this.getBaseColor());
-        compoundTag.putInt("Pattern", this.getPattern());
-        compoundTag.putInt("PatternColor", this.getPatternColor());
-        compoundTag.putBoolean("HasPattern", this.getHasPattern());
-        compoundTag.putInt("WingColor", this.getWingColor());
-
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            compoundTag.putFloat("Health", this.getHealth());
+            compoundTag.putInt("BaseColor", this.getBaseColor());
+            compoundTag.putInt("Pattern", this.getPattern());
+            compoundTag.putInt("PatternColor", this.getPatternColor());
+            compoundTag.putInt("WingColor", this.getWingColor());
+            compoundTag.putBoolean("HasPattern", this.getHasPattern());
+            compoundTag.putInt("Age", this.getAge());
+        });
     }
 
     public static String getPatternName(int pattern) {
@@ -333,13 +315,9 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        if (spawnType == MobSpawnType.BUCKET && dataTag != null && dataTag.contains("BaseColor", 3)) {
-            this.setBaseColor(dataTag.getInt("BaseColor"));
-            this.setPattern(dataTag.getInt("Pattern"));
-            this.setPatternColor(dataTag.getInt("PatternColor"));
-            this.setWingColor(dataTag.getInt("WingColor"));
-            this.setHasPattern(dataTag.getBoolean("HasPattern"));
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        if (spawnType == MobSpawnType.BUCKET) {
+            return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         } else {
             this.setBaseColor(this.random.nextInt(16));
             this.setPattern(this.random.nextInt(7));
@@ -347,7 +325,7 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             this.setWingColor(this.random.nextInt(16));
             this.setHasPattern(this.random.nextInt(3) == 0);
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, dataTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
     @Override
@@ -486,10 +464,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         return Math.sqrt(distance) < 1024.0D;
-    }
-
-    public static boolean canSpawn(EntityType<Kimmeridgebrachypteraeschnidium> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     // Goals

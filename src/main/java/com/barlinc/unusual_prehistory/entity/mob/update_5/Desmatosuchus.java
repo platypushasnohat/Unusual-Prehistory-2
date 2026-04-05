@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2LootTables;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -16,14 +16,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,7 +36,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,7 +46,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,10 +59,6 @@ public class Desmatosuchus extends PrehistoricMob {
 
     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.7F);
-
-    public static final ResourceLocation MOSSY_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_mossy");
-    public static final ResourceLocation MUDDY_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_muddy");
-    public static final ResourceLocation SNOWY_LOOT = UnusualPrehistory2.modPrefix("entities/desmatosuchus_snowy");
 
     public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
@@ -117,10 +111,10 @@ public class Desmatosuchus extends PrehistoricMob {
                 .add(Attributes.ARMOR, 12.0F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.9F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.9F;
+//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -162,10 +156,10 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
         if (this.isSitting()) return BURROWED_DIMENSIONS.scale(this.getScale());
         else if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getScale());
-        return super.getDimensions(pose);
+        return super.getDefaultDimensions(pose);
     }
 
     @Override
@@ -196,18 +190,18 @@ public class Desmatosuchus extends PrehistoricMob {
                 this.level().playSound(null, this, SoundEvents.SHOVEL_FLATTEN, SoundSource.PLAYERS, 1.0F, 1.0F);
                 this.gameEvent(GameEvent.BLOCK_DESTROY, player);
                 if (!this.level().isClientSide) {
-                    LootTable loottable = this.level().getServer().getLootData().getLootTable(this.getDirtType().getLootTable());
+                    LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
                     List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                     items.forEach(this::spawnItemOnBack);
                 }
                 this.setDirtType(DirtType.CLEAN);
                 return InteractionResult.SUCCESS;
             }
-            else if (itemstack.is(Tags.Items.SHEARS) && this.getDirtType() == DirtType.MOSSY) {
+            else if (itemstack.is(Tags.Items.TOOLS_SHEAR) && this.getDirtType() == DirtType.MOSSY) {
                 this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
                 this.gameEvent(GameEvent.SHEAR, player);
                 if (!this.level().isClientSide) {
-                    LootTable loottable = this.level().getServer().getLootData().getLootTable(this.getDirtType().getLootTable());
+                    LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
                     List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                     items.forEach(this::spawnItemOnBack);
                 }
@@ -378,10 +372,10 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DIRT_TYPE, 0);
-        this.entityData.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DIRT_TYPE, 0);
+        builder.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
     }
 
     @Override
@@ -452,20 +446,16 @@ public class Desmatosuchus extends PrehistoricMob {
         return 200;
     }
 
-    public static boolean canSpawn(EntityType<Desmatosuchus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.DESMATOSUCHUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
-    }
-
     public enum DirtType {
         CLEAN(0, null),
-        MOSSY(1, MOSSY_LOOT),
-        MUDDY(2, MUDDY_LOOT),
-        SNOWY(3, SNOWY_LOOT);
+        MOSSY(1, UP2LootTables.DESMATOSUCHUS_MOSSY),
+        MUDDY(2, UP2LootTables.DESMATOSUCHUS_MUDDY),
+        SNOWY(3, UP2LootTables.DESMATOSUCHUS_SNOWY);
 
         private final int id;
-        private final ResourceLocation lootTable;
+        private final ResourceKey<LootTable> lootTable;
 
-        DirtType(int id, @Nullable ResourceLocation lootTable) {
+        DirtType(int id, @Nullable ResourceKey<LootTable> lootTable) {
             this.id = id;
             this.lootTable = lootTable;
         }
@@ -474,7 +464,7 @@ public class Desmatosuchus extends PrehistoricMob {
             return this.id;
         }
 
-        public ResourceLocation getLootTable() {
+        public ResourceKey<LootTable> getLootTable() {
             return this.lootTable;
         }
 

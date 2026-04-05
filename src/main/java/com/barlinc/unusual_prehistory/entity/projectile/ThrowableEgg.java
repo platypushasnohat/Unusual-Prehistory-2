@@ -13,9 +13,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -73,7 +73,7 @@ public class ThrowableEgg extends ThrowableItemProjectile {
                 mob.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                 this.level().addFreshEntity(mob);
                 if (!this.level().isClientSide) {
-                    ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null, null);
+                    EventHooks.finalizeMobSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null);
                 }
             }
         }

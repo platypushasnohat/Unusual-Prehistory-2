@@ -173,7 +173,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = carnotaurus.getTarget();
         int speedFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
-        int furyFactor = carnotaurus.hasEffect(UP2MobEffects.FURY.get()) ? carnotaurus.getEffect(UP2MobEffects.FURY.get()).getAmplifier() + 1 : 0;
+        int furyFactor = carnotaurus.hasEffect(UP2MobEffects.FURY) ? carnotaurus.getEffect(UP2MobEffects.FURY).getAmplifier() + 1 : 0;
         int slownessFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
         float effectSpeed = 0.1F * (speedFactor - slownessFactor);
         float effectFury = 0.1F * (furyFactor - slownessFactor);
@@ -231,7 +231,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
                 }
                 this.carnotaurus.strongKnockback(entity, 1.5D, 0.5D);
                 if (entity.isDamageSourceBlocked(carnotaurus.damageSources().mobAttack(carnotaurus)) && entity instanceof Player player) {
-                    player.disableShield(true);
+                    player.disableShield();
                 }
                 this.carnotaurus.swing(InteractionHand.MAIN_HAND);
             });
@@ -254,7 +254,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
                 entity.hurt(entity.damageSources().mobAttack(carnotaurus), (float) carnotaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                 entity.knockback((knockbackForce * speedForce) * 2.5F, knockbackDirection.x(), knockbackDirection.z());
                 if (entity.isDamageSourceBlocked(carnotaurus.damageSources().mobAttack(carnotaurus)) && entity instanceof Player player){
-                    player.disableShield(true);
+                    player.disableShield();
                 }
                 this.carnotaurus.swing(InteractionHand.MAIN_HAND);
             }

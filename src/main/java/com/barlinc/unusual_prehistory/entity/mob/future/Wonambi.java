@@ -3,23 +3,19 @@ package com.barlinc.unusual_prehistory.entity.mob.future;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,10 +82,10 @@ public class Wonambi extends PrehistoricMob {
         return stack.is(UP2ItemTags.TARTUOSTEUS_FOOD);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.5F;
+//    }
 
     @Override
     public boolean isMultipartEntity() {
@@ -196,9 +192,5 @@ public class Wonambi extends PrehistoricMob {
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UP2Entities.LYSTROSAURUS.get().create(serverLevel);
-    }
-
-    public static boolean canSpawn(EntityType<Wonambi> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.TELECREX_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 }

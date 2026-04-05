@@ -1,8 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,7 +11,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class MosasaurusPart extends PartEntity<Mosasaurus> {
@@ -61,11 +60,6 @@ public class MosasaurusPart extends PartEntity<Mosasaurus> {
     }
 
     @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         return !this.isInvulnerableTo(source) && parent.hurt(source, amount);
     }
@@ -89,7 +83,7 @@ public class MosasaurusPart extends PartEntity<Mosasaurus> {
     }
 
     @Override
-    protected void defineSynchedData() {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 
     @Override

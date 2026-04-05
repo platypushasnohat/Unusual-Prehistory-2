@@ -9,7 +9,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -96,10 +95,10 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
         return stack.is(UP2ItemTags.TARTUOSTEUS_FOOD);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.8F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.8F;
+//    }
 
     @Override
     public void tick() {
@@ -112,9 +111,9 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LEAPING, false);
     }
 
     @Override
@@ -190,10 +189,10 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
-        if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(compoundTag.getInt("BucketVariantTag"));
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnType == MobSpawnType.BUCKET) {
+            return spawnGroupData;
         } else {
             if (level.getLevel().isNight()) this.setVariant(1);
             else this.setVariant(0);

@@ -3,19 +3,16 @@ package com.barlinc.unusual_prehistory.entity.mob.future;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -47,10 +44,10 @@ public class Mammoth extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.18F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.9F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.9F;
+//    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
@@ -63,10 +60,10 @@ public class Mammoth extends PrehistoricMob {
         super.travel(travelVec);
     }
 
-    @Override
-    public float getStepHeight() {
-        return 1.1F;
-    }
+//    @Override
+//    public float getStepHeight() {
+//        return 1.1F;
+//    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -110,9 +107,5 @@ public class Mammoth extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 200;
-    }
-
-    public static boolean canSpawn(EntityType<Mammoth> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 }

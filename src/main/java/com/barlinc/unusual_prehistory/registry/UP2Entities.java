@@ -84,19 +84,6 @@ public class UP2Entities {
 
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, 0.25F, 0.25F);
 
-    // Future
-//    public static final RegistryObject<EntityType<Barinasuchus>> BARINASUCHUS = registerLivingEntity("barinasuchus", Barinasuchus::new, MobCategory.CREATURE, 1.5F, 2.1F);
-//    public static final RegistryObject<EntityType<Cotylorhynchus>> COTYLORHYNCHUS = registerLivingEntity("cotylorhynchus", Cotylorhynchus::new, MobCategory.CREATURE, 2.2F, 1.6F);
-//    public static final RegistryObject<EntityType<Dimorphodon>> DIMORPHODON = registerLivingEntity("dimorphodon", Dimorphodon::new, MobCategory.CREATURE, 0.9F, 0.9F);
-//    public static final RegistryObject<EntityType<Eryon>> ERYON = registerLivingEntity("eryon", Eryon::new, MobCategory.CREATURE, 0.5F, 0.3F);
-//    public static final RegistryObject<EntityType<Mammoth>> MAMMOTH = registerLivingEntity("mammoth", Mammoth::new, MobCategory.CREATURE, 3.2F, 5.2F);
-//    public static final RegistryObject<EntityType<Manipulator>> MANIPULATOR = registerLivingEntity("manipulator", Manipulator::new, MobCategory.CREATURE, 1.5F, 1.9F);
-//    public static final RegistryObject<EntityType<Palaeophis>> PALAEOPHIS = registerLivingEntity("palaeophis", Palaeophis::new, MobCategory.WATER_CREATURE, 1.8F, 1.25F);
-//    public static final RegistryObject<EntityType<Therizinosaurus>> THERIZINOSAURUS = registerLivingEntity("therizinosaurus", Therizinosaurus::new, MobCategory.CREATURE, 2.2F, 5.4F);
-//    public static final RegistryObject<EntityType<Wonambi>> WONAMBI = registerLivingEntity("wonambi", Wonambi::new, MobCategory.CREATURE, 1.25F, 0.5F);
-
-//    public static final RegistryObject<EntityType<ThrowableEgg>> DIMORPHODON_EGG = registerEntity("dimorphodon_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.DIMORPHODON_EGG, UP2Entities.DIMORPHODON::get), MobCategory.MISC, 0.25F, 0.25F);
-
     private static <E extends LivingEntity> DeferredHolder<EntityType<?>, EntityType<E>> registerLivingEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, float width, float height) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = ENTITY_TYPE.register(name, () -> registerLivingEntity(factory, entityClassification, name, width, height));
         ENTITY_TRANSLATIONS.add(entity);

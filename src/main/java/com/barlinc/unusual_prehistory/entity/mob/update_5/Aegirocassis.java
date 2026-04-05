@@ -39,7 +39,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -117,10 +117,10 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         return new PrehistoricBodyRotationControl(this, 0.3F, 25.0F, 0.15F, 20.0F, 0.8F, this.getMaxHeadYRot());
     }
 
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
+//    @Override
+//    public @NotNull MobType getMobType() {
+//        return MobType.ARTHROPOD;
+//    }
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
@@ -135,10 +135,10 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         }
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose) {
+//        return this.getDimensions(pose).eyeHeight() * 0.5F;
+//    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -180,7 +180,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public PartEntity<?>[] getParts() {
+    public PartEntity<?> @NotNull [] getParts() {
         return allParts;
     }
 
@@ -343,9 +343,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LEAPING, false);
     }
 
     @Override

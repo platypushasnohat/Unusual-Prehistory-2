@@ -26,6 +26,7 @@ import org.joml.Vector3f;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
+@SuppressWarnings("removal")
 public class TarFluidType extends FluidType {
 
     public static final ResourceLocation FLUID_STILL = UnusualPrehistory2.modPrefix("block/tar");

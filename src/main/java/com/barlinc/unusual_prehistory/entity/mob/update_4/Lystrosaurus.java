@@ -16,7 +16,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -33,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -88,15 +86,15 @@ public class Lystrosaurus extends PrehistoricMob {
                 .add(Attributes.ARMOR_TOUGHNESS, 20.0F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.9F;
-    }
-
-    @Override
-    public float getStepHeight() {
-        return this.isRunning() ? 1.0F : 0.6F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.9F;
+//    }
+//
+//    @Override
+//    public float getStepHeight() {
+//        return this.isRunning() ? 1.0F : 0.6F;
+//    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
@@ -269,10 +267,6 @@ public class Lystrosaurus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 180;
-    }
-
-    public static boolean canSpawn(EntityType<Lystrosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.LYSTROSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     // Goals

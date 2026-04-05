@@ -106,10 +106,10 @@ public class Onchopristis extends PrehistoricAquaticMob {
         }
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.5F;
+//    }
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
@@ -136,7 +136,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
             this.getSteppedOn();
         }
 
-        if (this.isInWater() && !this.isAggressive() && this.getLastHurtMob() == null) {
+        if (this.isInWaterOrBubble() && !this.isAggressive() && this.getLastHurtMob() == null) {
             if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
         }
 
@@ -144,9 +144,9 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     private void tickBurrowing() {
-        if (this.isBurrowed() && !this.isInWater()) this.setBurrowed(false);
+        if (this.isBurrowed() && !this.isInWaterOrBubble()) this.setBurrowed(false);
 
-        if (this.isInWater()) {
+        if (this.isInWaterOrBubble()) {
             if (!this.isLeashed() && this.getBurrowCooldown() == 0 && this.onGround() && !this.isBurrowed() && !this.isAggressive() && this.getLastHurtMob() == null) {
                 this.setBurrowed(true);
             }
@@ -207,10 +207,10 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(BURROWED, false);
-        this.entityData.define(BURROW_COOLDOWN, 600 + this.getRandom().nextInt(600));
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BURROWED, false);
+        builder.define(BURROW_COOLDOWN, 600 + this.getRandom().nextInt(600));
     }
 
     public boolean isBurrowed() {
@@ -284,12 +284,12 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && (onchopristis.getTarget().isInWater() || !onchopristis.isInWater());
+            return super.canUse() && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
         }
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && (onchopristis.getTarget().isInWater() || !onchopristis.isInWater());
+            return super.canContinueToUse() && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
         }
 
         @Override

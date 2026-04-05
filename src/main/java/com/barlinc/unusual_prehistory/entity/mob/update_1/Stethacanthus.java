@@ -69,10 +69,10 @@ public class Stethacanthus extends SchoolingAquaticMob {
         return 3;
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.55F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.55F;
+//    }
 
     @Override
     public boolean canPacify() {

@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -60,11 +58,6 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
     public boolean is(@NotNull Entity entity) {
         return this == entity || parent == entity;
     }
-
-//    @Override
-//    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
-//        throw new UnsupportedOperationException();
-//    }
 
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {

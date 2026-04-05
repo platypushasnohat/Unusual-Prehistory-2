@@ -18,7 +18,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -31,7 +30,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -97,10 +95,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
                 .add(Attributes.ARMOR, 4.0F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.9F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.9F;
+//    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
@@ -113,10 +111,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
         super.travel(travelVec);
     }
 
-    @Override
-    public float getStepHeight() {
-        return this.isRunning() ? 1.0F : 0.6F;
-    }
+//    @Override
+//    public float getStepHeight() {
+//        return this.isRunning() ? 1.0F : 0.6F;
+//    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -225,13 +223,13 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(CHARGE_COOLDOWN, 0);
-        this.entityData.define(FIGHT_COOLDOWN, 800);
-        this.entityData.define(FIGHT_PARTNER, false);
-        this.entityData.define(WANTS_TO_KILL, false);
-        this.entityData.define(FIND_TARGET_COOLDOWN, 100);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(CHARGE_COOLDOWN, 0);
+        builder.define(FIGHT_COOLDOWN, 800);
+        builder.define(FIGHT_PARTNER, false);
+        builder.define(WANTS_TO_KILL, false);
+        builder.define(FIND_TARGET_COOLDOWN, 100);
     }
 
     @Override
@@ -355,13 +353,9 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
-    }
-
-    public static boolean canSpawn(EntityType<Pachycephalosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
     // Goals

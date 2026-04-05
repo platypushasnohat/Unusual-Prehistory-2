@@ -111,7 +111,7 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData();
+        super.defineSynchedData(builder);
         builder.define(CLIMBING, false);
         builder.define(CLIMB_DIRECTION, Direction.UP);
     }

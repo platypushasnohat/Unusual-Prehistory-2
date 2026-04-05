@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -35,12 +36,13 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,8 +58,8 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
 
     public KimmeridgebrachypteraeschnidiumNymph(EntityType<? extends SemiAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -81,15 +83,15 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
         return new SmoothGroundPathNavigation(this, level);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5F;
-    }
-
-    @Override
-    public float getStepHeight() {
-        return this.isInWaterOrBubble() ? 1.0F : 0.6F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.5F;
+//    }
+//
+//    @Override
+//    public float getStepHeight() {
+//        return this.isInWaterOrBubble() ? 1.0F : 0.6F;
+//    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -148,9 +150,9 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FROM_BUCKET, false);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
@@ -185,7 +187,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
             Kimmeridgebrachypteraeschnidium dragonfly = UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get().create(serverLevel);
             if (dragonfly != null) {
                 dragonfly.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                dragonfly.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(dragonfly.blockPosition()), MobSpawnType.CONVERSION, null, null);
+                dragonfly.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(dragonfly.blockPosition()), MobSpawnType.CONVERSION, null);
                 dragonfly.setNoAi(this.isNoAi());
                 if (this.hasCustomName()) {
                     dragonfly.setCustomName(this.getCustomName());
@@ -232,11 +234,11 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
     public void setAge(int age) {
     }
 
-    @Override
-    @NotNull
-    public MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
+//    @Override
+//    @NotNull
+//    public MobType getMobType() {
+//        return MobType.ARTHROPOD;
+//    }
 
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
@@ -269,14 +271,12 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
     }
 
     @Override
-    public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundTag = bucket.getOrCreateTag();
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        compoundTag.putFloat("Health", this.getHealth());
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        compoundTag.putInt("NymphAge", this.getNymphAge());
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            compoundTag.putFloat("Health", this.getHealth());
+            compoundTag.putInt("NymphAge", this.getNymphAge());
+        });
     }
 
     @Override

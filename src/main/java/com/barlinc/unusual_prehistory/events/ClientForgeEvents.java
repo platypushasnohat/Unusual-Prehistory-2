@@ -2,18 +2,12 @@ package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.mob.future.Barinasuchus;
-import com.barlinc.unusual_prehistory.entity.mob.future.Manipulator;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
-import com.barlinc.unusual_prehistory.network.ManipulatorOpenInventoryPacket;
-import com.barlinc.unusual_prehistory.screens.ManipulatorContainer;
-import com.barlinc.unusual_prehistory.screens.ManipulatorInventoryScreen;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -87,17 +81,17 @@ public class ClientForgeEvents {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void openManipulatorInventory(ManipulatorOpenInventoryPacket packet) {
-        Player player = Minecraft.getInstance().player;
-        if (player != null) {
-            Entity entity = player.level().getEntity(packet.getEntityId());
-            if (entity instanceof Manipulator manipulator) {
-                LocalPlayer localPlayer = Minecraft.getInstance().player;
-                ManipulatorContainer container = new ManipulatorContainer(packet.getId(), player.getInventory(), manipulator.manipulatorInventory, manipulator);
-                localPlayer.containerMenu = container;
-                Minecraft.getInstance().setScreen(new ManipulatorInventoryScreen(container, player.getInventory(), manipulator));
-            }
-        }
-    }
+//    @OnlyIn(Dist.CLIENT)
+//    public static void openManipulatorInventory(ManipulatorOpenInventoryPacket packet) {
+//        Player player = Minecraft.getInstance().player;
+//        if (player != null) {
+//            Entity entity = player.level().getEntity(packet.getEntityId());
+//            if (entity instanceof Manipulator manipulator) {
+//                LocalPlayer localPlayer = Minecraft.getInstance().player;
+//                ManipulatorContainer container = new ManipulatorContainer(packet.getId(), player.getInventory(), manipulator.manipulatorInventory, manipulator);
+//                localPlayer.containerMenu = container;
+//                Minecraft.getInstance().setScreen(new ManipulatorInventoryScreen(container, player.getInventory(), manipulator));
+//            }
+//        }
+//    }
 }

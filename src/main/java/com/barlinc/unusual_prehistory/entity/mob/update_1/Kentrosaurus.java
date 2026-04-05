@@ -10,10 +10,11 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -28,11 +29,11 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -65,8 +66,8 @@ public class Kentrosaurus extends PrehistoricMob {
 
     public Kentrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 0.0F);
+        this.setPathfindingMalus(PathType.DANGER_OTHER, 0.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 0.0F);
     }
 
     @Override
@@ -103,10 +104,10 @@ public class Kentrosaurus extends PrehistoricMob {
                 .add(Attributes.ARMOR, 4.0F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.5F;
+//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -116,10 +117,10 @@ public class Kentrosaurus extends PrehistoricMob {
         return 0.4D * this.getBbHeight();
     }
 
-    @Override
-    public float getStepHeight() {
-        return 1.1F;
-    }
+//    @Override
+//    public float getStepHeight() {
+//        return 1.1F;
+//    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
@@ -138,7 +139,8 @@ public class Kentrosaurus extends PrehistoricMob {
     }
 
     public boolean entityHasThorns(LivingEntity entity) {
-        return entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.LEGS).getEnchantmentLevel(Enchantments.THORNS) > 0 || entity.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(Enchantments.THORNS) > 0;
+        Holder<Enchantment> thorns = entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.THORNS);
+        return entity.getItemBySlot(EquipmentSlot.HEAD).getEnchantmentLevel(thorns) > 0 || entity.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(thorns) > 0 || entity.getItemBySlot(EquipmentSlot.LEGS).getEnchantmentLevel(thorns) > 0 || entity.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(thorns) > 0;
     }
 
     public static void angerNearbyKentrosaurus(Player player, boolean angerIfSeen) {
@@ -249,10 +251,6 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 160;
-    }
-
-    public static boolean canSpawn(EntityType<Kentrosaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.KENTROSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     // Goals

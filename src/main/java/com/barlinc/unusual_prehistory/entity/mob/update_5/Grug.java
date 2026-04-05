@@ -27,11 +27,12 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -67,10 +68,10 @@ public class Grug extends PrehistoricMob implements LeapingMob {
                 .add(Attributes.FOLLOW_RANGE, 100.0D);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.98F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.98F;
+//    }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
@@ -96,10 +97,10 @@ public class Grug extends PrehistoricMob implements LeapingMob {
         return false;
     }
 
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+//    @Override
+//    public boolean canBreatheUnderwater() {
+//        return true;
+//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -115,7 +116,7 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     @Override
     public void tick() {
         super.tick();
-        if (ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive()) {
+        if (EventHooks.canEntityGrief(this.level(), this) && this.isAggressive()) {
             boolean flag = false;
             AABB aabb = this.getBoundingBox().move(0.0D, 1.5D, 0.0D).inflate(0.5D);
             for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
@@ -138,10 +139,10 @@ public class Grug extends PrehistoricMob implements LeapingMob {
         this.jumpAnimationState.animateWhen(this.isLeaping(), this.tickCount);
     }
 
-    @Override
-    public float getStepHeight() {
-        return 2.0F;
-    }
+//    @Override
+//    public float getStepHeight() {
+//        return 2.0F;
+//    }
 
     @Override
     protected float getWaterSlowDown() {
@@ -154,9 +155,9 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LEAPING, false);
     }
 
     @Override
@@ -196,6 +197,11 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     @Override
     public int getAmbientSoundInterval() {
         return 220;
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack) {
+        return false;
     }
 
     // goals
@@ -255,7 +261,7 @@ public class Grug extends PrehistoricMob implements LeapingMob {
                     entity.hurt(damagesource, (float) grug.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     this.grug.strongKnockback(entity, 4.0D, 0.1D);
                     if (entity.isDamageSourceBlocked(damagesource) && entity instanceof Player player) {
-                        player.disableShield(true);
+                        player.disableShield();
                     }
                     this.grug.swing(InteractionHand.MAIN_HAND);
                 });

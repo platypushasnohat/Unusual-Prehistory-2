@@ -10,8 +10,10 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,14 +40,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -84,8 +86,8 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     public LivingOoze(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new LivingOozeMoveControl(this);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
         this.setPersistenceRequired();
     }
 
@@ -115,10 +117,10 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         return false;
     }
 
-    @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+//    @Override
+//    public boolean canBreatheUnderwater() {
+//        return true;
+//    }
 
     @Override
     public float getWaterSlowDown() {
@@ -228,7 +230,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.isAlive() && this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty() && !itemstack.isEmpty() && this.getCooldown() == 0 && (!itemstack.is(Items.BUCKET) || player.isCrouching())) {
             if (itemstack.getItem() instanceof EmbryoItem embryoItem) {
-                final ResourceLocation mobType = ForgeRegistries.ENTITY_TYPES.getKey(embryoItem.toSpawn.get());
+                final ResourceLocation mobType = BuiltInRegistries.ENTITY_TYPE.getKey(embryoItem.toSpawn.get());
                 if (mobType != null) {
                     this.setContainedEntityType(mobType.toString());
                     this.setHasEntity(true);
@@ -284,7 +286,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
                 this.spitMob(mob, shootingVec.x(), 0.2F, shootingVec.z(), 0.6F, 15);
                 this.setCooldown(this.cooldown(this.level().getRandom()));
                 if (this.level().addFreshEntity(mob)) {
-                    ForgeEventFactory.onFinalizeSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null, null);
+                    EventHooks.finalizeMobSpawn(mob, (ServerLevel) this.level(), this.level().getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null);
                     this.setHasEntity(false);
                     this.setContainedEntityType("minecraft:pig");
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
@@ -318,28 +320,28 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     }
 
     private void tickSquish() {
-        prevJumpProgress = jumpProgress;
-        prevSquishProgress = squishProgress;
-        prevJiggleTime = jiggleTime;
+        this.prevJumpProgress = jumpProgress;
+        this.prevSquishProgress = squishProgress;
+        this.prevJiggleTime = jiggleTime;
         boolean jumping = !this.onGround() && tickCount > 4;
         boolean squish = !jumping && (this.wantsToJump() || this.hasJumped() && this.onGround());
         if (jumping && jumpProgress < 3.0F) {
-            jumpProgress++;
+            this.jumpProgress++;
         }
         if (!jumping && jumpProgress > 0.0F) {
-            jumpProgress--;
+            this.jumpProgress--;
         }
         if (squish && squishProgress < 5.0F) {
-            squishProgress++;
+            this.squishProgress++;
             if (squishProgress >= 5.0F) {
                 this.setHasJumped(false);
             }
         }
         if (!squish && squishProgress > 0.0F) {
-            squishProgress--;
+            this.squishProgress--;
         }
         if (this.hasJumped() && this.onGround()) {
-            jiggleTime = 5;
+            this.jiggleTime = 5;
         } else if (jiggleTime > 0) {
             if (jiggleTime == 4) {
                 this.playSound(this.getSquishSound(), this.getSoundVolume(), this.getSoundPitch());
@@ -347,7 +349,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             if (jiggleTime > 4) {
                 this.spawnJumpParticles();
             }
-            jiggleTime--;
+            this.jiggleTime--;
         }
     }
 
@@ -413,7 +415,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     }
 
     @Override
-    protected void jumpFromGround() {
+    public void jumpFromGround() {
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, this.getJumpPower(), vec3.z);
         this.hasImpulse = true;
@@ -441,18 +443,18 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(CONTAINED_ENTITY_TYPE, "minecraft:pig");
-        this.entityData.define(HAS_CONTAINED_ENTITY, false);
-        this.entityData.define(SPIT_TIME, -1);
-        this.entityData.define(WANTS_TO_JUMP, false);
-        this.entityData.define(HAS_JUMPED, false);
-        this.entityData.define(COOLDOWN, 0);
-        this.entityData.define(SAD_TIME, 0);
-        this.entityData.define(PICKUP_COOLDOWN, 0);
-        this.entityData.define(OWNER_UUID, Optional.empty());
-        this.entityData.define(FROM_BUCKET, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(CONTAINED_ENTITY_TYPE, "minecraft:pig");
+        builder.define(HAS_CONTAINED_ENTITY, false);
+        builder.define(SPIT_TIME, -1);
+        builder.define(WANTS_TO_JUMP, false);
+        builder.define(HAS_JUMPED, false);
+        builder.define(COOLDOWN, 0);
+        builder.define(SAD_TIME, 0);
+        builder.define(PICKUP_COOLDOWN, 0);
+        builder.define(OWNER_UUID, Optional.empty());
+        builder.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -578,11 +580,9 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        CompoundTag compoundTag = bucket.getOrCreateTag();
-        this.addAdditionalSaveData(compoundTag);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            this.addAdditionalSaveData(compoundTag);
+        });
     }
 
     @Override

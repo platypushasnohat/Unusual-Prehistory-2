@@ -125,10 +125,10 @@
          }
      }
 
-     @Override
-     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-         return dimensions.height * 0.98F;
-     }
+//     @Override
+//     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//         return dimensions.height * 0.98F;
+//     }
 
      @Override
      protected float getWaterSlowDown() {

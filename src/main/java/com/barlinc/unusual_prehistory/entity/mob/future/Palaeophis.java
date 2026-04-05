@@ -20,10 +20,10 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +45,7 @@ public class Palaeophis extends PrehistoricAquaticMob {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.body1Part = new PalaeophisPart(this, this, 1.8F, 1.2F);
         this.body2Part = new PalaeophisPart(this, body1Part, 1.8F, 1.2F);
         this.body3Part = new PalaeophisPart(this, body2Part, 1.8F, 1.2F);
@@ -102,10 +102,10 @@ public class Palaeophis extends PrehistoricAquaticMob {
         return stack.is(UP2ItemTags.TARTUOSTEUS_FOOD);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.5F;
+//    }
 
     @Override
     public boolean isMultipartEntity() {

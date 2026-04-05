@@ -5,14 +5,13 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,7 +25,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +63,7 @@ public class Leptictidium extends PrehistoricMob {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new LeptictidiumPreenGoal(this));
         this.goalSelector.addGoal(9, new LeptictidiumSniffGoal(this));
-        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 200, true, true, entity -> entity.getMobType() == MobType.ARTHROPOD && !entity.getType().is(UP2EntityTags.LEPTICTIDIUM_DOESNT_TARGET)));
+        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 200, true, true, entity -> entity.getType().is(EntityTypeTags.ARTHROPOD) && !entity.getType().is(UP2EntityTags.LEPTICTIDIUM_DOESNT_TARGET)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -75,10 +73,10 @@ public class Leptictidium extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.8F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.8F;
+//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -99,10 +97,10 @@ public class Leptictidium extends PrehistoricMob {
         super.travel(travelVec);
     }
 
-    @Override
-    public float getStepHeight() {
-        return this.isRunning() ? 1.0F : 0.6F;
-    }
+//    @Override
+//    public float getStepHeight() {
+//        return this.isRunning() ? 1.0F : 0.6F;
+//    }
 
     @Override
     protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
@@ -129,7 +127,7 @@ public class Leptictidium extends PrehistoricMob {
         List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat(), this, this.getBoundingBox().inflate(3.0));
         if (!this.getActiveEffects().isEmpty() && !nearbyEntities.isEmpty()) {
             for (MobEffectInstance effectInstance : this.getActiveEffects()) {
-                nearbyEntities.stream().filter(entity -> entity != this && !entity.hasEffect(effectInstance.getEffect()) && effectInstance.getDuration() > 20 && !effectInstance.getEffect().isInstantenous()).forEach(entity -> entity.addEffect(new MobEffectInstance(effectInstance.getEffect(), (int) (effectInstance.getDuration() * 0.3F), 0), this));
+                nearbyEntities.stream().filter(entity -> entity != this && !entity.hasEffect(effectInstance.getEffect()) && effectInstance.getDuration() > 20 && !effectInstance.getEffect().value().isInstantenous()).forEach(entity -> entity.addEffect(new MobEffectInstance(effectInstance.getEffect(), (int) (effectInstance.getDuration() * 0.3F), 0), this));
             }
         }
     }
@@ -140,7 +138,7 @@ public class Leptictidium extends PrehistoricMob {
             nearbyEntities.stream().filter(entity -> entity != this).forEach(entity -> {
                 if (!entity.getActiveEffects().isEmpty()) {
                     for (MobEffectInstance effectInstance : entity.getActiveEffects()) {
-                        if (!this.hasEffect(effectInstance.getEffect()) && effectInstance.getDuration() > 20 && !effectInstance.getEffect().isInstantenous()) {
+                        if (!this.hasEffect(effectInstance.getEffect()) && effectInstance.getDuration() > 20 && !effectInstance.getEffect().value().isInstantenous()) {
                             this.addEffect(new MobEffectInstance(effectInstance.getEffect(), (int) (effectInstance.getDuration() * 0.3F), effectInstance.getAmplifier()), entity);
                         }
                     }
@@ -199,10 +197,6 @@ public class Leptictidium extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 150;
-    }
-
-    public static boolean canSpawn(EntityType<Leptictidium> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.LEPTICTIDIUM_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     // Goals

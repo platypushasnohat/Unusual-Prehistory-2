@@ -30,6 +30,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -45,7 +46,7 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
@@ -177,7 +178,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public void floatWhileRidden(Vec3 travelVec) {
-        if (this.isInWater() || (this.isInFluidType(this.getEyeInFluidType()) && !this.moveInFluid(this.level().getFluidState(BlockPos.containing(this.getEyePosition())), travelVec, this.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get())))) {
+        if (this.isInWater() || (this.isInFluidType(this.getEyeInFluidType()) && !this.moveInFluid(this.level().getFluidState(BlockPos.containing(this.getEyePosition())), travelVec, this.getAttributeValue(Attributes.GRAVITY)))) {
             this.floatInWaterWhileRidden();
         }
     }
@@ -471,19 +472,19 @@ public abstract class PrehistoricMob extends TamableAnimal {
         super.actuallyHurt(source, amount);
     }
 
-    @Override
-    protected void onLeashDistance(float distance) {
-        if (distance > 6.0F) {
-            if (this.isSitting() && !this.isOrderedToSit()) {
-                this.setSitting(false);
-                this.setSitCooldown(this.getSitCooldown() + 200);
-            }
-            if (this.isEepy()) {
-                this.setEepy(false);
-                this.setEepyCooldown(this.getEepyCooldown() + 200);
-            }
-        }
-    }
+//    @Override
+//    protected void onLeashDistance(float distance) {
+//        if (distance > 6.0F) {
+//            if (this.isSitting() && !this.isOrderedToSit()) {
+//                this.setSitting(false);
+//                this.setSitCooldown(this.getSitCooldown() + 200);
+//            }
+//            if (this.isEepy()) {
+//                this.setEepy(false);
+//                this.setEepyCooldown(this.getEepyCooldown() + 200);
+//            }
+//        }
+//    }
 
     public boolean isEepyTime() {
         return this.level().isNight();
@@ -568,7 +569,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
             passenger.setYBodyRot(this.yBodyRot);
             passenger.fallDistance = 0.0F;
             this.clampRotation(livingEntity, 105);
-            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengersRidingOffset(), this.getZ() + seatOffset.z);
+            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengerRidingPosition(passenger).y, this.getZ() + seatOffset.z);
         } else {
             super.positionRider(passenger, moveFunction);
         }
@@ -613,14 +614,13 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     // Prevent rider from taking fall damage
     @Override
-    public boolean causeFallDamage(float f1, float f2, @NotNull DamageSource source) {
-        float[] ret = ForgeHooks.onLivingFall(this, f1, f2);
-        if (ret == null) return false;
-        f1 = ret[0];
-        f2 = ret[1];
-
-        boolean flag = this.causeInternalFallDamage(f1, f2, source);
-        int i = this.calculateFallDamage(f1, f2);
+    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+        float[] livingFall = CommonHooks.onLivingFall(this, fallDistance, multiplier);
+        if (livingFall == null) return false;
+        fallDistance = livingFall[0];
+        multiplier = livingFall[1];
+        boolean flag = this.causeInternalFallDamage(fallDistance, multiplier, source);
+        int i = this.calculateFallDamage(fallDistance, multiplier);
         if (i > 0) {
             this.playSound(i > 4 ? this.getFallSounds().big() : this.getFallSounds().small(), 1.0F, 1.0F);
             this.playBlockFallSound();
@@ -632,11 +632,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
-        float[] livingFall = EventHooks.onLivingFall(this, f1, f2);
+        float[] livingFall = CommonHooks.onLivingFall(this, f1, f2);
         if (livingFall == null) return false;
         f1 = livingFall[0];
         f2 = livingFall[1];
-
         int i = this.calculateFallDamage(f1, f2);
         if (i > 0) {
             this.playBlockFallSound();

@@ -11,7 +11,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -179,10 +178,10 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         return stack.is(UP2ItemTags.DUNKLEOSTEUS_FOOD);
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.5F;
+//    }
 
     public boolean isTarget(Entity entity) {
         if (this.getVariant() == 1) return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
@@ -240,7 +239,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
         return this.getDimsForDunk().scale(this.getScale());
     }
 
@@ -322,10 +321,10 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
-        if (spawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(compoundTag.getInt("BucketVariantTag"));
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnType == MobSpawnType.BUCKET) {
+            return spawnGroupData;
         } else {
             int depth = this.getWaterDepthAbove(level, this.blockPosition());
             if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {

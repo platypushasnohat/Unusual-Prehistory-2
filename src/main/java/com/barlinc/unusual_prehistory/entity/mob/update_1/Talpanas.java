@@ -29,12 +29,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,16 +53,16 @@ public class Talpanas extends BreedableMob {
 
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_OTHER, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 1.0F);
+        this.setPathfindingMalus(PathType.WATER, 1.0F);
+        this.setPathfindingMalus(PathType.LAVA, 1.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, 1.0F);
+        this.setPathfindingMalus(PathType.DANGER_OTHER, 1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS, 1.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS, 1.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_CAUTIOUS, 1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -108,10 +107,10 @@ public class Talpanas extends BreedableMob {
         else return 0.0F;
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-        return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
+//        return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
+//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -183,15 +182,15 @@ public class Talpanas extends BreedableMob {
         return source.is(DamageTypes.FALL);
     }
 
-    @Override
-    public boolean canBeLeashed(@NotNull Player player) {
-        return true;
-    }
+//    @Override
+//    public boolean canBeLeashed(@NotNull Player player) {
+//        return true;
+//    }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(LIGHT_THRESHOLD, 5);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LIGHT_THRESHOLD, 5);
     }
 
     @Override
@@ -246,10 +245,6 @@ public class Talpanas extends BreedableMob {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.06F, 1.0F);
-    }
-
-    public static boolean canSpawn(EntityType<Talpanas> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.TALPANAS_SPAWNABLE_ON);
     }
 
     // Goals

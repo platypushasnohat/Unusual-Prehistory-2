@@ -52,7 +52,7 @@ public class PrototaxitesNubBlock extends BushBlock implements BonemealableBlock
         if (blockstate.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
             return true;
         } else {
-            return blockstate.canSustainPlant(level, blockpos, Direction.UP, this);
+            return blockstate.canSustainPlant(level, blockpos, Direction.UP, this.defaultBlockState());
         }
     }
 

@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -94,10 +96,10 @@ public class Coelacanthus extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 40));
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.6F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
+//        return dimensions.height * 0.6F;
+//    }
 
     @Override
     public boolean canPacify() {
@@ -207,9 +209,9 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SIZE, 1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SIZE, 1);
     }
 
     @Override
@@ -247,11 +249,11 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
         int size = this.getCoelacanthusSize();
-        EntityDimensions dimensions = super.getDimensions(pose);
-        if (dimensions.width <= 0.0F || dimensions.height <= 0.0F) return dimensions;
-        float scale = (dimensions.width + 0.05F * (float) size) / dimensions.width;
+        EntityDimensions dimensions = super.getDefaultDimensions(pose);
+        if (dimensions.width() <= 0.0F || dimensions.height() <= 0.0F) return dimensions;
+        float scale = (dimensions.width() + 0.05F * (float) size) / dimensions.width();
         return dimensions.scale(scale);
     }
 
@@ -275,8 +277,9 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         super.saveToBucketTag(bucket);
-        CompoundTag compoundTag = bucket.getOrCreateTag();
-        compoundTag.putInt("Size", this.getCoelacanthusSize());
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            compoundTag.putInt("Size", this.getCoelacanthusSize());
+        });
     }
 
     @Override
@@ -346,8 +349,8 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @org.jetbrains.annotations.Nullable SpawnGroupData spawnData, @org.jetbrains.annotations.Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 }

@@ -152,8 +152,8 @@ public abstract class AmbientMob extends PathfinderMob {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         this.setDespawnTime(2400 + this.getRandom().nextInt(1200));
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, compoundTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 }

@@ -135,13 +135,13 @@ public class Carnotaurus extends PrehistoricMob {
         if (this.isAlive()) {
             this.level().broadcastEntityEvent(this, (byte) 39);
             this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 1));
-            this.addEffect(new MobEffectInstance(UP2MobEffects.FURY.get(), 300, 0));
-            this.gameEvent(GameEvent.ENTITY_ROAR);
+            this.addEffect(new MobEffectInstance(UP2MobEffects.FURY, 300, 0));
+            this.gameEvent(GameEvent.ENTITY_ACTION);
         }
     }
 
     public boolean isFurious() {
-        return this.hasEffect(UP2MobEffects.FURY.get());
+        return this.hasEffect(UP2MobEffects.FURY);
     }
 
     @Override

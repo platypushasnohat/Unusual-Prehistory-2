@@ -37,7 +37,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,10 +126,10 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
         return new PrehistoricBodyRotationControl(this, 0.4F, 25.0F, 0.2F, 20.0F, 0.8F, this.getMaxHeadYRot());
     }
 
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.6F;
-    }
+//    @Override
+//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//        return size.height * 0.6F;
+//    }
 
     @Override
     public void setId(int id) {
@@ -374,10 +374,10 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HELD_MOB_ID, -1);
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HELD_MOB_ID, -1);
+        builder.define(LEAPING, false);
     }
 
     @Override
@@ -523,7 +523,7 @@ public class Mosasaurus extends PrehistoricAquaticMob implements LeapingMob, Gra
                     entity.hurt(entity.damageSources().mobAttack(mosasaurus), (float) mosasaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     this.mosasaurus.strongKnockback(entity, 2.25D, 0.1D);
                     if (entity.isDamageSourceBlocked(mosasaurus.damageSources().mobAttack(mosasaurus)) && entity instanceof Player player) {
-                        player.disableShield(true);
+                        player.disableShield();
                     }
                     this.mosasaurus.swing(InteractionHand.MAIN_HAND);
                 });

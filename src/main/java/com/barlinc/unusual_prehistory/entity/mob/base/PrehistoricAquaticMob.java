@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -149,16 +151,14 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundTag = bucket.getOrCreateTag();
-        compoundTag.putInt("BucketVariantTag", this.getVariant());
-        compoundTag.putInt("Age", this.getAge());
-        compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
-        compoundTag.putBoolean("FromEgg", this.isFromEgg());
-        compoundTag.putInt("EatingCooldown", this.getEatCooldown());
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            compoundTag.putInt("BucketVariantTag", this.getVariant());
+            compoundTag.putInt("Age", this.getAge());
+            compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
+            compoundTag.putBoolean("FromEgg", this.isFromEgg());
+            compoundTag.putInt("EatingCooldown", this.getEatCooldown());
+        });
     }
 
     @Override

@@ -25,14 +25,13 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.SpecialPlantable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
-public class GuangdedendronStalkBlock extends Block implements BonemealableBlock, SpecialPlantable {
+public class GuangdedendronStalkBlock extends Block implements BonemealableBlock {
 
     protected static final VoxelShape SMALL_SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 16.0D, 11.0D);
     protected static final VoxelShape COLLISION_SHAPE = Block.box(6.5D, 0.0D, 6.5D, 9.5D, 16.0D, 9.5D);
@@ -61,10 +60,10 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
         return SMALL_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
-//    @Override
-//    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-//        return false;
-//    }
+    @Override
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType pathComputationType) {
+        return false;
+    }
 
     @Override
     public @NotNull VoxelShape getCollisionShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
@@ -118,9 +117,9 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
         if (state.getValue(STAGE) == 0) {
             if (level.isEmptyBlock(pos.above()) && level.getRawBrightness(pos.above(), 0) >= 9) {
                 int belowMax = this.getHeightBelowUpToMax(level, pos) + 1;
-                if (belowMax < 16 && ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(3) == 0)) {
+                if (belowMax < 16 && CommonHooks.canCropGrow(level, pos, state, random.nextInt(3) == 0)) {
                     this.growGuangdedendron(state, level, pos, random, belowMax);
-                    ForgeHooks.onCropsGrowPost(level, pos, state);
+                    CommonHooks.fireCropGrowPost(level, pos, state);
                 }
             }
         }
@@ -215,11 +214,4 @@ public class GuangdedendronStalkBlock extends Block implements BonemealableBlock
         }
         return i;
     }
-
-//    @Override
-//    public BlockState getPlant(BlockGetter getter, BlockPos pos) {
-//        BlockState state = getter.getBlockState(pos);
-//        if (state.getBlock() != this) return this.defaultBlockState();
-//        return state;
-//    }
 }

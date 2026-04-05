@@ -11,17 +11,14 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -29,8 +26,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +51,7 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     public Dimorphodon(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
-        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
+        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -241,9 +237,9 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HELD_MOB_ID, -1);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HELD_MOB_ID, -1);
     }
 
     @Override
@@ -288,10 +284,6 @@ public class Dimorphodon extends PrehistoricFlyingMob implements GrabbingMob {
     @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         return Math.sqrt(distance) < 1024.0D;
-    }
-
-    public static boolean canSpawn(EntityType<Dimorphodon> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.DIMORPHODON_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     // Goals

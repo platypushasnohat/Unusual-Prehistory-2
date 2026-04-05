@@ -63,7 +63,7 @@ public class GuangdedendronSporeBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+    public @NotNull ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return new ItemStack(UP2Blocks.GUANGDEDENDRON.get());
     }
 

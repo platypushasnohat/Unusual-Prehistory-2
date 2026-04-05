@@ -4,13 +4,10 @@
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
- import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
- import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
- import net.minecraft.util.RandomSource;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -18,9 +15,8 @@
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -29,7 +25,7 @@
 
      public Eryon(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -77,10 +73,10 @@
          }
      }
 
-     @Override
-     public @NotNull MobType getMobType() {
-         return MobType.ARTHROPOD;
-     }
+//     @Override
+//     public @NotNull MobType getMobType() {
+//         return MobType.ARTHROPOD;
+//     }
 
      @Override
      public boolean isFood(ItemStack stack) {
@@ -105,16 +101,6 @@
      @Override
      public float getWalkAnimationSpeed() {
          return this.isBaby() ? 4.0F : 10.0F;
-     }
-
-     @Override
-     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-         super.onSyncedDataUpdated(accessor);
-     }
-
-     @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
      }
 
      @Override
@@ -153,9 +139,5 @@
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.LYSTROSAURUS.get().create(level);
-     }
-
-     public static boolean canSpawn(EntityType<Eryon> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         return level.getBlockState(pos.below()).is(UP2BlockTags.HIBBERTOPTERUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
      }
  }

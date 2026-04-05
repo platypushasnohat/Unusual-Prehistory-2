@@ -18,7 +18,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -29,9 +28,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +56,7 @@ public class Telecrex extends PrehistoricFlyingMob {
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
-        this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
+        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -167,9 +165,9 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SPLAT, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SPLAT, false);
     }
 
     public boolean hasSplat() {
@@ -232,10 +230,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         return Math.sqrt(distance) < 1024.0D;
-    }
-
-    public static boolean canSpawn(EntityType<Telecrex> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.TELECREX_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
     private static class TelecrexScatterGoal extends Goal {

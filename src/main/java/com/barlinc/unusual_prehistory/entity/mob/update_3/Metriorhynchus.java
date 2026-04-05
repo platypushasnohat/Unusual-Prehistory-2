@@ -45,7 +45,7 @@
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.gameevent.GameEvent;
- import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
@@ -76,9 +76,9 @@
      public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 1.0F);
-         this.setMaxUpStep(1.0F);
+         this.setPathfindingMalus(PathType.WATER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
+//         this.setMaxUpStep(1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -109,10 +109,10 @@
          this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
-     @Override
-     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-         return size.height * 0.5F;
-     }
+//     @Override
+//     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
+//         return size.height * 0.5F;
+//     }
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
@@ -262,10 +262,10 @@
      }
 
      @Override
-     protected void defineSynchedData() {
-         super.defineSynchedData();
-         this.entityData.define(HELD_MOB_ID, -1);
-         this.entityData.define(LEAPING, false);
+     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+         super.defineSynchedData(builder);
+         builder.define(HELD_MOB_ID, -1);
+         builder.define(LEAPING, false);
      }
 
      @Override

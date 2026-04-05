@@ -10,7 +10,6 @@ import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
@@ -41,12 +40,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,7 +76,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.setMaxUpStep(1.1F);
+//        this.setMaxUpStep(1.1F);
     }
 
     @Override
@@ -347,11 +345,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TAME_ATTEMPTS, 0);
-        this.entityData.define(RAINBOW, false);
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(TAME_ATTEMPTS, 0);
+        builder.define(RAINBOW, false);
+        builder.define(LEAPING, false);
     }
 
     @Override
@@ -521,14 +519,10 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         this.setVariant(getRandomNaturalColor(level.getRandom()));
         if (level.getRandom().nextFloat() < 0.01F) this.setRainbow(true);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
-    }
-
-    public static boolean canSpawn(EntityType<Ulughbegsaurus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(UP2BlockTags.ULUGHBEGSAURUS_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
     // Goals
