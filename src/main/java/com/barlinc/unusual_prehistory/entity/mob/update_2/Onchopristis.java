@@ -175,13 +175,13 @@ public class Onchopristis extends PrehistoricAquaticMob {
         return this.getBoundingBox().deflate(0, 0.1, 0).move(0, 0.4, 0);
     }
 
-    @Override
-    protected void onLeashDistance(float distance) {
-        if (distance > 6.0F && this.isBurrowed()) {
-            this.setBurrowed(false);
-            this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
-        }
-    }
+//    @Override
+//    protected void onLeashDistance(float distance) {
+//        if (distance > 6.0F && this.isBurrowed()) {
+//            this.setBurrowed(false);
+//            this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
+//        }
+//    }
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource source, float amount) {

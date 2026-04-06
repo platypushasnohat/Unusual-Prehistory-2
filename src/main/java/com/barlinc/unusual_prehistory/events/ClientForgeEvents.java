@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.future.Barinasuchus;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
@@ -12,6 +10,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -41,25 +40,23 @@ public class ClientForgeEvents {
     }
 
     @SubscribeEvent
-    public void clientTick(TickEvent.ClientTickEvent event) {
+    public void clientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (event.phase == TickEvent.Phase.END) {
-            Entity cameraEntity = minecraft.getCameraEntity();
-            prevShakeAmount = shakeAmount;
-            float shake = 0.0F;
-            Iterator<ScreenShakeEvent> groundShakeMomentIterator = SCREEN_SHAKE_EVENTS.iterator();
-            while (groundShakeMomentIterator.hasNext()) {
-                ScreenShakeEvent groundShakeMoment = groundShakeMomentIterator.next();
-                groundShakeMoment.tick();
-                if (groundShakeMoment.isDone()) {
-                    groundShakeMomentIterator.remove();
-                }
-                else if (cameraEntity != null) {
-                    shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
-                }
+        Entity cameraEntity = minecraft.getCameraEntity();
+        prevShakeAmount = shakeAmount;
+        float shake = 0.0F;
+        Iterator<ScreenShakeEvent> groundShakeMomentIterator = SCREEN_SHAKE_EVENTS.iterator();
+        while (groundShakeMomentIterator.hasNext()) {
+            ScreenShakeEvent groundShakeMoment = groundShakeMomentIterator.next();
+            groundShakeMoment.tick();
+            if (groundShakeMoment.isDone()) {
+                groundShakeMomentIterator.remove();
             }
-            shakeAmount = shake * minecraft.options.screenEffectScale().get().floatValue();
+            else if (cameraEntity != null) {
+                shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
+            }
         }
+        shakeAmount = shake * minecraft.options.screenEffectScale().get().floatValue();
     }
 
     @SubscribeEvent
@@ -70,14 +67,12 @@ public class ClientForgeEvents {
 
         float lerpedShakeAmount = Mth.clamp(prevShakeAmount + (shakeAmount - prevShakeAmount) * partialTicks, 0, 4.0F);
         if (lerpedShakeAmount > 0) {
-            float time = minecraft.cameraEntity == null ? 0.0F : minecraft.cameraEntity.tickCount + minecraft.getPartialTick();
+            float time = minecraft.cameraEntity == null ? 0.0F : minecraft.cameraEntity.tickCount + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
             event.setRoll((float) (lerpedShakeAmount * Math.sin(2.0F * time)));
         }
 
         if (player != null && player.isPassenger() && event.getCamera().isDetached()) {
-            if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
-            if (player.getVehicle() instanceof Megalania) event.getCamera().move(-event.getCamera().getMaxZoom(1.7F), 0, 0);
-            if (player.getVehicle() instanceof Barinasuchus) event.getCamera().move(-event.getCamera().getMaxZoom(1.5F), 0, 0);
+//            if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
         }
     }
 

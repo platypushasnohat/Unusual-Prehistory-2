@@ -1,20 +1,20 @@
 package com.barlinc.unusual_prehistory.screens;
 
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class TransmogrifierResultSlot extends SlotItemHandler {
+public class TransmogrifierResultSlot extends Slot {
 
     public final TransmogrifierBlockEntity blockEntity;
     private final Player player;
     private int removeCount;
 
-    public TransmogrifierResultSlot(TransmogrifierBlockEntity blockEntity, Player player, IItemHandler itemHandler, int index, int x, int y) {
-        super(itemHandler, index, x, y);
+    public TransmogrifierResultSlot(TransmogrifierBlockEntity blockEntity, Player player, Container container, int index, int x, int y) {
+        super(container, index, x, y);
         this.blockEntity = blockEntity;
         this.player = player;
     }

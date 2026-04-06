@@ -14,13 +14,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
 public abstract class WaterEggBlockEntity extends FrogspawnBlock implements EntityBlock {
 
     public WaterEggBlockEntity(Properties properties) {
         super(properties);
     }
 
+    @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.MODEL;
     }

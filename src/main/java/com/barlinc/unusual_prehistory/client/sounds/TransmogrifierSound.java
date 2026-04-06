@@ -28,7 +28,7 @@ public class TransmogrifierSound extends BlockEntityTickableSound<Transmogrifier
 
     @Override
     public void tick() {
-        if (this.blockEntity.isTransmogrifying()) {
+        if (this.blockEntity.isActive()) {
             this.x = this.blockEntity.getBlockPos().getX() + 0.5D;
             this.y = this.blockEntity.getBlockPos().getY() + 0.5D;
             this.z = this.blockEntity.getBlockPos().getZ() + 0.5D;

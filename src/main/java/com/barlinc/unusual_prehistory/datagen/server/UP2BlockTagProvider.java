@@ -25,33 +25,33 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
     protected void addTags(@NotNull Provider provider) {
         // Unusual Prehistory
         this.tag(UP2BlockTags.DRYOPHYLLUM_LOGS).add(
-                DRYOPHYLLUM_LOG.get(),
-                DRYOPHYLLUM_WOOD.get(),
-                STRIPPED_DRYOPHYLLUM_LOG.get(),
-                STRIPPED_DRYOPHYLLUM_WOOD.get()
+                DRYOPHYLLUM.log().get(),
+                DRYOPHYLLUM.wood().get(),
+                DRYOPHYLLUM.strippedLog().get(),
+                DRYOPHYLLUM.strippedWood().get()
         );
 
         this.tag(UP2BlockTags.GINKGO_LOGS).add(
-                GINKGO_LOG.get(),
-                GINKGO_WOOD.get(),
-                STRIPPED_GINKGO_LOG.get(),
-                STRIPPED_GINKGO_WOOD.get()
+                GINKGO.log().get(),
+                GINKGO.wood().get(),
+                GINKGO.strippedLog().get(),
+                GINKGO.strippedWood().get()
         );
 
         this.tag(UP2BlockTags.LEPIDODENDRON_LOGS).add(
-                LEPIDODENDRON_LOG.get(),
-                LEPIDODENDRON_WOOD.get(),
+                LEPIDODENDRON.log().get(),
+                LEPIDODENDRON.wood().get(),
+                LEPIDODENDRON.strippedLog().get(),
+                LEPIDODENDRON.strippedWood().get(),
                 MOSSY_LEPIDODENDRON_LOG.get(),
-                MOSSY_LEPIDODENDRON_WOOD.get(),
-                STRIPPED_LEPIDODENDRON_LOG.get(),
-                STRIPPED_LEPIDODENDRON_WOOD.get()
+                MOSSY_LEPIDODENDRON_WOOD.get()
         );
 
         this.tag(UP2BlockTags.METASEQUOIA_LOGS).add(
-                METASEQUOIA_LOG.get(),
-                METASEQUOIA_WOOD.get(),
-                STRIPPED_METASEQUOIA_LOG.get(),
-                STRIPPED_METASEQUOIA_WOOD.get()
+                METASEQUOIA.log().get(),
+                METASEQUOIA.wood().get(),
+                METASEQUOIA.strippedLog().get(),
+                METASEQUOIA.strippedWood().get()
         );
 
         this.tag(UP2BlockTags.ANCIENT_PLANT_PLACEABLE).addTag(BlockTags.SAND).addTag(BlockTags.DIRT).add(Blocks.GRAVEL).add(Blocks.FARMLAND);

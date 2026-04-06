@@ -64,7 +64,7 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
     }
 
     protected void drawProgress(TransmogrificationRecipe recipe, GuiGraphics guiGraphics, int y, int x) {
-        int cookTime = recipe.getProcessingTime();
+        int cookTime = recipe.processingTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

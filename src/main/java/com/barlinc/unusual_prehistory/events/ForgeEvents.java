@@ -35,6 +35,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -84,15 +85,15 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    public static void onMobHurt(final LivingHurtEvent event) {
+    public static void onMobHurt(final LivingDamageEvent.Pre event) {
         LivingEntity entity = event.getEntity();
         DamageSource damageSource = event.getSource();
 
         if (entity instanceof Guardian && damageSource.getEntity() instanceof Dunkleosteus) {
-            event.setAmount(event.getAmount() * 2);
+            event.setNewDamage(event.getOriginalDamage() * 2);
         }
-        if (entity.getMobType() == MobType.ARTHROPOD && damageSource.getEntity() instanceof Leptictidium) {
-            event.setAmount(event.getAmount() * 2);
+        if (entity.getType().is(EntityTypeTags.ARTHROPOD) && damageSource.getEntity() instanceof Leptictidium) {
+            event.setNewDamage(event.getOriginalDamage() * 2);
         }
     }
 

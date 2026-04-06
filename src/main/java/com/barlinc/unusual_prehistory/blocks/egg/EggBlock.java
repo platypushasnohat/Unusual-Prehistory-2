@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -44,6 +46,8 @@ import java.util.function.Supplier;
 
 public class EggBlock extends BaseEntityBlock {
 
+    public static final MapCodec<EggBlock> CODEC = simpleCodec(EggBlock::new);
+
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     protected final VoxelShape shape;
     private final Supplier<EntityType<?>> hatchedEntity;
@@ -56,6 +60,12 @@ public class EggBlock extends BaseEntityBlock {
         int px = (16 - widthPx) / 2;
         this.shape = Block.box(px, 0, px, 16 - px, heightPx, 16 - px);
         this.registerDefaultState(this.defaultBlockState().setValue(HATCH, 0));
+    }
+
+
+    @Override
+    protected @NotNull MapCodec<EggBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -73,7 +83,7 @@ public class EggBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return shape;
     }
 
@@ -115,7 +125,7 @@ public class EggBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+    public void tick(BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (this.canHatch(level, pos)) {
             if (!this.isReadyToHatch(state)) {
                 level.playSound(null, pos, SoundEvents.SNIFFER_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + random.nextFloat() * 0.2F);
@@ -194,10 +204,10 @@ public class EggBlock extends BaseEntityBlock {
         builder.add(HATCH);
     }
 
-//    @Override
-//    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull PathComputationType computationType) {
-//        return false;
-//    }
+    @Override
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType pathComputationType) {
+        return false;
+    }
 
     @Override
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {

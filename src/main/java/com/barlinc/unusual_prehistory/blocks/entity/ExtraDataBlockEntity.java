@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.blocks.entity;
 
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,14 +28,14 @@ public class ExtraDataBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
+    protected void saveAdditional(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(compoundTag, registries);
         if (owner != null) compoundTag.putUUID("Owner", owner);
     }
 
     @Override
-    public void load(@NotNull CompoundTag compoundTag) {
-        super.load(compoundTag);
+    public void loadAdditional(@NotNull CompoundTag compoundTag, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(compoundTag, registries);
         if (compoundTag.hasUUID("Owner")) owner = compoundTag.getUUID("Owner");
     }
 }

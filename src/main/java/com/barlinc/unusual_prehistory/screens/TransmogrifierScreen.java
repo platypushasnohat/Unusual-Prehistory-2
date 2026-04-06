@@ -33,8 +33,8 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
 
     public TransmogrifierScreen(TransmogrifierMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = SCREEN_WIDTH;
-        imageHeight = SCREEN_HEIGHT;
+        this.imageWidth = SCREEN_WIDTH;
+        this.imageHeight = SCREEN_HEIGHT;
     }
 
     @Override

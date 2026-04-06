@@ -6,15 +6,13 @@ import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -37,17 +35,16 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         this.blockEntity = blockEntity;
         this.level = inventory.player.level();
         this.data = data;
+        this.addPlayerInventory(inventory);
+        this.addPlayerHotbar(inventory);
 
-        addPlayerInventory(inventory);
-        addPlayerHotbar(inventory);
+//        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+//        });
+        this.addSlot(new OozeSlot(blockEntity, 1, 82, 59));
+        this.addSlot(new Slot(blockEntity, 0, 37, 31));
+        this.addSlot(new TransmogrifierResultSlot(blockEntity, inventory.player, blockEntity, 2, 125, 31));
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new OozeSlot(handler, 1, 82, 59));
-            this.addSlot(new SlotItemHandler(handler, 0, 37, 31));
-            this.addSlot(new TransmogrifierResultSlot(blockEntity, inventory.player, handler, 2, 125, 31));
-        });
-
-        addDataSlots(data);
+        this.addDataSlots(data);
     }
 
     private static TransmogrifierBlockEntity getBlockEntity(final Inventory inventory, final FriendlyByteBuf data) {
@@ -138,15 +135,15 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         }
     }
 
-    private static class OozeSlot extends SlotItemHandler {
+    private static class OozeSlot extends Slot {
 
-        public OozeSlot(IItemHandler itemHandler, int index, int x, int y) {
-            super(itemHandler, index, x, y);
+        public OozeSlot(Container container, int index, int x, int y) {
+            super(container, index, x, y);
         }
 
         @Override
-        public boolean mayPlace(@NotNull ItemStack itemStack) {
-            return super.mayPlace(itemStack) && itemStack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
+        public boolean mayPlace(@NotNull ItemStack stack) {
+            return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
         }
     }
 }

@@ -30,6 +30,6 @@ public class AegirocassisGlowLayer extends RenderLayer<Aegirocassis, UP2Model<Ae
         float glowProgress = entity.getGlowProgress(partialTicks);
         if (glowProgress <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(GLOW_TEXTURE));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, glowProgress);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), (int) glowProgress);
     }
 }

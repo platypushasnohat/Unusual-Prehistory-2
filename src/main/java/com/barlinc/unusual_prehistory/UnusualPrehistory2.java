@@ -99,7 +99,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2BannerPatternTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2DamageTypeTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2LootTableProvider(output, provider));
-        generator.addProvider(server, new UP2RecipeProvider(output));
+//        generator.addProvider(server, new UP2RecipeProvider(output));
         generator.addProvider(server, UP2AdvancementProvider.register(output, provider, helper));
 
         boolean client = data.includeClient();

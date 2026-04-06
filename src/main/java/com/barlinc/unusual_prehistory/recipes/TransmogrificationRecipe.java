@@ -1,82 +1,41 @@
 package com.barlinc.unusual_prehistory.recipes;
 
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
-import com.google.gson.JsonObject;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class TransmogrificationRecipe implements Recipe<Container> {
+public record TransmogrificationRecipe(Ingredient ingredient, ItemStack result, float experience, int processingTime) implements Recipe<SingleRecipeInput> {
 
-    protected final ResourceLocation id;
-    protected final Ingredient input;
-    protected final ItemStack output;
-    protected final int processingTime;
-    private final NonNullList<Ingredient> recipeItems = NonNullList.create();
-
-    public TransmogrificationRecipe(ResourceLocation id, Ingredient input, ItemStack output, int processingTime) {
-        this.id = id;
-        this.input = input;
-        this.output = output;
-        this.processingTime = processingTime;
-        this.recipeItems.add(input);
+    @Override
+    public boolean matches(SingleRecipeInput input, @NotNull Level level) {
+        return this.ingredient.test(input.item());
     }
 
     @Override
-    public boolean matches(Container container, @NotNull Level level) {
-        return input.test(!container.getItem(0).isEmpty() ? container.getItem(0) : ItemStack.EMPTY);
+    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput input, HolderLookup.@NotNull Provider registries) {
+        return this.result.copy();
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull Container container, HolderLookup.@NotNull Provider provider) {
-        return this.output.copy();
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int i, int i1) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider provider) {
-        return null;
-    }
-
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return recipeItems;
-    }
-
-    public int getProcessingTime() {
-        return processingTime;
-    }
-
-    @Override
-    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
-        return output;
-    }
-
-    public ItemStack getJEIResultItem() {
-        return output;
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.add(this.ingredient);
+        return nonnulllist;
     }
 
     @Override
-    public @NotNull ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return UP2Recipes.TRANSMOGRIFICATION_SERIALIZER.get();
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider registries) {
+        return this.result;
     }
 
     @Override
@@ -84,28 +43,18 @@ public class TransmogrificationRecipe implements Recipe<Container> {
         return UP2Recipes.TRANSMOGRIFICATION.get();
     }
 
-    public static class Serializer implements RecipeSerializer<TransmogrificationRecipe> {
-        @Override
-        public @NotNull TransmogrificationRecipe fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
-            Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject,"input"));
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "output"));
-            int processingTime = GsonHelper.getAsInt(jsonObject, "processing_time", 3600);
-            return new TransmogrificationRecipe(resourceLocation, input, output, processingTime);
-        }
+    @Override
+    public @NotNull ItemStack getToastSymbol() {
+        return new ItemStack(UP2Blocks.TRANSMOGRIFIER.get());
+    }
 
-        @Override
-        public @Nullable TransmogrificationRecipe fromNetwork(@NotNull ResourceLocation resourceLocation, @NotNull FriendlyByteBuf buf) {
-            Ingredient input = Ingredient.fromNetwork(buf);
-            ItemStack result = buf.readItem();
-            int processingTime = buf.readVarInt();
-            return new TransmogrificationRecipe(resourceLocation, input, result, processingTime);
-        }
+    @Override
+    public @NotNull RecipeSerializer<?> getSerializer() {
+        return RecipeSerializer.BLASTING_RECIPE;
+    }
 
-        @Override
-        public void toNetwork(@NotNull FriendlyByteBuf buf, TransmogrificationRecipe recipe) {
-            recipe.input.toNetwork(buf);
-            buf.writeItem(recipe.output);
-            buf.writeVarInt(recipe.processingTime);
-        }
+    public interface Factory<T extends TransmogrificationRecipe> {
+        T create(Ingredient ingredient, ItemStack result, float experience, int cookingTime);
     }
 }
+
