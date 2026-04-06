@@ -75,7 +75,7 @@
     "announce_to_chat": false,
     "background": "unusual_prehistory:textures/block/cobbled_fossilized_bone.png",
     "description": {
-      "translate": "advancement.unusual_prehistory.root.desc"
+      "translate": "advancements.unusual_prehistory.root.description"
     },
     "icon": {
       "count": 1,
@@ -83,7 +83,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.root"
+      "translate": "advancements.unusual_prehistory.root.title"
     }
   },
   "requirements": [

@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.unusual_prehistory.obtain_egg.desc"
+      "translate": "advancements.unusual_prehistory.obtain_egg.description"
     },
     "frame": "goal",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "unusual_prehistory:unknown_egg"
     },
     "title": {
-      "translate": "advancement.unusual_prehistory.obtain_egg"
+      "translate": "advancements.unusual_prehistory.obtain_egg.title"
     }
   },
   "requirements": [

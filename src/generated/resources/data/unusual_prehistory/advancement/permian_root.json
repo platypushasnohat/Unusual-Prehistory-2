@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancement.unusual_prehistory.permian_root.desc"
+      "translate": "advancements.unusual_prehistory.permian_root.description"
     },
     "icon": {
       "count": 1,
@@ -23,7 +23,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.permian_root"
+      "translate": "advancements.unusual_prehistory.permian_root.title"
     }
   },
   "requirements": [

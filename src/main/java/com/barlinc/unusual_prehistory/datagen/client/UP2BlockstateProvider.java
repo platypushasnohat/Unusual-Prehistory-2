@@ -81,8 +81,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.crossBlock(PETRIFIED_BUSH);
         this.logBlocks(PETRIFIED_LOG, PETRIFIED_WOOD);
         this.block(POLISHED_PETRIFIED_WOOD);
-        this.stairsBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD.get());
-        this.slabBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD.get());
+        this.stairsBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD_STAIRS.get());
+        this.slabBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD_SLAB.get());
         this.buttonBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD_BUTTON.get());
         this.pressurePlateBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
 

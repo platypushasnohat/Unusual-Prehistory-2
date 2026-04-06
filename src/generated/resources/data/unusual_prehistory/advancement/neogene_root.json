@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancement.unusual_prehistory.neogene_root.desc"
+      "translate": "advancements.unusual_prehistory.neogene_root.description"
     },
     "icon": {
       "count": 1,
@@ -23,7 +23,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancement.unusual_prehistory.neogene_root"
+      "translate": "advancements.unusual_prehistory.neogene_root.title"
     }
   },
   "requirements": [

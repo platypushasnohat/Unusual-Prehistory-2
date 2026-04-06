@@ -4,7 +4,9 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2Tab;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.UP2TextUtils;
+import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -151,7 +154,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP, "Transmogrifier stops");
 
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
-        this.musicDisc(UP2Items.TARIFYING_DISC, "Dylanvhs - Tarifying");
+        this.musicDisc(UP2Items.TARIFYING_DISC, UP2JukeboxSongs.TARIFYING, "Dylanvhs - Tarifying");
 
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_0", "Black Body");
         this.add("entity.unusual_prehistory.kimmeridgebrachypteraeschnidium.base_color_1", "Blue Body");
@@ -239,10 +242,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ONCHOPRISTIS_FLOP, "Onchopristis flops");
 
         this.sound(UP2SoundEvents.DOOMSURF_DISC, "Music Disc");
-        this.musicDisc(UP2Items.DOOMSURF_DISC, "ChipsTheCat - Doomsurf");
+        this.musicDisc(UP2Items.DOOMSURF_DISC, UP2JukeboxSongs.DOOMSURF, "ChipsTheCat - Doomsurf");
 
         this.sound(UP2SoundEvents.MEGALANIA_DISC, "Music Disc");
-        this.musicDisc(UP2Items.MEGALANIA_DISC, "ValiantEnvoy - MEGALANIA");
+        this.musicDisc(UP2Items.MEGALANIA_DISC, UP2JukeboxSongs.MEGALANIA, "ValiantEnvoy - MEGALANIA");
 
         this.translateBannerPattern("onchopristis");
 
@@ -376,7 +379,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateBannerPattern("psilopterus");
 
         this.sound(UP2SoundEvents.PUMMEL_AND_SNATCH_DISC, "Music Disc");
-        this.musicDisc(UP2Items.PUMMEL_AND_SNATCH_DISC, "ChipsTheCat - Pummel and Snatch");
+        this.musicDisc(UP2Items.PUMMEL_AND_SNATCH_DISC, UP2JukeboxSongs.PUMMEL_AND_SNATCH, "ChipsTheCat - Pummel and Snatch");
 
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT, "Aegirocassis hurts");
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH, "Aegirocassis dies");
@@ -622,15 +625,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("painting." + UnusualPrehistory2.MOD_ID + "." + name + ".author",  author);
     }
 
-    protected void musicDisc(Supplier<? extends Item> item, String description) {
+    protected void musicDisc(Supplier<? extends Item> item, ResourceKey<JukeboxSong> song, String name) {
         String disc = item.get().getDescriptionId();
         this.add(disc, "Music Disc");
-        this.add(disc + ".desc", description);
+        String key = Util.makeDescriptionId("jukebox_song", song.location());
+        this.add(key, name);
     }
 
     public void translateAdvancement(String key, String name, String desc) {
-        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".title", name);
-        this.add("advancement." + UnusualPrehistory2.MOD_ID + "." + key + ".description", desc);
+        this.add("advancements." + UnusualPrehistory2.MOD_ID + "." + key + ".title", name);
+        this.add("advancements." + UnusualPrehistory2.MOD_ID + "." + key + ".description", desc);
     }
 
     private void translateEffect(DeferredHolder<? extends MobEffect, ?> effect, String desc) {
