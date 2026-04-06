@@ -6,7 +6,7 @@ plugins {
 }
 
 version = "${project.minecraft_version}-${project.mod_version}"
-group = "com.barlinc.${mod_id}"
+group = mod_group_id
 
 repositories {
     mavenLocal()
@@ -133,7 +133,7 @@ tasks.withType(ProcessResources).configureEach {
 
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/neoforge.neoforge.mods.toml']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties
     }
 }

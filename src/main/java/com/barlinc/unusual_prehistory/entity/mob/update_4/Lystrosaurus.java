@@ -162,7 +162,7 @@ public class Lystrosaurus extends PrehistoricMob {
                     fallingBlockEntity.spawnAtLocation(fallingBlockEntity.getBlockState().getBlock());
                 }
                 fallingBlockEntity.discard();
-                UP2ParticleUtils.queueParticlesOnBlockFaces(fallingBlockEntity.level(), fallingBlockEntity.blockPosition(), new BlockParticleOption(ParticleTypes.BLOCK, fallingBlockEntity.getBlockState()), UniformInt.of(2, 4));
+                UP2ParticleUtils.queueParticlesOnBlockFaces((ServerLevel) fallingBlockEntity.level(), fallingBlockEntity.blockPosition(), new BlockParticleOption(ParticleTypes.BLOCK, fallingBlockEntity.getBlockState()), UniformInt.of(2, 4));
                 fallingBlockEntity.callOnBrokenAfterFall(fallingBlockEntity.getBlockState().getBlock(), fallingBlockEntity.blockPosition());
             }
         });

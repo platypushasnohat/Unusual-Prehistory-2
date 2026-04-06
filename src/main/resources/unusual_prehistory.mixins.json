@@ -13,7 +13,9 @@
     "SweetBerryBushBlockMixin"
   ],
   "client": [
-    "client.EntityRenderDispatcherMixin"
+    "client.EntityRenderDispatcherMixin",
+    "client.SoundEngineAccessor",
+    "client.SoundManagerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

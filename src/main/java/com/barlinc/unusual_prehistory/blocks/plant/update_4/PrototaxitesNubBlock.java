@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.util.TriState;
 import org.jetbrains.annotations.NotNull;
 
 public class PrototaxitesNubBlock extends BushBlock implements BonemealableBlock {
@@ -46,14 +47,14 @@ public class PrototaxitesNubBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+    protected boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
         BlockPos blockpos = pos.below();
-        BlockState blockstate = level.getBlockState(blockpos);
-        if (blockstate.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
+        BlockState belowBlockState = level.getBlockState(blockpos);
+        TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, Direction.UP, state);
+        if (belowBlockState.is(BlockTags.MUSHROOM_GROW_BLOCK)) {
             return true;
-        } else {
-            return blockstate.canSustainPlant(level, blockpos, Direction.UP, this.defaultBlockState());
         }
+        return !soilDecision.isDefault() ? soilDecision.isTrue() : this.mayPlaceOn(belowBlockState, level, blockpos);
     }
 
     @Override

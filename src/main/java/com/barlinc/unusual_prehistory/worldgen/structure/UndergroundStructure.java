@@ -10,8 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.Optional;
 
 public class UndergroundStructure extends Structure {
 
-    public static final MapCodec<UndergroundStructure> CODEC = RecordCodecBuilder.<UndergroundStructure>mapCodec(instance ->
+    public static final MapCodec<UndergroundStructure> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(UndergroundStructure.settingsCodec(instance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -29,7 +32,7 @@ public class UndergroundStructure extends Structure {
                     Codec.INT.fieldOf("max_y").forGetter(provider -> provider.max),
                     Codec.INT.fieldOf("offset_in_ground").forGetter(provider -> provider.offsetInGround),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter)
-            ).apply(instance, UndergroundStructure::new)).codec();
+            ).apply(instance, UndergroundStructure::new));
 
     private final Holder<StructureTemplatePool> startPool;
     private final Optional<ResourceLocation> startJigsawName;
@@ -55,7 +58,7 @@ public class UndergroundStructure extends Structure {
         BlockPos blockPos = new BlockPos(context.chunkPos().getMinBlockX(), 0, context.chunkPos().getMinBlockZ());
         BlockPos validPos = new BlockPos(blockPos.getX(), getValidY(context.chunkGenerator().getBaseColumn(blockPos.getX(), blockPos.getZ(), context.heightAccessor(), context.randomState())), blockPos.getZ());
         if (validPos.getY() != min - 1 && this.isSufficientlyFlat(context, validPos, 3)) {
-            return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter);
+            return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.size, validPos.below(-offsetInGround), false, Optional.empty(), this.maxDistanceFromCenter, PoolAliasLookup.EMPTY, DimensionPadding.ZERO, LiquidSettings.IGNORE_WATERLOGGING);
         }
         return Optional.empty();
     }

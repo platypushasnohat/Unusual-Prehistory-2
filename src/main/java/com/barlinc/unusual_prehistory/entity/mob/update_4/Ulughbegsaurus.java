@@ -8,7 +8,6 @@ import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
-import com.barlinc.unusual_prehistory.registry.UP2Network;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -45,6 +44,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -241,7 +241,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
                 Player player = UnusualPrehistory2.PROXY.getClientSidePlayer();
                 if (player != null && player.isPassengerOfSameVehicle(this)) {
                     if (UnusualPrehistory2.PROXY.isKeyDown(3) && this.getPose() != UP2Poses.ATTACKING.get()) {
-                        UP2Network.sendPacketToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
+                        PacketDistributor.sendToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 3));
                     }
                 }
             }
@@ -251,7 +251,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     private void biteNearbyEntities(double radius) {
         List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), this, this.getBoundingBox().inflate(radius));
         if (!nearbyEntities.isEmpty()) {
-            LivingEntity entity = nearbyEntities.get(0);
+            LivingEntity entity = nearbyEntities.getFirst();
             if (!entity.is(this) && !this.isAlliedTo(entity)) {
                 this.doHurtTarget(entity);
                 this.swing(InteractionHand.MAIN_HAND);

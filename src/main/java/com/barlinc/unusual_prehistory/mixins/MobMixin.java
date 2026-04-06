@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.mixins;
 
 import com.barlinc.unusual_prehistory.utils.MobAccessor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Mob;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -11,9 +11,10 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class MobMixin implements MobAccessor {
 
     @Shadow
-    protected abstract void dropCustomDeathLoot(@NotNull DamageSource source, int looting, boolean hitByPlayer);
+    protected abstract void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill);
 
-    public void unusualPrehistory2$dropCustomDeathLoot(DamageSource damageSource, int looting, boolean hitByPlayer) {
-        this.dropCustomDeathLoot(damageSource, looting, hitByPlayer);
+    @Override
+    public void unusualPrehistory2$dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill) {
+        this.dropCustomDeathLoot(serverLevel, damageSource, playerKill);
     }
 }

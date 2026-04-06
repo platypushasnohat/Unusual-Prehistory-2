@@ -21,10 +21,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
 public class StructureFeature extends Feature<StructureFeatureConfig> {
 
-    private static final ResourceLocation EMPTY = new ResourceLocation("minecraft", "empty");
+    private static final ResourceLocation EMPTY = ResourceLocation.withDefaultNamespace("empty");
 
     public StructureFeature(Codec<StructureFeatureConfig> configFactory) {
         super(configFactory);

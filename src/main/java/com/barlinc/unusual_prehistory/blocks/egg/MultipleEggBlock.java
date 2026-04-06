@@ -29,8 +29,8 @@ public class MultipleEggBlock extends EggBlock {
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
     private final int maxEggs;
 
-    public MultipleEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int maxEggs, int widthPx, int heightPx, int multipleWidthPx, int multipleHeightPx, boolean canTrample) {
-        super(properties, hatchedEntity, widthPx, heightPx, canTrample);
+    public MultipleEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int maxEggs, int widthPx, int heightPx, int multipleWidthPx, int multipleHeightPx) {
+        super(properties, hatchedEntity, widthPx, heightPx);
         this.maxEggs = maxEggs;
         int px = (16 - multipleWidthPx) / 2;
         this.multipleShape = Block.box(px, 0, px, 16 - px, multipleHeightPx, 16 - px);

@@ -20,8 +20,8 @@ public class RotatableEggBlock extends EggBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public RotatableEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx, boolean canTrample) {
-        super(properties, hatchedEntity, widthPx, heightPx, canTrample);
+    public RotatableEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx) {
+        super(properties, hatchedEntity, widthPx, heightPx);
         this.registerDefaultState(this.defaultBlockState().setValue(HATCH, 0).setValue(FACING, Direction.NORTH));
     }
 

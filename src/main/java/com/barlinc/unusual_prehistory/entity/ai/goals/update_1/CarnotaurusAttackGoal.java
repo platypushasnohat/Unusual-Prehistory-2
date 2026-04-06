@@ -173,7 +173,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
         this.timer++;
         LivingEntity target = carnotaurus.getTarget();
         int speedFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SPEED) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() + 1 : 0;
-        int furyFactor = carnotaurus.hasEffect(UP2MobEffects.FURY) ? carnotaurus.getEffect(UP2MobEffects.FURY).getAmplifier() + 1 : 0;
+        int furyFactor = carnotaurus.isFurious() ? carnotaurus.getEffect(UP2MobEffects.FURY).getAmplifier() + 1 : 0;
         int slownessFactor = carnotaurus.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? carnotaurus.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
         float effectSpeed = 0.1F * (speedFactor - slownessFactor);
         float effectFury = 0.1F * (furyFactor - slownessFactor);

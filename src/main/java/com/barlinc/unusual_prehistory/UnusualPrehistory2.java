@@ -5,6 +5,8 @@ import com.barlinc.unusual_prehistory.datagen.client.UP2ItemModelProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2LanguageProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2SoundDefinitionsProvider;
 import com.barlinc.unusual_prehistory.datagen.server.*;
+import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
+import com.barlinc.unusual_prehistory.network.ParticlePacket;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import com.barlinc.unusual_prehistory.utils.CommonProxy;
@@ -23,6 +25,8 @@ import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 
 import java.util.Locale;
@@ -39,6 +43,7 @@ public class UnusualPrehistory2 {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(this::loadComplete);
+        modEventBus.addListener(this::packetSetup);
         modEventBus.addListener(this::dataSetup);
 
         UP2Entities.ENTITY_TYPE.register(modEventBus);
@@ -67,7 +72,6 @@ public class UnusualPrehistory2 {
 
     public void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(UP2Compat::registerCompat);
-        UP2Network.registerNetwork();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -77,6 +81,16 @@ public class UnusualPrehistory2 {
     private void loadComplete(FMLLoadCompleteEvent event) {
         event.enqueueWork(UP2Fluids::postInit);
         event.enqueueWork(UP2LoadedMods::afterAllModsLoaded);
+    }
+
+    public void packetSetup(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar(MOD_ID).versioned("1.0.0").optional();
+
+        // Client
+        registrar.playToClient(ParticlePacket.TYPE, ParticlePacket.CODEC, ParticlePacket::handle);
+
+        // Server
+        registrar.playToServer(MountedEntityKeyPacket.TYPE, MountedEntityKeyPacket.CODEC, MountedEntityKeyPacket::handle);
     }
 
     private void dataSetup(GatherDataEvent data) {

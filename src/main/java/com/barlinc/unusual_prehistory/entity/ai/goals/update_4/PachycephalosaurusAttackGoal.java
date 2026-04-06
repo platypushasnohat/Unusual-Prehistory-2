@@ -138,7 +138,7 @@ public class PachycephalosaurusAttackGoal extends AttackGoal {
         }
         entity.knockback((knockbackForce * speedForce) * 1.5F, knockbackDirection.x(), knockbackDirection.z());
         if (entity.isDamageSourceBlocked(pachycephalosaurus.damageSources().mobAttack(pachycephalosaurus)) && entity instanceof Player player) {
-            player.disableShield(true);
+            player.disableShield();
             this.bonkAndRecover(true);
         }
         this.pachycephalosaurus.swing(InteractionHand.MAIN_HAND);

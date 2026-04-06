@@ -5,9 +5,12 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -46,16 +49,14 @@ import java.util.function.Supplier;
 
 public class EggBlock extends BaseEntityBlock {
 
-    public static final MapCodec<EggBlock> CODEC = simpleCodec(EggBlock::new);
+    public static final MapCodec<EggBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(propertiesCodec(), BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(block -> block.hatchedEntity.get()), Codec.INT.fieldOf("width").forGetter(block -> (int) (block.shape.bounds().getXsize() * 16)), Codec.INT.fieldOf("height").forGetter(block -> (int) (block.shape.bounds().getYsize() * 16))).apply(instance, (properties, entityType, width, height) -> new EggBlock(properties, () -> entityType, width, height)));
 
     public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
     protected final VoxelShape shape;
     private final Supplier<EntityType<?>> hatchedEntity;
-    private final boolean canTrample;
 
-    public EggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx, boolean canTrample) {
+    public EggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx) {
         super(properties);
-        this.canTrample = canTrample;
         this.hatchedEntity = hatchedEntity;
         int px = (16 - widthPx) / 2;
         this.shape = Block.box(px, 0, px, 16 - px, heightPx, 16 - px);
@@ -76,9 +77,9 @@ public class EggBlock extends BaseEntityBlock {
 
     @Override
     public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, float fallDistance) {
-        if (!(entity instanceof Zombie)) {
-            this.tryTrample(level, pos, entity, 3);
-        }
+//        if (!(entity instanceof Zombie)) {
+//            this.tryTrample(level, pos, entity, 3);
+//        }
         super.fallOn(level, state, pos, entity, fallDistance);
     }
 
@@ -177,7 +178,7 @@ public class EggBlock extends BaseEntityBlock {
         if (!(trampler instanceof LivingEntity)) {
             return false;
         } else {
-            return (trampler instanceof Player || EventHooks.canEntityGrief(level, trampler)) && this.canTrample;
+            return (trampler instanceof Player || EventHooks.canEntityGrief(level, trampler));
         }
     }
 
@@ -190,7 +191,7 @@ public class EggBlock extends BaseEntityBlock {
                 level.levelEvent(3009, pos, 0);
             }
             if (preventsHatch) {
-                UP2ParticleUtils.queueParticlesOnBlockFaces(level, pos, UP2Particles.SNOWFLAKE.get(), UniformInt.of(3, 6));
+                UP2ParticleUtils.queueParticlesOnBlockFaces((ServerLevel) level, pos, UP2Particles.SNOWFLAKE.get(), UniformInt.of(3, 6));
             }
         }
         int hatchTime = hatchBoost ? 12000 : 24000;

@@ -60,10 +60,8 @@ public class CycadSeedlingBlock extends PrehistoricPlantBlock implements Bonemea
         if (optional.isEmpty()) {
             return false;
         } else {
-            var event = ForgeEventFactory.blockGrowFeature(level, random, pos, optional.get());
-            if (event.getResult().equals(Event.Result.DENY)) return false;
             level.removeBlock(pos, false);
-            if (event.getFeature().value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
+            if (optional.get().value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
                 return true;
             } else {
                 level.setBlock(pos, state, 3);

@@ -3,18 +3,18 @@ package com.barlinc.unusual_prehistory.integration.jei;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
+import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
+import com.barlinc.unusual_prehistory.screens.TransmogrifierMenu;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -42,7 +42,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<TransmogrificationRecipe> transmogrificationRecipes = recipeManager.getAllRecipesFor(UP2Recipes.TRANSMOGRIFICATION.get());
+        List<TransmogrificationRecipe> transmogrificationRecipes = recipeManager.getAllRecipesFor(UP2Recipes.TRANSMOGRIFICATION.get()).stream().map(RecipeHolder::value).toList();
         registration.addRecipes(TRANSMOGRIFICATION, transmogrificationRecipes);
     }
 
@@ -56,8 +56,8 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(TransmogrifierScreen.class, 62, 29, 54, 20, TRANSMOGRIFICATION);
     }
 
-//    @Override
-//    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-//        registration.addRecipeTransferHandler(TransmogrifierMenu.class, UP2MenuTypes.TRANSMOGRIFIER.get(), TRANSMOGRIFICATION, 1, 1, 3, 36);
-//    }
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(TransmogrifierMenu.class, UP2MenuTypes.TRANSMOGRIFIER.get(), TRANSMOGRIFICATION, 1, 1, 3, 36);
+    }
 }

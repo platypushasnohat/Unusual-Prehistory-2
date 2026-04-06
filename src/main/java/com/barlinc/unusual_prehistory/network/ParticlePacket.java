@@ -1,17 +1,19 @@
 package com.barlinc.unusual_prehistory.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 /*
  * This file is part of Twilight Forest, licensed under the LGPL-2.1.
@@ -24,66 +26,61 @@ import java.util.function.Supplier;
  * https://github.com/TeamTwilight/twilightforest
  */
 
-public class ParticlePacket {
-	private final List<QueuedParticle> queuedParticles = new ArrayList<>();
+public class ParticlePacket implements CustomPacketPayload {
+
+    public static final Type<ParticlePacket> TYPE = new Type<>(UnusualPrehistory2.modPrefix("particle_queue"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ParticlePacket> CODEC = CustomPacketPayload.codec(ParticlePacket::write, ParticlePacket::new);
+
+    private final List<QueuedParticle> queuedParticles = new ArrayList<>();
 
 	public ParticlePacket() {
-	}
+    }
 
-	@SuppressWarnings("deprecation")
-	public ParticlePacket(FriendlyByteBuf buf) {
-		int size = buf.readInt();
-		for (int i = 0; i < size; i++) {
-			ParticleType<?> type = BuiltInRegistries.PARTICLE_TYPE.byId(buf.readInt());
-			if (type == null) break;
-			this.queuedParticles.add(new QueuedParticle(readParticle(type, buf), buf.readBoolean(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble()));
-		}
-	}
+	public ParticlePacket(RegistryFriendlyByteBuf buf) {
+        int size = buf.readInt();
+        for (int i = 0; i < size; i++) {
+            ParticleType<?> type = BuiltInRegistries.PARTICLE_TYPE.byId(buf.readInt());
+            if (type == null) break;
+            this.queuedParticles.add(new QueuedParticle(ParticleTypes.STREAM_CODEC.decode(buf), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble()));
+        }
+    }
 
-	private <T extends ParticleOptions> T readParticle(ParticleType<T> particleType, FriendlyByteBuf buf) {
-		return particleType.getDeserializer().fromNetwork(particleType, buf);
-	}
+    public void write(RegistryFriendlyByteBuf buf) {
+        buf.writeInt(this.queuedParticles.size());
+        for (QueuedParticle queuedParticle : this.queuedParticles) {
+            int d = BuiltInRegistries.PARTICLE_TYPE.getId(queuedParticle.particleOptions.getType());
+            buf.writeInt(d);
+            ParticleTypes.STREAM_CODEC.encode(buf, queuedParticle.particleOptions);
+            buf.writeDouble(queuedParticle.x);
+            buf.writeDouble(queuedParticle.y);
+            buf.writeDouble(queuedParticle.z);
+            buf.writeDouble(queuedParticle.x2);
+            buf.writeDouble(queuedParticle.y2);
+            buf.writeDouble(queuedParticle.z2);
+        }
+    }
 
-	@SuppressWarnings("deprecation")
-	public void encode(FriendlyByteBuf buf) {
-		buf.writeInt(this.queuedParticles.size());
-		for (QueuedParticle queuedParticle : this.queuedParticles) {
-			int d = BuiltInRegistries.PARTICLE_TYPE.getId(queuedParticle.particleOptions.getType());
-			buf.writeInt(d);
-			queuedParticle.particleOptions.writeToNetwork(buf);
-			buf.writeBoolean(queuedParticle.b);
-			buf.writeDouble(queuedParticle.x);
-			buf.writeDouble(queuedParticle.y);
-			buf.writeDouble(queuedParticle.z);
-			buf.writeDouble(queuedParticle.x2);
-			buf.writeDouble(queuedParticle.y2);
-			buf.writeDouble(queuedParticle.z2);
-		}
-	}
+    @Override
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
 
-	public void queueParticle(ParticleOptions particleOptions, boolean b, double x, double y, double z, double x2, double y2, double z2) {
-		this.queuedParticles.add(new QueuedParticle(particleOptions, b, x, y, z, x2, y2, z2));
-	}
+    public void queueParticle(ParticleOptions particleOptions, double x, double y, double z, double x2, double y2, double z2) {
+        this.queuedParticles.add(new QueuedParticle(particleOptions, x, y, z, x2, y2, z2));
+    }
 
-	public void queueParticle(ParticleOptions particleOptions, boolean b, Vec3 xyz, Vec3 xyz2) {
-		this.queuedParticles.add(new QueuedParticle(particleOptions, b, xyz.x, xyz.y, xyz.z, xyz2.x, xyz2.y, xyz2.z));
-	}
+    public void queueParticle(ParticleOptions particleOptions, Vec3 xyz, Vec3 xyz2) {
+        this.queuedParticles.add(new QueuedParticle(particleOptions, xyz.x, xyz.y, xyz.z, xyz2.x, xyz2.y, xyz2.z));
+    }
 
-	private record QueuedParticle(ParticleOptions particleOptions, boolean b, double x, double y, double z, double x2, double y2, double z2) {
-	}
+    private record QueuedParticle(ParticleOptions particleOptions, double x, double y, double z, double x2, double y2, double z2) {
+    }
 
-	public static class Handler {
-		public static boolean onMessage(ParticlePacket message, Supplier<NetworkEvent.Context> ctx) {
-			ctx.get().enqueueWork(() -> {
-				ClientLevel level = Minecraft.getInstance().level;
-				if (level == null)
-					return;
-				for (QueuedParticle queuedParticle : message.queuedParticles) {
-					level.addParticle(queuedParticle.particleOptions, queuedParticle.b, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
-				}
-			});
-			ctx.get().setPacketHandled(true);
-			return true;
-		}
-	}
+    public static void handle(ParticlePacket message, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            for (QueuedParticle queuedParticle : message.queuedParticles) {
+                ctx.player().level().addParticle(queuedParticle.particleOptions, queuedParticle.x, queuedParticle.y, queuedParticle.z, queuedParticle.x2, queuedParticle.y2, queuedParticle.z2);
+            }
+        });
+    }
 }

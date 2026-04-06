@@ -21,6 +21,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         super(output, provider, UnusualPrehistory2.MOD_ID, helper);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(@NotNull Provider provider) {
         // Unusual Prehistory
@@ -271,25 +272,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 CYCAD_STEM.get(),
                 CYCAD_CROWN.get(),
 
-                DRYOPHYLLUM_LOG.get(), DRYOPHYLLUM_WOOD.get(),
-                STRIPPED_DRYOPHYLLUM_LOG.get(), STRIPPED_DRYOPHYLLUM_WOOD.get(),
-                DRYOPHYLLUM_PLANKS.get(), DRYOPHYLLUM_STAIRS.get(), DRYOPHYLLUM_SLAB.get(), DRYOPHYLLUM_FENCE.get(), DRYOPHYLLUM_FENCE_GATE.get(), DRYOPHYLLUM_PRESSURE_PLATE.get(), DRYOPHYLLUM_BUTTON.get(),
-                DRYOPHYLLUM_DOOR.get(), DRYOPHYLLUM_TRAPDOOR.get(),
-
-                GINKGO_LOG.get(), GINKGO_WOOD.get(),
-                STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(),
-                GINKGO_PLANKS.get(), GINKGO_STAIRS.get(), GINKGO_SLAB.get(), GINKGO_FENCE.get(), GINKGO_FENCE_GATE.get(), GINKGO_PRESSURE_PLATE.get(), GINKGO_BUTTON.get(),
-                GINKGO_DOOR.get(), GINKGO_TRAPDOOR.get(),
-
-                LEPIDODENDRON_LOG.get(), LEPIDODENDRON_WOOD.get(), MOSSY_LEPIDODENDRON_LOG.get(), MOSSY_LEPIDODENDRON_WOOD.get(),
-                STRIPPED_LEPIDODENDRON_LOG.get(), STRIPPED_LEPIDODENDRON_WOOD.get(),
-                LEPIDODENDRON_PLANKS.get(), LEPIDODENDRON_STAIRS.get(), LEPIDODENDRON_SLAB.get(), LEPIDODENDRON_FENCE.get(), LEPIDODENDRON_FENCE_GATE.get(), LEPIDODENDRON_PRESSURE_PLATE.get(), LEPIDODENDRON_BUTTON.get(),
-                LEPIDODENDRON_DOOR.get(), LEPIDODENDRON_TRAPDOOR.get(),
-
-                METASEQUOIA_LOG.get(), METASEQUOIA_WOOD.get(),
-                STRIPPED_METASEQUOIA_LOG.get(), STRIPPED_METASEQUOIA_WOOD.get(),
-                METASEQUOIA_PLANKS.get(), METASEQUOIA_STAIRS.get(), METASEQUOIA_SLAB.get(), METASEQUOIA_FENCE.get(), METASEQUOIA_FENCE_GATE.get(), METASEQUOIA_PRESSURE_PLATE.get(), METASEQUOIA_BUTTON.get(),
-                METASEQUOIA_DOOR.get(), METASEQUOIA_TRAPDOOR.get()
+                MOSSY_LEPIDODENDRON_LOG.get(), MOSSY_LEPIDODENDRON_WOOD.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
@@ -375,143 +358,39 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 LEPIDODENDRON_LEAVES.get()
         );
 
-        this.tag(BlockTags.LOGS_THAT_BURN).add(
-                DRYOPHYLLUM_LOG.get(),
-                DRYOPHYLLUM_WOOD.get(),
-                STRIPPED_DRYOPHYLLUM_LOG.get(),
-                STRIPPED_DRYOPHYLLUM_WOOD.get(),
-                GINKGO_LOG.get(),
-                GINKGO_WOOD.get(),
-                STRIPPED_GINKGO_LOG.get(),
-                STRIPPED_GINKGO_WOOD.get(),
-                LEPIDODENDRON_LOG.get(),
-                LEPIDODENDRON_WOOD.get(),
-                MOSSY_LEPIDODENDRON_LOG.get(),
-                MOSSY_LEPIDODENDRON_WOOD.get(),
-                STRIPPED_LEPIDODENDRON_LOG.get(),
-                STRIPPED_LEPIDODENDRON_WOOD.get(),
-                METASEQUOIA_LOG.get(),
-                METASEQUOIA_WOOD.get(),
-                STRIPPED_METASEQUOIA_LOG.get(),
-                STRIPPED_METASEQUOIA_WOOD.get()
-        );
+        this.tag(BlockTags.LOGS_THAT_BURN).addTags(UP2BlockTags.LEPIDODENDRON_LOGS, UP2BlockTags.DRYOPHYLLUM_LOGS, UP2BlockTags.GINKGO_LOGS, UP2BlockTags.METASEQUOIA_LOGS);
 
         this.tag(BlockTags.OVERWORLD_NATURAL_LOGS).add(
-                DRYOPHYLLUM_LOG.get(),
-                GINKGO_LOG.get(),
-                LEPIDODENDRON_LOG.get(),
+                DRYOPHYLLUM.log().get(),
+                GINKGO.log().get(),
+                LEPIDODENDRON.log().get(),
                 MOSSY_LEPIDODENDRON_LOG.get(),
-                METASEQUOIA_LOG.get()
+                METASEQUOIA.log().get()
         );
 
-        this.tag(BlockTags.PLANKS).add(
-                DRYOPHYLLUM_PLANKS.get(),
-                GINKGO_PLANKS.get(),
-                LEPIDODENDRON_PLANKS.get(),
-                METASEQUOIA_PLANKS.get()
-        );
-
-        this.tag(BlockTags.WOODEN_STAIRS).add(
-                DRYOPHYLLUM_STAIRS.get(),
-                GINKGO_STAIRS.get(),
-                LEPIDODENDRON_STAIRS.get(),
-                METASEQUOIA_STAIRS.get()
-        );
-
-        this.tag(BlockTags.WOODEN_SLABS).add(
-                DRYOPHYLLUM_SLAB.get(),
-                GINKGO_SLAB.get(),
-                LEPIDODENDRON_SLAB.get(),
-                METASEQUOIA_SLAB.get()
-        );
-
-        this.tag(BlockTags.WOODEN_FENCES).add(
-                DRYOPHYLLUM_FENCE.get(),
-                GINKGO_FENCE.get(),
-                LEPIDODENDRON_FENCE.get(),
-                METASEQUOIA_FENCE.get()
-        );
-
-        this.tag(BlockTags.FENCE_GATES).add(
-                DRYOPHYLLUM_FENCE_GATE.get(),
-                GINKGO_FENCE_GATE.get(),
-                LEPIDODENDRON_FENCE_GATE.get(),
-                METASEQUOIA_FENCE_GATE.get()
-        );
-
-        this.tag(BlockTags.WOODEN_DOORS).add(
-                DRYOPHYLLUM_DOOR.get(),
-                GINKGO_DOOR.get(),
-                LEPIDODENDRON_DOOR.get(),
-                METASEQUOIA_DOOR.get()
-        );
-
-        this.tag(BlockTags.WOODEN_TRAPDOORS).add(
-                DRYOPHYLLUM_TRAPDOOR.get(),
-                GINKGO_TRAPDOOR.get(),
-                LEPIDODENDRON_TRAPDOOR.get(),
-                METASEQUOIA_TRAPDOOR.get()
-        );
-
-        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(
-                DRYOPHYLLUM_PRESSURE_PLATE.get(),
-                GINKGO_PRESSURE_PLATE.get(),
-                LEPIDODENDRON_PRESSURE_PLATE.get(),
-                METASEQUOIA_PRESSURE_PLATE.get()
-        );
-
-        this.tag(BlockTags.WOODEN_BUTTONS).add(
-                DRYOPHYLLUM_BUTTON.get(),
-                GINKGO_BUTTON.get(),
-                LEPIDODENDRON_BUTTON.get(),
-                METASEQUOIA_BUTTON.get()
-        );
-
-        this.tag(BlockTags.STANDING_SIGNS).add(
-                DRYOPHYLLUM_SIGN.get(),
-                GINKGO_SIGN.get(),
-                LEPIDODENDRON_SIGN.get(),
-                METASEQUOIA_SIGN.get()
-        );
-
-        this.tag(BlockTags.WALL_SIGNS).add(
-                DRYOPHYLLUM_WALL_SIGN.get(),
-                GINKGO_WALL_SIGN.get(),
-                LEPIDODENDRON_WALL_SIGN.get(),
-                METASEQUOIA_WALL_SIGN.get()
-        );
-
-        this.tag(BlockTags.CEILING_HANGING_SIGNS).add(
-                DRYOPHYLLUM_HANGING_SIGN.get(),
-                GINKGO_HANGING_SIGN.get(),
-                LEPIDODENDRON_HANGING_SIGN.get(),
-                METASEQUOIA_HANGING_SIGN.get()
-        );
-
-        this.tag(BlockTags.WALL_HANGING_SIGNS).add(
-                DRYOPHYLLUM_WALL_HANGING_SIGN.get(),
-                GINKGO_WALL_HANGING_SIGN.get(),
-                LEPIDODENDRON_WALL_HANGING_SIGN.get(),
-                METASEQUOIA_WALL_HANGING_SIGN.get()
-        );
+        for (WoodSet woodset : WOOD_SETS) {
+            this.tag(BlockTags.STANDING_SIGNS).add(woodset.sign().get());
+            this.tag(BlockTags.WALL_SIGNS).add(woodset.wallSign().get());
+            this.tag(BlockTags.CEILING_HANGING_SIGNS).add(woodset.hangingSign().get());
+            this.tag(BlockTags.WALL_HANGING_SIGNS).add(woodset.hangingWallSign().get());
+            this.tag(BlockTags.PLANKS).add(woodset.planks().get());
+            this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(woodset.fenceGate().get());
+            this.tag(BlockTags.FENCE_GATES).add(woodset.fenceGate().get());
+            this.tag(Tags.Blocks.FENCES_WOODEN).add(woodset.fence().get());
+            this.tag(BlockTags.WOODEN_FENCES).add(woodset.fence().get());
+            this.tag(BlockTags.WOODEN_STAIRS).add(woodset.stairs().get());
+            this.tag(BlockTags.WOODEN_BUTTONS).add(woodset.button().get());
+            this.tag(BlockTags.WOODEN_DOORS).add(woodset.door().get());
+            this.tag(BlockTags.WOODEN_SLABS).add(woodset.slab().get());
+            this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(woodset.pressurePlate().get());
+            this.tag(BlockTags.WOODEN_TRAPDOORS).add(woodset.trapdoor().get());
+            this.tag(BlockTags.LOGS).add(woodset.log().get());
+            this.tag(Tags.Blocks.STRIPPED_LOGS).add(woodset.strippedLog().get());
+            this.tag(Tags.Blocks.STRIPPED_WOODS).add(woodset.strippedWood().get());
+        }
 
         this.tag(BlockTags.CAULDRONS).add(
                 OOZE_CAULDRON.get()
-        );
-
-        // forge
-        this.tag(Tags.Blocks.FENCE_GATES).add(
-                DRYOPHYLLUM_FENCE_GATE.get(),
-                GINKGO_FENCE_GATE.get(),
-                LEPIDODENDRON_FENCE_GATE.get(),
-                METASEQUOIA_FENCE_GATE.get()
-        );
-
-        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(
-                DRYOPHYLLUM_FENCE_GATE.get(),
-                GINKGO_FENCE_GATE.get(),
-                LEPIDODENDRON_FENCE_GATE.get(),
-                METASEQUOIA_FENCE_GATE.get()
         );
     }
 }

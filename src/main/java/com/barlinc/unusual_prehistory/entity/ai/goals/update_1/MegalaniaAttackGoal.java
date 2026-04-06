@@ -127,7 +127,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
                 entity.hurt(entity.damageSources().mobAttack(megalania), (float) megalania.getAttributeValue(Attributes.ATTACK_DAMAGE));
                 this.megalania.strongKnockback(entity, 1.3D, 0.2D);
                 if (entity.isDamageSourceBlocked(megalania.damageSources().mobAttack(megalania)) && entity instanceof Player player) {
-                    player.disableShield(true);
+                    player.disableShield();
                 }
                 this.megalania.swing(InteractionHand.MAIN_HAND);
             });

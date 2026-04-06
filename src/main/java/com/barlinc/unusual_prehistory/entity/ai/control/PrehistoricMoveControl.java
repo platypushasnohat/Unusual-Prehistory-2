@@ -85,7 +85,7 @@ public class PrehistoricMoveControl extends MoveControl {
         BlockPos blockpos = mob.blockPosition();
         BlockState blockstate = mob.level().getBlockState(blockpos);
         VoxelShape voxelshape = blockstate.getCollisionShape(mob.level(), blockpos);
-        if (y > (double) mob.getStepHeight() && x * x + z * z < (double) Math.max(1.0F, mob.getBbWidth()) || !voxelshape.isEmpty() && mob.getY() < voxelshape.max(Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.is(BlockTags.DOORS) && !blockstate.is(BlockTags.FENCES)) {
+        if (y > (double) mob.maxUpStep() && x * x + z * z < (double) Math.max(1.0F, mob.getBbWidth()) || !voxelshape.isEmpty() && mob.getY() < voxelshape.max(Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.is(BlockTags.DOORS) && !blockstate.is(BlockTags.FENCES)) {
             this.mob.getJumpControl().jump();
             this.operation = MoveControl.Operation.JUMPING;
         }

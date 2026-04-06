@@ -22,29 +22,13 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.RAIGUENRAYUN.get(), 60, 100);
         registerFlammable(UP2Blocks.RHYNIA.get(), 60, 100);
 
-        registerFlammable(UP2Blocks.GINKGO_LOG.get(), 5, 3);
-        registerFlammable(UP2Blocks.GINKGO_WOOD.get(), 5, 3);
-        registerFlammable(UP2Blocks.STRIPPED_GINKGO_LOG.get(), 5, 3);
-        registerFlammable(UP2Blocks.STRIPPED_GINKGO_WOOD.get(), 5, 3);
-        registerFlammable(UP2Blocks.GINKGO_PLANKS.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_SLAB.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_STAIRS.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_FENCE.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_FENCE_GATE.get(), 5, 15);
-        registerFlammable(UP2Blocks.GINKGO_LEAVES.get(), 30, 50);
-        registerFlammable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 30, 50);
+        UP2Blocks.GINKGO.setFlammables();
+        registerFlammable(UP2Blocks.GINKGO_LEAVES.get(), 30, 60);
+        registerFlammable(UP2Blocks.GOLDEN_GINKGO_LEAVES.get(), 30, 60);
 
-        registerFlammable(UP2Blocks.LEPIDODENDRON_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_WOOD.get(), 5, 5);
+        UP2Blocks.LEPIDODENDRON.setFlammables();
         registerFlammable(UP2Blocks.MOSSY_LEPIDODENDRON_LOG.get(), 5, 5);
         registerFlammable(UP2Blocks.MOSSY_LEPIDODENDRON_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_LEPIDODENDRON_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_LEPIDODENDRON_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_PLANKS.get(), 5, 20);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_SLAB.get(), 5, 20);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_STAIRS.get(), 5, 20);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE.get(), 5, 20);
-        registerFlammable(UP2Blocks.LEPIDODENDRON_FENCE_GATE.get(), 5, 20);
         registerFlammable(UP2Blocks.LEPIDODENDRON_LEAVES.get(), 30, 60);
 
         // Update 4
@@ -61,26 +45,10 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.CYCAD_CROWN.get(), 20, 100);
         registerFlammable(UP2Blocks.CYCAD_SEEDLING.get(), 20, 100);
 
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_DRYOPHYLLUM_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_DRYOPHYLLUM_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_PLANKS.get(), 5, 20);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_SLAB.get(), 5, 20);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_STAIRS.get(), 5, 20);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_FENCE.get(), 5, 20);
-        registerFlammable(UP2Blocks.DRYOPHYLLUM_FENCE_GATE.get(), 5, 20);
+        UP2Blocks.DRYOPHYLLUM.setFlammables();
         registerFlammable(UP2Blocks.DRYOPHYLLUM_LEAVES.get(), 30, 60);
 
-        registerFlammable(UP2Blocks.METASEQUOIA_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.METASEQUOIA_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_METASEQUOIA_LOG.get(), 5, 5);
-        registerFlammable(UP2Blocks.STRIPPED_METASEQUOIA_WOOD.get(), 5, 5);
-        registerFlammable(UP2Blocks.METASEQUOIA_PLANKS.get(), 5, 20);
-        registerFlammable(UP2Blocks.METASEQUOIA_SLAB.get(), 5, 20);
-        registerFlammable(UP2Blocks.METASEQUOIA_STAIRS.get(), 5, 20);
-        registerFlammable(UP2Blocks.METASEQUOIA_FENCE.get(), 5, 20);
-        registerFlammable(UP2Blocks.METASEQUOIA_FENCE_GATE.get(), 5, 20);
+        UP2Blocks.METASEQUOIA.setFlammables();
         registerFlammable(UP2Blocks.METASEQUOIA_LEAVES.get(), 30, 60);
 
         // Update 5

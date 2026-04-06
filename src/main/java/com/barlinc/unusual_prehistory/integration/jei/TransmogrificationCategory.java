@@ -18,9 +18,12 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("removal")
@@ -85,8 +88,18 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, TransmogrificationRecipe recipe, @NotNull IFocusGroup foci) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 5, 3).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 5, 3).addIngredients(recipe.getIngredients().getFirst());
         builder.addSlot(RecipeIngredientRole.INPUT, 50, 31).addItemStack(new ItemStack(UP2Items.ORGANIC_OOZE.get()));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 3).addItemStack(recipe.getJEIResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 3).addItemStack(getResultItem(recipe));
+    }
+
+    public static ItemStack getResultItem(Recipe<?> recipe) {
+        Minecraft minecraft = Minecraft.getInstance();
+        ClientLevel level = minecraft.level;
+        if (level == null) {
+            throw new NullPointerException("level must not be null.");
+        }
+        RegistryAccess registryAccess = level.registryAccess();
+        return recipe.getResultItem(registryAccess);
     }
 }

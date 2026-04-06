@@ -28,8 +28,6 @@ public class LivingOozeBucketItem extends MobBucketItem {
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         BlockHitResult blockhitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-        InteractionResultHolder<ItemStack> onBucketUse = ForgeEventFactory.onBucketUse(player, level, itemstack, blockhitresult);
-        if (onBucketUse != null) return onBucketUse;
         if (blockhitresult.getType() == HitResult.Type.MISS) {
             return InteractionResultHolder.pass(itemstack);
         } else if (blockhitresult.getType() != HitResult.Type.BLOCK) {

@@ -36,8 +36,8 @@ public class TallEggBlock extends EggBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     private final VoxelShape upperShape;
 
-    public TallEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx, int topWidthPx, int topHeightPx, boolean canTrample) {
-        super(properties, hatchedEntity, widthPx, heightPx, canTrample);
+    public TallEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx, int topWidthPx, int topHeightPx) {
+        super(properties, hatchedEntity, widthPx, heightPx);
         int px = (16 - topWidthPx) / 2;
         this.upperShape = Block.box(px, 0, px, 16 - px, topHeightPx, 16 - px);
         this.registerDefaultState((this.stateDefinition.any()).setValue(HALF, DoubleBlockHalf.LOWER).setValue(HATCH, 0));

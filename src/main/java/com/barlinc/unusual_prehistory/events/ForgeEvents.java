@@ -14,7 +14,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.MobAccessor;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,6 +28,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.EventPriority;
@@ -113,11 +114,8 @@ public class ForgeEvents {
         if (event.getSource().is(UP2DamageTypes.EXECUTE) && !entity.level().isClientSide) {
             if (entity instanceof Player player) {
                 ItemStack itemstack = new ItemStack(Items.PLAYER_HEAD);
-                CompoundTag compoundTag = new CompoundTag();
                 GameProfile profile = player.getGameProfile();
-                compoundTag.putUUID("Id", profile.getId());
-                compoundTag.putString("Name", profile.getName());
-                itemstack.getOrCreateTag().put("SkullOwner", compoundTag);
+                itemstack.set(DataComponents.PROFILE, new ResolvableProfile(profile));
                 player.spawnAtLocation(itemstack);
             } else if (entity instanceof Mob mob && mob.level().getRandom().nextFloat() < 0.1F) {
                 Creeper fakeCreeperForSkullDrop = EntityType.CREEPER.create(mob.level());
@@ -131,7 +129,9 @@ public class ForgeEvents {
                     }
                     DamageSource fakeCreeperDamage = mob.level().damageSources().mobAttack(fakeCreeperForSkullDrop);
                     MobAccessor accessor = (MobAccessor) mob;
-                    accessor.unusualPrehistory2$dropCustomDeathLoot(fakeCreeperDamage, 0, false);
+                    if (mob.level() instanceof ServerLevel serverLevel2) {
+                        accessor.unusualPrehistory2$dropCustomDeathLoot(serverLevel2, fakeCreeperDamage, false);
+                    }
                 }
             }
         }

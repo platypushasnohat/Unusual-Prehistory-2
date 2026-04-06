@@ -9,10 +9,14 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Grug;
 import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
+import com.barlinc.unusual_prehistory.mixins.client.SoundEngineAccessor;
+import com.barlinc.unusual_prehistory.mixins.client.SoundManagerAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -165,7 +169,10 @@ public class ClientProxy extends CommonProxy {
     }
 
     private boolean isSoundPlaying(AbstractTickableSoundInstance sound) {
-        return Minecraft.getInstance().getSoundManager().soundEngine.queuedTickableSounds.contains(sound) || Minecraft.getInstance().getSoundManager().soundEngine.tickingSounds.contains(sound);
+        SoundManager soundManager = Minecraft.getInstance().getSoundManager();
+        SoundEngine soundEngine = ((SoundManagerAccessor) soundManager).getSoundEngine();
+        SoundEngineAccessor engineAccessor = (SoundEngineAccessor) soundEngine;
+        return engineAccessor.getQueuedTickableSounds().contains(sound) || engineAccessor.getTickingSounds().contains(sound);
     }
 
     @Override
