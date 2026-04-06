@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_jawless_fish",
+  "criteria": {
+    "revive_stethacanthus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:stethacanthus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_stethacanthus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:stethacanthus_sac"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_stethacanthus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_stethacanthus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

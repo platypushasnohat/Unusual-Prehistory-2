@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:holocene_root",
+  "criteria": {
+    "revive_talpanas": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:talpanas"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_talpanas.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:talpanas_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_talpanas.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_talpanas"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "criteria": {
+    "living_ooze_bucket": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:living_ooze_bucket"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.unusual_prehistory.obtain_living_ooze.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:living_ooze_bucket"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.unusual_prehistory.obtain_living_ooze.title"
+    }
+  },
+  "requirements": [
+    [
+      "living_ooze_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "unusual_prehistory:fossilized_bone_block"
-  },
-  "result": "unusual_prehistory:fossilized_bone_vertebra"
-}

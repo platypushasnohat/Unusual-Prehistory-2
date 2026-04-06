@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_desmatosuchus",
+  "criteria": {
+    "revive_lystrosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:lystrosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_lystrosaurus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:lystrosaurus_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_lystrosaurus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_lystrosaurus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

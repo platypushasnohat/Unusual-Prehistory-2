@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "open_book_creative": {
+      "trigger": "unusual_prehistory:open_book_creative_mode"
+    }
+  },
+  "requirements": [
+    [
+      "open_book_creative"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

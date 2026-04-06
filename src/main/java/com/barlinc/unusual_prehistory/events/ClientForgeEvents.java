@@ -9,7 +9,6 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
@@ -20,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber()
 public class ClientForgeEvents {
 
     private static float shakeAmount;

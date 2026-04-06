@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:triassic_root",
+  "criteria": {
+    "revive_desmatosuchus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:desmatosuchus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_desmatosuchus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:desmatosuchus_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_desmatosuchus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_desmatosuchus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

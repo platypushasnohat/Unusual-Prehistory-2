@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_stethacanthus",
+  "criteria": {
+    "revive_tartuosteus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:tartuosteus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_tartuosteus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:tartuosteus_roe"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_tartuosteus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_tartuosteus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

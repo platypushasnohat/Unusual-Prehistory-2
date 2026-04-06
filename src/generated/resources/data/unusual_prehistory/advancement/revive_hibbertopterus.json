@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_diplocaulus",
+  "criteria": {
+    "revive_hibbertopterus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:hibbertopterus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_hibbertopterus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:hibbertopterus_eggs"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_hibbertopterus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_hibbertopterus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

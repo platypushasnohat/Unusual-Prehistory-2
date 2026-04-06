@@ -56,7 +56,7 @@ public class ClientModEvents {
     }
 
     @SubscribeEvent
-    public void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
+    public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
         event.register(UP2MenuTypes.TRANSMOGRIFIER.get(), TransmogrifierScreen::new);
     }
 

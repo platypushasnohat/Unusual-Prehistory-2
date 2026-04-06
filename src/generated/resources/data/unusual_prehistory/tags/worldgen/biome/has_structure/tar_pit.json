@@ -4,6 +4,6 @@
     "#minecraft:is_forest",
     "#minecraft:is_jungle",
     "#minecraft:is_savanna",
-    "#forge:is_plains"
+    "#c:is_plains"
   ]
 }

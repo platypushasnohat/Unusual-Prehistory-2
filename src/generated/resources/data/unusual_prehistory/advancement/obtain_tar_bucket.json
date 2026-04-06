@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_tar_bucket": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:tar_bucket"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_tar_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

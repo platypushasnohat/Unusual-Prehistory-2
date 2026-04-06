@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:permian_root",
+  "criteria": {
+    "revive_coelacanthus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:coelacanthus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_coelacanthus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:coelacanthus_roe"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_coelacanthus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_coelacanthus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

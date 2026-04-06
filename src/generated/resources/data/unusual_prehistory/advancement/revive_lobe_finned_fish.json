@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_hibbertopterus",
+  "criteria": {
+    "revive_lobe_finned_fish": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:lobe_finned_fish"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_lobe_finned_fish.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:lobe_finned_fish_roe"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_lobe_finned_fish.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_lobe_finned_fish"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_pachycephalosaurus",
+  "criteria": {
+    "revive_ulughbegsaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:ulughbegsaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:ulughbegsaurus_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_ulughbegsaurus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

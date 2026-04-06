@@ -1,0 +1,34 @@
+{
+  "parent": "unusual_prehistory:obtain_machine_parts",
+  "criteria": {
+    "transmogrifier": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:transmogrifier"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.obtain_transmogrifier.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:transmogrifier"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.obtain_transmogrifier.title"
+    }
+  },
+  "requirements": [
+    [
+      "transmogrifier"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

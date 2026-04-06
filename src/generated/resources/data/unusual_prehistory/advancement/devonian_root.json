@@ -1,0 +1,35 @@
+{
+  "parent": "unusual_prehistory:paleozoic_root",
+  "criteria": {
+    "eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#unusual_prehistory:paleozoic_eggs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.unusual_prehistory.devonian_root.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:period_devonian"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.unusual_prehistory.devonian_root"
+    }
+  },
+  "requirements": [
+    [
+      "eggs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

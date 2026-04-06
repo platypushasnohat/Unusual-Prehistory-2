@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/fence_inventory",
-  "textures": {
-    "texture": "unusual_prehistory:block/metasequoia_planks"
-  }
+  "parent": "unusual_prehistory:block/metasequoia_fence_inventory"
 }

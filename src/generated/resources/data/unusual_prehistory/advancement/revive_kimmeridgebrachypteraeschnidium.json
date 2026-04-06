@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_kentrosaurus",
+  "criteria": {
+    "revive_kimmeridgebrachypteraeschnidium": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_kimmeridgebrachypteraeschnidium.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_kimmeridgebrachypteraeschnidium.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_kimmeridgebrachypteraeschnidium"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

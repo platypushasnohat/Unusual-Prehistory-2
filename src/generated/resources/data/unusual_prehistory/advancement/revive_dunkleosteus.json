@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:devonian_root",
+  "criteria": {
+    "revive_dunkleosteus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:dunkleosteus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_dunkleosteus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:dunkleosteus_sac"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_dunkleosteus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_dunkleosteus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

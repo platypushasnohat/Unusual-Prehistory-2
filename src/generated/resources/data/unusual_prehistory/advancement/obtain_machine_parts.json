@@ -1,0 +1,33 @@
+{
+  "parent": "unusual_prehistory:obtain_fossil",
+  "criteria": {
+    "machine_parts": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:machine_parts"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.obtain_machine_parts.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:machine_parts"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.obtain_machine_parts.title"
+    }
+  },
+  "requirements": [
+    [
+      "machine_parts"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -18,25 +18,23 @@ import java.util.List;
 @Mixin(Pose.class)
 public class PoseMixin {
 
-    // todo: change to enum extension when on 1.21.1
+    @Invoker("<init>")
+    private static Pose unusualPrehistory2$newPose(String internalName, int internalIndex, int index) {
+        throw new AssertionError();
+    }
 
     @Shadow
     @Mutable
     @Final
     private static Pose[] $VALUES;
 
-    @Invoker("<init>")
-    public static Pose unusualPrehistory2$newPose(String name, int id) {
-        throw new AssertionError();
-    }
-
     @Inject(method = "<clinit>", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/Pose;$VALUES:[Lnet/minecraft/world/entity/Pose;", shift = At.Shift.AFTER))
-    private static void unusualPrehistory2$addCustomPose(CallbackInfo ci) {
+    private static void unusualPrehistory2$addCustomEntityPoses(CallbackInfo ci) {
         List<Pose> poses = new ArrayList<>(Arrays.asList($VALUES));
         Pose last = poses.get(poses.size() - 1);
         int i = 1;
         for (UP2Poses pose : UP2Poses.values()) {
-            poses.add(unusualPrehistory2$newPose(pose.name(), last.ordinal() + i));
+            poses.add(unusualPrehistory2$newPose(pose.name(), last.ordinal() + i, last.id() + i));
             i++;
         }
         $VALUES = poses.toArray(new Pose[0]);

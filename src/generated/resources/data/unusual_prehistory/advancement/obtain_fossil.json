@@ -1,0 +1,33 @@
+{
+  "parent": "unusual_prehistory:root",
+  "criteria": {
+    "fossils": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#unusual_prehistory:fossils"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.obtain_fossil.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:unknown_fossil"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.obtain_fossil.title"
+    }
+  },
+  "requirements": [
+    [
+      "fossils"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

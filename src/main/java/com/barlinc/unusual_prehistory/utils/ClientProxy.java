@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.utils;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.client.sounds.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
@@ -22,14 +21,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, value = Dist.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     public static final Int2ObjectMap<AbstractTickableSoundInstance> ENTITY_SOUND_INSTANCE_MAP = new Int2ObjectOpenHashMap<>();

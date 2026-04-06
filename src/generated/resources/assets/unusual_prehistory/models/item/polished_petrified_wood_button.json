@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "unusual_prehistory:block/polished_petrified_wood"
-  }
+  "parent": "unusual_prehistory:block/polished_petrified_wood_button_inventory"
 }

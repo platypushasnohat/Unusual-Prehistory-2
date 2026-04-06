@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_majungasaurus",
+  "criteria": {
+    "revive_mosasaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:mosasaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_mosasaurus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:mosasaurus_embryo"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_mosasaurus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_mosasaurus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

@@ -1,3 +1,40 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "UNUSUAL_PREHISTORY_GINKGO",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "GINKGO_BOAT_TYPE"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "UNUSUAL_PREHISTORY_LEPIDODENDRON",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "LEPIDODENDRON_BOAT_TYPE"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "UNUSUAL_PREHISTORY_DRYOPHYLLUM",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "DRYOPHYLLUM_BOAT_TYPE"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "UNUSUAL_PREHISTORY_METASEQUOIA",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "METASEQUOIA_BOAT_TYPE"
+      }
+    }
+  ]
 }

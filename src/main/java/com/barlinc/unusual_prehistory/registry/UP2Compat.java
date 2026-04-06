@@ -1,6 +1,19 @@
 package com.barlinc.unusual_prehistory.registry;
 
+import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class UP2Compat {
 
@@ -58,15 +71,32 @@ public class UP2Compat {
 
     public static void registerDispenserBehaviours() {
         // Update 1
-        DispenserBlock.registerProjectileBehavior(UP2Items.DROMAEOSAURUS_EGG);
-        DispenserBlock.registerProjectileBehavior(UP2Items.TALPANAS_EGG);
-        DispenserBlock.registerProjectileBehavior(UP2Items.TELECREX_EGG);
+        registerEggDispenserBehaviour(UP2Items.DROMAEOSAURUS_EGG, UP2Entities.DROMAEOSAURUS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.TALPANAS_EGG, UP2Entities.TALPANAS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.TELECREX_EGG, UP2Entities.TELECREX_EGG::get);
 
         // Update 4
-        DispenserBlock.registerProjectileBehavior(UP2Items.PTERODACTYLUS_EGG);
+        registerEggDispenserBehaviour(UP2Items.PTERODACTYLUS_EGG, UP2Entities.PTERODACTYLUS_EGG::get);
 
         // Update 5
-        DispenserBlock.registerProjectileBehavior(UP2Items.PSILOPTERUS_EGG);
+        registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
+    }
+
+    public static void registerEggDispenserBehaviour(Supplier<Item> itemSupplier, Supplier<EntityType<? extends ThrowableEgg>> entityTypeSupplier) {
+        DispenserBlock.registerBehavior(itemSupplier.get(), new DispenseItemBehavior() {
+            @Override
+            public @NotNull ItemStack dispense(@NotNull BlockSource source, @NotNull ItemStack stack) {
+                Level level = source.level();
+                ThrowableEgg egg = entityTypeSupplier.get().create(level);
+                if (egg != null) {
+                    BlockPos pos = source.pos();
+                    egg.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+                    level.addFreshEntity(egg);
+                }
+                stack.shrink(1);
+                return stack;
+            }
+        });
     }
 
     public static void registerFlammable(Block block, int encouragement, int flammability) {

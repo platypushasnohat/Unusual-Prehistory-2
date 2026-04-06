@@ -1,0 +1,34 @@
+{
+  "parent": "unusual_prehistory:obtain_organic_ooze",
+  "criteria": {
+    "eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#unusual_prehistory:eggs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.unusual_prehistory.obtain_egg.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:unknown_egg"
+    },
+    "title": {
+      "translate": "advancement.unusual_prehistory.obtain_egg"
+    }
+  },
+  "requirements": [
+    [
+      "eggs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

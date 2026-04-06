@@ -71,8 +71,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.leavesBlock(METASEQUOIA_LEAVES);
 
         this.cubeColumnBlock(FOSSILIZED_BONE_BLOCK);
-        this.cubeColumnBlock(FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.modPrefix("fossilized_bone_vertebra"), UnusualPrehistory2.modPrefix("fossilized_bone_block_top"));
-        this.cubeColumnBlock(FOSSILIZED_BONE_BARK, UnusualPrehistory2.modPrefix("fossilized_bone_block"), UnusualPrehistory2.modPrefix("fossilized_bone_block"));
+//        this.cubeColumnBlock(FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.modPrefix("fossilized_bone_vertebra"), UnusualPrehistory2.modPrefix("fossilized_bone_block_top"));
+//        this.cubeColumnBlock(FOSSILIZED_BONE_BARK, UnusualPrehistory2.modPrefix("fossilized_bone_block"), UnusualPrehistory2.modPrefix("fossilized_bone_block"));
 
         this.block(COBBLED_FOSSILIZED_BONE);
         this.stairsBlock(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_STAIRS.get());

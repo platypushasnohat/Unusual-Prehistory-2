@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.unusual_prehistory.doomsurf"
+  },
+  "length_in_seconds": 197.0,
+  "sound_event": "unusual_prehistory:doomsurf_disc"
+}

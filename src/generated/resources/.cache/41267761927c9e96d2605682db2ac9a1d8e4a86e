@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-28T22:22:24.4480748	Tags for minecraft:damage_type mod id unusual_prehistory
+// 1.21.1	2026-04-06T14:43:24.362904	Tags for minecraft:damage_type mod id unusual_prehistory
 78a8f386e079000901e91de5568ba93977999e37 data/minecraft/tags/damage_type/bypasses_armor.json
 6dbfe92243c09b03eeaf0cb821efb29e98a7d4f5 data/unusual_prehistory/tags/damage_type/kentrosaurus_immune_to.json
 e72ca8647964ea9e8e30f132e82800c3241edc41 data/unusual_prehistory/tags/damage_type/lystrosaurus_immune_to.json

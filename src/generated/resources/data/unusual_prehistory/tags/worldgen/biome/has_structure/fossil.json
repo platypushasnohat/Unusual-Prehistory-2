@@ -5,8 +5,8 @@
     "#minecraft:is_jungle",
     "#minecraft:is_savanna",
     "#minecraft:is_badlands",
-    "#forge:is_plains",
-    "#forge:is_swamp",
-    "#forge:is_desert"
+    "#c:is_plains",
+    "#c:is_swamp",
+    "#c:is_desert"
   ]
 }

@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_mosasaurus",
+  "criteria": {
+    "revive_onchopristis": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:onchopristis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_onchopristis.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:onchopristis_sac"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_onchopristis.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_onchopristis"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

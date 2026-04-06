@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:carboniferous_root",
+  "criteria": {
+    "revive_diplocaulus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:diplocaulus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_diplocaulus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:diplocaulus_eggs"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_diplocaulus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_diplocaulus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

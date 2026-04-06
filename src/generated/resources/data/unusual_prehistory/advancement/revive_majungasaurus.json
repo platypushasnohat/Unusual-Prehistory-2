@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_kaprosuchus",
+  "criteria": {
+    "revive_majungasaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:majungasaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_majungasaurus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:majungasaurus_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_majungasaurus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_majungasaurus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

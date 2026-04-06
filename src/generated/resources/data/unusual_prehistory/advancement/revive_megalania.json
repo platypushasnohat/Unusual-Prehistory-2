@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:quaternary_root",
+  "criteria": {
+    "revive_megalania": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:megalania"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_megalania.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:megalania_egg"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_megalania.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_megalania"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

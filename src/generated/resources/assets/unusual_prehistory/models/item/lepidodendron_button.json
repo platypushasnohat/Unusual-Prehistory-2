@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "unusual_prehistory:block/lepidodendron_planks"
-  }
+  "parent": "unusual_prehistory:block/lepidodendron_button_inventory"
 }

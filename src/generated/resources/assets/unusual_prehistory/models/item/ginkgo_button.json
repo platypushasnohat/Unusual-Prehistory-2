@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "unusual_prehistory:block/ginkgo_planks"
-  }
+  "parent": "unusual_prehistory:block/ginkgo_button_inventory"
 }
