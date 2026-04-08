@@ -1,5 +1,7 @@
 ## Version 2.0.0
 - Ported mod to 1.21.1 NeoForge
+- Added Prognathodon
+- Removed Mosasaurus
 
 ## Version 1.4.3
 - Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit

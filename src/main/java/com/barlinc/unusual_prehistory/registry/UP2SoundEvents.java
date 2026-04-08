@@ -181,10 +181,10 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MOSASAURUS_HURT = registerSoundEvent("mosasaurus_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MOSASAURUS_DEATH = registerSoundEvent("mosasaurus_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MOSASAURUS_IDLE = registerSoundEvent("mosasaurus_idle");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MOSASAURUS_ATTACK = registerSoundEvent("mosasaurus_attack");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_HURT = registerSoundEvent("prognathodon_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_DEATH = registerSoundEvent("prognathodon_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_ATTACK = registerSoundEvent("prognathodon_attack");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> PSILOPTERUS_HURT = registerSoundEvent("psilopterus_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> PSILOPTERUS_DEATH = registerSoundEvent("psilopterus_death");

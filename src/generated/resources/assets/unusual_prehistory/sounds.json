@@ -1239,35 +1239,6 @@
     ],
     "subtitle": "subtitles.metriorhynchus_idle"
   },
-  "mosasaurus_attack": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mosasaurus/attack1",
-      "unusual_prehistory:entity/mob/mosasaurus/attack2"
-    ],
-    "subtitle": "subtitles.mosasaurus_attack"
-  },
-  "mosasaurus_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mosasaurus/death1"
-    ],
-    "subtitle": "subtitles.mosasaurus_death"
-  },
-  "mosasaurus_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mosasaurus/hurt1",
-      "unusual_prehistory:entity/mob/mosasaurus/hurt2"
-    ],
-    "subtitle": "subtitles.mosasaurus_hurt"
-  },
-  "mosasaurus_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mosasaurus/idle1",
-      "unusual_prehistory:entity/mob/mosasaurus/idle2",
-      "unusual_prehistory:entity/mob/mosasaurus/idle3",
-      "unusual_prehistory:entity/mob/mosasaurus/idle4"
-    ],
-    "subtitle": "subtitles.mosasaurus_idle"
-  },
   "onchopristis_death": {
     "sounds": [
       "entity/fish/hurt1",
@@ -1409,6 +1380,35 @@
       }
     ],
     "subtitle": "subtitles.praepusa_mitosis"
+  },
+  "prognathodon_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/prognathodon/attack1",
+      "unusual_prehistory:entity/mob/prognathodon/attack2"
+    ],
+    "subtitle": "subtitles.prognathodon_attack"
+  },
+  "prognathodon_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/prognathodon/death1"
+    ],
+    "subtitle": "subtitles.prognathodon_death"
+  },
+  "prognathodon_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/prognathodon/hurt1",
+      "unusual_prehistory:entity/mob/prognathodon/hurt2"
+    ],
+    "subtitle": "subtitles.prognathodon_hurt"
+  },
+  "prognathodon_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/prognathodon/idle1",
+      "unusual_prehistory:entity/mob/prognathodon/idle2",
+      "unusual_prehistory:entity/mob/prognathodon/idle3",
+      "unusual_prehistory:entity/mob/prognathodon/idle4"
+    ],
+    "subtitle": "subtitles.prognathodon_idle"
   },
   "psilopterus_attack": {
     "sounds": [

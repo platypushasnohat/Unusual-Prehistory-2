@@ -835,22 +835,22 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         // Update 5
-        this.sound(UP2SoundEvents.MOSASAURUS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/death1"))
+        this.sound(UP2SoundEvents.PROGNATHODON_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/death1"))
         );
-        this.sound(UP2SoundEvents.MOSASAURUS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/hurt2"))
+        this.sound(UP2SoundEvents.PROGNATHODON_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt2"))
         );
-        this.sound(UP2SoundEvents.MOSASAURUS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/idle4"))
+        this.sound(UP2SoundEvents.PROGNATHODON_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/idle4"))
         );
-        this.sound(UP2SoundEvents.MOSASAURUS_ATTACK,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/attack1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mosasaurus/attack2"))
+        this.sound(UP2SoundEvents.PROGNATHODON_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack2"))
         );
     }
 

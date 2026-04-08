@@ -166,7 +166,7 @@
 //        transmogrification(consumer, UP2Items.PLUMAGE_FOSSIL.get(), UP2Items.TELECREX_EGG.get(), 1200);
 //        transmogrification(consumer, UP2Items.DUBIOUS_FOSSIL.get(), ULUGHBEGSAURUS_EGG.get().asItem(), 2400);
 //        transmogrification(consumer, UP2Items.CROOKED_BEAK_FOSSIL.get(), UP2Items.PSILOPTERUS_EGG.get(), 1200);
-//        transmogrification(consumer, UP2Items.SURGE_FOSSIL.get(), UP2Items.MOSASAURUS_EMBRYO.get(), 2400);
+//        transmogrification(consumer, UP2Items.SURGE_FOSSIL.get(), UP2Items.PROGNATHODON_EMBRYO.get(), 2400);
 //
 //        transmogrification(consumer, UP2Items.AETHOPHYLLUM_FOSSIL.get(), AETHOPHYLLUM.get().asItem(), 600);
 //        transmogrification(consumer, UP2Items.BENNETTITALES_FOSSIL.get(), BENNETTITALES.get().asItem(), 600);

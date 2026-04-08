@@ -19,6 +19,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_fin
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.PrognathodonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
@@ -29,6 +30,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.PrognathodonRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.renderer.BiomeColors;
@@ -124,10 +126,12 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.AEGIROCASSIS.get(), AegirocassisRenderer::new);
         event.registerEntityRenderer(UP2Entities.DELITZSCHALA.get(), DelitzschalaRenderer::new);
         event.registerEntityRenderer(UP2Entities.DESMATOSUCHUS.get(), DesmatosuchusRenderer::new);
-        event.registerEntityRenderer(UP2Entities.MOSASAURUS.get(), MosasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ZHANGSOLVA.get(), ZhangsolvaRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
+
+        // Update 6
+        event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
     }
 
     @SubscribeEvent
@@ -189,11 +193,13 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.AEGIROCASSIS_BABY, AegirocassisBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DESMATOSUCHUS, DesmatosuchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.DELITZSCHALA, DelitzschalaModel::createBodyLayer);
-        event.registerLayerDefinition(UP2ModelLayers.MOSASAURUS, MosasaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PSILOPTERUS, PsilopterusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ZHANGSOLVA, ZhangsolvaModel::createBodyLayer);
 
         event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
+
+        // Update 6
+        event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);
     }
 
     @SubscribeEvent

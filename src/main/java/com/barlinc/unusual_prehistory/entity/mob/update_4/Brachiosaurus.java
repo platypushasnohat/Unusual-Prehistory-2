@@ -228,7 +228,8 @@
          if (this.getStompCooldown() > 0) this.setStompCooldown(this.getStompCooldown() - 1);
      }
 
-     public float getScale() {
+     @Override
+     public float getAgeScale() {
          return this.isBaby() ? 0.25F : 1.0F;
      }
 

@@ -1,0 +1,43 @@
+{
+  "name": "Prognathodon",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/prognathodon.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:revive_prognathodon",
+  "extra_recipe_mappings": {
+    "unusual_prehistory:surge_fossil": 0,
+    "unusual_prehistory:prognathodon_embryo": 0,
+    "unusual_prehistory:prognathodon_spawn_egg": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "display_name": "Prognathodon",
+      "id": "prognathodon",
+      "flavor_text": "Forejaw-Tooth",
+      "fossil_item": "unusual_prehistory:surge_fossil",
+      "egg_item": "unusual_prehistory:prognathodon_embryo",
+      "variant_key": "",
+      "image_tooltip": "A large, streamlined marine reptile sporting an enormous toothy set of jaws, Prognathodon is a terrifyingly agile predator, often leaping out of the water in order to grab its prey."
+    },
+    {
+      "id": "prognathodon",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era_image": "late_cretaceous",
+      "era_tooltip_period": "Late Cretaceous Period",
+
+      "temperament.temperament_type": "hostile",
+
+      "clone.clone_type": "embryo",
+      "clone.clone_tooltip_heading": "Embryo",
+      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
+
+      "activity.activity_type": "sleepless",
+      "activity.activity_tooltip": "Does not sleep",
+
+      "feature_1.item": "minecraft:sand",
+      "feature_1.tooltip": "Prognathodon is highly territorial and will brawl with nearby Prognathodon, even when §apacified§7",
+      "feature_1.title_one_line": "Turf War"
+    }
+  ]
+}

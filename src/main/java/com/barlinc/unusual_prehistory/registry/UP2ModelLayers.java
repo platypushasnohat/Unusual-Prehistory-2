@@ -62,7 +62,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation AEGIROCASSIS_BABY = mainLayer("aegirocassis_baby");
     public static final ModelLayerLocation DESMATOSUCHUS = mainLayer("desmatosuchus");
     public static final ModelLayerLocation DELITZSCHALA = mainLayer("delitzschala");
-    public static final ModelLayerLocation MOSASAURUS = mainLayer("mosasaurus");
+    public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
     public static final ModelLayerLocation PSILOPTERUS = mainLayer("psilopterus");
     public static final ModelLayerLocation ZHANGSOLVA = mainLayer("zhangsolva");
 

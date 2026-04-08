@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_majungasaurus",
+  "parent": "unusual_prehistory:revive_pachycephalosaurus",
   "criteria": {
-    "revive_mosasaurus": {
+    "revive_prognathodon": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:mosasaurus"
+              "type": "unusual_prehistory:prognathodon"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_mosasaurus.description"
+      "translate": "advancements.unusual_prehistory.revive_prognathodon.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:mosasaurus_embryo"
+      "id": "unusual_prehistory:prognathodon_embryo"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_mosasaurus.title"
+      "translate": "advancements.unusual_prehistory.revive_prognathodon.title"
     }
   },
   "requirements": [
     [
-      "revive_mosasaurus"
+      "revive_prognathodon"
     ]
   ],
   "rewards": {

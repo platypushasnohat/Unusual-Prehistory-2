@@ -56,14 +56,11 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> COELACANTHUS_ALWAYS_EATS = modEntityTag("coelacanthus_always_eats");
 
     // Update 5
-    public static final TagKey<EntityType<?>> MOSASAURUS_TARGETS = modEntityTag("mosasaurus_targets");
-    public static final TagKey<EntityType<?>> MOSASAURUS_FIGHT_TARGETS = modEntityTag("mosasaurus_fight_targets");
+    public static final TagKey<EntityType<?>> PROGNATHODON_TARGETS = modEntityTag("prognathodon_targets");
+    public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
     public static final TagKey<EntityType<?>> PSILOPTERUS_KICK_TARGETS = modEntityTag("psilopterus_kick_targets");
     public static final TagKey<EntityType<?>> MEDIUM_PSILOPTERUS_PACK_TARGETS = modEntityTag("medium_psilopterus_pack_targets");
     public static final TagKey<EntityType<?>> LARGE_PSILOPTERUS_PACK_TARGETS = modEntityTag("large_psilopterus_pack_targets");
-
-    public static final TagKey<EntityType<?>> MOSASAURUS_CANT_GRAB = modEntityTag("mosasaurus_cant_grab");
-    public static final TagKey<EntityType<?>> MOSASAURUS_CAN_GRAB = modEntityTag("mosasaurus_can_grab");
 
     public static final TagKey<EntityType<?>> PALEOZOIC_MOBS = modEntityTag("paleozoic_mobs");
     public static final TagKey<EntityType<?>> MESOZOIC_MOBS = modEntityTag("mesozoic_mobs");

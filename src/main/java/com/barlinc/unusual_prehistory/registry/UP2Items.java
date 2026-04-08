@@ -179,7 +179,6 @@ public class UP2Items {
     // Update 5
     public static final DeferredItem<Item> AEGIROCASSIS_SPAWN_EGG = registerSpawnEggItem("aegirocassis", UP2Entities.AEGIROCASSIS, 0x0068e6, 0x102354);
     public static final DeferredItem<Item> DESMATOSUCHUS_SPAWN_EGG = registerSpawnEggItem("desmatosuchus", UP2Entities.DESMATOSUCHUS, 0x272d3e, 0xba7725);
-    public static final DeferredItem<Item> MOSASAURUS_SPAWN_EGG = registerSpawnEggItem("mosasaurus", UP2Entities.MOSASAURUS, 0x0a100d, 0x66666a);
     public static final DeferredItem<Item> PSILOPTERUS_SPAWN_EGG = registerSpawnEggItem("psilopterus", UP2Entities.PSILOPTERUS, 0x312e2a, 0xe3dacf);
 
     public static final DeferredItem<Item> DELITZSCHALA_SPAWN_EGG = registerSpawnEggItem("delitzschala", UP2Entities.DELITZSCHALA, 0xe38948, 0x1e512e);
@@ -189,13 +188,11 @@ public class UP2Items {
 
     public static final DeferredItem<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
     public static final DeferredItem<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
-    public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // mosasaurus
     public static final DeferredItem<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
 
     public static final DeferredItem<Item> DELITZSCHALA_FOSSIL = registerFossilItem("delitzschala");
     public static final DeferredItem<Item> ZHANGSOLVA_FOSSIL = registerFossilItem("zhangsolva");
 
-    public static final DeferredItem<Item> MOSASAURUS_EMBRYO = registerEmbryoItem("mosasaurus", UP2Entities.MOSASAURUS);
     public static final DeferredItem<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 
     public static final DeferredItem<Item> BABY_AEGIROCASSIS_BUCKET = registerItemNoLang("baby_aegirocassis_bucket", () -> new UP2MobBucketItem(UP2Entities.AEGIROCASSIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
@@ -232,6 +229,14 @@ public class UP2Items {
     public static final DeferredItem<Item> PERIOD_QUATERNARY = registerItem("period_quaternary", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
 
+    // Update 6
+    public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
+
+    public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
+
+    public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
+
+    // Future
     public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));
 

@@ -391,10 +391,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE, "Desmatosuchus groans");
         this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP, "Desmatosuchus steps");
 
-        this.sound(UP2SoundEvents.MOSASAURUS_HURT, "Mosasaurus hurts");
-        this.sound(UP2SoundEvents.MOSASAURUS_DEATH, "Mosasaurus dies");
-        this.sound(UP2SoundEvents.MOSASAURUS_IDLE, "Mosasaurus bellows");
-        this.sound(UP2SoundEvents.MOSASAURUS_ATTACK, "Mosasaurus attacks");
+        this.sound(UP2SoundEvents.PROGNATHODON_HURT, "Prognathodon hurts");
+        this.sound(UP2SoundEvents.PROGNATHODON_DEATH, "Prognathodon dies");
+        this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
+        this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
 
         this.sound(UP2SoundEvents.PSILOPTERUS_HURT, "Psilopterus hurts");
         this.sound(UP2SoundEvents.PSILOPTERUS_DEATH, "Psilopterus dies");
@@ -497,7 +497,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_manipulator", "Mandibles", "Revive a Manipulator");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
-        this.translateAdvancement("revive_mosasaurus", "Great Beast of Maastricht", "Revive a Mosasaurus");
+        this.translateAdvancement("revive_prognathodon", "???", "Revive a Prognathodon");
         this.translateAdvancement("revive_onchopristis", "Cretaceous Chainsaw Massacre", "Revive an Onchopristis");
         this.translateAdvancement("revive_pachycephalosaurus", "Thick-Headed", "Revive a Pachycephalosaurus");
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");

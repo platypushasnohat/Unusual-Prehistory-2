@@ -78,7 +78,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 CARNOTAURUS.get(), ULUGHBEGSAURUS.get()
         );
         this.tag(UP2EntityTags.STETHACANTHUS_AVOIDS).add(
-                DUNKLEOSTEUS.get(), MOSASAURUS.get(), EntityType.DROWNED, EntityType.GUARDIAN
+                DUNKLEOSTEUS.get(), PROGNATHODON.get(), EntityType.DROWNED, EntityType.GUARDIAN
         );
         this.tag(UP2EntityTags.TALPANAS_AVOIDS).add(
                 EntityType.OCELOT, EntityType.CAT, EntityType.FOX, EntityType.WOLF
@@ -130,13 +130,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.COELACANTHUS_AVOIDS).add(
-                DUNKLEOSTEUS.get(), MOSASAURUS.get(), EntityType.GUARDIAN, EntityType.DROWNED
+                DUNKLEOSTEUS.get(), PROGNATHODON.get(), EntityType.GUARDIAN, EntityType.DROWNED
         );
         this.tag(UP2EntityTags.LEPTICTIDIUM_AVOIDS).add(
                 EntityType.OCELOT, EntityType.PIG, EntityType.CAT, EntityType.FOX, EntityType.WOLF
         );
         this.tag(UP2EntityTags.PRAEPUSA_AVOIDS).add(
-                DUNKLEOSTEUS.get(), MOSASAURUS.get(), EntityType.GUARDIAN, EntityType.DROWNED
+                DUNKLEOSTEUS.get(), PROGNATHODON.get(), EntityType.GUARDIAN, EntityType.DROWNED
         );
 
         this.tag(UP2EntityTags.COELACANTHUS_NEVER_EATS).add(
@@ -148,7 +148,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         // Update 5
-        this.tag(UP2EntityTags.MOSASAURUS_TARGETS).add(
+        this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
                 EntityType.TURTLE, EntityType.DOLPHIN
         );
 
@@ -164,11 +164,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.LLAMA, EntityType.HORSE, EntityType.CAMEL
         );
 
-        this.tag(UP2EntityTags.MOSASAURUS_CANT_GRAB).add(
-                EntityType.ENDER_DRAGON
-        );
-        this.tag(UP2EntityTags.MOSASAURUS_FIGHT_TARGETS).add(
-                MOSASAURUS.get()
+        this.tag(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS).add(
+                PROGNATHODON.get()
         );
 
         this.tag(UP2EntityTags.PALEOZOIC_MOBS).add(
@@ -197,7 +194,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 DROMAEOSAURUS.get(),
                 KAPROSUCHUS.get(),
                 MAJUNGASAURUS.get(),
-                MOSASAURUS.get(),
+                PROGNATHODON.get(),
                 ONCHOPRISTIS.get(),
                 PACHYCEPHALOSAURUS.get(),
                 ULUGHBEGSAURUS.get()

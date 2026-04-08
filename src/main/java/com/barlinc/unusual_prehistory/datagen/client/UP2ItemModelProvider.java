@@ -164,7 +164,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 UP2Blocks.AEGIROCASSIS_EGGS,
                 UP2Blocks.DESMATOSUCHUS_EGG,
                 PSILOPTERUS_EGG,
-                MOSASAURUS_EMBRYO,
+                PROGNATHODON_EMBRYO,
 
                 PALEOZOIC_BANNER_PATTERN,
                 MESOZOIC_BANNER_PATTERN,

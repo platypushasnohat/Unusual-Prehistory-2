@@ -258,7 +258,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
 
         // Update 5
-        this.tag(UP2ItemTags.MOSASAURUS_FOOD).add(
+        this.tag(UP2ItemTags.PROGNATHODON_FOOD).add(
                 Items.COD,
                 Items.COOKED_COD,
                 Items.SALMON,
@@ -267,7 +267,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.PUFFERFISH
         );
 
-        this.tag(UP2ItemTags.PACIFIES_MOSASAURUS).addTag(UP2ItemTags.MOSASAURUS_FOOD);
+        this.tag(UP2ItemTags.PACIFIES_PROGNATHODON).addTag(UP2ItemTags.PROGNATHODON_FOOD);
 
         this.tag(UP2ItemTags.SNOW).add(
                 Items.SNOWBALL,
@@ -374,7 +374,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
                 UP2Blocks.MAJUNGASAURUS_EGG.get().asItem(),
                 METRIORHYNCHUS_EMBRYO.get(),
-                MOSASAURUS_EMBRYO.get(),
+                PROGNATHODON_EMBRYO.get(),
                 UP2Blocks.ONCHOPRISTIS_SAC.get().asItem(),
                 UP2Blocks.PACHYCEPHALOSAURUS_EGG.get().asItem(),
                 PTERODACTYLUS_EGG.get(),

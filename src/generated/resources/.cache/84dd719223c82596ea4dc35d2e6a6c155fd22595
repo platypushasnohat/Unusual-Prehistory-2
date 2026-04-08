@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-06T14:43:24.3569227	Item Models: unusual_prehistory
+// 1.21.1	2026-04-08T15:21:17.4734936	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -109,8 +109,6 @@ a175c33aeb7477cec8879d5e8590b4f62ce09247 assets/unusual_prehistory/models/item/m
 a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/metasequoia_sign.json
 7cd4e02cd2b15d832535d0a76a162b9e50108b1f assets/unusual_prehistory/models/item/metriorhynchus_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/metriorhynchus_spawn_egg.json
-6c400333fca98cd124fb078b92e6fafda3ae40ce assets/unusual_prehistory/models/item/mosasaurus_embryo.json
-63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/mosasaurus_spawn_egg.json
 4a54d305848cbf29d37b6ea84eee3bacf023861b assets/unusual_prehistory/models/item/mossy_fossil.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
@@ -141,6 +139,8 @@ e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/p
 7ff840e281e3df175a69c7aadf46de9ff4960865 assets/unusual_prehistory/models/item/praepusa_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/praepusa_spawn_egg.json
 8d78948154d3aef2b95f3cad96bf495d14459247 assets/unusual_prehistory/models/item/prickly_fossil.json
+65f85053e39215868f33cbb56070653b71c4459d assets/unusual_prehistory/models/item/prognathodon_embryo.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/prognathodon_spawn_egg.json
 76b22cb0b7c1fc4404e9e52264f421cae5df5d6f assets/unusual_prehistory/models/item/prototaxites_fossil.json
 85330c9a028130800e1c36d898443e43aec8c304 assets/unusual_prehistory/models/item/psilopterus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/psilopterus_spawn_egg.json

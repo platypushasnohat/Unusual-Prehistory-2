@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_mosasaurus",
+  "parent": "unusual_prehistory:revive_majungasaurus",
   "criteria": {
     "revive_onchopristis": {
       "conditions": {

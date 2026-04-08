@@ -77,6 +77,11 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
+    public float getAgeScale() {
+        return this.isBaby() ? 0.25F : 1.0F;
+    }
+
+    @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
@@ -94,11 +99,6 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.TARTUOSTEUS_FOOD);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.8F;
-//    }
 
     @Override
     public void tick() {
@@ -216,30 +216,30 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
 
         @Override
         public void tick() {
-            boolean flag = this.breached;
-            tartuosteus.getNavigation().stop();
+            boolean flag = breached;
+            this.tartuosteus.getNavigation().stop();
             if (!flag) {
                 FluidState fluidstate = tartuosteus.level().getFluidState(tartuosteus.blockPosition());
                 this.breached = fluidstate.is(FluidTags.WATER);
             }
 
-            if (this.breached && !flag) {
-                tartuosteus.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
+            if (breached && !flag) {
+                this.tartuosteus.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
             }
 
             Vec3 vec3 = tartuosteus.getDeltaMovement();
             if (vec3.y * vec3.y < (double) 0.03F && tartuosteus.getXRot() != 0.0F) {
-                tartuosteus.setXRot(Mth.rotLerp(0.2F, tartuosteus.getXRot(), 0.0F));
+                this.tartuosteus.setXRot(Mth.rotLerp(0.2F, tartuosteus.getXRot(), 0.0F));
             } else if (vec3.length() > (double) 1.0E-5F) {
                 double d0 = vec3.horizontalDistance();
                 double d1 = Math.atan2(-vec3.y, d0) * (double) (180F / (float) Math.PI);
-                tartuosteus.setXRot((float) d1);
+                this.tartuosteus.setXRot((float) d1);
             }
 
             Vec3 movement = new Vec3(tartuosteus.getMotionDirection().getStepX(), 0, tartuosteus.getMotionDirection().getStepZ()).normalize().scale(0.53F);
             Vec3 glide = new Vec3(movement.x, vec3.y, movement.z);
-            tartuosteus.setDeltaMovement(glide);
-            tartuosteus.setYRot(((float) Mth.atan2(tartuosteus.getMotionDirection().getStepZ(), tartuosteus.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
+            this.tartuosteus.setDeltaMovement(glide);
+            this.tartuosteus.setYRot(((float) Mth.atan2(tartuosteus.getMotionDirection().getStepZ(), tartuosteus.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
         }
     }
 }

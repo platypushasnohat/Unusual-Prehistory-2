@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_pachycephalosaurus",
+  "parent": "unusual_prehistory:revive_prognathodon",
   "criteria": {
     "revive_ulughbegsaurus": {
       "conditions": {

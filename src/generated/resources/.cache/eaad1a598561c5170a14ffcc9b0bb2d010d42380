@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-06T14:43:24.3549273	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-04-08T15:21:17.4705034	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -57,13 +57,12 @@ c23b5aceb0db24e7df8b571f876f733a24bde29d data/unusual_prehistory/tags/item/lobe_
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/majungasaurus_food.json
 35e26ac7c30d0cf81cb7c891fbf1d1b3632de467 data/unusual_prehistory/tags/item/maroon_dyes.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/megalania_food.json
-33a4fa6b8738e754b8f7f66f64fff7f045925a8f data/unusual_prehistory/tags/item/mesozoic_eggs.json
+74ebb8fac825b86981c441ca2f3d5f67a0807d72 data/unusual_prehistory/tags/item/mesozoic_eggs.json
 de4ef72003a6adf2a269c1cfe2e449e1d6952665 data/unusual_prehistory/tags/item/mesozoic_fossils.json
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/item/metasequoia_logs.json
 368c66a7b6b9d697eca80456999190094afd3ec6 data/unusual_prehistory/tags/item/metriorhynchus_food.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/item/mint_dyes.json
 eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_fossils.json
-58954f2bfed7cb1f7524f6432e2f04f80625074e data/unusual_prehistory/tags/item/mosasaurus_food.json
 6aad8cb8d98b57dcefe6d6330dd287d8dac3e47f data/unusual_prehistory/tags/item/moss.json
 33742694a14bb2697530757a24d4fd44291813bf data/unusual_prehistory/tags/item/mud.json
 2e180d4a596d414c896bd7eb7c296d4d71b3c5a1 data/unusual_prehistory/tags/item/navy_dyes.json
@@ -78,9 +77,9 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/item/pacif
 83f2cf19e5ecb819ffbb506c0834c64e017b9e4e data/unusual_prehistory/tags/item/pacifies_majungasaurus.json
 16a0187c468ff486e1b273ca8b52a06d4a540e63 data/unusual_prehistory/tags/item/pacifies_megalania.json
 61a25cdfee0fd74fa6dae49e1d71ba9e2a7a8efc data/unusual_prehistory/tags/item/pacifies_metriorhynchus.json
-7278792ad52e21ab8110b8b57e0a5736feefce5a data/unusual_prehistory/tags/item/pacifies_mosasaurus.json
 2dab50d94865d7e414502ec3168d63dfe7b27156 data/unusual_prehistory/tags/item/pacifies_onchopristis.json
 5fde1d0855bcb0e6df5b0625c43a8580388fe3c9 data/unusual_prehistory/tags/item/pacifies_praepusa.json
+1c58e4f320bfec075cb5631d2f6ca0d6a0dfe605 data/unusual_prehistory/tags/item/pacifies_prognathodon.json
 657d40070faf232b244b4af26f7b360508ef5187 data/unusual_prehistory/tags/item/pacifies_stethacanthus.json
 642aea9945ecb1b7852cd1df9869f26f60f5ed81 data/unusual_prehistory/tags/item/pacifies_ulughbegsaurus.json
 ed777dd287545d1f1767cdadcb6256fe94cca11a data/unusual_prehistory/tags/item/paleozoic_eggs.json
@@ -89,6 +88,7 @@ a250f116190619d63829f167d5d6c233158545dd data/unusual_prehistory/tags/item/paleo
 9c0d8c6e18f50d9b75ca31bc6b3552e18b041534 data/unusual_prehistory/tags/item/plant_fossils.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/item/praepusa_food.json
 52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/item/prevents_egg_hatching.json
+58954f2bfed7cb1f7524f6432e2f04f80625074e data/unusual_prehistory/tags/item/prognathodon_food.json
 ede3aa53f4fa18b21572791eed68b72a7007b0d8 data/unusual_prehistory/tags/item/psilopterus_food.json
 40c0304f5a5d6fbd0a5f1bf1d29f27e765e1e63e data/unusual_prehistory/tags/item/pterodactylus_food.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/item/reinforced_glass.json
