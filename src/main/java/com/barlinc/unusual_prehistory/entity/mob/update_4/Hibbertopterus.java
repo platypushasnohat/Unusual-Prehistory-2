@@ -164,11 +164,6 @@
      }
 
      @Override
-     public Vec3 getRiderOffset() {
-         return new Vec3(0.0F, 0.0F, -0.5F);
-     }
-
-     @Override
      public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
          return new Vec3(this.getX(), this.getBoundingBox().maxY + 0.1F, this.getZ());
      }

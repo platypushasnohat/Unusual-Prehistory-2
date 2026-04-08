@@ -564,19 +564,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     @Override
     public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction moveFunction) {
+        super.positionRider(passenger, moveFunction);
+        passenger.setYBodyRot(this.yBodyRot);
+        passenger.fallDistance = 0.0F;
         if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity livingEntity && !this.touchingUnloadedChunk()) {
-            Vec3 seatOffset = this.getRiderOffset().yRot((float) Math.toRadians(-this.yBodyRot));
-            passenger.setYBodyRot(this.yBodyRot);
-            passenger.fallDistance = 0.0F;
             this.clampRotation(livingEntity, 105);
-            moveFunction.accept(passenger, this.getX() + seatOffset.x, this.getY() + seatOffset.y + this.getPassengerRidingPosition(passenger).y, this.getZ() + seatOffset.z);
-        } else {
-            super.positionRider(passenger, moveFunction);
         }
-    }
-
-    public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, 0.0F, 0.0F);
     }
 
     @Override

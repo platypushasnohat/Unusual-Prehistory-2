@@ -194,11 +194,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public Vec3 getRiderOffset() {
-        return new Vec3(0.0F, 0.3F, 0.0F);
-    }
-
-    @Override
     public boolean canOwnerCommand(Player player) {
         return player.isShiftKeyDown() && (!this.isPlayerHoldingDye(player) || this.isRainbow());
     }

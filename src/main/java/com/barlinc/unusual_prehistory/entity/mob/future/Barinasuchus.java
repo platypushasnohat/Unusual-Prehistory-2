@@ -124,11 +124,6 @@
      }
 
      @Override
-     public Vec3 getRiderOffset() {
-         return new Vec3(0.0F, 0.0F, 0.25F);
-     }
-
-     @Override
      public boolean canOwnerCommand(Player player) {
          return player.isShiftKeyDown();
      }
