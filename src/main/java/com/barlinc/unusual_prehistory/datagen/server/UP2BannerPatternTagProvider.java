@@ -45,7 +45,7 @@ public class UP2BannerPatternTagProvider extends BannerPatternTagsProvider {
                 LYSTROSAURUS,
                 MAJUNGASAURUS,
                 METRIORHYNCHUS,
-                MOSASAURUS,
+                PROGNATHODON,
                 ONCHOPRISTIS,
                 PACHYCEPHALOSAURUS,
                 PTERODACTYLUS,

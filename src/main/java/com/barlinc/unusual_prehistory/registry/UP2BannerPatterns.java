@@ -46,8 +46,10 @@ public final class UP2BannerPatterns {
     // Update 5
     public static final ResourceKey<BannerPattern> AEGIROCASSIS = create("aegirocassis");
     public static final ResourceKey<BannerPattern> DESMATOSUCHUS = create("desmatosuchus");
-    public static final ResourceKey<BannerPattern> MOSASAURUS = create("mosasaurus");
     public static final ResourceKey<BannerPattern> PSILOPTERUS = create("psilopterus");
+
+    // Update 6
+    public static final ResourceKey<BannerPattern> PROGNATHODON = create("prognathodon");
 
     public static void bootstrap(BootstrapContext<BannerPattern> context) {
         // Update 1
@@ -88,8 +90,10 @@ public final class UP2BannerPatterns {
         // Update 5
         register(context, AEGIROCASSIS);
         register(context, DESMATOSUCHUS);
-        register(context, MOSASAURUS);
         register(context, PSILOPTERUS);
+
+        // Update 6
+        register(context, PROGNATHODON);
     }
 
     private static ResourceKey<BannerPattern> create(String name) {

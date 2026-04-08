@@ -375,7 +375,6 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.translateBannerPattern("aegirocassis");
         this.translateBannerPattern("desmatosuchus");
-        this.translateBannerPattern("mosasaurus");
         this.translateBannerPattern("psilopterus");
 
         this.sound(UP2SoundEvents.PUMMEL_AND_SNATCH_DISC, "Music Disc");
@@ -391,11 +390,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.DESMATOSUCHUS_IDLE, "Desmatosuchus groans");
         this.sound(UP2SoundEvents.DESMATOSUCHUS_STEP, "Desmatosuchus steps");
 
-        this.sound(UP2SoundEvents.PROGNATHODON_HURT, "Prognathodon hurts");
-        this.sound(UP2SoundEvents.PROGNATHODON_DEATH, "Prognathodon dies");
-        this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
-        this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
-
         this.sound(UP2SoundEvents.PSILOPTERUS_HURT, "Psilopterus hurts");
         this.sound(UP2SoundEvents.PSILOPTERUS_DEATH, "Psilopterus dies");
         this.sound(UP2SoundEvents.PSILOPTERUS_IDLE, "Psilopterus squawks");
@@ -407,6 +401,14 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.GRUG_DEATH, "Grug dies");
         this.sound(UP2SoundEvents.GRUG_IDLE, "Grug speaks his wisdom");
         this.sound(UP2SoundEvents.GRUG_CHASE, "Grug runs");
+
+        // Update 6
+        this.sound(UP2SoundEvents.PROGNATHODON_HURT, "Prognathodon hurts");
+        this.sound(UP2SoundEvents.PROGNATHODON_DEATH, "Prognathodon dies");
+        this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
+        this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
+
+        this.translateBannerPattern("prognathodon");
 
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
