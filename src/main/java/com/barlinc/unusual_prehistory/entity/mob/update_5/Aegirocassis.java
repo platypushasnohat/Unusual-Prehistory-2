@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
@@ -29,7 +28,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.ItemStack;
@@ -90,7 +88,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 300.0D)
+                .add(Attributes.MAX_HEALTH, 220.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .add(Attributes.ARMOR, 6.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
@@ -112,11 +110,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         this.goalSelector.addGoal(6, new AegirocassisEatGoal(this));
     }
 
-    @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new PrehistoricBodyRotationControl(this, 0.3F, 25.0F, 0.15F, 20.0F, 0.8F, this.getMaxHeadYRot());
-    }
-
 //    @Override
 //    public @NotNull MobType getMobType() {
 //        return MobType.ARTHROPOD;
@@ -134,11 +127,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
             this.allParts[i].setId(id + i + 1);
         }
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose) {
-//        return this.getDimensions(pose).eyeHeight() * 0.5F;
-//    }
 
     @Override
     public boolean isFood(ItemStack stack) {

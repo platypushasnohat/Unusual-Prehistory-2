@@ -2,15 +2,16 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.FireBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;

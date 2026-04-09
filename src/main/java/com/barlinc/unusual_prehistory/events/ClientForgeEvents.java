@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;

@@ -2,6 +2,8 @@
 - Ported mod to 1.21.1 NeoForge
 - Added Prognathodon
 - Removed Mosasaurus
+- Removed SmoothBodyRotationControl
+- Updated PrehistoricMoveControl to ensure mobs face the direction they want to move
 
 ## Version 1.4.3
 - Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit

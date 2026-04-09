@@ -316,7 +316,7 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
             if (!nearbyEntities.isEmpty()) {
                 nearbyEntities.stream().filter(entity -> entity != prognathodon).limit(3).forEach(entity -> {
                     entity.hurt(entity.damageSources().mobAttack(prognathodon), (float) prognathodon.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.prognathodon.strongKnockback(entity, 1.7D, 0.1D);
+                    this.prognathodon.strongKnockback(entity, 0.8D, 0.1D);
                     if (entity.isDamageSourceBlocked(prognathodon.damageSources().mobAttack(prognathodon)) && entity instanceof Player player) {
                         player.disableShield();
                     }

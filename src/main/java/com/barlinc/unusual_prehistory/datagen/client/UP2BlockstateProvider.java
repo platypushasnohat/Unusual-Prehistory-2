@@ -7,7 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 

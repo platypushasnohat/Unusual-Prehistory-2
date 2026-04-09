@@ -1,7 +1,6 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
- import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
@@ -26,7 +25,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -91,7 +89,7 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 400.0D)
+                 .add(Attributes.MAX_HEALTH, 320.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ATTACK_DAMAGE, 24.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
@@ -113,22 +111,12 @@
      }
 
      @Override
-     protected @NotNull BodyRotationControl createBodyControl() {
-         return new PrehistoricBodyRotationControl(this, 0.25F, 22.0F, 0.15F, 15.0F, 0.8F, 180.0F);
-     }
-
-     @Override
      public void setId(int i1) {
          super.setId(i1);
          for (int i = 0; i < this.allParts.length; i++) {
              this.allParts[i].setId(i1 + i + 1);
          }
      }
-
-//     @Override
-//     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//         return dimensions.height * 0.98F;
-//     }
 
      @Override
      protected float getWaterSlowDown() {
@@ -209,6 +197,10 @@
 
          this.lastStompX = this.getX();
          this.lastStompZ = this.getZ();
+
+         if (!this.isBaby()) {
+             this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 5);
+         }
 
          this.fakeYRot = Mth.approachDegrees(fakeYRot, this.yBodyRot, 10);
 

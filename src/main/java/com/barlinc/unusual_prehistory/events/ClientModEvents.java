@@ -28,7 +28,10 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.Living
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.MetriorhynchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.TartuosteusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.AegirocassisRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.DesmatosuchusRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.GrugRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PsilopterusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.CotylorhynchusRenderer;

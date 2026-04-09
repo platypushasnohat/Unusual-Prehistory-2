@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.SmoothBodyRotationControl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -9,7 +8,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,11 +22,6 @@ public abstract class AmbientMob extends PathfinderMob {
 
     protected AmbientMob(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-    }
-
-    @Override
-    protected @NotNull BodyRotationControl createBodyControl() {
-        return new SmoothBodyRotationControl(this, 0.5F, 30.0F, 0.25F, 20.0F, 0.9F, 180.0F);
     }
 
     @Override
