@@ -121,10 +121,7 @@ public class UP2ItemTags {
     // Update 5
     public static final TagKey<Item> AEGIROCASSIS_FOOD = modItemTag("aegirocassis_food");
     public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
-    public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
     public static final TagKey<Item> PSILOPTERUS_FOOD = modItemTag("psilopterus_food");
-
-    public static final TagKey<Item> PACIFIES_PROGNATHODON = modItemTag("pacifies_prognathodon");
 
     public static final TagKey<Item> SNOW = modItemTag("snow");
     public static final TagKey<Item> MOSS = modItemTag("moss");
@@ -144,6 +141,14 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> ACCELERATES_EGG_HATCHING = modItemTag("accelerates_egg_hatching");
     public static final TagKey<Item> PREVENTS_EGG_HATCHING = modItemTag("prevents_egg_hatching");
+
+    // Update 6
+    public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+    public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
+    public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
+    public static final TagKey<Item> STINKY_COTYLORHYNCHUS_FOOD = modItemTag("stinky_cotylorhynchus_food");
+
+    public static final TagKey<Item> PACIFIES_PROGNATHODON = modItemTag("pacifies_prognathodon");
 
     // Future
     public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");

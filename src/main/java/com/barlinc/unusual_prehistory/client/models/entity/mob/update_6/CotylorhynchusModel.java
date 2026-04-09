@@ -1,11 +1,12 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.CotylorhynchusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.CotylorhynchusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.future.Cotylorhynchus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Cotylorhynchus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -95,17 +96,24 @@ public class CotylorhynchusModel extends UP2Model<Cotylorhynchus> {
 	public void setupAnim(Cotylorhynchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (!entity.isInWater()) {
+		if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(CotylorhynchusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(CotylorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdle(entity.idleAnimationState, CotylorhynchusAnimations.IDLE, ageInTicks,1, limbSwingAmount * 4);
-        this.animate(entity.swimAnimationState, CotylorhynchusAnimations.SWIM, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, CotylorhynchusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, CotylorhynchusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, CotylorhynchusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.burpAnimationState, CotylorhynchusAnimations.GROG_BLEND, ageInTicks);
+        this.animateSmooth(entity.grazeAnimationState, CotylorhynchusAnimations.GRAZE_BLEND, ageInTicks);
 
 		if (this.young) this.applyStatic(CotylorhynchusAnimations.BABY_TRANSFORM);
 
-        this.animateHead(entity, this.head, netHeadYaw, headPitch);
+        this.faceTarget(netHeadYaw, headPitch, 2, head);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.25F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.2F);
 	}
 
 	@Override

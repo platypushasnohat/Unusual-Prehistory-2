@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Cotylorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Prognathodon;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -63,9 +64,12 @@ public class ModEvents {
         event.put(UP2Entities.AEGIROCASSIS.get(), Aegirocassis.createAttributes().build());
         event.put(UP2Entities.DELITZSCHALA.get(), Delitzschala.createAttributes().build());
         event.put(UP2Entities.DESMATOSUCHUS.get(), Desmatosuchus.createAttributes().build());
-        event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());
         event.put(UP2Entities.ZHANGSOLVA.get(), Zhangsolva.createAttributes().build());
 
         event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
+
+        // Update 6
+        event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
+        event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());
     }
 }

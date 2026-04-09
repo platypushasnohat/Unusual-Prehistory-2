@@ -28,6 +28,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         super(output, provider, lookup, UnusualPrehistory2.MOD_ID, helper);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(@NotNull Provider provider) {
 
@@ -258,17 +259,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.METASEQUOIA_LOGS, UP2ItemTags.METASEQUOIA_LOGS);
 
         // Update 5
-        this.tag(UP2ItemTags.PROGNATHODON_FOOD).add(
-                Items.COD,
-                Items.COOKED_COD,
-                Items.SALMON,
-                Items.COOKED_SALMON,
-                Items.TROPICAL_FISH,
-                Items.PUFFERFISH
-        );
-
-        this.tag(UP2ItemTags.PACIFIES_PROGNATHODON).addTag(UP2ItemTags.PROGNATHODON_FOOD);
-
         this.tag(UP2ItemTags.SNOW).add(
                 Items.SNOWBALL,
                 Blocks.SNOW.asItem(),
@@ -293,7 +283,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PLOW_FOSSIL.get(),
                 FISH_FOSSIL.get(),
                 GLUTTONOUS_FOSSIL.get(),
-                IMPERVIOUS_FOSSIL.get()
+                IMPERVIOUS_FOSSIL.get(),
+                ROTUND_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 IMPERVIOUS_FOSSIL.get(),
@@ -395,6 +386,29 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.copy(UP2BlockTags.ACCELERATES_EGG_HATCHING, UP2ItemTags.ACCELERATES_EGG_HATCHING);
         this.copy(UP2BlockTags.PREVENTS_EGG_HATCHING, UP2ItemTags.PREVENTS_EGG_HATCHING);
+
+        // Update 6
+        this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
+                Items.SWEET_BERRIES
+        );
+        this.tag(UP2ItemTags.STINKY_COTYLORHYNCHUS_FOOD).add(
+                GINKGO_FRUIT.get()
+        );
+        this.tag(UP2ItemTags.COTYLORHYNCHUS_FOOD).addTags(
+                UP2ItemTags.STINKY_COTYLORHYNCHUS_FOOD,
+                UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD
+        );
+
+        this.tag(UP2ItemTags.PROGNATHODON_FOOD).add(
+                Items.COD,
+                Items.COOKED_COD,
+                Items.SALMON,
+                Items.COOKED_SALMON,
+                Items.TROPICAL_FISH,
+                Items.PUFFERFISH
+        );
+
+        this.tag(UP2ItemTags.PACIFIES_PROGNATHODON).addTag(UP2ItemTags.PROGNATHODON_FOOD);
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);

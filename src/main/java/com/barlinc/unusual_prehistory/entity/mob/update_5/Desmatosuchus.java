@@ -111,11 +111,6 @@ public class Desmatosuchus extends PrehistoricMob {
                 .add(Attributes.ARMOR, 12.0F);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.9F;
-//    }
-
     @Override
     public double getFluidJumpThreshold() {
         if (this.isInWater() && this.horizontalCollision) {

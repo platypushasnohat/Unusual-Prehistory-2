@@ -27,17 +27,18 @@ public class SmoothBodyRotationControl extends BodyRotationControl {
 
     @Override
     public void clientTick() {
-        if (this.isMoving()) {
-            double dx = entity.getX() - entity.xo;
-            double dz = entity.getZ() - entity.zo;
-            float moveAngle = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, bodyLagMoving, bodyMaxMoving);
-            this.entity.yHeadRot = this.approachAngle(entity.yHeadRot, moveAngle, headLag, headMax);
-            this.clampHeadBodyDifference();
-        } else {
-            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.yHeadRot, bodyLagStill, bodyMaxStill);
-            this.clampHeadBodyDifference();
-        }
+        super.clientTick();
+//        if (this.isMoving()) {
+//            double dx = entity.getX() - entity.xo;
+//            double dz = entity.getZ() - entity.zo;
+//            float moveAngle = (float) (Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
+//            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, moveAngle, bodyLagMoving, bodyMaxMoving);
+//            this.entity.yHeadRot = this.approachAngle(entity.yHeadRot, moveAngle, headLag, headMax);
+//            this.clampHeadBodyDifference();
+//        } else {
+//            this.entity.yBodyRot = this.approachAngle(entity.yBodyRot, entity.yHeadRot, bodyLagStill, bodyMaxStill);
+//            this.clampHeadBodyDifference();
+//        }
     }
 
     protected void clampHeadBodyDifference() {

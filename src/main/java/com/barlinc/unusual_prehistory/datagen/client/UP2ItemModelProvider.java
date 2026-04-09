@@ -158,13 +158,11 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.generatedItem(
                 BRISTLE_FOSSIL,
                 FLAT_BACK_FOSSIL,
-                SURGE_FOSSIL,
                 CROOKED_BEAK_FOSSIL,
 
                 UP2Blocks.AEGIROCASSIS_EGGS,
                 UP2Blocks.DESMATOSUCHUS_EGG,
                 PSILOPTERUS_EGG,
-                PROGNATHODON_EMBRYO,
 
                 PALEOZOIC_BANNER_PATTERN,
                 MESOZOIC_BANNER_PATTERN,
@@ -172,6 +170,14 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 OOZE_BANNER_PATTERN,
 
                 PUMMEL_AND_SNATCH_DISC
+        );
+
+        // Update 6
+        this.generatedItem(
+                ROTUND_FOSSIL,
+                SURGE_FOSSIL,
+
+                PROGNATHODON_EMBRYO
         );
 
         this.generatedItem(CALAMOPHYTON_FOSSIL);

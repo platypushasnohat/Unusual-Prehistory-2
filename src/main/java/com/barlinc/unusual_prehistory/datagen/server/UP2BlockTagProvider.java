@@ -225,6 +225,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS).add(
+                MOSSY_DIRT.get(),
+                Blocks.MOSS_BLOCK,
+                Blocks.GRASS_BLOCK
+        );
+
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

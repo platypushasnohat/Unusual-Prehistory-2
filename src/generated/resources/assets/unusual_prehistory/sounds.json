@@ -263,6 +263,61 @@
     ],
     "subtitle": "subtitles.coelacanthus_hurt"
   },
+  "cotylorhynchus_burp": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/cotylorhynchus/burp1",
+        "weight": 500
+      },
+      "unusual_prehistory:entity/mob/cotylorhynchus/burp2"
+    ],
+    "subtitle": "subtitles.cotylorhynchus_burp"
+  },
+  "cotylorhynchus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/cotylorhynchus/death1"
+    ],
+    "subtitle": "subtitles.cotylorhynchus_death"
+  },
+  "cotylorhynchus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/cotylorhynchus/hurt1",
+      "unusual_prehistory:entity/mob/cotylorhynchus/hurt2"
+    ],
+    "subtitle": "subtitles.cotylorhynchus_hurt"
+  },
+  "cotylorhynchus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/cotylorhynchus/idle1",
+      "unusual_prehistory:entity/mob/cotylorhynchus/idle2"
+    ],
+    "subtitle": "subtitles.cotylorhynchus_idle"
+  },
+  "cotylorhynchus_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.81
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.81
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.81
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.81
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.81
+      }
+    ],
+    "subtitle": "subtitles.cotylorhynchus_step"
+  },
   "desmatosuchus_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/desmatosuchus/death1"

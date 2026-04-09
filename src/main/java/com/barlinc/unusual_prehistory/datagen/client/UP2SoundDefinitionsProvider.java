@@ -834,7 +834,30 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ambient/bug_buzz1")).attenuationDistance(4)
         );
 
-        // Update 5
+        // Update 6
+        this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/death1"))
+        );
+        this.sound(UP2SoundEvents.COTYLORHYNCHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.COTYLORHYNCHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/idle2"))
+        );
+        this.sound(UP2SoundEvents.COTYLORHYNCHUS_STEP,
+                sound("mob/pig/step1").pitch(0.81F),
+                sound("mob/pig/step2").pitch(0.81F),
+                sound("mob/pig/step3").pitch(0.81F),
+                sound("mob/pig/step4").pitch(0.81F),
+                sound("mob/pig/step5").pitch(0.81F)
+        );
+        this.sound(UP2SoundEvents.COTYLORHYNCHUS_BURP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/burp1")).weight(500),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/burp2")).weight(1)
+        );
+
         this.sound(UP2SoundEvents.PROGNATHODON_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/death1"))
         );

@@ -65,6 +65,9 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> PSILOPTERUS_DIGGING_BLOCKS = modBlockTag("psilopterus_digging_blocks");
 
+    // Update 6
+    public static final TagKey<Block> COTYLORHYNCHUS_GRAZING_BLOCKS = modBlockTag("cotylorhynchus_grazing_blocks");
+
     // Future
     public static final TagKey<Block> THERIZINOSAURUS_FORAGING_BLOCKS = modBlockTag("therizinosaurus_foraging_blocks");
 

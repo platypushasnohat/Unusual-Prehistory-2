@@ -25,6 +25,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
+                        output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
@@ -151,6 +152,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
+                        output.accept(ROTUND_FOSSIL.get()); // cotylorhynchus
                         output.accept(FLAT_BACK_FOSSIL.get()); // desmatosuchus
                         output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
@@ -166,10 +168,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
                         output.accept(THERMAL_FOSSIL.get()); // megalania
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
-                        output.accept(SURGE_FOSSIL.get()); // mosasaurus
                         output.accept(SAW_FOSSIL.get()); // onchopristis
                         output.accept(CRANIUM_FOSSIL.get()); // pachycephalosaurus
                         output.accept(FLIPPER_FOSSIL.get()); // praepusa
+                        output.accept(SURGE_FOSSIL.get()); // prognathodon
                         output.accept(CROOKED_BEAK_FOSSIL.get()); // desmatosuchus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus

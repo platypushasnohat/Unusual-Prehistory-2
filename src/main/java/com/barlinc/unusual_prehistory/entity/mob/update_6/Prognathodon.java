@@ -99,12 +99,20 @@ public class Prognathodon extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(10);
+        this.heal(14);
         return super.killedEntity(level, victim);
     }
 
     @Override
     protected void handleAirSupply(int airSupply) {
+        if (this.isAlive() && !this.isInWaterOrBubble()) {
+            this.setAirSupply(airSupply - 1);
+            if (this.getAirSupply() == -20) {
+                this.setAirSupply(0);
+            }
+        } else {
+            this.setAirSupply(300);
+        }
     }
 
     @Override

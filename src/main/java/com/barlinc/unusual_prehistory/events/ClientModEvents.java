@@ -19,6 +19,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_fin
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.CotylorhynchusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.PrognathodonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
@@ -30,6 +31,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_4.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.CotylorhynchusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.PrognathodonRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
@@ -131,6 +133,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
 
         // Update 6
+        event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
     }
 
@@ -199,6 +202,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
 
         // Update 6
+        event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);
     }
 
