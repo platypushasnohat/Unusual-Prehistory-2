@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -24,11 +25,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreathAirGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -65,8 +64,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     private boolean attackAlt = false;
     private boolean nipAlt = false;
 
-    private int leapTicks;
-
     public Prognathodon(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(true);
@@ -89,8 +86,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
         this.goalSelector.addGoal(2, new PrognathodonAttackGoal(this));
         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 80));
-        // todo: add a special timer for this?
-        this.goalSelector.addGoal(3, new BreathAirGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new PrognathodonYawnGoal(this));
@@ -137,9 +132,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
-            if (!this.isEyeInFluid(FluidTags.WATER)) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.01D, 0.0D));
-            }
         } else {
             super.travel(travelVector);
         }
@@ -154,7 +146,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         } else {
             this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
             this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
-            this.navigation = new WaterBoundPathNavigation(this, this.level());
+            this.navigation = new SemiAquaticPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -167,7 +159,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     @Override
     public void tick() {
         super.tick();
-        final boolean ground = !this.isInWaterOrBubble() && !this.isLeaping();
+        final boolean ground = !this.isInWaterOrBubble();
         if (!ground && this.isLandNavigator) {
             this.switchNavigator(false);
         }
@@ -201,18 +193,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         if (yawnCooldown > 0) yawnCooldown--;
         if (tongueCooldown > 0) tongueCooldown--;
         if (nipCooldown > 0) nipCooldown--;
-        if (leapTicks > 0) leapTicks--;
-        if (leapTicks == 0 && this.getPose() == Pose.FALL_FLYING) this.setPose(Pose.STANDING);
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == Pose.FALL_FLYING) {
-                this.leapTicks = 30;
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
@@ -289,7 +269,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 310;
+        return 280;
     }
 
     @Override

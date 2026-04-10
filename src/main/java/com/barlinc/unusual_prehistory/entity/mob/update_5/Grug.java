@@ -65,13 +65,9 @@ public class Grug extends PrehistoricMob implements LeapingMob {
                 .add(Attributes.ATTACK_DAMAGE, 100.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .add(Attributes.FOLLOW_RANGE, 100.0D);
+                .add(Attributes.FOLLOW_RANGE, 100.0D)
+                .add(Attributes.STEP_HEIGHT, 2.5D);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.98F;
-//    }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
@@ -96,11 +92,6 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     public boolean isPushedByFluid() {
         return false;
     }
-
-//    @Override
-//    public boolean canBreatheUnderwater() {
-//        return true;
-//    }
 
     @Override
     public double getFluidJumpThreshold() {

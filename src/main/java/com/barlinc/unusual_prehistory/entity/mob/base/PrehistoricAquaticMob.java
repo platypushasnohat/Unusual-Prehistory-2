@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -9,11 +10,11 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +32,8 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PrehistoricAquaticMob.class, EntityDataSerializers.BOOLEAN);
 
+    public boolean shallowWater;
+
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
 
@@ -41,7 +44,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new WaterBoundPathNavigation(this, level);
+        return new AquaticPathNavigation(this, level);
     }
 
     public float getDepthPathfindingFavor(BlockPos pos, LevelReader level) {
@@ -62,6 +65,10 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
     @Override
     public boolean isPushedByFluid() {
         return false;
+    }
+
+    public boolean isInShallowWater() {
+        return this.isInWaterOrBubble() && this.getFluidHeight(FluidTags.WATER) < this.getBbHeight();
     }
 
     @Override

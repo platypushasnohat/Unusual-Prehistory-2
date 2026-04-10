@@ -100,7 +100,8 @@ public class Majungasaurus extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.19F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
-                .add(Attributes.ARMOR, 4.0D);
+                .add(Attributes.ARMOR, 4.0D)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -122,11 +123,6 @@ public class Majungasaurus extends PrehistoricMob {
         }
         super.travel(travelVec);
     }
-
-//    @Override
-//    public float getStepHeight() {
-//        return 1.1F;
-//    }
 
     @Override
     public boolean isFood(ItemStack stack) {

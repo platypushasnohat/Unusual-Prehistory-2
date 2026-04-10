@@ -76,7 +76,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-//        this.setMaxUpStep(1.1F);
     }
 
     @Override
@@ -108,7 +107,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.JUMP_STRENGTH, 0.5D);
+                .add(Attributes.JUMP_STRENGTH, 0.5D)
+                .add(Attributes.STEP_HEIGHT, 1.5D);
     }
 
     @Override

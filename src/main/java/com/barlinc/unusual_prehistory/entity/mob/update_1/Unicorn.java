@@ -46,7 +46,10 @@ public class Unicorn extends BreedableMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.MOVEMENT_SPEED, 0.2F);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -60,11 +63,6 @@ public class Unicorn extends BreedableMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
-
-//    @Override
-//    public float getStepHeight() {
-//        return 1.0F;
-//    }
 
     @Override
     public void setupAnimationStates() {

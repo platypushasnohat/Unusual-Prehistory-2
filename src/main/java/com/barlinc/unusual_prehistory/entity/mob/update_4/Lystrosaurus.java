@@ -88,15 +88,10 @@ public class Lystrosaurus extends PrehistoricMob {
                 .add(Attributes.ARMOR_TOUGHNESS, 20.0F);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.9F;
-//    }
-//
-//    @Override
-//    public float getStepHeight() {
-//        return this.isRunning() ? 1.0F : 0.6F;
-//    }
+    @Override
+    public float getAdditionalStepHeight() {
+        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {

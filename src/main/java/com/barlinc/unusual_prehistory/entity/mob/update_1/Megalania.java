@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -88,7 +88,6 @@ public class Megalania extends AmphibiousMob {
 
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
-//        this.setMaxUpStep(1.1F);
         this.switchNavigator(true);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
@@ -124,7 +123,8 @@ public class Megalania extends AmphibiousMob {
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     protected void switchNavigator(boolean onLand) {
@@ -136,7 +136,7 @@ public class Megalania extends AmphibiousMob {
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.6F, 0.1F, false);
             this.lookControl = new SmoothSwimmingLookControl(this, 20);
-            this.navigation = new AmphibiousPathNavigation(this, this.level());
+            this.navigation = new SemiAquaticPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }

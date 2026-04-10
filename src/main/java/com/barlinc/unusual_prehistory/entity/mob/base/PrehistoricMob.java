@@ -116,6 +116,16 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return !this.isEepy();
     }
 
+    @Override
+    public float maxUpStep() {
+        float attribute = (float) this.getAttributeValue(Attributes.STEP_HEIGHT);
+        return this.getControllingPassenger() instanceof Player ? Math.max(attribute, 1.0F) : attribute + this.getAdditionalStepHeight();
+    }
+
+    public float getAdditionalStepHeight() {
+        return 0.0F;
+    }
+
     // Jukebox detection
     @Override
     public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> consumer) {

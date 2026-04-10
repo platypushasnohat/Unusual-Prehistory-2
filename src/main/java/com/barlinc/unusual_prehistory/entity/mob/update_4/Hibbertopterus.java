@@ -63,7 +63,8 @@
                  .add(Attributes.MAX_HEALTH, 36.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ARMOR, 10.0D)
-                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
+                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                 .add(Attributes.STEP_HEIGHT, 1.1D);
      }
 
      @Override
@@ -107,11 +108,6 @@
      public boolean canDanceToJukebox() {
          return true;
      }
-
-//     @Override
-//     public float getStepHeight() {
-//         return 1.1F;
-//     }
 
      @Override
      public boolean canCollideWith(@NotNull Entity entity) {

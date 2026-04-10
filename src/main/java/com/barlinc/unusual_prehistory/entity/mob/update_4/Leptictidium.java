@@ -73,11 +73,6 @@ public class Leptictidium extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.8F;
-//    }
-
     @Override
     public double getFluidJumpThreshold() {
         if (this.isInWater() && this.horizontalCollision) {
@@ -97,10 +92,10 @@ public class Leptictidium extends PrehistoricMob {
         super.travel(travelVec);
     }
 
-//    @Override
-//    public float getStepHeight() {
-//        return this.isRunning() ? 1.0F : 0.6F;
-//    }
+    @Override
+    public float getAdditionalStepHeight() {
+        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+    }
 
     @Override
     protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {

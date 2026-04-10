@@ -140,7 +140,7 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         this.animateSmooth(entity.tongueAnimationState, PrognathodonAnimations.FLICK_BLEND, ageInTicks);
         this.animateSmooth(entity.nip1AnimationState, PrognathodonAnimations.NIP_BLEND1, ageInTicks);
         this.animateSmooth(entity.nip2AnimationState, PrognathodonAnimations.NIP_BLEND2, ageInTicks);
-        this.animate(entity.leapAnimationState, PrognathodonAnimations.JUMP, ageInTicks);
+//        this.animate(entity.leapAnimationState, PrognathodonAnimations.JUMP, ageInTicks);
 
         if (entity.isInWaterOrBubble() && !entity.isLeaping()) {
             this.swim_control.xRot = headPitch * deg / 2;
@@ -148,11 +148,7 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
             this.swim_control.xRot = headPitch * deg;
         }
 
-//        this.faceTarget(netHeadYaw, headPitch, 2, neck);
-        this.head.xRot += headPitch * deg / 6;
-        this.head.yRot += netHeadYaw * deg / 4;
-        this.neck.xRot += headPitch * deg / 6;
-        this.neck.yRot += netHeadYaw * deg / 4;
+        this.faceTarget(netHeadYaw, headPitch, 2, neck, head);
 
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.35F);

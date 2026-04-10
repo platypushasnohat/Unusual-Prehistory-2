@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusual_prehistory:item/dunkleosteus_raveri_bucket"
+    "layer0": "unusual_prehistory:item/dunkleosteus_small_bucket"
   },
   "overrides": [
     {
@@ -14,13 +14,13 @@
       "predicate": {
         "variant": 1
       },
-      "model": "unusual_prehistory:item/dunkleosteus_marsais_bucket"
+      "model": "unusual_prehistory:item/dunkleosteus_medium_bucket"
     },
     {
       "predicate": {
         "variant": 2
       },
-      "model": "unusual_prehistory:item/dunkleosteus_terrelli_bucket"
+      "model": "unusual_prehistory:item/dunkleosteus_large_bucket"
     }
   ]
 }

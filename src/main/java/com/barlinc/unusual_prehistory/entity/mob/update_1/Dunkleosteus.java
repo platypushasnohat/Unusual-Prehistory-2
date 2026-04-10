@@ -1,6 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
@@ -21,8 +24,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -40,9 +41,9 @@ import javax.annotation.Nullable;
 @SuppressWarnings("deprecation")
 public class Dunkleosteus extends PrehistoricAquaticMob {
 
-    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.5F, 0.5F);
-    private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(0.8F, 0.98F);
-    private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.7F, 1.98F);
+    private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.5F, 0.5F).withEyeHeight(0.25F);
+    private static final EntityDimensions MEDIUM_SIZE = EntityDimensions.scalable(1.1F, 1.1F).withEyeHeight(0.5F);
+    private static final EntityDimensions LARGE_SIZE = EntityDimensions.scalable(1.9F, 2.1F).withEyeHeight(0.9F);
 
     public int attackCooldown = 0;
 
@@ -53,8 +54,9 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.switchNavigator(false);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -94,11 +96,19 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
             if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
             }
-            if (!this.isEyeInFluid(FluidTags.WATER)) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
         } else {
             super.travel(travelVector);
+        }
+    }
+
+    protected void switchNavigator(boolean inShallows) {
+        this.navigation.stop();
+        if (inShallows) {
+            this.navigation = new SemiAquaticPathNavigation(this, this.level());
+            this.shallowWater = true;
+        } else {
+            this.navigation = this.createNavigation(this.level());
+            this.shallowWater = false;
         }
     }
 
@@ -116,21 +126,38 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         }
     }
 
+//    @Override
+//    public boolean shouldShowName() {
+//        return true;
+//    }
+//
+//    @Override
+//    public Component getDisplayName() {
+//        return Component.literal("shallowWater " + this.shallowWater);
+//    }
+
     @Override
     public void tick() {
         super.tick();
-        if (attackCooldown > 0) attackCooldown--;
+        final boolean shallowWater = this.isInShallowWater();
+        if (shallowWater && !this.shallowWater) {
+            this.switchNavigator(true);
+        } else if (!shallowWater && this.shallowWater) {
+            this.switchNavigator(false);
+        }
     }
 
     @Override
     public void tickCooldowns() {
         super.tickCooldowns();
+        if (attackCooldown > 0) attackCooldown--;
         if (quirkCooldown > 0) quirkCooldown--;
     }
 
     @Override
     public void setupAnimationStates() {
-        super.setupAnimationStates();
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
         this.quirkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
     }
@@ -177,11 +204,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.DUNKLEOSTEUS_FOOD);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.5F;
-//    }
 
     public boolean isTarget(Entity entity) {
         if (this.getVariant() == 1) return entity.getType().is(UP2EntityTags.MEDIUM_DUNKLEOSTEUS_TARGETS);
@@ -240,7 +262,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        return this.getDimsForDunk().scale(this.getScale());
+        return this.getDimsForDunk().scale(this.getAgeScale());
     }
 
     private EntityDimensions getDimsForDunk() {
@@ -326,18 +348,19 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            int depth = this.getWaterDepthAbove(level, this.blockPosition());
-            if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {
-                if (depth > 12) {
-                    this.setVariant(2);
-                } else if (depth > 6) {
-                    this.setVariant(1);
-                } else {
-                    this.setVariant(0);
-                }
-            } else {
-                this.setVariant(random.nextInt(DunkleosteusVariant.values().length));
-            }
+//            int depth = this.getWaterDepthAbove(level, this.blockPosition());
+//            if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {
+//                if (depth > 10) {
+//                    this.setVariant(2);
+//                } else if (depth > 5) {
+//                    this.setVariant(1);
+//                } else {
+//                    this.setVariant(0);
+//                }
+//            }
+//            else {
+                this.setVariant(this.getRandom().nextInt(DunkleosteusVariant.values().length));
+//            }
         }
         return spawnGroupData;
     }

@@ -24,12 +24,14 @@ public abstract class AmphibiousMob extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isInWaterOrBubble()) {
-            this.setTimeInWater(this.getTimeInWater() + 1);
-            this.setTimeOnLand(0);
-        } else {
-            this.setTimeOnLand(this.getTimeOnLand() + 1);
-            this.setTimeInWater(0);
+        if (!this.isEepy() && !this.isSitting() && !this.level().isClientSide) {
+            if (this.isInWaterOrBubble()) {
+                this.setTimeInWater(this.getTimeInWater() + 1);
+                this.setTimeOnLand(0);
+            } else {
+                this.setTimeOnLand(this.getTimeOnLand() + 1);
+                this.setTimeInWater(0);
+            }
         }
     }
 

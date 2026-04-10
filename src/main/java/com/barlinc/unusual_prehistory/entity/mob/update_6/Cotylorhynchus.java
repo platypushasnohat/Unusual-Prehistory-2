@@ -72,14 +72,15 @@ public class Cotylorhynchus extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 26.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15F);
+                .add(Attributes.MOVEMENT_SPEED, 0.15F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
     public double getFluidJumpThreshold() {
-        if (this.isInWater() && this.horizontalCollision) {
-            return super.getFluidJumpThreshold();
-        }
+//        if (this.isInWater() && this.horizontalCollision) {
+//            return super.getFluidJumpThreshold();
+//        }
         return 0.4D * this.getBbHeight();
     }
 
@@ -111,7 +112,7 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     @Override
     public boolean canBeCollidedWith() {
-        return true;
+        return this.isAlive();
     }
 
     @Override
@@ -126,7 +127,7 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getScale());
+        if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
         return super.getDefaultDimensions(pose);
     }
 

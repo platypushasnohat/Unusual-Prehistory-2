@@ -144,10 +144,10 @@
          super.travel(travelVec);
      }
 
-//     @Override
-//     public float getStepHeight() {
-//         return this.isBaby() ? 1.0F : 3.0F;
-//     }
+     @Override
+     public float getAdditionalStepHeight() {
+         return this.isBaby() ? 0.4F : 2.4F;
+     }
 
      @Override
      public boolean isFood(ItemStack stack) {
@@ -161,7 +161,7 @@
 
      @Override
      public boolean canBeCollidedWith() {
-         return !this.isAggressive() && !this.isBaby();
+         return !this.isAggressive() && !this.isBaby() && this.isAlive();
      }
 
      @Override

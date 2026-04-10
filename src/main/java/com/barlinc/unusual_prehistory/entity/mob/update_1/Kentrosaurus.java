@@ -101,13 +101,9 @@ public class Kentrosaurus extends PrehistoricMob {
                 .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
-                .add(Attributes.ARMOR, 4.0F);
+                .add(Attributes.ARMOR, 4.0F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.5F;
-//    }
 
     @Override
     public double getFluidJumpThreshold() {
@@ -116,11 +112,6 @@ public class Kentrosaurus extends PrehistoricMob {
         }
         return 0.4D * this.getBbHeight();
     }
-
-//    @Override
-//    public float getStepHeight() {
-//        return 1.1F;
-//    }
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {

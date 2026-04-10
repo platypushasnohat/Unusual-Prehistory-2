@@ -4,6 +4,12 @@
 - Removed Mosasaurus
 - Removed SmoothBodyRotationControl
 - Updated PrehistoricMoveControl to ensure mobs face the direction they want to move
+- Adjusted dunkleosteus hitbox sizes
+- Fixed some mobs getting stuck in shallow water
+- Decreased depth requirements for larger dunkleosteus variants
+- Aegirocassis now tries to stay near the surface of water at night
+- Fixed praepusa getting stuck after sleeping
+- Many misc tweaks and fixes
 
 ## Version 1.4.3
 - Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit

@@ -112,7 +112,8 @@ public class Carnotaurus extends PrehistoricMob {
                 .add(Attributes.MOVEMENT_SPEED, 0.18F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 6.0D)
-                .add(Attributes.FOLLOW_RANGE, 32.0D);
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -125,11 +126,6 @@ public class Carnotaurus extends PrehistoricMob {
         }
         super.travel(travelVec);
     }
-
-//    @Override
-//    public float getStepHeight() {
-//        return 1.1F;
-//    }
 
     public void roar() {
         if (this.isAlive()) {

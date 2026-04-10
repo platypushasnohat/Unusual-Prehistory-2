@@ -107,14 +107,9 @@ public class Talpanas extends BreedableMob {
         else return 0.0F;
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, @NotNull EntityDimensions dimensions) {
-//        return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
-//    }
-
     @Override
-    public double getFluidJumpThreshold() {
-        return this.isBaby() ? 0.2D : 0.4D;
+    public float getAdditionalStepHeight() {
+        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override
@@ -181,11 +176,6 @@ public class Talpanas extends BreedableMob {
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL);
     }
-
-//    @Override
-//    public boolean canBeLeashed(@NotNull Player player) {
-//        return true;
-//    }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {

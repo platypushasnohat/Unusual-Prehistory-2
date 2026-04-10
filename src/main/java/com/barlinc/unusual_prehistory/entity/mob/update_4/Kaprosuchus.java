@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -102,7 +102,7 @@
          } else {
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
-             this.navigation = new AmphibiousPathNavigation(this, this.level());
+             this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -128,10 +128,10 @@
          }
      }
 
-//     @Override
-//     public float getStepHeight() {
-//         return this.isRunning() ? 1.0F : 0.6F;
-//     }
+     @Override
+     public float getAdditionalStepHeight() {
+         return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+     }
 
      @Override
      public boolean isFood(ItemStack stack) {

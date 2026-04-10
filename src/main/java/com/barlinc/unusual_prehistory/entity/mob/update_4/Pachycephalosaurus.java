@@ -95,11 +95,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
                 .add(Attributes.ARMOR, 4.0F);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.9F;
-//    }
-
     @Override
     public void travel(@NotNull Vec3 travelVec) {
         if (this.refuseToMove() && this.onGround()) {
@@ -111,10 +106,10 @@ public class Pachycephalosaurus extends PrehistoricMob {
         super.travel(travelVec);
     }
 
-//    @Override
-//    public float getStepHeight() {
-//        return this.isRunning() ? 1.0F : 0.6F;
-//    }
+    @Override
+    public float getAdditionalStepHeight() {
+        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+    }
 
     @Override
     public boolean isFood(ItemStack stack) {

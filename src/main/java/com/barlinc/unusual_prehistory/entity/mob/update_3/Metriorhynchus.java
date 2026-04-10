@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -78,14 +78,14 @@
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
-//         this.setMaxUpStep(1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 28.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.15F)
-                 .add(Attributes.ATTACK_DAMAGE, 7.0F);
+                 .add(Attributes.ATTACK_DAMAGE, 7.0F)
+                 .add(Attributes.STEP_HEIGHT, 1.1D);
      }
 
      @Override
@@ -118,7 +118,7 @@
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.98F);
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new AmphibiousPathNavigation(this, this.level());
+             this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }

@@ -152,8 +152,8 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        if (this.isSitting()) return BURROWED_DIMENSIONS.scale(this.getScale());
-        else if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getScale());
+        if (this.isSitting()) return BURROWED_DIMENSIONS.scale(this.getAgeScale());
+        else if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
         return super.getDefaultDimensions(pose);
     }
 
@@ -164,7 +164,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
     @Override
     public boolean canBeCollidedWith() {
-        return true;
+        return this.isAlive();
     }
 
     @Override

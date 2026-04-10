@@ -77,7 +77,8 @@ public class Dromaeosaurus extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.34F);
+                .add(Attributes.MOVEMENT_SPEED, 0.34F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -87,11 +88,6 @@ public class Dromaeosaurus extends PrehistoricMob {
         navigation.setCanPassDoors(true);
         return navigation;
     }
-
-//    @Override
-//    public float getStepHeight() {
-//        return 1.1F;
-//    }
 
     @Override
     public boolean canPacify() {

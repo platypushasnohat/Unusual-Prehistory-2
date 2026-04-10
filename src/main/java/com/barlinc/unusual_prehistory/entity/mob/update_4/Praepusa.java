@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -117,8 +117,8 @@
              this.isLandNavigator = true;
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
-             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new AmphibiousPathNavigation(this, this.level());
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
+             this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -145,10 +145,10 @@
          return 0.25D * this.getBbHeight();
      }
 
-//     @Override
-//     public float getStepHeight() {
-//         return this.isRunning() ? 1.0F : 0.6F;
-//     }
+     @Override
+     public float getAdditionalStepHeight() {
+         return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+     }
 
      @Override
      public boolean canPacify() {

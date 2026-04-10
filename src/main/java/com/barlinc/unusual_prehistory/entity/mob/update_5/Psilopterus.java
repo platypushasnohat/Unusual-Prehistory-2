@@ -126,11 +126,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         return navigation;
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.9F;
-//    }
-
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.FALL);
@@ -168,10 +163,10 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         }
     }
 
-//    @Override
-//    public float getStepHeight() {
-//        return this.isRunning() ? 1.0F : 0.6F;
-//    }
+    @Override
+    public float getAdditionalStepHeight() {
+        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+    }
 
     @Override
     public boolean isFood(ItemStack stack) {

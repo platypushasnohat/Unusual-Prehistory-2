@@ -7,6 +7,8 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -76,6 +78,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
+        this.switchNavigator(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 3, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 2);
         this.headPart = new AegirocassisPart(this, this, 3.5F, 3.9F);
@@ -117,7 +120,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return this.level().isNight() ? (level.getFluidState(pos).is(FluidTags.WATER) ? 10.0F : 0.0F) : this.getDepthPathfindingFavor(pos, level);
+        return this.level().isNight() ? this.getSurfacePathfindingFavor(pos, level) : this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
@@ -144,6 +147,17 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
             }
         } else {
             super.travel(travelVector);
+        }
+    }
+
+    protected void switchNavigator(boolean inShallows) {
+        this.navigation.stop();
+        if (inShallows) {
+            this.navigation = new SemiAquaticPathNavigation(this, this.level());
+            this.shallowWater = true;
+        } else {
+            this.navigation = new AquaticPathNavigation(this, this.level(), true);
+            this.shallowWater = false;
         }
     }
 
@@ -227,6 +241,13 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         }
 
         if (this.level().isClientSide && this.isAlive() && this.isLeaping()) UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 2);
+
+        final boolean shallowWater = this.isInShallowWater();
+        if (shallowWater && !this.shallowWater) {
+            this.switchNavigator(true);
+        } else if (!shallowWater && this.shallowWater) {
+            this.switchNavigator(false);
+        }
     }
 
     public float getGlowProgress(float partialTicks) {
@@ -402,7 +423,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         private final Aegirocassis aegirocassis;
 
         public AegirocassisTryToFlyGoal(Aegirocassis aegirocassis) {
-            super(aegirocassis, 50, 1.0D, 1.25D);
+            super(aegirocassis, 20, 1.0D, 1.25D);
             this.aegirocassis = aegirocassis;
         }
 
