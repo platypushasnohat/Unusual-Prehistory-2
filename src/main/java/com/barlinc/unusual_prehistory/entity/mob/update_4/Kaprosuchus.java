@@ -6,8 +6,8 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -43,7 +43,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Kaprosuchus extends SemiAquaticMob implements LeapingMob {
+ public class Kaprosuchus extends AmphibiousMob implements LeapingMob {
 
      private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Kaprosuchus.class, EntityDataSerializers.BOOLEAN);
@@ -58,7 +58,7 @@
 
      public boolean attackAlt = false;
 
-     public Kaprosuchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Kaprosuchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -95,14 +95,14 @@
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
-             this.lookControl = new KaprosuchusLookControl(this);
+             this.lookControl = new PrehistoricLookControl(this);
              this.moveControl = new PrehistoricMoveControl(this);
              this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
-             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
+             this.navigation = new AmphibiousPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -286,20 +286,5 @@
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.KAPROSUCHUS.get().create(level);
-     }
-
-     private static class KaprosuchusLookControl extends PrehistoricLookControl {
-
-         private final Kaprosuchus kaprosuchus;
-
-         public KaprosuchusLookControl(Kaprosuchus kaprosuchus) {
-             super(kaprosuchus);
-             this.kaprosuchus = kaprosuchus;
-         }
-
-         @Override
-         protected boolean resetXRotOnTick() {
-             return !kaprosuchus.isLeaping();
-         }
      }
  }

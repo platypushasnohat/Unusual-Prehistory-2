@@ -9,12 +9,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -22,11 +19,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
@@ -57,11 +54,10 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         return 1.0F / (float) (y == 0 ? 1 : y);
     }
 
-    // Now a tag
-//    @Override
-//    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
-//        return fluidType != NeoForgeMod.WATER_TYPE.value();
-//    }
+    @Override
+    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+        return fluidType != NeoForgeMod.WATER_TYPE.value();
+    }
 
     @Override
     public boolean isPushedByFluid() {
@@ -193,11 +189,5 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         } else {
             this.setAirSupply(300);
         }
-    }
-
-    public static boolean checkSpawnRules(EntityType<? extends PrehistoricAquaticMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        int i = level.getSeaLevel();
-        int j = i - 13;
-        return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
     }
 }

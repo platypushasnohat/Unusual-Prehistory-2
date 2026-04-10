@@ -6,8 +6,8 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -51,7 +51,7 @@
  import org.jetbrains.annotations.Nullable;
 
  @SuppressWarnings("deprecation")
- public class Metriorhynchus extends SemiAquaticMob implements LeapingMob, GrabbingMob {
+ public class Metriorhynchus extends AmphibiousMob implements LeapingMob, GrabbingMob {
 
      private static final EntityDataAccessor<Integer> HELD_MOB_ID = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Metriorhynchus.class, EntityDataSerializers.BOOLEAN);
@@ -73,7 +73,7 @@
 
      public int bellowCooldown = 2000 + this.getRandom().nextInt(2000);
 
-     public Metriorhynchus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Metriorhynchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -109,21 +109,16 @@
          this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
-//     @Override
-//     protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//         return size.height * 0.5F;
-//     }
-
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
-             this.lookControl = new MetriorhynchusLookControl(this);
+             this.lookControl = new PrehistoricLookControl(this);
              this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.98F);
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
+             this.navigation = new AmphibiousPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -363,21 +358,6 @@
          public void stop() {
              super.stop();
              this.metriorhynchus.bellowCooldown();
-         }
-     }
-
-     private static class MetriorhynchusLookControl extends PrehistoricLookControl {
-
-         private final Metriorhynchus metriorhynchus;
-
-         public MetriorhynchusLookControl(Metriorhynchus metriorhynchus) {
-             super(metriorhynchus);
-             this.metriorhynchus = metriorhynchus;
-         }
-
-         @Override
-         protected boolean resetXRotOnTick() {
-             return !metriorhynchus.isLeaping();
          }
      }
  }

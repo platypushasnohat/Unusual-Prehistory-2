@@ -80,7 +80,7 @@ public class PrehistoricMoveControl extends MoveControl {
         this.mob.setYRot(this.rotlerp(mob.getYRot(), newYRot, 90.0F));
         this.mob.setSpeed((float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
         if (mob.isInWater()) {
-            mob.setSpeed(mob.getSpeed() * 2);
+            this.mob.setSpeed(mob.getSpeed() * 2);
         }
         BlockPos blockpos = mob.blockPosition();
         BlockState blockstate = mob.level().getBlockState(blockpos);

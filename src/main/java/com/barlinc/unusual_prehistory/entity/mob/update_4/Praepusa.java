@@ -6,8 +6,8 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -49,7 +49,7 @@
  import org.jetbrains.annotations.Nullable;
 
  @SuppressWarnings("deprecation")
- public class Praepusa extends SemiAquaticMob implements Bucketable {
+ public class Praepusa extends AmphibiousMob implements Bucketable {
 
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
@@ -76,7 +76,7 @@
      private int loafCooldown = 400 + this.getRandom().nextInt(400);
      private int applauseCooldown = 900 + this.getRandom().nextInt(900);
 
-     public Praepusa(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Praepusa(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -118,7 +118,7 @@
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
+             this.navigation = new AmphibiousPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }

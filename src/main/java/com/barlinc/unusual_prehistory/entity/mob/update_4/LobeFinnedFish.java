@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -9,13 +8,11 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -29,7 +26,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -205,10 +201,6 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
             this.setVariant(random.nextInt(LobeFinnedFishVariant.values().length));
         }
         return spawnGroupData;
-    }
-
-    public static boolean canSpawn(EntityType<LobeFinnedFish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return PrehistoricAquaticMob.checkSpawnRules(entityType, level, spawnType, pos, random);
     }
 
     // Goals

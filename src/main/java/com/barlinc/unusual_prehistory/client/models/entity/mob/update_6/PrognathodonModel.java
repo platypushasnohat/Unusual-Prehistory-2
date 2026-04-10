@@ -126,12 +126,14 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
             if (entity.isRunning()) this.animateWalk(PrognathodonAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(PrognathodonAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+        } else {
+            this.animateWalk(PrognathodonAnimations.CRAWL, limbSwing, limbSwingAmount, 2, 4);
         }
 
         if (this.young) this.applyStatic(PrognathodonAnimations.BABY_TRANSFORM);
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, PrognathodonAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flopAnimationState, PrognathodonAnimations.BEACHED, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, PrognathodonAnimations.BEACHED, ageInTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.attack1AnimationState, PrognathodonAnimations.BITE_BLEND1, ageInTicks);
         this.animateSmooth(entity.attack2AnimationState, PrognathodonAnimations.BITE_BLEND2, ageInTicks);
         this.animateSmooth(entity.yawnAnimationState, PrognathodonAnimations.YAWN_BLEND, ageInTicks);

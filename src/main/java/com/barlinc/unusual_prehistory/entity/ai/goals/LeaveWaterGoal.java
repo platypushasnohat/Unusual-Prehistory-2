@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -11,12 +11,12 @@ import java.util.EnumSet;
 
 public class LeaveWaterGoal extends Goal {
 
-    protected final SemiAquaticMob semiAquaticMob;
+    protected final AmphibiousMob semiAquaticMob;
     private final double speedModifier;
     private final int maxTimeInWater;
     private BlockPos landPos;
 
-    public LeaveWaterGoal(SemiAquaticMob semiAquaticMob, double speedModifier, int maxTimeInWater) {
+    public LeaveWaterGoal(AmphibiousMob semiAquaticMob, double speedModifier, int maxTimeInWater) {
         this.semiAquaticMob = semiAquaticMob;
         this.speedModifier = speedModifier;
         this.maxTimeInWater = maxTimeInWater;

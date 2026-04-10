@@ -5,16 +5,19 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
-public abstract class SemiAquaticMob extends PrehistoricMob {
+public abstract class AmphibiousMob extends PrehistoricMob {
 
-    public static final EntityDataAccessor<Integer> TIME_IN_WATER = SynchedEntityData.defineId(SemiAquaticMob.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> TIME_ON_LAND = SynchedEntityData.defineId(SemiAquaticMob.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> TIME_IN_WATER = SynchedEntityData.defineId(AmphibiousMob.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> TIME_ON_LAND = SynchedEntityData.defineId(AmphibiousMob.class, EntityDataSerializers.INT);
 
     public boolean isLandNavigator;
 
-    protected SemiAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected AmphibiousMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -42,12 +45,6 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
         return false;
     }
 
-    // entity tag
-//    @Override
-//    public boolean canBreatheUnderwater() {
-//        return true;
-//    }
-
     public int getTimeInWater() {
         return this.entityData.get(TIME_IN_WATER);
     }
@@ -62,5 +59,20 @@ public abstract class SemiAquaticMob extends PrehistoricMob {
 
     public void setTimeOnLand(int time) {
         this.entityData.set(TIME_ON_LAND, time);
+    }
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+        this.handleAirSupply();
+    }
+
+    protected void handleAirSupply() {
+        this.setAirSupply(300);
+    }
+
+    @Override
+    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+        return fluidType != NeoForgeMod.WATER_TYPE.value();
     }
 }

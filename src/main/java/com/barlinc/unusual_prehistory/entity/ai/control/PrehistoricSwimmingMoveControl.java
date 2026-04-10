@@ -1,14 +1,13 @@
 package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 
-public class PrehistoricSwimmingMoveControl extends SmoothSwimmingMoveControl {
+public class PrehistoricSwimmingMoveControl extends SwimmingMoveControl {
 
     protected final PrehistoricMob prehistoricMob;
 
     public PrehistoricSwimmingMoveControl(PrehistoricMob prehistoricMob, int maxTurnX, int maxTurnY, float speedModifier) {
-        super(prehistoricMob, maxTurnX, maxTurnY, speedModifier, 1.0F, false);
+        super(prehistoricMob, maxTurnX, maxTurnY, speedModifier);
         this.prehistoricMob = prehistoricMob;
     }
 

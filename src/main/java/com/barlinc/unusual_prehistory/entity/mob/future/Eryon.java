@@ -1,7 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.future;
 
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -24,9 +24,9 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Eryon extends SemiAquaticMob {
+ public class Eryon extends AmphibiousMob {
 
-     public Eryon(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Eryon(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
      }

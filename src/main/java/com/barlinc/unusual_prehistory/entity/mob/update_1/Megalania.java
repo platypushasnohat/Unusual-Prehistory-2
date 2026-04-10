@@ -4,8 +4,8 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.UP2SemiAquaticPathNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.AmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -51,7 +51,7 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Megalania extends SemiAquaticMob {
+public class Megalania extends AmphibiousMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PREV_TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
@@ -136,7 +136,7 @@ public class Megalania extends SemiAquaticMob {
         } else {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.6F, 0.1F, false);
             this.lookControl = new SmoothSwimmingLookControl(this, 20);
-            this.navigation = new UP2SemiAquaticPathNavigation(this, this.level());
+            this.navigation = new AmphibiousPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }

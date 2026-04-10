@@ -3,7 +3,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -44,7 +44,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Hibbertopterus extends SemiAquaticMob implements ItemSteerable {
+ public class Hibbertopterus extends AmphibiousMob implements ItemSteerable {
 
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
 
@@ -52,7 +52,7 @@
 
      public final SmoothAnimationState plowAnimationState = new SmoothAnimationState();
 
-     public Hibbertopterus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Hibbertopterus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(PathType.WATER, 0.0F);

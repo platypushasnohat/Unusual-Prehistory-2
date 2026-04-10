@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -48,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob implements Bucketable {
+public class KimmeridgebrachypteraeschnidiumNymph extends AmphibiousMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumNymph.class, EntityDataSerializers.BOOLEAN);
 
@@ -56,7 +56,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends SemiAquaticMob impleme
 
     protected int nymphAge;
 
-    public KimmeridgebrachypteraeschnidiumNymph(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+    public KimmeridgebrachypteraeschnidiumNymph(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);

@@ -3,7 +3,7 @@
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
- import com.barlinc.unusual_prehistory.entity.mob.base.SemiAquaticMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -42,7 +42,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Brachiosaurus extends SemiAquaticMob {
+ public class Brachiosaurus extends AmphibiousMob {
 
      private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
 
@@ -73,7 +73,7 @@
      public int callCooldown = 1500 + this.getRandom().nextInt(1500);
      public int shakeCooldown = 900 + this.getRandom().nextInt(900);
 
-     public Brachiosaurus(EntityType<? extends SemiAquaticMob> entityType, Level level) {
+     public Brachiosaurus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);

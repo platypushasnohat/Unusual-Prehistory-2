@@ -9,9 +9,9 @@ import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class UP2SemiAquaticPathNavigation extends WaterBoundPathNavigation {
+public class AmphibiousPathNavigation extends WaterBoundPathNavigation {
 
-    public UP2SemiAquaticPathNavigation(Mob mob, Level level) {
+    public AmphibiousPathNavigation(Mob mob, Level level) {
         super(mob, level);
     }
 
