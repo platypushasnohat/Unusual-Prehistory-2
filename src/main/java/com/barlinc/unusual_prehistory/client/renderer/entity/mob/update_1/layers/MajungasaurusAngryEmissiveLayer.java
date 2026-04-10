@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layer
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.MajungasaurusModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -30,7 +31,7 @@ public class MajungasaurusAngryEmissiveLayer extends RenderLayer<Majungasaurus, 
         float angryProgress = entity.getAngryProgress(partialTicks);
         if (angryProgress <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(this.getAngryTexture(entity)));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), (int) angryProgress);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(angryProgress, angryProgress, angryProgress, angryProgress));
     }
 
     public ResourceLocation getAngryTexture(Majungasaurus entity) {

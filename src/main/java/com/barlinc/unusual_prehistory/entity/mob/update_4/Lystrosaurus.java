@@ -39,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class Lystrosaurus extends PrehistoricMob {
 
     public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
@@ -115,11 +116,11 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
-    protected void actuallyHurt(@NotNull DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
-            super.actuallyHurt(source, amount * 0.1F);
+            return super.hurt(source, amount * 0.05F);
         } else {
-            super.actuallyHurt(source, amount * 0.2F);
+            return super.hurt(source, amount * 0.1F);
         }
     }
 
@@ -147,13 +148,13 @@ public class Lystrosaurus extends PrehistoricMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isAlive() && !this.level().isClientSide && this.tickCount % 4 == 0) {
+        if (this.isAlive() && !this.level().isClientSide && this.tickCount % 3 == 0) {
             this.breakFallingBlocks();
         }
     }
 
     private void breakFallingBlocks() {
-        this.level().getEntities(this, this.getBoundingBox()).forEach((entity) -> {
+        this.level().getEntities(this, this.getBoundingBox().inflate(0.0D, 0.1D, 0.0D).move(0.0D, 0.1D, 0.0D)).forEach((entity) -> {
             if (entity instanceof FallingBlockEntity fallingBlockEntity) {
                 if (fallingBlockEntity.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                     fallingBlockEntity.spawnAtLocation(fallingBlockEntity.getBlockState().getBlock());

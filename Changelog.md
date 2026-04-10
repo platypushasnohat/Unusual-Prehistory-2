@@ -9,6 +9,9 @@
 - Decreased depth requirements for larger dunkleosteus variants
 - Aegirocassis now tries to stay near the surface of water at night
 - Fixed praepusa getting stuck after sleeping
+- Buffed lystrosaurus
+- Majungasaurus hitbox no longer renders when it is camouflaged to be consistent with invisibility
+- Fixed Majungasaurus rendering when invisibility is applied
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

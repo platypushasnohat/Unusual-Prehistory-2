@@ -16,12 +16,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderDispatcher.class)
 public class EntityRenderDispatcherMixin {
 
-    @Inject(method = "renderHitbox", at = @At("TAIL"), cancellable = true)
-    private static void unusualPrehistory2$renderHitbox(PoseStack poseStack, VertexConsumer buffer, Entity entity, float red, float green, float blue, float alpha, CallbackInfo ci) {
+    @Inject(method = "renderHitbox", at = @At("TAIL"))
+    private static void unusualPrehistory2$renderHitboxTail(PoseStack poseStack, VertexConsumer buffer, Entity entity, float red, float green, float blue, float alpha, CallbackInfo ci) {
         if (entity instanceof Onchopristis onchopristis) {
             AABB aABB = onchopristis.getAggroHitbox().move(-entity.getX(), -entity.getY(), -entity.getZ());
             LevelRenderer.renderLineBox(poseStack, buffer, aABB, 1, 0, 0, 1.0F);
         }
+    }
+
+    @Inject(method = "renderHitbox", at = @At("HEAD"), cancellable = true)
+    private static void unusualPrehistory2$renderHitboxHead(PoseStack poseStack, VertexConsumer buffer, Entity entity, float red, float green, float blue, float alpha, CallbackInfo ci) {
         if (entity instanceof Majungasaurus majungasaurus && majungasaurus.isCamo()) {
             ci.cancel();
         }

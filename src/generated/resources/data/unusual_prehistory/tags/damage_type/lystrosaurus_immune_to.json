@@ -9,6 +9,7 @@
     "#minecraft:is_fire",
     "#minecraft:is_freezing",
     "#minecraft:is_fall",
-    "#minecraft:is_projectile"
+    "#minecraft:is_projectile",
+    "#minecraft:is_explosion"
   ]
 }

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layer
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -30,6 +31,6 @@ public class AegirocassisGlowLayer extends RenderLayer<Aegirocassis, UP2Model<Ae
         float glowProgress = entity.getGlowProgress(partialTicks);
         if (glowProgress <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucentEmissive(GLOW_TEXTURE));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), (int) glowProgress);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, glowProgress));
     }
 }

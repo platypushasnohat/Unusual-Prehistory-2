@@ -23,6 +23,7 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
         super(output, Registries.DAMAGE_TYPE, provider, UnusualPrehistory2.MOD_ID, helper);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(@NotNull Provider provider) {
 
@@ -39,7 +40,13 @@ public class UP2DamageTypeTagProvider extends TagsProvider<DamageType> {
                 DamageTypes.FALLING_ANVIL,
                 DamageTypes.FALLING_STALACTITE,
                 DamageTypes.IN_WALL
-        ).addTag(DamageTypeTags.IS_FIRE).addTag(DamageTypeTags.IS_FREEZING).addTag(DamageTypeTags.IS_FALL).addTag(DamageTypeTags.IS_PROJECTILE);
+        ).addTags(
+                DamageTypeTags.IS_FIRE,
+                DamageTypeTags.IS_FREEZING,
+                DamageTypeTags.IS_FALL,
+                DamageTypeTags.IS_PROJECTILE,
+                DamageTypeTags.IS_EXPLOSION
+        );
 
         this.tag(DamageTypeTags.BYPASSES_ARMOR).add(
                 EXECUTE,

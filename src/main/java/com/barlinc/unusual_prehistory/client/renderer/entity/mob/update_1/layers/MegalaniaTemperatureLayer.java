@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layer
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.MegalaniaModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -41,7 +42,7 @@ public class MegalaniaTemperatureLayer extends RenderLayer<Megalania, MegalaniaM
         float alpha = 1.0F - progress;
         if (alpha <= 0.0F) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(this.getTexture(entity)));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), (int) alpha);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, alpha));
     }
 
     public ResourceLocation getTexture(Megalania entity) {

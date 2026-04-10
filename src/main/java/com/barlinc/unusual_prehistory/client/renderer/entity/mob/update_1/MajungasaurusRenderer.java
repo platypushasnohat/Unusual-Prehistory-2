@@ -30,6 +30,7 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
 
     @Override
     public void render(Majungasaurus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
+        if (entity.isInvisible()) return;
         this.shadowRadius = entity.getCamoProgress(partialTicks) > 0.0F ? 0.0F : 0.8F;
         float alpha = 1.0F - entity.getCamoProgress(partialTicks);
         if (alpha > 0) super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);

@@ -130,7 +130,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     public float getCamoProgress(float partialTicks) {
-        return (prevCamoProgress + (camoProgress - prevCamoProgress) * partialTicks) * 0.1F;
+        return (prevCamoProgress + (camoProgress - prevCamoProgress) * partialTicks) * 0.2F;
     }
 
     public float getAngryProgress(float partialTicks) {
@@ -181,11 +181,19 @@ public class Majungasaurus extends PrehistoricMob {
         this.prevCamoProgress = camoProgress;
         this.prevAngryProgress = angryProgress;
 
-        if ((this.isCamo()) && camoProgress < 10.0F) camoProgress++;
-        else if (!(this.isCamo()) && camoProgress > 0.0F) camoProgress--;
+        if (this.isCamo() && camoProgress < 5F) {
+            this.camoProgress++;
+        }
+        if (!this.isCamo() && camoProgress > 0F) {
+            this.camoProgress--;
+        }
 
-        if (this.isAggressive() && angryProgress < 5.0F) angryProgress++;
-        else if (!this.isAggressive() && angryProgress > 0.0F) angryProgress--;
+        if (this.isAggressive() && angryProgress < 5F) {
+            this.angryProgress++;
+        }
+        if (!this.isAggressive() && angryProgress > 0F) {
+            this.angryProgress--;
+        }
 
         if (this.getCamoCooldown() > 0) this.setCamoCooldown(this.getCamoCooldown() - 1);
     }

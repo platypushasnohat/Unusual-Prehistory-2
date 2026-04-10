@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.MajungasaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
@@ -170,11 +171,15 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
         poseStack.pushPose();
+        float red = ColorUtils.unpackRed(color);
+        float green = ColorUtils.unpackGreen(color);
+        float blue = ColorUtils.unpackBlue(color);
+        float modelAlpha = ColorUtils.unpackAlpha(color);
         if (this.young) {
             poseStack.scale(this.youngScaleFactor, this.youngScaleFactor, this.youngScaleFactor);
             poseStack.translate(0.0F, this.bodyYOffset / 16.0F, 0.0F);
         }
-        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, (int) (color * this.alpha));
+        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, ColorUtils.packColor(red, green, blue, modelAlpha * alpha));
         poseStack.popPose();
     }
 

@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layer
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.DesmatosuchusModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,7 +29,7 @@ public class DesmatosuchusDirtyLayer extends RenderLayer<Desmatosuchus, Desmatos
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Desmatosuchus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity.isInvisible() || !entity.isDirty()) return;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(this.getDirtyTexture(entity)));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1);
+        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, 1.0F));
     }
 
     public ResourceLocation getDirtyTexture(Desmatosuchus entity) {
