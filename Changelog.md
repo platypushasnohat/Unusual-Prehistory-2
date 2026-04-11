@@ -12,6 +12,9 @@
 - Buffed lystrosaurus
 - Majungasaurus hitbox no longer renders when it is camouflaged to be consistent with invisibility
 - Fixed Majungasaurus rendering when invisibility is applied
+- Added dawn and dusk metasequoia leaves
+- Added needle litter
+- Overhauled metasequoia generation
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

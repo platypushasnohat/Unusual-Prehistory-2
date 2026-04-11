@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.blocks.egg.*;
 import com.barlinc.unusual_prehistory.blocks.plant.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
+import com.barlinc.unusual_prehistory.blocks.plant.update_6.NeedleLitterBlock;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -35,9 +36,8 @@ public class UP2Blocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(UnusualPrehistory2.MOD_ID);
 
     public static final List<Supplier<? extends Block>> EGG_BLOCKS = new ArrayList<>();
-    public static List<WoodSet> WOOD_SETS = new ArrayList<>();
-
     public static List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
+    public static List<WoodSet> WOOD_SETS = new ArrayList<>();
 
     // Update 1
     public static final DeferredBlock<Block> CARNOTAURUS_EGG = registerEggBlock("carnotaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CARNOTAURUS::get, 12, 15));
@@ -155,6 +155,9 @@ public class UP2Blocks {
 
     public static final WoodSet METASEQUOIA = new WoodSet("metasequoia");
     public static final DeferredBlock<Block> METASEQUOIA_LEAVES = registerBlock("metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final DeferredBlock<Block> DAWN_METASEQUOIA_LEAVES = registerBlock("dawn_metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+    public static final DeferredBlock<Block> DUSK_METASEQUOIA_LEAVES = registerBlock("dusk_metasequoia_leaves", () -> new LeavesBlock(UP2BlockProperties.leaves(MapColor.PLANT, SoundType.AZALEA_LEAVES)));
+
     public static final DeferredBlock<Block> METASEQUOIA_SAPLING = registerBlock("metasequoia_sapling", () -> new MetasequoiaSaplingBlock(UP2TreeGrowers.METASEQUOIA, UP2BlockProperties.sapling(MapColor.PLANT, SoundType.CHERRY_SAPLING)));
     public static final DeferredBlock<Block> POTTED_METASEQUOIA_SAPLING = registerBlockWithoutItem("potted_metasequoia_sapling", () -> new FlowerPotBlock(METASEQUOIA_SAPLING.get(), registerFlowerPot()));
 
@@ -195,6 +198,9 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> ZHANGSOLVA_BLOOM = registerBlock("zhangsolva_bloom", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.ZHANGSOLVA::get, 2));
     public static final DeferredBlock<Block> DELITZSCHALA_STALK = registerBlock("delitzschala_stalk", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
+
+    // Update 6
+    public static final DeferredBlock<Block> NEEDLE_LITTER = registerBlock("needle_litter", ()-> new NeedleLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(0.5F).sound(SoundType.GRAVEL)));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);

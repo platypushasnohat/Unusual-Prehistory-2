@@ -248,6 +248,9 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropPottedContents(POTTED_METASEQUOIA_SAPLING.get());
 
             this.add(METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+            this.add(DAWN_METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+            this.add(DUSK_METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
+            this.add(NEEDLE_LITTER.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
 
             this.dropSelf(PROTOTAXITES_NUB.get());
             this.dropSelf(PROTOTAXITES_CLUSTER.get());

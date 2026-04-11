@@ -2,6 +2,6 @@
   "parent": "minecraft:block/leaves",
   "render_type": "minecraft:cutout_mipped",
   "textures": {
-    "all": "unusual_prehistory:block/lepidodendron_leaves"
+    "all": "unusual_prehistory:block/dusk_metasequoia_leaves"
   }
 }

@@ -287,11 +287,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 GINKGO_LEAVES.get(),
                 GOLDEN_GINKGO_LEAVES.get(),
                 LEPIDODENDRON_LEAVES.get(),
-                METASEQUOIA_LEAVES.get()
+                METASEQUOIA_LEAVES.get(),
+                DAWN_METASEQUOIA_LEAVES.get(),
+                DUSK_METASEQUOIA_LEAVES.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-                MOSSY_DIRT.get()
+                MOSSY_DIRT.get(),
+                NEEDLE_LITTER.get()
         );
 
         this.tag(BlockTags.SWORD_EFFICIENT).add(
@@ -336,7 +339,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.DIRT).add(
-                MOSSY_DIRT.get()
+                MOSSY_DIRT.get(),
+                NEEDLE_LITTER.get()
         );
 
         this.tag(BlockTags.SMALL_FLOWERS).add(

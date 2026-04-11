@@ -345,7 +345,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(METASEQUOIA_BOAT.get());
                         output.accept(METASEQUOIA_CHEST_BOAT.get());
                         output.accept(UP2Blocks.METASEQUOIA_LEAVES.get());
+                        output.accept(UP2Blocks.DAWN_METASEQUOIA_LEAVES.get());
+                        output.accept(UP2Blocks.DUSK_METASEQUOIA_LEAVES.get());
                         output.accept(UP2Blocks.METASEQUOIA_SAPLING.get());
+                        output.accept(UP2Blocks.NEEDLE_LITTER.get());
 
                     }).build());
 }

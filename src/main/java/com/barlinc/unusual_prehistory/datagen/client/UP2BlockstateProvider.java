@@ -71,6 +71,8 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.woodSet(METASEQUOIA);
         this.leavesBlock(METASEQUOIA_LEAVES);
+        this.leavesBlock(DAWN_METASEQUOIA_LEAVES);
+        this.leavesBlock(DUSK_METASEQUOIA_LEAVES);
 
         this.cubeColumnBlock(FOSSILIZED_BONE_BLOCK);
 //        this.cubeColumnBlock(FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.modPrefix("fossilized_bone_vertebra"), UnusualPrehistory2.modPrefix("fossilized_bone_block_top"));
@@ -295,7 +297,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     }
 
     public void leavesBlock(DeferredHolder<Block, ?> leaves) {
-        this.simpleBlock(leaves.get(), models().getBuilder(name(leaves.get())).parent(new ModelFile.UncheckedModelFile(ResourceLocation.withDefaultNamespace("block/leaves"))).texture("all", blockTexture(leaves.get())).renderType("cutout"));
+        this.simpleBlock(leaves.get(), models().getBuilder(name(leaves.get())).parent(new ModelFile.UncheckedModelFile(ResourceLocation.withDefaultNamespace("block/leaves"))).texture("all", blockTexture(leaves.get())).renderType("cutout_mipped"));
         this.blockItem(leaves);
     }
 

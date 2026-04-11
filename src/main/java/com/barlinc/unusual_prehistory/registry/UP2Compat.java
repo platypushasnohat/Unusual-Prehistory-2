@@ -64,6 +64,8 @@ public class UP2Compat {
 
         UP2Blocks.METASEQUOIA.setFlammables();
         registerFlammable(UP2Blocks.METASEQUOIA_LEAVES.get(), 30, 60);
+        registerFlammable(UP2Blocks.DAWN_METASEQUOIA_LEAVES.get(), 30, 60);
+        registerFlammable(UP2Blocks.DUSK_METASEQUOIA_LEAVES.get(), 30, 60);
 
         // Update 5
         registerFlammable(UP2Blocks.DELITZSCHALA_STALK.get(), 60, 100);
