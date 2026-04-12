@@ -294,7 +294,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 MOSSY_DIRT.get(),
-                NEEDLE_LITTER.get()
+                NEEDLE_LITTER.get(),
+                PEAT.get(),
+                LIVING_PEAT.get()
         );
 
         this.tag(BlockTags.SWORD_EFFICIENT).add(
@@ -340,7 +342,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.DIRT).add(
                 MOSSY_DIRT.get(),
-                NEEDLE_LITTER.get()
+                NEEDLE_LITTER.get(),
+                PEAT.get(),
+                LIVING_PEAT.get()
         );
 
         this.tag(BlockTags.SMALL_FLOWERS).add(

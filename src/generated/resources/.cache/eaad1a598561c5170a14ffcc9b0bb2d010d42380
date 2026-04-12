@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-08T21:13:16.9095942	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-04-11T21:17:08.3706132	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -86,7 +86,7 @@ c2b7fc051035fb23bce954c8823c9659cd7108fa data/unusual_prehistory/tags/item/pacif
 ed777dd287545d1f1767cdadcb6256fe94cca11a data/unusual_prehistory/tags/item/paleozoic_eggs.json
 6dcd696334f21f31398bc2d354999d216948fe6f data/unusual_prehistory/tags/item/paleozoic_fossils.json
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/item/permanently_pacifies_mob.json
-9c0d8c6e18f50d9b75ca31bc6b3552e18b041534 data/unusual_prehistory/tags/item/plant_fossils.json
+517e96178cb37db1c54edfc4d440d3aa86a87407 data/unusual_prehistory/tags/item/plant_fossils.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/item/praepusa_food.json
 52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/item/prevents_egg_hatching.json
 58954f2bfed7cb1f7524f6432e2f04f80625074e data/unusual_prehistory/tags/item/prognathodon_food.json

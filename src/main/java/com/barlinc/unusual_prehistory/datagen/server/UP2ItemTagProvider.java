@@ -316,7 +316,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CALAMOPHYTON_FOSSIL.get(),
                 DELITZSCHALA_FOSSIL.get(),
                 COOKSONIA_FOSSIL.get(),
-                LEEFRUCTUS_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
                 RAIGUENRAYUN_FOSSIL.get(),
                 RHYNIA_FOSSIL.get(),
@@ -328,7 +327,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 GUANGDEDENDRON_FOSSIL.get(),
                 ZHANGSOLVA_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
-                TEMPSKYA_FOSSIL.get(),
                 METASEQUOIA_FOSSIL.get(),
                 DRYOPHYLLUM_FOSSIL.get()
         );

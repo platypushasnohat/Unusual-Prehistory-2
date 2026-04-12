@@ -211,7 +211,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropPottedContents(POTTED_HORSETAIL.get());
             this.add(LARGE_HORSETAIL.get(), block -> this.createDoublePlantDrops(block, HORSETAIL.get()));
 
-            this.add(MOSSY_DIRT.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
+            this.add(MOSSY_DIRT.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
             this.dropSelf(MOSS_LAYER.get());
 
             this.add(GUANGDEDENDRON_SPORE.get(), this.createSingleItemTable(GUANGDEDENDRON.get(), ConstantValue.exactly(1.0F)));
@@ -250,12 +250,15 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.add(METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
             this.add(DAWN_METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
             this.add(DUSK_METASEQUOIA_LEAVES.get(), (block) -> this.createLeavesDrops(block, METASEQUOIA_SAPLING.get(), LEAVES_SAPLING_CHANCES));
-            this.add(NEEDLE_LITTER.get(), (block) -> createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
+            this.add(NEEDLE_LITTER.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, Blocks.DIRT));
 
             this.dropSelf(PROTOTAXITES_NUB.get());
             this.dropSelf(PROTOTAXITES_CLUSTER.get());
             this.dropSelf(PROTOTAXITES.get());
             this.add(LARGE_PROTOTAXITES_NUB.get(), (block) -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+
+            this.dropSelf(PEAT.get());
+            this.add(LIVING_PEAT.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, PEAT.get()));
         }
 
         @Override

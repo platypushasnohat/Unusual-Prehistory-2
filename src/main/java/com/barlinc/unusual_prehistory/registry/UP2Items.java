@@ -73,7 +73,6 @@ public class UP2Items {
     public static final DeferredItem<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
     public static final DeferredItem<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
     public static final DeferredItem<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
-    public static final DeferredItem<Item> LEEFRUCTUS_FOSSIL = registerFossilItem("leefructus");
     public static final DeferredItem<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
     public static final DeferredItem<Item> RAIGUENRAYUN_FOSSIL = registerFossilItem("raiguenrayun");
     public static final DeferredItem<Item> RHYNIA_FOSSIL = registerFossilItem("rhynia");
@@ -160,7 +159,6 @@ public class UP2Items {
     public static final DeferredItem<Item> CYCAD_FOSSIL = registerFossilItem("cycad");
     public static final DeferredItem<Item> GUANGDEDENDRON_FOSSIL = registerFossilItem("guangdedendron");
     public static final DeferredItem<Item> PROTOTAXITES_FOSSIL = registerFossilItem("prototaxites");
-    public static final DeferredItem<Item> TEMPSKYA_FOSSIL = registerFossilItem("tempskya");
     public static final DeferredItem<Item> METASEQUOIA_FOSSIL = registerFossilItem("metasequoia");
     public static final DeferredItem<Item> DRYOPHYLLUM_FOSSIL = registerFossilItem("dryophyllum");
 

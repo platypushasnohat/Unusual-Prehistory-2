@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "unusual_prehistory:block/peat_top",
+    "side": "unusual_prehistory:block/living_peat_side",
+    "top": "unusual_prehistory:block/living_peat_top"
+  }
+}

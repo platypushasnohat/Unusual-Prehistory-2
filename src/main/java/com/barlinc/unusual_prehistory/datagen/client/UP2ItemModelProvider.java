@@ -184,8 +184,6 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.generatedItem(RAIGUENRAYUN_FOSSIL);
         this.generatedItem(GINKGO_FOSSIL);
         this.generatedItem(RHYNIA_FOSSIL);
-        this.generatedItem(TEMPSKYA_FOSSIL);
-        this.generatedItem(LEEFRUCTUS_FOSSIL);
         this.generatedItem(ZHANGSOLVA_FOSSIL);
         this.generatedItem(PROTOTAXITES_FOSSIL);
         this.generatedItem(QUILLWORT_FOSSIL);

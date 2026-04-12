@@ -7,6 +7,8 @@ import com.barlinc.unusual_prehistory.blocks.plant.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.NeedleLitterBlock;
+import com.barlinc.unusual_prehistory.blocks.plant.update_6.PeatBlock;
+import com.barlinc.unusual_prehistory.blocks.plant.update_6.LivingPeatBlock;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -201,6 +203,8 @@ public class UP2Blocks {
 
     // Update 6
     public static final DeferredBlock<Block> NEEDLE_LITTER = registerBlock("needle_litter", ()-> new NeedleLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> PEAT = registerBlock("peat", ()-> new PeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD)));
+    public static final DeferredBlock<Block> LIVING_PEAT = registerBlock("living_peat", ()-> new LivingPeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(UP2SoundTypes.LIVING_PEAT)));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
