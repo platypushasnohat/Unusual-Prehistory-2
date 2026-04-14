@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.animations.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -9,6 +9,21 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MammothAnimations {
+
+    public static final AnimationDefinition BABY_TRANSFORM = AnimationDefinition.Builder.withLength(0.0F).looping()
+            .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.5F, 1.5F, 1.5F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("left_tusk", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(0F, 0F, 0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("right_tusk", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(0F, 0F, 0F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .addAnimation("trunk1", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                    new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.5F, 0.5F, 0.5F), AnimationChannel.Interpolations.LINEAR)
+            ))
+            .build();
 
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(8.0F).looping()
             .addAnimation("left_arm", new AnimationChannel(AnimationChannel.Targets.ROTATION,

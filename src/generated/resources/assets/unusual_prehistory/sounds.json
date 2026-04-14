@@ -1070,6 +1070,33 @@
     ],
     "subtitle": "subtitles.majungasaurus_step"
   },
+  "mammoth_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/mammoth/death1"
+    ],
+    "subtitle": "subtitles.mammoth_death"
+  },
+  "mammoth_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/mammoth/hurt1",
+      "unusual_prehistory:entity/mob/mammoth/hurt2"
+    ],
+    "subtitle": "subtitles.mammoth_hurt"
+  },
+  "mammoth_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/mammoth/idle1",
+      "unusual_prehistory:entity/mob/mammoth/idle2"
+    ],
+    "subtitle": "subtitles.mammoth_idle"
+  },
+  "mammoth_step": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/mammoth/step1",
+      "unusual_prehistory:entity/mob/mammoth/step2"
+    ],
+    "subtitle": "subtitles.mammoth_step"
+  },
   "manipulator_attack_slash": {
     "sounds": [
       "unusual_prehistory:entity/mob/manipulator/attack_slash1",

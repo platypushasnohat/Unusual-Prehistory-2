@@ -69,13 +69,13 @@ public class UP2ModelLayers {
 
     // Update 6
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
+    public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
 
     // Future
     public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
     public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
     public static final ModelLayerLocation ERYON = mainLayer("eryon");
-    public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
     public static final ModelLayerLocation PALAEOPHIS = mainLayer("palaeophis");
     public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");

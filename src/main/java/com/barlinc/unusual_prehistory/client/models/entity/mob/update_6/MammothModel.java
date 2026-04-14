@@ -1,8 +1,9 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.future;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.future.MammothAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.CotylorhynchusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.MammothAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.future.Mammoth;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Mammoth;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -30,6 +31,8 @@ public class MammothModel extends UP2Model<Mammoth> {
     private final ModelPart left_tusk_wooly;
     private final ModelPart right_tusk;
     private final ModelPart right_tusk_wooly;
+    private final ModelPart rightbrow;
+    private final ModelPart leftbrow;
     private final ModelPart tail;
     private final ModelPart arm_control;
     private final ModelPart left_arm;
@@ -39,7 +42,7 @@ public class MammothModel extends UP2Model<Mammoth> {
     private final ModelPart right_leg;
 
 	public MammothModel(ModelPart root) {
-        super(0.5F, 24);
+        super(0.25F, 72);
         this.root = root.getChild("root");
         this.body_main = this.root.getChild("body_main");
         this.body = this.body_main.getChild("body");
@@ -56,6 +59,8 @@ public class MammothModel extends UP2Model<Mammoth> {
         this.left_tusk_wooly = this.left_tusk.getChild("left_tusk_wooly");
         this.right_tusk = this.head.getChild("right_tusk");
         this.right_tusk_wooly = this.right_tusk.getChild("right_tusk_wooly");
+        this.rightbrow = this.head.getChild("rightbrow");
+        this.leftbrow = this.head.getChild("leftbrow");
         this.tail = this.body.getChild("tail");
         this.arm_control = this.body_main.getChild("arm_control");
         this.left_arm = this.arm_control.getChild("left_arm");
@@ -108,6 +113,10 @@ public class MammothModel extends UP2Model<Mammoth> {
                 .texOffs(232, 34).mirror().addBox(-8.0F, 17.0F, -5.0F, 6.0F, 6.0F, 40.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(0, 334).mirror().addBox(-2.0F, -2.0F, -5.0F, 6.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(4.8627F, 27.9245F, -31.5F));
 
+        PartDefinition rightbrow = head.addOrReplaceChild("rightbrow", CubeListBuilder.create().texOffs(48, 58).addBox(-2.0F, -3.0F, 0.0F, 6.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-9.5F, -7.0F, -19.25F));
+
+        PartDefinition leftbrow = head.addOrReplaceChild("leftbrow", CubeListBuilder.create().texOffs(48, 58).mirror().addBox(-4.0F, -3.0F, 0.0F, 6.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(9.5F, -7.0F, -19.25F));
+
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(194, 244).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 20.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(324, 111).addBox(-2.5F, 19.0F, -2.0F, 5.0F, 9.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -36.0F, 30.5F, 0.1745F, 0.0F, 0.0F));
 
@@ -130,7 +139,9 @@ public class MammothModel extends UP2Model<Mammoth> {
 	public void setupAnim(@NotNull Mammoth entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(MammothAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
-		this.animateIdle(entity.idleAnimationState, MammothAnimations.IDLE, ageInTicks, 1, limbSwingAmount * 4);
+		this.animateIdleSmooth(entity.idleAnimationState, MammothAnimations.IDLE, ageInTicks, limbSwingAmount);
+        if (this.young) this.applyStatic(MammothAnimations.BABY_TRANSFORM);
+        this.faceTarget(netHeadYaw, headPitch, 3, head);
 	}
 
 	@Override

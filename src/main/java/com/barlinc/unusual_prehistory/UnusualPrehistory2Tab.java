@@ -40,6 +40,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
                         output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
+                        output.accept(MAMMOTH_SPAWN_EGG.get());
                         output.accept(MEGALANIA_SPAWN_EGG.get());
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());

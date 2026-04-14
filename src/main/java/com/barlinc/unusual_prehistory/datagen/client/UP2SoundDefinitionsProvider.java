@@ -858,6 +858,22 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/burp2")).weight(1)
         );
 
+        this.sound(UP2SoundEvents.MAMMOTH_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/death1"))
+        );
+        this.sound(UP2SoundEvents.MAMMOTH_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/hurt2"))
+        );
+        this.sound(UP2SoundEvents.MAMMOTH_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/idle2"))
+        );
+        this.sound(UP2SoundEvents.MAMMOTH_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step2"))
+        );
+
         this.sound(UP2SoundEvents.PROGNATHODON_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/death1"))
         );

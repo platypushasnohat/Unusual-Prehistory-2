@@ -203,6 +203,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_STEP = registerSoundEvent("cotylorhynchus_step");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_BURP = registerSoundEvent("cotylorhynchus_burp");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_HURT = registerSoundEvent("mammoth_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_DEATH = registerSoundEvent("mammoth_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_IDLE = registerSoundEvent("mammoth_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_STEP = registerSoundEvent("mammoth_step");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_HURT = registerSoundEvent("prognathodon_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_DEATH = registerSoundEvent("prognathodon_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");

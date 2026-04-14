@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-12T22:22:31.5317794	Item Models: unusual_prehistory
+// 1.21.1	2026-04-14T12:12:13.7863523	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -91,6 +91,7 @@ bed0f7864f96a094ee7274187abef08dd58a58e6 assets/unusual_prehistory/models/item/l
 b10088114704dd8f5962e9665087820adad461d3 assets/unusual_prehistory/models/item/machine_parts.json
 041d0ebd248a467399a052a3ff1983754e777f62 assets/unusual_prehistory/models/item/majungasaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/majungasaurus_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/mammoth_spawn_egg.json
 418017823fd8efb2c97c64c68b1152c23614faea assets/unusual_prehistory/models/item/megalania_disc.json
 eaabae11b2b5864cf3147228be79486e6fa26268 assets/unusual_prehistory/models/item/megalania_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/megalania_spawn_egg.json
