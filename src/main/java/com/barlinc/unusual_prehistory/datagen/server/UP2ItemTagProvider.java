@@ -312,20 +312,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 AGED_FEATHER.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
-                BENNETTITALES_FOSSIL.get(),
-                CALAMOPHYTON_FOSSIL.get(),
-                DELITZSCHALA_FOSSIL.get(),
-                COOKSONIA_FOSSIL.get(),
                 QUILLWORT_FOSSIL.get(),
-                RAIGUENRAYUN_FOSSIL.get(),
-                RHYNIA_FOSSIL.get(),
                 GINKGO_FOSSIL.get(),
                 LEPIDODENDRON_FOSSIL.get(),
-                AETHOPHYLLUM_FOSSIL.get(),
                 BRACHYPHYLLUM_FOSSIL.get(),
                 CYCAD_FOSSIL.get(),
                 GUANGDEDENDRON_FOSSIL.get(),
-                ZHANGSOLVA_FOSSIL.get(),
                 PROTOTAXITES_FOSSIL.get(),
                 METASEQUOIA_FOSSIL.get(),
                 DRYOPHYLLUM_FOSSIL.get()

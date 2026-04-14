@@ -70,12 +70,7 @@ public class UP2Items {
     public static final DeferredItem<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET = registerItemNoLang("kimmeridgebrachypteraeschnidium_nymph_bucket", () -> new UP2MobBucketItem(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
     public static final DeferredItem<Item> STETHACANTHUS_BUCKET = registerItemNoLang("stethacanthus_bucket", () -> new UP2MobBucketItem(UP2Entities.STETHACANTHUS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
 
-    public static final DeferredItem<Item> BENNETTITALES_FOSSIL = registerFossilItem("bennettitales");
-    public static final DeferredItem<Item> CALAMOPHYTON_FOSSIL = registerFossilItem("calamophyton");
-    public static final DeferredItem<Item> COOKSONIA_FOSSIL = registerFossilItem("cooksonia");
     public static final DeferredItem<Item> QUILLWORT_FOSSIL = registerFossilItem("quillwort");
-    public static final DeferredItem<Item> RAIGUENRAYUN_FOSSIL = registerFossilItem("raiguenrayun");
-    public static final DeferredItem<Item> RHYNIA_FOSSIL = registerFossilItem("rhynia");
     public static final DeferredItem<Item> GINKGO_FOSSIL = registerFossilItem("ginkgo");
     public static final DeferredItem<Item> LEPIDODENDRON_FOSSIL = registerFossilItem("lepidodendron");
 
@@ -154,7 +149,6 @@ public class UP2Items {
 
     public static final DeferredItem<Item> DIRT_ON_A_STICK = registerItemNoLang("dirt_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(20), 4));
 
-    public static final DeferredItem<Item> AETHOPHYLLUM_FOSSIL = registerFossilItem("aethophyllum");
     public static final DeferredItem<Item> BRACHYPHYLLUM_FOSSIL = registerFossilItem("brachyphyllum");
     public static final DeferredItem<Item> CYCAD_FOSSIL = registerFossilItem("cycad");
     public static final DeferredItem<Item> GUANGDEDENDRON_FOSSIL = registerFossilItem("guangdedendron");
@@ -187,9 +181,6 @@ public class UP2Items {
     public static final DeferredItem<Item> BRISTLE_FOSSIL = registerFossilItem("bristle"); // aegirocassis
     public static final DeferredItem<Item> FLAT_BACK_FOSSIL = registerFossilItem("flat_back"); // desmatosuchus
     public static final DeferredItem<Item> CROOKED_BEAK_FOSSIL = registerFossilItem("crooked_beak"); // psilopterus
-
-    public static final DeferredItem<Item> DELITZSCHALA_FOSSIL = registerFossilItem("delitzschala");
-    public static final DeferredItem<Item> ZHANGSOLVA_FOSSIL = registerFossilItem("zhangsolva");
 
     public static final DeferredItem<Item> PSILOPTERUS_EGG = registerEggItem("psilopterus", UP2Entities.PSILOPTERUS_EGG);
 

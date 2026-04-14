@@ -84,15 +84,15 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
     @Override
     public void performBonemeal(ServerLevel level, @NotNull RandomSource random, BlockPos pos, @NotNull BlockState state) {
         BlockPos abovePos = pos.above();
-        BlockState blockState = UP2Blocks.HORSETAIL.get().defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> mossLayer = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.MOSS_LAYER_BONEMEAL);
-        Optional<Holder.Reference<PlacedFeature>> patch = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.PATCH_MOSSY_DIRT_PLANTS);
+        BlockState horsetail = UP2Blocks.HORSETAIL.get().defaultBlockState();
+        BlockState fern = Blocks.FERN.defaultBlockState();
+        Optional<Holder.Reference<PlacedFeature>> patch = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.MOSSY_DIRT_PLANTS);
 
         outerLoop:
-        for (int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 128; i++) {
             BlockPos blockpos = abovePos;
 
-            for (int j = 0; j < i / 16; ++j) {
+            for (int j = 0; j < i / 16; j++) {
                 blockpos = blockpos.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
                 if (!level.getBlockState(blockpos.below()).is(this) || level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
                     continue outerLoop;
@@ -100,23 +100,15 @@ public class MossyDirtBlock extends SnowyDirtBlock implements BonemealableBlock 
             }
 
             BlockState state1 = level.getBlockState(blockpos);
-            if (state1.is(blockState.getBlock()) && random.nextInt(10) == 0) {
-                ((BonemealableBlock) blockState.getBlock()).performBonemeal(level, random, blockpos, state1);
+            if ((state1.is(horsetail.getBlock()) || state1.is(fern.getBlock())) && random.nextInt(10) == 0) {
+                ((BonemealableBlock) state1.getBlock()).performBonemeal(level, random, blockpos, state1);
             }
 
             if (state1.isAir()) {
-                Holder<PlacedFeature> featureHolder;
-                if (random.nextInt(4) == 0) {
-                    if (patch.isEmpty()) {
-                        continue;
-                    }
-                    featureHolder = patch.get();
-                } else {
-                    if (mossLayer.isEmpty()) {
-                        continue;
-                    }
-                    featureHolder = mossLayer.get();
+                if (patch.isEmpty()) {
+                    continue;
                 }
+                Holder<PlacedFeature> featureHolder = patch.get();
                 featureHolder.value().place(level, level.getChunkSource().getGenerator(), random, blockpos);
             }
         }

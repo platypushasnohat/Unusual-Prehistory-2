@@ -42,10 +42,10 @@ public class NeedleLitterBlock extends SnowyDirtBlock implements BonemealableBlo
         Optional<Holder.Reference<PlacedFeature>> patch = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(UP2Features.NEEDLE_LITTER_PLANTS);
 
         outerLoop:
-        for (int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 128; i++) {
             BlockPos blockpos = abovePos;
 
-            for (int j = 0; j < i / 16; ++j) {
+            for (int j = 0; j < i / 16; j++) {
                 blockpos = blockpos.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
                 if (!level.getBlockState(blockpos.below()).is(this) || level.getBlockState(blockpos).isCollisionShapeFullBlock(level, blockpos)) {
                     continue outerLoop;

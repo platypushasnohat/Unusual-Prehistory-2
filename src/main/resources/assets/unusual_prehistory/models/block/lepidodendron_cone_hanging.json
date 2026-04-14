@@ -1,0 +1,30 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/cross",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"cross": "unusual_prehistory:block/lepidodendron_cone"
+	},
+	"elements": [
+		{
+			"from": [8, 2, 0.8],
+			"to": [8, 16, 15.2],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 10, 8], "rescale": true},
+			"faces": {
+				"east": {"uv": [0, 3, 16, 16], "texture": "#cross"},
+				"west": {"uv": [0, 3, 16, 16], "texture": "#cross"}
+			}
+		},
+		{
+			"from": [0.8, 2, 8],
+			"to": [15.2, 16, 8],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 10, 8], "rescale": true},
+			"faces": {
+				"north": {"uv": [0, 3, 16, 16], "texture": "#cross"},
+				"south": {"uv": [0, 3, 16, 16], "texture": "#cross"}
+			}
+		}
+	]
+}

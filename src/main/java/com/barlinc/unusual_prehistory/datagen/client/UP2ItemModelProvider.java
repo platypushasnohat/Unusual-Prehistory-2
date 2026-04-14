@@ -180,18 +180,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 PROGNATHODON_EMBRYO
         );
 
-        this.generatedItem(CALAMOPHYTON_FOSSIL);
-        this.generatedItem(RAIGUENRAYUN_FOSSIL);
         this.generatedItem(GINKGO_FOSSIL);
-        this.generatedItem(RHYNIA_FOSSIL);
-        this.generatedItem(ZHANGSOLVA_FOSSIL);
         this.generatedItem(PROTOTAXITES_FOSSIL);
         this.generatedItem(QUILLWORT_FOSSIL);
         this.generatedItem(LEPIDODENDRON_FOSSIL);
-        this.generatedItem(COOKSONIA_FOSSIL);
-        this.generatedItem(DELITZSCHALA_FOSSIL);
-        this.generatedItem(BENNETTITALES_FOSSIL);
-        this.generatedItem(AETHOPHYLLUM_FOSSIL);
         this.generatedItem(BRACHYPHYLLUM_FOSSIL);
         this.generatedItem(GUANGDEDENDRON_FOSSIL);
         this.generatedItem(METASEQUOIA_FOSSIL);

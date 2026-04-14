@@ -217,7 +217,8 @@ public class ClientModEvents {
                     }
                     return BiomeColors.getAverageFoliageColor(world, pos);
                 },
-                UP2Blocks.CLADOPHLEBIS.get()
+                UP2Blocks.CLADOPHLEBIS.get(),
+                UP2Blocks.POTTED_CLADOPHLEBIS.get()
         );
     }
 

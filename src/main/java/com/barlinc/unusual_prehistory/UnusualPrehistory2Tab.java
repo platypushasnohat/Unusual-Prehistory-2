@@ -42,10 +42,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         output.accept(MEGALANIA_SPAWN_EGG.get());
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
-                        output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
                         output.accept(PACHYCEPHALOSAURUS_SPAWN_EGG.get());
                         output.accept(PRAEPUSA_SPAWN_EGG.get());
+                        output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
                         output.accept(STETHACANTHUS_SPAWN_EGG.get());
@@ -172,7 +172,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CRANIUM_FOSSIL.get()); // pachycephalosaurus
                         output.accept(FLIPPER_FOSSIL.get()); // praepusa
                         output.accept(SURGE_FOSSIL.get()); // prognathodon
-                        output.accept(CROOKED_BEAK_FOSSIL.get()); // desmatosuchus
+                        output.accept(CROOKED_BEAK_FOSSIL.get()); // psilopterus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus
                         output.accept(AGED_FEATHER.get()); // talpanas
@@ -199,10 +199,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());
                         output.accept(METRIORHYNCHUS_EMBRYO.get());
-                        output.accept(PROGNATHODON_EMBRYO.get());
                         output.accept(UP2Blocks.ONCHOPRISTIS_SAC.get());
                         output.accept(UP2Blocks.PACHYCEPHALOSAURUS_EGG.get());
                         output.accept(PRAEPUSA_EMBRYO.get());
+                        output.accept(PROGNATHODON_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
                         output.accept(PTERODACTYLUS_EGG.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
@@ -211,16 +211,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(TELECREX_EGG.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
-                        output.accept(AETHOPHYLLUM_FOSSIL.get());
-                        output.accept(BENNETTITALES_FOSSIL.get());
                         output.accept(BRACHYPHYLLUM_FOSSIL.get());
-                        output.accept(CALAMOPHYTON_FOSSIL.get());
-                        output.accept(DELITZSCHALA_FOSSIL.get());
-                        output.accept(COOKSONIA_FOSSIL.get());
                         output.accept(QUILLWORT_FOSSIL.get());
-                        output.accept(RAIGUENRAYUN_FOSSIL.get());
-                        output.accept(RHYNIA_FOSSIL.get());
-                        output.accept(ZHANGSOLVA_FOSSIL.get());
                         output.accept(CYCAD_FOSSIL.get());
                         output.accept(GUANGDEDENDRON_FOSSIL.get());
                         output.accept(PROTOTAXITES_FOSSIL.get());

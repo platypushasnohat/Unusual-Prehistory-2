@@ -17,15 +17,16 @@ public class UP2Features {
 
     public static final DeferredHolder<Feature<?>, Feature<StructureFeatureConfig>> STRUCTURE_FEATURE = FEATURES.register("structure_feature", () -> new StructureFeature(StructureFeatureConfig.CODEC));
 
-    public static final ResourceKey<PlacedFeature> MOSS_LAYER_BONEMEAL = createPlacedFeatureKey("moss_layer_bonemeal");
-    public static final ResourceKey<PlacedFeature> PATCH_MOSSY_DIRT_PLANTS = createPlacedFeatureKey("patch_mossy_dirt_plants");
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> DRYOPHYLLUM = createConfiguredFeatureKey("dryophyllum");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> GINKGO = createConfiguredFeatureKey("ginkgo");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GOLDEN_GINKGO = createConfiguredFeatureKey("golden_ginkgo");
+    public static final ResourceKey<PlacedFeature> MOSSY_DIRT_PLANTS = createPlacedFeatureKey("mossy_dirt_plants");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEPIDODENDRON = createConfiguredFeatureKey("lepidodendron");
+    public static final ResourceKey<PlacedFeature> LIVING_PEAT_PLANTS = createPlacedFeatureKey("living_peat_plants");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> METASEQUOIA = createConfiguredFeatureKey("metasequoia");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_METASEQUOIA = createConfiguredFeatureKey("mega_metasequoia");

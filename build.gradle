@@ -120,6 +120,7 @@ dependencies {
     localRuntime "maven.modrinth:commandstructures:rTiLoxgs"
     localRuntime "maven.modrinth:just-enough-effect-descriptions-jeed:HpxNIA6x"
     localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
+    localRuntime "maven.modrinth:lithium:mc1.21.1-0.15.3-neoforge"
 }
 
 tasks.withType(ProcessResources).configureEach {
