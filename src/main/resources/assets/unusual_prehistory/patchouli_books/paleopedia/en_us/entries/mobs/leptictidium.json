@@ -40,7 +40,7 @@
       "feature_1.title_one_line": "Pest Control",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "minecraft:splash_potion{Potion:\"minecraft:awkward\"}",
+      "feature_2.item": "minecraft:splash_potion[potion_contents={custom_color:8439583,custom_effects:[{id:poison,duration:600}]}]",
       "feature_2.tooltip": "Leptictidium carries and spreads potion effects to other mobs",
       "feature_2.title_one_line": "Plague Rats",
       "feature_2.title_two_line": ""

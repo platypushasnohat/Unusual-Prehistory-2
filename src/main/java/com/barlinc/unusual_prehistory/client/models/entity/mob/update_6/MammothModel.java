@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.CotylorhynchusAnimations;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.MammothAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Mammoth;

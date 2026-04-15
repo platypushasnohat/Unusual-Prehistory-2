@@ -835,6 +835,25 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         // Update 6
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/death1"))
+        );
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/hurt1"))
+        );
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/idle3"))
+        );
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_STEP,
+                sound("mob/pig/step1").pitch(0.86F),
+                sound("mob/pig/step2").pitch(0.86F),
+                sound("mob/pig/step3").pitch(0.86F),
+                sound("mob/pig/step4").pitch(0.86F),
+                sound("mob/pig/step5").pitch(0.86F)
+        );
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/death1"))
         );

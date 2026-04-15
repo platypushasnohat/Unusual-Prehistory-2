@@ -197,6 +197,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> PUMMEL_AND_SNATCH_DISC = registerSoundEvent("pummel_and_snatch_disc");
 
     // Update 6
+    public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_HURT = registerSoundEvent("antarctopelta_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_DEATH = registerSoundEvent("antarctopelta_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_IDLE = registerSoundEvent("antarctopelta_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_STEP = registerSoundEvent("antarctopelta_step");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_HURT = registerSoundEvent("cotylorhynchus_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_DEATH = registerSoundEvent("cotylorhynchus_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_IDLE = registerSoundEvent("cotylorhynchus_idle");

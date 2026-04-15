@@ -7,7 +7,6 @@ import com.barlinc.unusual_prehistory.utils.UP2TextUtils;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -21,7 +20,6 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -403,6 +401,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.GRUG_CHASE, "Grug runs");
 
         // Update 6
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_HURT, "Antarctopelta hurts");
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH, "Antarctopelta dies");
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_IDLE, "Antarctopelta groans");
+        this.sound(UP2SoundEvents.ANTARCTOPELTA_STEP, "Antarctopelta steps");
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_HURT, "Cotylorhynchus hurts");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH, "Cotylorhynchus dies");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_IDLE, "Cotylorhynchus grumbles");
@@ -627,10 +630,6 @@ public class UP2LanguageProvider extends LanguageProvider {
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
         this.addEntityType(entity, UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity.get())).getPath()));
-    }
-
-    private String format(ResourceLocation registryName) {
-        return WordUtils.capitalizeFully(registryName.getPath().replace("_", " "));
     }
 
     protected void painting(String name, String author) {

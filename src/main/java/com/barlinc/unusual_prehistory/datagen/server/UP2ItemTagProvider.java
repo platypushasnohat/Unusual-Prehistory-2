@@ -378,6 +378,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.PREVENTS_EGG_HATCHING, UP2ItemTags.PREVENTS_EGG_HATCHING);
 
         // Update 6
+        this.tag(UP2ItemTags.ANTARCTOPELTA_FOOD).add(
+                Blocks.FERN.asItem(),
+                UP2Blocks.HORSETAIL.asItem()
+        );
+
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES
         );

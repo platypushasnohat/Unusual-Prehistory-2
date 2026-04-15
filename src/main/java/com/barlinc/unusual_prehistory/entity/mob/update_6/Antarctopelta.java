@@ -36,7 +36,7 @@ public class Antarctopelta extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ANTARCTOPELTA_FOOD), false));
         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -46,12 +46,12 @@ public class Antarctopelta extends PrehistoricMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.MAX_HEALTH, 18.0D)
+                .add(Attributes.ATTACK_DAMAGE, 9.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.STEP_HEIGHT, 1.1D)
-                .add(Attributes.ARMOR, 18.0D);
+                .add(Attributes.ARMOR, 16.0D);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Antarctopelta extends PrehistoricMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.ANTARCTOPELTA_FOOD);
     }
 
     @Override
@@ -99,24 +99,24 @@ public class Antarctopelta extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.MAMMOTH_IDLE.get();
+        return UP2SoundEvents.ANTARCTOPELTA_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.MAMMOTH_HURT.get();
+        return UP2SoundEvents.ANTARCTOPELTA_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.MAMMOTH_DEATH.get();
+        return UP2SoundEvents.ANTARCTOPELTA_DEATH.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.MAMMOTH_STEP.get(), this.isBaby() ? 0.15F : 0.3F, this.isBaby() ? 1.5F : 1.0F);
+        this.playSound(UP2SoundEvents.ANTARCTOPELTA_STEP.get(), 0.15F, 1.0F);
     }
 
     @Override

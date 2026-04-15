@@ -143,8 +143,10 @@ public class UP2ItemTags {
     public static final TagKey<Item> PREVENTS_EGG_HATCHING = modItemTag("prevents_egg_hatching");
 
     // Update 6
-    public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+    public static final TagKey<Item> ANTARCTOPELTA_FOOD = modItemTag("antarctopelta_food");
     public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
+    public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> STINKY_COTYLORHYNCHUS_FOOD = modItemTag("stinky_cotylorhynchus_food");
 

@@ -234,8 +234,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
         Item item = food.getItem();
-        if (item.components().has(DataComponents.FOOD)) {
-            for (FoodProperties.PossibleEffect effect : food.getFoodProperties(this).effects()) {
+        FoodProperties foodproperties = food.getFoodProperties(this);
+        if (item.components().has(DataComponents.FOOD) && foodproperties != null) {
+            for (FoodProperties.PossibleEffect effect : foodproperties.effects()) {
                 if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
                     livingEntity.addEffect(new MobEffectInstance(effect.effect()));
                 }
@@ -264,7 +265,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.isFood(itemstack)) {
             if (this.getHealth() < this.getMaxHealth() && this.eatTimer <= 0) {
                 this.feedItemToMob(player, hand, itemstack);
-                this.heal(itemstack.getFoodProperties(this).nutrition());
+                FoodProperties foodproperties = itemstack.getFoodProperties(this);
+                float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
+                this.heal(2.0F * healAmount);
                 this.level().broadcastEntityEvent(this, (byte) 11);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }

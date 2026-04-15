@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.AntarctopeltaModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.MammothModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusDwarfModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusMuddyModel;
@@ -21,11 +19,11 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.lobe_fin
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.AntarctopeltaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.CotylorhynchusModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.MammothModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.PrognathodonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.AntarctopeltaRenderer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.MammothRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.LivingOozeRenderer;
@@ -38,7 +36,9 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.GrugRe
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.PsilopterusRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.AntarctopeltaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.CotylorhynchusRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.MammothRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.PrognathodonRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;

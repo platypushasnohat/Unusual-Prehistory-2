@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_6.Antarctopelta;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ public class AntarctopeltaModel extends UP2Model<Antarctopelta> {
     private final ModelPart Antarcto_Spikes_Right;
     private final ModelPart head;
     private final ModelPart Antarcto_Jaw;
-    private final ModelPart Antarcto_Tail;
+    private final ModelPart tail;
     private final ModelPart Antarcto_Leg_Left;
     private final ModelPart Antarcto_Leg_Right;
     private final ModelPart Antarcto_Arm_Left;
@@ -38,7 +39,7 @@ public class AntarctopeltaModel extends UP2Model<Antarctopelta> {
         this.Antarcto_Spikes_Right = this.neck.getChild("Antarcto_Spikes_Right");
         this.head = this.neck.getChild("head");
         this.Antarcto_Jaw = this.head.getChild("Antarcto_Jaw");
-        this.Antarcto_Tail = this.Antarcto_Upper_Body.getChild("Antarcto_Tail");
+        this.tail = this.Antarcto_Upper_Body.getChild("Antarcto_Tail");
         this.Antarcto_Leg_Left = this.Antarcto_Mainbody.getChild("Antarcto_Leg_Left");
         this.Antarcto_Leg_Right = this.Antarcto_Mainbody.getChild("Antarcto_Leg_Right");
         this.Antarcto_Arm_Left = this.Antarcto_Mainbody.getChild("Antarcto_Arm_Left");
@@ -96,10 +97,13 @@ public class AntarctopeltaModel extends UP2Model<Antarctopelta> {
 	@Override
 	public void setupAnim(@NotNull Antarctopelta entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(AntarctopeltaAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
+        this.animateWalk(AntarctopeltaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		this.animateIdleSmooth(entity.idleAnimationState, AntarctopeltaAnimations.IDLE, ageInTicks, limbSwingAmount);
         if (this.young) this.applyStatic(AntarctopeltaAnimations.BABY_TRANSFORM);
-        this.faceTarget(netHeadYaw, headPitch, 2, neck);
+        this.faceTarget(netHeadYaw, headPitch, 2, neck, head);
+        float partialTicks = ageInTicks - entity.tickCount;
+        float tailYaw = entity.getTailYaw(partialTicks);
+        this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.25F);
 	}
 
 	@Override

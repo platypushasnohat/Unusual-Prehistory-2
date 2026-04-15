@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-12T22:22:31.516156	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-04-15T15:58:44.1323335	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -16,6 +16,7 @@ bb2f2bd35ca7533bb6fb695accabe9a39b7ac315 data/minecraft/tags/item/logs_that_burn
 db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/item/accelerates_egg_hatching.json
 8eeab6448dd6076a212959e471057cb1a16e3950 data/unusual_prehistory/tags/item/aegirocassis_food.json
 ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/item/amber_dyes.json
+551feb34ecad08506006825d2bff75a56a5cf12d data/unusual_prehistory/tags/item/antarctopelta_food.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/item/aqua_dyes.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/item/brachiosaurus_food.json

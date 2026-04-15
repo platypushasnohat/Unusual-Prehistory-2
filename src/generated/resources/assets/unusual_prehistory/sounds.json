@@ -30,6 +30,51 @@
     ],
     "subtitle": "subtitles.aegirocassis_idle"
   },
+  "antarctopelta_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/antarctopelta/death1"
+    ],
+    "subtitle": "subtitles.antarctopelta_death"
+  },
+  "antarctopelta_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/antarctopelta/hurt1"
+    ],
+    "subtitle": "subtitles.antarctopelta_hurt"
+  },
+  "antarctopelta_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/antarctopelta/idle1",
+      "unusual_prehistory:entity/mob/antarctopelta/idle2",
+      "unusual_prehistory:entity/mob/antarctopelta/idle3"
+    ],
+    "subtitle": "subtitles.antarctopelta_idle"
+  },
+  "antarctopelta_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.86
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.86
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.86
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.86
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.86
+      }
+    ],
+    "subtitle": "subtitles.antarctopelta_step"
+  },
   "barinasuchus_attack": {
     "sounds": [
       "unusual_prehistory:entity/mob/barinasuchus/bite1"
