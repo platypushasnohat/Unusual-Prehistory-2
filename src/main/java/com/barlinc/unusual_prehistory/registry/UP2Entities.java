@@ -13,6 +13,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Grug;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Antarctopelta;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Cotylorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Mammoth;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Prognathodon;
@@ -90,6 +91,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> PSILOPTERUS_EGG = registerEntity("psilopterus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS::get), MobCategory.MISC, builder -> builder.sized(0.25F, 0.25F));
 
     // Update 6
+    public static final DeferredHolder<EntityType<?>, EntityType<Antarctopelta>> ANTARCTOPELTA = registerEntity("antarctopelta", Antarctopelta::new, MobCategory.CREATURE, builder -> builder.sized(1.4F, 1.4F).eyeHeight(1.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Cotylorhynchus>> COTYLORHYNCHUS = registerEntity("cotylorhynchus", Cotylorhynchus::new, MobCategory.CREATURE, builder -> builder.sized(2.1F, 1.7F).eyeHeight(1.6F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Mammoth>> MAMMOTH = registerEntity("mammoth", Mammoth::new, MobCategory.CREATURE, builder -> builder.sized(3.6F, 4.9F).eyeHeight(4.7F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Prognathodon>> PROGNATHODON = registerEntity("prognathodon", Prognathodon::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.8F, 2.3F).eyeHeight(1.1F).clientTrackingRange(10));

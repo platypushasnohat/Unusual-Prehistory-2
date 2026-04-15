@@ -68,6 +68,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation GRUG = mainLayer("grug");
 
     // Update 6
+    public static final ModelLayerLocation ANTARCTOPELTA = mainLayer("antarctopelta");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");

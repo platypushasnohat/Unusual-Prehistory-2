@@ -13,6 +13,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Grug;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Antarctopelta;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Cotylorhynchus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Mammoth;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Prognathodon;
@@ -73,6 +74,7 @@ public class ModEvents {
         event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
 
         // Update 6
+        event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
         event.put(UP2Entities.MAMMOTH.get(), Mammoth.createAttributes().build());
         event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());

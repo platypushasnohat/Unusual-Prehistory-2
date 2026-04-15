@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.AntarctopeltaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.MammothModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusDwarfModel;
@@ -23,6 +24,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.CotylorhynchusModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.PrognathodonModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.AntarctopeltaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.MammothRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
@@ -138,6 +140,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
 
         // Update 6
+        event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
@@ -208,6 +211,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
 
         // Update 6
+        event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);
