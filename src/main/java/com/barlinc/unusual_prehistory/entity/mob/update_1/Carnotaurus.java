@@ -260,7 +260,7 @@ public class Carnotaurus extends PrehistoricMob {
     }
 
     private void roarEffect() {
-        for(int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 10; ++i) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;

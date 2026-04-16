@@ -82,6 +82,8 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.SNOWFLAKE.get(), SnowflakeParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.IMPACT_STUN.get(), ImpactStunParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.POPPING_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
+        event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
+        event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
     }
 
     @SubscribeEvent

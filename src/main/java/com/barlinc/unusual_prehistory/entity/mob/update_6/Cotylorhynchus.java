@@ -8,12 +8,13 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,7 +23,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,6 +45,7 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Integer> GROG_TICKS = SynchedEntityData.defineId(Cotylorhynchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> GROG_TYPE = SynchedEntityData.defineId(Cotylorhynchus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> GLUTTONY = SynchedEntityData.defineId(Cotylorhynchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(2.1F, 1.3F);
 
@@ -153,19 +154,21 @@ public class Cotylorhynchus extends PrehistoricMob {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
-                if (this.getRandom().nextFloat() <= 0.2F) {
+                if (this.getGluttony() >= 4) {
                     if (this.getNavigation().getPath() != null) {
                         this.getNavigation().stop();
                     }
                     this.setPose(UP2Poses.BURPING.get());
                     this.setGrogType(grogType);
-                    this.setGrogTicks(200);
+                    this.setGrogTicks(this.getTimeUntilGrog());
+                    this.setGluttony(0);
                 }
+                this.setGluttony(this.getGluttony() + 1);
                 this.playSound(this.getEatingSound(itemstack), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
                 return InteractionResult.SUCCESS;
             }
         }
-        else if (itemstack.is(Items.GLASS_BOTTLE) && this.isFullOfGrog() && this.getGrogTicks() == 0) {
+        else if (itemstack.is(Items.GLASS_BOTTLE) && this.isFullOfGrog() && this.getGrogTicks() == 0 && !this.level().isClientSide) {
             Item outputItem = this.getGrogType().getOutputItem();
             if (outputItem != null) {
                 if (!player.isCreative()) {
@@ -183,8 +186,28 @@ public class Cotylorhynchus extends PrehistoricMob {
         return type;
     }
 
-    private void spawnGrogParticle(Level level, double xStart, double xEnd, double zStart, double zEnd, double yPos) {
-        level.addParticle(ParticleTypes.DRIPPING_HONEY, Mth.lerp(level.random.nextDouble(), xStart, xEnd), yPos, Mth.lerp(level.random.nextDouble(), zStart, zEnd), 0.0D, 0.0D, 0.0D);
+    private void spawnGrogParticles() {
+        if (this.getGrogType().getParticle() != null) {
+            for (int i = 0; i < 5; ++i) {
+                double d0 = this.random.nextGaussian() * 0.05D;
+                double d1 = this.random.nextGaussian() * 0.05D;
+                double d2 = this.random.nextGaussian() * 0.05D;
+                this.level().addParticle(this.getGrogType().getParticle(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), d0, d1, d2);
+            }
+        }
+    }
+
+    private void spawnBurpParticles() {
+        if (this.getGrogType().getParticle() != null) {
+            Vec3 lookVec = new Vec3(0, 0, -this.getBbWidth() * 0.87F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+            Vec3 eyeVec = this.getEyePosition().add(lookVec);
+            for (int i = 0; i < 3; i++) {
+                double d0 = this.random.nextGaussian() * 0.08D;
+                double d1 = this.random.nextGaussian() * 0.08D;
+                double d2 = this.random.nextGaussian() * 0.08D;
+                this.level().addParticle(this.getGrogType().getParticle(), eyeVec.x, eyeVec.y, eyeVec.z, d0, d1, d2);
+            }
+        }
     }
 
     @Override
@@ -199,16 +222,17 @@ public class Cotylorhynchus extends PrehistoricMob {
 
         if (burpTicks > 0) burpTicks--;
         if (this.getPose() == UP2Poses.BURPING.get() && burpTicks == 14) {
+            if (this.level().isClientSide) {
+                this.spawnBurpParticles();
+            }
             this.playSound(UP2SoundEvents.COTYLORHYNCHUS_BURP.get(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
         }
         if (this.getPose() == UP2Poses.BURPING.get() && burpTicks == 0) {
             this.setPose(Pose.STANDING);
         }
 
-        if (this.isFullOfGrog() && this.getGrogTicks() <= 0 && this.getRandom().nextFloat() < 0.05F && this.level().isClientSide) {
-            for (int i = 0; i < 3; i++) {
-                this.spawnGrogParticle(this.level(), this.getX() - (double) 1.6F, this.getX() + (double) 1.6F, this.getZ() - (double) 1.6F, this.getZ() + (double) 1.6F, this.getY(0.8D));
-            }
+        if (this.isFullOfGrog() && this.getGrogTicks() <= 0 && this.getRandom().nextFloat() < 0.08F && this.level().isClientSide) {
+            this.spawnGrogParticles();
         }
     }
 
@@ -241,6 +265,7 @@ public class Cotylorhynchus extends PrehistoricMob {
         super.defineSynchedData(builder);
         builder.define(GROG_TICKS, 0);
         builder.define(GROG_TYPE, 0);
+        builder.define(GLUTTONY, 0);
     }
 
     @Override
@@ -248,6 +273,7 @@ public class Cotylorhynchus extends PrehistoricMob {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("GrogTicks", this.getGrogTicks());
         compoundTag.putInt("GrogType", this.getGrogType().getId());
+        compoundTag.putInt("Gluttony", this.getGluttony());
     }
 
     @Override
@@ -255,6 +281,7 @@ public class Cotylorhynchus extends PrehistoricMob {
         super.readAdditionalSaveData(compoundTag);
         this.setGrogTicks(compoundTag.getInt("GrogTicks"));
         this.setGrogType(GrogType.byId(compoundTag.getInt("GrogType")));
+        this.setGluttony(compoundTag.getInt("Gluttony"));
     }
 
     public int getGrogTicks() {
@@ -275,6 +302,14 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     public void setGrogType(GrogType type) {
         this.entityData.set(GROG_TYPE, type.getId());
+    }
+
+    public int getGluttony() {
+        return this.entityData.get(GLUTTONY);
+    }
+
+    public void setGluttony(int gluttony) {
+        this.entityData.set(GLUTTONY, gluttony);
     }
 
     @Nullable
@@ -312,30 +347,32 @@ public class Cotylorhynchus extends PrehistoricMob {
     }
 
     public enum GrogType {
-        EMPTY(0, null, null),
-        SWEET(1, UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD, UP2Items.SWEET_GROG_BOTTLE.get()),
-        FOUL(2, UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD, UP2Items.FOUL_GROG_BOTTLE.get());
+        EMPTY(0, null, null, null),
+        SWEET(1, UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD, UP2Items.SWEET_GROG_BOTTLE.get(), UP2Particles.SWEET_GROG_BUBBLE.get()),
+        FOUL(2, UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD, UP2Items.FOUL_GROG_BOTTLE.get(), UP2Particles.FOUL_GROG_BUBBLE.get());
 
         private final int id;
         private final TagKey<Item> input;
         private final Item output;
+        private final ParticleOptions particle;
 
-        GrogType(int id, @Nullable TagKey<Item> input, @Nullable Item output) {
+        GrogType(int id, @Nullable TagKey<Item> input, @Nullable Item output, @Nullable ParticleOptions particle) {
             this.id = id;
             this.input = input;
             this.output = output;
+            this.particle = particle;
         }
 
         public int getId() {
             return this.id;
         }
 
-        public TagKey<Item> getInputTag() {
-            return this.input;
-        }
-
         public Item getOutputItem() {
             return this.output;
+        }
+
+        public ParticleOptions getParticle() {
+            return this.particle;
         }
 
         public static GrogType fromItem(ItemStack stack) {

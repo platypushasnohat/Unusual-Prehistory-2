@@ -22,6 +22,8 @@ public class UP2Particles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SNOWFLAKE = registerParticle("snowflake", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> IMPACT_STUN = registerParticle("impact_stun", () -> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> POPPING_BUBBLE = registerParticle("popping_bubble", ()-> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SWEET_GROG_BUBBLE = registerParticle("sweet_grog_bubble", ()-> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FOUL_GROG_BUBBLE = registerParticle("foul_grog_bubble", ()-> new SimpleParticleType(false));
 
     private static <P extends ParticleType<?>> DeferredHolder<ParticleType<?>, P> registerParticle(String name, Supplier<P> particle ) {
         return PARTICLE_TYPES.register(name, particle);
