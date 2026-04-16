@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -71,6 +72,11 @@ public class Antarctopelta extends PrehistoricMob {
     }
 
     @Override
+    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+        return super.isInvulnerableTo(source) || source.is(DamageTypeTags.IS_PROJECTILE);
+    }
+
+    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isEepy(), this.tickCount);
     }
@@ -78,16 +84,6 @@ public class Antarctopelta extends PrehistoricMob {
     @Override
     public float getWalkAnimationSpeed() {
         return this.isBaby() ? 6.0F : 10.0F;
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return this.isAlive();
-    }
-
-    @Override
-    public boolean isPushable() {
-        return this.isBaby();
     }
 
     @Nullable
