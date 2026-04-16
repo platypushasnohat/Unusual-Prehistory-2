@@ -229,6 +229,9 @@ public class UP2Items {
 
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
 
+    public static final DeferredItem<Item> SWEET_GROG_BOTTLE = registerItem("sweet_grog_bottle", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> FOUL_GROG_BOTTLE = registerItem("foul_grog_bottle", () -> new Item(new Item.Properties()));
+
     // Future
     public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));

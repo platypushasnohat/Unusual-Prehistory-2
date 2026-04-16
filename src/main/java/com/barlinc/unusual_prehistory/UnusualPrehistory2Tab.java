@@ -140,6 +140,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(STETHACANTHUS_BUCKET.get());
                         output.accept(DIRT_ON_A_STICK.get());
 
+                        output.accept(SWEET_GROG_BOTTLE.get());
+                        output.accept(FOUL_GROG_BOTTLE.get());
+
                         output.accept(DOOMSURF_DISC.get());
                         output.accept(PUMMEL_AND_SNATCH_DISC.get());
                         output.accept(TARIFYING_DISC.get());

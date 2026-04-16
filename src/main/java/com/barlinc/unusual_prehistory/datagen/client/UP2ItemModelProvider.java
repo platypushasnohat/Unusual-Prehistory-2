@@ -177,7 +177,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 ROTUND_FOSSIL,
                 SURGE_FOSSIL,
 
-                PROGNATHODON_EMBRYO
+                PROGNATHODON_EMBRYO,
+
+                SWEET_GROG_BOTTLE,
+                FOUL_GROG_BOTTLE
         );
 
         this.generatedItem(GINKGO_FOSSIL);

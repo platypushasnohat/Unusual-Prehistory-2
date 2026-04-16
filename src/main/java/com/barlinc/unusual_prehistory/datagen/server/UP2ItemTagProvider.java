@@ -386,11 +386,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES
         );
-        this.tag(UP2ItemTags.STINKY_COTYLORHYNCHUS_FOOD).add(
+        this.tag(UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD).add(
                 GINKGO_FRUIT.get()
         );
         this.tag(UP2ItemTags.COTYLORHYNCHUS_FOOD).addTags(
-                UP2ItemTags.STINKY_COTYLORHYNCHUS_FOOD,
+                UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD,
                 UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD
         );
 

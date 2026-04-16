@@ -148,7 +148,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
 
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
-    public static final TagKey<Item> STINKY_COTYLORHYNCHUS_FOOD = modItemTag("stinky_cotylorhynchus_food");
+    public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
 
     public static final TagKey<Item> PACIFIES_PROGNATHODON = modItemTag("pacifies_prognathodon");
 

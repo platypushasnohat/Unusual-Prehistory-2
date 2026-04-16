@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -20,6 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -136,12 +139,17 @@ public class Cotylorhynchus extends PrehistoricMob {
         return new Vec3(0, 0, -this.getBbWidth() * 0.9F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
     }
 
+    private int getTimeUntilGrog() {
+        return 2400 + this.getRandom().nextInt(1200);
+    }
+
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
+        GrogType grogType = GrogType.fromItem(itemstack);
         if (!this.isFullOfGrog() && !this.level().isClientSide && !this.isEepy()) {
-            if (itemstack.is(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD)) {
+            if (grogType != GrogType.EMPTY) {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
@@ -150,51 +158,27 @@ public class Cotylorhynchus extends PrehistoricMob {
                         this.getNavigation().stop();
                     }
                     this.setPose(UP2Poses.BURPING.get());
-                    this.setGrogType(1);
-                    this.setGrogTicks(2400 + this.getRandom().nextInt(1200));
-                }
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
-                return InteractionResult.SUCCESS;
-            }
-            else if (itemstack.is(UP2ItemTags.STINKY_COTYLORHYNCHUS_FOOD)) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                if (this.getRandom().nextFloat() <= 0.2F) {
-                    if (this.getNavigation().getPath() != null) {
-                        this.getNavigation().stop();
-                    }
-                    this.setPose(UP2Poses.BURPING.get());
-                    this.setGrogType(2);
-                    this.setGrogTicks(2400 + this.getRandom().nextInt(1200));
+                    this.setGrogType(grogType);
+                    this.setGrogTicks(200);
                 }
                 this.playSound(this.getEatingSound(itemstack), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
                 return InteractionResult.SUCCESS;
             }
         }
         else if (itemstack.is(Items.GLASS_BOTTLE) && this.isFullOfGrog() && this.getGrogTicks() == 0) {
-            if (this.getGrogType() == 1) {
+            Item outputItem = this.getGrogType().getOutputItem();
+            if (outputItem != null) {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
-                if (!player.addItem(new ItemStack(Items.HONEY_BOTTLE))) {
-                    player.spawnAtLocation(Items.HONEY_BOTTLE);
+                if (!player.addItem(new ItemStack(outputItem))) {
+                    player.spawnAtLocation(outputItem);
                 }
-                this.setGrogType(0);
                 this.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
+                this.setGrogType(GrogType.EMPTY);
                 return InteractionResult.SUCCESS;
             }
-            else if (this.getGrogType() == 2) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                if (!player.addItem(new ItemStack(Items.DRAGON_BREATH))) {
-                    player.spawnAtLocation(Items.DRAGON_BREATH);
-                }
-                this.setGrogType(0);
-                this.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
-            }
+            return InteractionResult.PASS;
         }
         return type;
     }
@@ -263,14 +247,14 @@ public class Cotylorhynchus extends PrehistoricMob {
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("GrogTicks", this.getGrogTicks());
-        compoundTag.putInt("GrogType", this.getGrogType());
+        compoundTag.putInt("GrogType", this.getGrogType().getId());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setGrogTicks(compoundTag.getInt("GrogTicks"));
-        this.setGrogType(compoundTag.getInt("GrogType"));
+        this.setGrogType(GrogType.byId(compoundTag.getInt("GrogType")));
     }
 
     public int getGrogTicks() {
@@ -281,16 +265,16 @@ public class Cotylorhynchus extends PrehistoricMob {
         this.entityData.set(GROG_TICKS, grogTicks);
     }
 
-    public int getGrogType() {
-        return this.entityData.get(GROG_TYPE);
-    }
-
-    public void setGrogType(int grogType) {
-        this.entityData.set(GROG_TYPE, grogType);
-    }
-
     public boolean isFullOfGrog() {
-        return this.getGrogType() != 0;
+        return this.getGrogType() != GrogType.EMPTY;
+    }
+
+    public GrogType getGrogType() {
+        return GrogType.byId(this.entityData.get(GROG_TYPE));
+    }
+
+    public void setGrogType(GrogType type) {
+        this.entityData.set(GROG_TYPE, type.getId());
     }
 
     @Nullable
@@ -325,6 +309,50 @@ public class Cotylorhynchus extends PrehistoricMob {
     @Override
     public int getAmbientSoundInterval() {
         return 180;
+    }
+
+    public enum GrogType {
+        EMPTY(0, null, null),
+        SWEET(1, UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD, UP2Items.SWEET_GROG_BOTTLE.get()),
+        FOUL(2, UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD, UP2Items.FOUL_GROG_BOTTLE.get());
+
+        private final int id;
+        private final TagKey<Item> input;
+        private final Item output;
+
+        GrogType(int id, @Nullable TagKey<Item> input, @Nullable Item output) {
+            this.id = id;
+            this.input = input;
+            this.output = output;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public TagKey<Item> getInputTag() {
+            return this.input;
+        }
+
+        public Item getOutputItem() {
+            return this.output;
+        }
+
+        public static GrogType fromItem(ItemStack stack) {
+            for (GrogType type : values()) {
+                if (type.input != null && stack.is(type.input)) {
+                    return type;
+                }
+            }
+            return EMPTY;
+        }
+
+        public static GrogType byId(int id) {
+            if (id < 0 || id >= GrogType.values().length) {
+                id = 0;
+            }
+            return GrogType.values()[id];
+        }
     }
 
     private static class CotylorhynchusGrazeGoal extends IdleAnimationGoal {

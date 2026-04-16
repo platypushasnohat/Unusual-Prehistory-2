@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-15T15:58:44.1323335	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-04-15T21:18:58.2380294	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -25,7 +25,7 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/carno
 869a3a34945ee30125053fd1533cc30d2ad51f25 data/unusual_prehistory/tags/item/cenozoic_fossils.json
 eb1d0ec034e2c5bad4bf308701147794a62a6806 data/unusual_prehistory/tags/item/coelacanthus_food.json
 f22c81dcc6d03c60668a59e6563c5bcee8440bb4 data/unusual_prehistory/tags/item/coral_dyes.json
-a744f813d5d6f59dec912c96a60101c03a3cc408 data/unusual_prehistory/tags/item/cotylorhynchus_food.json
+a9dc04e4edd2b49608496b2401c8e5f4260e092e data/unusual_prehistory/tags/item/cotylorhynchus_food.json
 17a6a12b10d73558a097d8b125d4465fbc2d8f03 data/unusual_prehistory/tags/item/desmatosuchus_burrowing_blocks.json
 322a88ffc9519449dbf456c7ba0696e7234c6f19 data/unusual_prehistory/tags/item/desmatosuchus_food.json
 dea3635c1f01e7174c39f14aefa3620f384bec74 data/unusual_prehistory/tags/item/desmatosuchus_grazing_blocks.json
@@ -42,6 +42,7 @@ cddcf8efa0da5db637b9a56b31fe6a0e73126835 data/unusual_prehistory/tags/item/dryop
 5435333b74bdb1b7db00ced97bbe4d16873650b0 data/unusual_prehistory/tags/item/eggs.json
 b94e7da08bf5d9472f2ae57332e111bf6a903dcf data/unusual_prehistory/tags/item/forest_dyes.json
 d040a39516c73354fd6c59253740716492ce0b1b data/unusual_prehistory/tags/item/fossils.json
+1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/unusual_prehistory/tags/item/foul_cotylorhynchus_food.json
 397128112cd61dfb32343ba143157ceaf3f68ea9 data/unusual_prehistory/tags/item/ginger_dyes.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/item/ginkgo_logs.json
 8da8f34a416bead74cb50fb5e02a0dd8490f6b4c data/unusual_prehistory/tags/item/guarded_by_kentrosaurus.json
@@ -98,7 +99,6 @@ ff07c521dd33e35f38a8521b108c24c6a1140cfa data/unusual_prehistory/tags/item/rose_
 5c3fdf7c03d991baa3ae630b81d755c98d4bcfc7 data/unusual_prehistory/tags/item/slate_dyes.json
 4ca652d1ece692235830c4e0b8aed29b068d2d80 data/unusual_prehistory/tags/item/snow.json
 8eeab6448dd6076a212959e471057cb1a16e3950 data/unusual_prehistory/tags/item/stethacanthus_food.json
-1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/unusual_prehistory/tags/item/stinky_cotylorhynchus_food.json
 635de4c7559d65c52269150e0f5edf6de7379583 data/unusual_prehistory/tags/item/stops_mob_aging.json
 65a948972be54d0dc9ce5ee6eb59a29341fd6ec0 data/unusual_prehistory/tags/item/sweet_cotylorhynchus_food.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/item/talpanas_food.json
