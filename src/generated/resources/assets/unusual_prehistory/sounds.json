@@ -1,7 +1,10 @@
 {
   "aegirocassis_death": {
     "sounds": [
-      "unusual_prehistory:entity/mob/aegirocassis/death1"
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/death1",
+        "volume": 0.25
+      }
     ],
     "subtitle": "subtitles.aegirocassis_death"
   },
@@ -30,12 +33,30 @@
   },
   "aegirocassis_idle": {
     "sounds": [
-      "unusual_prehistory:entity/mob/aegirocassis/idle1",
-      "unusual_prehistory:entity/mob/aegirocassis/idle2",
-      "unusual_prehistory:entity/mob/aegirocassis/idle3",
-      "unusual_prehistory:entity/mob/aegirocassis/idle4",
-      "unusual_prehistory:entity/mob/aegirocassis/idle5",
-      "unusual_prehistory:entity/mob/aegirocassis/idle6"
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle2",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle3",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle4",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle5",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/idle6",
+        "volume": 0.8
+      }
     ],
     "subtitle": "subtitles.aegirocassis_idle"
   },

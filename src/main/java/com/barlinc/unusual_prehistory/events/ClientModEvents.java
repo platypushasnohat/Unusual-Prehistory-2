@@ -20,6 +20,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.AmpyxModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.SetapeditesModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
@@ -35,6 +36,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.Psilop
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.AmpyxRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.SetapeditesRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
@@ -138,6 +140,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
 
         // Update 6
+        event.registerEntityRenderer(UP2Entities.AMPYX.get(), AmpyxRenderer::new);
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.HYNERPETON.get(), HynerpetonRenderer::new);
@@ -211,6 +214,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
 
         // Update 6
+        event.registerLayerDefinition(UP2ModelLayers.AMPYX, AmpyxModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);

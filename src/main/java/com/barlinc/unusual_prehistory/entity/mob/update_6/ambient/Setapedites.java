@@ -134,7 +134,7 @@ public class Setapedites extends AmbientMob {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         if (spawnType == MobSpawnType.NATURAL) {
             int schoolCount = (int) (24 * this.getRandom().nextFloat());
-            if (schoolCount > 0 && !this.level().isClientSide()) {
+            if (schoolCount > 0 && !this.level().isClientSide) {
                 for (int i = 0; i < schoolCount; i++) {
                     float distance = 1.0F;
                     Setapedites entity = new Setapedites(UP2Entities.SETAPEDITES.get(), this.level());

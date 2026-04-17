@@ -38,7 +38,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -254,9 +253,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
             this.switchNavigator(false);
         }
 
-        if (this.getSpawnChildrenCooldown() == 0) {
+        if (this.getSpawnChildrenCooldown() == 0 && !this.isBaby()) {
             if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
-                Entity entity = UP2Entities.SETAPEDITES.get().create(serverLevel);
+                Entity entity = this.getRandom().nextBoolean() ? UP2Entities.AMPYX.get().create(serverLevel) : UP2Entities.SETAPEDITES.get().create(serverLevel);
                 Vec3 vec3 = this.blockPosition().getCenter();
                 if (entity instanceof AmbientMob mob) {
                     mob.setShouldBeRestricted(true);
@@ -377,7 +376,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(LEAPING, false);
-        builder.define(SPAWN_CHILDREN_COOLDOWN, 100);
+        builder.define(SPAWN_CHILDREN_COOLDOWN, 70);
     }
 
     @Override

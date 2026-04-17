@@ -58,6 +58,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         // Ambient
+                        output.accept(AMPYX_SPAWN_EGG.get());
                         output.accept(DELITZSCHALA_SPAWN_EGG.get());
                         output.accept(SETAPEDITES_SPAWN_EGG.get());
                         output.accept(ZHANGSOLVA_SPAWN_EGG.get());

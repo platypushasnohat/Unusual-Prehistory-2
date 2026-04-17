@@ -219,12 +219,13 @@ public class UP2Items {
     public static final DeferredItem<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
 
     // Update 6
+    public static final DeferredItem<Item> AMPYX_SPAWN_EGG = registerSpawnEggItem("ampyx", UP2Entities.AMPYX, 0x5c33d7, 0xf479f9);
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
     public static final DeferredItem<Item> COTYLORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("cotylorhynchus", UP2Entities.COTYLORHYNCHUS, 0x944e32, 0xebe0c5);
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
-    public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xb12797, 0xcea7f9);
+    public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xb12797, 0xe4ebff);
 
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon

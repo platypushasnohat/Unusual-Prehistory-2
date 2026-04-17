@@ -21,20 +21,20 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Aegirocassis
         this.sound(UP2SoundEvents.AEGIROCASSIS_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/death1"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/death1")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt1")).volume(0.25F),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt2")).volume(0.25F),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt3")).volume(0.25F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt1")).volume(0.33F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt2")).volume(0.33F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt3")).volume(0.33F)
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle3")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle4")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle5")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle6"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle3")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle4")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle5")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle6")).volume(0.8F)
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HOVER,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hover1"))
