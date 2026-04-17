@@ -15,6 +15,11 @@
 - Added dawn and dusk metasequoia leaves
 - Added needle litter
 - Overhauled metasequoia generation
+- Transmogrification now gives experience
+- All thrown eggs now stack to 64
+- Increased ooze fuel duration to 48 seconds
+- Tweaked transmogrifier sounds
+- Reduced aegirocassis hurt sound volume
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

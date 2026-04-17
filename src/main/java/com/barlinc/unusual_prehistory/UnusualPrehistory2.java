@@ -53,7 +53,7 @@ public class UnusualPrehistory2 {
         UP2Fluids.TYPES.register(modEventBus);
         UP2BlockEntities.BLOCK_ENTITIES.register(modEventBus);
         UP2MobEffects.MOB_EFFECTS.register(modEventBus);
-        UP2MenuTypes.MENUS.register(modEventBus);
+        UP2MenuTypes.MENU_TYPE.register(modEventBus);
         UP2Recipes.RECIPE_TYPES.register(modEventBus);
         UP2Recipes.RECIPE_SERIALIZERS.register(modEventBus);
         UP2Features.FEATURES.register(modEventBus);
@@ -113,7 +113,7 @@ public class UnusualPrehistory2 {
         generator.addProvider(server, new UP2BannerPatternTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2DamageTypeTagProvider(output, provider, helper));
 //        generator.addProvider(server, new UP2LootTableProvider(output, provider));
-//        generator.addProvider(server, new UP2RecipeProvider(output));
+        generator.addProvider(server, new UP2RecipeProvider(output, provider));
         generator.addProvider(server, UP2AdvancementProvider.register(output, provider, helper));
 
         boolean client = data.includeClient();

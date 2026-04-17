@@ -1,124 +1,66 @@
 package com.barlinc.unusual_prehistory.screens;
 
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
-import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class TransmogrifierMenu extends AbstractContainerMenu {
 
-    private final TransmogrifierBlockEntity blockEntity;
-    private final Level level;
-    private final ContainerData data;
+    private final Container container;
+    public final ContainerData data;
 
-    public TransmogrifierMenu(int containerId, Inventory inventory, FriendlyByteBuf data) {
-        this(containerId, inventory, getBlockEntity(inventory, data), new SimpleContainerData(5));
+    public TransmogrifierMenu(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, new SimpleContainer(4), new SimpleContainerData(4));
     }
 
-    public TransmogrifierMenu(int containerId, Inventory inventory, TransmogrifierBlockEntity blockEntity, ContainerData data) {
-        super(UP2MenuTypes.TRANSMOGRIFIER.get(), containerId);
-
-        checkContainerSize(inventory, 3);
-
-        this.blockEntity = blockEntity;
-        this.level = inventory.player.level();
+    public TransmogrifierMenu(int syncId, Inventory playerInventory, Container container, ContainerData data) {
+        super(UP2MenuTypes.TRANSMOGRIFIER.get(), syncId);
+        this.container = container;
         this.data = data;
-        this.addPlayerInventory(inventory);
-        this.addPlayerHotbar(inventory);
-
-//        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-//        });
-        this.addSlot(new OozeSlot(blockEntity, 1, 82, 59));
-        this.addSlot(new Slot(blockEntity, 0, 37, 31));
-        this.addSlot(new TransmogrifierResultSlot(blockEntity, inventory.player, blockEntity, 2, 125, 31));
-
+        this.addSlot(new TransmogrifierOozeSlot(container, 1, 82, 59));
+        this.addSlot(new Slot(container, 0, 37, 31));
+        this.addSlot(new TransmogrifierOutputSlot(playerInventory.player, container, 2, 125, 31));
+        this.addPlayerInventory(playerInventory);
+        this.addPlayerHotbar(playerInventory);
         this.addDataSlots(data);
     }
 
-    private static TransmogrifierBlockEntity getBlockEntity(final Inventory inventory, final FriendlyByteBuf data) {
-        Objects.requireNonNull(inventory, "inventory cannot be null");
-        Objects.requireNonNull(data, "data cannot be null");
-        final BlockEntity blockEntity = inventory.player.level().getBlockEntity(data.readBlockPos());
-        if (blockEntity instanceof TransmogrifierBlockEntity) {
-            return (TransmogrifierBlockEntity) blockEntity;
-        }
-        throw new IllegalStateException("Block entity is not correct! " + blockEntity);
-    }
-
-    public boolean isCrafting() {
-        return data.get(0) > 0;
-    }
-
-    public int getScaledProgress(int scale) {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);
-        if (progress == 0 || maxProgress == 0) {
-            return 0;
-        }
-        return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
-    }
-
-    public int getScaledFuel(int scale) {
-        int fuel = this.data.get(2);
-        int maxFuel = this.data.get(3);
-        if (fuel == 0 || maxFuel == 0) {
-            return 0;
-        }
-        return Mth.ceil((float) scale * (float) fuel / (float) maxFuel);
-    }
-
-    private static final int SLOT_COUNT = 36;
-    private static final int FIRST_SLOT_INDEX = 0;
-
-    private static final int CULTIVATOR_SLOT_INDEX = FIRST_SLOT_INDEX + SLOT_COUNT;
-    private static final int CULTIVATOR_SLOT_COUNT = 3;
-
     @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        Slot sourceSlot = slots.get(index);
-
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
-
-        ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-
-        if (index < FIRST_SLOT_INDEX + SLOT_COUNT) {
-            if (!moveItemStackTo(sourceStack, CULTIVATOR_SLOT_INDEX, CULTIVATOR_SLOT_INDEX + CULTIVATOR_SLOT_COUNT, false)) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int invSlot) {
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(invSlot);
+        if (slot.hasItem()) {
+            ItemStack originalStack = slot.getItem();
+            newStack = originalStack.copy();
+            if (invSlot < this.container.getContainerSize()) {
+                if (!this.moveItemStackTo(originalStack, this.container.getContainerSize(), this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(originalStack, 0, this.container.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (index < CULTIVATOR_SLOT_INDEX + CULTIVATOR_SLOT_COUNT) {
-            if (!moveItemStackTo(sourceStack, FIRST_SLOT_INDEX, FIRST_SLOT_INDEX + SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
+
+            if (originalStack.isEmpty()) {
+                slot.setByPlayer(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
             }
-        } else {
-            return ItemStack.EMPTY;
         }
-
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-
-        sourceSlot.onTake(player, sourceStack);
-        return copyOfSourceStack;
+        return newStack;
     }
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, UP2Blocks.TRANSMOGRIFIER.get());
+        return this.container.stillValid(player);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -135,14 +77,83 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         }
     }
 
-    private static class OozeSlot extends Slot {
+    public boolean isCrafting() {
+        return data.get(0) > 0;
+    }
 
-        public OozeSlot(Container container, int index, int x, int y) {
-            super(container, index, x, y);
+    public int getScaledFuel(int scale) {
+        int fuel = this.data.get(0);
+        int maxFuel = this.data.get(1);
+        if (fuel == 0 || maxFuel == 0) {
+            return 0;
+        }
+        return Mth.ceil((float) scale * (float) fuel / (float) maxFuel);
+    }
+
+    public int getScaledProgress(int scale) {
+        int progress = this.data.get(2);
+        int maxProgress = this.data.get(3);
+        if (progress == 0 || maxProgress == 0) {
+            return 0;
+        }
+        return Mth.ceil((float) scale * (float) progress / (float) maxProgress);
+    }
+
+    public static class TransmogrifierOutputSlot extends Slot {
+
+        private final Player player;
+        private int removeCount;
+
+        public TransmogrifierOutputSlot(Player player, Container container, int slot, int xPosition, int yPosition) {
+            super(container, slot, xPosition, yPosition);
+            this.player = player;
         }
 
         @Override
         public boolean mayPlace(@NotNull ItemStack stack) {
+            return false;
+        }
+
+        @Override
+        public @NotNull ItemStack remove(int amount) {
+            if (this.hasItem()) {
+                this.removeCount += Math.min(amount, this.getItem().getCount());
+            }
+            return super.remove(amount);
+        }
+
+        @Override
+        public void onTake(@NotNull Player player, @NotNull ItemStack stack) {
+            this.checkTakeAchievements(stack);
+            super.onTake(player, stack);
+        }
+
+        @Override
+        protected void onQuickCraft(@NotNull ItemStack stack, int amount) {
+            this.removeCount += amount;
+            this.checkTakeAchievements(stack);
+        }
+
+        @Override
+        protected void checkTakeAchievements(ItemStack stack) {
+            stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
+            if (this.player instanceof ServerPlayer serverplayer) {
+                if (this.container instanceof TransmogrifierBlockEntity blockEntity) {
+                    blockEntity.awardUsedRecipesAndPopExperience(serverplayer);
+                }
+            }
+            this.removeCount = 0;
+        }
+    }
+
+    public static class TransmogrifierOozeSlot extends Slot {
+
+        public TransmogrifierOozeSlot(Container inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
             return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
         }
     }

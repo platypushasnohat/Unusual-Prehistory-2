@@ -88,8 +88,6 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> UNICORN_IDLE = registerSoundEvent("unicorn_idle");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMOGRIFIER_LOOP = registerSoundEvent("transmogrifier_loop");
-    public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMOGRIFIER_START = registerSoundEvent("transmogrifier_start");
-    public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMOGRIFIER_STOP = registerSoundEvent("transmogrifier_stop");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> TAR_POP = registerSoundEvent("tar_pop");
 
@@ -207,6 +205,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_IDLE = registerSoundEvent("cotylorhynchus_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_STEP = registerSoundEvent("cotylorhynchus_step");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_BURP = registerSoundEvent("cotylorhynchus_burp");
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_HURT = registerSoundEvent("hynerpeton_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_DEATH = registerSoundEvent("hynerpeton_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_IDLE = registerSoundEvent("hynerpeton_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_STEP = registerSoundEvent("hynerpeton_step");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_HURT = registerSoundEvent("mammoth_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_DEATH = registerSoundEvent("mammoth_death");

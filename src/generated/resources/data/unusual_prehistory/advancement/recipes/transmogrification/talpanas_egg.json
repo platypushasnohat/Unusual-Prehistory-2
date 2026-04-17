@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aged_feather": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:aged_feather"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:transmogrification/talpanas_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aged_feather"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:transmogrification/talpanas_egg"
+    ]
+  }
+}

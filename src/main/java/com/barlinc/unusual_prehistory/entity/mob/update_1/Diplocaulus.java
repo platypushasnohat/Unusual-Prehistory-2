@@ -2,6 +2,8 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
@@ -30,8 +32,6 @@
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
- import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
  import net.minecraft.world.entity.ai.goal.Goal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -119,8 +119,8 @@
              this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.34F, 1.0F, false);
-             this.lookControl = new SmoothSwimmingLookControl(this, 20);
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.34F);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }

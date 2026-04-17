@@ -50,7 +50,7 @@ public record TransmogrificationRecipe(Ingredient ingredient, ItemStack result, 
 
     @Override
     public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializer.BLASTING_RECIPE;
+        return UP2Recipes.TRANSMOGRIFICATION_SERIALIZER.get();
     }
 
     public interface Factory<T extends TransmogrificationRecipe> {

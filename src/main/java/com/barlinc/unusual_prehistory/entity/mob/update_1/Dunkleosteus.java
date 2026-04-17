@@ -348,19 +348,19 @@ public class Dunkleosteus extends PrehistoricAquaticMob {
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-//            int depth = this.getWaterDepthAbove(level, this.blockPosition());
-//            if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {
-//                if (depth > 10) {
-//                    this.setVariant(2);
-//                } else if (depth > 5) {
-//                    this.setVariant(1);
-//                } else {
-//                    this.setVariant(0);
-//                }
-//            }
-//            else {
+            int depth = this.getWaterDepthAbove(level, this.blockPosition());
+            if (level.getFluidState(this.blockPosition()).is(FluidTags.WATER)) {
+                if (depth > 10) {
+                    this.setVariant(2);
+                } else if (depth > 5) {
+                    this.setVariant(1);
+                } else {
+                    this.setVariant(0);
+                }
+            }
+            else {
                 this.setVariant(this.getRandom().nextInt(DunkleosteusVariant.values().length));
-//            }
+            }
         }
         return spawnGroupData;
     }

@@ -13,9 +13,18 @@
   },
   "aegirocassis_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/mob/aegirocassis/hurt1",
-      "unusual_prehistory:entity/mob/aegirocassis/hurt2",
-      "unusual_prehistory:entity/mob/aegirocassis/hurt3"
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/hurt1",
+        "volume": 0.25
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/hurt2",
+        "volume": 0.25
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/aegirocassis/hurt3",
+        "volume": 0.25
+      }
     ],
     "subtitle": "subtitles.aegirocassis_hurt"
   },
@@ -644,6 +653,70 @@
       "unusual_prehistory:entity/mob/hibbertopterus/step2"
     ],
     "subtitle": "subtitles.hibbertopterus_step"
+  },
+  "hynerpeton_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/death1",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.hynerpeton_death"
+  },
+  "hynerpeton_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/hurt1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/hurt2",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.hynerpeton_hurt"
+  },
+  "hynerpeton_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/idle1",
+        "volume": 0.2
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/idle2",
+        "volume": 0.2
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/idle3",
+        "volume": 0.2
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/diplocaulus/idle4",
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.hynerpeton_idle"
+  },
+  "hynerpeton_step": {
+    "sounds": [
+      {
+        "name": "mob/frog/step1",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step2",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step3",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step4",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.hynerpeton_step"
   },
   "jawless_fish_death": {
     "sounds": [
@@ -1523,8 +1596,14 @@
   },
   "prognathodon_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/mob/prognathodon/hurt1",
-      "unusual_prehistory:entity/mob/prognathodon/hurt2"
+      {
+        "name": "unusual_prehistory:entity/mob/prognathodon/hurt1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/prognathodon/hurt2",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.prognathodon_hurt"
   },
@@ -1811,29 +1890,10 @@
       {
         "attenuation_distance": 8,
         "name": "unusual_prehistory:block/transmogrifier/loop1",
-        "pitch": 0.78,
-        "volume": 0.7
+        "volume": 0.45
       }
     ],
     "subtitle": "subtitles.transmogrifier_loop"
-  },
-  "transmogrifier_start": {
-    "sounds": [
-      {
-        "attenuation_distance": 10,
-        "name": "unusual_prehistory:block/transmogrifier/start1"
-      }
-    ],
-    "subtitle": "subtitles.transmogrifier_start"
-  },
-  "transmogrifier_stop": {
-    "sounds": [
-      {
-        "attenuation_distance": 10,
-        "name": "unusual_prehistory:block/transmogrifier/stop1"
-      }
-    ],
-    "subtitle": "subtitles.transmogrifier_stop"
   },
   "ulughbegsaurus_attack": {
     "sounds": [

@@ -1,7 +1,10 @@
 package com.barlinc.unusual_prehistory.blocks.entity;
 
+import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierMenu;
@@ -33,8 +36,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -60,8 +61,8 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
 
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
-        public int get(int p_58431_) {
-            return switch (p_58431_) {
+        public int get(int i) {
+            return switch (i) {
                 case 0 -> {
                     if (activeDuration > Short.MAX_VALUE) {
                         // Neo: preserve activeTime / activeDuration ratio on the client as data slots are synced as shorts.
@@ -77,19 +78,19 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         }
 
         @Override
-        public void set(int p_58433_, int p_58434_) {
-            switch (p_58433_) {
+        public void set(int i, int j) {
+            switch (i) {
                 case 0:
-                    TransmogrifierBlockEntity.this.activeTime = p_58434_;
+                    TransmogrifierBlockEntity.this.activeTime = j;
                     break;
                 case 1:
-                    TransmogrifierBlockEntity.this.activeDuration = p_58434_;
+                    TransmogrifierBlockEntity.this.activeDuration = j;
                     break;
                 case 2:
-                    TransmogrifierBlockEntity.this.processingProgress = p_58434_;
+                    TransmogrifierBlockEntity.this.processingProgress = j;
                     break;
                 case 3:
-                    TransmogrifierBlockEntity.this.processingTotalTime = p_58434_;
+                    TransmogrifierBlockEntity.this.processingTotalTime = j;
             }
         }
 
@@ -145,74 +146,86 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         tag.putInt("ProcessingTimeTotal", this.processingTotalTime);
         ContainerHelper.saveAllItems(tag, this.items, registries);
         CompoundTag compoundtag = new CompoundTag();
-        this.recipesUsed.forEach((p_187449_, p_187450_) -> compoundtag.putInt(p_187449_.toString(), p_187450_));
+        this.recipesUsed.forEach((location, i) -> compoundtag.putInt(location.toString(), i));
         tag.put("RecipesUsed", compoundtag);
     }
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
-        boolean flag = blockEntity.isActive();
-        boolean flag1 = false;
-        if (blockEntity.isActive()) {
-            blockEntity.activeTime--;
+    public static void tick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
+
+        if (state.getValue(TransmogrifierBlock.LIT) && level.isClientSide) {
+            spawnParticles(level, pos, state);
+            if (!blockEntity.isRemoved()) {
+                UnusualPrehistory2.PROXY.playWorldSound(blockEntity, (byte) 0);
+            }
         }
 
-        ItemStack itemstack = blockEntity.items.get(1);
-        ItemStack itemstack1 = blockEntity.items.get(0);
-        boolean flag2 = !itemstack1.isEmpty();
-        boolean flag3 = !itemstack.isEmpty();
-        if (blockEntity.isActive() || flag3 && flag2) {
-            RecipeHolder<? extends TransmogrificationRecipe> recipeholder;
-            if (flag2) {
-                recipeholder = blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(itemstack1), level).orElse(null);
-            } else {
-                recipeholder = null;
+        if (!level.isClientSide) {
+
+            boolean flag = blockEntity.isActive();
+            boolean flag1 = false;
+
+            if (blockEntity.isActive()) {
+                blockEntity.activeTime--;
             }
 
-            int i = blockEntity.getMaxStackSize();
-            if (!blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
-                blockEntity.activeTime = blockEntity.getFuelDuration(itemstack);
-                blockEntity.activeDuration = blockEntity.activeTime;
-                if (blockEntity.isActive()) {
-                    flag1 = true;
-                    if (itemstack.hasCraftingRemainingItem())
-                        blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
-                    else
-                    if (flag3) {
-                        Item item = itemstack.getItem();
-                        itemstack.shrink(1);
-                        if (itemstack.isEmpty()) {
+            ItemStack itemstack = blockEntity.items.get(1);
+            ItemStack itemstack1 = blockEntity.items.get(0);
+            boolean flag2 = !itemstack1.isEmpty();
+            boolean flag3 = !itemstack.isEmpty();
+
+            if (blockEntity.isActive() || flag3 && flag2) {
+                RecipeHolder<? extends TransmogrificationRecipe> recipeholder;
+                if (flag2) {
+                    recipeholder = blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(itemstack1), level).orElse(null);
+                } else {
+                    recipeholder = null;
+                }
+
+                int i = blockEntity.getMaxStackSize();
+                if (!blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
+                    blockEntity.activeTime = blockEntity.getFuelDuration(itemstack);
+                    blockEntity.activeDuration = blockEntity.activeTime;
+                    if (blockEntity.isActive()) {
+                        flag1 = true;
+                        if (itemstack.hasCraftingRemainingItem())
                             blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
+                        else if (flag3) {
+                            Item item = itemstack.getItem();
+                            itemstack.shrink(1);
+                            if (itemstack.isEmpty()) {
+                                blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
+                            }
                         }
                     }
                 }
-            }
 
-            if (blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
-                blockEntity.processingProgress++;
-                if (blockEntity.processingProgress == blockEntity.processingTotalTime) {
-                    blockEntity.processingProgress = 0;
-                    blockEntity.processingTotalTime = getTotalProcessingTime(level, blockEntity);
-                    if (burn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
-                        blockEntity.setRecipeUsed(recipeholder);
+                if (blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
+                    blockEntity.processingProgress++;
+                    if (blockEntity.processingProgress == blockEntity.processingTotalTime) {
+                        blockEntity.processingProgress = 0;
+                        blockEntity.processingTotalTime = getTotalProcessingTime(level, blockEntity);
+                        if (burnFuel(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
+                            blockEntity.setRecipeUsed(recipeholder);
+                        }
+
+                        flag1 = true;
                     }
-
-                    flag1 = true;
+                } else {
+                    blockEntity.processingProgress = 0;
                 }
-            } else {
-                blockEntity.processingProgress = 0;
+            } else if (!blockEntity.isActive() && blockEntity.processingProgress > 0) {
+                blockEntity.processingProgress = Mth.clamp(blockEntity.processingProgress - 2, 0, blockEntity.processingTotalTime);
             }
-        } else if (!blockEntity.isActive() && blockEntity.processingProgress > 0) {
-            blockEntity.processingProgress = Mth.clamp(blockEntity.processingProgress - 2, 0, blockEntity.processingTotalTime);
-        }
 
-        if (flag != blockEntity.isActive()) {
-            flag1 = true;
-            state = state.setValue(AbstractFurnaceBlock.LIT, blockEntity.isActive());
-            level.setBlock(pos, state, 3);
-        }
+            if (flag != blockEntity.isActive()) {
+                flag1 = true;
+                state = state.setValue(TransmogrifierBlock.LIT, blockEntity.isActive());
+                level.setBlock(pos, state, 3);
+            }
 
-        if (flag1) {
-            setChanged(level, pos, state);
+            if (flag1) {
+                setChanged(level, pos, state);
+            }
         }
     }
 
@@ -237,7 +250,7 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         }
     }
 
-    private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends TransmogrificationRecipe> recipe, NonNullList<ItemStack> inventory, int maxStackSize, TransmogrifierBlockEntity transmogrifier) {
+    private static boolean burnFuel(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends TransmogrificationRecipe> recipe, NonNullList<ItemStack> inventory, int maxStackSize, TransmogrifierBlockEntity transmogrifier) {
         if (recipe != null && canBurn(registryAccess, recipe, inventory, maxStackSize, transmogrifier)) {
             ItemStack itemstack = inventory.get(0);
             ItemStack itemstack1 = recipe.value().assemble(new SingleRecipeInput(transmogrifier.getItem(0)), registryAccess);
@@ -247,11 +260,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
             } else if (ItemStack.isSameItemSameComponents(itemstack2, itemstack1)) {
                 itemstack2.grow(itemstack1.getCount());
             }
-
-            if (itemstack.is(Blocks.WET_SPONGE.asItem()) && !inventory.get(1).isEmpty() && inventory.get(1).is(Items.BUCKET)) {
-                inventory.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
-
             itemstack.shrink(1);
             return true;
         } else {
@@ -260,7 +268,7 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     protected int getFuelDuration(ItemStack fuel) {
-        return fuel.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) ? 200 : 0;
+        return fuel.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) ? 960 : 0;
     }
 
     public static boolean isFuel(ItemStack stack) {
@@ -281,17 +289,11 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         }
     }
 
-    /**
-     * Returns {@code true} if automation can insert the given item in the given slot from the given side.
-     */
     @Override
     public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack itemStack, @Nullable Direction direction) {
         return this.canPlaceItem(index, itemStack);
     }
 
-    /**
-     * Returns {@code true} if automation can extract the given item in the given slot from the given side.
-     */
     @Override
     public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
         return direction != Direction.DOWN || index != 1 || stack.is(Items.WATER_BUCKET) || stack.is(Items.BUCKET);
@@ -312,9 +314,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         this.items = items;
     }
 
-    /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-     */
     @Override
     public void setItem(int index, ItemStack stack) {
         ItemStack itemstack = this.items.get(index);
@@ -328,9 +327,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         }
     }
 
-    /**
-     * Returns {@code true} if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For guis use Slot.isItemValid
-     */
     @Override
     public boolean canPlaceItem(int index, @NotNull ItemStack stack) {
         if (index == 2) {
@@ -388,9 +384,9 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     private static void createExperience(ServerLevel level, Vec3 popVec, int recipeIndex, float experience) {
-        int i = Mth.floor((float)recipeIndex * experience);
-        float f = Mth.frac((float)recipeIndex * experience);
-        if (f != 0.0F && Math.random() < (double)f) {
+        int i = Mth.floor((float) recipeIndex * experience);
+        float f = Mth.frac((float) recipeIndex * experience);
+        if (f != 0.0F && Math.random() < (double) f) {
             i++;
         }
         ExperienceOrb.award(level, popVec, i);
@@ -400,6 +396,41 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     public void fillStackedContents(@NotNull StackedContents helper) {
         for (ItemStack itemstack : this.items) {
             helper.accountStack(itemstack);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
+        super.setRemoved();
+    }
+
+    public static void spawnParticles(Level level, BlockPos pos, BlockState state) {
+        Direction direction = state.getValue(TransmogrifierBlock.FACING).getCounterClockWise();
+        Direction.Axis axis = direction.getAxis();
+        double x = pos.getX() + 0.5D;
+        double y = pos.getY() + 0.5D;
+        double z = pos.getZ() + 0.5D;
+        double offset = 0.0D;
+        double xdirection = axis == Direction.Axis.X ? direction.getStepX() * 0.52D : offset;
+        double zdirection = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52D : offset;
+        double xoffset = 0.0D;
+        double zoffset = 0.0D;
+        if (direction == Direction.NORTH) {
+            xoffset = -0.25D;
+        } else if (direction == Direction.SOUTH) {
+            xoffset = 0.25D;
+        } else if (direction == Direction.EAST) {
+            zoffset = -0.25D;
+        } else if (direction == Direction.WEST) {
+            zoffset = 0.25D;
+        }
+        double xspeed = direction.getStepX() * 0.2F;
+        double zspeed = direction.getStepZ() * 0.2F;
+        BlockPos sidePos = pos.relative(direction, 1);
+        BlockState sideState = level.getBlockState(sidePos);
+        if (level.random.nextInt(10) == 0 && (sideState.isAir() || sideState.getCollisionShape(level, sidePos).isEmpty())) {
+            level.addParticle(UP2Particles.OOZE_BUBBLE.get(), (x + xdirection) + xoffset, y - 0.2D, (z + zdirection) + zoffset, xspeed, 0.0D, zspeed);
         }
     }
 }

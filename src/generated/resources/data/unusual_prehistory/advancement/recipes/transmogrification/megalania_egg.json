@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:transmogrification/megalania_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_thermal_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:thermal_fossil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_thermal_fossil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:transmogrification/megalania_egg"
+    ]
+  }
+}

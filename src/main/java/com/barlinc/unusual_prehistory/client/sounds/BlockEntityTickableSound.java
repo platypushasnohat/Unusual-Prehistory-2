@@ -24,6 +24,7 @@ public abstract class BlockEntityTickableSound<T extends BlockEntity> extends Ab
         this.delay = 0;
     }
 
+    @Override
     public boolean canStartSilent() {
         return true;
     }

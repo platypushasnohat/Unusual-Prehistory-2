@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_boar_tooth_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:boar_tooth_fossil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:transmogrification/kaprosuchus_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_boar_tooth_fossil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:transmogrification/kaprosuchus_egg"
+    ]
+  }
+}

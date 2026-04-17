@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.screens;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -31,8 +30,8 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     public static final int FUEL_WIDTH = 44;
     public static final int FUEL_HEIGHT = 14;
 
-    public TransmogrifierScreen(TransmogrifierMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+    public TransmogrifierScreen(TransmogrifierMenu handler, Inventory inventory, Component title) {
+        super(handler, inventory, title);
         this.imageWidth = SCREEN_WIDTH;
         this.imageHeight = SCREEN_HEIGHT;
     }
@@ -44,11 +43,7 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     }
 
     @Override
-    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
-
-        Lighting.setupForFlatItems();
-
+    protected void renderBg(GuiGraphics graphics, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
@@ -65,9 +60,9 @@ public class TransmogrifierScreen extends AbstractContainerScreen<Transmogrifier
     }
 
     @Override
-    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
-        super.render(graphics, mouseX, mouseY, partialTicks);
-        renderTooltip(graphics, mouseX, mouseY);
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+        this.renderBg(graphics, delta, mouseX, mouseY);
+        super.render(graphics, mouseX, mouseY, delta);
+        this.renderTooltip(graphics, mouseX, mouseY);
     }
 }

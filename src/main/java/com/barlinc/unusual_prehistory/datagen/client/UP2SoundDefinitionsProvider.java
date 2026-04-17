@@ -24,9 +24,9 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/death1"))
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt2")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt1")).volume(0.25F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt2")).volume(0.25F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/hurt3")).volume(0.25F)
         );
         this.sound(UP2SoundEvents.AEGIROCASSIS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/aegirocassis/idle1")),
@@ -795,13 +795,7 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
 
         // Transmogrifier
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP,
-                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.7F).pitch(0.78F)
-        );
-        this.sound(UP2SoundEvents.TRANSMOGRIFIER_START,
-                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/start1")).attenuationDistance(10)
-        );
-        this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP,
-                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/stop1")).attenuationDistance(10)
+                sound(UnusualPrehistory2.modPrefix("block/transmogrifier/loop1")).attenuationDistance(8).volume(0.45F)
         );
 
         // Tar
@@ -877,6 +871,26 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/burp2")).weight(1)
         );
 
+        this.sound(UP2SoundEvents.HYNERPETON_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt2")).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.HYNERPETON_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/death1")).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.HYNERPETON_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle1")).volume(0.2F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle2")).volume(0.2F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle3")).volume(0.2F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/idle4")).volume(0.2F)
+        );
+        this.sound(UP2SoundEvents.HYNERPETON_STEP,
+                sound("mob/frog/step1").pitch(0.9F),
+                sound("mob/frog/step2").pitch(0.9F),
+                sound("mob/frog/step3").pitch(0.9F),
+                sound("mob/frog/step4").pitch(0.9F)
+        );
+
         this.sound(UP2SoundEvents.MAMMOTH_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/death1"))
         );
@@ -897,8 +911,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/death1"))
         );
         this.sound(UP2SoundEvents.PROGNATHODON_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt2"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/hurt2")).volume(0.5F)
         );
         this.sound(UP2SoundEvents.PROGNATHODON_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/idle1")),

@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.client.sounds;
 
+import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.util.Mth;
@@ -28,7 +29,7 @@ public class TransmogrifierSound extends BlockEntityTickableSound<Transmogrifier
 
     @Override
     public void tick() {
-        if (this.blockEntity.isActive()) {
+        if (this.blockEntity.getBlockState().getValue(TransmogrifierBlock.LIT)) {
             this.x = this.blockEntity.getBlockPos().getX() + 0.5D;
             this.y = this.blockEntity.getBlockPos().getY() + 0.5D;
             this.z = this.blockEntity.getBlockPos().getZ() + 0.5D;

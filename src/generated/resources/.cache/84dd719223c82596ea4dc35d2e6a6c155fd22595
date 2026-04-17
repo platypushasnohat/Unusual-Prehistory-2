@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-15T21:18:58.2400811	Item Models: unusual_prehistory
+// 1.21.1	2026-04-16T22:57:40.6316836	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -62,6 +62,8 @@ f63d65398445b879f036d13bf25399296f57ad1f assets/unusual_prehistory/models/item/g
 c001fa48cd7a0059a9c11e86b0001356cac4cb94 assets/unusual_prehistory/models/item/hibbertopterus_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/hibbertopterus_spawn_egg.json
 1c5508fc2b058a5570b38c446b80f08bea7b1a66 assets/unusual_prehistory/models/item/holocene_fossil.json
+8fbedc21baa9006bb2e88ea8cc0b01e7fb29d6ca assets/unusual_prehistory/models/item/hynerpeton_bucket.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/hynerpeton_spawn_egg.json
 4c5edb068ac7e8d1b7572b1da55c6efa7645ca1f assets/unusual_prehistory/models/item/imperative_fossil.json
 5da96a955d3c03722ffa519f1eef0fdc7b3c0406 assets/unusual_prehistory/models/item/impervious_fossil.json
 90dd26b9177a7be2d8b34dddb22a13a992a93fd2 assets/unusual_prehistory/models/item/jawless_fish_roe.json

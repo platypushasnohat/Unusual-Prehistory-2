@@ -30,7 +30,7 @@ public class AegirocassisPart extends PartEntity<Aegirocassis> {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return parent == null ? dimensions : dimensions.scale(parent.getScale());
+        return parent == null ? dimensions : dimensions.scale(parent.getAgeScale());
     }
 
     @Override

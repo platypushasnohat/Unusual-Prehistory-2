@@ -124,6 +124,6 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, UP2BlockEntities.TRANSMOGRIFIER.get(), TransmogrifierBlockEntity::serverTick);
+        return createTickerHelper(blockEntityType, UP2BlockEntities.TRANSMOGRIFIER.get(), TransmogrifierBlockEntity::tick);
     }
 }

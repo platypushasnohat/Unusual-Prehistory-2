@@ -1,0 +1,12 @@
+{
+  "type": "unusual_prehistory:transmogrification",
+  "experience": 2.0,
+  "input": {
+    "item": "unusual_prehistory:bristle_fossil"
+  },
+  "output": {
+    "count": 1,
+    "id": "unusual_prehistory:aegirocassis_eggs"
+  },
+  "processing_time": 3600
+}

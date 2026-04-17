@@ -221,6 +221,7 @@ public class UP2Items {
     // Update 6
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
     public static final DeferredItem<Item> COTYLORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("cotylorhynchus", UP2Entities.COTYLORHYNCHUS, 0x944e32, 0xebe0c5);
+    public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
 
@@ -228,6 +229,8 @@ public class UP2Items {
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
 
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
+
+    public static final DeferredItem<Item> HYNERPETON_BUCKET = registerItemNoLang("hynerpeton_bucket", () -> new UP2MobBucketItem(UP2Entities.HYNERPETON.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> SWEET_GROG_BOTTLE = registerItem("sweet_grog_bottle", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FOUL_GROG_BOTTLE = registerItem("foul_grog_bottle", () -> new Item(new Item.Properties()));
@@ -243,7 +246,7 @@ public class UP2Items {
     }
 
     private static DeferredItem<Item> registerEggItem(String name, Supplier<? extends EntityType<?>> entityType) {
-        return registerItem(name + "_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16), entityType));
+        return registerItem(name + "_egg", () -> new ThrowableEggItem(new Item.Properties(), entityType));
     }
 
     private static DeferredItem<Item> registerEmbryoItem(String name, Supplier<? extends EntityType<?>> entityType) {

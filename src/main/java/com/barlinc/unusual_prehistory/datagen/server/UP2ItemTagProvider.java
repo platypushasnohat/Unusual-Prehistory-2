@@ -394,6 +394,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD
         );
 
+        this.tag(UP2ItemTags.MAMMOTH_FOOD).add(
+                Blocks.SHORT_GRASS.asItem(),
+                Blocks.MELON.asItem(),
+                Blocks.SUGAR_CANE.asItem(),
+                Blocks.PUMPKIN.asItem()
+        );
+
         this.tag(UP2ItemTags.PROGNATHODON_FOOD).add(
                 Items.COD,
                 Items.COOKED_COD,

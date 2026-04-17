@@ -148,8 +148,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.UNICORN_IDLE, "Unicorn grunts");
 
         this.sound(UP2SoundEvents.TRANSMOGRIFIER_LOOP, "Transmogrifying");
-        this.sound(UP2SoundEvents.TRANSMOGRIFIER_START, "Transmogrifier starts");
-        this.sound(UP2SoundEvents.TRANSMOGRIFIER_STOP, "Transmogrifier stops");
 
         this.sound(UP2SoundEvents.TARIFYING_DISC, "Music Disc");
         this.musicDisc(UP2Items.TARIFYING_DISC, UP2JukeboxSongs.TARIFYING, "Dylanvhs - Tarifying");
@@ -412,6 +410,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_STEP, "Cotylorhynchus steps");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_BURP, "Cotylorhynchus burps");
 
+        this.sound(UP2SoundEvents.HYNERPETON_HURT, "Hynerpeton hurts");
+        this.sound(UP2SoundEvents.HYNERPETON_DEATH, "Hynerpeton dies");
+        this.sound(UP2SoundEvents.HYNERPETON_IDLE, "Hynerpeton croaks");
+        this.sound(UP2SoundEvents.HYNERPETON_STEP, "Hynerpeton steps");
+
         this.sound(UP2SoundEvents.MAMMOTH_HURT, "Mammoth hurts");
         this.sound(UP2SoundEvents.MAMMOTH_DEATH, "Mammoth dies");
         this.sound(UP2SoundEvents.MAMMOTH_IDLE, "Mammoth trumpets");
@@ -423,6 +426,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
 
         this.translateBannerPattern("prognathodon");
+
+        this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
 
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");

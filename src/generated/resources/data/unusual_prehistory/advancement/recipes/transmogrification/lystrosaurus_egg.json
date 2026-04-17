@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_impervious_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:impervious_fossil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:transmogrification/lystrosaurus_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_impervious_fossil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:transmogrification/lystrosaurus_egg"
+    ]
+  }
+}
