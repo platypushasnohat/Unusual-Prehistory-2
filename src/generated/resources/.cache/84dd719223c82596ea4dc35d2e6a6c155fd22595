@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-16T22:57:40.6316836	Item Models: unusual_prehistory
+// 1.21.1	2026-04-17T13:08:39.0820482	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -152,6 +152,7 @@ b16911e9855039cde84b2489d3b9679f7ced9912 assets/unusual_prehistory/models/item/r
 328583d318f2e629cbd8f359126154aec0f02d7c assets/unusual_prehistory/models/item/rugose_fossil.json
 4e60248c43ffcf6c1f1aeab4e7f0aeaa2ed60f3c assets/unusual_prehistory/models/item/runner_fossil.json
 5e7ba0df0826af08d2c8115e0ba1b6063820d049 assets/unusual_prehistory/models/item/saw_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/setapedites_spawn_egg.json
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json

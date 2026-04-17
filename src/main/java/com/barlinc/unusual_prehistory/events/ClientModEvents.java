@@ -20,6 +20,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.DelitzschalaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.ZhangsolvaModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.SetapeditesModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
@@ -34,6 +35,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.Psilop
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.DelitzschalaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambient.ZhangsolvaRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.SetapeditesRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.renderer.BiomeColors;
@@ -141,6 +143,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.HYNERPETON.get(), HynerpetonRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAMMOTH.get(), MammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
+        event.registerEntityRenderer(UP2Entities.SETAPEDITES.get(), SetapeditesRenderer::new);
     }
 
     @SubscribeEvent
@@ -213,6 +216,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, MammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.SETAPEDITES, SetapeditesModel::createBodyLayer);
     }
 
     @SubscribeEvent

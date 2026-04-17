@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -18,6 +19,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,10 +38,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -48,6 +52,7 @@ import javax.annotation.Nullable;
 public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SPAWN_CHILDREN_COOLDOWN = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.INT);
 
     public final AegirocassisPart headPart;
     public final AegirocassisPart tailPart1;
@@ -248,6 +253,20 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         } else if (!shallowWater && this.shallowWater) {
             this.switchNavigator(false);
         }
+
+        if (this.getSpawnChildrenCooldown() == 0) {
+            if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
+                Entity entity = UP2Entities.SETAPEDITES.get().create(serverLevel);
+                Vec3 vec3 = this.blockPosition().getCenter();
+                if (entity instanceof AmbientMob mob) {
+                    mob.setShouldBeRestricted(true);
+                    entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(serverLevel.getRandom().nextFloat() * 360.0F), 0.0F);
+                    serverLevel.addFreshEntity(entity);
+                    EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null);
+                }
+            }
+            this.setSpawnChildrenCooldown(2600 + this.level().getRandom().nextInt(1200));
+        }
     }
 
     public float getGlowProgress(float partialTicks) {
@@ -278,6 +297,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         if (leapStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) this.setPose(Pose.FALL_FLYING);
         if (leapTicks == 0 && this.getPose() == Pose.FALL_FLYING) this.setPose(Pose.STANDING);
         if (this.isInWaterOrBubble()) {
+            if (this.getSpawnChildrenCooldown() > 0) {
+                this.setSpawnChildrenCooldown(this.getSpawnChildrenCooldown() - 1);
+            }
             if (rollCooldown > 0) rollCooldown--;
             if (eatCooldown > 0) eatCooldown--;
         }
@@ -355,6 +377,19 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(LEAPING, false);
+        builder.define(SPAWN_CHILDREN_COOLDOWN, 100);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("SpawnChildrenCooldown", this.getSpawnChildrenCooldown());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setSpawnChildrenCooldown(compoundTag.getInt("SpawnChildrenCooldown"));
     }
 
     @Override
@@ -365,6 +400,14 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public void setLeaping(boolean leaping) {
         this.entityData.set(LEAPING, leaping);
+    }
+
+    public int getSpawnChildrenCooldown() {
+        return this.entityData.get(SPAWN_CHILDREN_COOLDOWN);
+    }
+
+    public void setSpawnChildrenCooldown(int cooldown) {
+        this.entityData.set(SPAWN_CHILDREN_COOLDOWN, cooldown);
     }
 
     @Nullable

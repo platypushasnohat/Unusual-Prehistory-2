@@ -1,6 +1,11 @@
 ## Version 2.0.0
 - Ported mod to 1.21.1 NeoForge
+- Added Antarctopelta
+- Added Cotylorhynchus
+- Added Hynerpeton
+- Added Mammoth
 - Added Prognathodon
+- Added Setapedites ambient mob
 - Removed Mosasaurus
 - Removed SmoothBodyRotationControl
 - Updated PrehistoricMoveControl to ensure mobs face the direction they want to move

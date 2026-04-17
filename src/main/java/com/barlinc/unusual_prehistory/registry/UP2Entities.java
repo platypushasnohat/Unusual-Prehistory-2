@@ -14,6 +14,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
@@ -79,9 +80,9 @@ public class UP2Entities {
     // Update 5
     public static final DeferredHolder<EntityType<?>, EntityType<Aegirocassis>> AEGIROCASSIS = registerEntity("aegirocassis", Aegirocassis::new, MobCategory.WATER_CREATURE, builder -> builder.sized(3.5F, 3.9F).eyeHeight(1.9F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Desmatosuchus>> DESMATOSUCHUS = registerEntity("desmatosuchus", Desmatosuchus::new, MobCategory.CREATURE, builder -> builder.sized(1.3F, 1.2F).eyeHeight(0.8F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<Delitzschala>> DELITZSCHALA = registerEntity("delitzschala", Delitzschala::new, MobCategory.AMBIENT, builder -> builder.sized(0.4F, 0.15F).eyeHeight(0.5F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Delitzschala>> DELITZSCHALA = registerEntity("delitzschala", Delitzschala::new, MobCategory.AMBIENT, builder -> builder.sized(0.4F, 0.15F).eyeHeight(0.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Psilopterus>> PSILOPTERUS = registerEntity("psilopterus", Psilopterus::new, MobCategory.CREATURE, builder -> builder.sized(0.6F, 1.4F).eyeHeight(0.9F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<Zhangsolva>> ZHANGSOLVA = registerEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, builder -> builder.sized(0.3F, 0.4F).eyeHeight(0.6F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Zhangsolva>> ZHANGSOLVA = registerEntity("zhangsolva", Zhangsolva::new, MobCategory.AMBIENT, builder -> builder.sized(0.3F, 0.4F).eyeHeight(0.3F).clientTrackingRange(10));
 
     public static final DeferredHolder<EntityType<?>, EntityType<Grug>> GRUG = registerEntity("grug", Grug::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 3.1F).eyeHeight(0.8F).clientTrackingRange(10));
 
@@ -93,6 +94,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Hynerpeton>> HYNERPETON = registerEntity("hynerpeton", Hynerpeton::new, MobCategory.CREATURE, builder -> builder.sized(0.8F, 0.5F).eyeHeight(0.48F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Mammoth>> MAMMOTH = registerEntity("mammoth", Mammoth::new, MobCategory.CREATURE, builder -> builder.sized(3.6F, 4.9F).eyeHeight(4.7F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Prognathodon>> PROGNATHODON = registerEntity("prognathodon", Prognathodon::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.8F, 2.3F).eyeHeight(1.1F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Setapedites>> SETAPEDITES = registerEntity("setapedites", Setapedites::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.2F).eyeHeight(0.1F).clientTrackingRange(10));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);
