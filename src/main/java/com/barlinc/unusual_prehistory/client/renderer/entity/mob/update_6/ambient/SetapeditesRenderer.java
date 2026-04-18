@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class SetapeditesRenderer extends MobRenderer<Setapedites, SetapeditesModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/ambient/setapedites/setapedites.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/ambient/setapedites/pink.png");
 
     public SetapeditesRenderer(EntityRendererProvider.Context context) {
         super(context, new SetapeditesModel(context.bakeLayer(UP2ModelLayers.SETAPEDITES)), 0.0F);

@@ -34,6 +34,7 @@ import java.util.List;
 public class Setapedites extends AmbientMob {
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState(1.0F);
 
     public Setapedites(EntityType<? extends AmbientMob> entityType, Level level) {
         super(entityType, level);
@@ -103,9 +104,18 @@ public class Setapedites extends AmbientMob {
         }
     }
 
+    public boolean isSetapeditesSwimming() {
+        return this.isInWaterOrBubble() && !this.onGround();
+    }
+
+    public boolean isCrawling() {
+        return (this.isInWaterOrBubble() && this.onGround()) || !this.isInWaterOrBubble();
+    }
+
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isCrawling(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isSetapeditesSwimming(), this.tickCount);
     }
 
     @Override

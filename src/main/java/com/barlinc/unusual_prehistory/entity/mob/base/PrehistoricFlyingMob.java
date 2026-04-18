@@ -70,6 +70,11 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     }
 
     @Override
+    public boolean onClimbable() {
+        return !this.isFlying();
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
