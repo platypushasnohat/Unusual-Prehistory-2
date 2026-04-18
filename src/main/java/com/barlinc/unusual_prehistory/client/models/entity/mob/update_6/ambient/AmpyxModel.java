@@ -37,7 +37,7 @@ public class AmpyxModel extends UP2Model<Ampyx> {
 	@Override
 	public void setupAnim(@NotNull Ampyx entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWaterOrBubble()) {
+        if (entity.isInWaterOrBubble() && !entity.crawling) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
 	}

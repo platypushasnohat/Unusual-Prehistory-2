@@ -5,6 +5,7 @@
 - Added Hynerpeton
 - Added Mammoth
 - Added Prognathodon
+- Added Ampyx ambient mob
 - Added Setapedites ambient mob
 - Removed Mosasaurus
 - Removed SmoothBodyRotationControl
