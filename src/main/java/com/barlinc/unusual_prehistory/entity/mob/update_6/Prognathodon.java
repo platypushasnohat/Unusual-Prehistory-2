@@ -1,11 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -26,15 +23,17 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -66,8 +65,9 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     public Prognathodon(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(true);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -82,10 +82,10 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
-        this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
-        this.goalSelector.addGoal(2, new PrognathodonAttackGoal(this));
-        this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 80));
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
+        this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
+        this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new PrognathodonYawnGoal(this));
@@ -119,7 +119,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(12);
+        this.heal(10);
         return super.killedEntity(level, victim);
     }
 
@@ -137,18 +137,9 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         }
     }
 
-    protected void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.moveControl = new PrehistoricMoveControl(this);
-            this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = this.createNavigation(this.level());
-            this.isLandNavigator = true;
-        } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
-            this.navigation = new SemiAquaticPathNavigation(this, this.level());
-            this.isLandNavigator = false;
-        }
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -157,15 +148,13 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        final boolean ground = !this.isInWaterOrBubble();
-        if (!ground && this.isLandNavigator) {
-            this.switchNavigator(false);
-        }
-        if (ground && !this.isLandNavigator) {
-            this.switchNavigator(true);
-        }
+    public int getMaxHeadXRot() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 1;
     }
 
     @Override
@@ -195,10 +184,10 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         if (nipCooldown > 0) nipCooldown--;
     }
 
-    @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2);
-    }
+//    @Override
+//    public @NotNull AABB getBoundingBoxForCulling() {
+//        return this.getBoundingBox().inflate(2);
+//    }
 
     protected void yawnCooldown() {
         this.yawnCooldown = 800 + this.getRandom().nextInt(800);
@@ -284,16 +273,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         public PrognathodonAttackGoal(Prognathodon prognathodon) {
             super(prognathodon);
             this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && (prognathodon.getTarget().isInWaterOrBubble() || !prognathodon.isInWaterOrBubble());
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && (prognathodon.getTarget().isInWaterOrBubble() || !prognathodon.isInWaterOrBubble());
         }
 
         @Override

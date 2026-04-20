@@ -1,11 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -28,7 +25,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -54,9 +55,9 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
 
     public Hynerpeton(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(true);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.32F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
     }
 
     @Override
@@ -79,18 +80,9 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
                 .add(Attributes.MOVEMENT_SPEED, 0.24F);
     }
 
-    protected void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.moveControl = new PrehistoricMoveControl(this);
-            this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = this.createNavigation(this.level());
-            this.isLandNavigator = true;
-        } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.32F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-            this.navigation = new SemiAquaticPathNavigation(this, this.level());
-            this.isLandNavigator = false;
-        }
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -128,18 +120,6 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
     @Override
     public boolean refuseToLook() {
         return this.isEepy();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        final boolean ground = !this.isInWaterOrBubble();
-        if (!ground && this.isLandNavigator) {
-            this.switchNavigator(false);
-        }
-        if (ground && !this.isLandNavigator) {
-            this.switchNavigator(true);
-        }
     }
 
     @Override

@@ -19,14 +19,8 @@ public class SemiAquaticPathNavigation extends WaterBoundPathNavigation {
 
     @Override
     protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
-        this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
-        return new PathFinder(nodeEvaluator, maxVisitedNodes);
-    }
-
-    @Override
-    protected boolean canMoveDirectly(@NotNull Vec3 posVec31, Vec3 posVec32) {
-        Vec3 vector3d = new Vec3(posVec32.x, posVec32.y + (double) mob.getBbHeight() * 0.5D, posVec32.z);
-        return this.level.clip(new ClipContext(posVec31, vector3d, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, mob)).getType() == HitResult.Type.MISS;
+        this.nodeEvaluator = new AmphibiousNodeEvaluator(false);
+        return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
 
     @Override
@@ -35,12 +29,22 @@ public class SemiAquaticPathNavigation extends WaterBoundPathNavigation {
     }
 
     @Override
+    protected boolean canMoveDirectly(@NotNull Vec3 posVec31, Vec3 posVec32) {
+        Vec3 vector3d = new Vec3(posVec32.x, posVec32.y + (double) this.mob.getBbHeight() * 0.5D, posVec32.z);
+        return this.level.clip(new ClipContext(posVec31, vector3d, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this.mob)).getType() == HitResult.Type.MISS;
+    }
+
+    @Override
     protected @NotNull Vec3 getTempMobPos() {
-        return mob.isInWaterOrBubble() ? super.getTempMobPos() : new Vec3(mob.getX(), mob.getY(0.5D), mob.getZ());
+        return this.mob.isInWaterOrBubble() ? super.getTempMobPos() : new Vec3(this.mob.getX(), Math.floor(this.mob.getY() + 0.5D), this.mob.getZ());
     }
 
     @Override
     public boolean isStableDestination(BlockPos pos) {
-        return !level.getBlockState(pos.below()).isAir();
+        return !this.level.getBlockState(pos.below()).isAir();
+    }
+
+    @Override
+    public void setCanFloat(boolean canSwim) {
     }
 }

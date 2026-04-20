@@ -85,6 +85,8 @@ public abstract class PrehistoricMob extends TamableAnimal {
     public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
 
+    public int idleAnimationCooldown;
+
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricMoveControl(this);
@@ -411,14 +413,33 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     public void tickCooldowns() {
-        if (this.getEatCooldown() > 0 && this.canEat()) {
-            this.setEatCooldown(this.getEatCooldown() - 1);
+        if (this.isAlive() && !this.isNoAi()) {
+            if (this.getEatCooldown() > 0 && this.canEat()) {
+                this.setEatCooldown(this.getEatCooldown() - 1);
+            }
+            if (this.getLastHurtByMob() == null && this.getTarget() == null && this.canSleepCooldown() && !this.isBaby()) {
+                if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
+                if (!this.isEepy() && this.getSitCooldown() > 0 && !this.isSitting()) this.setSitCooldown(this.getSitCooldown() - 1);
+            }
+            if (this.getSittingTicks() > 0) this.setSittingTicks(this.getSittingTicks() - 1);
+
+            if (idleAnimationCooldown > 0 && !this.isEepy()) {
+                this.idleAnimationCooldown--;
+            }
         }
-        if (this.getLastHurtByMob() == null && this.getTarget() == null && this.canSleepCooldown() && !this.isBaby()) {
-            if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
-            if (!this.isEepy() && this.getSitCooldown() > 0 && !this.isSitting()) this.setSitCooldown(this.getSitCooldown() - 1);
-        }
-        if (this.getSittingTicks() > 0) this.setSittingTicks(this.getSittingTicks() - 1);
+    }
+
+    // Idle animation cooldowns
+    public void setIdleAnimationCooldown(int animationCooldown) {
+        this.idleAnimationCooldown = animationCooldown;
+    }
+
+    public int getIdleAnimationCooldown() {
+        return this.idleAnimationCooldown;
+    }
+
+    public int getIdleAnimationCooldown(int idleState) {
+        return 0;
     }
 
     public boolean canSleepCooldown() {
