@@ -76,16 +76,6 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
     public static final ModelLayerLocation SETAPEDITES = mainLayer("setapedites");
 
-    // Future
-    public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
-    public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
-    public static final ModelLayerLocation ERYON = mainLayer("eryon");
-    public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
-    public static final ModelLayerLocation PALAEOPHIS = mainLayer("palaeophis");
-    public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
-    public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
-    public static final ModelLayerLocation WONAMBI = mainLayer("wonambi");
-
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);
     }

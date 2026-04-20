@@ -206,19 +206,6 @@ public class Cotylorhynchus extends PrehistoricMob {
         }
     }
 
-    public boolean canGraze(Entity entity) {
-        return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS);
-    }
-
-    @Override
-    public int getIdleAnimationCooldown(int idleState) {
-        if (idleState == 1) {
-            int cooldown = 800;
-            return cooldown + this.random.nextInt(1200);
-        }
-        throw new IllegalStateException("Unexpected value: " + idleState);
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -254,6 +241,19 @@ public class Cotylorhynchus extends PrehistoricMob {
     @Override
     public float getWalkAnimationSpeed() {
         return this.isBaby() ? 5.0F : 10.0F;
+    }
+
+    public boolean canGraze(Entity entity) {
+        return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS) && !this.isInWaterOrBubble();
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 800 + this.getRandom().nextInt(1200);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override

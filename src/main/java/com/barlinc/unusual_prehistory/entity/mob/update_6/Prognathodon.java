@@ -47,15 +47,11 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     public int biteCooldown = 0;
 
-    private int yawnCooldown = 800 + this.getRandom().nextInt(800);
-    private int tongueCooldown = 150 + this.getRandom().nextInt(150);
-    private int nipCooldown = 700 + this.getRandom().nextInt(700);
-
     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState tongueAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState nip1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState nip2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -88,9 +84,15 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
-        this.goalSelector.addGoal(6, new PrognathodonYawnGoal(this));
-        this.goalSelector.addGoal(6, new PrognathodonTongueGoal(this));
-        this.goalSelector.addGoal(6, new PrognathodonNipGoal(this));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 1, false, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, false, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 3, false, this::canPlayIdles) {
+            @Override
+            public void start() {
+                super.start();
+                Prognathodon.this.nipAlt = Prognathodon.this.getRandom().nextBoolean();
+            }
+        });
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, false, entity -> entity.getType().is(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS)) {
             @Override
@@ -164,8 +166,8 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
-        this.yawnAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
-        this.tongueAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.tongueAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.yawnAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.nip1AnimationState.animateWhen(this.getIdleState() == 3 && !nipAlt, this.tickCount);
         this.nip2AnimationState.animateWhen(this.getIdleState() == 3 && nipAlt, this.tickCount);
     }
@@ -177,29 +179,35 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 300 + this.getRandom().nextInt(400);
+        }
+        else if (idleState == 2) {
+            return 700 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 3) {
+            return 800 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
+    }
+
+    public boolean canPlayIdles(Entity entity) {
+        return this.isInWaterOrBubble();
+    }
+
+    @Override
     public void tickCooldowns() {
+        super.tickCooldowns();
         if (biteCooldown > 0) biteCooldown--;
-        if (yawnCooldown > 0) yawnCooldown--;
-        if (tongueCooldown > 0) tongueCooldown--;
-        if (nipCooldown > 0) nipCooldown--;
     }
 
 //    @Override
 //    public @NotNull AABB getBoundingBoxForCulling() {
 //        return this.getBoundingBox().inflate(2);
 //    }
-
-    protected void yawnCooldown() {
-        this.yawnCooldown = 800 + this.getRandom().nextInt(800);
-    }
-
-    protected void tongueCooldown() {
-        this.tongueCooldown = 150 + this.getRandom().nextInt(150);
-    }
-
-    protected void nipCooldown() {
-        this.nipCooldown = 700 + this.getRandom().nextInt(700);
-    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -324,75 +332,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
                     this.prognathodon.swing(InteractionHand.MAIN_HAND);
                 });
             }
-        }
-    }
-
-    private static class PrognathodonYawnGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonYawnGoal(Prognathodon prognathodon) {
-            super(prognathodon, 60, 1, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.yawnCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.yawnCooldown();
-        }
-    }
-
-    private static class PrognathodonTongueGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonTongueGoal(Prognathodon prognathodon) {
-            super(prognathodon, 40, 2, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.tongueCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.tongueCooldown();
-        }
-    }
-
-    private static class PrognathodonNipGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonNipGoal(Prognathodon prognathodon) {
-            super(prognathodon, 20, 3, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.prognathodon.nipAlt = prognathodon.getRandom().nextBoolean();
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.nipCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.nipCooldown();
         }
     }
 }

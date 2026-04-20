@@ -14,37 +14,33 @@ public class IdleAnimationGoal extends Goal {
     protected final int animationTime;
     protected final int idleState;
     protected final boolean stopMoving;
-    protected final boolean stopInWater;
     protected final float chance;
 
     public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, Predicate<Mob> canUse) {
-        this(prehistoricMob, animationTime, idleState, true, true, 0.001F, canUse);
+        this(prehistoricMob, animationTime, idleState, true, 0.001F, canUse);
     }
 
     public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, Predicate<Mob> canUse) {
-        this(prehistoricMob, animationTime, idleState, stopMoving, true, 0.001F, canUse);
+        this(prehistoricMob, animationTime, idleState, stopMoving, 0.001F, canUse);
     }
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, boolean stopInWater, float chance, Predicate<Mob> canUse) {
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance, Predicate<Mob> canUse) {
         this.prehistoricMob = prehistoricMob;
         this.animationTime = animationTime;
         this.idleState = idleState;
         this.stopMoving = stopMoving;
-        this.stopInWater = stopInWater;
         this.chance = chance;
         this.canUse = canUse;
     }
 
     @Override
     public boolean canUse() {
-        if (prehistoricMob.getLastHurtByMob() != null) {
+        if (prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null) {
             return false;
         } else if (stopMoving && !prehistoricMob.getNavigation().isDone()) {
             return false;
-        } else if (stopInWater && prehistoricMob.isInWater()) {
-            return false;
         }
-        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy() && !prehistoricMob.isDancing();
+        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !this.isDancingOrSleeping();
     }
 
     @Override
@@ -59,12 +55,10 @@ public class IdleAnimationGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if (prehistoricMob.getLastHurtByMob() != null) {
-            return false;
-        } else if (stopInWater && prehistoricMob.isInWater()) {
+        if (prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null) {
             return false;
         }
-        return canUse.test(prehistoricMob) && !prehistoricMob.isDancing() && !prehistoricMob.isEepy() && prehistoricMob.getTarget() == null && timer > 0 && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == idleState;
+        return canUse.test(prehistoricMob) && timer > 0 && prehistoricMob.getIdleState() == idleState && prehistoricMob.isAlive() && !this.isDancingOrSleeping();
     }
 
     @Override
@@ -86,5 +80,9 @@ public class IdleAnimationGoal extends Goal {
     @Override
     public boolean requiresUpdateEveryTick() {
         return true;
+    }
+
+    protected boolean isDancingOrSleeping() {
+        return prehistoricMob.isDancing() || prehistoricMob.isEepy();
     }
 }

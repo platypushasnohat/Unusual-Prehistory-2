@@ -72,18 +72,4 @@ public class ClientForgeEvents {
 //            if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
         }
     }
-
-//    @OnlyIn(Dist.CLIENT)
-//    public static void openManipulatorInventory(ManipulatorOpenInventoryPacket packet) {
-//        Player player = Minecraft.getInstance().player;
-//        if (player != null) {
-//            Entity entity = player.level().getEntity(packet.getEntityId());
-//            if (entity instanceof Manipulator manipulator) {
-//                LocalPlayer localPlayer = Minecraft.getInstance().player;
-//                ManipulatorContainer container = new ManipulatorContainer(packet.getId(), player.getInventory(), manipulator.manipulatorInventory, manipulator);
-//                localPlayer.containerMenu = container;
-//                Minecraft.getInstance().setScreen(new ManipulatorInventoryScreen(container, player.getInventory(), manipulator));
-//            }
-//        }
-//    }
 }
