@@ -65,7 +65,7 @@ public class KimmeridgebrachypteraeschnidiumNymph extends AmphibiousMob implemen
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.7D, 10, 4, true));
-        this.goalSelector.addGoal(1, new EnterWaterGoal(this, 1.0D, 400));
+        this.goalSelector.addGoal(1, new EnterWaterGoal(this, 1.0D, 3000));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 1.7D, true, entity -> entity.getType().is(UP2EntityTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_AVOIDS)));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true));

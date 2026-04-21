@@ -26,6 +26,7 @@
 - Increased ooze fuel duration to 48 seconds
 - Tweaked transmogrifier sounds
 - Reduced aegirocassis hurt sound volume
+- Remodeled leptictidium
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

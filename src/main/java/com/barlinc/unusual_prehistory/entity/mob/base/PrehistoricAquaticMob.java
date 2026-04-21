@@ -47,16 +47,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob implements Bu
         return new AquaticPathNavigation(this, level);
     }
 
-    public float getDepthPathfindingFavor(BlockPos pos, LevelReader level) {
-        int y = pos.getY() + Math.abs(level.getMinBuildHeight());
-        return 1.0F / (float) (y == 0 ? 1 : y);
-    }
-
-    public float getSurfacePathfindingFavor(BlockPos pos, LevelReader level) {
-        int y = Math.abs(level.getMaxBuildHeight()) - pos.getY();
-        return 1.0F / (float) (y == 0 ? 1 : y);
-    }
-
     @Override
     public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
         return fluidType != NeoForgeMod.WATER_TYPE.value();

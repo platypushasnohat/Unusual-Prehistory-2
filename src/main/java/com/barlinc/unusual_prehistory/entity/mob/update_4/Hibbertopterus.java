@@ -5,11 +5,11 @@
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -54,7 +54,6 @@
 
      public Hibbertopterus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
      }
 
@@ -71,7 +70,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4, true));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
-         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
      }

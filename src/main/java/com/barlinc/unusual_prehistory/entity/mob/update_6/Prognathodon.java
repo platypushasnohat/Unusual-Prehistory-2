@@ -3,20 +3,21 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -26,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
@@ -34,13 +34,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Prognathodon.class, EntityDataSerializers.BOOLEAN);
@@ -73,7 +73,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
                 .add(Attributes.ATTACK_DAMAGE, 11.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.STEP_HEIGHT, 1.0D);
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -128,12 +128,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -141,7 +136,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new AmphibiousPathNavigation(this, level);
+        return new SmoothAmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -157,6 +152,11 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     @Override
     public int getMaxHeadYRot() {
         return 1;
+    }
+
+    @Override
+    public float getAdditionalStepHeight() {
+        return 0.0F;
     }
 
     @Override
@@ -204,10 +204,10 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         if (biteCooldown > 0) biteCooldown--;
     }
 
-//    @Override
-//    public @NotNull AABB getBoundingBoxForCulling() {
-//        return this.getBoundingBox().inflate(2);
-//    }
+    @Override
+    public @NotNull AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(2, 1, 2);
+    }
 
     @Override
     public boolean isFood(ItemStack stack) {

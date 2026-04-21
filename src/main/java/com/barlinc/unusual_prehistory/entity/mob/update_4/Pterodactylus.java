@@ -3,16 +3,15 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PterodactylusFlyAndHangGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -91,7 +90,7 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
         this.goalSelector.addGoal(4, new PterodactylusFlyAndHangGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new PterodactylusStretchGoal(this));
+//        this.goalSelector.addGoal(7, new PterodactylusStretchGoal(this));
     }
 
     @Override
@@ -461,29 +460,29 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
         }
     }
 
-    private static class PterodactylusStretchGoal extends IdleAnimationGoal {
-
-        private final Pterodactylus pterodactylus;
-
-        public PterodactylusStretchGoal(Pterodactylus pterodactylus) {
-            super(pterodactylus, 40, 1);
-            this.pterodactylus = pterodactylus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging()) && !pterodactylus.isFlying();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !pterodactylus.isFlying();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pterodactylus.stretchCooldown();
-        }
-    }
+//    private static class PterodactylusStretchGoal extends IdleAnimationGoal {
+//
+//        private final Pterodactylus pterodactylus;
+//
+//        public PterodactylusStretchGoal(Pterodactylus pterodactylus) {
+//            super(pterodactylus, 40, 1);
+//            this.pterodactylus = pterodactylus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && pterodactylus.stretchCooldown == 0 && (pterodactylus.onGround() || pterodactylus.isHanging()) && !pterodactylus.isFlying();
+//        }
+//
+//        @Override
+//        public boolean canContinueToUse() {
+//            return super.canContinueToUse() && !pterodactylus.isFlying();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.pterodactylus.stretchCooldown();
+//        }
+//    }
 }

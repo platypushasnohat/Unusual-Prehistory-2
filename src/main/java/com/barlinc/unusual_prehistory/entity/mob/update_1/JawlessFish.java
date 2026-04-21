@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -16,7 +17,6 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -33,7 +33,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class JawlessFish extends SchoolingAquaticMob {
 
     public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
@@ -67,12 +66,7 @@ public class JawlessFish extends SchoolingAquaticMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -82,11 +76,6 @@ public class JawlessFish extends SchoolingAquaticMob {
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.JAWLESS_FISH_FOOD);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.4F;
-//    }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {

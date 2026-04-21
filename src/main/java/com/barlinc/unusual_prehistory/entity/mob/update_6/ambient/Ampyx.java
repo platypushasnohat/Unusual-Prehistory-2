@@ -1,11 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.ambient;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.SwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +18,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
@@ -53,7 +53,7 @@ public class Ampyx extends AmbientMob {
 
     public Ampyx(EntityType<? extends AmbientMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SwimmingMoveControl(this, 85, 10, 0.02F);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
@@ -73,7 +73,7 @@ public class Ampyx extends AmbientMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SemiAquaticPathNavigation(this, level);
+        return new SmoothAmphibiousPathNavigation(this, level);
     }
 
     @Override

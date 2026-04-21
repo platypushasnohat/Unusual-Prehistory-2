@@ -1,16 +1,20 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -33,7 +37,6 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
- import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.util.DefaultRandomPos;
  import net.minecraft.world.entity.animal.Bucketable;
@@ -64,9 +67,8 @@
 
      public Diplocaulus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
-         this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
+         this.switchNavigator(true);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -80,8 +82,8 @@
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
-         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
+         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
          this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 80));
          this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D) {
@@ -116,7 +118,19 @@
 
      @Override
      protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new AmphibiousPathNavigation(this, level);
+         return new SmoothAmphibiousPathNavigation(this, level);
+     }
+
+     protected void switchNavigator(boolean onLand) {
+         if (onLand) {
+             this.moveControl = new PrehistoricMoveControl(this);
+             this.lookControl = new PrehistoricLookControl(this);
+             this.isLandNavigator = true;
+         } else {
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
+             this.isLandNavigator = false;
+         }
      }
 
      @Override
@@ -128,9 +142,7 @@
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
          if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVec);
-             this.move(MoverType.SELF, this.getDeltaMovement());
-             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+             MobUtils.travelInWater(this, travelVec);
          } else {
              super.travel(travelVec);
          }
@@ -159,6 +171,13 @@
      @Override
      public void tick() {
          super.tick();
+         final boolean ground = !this.isInWaterOrBubble();
+         if (!ground && this.isLandNavigator) {
+             this.switchNavigator(false);
+         }
+         if (ground && !this.isLandNavigator) {
+             this.switchNavigator(true);
+         }
 
          if (this.isSliding() && !this.isInWaterOrBubble() && this.getDeltaMovement().horizontalDistance() > 0.05D) {
              for (int i = 0; i < 1; i++) {

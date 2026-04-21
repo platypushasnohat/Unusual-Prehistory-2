@@ -1,16 +1,18 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PachycephalosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -74,8 +76,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new SleepingGoal(this));
-        this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
-        this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
+//        this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
+//        this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
         this.targetSelector.addGoal(0, new PachycephalosaurusHurtByTargetGoal(this, Pachycephalosaurus.class));
         this.targetSelector.addGoal(1, new PachycephalosaurusTargetToKillGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS_TO_KILL)));
         this.targetSelector.addGoal(2, new PachycephalosaurusTargetOthersGoal<>(this, Pachycephalosaurus.class));
@@ -431,45 +433,45 @@ public class Pachycephalosaurus extends PrehistoricMob {
         }
     }
 
-    private static class PachycephalosaurusGrazeGoal extends IdleAnimationGoal {
-
-        private final Pachycephalosaurus pachycephalosaurus;
-
-        public PachycephalosaurusGrazeGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 60, 1);
-            this.pachycephalosaurus = pachycephalosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pachycephalosaurus.grazeCooldown();
-        }
-    }
-
-    private static class PachycephalosaurusHuffGoal extends IdleAnimationGoal {
-
-        private final Pachycephalosaurus pachycephalosaurus;
-
-        public PachycephalosaurusHuffGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 30, 2, false);
-            this.pachycephalosaurus = pachycephalosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.huffCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pachycephalosaurus.huffCooldown();
-        }
-    }
+//    private static class PachycephalosaurusGrazeGoal extends IdleAnimationGoal {
+//
+//        private final Pachycephalosaurus pachycephalosaurus;
+//
+//        public PachycephalosaurusGrazeGoal(Pachycephalosaurus pachycephalosaurus) {
+//            super(pachycephalosaurus, 60, 1);
+//            this.pachycephalosaurus = pachycephalosaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS);
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.pachycephalosaurus.grazeCooldown();
+//        }
+//    }
+//
+//    private static class PachycephalosaurusHuffGoal extends IdleAnimationGoal {
+//
+//        private final Pachycephalosaurus pachycephalosaurus;
+//
+//        public PachycephalosaurusHuffGoal(Pachycephalosaurus pachycephalosaurus) {
+//            super(pachycephalosaurus, 30, 2, false);
+//            this.pachycephalosaurus = pachycephalosaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && pachycephalosaurus.huffCooldown == 0;
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.pachycephalosaurus.huffCooldown();
+//        }
+//    }
 }

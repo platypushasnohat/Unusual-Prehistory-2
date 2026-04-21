@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
+import com.barlinc.unusual_prehistory.entity.accessor.MobAccessor;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
@@ -12,7 +13,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.entity.accessor.MobAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;

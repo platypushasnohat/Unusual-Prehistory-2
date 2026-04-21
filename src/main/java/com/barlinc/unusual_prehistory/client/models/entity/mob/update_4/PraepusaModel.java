@@ -88,11 +88,11 @@ public class PraepusaModel extends UP2Model<Praepusa> {
 	public void setupAnim(@NotNull Praepusa entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (entity.isInWaterOrBubble()) {
-            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1, 2);
-            else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
+            else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         } else {
-            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-            else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+            else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, limbSwingAmount);
@@ -103,12 +103,15 @@ public class PraepusaModel extends UP2Model<Praepusa> {
         this.animateSmooth(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
         this.animateSmooth(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
         this.animateSmooth(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks);
-        this.animate(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
+        this.animateSmooth(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
         this.animate(entity.bounceAnimationState, PraepusaAnimations.BOUNCE_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);
         if (entity.isEepy()) this.applyStatic(PraepusaAnimations.SLEEP_BLEND);
-        if (entity.isInWaterOrBubble() && !entity.isEepy()) this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
+
+        if (entity.isInWaterOrBubble() && !entity.isEepy()) {
+            this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
+        }
 	}
 
 	@Override

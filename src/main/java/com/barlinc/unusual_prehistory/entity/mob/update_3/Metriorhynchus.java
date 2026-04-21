@@ -6,15 +6,16 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -33,7 +34,7 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
- import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.Items;
@@ -90,7 +91,7 @@
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000));
          this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
          this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -109,18 +110,26 @@
          this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new SmoothAmphibiousPathNavigation(this, level);
+     }
+
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.98F);
              this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-             this.navigation = new AmphibiousPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
+     }
+
+     @Override
+     public float getAdditionalStepHeight() {
+         return 0.0F;
      }
 
      @Override

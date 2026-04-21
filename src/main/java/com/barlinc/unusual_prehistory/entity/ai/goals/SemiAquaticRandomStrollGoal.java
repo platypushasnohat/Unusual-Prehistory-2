@@ -11,17 +11,17 @@ public class SemiAquaticRandomStrollGoal extends PrehistoricRandomStrollGoal {
     }
 
     public SemiAquaticRandomStrollGoal(AmphibiousMob mob, double speedModifier, int interval) {
-        super(mob, speedModifier, interval, false);
+        super(mob, speedModifier, interval, true);
         this.semiAquaticMob = mob;
     }
 
     @Override
     public boolean canUse() {
-        return super.canUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWaterOrBubble();
+        return super.canUse() && !semiAquaticMob.isInWaterOrBubble();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && semiAquaticMob.isLandNavigator && !semiAquaticMob.isInWaterOrBubble();
+        return super.canContinueToUse() && !semiAquaticMob.isInWaterOrBubble();
     }
 }

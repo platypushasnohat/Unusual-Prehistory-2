@@ -6,13 +6,15 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,7 +22,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -36,7 +37,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -87,7 +88,6 @@ public class Megalania extends AmphibiousMob {
         super(entityType, level);
         this.switchNavigator(true);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Megalania extends AmphibiousMob {
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.8D, 7.0F, 4.0F, false));
         this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MEGALANIA_FOOD), false));
-        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 700));
+        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 3000));
         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
         this.goalSelector.addGoal(6, this.randomStrollGoal);
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -130,16 +130,19 @@ public class Megalania extends AmphibiousMob {
                 .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothAmphibiousPathNavigation(this, level);
+    }
+
     protected void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new PrehistoricMoveControl(this);
             this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.6F);
             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-            this.navigation = new AmphibiousPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -157,16 +160,26 @@ public class Megalania extends AmphibiousMob {
             }
         }
         if (this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVec);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            MobUtils.travelInWater(this, travelVec);
             this.calculateEntityAnimation(false);
         } else {
             super.travel(travelVec);
         }
+    }
+
+    @Override
+    public float getAdditionalStepHeight() {
+        return 0.0F;
+    }
+
+    @Override
+    public int getMaxHeadXRot() {
+        return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -12,14 +15,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,19 +30,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class LobeFinnedFish extends SchoolingAquaticMob {
 
-    private static final EntityDimensions ALLENYPTERUS_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.8F);
-    private static final EntityDimensions EUSTHENOPTERON_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.7F);
-    private static final EntityDimensions GOOLOOGONGIA_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.5F);
-    private static final EntityDimensions LACCOGNATHUS_DIMENSIONS = EntityDimensions.scalable(0.98F, 0.5F);
-    private static final EntityDimensions SCAUMENACIA_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.4F);
+    private static final EntityDimensions ALLENYPTERUS_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.8F).withEyeHeight(0.4F);
+    private static final EntityDimensions EUSTHENOPTERON_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.7F).withEyeHeight(0.35F);
+    private static final EntityDimensions GOOLOOGONGIA_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.5F).withEyeHeight(0.25F);
+    private static final EntityDimensions LACCOGNATHUS_DIMENSIONS = EntityDimensions.scalable(0.98F, 0.5F).withEyeHeight(0.25F);
+    private static final EntityDimensions SCAUMENACIA_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.4F).withEyeHeight(0.2F);
 
     public LobeFinnedFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -76,12 +75,7 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -91,11 +85,6 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.LOBE_FINNED_FISH_FOOD);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.5F;
-//    }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
@@ -107,7 +96,7 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        return this.getDimsForLobeFinnedFish().scale(this.getScale());
+        return this.getDimsForLobeFinnedFish().scale(this.getAgeScale());
     }
 
     private EntityDimensions getDimsForLobeFinnedFish() {
