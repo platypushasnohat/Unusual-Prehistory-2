@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -31,7 +30,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -46,10 +44,6 @@ public class Talpanas extends BreedableMob {
 
     public final SmoothAnimationState flapAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
-
-    private int peckCooldown = 300 + this.getRandom().nextInt(300);
-    private int shakeCooldown = 240 + this.getRandom().nextInt(240);
 
     public Talpanas(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
@@ -84,8 +78,7 @@ public class Talpanas extends BreedableMob {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 3.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new TalpanasPeckGoal(this));
-        this.goalSelector.addGoal(9, new TalpanasShakeGoal(this));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.005F, this::canPeckBlock));
     }
 
     @Override
@@ -154,16 +147,19 @@ public class Talpanas extends BreedableMob {
         this.idleAnimationState.animateWhen(this.onGround() || this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
         this.flapAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
         this.peckAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
-        this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
+    private boolean canPeckBlock(Entity entity) {
+        return !entity.isInWaterOrBubble() && entity.level().getBlockState(entity.blockPosition().below()).is(UP2BlockTags.TALPANAS_FOOD_BLOCKS);
+    }
+
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.level().isClientSide && !this.isEepy()) {
-            if (peckCooldown > 0) peckCooldown--;
-            if (shakeCooldown > 0) shakeCooldown--;
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 800 + this.getRandom().nextInt(1200);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
         }
     }
 
@@ -232,11 +228,6 @@ public class Talpanas extends BreedableMob {
         return UP2SoundEvents.TALPANAS_DEATH.get();
     }
 
-    @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.06F, 1.0F);
-    }
-
     // Goals
     private static class TalpanasSeekShelterGoal extends Goal {
 
@@ -297,48 +288,6 @@ public class Talpanas extends BreedableMob {
                 }
             }
             return null;
-        }
-    }
-
-    private static class TalpanasPeckGoal extends IdleAnimationGoal {
-
-        private final Talpanas talpanas;
-
-        public TalpanasPeckGoal(Talpanas talpanas) {
-            super(talpanas, 40, 1);
-            this.talpanas = talpanas;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && talpanas.shakeCooldown == 0 && talpanas.level().getBlockState(talpanas.blockPosition().below()).is(UP2BlockTags.TALPANAS_PECKING_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.talpanas.shakeCooldown = 240 + talpanas.getRandom().nextInt(240);
-        }
-    }
-
-    private static class TalpanasShakeGoal extends IdleAnimationGoal {
-
-        private final Talpanas talpanas;
-
-        public TalpanasShakeGoal(Talpanas talpanas) {
-            super(talpanas, 20, 2);
-            this.talpanas = talpanas;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && talpanas.shakeCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.talpanas.shakeCooldown = 240 + talpanas.getRandom().nextInt(240);
         }
     }
 }

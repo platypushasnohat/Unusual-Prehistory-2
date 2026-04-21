@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.utils;
+package com.barlinc.unusual_prehistory.entity.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.animation.AnimationDefinition;

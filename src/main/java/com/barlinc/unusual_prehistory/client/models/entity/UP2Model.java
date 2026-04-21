@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationDefinition;

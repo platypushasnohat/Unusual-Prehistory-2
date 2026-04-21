@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.utils;
+package com.barlinc.unusual_prehistory.entity.accessor;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;

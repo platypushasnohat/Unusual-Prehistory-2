@@ -12,7 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -67,8 +67,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     public final SmoothAnimationState hangIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState hangingStretchAnimationState = new SmoothAnimationState();
-
-    private int stretchCooldown = 400 + this.getRandom().nextInt(600);
 
     public Pterodactylus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -228,18 +226,8 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (stretchCooldown > 0) stretchCooldown--;
-    }
-
-    @Override
     public boolean refuseToMove() {
         return super.refuseToMove() || this.getIdleState() == 1;
-    }
-
-    public int getFastFlyingTicks() {
-        return 100 + this.getRandom().nextInt(50);
     }
 
     @Override
@@ -250,10 +238,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
         this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning() && !this.isHanging(), this.tickCount);
         this.stretchAnimationState.animateWhen(this.getIdleState() == 1 && !this.isHanging(), this.tickCount);
         this.hangingStretchAnimationState.animateWhen(this.getIdleState() == 1 && this.isHanging(), this.tickCount);
-    }
-
-    protected void stretchCooldown() {
-        this.stretchCooldown = 400 + this.getRandom().nextInt(600);
     }
 
     @Override

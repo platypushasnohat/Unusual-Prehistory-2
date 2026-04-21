@@ -153,18 +153,6 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> PACIFIES_PROGNATHODON = modItemTag("pacifies_prognathodon");
 
-    // Future
-    public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
-    public static final TagKey<Item> DIMORPHODON_FOOD = modItemTag("dimorphodon_food");
-    public static final TagKey<Item> MANIPULATOR_FOOD = modItemTag("manipulator_food");
-    public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
-
-    public static final TagKey<Item> PACIFIES_BARINASUCHUS = modItemTag("pacifies_barinasuchus");
-    public static final TagKey<Item> PACIFIES_MANIPULATOR = modItemTag("pacifies_manipulator");
-
-    public static final TagKey<Item> TAMES_BARINASUCHUS = modItemTag("tames_barinasuchus");
-    public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
-
     private static TagKey<Item> modItemTag(String name) {
         return itemTag(UnusualPrehistory2.MOD_ID, name);
     }

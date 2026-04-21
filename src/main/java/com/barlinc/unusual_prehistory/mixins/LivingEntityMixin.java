@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins;
 
-import com.barlinc.unusual_prehistory.utils.LivingEntityAccessor;
+import com.barlinc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

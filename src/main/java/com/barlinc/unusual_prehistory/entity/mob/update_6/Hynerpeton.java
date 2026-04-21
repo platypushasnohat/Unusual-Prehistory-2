@@ -9,7 +9,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -55,7 +55,7 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
 
     public Hynerpeton(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.32F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }

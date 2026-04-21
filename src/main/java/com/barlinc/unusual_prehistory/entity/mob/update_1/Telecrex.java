@@ -10,8 +10,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
-import net.minecraft.core.BlockPos;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -47,10 +45,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     public final SmoothAnimationState splatAnimationState = new SmoothAnimationState(0.75F);
 
     private boolean preenAlt = false;
-
-    public int preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
-    public int peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
-
     private int splatTicks;
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
@@ -82,8 +76,14 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new TelecrexPreenGoal(this));
-        this.goalSelector.addGoal(8, new TelecrexPeckGoal(this));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPreen) {
+            @Override
+            public void start() {
+                super.start();
+                Telecrex.this.preenAlt = Telecrex.this.getRandom().nextBoolean();
+            }
+        });
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 2, true, 0.001F, this::canPeck));
     }
 
     @Override
@@ -127,15 +127,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isFlying()) {
-            if (preenCooldown > 0) preenCooldown--;
-            if (peckCooldown > 0) peckCooldown--;
-        }
-    }
-
-    @Override
     public boolean refuseToMove() {
         return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.hasSplat();
     }
@@ -156,12 +147,31 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.peckAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }
 
-    protected void preenCooldown() {
-        this.preenCooldown = 700 + this.getRandom().nextInt(60 * 60);
+    private boolean canPeck(Entity entity) {
+        if (entity instanceof Telecrex telecrex) {
+            return !telecrex.hasSplat() && !telecrex.isFlying() && !telecrex.isInWaterOrBubble() && telecrex.level().getBlockState(telecrex.blockPosition().below()).is(UP2BlockTags.TELECREX_FOOD_BLOCKS);
+        }
+        return false;
     }
 
-    protected void peckCooldown() {
-        this.peckCooldown = 800 + this.getRandom().nextInt(60 * 60);
+    private boolean canPreen(Entity entity) {
+        if (entity instanceof Telecrex telecrex) {
+            return !telecrex.hasSplat() && !telecrex.isFlying() && !telecrex.isInWaterOrBubble();
+        }
+        return false;
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 800 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 2) {
+            return 900 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
@@ -204,11 +214,6 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.TELECREX_DEATH.get();
-    }
-
-    @Override
-    protected void playStepSound(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.06F, 1.0F);
     }
 
     @Nullable
@@ -265,64 +270,6 @@ public class Telecrex extends PrehistoricFlyingMob {
             if (telecrex.onGround()) {
                 this.telecrex.setDeltaMovement(telecrex.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
             }
-        }
-    }
-
-    private static class TelecrexPreenGoal extends IdleAnimationGoal {
-
-        private final Telecrex telecrex;
-
-        public TelecrexPreenGoal(Telecrex telecrex) {
-            super(telecrex, 60, 1);
-            this.telecrex = telecrex;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !telecrex.hasSplat() && telecrex.preenCooldown == 0 && !telecrex.isFlying();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canUse() && !telecrex.isFlying();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.telecrex.preenAlt = telecrex.getRandom().nextBoolean();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.telecrex.preenCooldown();
-        }
-    }
-
-    private static class TelecrexPeckGoal extends IdleAnimationGoal {
-
-        private final Telecrex telecrex;
-
-        public TelecrexPeckGoal(Telecrex telecrex) {
-            super(telecrex, 60, 2);
-            this.telecrex = telecrex;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && !telecrex.hasSplat() && telecrex.peckCooldown == 0 && !telecrex.isFlying() && telecrex.level().getBlockState(telecrex.blockPosition().below()).is(UP2BlockTags.TELECREX_PECKING_BLOCKS);
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canUse() && !telecrex.isFlying();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.telecrex.peckCooldown();
         }
     }
 }

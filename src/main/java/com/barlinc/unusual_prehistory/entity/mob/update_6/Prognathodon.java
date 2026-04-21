@@ -10,7 +10,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -84,9 +84,9 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
-        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 1, false, this::canPlayIdles));
-        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, false, this::canPlayIdles));
-        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 3, false, this::canPlayIdles) {
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 3, false, 0.001F, this::canPlayIdles) {
             @Override
             public void start() {
                 super.start();

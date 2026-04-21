@@ -7,7 +7,7 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavig
 import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;

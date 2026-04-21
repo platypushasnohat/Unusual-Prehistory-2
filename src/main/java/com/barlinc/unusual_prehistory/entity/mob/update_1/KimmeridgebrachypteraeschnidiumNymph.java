@@ -21,8 +21,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,8 +37,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
@@ -82,16 +78,6 @@ public class KimmeridgebrachypteraeschnidiumNymph extends AmphibiousMob implemen
     public @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothGroundPathNavigation(this, level);
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.5F;
-//    }
-//
-//    @Override
-//    public float getStepHeight() {
-//        return this.isInWaterOrBubble() ? 1.0F : 0.6F;
-//    }
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -234,12 +220,6 @@ public class KimmeridgebrachypteraeschnidiumNymph extends AmphibiousMob implemen
     public void setAge(int age) {
     }
 
-//    @Override
-//    @NotNull
-//    public MobType getMobType() {
-//        return MobType.ARTHROPOD;
-//    }
-
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT.get();
@@ -295,21 +275,5 @@ public class KimmeridgebrachypteraeschnidiumNymph extends AmphibiousMob implemen
     @Override
     public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
-    }
-
-    public static boolean canSpawn(EntityType<KimmeridgebrachypteraeschnidiumNymph> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        int seaLevel = level.getSeaLevel();
-        int minHeight = seaLevel - 13;
-        return pos.getY() >= minHeight && pos.getY() <= seaLevel && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
-    }
-
-    @Override
-    public boolean requiresCustomPersistence() {
-        return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double distanceToPlayer) {
-        return !this.requiresCustomPersistence();
     }
 }

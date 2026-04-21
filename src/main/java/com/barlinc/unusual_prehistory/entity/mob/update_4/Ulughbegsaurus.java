@@ -11,7 +11,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -69,10 +69,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
 
     private int attackTicks;
     private boolean attackAlt = false;
-
-    private int blinkCooldown = 60 + this.getRandom().nextInt(60);
-    private int shakeCooldown = 1000 + this.getRandom().nextInt(1000);
-    private int yawnCooldown = 600 + this.getRandom().nextInt(600);
 
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -306,13 +302,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.setPose(Pose.STANDING);
         }
         if (attackCooldown > 0) attackCooldown--;
-        if (!this.level().isClientSide) {
-            if (blinkCooldown > 0) blinkCooldown--;
-            if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble()) {
-                if (shakeCooldown > 0) shakeCooldown--;
-                if (yawnCooldown > 0) yawnCooldown--;
-            }
-        }
     }
 
     @Override

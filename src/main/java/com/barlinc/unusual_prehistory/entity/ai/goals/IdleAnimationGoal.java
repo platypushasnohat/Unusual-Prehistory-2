@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -8,20 +9,17 @@ import java.util.function.Predicate;
 
 public class IdleAnimationGoal extends Goal {
 
-    protected final PrehistoricMob prehistoricMob;
-    public Predicate<Mob> canUse;
-    protected int timer;
-    protected final int animationTime;
-    protected final int idleState;
-    protected final boolean stopMoving;
-    protected final float chance;
+    public final PrehistoricMob prehistoricMob;
+    public final Predicate<Mob> canUse;
+    public final int animationTime;
+    public final int idleState;
+    public final boolean stopMoving;
+    public final float chance;
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, Predicate<Mob> canUse) {
-        this(prehistoricMob, animationTime, idleState, true, 0.001F, canUse);
-    }
+    public int timer;
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, Predicate<Mob> canUse) {
-        this(prehistoricMob, animationTime, idleState, stopMoving, 0.001F, canUse);
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance) {
+        this(prehistoricMob, animationTime, idleState, stopMoving, chance, LivingEntity::isAlive);
     }
 
     public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance, Predicate<Mob> canUse) {
@@ -35,7 +33,7 @@ public class IdleAnimationGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null) {
+        if (this.isInCombat()) {
             return false;
         } else if (stopMoving && !prehistoricMob.getNavigation().isDone()) {
             return false;
@@ -55,7 +53,7 @@ public class IdleAnimationGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if (prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null) {
+        if (this.isInCombat()) {
             return false;
         }
         return canUse.test(prehistoricMob) && timer > 0 && prehistoricMob.getIdleState() == idleState && prehistoricMob.isAlive() && !this.isDancingOrSleeping();
@@ -84,5 +82,9 @@ public class IdleAnimationGoal extends Goal {
 
     protected boolean isDancingOrSleeping() {
         return prehistoricMob.isDancing() || prehistoricMob.isEepy();
+    }
+
+    protected boolean isInCombat() {
+        return prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null;
     }
 }

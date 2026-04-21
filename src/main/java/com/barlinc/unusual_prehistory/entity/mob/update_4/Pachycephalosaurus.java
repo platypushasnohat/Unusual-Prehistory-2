@@ -10,7 +10,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -45,9 +45,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
     private static final EntityDataAccessor<Boolean> FIGHT_PARTNER = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> WANTS_TO_KILL = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> FIND_TARGET_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
-
-    private int grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
-    private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState huffAnimationState = new SmoothAnimationState();
@@ -154,12 +151,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
         super.tickCooldowns();
         if (recoverTicks > 0) recoverTicks--;
         if (recoverTicks == 0 && this.getPose() == UP2Poses.RECOVERING.get()) this.setPose(Pose.STANDING);
-        if (!this.level().isClientSide) {
-            if (!this.isInWaterOrBubble() && !this.isEepy()) {
-                if (huffCooldown > 0) huffCooldown--;
-                if (grazeCooldown > 0) grazeCooldown--;
-            }
-        }
     }
 
     @Override
@@ -181,14 +172,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
             }
         }
         super.onSyncedDataUpdated(accessor);
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
-    }
-
-    protected void huffCooldown() {
-        this.huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
     }
 
     public void handleEntityEvent(byte id) {
@@ -459,7 +442,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS);
+            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS);
         }
 
         @Override

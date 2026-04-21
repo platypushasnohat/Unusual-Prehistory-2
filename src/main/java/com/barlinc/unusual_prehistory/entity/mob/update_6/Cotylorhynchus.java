@@ -12,7 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -68,7 +68,7 @@ public class Cotylorhynchus extends PrehistoricMob {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, this::canGraze));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.001F, this::canGraze));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -243,8 +243,8 @@ public class Cotylorhynchus extends PrehistoricMob {
         return this.isBaby() ? 5.0F : 10.0F;
     }
 
-    public boolean canGraze(Entity entity) {
-        return this.level().getBlockState(this.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS) && !this.isInWaterOrBubble();
+    private boolean canGraze(Entity entity) {
+        return entity.level().getBlockState(entity.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_FOOD_BLOCKS) && !entity.isInWaterOrBubble();
     }
 
     @Override

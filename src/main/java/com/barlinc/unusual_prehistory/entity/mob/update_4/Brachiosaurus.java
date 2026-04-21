@@ -10,7 +10,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2Particles;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.utils.UP2Math;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -70,9 +70,6 @@
      public final SmoothAnimationState callAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
 
-     public int callCooldown = 1500 + this.getRandom().nextInt(1500);
-     public int shakeCooldown = 900 + this.getRandom().nextInt(900);
-
      public Brachiosaurus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
@@ -105,8 +102,14 @@
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(6, new SleepingGoal(this));
-         this.goalSelector.addGoal(7, new BrachiosaurusCallGoal(this));
-         this.goalSelector.addGoal(7, new BrachiosaurusShakeGoal(this));
+         this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 60, 1, true, 0.001F) {
+             @Override
+             public void start() {
+                 super.start();
+                 Brachiosaurus.this.playSound(UP2SoundEvents.BRACHIOSAURUS_CALL.get(), 4.0F, 0.9F + Brachiosaurus.this.getRandom().nextFloat() * 0.15F);
+             }
+         });
+         this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 100, 2, false, 0.001F));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
      }
 
@@ -401,11 +404,15 @@
      }
 
      @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (!this.level().isClientSide && this.getTarget() == null && !this.isEepy()) {
-             if (callCooldown > 0) callCooldown--;
-             if (shakeCooldown > 0) shakeCooldown--;
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 1300 + this.getRandom().nextInt(1200);
+         }
+         else if (idleState == 2) {
+             return 800 + this.getRandom().nextInt(1200);
+         }
+         else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
          }
      }
 
@@ -555,54 +562,6 @@
                  this.brachiosaurus.setAttackState(0);
                  this.brachiosaurus.setStompCooldown(24 + brachiosaurus.getRandom().nextInt(20));
              }
-         }
-     }
-
-     private static class BrachiosaurusCallGoal extends IdleAnimationGoal {
-
-         private final Brachiosaurus brachiosaurus;
-
-         public BrachiosaurusCallGoal(Brachiosaurus brachiosaurus) {
-             super(brachiosaurus, 60, 1, true, false);
-             this.brachiosaurus = brachiosaurus;
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_CALL.get(), 4.0F, 0.9F + brachiosaurus.getRandom().nextFloat() * 0.15F);
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && brachiosaurus.callCooldown == 0;
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.brachiosaurus.callCooldown = 1500 + brachiosaurus.getRandom().nextInt(1500);
-         }
-     }
-
-     private static class BrachiosaurusShakeGoal extends IdleAnimationGoal {
-
-         private final Brachiosaurus brachiosaurus;
-
-         public BrachiosaurusShakeGoal(Brachiosaurus brachiosaurus) {
-             super(brachiosaurus, 100, 2, false, false);
-             this.brachiosaurus = brachiosaurus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && brachiosaurus.shakeCooldown == 0;
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.brachiosaurus.shakeCooldown = 900 + brachiosaurus.getRandom().nextInt(900);
          }
      }
  }

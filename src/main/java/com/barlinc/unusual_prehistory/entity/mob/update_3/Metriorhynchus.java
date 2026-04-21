@@ -14,7 +14,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -68,8 +68,6 @@
      public boolean grabAlt = false;
      public boolean attackAlt = false;
 
-     public int bellowCooldown = 2000 + this.getRandom().nextInt(2000);
-
      public Metriorhynchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
@@ -97,7 +95,13 @@
          this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(9, new MetriorhynchusBellowGoal(this));
+         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, false, 0.001F) {
+             @Override
+             public void start() {
+                 super.start();
+                 Metriorhynchus.this.playSound(UP2SoundEvents.METRIORHYNCHUS_BELLOW.get(), 1.5F, 1.0F);
+             }
+         });
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
@@ -237,14 +241,6 @@
      }
 
      @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (!this.level().isClientSide && this.getTarget() == null) {
-             if (bellowCooldown > 0) bellowCooldown--;
-         }
-     }
-
-     @Override
      public void setupAnimationStates() {
          this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
          this.sitAnimationState.animateWhen(!this.isInWaterOrBubble() && this.isSitting(), this.tickCount);
@@ -258,8 +254,14 @@
          this.leapAnimationState.animateWhen(this.isLeaping() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
      }
 
-     protected void bellowCooldown() {
-         this.bellowCooldown = 2000 + this.getRandom().nextInt(2000);
+     @Override
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 1200 + this.getRandom().nextInt(1200);
+         }
+         else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
+         }
      }
 
      @Override
@@ -321,33 +323,5 @@
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.METRIORHYNCHUS.get().create(level);
-     }
-
-     // Goals
-     private static class MetriorhynchusBellowGoal extends IdleAnimationGoal {
-
-         private final Metriorhynchus metriorhynchus;
-
-         public MetriorhynchusBellowGoal(Metriorhynchus metriorhynchus) {
-             super(metriorhynchus, 40, 1, false, false);
-             this.metriorhynchus = metriorhynchus;
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.metriorhynchus.playSound(UP2SoundEvents.METRIORHYNCHUS_BELLOW.get(), 1.5F, 1.0F);
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && metriorhynchus.bellowCooldown == 0;
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.metriorhynchus.bellowCooldown();
-         }
      }
  }

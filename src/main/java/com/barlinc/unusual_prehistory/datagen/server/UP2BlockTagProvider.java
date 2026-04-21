@@ -141,10 +141,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.SNOW
         );
 
-        this.tag(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS).add(
-                Blocks.MUD
-        );
-
         this.tag(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS).add(
                 Blocks.MUD,
                 Blocks.ICE,
@@ -170,7 +166,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.PACKED_MUD
         );
 
-        this.tag(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.DESMATOSUCHUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,
                 Blocks.ROOTED_DIRT
@@ -181,20 +177,20 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.MOSS_CARPET
         );
 
-        this.tag(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.KENTROSAURUS_FOOD_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.LOBE_FINNED_FISH_FOOD_BLOCKS).add(
                 Blocks.SEAGRASS
         );
 
-        this.tag(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.LYSTROSAURUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.GRASS_BLOCK
         );
@@ -211,21 +207,21 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRAVEL
         );
 
-        this.tag(UP2BlockTags.TALPANAS_PECKING_BLOCKS).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.MOSS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.TALPANAS_FOOD_BLOCKS).add(
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
         );
 
-        this.tag(UP2BlockTags.TELECREX_PECKING_BLOCKS).add(
+        this.tag(UP2BlockTags.TARTUOSTEUS_FOOD_BLOCKS).add(
+                Blocks.MOSS_BLOCK,
+                Blocks.MOSS_CARPET
+        );
+
+        this.tag(UP2BlockTags.TELECREX_FOOD_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.COTYLORHYNCHUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,
                 Blocks.GRASS_BLOCK

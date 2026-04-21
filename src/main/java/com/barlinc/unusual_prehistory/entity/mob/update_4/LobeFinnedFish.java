@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -54,12 +53,11 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LOBE_FINNED_FISH_FOOD), false));
-        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS));
+        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_FOOD_BLOCKS));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(6, new LobeFinnedFishFollowVariantLeaderGoal(this));
     }

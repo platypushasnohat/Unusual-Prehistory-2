@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;

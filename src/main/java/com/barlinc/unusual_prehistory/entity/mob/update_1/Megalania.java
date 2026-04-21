@@ -2,16 +2,17 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,12 +32,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -83,9 +83,6 @@ public class Megalania extends AmphibiousMob {
 
     public boolean attackAlt = false;
 
-    private int tongueCooldown = 100 + this.getRandom().nextInt(100);
-    private int roarCooldown = 650 + this.getRandom().nextInt(70 * 60);
-
     public Megalania(EntityType<? extends Megalania> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(true);
@@ -107,8 +104,14 @@ public class Megalania extends AmphibiousMob {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new MegalaniaTongueGoal(this));
-        this.goalSelector.addGoal(9, new MegalaniaRoarGoal(this));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 20, 1, false, 0.01F));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canRoar) {
+            @Override
+            public void tick() {
+                super.tick();
+                if (timer == 61) Megalania.this.playSound(UP2SoundEvents.MEGALANIA_ROAR.get(), 1.5F, Megalania.this.getVoicePitch());
+            }
+        });
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
@@ -134,9 +137,9 @@ public class Megalania extends AmphibiousMob {
             this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.6F, 0.1F, false);
-            this.lookControl = new SmoothSwimmingLookControl(this, 20);
-            this.navigation = new SemiAquaticPathNavigation(this, this.level());
+            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.6F);
+            this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
+            this.navigation = new AmphibiousPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
@@ -393,21 +396,21 @@ public class Megalania extends AmphibiousMob {
         this.tailWhipAnimationState.animateWhen(this.getPose() == UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
     }
 
+    private boolean canRoar(Entity entity) {
+        return !entity.isInWaterOrBubble();
+    }
+
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWater() && !this.level().isClientSide) {
-            if (tongueCooldown > 0) tongueCooldown--;
-            if (roarCooldown > 0) roarCooldown--;
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 150 + this.getRandom().nextInt(200);
         }
-    }
-
-    protected void tongueCooldown() {
-        this.tongueCooldown = 100 + this.getRandom().nextInt(100);
-    }
-
-    protected void roarCooldown() {
-        this.roarCooldown = 650 + this.getRandom().nextInt(70 * 60);
+        else if (idleState == 2) {
+            return 1100 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
@@ -503,54 +506,6 @@ public class Megalania extends AmphibiousMob {
                 this.findTarget();
                 return this.target != null;
             }
-        }
-    }
-
-    private static class MegalaniaTongueGoal extends IdleAnimationGoal {
-
-        private final Megalania megalania;
-
-        public MegalaniaTongueGoal(Megalania megalania) {
-            super(megalania, 20, 1, false, false);
-            this.megalania = megalania;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && megalania.tongueCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.megalania.tongueCooldown();
-        }
-    }
-
-    private static class MegalaniaRoarGoal extends IdleAnimationGoal {
-
-        private final Megalania megalania;
-
-        public MegalaniaRoarGoal(Megalania megalania) {
-            super(megalania, 80, 2);
-            this.megalania = megalania;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && megalania.roarCooldown == 0 && !megalania.isSitting();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.megalania.roarCooldown();
-        }
-
-        @Override
-        public void tick() {
-            super.tick();
-            if (timer == 61) megalania.playSound(UP2SoundEvents.MEGALANIA_ROAR.get(), 1.5F, megalania.getVoicePitch());
         }
     }
 }

@@ -98,7 +98,6 @@ public class TalpanasModel extends UP2Model<Talpanas> {
         this.animateIdleSmooth(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
 		this.animateSmooth(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, TalpanasAnimations.SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.eepyAnimationState, TalpanasAnimations.SIT, ageInTicks);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);

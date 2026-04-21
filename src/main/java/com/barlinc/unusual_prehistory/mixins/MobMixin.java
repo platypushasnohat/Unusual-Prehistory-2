@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins;
 
-import com.barlinc.unusual_prehistory.utils.MobAccessor;
+import com.barlinc.unusual_prehistory.entity.accessor.MobAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Mob;

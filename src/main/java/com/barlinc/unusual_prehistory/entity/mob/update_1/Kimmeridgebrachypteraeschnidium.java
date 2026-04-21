@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingRandomLookAroundGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
@@ -12,7 +13,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -35,7 +36,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -65,7 +65,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> PREEN_COOLDOWN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SWELL_DURATION = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
 
@@ -96,19 +95,9 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.goalSelector.addGoal(2, new KimmeridgebrachypteraeschnidiumScatterGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
         this.goalSelector.addGoal(4, new RandomFlightGoal(this, 1.0F, 1.5F, 13, 5, 60, 600));
-        this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new KimmeridgebrachypteraeschnidiumPreenGoal(this));
+        this.goalSelector.addGoal(5, new FlyingRandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPreen));
     }
-
-//    @Override
-//    public boolean canBreatheUnderwater() {
-//        return true;
-//    }
-//
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.6F;
-//    }
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
@@ -141,16 +130,26 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (this.getPreenCooldown() > 0 && !this.level().isClientSide) this.setPreenCooldown(this.getPreenCooldown() - 1);
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1, this.tickCount);
         this.flyAnimationState.animateWhen(this.isFlying(), this.tickCount);
         this.preenAnimationState.animateWhen(!this.isFlying() && this.getIdleState() == 1, this.tickCount);
+    }
+
+    private boolean canPreen(Entity entity) {
+        if (entity instanceof Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium) {
+            return !kimmeridgebrachypteraeschnidium.onGround() && !kimmeridgebrachypteraeschnidium.isFlying();
+        }
+        return false;
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 800 + this.getRandom().nextInt(1200);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
@@ -262,7 +261,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         builder.define(PATTERN_COLOR, 0);
         builder.define(HAS_PATTERN, false);
         builder.define(WING_COLOR, 0);
-        builder.define(PREEN_COOLDOWN, 20 + random.nextInt(10 * 20));
         builder.define(SWELL_DURATION, -1);
     }
 
@@ -274,7 +272,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         compoundTag.putInt("PatternColor", this.getPatternColor());
         compoundTag.putInt("WingColor", this.getWingColor());
         compoundTag.putBoolean("HasPattern", this.getHasPattern());
-        compoundTag.putInt("PreenCooldown", this.getPreenCooldown());
     }
 
     @Override
@@ -285,7 +282,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.setPatternColor(compoundTag.getInt("PatternColor"));
         this.setWingColor(compoundTag.getInt("WingColor"));
         this.setHasPattern(compoundTag.getBoolean("HasPattern"));
-        this.setPreenCooldown(compoundTag.getInt("PreenCooldown"));
     }
 
     @Override
@@ -393,14 +389,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
         this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
-    public int getPreenCooldown() {
-        return this.entityData.get(PREEN_COOLDOWN);
-    }
-
-    public void setPreenCooldown(int cooldown) {
-        this.entityData.set(PREEN_COOLDOWN, cooldown);
-    }
-
     public int getSwellDuration() {
         return this.entityData.get(SWELL_DURATION);
     }
@@ -500,52 +488,6 @@ public class Kimmeridgebrachypteraeschnidium extends PrehistoricFlyingMob implem
             if (dragonfly.onGround()) {
                 this.dragonfly.setDeltaMovement(dragonfly.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
             }
-        }
-    }
-
-    private static class KimmeridgebrachypteraeschnidiumLookAroundGoal extends RandomLookAroundGoal {
-
-        private final Kimmeridgebrachypteraeschnidium dragonfly;
-
-        public KimmeridgebrachypteraeschnidiumLookAroundGoal(Kimmeridgebrachypteraeschnidium dragonfly) {
-            super(dragonfly);
-            this.dragonfly = dragonfly;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.dragonfly.onGround() && super.canUse();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return this.dragonfly.onGround() && super.canContinueToUse();
-        }
-    }
-
-    private static class KimmeridgebrachypteraeschnidiumPreenGoal extends IdleAnimationGoal {
-
-        private final Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium;
-
-        public KimmeridgebrachypteraeschnidiumPreenGoal(Kimmeridgebrachypteraeschnidium kimmeridgebrachypteraeschnidium) {
-            super(kimmeridgebrachypteraeschnidium, 60, 1);
-            this.kimmeridgebrachypteraeschnidium = kimmeridgebrachypteraeschnidium;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && kimmeridgebrachypteraeschnidium.getPreenCooldown() == 0 && !kimmeridgebrachypteraeschnidium.isFlying() && kimmeridgebrachypteraeschnidium.onGround();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !kimmeridgebrachypteraeschnidium.isFlying() && kimmeridgebrachypteraeschnidium.onGround();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.kimmeridgebrachypteraeschnidium.setPreenCooldown(20 + kimmeridgebrachypteraeschnidium.getRandom().nextInt(10 * 20));
         }
     }
 }

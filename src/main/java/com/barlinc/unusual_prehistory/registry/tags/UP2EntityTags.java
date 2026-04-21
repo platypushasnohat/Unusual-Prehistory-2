@@ -66,12 +66,6 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> MESOZOIC_MOBS = modEntityTag("mesozoic_mobs");
     public static final TagKey<EntityType<?>> CENOZOIC_MOBS = modEntityTag("cenozoic_mobs");
 
-    // Future
-    public static final TagKey<EntityType<?>> DIMORPHODON_AVOIDS = modEntityTag("dimorphodon_avoids");
-
-    public static final TagKey<EntityType<?>> DIMORPHODON_CANT_GRAB = modEntityTag("dimorphodon_cant_grab");
-    public static final TagKey<EntityType<?>> DIMORPHODON_CAN_GRAB = modEntityTag("dimorphodon_can_grab");
-
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

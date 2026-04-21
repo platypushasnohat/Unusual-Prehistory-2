@@ -1,5 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_3;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -21,10 +23,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -41,8 +40,8 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
 
     public Tartuosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -54,11 +53,10 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.TARTUOSTEUS_AVOIDS)));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TARTUOSTEUS_FOOD), false));
-        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, 30, 800, UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS, 1.0D));
+        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, 30, 800, UP2BlockTags.TARTUOSTEUS_FOOD_BLOCKS, 1.0D));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(6, new TartuosteusGlideGoal(this));
     }

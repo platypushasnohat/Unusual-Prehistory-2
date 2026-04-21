@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -55,7 +55,6 @@ import java.util.List;
 public class Desmatosuchus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Integer> DIRT_TYPE = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.7F);
@@ -67,9 +66,6 @@ public class Desmatosuchus extends PrehistoricMob {
     public final SmoothAnimationState rollAnimationState = new SmoothAnimationState();
 
     private boolean sniffAlt = false;
-    private int sniffCooldown = 700 + this.getRandom().nextInt(700);
-    private int shakeCooldown = 600 + this.getRandom().nextInt(600);
-    private int grazeCooldown = 800 + this.getRandom().nextInt(800);
 
     public Desmatosuchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -331,17 +327,6 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isEepy()) {
-            if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
-            if (shakeCooldown > 0) shakeCooldown--;
-            if (sniffCooldown > 0) sniffCooldown--;
-            if (grazeCooldown > 0) grazeCooldown--;
-        }
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isEepy() && !this.isSitting() && this.getIdleState() != 1, this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
@@ -354,37 +339,22 @@ public class Desmatosuchus extends PrehistoricMob {
         this.grazeAnimationState.animateWhen(this.getIdleState() == 4, this.tickCount);
     }
 
-    protected void shakeCooldown() {
-        this.shakeCooldown = 600 + this.getRandom().nextInt(600);
-    }
-
-    protected void sniffCooldown() {
-        this.sniffCooldown = 700 + this.getRandom().nextInt(700);
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 800 + this.getRandom().nextInt(800);
-    }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DIRT_TYPE, 0);
-        builder.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("DirtType", this.getDirtType().getId());
-        compoundTag.putInt("RollCooldown", this.getRollCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setDirtType(DirtType.byId(compoundTag.getInt("DirtType")));
-        this.setRollCooldown(compoundTag.getInt("RollCooldown"));
     }
 
     public boolean isDirty() {
@@ -397,14 +367,6 @@ public class Desmatosuchus extends PrehistoricMob {
 
     public void setDirtType(DirtType type) {
         this.entityData.set(DIRT_TYPE, type.getId());
-    }
-
-    public int getRollCooldown() {
-        return this.entityData.get(ROLL_COOLDOWN);
-    }
-
-    public void setRollCooldown(int cooldown) {
-        this.entityData.set(ROLL_COOLDOWN, cooldown);
     }
 
     @Nullable
@@ -574,7 +536,7 @@ public class Desmatosuchus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && desmatosuchus.grazeCooldown == 0 && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS) && !desmatosuchus.isSitting();
+            return super.canUse() && desmatosuchus.grazeCooldown == 0 && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_FOOD_BLOCKS) && !desmatosuchus.isSitting();
         }
 
         @Override

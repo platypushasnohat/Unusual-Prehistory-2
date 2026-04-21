@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.utils;
+package com.barlinc.unusual_prehistory.entity.accessor;
 
 import net.minecraft.world.entity.LivingEntity;
 

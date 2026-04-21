@@ -14,7 +14,7 @@
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -71,10 +71,6 @@
      private int mitosisTicks;
      private int bounceTicks = 0;
      private boolean slapAlt = false;
-
-     private int slapCooldown = 300 + this.getRandom().nextInt(300);
-     private int loafCooldown = 400 + this.getRandom().nextInt(400);
-     private int applauseCooldown = 900 + this.getRandom().nextInt(900);
 
      public Praepusa(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
@@ -273,9 +269,6 @@
          if (mitosisTicks > 0) mitosisTicks--;
          if (bounceTicks > 0) bounceTicks--;
          if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
-         if (slapCooldown > 0) slapCooldown--;
-         if (loafCooldown > 0) loafCooldown--;
-         if (applauseCooldown > 0) applauseCooldown--;
          if (bounceTicks == 0) this.level().broadcastEntityEvent(this, (byte) 74);
      }
 
@@ -298,18 +291,6 @@
              case 74 -> this.bounceAnimationState.stop();
              default -> super.handleEntityEvent(id);
          }
-     }
-
-     protected void slapCooldown() {
-         this.slapCooldown = 500 + this.getRandom().nextInt(500);
-     }
-
-     protected void loafCooldown() {
-         this.loafCooldown = 700 + this.getRandom().nextInt(700);
-     }
-
-     protected void applauseCooldown() {
-         this.applauseCooldown = 1000 + this.getRandom().nextInt(1000);
      }
 
      @Override
@@ -383,8 +364,9 @@
              this.setPose(UP2Poses.MITOSIS.get());
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
-         if (itemstack.isEmpty() && this.loafCooldown > 0 && this.getIdleState() == 0 && this.getLastHurtByMob() == null && !this.isInWater()) {
-             this.loafCooldown = 0;
+         if (itemstack.isEmpty() && this.getIdleState() == 0 && this.getLastHurtByMob() == null && !this.isInWater()) {
+             this.idleAnimationCooldown = 0;
+             this.setIdleState(2);
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }

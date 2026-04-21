@@ -17,7 +17,7 @@
 - Fixed praepusa getting stuck after sleeping
 - Buffed lystrosaurus
 - Majungasaurus hitbox no longer renders when it is camouflaged to be consistent with invisibility
-- Fixed Majungasaurus rendering when invisibility is applied
+- Fixed majungasaurus rendering when invisibility is applied
 - Added dawn and dusk metasequoia leaves
 - Added needle litter
 - Overhauled metasequoia generation

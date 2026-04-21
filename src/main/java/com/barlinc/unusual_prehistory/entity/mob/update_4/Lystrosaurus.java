@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -51,12 +51,6 @@ public class Lystrosaurus extends PrehistoricMob {
     public final SmoothAnimationState blinkAnimationState = new SmoothAnimationState();
 
     private boolean scratchAlt = false;
-
-    private int scratchCooldown = 1200 + this.getRandom().nextInt(1300);
-    private int grazeCooldown = 1300 + this.getRandom().nextInt(1400);
-    private int digCooldown = 2000 + this.getRandom().nextInt(2000);
-    private int blinkCooldown = 400 + this.getRandom().nextInt(500);
-    private int shakeCooldown = 1000 + this.getRandom().nextInt(1200);
 
     public Lystrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -171,18 +165,6 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isEepy() && !this.isInWaterOrBubble()) {
-            if (scratchCooldown > 0) scratchCooldown--;
-            if (grazeCooldown > 0) grazeCooldown--;
-            if (digCooldown > 0) digCooldown--;
-            if (blinkCooldown > 0) blinkCooldown--;
-            if (shakeCooldown > 0) shakeCooldown--;
-        }
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.getIdleState() != 3 && !this.isEepy(), this.tickCount);
         this.scratch1AnimationState.animateWhen(this.getIdleState() == 1 && !scratchAlt, this.tickCount);
@@ -193,26 +175,6 @@ public class Lystrosaurus extends PrehistoricMob {
         this.shakeAnimationState.animateWhen(this.getIdleState() == 5, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && !this.onGround(), this.tickCount);
-    }
-
-    protected void scratchCooldown() {
-        this.scratchCooldown = 1200 + this.getRandom().nextInt(1300);
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 1300 + this.getRandom().nextInt(1400);
-    }
-
-    protected void digCooldown() {
-        this.digCooldown = 2000 + this.getRandom().nextInt(2000);
-    }
-
-    protected void blinkCooldown() {
-        this.blinkCooldown = 400 + this.getRandom().nextInt(500);
-    }
-
-    protected void shakeCooldown() {
-        this.shakeCooldown = 1000 + this.getRandom().nextInt(1200);
     }
 
     @Override
@@ -306,7 +268,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && lystrosaurus.grazeCooldown == 0 && lystrosaurus.level().getBlockState(lystrosaurus.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS);
+            return super.canUse() && lystrosaurus.grazeCooldown == 0 && lystrosaurus.level().getBlockState(lystrosaurus.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_FOOD_BLOCKS);
         }
 
         @Override

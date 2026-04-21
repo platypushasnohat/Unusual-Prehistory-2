@@ -1,11 +1,8 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
- import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
- import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -13,7 +10,7 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -36,6 +33,8 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.util.DefaultRandomPos;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
@@ -43,7 +42,6 @@
  import net.minecraft.world.item.component.CustomData;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.PathType;
@@ -64,20 +62,17 @@
      public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState boomerangAnimationState = new SmoothAnimationState(1.0F);
 
-     private int quirkCooldown = 600 + this.getRandom().nextInt(600);
-     private int boomerangCooldown = 800 + this.getRandom().nextInt(800);
-
      public Diplocaulus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.switchNavigator(true);
+         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
+         this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
+                 .add(Attributes.MOVEMENT_SPEED, 0.22F);
      }
 
      @Override
@@ -108,22 +103,20 @@
                  return super.canContinueToUse() && Diplocaulus.this.canBurrow();
              }
          });
-         this.goalSelector.addGoal(8, new DiplocaulusQuirkGoal(this));
-         this.goalSelector.addGoal(8, new DiplocaulusBoomerangGoal(this));
+         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canQuirk));
+         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 20, 2, false, 0.001F, this::canDash) {
+             @Override
+             public void start() {
+                 super.start();
+                 Diplocaulus.this.getNavigation().stop();
+                 Diplocaulus.this.addDeltaMovement(Diplocaulus.this.calculateViewVector(0.0F, Diplocaulus.this.getYRot()).scale(2.0D).multiply(0.5D, Diplocaulus.this.getDeltaMovement().y * 0.5D, 0.5D));
+             }
+         });
      }
 
-     protected void switchNavigator(boolean onLand) {
-         if (onLand) {
-             this.moveControl = new PrehistoricMoveControl(this);
-             this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = this.createNavigation(this.level());
-             this.isLandNavigator = true;
-         } else {
-             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.34F);
-             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new SemiAquaticPathNavigation(this, this.level());
-             this.isLandNavigator = false;
-         }
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new AmphibiousPathNavigation(this, level);
      }
 
      @Override
@@ -141,12 +134,6 @@
          } else {
              super.travel(travelVec);
          }
-     }
-
-     @Override
-     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-         if (!this.isInWaterOrBubble() && level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS)) return 10.0F;
-         return super.getWalkTargetValue(pos, level);
      }
 
      @Override
@@ -172,13 +159,6 @@
      @Override
      public void tick() {
          super.tick();
-         final boolean ground = !this.isInWaterOrBubble();
-         if (!ground && this.isLandNavigator) {
-             this.switchNavigator(false);
-         }
-         if (ground && !this.isLandNavigator) {
-             this.switchNavigator(true);
-         }
 
          if (this.isSliding() && !this.isInWaterOrBubble() && this.getDeltaMovement().horizontalDistance() > 0.05D) {
              for (int i = 0; i < 1; i++) {
@@ -199,12 +179,28 @@
          this.boomerangAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
      }
 
+     private boolean canQuirk(Entity entity) {
+         if (entity instanceof Diplocaulus diplocaulus) {
+             return !diplocaulus.isSliding() && !diplocaulus.isSitting();
+         }
+         return false;
+     }
+
+     private boolean canDash(Entity entity) {
+         if (entity instanceof Diplocaulus diplocaulus) {
+             return !diplocaulus.isSliding() && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
+         }
+         return false;
+     }
+
      @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (quirkCooldown > 0) quirkCooldown--;
-         if (this.isInWaterOrBubble()) {
-             if (boomerangCooldown > 0) boomerangCooldown--;
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 800 + this.getRandom().nextInt(1200);
+         } else if (idleState == 2) {
+             return 900 + this.getRandom().nextInt(1200);
+         } else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
          }
      }
 
@@ -425,65 +421,6 @@
          public void stop() {
              this.diplocaulus.setSliding(false);
              this.diplocaulus.getNavigation().stop();
-         }
-     }
-
-     private static class DiplocaulusQuirkGoal extends IdleAnimationGoal {
-
-         private final Diplocaulus diplocaulus;
-
-         public DiplocaulusQuirkGoal(Diplocaulus diplocaulus) {
-             super(diplocaulus, 60, 1, false, false);
-             this.diplocaulus = diplocaulus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && diplocaulus.quirkCooldown == 0 && !diplocaulus.isSitting();
-         }
-
-         @Override
-         public boolean canContinueToUse() {
-             return super.canContinueToUse() && !diplocaulus.isSitting();
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.diplocaulus.quirkCooldown = 600 + diplocaulus.getRandom().nextInt(600);
-         }
-     }
-
-     private static class DiplocaulusBoomerangGoal extends IdleAnimationGoal {
-
-         private final Diplocaulus diplocaulus;
-
-         public DiplocaulusBoomerangGoal(Diplocaulus diplocaulus) {
-             super(diplocaulus, 20, 2, false, false);
-             this.diplocaulus = diplocaulus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && diplocaulus.boomerangCooldown == 0 && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
-         }
-
-         @Override
-         public boolean canContinueToUse() {
-             return super.canContinueToUse() && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.diplocaulus.boomerangCooldown = 800 + diplocaulus.getRandom().nextInt(800);
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.diplocaulus.getNavigation().stop();
-             this.diplocaulus.addDeltaMovement(diplocaulus.calculateViewVector(0.0F, diplocaulus.getYRot()).scale(2.0D).multiply(0.5D, diplocaulus.getDeltaMovement().y * 0.5D, 0.5D));
          }
      }
  }

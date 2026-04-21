@@ -17,7 +17,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -76,9 +76,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     private int leapStartTicks;
     private int leapTicks;
-
-    private int rollCooldown = 800 + this.getRandom().nextInt(800);
-    private int eatCooldown = 1200 + this.getRandom().nextInt(1200);
 
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -299,8 +296,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
             if (this.getSpawnChildrenCooldown() > 0) {
                 this.setSpawnChildrenCooldown(this.getSpawnChildrenCooldown() - 1);
             }
-            if (rollCooldown > 0) rollCooldown--;
-            if (eatCooldown > 0) eatCooldown--;
         }
     }
 
