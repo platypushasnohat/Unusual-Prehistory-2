@@ -360,36 +360,32 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     public void awardUsedRecipesAndPopExperience(ServerPlayer player) {
         List<RecipeHolder<?>> list = this.getRecipesToAwardAndPopExperience(player.serverLevel(), player.position());
         player.awardRecipes(list);
-
         for (RecipeHolder<?> recipeholder : list) {
             if (recipeholder != null) {
                 player.triggerRecipeCrafted(recipeholder, this.items);
             }
         }
-
         this.recipesUsed.clear();
     }
 
     public List<RecipeHolder<?>> getRecipesToAwardAndPopExperience(ServerLevel level, Vec3 popVec) {
         List<RecipeHolder<?>> list = Lists.newArrayList();
-
         for (Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
             level.getRecipeManager().byKey(entry.getKey()).ifPresent(holder -> {
                 list.add(holder);
                 createExperience(level, popVec, entry.getIntValue(), ((TransmogrificationRecipe) holder.value()).experience());
             });
         }
-
         return list;
     }
 
-    private static void createExperience(ServerLevel level, Vec3 popVec, int recipeIndex, float experience) {
-        int i = Mth.floor((float) recipeIndex * experience);
-        float f = Mth.frac((float) recipeIndex * experience);
-        if (f != 0.0F && Math.random() < (double) f) {
-            i++;
+    private static void createExperience(ServerLevel level, Vec3 popVec, int craftedAmount, float experience) {
+        int expTotal = Mth.floor((float) craftedAmount * experience);
+        float expFraction = Mth.frac((float) craftedAmount * experience);
+        if (expFraction != 0.0F && Math.random() < (double) expFraction) {
+            ++expTotal;
         }
-        ExperienceOrb.award(level, popVec, i);
+        ExperienceOrb.award(level, popVec, expTotal);
     }
 
     @Override

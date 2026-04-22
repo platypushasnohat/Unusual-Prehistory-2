@@ -27,7 +27,7 @@ public class PrehistoricMoveControl extends MoveControl {
 
     @Override
     public void tick() {
-        if (!prehistoricMob.refuseToMove() && !prehistoricMob.isDancing()) {
+        if (!prehistoricMob.refuseToMove()) {
             if (this.operation == Operation.STRAFE) {
                 this.doStrafing();
             } else if (this.operation == Operation.MOVE_TO) {

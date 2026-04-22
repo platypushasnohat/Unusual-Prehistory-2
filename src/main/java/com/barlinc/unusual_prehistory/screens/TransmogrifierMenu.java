@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.screens;
 
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
+import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -14,12 +15,15 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class TransmogrifierMenu extends AbstractContainerMenu {
 
     private final Container container;
     public final ContainerData data;
+    protected final Level level;
 
     public TransmogrifierMenu(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, new SimpleContainer(4), new SimpleContainerData(4));
@@ -29,8 +33,9 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
         super(UP2MenuTypes.TRANSMOGRIFIER.get(), syncId);
         this.container = container;
         this.data = data;
-        this.addSlot(new TransmogrifierOozeSlot(container, 1, 82, 59));
+        this.level = playerInventory.player.level();
         this.addSlot(new Slot(container, 0, 37, 31));
+        this.addSlot(new TransmogrifierOozeSlot(this, container, 1, 82, 59));
         this.addSlot(new TransmogrifierOutputSlot(playerInventory.player, container, 2, 125, 31));
         this.addPlayerInventory(playerInventory);
         this.addPlayerHotbar(playerInventory);
@@ -38,32 +43,64 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int invSlot) {
-        ItemStack newStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(invSlot);
-        if (slot.hasItem()) {
-            ItemStack originalStack = slot.getItem();
-            newStack = originalStack.copy();
-            if (invSlot < this.container.getContainerSize()) {
-                if (!this.moveItemStackTo(originalStack, this.container.getContainerSize(), this.slots.size(), true)) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
+            itemstack = itemstack1.copy();
+            if (index == 2) {
+                if (!this.moveItemStackTo(itemstack1, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(originalStack, 0, this.container.getContainerSize(), false)) {
+                slot.onQuickCraft(itemstack1, itemstack);
+            } else if (index != 1 && index != 0) {
+                if (this.canTransmogrify(itemstack1)) {
+                    if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (this.isFuel(itemstack1)) {
+                    if (!this.moveItemStackTo(itemstack1, 1, 2, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 3 && index < 30) {
+                    if (!this.moveItemStackTo(itemstack1, 30, 39, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 30 && index < 39 && !this.moveItemStackTo(itemstack1, 3, 30, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(itemstack1, 3, 39, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (originalStack.isEmpty()) {
+            if (itemstack1.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, itemstack1);
         }
-        return newStack;
+
+        return itemstack;
     }
 
     @Override
     public boolean stillValid(@NotNull Player player) {
         return this.container.stillValid(player);
+    }
+
+    protected boolean canTransmogrify(ItemStack stack) {
+        return this.level.getRecipeManager().getRecipeFor(UP2Recipes.TRANSMOGRIFICATION.get(), new SingleRecipeInput(stack), this.level).isPresent();
+    }
+
+    protected boolean isFuel(ItemStack stack) {
+        return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -151,13 +188,16 @@ public class TransmogrifierMenu extends AbstractContainerMenu {
 
     public static class TransmogrifierOozeSlot extends Slot {
 
-        public TransmogrifierOozeSlot(Container inventory, int index, int x, int y) {
+        private final TransmogrifierMenu menu;
+
+        public TransmogrifierOozeSlot(TransmogrifierMenu menu, Container inventory, int index, int x, int y) {
             super(inventory, index, x, y);
+            this.menu = menu;
         }
 
         @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
+        public boolean mayPlace(@NotNull ItemStack stack) {
+            return menu.isFuel(stack);
         }
     }
 }

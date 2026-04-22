@@ -450,7 +450,7 @@
              if (this.isInCombat()) {
                  return false;
              }
-             return praepusa.loafCooldown == 0 && praepusa.isAlive() && praepusa.getIdleState() == 1 && !this.isDancingOrSleeping();
+             return praepusa.loafCooldown == 0 && praepusa.isAlive() && praepusa.getIdleState() == 1 && !praepusa.isEepy();
          }
 
          @Override
@@ -466,7 +466,7 @@
              if (this.isInCombat()) {
                  return false;
              }
-             return timer > 0 && praepusa.getIdleState() == 1 && praepusa.isAlive() && !this.isDancingOrSleeping();
+             return timer > 0 && praepusa.getIdleState() == 1 && praepusa.isAlive() && !praepusa.isEepy();
          }
 
          @Override
@@ -484,10 +484,6 @@
          @Override
          public boolean requiresUpdateEveryTick() {
              return true;
-         }
-
-         protected boolean isDancingOrSleeping() {
-             return praepusa.isDancing() || praepusa.isEepy();
          }
 
          protected boolean isInCombat() {

@@ -99,12 +99,13 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
         this.animateSmooth(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks);
 
 		float partialTicks = ageInTicks - entity.tickCount;
-		float flyProgress = entity.getFlyProgress(partialTicks);
-		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
-		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+		float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+		float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 
-		this.flight_control.xRot += flightPitchAmount;
-		this.flight_control.zRot += rollAmount * 0.7F;
+        if (entity.isFlying()) {
+            this.flight_control.xRot += flightPitchAmount;
+            this.flight_control.zRot += rollAmount;
+        }
 	}
 
 	@Override

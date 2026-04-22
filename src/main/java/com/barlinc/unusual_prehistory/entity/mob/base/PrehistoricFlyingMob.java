@@ -1,8 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -11,27 +9,25 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class PrehistoricFlyingMob extends PrehistoricMob implements FlyingAnimal {
 
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PrehistoricFlyingMob.class, EntityDataSerializers.BOOLEAN);
 
-    protected float flyProgress;
-    protected float prevFlyProgress;
     public int flightTicks = 0;
-    protected float flightPitch = 0;
-    protected float prevFlightPitch = 0;
-    protected float flightRoll = 0;
-    protected float prevFlightRoll = 0;
-    public int groundTicks = 0;
+    protected float flightPitch = 0.0F;
+    protected float prevFlightPitch = 0.0F;
+    protected float flightRoll = 0.0F;
+    protected float prevFlightRoll = 0.0F;
     public boolean isLandNavigator;
-    public boolean landingFlag;
+
+    public int stuckTicks = 0;
 
     public final SmoothAnimationState flyAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flyFastAnimationState = new SmoothAnimationState();
@@ -39,61 +35,69 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
+        this.switchNavigator(true);
     }
 
     public void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new PrehistoricMoveControl(this);
-            this.lookControl = new PrehistoricLookControl(this);
             this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.lookControl = new PrehistoricFlyingLookControl(this, 85);
             this.navigation = new NoSpinFlyingPathNavigation(this, this.level());
             this.isLandNavigator = false;
         }
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource damageSource) {
-        return false;
-    }
-
-    @Override
     protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+        if (!this.canFly()) {
+            super.checkFallDamage(y, onGround, state, pos);
+        }
     }
 
     @Override
     public boolean canTrample(@NotNull BlockState state, @NotNull BlockPos pos, float fallDistance) {
-        return false;
+        return !this.canFly();
     }
 
-    @Override
     public boolean onClimbable() {
-        return !this.isFlying();
+        return !this.canFly() && super.onClimbable();
+    }
+
+    public boolean canFly() {
+        return true;
     }
 
     @Override
     public void tick() {
         super.tick();
-
-        this.prevFlyProgress = this.flyProgress;
-        this.prevFlightPitch = this.flightPitch;
-        this.prevFlightRoll = this.flightRoll;
-
         this.tickFlight();
-        this.tickRotation((float) this.getDeltaMovement().y * 2 * -(float) (180F / (float) Math.PI));
+        this.tickRotation((float) (this.getDeltaMovement().y * 2.0F * -57.295776F));
+    }
+
+    protected boolean shouldUseStuckTicks() {
+        return true;
     }
 
     public void tickFlight() {
-        if (this.isFlying() && flyProgress < 5F) this.flyProgress++;
-        if (!this.isFlying() && flyProgress > 0F) this.flyProgress--;
+        if (this.isFlying() && Math.abs(this.getDeltaMovement().x) < 0.01D && Math.abs(this.getDeltaMovement().z) < 0.01D && this.shouldUseStuckTicks()) {
+            this.stuckTicks++;
+        } else {
+            this.stuckTicks = 0;
+        }
+
+        if (this.isFlying() && this.horizontalCollision) {
+            this.addDeltaMovement(new Vec3(0.0F, 0.15D, 0.0F));
+        }
+        if (this.flightTicks > 20 && this.isFlying() && (this.isInWaterOrBubble() || this.verticalCollision || !this.canFly() || this.stuckTicks > 10)) {
+            this.switchNavigator(true);
+        }
 
         if (this.isFlying()) {
             this.flightTicks++;
             this.setNoGravity(true);
-            if (groundTicks > 0) this.setFlying(false);
             if (this.isLandNavigator) {
                 this.switchNavigator(false);
             }
@@ -104,37 +108,31 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
                 this.switchNavigator(true);
             }
         }
-
-        if (groundTicks > 0) groundTicks--;
-
-        if (!level().isClientSide) {
-            if (this.isFlying() && this.isAlive() && !this.isVehicle()) {
-                if (landingFlag) this.setDeltaMovement(this.getDeltaMovement().add(0, -0.1D, 0));
-                if (horizontalCollision && !landingFlag && !this.isInWater()) {
-                    this.setDeltaMovement(this.getDeltaMovement().add(0, 0.05D, 0));
-                }
-            }
-            if (this.isFlying() && flightTicks > 40 && this.onGround()) this.setFlying(false);
-        }
     }
 
     public void tickRotation(float yMov) {
+        this.prevFlightPitch = this.flightPitch;
+        this.prevFlightRoll = this.flightRoll;
         this.flightPitch = yMov;
-        float threshold = 1F;
+        float threshold = 1.0F;
         boolean flag = false;
-        if (isFlying() && this.yRotO - this.getYRot() > threshold) {
-            flightRoll += 10;
+        if (this.isFlying() && this.yRotO - this.getYRot() > threshold) {
+            this.flightRoll += 2.0F;
             flag = true;
         }
-        if (isFlying() && this.yRotO - this.getYRot() < -threshold) {
-            flightRoll -= 10;
+        if (this.isFlying() && this.yRotO - this.getYRot() < -threshold) {
+            this.flightRoll -= 2.0F;
             flag = true;
         }
         if (!flag) {
-            if (flightRoll > 0) this.flightRoll = Math.max(flightRoll - 5, 0);
-            if (flightRoll < 0) this.flightRoll = Math.min(flightRoll + 5, 0);
+            if (this.flightRoll > 0.0F) {
+                this.flightRoll = Math.max(this.flightRoll - 2.0F, 0.0F);
+            }
+            if (this.flightRoll < 0.0F) {
+                this.flightRoll = Math.min(this.flightRoll + 2.0F, 0.0F);
+            }
         }
-        this.flightRoll = Mth.clamp(flightRoll, -60, 60);
+        this.flightRoll = Mth.clamp(this.flightRoll, -40.0F, 40.0F);
     }
 
     @Override
@@ -158,9 +156,5 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     public float getFlightRoll(float partialTick) {
         return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTick);
-    }
-
-    public float getFlyProgress(float partialTick) {
-        return (prevFlyProgress + (flyProgress - prevFlyProgress) * partialTick) * 0.2F;
     }
 }

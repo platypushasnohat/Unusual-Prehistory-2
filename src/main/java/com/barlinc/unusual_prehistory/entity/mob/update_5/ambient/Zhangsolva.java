@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
+import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
@@ -29,7 +31,12 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class Zhangsolva extends AmbientMob {
+public class Zhangsolva extends AmbientMob implements FlyingAnimal {
+
+    protected float flightPitch = 0.0F;
+    protected float prevFlightPitch = 0.0F;
+    protected float flightRoll = 0.0F;
+    protected float prevFlightRoll = 0.0F;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState flyAnimationState = new SmoothAnimationState(1.0F);
@@ -73,11 +80,6 @@ public class Zhangsolva extends AmbientMob {
         return levelReader.getBlockState(blockPos).isAir() ? 10.0F : 0.0F;
     }
 
-//    @Override
-//    public @NotNull MobType getMobType() {
-//        return MobType.ARTHROPOD;
-//    }
-
     @Override
     public void remove(Entity.@NotNull RemovalReason removalReason) {
         UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
@@ -88,19 +90,54 @@ public class Zhangsolva extends AmbientMob {
     public void tick() {
         super.tick();
 
-        if (!this.onGround() && this.getDeltaMovement().y < 0.0 && this.isAlive()) {
+        if (this.isFlying() && this.getDeltaMovement().y < 0.0 && this.isAlive()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0, 0.6, 1.0));
         }
 
         if (this.level().isClientSide && this.isAlive()) {
             UnusualPrehistory2.PROXY.playWorldSound(this, (byte) 3);
         }
+
+        this.tickRotation((float) (this.getDeltaMovement().y * 2.0F * -57.295776F));
+    }
+
+    public void tickRotation(float yMov) {
+        this.prevFlightPitch = this.flightPitch;
+        this.prevFlightRoll = this.flightRoll;
+        this.flightPitch = yMov;
+        float threshold = 1.0F;
+        boolean flag = false;
+        if (this.isFlying() && this.yRotO - this.getYRot() > threshold) {
+            this.flightRoll += 2.0F;
+            flag = true;
+        }
+        if (this.isFlying() && this.yRotO - this.getYRot() < -threshold) {
+            this.flightRoll -= 2.0F;
+            flag = true;
+        }
+        if (!flag) {
+            if (this.flightRoll > 0.0F) {
+                this.flightRoll = Math.max(this.flightRoll - 2.0F, 0.0F);
+            }
+            if (this.flightRoll < 0.0F) {
+                this.flightRoll = Math.min(this.flightRoll + 2.0F, 0.0F);
+            }
+        }
+        this.flightRoll = Mth.clamp(this.flightRoll, -40.0F, 40.0F);
+    }
+
+    public float getFlightPitch(float partialTick) {
+        return (prevFlightPitch + (flightPitch - prevFlightPitch) * partialTick);
+    }
+
+    public float getFlightRoll(float partialTick) {
+        return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTick);
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.onGround(), this.tickCount);
-        this.flyAnimationState.animateWhen(!this.onGround(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isFlying(), this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying(), this.tickCount);
     }
 
     @Override
@@ -111,6 +148,11 @@ public class Zhangsolva extends AmbientMob {
     @Override
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.BUG_DEATH.get();
+    }
+
+    @Override
+    public boolean isFlying() {
+        return !this.onGround();
     }
 
     private static class ZhangsolvaWanderAroundGoal extends Goal {

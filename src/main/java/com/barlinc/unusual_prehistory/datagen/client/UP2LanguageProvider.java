@@ -398,6 +398,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.GRUG_IDLE, "Grug speaks his wisdom");
         this.sound(UP2SoundEvents.GRUG_CHASE, "Grug runs");
 
+        this.sound(UP2SoundEvents.BUG_HURT, "Bug hurts");
+        this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
+        this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
+
         // Update 6
         this.sound(UP2SoundEvents.ANTARCTOPELTA_HURT, "Antarctopelta hurts");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH, "Antarctopelta dies");
@@ -432,35 +436,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");
-
-        this.sound(UP2SoundEvents.BARINASUCHUS_HURT, "Barinasuchus hurts");
-        this.sound(UP2SoundEvents.BARINASUCHUS_DEATH, "Barinasuchus dies");
-        this.sound(UP2SoundEvents.BARINASUCHUS_IDLE, "Barinasuchus grumbles");
-        this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK, "Barinasuchus snaps");
-        this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN, "Barinasuchus rumbles");
-
-        this.sound(UP2SoundEvents.DIMORPHODON_HURT, "Dimorphodon hurts");
-        this.sound(UP2SoundEvents.DIMORPHODON_DEATH, "Dimorphodon dies");
-        this.sound(UP2SoundEvents.DIMORPHODON_IDLE, "Dimorphodon chatters");
-
-        this.sound(UP2SoundEvents.MANIPULATOR_HURT, "Manipulator hurts");
-        this.sound(UP2SoundEvents.MANIPULATOR_DEATH, "Manipulator dies");
-        this.sound(UP2SoundEvents.MANIPULATOR_IDLE, "Manipulator chatters");
-        this.sound(UP2SoundEvents.MANIPULATOR_STEP, "Manipulator steps");
-        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL, "Manipulator prepares attack");
-        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH, "Manipulator slashes");
-
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT, "Therizinosaurus hurts");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH, "Therizinosaurus dies");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus squawks");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus slices");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR, "Therizinosaurus screams");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_NOTICE, "Therizinosaurus takes notice");
-
-        this.sound(UP2SoundEvents.BUG_HURT, "Bug hurts");
-        this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
-        this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
 
         // Progression & Misc Advancements
         this.translateAdvancement("root", "Unusual Prehistory", "Revive creatures from the ancient past!");

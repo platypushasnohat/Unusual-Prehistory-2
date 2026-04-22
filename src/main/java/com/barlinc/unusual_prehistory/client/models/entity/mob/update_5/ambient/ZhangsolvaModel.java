@@ -81,6 +81,15 @@ public class ZhangsolvaModel extends UP2Model<Zhangsolva> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animateIdleSmooth(entity.idleAnimationState, ZhangsolvaAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.flyAnimationState, ZhangsolvaAnimations.FLY, ageInTicks);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+        float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
+
+        if (entity.isFlying()) {
+            this.root.xRot += flightPitchAmount;
+            this.root.zRot += rollAmount;
+        }
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public interface ChestLootingMob {
 
     default boolean isLootable(Container inventory) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (shouldLootItem(inventory.getItem(i))) {
+            if (this.shouldLootItem(inventory.getItem(i))) {
                 return true;
             }
         }

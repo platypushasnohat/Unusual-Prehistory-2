@@ -80,7 +80,7 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 		}
 
         this.animateIdleSmooth(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks);
+        this.animateSmooth(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks, 1.4F);
         this.animateSmooth(entity.flyFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks);
 		this.animateSmooth(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
         this.animateSmooth(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
@@ -89,13 +89,14 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
 
-		float partialTicks = ageInTicks - entity.tickCount;
-		float flyProgress = entity.getFlyProgress(partialTicks);
-		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
-		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+        float partialTicks = ageInTicks - entity.tickCount;
+        float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+        float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 
-		this.body_main.xRot += flightPitchAmount / 2;
-		this.body_main.zRot += rollAmount / 2;
+        if (entity.isFlying()) {
+            this.body_main.xRot += flightPitchAmount;
+            this.body_main.zRot += rollAmount;
+        }
 
 		if (this.young) this.applyStatic(TelecrexAnimations.BABY_TRANSFORM);
 	}

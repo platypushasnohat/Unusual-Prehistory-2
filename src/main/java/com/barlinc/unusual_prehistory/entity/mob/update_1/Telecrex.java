@@ -1,9 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -18,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -42,22 +37,20 @@ public class Telecrex extends PrehistoricFlyingMob {
     public final SmoothAnimationState peckAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState preen2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState splatAnimationState = new SmoothAnimationState(0.75F);
+    public final SmoothAnimationState splatAnimationState = new SmoothAnimationState(1.0F);
 
     private boolean preenAlt = false;
     private int splatTicks;
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(false);
-        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.FLYING_SPEED, 1.0F)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F);
+                .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.STEP_HEIGHT, 1.0D);
     }
 
     @Override
@@ -66,24 +59,20 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
         this.goalSelector.addGoal(2, new TelecrexScatterGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && !Telecrex.this.isFlying();
-            }
-        });
-        this.goalSelector.addGoal(5, new RandomFlightGoal(this, 0.8F, 1.4F, 16, 4, 1600, 200));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPreen) {
+        this.goalSelector.addGoal(4, new LandLockedRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new LandFromFlightGoal(this, 100));
+        this.goalSelector.addGoal(6, new RandomFlightGoal(this, 1.0F, 6));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPreen) {
             @Override
             public void start() {
                 super.start();
                 Telecrex.this.preenAlt = Telecrex.this.getRandom().nextBoolean();
             }
         });
-        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 2, true, 0.001F, this::canPeck));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 60, 2, true, 0.001F, this::canPeck));
     }
 
     @Override
@@ -223,18 +212,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.FALL);
-    }
-
-    @Override
     public @NotNull AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(3, 3, 3);
-    }
-
-    @Override
-    public boolean shouldRenderAtSqrDistance(double distance) {
-        return Math.sqrt(distance) < 1024.0D;
     }
 
     private static class TelecrexScatterGoal extends Goal {

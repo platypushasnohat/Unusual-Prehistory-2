@@ -2,9 +2,9 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -15,129 +15,90 @@ public class RandomFlightGoal extends Goal {
 
     protected final PrehistoricFlyingMob mob;
     protected final float speedModifier;
-    protected final float runningSpeedModifier;
-    private final int flightRange;
-    private final int flightHeight;
-    private final int interval;
-    protected final int maxTimeFlying;
+    protected final int flightHeight;
+    protected int pathCooldown = 0;
     protected double x;
     protected double y;
     protected double z;
 
-    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, float runningSpeedModifier, int flightRange, int flightHeight, int interval, int maxTimeFlying) {
+    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, int flightHeight) {
         this.setFlags(EnumSet.of(Flag.MOVE));
-        this.flightRange = flightRange;
         this.flightHeight = flightHeight;
-        this.maxTimeFlying = maxTimeFlying;
         this.speedModifier = speedModifier;
-        this.runningSpeedModifier = runningSpeedModifier;
-        this.interval = interval;
         this.mob = mob;
     }
 
     @Override
     public boolean canUse() {
-        if (mob.isDancing() || mob.isVehicle() || (mob.getTarget() != null && mob.getTarget().isAlive()) || mob.isPassenger()) {
+        if (mob.isEepy() || mob.isVehicle() || (mob.getTarget() != null && mob.getTarget().isAlive())) {
+            return false;
+        } else if (pathCooldown-- > 0) {
+            return false;
+        } else if (mob.canFly() && !mob.isPassenger()) {
+            if (!mob.isFlying() && mob.getRandom().nextInt(200) != 0 && mob.fallDistance < 2.0F) {
+                return false;
+            } else if (!mob.isFlying() && !mob.level().getBlockState(BlockPos.containing(mob.getEyePosition()).above()).isAir()) {
+                return false;
+            } else {
+                Vec3 target = this.findFlightPos();
+                this.x = target.x;
+                this.y = target.y;
+                this.z = target.z;
+                return true;
+            }
+        } else {
             return false;
         }
-        if (!mob.isFlying() && mob.getRandom().nextInt(interval) != 0) {
-            return false;
-        }
-        Vec3 target = this.getPosition();
-        this.x = target.x;
-        this.y = target.y;
-        this.z = target.z;
-        return true;
     }
 
     @Override
     public void start() {
-        this.mob.setFlying(true);
-        this.mob.getNavigation().moveTo(this.x, this.y, this.z, mob.isRunning() ? runningSpeedModifier : speedModifier);
         if (mob.onGround()) {
-            this.mob.setDeltaMovement(mob.getDeltaMovement().add(0.0D, 0.5D, 0.0D));
+            this.mob.addDeltaMovement(new Vec3(0.0F, 0.3F, 0.0F));
         }
-    }
-
-    @Override
-    public void stop() {
-        this.mob.getNavigation().stop();
-        this.mob.landingFlag = false;
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-    }
-
-    @Override
-    public void tick() {
-        if (mob.isFlying() && mob.onGround() && mob.flightTicks > 40) {
-            this.mob.setFlying(false);
-        }
-        if (mob.isFlying() && mob.flightTicks % maxTimeFlying == 0 && !this.isOverWaterOrVoid()) {
-            this.mob.landingFlag = true;
-        }
-        if (this.isOverWaterOrVoid() || mob.isInWaterOrBubble()) {
-            this.mob.setFlying(true);
-            this.mob.landingFlag = false;
-        }
+        this.mob.setFlying(true);
+        this.pathCooldown = mob.getRandom().nextInt(5);
+        this.mob.getNavigation().moveTo(x, y, z, speedModifier);
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (mob.landingFlag) {
-            return !mob.getNavigation().isDone() && !mob.onGround() && mob.groundTicks <= 0;
-        } else {
-            return mob.isFlying() && !mob.getNavigation().isDone() && mob.groundTicks <= 0;
-        }
-    }
-
-    protected Vec3 getPosition() {
-        return this.findFlightPos();
+        return mob.isFlying() && !mob.getNavigation().isDone() && mob.canFly();
     }
 
     protected Vec3 findFlightPos() {
-        Vec3 heightAdjusted = mob.position().add(mob.getRandom().nextInt(flightRange * 2) - flightRange, 0, mob.getRandom().nextInt(flightRange * 2) - flightRange);
-        if (mob.level().canSeeSky(BlockPos.containing(heightAdjusted))) {
-            Vec3 ground = groundPosition(heightAdjusted);
-            heightAdjusted = new Vec3(heightAdjusted.x, ground.y + flightHeight + mob.getRandom().nextInt(6), heightAdjusted.z);
-        } else {
-            Vec3 ground = groundPosition(heightAdjusted);
-            BlockPos ceiling = BlockPos.containing(ground).above(2);
-            while (ceiling.getY() < mob.level().getMaxBuildHeight() && !mob.level().getBlockState(ceiling).isSolid()) {
-                ceiling = ceiling.above();
-            }
-            float randCeilVal = 0.3F + mob.getRandom().nextFloat() * 0.5F;
-            heightAdjusted = new Vec3(heightAdjusted.x, ground.y + (ceiling.getY() - ground.y) * randCeilVal, heightAdjusted.z);
-        }
-
-        BlockHitResult result = mob.level().clip(new ClipContext(mob.getEyePosition(), heightAdjusted, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, mob));
-        if (result.getType() == HitResult.Type.MISS) {
-            return heightAdjusted;
-        } else {
-            return result.getLocation();
-        }
+        Vec3 forward = mob.getViewVector(1.0F).normalize();
+        Vec3 motion = mob.getDeltaMovement();
+        Vec3 direction = motion.lengthSqr() > 0.02 ? motion.normalize() : forward;
+        double forwardDist = (double) 6.0F + mob.getRandom().nextDouble() * (double) 8.0F;
+        double sideways = (mob.getRandom().nextDouble() - (double) 0.5F) * (double) 16.0F;
+        Vec3 right = new Vec3(-direction.z, 0.0F, direction.x);
+        Vec3 target = mob.position().add(direction.scale(forwardDist)).add(right.scale(sideways));
+        target = this.adjustFlightHeight(target);
+        return this.clipFlightTarget(target);
     }
 
-    public Vec3 groundPosition(Vec3 airPosition) {
-        BlockPos.MutableBlockPos ground = new BlockPos.MutableBlockPos();
-        ground.set(airPosition.x, airPosition.y, airPosition.z);
-        boolean flag = false;
-        while (ground.getY() < mob.level().getMaxBuildHeight() && !mob.level().getBlockState(ground).isSolid() && mob.level().getFluidState(ground).isEmpty()){
-            ground.move(0, 1, 0);
-            flag = true;
+    @SuppressWarnings("deprecation")
+    protected Vec3 adjustFlightHeight(Vec3 target) {
+        BlockPos pos = BlockPos.containing(target);
+        int desiredAboveGround = flightHeight + mob.getRandom().nextInt(3);
+        BlockPos ground;
+        for (ground = pos.below(); ground.getY() > mob.level().getMinBuildHeight() && !mob.level().getBlockState(ground).isSolid() && mob.level().getFluidState(ground).isEmpty(); ground = ground.below()) {
         }
-        ground.move(0, -1, 0);
-        while (ground.getY() > mob.level().getMinBuildHeight() && !mob.level().getBlockState(ground).isSolid() && mob.level().getFluidState(ground).isEmpty()) {
-            ground.move(0, -1, 0);
-        }
-        return Vec3.atCenterOf(flag ? ground.above() : ground.below());
+        double desiredY = ground.getY() + desiredAboveGround;
+        double y = Mth.clamp(desiredY, mob.getY() - (double) 3.0F, mob.getY() + (double) 3.0F);
+        return new Vec3(target.x, y, target.z);
     }
 
-    protected boolean isOverWaterOrVoid() {
-        BlockPos position = mob.blockPosition();
-        while (position.getY() > mob.level().getMinBuildHeight() && mob.level().isEmptyBlock(position) && mob.level().getFluidState(position).isEmpty()) {
-            position = position.below();
+    protected Vec3 clipFlightTarget(Vec3 target) {
+        Vec3 start = mob.position().add(0.0F, (double) mob.getBbHeight() * (double) 0.5F, 0.0F);
+        BlockHitResult hit = mob.level().clip(new ClipContext(start, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, mob));
+        if (hit.getType() == HitResult.Type.MISS) {
+            return target;
+        } else {
+            Vec3 hitPos = hit.getLocation();
+            Vec3 normal = Vec3.atLowerCornerOf(hit.getDirection().getNormal());
+            return hitPos.add(normal.scale(0.75F));
         }
-        return !mob.level().getFluidState(position).isEmpty() || mob.level().getBlockState(position).is(Blocks.VINE) || position.getY() <= mob.level().getMinBuildHeight();
     }
 }

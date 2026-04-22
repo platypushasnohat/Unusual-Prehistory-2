@@ -192,6 +192,10 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> GRUG_IDLE = registerSoundEvent("grug_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> GRUG_CHASE = registerSoundEvent("grug_chase");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> PUMMEL_AND_SNATCH_DISC = registerSoundEvent("pummel_and_snatch_disc");
 
     // Update 6
@@ -220,36 +224,6 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_DEATH = registerSoundEvent("prognathodon_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_ATTACK = registerSoundEvent("prognathodon_attack");
-
-    // Future
-    public static final DeferredHolder<SoundEvent, SoundEvent> BARINASUCHUS_HURT = registerSoundEvent("barinasuchus_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BARINASUCHUS_DEATH = registerSoundEvent("barinasuchus_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BARINASUCHUS_IDLE = registerSoundEvent("barinasuchus_idle");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BARINASUCHUS_ATTACK = registerSoundEvent("barinasuchus_attack");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BARINASUCHUS_THREATEN = registerSoundEvent("barinasuchus_threaten");
-
-    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_HURT = registerSoundEvent("bug_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_DEATH = registerSoundEvent("bug_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BUG_BUZZ = registerSoundEvent("bug_buzz");
-
-    public static final DeferredHolder<SoundEvent, SoundEvent> DIMORPHODON_HURT = registerSoundEvent("dimorphodon_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> DIMORPHODON_DEATH = registerSoundEvent("dimorphodon_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> DIMORPHODON_IDLE = registerSoundEvent("dimorphodon_idle");
-
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_HURT = registerSoundEvent("manipulator_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_DEATH = registerSoundEvent("manipulator_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_IDLE = registerSoundEvent("manipulator_idle");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_STEP = registerSoundEvent("manipulator_step");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_ATTACK_VOCAL = registerSoundEvent("manipulator_attack_vocal");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MANIPULATOR_ATTACK_SLASH = registerSoundEvent("manipulator_attack_slash");
-
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_HURT = registerSoundEvent("therizinosaurus_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_DEATH = registerSoundEvent("therizinosaurus_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_IDLE = registerSoundEvent("therizinosaurus_idle");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
-    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_NOTICE = registerSoundEvent("therizinosaurus_notice");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));

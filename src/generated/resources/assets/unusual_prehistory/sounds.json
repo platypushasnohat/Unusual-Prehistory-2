@@ -105,43 +105,6 @@
     ],
     "subtitle": "subtitles.antarctopelta_step"
   },
-  "barinasuchus_attack": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/barinasuchus/bite1"
-    ],
-    "subtitle": "subtitles.barinasuchus_attack"
-  },
-  "barinasuchus_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/barinasuchus/death1"
-    ],
-    "subtitle": "subtitles.barinasuchus_death"
-  },
-  "barinasuchus_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/barinasuchus/hurt1",
-      "unusual_prehistory:entity/mob/barinasuchus/hurt2"
-    ],
-    "subtitle": "subtitles.barinasuchus_hurt"
-  },
-  "barinasuchus_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/barinasuchus/idle1",
-      "unusual_prehistory:entity/mob/barinasuchus/idle2",
-      "unusual_prehistory:entity/mob/barinasuchus/idle3",
-      "unusual_prehistory:entity/mob/barinasuchus/idle4"
-    ],
-    "subtitle": "subtitles.barinasuchus_idle"
-  },
-  "barinasuchus_threaten": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/mob/barinasuchus/threaten1"
-      }
-    ],
-    "subtitle": "subtitles.barinasuchus_threaten"
-  },
   "brachiosaurus_attack": {
     "sounds": [
       {
@@ -166,14 +129,23 @@
   },
   "brachiosaurus_death": {
     "sounds": [
-      "unusual_prehistory:entity/mob/brachiosaurus/death1"
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/death1",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.brachiosaurus_death"
   },
   "brachiosaurus_hurt": {
     "sounds": [
-      "unusual_prehistory:entity/mob/brachiosaurus/hurt1",
-      "unusual_prehistory:entity/mob/brachiosaurus/hurt2"
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/hurt1",
+        "volume": 0.3
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/hurt2",
+        "volume": 0.3
+      }
     ],
     "subtitle": "subtitles.brachiosaurus_hurt"
   },
@@ -188,10 +160,22 @@
   },
   "brachiosaurus_step": {
     "sounds": [
-      "unusual_prehistory:entity/mob/brachiosaurus/step1",
-      "unusual_prehistory:entity/mob/brachiosaurus/step2",
-      "unusual_prehistory:entity/mob/brachiosaurus/step3",
-      "unusual_prehistory:entity/mob/brachiosaurus/step4"
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/step1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/step2",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/step3",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/brachiosaurus/step4",
+        "volume": 0.8
+      }
     ],
     "subtitle": "subtitles.brachiosaurus_step"
   },
@@ -439,28 +423,6 @@
       }
     ],
     "subtitle": "subtitles.desmatosuchus_step"
-  },
-  "dimorphodon_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/dimorphodon/death1"
-    ],
-    "subtitle": "subtitles.dimorphodon_death"
-  },
-  "dimorphodon_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/dimorphodon/hurt1",
-      "unusual_prehistory:entity/mob/dimorphodon/hurt2"
-    ],
-    "subtitle": "subtitles.dimorphodon_hurt"
-  },
-  "dimorphodon_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/dimorphodon/idle1",
-      "unusual_prehistory:entity/mob/dimorphodon/idle2",
-      "unusual_prehistory:entity/mob/dimorphodon/idle3",
-      "unusual_prehistory:entity/mob/dimorphodon/idle4"
-    ],
-    "subtitle": "subtitles.dimorphodon_idle"
   },
   "diplocaulus_death": {
     "sounds": [
@@ -1236,65 +1198,6 @@
     ],
     "subtitle": "subtitles.mammoth_step"
   },
-  "manipulator_attack_slash": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/manipulator/attack_slash1",
-      "unusual_prehistory:entity/mob/manipulator/attack_slash2"
-    ],
-    "subtitle": "subtitles.manipulator_attack_slash"
-  },
-  "manipulator_attack_vocal": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/manipulator/attack_vocal1",
-      "unusual_prehistory:entity/mob/manipulator/attack_vocal2"
-    ],
-    "subtitle": "subtitles.manipulator_attack_vocal"
-  },
-  "manipulator_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/manipulator/death1"
-    ],
-    "subtitle": "subtitles.manipulator_death"
-  },
-  "manipulator_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/manipulator/hurt1",
-      "unusual_prehistory:entity/mob/manipulator/hurt2",
-      "unusual_prehistory:entity/mob/manipulator/hurt3"
-    ],
-    "subtitle": "subtitles.manipulator_hurt"
-  },
-  "manipulator_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/manipulator/idle1",
-      "unusual_prehistory:entity/mob/manipulator/idle2",
-      "unusual_prehistory:entity/mob/manipulator/idle3",
-      "unusual_prehistory:entity/mob/manipulator/idle4",
-      "unusual_prehistory:entity/mob/manipulator/idle5"
-    ],
-    "subtitle": "subtitles.manipulator_idle"
-  },
-  "manipulator_step": {
-    "sounds": [
-      {
-        "name": "mob/spider/step1",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/step2",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/step3",
-        "pitch": 0.85
-      },
-      {
-        "name": "mob/spider/step4",
-        "pitch": 0.85
-      }
-    ],
-    "subtitle": "subtitles.manipulator_step"
-  },
   "medium_dunkleosteus_bite": {
     "sounds": [
       {
@@ -1611,7 +1514,10 @@
   },
   "prognathodon_death": {
     "sounds": [
-      "unusual_prehistory:entity/mob/prognathodon/death1"
+      {
+        "name": "unusual_prehistory:entity/mob/prognathodon/death1",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.prognathodon_death"
   },
@@ -1848,63 +1754,6 @@
       "unusual_prehistory:entity/mob/telecrex/idle4"
     ],
     "subtitle": "subtitles.telecrex_idle"
-  },
-  "therizinosaurus_attack": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/attack1",
-      "unusual_prehistory:entity/mob/therizinosaurus/attack2",
-      "unusual_prehistory:entity/mob/therizinosaurus/attack3"
-    ],
-    "subtitle": "subtitles.therizinosaurus_attack"
-  },
-  "therizinosaurus_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/death1"
-    ],
-    "subtitle": "subtitles.therizinosaurus_death"
-  },
-  "therizinosaurus_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/hurt1",
-      "unusual_prehistory:entity/mob/therizinosaurus/hurt2"
-    ],
-    "subtitle": "subtitles.therizinosaurus_hurt"
-  },
-  "therizinosaurus_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/idle1",
-      "unusual_prehistory:entity/mob/therizinosaurus/idle2",
-      "unusual_prehistory:entity/mob/therizinosaurus/idle3"
-    ],
-    "subtitle": "subtitles.therizinosaurus_idle"
-  },
-  "therizinosaurus_notice": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/notice1",
-      "unusual_prehistory:entity/mob/therizinosaurus/notice2"
-    ],
-    "subtitle": "subtitles.therizinosaurus_notice"
-  },
-  "therizinosaurus_roar": {
-    "sounds": [
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/mob/therizinosaurus/roar1"
-      },
-      {
-        "attenuation_distance": 32,
-        "name": "unusual_prehistory:entity/mob/therizinosaurus/roar2"
-      }
-    ],
-    "subtitle": "subtitles.therizinosaurus_roar"
-  },
-  "therizinosaurus_step": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/therizinosaurus/step1",
-      "unusual_prehistory:entity/mob/therizinosaurus/step2",
-      "unusual_prehistory:entity/mob/therizinosaurus/step3"
-    ],
-    "subtitle": "subtitles.therizinosaurus_step"
   },
   "transmogrifier_loop": {
     "sounds": [

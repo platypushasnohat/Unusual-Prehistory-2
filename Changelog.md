@@ -8,6 +8,7 @@
 - Added Ampyx ambient mob
 - Added Setapedites ambient mob
 - Removed Mosasaurus
+- Remodeled leptictidium
 - Removed SmoothBodyRotationControl
 - Updated PrehistoricMoveControl to ensure mobs face the direction they want to move
 - Adjusted dunkleosteus hitbox sizes
@@ -26,7 +27,10 @@
 - Increased ooze fuel duration to 48 seconds
 - Tweaked transmogrifier sounds
 - Reduced aegirocassis hurt sound volume
-- Remodeled leptictidium
+- Rebalanced some mob stats
+- Tweaked riding mechanics to be more in line with vanilla mounts
+- Fixed ulughbegsaurus being able to sleep while being ridden
+- Changed kimmeridgebrachypteraeschnidium flight ai to be more insect like
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

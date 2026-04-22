@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.KimmeridgebrachypteraeschnidiumRenderer;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
+import com.barlinc.unusual_prehistory.utils.ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -39,6 +40,6 @@ public class KimmeridgebrachypteraeschnidiumWingLayer extends RenderLayer<Kimmer
     protected static void renderTranslucentModel(EntityModel<Kimmeridgebrachypteraeschnidium> model, @NotNull ResourceLocation resourceLocation, @NotNull PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, float partialTicks, Kimmeridgebrachypteraeschnidium entity) {
         VertexConsumer vertexconsumer = bufferSource.getBuffer(RenderType.entityTranslucent(resourceLocation));
         int i = LivingEntityRenderer.getOverlayCoords(entity, KimmeridgebrachypteraeschnidiumRenderer.getExplosionOverlayProgress(entity, partialTicks));
-        model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, 1);
+        model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, ColorUtils.packColor(1, 1, 1, 1));
     }
 }

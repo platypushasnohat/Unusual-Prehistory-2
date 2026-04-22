@@ -172,7 +172,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.ROOTED_DIRT
         );
 
-        this.tag(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.JAWLESS_FISH_FOOD_BLOCKS).add(
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
         );

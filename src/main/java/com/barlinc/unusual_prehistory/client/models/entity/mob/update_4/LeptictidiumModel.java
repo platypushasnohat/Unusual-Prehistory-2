@@ -103,7 +103,7 @@ public class LeptictidiumModel extends UP2Model<Leptictidium> {
 
 		if (this.young) this.applyStatic(LeptictidiumAnimations.BABY_TRANSFORM);
 
-		this.animateIdleSmooth(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.attackAnimationState, LeptictidiumAnimations.ATTACK, ageInTicks);
         this.animateSmooth(entity.swimAnimationState, LeptictidiumAnimations.SWIM, ageInTicks);
         this.animateSmooth(entity.preenAnimationState, LeptictidiumAnimations.IDLE_PREEN, ageInTicks);

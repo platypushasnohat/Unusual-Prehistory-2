@@ -38,7 +38,7 @@ public class IdleAnimationGoal extends Goal {
         } else if (stopMoving && !prehistoricMob.getNavigation().isDone()) {
             return false;
         }
-        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !this.isDancingOrSleeping();
+        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class IdleAnimationGoal extends Goal {
         if (this.isInCombat()) {
             return false;
         }
-        return canUse.test(prehistoricMob) && timer > 0 && prehistoricMob.getIdleState() == idleState && prehistoricMob.isAlive() && !this.isDancingOrSleeping();
+        return canUse.test(prehistoricMob) && timer > 0 && prehistoricMob.getIdleState() == idleState && prehistoricMob.isAlive() && !prehistoricMob.isEepy();
     }
 
     @Override
@@ -78,10 +78,6 @@ public class IdleAnimationGoal extends Goal {
     @Override
     public boolean requiresUpdateEveryTick() {
         return true;
-    }
-
-    protected boolean isDancingOrSleeping() {
-        return prehistoricMob.isDancing() || prehistoricMob.isEepy();
     }
 
     protected boolean isInCombat() {

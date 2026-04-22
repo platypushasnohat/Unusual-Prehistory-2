@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.items.PterodactylusPotItem;
 import com.barlinc.unusual_prehistory.items.UP2MobBucketItem;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
@@ -19,13 +18,11 @@ public class UP2ItemProperties {
                     return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("BucketVariantTag");
                 });
             }
-            if (item.get() instanceof PterodactylusPotItem) {
-                ItemProperties.register(item.get(), UnusualPrehistory2.modPrefix("variant"), (stack, level, living, i) -> {
-                    CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
-                    return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("BucketVariantTag");
-                });
-            }
-            ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), UnusualPrehistory2.modPrefix("ooze_shape"), (stack, level, living, j) -> (stack.getCount() % 5) / 5F);
         }
+        ItemProperties.register(UP2Items.PTERODACTYLUS_POT.get(), UnusualPrehistory2.modPrefix("variant"), (stack, level, living, i) -> {
+            CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+            return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("BucketVariantTag");
+        });
+        ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), UnusualPrehistory2.modPrefix("ooze_shape"), (stack, level, living, j) -> (stack.getCount() % 5) / 5F);
     }
 }

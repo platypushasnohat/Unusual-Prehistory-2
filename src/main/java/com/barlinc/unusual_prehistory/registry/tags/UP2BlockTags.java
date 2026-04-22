@@ -12,7 +12,7 @@ public class UP2BlockTags {
     public static final TagKey<Block> DIPLOCAULUS_SLIDING_BLOCKS = modBlockTag("diplocaulus_sliding_blocks");
     public static final TagKey<Block> DIPLOCAULUS_BURROWING_BLOCKS = modBlockTag("diplocaulus_burrowing_blocks");
 
-    public static final TagKey<Block> JAWLESS_FISH_NIBBLING_BLOCKS = modBlockTag("jawless_fish_nibbling_blocks");
+    public static final TagKey<Block> JAWLESS_FISH_FOOD_BLOCKS = modBlockTag("jawless_fish_food_blocks");
 
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
     public static final TagKey<Block> KENTROSAURUS_FOOD_BLOCKS = modBlockTag("kentrosaurus_food_blocks");
