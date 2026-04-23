@@ -46,14 +46,14 @@ public class SetapeditesModel extends UP2Model<Setapedites> {
 	@Override
 	public void setupAnim(@NotNull Setapedites entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isCrawling()) {
+        if (entity.isCrawling() || !entity.isInWaterOrBubble()) {
             this.animateWalk(SetapeditesAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         } else {
             this.animateWalk(SetapeditesAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
-        this.animateIdleSmooth(entity.swimAnimationState, SetapeditesAnimations.SWIM, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, SetapeditesAnimations.SWIM, ageInTicks, limbSwingAmount);
         this.animateIdleSmooth(entity.idleAnimationState, SetapeditesAnimations.IDLE, ageInTicks, limbSwingAmount);
-        if (entity.isInWaterOrBubble()) {
+        if (entity.isInWaterOrBubble() && !entity.isCrawling()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
 	}

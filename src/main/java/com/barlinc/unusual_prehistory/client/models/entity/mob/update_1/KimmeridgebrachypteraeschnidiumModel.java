@@ -107,8 +107,8 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 
         this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
         this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY_OVERLAY, ageInTicks);
-        this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER, ageInTicks);
-		this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER_OVERLAY, ageInTicks);
+        this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER, ageInTicks, 1.5F);
+		this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER_OVERLAY, ageInTicks, 1.5F);
 
 		this.animateSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE1, ageInTicks);
 		this.animateSmooth(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);

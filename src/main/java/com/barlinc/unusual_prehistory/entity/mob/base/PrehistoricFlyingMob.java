@@ -45,7 +45,16 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            this.navigation = new NoSpinFlyingPathNavigation(this, this.level());
+            NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, this.level()){
+                @Override
+                public boolean isStableDestination(BlockPos blockPos) {
+                    return !level().getBlockState(blockPos.below()).isAir();
+                }
+            };
+            flyingPathNavigation.setCanOpenDoors(false);
+            flyingPathNavigation.setCanFloat(false);
+            flyingPathNavigation.setCanPassDoors(true);
+            this.navigation = flyingPathNavigation;
             this.isLandNavigator = false;
         }
     }

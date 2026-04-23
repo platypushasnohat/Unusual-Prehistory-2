@@ -14,9 +14,7 @@ import snownee.jade.api.ui.IElementHelper;
 
 import java.util.List;
 
-public enum TransmogrifierProvider implements IBlockComponentProvider, StreamServerDataProvider<BlockAccessor, TransmogrifierProvider.Data> {
-
-	INSTANCE;
+public class TransmogrifierProvider implements IBlockComponentProvider, StreamServerDataProvider<BlockAccessor, TransmogrifierProvider.Data> {
 
 	@Override
 	public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {

@@ -604,6 +604,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.jade.prehistoric_mob.pacified_time", "Pacified time: %s");
         this.add("unusual_prehistory.jade.living_ooze.gestation_time", "Gestation time: %s");
         this.add("unusual_prehistory.jade.living_ooze.gestation_cooldown", "Gestation cooldown: %s");
+
+        this.add("config.jade.plugin_unusual_prehistory.prehistoric_mob", "Prehistoric Mob Info");
+        this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
+        this.add("config.jade.plugin_unusual_prehistory.living_ooze", "Living Ooze Info");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

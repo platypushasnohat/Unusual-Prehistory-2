@@ -287,6 +287,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ROTUND_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
+                SNOW_SHOVEL_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 FLAT_BACK_FOSSIL.get(),
                 ARM_FOSSIL.get(),
@@ -309,7 +310,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PLUMAGE_FOSSIL.get(),
                 FLIPPER_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
-                AGED_FEATHER.get()
+                AGED_FEATHER.get(),
+                MOLAR_FOSSIL.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 QUILLWORT_FOSSIL.get(),

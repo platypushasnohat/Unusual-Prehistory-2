@@ -73,6 +73,13 @@ public class UnusualPrehistory2Tab {
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
+                        output.accept(UP2Blocks.PALEOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.PALEOZOIC_MATRIX_FOSSIL.get());
+                        output.accept(UP2Blocks.MESOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.MESOZOIC_MATRIX_FOSSIL.get());
+                        output.accept(UP2Blocks.CENOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.CENOZOIC_MATRIX_FOSSIL.get());
+
                         output.accept(UP2Blocks.PALEOSTONE.get());
                         output.accept(UP2Blocks.PALEOSTONE_STAIRS.get());
                         output.accept(UP2Blocks.PALEOSTONE_SLAB.get());
@@ -157,7 +164,8 @@ public class UnusualPrehistory2Tab {
                         output.accept(MESOZOIC_BANNER_PATTERN.get());
                         output.accept(CENOZOIC_BANNER_PATTERN.get());
 
-                        output.accept(BRISTLE_FOSSIL.get()); // brachiosaurus
+                        output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
+                        output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
@@ -175,6 +183,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(FISH_FOSSIL.get()); // lobe finned fish
                         output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
+                        output.accept(MOLAR_FOSSIL.get()); // mammoth
                         output.accept(THERMAL_FOSSIL.get()); // megalania
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
                         output.accept(SAW_FOSSIL.get()); // onchopristis

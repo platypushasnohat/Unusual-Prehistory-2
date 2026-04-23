@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient;
 
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.ambient.AmpyxAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import net.minecraft.client.model.geom.ModelPart;
@@ -44,8 +45,15 @@ public class AmpyxModel extends UP2Model<Ampyx> {
 
 	@Override
 	public void setupAnim(@NotNull Ampyx entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isInWaterOrBubble() && !entity.crawling) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        if (entity.isCrawling() || !entity.isInWaterOrBubble()) {
+            this.animateWalk(AmpyxAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+        } else {
+            this.animateWalk(AmpyxAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+        }
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AmpyxAnimations.SWIM, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, AmpyxAnimations.IDLE, ageInTicks, limbSwingAmount);
+        if (entity.isInWaterOrBubble() && !entity.isCrawling()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
 	}

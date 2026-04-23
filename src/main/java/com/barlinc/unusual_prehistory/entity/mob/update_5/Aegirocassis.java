@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;

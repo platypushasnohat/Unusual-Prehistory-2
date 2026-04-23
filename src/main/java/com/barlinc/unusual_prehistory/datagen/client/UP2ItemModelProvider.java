@@ -175,7 +175,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // Update 6
         this.generatedItem(
+                SNOW_SHOVEL_FOSSIL,
                 ROTUND_FOSSIL,
+                MOLAR_FOSSIL,
                 SURGE_FOSSIL,
 
                 PROGNATHODON_EMBRYO,

@@ -225,9 +225,11 @@ public class UP2Items {
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
-    public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xb12797, 0xe4ebff);
+    public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xd97ff2, 0xb12797);
 
+    public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
+    public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // mammoth
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
 
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);

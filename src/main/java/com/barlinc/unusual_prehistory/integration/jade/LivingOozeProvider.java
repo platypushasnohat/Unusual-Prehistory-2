@@ -10,9 +10,7 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
 
-public enum LivingOozeProvider implements IEntityComponentProvider {
-
-    INSTANCE;
+public class LivingOozeProvider implements IEntityComponentProvider {
 
     @Override
     public ResourceLocation getUid() {

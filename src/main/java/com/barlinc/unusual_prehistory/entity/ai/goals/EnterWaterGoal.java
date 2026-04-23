@@ -38,6 +38,11 @@ public class EnterWaterGoal extends MoveToBlockGoal {
     }
 
     @Override
+    protected @NotNull BlockPos getMoveToTarget() {
+        return this.blockPos;
+    }
+
+    @Override
     protected boolean isValidTarget(LevelReader level, @NotNull BlockPos pos) {
         return level.getBlockState(pos).is(Blocks.WATER);
     }

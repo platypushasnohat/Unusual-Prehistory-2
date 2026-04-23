@@ -1,12 +1,11 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.ambient;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
-import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
-import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.mob.base.WaterCrawlingAmbientMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import net.minecraft.Util;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,102 +14,67 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@SuppressWarnings("deprecation")
-public class Setapedites extends AmbientMob {
+public class Setapedites extends WaterCrawlingAmbientMob {
+
+    public UUID leaderUUID;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState(1.0F);
 
-    public Setapedites(EntityType<? extends AmbientMob> entityType, Level level) {
+    public Setapedites(EntityType<? extends WaterCrawlingAmbientMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5F, 1.0F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 20);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 1.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.9F)
-                .add(Attributes.ARMOR, 2.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.21F)
+                .add(Attributes.ARMOR, 2.0D)
+                .add(Attributes.STEP_HEIGHT, 1.0D);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SetapeditesFollowAegirocassisGoal(this));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 48));
-    }
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new AquaticPathNavigation(this, level);
-    }
-
-    @Override
-    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
-        return fluidType != NeoForgeMod.WATER_TYPE.value();
-    }
-
-    @Override
-    public boolean isPushedByFluid() {
-        return false;
-    }
-
-    protected void handleAirSupply(int airSupply) {
-        if (this.isAlive() && !this.isInWaterOrBubble()) {
-            this.setAirSupply(airSupply - 1);
-            if (this.getAirSupply() == -20) {
-                this.setAirSupply(0);
-                this.hurt(this.damageSources().drown(), 2.0F);
-            }
-        } else {
-            this.setAirSupply(300);
-        }
-    }
-
-    @Override
-    public void baseTick() {
-        int airSupply = this.getAirSupply();
-        super.baseTick();
-        this.handleAirSupply(airSupply);
-    }
-
-    @Override
-    public void travel(@NotNull Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            MobUtils.travelInWater(this, travelVector);
-        } else {
-            super.travel(travelVector);
-        }
-    }
-
-    public boolean isSetapeditesSwimming() {
-        return this.isInWaterOrBubble() && !this.onGround();
-    }
-
-    public boolean isCrawling() {
-        return (this.isInWaterOrBubble() && this.onGround()) || !this.isInWaterOrBubble();
+        this.goalSelector.addGoal(0, new WaterCrawlerFindWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new WaterCrawlerRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new WaterCrawlerRandomSwimGoal(this, 1.0D, 20));
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(this.isCrawling(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isSetapeditesSwimming(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isCrawling() || !this.isInWaterOrBubble(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isCrawling(), this.tickCount);
+    }
+
+    public void setLeader(Entity entity) {
+        this.leaderUUID = entity != null ? entity.getUUID() : null;
+    }
+
+    public Optional<Entity> getLeader() {
+        if (this.leaderUUID != null) {
+            Level var2 = this.level();
+            if (var2 instanceof ServerLevel serverLevel) {
+                Entity entity = serverLevel.getEntity(this.leaderUUID);
+                return Optional.ofNullable(entity);
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -121,16 +85,6 @@ public class Setapedites extends AmbientMob {
     @Override
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.BUG_DEATH.get();
-    }
-
-    @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(3, 3, 3);
-    }
-
-    @Override
-    public boolean shouldRenderAtSqrDistance(double distance) {
-        return Math.sqrt(distance) < 1024.0D;
     }
 
     @Nullable
@@ -151,39 +105,15 @@ public class Setapedites extends AmbientMob {
         return spawnData;
     }
 
-    private static class SetapeditesFollowAegirocassisGoal extends Goal {
+    public static class FollowLeaderGoal extends Goal {
 
-        protected final Setapedites setapedites;
+        private final Setapedites fish;
         private int timeToRecalcPath;
-        private int nextStartTick;
-        private LivingEntity target;
+        private Entity leader;
 
-        public SetapeditesFollowAegirocassisGoal(Setapedites setapedites) {
-            this.setapedites = setapedites;
-            this.nextStartTick = this.nextStartTick(setapedites);
-        }
-
-        protected int nextStartTick(Setapedites setapedites) {
-            return reducedTickDelay(40 + setapedites.getRandom().nextInt(40));
-        }
-
-        @Override
-        public boolean canUse() {
-            if (!setapedites.shouldBeRestricted()) return false;
-            else if (nextStartTick > 0) {
-                this.nextStartTick--;
-                return false;
-            }
-            this.nextStartTick = this.nextStartTick(setapedites);
-            List<LivingEntity> list = setapedites.level().getEntitiesOfClass(LivingEntity.class, setapedites.getBoundingBox().inflate(16.0D), entity -> entity instanceof Aegirocassis);
-            if (list.isEmpty()) return false;
-            this.target = list.getFirst();
-            return target != null;
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return target != null && target.isAlive() && setapedites.distanceToSqr(target) > 64.0D;
+        public FollowLeaderGoal(Setapedites fish) {
+            this.fish = fish;
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -192,17 +122,60 @@ public class Setapedites extends AmbientMob {
         }
 
         @Override
-        public void stop() {
-            this.target = null;
-            this.setapedites.getNavigation().stop();
+        public boolean canUse() {
+            return this.fish.getLeader().map((entity) -> {
+                if (entity.isAlive() && entity.isInWater() && !(entity.distanceTo(this.fish) > 8.0F)) {
+                    this.leader = entity;
+                    return true;
+                } else {
+                    this.fish.setLeader(null);
+                    return false;
+                }
+            }).orElse(false);
         }
 
         @Override
         public void tick() {
-            if (target == null) return;
-            if (--timeToRecalcPath <= 0) {
-                this.timeToRecalcPath = 10;
-                this.setapedites.getNavigation().moveTo(target, 1.0D);
+            if (this.timeToRecalcPath-- <= 0) {
+                this.timeToRecalcPath = this.adjustedTickDelay(10);
+                this.fish.getNavigation().moveTo(leader, 1.0D);
+            }
+        }
+    }
+
+    public static class FindLeaderGoal extends Goal {
+
+        private final Setapedites fish;
+        private int nextStartTick;
+
+        public FindLeaderGoal(Setapedites fish) {
+            this.fish = fish;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.nextStartTick = this.nextStartTick(this.fish);
+        }
+
+        public boolean canUse() {
+            if (this.fish.getLeader().isPresent()) {
+                return false;
+            } else if (this.nextStartTick > 0) {
+                this.nextStartTick--;
+                return false;
+            } else {
+                this.nextStartTick = this.nextStartTick(this.fish);
+                return true;
+            }
+        }
+
+        protected int nextStartTick(Setapedites taskOwner) {
+            return reducedTickDelay(200 + taskOwner.getRandom().nextInt(200) % 20);
+        }
+
+        public void start() {
+            List<Entity> nearby = this.fish.level().getEntitiesOfClass(Entity.class, (new AABB(this.fish.blockPosition())).inflate(12.0F), (entity) -> entity.isAlive() && entity.getType() == UP2Entities.AEGIROCASSIS.get() && entity != this.fish);
+            if (!nearby.isEmpty()) {
+                this.fish.setLeader(Util.getRandom(nearby, this.fish.random));
+                List<Setapedites> otherFish = this.fish.level().getEntitiesOfClass(Setapedites.class, (new AABB(this.fish.blockPosition())).inflate(24.0F), (entity) -> entity.isAlive() && entity != this.fish && this.fish.leaderUUID == null);
+                otherFish.forEach((fish1) -> fish1.setLeader(this.fish.getLeader().orElse(null)));
             }
         }
     }

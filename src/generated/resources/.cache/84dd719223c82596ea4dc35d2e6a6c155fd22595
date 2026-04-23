@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-17T15:28:03.0464999	Item Models: unusual_prehistory
+// 1.21.1	2026-04-22T22:57:02.2704469	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -110,6 +110,7 @@ a175c33aeb7477cec8879d5e8590b4f62ce09247 assets/unusual_prehistory/models/item/m
 a59f579675e73d20bb428df82288c45368dc29fb assets/unusual_prehistory/models/item/metasequoia_sign.json
 7cd4e02cd2b15d832535d0a76a162b9e50108b1f assets/unusual_prehistory/models/item/metriorhynchus_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/metriorhynchus_spawn_egg.json
+7229d6b75a1ef132c54748c2cca2f6f5ced6a483 assets/unusual_prehistory/models/item/molar_fossil.json
 4a54d305848cbf29d37b6ea84eee3bacf023861b assets/unusual_prehistory/models/item/mossy_fossil.json
 5c06bc26900690b5973d8a9ff445bc065b84807d assets/unusual_prehistory/models/item/onchopristis_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/onchopristis_spawn_egg.json
@@ -154,6 +155,7 @@ b16911e9855039cde84b2489d3b9679f7ced9912 assets/unusual_prehistory/models/item/r
 4e60248c43ffcf6c1f1aeab4e7f0aeaa2ed60f3c assets/unusual_prehistory/models/item/runner_fossil.json
 5e7ba0df0826af08d2c8115e0ba1b6063820d049 assets/unusual_prehistory/models/item/saw_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/setapedites_spawn_egg.json
+de753ddb1d9c48b2e8eb2a0a8c2e1f807d1445ab assets/unusual_prehistory/models/item/snow_shovel_fossil.json
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json

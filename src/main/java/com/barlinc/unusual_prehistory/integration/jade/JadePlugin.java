@@ -14,14 +14,14 @@ public class JadePlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerBlockDataProvider(TransmogrifierProvider.INSTANCE, TransmogrifierBlockEntity.class);
+        registration.registerBlockDataProvider(new TransmogrifierProvider(), TransmogrifierBlockEntity.class);
 
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerEntityComponent(PrehistoricMobProvider.INSTANCE, PrehistoricMob.class);
-        registration.registerEntityComponent(LivingOozeProvider.INSTANCE, LivingOoze.class);
-        registration.registerBlockComponent(TransmogrifierProvider.INSTANCE, TransmogrifierBlock.class);
+        registration.registerEntityComponent(new PrehistoricMobProvider(), PrehistoricMob.class);
+        registration.registerEntityComponent(new LivingOozeProvider(), LivingOoze.class);
+        registration.registerBlockComponent(new TransmogrifierProvider(), TransmogrifierBlock.class);
     }
 }

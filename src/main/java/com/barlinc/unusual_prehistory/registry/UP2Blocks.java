@@ -206,6 +206,15 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> PEAT = registerBlock("peat", ()-> new PeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD)));
     public static final DeferredBlock<Block> LIVING_PEAT = registerBlock("living_peat", ()-> new LivingPeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(UP2SoundTypes.LIVING_PEAT)));
 
+    public static final DeferredBlock<Block> PALEOZOIC_MATRIX = registerBlock("paleozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+    public static final DeferredBlock<Block> PALEOZOIC_MATRIX_FOSSIL = registerBlock("paleozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+
+    public static final DeferredBlock<Block> MESOZOIC_MATRIX = registerBlock("mesozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+    public static final DeferredBlock<Block> MESOZOIC_MATRIX_FOSSIL = registerBlock("mesozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+
+    public static final DeferredBlock<Block> CENOZOIC_MATRIX = registerBlock("cenozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+    public static final DeferredBlock<Block> CENOZOIC_MATRIX_FOSSIL = registerBlock("cenozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
+
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
