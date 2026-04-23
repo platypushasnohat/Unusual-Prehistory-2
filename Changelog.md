@@ -31,6 +31,8 @@
 - Tweaked riding mechanics to be more in line with vanilla mounts
 - Fixed ulughbegsaurus being able to sleep while being ridden
 - Changed kimmeridgebrachypteraeschnidium flight ai to be more insect like
+- Made living ooze gestation time always 10 minutes instead of randomized
+- Added Jade compat for some mobs and blocks
 - Many misc tweaks and fixes
 
 ## Version 1.4.3

@@ -598,6 +598,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
 
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
+
+        // Jade
+        this.add("unusual_prehistory.jade.prehistoric_mob.pacified", "Pacified");
+        this.add("unusual_prehistory.jade.prehistoric_mob.pacified_time", "Pacified time: %s");
+        this.add("unusual_prehistory.jade.living_ooze.gestation_time", "Gestation time: %s");
+        this.add("unusual_prehistory.jade.living_ooze.gestation_cooldown", "Gestation cooldown: %s");
     }
 
     private void forBlock(Supplier<? extends Block> block) {

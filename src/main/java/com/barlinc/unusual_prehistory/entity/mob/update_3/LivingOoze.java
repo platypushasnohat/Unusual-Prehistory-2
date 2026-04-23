@@ -19,7 +19,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -49,7 +48,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -69,7 +70,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     private static final EntityDataAccessor<Boolean> HAS_JUMPED = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SAD_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PICKUP_COOLDOWN = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
 
     public final SmoothAnimationState processingAnimationState = new SmoothAnimationState();
@@ -89,7 +90,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         super(entityType, level);
         this.moveControl = new LivingOozeMoveControl(this);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
         this.setPersistenceRequired();
     }
 
@@ -119,19 +119,14 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         return false;
     }
 
-//    @Override
-//    public boolean canBreatheUnderwater() {
-//        return true;
-//    }
+    @Override
+    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+        return fluidType != NeoForgeMod.WATER_TYPE.value();
+    }
 
     @Override
     public float getWaterSlowDown() {
         return 0.9F;
-    }
-
-    @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource damageSource) {
-        return false;
     }
 
     @Override
@@ -155,18 +150,38 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     }
 
     @Override
+    public void baseTick() {
+        super.baseTick();
+        this.setAirSupply(300);
+    }
+
+    @Override
     public void tick() {
         super.tick();
-        if (this.getSpitTime() > 0) this.setSpitTime(this.getSpitTime() - 1);
-        if (this.getCooldown() > 0) this.setCooldown(this.getCooldown() - 1);
 
-        if (this.getSpitTime() == 35) this.setPose(UP2Poses.SPITTING.get());
+        if (this.getSpitTime() > 0) {
+            this.setSpitTime(this.getSpitTime() - 1);
+        }
+        if (this.getCooldown() > 0) {
+            this.setCooldown(this.getCooldown() - 1);
+        }
+
+        if (this.getSpitTime() == 35) {
+            this.setPose(UP2Poses.SPITTING.get());
+        }
+
         if (spittingTicks > 0) spittingTicks--;
-        if (spittingTicks == 0 && this.getPose() == UP2Poses.SPITTING.get()) this.setPose(Pose.STANDING);
+        if (spittingTicks == 0 && this.getPose() == UP2Poses.SPITTING.get()) {
+            this.setPose(Pose.STANDING);
+        }
 
-        if (this.getSadTime() > 0) this.setSadTime(this.getSadTime() - 1);
+        if (this.getSadTime() > 0) {
+            this.setSadTime(this.getSadTime() - 1);
+        }
 
-        if (this.getPickupCooldown() > 0) this.setPickupCooldown(this.getPickupCooldown() - 1);
+        if (this.getPickupCooldown() > 0) {
+            this.setPickupCooldown(this.getPickupCooldown() - 1);
+        }
 
         if (this.getSpitTime() == 2 && this.hasEntity()) {
             if (!this.level().isClientSide) {
@@ -178,7 +193,9 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             this.playSound(UP2SoundEvents.LIVING_OOZE_SPIT.get(), 1.5F, this.getSoundPitch());
         }
 
-        if (this.level().isClientSide) this.setupAnimationStates();
+        if (this.level().isClientSide) {
+            this.setupAnimationStates();
+        }
 
         this.tickSquish();
 
@@ -186,24 +203,22 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
             this.tickItemAbsorption();
         }
 
-        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) this.heal(2);
+        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) {
+            this.heal(2);
+        }
     }
 
     public void setupAnimationStates() {
         this.processingAnimationState.animateWhen(this.hasEntity() && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
         this.cooldownAnimationState.animateWhen(this.getCooldown() > 0 && this.getPose() != UP2Poses.SPITTING.get(), this.tickCount);
-        this.spittingAnimationState.animateWhen(this.spittingAnimationState.isStarted(), this.tickCount);
+        this.spittingAnimationState.animateWhen(this.getPose() == UP2Poses.SPITTING.get(), this.tickCount);
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.SPITTING.get()) {
-                this.spittingAnimationState.start(this.tickCount);
                 this.spittingTicks = 35;
-            }
-            else {
-                this.spittingAnimationState.stop();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -223,8 +238,8 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         }
     }
 
-    public int processingTime(RandomSource random) {
-        return random.nextInt(3600, 12000);
+    public int processingTime() {
+        return 12000;
     }
 
     @Override
@@ -236,7 +251,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
                 if (mobType != null) {
                     this.setContainedEntityType(mobType.toString());
                     this.setHasEntity(true);
-                    this.setSpitTime(this.processingTime(this.level().getRandom()));
+                    this.setSpitTime(this.processingTime());
                     this.setOwnerUUID(player.getUUID());
                 }
             }
@@ -269,16 +284,15 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         return InteractionResult.PASS;
     }
 
-    public int cooldown(RandomSource random) {
-        return random.nextInt(1200, 2400);
+    private int cooldown(RandomSource random) {
+        return random.nextInt(3600, 6000);
     }
 
     public void spawnMob() {
         EntityType<?> type = null;
         String contained = this.getContainedEntityType();
         if (contained != null && !contained.isEmpty()) {
-            ResourceLocation entityLocation = ResourceLocation.parse(contained);
-            type = this.level().registryAccess().registryOrThrow(Registries.ENTITY_TYPE).get(ResourceKey.create(Registries.ENTITY_TYPE, entityLocation));
+            type = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(this.getContainedEntityType()));
         }
         if (type != null) {
             Entity entity = type.create(this.level());
@@ -376,7 +390,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
                     if (mobType != null) {
                         this.setContainedEntityType(mobType.toString());
                         this.setHasEntity(true);
-                        this.setSpitTime(this.processingTime(this.level().getRandom()));
+                        this.setSpitTime(this.processingTime());
                     }
                 }
                 this.setItemInHand(InteractionHand.MAIN_HAND, absorbedStack);
@@ -587,9 +601,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-            this.addAdditionalSaveData(compoundTag);
-        });
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, this::addAdditionalSaveData);
     }
 
     @Override
@@ -648,7 +660,7 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
 
         @Override
         public void tick() {
-            if (--this.nextRandomizeTime <= 0) {
+            if (this.nextRandomizeTime-- <= 0) {
                 this.nextRandomizeTime = this.adjustedTickDelay(40 + this.ooze.getRandom().nextInt(60));
                 this.chosenDegrees = (float) this.ooze.getRandom().nextInt(360);
             }

@@ -109,13 +109,13 @@ dependencies {
     compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
     compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
     localRuntime "mezz.jei:jei-$minecraft_version-neoforge:$jei_version"
+    implementation "maven.modrinth:jade:yd8FKCmx"
 
     implementation "maven.modrinth:patchouli:BIogJv2D"
 
     localRuntime "maven.modrinth:appleskin:3.0.5+mc1.21"
     localRuntime "maven.modrinth:worldedit:7.3.6"
     localRuntime "maven.modrinth:cyanide:v4LiMGGH"
-    localRuntime "maven.modrinth:jade:yd8FKCmx"
     localRuntime "maven.modrinth:better-advancements:FjTYILOi"
     localRuntime "maven.modrinth:commandstructures:rTiLoxgs"
     localRuntime "maven.modrinth:just-enough-effect-descriptions-jeed:HpxNIA6x"

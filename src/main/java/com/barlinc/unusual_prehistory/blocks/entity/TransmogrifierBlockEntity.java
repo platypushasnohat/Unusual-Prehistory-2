@@ -4,7 +4,6 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
-import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.screens.TransmogrifierMenu;
@@ -54,10 +53,10 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     private final RecipeType<? extends TransmogrificationRecipe> recipeType;
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
     
-    int activeTime;
-    int activeDuration;
-    int processingProgress;
-    int processingTotalTime;
+    private int activeTime;
+    private int activeDuration;
+    private int processingProgress;
+    private int processingTotalTime;
 
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -123,6 +122,14 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         return this.activeTime > 0;
     }
 
+    public int getProcessingProgress() {
+        return this.processingProgress;
+    }
+
+    public int getProcessingTotalTime() {
+        return this.processingTotalTime;
+    }
+
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
@@ -153,7 +160,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     public static void tick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
 
         if (state.getValue(TransmogrifierBlock.LIT) && level.isClientSide) {
-            spawnParticles(level, pos, state);
             if (!blockEntity.isRemoved()) {
                 UnusualPrehistory2.PROXY.playWorldSound(blockEntity, (byte) 0);
             }
@@ -399,34 +405,5 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     public void setRemoved() {
         UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
         super.setRemoved();
-    }
-
-    public static void spawnParticles(Level level, BlockPos pos, BlockState state) {
-        Direction direction = state.getValue(TransmogrifierBlock.FACING).getCounterClockWise();
-        Direction.Axis axis = direction.getAxis();
-        double x = pos.getX() + 0.5D;
-        double y = pos.getY() + 0.5D;
-        double z = pos.getZ() + 0.5D;
-        double offset = 0.0D;
-        double xdirection = axis == Direction.Axis.X ? direction.getStepX() * 0.52D : offset;
-        double zdirection = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52D : offset;
-        double xoffset = 0.0D;
-        double zoffset = 0.0D;
-        if (direction == Direction.NORTH) {
-            xoffset = -0.25D;
-        } else if (direction == Direction.SOUTH) {
-            xoffset = 0.25D;
-        } else if (direction == Direction.EAST) {
-            zoffset = -0.25D;
-        } else if (direction == Direction.WEST) {
-            zoffset = 0.25D;
-        }
-        double xspeed = direction.getStepX() * 0.2F;
-        double zspeed = direction.getStepZ() * 0.2F;
-        BlockPos sidePos = pos.relative(direction, 1);
-        BlockState sideState = level.getBlockState(sidePos);
-        if (level.random.nextInt(10) == 0 && (sideState.isAir() || sideState.getCollisionShape(level, sidePos).isEmpty())) {
-            level.addParticle(UP2Particles.OOZE_BUBBLE.get(), (x + xdirection) + xoffset, y - 0.2D, (z + zdirection) + zoffset, xspeed, 0.0D, zspeed);
-        }
     }
 }

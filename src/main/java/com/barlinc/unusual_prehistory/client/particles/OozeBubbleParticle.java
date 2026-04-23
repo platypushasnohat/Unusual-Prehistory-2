@@ -3,25 +3,20 @@ package com.barlinc.unusual_prehistory.client.particles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class OozeBubbleParticle extends TextureSheetParticle {
 
-    private final SpriteSet sprites;
-
-    protected OozeBubbleParticle(ClientLevel level, double x, double y, double z, double xspeed, double yspeed, double zspeed, SpriteSet sprites) {
+    protected OozeBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(level, x, y, z);
-        this.sprites = sprites;
         this.setSize(0.02F, 0.02F);
-        this.quadSize = 1.0F + level.random.nextFloat() * 0.3F;
-        this.xd = xspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
-        this.yd = yspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
-        this.zd = zspeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
-        this.lifetime = 30 + level.getRandom().nextInt(10);
-        this.setSpriteFromAge(sprites);
+        this.quadSize = this.quadSize * (0.6F + (this.random.nextFloat() * 0.1F));
+        this.xd = xSpeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
+        this.yd = ySpeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
+        this.zd = zSpeed * (double) 0.2F + (Math.random() * 2.0D - 1.0D) * (double) 0.02F;
+        this.lifetime = (int) (8.0 / (Math.random() * 0.8 + 0.2));
     }
 
     @Override
@@ -29,23 +24,15 @@ public class OozeBubbleParticle extends TextureSheetParticle {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        if (this.age++ < this.lifetime) {
-            if (this.age > 15) {
-                this.setSpriteFromAge(this.sprites);
-            }
-            this.yd += 0.003D;
-            this.move(this.xd, this.yd, this.zd);
-            this.xd *= 0.85F;
-            this.yd *= 0.85F;
-            this.zd *= 0.85F;
-        } else {
+        if (this.lifetime-- <= 0) {
             this.remove();
+        } else {
+            this.yd += 0.002D;
+            this.move(this.xd, this.yd, this.zd);
+            this.xd *= 0.9F;
+            this.yd *= 0.9F;
+            this.zd *= 0.9F;
         }
-    }
-
-    @Override
-    public float getQuadSize(float scaleFactor) {
-        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) / (float) this.lifetime * 0.17F, 0.0F, 0.95F);
     }
 
     @Override
@@ -55,14 +42,17 @@ public class OozeBubbleParticle extends TextureSheetParticle {
 
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
+
         private final SpriteSet sprites;
 
         public Provider(SpriteSet sprites) {
             this.sprites = sprites;
         }
 
-        public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double xspeed, double yspeed, double zspeed) {
-            return new OozeBubbleParticle(level, x, y, z, xspeed, yspeed, zspeed, sprites);
+        public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            OozeBubbleParticle bubbleParticle = new OozeBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
+            bubbleParticle.pickSprite(this.sprites);
+            return bubbleParticle;
         }
     }
 }
