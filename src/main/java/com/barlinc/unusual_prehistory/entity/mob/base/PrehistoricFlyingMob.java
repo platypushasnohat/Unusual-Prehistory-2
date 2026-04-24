@@ -90,6 +90,10 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         return true;
     }
 
+    protected boolean shouldFlyOutOfWater() {
+        return true;
+    }
+
     public void tickFlight() {
         if (this.isFlying() && Math.abs(this.getDeltaMovement().x) < 0.01D && Math.abs(this.getDeltaMovement().z) < 0.01D && this.shouldUseStuckTicks()) {
             this.stuckTicks++;
@@ -116,6 +120,10 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             if (!this.isLandNavigator) {
                 this.switchNavigator(true);
             }
+        }
+
+        if (this.isInWaterOrBubble() && this.shouldFlyOutOfWater() && !this.isFlying()) {
+            this.setFlying(true);
         }
     }
 

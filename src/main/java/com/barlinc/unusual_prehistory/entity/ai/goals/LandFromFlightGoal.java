@@ -25,7 +25,9 @@ public class LandFromFlightGoal extends Goal {
     @Override
     public void start() {
         BlockPos ground = this.findLandingSpot();
-        this.mob.getNavigation().moveTo((double) ground.getX() + (double) 0.5F, ground.getY() + 1, (double) ground.getZ() + (double) 0.5F, 1.0F);
+        if (ground != null) {
+            this.mob.getNavigation().moveTo(ground.getX() + 0.5F, ground.getY() + 1, ground.getZ() + 0.5F, 1.0F);
+        }
     }
 
     @Override
@@ -40,7 +42,7 @@ public class LandFromFlightGoal extends Goal {
         }
     }
 
-    private BlockPos findLandingSpot() {
+    protected BlockPos findLandingSpot() {
         BlockPos.MutableBlockPos pos = this.mob.blockPosition().mutable();
         for (int i = 0; i < 14; i++) {
             if (!this.mob.level().getBlockState(pos).isAir()) {
