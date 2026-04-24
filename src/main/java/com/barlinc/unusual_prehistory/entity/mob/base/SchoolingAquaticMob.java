@@ -87,9 +87,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
 
     public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariant() == entity2.getVariant()) {
-                entity2.startFollowing(this);
-            }
+            entity2.startFollowing(this);
         });
     }
 

@@ -11,10 +11,14 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -30,13 +34,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class LobeFinnedFish extends SchoolingAquaticMob {
+import java.util.stream.Stream;
 
-    private static final EntityDimensions ALLENYPTERUS_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.8F).withEyeHeight(0.4F);
-    private static final EntityDimensions EUSTHENOPTERON_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.7F).withEyeHeight(0.35F);
-    private static final EntityDimensions GOOLOOGONGIA_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.5F).withEyeHeight(0.25F);
-    private static final EntityDimensions LACCOGNATHUS_DIMENSIONS = EntityDimensions.scalable(0.98F, 0.5F).withEyeHeight(0.25F);
-    private static final EntityDimensions SCAUMENACIA_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.4F).withEyeHeight(0.2F);
+public class LobeFinnedFish extends SchoolingAquaticMob implements VariantHolder<LobeFinnedFish.LobeFinnedFishVariant> {
+
+    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(LobeFinnedFish.class, EntityDataSerializers.INT);
 
     public LobeFinnedFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -58,18 +60,12 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LOBE_FINNED_FISH_FOOD), false));
         this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_FOOD_BLOCKS));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 30));
-        this.goalSelector.addGoal(6, new LobeFinnedFishFollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return switch (this.getVariant()) {
-            case 1 -> 2;
-            case 2 -> 3;
-            case 3 -> 1;
-            case 4 -> 5;
-            default -> 4;
-        };
+        return this.getVariant().schoolSize;
     }
 
     @Override
@@ -87,6 +83,15 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     }
 
     @Override
+    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
+            if (this.getVariant() == ((LobeFinnedFish) entity2).getVariant()) {
+                entity2.startFollowing(this);
+            }
+        });
+    }
+
+    @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (VARIANT.equals(accessor)) {
             this.refreshDimensions();
@@ -96,17 +101,35 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        return this.getDimsForLobeFinnedFish().scale(this.getAgeScale());
+        return this.getVariant().dimensions.scale(this.getAgeScale());
     }
 
-    private EntityDimensions getDimsForLobeFinnedFish() {
-        return switch (this.getVariant()) {
-            case 1 -> EUSTHENOPTERON_DIMENSIONS;
-            case 2 -> GOOLOOGONGIA_DIMENSIONS;
-            case 3 -> LACCOGNATHUS_DIMENSIONS;
-            case 4 -> SCAUMENACIA_DIMENSIONS;
-            default -> ALLENYPTERUS_DIMENSIONS;
-        };
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(LobeFinnedFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull LobeFinnedFishVariant getVariant() {
+        return LobeFinnedFishVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(LobeFinnedFishVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, LobeFinnedFishVariant.values().length));
     }
 
     @Override
@@ -150,16 +173,20 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     }
 
     public enum LobeFinnedFishVariant {
-        ALLENYPTERUS(0),
-        EUSTHENOPTERON(1),
-        GOOLOOGONGIA(2),
-        LACCOGNATHUS(3),
-        SCAUMENACIA(4);
+        ALLENYPTERUS(0, 4, EntityDimensions.scalable(0.75F, 1.4F).withEyeHeight(0.7F)),
+        EUSTHENOPTERON(1, 3, EntityDimensions.scalable(0.9F, 0.8F).withEyeHeight(0.4F)),
+        GOOLOOGONGIA(2, 4, EntityDimensions.scalable(0.75F, 0.6F).withEyeHeight(0.3F)),
+        LACCOGNATHUS(3, 2, EntityDimensions.scalable(1.25F, 0.6F).withEyeHeight(0.3F)),
+        SCAUMENACIA(4, 5, EntityDimensions.scalable(0.75F, 0.75F).withEyeHeight(0.375F));
 
         private final int variant;
+        private final int schoolSize;
+        private final EntityDimensions dimensions;
 
-        LobeFinnedFishVariant(int variant) {
+        LobeFinnedFishVariant(int variant, int schoolSize, EntityDimensions dimensions) {
             this.variant = variant;
+            this.schoolSize = schoolSize;
+            this.dimensions = dimensions;
         }
 
         public int getId() {
@@ -175,31 +202,13 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return LobeFinnedFishVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            this.setVariant(random.nextInt(LobeFinnedFishVariant.values().length));
+            this.setVariant(LobeFinnedFishVariant.byId(random.nextInt(LobeFinnedFishVariant.values().length)));
         }
         return spawnGroupData;
-    }
-
-    // Goals
-    private static class LobeFinnedFishFollowVariantLeaderGoal extends FollowVariantLeaderGoal {
-
-        public LobeFinnedFishFollowVariantLeaderGoal(SchoolingAquaticMob mob) {
-            super(mob);
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && mob.getVariant() != 3;
-        }
     }
 }

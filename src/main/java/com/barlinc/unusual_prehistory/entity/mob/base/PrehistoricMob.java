@@ -4,10 +4,12 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -33,21 +35,25 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+import java.util.Objects;
+
 @SuppressWarnings("deprecation")
 public abstract class PrehistoricMob extends TamableAnimal {
 
-    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> PACIFIED_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
@@ -268,12 +274,15 @@ public abstract class PrehistoricMob extends TamableAnimal {
                 }
                 player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
                 this.setOrderedToSit(this.getCommand() == 1);
-                return InteractionResult.SUCCESS;
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             } else if (this.canOwnerMount(player)) {
-                if (!level().isClientSide && player.startRiding(this)) {
+                if (!this.level().isClientSide && player.startRiding(this)) {
+                    player.setYRot(this.getYRot());
+                    player.setXRot(this.getXRot());
+                    player.startRiding(this);
                     return InteractionResult.CONSUME;
                 }
-                return InteractionResult.SUCCESS;
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
         return InteractionResult.PASS;
@@ -405,7 +414,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     // Tail yaw
     public void tickTailYaw() {
         this.prevTailYaw = this.tailYaw;
-        this.tailYaw += (-(this.yBodyRot - this.yBodyRotO) - this.tailYaw) * 0.15F;
+        this.tailYaw += (-(this.yBodyRot - this.yBodyRotO) - this.tailYaw) * 0.2F;
     }
 
     public float getTailYaw(float partialTick) {
@@ -523,6 +532,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return super.isInSittingPose() && !(this.isVehicle() || this.isPassenger());
     }
 
+    // Riding
     @Override
     protected void removePassenger(@NotNull Entity passenger) {
         super.removePassenger(passenger);
@@ -534,8 +544,47 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     @Override
-    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
-        return new Vec3(this.getX(), this.getBoundingBox().minY, this.getZ());
+    public void removeVehicle() {
+        // Fix wandering back if dismounted
+        if (this.isVehicle()) {
+            this.getNavigation().stop();
+        }
+        super.removeVehicle();
+    }
+
+    @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity passenger) {
+        Vec3 escapeVector = getCollisionHorizontalEscapeVector(getBbWidth(), passenger.getBbWidth(), passenger.getYRot());
+        @Nullable Vec3 location = this.getDismountLocationInDirection(escapeVector, passenger);
+        return Objects.requireNonNullElseGet(location, () -> super.getDismountLocationForPassenger(passenger));
+    }
+
+    @Nullable
+    private Vec3 getDismountLocationInDirection(Vec3 direction, LivingEntity passenger) {
+        double directionX = this.getX() + direction.x;
+        double minY = this.getBoundingBox().minY;
+        double directionZ = this.getZ() + direction.z;
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+        for (Pose pose : passenger.getDismountPoses()) {
+            mutableBlockPos.set(directionX, minY, directionZ);
+            double maxY = this.getBoundingBox().maxY + 0.75F;
+            do {
+                double floorHeight = this.level().getBlockFloorHeight(mutableBlockPos);
+                if ((double) mutableBlockPos.getY() + floorHeight > maxY) {
+                    break;
+                }
+                if (DismountHelper.isBlockFloorValid(floorHeight)) {
+                    AABB aabb = passenger.getLocalBoundsForPose(pose);
+                    Vec3 vec3 = new Vec3(directionX, (double)mutableBlockPos.getY() + floorHeight, directionZ);
+                    if (DismountHelper.canDismountTo(this.level(), passenger, aabb.move(vec3))) {
+                        passenger.setPose(pose);
+                        return vec3;
+                    }
+                }
+                mutableBlockPos.move(Direction.UP);
+            } while (!((double) mutableBlockPos.getY() < maxY));
+        }
+        return null;
     }
 
     @Override
@@ -568,6 +617,9 @@ public abstract class PrehistoricMob extends TamableAnimal {
         Vec2 vec2 = this.getRiddenRotation(player);
         this.setRot(vec2.y, vec2.x);
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+        if (this.shouldStepDown()) {
+            this.addDeltaMovement(new Vec3(0, -0.65F, 0));
+        }
         if (player.zza > 0.0F) {
             if (this.isSitting()) {
                 this.setSitting(false);
@@ -578,13 +630,31 @@ public abstract class PrehistoricMob extends TamableAnimal {
         }
     }
 
+    protected boolean shouldStepDown() {
+        if (!(this.getControllingPassenger() instanceof Player)) {
+            return false;
+        }
+        if (this.onGround() || this instanceof LeapingMob leapingMob && leapingMob.isLeaping()) {
+            return false;
+        }
+        return this.fallDistance > 0.0F && this.fallDistance < 0.2F && this.canStepDownBlock();
+    }
+
+    protected boolean canStepDownBlock() {
+        Level level = this.level();
+        BlockPos pos = this.blockPosition();
+        if (!level.getBlockState(pos.below()).getCollisionShape(level, pos.below()).isEmpty()) return true;
+        return !level.getBlockState(pos.below(2)).getCollisionShape(level, pos.below(2)).isEmpty();
+    }
+
     protected Vec2 getRiddenRotation(LivingEntity entity) {
         return new Vec2(entity.getXRot() * 0.5F, entity.getYRot());
     }
 
-    // Prevent rider from taking fall damage
+
     @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+        // Prevent rider from taking fall damage
         float[] livingFall = CommonHooks.onLivingFall(this, fallDistance, multiplier);
         if (livingFall == null) return false;
         fallDistance = livingFall[0];
@@ -644,7 +714,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
         builder.define(ATTACK_STATE, 0);
         builder.define(PACIFIED_TICKS, 0);
         builder.define(FROM_EGG, false);
@@ -664,7 +733,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant());
         compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
@@ -680,7 +748,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setVariant(compoundTag.getInt("Variant"));
         this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
@@ -708,19 +775,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     public void setIdleState(int idleState) {
         this.entityData.set(IDLE_STATE, idleState);
-    }
-
-    // Variants
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant, 0, this.getVariantCount()));
-    }
-
-    public int getVariantCount() {
-        return 128;
     }
 
     // Pacify

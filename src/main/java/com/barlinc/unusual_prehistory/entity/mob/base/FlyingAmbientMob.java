@@ -59,6 +59,11 @@ public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnima
         this.tickRotation((float) (this.getDeltaMovement().y * 2.0F * -57.295776F));
     }
 
+    @Override
+    public boolean onClimbable() {
+        return !this.isFlying() && super.onClimbable();
+    }
+
     public void tickRotation(float yMov) {
         this.prevFlightPitch = this.flightPitch;
         this.prevFlightRoll = this.flightRoll;
@@ -120,9 +125,12 @@ public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnima
 
         @Override
         public void start() {
-            Vec3 vec3d = this.getRandomLocation();
-            if (vec3d != null) {
-                this.ambientMob.getNavigation().moveTo(ambientMob.getNavigation().createPath(BlockPos.containing(vec3d), 1), speedModifier);
+            if (ambientMob.onGround()) {
+                this.ambientMob.addDeltaMovement(new Vec3(0.0F, 0.3F, 0.0F));
+            }
+            Vec3 location = this.getRandomLocation();
+            if (location != null) {
+                this.ambientMob.getNavigation().moveTo(ambientMob.getNavigation().createPath(BlockPos.containing(location), 1), speedModifier);
             }
         }
 

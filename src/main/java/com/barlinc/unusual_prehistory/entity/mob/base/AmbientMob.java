@@ -31,6 +31,11 @@ public abstract class AmbientMob extends PathfinderMob {
     }
 
     @Override
+    public boolean canBeLeashed() {
+        return false;
+    }
+
+    @Override
     protected void doWaterSplashEffect() {
     }
 

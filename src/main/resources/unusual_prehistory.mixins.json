@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "unusual_prehistory.refmap.json",
   "mixins": [
+    "BlockBehaviourMixin",
     "EvokerMixin",
     "LivingEntityMixin",
     "MobMixin",
@@ -14,6 +15,7 @@
   ],
   "client": [
     "client.EntityRenderDispatcherMixin",
+    "client.LocalPlayerMixin",
     "client.SoundEngineAccessor",
     "client.SoundManagerAccessor"
   ],

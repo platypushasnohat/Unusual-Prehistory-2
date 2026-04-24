@@ -45,7 +45,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 LOBE_FINNED_FISH.get(),
                 EntityType.ZOMBIE, EntityType.PIGLIN, EntityType.SKELETON, EntityType.WITHER_SKELETON
         );
-        this.tag(UP2EntityTags.BIG_DUNKLEOSTEUS_TARGETS).add(
+        this.tag(UP2EntityTags.LARGE_DUNKLEOSTEUS_TARGETS).add(
                 EntityType.TURTLE, EntityType.DROWNED,
                 EntityType.GUARDIAN, EntityType.ZOMBIE, EntityType.PIGLIN, EntityType.SKELETON, EntityType.WITHER_SKELETON
         );

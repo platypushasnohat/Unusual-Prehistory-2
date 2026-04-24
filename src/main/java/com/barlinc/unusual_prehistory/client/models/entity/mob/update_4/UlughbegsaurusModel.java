@@ -129,8 +129,11 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 	public void setupAnim(@NotNull Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         if (!entity.isInWaterOrBubble() && !entity.isSitting() && !entity.isEepy() && !entity.isLeaping()) {
-            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
-            else this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, entity.hasControllingPassenger() ? 2 : 1.5F, entity.hasControllingPassenger() ? 4 : 3);
+            if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) {
+                this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+            } else {
+                this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            }
         }
 		this.animateIdleSmooth(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
@@ -148,8 +151,8 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
-        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);
 	}
 
     public Vec3 getRiderPosition(Vec3 offset) {
