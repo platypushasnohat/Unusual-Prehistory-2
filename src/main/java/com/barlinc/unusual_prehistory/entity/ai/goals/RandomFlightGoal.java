@@ -14,14 +14,14 @@ import java.util.EnumSet;
 public class RandomFlightGoal extends Goal {
 
     protected final PrehistoricFlyingMob mob;
-    protected final float speedModifier;
+    protected final double speedModifier;
     protected final int flightHeight;
     protected int pathCooldown = 0;
     protected double x;
     protected double y;
     protected double z;
 
-    public RandomFlightGoal(PrehistoricFlyingMob mob, float speedModifier, int flightHeight) {
+    public RandomFlightGoal(PrehistoricFlyingMob mob, double speedModifier, int flightHeight) {
         this.setFlags(EnumSet.of(Flag.MOVE));
         this.flightHeight = flightHeight;
         this.speedModifier = speedModifier;

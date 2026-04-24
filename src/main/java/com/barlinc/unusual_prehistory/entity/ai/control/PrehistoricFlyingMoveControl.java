@@ -11,7 +11,7 @@ public class PrehistoricFlyingMoveControl extends MoveControl {
     protected final float stepSize;
 
     public PrehistoricFlyingMoveControl(PrehistoricMob prehistoricMob) {
-        this(prehistoricMob, 8);
+        this(prehistoricMob, 10);
     }
 
     public PrehistoricFlyingMoveControl(PrehistoricMob prehistoricMob, float stepSize) {

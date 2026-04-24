@@ -97,7 +97,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
             this.navigation = this.createNavigation(this.level());
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new PrehistoricFlyingMoveControl(this);
+            this.moveControl = new PrehistoricFlyingMoveControl(this, 20);
             NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, this.level()){
                 @Override
                 public boolean isStableDestination(BlockPos blockPos) {
