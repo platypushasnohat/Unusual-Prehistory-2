@@ -817,7 +817,7 @@
   "config.jade.plugin_unusual_prehistory.transmogrifier": "Transmogrifier Contents",
   "death.attack.unusual_prehistory.execute": "%s was executed by %s",
   "death.attack.unusual_prehistory.grug": "%s got Grugged",
-  "effect.unusual_prehistory.fury": "Com.barlinc.unusual Prehistory.mob Effects.Fury@6086d866",
+  "effect.unusual_prehistory.fury": "Com.barlinc.unusual Prehistory.mob Effects.Fury@48cbe454",
   "effect.unusual_prehistory.fury.description": "Gain increased speed and attack speed as your health gets lower",
   "entity.unusual_prehistory.aegirocassis": "Aegirocassis",
   "entity.unusual_prehistory.all.command_0": "%s is wandering",

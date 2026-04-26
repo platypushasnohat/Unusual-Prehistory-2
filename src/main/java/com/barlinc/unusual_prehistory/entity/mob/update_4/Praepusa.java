@@ -16,7 +16,6 @@
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
- import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.nbt.CompoundTag;
@@ -42,7 +41,6 @@
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.component.CustomData;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.state.BlockState;
@@ -55,7 +53,6 @@
  public class Praepusa extends AmphibiousMob implements Bucketable {
 
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
 
      private boolean prevOnGround = false;
      private Vec3 prevVelocity = Vec3.ZERO;
@@ -332,21 +329,18 @@
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
          builder.define(MITOSIS_COOLDOWN, 0);
-         builder.define(FROM_BUCKET, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
          compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
-         compoundTag.putBoolean("FromBucket", this.fromBucket());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
          this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
-         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
      }
 
      public int getMitosisCooldown() {
@@ -358,37 +352,31 @@
 
      @Override
      public boolean fromBucket() {
-         return this.entityData.get(FROM_BUCKET);
+         return false;
      }
 
      @Override
      public void setFromBucket(boolean fromBucket) {
-         this.entityData.set(FROM_BUCKET, fromBucket);
+     }
+
+     @Override
+     public @NotNull ItemStack getBucketItemStack() {
+         return new ItemStack(UP2Items.PRAEPUSA_BUCKET.get());
      }
 
      @Override
      public @NotNull SoundEvent getPickupSound() {
-         return SoundEvents.BUCKET_FILL_FISH;
+         return SoundEvents.BUCKET_EMPTY_FISH;
      }
 
      @Override
      public void saveToBucketTag(@NotNull ItemStack bucket) {
-         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-             compoundTag.putInt("BucketVariantTag", this.getVariant());
-             compoundTag.putInt("Age", this.getAge());
-             compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
-         });
+         MobUtils.savePrehistoricDataToBucket(this, bucket);
      }
 
      @Override
      public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-         if (compoundTag.contains("BucketVariantTag", 3)) {
-             this.setVariant(compoundTag.getInt("BucketVariantTag"));
-         }
-         this.setAge(compoundTag.getInt("Age"));
-         this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
+         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
      }
 
      @Override
@@ -404,11 +392,6 @@
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-     }
-
-     @Override
-     public @NotNull ItemStack getBucketItemStack() {
-         return new ItemStack(UP2Items.PRAEPUSA_BUCKET.get());
      }
 
      @Override

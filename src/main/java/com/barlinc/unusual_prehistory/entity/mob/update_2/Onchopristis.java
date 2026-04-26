@@ -39,7 +39,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class Onchopristis extends PrehistoricAquaticMob {
 
     public static final EntityDataAccessor<Boolean> BURROWED = SynchedEntityData.defineId(Onchopristis.class, EntityDataSerializers.BOOLEAN);
@@ -98,11 +97,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
             super.travel(travelVec);
         }
     }
-
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.5F;
-//    }
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
@@ -240,11 +234,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
     @Override
     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
         return UP2Entities.ONCHOPRISTIS.get().create(level);
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return ItemStack.EMPTY;
     }
 
     @Override

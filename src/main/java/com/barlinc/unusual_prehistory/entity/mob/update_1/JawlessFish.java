@@ -14,18 +14,28 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -33,7 +43,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class JawlessFish extends SchoolingAquaticMob {
+public class JawlessFish extends SchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.INT);
 
     public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -78,18 +90,67 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull JawlessFishVariant getVariant() {
+        return JawlessFishVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(JawlessFishVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, JawlessFishVariant.values().length));
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
     public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
     }
 
     @Override
-    public boolean canBucket() {
-        return true;
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -143,17 +204,12 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return JawlessFishVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            this.setVariant(random.nextInt(JawlessFishVariant.values().length));
+            this.setVariant(JawlessFishVariant.byId(level.getRandom().nextInt(JawlessFishVariant.values().length)));
         }
         return spawnGroupData;
     }

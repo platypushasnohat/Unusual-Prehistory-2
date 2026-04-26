@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,9 +35,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
-public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
+public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, VariantHolder<Tartuosteus.TartuosteusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.BOOLEAN);
 
     public Tartuosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
@@ -104,7 +105,30 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(LEAPING, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(TartuosteusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull TartuosteusVariant getVariant() {
+        return TartuosteusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(TartuosteusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, TartuosteusVariant.values().length));
     }
 
     @Override
@@ -115,16 +139,6 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public void setLeaping(boolean leaping) {
         this.entityData.set(LEAPING, leaping);
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
@@ -153,8 +167,8 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     public enum TartuosteusVariant {
-        TARTUOSTEUS(0),
-        EVIL_TARTUOSTEUS(1);
+        MOSS_BALL(0),
+        EVIL_MOSS_BALL(1);
 
         private final int variant;
 
@@ -175,18 +189,16 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return TartuosteusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            if (level.getLevel().isNight()) this.setVariant(1);
-            else this.setVariant(0);
+            if (level.getLevel().isNight()) {
+                this.setVariant(TartuosteusVariant.EVIL_MOSS_BALL);
+            } else {
+                this.setVariant(TartuosteusVariant.MOSS_BALL);
+            }
         }
         return spawnGroupData;
     }

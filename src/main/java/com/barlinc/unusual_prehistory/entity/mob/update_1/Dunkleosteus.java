@@ -15,25 +15,30 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -43,9 +48,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Dunkleosteus extends PrehistoricAquaticMob implements VariantHolder<Dunkleosteus.DunkleosteusVariant> {
+public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, VariantHolder<Dunkleosteus.DunkleosteusVariant> {
 
-    protected static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Dunkleosteus.class, EntityDataSerializers.INT);
 
     public int attackCooldown = 0;
 
@@ -97,16 +102,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements VariantHolder
             this.shallowWater = false;
         }
     }
-
-//    @Override
-//    public boolean shouldShowName() {
-//        return true;
-//    }
-//
-//    @Override
-//    public Component getDisplayName() {
-//        return Component.literal("shallowWater " + this.shallowWater);
-//    }
 
     @Override
     public void tick() {
@@ -280,13 +275,39 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements VariantHolder
     }
 
     @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
     public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.DUNKLEOSTEUS_BUCKET.get());
     }
 
     @Override
-    public boolean canBucket() {
-        return true;
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(DunkleosteusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     public enum DunkleosteusVariant {
@@ -345,7 +366,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements VariantHolder
                     this.setVariant(DunkleosteusVariant.SMALL);
                 }
             } else {
-                this.setVariant(DunkleosteusVariant.byId(this.getRandom().nextInt(DunkleosteusVariant.values().length)));
+                this.setVariant(DunkleosteusVariant.byId(level.getRandom().nextInt(DunkleosteusVariant.values().length)));
             }
         }
         return spawnGroupData;
@@ -398,8 +419,8 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements VariantHolder
             }
             if (timer == 5) {
                 if (this.isInAttackRange(target, 1.5D)) {
-                    DamageSource damagesource = UP2DamageTypes.execute(dunkleosteus.level(), dunkleosteus, dunkleosteus);
-                    target.hurt(damagesource, (float) dunkleosteus.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    DamageSource source = UP2DamageTypes.execute(dunkleosteus.level(), dunkleosteus, dunkleosteus);
+                    target.hurt(source, (float) dunkleosteus.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     this.dunkleosteus.strongKnockback(target, 0.2D, 0.01D);
                     this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
                 }

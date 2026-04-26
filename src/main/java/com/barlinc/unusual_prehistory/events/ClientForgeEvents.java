@@ -25,6 +25,7 @@ public class ClientForgeEvents {
 
     public static final List<ScreenShakeEvent> SCREEN_SHAKE_EVENTS = new ArrayList<>();
 
+    @SuppressWarnings({"rawtypes", "unchecked", "UnstableApiUsage"})
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
         if (ClientProxy.blockedEntityRenders.contains(event.getEntity().getUUID())) {

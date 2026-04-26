@@ -29,7 +29,7 @@ public class CoelacanthusRenderer extends MobRenderer<Coelacanthus, Coelacanthus
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Coelacanthus entity) {
-        Coelacanthus.CoelacanthusVariant variant = Coelacanthus.CoelacanthusVariant.byId(entity.getVariant());
+        Coelacanthus.CoelacanthusVariant variant = Coelacanthus.CoelacanthusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/coelacanthus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

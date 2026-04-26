@@ -8,6 +8,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingRandomLookAroundGoal
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.WallAttachingFlyingMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -50,7 +51,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
 public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -58,7 +58,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SWELL_DURATION = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
 
     private int oldSwell;
@@ -247,7 +246,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(FROM_BUCKET, false);
         builder.define(BASE_COLOR, 0);
         builder.define(PATTERN, 0);
         builder.define(PATTERN_COLOR, 0);
@@ -276,20 +274,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         this.setHasPattern(compoundTag.getBoolean("HasPattern"));
     }
 
-    @Override
-    public void saveToBucketTag(@NotNull ItemStack bucket) {
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-            compoundTag.putFloat("Health", this.getHealth());
-            compoundTag.putInt("BaseColor", this.getBaseColor());
-            compoundTag.putInt("Pattern", this.getPattern());
-            compoundTag.putInt("PatternColor", this.getPatternColor());
-            compoundTag.putInt("WingColor", this.getWingColor());
-            compoundTag.putBoolean("HasPattern", this.hasPattern());
-            compoundTag.putInt("Age", this.getAge());
-        });
-    }
-
     public static String getPatternName(int pattern) {
         return switch (pattern){
             case 1 -> "tailshade";
@@ -314,21 +298,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
             this.setHasPattern(this.random.nextInt(3) == 0);
         }
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-    }
-
-    @Override
-    public void loadFromBucketTag(@NotNull CompoundTag tag) {
-        Bucketable.loadDefaultDataFromBucketTag(this, tag);
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
-    }
-
-    @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BOTTLE_FILL_DRAGONBREATH;
     }
 
     public int getBaseColor() {
@@ -371,16 +340,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         this.entityData.set(HAS_PATTERN, hasPattern);
     }
 
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
     public int getSwellDuration() {
         return this.entityData.get(SWELL_DURATION);
     }
@@ -410,6 +369,47 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     @Override
     protected Entity.@NotNull MovementEmission getMovementEmission() {
         return Entity.MovementEmission.EVENTS;
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BOTTLE_FILL_DRAGONBREATH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
+            compoundTag.putInt("BaseColor", this.getBaseColor());
+            compoundTag.putInt("Pattern", this.getPattern());
+            compoundTag.putInt("PatternColor", this.getPatternColor());
+            compoundTag.putInt("WingColor", this.getWingColor());
+            compoundTag.putBoolean("HasPattern", this.hasPattern());
+        });
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setBaseColor(compoundTag.getInt("BaseColor"));
+        this.setPattern(compoundTag.getInt("Pattern"));
+        this.setPatternColor(compoundTag.getInt("PatternColor"));
+        this.setWingColor(compoundTag.getInt("WingColor"));
+        this.setHasPattern(compoundTag.getBoolean("HasPattern"));
     }
 
     @Override

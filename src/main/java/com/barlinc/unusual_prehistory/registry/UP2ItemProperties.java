@@ -15,13 +15,13 @@ public class UP2ItemProperties {
             if (item.get() instanceof UP2MobBucketItem) {
                 ItemProperties.register(item.get(), UnusualPrehistory2.modPrefix("variant"), (stack, level, living, i) -> {
                     CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
-                    return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("BucketVariantTag");
+                    return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("Variant");
                 });
             }
         }
         ItemProperties.register(UP2Items.PTERODACTYLUS_POT.get(), UnusualPrehistory2.modPrefix("variant"), (stack, level, living, i) -> {
             CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
-            return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("BucketVariantTag");
+            return customdata.isEmpty() ? 0 : customdata.copyTag().getInt("Variant");
         });
         ItemProperties.register(UP2Items.ORGANIC_OOZE.get(), UnusualPrehistory2.modPrefix("ooze_shape"), (stack, level, living, j) -> (stack.getCount() % 5) / 5F);
     }

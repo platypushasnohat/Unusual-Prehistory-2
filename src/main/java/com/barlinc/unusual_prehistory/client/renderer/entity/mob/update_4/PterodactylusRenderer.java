@@ -22,7 +22,7 @@ public class PterodactylusRenderer extends MobRenderer<Pterodactylus, Pterodacty
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Pterodactylus entity) {
-        Pterodactylus.PterodactylusVariant variant = Pterodactylus.PterodactylusVariant.byId(entity.getVariant());
+        Pterodactylus.PterodactylusVariant variant = Pterodactylus.PterodactylusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/pterodactylus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

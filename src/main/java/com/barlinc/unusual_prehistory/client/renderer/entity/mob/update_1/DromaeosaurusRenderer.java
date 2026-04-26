@@ -14,15 +14,14 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class DromaeosaurusRenderer extends MobRenderer<Dromaeosaurus, DromaeosaurusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/dromaeosaurus.png");
-    private static final ResourceLocation TEXTURE_SLEEPING = UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/dromaeosaurus_eepy.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/dromaeosaurus/yellow.png");
 
     public DromaeosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new DromaeosaurusModel(context.bakeLayer(UP2ModelLayers.DROMAEOSAURUS)), 0.4F);
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(Dromaeosaurus entity) {
-        return entity.isEepy() ? TEXTURE_SLEEPING : TEXTURE;
+    public @NotNull ResourceLocation getTextureLocation(@NotNull Dromaeosaurus entity) {
+        return TEXTURE;
     }
 }

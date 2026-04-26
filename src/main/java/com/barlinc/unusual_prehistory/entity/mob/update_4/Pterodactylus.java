@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -23,11 +24,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,7 +45,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -54,10 +54,10 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 @SuppressWarnings("deprecation")
-public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
+public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, VariantHolder<Pterodactylus.PterodactylusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Pterodactylus.class, EntityDataSerializers.BOOLEAN);
 
     private boolean validHangingPos = false;
     private int checkHangingTime;
@@ -221,6 +221,74 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(HANGING, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(PterodactylusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull PterodactylusVariant getVariant() {
+        return PterodactylusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(PterodactylusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, PterodactylusVariant.values().length));
+    }
+
+    public boolean isHanging() {
+        return this.entityData.get(HANGING);
+    }
+
+    public void setHanging(boolean hanging) {
+        this.entityData.set(HANGING, hanging);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(PterodactylusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.getItem() == Items.FLOWER_POT && this.isAlive()) {
@@ -240,65 +308,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
-    }
-
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(HANGING, false);
-        builder.define(FROM_BUCKET, false);
-    }
-
-    @Override
-    public void saveToBucketTag(@NotNull ItemStack bucket) {
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-            compoundTag.putInt("BucketVariantTag", this.getVariant());
-            compoundTag.putInt("Age", this.getAge());
-            compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
-            compoundTag.putBoolean("FromEgg", this.isFromEgg());
-            compoundTag.putInt("EatingCooldown", this.getEatCooldown());
-        });
-    }
-
-    @Override
-    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-        if (compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(compoundTag.getInt("BucketVariantTag"));
-        }
-        this.setAge(compoundTag.getInt("Age"));
-        this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
-        this.setFromEgg(compoundTag.getBoolean("FromEgg"));
-        this.setEatCooldown(compoundTag.getInt("EatingCooldown"));
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.PTERODACTYLUS_POT.get());
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
-    @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.ITEM_PICKUP;
-    }
-
-    public boolean isHanging() {
-        return this.entityData.get(HANGING);
-    }
-
-    public void setHanging(boolean hanging) {
-        this.entityData.set(HANGING, hanging);
     }
 
     @Override
@@ -348,16 +357,6 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
         return pterodactylus;
     }
 
-    @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.FALL);
-    }
-
-    @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(3, 3, 3);
-    }
-
     public enum PterodactylusVariant {
         BROWN(0),
         BANANA(1);
@@ -381,17 +380,12 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable {
     }
 
     @Override
-    public int getVariantCount() {
-        return PterodactylusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnData;
         } else {
-            this.setVariant(random.nextInt(PterodactylusVariant.values().length));
+            this.setVariant(PterodactylusVariant.byId(level.getRandom().nextInt(PterodactylusVariant.values().length)));
         }
         return spawnData;
     }

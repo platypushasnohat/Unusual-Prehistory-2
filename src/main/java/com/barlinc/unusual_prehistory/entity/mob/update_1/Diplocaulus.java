@@ -26,6 +26,7 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.util.Mth;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -54,11 +55,10 @@
 
  import java.util.EnumSet;
 
- @SuppressWarnings("deprecation")
- public class Diplocaulus extends AmphibiousMob implements Bucketable {
+ public class Diplocaulus extends AmphibiousMob implements Bucketable, VariantHolder<Diplocaulus.DiplocaulusVariant> {
 
+     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState burrowAnimationState = new SmoothAnimationState();
@@ -231,20 +231,30 @@
      @Override
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
+         builder.define(VARIANT, 0);
          builder.define(SLIDING, false);
-         builder.define(FROM_BUCKET, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
-         compoundTag.putBoolean("FromBucket", this.fromBucket());
+         compoundTag.putInt("Variant", this.getVariant().getId());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
-         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+         this.setVariant(DiplocaulusVariant.byId(compoundTag.getInt("Variant")));
+     }
+
+     @Override
+     public @NotNull DiplocaulusVariant getVariant() {
+         return DiplocaulusVariant.byId(this.entityData.get(VARIANT));
+     }
+
+     @Override
+     public void setVariant(DiplocaulusVariant variant) {
+         this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, DiplocaulusVariant.values().length));
      }
 
      public boolean isSliding() {
@@ -299,45 +309,38 @@
 
      @Override
      public boolean fromBucket() {
-         return this.entityData.get(FROM_BUCKET);
+         return false;
      }
 
      @Override
      public void setFromBucket(boolean fromBucket) {
-         this.entityData.set(FROM_BUCKET, fromBucket);
-     }
-
-     @Override
-     public @NotNull SoundEvent getPickupSound() {
-         return SoundEvents.BUCKET_FILL_FISH;
-     }
-
-     @Override
-     public void saveToBucketTag(@NotNull ItemStack bucket) {
-         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-             compoundTag.putInt("BucketVariantTag", this.getVariant());
-             compoundTag.putInt("Age", this.getAge());
-         });
-     }
-
-     @Override
-     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-         if (compoundTag.contains("BucketVariantTag", 3)) {
-             this.setVariant(compoundTag.getInt("BucketVariantTag"));
-         }
-         this.setAge(compoundTag.getInt("Age"));
-     }
-
-     @Override
-     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      @Override
      public @NotNull ItemStack getBucketItemStack() {
          return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
+     }
+
+     @Override
+     public @NotNull SoundEvent getPickupSound() {
+         return SoundEvents.BUCKET_EMPTY_FISH;
+     }
+
+     @Override
+     public void saveToBucketTag(@NotNull ItemStack bucket) {
+         MobUtils.savePrehistoricDataToBucket(this, bucket);
+         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+     }
+
+     @Override
+     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+         this.setVariant(DiplocaulusVariant.byId(compoundTag.getInt("Variant")));
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      public enum DiplocaulusVariant {
@@ -365,17 +368,12 @@
      }
 
      @Override
-     public int getVariantCount() {
-         return DiplocaulusVariant.values().length;
-     }
-
-     @Override
      public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
          spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
          if (spawnType == MobSpawnType.BUCKET) {
              return spawnGroupData;
          } else {
-             this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
+             this.setVariant(DiplocaulusVariant.byId(random.nextInt(DiplocaulusVariant.values().length)));
          }
          return spawnGroupData;
      }

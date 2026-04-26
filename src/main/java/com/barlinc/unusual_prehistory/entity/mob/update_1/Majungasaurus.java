@@ -10,11 +10,13 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -37,10 +39,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Majungasaurus extends PrehistoricMob {
+public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majungasaurus.MajungasaurusVariant> {
 
-    public static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
     public float prevCamoProgress;
     public float camoProgress;
@@ -248,8 +251,31 @@ public class Majungasaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(CAMO, false);
         builder.define(CAMO_COOLDOWN, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(MajungasaurusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull MajungasaurusVariant getVariant() {
+        return MajungasaurusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(MajungasaurusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, MajungasaurusVariant.values().length));
     }
 
     public boolean isCamo() {
@@ -340,14 +366,12 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return MajungasaurusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        if (level.getRandom().nextBoolean() && level.getLevel().isNight()) this.setVariant(1);
-        else this.setVariant(0);
+        if (level.getRandom().nextBoolean() && level.getLevel().isNight()) {
+            this.setVariant(MajungasaurusVariant.DUSKLURKER);
+        } else {
+            this.setVariant(MajungasaurusVariant.CHAMELEON);
+        }
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 

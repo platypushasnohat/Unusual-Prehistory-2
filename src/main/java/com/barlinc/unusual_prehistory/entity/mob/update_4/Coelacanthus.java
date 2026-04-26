@@ -25,6 +25,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -32,6 +34,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -45,9 +48,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
-public class Coelacanthus extends PrehistoricAquaticMob {
+public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, VariantHolder<Coelacanthus.CoelacanthusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Coelacanthus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(Coelacanthus.class, EntityDataSerializers.INT);
 
     private int absorbCooldown = 60;
@@ -147,7 +150,7 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     private boolean consumeNearbyMobs() {
         List<LivingEntity> nearbyEntities = this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat(), this, this.getBoundingBox().inflate(1.1D));
         if (!nearbyEntities.isEmpty()) {
-            LivingEntity entity = nearbyEntities.get(0);
+            LivingEntity entity = nearbyEntities.getFirst();
             if (this.canConsumeEntity(entity) && !this.level().isClientSide) {
                 if (entity instanceof Player player) {
                     if (!player.isCreative() && !player.isSpectator()) {
@@ -200,19 +203,32 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(SIZE, 1);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("Size", this.getCoelacanthusSize() - 1);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(CoelacanthusVariant.byId(compoundTag.getInt("Variant")));
         this.setCoelacanthusSize(compoundTag.getInt("Size") + 1);
+    }
+
+    @Override
+    public @NotNull CoelacanthusVariant getVariant() {
+        return CoelacanthusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(CoelacanthusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, CoelacanthusVariant.values().length));
     }
 
     public int getCoelacanthusSize() {
@@ -254,27 +270,39 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
     public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.COELACANTHUS_BUCKET.get());
     }
 
     @Override
-    public boolean canBucket() {
-        return true;
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
-        super.saveToBucketTag(bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-            compoundTag.putInt("Size", this.getCoelacanthusSize());
-        });
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-        super.loadFromBucketTag(compoundTag);
-        this.setCoelacanthusSize(compoundTag.getInt("Size"));
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(CoelacanthusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -333,13 +361,8 @@ public class Coelacanthus extends PrehistoricAquaticMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return CoelacanthusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
+        this.setVariant(CoelacanthusVariant.byId(level.getRandom().nextInt(CoelacanthusVariant.values().length)));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 }

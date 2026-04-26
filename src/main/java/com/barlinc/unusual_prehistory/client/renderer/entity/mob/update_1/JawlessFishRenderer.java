@@ -38,7 +38,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<Jawle
 
     @Override
     public void render(JawlessFish entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        switch (entity.getVariant()) {
+        switch (entity.getVariant().getId()) {
             case 1:
                 this.model = cephalaspisModel;
                 break;
@@ -59,7 +59,7 @@ public class JawlessFishRenderer extends MobRenderer<JawlessFish, UP2Model<Jawle
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(JawlessFish entity) {
-        JawlessFish.JawlessFishVariant variant = JawlessFish.JawlessFishVariant.byId(entity.getVariant());
+        JawlessFish.JawlessFishVariant variant = JawlessFish.JawlessFishVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/jawless_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 

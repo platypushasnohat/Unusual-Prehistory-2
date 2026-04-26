@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.accessor.EvokerAccessor;
-import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,16 +21,14 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
     protected final EvokerAccessor evokerAccess;
     protected final Class<T> targetType;
     protected TargetingConditions targetConditions;
-    protected final int redVariant;
     protected int attackWarmupDelay;
     protected int nextAttackTickCount;
 
-    public WololoSpellGoal(Evoker evoker, Class<T> targetType, @Nullable Predicate<LivingEntity> entityPredicate, int redVariant) {
+    public WololoSpellGoal(Evoker evoker, Class<T> targetType, @Nullable Predicate<LivingEntity> entityPredicate) {
         this.evoker = evoker;
         this.evokerAccess = (EvokerAccessor) evoker;
         this.targetType = targetType;
         this.targetConditions = TargetingConditions.forNonCombat().range(16.0D).selector(entityPredicate);
-        this.redVariant = redVariant;
     }
 
     @Override
@@ -99,10 +96,6 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
     }
 
     protected void performSpellCasting() {
-        LivingEntity wololoTarget = evokerAccess.unusualPrehistory2$getLivingWololoTarget();
-        if (wololoTarget != null && wololoTarget.isAlive() && wololoTarget instanceof PrehistoricMob prehistoricMob) {
-            prehistoricMob.setVariant(redVariant);
-        }
     }
 
     protected SoundEvent getSpellPrepareSound() {

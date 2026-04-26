@@ -20,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -40,8 +41,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Pachycephalosaurus extends PrehistoricMob {
+public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<Pachycephalosaurus.PachycephalosaurusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FIGHT_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FIGHT_PARTNER = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
@@ -205,6 +207,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(CHARGE_COOLDOWN, 0);
         builder.define(FIGHT_COOLDOWN, 800);
         builder.define(FIGHT_PARTNER, false);
@@ -215,6 +218,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("FightCooldown", this.getFightCooldown());
         compoundTag.putInt("FindTargetCooldown", this.getFindTargetCooldown());
     }
@@ -222,8 +226,19 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(PachycephalosaurusVariant.byId(compoundTag.getInt("Variant")));
         this.setFightCooldown(compoundTag.getInt("FightCooldown"));
         this.setFindTargetCooldown(compoundTag.getInt("FindTargetCooldown"));
+    }
+
+    @Override
+    public @NotNull PachycephalosaurusVariant getVariant() {
+        return PachycephalosaurusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(PachycephalosaurusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, PachycephalosaurusVariant.values().length));
     }
 
     public void setChargeCooldown(int cooldown) {
@@ -328,13 +343,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return PachycephalosaurusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
+        this.setVariant(PachycephalosaurusVariant.byId(level.getRandom().nextInt(PachycephalosaurusVariant.values().length)));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
