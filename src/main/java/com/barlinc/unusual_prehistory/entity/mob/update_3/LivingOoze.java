@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.items.EmbryoItem;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -44,6 +45,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
@@ -71,7 +75,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
     private static final EntityDataAccessor<Integer> SAD_TIME = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PICKUP_COOLDOWN = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(LivingOoze.class, EntityDataSerializers.BOOLEAN);
 
     public final SmoothAnimationState processingAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState spittingAnimationState = new SmoothAnimationState();
@@ -442,6 +445,30 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         this.hasImpulse = true;
     }
 
+    public static void createLivingOoze(Level level, BlockPos pos, BlockState state) {
+        float yRot = state.getValue(CarvedPumpkinBlock.FACING).toYRot();
+        BlockPos belowPos = pos.below();
+        BlockState belowState = level.getBlockState(belowPos);
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+        level.setBlock(belowPos, Blocks.AIR.defaultBlockState(), 2);
+        level.levelEvent(2001, pos, Block.getId(state));
+        level.levelEvent(2001, belowPos, Block.getId(belowState));
+
+        LivingEntity ooze = UP2Entities.LIVING_OOZE.get().create(level);
+        if (ooze != null) {
+            ooze.moveTo((double) belowPos.getX() + 0.5D, (double) belowPos.getY() + 0.05D, (double) belowPos.getZ() + 0.5D, yRot, 0.0F);
+            ooze.setYHeadRot(yRot);
+            ooze.setYBodyRot(yRot);
+            level.addFreshEntity(ooze);
+            for (ServerPlayer serverplayer : level.getEntitiesOfClass(ServerPlayer.class, ooze.getBoundingBox().inflate(5.0D))) {
+                CriteriaTriggers.SUMMONED_ENTITY.trigger(serverplayer, ooze);
+            }
+        }
+
+        level.blockUpdated(pos, Blocks.AIR);
+        level.blockUpdated(belowPos, Blocks.AIR);
+    }
+
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
         return UP2SoundEvents.LIVING_OOZE_HURT.get();
@@ -475,7 +502,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         builder.define(SAD_TIME, 0);
         builder.define(PICKUP_COOLDOWN, 0);
         builder.define(OWNER_UUID, Optional.empty());
-        builder.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -488,7 +514,6 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
         if (this.getOwnerUUID() != null) {
             compoundTag.putUUID("Owner", this.getOwnerUUID());
         }
-        compoundTag.putBoolean("FromBucket", this.fromBucket());
         compoundTag.putInt("Cooldown", this.getCooldown());
     }
 
@@ -590,12 +615,11 @@ public class LivingOoze extends PathfinderMob implements Bucketable {
 
     @Override
     public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
+        return false;
     }
 
     @Override
     public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     @Override

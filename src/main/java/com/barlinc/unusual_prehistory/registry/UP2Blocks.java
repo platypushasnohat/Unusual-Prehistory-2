@@ -121,8 +121,6 @@ public class UP2Blocks {
     // Update 3
     public static final DeferredBlock<Block> TARTUOSTEUS_ROE = registerEggBlock("tartuosteus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.TARTUOSTEUS::get, 1));
 
-    public static final DeferredBlock<Block> OOZE_CAULDRON = registerBlockWithoutItem("ooze_cauldron", () -> new OozeCauldron(UP2BlockProperties.CAULDRON));
-
     // Update 4
     public static final DeferredBlock<Block> BRACHIOSAURUS_EGG = registerEggBlock("brachiosaurus_egg", () -> new TallEggBlock(UP2BlockProperties.EGG, UP2Entities.BRACHIOSAURUS::get, 16, 16, 16, 8));
     public static final DeferredBlock<Block> COELACANTHUS_ROE = registerEggBlock("coelacanthus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.COELACANTHUS::get, 1));
@@ -205,6 +203,8 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> NEEDLE_LITTER = registerBlock("needle_litter", ()-> new NeedleLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final DeferredBlock<Block> PEAT = registerBlock("peat", ()-> new PeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD)));
     public static final DeferredBlock<Block> LIVING_PEAT = registerBlock("living_peat", ()-> new LivingPeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(UP2SoundTypes.LIVING_PEAT)));
+
+    public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
 
     public static final DeferredBlock<Block> PALEOZOIC_MATRIX = registerBlock("paleozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
     public static final DeferredBlock<Block> PALEOZOIC_MATRIX_FOSSIL = registerBlock("paleozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));

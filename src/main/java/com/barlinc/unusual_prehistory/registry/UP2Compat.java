@@ -21,7 +21,6 @@ public class UP2Compat {
     public static void registerCompat() {
         registerFlammables();
         registerDispenserBehaviours();
-        UP2CauldronInteractions.registerCauldronInteractions();
     }
 
     public static void registerFlammables() {

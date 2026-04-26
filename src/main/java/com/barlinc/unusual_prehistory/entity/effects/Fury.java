@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mob_effects;
+package com.barlinc.unusual_prehistory.entity.effects;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.resources.ResourceLocation;

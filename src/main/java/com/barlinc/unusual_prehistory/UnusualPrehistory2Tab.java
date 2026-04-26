@@ -69,6 +69,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PALEOPEDIA.get());
 
                         output.accept(ORGANIC_OOZE.get());
+                        output.accept(UP2Blocks.ORGANIC_OOZE_BLOCK.get());
                         output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());

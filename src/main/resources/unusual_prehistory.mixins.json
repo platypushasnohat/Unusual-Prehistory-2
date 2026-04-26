@@ -5,6 +5,7 @@
   "refmap": "unusual_prehistory.refmap.json",
   "mixins": [
     "BlockBehaviourMixin",
+    "CarvedPumpkinBlockMixin",
     "EvokerMixin",
     "LivingEntityMixin",
     "MobMixin",

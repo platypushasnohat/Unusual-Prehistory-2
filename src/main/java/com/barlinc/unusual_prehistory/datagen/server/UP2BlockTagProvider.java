@@ -258,8 +258,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
-                ASPHALT.get(),
-                OOZE_CAULDRON.get()
+                ASPHALT.get()
         ).addTag(UP2BlockTags.REINFORCED_GLASS);
 
         this.tag(BlockTags.IMPERMEABLE).addTag(UP2BlockTags.REINFORCED_GLASS);
@@ -398,9 +397,5 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
             this.tag(Tags.Blocks.STRIPPED_LOGS).add(woodset.strippedLog().get());
             this.tag(Tags.Blocks.STRIPPED_WOODS).add(woodset.strippedWood().get());
         }
-
-        this.tag(BlockTags.CAULDRONS).add(
-                OOZE_CAULDRON.get()
-        );
     }
 }
