@@ -302,7 +302,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 SURGE_FOSSIL.get(),
                 SAW_FOSSIL.get(),
                 CRANIUM_FOSSIL.get(),
-                DUBIOUS_FOSSIL.get()
+                DUBIOUS_FOSSIL.get(),
+                FISH_REPTILE_FOSSIL.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
                 TRUNK_MOUSE_FOSSIL.get(),
@@ -361,7 +362,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.ONCHOPRISTIS_SAC.get().asItem(),
                 UP2Blocks.PACHYCEPHALOSAURUS_EGG.get().asItem(),
                 PTERODACTYLUS_EGG.get(),
-                UP2Blocks.ULUGHBEGSAURUS_EGG.get().asItem()
+                UP2Blocks.ULUGHBEGSAURUS_EGG.get().asItem(),
+                ICHTHYOSAURUS_EMBRYO.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
                 LEPTICTIDIUM_EMBRYO.get(),
@@ -394,6 +396,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.COTYLORHYNCHUS_FOOD).addTags(
                 UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD,
                 UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD
+        );
+
+        this.tag(UP2ItemTags.ICHTHYOSAURUS_FOOD).addTags(
+                ItemTags.FISHES
         );
 
         this.tag(UP2ItemTags.MAMMOTH_FOOD).add(

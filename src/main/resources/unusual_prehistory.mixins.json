@@ -15,7 +15,11 @@
     "SweetBerryBushBlockMixin"
   ],
   "client": [
+    "client.CameraAccessor",
+    "client.CameraMixin",
     "client.EntityRenderDispatcherMixin",
+    "client.HumanoidModelMixin",
+    "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.SoundEngineAccessor",
     "client.SoundManagerAccessor"

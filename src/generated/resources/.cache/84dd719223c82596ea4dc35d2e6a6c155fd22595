@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-22T22:57:02.2704469	Item Models: unusual_prehistory
+// 1.21.1	2026-04-26T22:11:30.3373563	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -45,6 +45,7 @@ bb73ae6c4616caec683b576b7be1059737aa48d0 assets/unusual_prehistory/models/item/d
 d4626cd2137ccbc02c39f1362f95565e358bdd7f assets/unusual_prehistory/models/item/dunkleosteus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/dunkleosteus_spawn_egg.json
 a9aabc8e6df8e37a04c42f6871a41d70535df496 assets/unusual_prehistory/models/item/fish_fossil.json
+50aed6b11b3aef90986cfe0c60f5e074b368190d assets/unusual_prehistory/models/item/fish_reptile_fossil.json
 7218ed30cae47a9e448e8df798078835be6f7eab assets/unusual_prehistory/models/item/flat_back_fossil.json
 3a3cf0a1bf1931199744e43f4b7419c3479d8165 assets/unusual_prehistory/models/item/flipper_fossil.json
 f9034a2dc18e2237d32f2939703af38e15d3db7f assets/unusual_prehistory/models/item/foul_grog_bottle.json
@@ -65,6 +66,8 @@ c001fa48cd7a0059a9c11e86b0001356cac4cb94 assets/unusual_prehistory/models/item/h
 1c5508fc2b058a5570b38c446b80f08bea7b1a66 assets/unusual_prehistory/models/item/holocene_fossil.json
 8fbedc21baa9006bb2e88ea8cc0b01e7fb29d6ca assets/unusual_prehistory/models/item/hynerpeton_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/hynerpeton_spawn_egg.json
+faa3c5a06047cce665d49b2f860925e94e471550 assets/unusual_prehistory/models/item/ichthyosaurus_embryo.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/ichthyosaurus_spawn_egg.json
 4c5edb068ac7e8d1b7572b1da55c6efa7645ca1f assets/unusual_prehistory/models/item/imperative_fossil.json
 5da96a955d3c03722ffa519f1eef0fdc7b3c0406 assets/unusual_prehistory/models/item/impervious_fossil.json
 90dd26b9177a7be2d8b34dddb22a13a992a93fd2 assets/unusual_prehistory/models/item/jawless_fish_roe.json

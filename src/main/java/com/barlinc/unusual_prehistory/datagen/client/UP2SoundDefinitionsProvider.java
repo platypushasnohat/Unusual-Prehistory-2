@@ -792,6 +792,37 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/step4").pitch(0.9F)
         );
 
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/idle3")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/idle4")).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_FLOP,
+                sound("entity/fish/flop1").volume(0.5F).pitch(0.87F),
+                sound("entity/fish/flop2").volume(0.5F).pitch(0.87F),
+                sound("entity/fish/flop3").volume(0.5F).pitch(0.87F),
+                sound("entity/fish/flop4").volume(0.5F).pitch(0.87F)
+        );
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash3")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash4")).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH_READY,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash_ready1")).volume(0.7F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash_ready2")).volume(0.7F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash_ready3")).volume(0.7F)
+        );
+
         this.sound(UP2SoundEvents.MAMMOTH_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/death1"))
         );

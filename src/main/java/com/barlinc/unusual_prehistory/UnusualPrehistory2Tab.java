@@ -33,6 +33,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
                         output.accept(HYNERPETON_SPAWN_EGG.get());
+                        output.accept(ICHTHYOSAURUS_SPAWN_EGG.get());
                         output.accept(JAWLESS_FISH_SPAWN_EGG.get());
                         output.accept(KAPROSUCHUS_SPAWN_EGG.get());
                         output.accept(KENTROSAURUS_SPAWN_EGG.get());
@@ -73,13 +74,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
-
-                        output.accept(UP2Blocks.PALEOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.PALEOZOIC_MATRIX_FOSSIL.get());
-                        output.accept(UP2Blocks.MESOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.MESOZOIC_MATRIX_FOSSIL.get());
-                        output.accept(UP2Blocks.CENOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.CENOZOIC_MATRIX_FOSSIL.get());
 
                         output.accept(UP2Blocks.PALEOSTONE.get());
                         output.accept(UP2Blocks.PALEOSTONE_STAIRS.get());
@@ -176,6 +170,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
                         output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
                         output.accept(PLOW_FOSSIL.get()); // hibbertopterus
+                        output.accept(FISH_REPTILE_FOSSIL.get()); // ichthyosaurus
                         output.accept(JAWLESS_FOSSIL.get()); // jawless fish
                         output.accept(BOAR_TOOTH_FOSSIL.get()); // kaprosuchus
                         output.accept(PRICKLY_FOSSIL.get()); // kentrosaurus
@@ -208,6 +203,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_EGGS.get());
+                        output.accept(ICHTHYOSAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());

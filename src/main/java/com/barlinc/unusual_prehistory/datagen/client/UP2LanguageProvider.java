@@ -419,6 +419,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.HYNERPETON_IDLE, "Hynerpeton croaks");
         this.sound(UP2SoundEvents.HYNERPETON_STEP, "Hynerpeton steps");
 
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DEATH, "Ichthyosaurus hurts");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_HURT, "Ichthyosaurus dies");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_IDLE, "Ichthyosaurus chatters");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_FLOP, "Ichthyosaurus flops");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH, "Ichthyosaurus dashes");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH_READY, "Ichthyosaurus recovers");
+
         this.sound(UP2SoundEvents.MAMMOTH_HURT, "Mammoth hurts");
         this.sound(UP2SoundEvents.MAMMOTH_DEATH, "Mammoth dies");
         this.sound(UP2SoundEvents.MAMMOTH_IDLE, "Mammoth trumpets");
@@ -472,16 +479,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
-        this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
         this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
-        this.translateAdvancement("revive_dimorphodon", "Up Up and Away!", "Revive a Dimorphodon");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
         this.translateAdvancement("revive_hibbertopterus", "No Thoughts, Head Empty", "Revive a Hibbertopterus");
+        this.translateAdvancement("revive_ichthyosaurus", "Meep Meep!", "Revive an Ichthyosaurus");
         this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
@@ -490,7 +496,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
-        this.translateAdvancement("revive_manipulator", "Mandibles", "Revive a Manipulator");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("revive_prognathodon", "???", "Revive a Prognathodon");
@@ -503,10 +508,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
-        this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
 
-        this.translateEffect(UP2MobEffects.FURY, "Gain increased speed and attack speed as your health gets lower");
+        this.add(UP2MobEffects.CARNOTAURUS_FURY.get(), "Carnotaurus's Fury");
+        this.add(UP2MobEffects.CARNOTAURUS_FURY.get().getDescriptionId() + ".description", "Gain increased speed and attack speed as your health gets lower");
 
         // Book
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
@@ -639,8 +644,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("advancements." + UnusualPrehistory2.MOD_ID + "." + key + ".description", desc);
     }
 
-    private void translateEffect(DeferredHolder<? extends MobEffect, ?> effect, String desc) {
-        this.add(effect.get(), UP2TextUtils.createTranslation(effect.get().toString()));
+    private void translateEffect(Supplier<? extends MobEffect> effect, String desc) {
+        this.add(effect.get(), UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.MOB_EFFECT.getKey(effect.get())).getPath()));
         this.add(effect.get().getDescriptionId() + ".description", desc);
     }
 

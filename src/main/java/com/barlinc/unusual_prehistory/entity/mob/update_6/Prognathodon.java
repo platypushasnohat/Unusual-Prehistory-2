@@ -195,7 +195,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     public boolean canPlayIdles(Entity entity) {
-        return this.isInWaterOrBubble();
+        return entity.isInWaterOrBubble();
     }
 
     @Override

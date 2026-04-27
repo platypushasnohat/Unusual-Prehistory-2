@@ -142,13 +142,13 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
         if (this.isAlive()) {
             this.level().broadcastEntityEvent(this, (byte) 39);
             this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 1));
-            this.addEffect(new MobEffectInstance(UP2MobEffects.FURY, 300, 0));
+            this.addEffect(new MobEffectInstance(UP2MobEffects.CARNOTAURUS_FURY, 300, 0));
             this.gameEvent(GameEvent.ENTITY_ACTION);
         }
     }
 
     public boolean isFurious() {
-        return this.hasEffect(UP2MobEffects.FURY);
+        return this.hasEffect(UP2MobEffects.CARNOTAURUS_FURY);
     }
 
     @Override

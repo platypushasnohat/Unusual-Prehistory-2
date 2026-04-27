@@ -11,12 +11,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jetbrains.annotations.NotNull;
 
-public class Fury extends MobEffect {
+public class CarnotaurusFury extends MobEffect {
 
-    private static final ResourceLocation FURY_ATTACK_SPEED_ID = UnusualPrehistory2.modPrefix("fury_attack_speed_boost");
-    private static final ResourceLocation FURY_SPEED_ID = UnusualPrehistory2.modPrefix("fury_speed_boost");
+    private static final ResourceLocation FURY_ATTACK_SPEED_ID = UnusualPrehistory2.modPrefix("carnotaurus_fury_attack_speed_boost");
+    private static final ResourceLocation FURY_SPEED_ID = UnusualPrehistory2.modPrefix("carnotaurus_fury_speed_boost");
 
-    public Fury() {
+    public CarnotaurusFury() {
         super(MobEffectCategory.NEUTRAL, 0x8c2f27);
     }
 

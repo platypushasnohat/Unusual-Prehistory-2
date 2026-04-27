@@ -43,6 +43,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.stream.Stream;
+
 public class JawlessFish extends SchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.INT);
@@ -87,6 +89,15 @@ public class JawlessFish extends SchoolingAquaticMob implements Bucketable, Vari
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.JAWLESS_FISH_FOOD);
+    }
+
+    @Override
+    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
+            if (this.getVariant() == ((JawlessFish) entity2).getVariant() && !this.isBaby()) {
+                entity2.startFollowing(this);
+            }
+        });
     }
 
     @Override

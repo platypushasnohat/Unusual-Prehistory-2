@@ -90,7 +90,7 @@ public class LobeFinnedFish extends SchoolingAquaticMob implements Bucketable, V
     @Override
     public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariant() == ((LobeFinnedFish) entity2).getVariant()) {
+            if (this.getVariant() == ((LobeFinnedFish) entity2).getVariant() && !this.isBaby()) {
                 entity2.startFollowing(this);
             }
         });

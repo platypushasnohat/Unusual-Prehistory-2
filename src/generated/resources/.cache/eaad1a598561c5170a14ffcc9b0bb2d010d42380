@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-22T22:57:02.2704469	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-04-26T22:11:30.3444959	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -47,6 +47,7 @@ d040a39516c73354fd6c59253740716492ce0b1b data/unusual_prehistory/tags/item/fossi
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/item/ginkgo_logs.json
 8da8f34a416bead74cb50fb5e02a0dd8490f6b4c data/unusual_prehistory/tags/item/guarded_by_kentrosaurus.json
 4251517df0f094e4ce55cf0766db525ec130e7d3 data/unusual_prehistory/tags/item/hibbertopterus_food.json
+46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/item/ichthyosaurus_food.json
 17edb89f8395563d0079d785cfa7134f7acd6229 data/unusual_prehistory/tags/item/indigo_dyes.json
 158a4877fad0ee79d00e8c9f641ad661e822cdb5 data/unusual_prehistory/tags/item/jawless_fish_food.json
 efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/jawless_fish_nibbling_blocks.json
@@ -61,8 +62,8 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/majun
 73890942ecf079294735eb9b4e832ab73e298b6c data/unusual_prehistory/tags/item/mammoth_food.json
 35e26ac7c30d0cf81cb7c891fbf1d1b3632de467 data/unusual_prehistory/tags/item/maroon_dyes.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/megalania_food.json
-74ebb8fac825b86981c441ca2f3d5f67a0807d72 data/unusual_prehistory/tags/item/mesozoic_eggs.json
-eccd8850d257f229c6996cedbd82a041d8bfb746 data/unusual_prehistory/tags/item/mesozoic_fossils.json
+ce9803d68a17f8a6f78872530cb03d23861b7ca2 data/unusual_prehistory/tags/item/mesozoic_eggs.json
+25f76b0938898a0f498f4ea349c74c47865c50f4 data/unusual_prehistory/tags/item/mesozoic_fossils.json
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/item/metasequoia_logs.json
 368c66a7b6b9d697eca80456999190094afd3ec6 data/unusual_prehistory/tags/item/metriorhynchus_food.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/item/mint_dyes.json

@@ -223,15 +223,18 @@ public class UP2Items {
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
     public static final DeferredItem<Item> COTYLORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("cotylorhynchus", UP2Entities.COTYLORHYNCHUS, 0x944e32, 0xebe0c5);
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
+    public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);
     public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
     public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xd97ff2, 0xb12797);
 
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
+    public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // mammoth
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
 
+    public static final DeferredItem<Item> ICHTHYOSAURUS_EMBRYO = registerEmbryoItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS);
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
 
     public static final DeferredItem<Item> HYNERPETON_BUCKET = registerItemNoLang("hynerpeton_bucket", () -> new UP2MobBucketItem(UP2Entities.HYNERPETON.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));

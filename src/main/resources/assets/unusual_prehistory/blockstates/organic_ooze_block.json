@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "unusual_prehistory:block/organic_ooze_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "unusual_prehistory:block/organic_ooze_block"
+    },
+    "axis=z": {
+      "model": "unusual_prehistory:block/organic_ooze_block",
+      "x": 90
     }
   }
 }

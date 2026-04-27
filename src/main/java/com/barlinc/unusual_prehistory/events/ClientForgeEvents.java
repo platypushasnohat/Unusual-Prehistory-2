@@ -1,21 +1,21 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.renderer.entity.layers.CustomPlayerRidePose;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import net.neoforged.neoforge.common.util.TriState;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientForgeEvents {
@@ -23,9 +23,9 @@ public class ClientForgeEvents {
     private static float shakeAmount;
     private static float prevShakeAmount;
 
-    public static final List<ScreenShakeEvent> SCREEN_SHAKE_EVENTS = new ArrayList<>();
+//    public static final List<ScreenShakeEvent> SCREEN_SHAKE_EVENTS = new ArrayList<>();
 
-    @SuppressWarnings({"rawtypes", "unchecked", "UnstableApiUsage"})
+    @SuppressWarnings("all")
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
         if (ClientProxy.blockedEntityRenders.contains(event.getEntity().getUUID())) {
@@ -37,40 +37,85 @@ public class ClientForgeEvents {
         }
     }
 
-    @SubscribeEvent
-    public void clientTick(ClientTickEvent.Post event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Entity cameraEntity = minecraft.getCameraEntity();
-        prevShakeAmount = shakeAmount;
-        float shake = 0.0F;
-        Iterator<ScreenShakeEvent> groundShakeMomentIterator = SCREEN_SHAKE_EVENTS.iterator();
-        while (groundShakeMomentIterator.hasNext()) {
-            ScreenShakeEvent groundShakeMoment = groundShakeMomentIterator.next();
-            groundShakeMoment.tick();
-            if (groundShakeMoment.isDone()) {
-                groundShakeMomentIterator.remove();
-            }
-            else if (cameraEntity != null) {
-                shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
-            }
-        }
-        shakeAmount = shake * minecraft.options.screenEffectScale().get().floatValue();
-    }
+//    @SubscribeEvent
+//    public void clientTick(ClientTickEvent.Post event) {
+//        Minecraft minecraft = Minecraft.getInstance();
+//        Entity cameraEntity = minecraft.getCameraEntity();
+//        prevShakeAmount = shakeAmount;
+//        float shake = 0.0F;
+//        Iterator<ScreenShakeEvent> groundShakeMomentIterator = SCREEN_SHAKE_EVENTS.iterator();
+//        while (groundShakeMomentIterator.hasNext()) {
+//            ScreenShakeEvent groundShakeMoment = groundShakeMomentIterator.next();
+//            groundShakeMoment.tick();
+//            if (groundShakeMoment.isDone()) {
+//                groundShakeMomentIterator.remove();
+//            }
+//            else if (cameraEntity != null) {
+//                shake = Math.max(shake, groundShakeMoment.getDegree(cameraEntity, 1.0F));
+//            }
+//        }
+//        shakeAmount = shake * minecraft.options.screenEffectScale().get().floatValue();
+//    }
 
     @SubscribeEvent
     public void computeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         Minecraft minecraft = Minecraft.getInstance();
-        Entity player = Minecraft.getInstance().getCameraEntity();
-        float partialTicks = (float) event.getPartialTick();
+        Entity player = minecraft.getCameraEntity();
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);;
 
-        float lerpedShakeAmount = Mth.clamp(prevShakeAmount + (shakeAmount - prevShakeAmount) * partialTicks, 0, 4.0F);
-        if (lerpedShakeAmount > 0) {
-            float time = minecraft.cameraEntity == null ? 0.0F : minecraft.cameraEntity.tickCount + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
-            event.setRoll((float) (lerpedShakeAmount * Math.sin(2.0F * time)));
+        // todo: move to new mixin?
+//        float lerpedShakeAmount = Mth.clamp(prevShakeAmount + (shakeAmount - prevShakeAmount) * partialTicks, 0, 4.0F);
+//        if (lerpedShakeAmount > 0) {
+//            float time = minecraft.cameraEntity == null ? 0.0F : minecraft.cameraEntity.tickCount + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
+//            event.setRoll((float) (lerpedShakeAmount * Math.sin(2.0F * time)));
+//        }
+
+//        if (player != null && player.isPassenger() && player.getVehicle() instanceof Ulughbegsaurus) {
+//            CameraAccessor cameraAccessor = (CameraAccessor) event.getCamera();
+//            cameraAccessor.invokeMove(-cameraAccessor.invokeGetMaxZoom(4.0F), 0, 0);
+//        }
+    }
+
+    @SubscribeEvent
+    public void onModelRotation(ModelRotationEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity instanceof Player player && player.getVehicle() != null) {
+            event.setCanceled(Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity.getVehicle()) instanceof CustomPlayerRidePose);
         }
+    }
 
-        if (player != null && player.isPassenger() && event.getCamera().isDetached()) {
-//            if (player.getVehicle() instanceof Ulughbegsaurus) event.getCamera().move(-event.getCamera().getMaxZoom(1.9F), 0, 0);
+    @SubscribeEvent
+    public void onPlayerPose(PlayerPoseEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity instanceof Player player && player.getVehicle() != null) {
+            if (Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player.getVehicle()) instanceof CustomPlayerRidePose playerRidePose) {
+                playerRidePose.applyRiderPose(event.getHumanoidModel(), entity);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPoseHand(PlayerPoseEvent event) {
+        float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
+        float ageInTicks = event.getEntity().tickCount + partialTicks;
+        LivingEntity entity = event.getEntity();
+
+        if (entity.isPassenger() && entity.getVehicle() instanceof Ichthyosaurus) {
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
+                event.getHumanoidModel().rightArm.zRot = (float) Math.toRadians(-12.0F);
+                event.getHumanoidModel().leftArm.zRot = (float) Math.toRadians(12.0F);
+                event.setResult(TriState.TRUE);
+            } else {
+                event.getHumanoidModel().leftArm.xRot = (float) Math.toRadians(200.0F);
+                event.getHumanoidModel().rightArm.xRot = (float) Math.toRadians(200.0F);
+                event.getHumanoidModel().rightArm.zRot = (float) Math.toRadians(25.0F);
+                event.getHumanoidModel().leftArm.zRot = (float) Math.toRadians(-25.0F);
+                event.getHumanoidModel().head.xRot = (float) Math.toRadians(-85.0F);
+                event.getHumanoidModel().hat.copyFrom(event.getHumanoidModel().head);
+                event.getHumanoidModel().leftLeg.xRot = (float) Math.toRadians(15.0F * Mth.cos(ageInTicks * 0.4F + (float) Math.PI));
+                event.getHumanoidModel().rightLeg.xRot = (float) Math.toRadians(15.0F * Mth.cos(ageInTicks * 0.4F));
+                event.setResult(TriState.TRUE);
+            }
         }
     }
 }

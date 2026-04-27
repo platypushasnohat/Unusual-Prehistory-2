@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
+  "criteria": {
+    "revive_ichthyosaurus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:ichthyosaurus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_ichthyosaurus.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:ichthyosaurus_embryo"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_ichthyosaurus.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_ichthyosaurus"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}
