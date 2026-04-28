@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-26T22:11:30.3373563	Item Models: unusual_prehistory
+// 1.21.1	2026-04-27T21:57:47.2851688	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -25,6 +25,7 @@ fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/b
 8df6f68904313f2019d6139f17e16d0e51fd0ddd assets/unusual_prehistory/models/item/cranium_fossil.json
 7645f4edad16b1e5d4d6cd7407305c338765c85d assets/unusual_prehistory/models/item/creative_lock.json
 9271785516e0de1006cd3efabafe48789dad5b77 assets/unusual_prehistory/models/item/crooked_beak_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/cryptoclidus_spawn_egg.json
 fd6d8d41d1232633e4272ebd13da1d2632c057f5 assets/unusual_prehistory/models/item/cycad_fossil.json
 5cfae1e04bc54dd6846c41fbda00fffad2162c1c assets/unusual_prehistory/models/item/cycad_seedling.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/delitzschala_spawn_egg.json

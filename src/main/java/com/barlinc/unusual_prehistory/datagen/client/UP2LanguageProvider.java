@@ -414,6 +414,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_STEP, "Cotylorhynchus steps");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_BURP, "Cotylorhynchus burps");
 
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_HURT, "Cryptoclidus hurts");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_DEATH, "Cryptoclidus dies");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_IDLE, "Cryptoclidus bellows");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK, "Cryptoclidus bites");
+
         this.sound(UP2SoundEvents.HYNERPETON_HURT, "Hynerpeton hurts");
         this.sound(UP2SoundEvents.HYNERPETON_DEATH, "Hynerpeton dies");
         this.sound(UP2SoundEvents.HYNERPETON_IDLE, "Hynerpeton croaks");

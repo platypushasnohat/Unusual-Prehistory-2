@@ -210,6 +210,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_STEP = registerSoundEvent("cotylorhynchus_step");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_BURP = registerSoundEvent("cotylorhynchus_burp");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_HURT = registerSoundEvent("cryptoclidus_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_DEATH = registerSoundEvent("cryptoclidus_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_IDLE = registerSoundEvent("cryptoclidus_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_ATTACK = registerSoundEvent("cryptoclidus_attack");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_HURT = registerSoundEvent("hynerpeton_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_DEATH = registerSoundEvent("hynerpeton_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_IDLE = registerSoundEvent("hynerpeton_idle");

@@ -377,6 +377,56 @@
     ],
     "subtitle": "subtitles.cotylorhynchus_step"
   },
+  "cryptoclidus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/cryptoclidus/attack1"
+    ],
+    "subtitle": "subtitles.cryptoclidus_attack"
+  },
+  "cryptoclidus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/cryptoclidus/death1"
+    ],
+    "subtitle": "subtitles.cryptoclidus_death"
+  },
+  "cryptoclidus_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/hurt1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/hurt2",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.cryptoclidus_hurt"
+  },
+  "cryptoclidus_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/idle1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/idle2",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/idle3",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/idle4",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/cryptoclidus/idle5",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.cryptoclidus_idle"
+  },
   "desmatosuchus_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/desmatosuchus/death1"

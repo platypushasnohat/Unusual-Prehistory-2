@@ -772,6 +772,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/burp2")).weight(1)
         );
 
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/hurt1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/hurt2")).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/death1"))
+        );
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/idle3")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/idle4")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/idle5")).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/attack1"))
+        );
+
         this.sound(UP2SoundEvents.HYNERPETON_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt1")).volume(0.5F),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt2")).volume(0.5F)

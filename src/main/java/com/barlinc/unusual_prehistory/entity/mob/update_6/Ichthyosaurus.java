@@ -285,7 +285,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
 
     @Override
     protected float getRiddenSpeed(@NotNull Player controller) {
-        return this.isInWater() ? 0.05F * (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) : 0.0F;
+        return this.isInWater() ? 0.07F * (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) : 0.0F;
     }
 
     @Override

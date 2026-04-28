@@ -76,6 +76,7 @@ public class ModEvents {
         event.put(UP2Entities.AMPYX.get(), Ampyx.createAttributes().build());
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
+        event.put(UP2Entities.CRYPTOCLIDUS.get(), Cryptoclidus.createAttributes().build());
         event.put(UP2Entities.HYNERPETON.get(), Hynerpeton.createAttributes().build());
         event.put(UP2Entities.ICHTHYOSAURUS.get(), Ichthyosaurus.createAttributes().build());
         event.put(UP2Entities.MAMMOTH.get(), Mammoth.createAttributes().build());
