@@ -1,5 +1,6 @@
 {
   "values": [
+    "unusual_prehistory:cryptoclidus",
     "unusual_prehistory:desmatosuchus",
     "unusual_prehistory:lystrosaurus",
     "unusual_prehistory:brachiosaurus",
@@ -15,6 +16,8 @@
     "unusual_prehistory:prognathodon",
     "unusual_prehistory:onchopristis",
     "unusual_prehistory:pachycephalosaurus",
-    "unusual_prehistory:ulughbegsaurus"
+    "unusual_prehistory:ulughbegsaurus",
+    "unusual_prehistory:antarctopelta",
+    "unusual_prehistory:ichthyosaurus"
   ]
 }

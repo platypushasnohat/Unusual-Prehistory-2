@@ -104,11 +104,6 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_COELACANTHUS);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.COELACANTHUS_FOOD);
     }

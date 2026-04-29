@@ -147,11 +147,6 @@
      }
 
      @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_KAPROSUCHUS);
-     }
-
-     @Override
      public boolean refuseToMove() {
          return super.refuseToMove();
      }

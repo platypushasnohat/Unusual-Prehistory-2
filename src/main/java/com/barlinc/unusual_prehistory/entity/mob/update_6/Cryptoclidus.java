@@ -12,10 +12,13 @@ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,14 +39,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class Cryptoclidus extends AmphibiousMob {
 
-    public int biteCooldown = 0;
+    public int attackCooldown = 0;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
 
     public Cryptoclidus(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.switchNavigator(true);
     }
 
@@ -59,14 +60,17 @@ public class Cryptoclidus extends AmphibiousMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
-        this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new SemiAquaticRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 50, 30, 15));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new CryptoclidusAttackGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CRYPTOCLIDUS_FOOD), false));
+        this.goalSelector.addGoal(4, new CryptoclidusLeaveWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new CryptoclidusEnterWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 30, 15));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::canTargetPlayers));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UP2EntityTags.CRYPTOCLIDUS_TARGETS)));
     }
 
     @Override
@@ -78,26 +82,28 @@ public class Cryptoclidus extends AmphibiousMob {
         }
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothAmphibiousPathNavigation(this, level);
-    }
-
     protected void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new PrehistoricMoveControl(this);
             this.lookControl = new PrehistoricLookControl(this);
+            this.navigation = this.createNavigation(this.level());
+            this.setPathfindingMalus(PathType.WATER, 8.0F);
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 8, 0.32F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 5);
+            this.lookControl = new PrehistoricSwimmingLookControl(this, 6);
+            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
+            this.setPathfindingMalus(PathType.WATER, 0.0F);
             this.isLandNavigator = false;
         }
     }
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return this.isInWaterOrBubble() ? MobUtils.getDepthPathfindingFavor(pos, level) : super.getWalkTargetValue(pos, level);
+        if (this.isInWaterOrBubble()) {
+            return this.level().isDay() ? MobUtils.getDepthPathfindingFavor(pos, level) : MobUtils.getSurfacePathfindingFavor(pos, level);
+        }
+        return level.getBlockState(pos).is(BlockTags.SAND) ? 10.0F : super.getWalkTargetValue(pos, level);
     }
 
     @Override
@@ -119,6 +125,10 @@ public class Cryptoclidus extends AmphibiousMob {
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
         this.heal(4);
         return super.killedEntity(level, victim);
+    }
+
+    public boolean canTargetPlayers(LivingEntity target) {
+        return this.canAttack(target) && this.level().isDay();
     }
 
     @Override
@@ -143,17 +153,12 @@ public class Cryptoclidus extends AmphibiousMob {
     @Override
     public void tickCooldowns() {
         super.tickCooldowns();
-        if (biteCooldown > 0) biteCooldown--;
+        if (attackCooldown > 0) attackCooldown--;
     }
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PROGNATHODON_FOOD);
-    }
-
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_PROGNATHODON);
+        return stack.is(UP2ItemTags.CRYPTOCLIDUS_FOOD);
     }
 
     @Override
@@ -188,5 +193,89 @@ public class Cryptoclidus extends AmphibiousMob {
     @Override
     public int getAmbientSoundInterval() {
         return 200;
+    }
+
+    // Goals
+    private static class CryptoclidusAttackGoal extends AttackGoal {
+
+        private final Cryptoclidus cryptoclidus;
+
+        public CryptoclidusAttackGoal(Cryptoclidus cryptoclidus) {
+            super(cryptoclidus);
+            this.cryptoclidus = cryptoclidus;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = cryptoclidus.getTarget();
+            if (target != null) {
+                this.cryptoclidus.lookAt(target, 30F, 30F);
+                this.cryptoclidus.getLookControl().setLookAt(target, 30F, 30F);
+
+                double distance = cryptoclidus.distanceToSqr(target);
+                int attackState = cryptoclidus.getAttackState();
+
+                this.cryptoclidus.getNavigation().moveTo(target, 1.5D);
+
+                if (attackState == 1) {
+                    this.tickAttack();
+                } else if (distance < this.getAttackReachSqr(target) && cryptoclidus.attackCooldown == 0) {
+                    this.cryptoclidus.setAttackState(1);
+                }
+            }
+        }
+
+        protected void tickAttack() {
+            this.timer++;
+            LivingEntity target = cryptoclidus.getTarget();
+            if (timer == 1) {
+                this.cryptoclidus.setPose(UP2Poses.ATTACKING.get());
+                this.cryptoclidus.playSound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK.get(), 1.0F, 0.9F + cryptoclidus.getRandom().nextFloat() * 0.2F);
+            }
+            if (timer == 10) {
+                if (this.isInAttackRange(target, 2.0D)) {
+                    this.cryptoclidus.doHurtTarget(target);
+                    this.cryptoclidus.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 20) {
+                this.timer = 0;
+                this.cryptoclidus.attackCooldown = 5;
+                this.cryptoclidus.setPose(Pose.STANDING);
+                this.cryptoclidus.setAttackState(0);
+            }
+        }
+    }
+
+    private static class CryptoclidusEnterWaterGoal extends EnterWaterGoal {
+
+        public CryptoclidusEnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+            super(amphibiousMob, speedModifier, 100);
+        }
+
+        @Override
+        public boolean canUse() {
+            if (amphibiousMob.level().isNight()) {
+                return false;
+            } else {
+                return super.canUse();
+            }
+        }
+    }
+
+    private static class CryptoclidusLeaveWaterGoal extends LeaveWaterGoal {
+
+        public CryptoclidusLeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+            super(amphibiousMob, speedModifier, 100);
+        }
+
+        @Override
+        public boolean canUse() {
+            if (amphibiousMob.level().isDay()) {
+                return false;
+            } else {
+                return super.canUse();
+            }
+        }
     }
 }

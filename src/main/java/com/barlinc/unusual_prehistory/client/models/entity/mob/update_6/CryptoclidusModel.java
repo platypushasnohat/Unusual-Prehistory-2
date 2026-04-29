@@ -143,22 +143,24 @@ public class CryptoclidusModel extends UP2Model<Cryptoclidus> {
         float deg = ((float) Math.PI / 180);
 
         if (entity.isInWaterOrBubble()) {
-            this.animateWalk(CryptoclidusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            if (entity.isRunning()) this.animateWalk(CryptoclidusAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
+            else this.animateWalk(CryptoclidusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         } else {
             this.animateWalk(CryptoclidusAnimations.LAND_WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, CryptoclidusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, CryptoclidusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
         this.animateIdleSmooth(entity.idleAnimationState, CryptoclidusAnimations.LAND_IDLE, ageInTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.attackAnimationState, CryptoclidusAnimations.BITE_BLEND, ageInTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
-        } else {
-            this.neck.xRot += headPitch * deg / 2;
-            this.neck.yRot += netHeadYaw * deg / 2;
-            this.head.xRot += headPitch * deg / 4;
-            this.head.yRot += netHeadYaw * deg / 4;
         }
+
+        this.neck.xRot += headPitch * deg / 3;
+        this.neck.yRot += netHeadYaw * deg / 3;
+        this.head.xRot += headPitch * deg / 6;
+        this.head.yRot += netHeadYaw * deg / 6;
 
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.2F);

@@ -2,20 +2,24 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 
-public class LeaveWaterGoal extends MoveToBlockGoal {
+public class LeaveWaterGoal extends Goal {
 
     protected final AmphibiousMob amphibiousMob;
-    private final int maxTimeInWater;
+    protected final int maxTimeInWater;
+    private final double speedModifier;
+    private BlockPos landPos;
 
     public LeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
         this(amphibiousMob, speedModifier, 6000);
     }
 
     public LeaveWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeInWater) {
-        super(amphibiousMob, speedModifier, 16);
+        this.speedModifier = speedModifier;
         this.amphibiousMob = amphibiousMob;
         this.maxTimeInWater = maxTimeInWater;
     }
@@ -27,7 +31,7 @@ public class LeaveWaterGoal extends MoveToBlockGoal {
         } else if (amphibiousMob.getTimeInWater() < maxTimeInWater) {
             return false;
         }
-        return super.canUse();
+        return this.findLandPos();
     }
 
     @Override
@@ -36,8 +40,31 @@ public class LeaveWaterGoal extends MoveToBlockGoal {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.above()).isAir() && level.getBlockState(pos).isSolid();
+    public void start() {
+        this.amphibiousMob.getNavigation().moveTo(landPos.getX(), landPos.getY(), landPos.getZ(), speedModifier);
+    }
+
+    @Override
+    public void tick() {
+        if (amphibiousMob.horizontalCollision && amphibiousMob.isInWater()) {
+            float f1 = amphibiousMob.getYRot() * ((float) Math.PI / 180F);
+            this.amphibiousMob.setDeltaMovement(amphibiousMob.getDeltaMovement().add(-Mth.sin(f1) * 0.2F, 0.2D, Mth.cos(f1) * 0.2F));
+        }
+    }
+
+    private boolean findLandPos() {
+        RandomSource random = amphibiousMob.getRandom();
+        Level level = amphibiousMob.level();
+        BlockPos original = amphibiousMob.blockPosition();
+        BlockPos.MutableBlockPos mutable = original.mutable();
+
+        for (int i = 0; i < 10; i++) {
+            mutable.move(random.nextInt(20) - 10, 1 + random.nextInt(6), random.nextInt(20) - 10);
+            if (level.getBlockState(mutable).isSolidRender(level, mutable) && level.getBlockState(mutable.above()).isAir() && mutable.getY() >= original.getY()) {
+                this.landPos = mutable.immutable();
+                return true;
+            }
+        }
+        return false;
     }
 }

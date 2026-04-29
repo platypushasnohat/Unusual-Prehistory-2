@@ -32,6 +32,7 @@
 - Changed Kimmeridgebrachypteraeschnidium flight ai to be more insect like
 - Made Living Ooze gestation time always 10 minutes instead of randomized
 - Added Jade compat for some mobs and blocks
+- Removed mob pacify item tags, now just uses their food tag instead
 - Tons of misc tweaks and fixes
 
 ## Version 1.4.3

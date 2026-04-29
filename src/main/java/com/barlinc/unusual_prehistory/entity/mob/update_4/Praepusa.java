@@ -167,11 +167,6 @@
      }
 
      @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_PRAEPUSA);
-     }
-
-     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.PRAEPUSA_FOOD);
      }

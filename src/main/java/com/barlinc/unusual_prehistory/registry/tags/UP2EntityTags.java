@@ -56,8 +56,6 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> COELACANTHUS_ALWAYS_EATS = modEntityTag("coelacanthus_always_eats");
 
     // Update 5
-    public static final TagKey<EntityType<?>> PROGNATHODON_TARGETS = modEntityTag("prognathodon_targets");
-    public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
     public static final TagKey<EntityType<?>> PSILOPTERUS_KICK_TARGETS = modEntityTag("psilopterus_kick_targets");
     public static final TagKey<EntityType<?>> MEDIUM_PSILOPTERUS_PACK_TARGETS = modEntityTag("medium_psilopterus_pack_targets");
     public static final TagKey<EntityType<?>> LARGE_PSILOPTERUS_PACK_TARGETS = modEntityTag("large_psilopterus_pack_targets");
@@ -65,6 +63,11 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> PALEOZOIC_MOBS = modEntityTag("paleozoic_mobs");
     public static final TagKey<EntityType<?>> MESOZOIC_MOBS = modEntityTag("mesozoic_mobs");
     public static final TagKey<EntityType<?>> CENOZOIC_MOBS = modEntityTag("cenozoic_mobs");
+
+    // Update 6
+    public static final TagKey<EntityType<?>> CRYPTOCLIDUS_TARGETS = modEntityTag("cryptoclidus_targets");
+    public static final TagKey<EntityType<?>> PROGNATHODON_TARGETS = modEntityTag("prognathodon_targets");
+    public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
 
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);

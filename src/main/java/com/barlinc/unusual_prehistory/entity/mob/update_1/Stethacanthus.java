@@ -76,11 +76,6 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_STETHACANTHUS);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.STETHACANTHUS_FOOD);
     }

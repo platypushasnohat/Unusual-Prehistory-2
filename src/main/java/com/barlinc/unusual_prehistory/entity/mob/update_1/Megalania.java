@@ -250,11 +250,6 @@ public class Megalania extends AmphibiousMob {
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_MEGALANIA);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
     }

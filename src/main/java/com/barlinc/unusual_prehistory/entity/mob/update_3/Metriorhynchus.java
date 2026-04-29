@@ -178,11 +178,6 @@
      }
 
      @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_METRIORHYNCHUS);
-     }
-
-     @Override
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);

@@ -259,11 +259,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
         return true;
     }
 
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_DUNKLEOSTEUS);
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

@@ -215,11 +215,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_PROGNATHODON);
-    }
-
-    @Override
     public boolean canPacify() {
         return true;
     }

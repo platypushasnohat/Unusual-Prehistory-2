@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.CryptoclidusModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.CryptoclidusGlowLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Cryptoclidus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;
@@ -16,10 +17,11 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class CryptoclidusRenderer extends MobRenderer<Cryptoclidus, CryptoclidusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/cryptoclidus.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/cryptoclidus/cryptoclidus.png");
 
     public CryptoclidusRenderer(EntityRendererProvider.Context context) {
         super(context, new CryptoclidusModel(context.bakeLayer(UP2ModelLayers.CRYPTOCLIDUS)), 0.5F);
+        this.addLayer(new CryptoclidusGlowLayer(this));
     }
 
     @Override

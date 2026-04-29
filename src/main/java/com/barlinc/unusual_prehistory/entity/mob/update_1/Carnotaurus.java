@@ -170,11 +170,6 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_CARNOTAURUS);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.CARNOTAURUS_FOOD);
     }

@@ -148,10 +148,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         // Update 5
-        this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
-                EntityType.TURTLE, EntityType.DOLPHIN
-        );
-
         this.tag(UP2EntityTags.PSILOPTERUS_KICK_TARGETS).add(
                 EntityType.CHICKEN, EntityType.RABBIT, EntityType.SLIME, EntityType.MAGMA_CUBE,
                 PRAEPUSA.get(), LYSTROSAURUS.get(), TALPANAS.get(), LIVING_OOZE.get()
@@ -164,10 +160,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.LLAMA, EntityType.HORSE, EntityType.CAMEL
         );
 
-        this.tag(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS).add(
-                PROGNATHODON.get()
-        );
-
         this.tag(UP2EntityTags.PALEOZOIC_MOBS).add(
                 AEGIROCASSIS.get(),
                 DUNKLEOSTEUS.get(),
@@ -178,10 +170,13 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 HIBBERTOPTERUS.get(),
                 LOBE_FINNED_FISH.get(),
                 COELACANTHUS.get(),
-                LYSTROSAURUS.get()
+                LYSTROSAURUS.get(),
+                COTYLORHYNCHUS.get(),
+                HYNERPETON.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(
+                CRYPTOCLIDUS.get(),
                 DESMATOSUCHUS.get(),
                 LYSTROSAURUS.get(),
                 BRACHIOSAURUS.get(),
@@ -197,7 +192,9 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 PROGNATHODON.get(),
                 ONCHOPRISTIS.get(),
                 PACHYCEPHALOSAURUS.get(),
-                ULUGHBEGSAURUS.get()
+                ULUGHBEGSAURUS.get(),
+                ANTARCTOPELTA.get(),
+                ICHTHYOSAURUS.get()
         );
 
         this.tag(UP2EntityTags.CENOZOIC_MOBS).add(
@@ -206,7 +203,20 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 TELECREX.get(),
                 PRAEPUSA.get(),
                 MEGALANIA.get(),
-                TALPANAS.get()
+                TALPANAS.get(),
+                MAMMOTH.get()
+        );
+
+        // Update 6
+        this.tag(UP2EntityTags.CRYPTOCLIDUS_TARGETS).add(
+                EntityType.SQUID, EntityType.GLOW_SQUID, EntityType.COD, EntityType.TROPICAL_FISH
+        );
+
+        this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
+                EntityType.TURTLE, EntityType.DOLPHIN
+        );
+        this.tag(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS).add(
+                PROGNATHODON.get()
         );
 
         // Minecraft

@@ -18,12 +18,12 @@ public class MobUtils {
 
     public static float getDepthPathfindingFavor(BlockPos pos, LevelReader world) {
         int y = pos.getY() + Math.abs(world.getMinBuildHeight());
-        return 1.0F / (float)(y == 0 ? 1 : y);
+        return 1.0F / (float) (y == 0 ? 1 : y);
     }
 
     public static float getSurfacePathfindingFavor(BlockPos pos, LevelReader world) {
         int y = Math.abs(world.getMaxBuildHeight()) - pos.getY();
-        return 1.0F / (float)(y == 0 ? 1 : y);
+        return 1.0F / (float) (y == 0 ? 1 : y);
     }
 
     public static void travelInWater(PathfinderMob mob, Vec3 travelVector) {
