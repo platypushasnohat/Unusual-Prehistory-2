@@ -44,6 +44,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     public Telecrex(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
+        this.switchNavigator(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

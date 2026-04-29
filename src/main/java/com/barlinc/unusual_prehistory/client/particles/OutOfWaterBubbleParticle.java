@@ -7,9 +7,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class OozeBubbleParticle extends TextureSheetParticle {
+public class OutOfWaterBubbleParticle extends TextureSheetParticle {
 
-    protected OozeBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    protected OutOfWaterBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(level, x, y, z);
         this.setSize(0.02F, 0.02F);
         this.quadSize = this.quadSize * (0.6F + (this.random.nextFloat() * 0.1F));
@@ -41,16 +41,11 @@ public class OozeBubbleParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
+    public record Provider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
 
-        private final SpriteSet sprites;
-
-        public Provider(SpriteSet sprites) {
-            this.sprites = sprites;
-        }
-
+        @Override
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            OozeBubbleParticle bubbleParticle = new OozeBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
+            OutOfWaterBubbleParticle bubbleParticle = new OutOfWaterBubbleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
             bubbleParticle.pickSprite(this.sprites);
             return bubbleParticle;
         }

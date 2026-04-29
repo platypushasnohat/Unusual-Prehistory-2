@@ -51,7 +51,7 @@ public class KimmeridgebrachypteraeschnidiumSound extends AbstractTickableSoundI
 
     @Override
     public boolean canPlaySound() {
-        return !this.entity.isSilent() && this.entity.isAlive();
+        return !this.entity.isSilent() && this.entity.isAlive() && !this.entity.isBaby();
     }
 
     public boolean isSameEntity(Kimmeridgebrachypteraeschnidium entity) {

@@ -36,7 +36,7 @@ public class EnterWaterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && !amphibiousMob.isInWater() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
+        return !amphibiousMob.getNavigation().isDone() && !amphibiousMob.isInWater() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
     }
 
     @Override

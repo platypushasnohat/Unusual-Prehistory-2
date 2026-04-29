@@ -40,6 +40,7 @@ import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -98,7 +99,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
             }
         });
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD), false));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 16, 8));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 16, 8, 3, true));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 50, false, false, this::canAttackEverything));
@@ -157,7 +158,15 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
             } else {
                 return InteractionResult.CONSUME;
             }
-        } else {
+        } else if (itemstack.is(Items.ROTTEN_FLESH) && !this.isZombie() && player.isCreative()) {
+            itemstack.consume(1, player);
+            if (!this.level().isClientSide) {
+                this.setZombie(true);
+                this.playSound(this.getEatingSound());
+            }
+            return InteractionResult.SUCCESS;
+        }
+        else {
             return super.mobInteract(player, hand);
         }
     }
@@ -178,7 +187,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity entity) {
         boolean flag = super.killedEntity(level, entity);
-        if (this.isZombie()) {
+        if (this.isZombie() && this.isAlive()) {
             if (entity instanceof SpikeToothedSalmon salmon) {
                 SpikeToothedSalmon zombieSalmon = salmon.convertTo(UP2Entities.SPIKE_TOOTHED_SALMON.get(), false);
                 if (zombieSalmon != null) {
@@ -246,7 +255,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
         if (attackCooldown > 0 && !this.level().isClientSide) {
             this.attackCooldown--;
         }
-        if (this.isZombie() && this.isConverting()) {
+        if (this.isZombie() && this.isConverting() && this.isAlive()) {
             if (this.getConversionTime() > 0) {
                 this.setConversionTime(this.getConversionTime() - 1);
             } else {
@@ -267,10 +276,13 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     private void finishConversion() {
         this.setConverting(false);
         this.setZombie(false);
-        this.setTarget(null);
-        this.setLastHurtByMob(null);
-        this.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
         if (!this.level().isClientSide) {
+            this.setTarget(null);
+            this.setLastHurtByMob(null);
+            for (Mob mob : this.level().getEntitiesOfClass(Mob.class, this.getBoundingBox().inflate(8.0D), entity -> entity.getTarget() == this)) {
+                mob.setTarget(null);
+            }
+            this.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
             this.level().broadcastEntityEvent(this, CONVERT);
         }
     }
@@ -445,7 +457,10 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
             else {
                 this.setVariant(SpikeToothedSalmonVariant.GOLDEN);
             }
-            this.setZombie(true);
+
+            if (spawnType != MobSpawnType.SPAWN_EGG) {
+                this.setZombie(true);
+            }
         }
         return spawnGroupData;
     }
@@ -493,7 +508,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
             if (timer == 1) salmon.setPose(UP2Poses.ATTACKING.get());
             if (timer == 4) salmon.playSound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_ATTACK.get(), 1.0F, 0.9F + salmon.getRandom().nextFloat() * 0.2F);
             if (timer == 6) {
-                if (this.isInAttackRange(target, 1.5D)) {
+                if (this.isInAttackRange(target, 1.5D) && target != null) {
                     this.salmon.doHurtTarget(target);
                     this.salmon.swing(InteractionHand.MAIN_HAND);
                 }

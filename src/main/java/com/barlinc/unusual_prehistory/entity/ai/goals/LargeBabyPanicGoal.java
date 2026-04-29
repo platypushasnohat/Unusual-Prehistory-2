@@ -4,11 +4,16 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 
 public class LargeBabyPanicGoal extends LargePanicGoal {
 
-    protected final PrehistoricMob prehistoricMob;
+    public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier) {
+        this(mob, speedModifier, 10, 4, false);
+    }
 
     public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
-        super(mob, speedModifier, radius, height);
-        this.prehistoricMob = mob;
+        this(mob, speedModifier, radius, height, false);
+    }
+
+    public LargeBabyPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height, boolean shouldEscapeToWater) {
+        super(mob, speedModifier, radius, height, shouldEscapeToWater);
     }
 
     @Override

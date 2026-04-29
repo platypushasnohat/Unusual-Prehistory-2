@@ -71,6 +71,7 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
     public Pterodactylus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.LEAVES, 0.0F);
+        this.switchNavigator(true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

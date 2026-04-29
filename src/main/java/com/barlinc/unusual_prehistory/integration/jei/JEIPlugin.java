@@ -1,12 +1,12 @@
 package com.barlinc.unusual_prehistory.integration.jei;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.inventory.TransmogrifierMenu;
+import com.barlinc.unusual_prehistory.client.inventory.TransmogrifierScreen;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
-import com.barlinc.unusual_prehistory.screens.TransmogrifierMenu;
-import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;

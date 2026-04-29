@@ -1,7 +1,9 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumWingLayer;
@@ -24,10 +26,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
+public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeridgebrachypteraeschnidium, UP2Model<Kimmeridgebrachypteraeschnidium>> {
+
+    private static final ResourceLocation NYMPH_TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/nymph.png");
+
+    private final KimmeridgebrachypteraeschnidiumModel adultModel;
+    private final KimmeridgebrachypteraeschnidiumNymphModel babyModel;
 
     public KimmeridgebrachypteraeschnidiumRenderer(EntityRendererProvider.Context context) {
         super(context, new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYPTERAESCHNIDIUM)), 0.3F);
+        this.adultModel = new KimmeridgebrachypteraeschnidiumModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYPTERAESCHNIDIUM));
+        this.babyModel = new KimmeridgebrachypteraeschnidiumNymphModel(context.bakeLayer(UP2ModelLayers.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH));
         this.addLayer(new KimmeridgebrachypteraeschnidiumBaseLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumPatternLayer(this));
         this.addLayer(new KimmeridgebrachypteraeschnidiumWingLayer(this));
@@ -35,11 +44,16 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends MobRenderer<Kimmeri
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Kimmeridgebrachypteraeschnidium entity) {
-        return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
+        if (entity.isBaby()) {
+            return NYMPH_TEXTURE;
+        } else {
+            return UnusualPrehistory2.modPrefix("textures/entity/mob/kimmeridgebrachypteraeschnidium/base/base_" + entity.getBaseColor() + ".png");
+        }
     }
 
     @Override
     public void render(Kimmeridgebrachypteraeschnidium entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+        this.model = entity.isBaby() ? babyModel : adultModel;
         if (!entity.isInvisible()) {
             poseStack.pushPose();
             if (entity.isAttachedToFace()) {

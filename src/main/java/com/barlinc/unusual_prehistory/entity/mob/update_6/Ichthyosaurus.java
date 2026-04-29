@@ -82,7 +82,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
         this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.8D, 0.9D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ICHTHYOSAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new SwimWithPlayerGoal(this));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 30, 15));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new PrehistoricFollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));

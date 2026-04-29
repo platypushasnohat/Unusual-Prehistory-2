@@ -27,9 +27,9 @@ public class TransmogrificationRecipeBuilder implements RecipeBuilder {
     private final int processingTime;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    private final TransmogrificationRecipe.Factory<?> factory;
+    private final TransmogrificationRecipe.Factory factory;
 
-    private TransmogrificationRecipeBuilder(ItemStack result, Ingredient ingredient, float experience, int processingTime, TransmogrificationRecipe.Factory<?> factory) {
+    private TransmogrificationRecipeBuilder(ItemStack result, Ingredient ingredient, float experience, int processingTime, TransmogrificationRecipe.Factory factory) {
         this.result = result.getItem();
         this.stackResult = result;
         this.ingredient = ingredient;

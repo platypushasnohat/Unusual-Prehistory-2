@@ -7,19 +7,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class EepyParticle extends TextureSheetParticle {
 
-    private final SpriteSet spriteProvider;
-    private float sinOffset;
-    private float cosOffset;
-    private float rotationDirection;
-    private float initialX;
-    private float initialZ;
+    private final float sinOffset;
+    private final float cosOffset;
+    private final float rotationDirection;
+    private final float initialX;
+    private final float initialZ;
 
     EepyParticle(ClientLevel world, double x, double y, double z, SpriteSet spriteProvider) {
         super(world, x, y, z);
-        this.spriteProvider = spriteProvider;
         this.gravity = -0.06F;
         this.lifetime = 40;
         this.sinOffset = this.random.nextFloat();
@@ -31,7 +30,7 @@ public class EepyParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
+    public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
@@ -46,6 +45,7 @@ public class EepyParticle extends TextureSheetParticle {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected int getLightColor(float f) {
         BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
         if (this.level.hasChunkAt(blockPos)) {
@@ -58,8 +58,8 @@ public class EepyParticle extends TextureSheetParticle {
     public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 
         @Override
-        public Particle createParticle(SimpleParticleType defaultParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new EepyParticle(clientWorld, d, e, f, this.spriteProvider);
+        public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new EepyParticle(level, x, y, z, this.spriteProvider);
         }
     }
 }

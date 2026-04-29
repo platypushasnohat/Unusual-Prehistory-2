@@ -319,7 +319,7 @@ public class Desmatosuchus extends PrehistoricMob {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 39) {
-            this.washEffect(UP2Particles.POPPING_BUBBLE.get());
+            this.washEffect(UP2Particles.OUT_OF_WATER_BUBBLE.get());
         } else if (id == 67) {
             this.washEffect(ParticleTypes.FLAME);
         } else {

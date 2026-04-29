@@ -1015,28 +1015,6 @@
     ],
     "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_loop"
   },
-  "kimmeridgebrachypteraeschnidium_nymph_death": {
-    "sounds": [
-      {
-        "name": "unusual_prehistory:entity/mob/kimmeridgebrachypteraeschnidium/death1",
-        "pitch": 1.5
-      }
-    ],
-    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_death"
-  },
-  "kimmeridgebrachypteraeschnidium_nymph_hurt": {
-    "sounds": [
-      {
-        "name": "unusual_prehistory:entity/mob/kimmeridgebrachypteraeschnidium/hurt1",
-        "pitch": 2.0
-      },
-      {
-        "name": "unusual_prehistory:entity/mob/kimmeridgebrachypteraeschnidium/hurt2",
-        "pitch": 2.0
-      }
-    ],
-    "subtitle": "subtitles.kimmeridgebrachypteraeschnidium_nymph_hurt"
-  },
   "large_dunkleosteus_bite": {
     "sounds": [
       "unusual_prehistory:entity/mob/dunkleosteus/large_bite1"

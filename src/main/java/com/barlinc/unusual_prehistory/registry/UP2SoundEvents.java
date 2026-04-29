@@ -48,9 +48,6 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP = registerSoundEvent("kimmeridgebrachypteraeschnidium_loop");
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH = registerSoundEvent("kimmeridgebrachypteraeschnidium_nymph_death");
-
     public static final DeferredHolder<SoundEvent, SoundEvent> JAWLESS_FISH_HURT = registerSoundEvent("jawless_fish_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> JAWLESS_FISH_DEATH = registerSoundEvent("jawless_fish_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> JAWLESS_FISH_FLOP = registerSoundEvent("jawless_fish_flop");

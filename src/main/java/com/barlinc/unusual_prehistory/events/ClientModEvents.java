@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.inventory.TransmogrifierScreen;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusDwarfModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.diplocaulus.DiplocaulusMuddyModel;
@@ -39,7 +40,6 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.AmpyxRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.SetapeditesRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
-import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.item.BlockItem;
@@ -74,14 +74,14 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_GINKGO_LEAVES.get(), FallingLeafParticle.GinkgoProvider::new);
         event.registerSpriteSet(UP2Particles.EEPY.get(), EepyParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OozeBubbleParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), TarBubbleParticle.TarBubbleFactory::new);
+        event.registerSpriteSet(UP2Particles.OOZE_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.TAR_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.GOLDEN_HEART.get(), GrowingHeartParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SNOWFLAKE.get(), SnowflakeParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.IMPACT_STUN.get(), ImpactStunParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.POPPING_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
-        event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
-        event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), PoppingBubbleParticle.BubbleFactory::new);
+        event.registerSpriteSet(UP2Particles.OUT_OF_WATER_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent
@@ -94,7 +94,6 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.JAWLESS_FISH.get(), JawlessFishRenderer::new);
         event.registerEntityRenderer(UP2Entities.KENTROSAURUS.get(), KentrosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), KimmeridgebrachypteraeschnidiumRenderer::new);
-        event.registerEntityRenderer(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymphRenderer::new);
         event.registerEntityRenderer(UP2Entities.MAJUNGASAURUS.get(), MajungasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.MEGALANIA.get(), MegalaniaRenderer::new);
         event.registerEntityRenderer(UP2Entities.STETHACANTHUS.get(), StethacanthusRenderer::new);

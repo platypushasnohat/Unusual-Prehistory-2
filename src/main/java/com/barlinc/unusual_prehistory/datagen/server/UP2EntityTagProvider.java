@@ -182,7 +182,6 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 BRACHIOSAURUS.get(),
                 KENTROSAURUS.get(),
                 KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(),
-                KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(),
                 METRIORHYNCHUS.get(),
                 PTERODACTYLUS.get(),
                 CARNOTAURUS.get(),

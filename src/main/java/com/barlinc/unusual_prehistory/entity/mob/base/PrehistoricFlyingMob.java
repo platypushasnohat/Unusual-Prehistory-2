@@ -35,7 +35,6 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
 
     protected PrehistoricFlyingMob(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(true);
     }
 
     public void switchNavigator(boolean onLand) {
@@ -82,7 +81,9 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
     @Override
     public void tick() {
         super.tick();
-        this.tickFlight();
+        if (this.canFly()) {
+            this.tickFlight();
+        }
         this.tickRotation((float) (this.getDeltaMovement().y * 2.0F * -57.295776F));
     }
 

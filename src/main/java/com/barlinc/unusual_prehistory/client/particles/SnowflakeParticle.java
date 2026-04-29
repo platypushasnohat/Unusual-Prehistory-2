@@ -50,12 +50,7 @@ public class SnowflakeParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprite;
-
-        public Provider(SpriteSet pSprite) {
-            this.sprite = pSprite;
-        }
+    public record Provider(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
 
         @Override
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {

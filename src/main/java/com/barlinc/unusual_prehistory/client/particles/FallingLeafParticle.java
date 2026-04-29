@@ -10,21 +10,19 @@ import org.jetbrains.annotations.NotNull;
 public class FallingLeafParticle extends TextureSheetParticle {
 
     private float rotSpeed;
-    private final float particleRandom;
     private final float spinAcceleration;
     private final float windBig;
-    private boolean swirl;
-    private boolean flowAway;
-    private double xaFlowScale;
-    private double zaFlowScale;
-    private double swirlPeriod;
+    private final boolean swirl;
+    private final boolean flowAway;
+    private final double xaFlowScale;
+    private final double zaFlowScale;
+    private final double swirlPeriod;
 
     public FallingLeafParticle(ClientLevel level, double xPos, double yPos, double zPos, SpriteSet sprites, float gravityMultiplier, float windBig, boolean swirl, boolean flowAway, float size, float ySpeed) {
         super(level, xPos, yPos, zPos);
         this.setSprite(sprites.get(this.random.nextInt(12), 12));
-        this.rotSpeed = (float)Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
-        this.particleRandom = this.random.nextFloat();
-        this.spinAcceleration = (float)Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
+        this.rotSpeed = (float) Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
+        this.spinAcceleration = (float) Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
         this.windBig = windBig;
         this.swirl = swirl;
         this.flowAway = flowAway;
@@ -35,9 +33,9 @@ public class FallingLeafParticle extends TextureSheetParticle {
         this.setSize(f, f);
         this.friction = 1.0F;
         this.yd = -ySpeed;
-        this.xaFlowScale = Math.cos(Math.toRadians(this.particleRandom * 60.0F)) * this.windBig;
-        this.zaFlowScale = Math.sin(Math.toRadians(this.particleRandom * 60.0F)) * this.windBig;
-        this.swirlPeriod = Math.toRadians(1000.0F + this.particleRandom * 3000.0F);
+        this.xaFlowScale = Math.cos(Math.toRadians(this.random.nextFloat() * 60.0F)) * this.windBig;
+        this.zaFlowScale = Math.sin(Math.toRadians(this.random.nextFloat() * 60.0F)) * this.windBig;
+        this.swirlPeriod = Math.toRadians(1000.0F + this.random.nextFloat() * 3000.0F);
     }
 
     @Override
@@ -89,13 +87,9 @@ public class FallingLeafParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class GinkgoProvider implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprites;
+    public record GinkgoProvider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
 
-        public GinkgoProvider(SpriteSet sprites) {
-            this.sprites = sprites;
-        }
-
+        @Override
         public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level, double xPos, double yPos, double zPos, double xSpeed, double ySpeed, double zSpeed) {
             return new FallingLeafParticle(level, xPos, yPos, zPos, this.sprites, 0.11F, 10.0F, true, false, 2.0F, 0.023F);
         }

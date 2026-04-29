@@ -302,14 +302,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/loop1")).volume(0.6F).attenuationDistance(8)
         );
 
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt1")).pitch(2.0F),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/hurt2")).pitch(2.0F)
-        );
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/kimmeridgebrachypteraeschnidium/death1")).pitch(1.5F)
-        );
-
         // Leptictidium
         this.sound(UP2SoundEvents.LEPTICTIDIUM_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/leptictidium/hurt1")),

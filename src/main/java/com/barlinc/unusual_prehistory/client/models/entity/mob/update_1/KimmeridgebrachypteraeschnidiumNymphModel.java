@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.KimmeridgebrachypteraeschnidiumAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.KimmeridgebrachypteraeschnidiumNymph;
+import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<KimmeridgebrachypteraeschnidiumNymph> {
+public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<Kimmeridgebrachypteraeschnidium> {
 
 	private final ModelPart root;
 	private final ModelPart body_main;
@@ -59,7 +59,7 @@ public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<Kimmerid
 	}
 
 	@Override
-	public void setupAnim(KimmeridgebrachypteraeschnidiumNymph entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animateWalk(KimmeridgebrachypteraeschnidiumAnimations.NYMPH_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         this.animateIdleSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.NYMPH_IDLE, ageInTicks, limbSwingAmount);

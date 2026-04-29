@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
-import com.barlinc.unusual_prehistory.recipes.TransmogrificationSerializer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,7 +16,7 @@ public class UP2Recipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, UnusualPrehistory2.MOD_ID);
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<TransmogrificationRecipe>> TRANSMOGRIFICATION = RECIPE_TYPES.register("transmogrification", () -> new SimpleNamedRecipeType<>("transmogrification"));
-    public static final DeferredHolder<RecipeSerializer<?>, TransmogrificationSerializer<TransmogrificationRecipe>> TRANSMOGRIFICATION_SERIALIZER = RECIPE_SERIALIZERS.register("transmogrification", () -> new TransmogrificationSerializer<>(TransmogrificationRecipe::new));
+    public static final DeferredHolder<RecipeSerializer<?>, TransmogrificationRecipe.Serializer> TRANSMOGRIFICATION_SERIALIZER = RECIPE_SERIALIZERS.register("transmogrification", () -> new TransmogrificationRecipe.Serializer(TransmogrificationRecipe::new));
 
     public record SimpleNamedRecipeType<T extends Recipe<?>>(String name) implements RecipeType<T> {
         @Override

@@ -67,7 +67,7 @@ public class Cryptoclidus extends AmphibiousMob {
         this.goalSelector.addGoal(4, new CryptoclidusLeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new CryptoclidusEnterWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 30, 15));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));

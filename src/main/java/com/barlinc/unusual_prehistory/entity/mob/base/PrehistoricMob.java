@@ -61,7 +61,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Boolean> FOREVER_BABY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> AGE_LOCKED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> SIT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> EEPY_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
@@ -223,7 +223,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
         if (this.isForeverBabyItem(itemstack) && this.isBaby()) {
             this.feedItemToMob(player, hand, itemstack);
-            this.setForeverBaby(true);
+            this.setAgeLocked(true);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
@@ -355,7 +355,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
             }
         }
 
-        if (this.isForeverBaby() && this.isBaby()) {
+        if (this.isAgeLocked() && this.isBaby()) {
             this.setAge(-24000);
         }
 
@@ -721,7 +721,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         builder.define(RUNNING, false);
         builder.define(IDLE_STATE, 0);
         builder.define(EAT_COOLDOWN, 600 + random.nextInt(600 * 4));
-        builder.define(FOREVER_BABY, false);
+        builder.define(AGE_LOCKED, false);
         builder.define(SIT_COOLDOWN, 3000 + random.nextInt(3000));
         builder.define(EEPY_COOLDOWN, 100);
         builder.define(COMMAND, 0);
@@ -736,7 +736,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
-        compoundTag.putBoolean("ForeverBaby", this.isForeverBaby());
+        compoundTag.putBoolean("AgeLocked", this.isAgeLocked());
         compoundTag.putInt("SitCooldown", this.getSitCooldown());
         compoundTag.putInt("EepyCooldown", this.getEepyCooldown());
         compoundTag.putInt("Command", this.getCommand());
@@ -751,7 +751,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
-        this.setForeverBaby(compoundTag.getBoolean("ForeverBaby"));
+        this.setAgeLocked(compoundTag.getBoolean("AgeLocked"));
         this.setSitCooldown(compoundTag.getInt("SitCooldown"));
         this.setEepyCooldown(compoundTag.getInt("EepyCooldown"));
         this.setCommand(compoundTag.getInt("Command"));
@@ -835,12 +835,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     // Never grows up
-    public boolean isForeverBaby() {
-        return this.entityData.get(FOREVER_BABY);
+    public boolean isAgeLocked() {
+        return this.entityData.get(AGE_LOCKED);
     }
 
-    public void setForeverBaby(boolean foreverBaby) {
-        this.entityData.set(FOREVER_BABY, foreverBaby);
+    public void setAgeLocked(boolean ageLocked) {
+        this.entityData.set(AGE_LOCKED, ageLocked);
     }
 
     // Sitting

@@ -112,9 +112,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
 
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
-
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
@@ -625,6 +622,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
 
         // Jade
+        this.add("unusual_prehistory.jade.prehistoric_mob.age_locked", "Age Locked");
         this.add("unusual_prehistory.jade.prehistoric_mob.pacified", "Pacified");
         this.add("unusual_prehistory.jade.prehistoric_mob.pacified_time", "Pacified time: %s");
         this.add("unusual_prehistory.jade.living_ooze.gestation_time", "Gestation time: %s");

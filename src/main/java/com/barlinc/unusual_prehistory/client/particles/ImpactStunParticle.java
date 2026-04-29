@@ -51,6 +51,7 @@ public class ImpactStunParticle extends TextureSheetParticle {
 
     @OnlyIn(Dist.CLIENT)
     public record Provider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
+
         @Override
         public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double zSpeed, double ySpeed) {
             ImpactStunParticle particle = new ImpactStunParticle(level, x, y, z, xSpeed, zSpeed, ySpeed, sprites);

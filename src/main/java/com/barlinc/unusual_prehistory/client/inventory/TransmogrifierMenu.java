@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.screens;
+package com.barlinc.unusual_prehistory.client.inventory;
 
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;

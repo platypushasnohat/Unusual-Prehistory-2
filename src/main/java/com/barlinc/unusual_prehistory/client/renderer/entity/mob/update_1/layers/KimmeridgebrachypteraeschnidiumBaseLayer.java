@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.KimmeridgebrachypteraeschnidiumRenderer;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.utils.ColorUtils;
@@ -19,9 +19,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> {
+public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmeridgebrachypteraeschnidium, UP2Model<Kimmeridgebrachypteraeschnidium>> {
 
-    public KimmeridgebrachypteraeschnidiumBaseLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, KimmeridgebrachypteraeschnidiumModel> renderer) {
+    public KimmeridgebrachypteraeschnidiumBaseLayer(RenderLayerParent<Kimmeridgebrachypteraeschnidium, UP2Model<Kimmeridgebrachypteraeschnidium>> renderer) {
         super(renderer);
     }
 
@@ -31,7 +31,7 @@ public class KimmeridgebrachypteraeschnidiumBaseLayer extends RenderLayer<Kimmer
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!entity.isInvisible()) {
+        if (!entity.isInvisible() && !entity.isBaby()) {
             ResourceLocation resourceLocation = this.baseTextures(entity);
             renderTranslucentModel(this.getParentModel(), resourceLocation, poseStack, bufferSource, packedLight, partialTicks, entity);
         }

@@ -45,13 +45,9 @@ public class GrowingHeartParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprite;
+    public record Provider(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
 
-        public Provider(SpriteSet pSprites) {
-            this.sprite = pSprites;
-        }
-
+        @Override
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             GrowingHeartParticle heartParticle = new GrowingHeartParticle(level, x, y, z);
             heartParticle.pickSprite(this.sprite);

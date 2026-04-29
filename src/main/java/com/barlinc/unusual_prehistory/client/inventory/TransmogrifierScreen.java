@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.screens;
+package com.barlinc.unusual_prehistory.client.inventory;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.mojang.blaze3d.systems.RenderSystem;
