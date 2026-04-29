@@ -133,9 +133,12 @@ public class UP2ItemTags {
     public static final TagKey<Item> ICHTHYOSAURUS_FOOD = modItemTag("ichthyosaurus_food");
     public static final TagKey<Item> MAMMOTH_FOOD = modItemTag("mammoth_food");
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+    public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
 
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
+
+    public static final TagKey<Item> CURES_SPIKE_TOOTHED_SALMON = modItemTag("cures_spike_toothed_salmon");
 
     private static TagKey<Item> modItemTag(String name) {
         return itemTag(UnusualPrehistory2.MOD_ID, name);

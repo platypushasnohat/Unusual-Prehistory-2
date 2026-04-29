@@ -427,6 +427,27 @@
     ],
     "subtitle": "subtitles.cryptoclidus_idle"
   },
+  "cryptoclidus_step": {
+    "sounds": [
+      {
+        "name": "mob/frog/step1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.cryptoclidus_step"
+  },
   "desmatosuchus_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/desmatosuchus/death1"
@@ -1776,6 +1797,110 @@
       }
     ],
     "subtitle": "subtitles.small_dunkleosteus_bite"
+  },
+  "spike_toothed_salmon_attack": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/stethacanthus/bite1",
+        "pitch": 0.8,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_attack"
+  },
+  "spike_toothed_salmon_convert": {
+    "sounds": [
+      {
+        "name": "mob/zombie/unfect",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_convert"
+  },
+  "spike_toothed_salmon_cure": {
+    "sounds": [
+      {
+        "name": "mob/zombie/remedy",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_cure"
+  },
+  "spike_toothed_salmon_death": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_death"
+  },
+  "spike_toothed_salmon_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "pitch": 0.9,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/fish/flop2",
+        "pitch": 0.9,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/fish/flop3",
+        "pitch": 0.9,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/fish/flop4",
+        "pitch": 0.9,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_flop"
+  },
+  "spike_toothed_salmon_hurt": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.9
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.9
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.9
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_hurt"
+  },
+  "spike_toothed_salmon_infect": {
+    "sounds": [
+      {
+        "name": "mob/zombie/infect",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.spike_toothed_salmon_infect"
   },
   "stethacanthus_bite": {
     "sounds": [

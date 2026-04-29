@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_praepusa",
+  "criteria": {
+    "revive_spike_toothed_salmon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:spike_toothed_salmon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_spike_toothed_salmon.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:spike_toothed_salmon_roe"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_spike_toothed_salmon.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_spike_toothed_salmon"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

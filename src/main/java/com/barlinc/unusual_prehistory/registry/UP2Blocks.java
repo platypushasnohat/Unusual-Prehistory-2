@@ -200,20 +200,13 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> DELITZSCHALA_STALK = registerBlock("delitzschala_stalk", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
 
     // Update 6
+    public static final DeferredBlock<Block> SPIKE_TOOTHED_SALMON_ROE = registerEggBlockNoLang("spike_toothed_salmon_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.SPIKE_TOOTHED_SALMON::get, 2));
+
     public static final DeferredBlock<Block> NEEDLE_LITTER = registerBlock("needle_litter", ()-> new NeedleLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final DeferredBlock<Block> PEAT = registerBlock("peat", ()-> new PeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD)));
     public static final DeferredBlock<Block> LIVING_PEAT = registerBlock("living_peat", ()-> new LivingPeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(UP2SoundTypes.LIVING_PEAT)));
 
     public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
-
-    public static final DeferredBlock<Block> PALEOZOIC_MATRIX = registerBlock("paleozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
-    public static final DeferredBlock<Block> PALEOZOIC_MATRIX_FOSSIL = registerBlock("paleozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
-
-    public static final DeferredBlock<Block> MESOZOIC_MATRIX = registerBlock("mesozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
-    public static final DeferredBlock<Block> MESOZOIC_MATRIX_FOSSIL = registerBlock("mesozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
-
-    public static final DeferredBlock<Block> CENOZOIC_MATRIX = registerBlock("cenozoic_matrix", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
-    public static final DeferredBlock<Block> CENOZOIC_MATRIX_FOSSIL = registerBlock("cenozoic_matrix_fossil", ()-> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.PACKED_MUD)));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
@@ -242,6 +235,13 @@ public class UP2Blocks {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         BLOCK_TRANSLATIONS.add(block);
+        EGG_BLOCKS.add(block);
+        return block;
+    }
+
+    private static <B extends Block> DeferredBlock<B> registerEggBlockNoLang(String name, Supplier<B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         EGG_BLOCKS.add(block);
         return block;
     }

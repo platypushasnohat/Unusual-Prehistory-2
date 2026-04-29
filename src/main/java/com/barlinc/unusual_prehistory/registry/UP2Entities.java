@@ -99,6 +99,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Mammoth>> MAMMOTH = registerEntity("mammoth", Mammoth::new, MobCategory.CREATURE, builder -> builder.sized(3.6F, 4.9F).eyeHeight(4.7F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Prognathodon>> PROGNATHODON = registerEntity("prognathodon", Prognathodon::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.8F, 2.3F).eyeHeight(1.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Setapedites>> SETAPEDITES = registerEntity("setapedites", Setapedites::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.2F).eyeHeight(0.1F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<SpikeToothedSalmon>> SPIKE_TOOTHED_SALMON = registerEntityNoLang("spike_toothed_salmon", SpikeToothedSalmon::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.3F, 1.3F).eyeHeight(0.65F).clientTrackingRange(10));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);

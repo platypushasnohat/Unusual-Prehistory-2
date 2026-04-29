@@ -82,5 +82,6 @@ public class ModEvents {
         event.put(UP2Entities.MAMMOTH.get(), Mammoth.createAttributes().build());
         event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());
         event.put(UP2Entities.SETAPEDITES.get(), Setapedites.createAttributes().build());
+        event.put(UP2Entities.SPIKE_TOOTHED_SALMON.get(), SpikeToothedSalmon.createAttributes().build());
     }
 }

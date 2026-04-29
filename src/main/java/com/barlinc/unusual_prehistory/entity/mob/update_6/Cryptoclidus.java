@@ -32,7 +32,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +54,7 @@ public class Cryptoclidus extends AmphibiousMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F)
+                .add(Attributes.MOVEMENT_SPEED, 0.15F)
                 .add(Attributes.ATTACK_DAMAGE, 6.0F)
                 .add(Attributes.STEP_HEIGHT, 1.1D);
     }
@@ -90,8 +92,8 @@ public class Cryptoclidus extends AmphibiousMob {
             this.setPathfindingMalus(PathType.WATER, 8.0F);
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 8, 0.32F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 6);
+            this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 6, 0.55F);
+            this.lookControl = new PrehistoricSwimmingLookControl(this, 5);
             this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
             this.setPathfindingMalus(PathType.WATER, 0.0F);
             this.isLandNavigator = false;
@@ -129,6 +131,11 @@ public class Cryptoclidus extends AmphibiousMob {
 
     public boolean canTargetPlayers(LivingEntity target) {
         return this.canAttack(target) && this.level().isDay();
+    }
+
+    @Override
+    public @NotNull AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(2);
     }
 
     @Override
@@ -188,6 +195,12 @@ public class Cryptoclidus extends AmphibiousMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.CRYPTOCLIDUS_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+        if (this.isInWaterOrBubble()) return;
+        this.playSound(UP2SoundEvents.CRYPTOCLIDUS_STEP.get(), 0.25F, 1.0F);
     }
 
     @Override

@@ -287,7 +287,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 SAW_FOSSIL.get(),
                 CRANIUM_FOSSIL.get(),
                 DUBIOUS_FOSSIL.get(),
-                FISH_REPTILE_FOSSIL.get()
+                FISH_REPTILE_FOSSIL.get(),
+                CRYPTIC_FOSSIL.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
                 TRUNK_MOUSE_FOSSIL.get(),
@@ -296,7 +297,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 FLIPPER_FOSSIL.get(),
                 THERMAL_FOSSIL.get(),
                 AGED_FEATHER.get(),
-                MOLAR_FOSSIL.get()
+                MOLAR_FOSSIL.get(),
+                ROT_FOSSIL.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 QUILLWORT_FOSSIL.get(),
@@ -332,30 +334,32 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.TARTUOSTEUS_ROE.get().asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
-                UP2Blocks.BRACHIOSAURUS_EGG.get().asItem(),
-                UP2Blocks.CARNOTAURUS_EGG.get().asItem(),
-                UP2Blocks.DESMATOSUCHUS_EGG.get().asItem(),
+                UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
+                UP2Blocks.CARNOTAURUS_EGG.asItem(),
+                UP2Blocks.DESMATOSUCHUS_EGG.asItem(),
                 DROMAEOSAURUS_EGG.get(),
-                UP2Blocks.KAPROSUCHUS_EGG.get().asItem(),
-                UP2Blocks.KENTROSAURUS_EGG.get().asItem(),
-                UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get().asItem(),
-                UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
-                UP2Blocks.MAJUNGASAURUS_EGG.get().asItem(),
+                UP2Blocks.KAPROSUCHUS_EGG.asItem(),
+                UP2Blocks.KENTROSAURUS_EGG.asItem(),
+                UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.asItem(),
+                UP2Blocks.LYSTROSAURUS_EGG.asItem(),
+                UP2Blocks.MAJUNGASAURUS_EGG.asItem(),
                 METRIORHYNCHUS_EMBRYO.get(),
                 PROGNATHODON_EMBRYO.get(),
-                UP2Blocks.ONCHOPRISTIS_SAC.get().asItem(),
-                UP2Blocks.PACHYCEPHALOSAURUS_EGG.get().asItem(),
+                UP2Blocks.ONCHOPRISTIS_SAC.asItem(),
+                UP2Blocks.PACHYCEPHALOSAURUS_EGG.asItem(),
                 PTERODACTYLUS_EGG.get(),
-                UP2Blocks.ULUGHBEGSAURUS_EGG.get().asItem(),
-                ICHTHYOSAURUS_EMBRYO.get()
+                UP2Blocks.ULUGHBEGSAURUS_EGG.asItem(),
+                ICHTHYOSAURUS_EMBRYO.get(),
+                CRYPTOCLIDUS_EMBRYO.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
                 LEPTICTIDIUM_EMBRYO.get(),
-                UP2Blocks.MEGALANIA_EGG.get().asItem(),
+                UP2Blocks.MEGALANIA_EGG.asItem(),
                 PRAEPUSA_EMBRYO.get(),
                 PSILOPTERUS_EGG.get(),
                 TALPANAS_EGG.get(),
-                TELECREX_EGG.get()
+                TELECREX_EGG.get(),
+                UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem()
         );
         this.tag(UP2ItemTags.EGGS)
                 .addTag(UP2ItemTags.PALEOZOIC_EGGS)
@@ -397,13 +401,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.PUMPKIN.asItem()
         );
 
-        this.tag(UP2ItemTags.PROGNATHODON_FOOD).add(
-                Items.COD,
-                Items.COOKED_COD,
-                Items.SALMON,
-                Items.COOKED_SALMON,
-                Items.TROPICAL_FISH,
-                Items.PUFFERFISH
+        this.tag(UP2ItemTags.PROGNATHODON_FOOD).addTags(ItemTags.FISHES);
+
+        this.tag(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD).addTags(ItemTags.FISHES);
+
+        this.tag(UP2ItemTags.CURES_SPIKE_TOOTHED_SALMON).add(
+                Items.GOLDEN_APPLE
         );
 
         // minecraft

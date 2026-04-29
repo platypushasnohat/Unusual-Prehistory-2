@@ -789,6 +789,12 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cryptoclidus/attack1"))
         );
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_STEP,
+                sound("mob/frog/step1").pitch(0.8F),
+                sound("mob/frog/step2").pitch(0.8F),
+                sound("mob/frog/step3").pitch(0.8F),
+                sound("mob/frog/step4").pitch(0.8F)
+        );
 
         this.sound(UP2SoundEvents.HYNERPETON_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt1")).volume(0.5F),
@@ -873,6 +879,37 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.PROGNATHODON_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack1")),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack2"))
+        );
+
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_HURT,
+                sound("entity/fish/hurt1").pitch(0.9F),
+                sound("entity/fish/hurt2").pitch(0.9F),
+                sound("entity/fish/hurt3").pitch(0.9F),
+                sound("entity/fish/hurt4").pitch(0.9F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_DEATH,
+                sound("entity/fish/hurt1").pitch(0.8F),
+                sound("entity/fish/hurt2").pitch(0.8F),
+                sound("entity/fish/hurt3").pitch(0.8F),
+                sound("entity/fish/hurt4").pitch(0.8F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_FLOP,
+                sound("entity/fish/flop1").volume(0.5F).pitch(0.9F),
+                sound("entity/fish/flop2").volume(0.5F).pitch(0.9F),
+                sound("entity/fish/flop3").volume(0.5F).pitch(0.9F),
+                sound("entity/fish/flop4").volume(0.5F).pitch(0.9F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/stethacanthus/bite1")).volume(0.8F).pitch(0.8F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CONVERT,
+                sound("mob/zombie/unfect").volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_INFECT,
+                sound("mob/zombie/infect").volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CURE,
+                sound("mob/zombie/remedy").volume(0.8F)
         );
     }
 

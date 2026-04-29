@@ -418,6 +418,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_DEATH, "Cryptoclidus dies");
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_IDLE, "Cryptoclidus bellows");
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK, "Cryptoclidus bites");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_STEP, "Cryptoclidus steps");
 
         this.sound(UP2SoundEvents.HYNERPETON_HURT, "Hynerpeton hurts");
         this.sound(UP2SoundEvents.HYNERPETON_DEATH, "Hynerpeton dies");
@@ -441,9 +442,21 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
         this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
 
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_HURT, "Spike-Toothed Salmon hurts");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_DEATH, "Spike-Toothed Salmon dies");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_FLOP, "Spike-Toothed Salmon flops");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_ATTACK, "Spike-Toothed Salmon attacks");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CURE, "Spike-Toothed Salmon snuffles");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CONVERT, "Spike-Toothed Salmon vociferates");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_INFECT, "Spike-Toothed Salmon infects");
+
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
+
+        this.addBlock(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE, "Spike-Toothed Salmon Roe");
+        this.addItem(UP2Items.SPIKE_TOOTHED_SALMON_SPAWN_EGG, "Spike-Toothed Salmon Spawn Egg");
+        this.addEntityType(UP2Entities.SPIKE_TOOTHED_SALMON, "Spike-Toothed Salmon");
 
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
@@ -487,6 +500,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
+        this.translateAdvancement("revive_cryptoclidus", "Creep of the Deep", "Revive a Cryptoclidus");
         this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
@@ -509,6 +523,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");
         this.translateAdvancement("revive_psilopterus", "Clever Girl", "Revive a Psilopterus");
         this.translateAdvancement("revive_pterodactylus", "Honey I Shrunk the Pterosaur", "Revive a Pterodactylus");
+        this.translateAdvancement("revive_spike_toothed_salmon", "Not Quite Revived", "Revive a Spike-Toothed Salmon");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");

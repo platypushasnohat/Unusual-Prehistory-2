@@ -214,6 +214,7 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_DEATH = registerSoundEvent("cryptoclidus_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_IDLE = registerSoundEvent("cryptoclidus_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_ATTACK = registerSoundEvent("cryptoclidus_attack");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_STEP = registerSoundEvent("cryptoclidus_step");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_HURT = registerSoundEvent("hynerpeton_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> HYNERPETON_DEATH = registerSoundEvent("hynerpeton_death");
@@ -236,6 +237,14 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_DEATH = registerSoundEvent("prognathodon_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_ATTACK = registerSoundEvent("prognathodon_attack");
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_HURT = registerSoundEvent("spike_toothed_salmon_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_DEATH = registerSoundEvent("spike_toothed_salmon_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_FLOP = registerSoundEvent("spike_toothed_salmon_flop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_ATTACK = registerSoundEvent("spike_toothed_salmon_attack");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_CONVERT = registerSoundEvent("spike_toothed_salmon_convert");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_INFECT = registerSoundEvent("spike_toothed_salmon_infect");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_CURE = registerSoundEvent("spike_toothed_salmon_cure");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));

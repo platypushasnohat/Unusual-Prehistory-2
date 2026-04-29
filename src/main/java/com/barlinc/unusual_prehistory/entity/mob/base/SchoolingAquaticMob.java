@@ -13,7 +13,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     private SchoolingAquaticMob leader;
     protected int schoolSize = 1;
 
-    protected SchoolingAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected SchoolingAquaticMob(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
     }
 
