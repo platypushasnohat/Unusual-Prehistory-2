@@ -193,7 +193,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 PACHYCEPHALOSAURUS.get(),
                 ULUGHBEGSAURUS.get(),
                 ANTARCTOPELTA.get(),
-                ICHTHYOSAURUS.get()
+                ICHTHYOSAURUS.get(),
+                LORRAINOSAURUS.get()
         );
 
         this.tag(UP2EntityTags.CENOZOIC_MOBS).add(

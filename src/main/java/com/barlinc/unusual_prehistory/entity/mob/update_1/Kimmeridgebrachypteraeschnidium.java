@@ -47,10 +47,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("deprecation")
 public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(Kimmeridgebrachypteraeschnidium.class, EntityDataSerializers.INT);
@@ -69,7 +72,6 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
 
     public Kimmeridgebrachypteraeschnidium(EntityType<? extends WallAttachingFlyingMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(PathType.LEAVES, 0.0F);
         this.switchNavigator(true);
     }
 
@@ -94,6 +96,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
                 return !Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
             }
         });
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
         this.goalSelector.addGoal(3, new LandOrAttachFromFlightGoal(this, 300) {
             @Override
             public boolean canUse() {
@@ -108,28 +111,27 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
             }
         });
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPreen));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
         this.registerNymphGoals();
     }
 
     private void registerNymphGoals() {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.7D, 10, 4, true));
-        this.goalSelector.addGoal(1, new KimmeridgebrachypteraeschnidiumFindWaterGoal(this));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Mob.class, 6.0F, 1.7D, true, this::avoidsMobs));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true, this::avoidsMobs));
+        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false) {
             @Override
             public boolean canUse() {
                 return Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
+        this.goalSelector.addGoal(5, new KimmeridgebrachypteraeschnidiumFindWaterGoal(this));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this) {
             @Override
             public boolean canUse() {
                 return Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F) {
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F) {
             @Override
             public boolean canUse() {
                 return Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
@@ -142,6 +144,8 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         if (this.isBaby()) {
             this.moveControl = new PrehistoricMoveControl(this);
             this.navigation = this.createNavigation(this.level());
+            this.setPathfindingMalus(PathType.WATER, 0.0F);
+            this.setPathfindingMalus(PathType.LEAVES, -1.0F);
         } else {
             if (onLand) {
                 this.moveControl = new PrehistoricMoveControl(this);
@@ -152,6 +156,8 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
                 this.navigation = this.getFlyingPathNavigation();
                 this.isLandNavigator = false;
             }
+            this.setPathfindingMalus(PathType.WATER, 8.0F);
+            this.setPathfindingMalus(PathType.LEAVES, 0.0F);
         }
     }
 
@@ -179,7 +185,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
 
     @Override
     public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove()) {
+        if (!this.isBaby() && this.refuseToMove()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
@@ -201,6 +207,23 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         }
     }
 
+
+    @Override
+    public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
+        return fluidType != NeoForgeMod.WATER_TYPE.value();
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+        this.setAirSupply(300);
+    }
+
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD);
@@ -212,7 +235,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     }
 
     public boolean avoidsMobs(LivingEntity entity) {
-        return this.isBaby();
+        return this.isBaby() && !(entity instanceof Kimmeridgebrachypteraeschnidium);
     }
 
     @Override
@@ -323,10 +346,10 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         return super.mobInteract(player, hand);
     }
 
-    @Override
-    public boolean refuseToMove() {
-        return !this.isBaby() && super.refuseToMove() || this.getIdleState() == 1 || (this.onGround() && !this.isFlying());
-    }
+//    @Override
+//    public boolean refuseToMove() {
+//        return !this.isBaby() && super.refuseToMove() || this.getIdleState() == 1 || (this.onGround() && !this.isFlying());
+//    }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
@@ -382,6 +405,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
             this.setWingColor(level.getRandom().nextInt(16));
             this.setHasPattern(level.getRandom().nextInt(3) == 0);
         }
+        this.switchNavigator(true);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
@@ -465,10 +489,16 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
 
     @Override
     protected void doPush(@NotNull Entity entity) {
+        if (this.isBaby()) {
+            super.doPush(entity);
+        }
     }
 
     @Override
     protected void pushEntities() {
+        if (this.isBaby()) {
+            super.pushEntities();
+        }
     }
 
     @Override

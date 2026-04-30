@@ -41,6 +41,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
                         output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
+                        output.accept(LORRAINOSAURUS_SPAWN_EGG.get());
                         output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         output.accept(MAMMOTH_SPAWN_EGG.get());
