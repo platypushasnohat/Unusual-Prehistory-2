@@ -191,7 +191,7 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
+    public boolean isFood(@NotNull ItemStack itemStack) {
         return false;
     }
 

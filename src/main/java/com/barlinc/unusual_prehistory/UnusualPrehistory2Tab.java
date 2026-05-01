@@ -180,6 +180,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(IMPERATIVE_FOSSIL.get()); // kimmeridgebrachypteraeschnidium
                         output.accept(TRUNK_MOUSE_FOSSIL.get()); // leptictidium
                         output.accept(FISH_FOSSIL.get()); // lobe finned fish
+                        output.accept(CLAMP_JAW_FOSSIL.get()); // lorrainosaurus
                         output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
                         output.accept(MOLAR_FOSSIL.get()); // mammoth
@@ -215,6 +216,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
                         output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
+                        output.accept(LORRAINOSAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());

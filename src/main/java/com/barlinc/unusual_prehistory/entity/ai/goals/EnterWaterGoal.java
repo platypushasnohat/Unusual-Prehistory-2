@@ -5,28 +5,34 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class EnterWaterGoal extends Goal {
 
     protected final AmphibiousMob amphibiousMob;
     protected final int maxTimeOnLand;
     private final double speedModifier;
-    private BlockPos waterPos;
+    private final boolean shouldWander;
+    private Vec3 waterPos;
 
     public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
-        this(amphibiousMob, speedModifier, 6000);
+        this(amphibiousMob, speedModifier, 6000, false);
     }
 
-    public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeOnLand) {
+    public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeOnLand, boolean shouldWander) {
         this.speedModifier = speedModifier;
         this.amphibiousMob = amphibiousMob;
         this.maxTimeOnLand = maxTimeOnLand;
+        this.shouldWander = shouldWander;
     }
 
     @Override
     public boolean canUse() {
-        if (amphibiousMob.isInWater() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
+        if (amphibiousMob.getTarget() != null) {
+            return false;
+        } else if (amphibiousMob.isInWater() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
             return false;
         } else if (amphibiousMob.getTimeOnLand() < maxTimeOnLand) {
             return false;
@@ -36,12 +42,12 @@ public class EnterWaterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !amphibiousMob.getNavigation().isDone() && !amphibiousMob.isInWater() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
+        return !amphibiousMob.getNavigation().isDone() && !amphibiousMob.isInWater() && amphibiousMob.getTarget() == null && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
     }
 
     @Override
     public void start() {
-        this.amphibiousMob.getNavigation().moveTo(waterPos.getX(), waterPos.getY(), waterPos.getZ(), speedModifier);
+        this.amphibiousMob.getNavigation().moveTo(waterPos.x, waterPos.y, waterPos.z, speedModifier);
     }
 
     private boolean findWaterPos() {
@@ -53,7 +59,14 @@ public class EnterWaterGoal extends Goal {
         for (int i = 0; i < 10; i++) {
             mutable.move(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
             if (level.getFluidState(mutable).is(FluidTags.WATER)) {
-                this.waterPos = mutable.immutable();
+                this.waterPos = Vec3.atCenterOf(mutable.immutable());
+                return true;
+            }
+        }
+        if (shouldWander) {
+            Vec3 randomPos = DefaultRandomPos.getPos(amphibiousMob, 10, 7);
+            if (randomPos != null) {
+                this.waterPos = randomPos;
                 return true;
             }
         }

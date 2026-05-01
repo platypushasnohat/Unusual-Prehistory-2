@@ -179,12 +179,14 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 ROTUND_FOSSIL,
                 CRYPTIC_FOSSIL,
                 FISH_REPTILE_FOSSIL,
+                CLAMP_JAW_FOSSIL,
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
                 ROT_FOSSIL,
 
                 CRYPTOCLIDUS_EMBRYO,
                 ICHTHYOSAURUS_EMBRYO,
+                LORRAINOSAURUS_EMBRYO,
                 PROGNATHODON_EMBRYO,
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE,
 

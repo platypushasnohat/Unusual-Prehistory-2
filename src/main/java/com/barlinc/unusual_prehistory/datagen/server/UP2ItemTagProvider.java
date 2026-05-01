@@ -288,6 +288,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CRANIUM_FOSSIL.get(),
                 DUBIOUS_FOSSIL.get(),
                 FISH_REPTILE_FOSSIL.get(),
+                CLAMP_JAW_FOSSIL.get(),
                 CRYPTIC_FOSSIL.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
@@ -350,6 +351,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PTERODACTYLUS_EGG.get(),
                 UP2Blocks.ULUGHBEGSAURUS_EGG.asItem(),
                 ICHTHYOSAURUS_EMBRYO.get(),
+                LORRAINOSAURUS_EMBRYO.get(),
                 CRYPTOCLIDUS_EMBRYO.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(

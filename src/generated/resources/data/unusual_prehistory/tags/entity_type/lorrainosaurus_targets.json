@@ -1,5 +1,8 @@
 {
   "values": [
+    "minecraft:villager",
+    "minecraft:cow",
+    "minecraft:goat",
     "unusual_prehistory:dunkleosteus",
     "unusual_prehistory:stethacanthus"
   ]

@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-30T11:56:42.6935178	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-01T16:19:39.9143898	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -65,8 +65,8 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/majun
 73890942ecf079294735eb9b4e832ab73e298b6c data/unusual_prehistory/tags/item/mammoth_food.json
 35e26ac7c30d0cf81cb7c891fbf1d1b3632de467 data/unusual_prehistory/tags/item/maroon_dyes.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/megalania_food.json
-f4d231d4bc597104a34e3f7d4ac25b5fe2aa3b94 data/unusual_prehistory/tags/item/mesozoic_eggs.json
-ff043ece11d922f1c05120955f4f982321f1b7e3 data/unusual_prehistory/tags/item/mesozoic_fossils.json
+06e5b52eaf22df8eb4aad05dc4766d2f1c5ca33e data/unusual_prehistory/tags/item/mesozoic_eggs.json
+19fd40402c88d3a306d35accaa5fc91677e7db8c data/unusual_prehistory/tags/item/mesozoic_fossils.json
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/item/metasequoia_logs.json
 368c66a7b6b9d697eca80456999190094afd3ec6 data/unusual_prehistory/tags/item/metriorhynchus_food.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/item/mint_dyes.json

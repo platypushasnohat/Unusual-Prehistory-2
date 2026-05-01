@@ -71,6 +71,10 @@ public class AttackGoal extends Goal {
         return mob.getBbWidth() * 2.0F * mob.getBbWidth() * 2.0F + target.getBbWidth();
     }
 
+    protected double getAttackReachSqr(LivingEntity target, double distance) {
+        return mob.getBbWidth() * distance * mob.getBbWidth() * distance + target.getBbWidth();
+    }
+
     protected boolean isInAttackRange(LivingEntity target, double reach) {
         return mob.hasLineOfSight(target) && mob.distanceTo(target) < mob.getBbWidth() + target.getBbWidth() + reach;
     }

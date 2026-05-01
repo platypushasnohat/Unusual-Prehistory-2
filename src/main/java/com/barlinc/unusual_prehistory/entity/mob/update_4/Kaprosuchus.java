@@ -81,7 +81,7 @@
          this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.9D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 2000));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 2000));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 2000, false));
          this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));

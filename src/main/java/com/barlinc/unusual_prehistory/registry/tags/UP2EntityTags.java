@@ -70,6 +70,9 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> PROGNATHODON_TARGETS = modEntityTag("prognathodon_targets");
     public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
 
+    public static final TagKey<EntityType<?>> LORRAINOSAURUS_CANT_GRAB = modEntityTag("lorrainosaurus_cant_grab");
+    public static final TagKey<EntityType<?>> LORRAINOSAURUS_CAN_GRAB = modEntityTag("lorrainosaurus_can_grab");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_lorrainosaurus",
+  "parent": "unusual_prehistory:revive_ichthyosaurus",
   "criteria": {
-    "revive_metriorhynchus": {
+    "revive_lorrainosaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:metriorhynchus"
+              "type": "unusual_prehistory:lorrainosaurus"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_metriorhynchus.description"
+      "translate": "advancements.unusual_prehistory.revive_lorrainosaurus.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:metriorhynchus_embryo"
+      "id": "unusual_prehistory:lorrainosaurus_embryo"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_metriorhynchus.title"
+      "translate": "advancements.unusual_prehistory.revive_lorrainosaurus.title"
     }
   },
   "requirements": [
     [
-      "revive_metriorhynchus"
+      "revive_lorrainosaurus"
     ]
   ],
   "rewards": {
