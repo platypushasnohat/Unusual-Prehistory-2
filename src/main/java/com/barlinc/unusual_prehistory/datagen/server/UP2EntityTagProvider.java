@@ -213,6 +213,10 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.SQUID, EntityType.GLOW_SQUID, EntityType.COD, EntityType.TROPICAL_FISH
         );
 
+        this.tag(UP2EntityTags.LORRAINOSAURUS_TARGETS).add(
+                DUNKLEOSTEUS.get(), STETHACANTHUS.get()
+        );
+
         this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
                 EntityType.TURTLE, EntityType.DOLPHIN
         );

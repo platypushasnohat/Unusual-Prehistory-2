@@ -124,7 +124,7 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
-            if (entity.isRunning()) this.animateWalk(PrognathodonAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1, 2);
+            if (entity.isRunning()) this.animateWalk(PrognathodonAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(PrognathodonAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         } else {
             this.animateWalk(PrognathodonAnimations.CRAWL, limbSwing, limbSwingAmount, 2, 4);
@@ -140,7 +140,6 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
         this.animateSmooth(entity.tongueAnimationState, PrognathodonAnimations.FLICK_BLEND, ageInTicks);
         this.animateSmooth(entity.nip1AnimationState, PrognathodonAnimations.NIP_BLEND1, ageInTicks);
         this.animateSmooth(entity.nip2AnimationState, PrognathodonAnimations.NIP_BLEND2, ageInTicks);
-//        this.animate(entity.leapAnimationState, PrognathodonAnimations.JUMP, ageInTicks);
 
         if (entity.isInWaterOrBubble() && !entity.isLeaping()) {
             this.swim_control.xRot = headPitch * deg / 2;
