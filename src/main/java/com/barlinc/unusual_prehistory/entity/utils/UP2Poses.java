@@ -13,6 +13,7 @@ public enum UP2Poses {
     CHARGING,
     STOP_CHARGING,
     GRABBING,
+    GRAB_START,
     SPITTING,
     START_FLYING,
     WARNING,

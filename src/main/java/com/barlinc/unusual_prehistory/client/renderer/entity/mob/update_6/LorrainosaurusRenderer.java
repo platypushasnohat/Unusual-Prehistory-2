@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.LorrainosaurusModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.LorrainosaurusHeldMobLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Lorrainosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;
@@ -20,6 +21,7 @@ public class LorrainosaurusRenderer extends MobRenderer<Lorrainosaurus, Lorraino
 
     public LorrainosaurusRenderer(EntityRendererProvider.Context context) {
         super(context, new LorrainosaurusModel(context.bakeLayer(UP2ModelLayers.LORRAINOSAURUS)), 1.0F);
+        this.addLayer(new LorrainosaurusHeldMobLayer(this));
     }
 
     @Override

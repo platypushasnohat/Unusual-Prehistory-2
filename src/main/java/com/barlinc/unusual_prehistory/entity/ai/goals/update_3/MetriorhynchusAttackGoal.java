@@ -36,7 +36,7 @@ public class MetriorhynchusAttackGoal extends AttackGoal {
                 if (this.canGrab()) this.metriorhynchus.setAttackState(2);
                 else if (metriorhynchus.attackCooldown == 0 && !this.canGrab()) this.metriorhynchus.setAttackState(1);
             } else {
-                this.metriorhynchus.getNavigation().moveTo(target, metriorhynchus.isInWater() ? 1.4D : 1.5D);
+                this.metriorhynchus.getNavigation().moveTo(target, 1.5D);
             }
         }
     }

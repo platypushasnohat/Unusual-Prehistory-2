@@ -394,6 +394,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ItemTags.FISHES
         );
 
+        this.tag(UP2ItemTags.LORRAINOSAURUS_FOOD).addTags(
+                ItemTags.FISHES,
+                ItemTags.MEAT
+        );
+
         this.tag(UP2ItemTags.MAMMOTH_FOOD).add(
                 Blocks.SHORT_GRASS.asItem(),
                 Blocks.MELON.asItem(),

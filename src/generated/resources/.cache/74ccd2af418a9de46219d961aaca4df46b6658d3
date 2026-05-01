@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-29T22:36:21.128586	Tags for minecraft:entity_type mod id unusual_prehistory
+// 1.21.1	2026-04-30T14:36:49.002225	Tags for minecraft:entity_type mod id unusual_prehistory
 8e9e77a403d3c6d6caec786e0c728da5fd61f7fc data/minecraft/tags/entity_type/frog_food.json
 96e3e2da8f817373438167feeacfaab72f6ac8fb data/unusual_prehistory/tags/entity_type/carnotaurus_ignores.json
 95f90476a609dc153b9819be0675e304d87e7bea data/unusual_prehistory/tags/entity_type/carnotaurus_targets.json
@@ -15,6 +15,7 @@ b651f8ac43e65cc60a6564c7fd51327c2332eca3 data/unusual_prehistory/tags/entity_typ
 8a0e8a2b8c9ee31d01606f3125f40bd8d12fa049 data/unusual_prehistory/tags/entity_type/large_dunkleosteus_targets.json
 6d55688cc02dd96198a12507fd2a04442a687089 data/unusual_prehistory/tags/entity_type/large_psilopterus_pack_targets.json
 55168e8920b16bd1f57889acca37f0ed8e919a4a data/unusual_prehistory/tags/entity_type/leptictidium_avoids.json
+5afb24d29087ab577785be2d959525440f91538c data/unusual_prehistory/tags/entity_type/lorrainosaurus_targets.json
 8641492dd56c061ef6ed4d2c84cbab4c6488eb8d data/unusual_prehistory/tags/entity_type/majungasaurus_avoids.json
 6dfa5e15065982a65033945edfc3f0c5954c37ff data/unusual_prehistory/tags/entity_type/majungasaurus_targets.json
 cdc577e0080107de7d136792d65cad6fb37569f1 data/unusual_prehistory/tags/entity_type/medium_dunkleosteus_targets.json

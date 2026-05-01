@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.LorrainosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Lorrainosaurus;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -111,8 +112,11 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.isInWaterOrBubble()) {
-            if (entity.isRunning()) this.animateWalk(LorrainosaurusAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1, 2);
-            else this.animateWalk(LorrainosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            if (entity.isRunning()) {
+                this.animateWalk(LorrainosaurusAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 2, 4);
+            } else {
+                this.animateWalk(LorrainosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            }
         } else {
             this.animateWalk(LorrainosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
@@ -126,12 +130,14 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
         this.animateSmooth(entity.yawnAnimationState, LorrainosaurusAnimations.YAWN_BLEND, ageInTicks);
         this.animateSmooth(entity.nip1AnimationState, LorrainosaurusAnimations.NIP_BLEND1, ageInTicks);
         this.animateSmooth(entity.nip2AnimationState, LorrainosaurusAnimations.NIP_BLEND2, ageInTicks);
+        this.animateSmooth(entity.grabStartAnimationState, LorrainosaurusAnimations.GRAB_START_BLEND, ageInTicks);
+        this.animateSmooth(entity.grabAnimationState, LorrainosaurusAnimations.GRAB_BLEND, ageInTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * deg / 2;
         }
 
-        this.faceTarget(netHeadYaw, headPitch, 3, head);
+        this.faceTarget(netHeadYaw, headPitch, 2, head);
 
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.2F);
@@ -140,5 +146,14 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
     @Override
     public @NotNull ModelPart root() {
         return this.root;
+    }
+
+    public void translateToMouth(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.swim_control.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.head.translateAndRotate(poseStack);
+        this.jaw_lower.translateAndRotate(poseStack);
     }
 }

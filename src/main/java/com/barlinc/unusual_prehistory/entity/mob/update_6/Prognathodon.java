@@ -62,13 +62,13 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     public Prognathodon(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.4F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 90.0D)
+                .add(Attributes.MAX_HEALTH, 80.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.12F)
                 .add(Attributes.ATTACK_DAMAGE, 11.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
@@ -206,7 +206,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2, 1, 2);
+        return this.getBoundingBox().inflate(2);
     }
 
     @Override
@@ -261,12 +261,12 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 280;
+        return 240;
     }
 
     @Override
     public float getSoundVolume() {
-        return this.isBaby() ? 1.0F : 2.0F;
+        return this.isBaby() ? 1.0F : 1.75F;
     }
 
     private static class PrognathodonAttackGoal extends AttackGoal {
@@ -304,7 +304,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
             if (timer == 1) {
                 this.prognathodon.attackAlt = prognathodon.getRandom().nextBoolean();
                 this.prognathodon.setPose(UP2Poses.ATTACKING.get());
-                this.prognathodon.playSound(UP2SoundEvents.PROGNATHODON_ATTACK.get(), 2.0F, 1.0F * prognathodon.getRandom().nextFloat() * 0.2F);
+                this.prognathodon.playSound(UP2SoundEvents.PROGNATHODON_ATTACK.get(), 1.5F, 1.0F * prognathodon.getRandom().nextFloat() * 0.2F);
             }
             if (timer == 9) this.biteNearbyEntities();
             if (timer > 20) {
