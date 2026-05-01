@@ -104,18 +104,24 @@ public class KimmeridgebrachypteraeschnidiumModel extends UP2Model<Kimmeridgebra
 	@Override
 	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
-		this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY_OVERLAY, ageInTicks);
+
+        this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY, ageInTicks);
+        this.animateSmooth(entity.flyAnimationState, KimmeridgebrachypteraeschnidiumAnimations.FLY_OVERLAY, ageInTicks);
+        this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER, ageInTicks, 1.5F);
+		this.animateSmooth(entity.hoverAnimationState, KimmeridgebrachypteraeschnidiumAnimations.HOVER_OVERLAY, ageInTicks, 1.5F);
+
 		this.animateSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE1, ageInTicks);
-		this.animateSmooth(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);
+        this.animateSmooth(entity.attachedAnimationState, KimmeridgebrachypteraeschnidiumAnimations.IDLE2, ageInTicks);
+        this.animateSmooth(entity.preenAnimationState, KimmeridgebrachypteraeschnidiumAnimations.PREEN, ageInTicks);
 
-		float partialTicks = ageInTicks - entity.tickCount;
-		float flyProgress = entity.getFlyProgress(partialTicks);
-		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
-		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+        float partialTicks = ageInTicks - entity.tickCount;
+        float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+        float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 
-		this.body_main.xRot += flightPitchAmount;
-		this.body_main.zRot += rollAmount / 2;
+        if (entity.isFlying()) {
+            this.body_main.xRot += flightPitchAmount;
+            this.body_main.zRot += rollAmount;
+        }
 	}
 
 	@Override

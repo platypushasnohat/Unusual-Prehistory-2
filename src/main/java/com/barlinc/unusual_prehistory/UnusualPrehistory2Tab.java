@@ -27,19 +27,21 @@ public class UnusualPrehistory2Tab {
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
                         output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
+                        output.accept(CRYPTOCLIDUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
                         output.accept(HYNERPETON_SPAWN_EGG.get());
+                        output.accept(ICHTHYOSAURUS_SPAWN_EGG.get());
                         output.accept(JAWLESS_FISH_SPAWN_EGG.get());
                         output.accept(KAPROSUCHUS_SPAWN_EGG.get());
                         output.accept(KENTROSAURUS_SPAWN_EGG.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
-                        output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
                         output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
+                        output.accept(LORRAINOSAURUS_SPAWN_EGG.get());
                         output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
                         output.accept(MAMMOTH_SPAWN_EGG.get());
@@ -51,6 +53,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
+                        output.accept(SPIKE_TOOTHED_SALMON_SPAWN_EGG.get());
                         output.accept(STETHACANTHUS_SPAWN_EGG.get());
                         output.accept(TALPANAS_SPAWN_EGG.get());
                         output.accept(TARTUOSTEUS_SPAWN_EGG.get());
@@ -58,7 +61,9 @@ public class UnusualPrehistory2Tab {
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         // Ambient
+                        output.accept(AMPYX_SPAWN_EGG.get());
                         output.accept(DELITZSCHALA_SPAWN_EGG.get());
+                        output.accept(SETAPEDITES_SPAWN_EGG.get());
                         output.accept(ZHANGSOLVA_SPAWN_EGG.get());
 
                         // Misc
@@ -67,6 +72,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PALEOPEDIA.get());
 
                         output.accept(ORGANIC_OOZE.get());
+                        output.accept(UP2Blocks.ORGANIC_OOZE_BLOCK.get());
                         output.accept(LIVING_OOZE_BUCKET.get());
                         output.accept(MACHINE_PARTS.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
@@ -155,16 +161,19 @@ public class UnusualPrehistory2Tab {
                         output.accept(MESOZOIC_BANNER_PATTERN.get());
                         output.accept(CENOZOIC_BANNER_PATTERN.get());
 
-                        output.accept(BRISTLE_FOSSIL.get()); // brachiosaurus
+                        output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
+                        output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
                         output.accept(ROTUND_FOSSIL.get()); // cotylorhynchus
+                        output.accept(CRYPTIC_FOSSIL.get()); // cryptoclidus
                         output.accept(FLAT_BACK_FOSSIL.get()); // desmatosuchus
                         output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
                         output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
                         output.accept(PLOW_FOSSIL.get()); // hibbertopterus
+                        output.accept(FISH_REPTILE_FOSSIL.get()); // ichthyosaurus
                         output.accept(JAWLESS_FOSSIL.get()); // jawless fish
                         output.accept(BOAR_TOOTH_FOSSIL.get()); // kaprosuchus
                         output.accept(PRICKLY_FOSSIL.get()); // kentrosaurus
@@ -173,6 +182,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(FISH_FOSSIL.get()); // lobe finned fish
                         output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
+                        output.accept(MOLAR_FOSSIL.get()); // mammoth
                         output.accept(THERMAL_FOSSIL.get()); // megalania
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
                         output.accept(SAW_FOSSIL.get()); // onchopristis
@@ -181,6 +191,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SURGE_FOSSIL.get()); // prognathodon
                         output.accept(CROOKED_BEAK_FOSSIL.get()); // psilopterus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
+                        output.accept(ROT_FOSSIL.get()); // spike-toothed salmon
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus
                         output.accept(AGED_FEATHER.get()); // talpanas
                         output.accept(MOSSY_FOSSIL.get()); // tartuosteus
@@ -191,11 +202,13 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
+                        output.accept(CRYPTOCLIDUS_EMBRYO.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_EGGS.get());
+                        output.accept(ICHTHYOSAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
@@ -212,6 +225,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PROGNATHODON_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
                         output.accept(PTERODACTYLUS_EGG.get());
+                        output.accept(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());

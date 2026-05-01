@@ -25,7 +25,7 @@ public abstract class AmphibiousMob extends PrehistoricMob {
     public void tick() {
         super.tick();
         if (!this.isEepy() && !this.isSitting() && !this.level().isClientSide) {
-            if (this.isInWaterOrBubble()) {
+            if (this.isInWater()) {
                 this.setTimeInWater(this.getTimeInWater() + 1);
                 this.setTimeOnLand(0);
             } else {
@@ -40,6 +40,11 @@ public abstract class AmphibiousMob extends PrehistoricMob {
         super.defineSynchedData(builder);
         builder.define(TIME_IN_WATER, 0);
         builder.define(TIME_ON_LAND, 0);
+    }
+
+    @Override
+    public float getAdditionalStepHeight() {
+        return this.isInWater() ? 0.5F : super.getAdditionalStepHeight();
     }
 
     @Override
@@ -65,11 +70,12 @@ public abstract class AmphibiousMob extends PrehistoricMob {
 
     @Override
     public void baseTick() {
+        int i = this.getAirSupply();
         super.baseTick();
-        this.handleAirSupply();
+        this.handleAirSupply(i);
     }
 
-    protected void handleAirSupply() {
+    protected void handleAirSupply(int airSupply) {
         this.setAirSupply(300);
     }
 

@@ -3,12 +3,12 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.LystrosaurusRunLikeCrazyGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -21,6 +21,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -39,24 +40,20 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 @SuppressWarnings("deprecation")
 public class Lystrosaurus extends PrehistoricMob {
 
-    public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState digAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState scratch1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState scratch2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState blinkAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState blinkAnimationState = new SmoothAnimationState(1.0F);
 
     private boolean scratchAlt = false;
-
-    private int scratchCooldown = 1200 + this.getRandom().nextInt(1300);
-    private int grazeCooldown = 1300 + this.getRandom().nextInt(1400);
-    private int digCooldown = 2000 + this.getRandom().nextInt(2000);
-    private int blinkCooldown = 400 + this.getRandom().nextInt(500);
-    private int shakeCooldown = 1000 + this.getRandom().nextInt(1200);
 
     public Lystrosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -72,11 +69,17 @@ public class Lystrosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new SleepingGoal(this));
-        this.goalSelector.addGoal(7, new LystrosaurusBlinkGoal(this));
-        this.goalSelector.addGoal(8, new LystrosaurusScratchGoal(this));
-        this.goalSelector.addGoal(8, new LystrosaurusDigGoal(this));
-        this.goalSelector.addGoal(8, new LystrosaurusShakeGoal(this));
-        this.goalSelector.addGoal(8, new LystrosaurusGrazeGoal(this));
+        this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 60, 1, false, 0.001F));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 40, 2, true, 0.001F, this::canGraze));
+        this.goalSelector.addGoal(8, new LystrosaurusDigGoal(this, 80, 3, true, 0.001F, this::canDig));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 30, 4, true, 0.001F, this::canPlayIdles) {
+            @Override
+            public void start() {
+                super.start();
+                Lystrosaurus.this.scratchAlt = Lystrosaurus.this.getRandom().nextBoolean();
+            }
+        });
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 40, 5, false, 0.001F, this::canPlayIdles));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -171,48 +174,50 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isEepy() && !this.isInWaterOrBubble()) {
-            if (scratchCooldown > 0) scratchCooldown--;
-            if (grazeCooldown > 0) grazeCooldown--;
-            if (digCooldown > 0) digCooldown--;
-            if (blinkCooldown > 0) blinkCooldown--;
-            if (shakeCooldown > 0) shakeCooldown--;
-        }
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.getIdleState() != 3 && !this.isEepy(), this.tickCount);
-        this.scratch1AnimationState.animateWhen(this.getIdleState() == 1 && !scratchAlt, this.tickCount);
-        this.scratch2AnimationState.animateWhen(this.getIdleState() == 1 && scratchAlt, this.tickCount);
+        this.blinkAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.grazeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.digAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
-        this.blinkAnimationState.animateWhen(this.getIdleState() == 4, this.tickCount);
+        this.scratch1AnimationState.animateWhen(this.getIdleState() == 4 && !scratchAlt, this.tickCount);
+        this.scratch2AnimationState.animateWhen(this.getIdleState() == 4 && scratchAlt, this.tickCount);
         this.shakeAnimationState.animateWhen(this.getIdleState() == 5, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && !this.onGround(), this.tickCount);
     }
 
-    protected void scratchCooldown() {
-        this.scratchCooldown = 1200 + this.getRandom().nextInt(1300);
+    private boolean canGraze(Entity entity) {
+        return !entity.isInWaterOrBubble() && entity.level().getBlockState(entity.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_FOOD_BLOCKS);
     }
 
-    protected void grazeCooldown() {
-        this.grazeCooldown = 1300 + this.getRandom().nextInt(1400);
+    private boolean canDig(Entity entity) {
+        return !entity.isInWaterOrBubble() && entity.level().getBlockState(entity.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_DIGGING_BLOCKS);
     }
 
-    protected void digCooldown() {
-        this.digCooldown = 2000 + this.getRandom().nextInt(2000);
+    private boolean canPlayIdles(Entity entity) {
+        return !entity.isInWaterOrBubble();
     }
 
-    protected void blinkCooldown() {
-        this.blinkCooldown = 400 + this.getRandom().nextInt(500);
-    }
-
-    protected void shakeCooldown() {
-        this.shakeCooldown = 1000 + this.getRandom().nextInt(1200);
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 300 + this.getRandom().nextInt(300);
+        }
+        else if (idleState == 2) {
+            return 800 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 3) {
+            return 900 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 4) {
+            return 850 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 5) {
+            return 750 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
@@ -222,7 +227,7 @@ public class Lystrosaurus extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 1 || this.getIdleState() == 2 || this.getIdleState() == 3;
+        return super.refuseToMove() || this.getIdleState() == 2 || this.getIdleState() == 3 || this.getIdleState() == 4;
     }
 
     @Override
@@ -268,138 +273,34 @@ public class Lystrosaurus extends PrehistoricMob {
     }
 
     // Goals
-    private static class LystrosaurusScratchGoal extends IdleAnimationGoal {
-
-        private final Lystrosaurus lystrosaurus;
-
-        public LystrosaurusScratchGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 30, 1);
-            this.lystrosaurus = lystrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && lystrosaurus.scratchCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.lystrosaurus.scratchCooldown();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.lystrosaurus.scratchAlt = lystrosaurus.getRandom().nextBoolean();
-        }
-    }
-
-    private static class LystrosaurusGrazeGoal extends IdleAnimationGoal {
-
-        private final Lystrosaurus lystrosaurus;
-
-        public LystrosaurusGrazeGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 40, 2);
-            this.lystrosaurus = lystrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && lystrosaurus.grazeCooldown == 0 && lystrosaurus.level().getBlockState(lystrosaurus.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.lystrosaurus.grazeCooldown();
-        }
-    }
-
     private static class LystrosaurusDigGoal extends IdleAnimationGoal {
 
-        private final Lystrosaurus lystrosaurus;
-
-        public LystrosaurusDigGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 80, 3);
-            this.lystrosaurus = lystrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && lystrosaurus.digCooldown == 0 && lystrosaurus.level().getBlockState(lystrosaurus.blockPosition().below()).is(UP2BlockTags.LYSTROSAURUS_DIGGING_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.lystrosaurus.digCooldown();
+        public LystrosaurusDigGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance, Predicate<Mob> canUse) {
+            super(prehistoricMob, animationTime, idleState, stopMoving, chance, canUse);
         }
 
         @Override
         public void tick() {
             super.tick();
             if (timer % 6 == 0 && timer < 60 && timer > 20) {
-                this.spawnEffectsAtBlock(lystrosaurus.blockPosition().below());
-                this.lystrosaurus.playSound(lystrosaurus.level().getBlockState(lystrosaurus.blockPosition().below()).getSoundType().getHitSound(), 0.3F, 0.8F + lystrosaurus.getRandom().nextFloat() * 0.25F);
+                this.spawnEffectsAtBlock(prehistoricMob.blockPosition().below());
+                this.prehistoricMob.playSound(prehistoricMob.level().getBlockState(prehistoricMob.blockPosition().below()).getSoundType().getHitSound(), 0.3F, 0.8F + prehistoricMob.getRandom().nextFloat() * 0.25F);
             }
         }
 
         public void spawnEffectsAtBlock(BlockPos blockPos) {
             float radius = 0.4F;
             for (int i1 = 0; i1 < 3; i1++) {
-                double motionX = lystrosaurus.getRandom().nextGaussian() * 0.07D;
-                double motionY = lystrosaurus.getRandom().nextGaussian() * 0.07D;
-                double motionZ = lystrosaurus.getRandom().nextGaussian() * 0.07D;
-                float angle = (float) ((0.0174532925 * lystrosaurus.yBodyRot) + i1);
+                double motionX = prehistoricMob.getRandom().nextGaussian() * 0.07D;
+                double motionY = prehistoricMob.getRandom().nextGaussian() * 0.07D;
+                double motionZ = prehistoricMob.getRandom().nextGaussian() * 0.07D;
+                float angle = (float) ((0.0174532925 * prehistoricMob.yBodyRot) + i1);
                 double extraX = radius * Mth.sin(Mth.PI + angle);
                 double extraY = 0.8F;
                 double extraZ = radius * Mth.cos(angle);
-                BlockState state = lystrosaurus.level().getBlockState(blockPos);
-                ((ServerLevel) lystrosaurus.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+                BlockState state = prehistoricMob.level().getBlockState(blockPos);
+                ((ServerLevel) prehistoricMob.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
             }
-        }
-    }
-
-    private static class LystrosaurusBlinkGoal extends IdleAnimationGoal {
-
-        private final Lystrosaurus lystrosaurus;
-
-        public LystrosaurusBlinkGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 60, 4, false, false);
-            this.lystrosaurus = lystrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && lystrosaurus.blinkCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.lystrosaurus.blinkCooldown();
-        }
-    }
-
-    private static class LystrosaurusShakeGoal extends IdleAnimationGoal {
-
-        private final Lystrosaurus lystrosaurus;
-
-        public LystrosaurusShakeGoal(Lystrosaurus lystrosaurus) {
-            super(lystrosaurus, 40, 5, false);
-            this.lystrosaurus = lystrosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && lystrosaurus.shakeCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.lystrosaurus.shakeCooldown();
         }
     }
 }

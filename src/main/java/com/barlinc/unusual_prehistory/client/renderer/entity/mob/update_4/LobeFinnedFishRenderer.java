@@ -38,7 +38,7 @@ public class LobeFinnedFishRenderer extends MobRenderer<LobeFinnedFish, Hierarch
 
     @Override
     public void render(LobeFinnedFish entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        switch (entity.getVariant()) {
+        switch (entity.getVariant().getId()) {
             case 1:
                 this.model = eusthenopteronModel;
                 break;
@@ -59,7 +59,7 @@ public class LobeFinnedFishRenderer extends MobRenderer<LobeFinnedFish, Hierarch
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(LobeFinnedFish entity) {
-        LobeFinnedFish.LobeFinnedFishVariant variant = LobeFinnedFish.LobeFinnedFishVariant.byId(entity.getVariant());
+        LobeFinnedFish.LobeFinnedFishVariant variant = LobeFinnedFish.LobeFinnedFishVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/lobe_finned_fish/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 

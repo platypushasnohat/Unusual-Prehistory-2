@@ -29,7 +29,7 @@ public class UlughbegsaurusRenderer extends MobRenderer<Ulughbegsaurus, Ulughbeg
         if (entity.isRainbow()) {
             return TEXTURE_RAINBOW;
         } else {
-            Ulughbegsaurus.UlughbegsaurusVariant variant = Ulughbegsaurus.UlughbegsaurusVariant.byId(entity.getVariant());
+            Ulughbegsaurus.UlughbegsaurusVariant variant = Ulughbegsaurus.UlughbegsaurusVariant.byId(entity.getVariant().getId());
             return UnusualPrehistory2.modPrefix("textures/entity/mob/ulughbegsaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
         }
     }

@@ -16,25 +16,25 @@ public class DelitzschalaModel extends UP2Model<Delitzschala> {
 
     private final ModelPart root;
     private final ModelPart body;
-    private final ModelPart left_wing1;
-    private final ModelPart left_wing2;
-    private final ModelPart left_wing3;
-    private final ModelPart right_wing1;
-    private final ModelPart right_wing2;
-    private final ModelPart right_wing3;
-    private final ModelPart Tail;
+    private final ModelPart wing_left1;
+    private final ModelPart wing_left2;
+    private final ModelPart wing_left3;
+    private final ModelPart wing_right1;
+    private final ModelPart wing_right2;
+    private final ModelPart wing_right3;
+    private final ModelPart tail;
 
 	public DelitzschalaModel(ModelPart root) {
         super(1.0F, 0);
         this.root = root.getChild("root");
         this.body = this.root.getChild("body");
-        this.left_wing1 = this.body.getChild("left_wing1");
-        this.left_wing2 = this.body.getChild("left_wing2");
-        this.left_wing3 = this.body.getChild("left_wing3");
-        this.right_wing1 = this.body.getChild("right_wing1");
-        this.right_wing2 = this.body.getChild("right_wing2");
-        this.right_wing3 = this.body.getChild("right_wing3");
-        this.Tail = this.body.getChild("Tail");
+        this.wing_left1 = this.body.getChild("wing_left1");
+        this.wing_left2 = this.body.getChild("wing_left2");
+        this.wing_left3 = this.body.getChild("wing_left3");
+        this.wing_right1 = this.body.getChild("wing_right1");
+        this.wing_right2 = this.body.getChild("wing_right2");
+        this.wing_right3 = this.body.getChild("wing_right3");
+        this.tail = this.body.getChild("tail");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -45,19 +45,19 @@ public class DelitzschalaModel extends UP2Model<Delitzschala> {
 
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 18).addBox(-1.5F, 0.0F, -4.0F, 3.0F, 0.0F, 8.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_wing1 = body.addOrReplaceChild("left_wing1", CubeListBuilder.create().texOffs(7, 7).addBox(0.0F, 0.0F, -1.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, -2.0F));
+        PartDefinition wing_left1 = body.addOrReplaceChild("wing_left1", CubeListBuilder.create().texOffs(7, 7).addBox(0.0F, 0.0F, -1.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, -2.0F));
 
-        PartDefinition left_wing2 = body.addOrReplaceChild("left_wing2", CubeListBuilder.create().texOffs(6, 4).addBox(0.0F, 0.0F, -1.0F, 7.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, 0.0F));
+        PartDefinition wing_left2 = body.addOrReplaceChild("wing_left2", CubeListBuilder.create().texOffs(6, 4).addBox(0.0F, 0.0F, -1.0F, 7.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, 0.0F));
 
-        PartDefinition left_wing3 = body.addOrReplaceChild("left_wing3", CubeListBuilder.create().texOffs(5, 0).addBox(0.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, 2.0F));
+        PartDefinition wing_left3 = body.addOrReplaceChild("wing_left3", CubeListBuilder.create().texOffs(5, 0).addBox(0.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)), PartPose.offset(1.5F, 0.0F, 2.0F));
 
-        PartDefinition right_wing1 = body.addOrReplaceChild("right_wing1", CubeListBuilder.create().texOffs(7, 7).mirror().addBox(-2.0F, 0.0F, -1.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, -2.0F));
+        PartDefinition wing_right1 = body.addOrReplaceChild("wing_right1", CubeListBuilder.create().texOffs(7, 7).mirror().addBox(-2.0F, 0.0F, -1.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, -2.0F));
 
-        PartDefinition right_wing2 = body.addOrReplaceChild("right_wing2", CubeListBuilder.create().texOffs(6, 4).mirror().addBox(-7.0F, 0.0F, -1.0F, 7.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, 0.0F));
+        PartDefinition wing_right2 = body.addOrReplaceChild("wing_right2", CubeListBuilder.create().texOffs(6, 4).mirror().addBox(-7.0F, 0.0F, -1.0F, 7.0F, 0.0F, 3.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, 0.0F));
 
-        PartDefinition right_wing3 = body.addOrReplaceChild("right_wing3", CubeListBuilder.create().texOffs(5, 0).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, 2.0F));
+        PartDefinition wing_right3 = body.addOrReplaceChild("wing_right3", CubeListBuilder.create().texOffs(5, 0).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 4.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-1.5F, 0.0F, 2.0F));
 
-        PartDefinition Tail = body.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(0, 9).addBox(-2.5F, 0.0F, 0.0F, 5.0F, 0.0F, 9.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 4.0F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 9).addBox(-2.5F, 0.0F, 0.0F, 5.0F, 0.0F, 9.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 4.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
 	}
@@ -67,6 +67,15 @@ public class DelitzschalaModel extends UP2Model<Delitzschala> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.animateIdleSmooth(entity.idleAnimationState, DelitzschalaAnimations.IDLE, ageInTicks, limbSwingAmount);
         this.animateSmooth(entity.flyAnimationState, DelitzschalaAnimations.FLY, ageInTicks);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+        float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+        float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
+
+        if (entity.isFlying()) {
+            this.root.xRot += flightPitchAmount;
+            this.root.zRot += rollAmount;
+        }
 	}
 
 	@Override

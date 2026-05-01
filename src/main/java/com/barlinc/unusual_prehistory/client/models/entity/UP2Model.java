@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -53,16 +53,6 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         float scale = Math.max(0, Math.min(1 - Math.abs(limbSwingAmount), 1));
         animationState.updateTime(ageInTicks, speed);
         animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE));
-    }
-
-    protected void animateLerped(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float lerp) {
-        this.animateLerped(animationState, definition, ageInTicks, 1, lerp);
-    }
-
-    protected void animateLerped(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed, float lerp) {
-        float scale = Math.max(0.0F, Math.min(lerp, 1.0F));
-        animationState.updateTime(ageInTicks, speed);
-        animationState.ifStarted(state -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, ANIMATION_VECTOR_CACHE));
     }
 
     @Override

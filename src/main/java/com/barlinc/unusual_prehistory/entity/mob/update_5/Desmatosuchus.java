@@ -1,14 +1,17 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2LootTables;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,7 +25,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,7 +39,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -55,7 +56,6 @@ import java.util.List;
 public class Desmatosuchus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Integer> DIRT_TYPE = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ROLL_COOLDOWN = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.7F);
@@ -67,9 +67,6 @@ public class Desmatosuchus extends PrehistoricMob {
     public final SmoothAnimationState rollAnimationState = new SmoothAnimationState();
 
     private boolean sniffAlt = false;
-    private int sniffCooldown = 700 + this.getRandom().nextInt(700);
-    private int shakeCooldown = 600 + this.getRandom().nextInt(600);
-    private int grazeCooldown = 800 + this.getRandom().nextInt(800);
 
     public Desmatosuchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -96,10 +93,10 @@ public class Desmatosuchus extends PrehistoricMob {
             }
         });
         this.goalSelector.addGoal(6, new SleepingGoal(this));
-        this.goalSelector.addGoal(7, new DesmatosuchusRollGoal(this));
-        this.goalSelector.addGoal(7, new DesmatosuchusShakeGoal(this));
-        this.goalSelector.addGoal(7, new DesmatosuchusSniffGoal(this));
-        this.goalSelector.addGoal(7, new DesmatosuchusGrazeGoal(this));
+//        this.goalSelector.addGoal(7, new DesmatosuchusRollGoal(this));
+//        this.goalSelector.addGoal(7, new DesmatosuchusShakeGoal(this));
+//        this.goalSelector.addGoal(7, new DesmatosuchusSniffGoal(this));
+//        this.goalSelector.addGoal(7, new DesmatosuchusGrazeGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -322,22 +319,11 @@ public class Desmatosuchus extends PrehistoricMob {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 39) {
-            this.washEffect(UP2Particles.POPPING_BUBBLE.get());
+            this.washEffect(UP2Particles.OUT_OF_WATER_BUBBLE.get());
         } else if (id == 67) {
             this.washEffect(ParticleTypes.FLAME);
         } else {
             super.handleEntityEvent(id);
-        }
-    }
-
-    @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isEepy()) {
-            if (this.getRollCooldown() > 0) this.setRollCooldown(this.getRollCooldown() - 1);
-            if (shakeCooldown > 0) shakeCooldown--;
-            if (sniffCooldown > 0) sniffCooldown--;
-            if (grazeCooldown > 0) grazeCooldown--;
         }
     }
 
@@ -354,37 +340,22 @@ public class Desmatosuchus extends PrehistoricMob {
         this.grazeAnimationState.animateWhen(this.getIdleState() == 4, this.tickCount);
     }
 
-    protected void shakeCooldown() {
-        this.shakeCooldown = 600 + this.getRandom().nextInt(600);
-    }
-
-    protected void sniffCooldown() {
-        this.sniffCooldown = 700 + this.getRandom().nextInt(700);
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 800 + this.getRandom().nextInt(800);
-    }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DIRT_TYPE, 0);
-        builder.define(ROLL_COOLDOWN, 1000 + this.getRandom().nextInt(70 * 70));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("DirtType", this.getDirtType().getId());
-        compoundTag.putInt("RollCooldown", this.getRollCooldown());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setDirtType(DirtType.byId(compoundTag.getInt("DirtType")));
-        this.setRollCooldown(compoundTag.getInt("RollCooldown"));
     }
 
     public boolean isDirty() {
@@ -397,14 +368,6 @@ public class Desmatosuchus extends PrehistoricMob {
 
     public void setDirtType(DirtType type) {
         this.entityData.set(DIRT_TYPE, type.getId());
-    }
-
-    public int getRollCooldown() {
-        return this.entityData.get(ROLL_COOLDOWN);
-    }
-
-    public void setRollCooldown(int cooldown) {
-        this.entityData.set(ROLL_COOLDOWN, cooldown);
     }
 
     @Nullable
@@ -472,115 +435,115 @@ public class Desmatosuchus extends PrehistoricMob {
     }
 
     // Goals
-    private static class DesmatosuchusRollGoal extends IdleAnimationGoal {
-
-        private final Desmatosuchus desmatosuchus;
-
-        public DesmatosuchusRollGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 80, 1);
-            this.desmatosuchus = desmatosuchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && desmatosuchus.getRollCooldown() == 0 && this.isRollingBlock();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.desmatosuchus.setRollCooldown(1200 + desmatosuchus.getRandom().nextInt(1200));
-        }
-
-        @Override
-        public void tick() {
-            super.tick();
-            if (timer == 30 && !desmatosuchus.isDirty()) {
-                if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
-                    this.desmatosuchus.setDirtType(DirtType.MOSSY);
-                } else if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS)) {
-                    this.desmatosuchus.setDirtType(DirtType.MUDDY);
-                } else if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS)) {
-                    this.desmatosuchus.setDirtType(DirtType.SNOWY);
-                }
-            }
-        }
-
-        protected boolean isRollingBlock() {
-            return desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS) || desmatosuchus.level().getBlockState(desmatosuchus.blockPosition()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS);
-        }
-
-        protected boolean isDirtyBlock(TagKey<Block> blockTag) {
-            return desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(blockTag) || desmatosuchus.level().getBlockState(desmatosuchus.blockPosition()).is(blockTag);
-        }
-    }
-
-    private static class DesmatosuchusShakeGoal extends IdleAnimationGoal {
-
-        private final Desmatosuchus desmatosuchus;
-
-        public DesmatosuchusShakeGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 2, false);
-            this.desmatosuchus = desmatosuchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && desmatosuchus.shakeCooldown == 0 && !desmatosuchus.isSitting();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.desmatosuchus.shakeCooldown();
-        }
-    }
-
-    private static class DesmatosuchusSniffGoal extends IdleAnimationGoal {
-
-        private final Desmatosuchus desmatosuchus;
-
-        public DesmatosuchusSniffGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 3);
-            this.desmatosuchus = desmatosuchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && desmatosuchus.sniffCooldown == 0 && !desmatosuchus.isSitting();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.desmatosuchus.sniffCooldown();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.desmatosuchus.sniffAlt = desmatosuchus.getRandom().nextBoolean();
-        }
-    }
-
-    private static class DesmatosuchusGrazeGoal extends IdleAnimationGoal {
-
-        private final Desmatosuchus desmatosuchus;
-
-        public DesmatosuchusGrazeGoal(Desmatosuchus desmatosuchus) {
-            super(desmatosuchus, 40, 4);
-            this.desmatosuchus = desmatosuchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && desmatosuchus.grazeCooldown == 0 && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS) && !desmatosuchus.isSitting();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.desmatosuchus.grazeCooldown();
-        }
-    }
+//    private static class DesmatosuchusRollGoal extends IdleAnimationGoal {
+//
+//        private final Desmatosuchus desmatosuchus;
+//
+//        public DesmatosuchusRollGoal(Desmatosuchus desmatosuchus) {
+//            super(desmatosuchus, 80, 1);
+//            this.desmatosuchus = desmatosuchus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && desmatosuchus.getRollCooldown() == 0 && this.isRollingBlock();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.desmatosuchus.setRollCooldown(1200 + desmatosuchus.getRandom().nextInt(1200));
+//        }
+//
+//        @Override
+//        public void tick() {
+//            super.tick();
+//            if (timer == 30 && !desmatosuchus.isDirty()) {
+//                if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_MOSSY_BLOCKS)) {
+//                    this.desmatosuchus.setDirtType(DirtType.MOSSY);
+//                } else if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_MUDDY_BLOCKS)) {
+//                    this.desmatosuchus.setDirtType(DirtType.MUDDY);
+//                } else if (this.isDirtyBlock(UP2BlockTags.DESMATOSUCHUS_SNOWY_BLOCKS)) {
+//                    this.desmatosuchus.setDirtType(DirtType.SNOWY);
+//                }
+//            }
+//        }
+//
+//        protected boolean isRollingBlock() {
+//            return desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS) || desmatosuchus.level().getBlockState(desmatosuchus.blockPosition()).is(UP2BlockTags.DESMATOSUCHUS_ROLLING_BLOCKS);
+//        }
+//
+//        protected boolean isDirtyBlock(TagKey<Block> blockTag) {
+//            return desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(blockTag) || desmatosuchus.level().getBlockState(desmatosuchus.blockPosition()).is(blockTag);
+//        }
+//    }
+//
+//    private static class DesmatosuchusShakeGoal extends IdleAnimationGoal {
+//
+//        private final Desmatosuchus desmatosuchus;
+//
+//        public DesmatosuchusShakeGoal(Desmatosuchus desmatosuchus) {
+//            super(desmatosuchus, 40, 2, false);
+//            this.desmatosuchus = desmatosuchus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && desmatosuchus.shakeCooldown == 0 && !desmatosuchus.isSitting();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.desmatosuchus.shakeCooldown();
+//        }
+//    }
+//
+//    private static class DesmatosuchusSniffGoal extends IdleAnimationGoal {
+//
+//        private final Desmatosuchus desmatosuchus;
+//
+//        public DesmatosuchusSniffGoal(Desmatosuchus desmatosuchus) {
+//            super(desmatosuchus, 40, 3);
+//            this.desmatosuchus = desmatosuchus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && desmatosuchus.sniffCooldown == 0 && !desmatosuchus.isSitting();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.desmatosuchus.sniffCooldown();
+//        }
+//
+//        @Override
+//        public void start() {
+//            super.start();
+//            this.desmatosuchus.sniffAlt = desmatosuchus.getRandom().nextBoolean();
+//        }
+//    }
+//
+//    private static class DesmatosuchusGrazeGoal extends IdleAnimationGoal {
+//
+//        private final Desmatosuchus desmatosuchus;
+//
+//        public DesmatosuchusGrazeGoal(Desmatosuchus desmatosuchus) {
+//            super(desmatosuchus, 40, 4);
+//            this.desmatosuchus = desmatosuchus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && desmatosuchus.grazeCooldown == 0 && desmatosuchus.level().getBlockState(desmatosuchus.blockPosition().below()).is(UP2BlockTags.DESMATOSUCHUS_FOOD_BLOCKS) && !desmatosuchus.isSitting();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.desmatosuchus.grazeCooldown();
+//        }
+//    }
 }

@@ -21,7 +21,7 @@ public class UP2Particles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> GOLDEN_HEART = registerParticle("golden_heart", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SNOWFLAKE = registerParticle("snowflake", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> IMPACT_STUN = registerParticle("impact_stun", () -> new SimpleParticleType(false));
-    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> POPPING_BUBBLE = registerParticle("popping_bubble", ()-> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> OUT_OF_WATER_BUBBLE = registerParticle("out_of_water_bubble", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SWEET_GROG_BUBBLE = registerParticle("sweet_grog_bubble", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FOUL_GROG_BUBBLE = registerParticle("foul_grog_bubble", ()-> new SimpleParticleType(false));
 

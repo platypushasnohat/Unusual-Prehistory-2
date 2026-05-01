@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_brachiosaurus",
+  "parent": "unusual_prehistory:revive_cryptoclidus",
   "criteria": {
     "revive_kentrosaurus": {
       "conditions": {

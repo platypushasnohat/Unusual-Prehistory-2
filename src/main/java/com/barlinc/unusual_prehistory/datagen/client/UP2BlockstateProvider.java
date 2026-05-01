@@ -74,9 +74,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.leavesBlock(DAWN_METASEQUOIA_LEAVES);
         this.leavesBlock(DUSK_METASEQUOIA_LEAVES);
 
-        this.cubeColumnBlock(FOSSILIZED_BONE_BLOCK);
-//        this.cubeColumnBlock(FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.modPrefix("fossilized_bone_vertebra"), UnusualPrehistory2.modPrefix("fossilized_bone_block_top"));
-//        this.cubeColumnBlock(FOSSILIZED_BONE_BARK, UnusualPrehistory2.modPrefix("fossilized_bone_block"), UnusualPrehistory2.modPrefix("fossilized_bone_block"));
+        this.axisBlock(FOSSILIZED_BONE_BLOCK);
+        this.axisBlock(FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.modPrefix("block/fossilized_bone_vertebra"), UnusualPrehistory2.modPrefix("block/fossilized_bone_block_top"));
+        this.axisBlock(FOSSILIZED_BONE_BARK, UnusualPrehistory2.modPrefix("block/fossilized_bone_block"), UnusualPrehistory2.modPrefix("block/fossilized_bone_block"));
 
         this.block(COBBLED_FOSSILIZED_BONE);
         this.stairsBlock(COBBLED_FOSSILIZED_BONE.get(), COBBLED_FOSSILIZED_BONE_STAIRS.get());
@@ -242,43 +242,23 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     }
 
     public void logBlocks(DeferredHolder<Block, ?> log, DeferredHolder<Block, ?> wood) {
-        this.logBlock(log);
+        this.axisBlock(log);
         this.woodBlock(wood, log);
     }
 
     public void woodBlock(DeferredHolder<Block, ?> block, DeferredHolder<Block, ?> log) {
-        this.logBlock(block, this.blockTexture(log.get()), this.blockTexture(log.get()));
+        this.axisBlock(block, this.blockTexture(log.get()), this.blockTexture(log.get()));
     }
 
-    public void logBlock(DeferredHolder<Block, ?> block) {
-        this.logBlock(block, this.blockTexture(block.get()), suffix(this.blockTexture(block.get()), "_top"));
+    public void axisBlock(DeferredHolder<Block, ?> block) {
+        this.axisBlock(block, this.blockTexture(block.get()), suffix(this.blockTexture(block.get()), "_top"));
     }
 
-    public void logBlock(DeferredHolder<Block, ?> block, ResourceLocation sideTexture, ResourceLocation topTexture) {
+    public void axisBlock(DeferredHolder<Block, ?> block, ResourceLocation sideTexture, ResourceLocation topTexture) {
         if (block.get() instanceof RotatedPillarBlock log) {
             this.axisBlock(log, sideTexture, topTexture);
             this.blockItem(block);
         }
-    }
-
-    public void cubeBottomTopBlock(DeferredHolder<Block, ?> block) {
-        ResourceLocation name = BuiltInRegistries.BLOCK.getKey(block.get());
-        this.cubeBottomTopBlock(block, prefix("block/", suffix(name, "_side")), prefix("block/", suffix(name, "_bottom")), prefix("block/", suffix(name, "_top")));
-    }
-
-    public void cubeBottomTopBlock(DeferredHolder<Block, ?> block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
-        this.simpleBlock(block.get(), this.models().cubeBottomTop(name(block.get()), sideTexture, bottomTexture, topTexture));
-        this.blockItem(block);
-    }
-
-    public void cubeColumnBlock(DeferredHolder<Block, ?> block) {
-        ResourceLocation name = BuiltInRegistries.BLOCK.getKey(block.get());
-        this.cubeColumnBlock(block, prefix("block/", name), prefix("block/", suffix(name, "_top")));
-    }
-
-    public void cubeColumnBlock(DeferredHolder<Block, ?> block, ResourceLocation sideTexture, ResourceLocation topTexture) {
-        this.simpleBlock(block.get(), this.models().cubeColumn(name(block.get()), sideTexture, topTexture));
-        this.blockItem(block);
     }
 
     public void woodSet(WoodSet woodSet) {

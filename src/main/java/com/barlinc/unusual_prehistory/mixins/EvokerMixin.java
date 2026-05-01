@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins;
 
-import com.barlinc.unusual_prehistory.utils.EvokerAccessor;
+import com.barlinc.unusual_prehistory.entity.accessor.EvokerAccessor;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Evoker;

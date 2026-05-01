@@ -148,7 +148,7 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
             this.swim_control.xRot = headPitch * deg;
         }
 
-        this.faceTarget(netHeadYaw, headPitch, 2, neck, head);
+        this.faceTarget(netHeadYaw, headPitch, 3, neck, head);
 
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.35F);

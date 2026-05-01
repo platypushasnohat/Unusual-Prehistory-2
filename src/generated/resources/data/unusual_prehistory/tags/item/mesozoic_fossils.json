@@ -1,5 +1,6 @@
 {
   "values": [
+    "unusual_prehistory:snow_shovel_fossil",
     "unusual_prehistory:impervious_fossil",
     "unusual_prehistory:flat_back_fossil",
     "unusual_prehistory:arm_fossil",
@@ -14,6 +15,8 @@
     "unusual_prehistory:surge_fossil",
     "unusual_prehistory:saw_fossil",
     "unusual_prehistory:cranium_fossil",
-    "unusual_prehistory:dubious_fossil"
+    "unusual_prehistory:dubious_fossil",
+    "unusual_prehistory:fish_reptile_fossil",
+    "unusual_prehistory:cryptic_fossil"
   ]
 }

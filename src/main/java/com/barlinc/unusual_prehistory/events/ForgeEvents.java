@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.events;
 
+import com.barlinc.unusual_prehistory.entity.accessor.MobAccessor;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
@@ -12,7 +13,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.utils.MobAccessor;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -59,7 +59,15 @@ public class ForgeEvents {
         Entity entity = event.getEntity();
         if (entity instanceof Mob mob) {
             if (mob instanceof Evoker evoker) {
-                evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == 12, 5));
+                evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == Ulughbegsaurus.UlughbegsaurusVariant.BLUE) {
+                    @Override
+                    protected void performSpellCasting() {
+                        LivingEntity wololoTarget = evokerAccess.unusualPrehistory2$getLivingWololoTarget();
+                        if (wololoTarget != null && wololoTarget.isAlive() && wololoTarget instanceof Ulughbegsaurus ulughbegsaurus) {
+                            ulughbegsaurus.setVariant(Ulughbegsaurus.UlughbegsaurusVariant.RED);
+                        }
+                    }
+                });
             }
             if (mob instanceof Guardian guardian) {
                 guardian.goalSelector.addGoal(3, new AvoidEntityGoal<>(guardian, Dunkleosteus.class, 12.0F, 1.5D, 1.5D));

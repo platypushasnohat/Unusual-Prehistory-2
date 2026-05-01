@@ -33,7 +33,9 @@ public class AquaticLeapGoal extends JumpGoal {
 
     @Override
     public boolean canUse() {
-        if (prehistoricMob.getRandom().nextInt(interval) != 0) {
+        if (prehistoricMob.hasControllingPassenger()) {
+            return false;
+        } else if (prehistoricMob.getRandom().nextInt(interval) != 0) {
             return false;
         } else {
             Direction direction = prehistoricMob.getMotionDirection();

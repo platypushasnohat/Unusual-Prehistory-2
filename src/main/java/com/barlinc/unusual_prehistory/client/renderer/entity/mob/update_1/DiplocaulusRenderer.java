@@ -37,7 +37,7 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
 
     @Override
     public void render(Diplocaulus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        switch (Diplocaulus.DiplocaulusVariant.byId(entity.getVariant()).getId()) {
+        switch (entity.getVariant().getId()) {
             case 1:
                 this.model = swampyModel;
                 break;
@@ -55,7 +55,7 @@ public class DiplocaulusRenderer extends MobRenderer<Diplocaulus, HierarchicalMo
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Diplocaulus entity) {
-        Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant());
+        Diplocaulus.DiplocaulusVariant variant = Diplocaulus.DiplocaulusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/diplocaulus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

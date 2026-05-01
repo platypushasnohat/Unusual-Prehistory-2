@@ -5,18 +5,17 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PraepusaAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
- import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
  import net.minecraft.core.particles.ParticleTypes;
  import net.minecraft.nbt.CompoundTag;
@@ -27,19 +26,21 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.sounds.SoundSource;
+ import net.minecraft.tags.FluidTags;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
+ import net.minecraft.world.entity.ai.goal.Goal;
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.component.CustomData;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.state.BlockState;
@@ -52,7 +53,6 @@
  public class Praepusa extends AmphibiousMob implements Bucketable {
 
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.BOOLEAN);
 
      private boolean prevOnGround = false;
      private Vec3 prevVelocity = Vec3.ZERO;
@@ -71,22 +71,18 @@
      private int mitosisTicks;
      private int bounceTicks = 0;
      private boolean slapAlt = false;
-
-     private int slapCooldown = 300 + this.getRandom().nextInt(300);
-     private int loafCooldown = 400 + this.getRandom().nextInt(400);
-     private int applauseCooldown = 900 + this.getRandom().nextInt(900);
+     private int loafCooldown = 0;
 
      public Praepusa(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
+         this.switchNavigator(true);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.16F)
+                 .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ATTACK_DAMAGE, 3.0D);
      }
 
@@ -96,46 +92,61 @@
          this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(8, new WaterSleepingGoal(this, true));
-         this.goalSelector.addGoal(9, new PraepusaSlapGoal(this));
-         this.goalSelector.addGoal(10, new PraepusaLoafGoal(this));
-         this.goalSelector.addGoal(10, new PraepusaApplauseGoal(this));
+         this.goalSelector.addGoal(8, new WaterSleepingGoal(this));
+         this.goalSelector.addGoal(9, new PraepusaLoafGoal(this));
+         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 40, 2, true, 0.001F, this::canPlayIdles) {
+             @Override
+             public void start() {
+                 super.start();
+                 Praepusa.this.slapAlt = Praepusa.this.getRandom().nextBoolean();
+             }
+         });
+         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 60, 3, true, 0.001F, this::canPlayIdles));
          this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, this::canHuntFish));
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new SmoothAmphibiousPathNavigation(this, level);
      }
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
              this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-             this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
 
      @Override
      public void travel(@NotNull Vec3 travelVec) {
-         if (this.refuseToMove() && this.onGround()) {
+         if (this.refuseToMove()) {
              if (this.getNavigation().getPath() != null) {
                  this.getNavigation().stop();
              }
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
+         if (this.isEepy()) {
+             if (this.getFluidHeight(FluidTags.WATER) > this.getFluidJumpThreshold()) {
+                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
+             } else {
+                 this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D));
+             }
+         }
          if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVec);
-             this.move(MoverType.SELF, this.getDeltaMovement());
-             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-         } else {
+             MobUtils.travelInWater(this, travelVec);
+         }
+         else {
              super.travel(travelVec);
          }
      }
@@ -153,11 +164,6 @@
      @Override
      public boolean canPacify() {
          return true;
-     }
-
-     @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_PRAEPUSA);
      }
 
      @Override
@@ -209,8 +215,6 @@
          if (!this.level().isClientSide && this.isAlive() && !this.isInWaterOrBubble()) {
              this.bounce();
          }
-
-         if (attackCooldown > 0) attackCooldown--;
      }
 
      @Override
@@ -256,37 +260,53 @@
 
      @Override
      public void setupAnimationStates() {
-         if (this.mitosisAnimationState.isStarted() && mitosisTicks == 0) this.mitosisAnimationState.stop();
          this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && this.getIdleState() != 3 && !this.isEepy(), this.tickCount);
          this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
          this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
          this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
-         this.slap1AnimationState.animateWhen(this.getIdleState() == 1 && !slapAlt, this.tickCount);
-         this.slap2AnimationState.animateWhen(this.getIdleState() == 1 && slapAlt, this.tickCount);
-         this.loafAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+         this.loafAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+         this.slap1AnimationState.animateWhen(this.getIdleState() == 2 && !slapAlt, this.tickCount);
+         this.slap2AnimationState.animateWhen(this.getIdleState() == 2 && slapAlt, this.tickCount);
          this.applauseAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
+         this.mitosisAnimationState.animateWhen(this.getPose() == UP2Poses.MITOSIS.get(), this.tickCount);
      }
 
      @Override
      public void tickCooldowns() {
          super.tickCooldowns();
-         if (mitosisTicks > 0) mitosisTicks--;
          if (bounceTicks > 0) bounceTicks--;
-         if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
-         if (slapCooldown > 0) slapCooldown--;
-         if (loafCooldown > 0) loafCooldown--;
-         if (applauseCooldown > 0) applauseCooldown--;
          if (bounceTicks == 0) this.level().broadcastEntityEvent(this, (byte) 74);
+         if (mitosisTicks > 0) mitosisTicks--;
+         if (mitosisTicks == 0 && this.getPose() == UP2Poses.MITOSIS.get()) this.setPose(Pose.STANDING);
+         if (attackCooldown > 0) attackCooldown--;
+         if (loafCooldown > 0) loafCooldown--;
+     }
+
+     private boolean canPlayIdles(Entity entity) {
+         return !entity.isInWaterOrBubble();
+     }
+
+     @Override
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 300 + this.getRandom().nextInt(300);
+         }
+         else if (idleState == 2) {
+             return 800 + this.getRandom().nextInt(1200);
+         }
+         else if (idleState == 3) {
+             return 1000 + this.getRandom().nextInt(1200);
+         }
+         else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
+         }
      }
 
      @Override
      public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
          if (DATA_POSE.equals(accessor)) {
              if (this.getPose() == UP2Poses.MITOSIS.get()) {
-                 this.mitosisAnimationState.start(this.tickCount);
                  this.mitosisTicks = 40;
-             } else if (this.getPose() == Pose.STANDING) {
-                 this.mitosisAnimationState.stop();
              }
          }
          super.onSyncedDataUpdated(accessor);
@@ -300,37 +320,22 @@
          }
      }
 
-     protected void slapCooldown() {
-         this.slapCooldown = 500 + this.getRandom().nextInt(500);
-     }
-
-     protected void loafCooldown() {
-         this.loafCooldown = 700 + this.getRandom().nextInt(700);
-     }
-
-     protected void applauseCooldown() {
-         this.applauseCooldown = 1000 + this.getRandom().nextInt(1000);
-     }
-
      @Override
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
          builder.define(MITOSIS_COOLDOWN, 0);
-         builder.define(FROM_BUCKET, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
          compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
-         compoundTag.putBoolean("FromBucket", this.fromBucket());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
          this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
-         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
      }
 
      public int getMitosisCooldown() {
@@ -342,37 +347,31 @@
 
      @Override
      public boolean fromBucket() {
-         return this.entityData.get(FROM_BUCKET);
+         return false;
      }
 
      @Override
      public void setFromBucket(boolean fromBucket) {
-         this.entityData.set(FROM_BUCKET, fromBucket);
+     }
+
+     @Override
+     public @NotNull ItemStack getBucketItemStack() {
+         return new ItemStack(UP2Items.PRAEPUSA_BUCKET.get());
      }
 
      @Override
      public @NotNull SoundEvent getPickupSound() {
-         return SoundEvents.BUCKET_FILL_FISH;
+         return SoundEvents.BUCKET_EMPTY_FISH;
      }
 
      @Override
      public void saveToBucketTag(@NotNull ItemStack bucket) {
-         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-             compoundTag.putInt("BucketVariantTag", this.getVariant());
-             compoundTag.putInt("Age", this.getAge());
-             compoundTag.putInt("MitosisCooldown", this.getMitosisCooldown());
-         });
+         MobUtils.savePrehistoricDataToBucket(this, bucket);
      }
 
      @Override
      public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-         if (compoundTag.contains("BucketVariantTag", 3)) {
-             this.setVariant(compoundTag.getInt("BucketVariantTag"));
-         }
-         this.setAge(compoundTag.getInt("Age"));
-         this.setMitosisCooldown(compoundTag.getInt("MitosisCooldown"));
+         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
      }
 
      @Override
@@ -383,19 +382,11 @@
              this.setPose(UP2Poses.MITOSIS.get());
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
-         if (itemstack.isEmpty() && this.loafCooldown > 0 && this.getIdleState() == 0 && this.getLastHurtByMob() == null && !this.isInWater()) {
-             this.loafCooldown = 0;
-             if (this.getNavigation().getPath() != null) {
-                 this.getNavigation().stop();
-             }
-             return InteractionResult.SUCCESS;
+         if (itemstack.isEmpty() && this.getIdleState() == 0 && this.getLastHurtByMob() == null && this.loafCooldown == 0) {
+             this.setIdleState(1);
+             return InteractionResult.sidedSuccess(this.level().isClientSide);
          }
          return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-     }
-
-     @Override
-     public @NotNull ItemStack getBucketItemStack() {
-         return new ItemStack(UP2Items.PRAEPUSA_BUCKET.get());
      }
 
      @Override
@@ -423,72 +414,108 @@
      }
 
      // Goals
-     private static class PraepusaSlapGoal extends IdleAnimationGoal {
+     private static class PraepusaLoafGoal extends Goal {
 
-         private final Praepusa praepusa;
+         public final Praepusa praepusa;
+         public int timer;
 
-         public PraepusaSlapGoal(Praepusa praepusa) {
-             super(praepusa, 40, 1);
+         public PraepusaLoafGoal(Praepusa praepusa) {
              this.praepusa = praepusa;
          }
 
          @Override
          public boolean canUse() {
-             return super.canUse() && praepusa.slapCooldown == 0;
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.praepusa.slapCooldown();
+             if (this.isInCombat()) {
+                 return false;
+             }
+             return praepusa.loafCooldown == 0 && praepusa.isAlive() && praepusa.getIdleState() == 1 && !praepusa.isEepy();
          }
 
          @Override
          public void start() {
-             super.start();
-             this.praepusa.slapAlt = praepusa.getRandom().nextBoolean();
+             this.praepusa.loafCooldown = 80;
+             this.praepusa.setIdleAnimationCooldown(praepusa.getIdleAnimationCooldown() + 80);
+             this.timer = 80;
+             this.praepusa.getNavigation().stop();
+         }
+
+         @Override
+         public boolean canContinueToUse() {
+             if (this.isInCombat()) {
+                 return false;
+             }
+             return timer > 0 && praepusa.getIdleState() == 1 && praepusa.isAlive() && !praepusa.isEepy();
+         }
+
+         @Override
+         public void tick() {
+             this.timer--;
+             this.praepusa.getNavigation().stop();
+         }
+
+         @Override
+         public void stop() {
+             this.praepusa.setIdleState(0);
+             this.praepusa.getNavigation().stop();
+         }
+
+         @Override
+         public boolean requiresUpdateEveryTick() {
+             return true;
+         }
+
+         protected boolean isInCombat() {
+             return praepusa.getLastHurtByMob() != null || praepusa.getTarget() != null;
          }
      }
 
-     private static class PraepusaLoafGoal extends IdleAnimationGoal {
+     private static class PraepusaAttackGoal extends AttackGoal {
 
          private final Praepusa praepusa;
 
-         public PraepusaLoafGoal(Praepusa praepusa) {
-             super(praepusa, 80, 2);
+         public PraepusaAttackGoal(Praepusa praepusa) {
+             super(praepusa);
              this.praepusa = praepusa;
          }
 
          @Override
          public boolean canUse() {
-             return super.canUse() && praepusa.loafCooldown == 0;
+             LivingEntity target = praepusa.getTarget();
+             return super.canUse() && praepusa.getPose() == Pose.STANDING && target != null && target.isAlive() && target.isInWater() && !target.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS) && !(target instanceof Player);
          }
 
          @Override
-         public void stop() {
-             super.stop();
-             this.praepusa.loafCooldown();
-         }
-     }
-
-     private static class PraepusaApplauseGoal extends IdleAnimationGoal {
-
-         private final Praepusa praepusa;
-
-         public PraepusaApplauseGoal(Praepusa praepusa) {
-             super(praepusa, 60, 3);
-             this.praepusa = praepusa;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && praepusa.applauseCooldown == 0 && !praepusa.isSitting();
+         public void tick() {
+             LivingEntity target = praepusa.getTarget();
+             if (target != null && target.isInWater()) {
+                 this.praepusa.lookAt(target, 30F, 30F);
+                 this.praepusa.getLookControl().setLookAt(target, 30F, 30F);
+                 double distance = praepusa.distanceToSqr(target.getX(), target.getY(), target.getZ());
+                 this.praepusa.getNavigation().moveTo(target, 1.5D);
+                 if (distance <= 4 && praepusa.attackCooldown == 0) {
+                     praepusa.setAttackState(1);
+                 }
+                 if (praepusa.getAttackState() == 1) {
+                     this.tickAttack();
+                 }
+             }
          }
 
-         @Override
-         public void stop() {
-             super.stop();
-             this.praepusa.applauseCooldown();
+         protected void tickAttack() {
+             this.timer++;
+             LivingEntity target = praepusa.getTarget();
+             if (timer == 1) praepusa.setPose(UP2Poses.ATTACKING.get());
+             if (timer == 8) {
+                 if (praepusa.distanceTo(target) < this.getAttackReachSqr(target)) {
+                     this.praepusa.doHurtTarget(target);
+                     this.praepusa.swing(InteractionHand.MAIN_HAND);
+                 }
+             }
+             if (timer > 10) {
+                 this.timer = 0;
+                 this.praepusa.setAttackState(0);
+                 this.praepusa.attackCooldown = 4;
+             }
          }
      }
  }

@@ -154,9 +154,11 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Jurassic
         AdvancementHolder reviveBrachiosaurus = reviveMobAdvancement("revive_brachiosaurus", jurassicRoot, UP2Blocks.BRACHIOSAURUS_EGG.get(), UP2Entities.BRACHIOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_brachiosaurus"), helper);
-        AdvancementHolder reviveKentrosaurus = reviveMobAdvancement("revive_kentrosaurus", reviveBrachiosaurus, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kentrosaurus"), helper);
-        AdvancementHolder reviveKimmeridgebrachypteraeschnidium = reviveMobAdvancement("revive_kimmeridgebrachypteraeschnidium", reviveKentrosaurus, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kimmeridgebrachypteraeschnidium"), helper);
-        AdvancementHolder reviveMetriorhynchus = reviveMobAdvancement("revive_metriorhynchus", reviveKimmeridgebrachypteraeschnidium, UP2Items.METRIORHYNCHUS_EMBRYO.get(), UP2Entities.METRIORHYNCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_metriorhynchus"), helper);
+        AdvancementHolder reviveCryptoclidus = reviveMobAdvancement("revive_cryptoclidus", reviveBrachiosaurus, UP2Items.CRYPTOCLIDUS_EMBRYO.get(), UP2Entities.CRYPTOCLIDUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_cryptoclidus"), helper);
+        AdvancementHolder reviveKentrosaurus = reviveMobAdvancement("revive_kentrosaurus", reviveCryptoclidus, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kentrosaurus"), helper);
+        AdvancementHolder reviveKimmeridgebrachypteraeschnidium = reviveMobAdvancement("revive_kimmeridgebrachypteraeschnidium", reviveKentrosaurus, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_kimmeridgebrachypteraeschnidium"), helper);
+        AdvancementHolder reviveIchthyosaurus = reviveMobAdvancement("revive_ichthyosaurus", reviveKimmeridgebrachypteraeschnidium, UP2Items.ICHTHYOSAURUS_EMBRYO.get(), UP2Entities.ICHTHYOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_ichthyosaurus"), helper);
+        AdvancementHolder reviveMetriorhynchus = reviveMobAdvancement("revive_metriorhynchus", reviveIchthyosaurus, UP2Items.METRIORHYNCHUS_EMBRYO.get(), UP2Entities.METRIORHYNCHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_metriorhynchus"), helper);
         AdvancementHolder revivePterodactylus = reviveMobAdvancement("revive_pterodactylus", reviveMetriorhynchus, UP2Items.PTERODACTYLUS_EGG.get(), UP2Entities.PTERODACTYLUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_pterodactylus"), helper);
 
         // Cretaceous
@@ -176,6 +178,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Neogene
         AdvancementHolder revivePraepusa = reviveMobAdvancement("revive_praepusa", neogeneRoot, UP2Items.PRAEPUSA_EMBRYO.get(), UP2Entities.PRAEPUSA.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_praepusa"), helper);
+        AdvancementHolder reviveSpikeToothedSalmon = reviveMobAdvancement("revive_spike_toothed_salmon", revivePraepusa, UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get(), UP2Entities.SPIKE_TOOTHED_SALMON.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_spike_toothed_salmon"), helper);
 
         // Quaternary
         AdvancementHolder reviveMegalania = reviveMobAdvancement("revive_megalania", quaternaryRoot, UP2Blocks.MEGALANIA_EGG.get(), UP2Entities.MEGALANIA.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_megalania"), helper);

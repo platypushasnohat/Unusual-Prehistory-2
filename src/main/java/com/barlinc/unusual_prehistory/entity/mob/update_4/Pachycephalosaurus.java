@@ -1,16 +1,18 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PachycephalosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -38,16 +41,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Pachycephalosaurus extends PrehistoricMob {
+public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<Pachycephalosaurus.PachycephalosaurusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FIGHT_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FIGHT_PARTNER = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> WANTS_TO_KILL = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> FIND_TARGET_COOLDOWN = SynchedEntityData.defineId(Pachycephalosaurus.class, EntityDataSerializers.INT);
-
-    private int grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
-    private int huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState huffAnimationState = new SmoothAnimationState();
@@ -77,8 +78,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new SleepingGoal(this));
-        this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
-        this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
+//        this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
+//        this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
         this.targetSelector.addGoal(0, new PachycephalosaurusHurtByTargetGoal(this, Pachycephalosaurus.class));
         this.targetSelector.addGoal(1, new PachycephalosaurusTargetToKillGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.PACHYCEPHALOSAURUS_TARGETS_TO_KILL)));
         this.targetSelector.addGoal(2, new PachycephalosaurusTargetOthersGoal<>(this, Pachycephalosaurus.class));
@@ -154,12 +155,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
         super.tickCooldowns();
         if (recoverTicks > 0) recoverTicks--;
         if (recoverTicks == 0 && this.getPose() == UP2Poses.RECOVERING.get()) this.setPose(Pose.STANDING);
-        if (!this.level().isClientSide) {
-            if (!this.isInWaterOrBubble() && !this.isEepy()) {
-                if (huffCooldown > 0) huffCooldown--;
-                if (grazeCooldown > 0) grazeCooldown--;
-            }
-        }
     }
 
     @Override
@@ -181,14 +176,6 @@ public class Pachycephalosaurus extends PrehistoricMob {
             }
         }
         super.onSyncedDataUpdated(accessor);
-    }
-
-    protected void grazeCooldown() {
-        this.grazeCooldown = 700 + this.getRandom().nextInt(60 * 50);
-    }
-
-    protected void huffCooldown() {
-        this.huffCooldown = 600 + this.getRandom().nextInt(60 * 60);
     }
 
     public void handleEntityEvent(byte id) {
@@ -220,6 +207,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(CHARGE_COOLDOWN, 0);
         builder.define(FIGHT_COOLDOWN, 800);
         builder.define(FIGHT_PARTNER, false);
@@ -230,6 +218,7 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("FightCooldown", this.getFightCooldown());
         compoundTag.putInt("FindTargetCooldown", this.getFindTargetCooldown());
     }
@@ -237,8 +226,19 @@ public class Pachycephalosaurus extends PrehistoricMob {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(PachycephalosaurusVariant.byId(compoundTag.getInt("Variant")));
         this.setFightCooldown(compoundTag.getInt("FightCooldown"));
         this.setFindTargetCooldown(compoundTag.getInt("FindTargetCooldown"));
+    }
+
+    @Override
+    public @NotNull PachycephalosaurusVariant getVariant() {
+        return PachycephalosaurusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(PachycephalosaurusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, PachycephalosaurusVariant.values().length));
     }
 
     public void setChargeCooldown(int cooldown) {
@@ -343,13 +343,8 @@ public class Pachycephalosaurus extends PrehistoricMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return PachycephalosaurusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        this.setVariant(level.getRandom().nextInt(this.getVariantCount()));
+        this.setVariant(PachycephalosaurusVariant.byId(level.getRandom().nextInt(PachycephalosaurusVariant.values().length)));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
@@ -448,45 +443,45 @@ public class Pachycephalosaurus extends PrehistoricMob {
         }
     }
 
-    private static class PachycephalosaurusGrazeGoal extends IdleAnimationGoal {
-
-        private final Pachycephalosaurus pachycephalosaurus;
-
-        public PachycephalosaurusGrazeGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 60, 1);
-            this.pachycephalosaurus = pachycephalosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pachycephalosaurus.grazeCooldown();
-        }
-    }
-
-    private static class PachycephalosaurusHuffGoal extends IdleAnimationGoal {
-
-        private final Pachycephalosaurus pachycephalosaurus;
-
-        public PachycephalosaurusHuffGoal(Pachycephalosaurus pachycephalosaurus) {
-            super(pachycephalosaurus, 30, 2, false);
-            this.pachycephalosaurus = pachycephalosaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && pachycephalosaurus.huffCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.pachycephalosaurus.huffCooldown();
-        }
-    }
+//    private static class PachycephalosaurusGrazeGoal extends IdleAnimationGoal {
+//
+//        private final Pachycephalosaurus pachycephalosaurus;
+//
+//        public PachycephalosaurusGrazeGoal(Pachycephalosaurus pachycephalosaurus) {
+//            super(pachycephalosaurus, 60, 1);
+//            this.pachycephalosaurus = pachycephalosaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && pachycephalosaurus.grazeCooldown == 0 && pachycephalosaurus.level().getBlockState(pachycephalosaurus.blockPosition().below()).is(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS);
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.pachycephalosaurus.grazeCooldown();
+//        }
+//    }
+//
+//    private static class PachycephalosaurusHuffGoal extends IdleAnimationGoal {
+//
+//        private final Pachycephalosaurus pachycephalosaurus;
+//
+//        public PachycephalosaurusHuffGoal(Pachycephalosaurus pachycephalosaurus) {
+//            super(pachycephalosaurus, 30, 2, false);
+//            this.pachycephalosaurus = pachycephalosaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && pachycephalosaurus.huffCooldown == 0;
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.pachycephalosaurus.huffCooldown();
+//        }
+//    }
 }

@@ -14,6 +14,8 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.Psilopterus;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Delitzschala;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -32,7 +34,6 @@ public class ModEvents {
         event.put(UP2Entities.JAWLESS_FISH.get(), JawlessFish.createAttributes().build());
         event.put(UP2Entities.KENTROSAURUS.get(), Kentrosaurus.createAttributes().build());
         event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), Kimmeridgebrachypteraeschnidium.createAttributes().build());
-        event.put(UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH.get(), KimmeridgebrachypteraeschnidiumNymph.createAttributes().build());
         event.put(UP2Entities.MAJUNGASAURUS.get(), Majungasaurus.createAttributes().build());
         event.put(UP2Entities.MEGALANIA.get(), Megalania.createAttributes().build());
         event.put(UP2Entities.STETHACANTHUS.get(), Stethacanthus.createAttributes().build());
@@ -71,10 +72,16 @@ public class ModEvents {
         event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
 
         // Update 6
+        event.put(UP2Entities.AMPYX.get(), Ampyx.createAttributes().build());
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
+        event.put(UP2Entities.CRYPTOCLIDUS.get(), Cryptoclidus.createAttributes().build());
         event.put(UP2Entities.HYNERPETON.get(), Hynerpeton.createAttributes().build());
+        event.put(UP2Entities.ICHTHYOSAURUS.get(), Ichthyosaurus.createAttributes().build());
+        event.put(UP2Entities.LORRAINOSAURUS.get(), Lorrainosaurus.createAttributes().build());
         event.put(UP2Entities.MAMMOTH.get(), Mammoth.createAttributes().build());
         event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());
+        event.put(UP2Entities.SETAPEDITES.get(), Setapedites.createAttributes().build());
+        event.put(UP2Entities.SPIKE_TOOTHED_SALMON.get(), SpikeToothedSalmon.createAttributes().build());
     }
 }

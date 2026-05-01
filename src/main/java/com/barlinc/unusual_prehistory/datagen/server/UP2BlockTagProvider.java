@@ -141,10 +141,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.SNOW
         );
 
-        this.tag(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS).add(
-                Blocks.MUD
-        );
-
         this.tag(UP2BlockTags.DIPLOCAULUS_SLIDING_BLOCKS).add(
                 Blocks.MUD,
                 Blocks.ICE,
@@ -170,31 +166,31 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.PACKED_MUD
         );
 
-        this.tag(UP2BlockTags.DESMATOSUCHUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.DESMATOSUCHUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,
                 Blocks.ROOTED_DIRT
         );
 
-        this.tag(UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.JAWLESS_FISH_FOOD_BLOCKS).add(
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
         );
 
-        this.tag(UP2BlockTags.KENTROSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.KENTROSAURUS_FOOD_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.LOBE_FINNED_FISH_FOOD_BLOCKS).add(
                 Blocks.SEAGRASS
         );
 
-        this.tag(UP2BlockTags.LYSTROSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.LYSTROSAURUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.PACHYCEPHALOSAURUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.GRASS_BLOCK
         );
@@ -211,21 +207,21 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRAVEL
         );
 
-        this.tag(UP2BlockTags.TALPANAS_PECKING_BLOCKS).add(
-                Blocks.GRASS_BLOCK,
-                Blocks.MOSS_BLOCK
-        );
-
-        this.tag(UP2BlockTags.TARTUOSTEUS_NIBBLING_BLOCKS).add(
+        this.tag(UP2BlockTags.TALPANAS_FOOD_BLOCKS).add(
                 Blocks.MOSS_BLOCK,
                 Blocks.MOSS_CARPET
         );
 
-        this.tag(UP2BlockTags.TELECREX_PECKING_BLOCKS).add(
+        this.tag(UP2BlockTags.TARTUOSTEUS_FOOD_BLOCKS).add(
+                Blocks.MOSS_BLOCK,
+                Blocks.MOSS_CARPET
+        );
+
+        this.tag(UP2BlockTags.TELECREX_FOOD_BLOCKS).add(
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS).add(
+        this.tag(UP2BlockTags.COTYLORHYNCHUS_FOOD_BLOCKS).add(
                 MOSSY_DIRT.get(),
                 Blocks.MOSS_BLOCK,
                 Blocks.GRASS_BLOCK
@@ -262,8 +258,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
-                ASPHALT.get(),
-                OOZE_CAULDRON.get()
+                ASPHALT.get()
         ).addTag(UP2BlockTags.REINFORCED_GLASS);
 
         this.tag(BlockTags.IMPERMEABLE).addTag(UP2BlockTags.REINFORCED_GLASS);
@@ -402,9 +397,5 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
             this.tag(Tags.Blocks.STRIPPED_LOGS).add(woodset.strippedLog().get());
             this.tag(Tags.Blocks.STRIPPED_WOODS).add(woodset.strippedWood().get());
         }
-
-        this.tag(BlockTags.CAULDRONS).add(
-                OOZE_CAULDRON.get()
-        );
     }
 }

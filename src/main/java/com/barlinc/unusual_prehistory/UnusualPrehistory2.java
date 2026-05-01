@@ -31,13 +31,14 @@ import org.slf4j.Logger;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 @Mod(UnusualPrehistory2.MOD_ID)
 public class UnusualPrehistory2 {
 
     public static final String MOD_ID = "unusual_prehistory";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
+    public static final CommonProxy PROXY = unsafeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public UnusualPrehistory2(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
@@ -75,7 +76,7 @@ public class UnusualPrehistory2 {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> PROXY.clientInit());
+        event.enqueueWork(PROXY::clientInit);
     }
 
     private void loadComplete(FMLLoadCompleteEvent event) {
@@ -126,6 +127,13 @@ public class UnusualPrehistory2 {
 
     public static ResourceLocation modPrefix(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name.toLowerCase(Locale.ROOT));
+    }
+
+    private static <T> T unsafeRunForDist(Supplier<Supplier<T>> clientTarget, Supplier<Supplier<T>> serverTarget) {
+        return switch (FMLEnvironment.dist) {
+            case CLIENT -> clientTarget.get().get();
+            case DEDICATED_SERVER -> serverTarget.get().get();
+        };
     }
 }
 

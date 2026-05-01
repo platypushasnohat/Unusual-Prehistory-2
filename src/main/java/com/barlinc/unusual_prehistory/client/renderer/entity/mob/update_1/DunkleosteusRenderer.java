@@ -34,7 +34,7 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
 
     @Override
     public void render(Dunkleosteus entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
-        switch (Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant()).getId()) {
+        switch (entity.getVariant().getId()) {
             case 1:
                 this.model = dunkleosteusMediumModel;
                 this.shadowRadius = 0.8F;
@@ -52,7 +52,7 @@ public class DunkleosteusRenderer extends MobRenderer<Dunkleosteus, Hierarchical
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Dunkleosteus entity) {
-        Dunkleosteus.DunkleosteusVariant variant = Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant());
+        Dunkleosteus.DunkleosteusVariant variant = Dunkleosteus.DunkleosteusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/dunkleosteus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

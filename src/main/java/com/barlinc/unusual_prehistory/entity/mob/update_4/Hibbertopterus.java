@@ -4,12 +4,14 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.DancingMob;
+ import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
  import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.Direction;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -37,6 +39,10 @@
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.block.Block;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.gameevent.DynamicGameEventListener;
+ import net.minecraft.world.level.gameevent.EntityPositionSource;
+ import net.minecraft.world.level.gameevent.GameEvent;
+ import net.minecraft.world.level.gameevent.PositionSource;
  import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.BlockHitResult;
  import net.minecraft.world.phys.Vec3;
@@ -44,18 +50,26 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Hibbertopterus extends AmphibiousMob implements ItemSteerable {
+ import java.util.function.BiConsumer;
+
+ public class Hibbertopterus extends AmphibiousMob implements ItemSteerable, DancingMob {
 
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
+     protected static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.BOOLEAN);
 
      private final SaddlelessItemBasedSteering steering = new SaddlelessItemBasedSteering(this.entityData, PLOW_TIME);
 
+     private BlockPos jukeboxPosition;
+     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
+
      public final SmoothAnimationState plowAnimationState = new SmoothAnimationState();
+     public final SmoothAnimationState danceAnimationState = new SmoothAnimationState();
 
      public Hibbertopterus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
+         PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
+         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -71,7 +85,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4, true));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
-         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
      }
@@ -105,8 +119,10 @@
      }
 
      @Override
-     public boolean canDanceToJukebox() {
-         return true;
+     public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> consumer) {
+         if (this.level() instanceof ServerLevel serverlevel) {
+             consumer.accept(this.dynamicJukeboxListener, serverlevel);
+         }
      }
 
      @Override
@@ -117,6 +133,11 @@
      @Override
      public boolean canBeCollidedWith() {
          return this.isAlive() && !this.isBaby();
+     }
+
+     @Override
+     public boolean refuseToMove() {
+         return this.isDancing() || super.refuseToMove();
      }
 
      @Override
@@ -160,14 +181,8 @@
      }
 
      @Override
-     public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity livingEntity) {
+     public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity passenger) {
          return new Vec3(this.getX(), this.getBoundingBox().maxY + 0.1F, this.getZ());
-     }
-
-     @Override
-     protected void tickRidden(@NotNull Player player, @NotNull Vec3 vec3) {
-         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
-         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
      }
 
      @Override
@@ -201,8 +216,14 @@
      @Override
      public void tick() {
          super.tick();
-         if (!this.level().isClientSide && this.steering.isBoosting()) {
-             this.tickPlowing();
+         if (!this.level().isClientSide) {
+             if (this.steering.isBoosting()) {
+                 this.tickPlowing();
+             }
+             if (tickCount % 20 == 0 && this.shouldStopDancing(this) && this.isDancing()) {
+                 this.setDancing(false);
+                 this.setJukeboxPosition(null);
+             }
          }
          this.steering.tickBoost();
      }
@@ -232,6 +253,27 @@
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
          builder.define(PLOW_TIME, 0);
+         builder.define(DANCING, false);
+     }
+
+     @Override
+     public boolean isDancing() {
+         return this.entityData.get(DANCING);
+     }
+
+     @Override
+     public void setDancing(boolean dancing) {
+         this.entityData.set(DANCING, dancing);
+     }
+
+     @Override
+     public @Nullable BlockPos getJukeboxPosition() {
+         return jukeboxPosition;
+     }
+
+     @Override
+     public void setJukeboxPosition(BlockPos jukeboxPosition) {
+         this.jukeboxPosition = jukeboxPosition;
      }
 
      @Override

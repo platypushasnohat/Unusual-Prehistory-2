@@ -5,15 +5,16 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -25,6 +26,7 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
+ import net.minecraft.util.Mth;
  import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
@@ -36,6 +38,7 @@
  import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.util.DefaultRandomPos;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
@@ -43,7 +46,6 @@
  import net.minecraft.world.item.component.CustomData;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelReader;
  import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.PathType;
@@ -53,31 +55,26 @@
 
  import java.util.EnumSet;
 
- @SuppressWarnings("deprecation")
- public class Diplocaulus extends AmphibiousMob implements Bucketable {
+ public class Diplocaulus extends AmphibiousMob implements Bucketable, VariantHolder<Diplocaulus.DiplocaulusVariant> {
 
+     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.INT);
      private static final EntityDataAccessor<Boolean> SLIDING = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Diplocaulus.class, EntityDataSerializers.BOOLEAN);
 
      public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState burrowAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
      public final SmoothAnimationState boomerangAnimationState = new SmoothAnimationState(1.0F);
 
-     private int quirkCooldown = 600 + this.getRandom().nextInt(600);
-     private int boomerangCooldown = 800 + this.getRandom().nextInt(800);
-
      public Diplocaulus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
-         this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
+         this.switchNavigator(true);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.2F);
+                 .add(Attributes.MOVEMENT_SPEED, 0.22F);
      }
 
      @Override
@@ -85,8 +82,8 @@
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
-         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D, 1500));
-         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 800));
+         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
+         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
          this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 80));
          this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D) {
@@ -108,20 +105,30 @@
                  return super.canContinueToUse() && Diplocaulus.this.canBurrow();
              }
          });
-         this.goalSelector.addGoal(8, new DiplocaulusQuirkGoal(this));
-         this.goalSelector.addGoal(8, new DiplocaulusBoomerangGoal(this));
+         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canQuirk));
+         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 20, 2, false, 0.001F, this::canDash) {
+             @Override
+             public void start() {
+                 super.start();
+                 Diplocaulus.this.getNavigation().stop();
+                 Diplocaulus.this.addDeltaMovement(Diplocaulus.this.calculateViewVector(0.0F, Diplocaulus.this.getYRot()).scale(2.0D).multiply(0.5D, Diplocaulus.this.getDeltaMovement().y * 0.5D, 0.5D));
+             }
+         });
+     }
+
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new SmoothAmphibiousPathNavigation(this, level);
      }
 
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.34F);
-             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new SemiAquaticPathNavigation(this, this.level());
+             this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
              this.isLandNavigator = false;
          }
      }
@@ -135,18 +142,10 @@
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
          if (this.isEffectiveAi() && this.isInWater()) {
-             this.moveRelative(this.getSpeed(), travelVec);
-             this.move(MoverType.SELF, this.getDeltaMovement());
-             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+             MobUtils.travelInWater(this, travelVec);
          } else {
              super.travel(travelVec);
          }
-     }
-
-     @Override
-     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-         if (!this.isInWaterOrBubble() && level.getBlockState(pos.below()).is(UP2BlockTags.DIPLOCAULUS_PREFERRED_WALKING_BLOCKS)) return 10.0F;
-         return super.getWalkTargetValue(pos, level);
      }
 
      @Override
@@ -199,12 +198,28 @@
          this.boomerangAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
      }
 
+     private boolean canQuirk(Entity entity) {
+         if (entity instanceof Diplocaulus diplocaulus) {
+             return !diplocaulus.isSliding() && !diplocaulus.isSitting();
+         }
+         return false;
+     }
+
+     private boolean canDash(Entity entity) {
+         if (entity instanceof Diplocaulus diplocaulus) {
+             return !diplocaulus.isSliding() && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
+         }
+         return false;
+     }
+
      @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (quirkCooldown > 0) quirkCooldown--;
-         if (this.isInWaterOrBubble()) {
-             if (boomerangCooldown > 0) boomerangCooldown--;
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 800 + this.getRandom().nextInt(1200);
+         } else if (idleState == 2) {
+             return 900 + this.getRandom().nextInt(1200);
+         } else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
          }
      }
 
@@ -216,20 +231,30 @@
      @Override
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
+         builder.define(VARIANT, 0);
          builder.define(SLIDING, false);
-         builder.define(FROM_BUCKET, false);
      }
 
      @Override
      public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.addAdditionalSaveData(compoundTag);
-         compoundTag.putBoolean("FromBucket", this.fromBucket());
+         compoundTag.putInt("Variant", this.getVariant().getId());
      }
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          super.readAdditionalSaveData(compoundTag);
-         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+         this.setVariant(DiplocaulusVariant.byId(compoundTag.getInt("Variant")));
+     }
+
+     @Override
+     public @NotNull DiplocaulusVariant getVariant() {
+         return DiplocaulusVariant.byId(this.entityData.get(VARIANT));
+     }
+
+     @Override
+     public void setVariant(DiplocaulusVariant variant) {
+         this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, DiplocaulusVariant.values().length));
      }
 
      public boolean isSliding() {
@@ -284,45 +309,38 @@
 
      @Override
      public boolean fromBucket() {
-         return this.entityData.get(FROM_BUCKET);
+         return false;
      }
 
      @Override
      public void setFromBucket(boolean fromBucket) {
-         this.entityData.set(FROM_BUCKET, fromBucket);
-     }
-
-     @Override
-     public @NotNull SoundEvent getPickupSound() {
-         return SoundEvents.BUCKET_FILL_FISH;
-     }
-
-     @Override
-     public void saveToBucketTag(@NotNull ItemStack bucket) {
-         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
-             compoundTag.putInt("BucketVariantTag", this.getVariant());
-             compoundTag.putInt("Age", this.getAge());
-         });
-     }
-
-     @Override
-     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-         if (compoundTag.contains("BucketVariantTag", 3)) {
-             this.setVariant(compoundTag.getInt("BucketVariantTag"));
-         }
-         this.setAge(compoundTag.getInt("Age"));
-     }
-
-     @Override
-     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      @Override
      public @NotNull ItemStack getBucketItemStack() {
          return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
+     }
+
+     @Override
+     public @NotNull SoundEvent getPickupSound() {
+         return SoundEvents.BUCKET_EMPTY_FISH;
+     }
+
+     @Override
+     public void saveToBucketTag(@NotNull ItemStack bucket) {
+         MobUtils.savePrehistoricDataToBucket(this, bucket);
+         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+     }
+
+     @Override
+     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+         this.setVariant(DiplocaulusVariant.byId(compoundTag.getInt("Variant")));
+     }
+
+     @Override
+     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
      }
 
      public enum DiplocaulusVariant {
@@ -350,17 +368,12 @@
      }
 
      @Override
-     public int getVariantCount() {
-         return DiplocaulusVariant.values().length;
-     }
-
-     @Override
      public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
          spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
          if (spawnType == MobSpawnType.BUCKET) {
              return spawnGroupData;
          } else {
-             this.setVariant(random.nextInt(DiplocaulusVariant.values().length));
+             this.setVariant(DiplocaulusVariant.byId(random.nextInt(DiplocaulusVariant.values().length)));
          }
          return spawnGroupData;
      }
@@ -425,65 +438,6 @@
          public void stop() {
              this.diplocaulus.setSliding(false);
              this.diplocaulus.getNavigation().stop();
-         }
-     }
-
-     private static class DiplocaulusQuirkGoal extends IdleAnimationGoal {
-
-         private final Diplocaulus diplocaulus;
-
-         public DiplocaulusQuirkGoal(Diplocaulus diplocaulus) {
-             super(diplocaulus, 60, 1, false, false);
-             this.diplocaulus = diplocaulus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && diplocaulus.quirkCooldown == 0 && !diplocaulus.isSitting();
-         }
-
-         @Override
-         public boolean canContinueToUse() {
-             return super.canContinueToUse() && !diplocaulus.isSitting();
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.diplocaulus.quirkCooldown = 600 + diplocaulus.getRandom().nextInt(600);
-         }
-     }
-
-     private static class DiplocaulusBoomerangGoal extends IdleAnimationGoal {
-
-         private final Diplocaulus diplocaulus;
-
-         public DiplocaulusBoomerangGoal(Diplocaulus diplocaulus) {
-             super(diplocaulus, 20, 2, false, false);
-             this.diplocaulus = diplocaulus;
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && diplocaulus.boomerangCooldown == 0 && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
-         }
-
-         @Override
-         public boolean canContinueToUse() {
-             return super.canContinueToUse() && !diplocaulus.isSitting() && diplocaulus.isInWaterOrBubble();
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.diplocaulus.boomerangCooldown = 800 + diplocaulus.getRandom().nextInt(800);
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.diplocaulus.getNavigation().stop();
-             this.diplocaulus.addDeltaMovement(diplocaulus.calculateViewVector(0.0F, diplocaulus.getYRot()).scale(2.0D).multiply(0.5D, diplocaulus.getDeltaMovement().y * 0.5D, 0.5D));
          }
      }
  }

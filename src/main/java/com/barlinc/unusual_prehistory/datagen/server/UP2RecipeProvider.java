@@ -5,7 +5,8 @@ import com.barlinc.unusual_prehistory.data.TransmogrificationRecipeBuilder;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -63,7 +64,10 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.CROOKED_BEAK_FOSSIL, UP2Items.PSILOPTERUS_EGG, 1200, 1.0F);
 
         // Update 6
+        transmogrification(output, UP2Items.CRYPTIC_FOSSIL, UP2Items.CRYPTOCLIDUS_EMBRYO, 1200, 1.0F);
+        transmogrification(output, UP2Items.FISH_REPTILE_FOSSIL, UP2Items.ICHTHYOSAURUS_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.SURGE_FOSSIL, UP2Items.PROGNATHODON_EMBRYO, 2400, 1.5F);
+        transmogrification(output, UP2Items.ROT_FOSSIL, SPIKE_TOOTHED_SALMON_ROE, 1200, 1.0F);
     }
 
     protected static void transmogrification(RecipeOutput output, ItemLike inputItem, ItemLike resultItem, int processingTime, float experience) {

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusual_prehistory:block/spike_toothed_salmon_roe"
+      },
+      {
+        "model": "unusual_prehistory:block/spike_toothed_salmon_roe",
+        "y": 90
+      },
+      {
+        "model": "unusual_prehistory:block/spike_toothed_salmon_roe",
+        "y": 180
+      },
+      {
+        "model": "unusual_prehistory:block/spike_toothed_salmon_roe",
+        "y": 270
+      }
+    ]
+  }
+}

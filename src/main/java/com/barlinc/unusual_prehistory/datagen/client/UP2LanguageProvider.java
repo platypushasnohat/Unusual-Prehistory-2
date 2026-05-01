@@ -112,9 +112,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_DEATH, "Kimmeridgebrachypteraeschnidium dies");
         this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_LOOP, "Kimmeridgebrachypteraeschnidium buzzes");
 
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_HURT, "Kimmeridgebrachypteraeschnidium Nymph hurts");
-        this.sound(UP2SoundEvents.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_DEATH, "Kimmeridgebrachypteraeschnidium Nymph dies");
-
         this.sound(UP2SoundEvents.MAJUNGASAURUS_HURT, "Majungasaurus hurts");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_DEATH, "Majungasaurus dies");
         this.sound(UP2SoundEvents.MAJUNGASAURUS_IDLE, "Majungasaurus groans");
@@ -398,6 +395,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.GRUG_IDLE, "Grug speaks his wisdom");
         this.sound(UP2SoundEvents.GRUG_CHASE, "Grug runs");
 
+        this.sound(UP2SoundEvents.BUG_HURT, "Bug hurts");
+        this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
+        this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
+
         // Update 6
         this.sound(UP2SoundEvents.ANTARCTOPELTA_HURT, "Antarctopelta hurts");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH, "Antarctopelta dies");
@@ -410,10 +411,23 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_STEP, "Cotylorhynchus steps");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_BURP, "Cotylorhynchus burps");
 
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_HURT, "Cryptoclidus hurts");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_DEATH, "Cryptoclidus dies");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_IDLE, "Cryptoclidus bellows");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK, "Cryptoclidus bites");
+        this.sound(UP2SoundEvents.CRYPTOCLIDUS_STEP, "Cryptoclidus steps");
+
         this.sound(UP2SoundEvents.HYNERPETON_HURT, "Hynerpeton hurts");
         this.sound(UP2SoundEvents.HYNERPETON_DEATH, "Hynerpeton dies");
         this.sound(UP2SoundEvents.HYNERPETON_IDLE, "Hynerpeton croaks");
         this.sound(UP2SoundEvents.HYNERPETON_STEP, "Hynerpeton steps");
+
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DEATH, "Ichthyosaurus hurts");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_HURT, "Ichthyosaurus dies");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_IDLE, "Ichthyosaurus chatters");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_FLOP, "Ichthyosaurus flops");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH, "Ichthyosaurus dashes");
+        this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH_READY, "Ichthyosaurus recovers");
 
         this.sound(UP2SoundEvents.MAMMOTH_HURT, "Mammoth hurts");
         this.sound(UP2SoundEvents.MAMMOTH_DEATH, "Mammoth dies");
@@ -425,42 +439,25 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
         this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
 
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_HURT, "Spike-Toothed Salmon hurts");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_DEATH, "Spike-Toothed Salmon dies");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_FLOP, "Spike-Toothed Salmon flops");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_ATTACK, "Spike-Toothed Salmon attacks");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CURE, "Spike-Toothed Salmon snuffles");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CONVERT, "Spike-Toothed Salmon vociferates");
+        this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_INFECT, "Spike-Toothed Salmon infects");
+
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
 
+        this.addBlock(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE, "Spike-Toothed Salmon Roe");
+        this.addItem(UP2Items.SPIKE_TOOTHED_SALMON_SPAWN_EGG, "Spike-Toothed Salmon Spawn Egg");
+        this.addEntityType(UP2Entities.SPIKE_TOOTHED_SALMON, "Spike-Toothed Salmon");
+
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");
-
-        this.sound(UP2SoundEvents.BARINASUCHUS_HURT, "Barinasuchus hurts");
-        this.sound(UP2SoundEvents.BARINASUCHUS_DEATH, "Barinasuchus dies");
-        this.sound(UP2SoundEvents.BARINASUCHUS_IDLE, "Barinasuchus grumbles");
-        this.sound(UP2SoundEvents.BARINASUCHUS_ATTACK, "Barinasuchus snaps");
-        this.sound(UP2SoundEvents.BARINASUCHUS_THREATEN, "Barinasuchus rumbles");
-
-        this.sound(UP2SoundEvents.DIMORPHODON_HURT, "Dimorphodon hurts");
-        this.sound(UP2SoundEvents.DIMORPHODON_DEATH, "Dimorphodon dies");
-        this.sound(UP2SoundEvents.DIMORPHODON_IDLE, "Dimorphodon chatters");
-
-        this.sound(UP2SoundEvents.MANIPULATOR_HURT, "Manipulator hurts");
-        this.sound(UP2SoundEvents.MANIPULATOR_DEATH, "Manipulator dies");
-        this.sound(UP2SoundEvents.MANIPULATOR_IDLE, "Manipulator chatters");
-        this.sound(UP2SoundEvents.MANIPULATOR_STEP, "Manipulator steps");
-        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_VOCAL, "Manipulator prepares attack");
-        this.sound(UP2SoundEvents.MANIPULATOR_ATTACK_SLASH, "Manipulator slashes");
-
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT, "Therizinosaurus hurts");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH, "Therizinosaurus dies");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus squawks");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus slices");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR, "Therizinosaurus screams");
-        this.sound(UP2SoundEvents.THERIZINOSAURUS_NOTICE, "Therizinosaurus takes notice");
-
-        this.sound(UP2SoundEvents.BUG_HURT, "Bug hurts");
-        this.sound(UP2SoundEvents.BUG_DEATH, "Bug dies");
-        this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
 
         // Progression & Misc Advancements
         this.translateAdvancement("root", "Unusual Prehistory", "Revive creatures from the ancient past!");
@@ -497,16 +494,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
-        this.translateAdvancement("revive_barinasuchus", "Croc and Roll", "Revive a Barinasuchus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
+        this.translateAdvancement("revive_cryptoclidus", "Creep of the Deep", "Revive a Cryptoclidus");
         this.translateAdvancement("revive_desmatosuchus", "Flat Back", "Revive a Desmatosuchus");
-        this.translateAdvancement("revive_dimorphodon", "Up Up and Away!", "Revive a Dimorphodon");
         this.translateAdvancement("revive_diplocaulus", "Comes Right Back", "Revive a Diplocaulus");
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
         this.translateAdvancement("revive_hibbertopterus", "No Thoughts, Head Empty", "Revive a Hibbertopterus");
+        this.translateAdvancement("revive_ichthyosaurus", "Meep Meep!", "Revive an Ichthyosaurus");
         this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
@@ -515,7 +512,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lystrosaurus", "Survivalist", "Revive a Lystrosaurus");
         this.translateAdvancement("revive_majungasaurus", "Camouflaging Cannibal", "Revive a Majungasaurus");
-        this.translateAdvancement("revive_manipulator", "Mandibles", "Revive a Manipulator");
         this.translateAdvancement("revive_megalania", "The Giant Goanna", "Revive a Megalania");
         this.translateAdvancement("revive_metriorhynchus", "The Meltdown", "Revive a Metriorhynchus");
         this.translateAdvancement("revive_prognathodon", "???", "Revive a Prognathodon");
@@ -524,14 +520,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_praepusa", "Cumulative Cuteness", "Revive a Praepusa");
         this.translateAdvancement("revive_psilopterus", "Clever Girl", "Revive a Psilopterus");
         this.translateAdvancement("revive_pterodactylus", "Honey I Shrunk the Pterosaur", "Revive a Pterodactylus");
+        this.translateAdvancement("revive_spike_toothed_salmon", "Not Quite Revived", "Revive a Spike-Toothed Salmon");
         this.translateAdvancement("revive_stethacanthus", "Not Quite a Shark", "Revive a Stethacanthus");
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
-        this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
 
-        this.translateEffect(UP2MobEffects.FURY, "Gain increased speed and attack speed as your health gets lower");
+        this.add(UP2MobEffects.CARNOTAURUS_FURY.get(), "Carnotaurus's Fury");
+        this.add(UP2MobEffects.CARNOTAURUS_FURY.get().getDescriptionId() + ".description", "Gain increased speed and attack speed as your health gets lower");
 
         // Book
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
@@ -623,6 +620,17 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
 
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
+
+        // Jade
+        this.add("unusual_prehistory.jade.prehistoric_mob.age_locked", "Age Locked");
+        this.add("unusual_prehistory.jade.prehistoric_mob.pacified", "Pacified");
+        this.add("unusual_prehistory.jade.prehistoric_mob.pacified_time", "Pacified time: %s");
+        this.add("unusual_prehistory.jade.living_ooze.gestation_time", "Gestation time: %s");
+        this.add("unusual_prehistory.jade.living_ooze.gestation_cooldown", "Gestation cooldown: %s");
+
+        this.add("config.jade.plugin_unusual_prehistory.prehistoric_mob", "Prehistoric Mob Info");
+        this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
+        this.add("config.jade.plugin_unusual_prehistory.living_ooze", "Living Ooze Info");
     }
 
     private void forBlock(Supplier<? extends Block> block) {
@@ -654,8 +662,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("advancements." + UnusualPrehistory2.MOD_ID + "." + key + ".description", desc);
     }
 
-    private void translateEffect(DeferredHolder<? extends MobEffect, ?> effect, String desc) {
-        this.add(effect.get(), UP2TextUtils.createTranslation(effect.get().toString()));
+    private void translateEffect(Supplier<? extends MobEffect> effect, String desc) {
+        this.add(effect.get(), UP2TextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.MOB_EFFECT.getKey(effect.get())).getPath()));
         this.add(effect.get().getDescriptionId() + ".description", desc);
     }
 

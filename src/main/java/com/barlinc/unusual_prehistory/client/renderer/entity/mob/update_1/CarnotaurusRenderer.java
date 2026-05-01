@@ -22,7 +22,7 @@ public class CarnotaurusRenderer extends MobRenderer<Carnotaurus, CarnotaurusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Carnotaurus entity) {
-        Carnotaurus.CarnotaurusVariant variant = Carnotaurus.CarnotaurusVariant.byId(entity.getVariant());
+        Carnotaurus.CarnotaurusVariant variant = Carnotaurus.CarnotaurusVariant.byId(entity.getVariant().getId());
         if (entity.isEepy()) return UnusualPrehistory2.modPrefix("textures/entity/mob/carnotaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_eepy.png");
         return UnusualPrehistory2.modPrefix("textures/entity/mob/carnotaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }

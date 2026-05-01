@@ -13,7 +13,7 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     private SchoolingAquaticMob leader;
     protected int schoolSize = 1;
 
-    protected SchoolingAquaticMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    protected SchoolingAquaticMob(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -56,8 +56,10 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     }
 
     public void stopFollowing() {
-        this.leader.removeFollower();
-        this.leader = null;
+        if (leader != null) {
+            this.leader.removeFollower();
+            this.leader = null;
+        }
     }
 
     protected void addFollower() {
@@ -77,19 +79,22 @@ public abstract class SchoolingAquaticMob extends PrehistoricAquaticMob {
     }
 
     public boolean inRangeOfLeader() {
-        return this.distanceToSqr(this.leader) <= 121.0D;
+        if (leader != null) {
+            return this.distanceToSqr(this.leader) <= 121.0D;
+        }
+        return false;
     }
 
     public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (this.getVariant() == entity2.getVariant()) {
+            if (!this.isBaby()) {
                 entity2.startFollowing(this);
             }
         });
     }
 
     public void pathToLeader() {
-        if (this.isFollower()) {
+        if (this.isFollower() && leader != null) {
             this.getNavigation().moveTo(this.leader, 1.0D);
         }
     }

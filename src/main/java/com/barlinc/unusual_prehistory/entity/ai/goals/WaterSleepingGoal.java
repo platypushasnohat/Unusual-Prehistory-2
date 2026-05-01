@@ -1,21 +1,14 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class WaterSleepingGoal extends Goal {
 
     protected final PrehistoricMob prehistoricMob;
-    protected final boolean shouldFloat;
 
     public WaterSleepingGoal(PrehistoricMob prehistoricMob) {
-        this(prehistoricMob, false);
-    }
-
-    public WaterSleepingGoal(PrehistoricMob prehistoricMob, boolean shouldFloat) {
         this.prehistoricMob = prehistoricMob;
-        this.shouldFloat = shouldFloat;
     }
 
     @Override
@@ -39,17 +32,6 @@ public class WaterSleepingGoal extends Goal {
         this.prehistoricMob.zza = 0.0F;
         this.prehistoricMob.getNavigation().stop();
         this.prehistoricMob.setEepy(true);
-    }
-
-    @Override
-    public void tick() {
-        if (shouldFloat) {
-            if (prehistoricMob.getFluidHeight(FluidTags.WATER) > prehistoricMob.getFluidJumpThreshold()) {
-                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-            } else {
-                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D));
-            }
-        }
     }
 
     @Override

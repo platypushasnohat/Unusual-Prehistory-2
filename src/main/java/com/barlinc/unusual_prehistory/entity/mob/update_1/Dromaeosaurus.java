@@ -6,12 +6,12 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackab
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -92,11 +92,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     @Override
     public boolean canPacify() {
         return true;
-    }
-
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_DROMAEOSAURUS);
     }
 
     @Override

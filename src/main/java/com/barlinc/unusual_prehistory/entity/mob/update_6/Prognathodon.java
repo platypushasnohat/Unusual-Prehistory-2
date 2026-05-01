@@ -1,33 +1,33 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -41,22 +41,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Prognathodon.class, EntityDataSerializers.BOOLEAN);
 
     public int biteCooldown = 0;
 
-    private int yawnCooldown = 800 + this.getRandom().nextInt(800);
-    private int tongueCooldown = 150 + this.getRandom().nextInt(150);
-    private int nipCooldown = 700 + this.getRandom().nextInt(700);
-
     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState tongueAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState nip1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState nip2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -66,8 +61,9 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     public Prognathodon(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
-        this.switchNavigator(true);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -77,20 +73,26 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
                 .add(Attributes.ATTACK_DAMAGE, 11.0F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.STEP_HEIGHT, 1.0D);
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
-        this.goalSelector.addGoal(1, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
-        this.goalSelector.addGoal(2, new PrognathodonAttackGoal(this));
-        this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D, 80));
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
+        this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
+        this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
-        this.goalSelector.addGoal(6, new PrognathodonYawnGoal(this));
-        this.goalSelector.addGoal(6, new PrognathodonTongueGoal(this));
-        this.goalSelector.addGoal(6, new PrognathodonNipGoal(this));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 3, false, 0.001F, this::canPlayIdles) {
+            @Override
+            public void start() {
+                super.start();
+                Prognathodon.this.nipAlt = Prognathodon.this.getRandom().nextBoolean();
+            }
+        });
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, false, entity -> entity.getType().is(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS)) {
             @Override
@@ -119,36 +121,22 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(12);
+        this.heal(10);
         return super.killedEntity(level, victim);
     }
 
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
     }
 
-    protected void switchNavigator(boolean onLand) {
-        if (onLand) {
-            this.moveControl = new PrehistoricMoveControl(this);
-            this.lookControl = new PrehistoricLookControl(this);
-            this.navigation = this.createNavigation(this.level());
-            this.isLandNavigator = true;
-        } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 5, 1.05F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
-            this.navigation = new SemiAquaticPathNavigation(this, this.level());
-            this.isLandNavigator = false;
-        }
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothAmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -157,15 +145,18 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        final boolean ground = !this.isInWaterOrBubble();
-        if (!ground && this.isLandNavigator) {
-            this.switchNavigator(false);
-        }
-        if (ground && !this.isLandNavigator) {
-            this.switchNavigator(true);
-        }
+    public int getMaxHeadXRot() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return 1;
+    }
+
+    @Override
+    public float getAdditionalStepHeight() {
+        return 0.0F;
     }
 
     @Override
@@ -175,8 +166,8 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.leapAnimationState.animateWhen(this.isLeaping(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
-        this.yawnAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
-        this.tongueAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.tongueAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.yawnAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.nip1AnimationState.animateWhen(this.getIdleState() == 3 && !nipAlt, this.tickCount);
         this.nip2AnimationState.animateWhen(this.getIdleState() == 3 && nipAlt, this.tickCount);
     }
@@ -188,38 +179,39 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 300 + this.getRandom().nextInt(400);
+        }
+        else if (idleState == 2) {
+            return 700 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 3) {
+            return 800 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
+    }
+
+    public boolean canPlayIdles(Entity entity) {
+        return entity.isInWaterOrBubble();
+    }
+
+    @Override
     public void tickCooldowns() {
+        super.tickCooldowns();
         if (biteCooldown > 0) biteCooldown--;
-        if (yawnCooldown > 0) yawnCooldown--;
-        if (tongueCooldown > 0) tongueCooldown--;
-        if (nipCooldown > 0) nipCooldown--;
     }
 
     @Override
     public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2);
-    }
-
-    protected void yawnCooldown() {
-        this.yawnCooldown = 800 + this.getRandom().nextInt(800);
-    }
-
-    protected void tongueCooldown() {
-        this.tongueCooldown = 150 + this.getRandom().nextInt(150);
-    }
-
-    protected void nipCooldown() {
-        this.nipCooldown = 700 + this.getRandom().nextInt(700);
+        return this.getBoundingBox().inflate(2, 1, 2);
     }
 
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.PROGNATHODON_FOOD);
-    }
-
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_PROGNATHODON);
     }
 
     @Override
@@ -287,16 +279,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         }
 
         @Override
-        public boolean canUse() {
-            return super.canUse() && (prognathodon.getTarget().isInWaterOrBubble() || !prognathodon.isInWaterOrBubble());
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && (prognathodon.getTarget().isInWaterOrBubble() || !prognathodon.isInWaterOrBubble());
-        }
-
-        @Override
         public void tick() {
             LivingEntity target = this.prognathodon.getTarget();
             if (target != null) {
@@ -345,75 +327,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
                     this.prognathodon.swing(InteractionHand.MAIN_HAND);
                 });
             }
-        }
-    }
-
-    private static class PrognathodonYawnGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonYawnGoal(Prognathodon prognathodon) {
-            super(prognathodon, 60, 1, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.yawnCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.yawnCooldown();
-        }
-    }
-
-    private static class PrognathodonTongueGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonTongueGoal(Prognathodon prognathodon) {
-            super(prognathodon, 40, 2, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.tongueCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.tongueCooldown();
-        }
-    }
-
-    private static class PrognathodonNipGoal extends IdleAnimationGoal {
-
-        private final Prognathodon prognathodon;
-
-        public PrognathodonNipGoal(Prognathodon prognathodon) {
-            super(prognathodon, 20, 3, false, false);
-            this.prognathodon = prognathodon;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.prognathodon.nipAlt = prognathodon.getRandom().nextBoolean();
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && prognathodon.nipCooldown == 0 && prognathodon.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.prognathodon.nipCooldown();
         }
     }
 }

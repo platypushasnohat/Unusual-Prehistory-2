@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.integration.jei;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.inventory.TransmogrifierScreen;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
-import com.barlinc.unusual_prehistory.screens.TransmogrifierScreen;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -68,20 +68,26 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
 
     protected void drawProgress(TransmogrificationRecipe recipe, GuiGraphics guiGraphics, int y, int x) {
         int cookTime = recipe.processingTime();
+        float experience = recipe.experience();
+        Minecraft minecraft = Minecraft.getInstance();
+        Font fontRenderer = minecraft.font;
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
-            Minecraft minecraft = Minecraft.getInstance();
-            Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            guiGraphics.drawString(fontRenderer, timeString, (getWidth() - stringWidth) + x, y, 0xFF808080, false);
+            guiGraphics.drawString(fontRenderer, timeString, (this.getWidth() - stringWidth) + x, y, 0xFF808080, false);
+        }
+        if (experience > 0) {
+            Component experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
+            int stringWidth = fontRenderer.width(experienceString);
+            guiGraphics.drawString(fontRenderer, experienceString, (this.getWidth() - stringWidth) + x + 6, y + 10, 0xFF808080, false);
         }
     }
 
     @Override
     public void draw(@NotNull TransmogrificationRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-        drawProgress(recipe, guiGraphics, 24, -91);
+        this.drawProgress(recipe, guiGraphics, 24, -91);
         this.fuel.draw(guiGraphics, 70, 32);
         this.progress.draw(guiGraphics, 30, 1);
     }

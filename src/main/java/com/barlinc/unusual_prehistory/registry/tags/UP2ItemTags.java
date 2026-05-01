@@ -23,13 +23,6 @@ public class UP2ItemTags {
     public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
     public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
 
-    public static final TagKey<Item> PACIFIES_CARNOTAURUS = modItemTag("pacifies_carnotaurus");
-    public static final TagKey<Item> PACIFIES_DROMAEOSAURUS = modItemTag("pacifies_dromaeosaurus");
-    public static final TagKey<Item> PACIFIES_DUNKLEOSTEUS = modItemTag("pacifies_dunkleosteus");
-    public static final TagKey<Item> PACIFIES_MAJUNGASAURUS = modItemTag("pacifies_majungasaurus");
-    public static final TagKey<Item> PACIFIES_MEGALANIA = modItemTag("pacifies_megalania");
-    public static final TagKey<Item> PACIFIES_STETHACANTHUS = modItemTag("pacifies_stethacanthus");
-
     public static final TagKey<Item> TAMES_MEGALANIA = modItemTag("tames_megalania");
 
     public static final TagKey<Item> DIPLOCAULUS_SLIDING_BLOCKS = modItemTag("diplocaulus_sliding_blocks");
@@ -59,13 +52,9 @@ public class UP2ItemTags {
     // Update 2
     public static final TagKey<Item> ONCHOPRISTIS_FOOD = modItemTag("onchopristis_food");
 
-    public static final TagKey<Item> PACIFIES_ONCHOPRISTIS = modItemTag("pacifies_onchopristis");
-
     // Update 3
     public static final TagKey<Item> METRIORHYNCHUS_FOOD = modItemTag("metriorhynchus_food");
     public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");
-
-    public static final TagKey<Item> PACIFIES_METRIORHYNCHUS = modItemTag("pacifies_metriorhynchus");
 
     public static final TagKey<Item> TAMES_METRIORHYNCHUS = modItemTag("tames_metriorhynchus");
 
@@ -85,11 +74,6 @@ public class UP2ItemTags {
     public static final TagKey<Item> PRAEPUSA_FOOD = modItemTag("praepusa_food");
     public static final TagKey<Item> PTERODACTYLUS_FOOD = modItemTag("pterodactylus_food");
     public static final TagKey<Item> ULUGHBEGSAURUS_FOOD = modItemTag("ulughbegsaurus_food");
-
-    public static final TagKey<Item> PACIFIES_COELACANTHUS = modItemTag("pacifies_coelacanthus");
-    public static final TagKey<Item> PACIFIES_KAPROSUCHUS = modItemTag("pacifies_kaprosuchus");
-    public static final TagKey<Item> PACIFIES_PRAEPUSA = modItemTag("pacifies_praepusa");
-    public static final TagKey<Item> PACIFIES_ULUGHBEGSAURUS = modItemTag("pacifies_ulughbegsaurus");
 
     public static final TagKey<Item> TAMES_KAPROSUCHUS = modItemTag("tames_kaprosuchus");
     public static final TagKey<Item> TAMES_ULUGHBEGSAURUS = modItemTag("tames_ulughbegsaurus");
@@ -145,25 +129,16 @@ public class UP2ItemTags {
     // Update 6
     public static final TagKey<Item> ANTARCTOPELTA_FOOD = modItemTag("antarctopelta_food");
     public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
+    public static final TagKey<Item> CRYPTOCLIDUS_FOOD = modItemTag("cryptoclidus_food");
+    public static final TagKey<Item> ICHTHYOSAURUS_FOOD = modItemTag("ichthyosaurus_food");
     public static final TagKey<Item> MAMMOTH_FOOD = modItemTag("mammoth_food");
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+    public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
 
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
 
-    public static final TagKey<Item> PACIFIES_PROGNATHODON = modItemTag("pacifies_prognathodon");
-
-    // Future
-    public static final TagKey<Item> BARINASUCHUS_FOOD = modItemTag("barinasuchus_food");
-    public static final TagKey<Item> DIMORPHODON_FOOD = modItemTag("dimorphodon_food");
-    public static final TagKey<Item> MANIPULATOR_FOOD = modItemTag("manipulator_food");
-    public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
-
-    public static final TagKey<Item> PACIFIES_BARINASUCHUS = modItemTag("pacifies_barinasuchus");
-    public static final TagKey<Item> PACIFIES_MANIPULATOR = modItemTag("pacifies_manipulator");
-
-    public static final TagKey<Item> TAMES_BARINASUCHUS = modItemTag("tames_barinasuchus");
-    public static final TagKey<Item> TAMES_MANIPULATOR = modItemTag("tames_manipulator");
+    public static final TagKey<Item> CURES_SPIKE_TOOTHED_SALMON = modItemTag("cures_spike_toothed_salmon");
 
     private static TagKey<Item> modItemTag(String name) {
         return itemTag(UnusualPrehistory2.MOD_ID, name);

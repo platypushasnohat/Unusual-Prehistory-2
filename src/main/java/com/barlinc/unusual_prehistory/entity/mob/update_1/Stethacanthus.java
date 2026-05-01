@@ -1,30 +1,30 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -34,33 +34,32 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
-public class Stethacanthus extends SchoolingAquaticMob {
+public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
 
     public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.85F);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 10, 7));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 10.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F,1.5D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
         this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
         this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
         this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 
@@ -69,19 +68,9 @@ public class Stethacanthus extends SchoolingAquaticMob {
         return 3;
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.55F;
-//    }
-
     @Override
     public boolean canPacify() {
         return true;
-    }
-
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_STETHACANTHUS);
     }
 
     @Override
@@ -92,12 +81,7 @@ public class Stethacanthus extends SchoolingAquaticMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -108,6 +92,40 @@ public class Stethacanthus extends SchoolingAquaticMob {
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.DIPLOCAULUS_BUCKET.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -126,16 +144,6 @@ public class Stethacanthus extends SchoolingAquaticMob {
     @Nullable
     protected SoundEvent getFlopSound() {
         return UP2SoundEvents.STETHACANTHUS_FLOP.get();
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
-    }
-
-    @Override
-    public boolean canBucket() {
-        return true;
     }
 
     @Nullable

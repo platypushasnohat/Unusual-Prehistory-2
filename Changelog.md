@@ -1,26 +1,39 @@
 ## Version 2.0.0
 - Ported mod to 1.21.1 NeoForge
+- Added Antarctopelta
+- Added Cotylorhynchus
+- Added Hynerpeton
+- Added Mammoth
 - Added Prognathodon
+- Added Ampyx ambient mob
+- Added Setapedites ambient mob
 - Removed Mosasaurus
+- Remodeled Leptictidium
 - Removed SmoothBodyRotationControl
 - Updated PrehistoricMoveControl to ensure mobs face the direction they want to move
-- Adjusted dunkleosteus hitbox sizes
+- Adjusted Dunkleosteus hitbox sizes
 - Fixed some mobs getting stuck in shallow water
-- Decreased depth requirements for larger dunkleosteus variants
+- Decreased depth requirements for larger Dunkleosteus variants
 - Aegirocassis now tries to stay near the surface of water at night
-- Fixed praepusa getting stuck after sleeping
-- Buffed lystrosaurus
+- Fixed Praepusa getting stuck after sleeping
+- Buffed Lystrosaurus
 - Majungasaurus hitbox no longer renders when it is camouflaged to be consistent with invisibility
 - Fixed Majungasaurus rendering when invisibility is applied
-- Added dawn and dusk metasequoia leaves
-- Added needle litter
-- Overhauled metasequoia generation
+- Added dawn and dusk Metasequoia leaves
+- Added Needle Litter
+- Overhauled Metasequoia generation
 - Transmogrification now gives experience
 - All thrown eggs now stack to 64
 - Increased ooze fuel duration to 48 seconds
-- Tweaked transmogrifier sounds
-- Reduced aegirocassis hurt sound volume
-- Many misc tweaks and fixes
+- Tweaked Transmogrifier sounds
+- Reduced Aegirocassis hurt sound volume
+- Rebalanced some mob stats
+- Improved riding mechanics
+- Changed Kimmeridgebrachypteraeschnidium flight ai to be more insect like
+- Made Living Ooze gestation time always 10 minutes instead of randomized
+- Added Jade compat for some mobs and blocks
+- Removed mob pacify item tags, now just uses their food tag instead
+- Tons of misc tweaks and fixes
 
 ## Version 1.4.3
 - Fixed metasequoia and dryophyllum leaves dropping ginkgo fruit

@@ -3,18 +3,20 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MajungasaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -37,10 +39,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Majungasaurus extends PrehistoricMob {
+public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majungasaurus.MajungasaurusVariant> {
 
-    public static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
 
     public float prevCamoProgress;
     public float camoProgress;
@@ -59,10 +62,6 @@ public class Majungasaurus extends PrehistoricMob {
 
     public boolean attackAlt = false;
     private boolean sniffAlt = false;
-
-    private int yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
-    private int shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
-    private int sniffCooldown = 700 + this.getRandom().nextInt(70 * 60);
 
     public Majungasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -84,9 +83,21 @@ public class Majungasaurus extends PrehistoricMob {
         });
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
         this.goalSelector.addGoal(7, new SleepingGoal(this));
-        this.goalSelector.addGoal(8, new MajungasaurusYawnGoal(this));
-        this.goalSelector.addGoal(8, new MajungasaurusShakeGoal(this));
-        this.goalSelector.addGoal(9, new MajungasaurusSniffGoal(this));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 80, 2, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {
+            @Override
+            public void start() {
+                super.start();
+                Majungasaurus.this.sniffAlt = Majungasaurus.this.getRandom().nextBoolean();
+            }
+
+            @Override
+            public void tick() {
+                super.tick();
+                if (timer == 50) Majungasaurus.this.playSound(UP2SoundEvents.MAJUNGASAURUS_SNIFF.get(), 1.0F, Majungasaurus.this.getVoicePitch());
+            }
+        });
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Majungasaurus.class, 200, true, true, this::canCannibalize));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
         this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::attacksPlayers));
@@ -151,11 +162,6 @@ public class Majungasaurus extends PrehistoricMob {
         return true;
     }
 
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_MAJUNGASAURUS);
-    }
-
     public boolean isNightTime() {
         return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000 && !this.level().dimensionType().hasFixedTime();
     }
@@ -199,16 +205,6 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.isEepy()) {
-            if (yawnCooldown > 0) yawnCooldown--;
-            if (shakeCooldown > 0) shakeCooldown--;
-            if (sniffCooldown > 0) sniffCooldown--;
-        }
-    }
-
-    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isInWater() && !this.isEepy(), this.tickCount);
         this.eyesAnimationState.animateWhen(!this.isAggressive() && !this.isEepy(), this.tickCount);
@@ -227,23 +223,54 @@ public class Majungasaurus extends PrehistoricMob {
         return this.isBaby() ? 2.0F : 4.0F;
     }
 
-    protected void yawnCooldown() {
-        this.yawnCooldown = 500 + this.getRandom().nextInt(50 * 50);
+    private boolean canPlayIdles(Entity entity) {
+        return !entity.isInWaterOrBubble();
     }
 
-    protected void shakeCooldown() {
-        this.shakeCooldown = 600 + this.getRandom().nextInt(60 * 60);
-    }
-
-    protected void sniffCooldown() {
-        this.sniffCooldown = 700 + this.getRandom().nextInt(70 * 60);
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 850 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 2) {
+            return 900 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 3) {
+            return 1000 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(CAMO, false);
         builder.define(CAMO_COOLDOWN, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(MajungasaurusVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull MajungasaurusVariant getVariant() {
+        return MajungasaurusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(MajungasaurusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, MajungasaurusVariant.values().length));
     }
 
     public boolean isCamo() {
@@ -312,7 +339,7 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     public enum MajungasaurusVariant {
-        MAJUNGASAURUS(0),
+        CHAMELEON(0),
         DUSKLURKER(1);
 
         private final int id;
@@ -334,14 +361,12 @@ public class Majungasaurus extends PrehistoricMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return MajungasaurusVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        if (level.getRandom().nextBoolean() && level.getLevel().isNight()) this.setVariant(1);
-        else this.setVariant(0);
+        if (level.getRandom().nextBoolean() && level.getLevel().isNight()) {
+            this.setVariant(MajungasaurusVariant.DUSKLURKER);
+        } else {
+            this.setVariant(MajungasaurusVariant.CHAMELEON);
+        }
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
@@ -371,81 +396,6 @@ public class Majungasaurus extends PrehistoricMob {
         @Override
         public void tick() {
             this.mob.getNavigation().setSpeedModifier(majungasaurus.isCamo() ? 0.9D : 2.0D);
-        }
-    }
-
-    private static class MajungasaurusYawnGoal extends IdleAnimationGoal {
-
-        private final Majungasaurus majungasaurus;
-
-        public MajungasaurusYawnGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 60, 1, false);
-            this.majungasaurus = majungasaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && majungasaurus.yawnCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.majungasaurus.yawnCooldown();
-        }
-    }
-
-    private static class MajungasaurusShakeGoal extends IdleAnimationGoal {
-
-        private final Majungasaurus majungasaurus;
-
-        public MajungasaurusShakeGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 80, 2, false);
-            this.majungasaurus = majungasaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && majungasaurus.shakeCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.majungasaurus.shakeCooldown();
-        }
-    }
-
-    private static class MajungasaurusSniffGoal extends IdleAnimationGoal {
-
-        private final Majungasaurus majungasaurus;
-
-        public MajungasaurusSniffGoal(Majungasaurus majungasaurus) {
-            super(majungasaurus, 80, 3);
-            this.majungasaurus = majungasaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && majungasaurus.sniffCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.majungasaurus.sniffCooldown();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.majungasaurus.sniffAlt = majungasaurus.getRandom().nextBoolean();
-        }
-
-        @Override
-        public void tick() {
-            super.tick();
-            if (timer == 50) majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_SNIFF.get(), 1.0F, majungasaurus.getVoicePitch());
         }
     }
 }

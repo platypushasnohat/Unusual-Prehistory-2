@@ -115,10 +115,12 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180F);
 
-		if (!entity.isInWaterOrBubble() && !entity.isLeaping() && !entity.isSitting()) {
-            this.animateWalk(MetriorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		} else if (entity.getPose() != UP2Poses.GRABBING.get()) {
-            this.animateWalk(entity.isRunning() ? MetriorhynchusAnimations.SWIMFAST : MetriorhynchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+        if (!entity.isLeaping() && !entity.isSitting()) {
+            if (!entity.isInWaterOrBubble()) {
+                this.animateWalk(MetriorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            } else if (entity.getPose() != UP2Poses.GRABBING.get()) {
+                this.animateWalk(entity.isRunning() ? MetriorhynchusAnimations.SWIMFAST : MetriorhynchusAnimations.SWIM, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+            }
         }
 
 		if (this.young) this.applyStatic(MetriorhynchusAnimations.BABY_TRANSFORM);

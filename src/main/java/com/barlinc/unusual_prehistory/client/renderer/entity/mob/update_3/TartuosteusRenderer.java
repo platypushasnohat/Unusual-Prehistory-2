@@ -22,7 +22,7 @@ public class TartuosteusRenderer extends MobRenderer<Tartuosteus, TartuosteusMod
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(Tartuosteus entity) {
-        Tartuosteus.TartuosteusVariant variant = Tartuosteus.TartuosteusVariant.byId(entity.getVariant());
+        Tartuosteus.TartuosteusVariant variant = Tartuosteus.TartuosteusVariant.byId(entity.getVariant().getId());
         return UnusualPrehistory2.modPrefix("textures/entity/mob/tartuosteus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

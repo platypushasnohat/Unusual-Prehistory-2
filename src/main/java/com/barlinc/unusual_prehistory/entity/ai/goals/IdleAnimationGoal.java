@@ -1,76 +1,86 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+
+import java.util.function.Predicate;
 
 public class IdleAnimationGoal extends Goal {
 
-    // todo: add canUse predicate?
+    public final PrehistoricMob prehistoricMob;
+    public final Predicate<Mob> canUse;
+    public final int animationTime;
+    public final int idleState;
+    public final boolean stopMoving;
+    public final float chance;
 
-    protected final PrehistoricMob prehistoricMob;
-    protected int timer;
-    protected final int animationTime;
-    protected final int idleState;
-    protected final boolean stopMoving;
-    protected final boolean stopIfHurt;
-    protected final boolean stopInWater;
+    public int timer;
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState) {
-        this(prehistoricMob, animationTime, idleState, true, true, true);
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance) {
+        this(prehistoricMob, animationTime, idleState, stopMoving, chance, LivingEntity::isAlive);
     }
 
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving) {
-        this(prehistoricMob, animationTime, idleState, stopMoving, true, true);
-    }
-
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, boolean stopInWater) {
-        this(prehistoricMob, animationTime, idleState, stopMoving, true, stopInWater);
-    }
-
-    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, boolean stopIfHurt, boolean stopInWater) {
+    public IdleAnimationGoal(PrehistoricMob prehistoricMob, int animationTime, int idleState, boolean stopMoving, float chance, Predicate<Mob> canUse) {
         this.prehistoricMob = prehistoricMob;
         this.animationTime = animationTime;
         this.idleState = idleState;
         this.stopMoving = stopMoving;
-        this.stopIfHurt = stopIfHurt;
-        this.stopInWater = stopInWater;
+        this.chance = chance;
+        this.canUse = canUse;
     }
 
     @Override
     public boolean canUse() {
-        if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
-        else if (stopMoving && !prehistoricMob.getNavigation().isDone()) return false;
-        else if (stopInWater && prehistoricMob.isInWater()) return false;
-        return prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy() && !prehistoricMob.isDancing();
+        if (this.isInCombat()) {
+            return false;
+        } else if (stopMoving && !prehistoricMob.getNavigation().isDone()) {
+            return false;
+        }
+        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy();
     }
 
     @Override
     public void start() {
         this.prehistoricMob.setIdleState(idleState);
+        this.prehistoricMob.setIdleAnimationCooldown(prehistoricMob.getIdleAnimationCooldown(idleState));
         this.timer = animationTime;
-        if (stopMoving) this.prehistoricMob.getNavigation().stop();
+        if (stopMoving) {
+            this.prehistoricMob.getNavigation().stop();
+        }
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (stopIfHurt && prehistoricMob.getLastHurtByMob() != null) return false;
-        else if (stopInWater && prehistoricMob.isInWater()) return false;
-        return !prehistoricMob.isDancing() && !prehistoricMob.isEepy() && prehistoricMob.getTarget() == null && timer > 0 && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == idleState;
+        if (this.isInCombat()) {
+            return false;
+        }
+        return canUse.test(prehistoricMob) && timer > 0 && prehistoricMob.getIdleState() == idleState && prehistoricMob.isAlive() && !prehistoricMob.isEepy();
     }
 
     @Override
     public void tick() {
         this.timer--;
-        if (stopMoving) this.prehistoricMob.getNavigation().stop();
+        if (stopMoving) {
+            this.prehistoricMob.getNavigation().stop();
+        }
     }
 
     @Override
     public void stop() {
         this.prehistoricMob.setIdleState(0);
+        if (stopMoving) {
+            this.prehistoricMob.getNavigation().stop();
+        }
     }
 
     @Override
     public boolean requiresUpdateEveryTick() {
         return true;
+    }
+
+    protected boolean isInCombat() {
+        return prehistoricMob.getLastHurtByMob() != null || prehistoricMob.getTarget() != null;
     }
 }

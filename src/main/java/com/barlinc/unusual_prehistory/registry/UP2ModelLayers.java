@@ -68,21 +68,17 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation GRUG = mainLayer("grug");
 
     // Update 6
+    public static final ModelLayerLocation AMPYX = mainLayer("ampyx");
     public static final ModelLayerLocation ANTARCTOPELTA = mainLayer("antarctopelta");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
+    public static final ModelLayerLocation CRYPTOCLIDUS = mainLayer("cryptoclidus");
     public static final ModelLayerLocation HYNERPETON = mainLayer("hynerpeton");
+    public static final ModelLayerLocation ICHTHYOSAURUS = mainLayer("ichthyosaurus");
+    public static final ModelLayerLocation LORRAINOSAURUS = mainLayer("lorrainosaurus");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
-
-    // Future
-    public static final ModelLayerLocation BARINASUCHUS = mainLayer("barinasuchus");
-    public static final ModelLayerLocation DIMORPHODON = mainLayer("dimorphodon");
-    public static final ModelLayerLocation ERYON = mainLayer("eryon");
-    public static final ModelLayerLocation MANIPULATOR = mainLayer("manipulator");
-    public static final ModelLayerLocation PALAEOPHIS = mainLayer("palaeophis");
-    public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
-    public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
-    public static final ModelLayerLocation WONAMBI = mainLayer("wonambi");
+    public static final ModelLayerLocation SETAPEDITES = mainLayer("setapedites");
+    public static final ModelLayerLocation SPIKE_TOOTHED_SALMON = mainLayer("spike_toothed_salmon");
 
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);

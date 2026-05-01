@@ -2757,4 +2757,5 @@ public class MegalaniaAnimations {
                     new Keyframe(4.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
             ))
             .build();
+
 }

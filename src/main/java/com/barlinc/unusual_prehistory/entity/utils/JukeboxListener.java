@@ -10,17 +10,7 @@ import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class JukeboxListener implements GameEventListener {
-
-    protected final PrehistoricMob mob;
-    private final PositionSource listenerSource;
-    private final int listenerRadius;
-
-    public JukeboxListener(PrehistoricMob mob, PositionSource source, int radius) {
-        this.mob = mob;
-        this.listenerSource = source;
-        this.listenerRadius = radius;
-    }
+public record JukeboxListener(PrehistoricMob mob, PositionSource listenerSource, int listenerRadius) implements GameEventListener {
 
     @Override
     @NotNull
@@ -35,14 +25,17 @@ public class JukeboxListener implements GameEventListener {
 
     @Override
     public boolean handleGameEvent(@NotNull ServerLevel level, @NotNull Holder<GameEvent> holder, GameEvent.@NotNull Context context, @NotNull Vec3 vec3) {
-        if (holder == GameEvent.JUKEBOX_PLAY) {
-            this.mob.danceToJukebox(BlockPos.containing(vec3), true);
-            return true;
-        } else if (holder == GameEvent.JUKEBOX_STOP_PLAY) {
-            this.mob.danceToJukebox(BlockPos.containing(vec3), false);
-            return true;
-        } else {
-            return false;
+        if (mob instanceof DancingMob dancingMob) {
+            if (holder == GameEvent.JUKEBOX_PLAY) {
+                dancingMob.danceToJukebox(BlockPos.containing(vec3), true);
+                return true;
+            } else if (holder == GameEvent.JUKEBOX_STOP_PLAY) {
+                dancingMob.danceToJukebox(BlockPos.containing(vec3), false);
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 }

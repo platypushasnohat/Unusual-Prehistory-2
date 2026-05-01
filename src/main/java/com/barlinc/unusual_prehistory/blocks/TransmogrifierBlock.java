@@ -2,10 +2,12 @@ package com.barlinc.unusual_prehistory.blocks;
 
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -125,5 +127,37 @@ public class TransmogrifierBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, UP2BlockEntities.TRANSMOGRIFIER.get(), TransmogrifierBlockEntity::tick);
+    }
+
+    @Override
+    public void animateTick(BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (state.getValue(LIT)) {
+            Direction direction = state.getValue(TransmogrifierBlock.FACING).getCounterClockWise();
+            Direction.Axis axis = direction.getAxis();
+            double x = pos.getX() + 0.5D;
+            double y = pos.getY() + 0.5D;
+            double z = pos.getZ() + 0.5D;
+            double offset = 0.0D;
+            double xDirection = axis == Direction.Axis.X ? direction.getStepX() * 0.52D : offset;
+            double zDirection = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52D : offset;
+            double xoffset = 0.0D;
+            double zoffset = 0.0D;
+            if (direction == Direction.NORTH) {
+                xoffset = -0.25D;
+            } else if (direction == Direction.SOUTH) {
+                xoffset = 0.25D;
+            } else if (direction == Direction.EAST) {
+                zoffset = -0.25D;
+            } else if (direction == Direction.WEST) {
+                zoffset = 0.25D;
+            }
+            double xSpeed = direction.getStepX() * 0.2F;
+            double zSpeed = direction.getStepZ() * 0.2F;
+            BlockPos sidePos = pos.relative(direction, 1);
+            BlockState sideState = level.getBlockState(sidePos);
+            if ((sideState.isAir() || sideState.getCollisionShape(level, sidePos).isEmpty()) && random.nextFloat() < 0.7F) {
+                level.addParticle(UP2Particles.OOZE_BUBBLE.get(), (x + xDirection) + xoffset, y - 0.2D, (z + zDirection) + zoffset, xSpeed, 0.0D, zSpeed);
+            }
+        }
     }
 }

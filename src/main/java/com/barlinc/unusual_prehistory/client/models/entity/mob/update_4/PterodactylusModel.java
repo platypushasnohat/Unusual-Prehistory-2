@@ -18,15 +18,16 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
     private final ModelPart flight_control;
     private final ModelPart body_main;
     private final ModelPart body;
+    private final ModelPart eyes;
     private final ModelPart leg_control;
-    private final ModelPart left_leg;
-    private final ModelPart right_leg;
-    private final ModelPart left_wing1;
-    private final ModelPart left_wing2;
-    private final ModelPart left_wing3;
-    private final ModelPart right_wing1;
-    private final ModelPart right_wing2;
-    private final ModelPart right_wing3;
+    private final ModelPart leg_left;
+    private final ModelPart leg_right;
+    private final ModelPart wing_left1;
+    private final ModelPart wing_left2;
+    private final ModelPart wing_left3;
+    private final ModelPart wing_right1;
+    private final ModelPart wing_right2;
+    private final ModelPart wing_right3;
 
 	public PterodactylusModel(ModelPart root) {
         super(0.5F, 24);
@@ -34,15 +35,16 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
         this.flight_control = this.root.getChild("flight_control");
         this.body_main = this.flight_control.getChild("body_main");
         this.body = this.body_main.getChild("body");
+        this.eyes = this.body.getChild("eyes");
         this.leg_control = this.body_main.getChild("leg_control");
-        this.left_leg = this.leg_control.getChild("left_leg");
-        this.right_leg = this.leg_control.getChild("right_leg");
-        this.left_wing1 = this.body_main.getChild("left_wing1");
-        this.left_wing2 = this.left_wing1.getChild("left_wing2");
-        this.left_wing3 = this.left_wing2.getChild("left_wing3");
-        this.right_wing1 = this.body_main.getChild("right_wing1");
-        this.right_wing2 = this.right_wing1.getChild("right_wing2");
-        this.right_wing3 = this.right_wing2.getChild("right_wing3");
+        this.leg_left = this.leg_control.getChild("leg_left");
+        this.leg_right = this.leg_control.getChild("leg_right");
+        this.wing_left1 = this.body_main.getChild("wing_left1");
+        this.wing_left2 = this.wing_left1.getChild("wing_left2");
+        this.wing_left3 = this.wing_left2.getChild("wing_left3");
+        this.wing_right1 = this.body_main.getChild("wing_right1");
+        this.wing_right2 = this.wing_right1.getChild("wing_right2");
+        this.wing_right3 = this.wing_right2.getChild("wing_right3");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -60,29 +62,31 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
                 .texOffs(20, 7).addBox(-0.5F, -3.0F, -5.0F, 1.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(20, 11).addBox(0.0F, -6.0F, -2.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
+        PartDefinition eyes = body.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(17, 8).addBox(-1.0F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, -2.5F, -0.5F));
+
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-        PartDefinition left_leg = leg_control.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(0.5F, 0.0F, 0.5F));
+        PartDefinition leg_left = leg_control.addOrReplaceChild("leg_left", CubeListBuilder.create(), PartPose.offset(0.5F, 0.0F, 0.5F));
 
-        PartDefinition cube_r1 = left_leg.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(20, 18).mirror().addBox(-0.5F, 2.0F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition cube_r1 = leg_left.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(20, 18).mirror().addBox(-0.5F, 2.0F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(8, 21).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
-        PartDefinition right_leg = leg_control.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(-0.5F, 0.0F, 0.5F));
+        PartDefinition leg_right = leg_control.addOrReplaceChild("leg_right", CubeListBuilder.create(), PartPose.offset(-0.5F, 0.0F, 0.5F));
 
-        PartDefinition cube_r2 = right_leg.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(20, 18).addBox(-1.5F, 2.0F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F))
+        PartDefinition cube_r2 = leg_right.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(20, 18).addBox(-1.5F, 2.0F, -2.0F, 2.0F, 0.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(8, 21).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.7854F, 0.0F));
 
-        PartDefinition left_wing1 = body_main.addOrReplaceChild("left_wing1", CubeListBuilder.create().texOffs(-5, 7).addBox(0.0F, 0.0F, -2.5F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, -0.5F, 0.0F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition wing_left1 = body_main.addOrReplaceChild("wing_left1", CubeListBuilder.create().texOffs(-5, 7).addBox(0.0F, 0.0F, -2.5F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, -0.5F, 0.0F, -1.5708F, 0.0F, 0.0F));
 
-        PartDefinition left_wing2 = left_wing1.addOrReplaceChild("left_wing2", CubeListBuilder.create().texOffs(-2, 23).addBox(-2.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, 0.0F, -2.5F));
+        PartDefinition wing_left2 = wing_left1.addOrReplaceChild("wing_left2", CubeListBuilder.create().texOffs(-2, 23).addBox(-2.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, 0.0F, -2.5F));
 
-        PartDefinition left_wing3 = left_wing2.addOrReplaceChild("left_wing3", CubeListBuilder.create().texOffs(-1, 2).addBox(0.0F, 0.0F, -2.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 2.0F));
+        PartDefinition wing_left3 = wing_left2.addOrReplaceChild("wing_left3", CubeListBuilder.create().texOffs(-1, 2).addBox(0.0F, 0.0F, -2.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 2.0F));
 
-        PartDefinition right_wing1 = body_main.addOrReplaceChild("right_wing1", CubeListBuilder.create().texOffs(-5, 7).mirror().addBox(-4.0F, 0.0F, -2.5F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, -0.5F, 0.0F, -1.5708F, 0.0F, 0.0F));
+        PartDefinition wing_right1 = body_main.addOrReplaceChild("wing_right1", CubeListBuilder.create().texOffs(-5, 7).mirror().addBox(-4.0F, 0.0F, -2.5F, 4.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, -0.5F, 0.0F, -1.5708F, 0.0F, 0.0F));
 
-        PartDefinition right_wing2 = right_wing1.addOrReplaceChild("right_wing2", CubeListBuilder.create().texOffs(-2, 23).mirror().addBox(-1.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, 0.0F, -2.5F));
+        PartDefinition wing_right2 = wing_right1.addOrReplaceChild("wing_right2", CubeListBuilder.create().texOffs(-2, 23).mirror().addBox(-1.0F, 0.0F, -2.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, 0.0F, -2.5F));
 
-        PartDefinition right_wing3 = right_wing2.addOrReplaceChild("right_wing3", CubeListBuilder.create().texOffs(-1, 2).mirror().addBox(-7.0F, 0.0F, -2.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 2.0F));
+        PartDefinition wing_right3 = wing_right2.addOrReplaceChild("wing_right3", CubeListBuilder.create().texOffs(-1, 2).mirror().addBox(-7.0F, 0.0F, -2.0F, 7.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 0.0F, 2.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
 	}
@@ -93,18 +97,19 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
 
         this.animateSmooth(entity.idleAnimationState, PterodactylusAnimations.GROUD_IDLE, ageInTicks);
         this.animateSmooth(entity.hangIdleAnimationState, PterodactylusAnimations.HANG_IDLE, ageInTicks);
-        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks);
+        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks, 1.25F);
         this.animateSmooth(entity.flyFastAnimationState, PterodactylusAnimations.FLYFAST, ageInTicks);
         this.animateSmooth(entity.stretchAnimationState, PterodactylusAnimations.GROUND_STRETCH_BLEND, ageInTicks);
         this.animateSmooth(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks);
 
 		float partialTicks = ageInTicks - entity.tickCount;
-		float flyProgress = entity.getFlyProgress(partialTicks);
-		float rollAmount = entity.getFlightRoll(partialTicks) / 57.295776F * flyProgress;
-		float flightPitchAmount = entity.getFlightPitch(partialTicks) / 57.295776F * flyProgress;
+		float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
+		float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 
-		this.flight_control.xRot += flightPitchAmount;
-		this.flight_control.zRot += rollAmount * 0.7F;
+        if (entity.isFlying()) {
+            this.flight_control.xRot += flightPitchAmount;
+            this.flight_control.zRot += rollAmount;
+        }
 	}
 
 	@Override

@@ -5,13 +5,13 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +23,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -50,8 +51,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob {
+public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob, VariantHolder<Ulughbegsaurus.UlughbegsaurusVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> RAINBOW = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
@@ -70,10 +72,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     private int attackTicks;
     private boolean attackAlt = false;
 
-    private int blinkCooldown = 60 + this.getRandom().nextInt(60);
-    private int shakeCooldown = 1000 + this.getRandom().nextInt(1000);
-    private int yawnCooldown = 600 + this.getRandom().nextInt(600);
-
     public Ulughbegsaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -91,9 +89,9 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new SleepingGoal(this));
-        this.goalSelector.addGoal(10, new UlughbegsaurusBlinkGoal(this));
-        this.goalSelector.addGoal(10, new UlughbegsaurusShakeGoal(this));
-        this.goalSelector.addGoal(10, new UlughbegsaurusYawnGoal(this));
+//        this.goalSelector.addGoal(10, new UlughbegsaurusBlinkGoal(this));
+//        this.goalSelector.addGoal(10, new UlughbegsaurusShakeGoal(this));
+//        this.goalSelector.addGoal(10, new UlughbegsaurusYawnGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ULUGHBEGSAURUS_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
@@ -114,11 +112,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public boolean canPacify() {
         return true;
-    }
-
-    @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_ULUGHBEGSAURUS);
     }
 
     @Override
@@ -156,11 +149,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         }
         if (!this.isRainbow() && itemstack.is(Tags.Items.DYES)) {
             UlughbegsaurusVariant variant = UlughbegsaurusVariant.byDye(itemstack);
-            if (variant != null && variant.getId() != this.getVariant()) {
+            if (variant != null && variant.getId() != this.getVariant().getId()) {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-                this.setVariant(variant.getId());
+                this.setVariant(variant);
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
                 this.playSound(SoundEvents.DYE_USE);
                 return InteractionResult.SUCCESS;
@@ -306,13 +299,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             this.setPose(Pose.STANDING);
         }
         if (attackCooldown > 0) attackCooldown--;
-        if (!this.level().isClientSide) {
-            if (blinkCooldown > 0) blinkCooldown--;
-            if (this.getLastHurtByMob() == null && this.getTarget() == null && !this.isInWaterOrBubble()) {
-                if (shakeCooldown > 0) shakeCooldown--;
-                if (yawnCooldown > 0) yawnCooldown--;
-            }
-        }
     }
 
     @Override
@@ -342,6 +328,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(TAME_ATTEMPTS, 0);
         builder.define(RAINBOW, false);
         builder.define(LEAPING, false);
@@ -350,6 +337,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("TameAttempts", this.getTameAttempts());
         compoundTag.putBoolean("Rainbow", this.isRainbow());
     }
@@ -357,8 +345,19 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(UlughbegsaurusVariant.byId(compoundTag.getInt("Variant")));
         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
         this.setRainbow(compoundTag.getBoolean("Rainbow"));
+    }
+
+    @Override
+    public @NotNull UlughbegsaurusVariant getVariant() {
+        return UlughbegsaurusVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(UlughbegsaurusVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, UlughbegsaurusVariant.values().length));
     }
 
     public void setTameAttempts(int tameAttempts) {
@@ -494,23 +493,18 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         }
     }
 
-    @Override
-    public int getVariantCount() {
-        return UlughbegsaurusVariant.values().length;
-    }
-
-    public static int getRandomNaturalColor(RandomSource random) {
+    public static UlughbegsaurusVariant getRandomNaturalColor(RandomSource random) {
         int i = random.nextInt(100);
-        if (i < 10) return UlughbegsaurusVariant.ORANGE.getId();
-        else if (i < 20) return UlughbegsaurusVariant.BROWN.getId();
-        else if (i < 30) return UlughbegsaurusVariant.WHITE.getId();
-        else if (i < 38) return UlughbegsaurusVariant.YELLOW.getId();
+        if (i < 10) return UlughbegsaurusVariant.ORANGE;
+        else if (i < 20) return UlughbegsaurusVariant.BROWN;
+        else if (i < 30) return UlughbegsaurusVariant.WHITE;
+        else if (i < 38) return UlughbegsaurusVariant.YELLOW;
         else if (UP2LoadedMods.isDyeDepotLoaded()) {
-            if (i < 42) return UlughbegsaurusVariant.NAVY.getId();
-            else if (i < 52) return UlughbegsaurusVariant.TAN.getId();
-            else if (i < 62) return UlughbegsaurusVariant.OLIVE.getId();
+            if (i < 42) return UlughbegsaurusVariant.NAVY;
+            else if (i < 52) return UlughbegsaurusVariant.TAN;
+            else if (i < 62) return UlughbegsaurusVariant.OLIVE;
         }
-        return UlughbegsaurusVariant.BLUE.getId();
+        return UlughbegsaurusVariant.BLUE;
     }
 
     @Override
@@ -572,66 +566,66 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         }
     }
 
-    private static class UlughbegsaurusBlinkGoal extends IdleAnimationGoal {
-
-        private final Ulughbegsaurus ulughbegsaurus;
-
-        public UlughbegsaurusBlinkGoal(Ulughbegsaurus ulughbegsaurus) {
-            super(ulughbegsaurus, 20, 1, false, false);
-            this.ulughbegsaurus = ulughbegsaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && ulughbegsaurus.blinkCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.ulughbegsaurus.blinkCooldown = 60 + ulughbegsaurus.getRandom().nextInt(60);
-        }
-    }
-
-    private static class UlughbegsaurusShakeGoal extends IdleAnimationGoal {
-
-        private final Ulughbegsaurus ulughbegsaurus;
-
-        public UlughbegsaurusShakeGoal(Ulughbegsaurus ulughbegsaurus) {
-            super(ulughbegsaurus, 80, 2, false);
-            this.ulughbegsaurus = ulughbegsaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && ulughbegsaurus.shakeCooldown == 0 && !ulughbegsaurus.isSitting();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.ulughbegsaurus.shakeCooldown = 1000 + ulughbegsaurus.getRandom().nextInt(1000);
-        }
-    }
-
-    private static class UlughbegsaurusYawnGoal extends IdleAnimationGoal {
-
-        private final Ulughbegsaurus ulughbegsaurus;
-
-        public UlughbegsaurusYawnGoal(Ulughbegsaurus ulughbegsaurus) {
-            super(ulughbegsaurus, 60, 3, false);
-            this.ulughbegsaurus = ulughbegsaurus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && ulughbegsaurus.yawnCooldown == 0;
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.ulughbegsaurus.yawnCooldown = 600 + ulughbegsaurus.getRandom().nextInt(600);
-        }
-    }
+//    private static class UlughbegsaurusBlinkGoal extends IdleAnimationGoal {
+//
+//        private final Ulughbegsaurus ulughbegsaurus;
+//
+//        public UlughbegsaurusBlinkGoal(Ulughbegsaurus ulughbegsaurus) {
+//            super(ulughbegsaurus, 20, 1, false, false);
+//            this.ulughbegsaurus = ulughbegsaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && ulughbegsaurus.blinkCooldown == 0;
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.ulughbegsaurus.blinkCooldown = 60 + ulughbegsaurus.getRandom().nextInt(60);
+//        }
+//    }
+//
+//    private static class UlughbegsaurusShakeGoal extends IdleAnimationGoal {
+//
+//        private final Ulughbegsaurus ulughbegsaurus;
+//
+//        public UlughbegsaurusShakeGoal(Ulughbegsaurus ulughbegsaurus) {
+//            super(ulughbegsaurus, 80, 2, false);
+//            this.ulughbegsaurus = ulughbegsaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && ulughbegsaurus.shakeCooldown == 0 && !ulughbegsaurus.isSitting();
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.ulughbegsaurus.shakeCooldown = 1000 + ulughbegsaurus.getRandom().nextInt(1000);
+//        }
+//    }
+//
+//    private static class UlughbegsaurusYawnGoal extends IdleAnimationGoal {
+//
+//        private final Ulughbegsaurus ulughbegsaurus;
+//
+//        public UlughbegsaurusYawnGoal(Ulughbegsaurus ulughbegsaurus) {
+//            super(ulughbegsaurus, 60, 3, false);
+//            this.ulughbegsaurus = ulughbegsaurus;
+//        }
+//
+//        @Override
+//        public boolean canUse() {
+//            return super.canUse() && ulughbegsaurus.yawnCooldown == 0;
+//        }
+//
+//        @Override
+//        public void stop() {
+//            super.stop();
+//            this.ulughbegsaurus.yawnCooldown = 600 + ulughbegsaurus.getRandom().nextInt(600);
+//        }
+//    }
 }

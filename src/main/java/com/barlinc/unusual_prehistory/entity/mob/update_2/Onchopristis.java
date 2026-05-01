@@ -1,34 +1,33 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_2;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +39,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class Onchopristis extends PrehistoricAquaticMob {
 
     public static final EntityDataAccessor<Boolean> BURROWED = SynchedEntityData.defineId(Onchopristis.class, EntityDataSerializers.BOOLEAN);
@@ -57,7 +55,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
     public Onchopristis(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new OnchopristisMoveControl(this);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -70,7 +68,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new OnchopristisAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ONCHOPRISTIS_FOOD), false));
@@ -89,12 +86,7 @@ public class Onchopristis extends PrehistoricAquaticMob {
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVec);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
+            MobUtils.travelInWater(this, travelVec);
             if ((!this.onGround() || this.isBurrowed()) && this.getBurrowCooldown() == 0 && !this.isLeashed()) {
                 if (this.getNavigation().getPath() != null) {
                     this.getNavigation().stop();
@@ -106,14 +98,9 @@ public class Onchopristis extends PrehistoricAquaticMob {
         }
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-//        return size.height * 0.5F;
-//    }
-
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return this.getDepthPathfindingFavor(pos, level);
+        return MobUtils.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
@@ -235,11 +222,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PACIFIES_ONCHOPRISTIS);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.ONCHOPRISTIS_FOOD);
     }
@@ -247,11 +229,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
     @Override
     public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
         return UP2Entities.ONCHOPRISTIS.get().create(level);
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return ItemStack.EMPTY;
     }
 
     @Override
@@ -333,12 +310,12 @@ public class Onchopristis extends PrehistoricAquaticMob {
         }
     }
 
-    private static class OnchopristisMoveControl extends SmoothSwimmingMoveControl {
+    private static class OnchopristisMoveControl extends PrehistoricSwimmingMoveControl {
 
         protected final Onchopristis onchopristis;
 
         public OnchopristisMoveControl(Onchopristis onchopristis) {
-            super(onchopristis, 85, 10, 0.02F, 0.1F, false);
+            super(onchopristis, 85, 10, 0.02F);
             this.onchopristis = onchopristis;
         }
 

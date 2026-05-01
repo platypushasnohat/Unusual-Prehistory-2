@@ -5,26 +5,28 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.goal.Goal;
-
-import java.util.EnumSet;
+import net.minecraft.world.level.Level;
 
 public class EnterWaterGoal extends Goal {
 
     protected final AmphibiousMob amphibiousMob;
+    protected final int maxTimeOnLand;
     private final double speedModifier;
-    private final int maxTimeOnLand;
     private BlockPos waterPos;
 
+    public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
+        this(amphibiousMob, speedModifier, 6000);
+    }
+
     public EnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier, int maxTimeOnLand) {
-        this.amphibiousMob = amphibiousMob;
         this.speedModifier = speedModifier;
+        this.amphibiousMob = amphibiousMob;
         this.maxTimeOnLand = maxTimeOnLand;
-        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
     public boolean canUse() {
-        if (amphibiousMob.isInWaterOrBubble() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
+        if (amphibiousMob.isInWater() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
             return false;
         } else if (amphibiousMob.getTimeOnLand() < maxTimeOnLand) {
             return false;
@@ -34,7 +36,7 @@ public class EnterWaterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !amphibiousMob.isInWaterOrBubble() && !amphibiousMob.getNavigation().isDone() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
+        return !amphibiousMob.getNavigation().isDone() && !amphibiousMob.isInWater() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
     }
 
     @Override
@@ -44,11 +46,14 @@ public class EnterWaterGoal extends Goal {
 
     private boolean findWaterPos() {
         RandomSource random = amphibiousMob.getRandom();
-        BlockPos.MutableBlockPos mutablePos = amphibiousMob.blockPosition().mutable();
+        Level level = amphibiousMob.level();
+        BlockPos original = amphibiousMob.blockPosition();
+        BlockPos.MutableBlockPos mutable = original.mutable();
+
         for (int i = 0; i < 10; i++) {
-            mutablePos.move(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-            if (amphibiousMob.level().getFluidState(mutablePos).is(FluidTags.WATER)) {
-                this.waterPos = mutablePos.immutable();
+            mutable.move(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+            if (level.getFluidState(mutable).is(FluidTags.WATER)) {
+                this.waterPos = mutable.immutable();
                 return true;
             }
         }

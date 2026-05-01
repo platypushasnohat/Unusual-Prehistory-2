@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -12,7 +13,6 @@ import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -52,7 +52,6 @@ public class Cotylorhynchus extends PrehistoricMob {
     public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState burpAnimationState = new SmoothAnimationState();
 
-    private int grazeCooldown = 800 + this.getRandom().nextInt(800);
     private int burpTicks;
 
     public Cotylorhynchus(EntityType<? extends PrehistoricMob> entityType, Level level) {
@@ -69,7 +68,7 @@ public class Cotylorhynchus extends PrehistoricMob {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new SleepingGoal(this));
-        this.goalSelector.addGoal(9, new CotylorhynchusGrazeGoal(this));
+        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.001F, this::canGraze));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -82,9 +81,6 @@ public class Cotylorhynchus extends PrehistoricMob {
 
     @Override
     public double getFluidJumpThreshold() {
-//        if (this.isInWater() && this.horizontalCollision) {
-//            return super.getFluidJumpThreshold();
-//        }
         return 0.4D * this.getBbHeight();
     }
 
@@ -216,9 +212,6 @@ public class Cotylorhynchus extends PrehistoricMob {
         if (this.getGrogTicks() > 0) {
             this.setGrogTicks(this.getGrogTicks() - 1);
         }
-        if (!this.isEepy()) {
-            if (grazeCooldown > 0) grazeCooldown--;
-        }
 
         if (burpTicks > 0) burpTicks--;
         if (this.getPose() == UP2Poses.BURPING.get() && burpTicks == 14) {
@@ -248,6 +241,19 @@ public class Cotylorhynchus extends PrehistoricMob {
     @Override
     public float getWalkAnimationSpeed() {
         return this.isBaby() ? 5.0F : 10.0F;
+    }
+
+    private boolean canGraze(Entity entity) {
+        return entity.level().getBlockState(entity.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_FOOD_BLOCKS) && !entity.isInWaterOrBubble();
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 800 + this.getRandom().nextInt(1200);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
@@ -389,27 +395,6 @@ public class Cotylorhynchus extends PrehistoricMob {
                 id = 0;
             }
             return GrogType.values()[id];
-        }
-    }
-
-    private static class CotylorhynchusGrazeGoal extends IdleAnimationGoal {
-
-        private final Cotylorhynchus cotylorhynchus;
-
-        public CotylorhynchusGrazeGoal(Cotylorhynchus cotylorhynchus) {
-            super(cotylorhynchus, 40, 1);
-            this.cotylorhynchus = cotylorhynchus;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && cotylorhynchus.grazeCooldown == 0 && cotylorhynchus.level().getBlockState(cotylorhynchus.blockPosition().below()).is(UP2BlockTags.COTYLORHYNCHUS_GRAZING_BLOCKS);
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.cotylorhynchus.grazeCooldown = 800 + cotylorhynchus.getRandom().nextInt(800);
         }
     }
 }

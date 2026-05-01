@@ -47,7 +47,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> DUNKLEOSTEUS_SAC = registerEggBlock("dunkleosteus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.DUNKLEOSTEUS::get, 1));
     public static final DeferredBlock<Block> JAWLESS_FISH_ROE = registerEggBlock("jawless_fish_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.JAWLESS_FISH::get, 4));
     public static final DeferredBlock<Block> KENTROSAURUS_EGG = registerEggBlock("kentrosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.KENTROSAURUS::get, 8, 15));
-    public static final DeferredBlock<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH::get, 4));
+    public static final DeferredBlock<Block> KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS = registerWaterEggBlock("kimmeridgebrachypteraeschnidium_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM::get, 4));
     public static final DeferredBlock<Block> MAJUNGASAURUS_EGG = registerEggBlock("majungasaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MAJUNGASAURUS::get, 12, 11));
     public static final DeferredBlock<Block> MEGALANIA_EGG = registerEggBlock("megalania_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.MEGALANIA::get, 12, 14));
     public static final DeferredBlock<Block> STETHACANTHUS_SAC = registerEggBlock("stethacanthus_sac", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.STETHACANTHUS::get, 2));
@@ -120,8 +120,6 @@ public class UP2Blocks {
 
     // Update 3
     public static final DeferredBlock<Block> TARTUOSTEUS_ROE = registerEggBlock("tartuosteus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.TARTUOSTEUS::get, 1));
-
-    public static final DeferredBlock<Block> OOZE_CAULDRON = registerBlockWithoutItem("ooze_cauldron", () -> new OozeCauldron(UP2BlockProperties.CAULDRON));
 
     // Update 4
     public static final DeferredBlock<Block> BRACHIOSAURUS_EGG = registerEggBlock("brachiosaurus_egg", () -> new TallEggBlock(UP2BlockProperties.EGG, UP2Entities.BRACHIOSAURUS::get, 16, 16, 16, 8));
@@ -202,9 +200,13 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> DELITZSCHALA_STALK = registerBlock("delitzschala_stalk", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
 
     // Update 6
+    public static final DeferredBlock<Block> SPIKE_TOOTHED_SALMON_ROE = registerEggBlockNoLang("spike_toothed_salmon_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.SPIKE_TOOTHED_SALMON::get, 2));
+
     public static final DeferredBlock<Block> NEEDLE_LITTER = registerBlock("needle_litter", ()-> new NeedleLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final DeferredBlock<Block> PEAT = registerBlock("peat", ()-> new PeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.MUD)));
     public static final DeferredBlock<Block> LIVING_PEAT = registerBlock("living_peat", ()-> new LivingPeatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(UP2SoundTypes.LIVING_PEAT)));
+
+    public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
@@ -233,6 +235,13 @@ public class UP2Blocks {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         BLOCK_TRANSLATIONS.add(block);
+        EGG_BLOCKS.add(block);
+        return block;
+    }
+
+    private static <B extends Block> DeferredBlock<B> registerEggBlockNoLang(String name, Supplier<B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         EGG_BLOCKS.add(block);
         return block;
     }

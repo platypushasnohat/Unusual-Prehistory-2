@@ -8,16 +8,19 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,12 +29,16 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -40,14 +47,15 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
-public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
+public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, LeapingMob {
 
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> SPAWN_CHILDREN_COOLDOWN = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.INT);
 
     public final AegirocassisPart headPart;
     public final AegirocassisPart tailPart1;
@@ -73,9 +81,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     private int leapStartTicks;
     private int leapTicks;
 
-    private int rollCooldown = 800 + this.getRandom().nextInt(800);
-    private int eatCooldown = 1200 + this.getRandom().nextInt(1200);
-
     public Aegirocassis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
@@ -91,9 +96,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 220.0D)
+                .add(Attributes.MAX_HEALTH, 250.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.7F)
-                .add(Attributes.ARMOR, 6.0D)
+                .add(Attributes.ARMOR, 8.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
@@ -109,18 +114,13 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
                 return super.canUse() && Aegirocassis.this.isInWaterOrBubble();
             }
         });
-        this.goalSelector.addGoal(6, new AegirocassisRollGoal(this));
-        this.goalSelector.addGoal(6, new AegirocassisEatGoal(this));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 80, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 2, false, 0.001F, this::canPlayIdles));
     }
-
-//    @Override
-//    public @NotNull MobType getMobType() {
-//        return MobType.ARTHROPOD;
-//    }
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return this.level().isNight() ? this.getSurfacePathfindingFavor(pos, level) : this.getDepthPathfindingFavor(pos, level);
+        return this.level().isNight() ? MobUtils.getSurfacePathfindingFavor(pos, level) : MobUtils.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
@@ -139,12 +139,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -153,7 +148,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     protected void switchNavigator(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
-            this.navigation = new SemiAquaticPathNavigation(this, this.level());
+            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
             this.shallowWater = true;
         } else {
             this.navigation = new AquaticPathNavigation(this, this.level(), true);
@@ -248,6 +243,20 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         } else if (!shallowWater && this.shallowWater) {
             this.switchNavigator(false);
         }
+
+        if (this.getSpawnChildrenCooldown() == 0 && !this.isBaby()) {
+            if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
+                Entity entity = this.getRandom().nextBoolean() ? UP2Entities.AMPYX.get().create(serverLevel) : UP2Entities.SETAPEDITES.get().create(serverLevel);
+                Vec3 vec3 = this.blockPosition().getCenter();
+                if (entity instanceof AmbientMob mob) {
+                    mob.setShouldBeRestricted(true);
+                    entity.moveTo(vec3.x(), vec3.y(), vec3.z(), Mth.wrapDegrees(serverLevel.getRandom().nextFloat() * 360.0F), 0.0F);
+                    serverLevel.addFreshEntity(entity);
+                    EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), MobSpawnType.NATURAL, null);
+                }
+            }
+            this.setSpawnChildrenCooldown(2600 + this.level().getRandom().nextInt(1200));
+        }
     }
 
     public float getGlowProgress(float partialTicks) {
@@ -270,6 +279,23 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         return this.getPose() == UP2Poses.START_FLYING.get() || this.getPose() == Pose.FALL_FLYING;
     }
 
+    private boolean canPlayIdles(Entity entity) {
+        return entity.isInWaterOrBubble() && !((Aegirocassis) entity).isLeaping();
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 1100 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 2) {
+            return 1200 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
+    }
+
     @Override
     public void tickCooldowns() {
         super.tickCooldowns();
@@ -278,8 +304,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
         if (leapStartTicks == 0 && this.getPose() == UP2Poses.START_FLYING.get()) this.setPose(Pose.FALL_FLYING);
         if (leapTicks == 0 && this.getPose() == Pose.FALL_FLYING) this.setPose(Pose.STANDING);
         if (this.isInWaterOrBubble()) {
-            if (rollCooldown > 0) rollCooldown--;
-            if (eatCooldown > 0) eatCooldown--;
+            if (this.getSpawnChildrenCooldown() > 0) {
+                this.setSpawnChildrenCooldown(this.getSpawnChildrenCooldown() - 1);
+            }
         }
     }
 
@@ -355,6 +382,19 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(LEAPING, false);
+        builder.define(SPAWN_CHILDREN_COOLDOWN, 70);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("SpawnChildrenCooldown", this.getSpawnChildrenCooldown());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setSpawnChildrenCooldown(compoundTag.getInt("SpawnChildrenCooldown"));
     }
 
     @Override
@@ -365,6 +405,51 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public void setLeaping(boolean leaping) {
         this.entityData.set(LEAPING, leaping);
+    }
+
+    public int getSpawnChildrenCooldown() {
+        return this.entityData.get(SPAWN_CHILDREN_COOLDOWN);
+    }
+
+    public void setSpawnChildrenCooldown(int cooldown) {
+        this.entityData.set(SPAWN_CHILDREN_COOLDOWN, cooldown);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.BABY_AEGIROCASSIS_BUCKET.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        if (this.isBaby()) {
+            return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Nullable
@@ -394,16 +479,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
     @Override
     public int getAmbientSoundInterval() {
         return 350;
-    }
-
-    @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.BABY_AEGIROCASSIS_BUCKET.get());
-    }
-
-    @Override
-    public boolean canBucket() {
-        return this.isBaby();
     }
 
     @Nullable
@@ -464,58 +539,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements LeapingMob {
             Vec3 glide = new Vec3(movement.x, vec3.y, movement.z);
             this.aegirocassis.setDeltaMovement(glide);
             this.aegirocassis.setYRot(((float) Mth.atan2(aegirocassis.getMotionDirection().getStepZ(), aegirocassis.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
-        }
-    }
-
-    private static class AegirocassisRollGoal extends IdleAnimationGoal {
-
-        private final Aegirocassis aegirocassis;
-
-        public AegirocassisRollGoal(Aegirocassis aegirocassis) {
-            super(aegirocassis, 80, 1, false, false);
-            this.aegirocassis = aegirocassis;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && aegirocassis.rollCooldown == 0 && !aegirocassis.isLeaping() && aegirocassis.isInWaterOrBubble();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !aegirocassis.isLeaping() && aegirocassis.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.aegirocassis.rollCooldown = 800 + aegirocassis.getRandom().nextInt(800);
-        }
-    }
-
-    private static class AegirocassisEatGoal extends IdleAnimationGoal {
-
-        private final Aegirocassis aegirocassis;
-
-        public AegirocassisEatGoal(Aegirocassis aegirocassis) {
-            super(aegirocassis, 40, 2, false, false);
-            this.aegirocassis = aegirocassis;
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && aegirocassis.eatCooldown == 0 && !aegirocassis.isLeaping() && aegirocassis.isInWaterOrBubble();
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return super.canContinueToUse() && !aegirocassis.isLeaping() && aegirocassis.isInWaterOrBubble();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            this.aegirocassis.eatCooldown = 1200 + aegirocassis.getRandom().nextInt(1200);
         }
     }
 }

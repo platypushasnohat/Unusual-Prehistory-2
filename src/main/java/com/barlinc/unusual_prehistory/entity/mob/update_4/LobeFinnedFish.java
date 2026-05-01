@@ -1,29 +1,37 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -31,19 +39,16 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
-public class LobeFinnedFish extends SchoolingAquaticMob {
+import java.util.stream.Stream;
 
-    private static final EntityDimensions ALLENYPTERUS_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.8F);
-    private static final EntityDimensions EUSTHENOPTERON_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.7F);
-    private static final EntityDimensions GOOLOOGONGIA_DIMENSIONS = EntityDimensions.scalable(0.6F, 0.5F);
-    private static final EntityDimensions LACCOGNATHUS_DIMENSIONS = EntityDimensions.scalable(0.98F, 0.5F);
-    private static final EntityDimensions SCAUMENACIA_DIMENSIONS = EntityDimensions.scalable(0.5F, 0.4F);
+public class LobeFinnedFish extends SchoolingAquaticMob implements Bucketable, VariantHolder<LobeFinnedFish.LobeFinnedFishVariant> {
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(LobeFinnedFish.class, EntityDataSerializers.INT);
 
     public LobeFinnedFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -54,36 +59,24 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LOBE_FINNED_FISH_FOOD), false));
-        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_NIBBLING_BLOCKS));
+        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.LOBE_FINNED_FISH_FOOD_BLOCKS));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 30));
-        this.goalSelector.addGoal(6, new LobeFinnedFishFollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return switch (this.getVariant()) {
-            case 1 -> 2;
-            case 2 -> 3;
-            case 3 -> 1;
-            case 4 -> 5;
-            default -> 4;
-        };
+        return this.getVariant().schoolSize;
     }
 
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -94,10 +87,14 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
         return stack.is(UP2ItemTags.LOBE_FINNED_FISH_FOOD);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.5F;
-//    }
+    @Override
+    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
+            if (this.getVariant() == ((LobeFinnedFish) entity2).getVariant() && !this.isBaby()) {
+                entity2.startFollowing(this);
+            }
+        });
+    }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
@@ -109,32 +106,71 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        return this.getDimsForLobeFinnedFish().scale(this.getScale());
+        return this.getVariant().dimensions.scale(this.getAgeScale());
     }
 
-    private EntityDimensions getDimsForLobeFinnedFish() {
-        return switch (this.getVariant()) {
-            case 1 -> EUSTHENOPTERON_DIMENSIONS;
-            case 2 -> GOOLOOGONGIA_DIMENSIONS;
-            case 3 -> LACCOGNATHUS_DIMENSIONS;
-            case 4 -> SCAUMENACIA_DIMENSIONS;
-            default -> ALLENYPTERUS_DIMENSIONS;
-        };
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(LobeFinnedFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull LobeFinnedFishVariant getVariant() {
+        return LobeFinnedFishVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(LobeFinnedFishVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, LobeFinnedFishVariant.values().length));
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
     }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.LOBE_FINNED_FISH_BUCKET.get());
-    }
-
-    @Override
-    public boolean canBucket() {
-        return true;
+        return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
     }
 
     @Override
     public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(LobeFinnedFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -163,16 +199,20 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     }
 
     public enum LobeFinnedFishVariant {
-        ALLENYPTERUS(0),
-        EUSTHENOPTERON(1),
-        GOOLOOGONGIA(2),
-        LACCOGNATHUS(3),
-        SCAUMENACIA(4);
+        ALLENYPTERUS(0, 4, EntityDimensions.scalable(0.75F, 1.4F).withEyeHeight(0.7F)),
+        EUSTHENOPTERON(1, 3, EntityDimensions.scalable(0.9F, 0.8F).withEyeHeight(0.4F)),
+        GOOLOOGONGIA(2, 4, EntityDimensions.scalable(0.75F, 0.6F).withEyeHeight(0.3F)),
+        LACCOGNATHUS(3, 2, EntityDimensions.scalable(1.25F, 0.6F).withEyeHeight(0.3F)),
+        SCAUMENACIA(4, 5, EntityDimensions.scalable(0.75F, 0.75F).withEyeHeight(0.375F));
 
         private final int variant;
+        private final int schoolSize;
+        private final EntityDimensions dimensions;
 
-        LobeFinnedFishVariant(int variant) {
+        LobeFinnedFishVariant(int variant, int schoolSize, EntityDimensions dimensions) {
             this.variant = variant;
+            this.schoolSize = schoolSize;
+            this.dimensions = dimensions;
         }
 
         public int getId() {
@@ -188,31 +228,13 @@ public class LobeFinnedFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return LobeFinnedFishVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            this.setVariant(random.nextInt(LobeFinnedFishVariant.values().length));
+            this.setVariant(LobeFinnedFishVariant.byId(random.nextInt(LobeFinnedFishVariant.values().length)));
         }
         return spawnGroupData;
-    }
-
-    // Goals
-    private static class LobeFinnedFishFollowVariantLeaderGoal extends FollowVariantLeaderGoal {
-
-        public LobeFinnedFishFollowVariantLeaderGoal(SchoolingAquaticMob mob) {
-            super(mob);
-        }
-
-        @Override
-        public boolean canUse() {
-            return super.canUse() && mob.getVariant() != 3;
-        }
     }
 }

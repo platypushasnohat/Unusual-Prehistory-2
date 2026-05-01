@@ -1,32 +1,41 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticNibbleBlockGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
+import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -34,13 +43,16 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
-public class JawlessFish extends SchoolingAquaticMob {
+import java.util.stream.Stream;
+
+public class JawlessFish extends SchoolingAquaticMob implements Bucketable, VariantHolder<JawlessFish.JawlessFishVariant> {
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JawlessFish.class, EntityDataSerializers.INT);
 
     public JawlessFish(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 10, 0.02F);
+        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -51,12 +63,11 @@ public class JawlessFish extends SchoolingAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, 2.0D, entity -> entity.getType().is(UP2EntityTags.JAWLESS_FISH_AVOIDS)));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.JAWLESS_FISH_FOOD), false));
-        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.JAWLESS_FISH_NIBBLING_BLOCKS));
+        this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.JAWLESS_FISH_FOOD_BLOCKS));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
@@ -69,12 +80,7 @@ public class JawlessFish extends SchoolingAquaticMob {
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
+            MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
         }
@@ -85,10 +91,51 @@ public class JawlessFish extends SchoolingAquaticMob {
         return stack.is(UP2ItemTags.JAWLESS_FISH_FOOD);
     }
 
-//    @Override
-//    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions dimensions) {
-//        return dimensions.height * 0.4F;
-//    }
+    @Override
+    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
+        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
+            if (this.getVariant() == ((JawlessFish) entity2).getVariant() && !this.isBaby()) {
+                entity2.startFollowing(this);
+            }
+        });
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull JawlessFishVariant getVariant() {
+        return JawlessFishVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(JawlessFishVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, JawlessFishVariant.values().length));
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
@@ -96,13 +143,25 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public boolean canBucket() {
-        return true;
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
     }
 
     @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(JawlessFishVariant.byId(compoundTag.getInt("Variant")));
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -156,17 +215,12 @@ public class JawlessFish extends SchoolingAquaticMob {
     }
 
     @Override
-    public int getVariantCount() {
-        return JawlessFishVariant.values().length;
-    }
-
-    @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         if (spawnType == MobSpawnType.BUCKET) {
             return spawnGroupData;
         } else {
-            this.setVariant(random.nextInt(JawlessFishVariant.values().length));
+            this.setVariant(JawlessFishVariant.byId(level.getRandom().nextInt(JawlessFishVariant.values().length)));
         }
         return spawnGroupData;
     }

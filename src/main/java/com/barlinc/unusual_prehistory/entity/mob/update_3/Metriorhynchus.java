@@ -6,16 +6,16 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_3.MetriorhynchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.GrabbingMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.network.syncher.EntityDataAccessor;
  import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,7 +24,6 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.tags.FluidTags;
- import net.minecraft.util.RandomSource;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
@@ -35,14 +34,13 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.Items;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.LevelAccessor;
  import net.minecraft.world.level.LevelReader;
- import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.gameevent.GameEvent;
  import net.minecraft.world.level.pathfinder.PathType;
@@ -71,13 +69,10 @@
      public boolean grabAlt = false;
      public boolean attackAlt = false;
 
-     public int bellowCooldown = 2000 + this.getRandom().nextInt(2000);
-
      public Metriorhynchus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -96,12 +91,18 @@
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 400));
+         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000));
          this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
          this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(9, new MetriorhynchusBellowGoal(this));
+         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, false, 0.001F) {
+             @Override
+             public void start() {
+                 super.start();
+                 Metriorhynchus.this.playSound(UP2SoundEvents.METRIORHYNCHUS_BELLOW.get(), 1.5F, 1.0F);
+             }
+         });
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
          this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
          this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
@@ -109,18 +110,36 @@
          this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
      }
 
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new SmoothAmphibiousPathNavigation(this, level);
+     }
+
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new PrehistoricMoveControl(this);
              this.lookControl = new PrehistoricLookControl(this);
-             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.98F);
-             this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
-             this.navigation = new SemiAquaticPathNavigation(this, this.level());
+             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
              this.isLandNavigator = false;
          }
+     }
+
+     @Override
+     public float getAdditionalStepHeight() {
+         return 0.0F;
+     }
+
+     @Override
+     public int getMaxHeadXRot() {
+         return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
+     }
+
+     @Override
+     public int getMaxHeadYRot() {
+         return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
      }
 
      @Override
@@ -156,11 +175,6 @@
      @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.METRIORHYNCHUS_FOOD);
-     }
-
-     @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_METRIORHYNCHUS);
      }
 
      @Override
@@ -231,14 +245,6 @@
      }
 
      @Override
-     public void tickCooldowns() {
-         super.tickCooldowns();
-         if (!this.level().isClientSide && this.getTarget() == null) {
-             if (bellowCooldown > 0) bellowCooldown--;
-         }
-     }
-
-     @Override
      public void setupAnimationStates() {
          this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
          this.sitAnimationState.animateWhen(!this.isInWaterOrBubble() && this.isSitting(), this.tickCount);
@@ -252,8 +258,14 @@
          this.leapAnimationState.animateWhen(this.isLeaping() && this.getPose() != UP2Poses.GRABBING.get(), this.tickCount);
      }
 
-     protected void bellowCooldown() {
-         this.bellowCooldown = 2000 + this.getRandom().nextInt(2000);
+     @Override
+     public int getIdleAnimationCooldown(int idleState) {
+         if (idleState == 1) {
+             return 1200 + this.getRandom().nextInt(1200);
+         }
+         else {
+             throw new IllegalStateException("Unexpected value: " + idleState);
+         }
      }
 
      @Override
@@ -315,49 +327,5 @@
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
          return UP2Entities.METRIORHYNCHUS.get().create(level);
-     }
-
-     public static boolean canSpawn(EntityType<Metriorhynchus> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-         int i = level.getSeaLevel();
-         int j = i - 13;
-         return pos.getY() >= j && pos.getY() <= i && level.getFluidState(pos.below()).is(FluidTags.WATER) && level.getBlockState(pos.above()).is(Blocks.WATER);
-     }
-
-     @Override
-     public boolean requiresCustomPersistence() {
-         return (this.getSpawnType() != MobSpawnType.CHUNK_GENERATION && this.getSpawnType() != MobSpawnType.NATURAL) || this.isFromEgg();
-     }
-
-     @Override
-     public boolean removeWhenFarAway(double distanceToPlayer) {
-         return !this.requiresCustomPersistence();
-     }
-
-     // Goals
-     private static class MetriorhynchusBellowGoal extends IdleAnimationGoal {
-
-         private final Metriorhynchus metriorhynchus;
-
-         public MetriorhynchusBellowGoal(Metriorhynchus metriorhynchus) {
-             super(metriorhynchus, 40, 1, false, false);
-             this.metriorhynchus = metriorhynchus;
-         }
-
-         @Override
-         public void start() {
-             super.start();
-             this.metriorhynchus.playSound(UP2SoundEvents.METRIORHYNCHUS_BELLOW.get(), 1.5F, 1.0F);
-         }
-
-         @Override
-         public boolean canUse() {
-             return super.canUse() && metriorhynchus.bellowCooldown == 0;
-         }
-
-         @Override
-         public void stop() {
-             super.stop();
-             this.metriorhynchus.bellowCooldown();
-         }
      }
  }

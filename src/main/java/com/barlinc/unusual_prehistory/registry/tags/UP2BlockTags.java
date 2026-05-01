@@ -9,17 +9,16 @@ import net.minecraft.world.level.block.Block;
 public class UP2BlockTags {
 
     // Update 1
-    public static final TagKey<Block> DIPLOCAULUS_PREFERRED_WALKING_BLOCKS = modBlockTag("diplocaulus_preferred_walking_blocks");
     public static final TagKey<Block> DIPLOCAULUS_SLIDING_BLOCKS = modBlockTag("diplocaulus_sliding_blocks");
     public static final TagKey<Block> DIPLOCAULUS_BURROWING_BLOCKS = modBlockTag("diplocaulus_burrowing_blocks");
 
-    public static final TagKey<Block> JAWLESS_FISH_NIBBLING_BLOCKS = modBlockTag("jawless_fish_nibbling_blocks");
+    public static final TagKey<Block> JAWLESS_FISH_FOOD_BLOCKS = modBlockTag("jawless_fish_food_blocks");
 
     public static final TagKey<Block> GUARDED_BY_KENTROSAURUS = modBlockTag("guarded_by_kentrosaurus");
-    public static final TagKey<Block> KENTROSAURUS_GRAZING_BLOCKS = modBlockTag("kentrosaurus_grazing_blocks");
+    public static final TagKey<Block> KENTROSAURUS_FOOD_BLOCKS = modBlockTag("kentrosaurus_food_blocks");
 
-    public static final TagKey<Block> TALPANAS_PECKING_BLOCKS = modBlockTag("talpanas_pecking_blocks");
-    public static final TagKey<Block> TELECREX_PECKING_BLOCKS = modBlockTag("telecrex_pecking_blocks");
+    public static final TagKey<Block> TALPANAS_FOOD_BLOCKS = modBlockTag("talpanas_food_blocks");
+    public static final TagKey<Block> TELECREX_FOOD_BLOCKS = modBlockTag("telecrex_food_blocks");
 
     public static final TagKey<Block> FOSSIL_REPLACEABLE = modBlockTag("fossil_replaceable");
     public static final TagKey<Block> TAR_PIT_REPLACEABLE = modBlockTag("tar_pit_replaceable");
@@ -38,15 +37,15 @@ public class UP2BlockTags {
     public static final TagKey<Block> PETRIFIED_WOOD = modBlockTag("petrified_wood");
 
     // Update 3
-    public static final TagKey<Block> TARTUOSTEUS_NIBBLING_BLOCKS = modBlockTag("tartuosteus_nibbling_blocks");
+    public static final TagKey<Block> TARTUOSTEUS_FOOD_BLOCKS = modBlockTag("tartuosteus_food_blocks");
 
     // Update 4
-    public static final TagKey<Block> LOBE_FINNED_FISH_NIBBLING_BLOCKS = modBlockTag("lobe_finned_fish_nibbling_blocks");
+    public static final TagKey<Block> LOBE_FINNED_FISH_FOOD_BLOCKS = modBlockTag("lobe_finned_fish_food_blocks");
 
     public static final TagKey<Block> LYSTROSAURUS_DIGGING_BLOCKS = modBlockTag("lystrosaurus_digging_blocks");
-    public static final TagKey<Block> LYSTROSAURUS_GRAZING_BLOCKS = modBlockTag("lystrosaurus_grazing_blocks");
+    public static final TagKey<Block> LYSTROSAURUS_FOOD_BLOCKS = modBlockTag("lystrosaurus_food_blocks");
 
-    public static final TagKey<Block> PACHYCEPHALOSAURUS_GRAZING_BLOCKS = modBlockTag("pachycephalosaurus_grazing_blocks");
+    public static final TagKey<Block> PACHYCEPHALOSAURUS_FOOD_BLOCKS = modBlockTag("pachycephalosaurus_food_blocks");
 
     public static final TagKey<Block> DRYOPHYLLUM_LOGS = modBlockTag("dryophyllum_logs");
     public static final TagKey<Block> METASEQUOIA_LOGS = modBlockTag("metasequoia_logs");
@@ -61,15 +60,12 @@ public class UP2BlockTags {
     public static final TagKey<Block> DESMATOSUCHUS_MOSSY_BLOCKS = modBlockTag("desmatosuchus_mossy_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_MUDDY_BLOCKS = modBlockTag("desmatosuchus_muddy_blocks");
     public static final TagKey<Block> DESMATOSUCHUS_SNOWY_BLOCKS = modBlockTag("desmatosuchus_snowy_blocks");
-    public static final TagKey<Block> DESMATOSUCHUS_GRAZING_BLOCKS = modBlockTag("desmatosuchus_grazing_blocks");
+    public static final TagKey<Block> DESMATOSUCHUS_FOOD_BLOCKS = modBlockTag("desmatosuchus_food_blocks");
 
     public static final TagKey<Block> PSILOPTERUS_DIGGING_BLOCKS = modBlockTag("psilopterus_digging_blocks");
 
     // Update 6
-    public static final TagKey<Block> COTYLORHYNCHUS_GRAZING_BLOCKS = modBlockTag("cotylorhynchus_grazing_blocks");
-
-    // Future
-    public static final TagKey<Block> THERIZINOSAURUS_FORAGING_BLOCKS = modBlockTag("therizinosaurus_foraging_blocks");
+    public static final TagKey<Block> COTYLORHYNCHUS_FOOD_BLOCKS = modBlockTag("cotylorhynchus_food_blocks");
 
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);

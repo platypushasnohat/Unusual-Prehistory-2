@@ -6,15 +6,15 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SemiAquaticPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
+ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
- import com.barlinc.unusual_prehistory.utils.SmoothAnimationState;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -32,6 +32,7 @@
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+ import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
@@ -62,7 +63,6 @@
          super(entityType, level);
          this.switchNavigator(true);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
-         this.setPathfindingMalus(PathType.WATER_BORDER, 1.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -80,8 +80,8 @@
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
          this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.9D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KAPROSUCHUS_FOOD), false));
-         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 1200));
-         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 1500));
+         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 2000));
+         this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D, 2000));
          this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 10.0F));
@@ -93,16 +93,19 @@
          this.targetSelector.addGoal(3, new PrehistoricOwnerHurtTargetGoal(this));
      }
 
+     @Override
+     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+         return new SmoothAmphibiousPathNavigation(this, level);
+     }
+
      protected void switchNavigator(boolean onLand) {
          if (onLand) {
              this.lookControl = new PrehistoricLookControl(this);
              this.moveControl = new PrehistoricMoveControl(this);
-             this.navigation = this.createNavigation(this.level());
              this.isLandNavigator = true;
          } else {
              this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
              this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
-             this.navigation = new SemiAquaticPathNavigation(this, this.level());
              this.isLandNavigator = false;
          }
      }
@@ -141,11 +144,6 @@
      @Override
      public boolean canPacify() {
          return true;
-     }
-
-     @Override
-     public boolean isPacifyItem(ItemStack itemStack) {
-         return itemStack.is(UP2ItemTags.PACIFIES_KAPROSUCHUS);
      }
 
      @Override

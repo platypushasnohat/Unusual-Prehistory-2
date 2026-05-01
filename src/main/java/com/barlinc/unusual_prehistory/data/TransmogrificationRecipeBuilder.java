@@ -11,7 +11,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -27,9 +27,9 @@ public class TransmogrificationRecipeBuilder implements RecipeBuilder {
     private final int processingTime;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    private final TransmogrificationRecipe.Factory<?> factory;
+    private final TransmogrificationRecipe.Factory factory;
 
-    private TransmogrificationRecipeBuilder(ItemStack result, Ingredient ingredient, float experience, int processingTime, TransmogrificationRecipe.Factory<?> factory) {
+    private TransmogrificationRecipeBuilder(ItemStack result, Ingredient ingredient, float experience, int processingTime, TransmogrificationRecipe.Factory factory) {
         this.result = result.getItem();
         this.stackResult = result;
         this.ingredient = ingredient;
