@@ -54,10 +54,10 @@ public class EggBlock extends BaseEntityBlock {
     protected final VoxelShape shape;
     private final Supplier<EntityType<?>> hatchedEntity;
 
-    public EggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int widthPx, int heightPx) {
+    public EggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, double widthPx, double heightPx) {
         super(properties);
         this.hatchedEntity = hatchedEntity;
-        int px = (16 - widthPx) / 2;
+        double px = (16 - widthPx) / 2;
         this.shape = Block.box(px, 0, px, 16 - px, heightPx, 16 - px);
         this.registerDefaultState(this.defaultBlockState().setValue(HATCH, 0));
     }
@@ -70,7 +70,7 @@ public class EggBlock extends BaseEntityBlock {
 
     @Override
     public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
-        this.tryTrample(level, pos, entity, 100);
+//        this.tryTrample(level, pos, entity, 100);
         super.stepOn(level, pos, state, entity);
     }
 

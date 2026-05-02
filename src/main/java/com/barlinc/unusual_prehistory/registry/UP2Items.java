@@ -232,6 +232,7 @@ public class UP2Items {
     public static final DeferredItem<Item> SPIKE_TOOTHED_SALMON_SPAWN_EGG = registerSpawnEggItemNoLang("spike_toothed_salmon", UP2Entities.SPIKE_TOOTHED_SALMON, 0x69579b, 0xeb915e);
 
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
+    public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
     public static final DeferredItem<Item> CRYPTIC_FOSSIL = registerFossilItem("cryptic"); // cryptoclidus
     public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus

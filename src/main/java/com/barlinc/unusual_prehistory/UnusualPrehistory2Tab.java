@@ -167,6 +167,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
+                        output.accept(CONCAVE_FOSSIL.get()); // concavenator
                         output.accept(ROTUND_FOSSIL.get()); // cotylorhynchus
                         output.accept(CRYPTIC_FOSSIL.get()); // cryptoclidus
                         output.accept(FLAT_BACK_FOSSIL.get()); // desmatosuchus
@@ -204,6 +205,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
+                        output.accept(UP2Blocks.CONCAVENATOR_EGG.get());
                         output.accept(CRYPTOCLIDUS_EMBRYO.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
