@@ -91,6 +91,7 @@ public class UP2Entities {
     // Update 6
     public static final DeferredHolder<EntityType<?>, EntityType<Ampyx>> AMPYX = registerEntity("ampyx", Ampyx::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.2F).eyeHeight(0.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Antarctopelta>> ANTARCTOPELTA = registerEntity("antarctopelta", Antarctopelta::new, MobCategory.CREATURE, builder -> builder.sized(1.4F, 1.4F).eyeHeight(1.1F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Concavenator>> CONCAVENATOR = registerEntity("concavenator", Concavenator::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 2.25F).eyeHeight(2.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Cotylorhynchus>> COTYLORHYNCHUS = registerEntity("cotylorhynchus", Cotylorhynchus::new, MobCategory.CREATURE, builder -> builder.sized(2.1F, 1.7F).eyeHeight(1.6F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Cryptoclidus>> CRYPTOCLIDUS = registerEntity("cryptoclidus", Cryptoclidus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.7F, 1.25F).eyeHeight(1.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Hynerpeton>> HYNERPETON = registerEntity("hynerpeton", Hynerpeton::new, MobCategory.CREATURE, builder -> builder.sized(0.8F, 0.5F).eyeHeight(0.3F).clientTrackingRange(10));

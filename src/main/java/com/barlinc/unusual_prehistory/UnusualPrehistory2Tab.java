@@ -26,6 +26,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
+                        output.accept(CONCAVENATOR_SPAWN_EGG.get());
                         output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
                         output.accept(CRYPTOCLIDUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());

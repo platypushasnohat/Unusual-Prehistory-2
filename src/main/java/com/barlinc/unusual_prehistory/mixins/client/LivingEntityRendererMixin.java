@@ -26,7 +26,7 @@ public abstract class LivingEntityRendererMixin extends EntityRenderer<LivingEnt
     }
 
     @Inject(method = "setupRotations(Lnet/minecraft/world/entity/LivingEntity;Lcom/mojang/blaze3d/vertex/PoseStack;FFFF)V", at = @At("HEAD"), cancellable = true)
-    protected void onSetupRotation(LivingEntity entity, PoseStack poseStack, float bob, float yBodyRot, float partialTicks, float scale, CallbackInfo ci) {
+    protected void unusualPrehistory$onSetupRotation(LivingEntity entity, PoseStack poseStack, float bob, float yBodyRot, float partialTicks, float scale, CallbackInfo ci) {
         ModelRotationEvent event = new ModelRotationEvent(entity, this.model, poseStack);
         NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) {

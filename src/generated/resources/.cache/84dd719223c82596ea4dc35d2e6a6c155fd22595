@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-01T16:19:39.9067028	Item Models: unusual_prehistory
+// 1.21.1	2026-05-01T19:57:44.9102947	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -22,6 +22,7 @@ fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/b
 594f200c66345ecb74b7c76b2f3e281f95e08642 assets/unusual_prehistory/models/item/clamp_jaw_fossil.json
 37d5895d5027d27e428436de32c1ba6579c9e6d2 assets/unusual_prehistory/models/item/coelacanthus_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/coelacanthus_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/concavenator_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/cotylorhynchus_spawn_egg.json
 8df6f68904313f2019d6139f17e16d0e51fd0ddd assets/unusual_prehistory/models/item/cranium_fossil.json
 7645f4edad16b1e5d4d6cd7407305c338765c85d assets/unusual_prehistory/models/item/creative_lock.json

@@ -27,17 +27,17 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
     }
 
     @Inject(at = @At("TAIL"), method = "defineSynchedData")
-    private void unusualPrehistory2$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+    private void unusualPrehistory$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(DATA_GRABBED, false);
     }
 
     @Override
-    public boolean unusualPrehistory2$isBeingGrabbed() {
+    public boolean unusualPrehistory$isBeingGrabbed() {
         return this.entityData.get(DATA_GRABBED);
     }
 
     @Override
-    public void unusualPrehistory2$setBeingGrabbed(boolean grabbed) {
+    public void unusualPrehistory$setBeingGrabbed(boolean grabbed) {
         this.entityData.set(DATA_GRABBED, grabbed);
     }
 }

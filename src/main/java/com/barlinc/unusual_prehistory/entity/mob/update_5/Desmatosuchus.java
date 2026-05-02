@@ -57,8 +57,8 @@ public class Desmatosuchus extends PrehistoricMob {
 
     private static final EntityDataAccessor<Integer> DIRT_TYPE = SynchedEntityData.defineId(Desmatosuchus.class, EntityDataSerializers.INT);
 
-    private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F);
-    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.7F);
+    private static final EntityDimensions BURROWED_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.4F).withEyeHeight(0.3F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.3F, 0.7F).withEyeHeight(0.6F);
 
     public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();

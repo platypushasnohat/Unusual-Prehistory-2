@@ -57,7 +57,7 @@ public class EnterWaterGoal extends Goal {
         BlockPos.MutableBlockPos mutable = original.mutable();
 
         for (int i = 0; i < 10; i++) {
-            mutable.move(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+            mutable.move(random.nextInt(20) - 10, random.nextInt(16) - 8, random.nextInt(20) - 10);
             if (level.getFluidState(mutable).is(FluidTags.WATER)) {
                 this.waterPos = Vec3.atCenterOf(mutable.immutable());
                 return true;

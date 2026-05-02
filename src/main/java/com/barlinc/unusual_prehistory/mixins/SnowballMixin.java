@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SnowballMixin {
 
     @Inject(at = @At("TAIL"), method = "onHitEntity(Lnet/minecraft/world/phys/EntityHitResult;)V")
-    protected void unusualPrehistory2$onHitEntity(EntityHitResult result, CallbackInfo ci) {
+    protected void unusualPrehistory$onHitEntity(EntityHitResult result, CallbackInfo ci) {
         Entity entity = result.getEntity();
         if (entity instanceof Desmatosuchus desmatosuchus && !desmatosuchus.isDirty()) {
             desmatosuchus.setDirtType(Desmatosuchus.DirtType.SNOWY);

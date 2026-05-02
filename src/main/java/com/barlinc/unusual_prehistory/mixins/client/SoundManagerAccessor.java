@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface SoundManagerAccessor {
 
     @Accessor("soundEngine")
-    SoundEngine getSoundEngine();
+    SoundEngine unusualPrehistory$getSoundEngine();
 }

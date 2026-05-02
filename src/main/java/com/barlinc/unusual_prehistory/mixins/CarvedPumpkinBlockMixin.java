@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public final class CarvedPumpkinBlockMixin {
 
 	@Inject(method = "canSpawnGolem", at = @At("RETURN"), cancellable = true)
-	private void canSpawnGolem(LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+	private void unusualPrehistory$canSpawnGolem(LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
 		BlockState belowState = level.getBlockState(pos.below());
 		if (belowState.is(UP2Blocks.ORGANIC_OOZE_BLOCK)) {
             cir.setReturnValue(true);
@@ -25,7 +25,7 @@ public final class CarvedPumpkinBlockMixin {
 	}
 
 	@Inject(method = "trySpawnGolem", at = @At("HEAD"), cancellable = true)
-	private void trySpawnGolem(Level level, BlockPos pos, CallbackInfo ci) {
+	private void unusualPrehistory$trySpawnGolem(Level level, BlockPos pos, CallbackInfo ci) {
 		BlockState belowState = level.getBlockState(pos.below());
 		if (belowState.is(UP2Blocks.ORGANIC_OOZE_BLOCK)) {
             LivingOoze.createLivingOoze(level, pos, level.getBlockState(pos));

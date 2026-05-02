@@ -5,5 +5,5 @@ import net.minecraft.world.damagesource.DamageSource;
 
 public interface MobAccessor {
 
-    void unusualPrehistory2$dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill);
+    void unusualPrehistory$dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill);
 }

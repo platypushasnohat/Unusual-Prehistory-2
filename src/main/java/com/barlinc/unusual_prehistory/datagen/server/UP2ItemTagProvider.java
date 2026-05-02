@@ -377,6 +377,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.HORSETAIL.asItem()
         );
 
+        this.tag(UP2ItemTags.CONCAVENATOR_FOOD).addTags(
+                ItemTags.MEAT
+        );
+
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES
         );

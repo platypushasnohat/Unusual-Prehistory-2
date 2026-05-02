@@ -222,7 +222,7 @@
          if (target == null) {
              return false;
          }
-         if (((LivingEntityAccessor) target).unusualPrehistory2$isBeingGrabbed()) {
+         if (((LivingEntityAccessor) target).unusualPrehistory$isBeingGrabbed()) {
              return false;
          }
          if (target.getType().is(UP2EntityTags.METRIORHYNCHUS_CANT_GRAB)) {
@@ -293,14 +293,14 @@
          if (oldId != -1) {
              Entity oldEntity = this.level().getEntity(oldId);
              if (oldEntity instanceof LivingEntity living) {
-                 ((LivingEntityAccessor) living).unusualPrehistory2$setBeingGrabbed(false);
+                 ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(false);
              }
          }
          this.entityData.set(HELD_MOB_ID, id);
          if (id != -1) {
              Entity newEntity = this.level().getEntity(id);
              if (newEntity instanceof LivingEntity living) {
-                 ((LivingEntityAccessor) living).unusualPrehistory2$setBeingGrabbed(true);
+                 ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(true);
              }
          }
      }

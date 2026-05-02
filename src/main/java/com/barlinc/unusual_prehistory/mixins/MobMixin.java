@@ -14,7 +14,7 @@ public abstract class MobMixin implements MobAccessor {
     protected abstract void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill);
 
     @Override
-    public void unusualPrehistory2$dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill) {
+    public void unusualPrehistory$dropCustomDeathLoot(ServerLevel serverLevel, DamageSource damageSource, boolean playerKill) {
         this.dropCustomDeathLoot(serverLevel, damageSource, playerKill);
     }
 }

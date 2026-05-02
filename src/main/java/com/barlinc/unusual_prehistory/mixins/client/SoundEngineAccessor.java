@@ -11,8 +11,8 @@ import java.util.List;
 public interface SoundEngineAccessor {
 
     @Accessor("tickingSounds")
-    List<TickableSoundInstance> getTickingSounds();
+    List<TickableSoundInstance> unusualPrehistory$getTickingSounds();
 
     @Accessor("queuedTickableSounds")
-    List<TickableSoundInstance> getQueuedTickableSounds();
+    List<TickableSoundInstance> unusualPrehistory$getQueuedTickableSounds();
 }

@@ -230,7 +230,7 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
         if (target == null) {
             return false;
         }
-        if (((LivingEntityAccessor) target).unusualPrehistory2$isBeingGrabbed()) {
+        if (((LivingEntityAccessor) target).unusualPrehistory$isBeingGrabbed()) {
             return false;
         }
         if (target.getType().is(UP2EntityTags.LORRAINOSAURUS_CANT_GRAB)) {
@@ -301,14 +301,14 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
         if (oldId != -1) {
             Entity oldEntity = this.level().getEntity(oldId);
             if (oldEntity instanceof LivingEntity living) {
-                ((LivingEntityAccessor) living).unusualPrehistory2$setBeingGrabbed(false);
+                ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(false);
             }
         }
         this.entityData.set(HELD_MOB_ID, id);
         if (id != -1) {
             Entity entity = this.level().getEntity(id);
             if (entity instanceof LivingEntity living) {
-                ((LivingEntityAccessor) living).unusualPrehistory2$setBeingGrabbed(true);
+                ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(true);
             }
         }
     }

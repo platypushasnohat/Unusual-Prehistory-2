@@ -26,7 +26,9 @@ public enum UP2Poses {
     STOMPING,
     RECOVERING,
     ROARING,
-    BURPING;
+    BURPING,
+    START_SWIMMING,
+    STOP_SWIMMING;
 
     public Pose get() {
         return Pose.valueOf(this.name());

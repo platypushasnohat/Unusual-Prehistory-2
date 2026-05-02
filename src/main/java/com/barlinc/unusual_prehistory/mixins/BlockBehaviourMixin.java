@@ -21,7 +21,7 @@ public abstract class BlockBehaviourMixin {
 
     // Don't collide with the lowest leaf block
     @ModifyReturnValue(method = "getCollisionShape", at = @At("RETURN"))
-    protected VoxelShape getCollisionShape(VoxelShape original, @Local(argsOnly = true) BlockState state, @Local(argsOnly = true) BlockGetter level, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) CollisionContext context) {
+    protected VoxelShape unusualPrehistory$getCollisionShape(VoxelShape original, @Local(argsOnly = true) BlockState state, @Local(argsOnly = true) BlockGetter level, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) CollisionContext context) {
         if (state.getBlock() instanceof LeavesBlock && context instanceof EntityCollisionContext entityContext && entityContext.getEntity() instanceof PrehistoricMob prehistoricMob && prehistoricMob.getControllingPassenger() instanceof Player) {
             if (level.getBlockState(pos.below()).getBlock() instanceof LeavesBlock) {
                 return original;

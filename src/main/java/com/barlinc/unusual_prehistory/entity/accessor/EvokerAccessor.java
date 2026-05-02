@@ -4,10 +4,10 @@ import net.minecraft.world.entity.LivingEntity;
 
 public interface EvokerAccessor {
 
-    void unusualPrehistory2$setSpellCastingTickCount(int spellCastingTickCount);
+    void unusualPrehistory$setSpellCastingTickCount(int spellCastingTickCount);
 
-    void unusualPrehistory2$setLivingWololoTarget(LivingEntity entity);
+    void unusualPrehistory$setLivingWololoTarget(LivingEntity entity);
 
-    LivingEntity unusualPrehistory2$getLivingWololoTarget();
+    LivingEntity unusualPrehistory$getLivingWololoTarget();
 
 }

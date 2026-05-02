@@ -193,6 +193,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 PACHYCEPHALOSAURUS.get(),
                 ULUGHBEGSAURUS.get(),
                 ANTARCTOPELTA.get(),
+                CONCAVENATOR.get(),
                 ICHTHYOSAURUS.get(),
                 LORRAINOSAURUS.get()
         );
