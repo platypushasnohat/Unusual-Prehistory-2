@@ -167,9 +167,9 @@ public class ClientProxy extends CommonProxy {
 
     private boolean isSoundPlaying(AbstractTickableSoundInstance sound) {
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
-        SoundEngine soundEngine = ((SoundManagerAccessor) soundManager).getSoundEngine();
+        SoundEngine soundEngine = ((SoundManagerAccessor) soundManager).unusualPrehistory$getSoundEngine();
         SoundEngineAccessor engineAccessor = (SoundEngineAccessor) soundEngine;
-        return engineAccessor.getQueuedTickableSounds().contains(sound) || engineAccessor.getTickingSounds().contains(sound);
+        return engineAccessor.unusualPrehistory$getQueuedTickableSounds().contains(sound) || engineAccessor.unusualPrehistory$getTickingSounds().contains(sound);
     }
 
     @Override

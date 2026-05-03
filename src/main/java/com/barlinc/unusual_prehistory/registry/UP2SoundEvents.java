@@ -176,7 +176,6 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> DESMATOSUCHUS_IDLE = registerSoundEvent("desmatosuchus_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> DESMATOSUCHUS_STEP = registerSoundEvent("desmatosuchus_step");
 
-
     public static final DeferredHolder<SoundEvent, SoundEvent> PSILOPTERUS_HURT = registerSoundEvent("psilopterus_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> PSILOPTERUS_DEATH = registerSoundEvent("psilopterus_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> PSILOPTERUS_IDLE = registerSoundEvent("psilopterus_idle");
@@ -224,6 +223,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> ICHTHYOSAURUS_FLOP = registerSoundEvent("ichthyosaurus_flop");
     public static final DeferredHolder<SoundEvent, SoundEvent> ICHTHYOSAURUS_DASH = registerSoundEvent("ichthyosaurus_dash");
     public static final DeferredHolder<SoundEvent, SoundEvent> ICHTHYOSAURUS_DASH_READY = registerSoundEvent("ichthyosaurus_dash_ready");
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_HURT = registerSoundEvent("lorrainosaurus_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_DEATH = registerSoundEvent("lorrainosaurus_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_IDLE = registerSoundEvent("lorrainosaurus_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_ATTACK = registerSoundEvent("lorrainosaurus_attack");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_HURT = registerSoundEvent("mammoth_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_DEATH = registerSoundEvent("mammoth_death");

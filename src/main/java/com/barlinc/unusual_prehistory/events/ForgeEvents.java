@@ -62,7 +62,7 @@ public class ForgeEvents {
                 evoker.goalSelector.addGoal(6, new WololoSpellGoal<>(evoker, Ulughbegsaurus.class, (livingEntity) -> ((Ulughbegsaurus) livingEntity).getVariant() == Ulughbegsaurus.UlughbegsaurusVariant.BLUE) {
                     @Override
                     protected void performSpellCasting() {
-                        LivingEntity wololoTarget = evokerAccess.unusualPrehistory2$getLivingWololoTarget();
+                        LivingEntity wololoTarget = evokerAccess.unusualPrehistory$getLivingWololoTarget();
                         if (wololoTarget != null && wololoTarget.isAlive() && wololoTarget instanceof Ulughbegsaurus ulughbegsaurus) {
                             ulughbegsaurus.setVariant(Ulughbegsaurus.UlughbegsaurusVariant.RED);
                         }
@@ -138,7 +138,7 @@ public class ForgeEvents {
                     DamageSource fakeCreeperDamage = mob.level().damageSources().mobAttack(fakeCreeperForSkullDrop);
                     MobAccessor accessor = (MobAccessor) mob;
                     if (mob.level() instanceof ServerLevel serverLevel2) {
-                        accessor.unusualPrehistory2$dropCustomDeathLoot(serverLevel2, fakeCreeperDamage, false);
+                        accessor.unusualPrehistory$dropCustomDeathLoot(serverLevel2, fakeCreeperDamage, false);
                     }
                 }
             }

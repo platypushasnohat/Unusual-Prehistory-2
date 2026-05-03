@@ -19,7 +19,7 @@ import java.util.List;
 public class PoseMixin {
 
     @Invoker("<init>")
-    private static Pose unusualPrehistory2$newPose(String internalName, int internalIndex, int index) {
+    private static Pose unusualPrehistory$newPose(String internalName, int internalIndex, int index) {
         throw new AssertionError();
     }
 
@@ -29,12 +29,12 @@ public class PoseMixin {
     private static Pose[] $VALUES;
 
     @Inject(method = "<clinit>", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/Pose;$VALUES:[Lnet/minecraft/world/entity/Pose;", shift = At.Shift.AFTER))
-    private static void unusualPrehistory2$addCustomEntityPoses(CallbackInfo ci) {
+    private static void unusualPrehistory$addCustomEntityPoses(CallbackInfo ci) {
         List<Pose> poses = new ArrayList<>(Arrays.asList($VALUES));
         Pose last = poses.get(poses.size() - 1);
         int i = 1;
         for (UP2Poses pose : UP2Poses.values()) {
-            poses.add(unusualPrehistory2$newPose(pose.name(), last.ordinal() + i, last.id() + i));
+            poses.add(unusualPrehistory$newPose(pose.name(), last.ordinal() + i, last.id() + i));
             i++;
         }
         $VALUES = poses.toArray(new Pose[0]);

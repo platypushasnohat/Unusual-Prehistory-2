@@ -263,7 +263,7 @@ public class Cryptoclidus extends AmphibiousMob {
     private static class CryptoclidusEnterWaterGoal extends EnterWaterGoal {
 
         public CryptoclidusEnterWaterGoal(AmphibiousMob amphibiousMob, double speedModifier) {
-            super(amphibiousMob, speedModifier, 100);
+            super(amphibiousMob, speedModifier, 100, false);
         }
 
         @Override

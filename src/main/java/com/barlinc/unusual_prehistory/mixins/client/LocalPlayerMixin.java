@@ -19,7 +19,7 @@ public abstract class LocalPlayerMixin extends Player {
 
     // Camera lag fix while riding a mount
     @ModifyReturnValue(method = "getViewYRot", at = @At("RETURN"))
-    private float onGetViewYRot(float original) {
+    private float unusualPrehistory$onGetViewYRot(float original) {
         return this.getVehicle() instanceof PrehistoricMob ? this.getYRot() : original;
     }
 }

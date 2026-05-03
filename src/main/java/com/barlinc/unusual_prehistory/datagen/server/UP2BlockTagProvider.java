@@ -227,6 +227,8 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
+        this.tag(UP2BlockTags.CONCAVENATOR_SWIMS_ON).addTags(BlockTags.SAND);
+
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

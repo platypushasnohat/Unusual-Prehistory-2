@@ -10,8 +10,8 @@ import java.util.List;
 public interface StructureTemplateAccessor {
 
     @Accessor("palettes")
-    List<StructureTemplate.Palette> getBlocks();
+    List<StructureTemplate.Palette> unusualPrehistory$getBlocks();
 
     @Accessor("entityInfoList")
-    List<StructureTemplate.StructureEntityInfo> getEntityInfoList();
+    List<StructureTemplate.StructureEntityInfo> unusualPrehistory$getEntityInfoList();
 }

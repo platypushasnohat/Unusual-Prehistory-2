@@ -17,6 +17,8 @@
     "unusual_prehistory:cranium_fossil",
     "unusual_prehistory:dubious_fossil",
     "unusual_prehistory:fish_reptile_fossil",
-    "unusual_prehistory:cryptic_fossil"
+    "unusual_prehistory:clamp_jaw_fossil",
+    "unusual_prehistory:cryptic_fossil",
+    "unusual_prehistory:concave_fossil"
   ]
 }

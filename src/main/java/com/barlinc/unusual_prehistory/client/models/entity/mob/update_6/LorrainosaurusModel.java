@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -132,15 +131,13 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
         this.animateSmooth(entity.nip2AnimationState, LorrainosaurusAnimations.NIP_BLEND2, ageInTicks);
         this.animateSmooth(entity.grabStartAnimationState, LorrainosaurusAnimations.GRAB_START_BLEND, ageInTicks);
         this.animateSmooth(entity.grabAnimationState, LorrainosaurusAnimations.GRAB_BLEND, ageInTicks);
+        this.animateSmooth(entity.aggroAnimationState, LorrainosaurusAnimations.AGGRO_BLEND, ageInTicks);
 
         if (entity.isInWaterOrBubble()) {
-            this.swim_control.xRot = headPitch * deg / 2;
+            this.swim_control.xRot = headPitch * deg;
         }
 
-        this.faceTarget(netHeadYaw, headPitch, 2, head);
-
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.2F);
+        this.faceTarget(netHeadYaw, headPitch, 4, head);
     }
 
     @Override

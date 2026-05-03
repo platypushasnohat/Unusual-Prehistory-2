@@ -46,7 +46,7 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
             if (list.isEmpty()) {
                 return false;
             } else {
-                this.evokerAccess.unusualPrehistory2$setLivingWololoTarget(list.get(evoker.getRandom().nextInt(list.size())));
+                this.evokerAccess.unusualPrehistory$setLivingWololoTarget(list.get(evoker.getRandom().nextInt(list.size())));
                 return true;
             }
         }
@@ -54,13 +54,13 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return evokerAccess.unusualPrehistory2$getLivingWololoTarget() != null && attackWarmupDelay > 0;
+        return evokerAccess.unusualPrehistory$getLivingWololoTarget() != null && attackWarmupDelay > 0;
     }
 
     @Override
     public void start() {
         this.attackWarmupDelay = this.adjustedTickDelay(this.getCastWarmupTime());
-        this.evokerAccess.unusualPrehistory2$setSpellCastingTickCount(this.getCastingTime());
+        this.evokerAccess.unusualPrehistory$setSpellCastingTickCount(this.getCastingTime());
         this.nextAttackTickCount = evoker.tickCount + this.getCastingInterval();
         SoundEvent soundevent = this.getSpellPrepareSound();
         if (soundevent != null) {
@@ -71,7 +71,7 @@ public class WololoSpellGoal<T extends LivingEntity> extends Goal {
 
     @Override
     public void stop() {
-        this.evokerAccess.unusualPrehistory2$setLivingWololoTarget(null);
+        this.evokerAccess.unusualPrehistory$setLivingWololoTarget(null);
     }
 
     protected int getCastWarmupTime() {

@@ -839,6 +839,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash_ready3")).volume(0.7F)
         );
 
+        this.sound(UP2SoundEvents.LORRAINOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.LORRAINOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.LORRAINOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/idle1")).volume(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/idle2")).volume(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/idle3")).volume(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/idle4")).volume(0.9F)
+        );
+        this.sound(UP2SoundEvents.LORRAINOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack1")).pitch(1.13F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack2")).pitch(1.13F)
+        );
+
         this.sound(UP2SoundEvents.MAMMOTH_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/death1"))
         );

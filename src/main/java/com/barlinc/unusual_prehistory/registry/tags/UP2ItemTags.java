@@ -128,6 +128,7 @@ public class UP2ItemTags {
 
     // Update 6
     public static final TagKey<Item> ANTARCTOPELTA_FOOD = modItemTag("antarctopelta_food");
+    public static final TagKey<Item> CONCAVENATOR_FOOD = modItemTag("concavenator_food");
     public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
     public static final TagKey<Item> CRYPTOCLIDUS_FOOD = modItemTag("cryptoclidus_food");
     public static final TagKey<Item> ICHTHYOSAURUS_FOOD = modItemTag("ichthyosaurus_food");

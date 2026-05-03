@@ -26,7 +26,9 @@ public class LeaveWaterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!amphibiousMob.isInWater() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
+        if (amphibiousMob.getTarget() != null) {
+            return false;
+        } else if (!amphibiousMob.isInWater() || amphibiousMob.isEepy() || amphibiousMob.isSitting()) {
             return false;
         } else if (amphibiousMob.getTimeInWater() < maxTimeInWater) {
             return false;
@@ -36,7 +38,7 @@ public class LeaveWaterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !amphibiousMob.getNavigation().isDone() && amphibiousMob.isInWater() && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
+        return !amphibiousMob.getNavigation().isDone() && amphibiousMob.isInWater() && amphibiousMob.getTarget() == null && !amphibiousMob.isEepy() && !amphibiousMob.isSitting();
     }
 
     @Override

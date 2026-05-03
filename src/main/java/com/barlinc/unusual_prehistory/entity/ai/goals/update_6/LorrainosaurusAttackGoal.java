@@ -7,32 +7,27 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
 public class LorrainosaurusAttackGoal extends AttackGoal {
 
     private final Lorrainosaurus lorrainosaurus;
-    @Nullable
-    private BlockPos waterPos = null;
-    private double wantedX;
-    private double wantedY;
-    private double wantedZ;
+    private Vec3 wantedPos = null;
 
     public LorrainosaurusAttackGoal(Lorrainosaurus lorrainosaurus) {
         super(lorrainosaurus);
         this.lorrainosaurus = lorrainosaurus;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        this.lorrainosaurus.setGrabTime(150 + lorrainosaurus.getRandom().nextInt(50));
     }
 
     @Override
@@ -42,8 +37,11 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
             double distance = lorrainosaurus.distanceToSqr(target);
             int attackState = lorrainosaurus.getAttackState();
 
-            if (waterPos != null) {
-                this.lorrainosaurus.getNavigation().moveTo(waterPos.getX(), waterPos.getY(), waterPos.getZ(), 1.5D);
+            if (wantedPos != null) {
+                this.lorrainosaurus.getNavigation().moveTo(wantedPos.x, wantedPos.y, wantedPos.z, 1.5D);
+            } else {
+                this.lorrainosaurus.lookAt(target, 30F, 30F);
+                this.lorrainosaurus.getLookControl().setLookAt(target, 30F, 30F);
             }
 
             if (attackState == 1) {
@@ -51,14 +49,14 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
             } else if (attackState == 2) {
                 this.tickGrab();
             } else {
-                if (distance <= this.getAttackReachSqr(target) && lorrainosaurus.biteCooldown == 0 && !this.canGrab(target)) {
+                if (distance <= this.getAttackReachSqr(target, 1.6D) && lorrainosaurus.biteCooldown == 0 && !this.canGrab(target)) {
                     this.lorrainosaurus.setAttackState(1);
-                } else if (distance <= this.getAttackReachSqr(target) && this.canGrab(target)) {
+                } else if (distance <= this.getAttackReachSqr(target, 1.3D) && this.canGrab(target)) {
                     this.lorrainosaurus.setAttackState(2);
                 } else {
                     this.lorrainosaurus.getNavigation().moveTo(target, 1.5D);
                 }
-                if (!target.isInWaterOrBubble() && lorrainosaurus.horizontalCollision && lorrainosaurus.isInWaterOrBubble()) {
+                if (!target.isInWaterOrBubble() && lorrainosaurus.horizontalCollision && lorrainosaurus.isInWaterOrBubble() && lorrainosaurus.tickCount % 2 == 0) {
                     float rot = lorrainosaurus.getYRot() * ((float) Math.PI / 180F);
                     this.lorrainosaurus.getNavigation().stop();
                     this.lorrainosaurus.setDeltaMovement(lorrainosaurus.getDeltaMovement().add(-Mth.sin(rot) * 0.4F, 0.2D, Mth.cos(rot) * 0.4F));
@@ -68,25 +66,27 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
     }
 
     protected boolean canGrab(LivingEntity target) {
-        return !target.isInWaterOrBubble() && lorrainosaurus.grabCooldown == 0;
+        return !target.isInWaterOrBubble() && lorrainosaurus.canPickUpTarget(target) && lorrainosaurus.grabCooldown == 0;
     }
 
     protected void tickBite() {
         this.timer++;
+        LivingEntity target = lorrainosaurus.getTarget();
         this.lorrainosaurus.getNavigation().stop();
         if (timer == 1) {
             this.lorrainosaurus.attackAlt = lorrainosaurus.getRandom().nextBoolean();
             this.lorrainosaurus.setPose(UP2Poses.ATTACKING.get());
-            this.lorrainosaurus.playSound(UP2SoundEvents.PROGNATHODON_ATTACK.get(), 1.5F, 1.0F * lorrainosaurus.getRandom().nextFloat() * 0.2F);
+            this.lorrainosaurus.playSound(UP2SoundEvents.LORRAINOSAURUS_ATTACK.get(), 1.0F, 1.0F * lorrainosaurus.getRandom().nextFloat() * 0.2F);
         }
-        if (timer == 10) {
-            this.hurtNearbyEntities();
+        if (timer == 10 && this.isInAttackRange(target, 2.0D)) {
+            this.lorrainosaurus.doHurtTarget(target);
+            this.lorrainosaurus.strongKnockback(target, 0.4D, 0.1D);
         }
         if (timer > 20) {
             this.timer = 0;
             this.lorrainosaurus.setPose(Pose.STANDING);
             this.lorrainosaurus.setAttackState(0);
-            this.lorrainosaurus.biteCooldown = 7;
+            this.lorrainosaurus.biteCooldown = 10;
         }
     }
 
@@ -96,78 +96,56 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
         if (timer == 1) {
             this.lorrainosaurus.getNavigation().stop();
             this.lorrainosaurus.setPose(UP2Poses.GRAB_START.get());
+            this.lorrainosaurus.playSound(UP2SoundEvents.LORRAINOSAURUS_ATTACK.get(), 1.0F, 0.9F * lorrainosaurus.getRandom().nextFloat() * 0.2F);
         }
-        if (timer == 3) {
-            this.lorrainosaurus.playSound(UP2SoundEvents.METRIORHYNCHUS_BITE.get(), 1.0F, lorrainosaurus.getVoicePitch() * 0.9F);
-        }
-        if (timer == 5) {
+        if (timer == 10) {
             if (this.isInAttackRange(target, 2.0D)) {
                 this.lorrainosaurus.setHeldMobId(target.getId());
             }
         }
-        if (timer > 5 && timer <= 120 && lorrainosaurus.getHeldMobId() != -1) {
-            if (waterPos == null && !lorrainosaurus.isInWaterOrBubble()) {
-                this.findWaterPos();
-            } else if (lorrainosaurus.isInWaterOrBubble() && this.findSwimmingPos()) {
-                this.lorrainosaurus.getNavigation().moveTo(wantedX, wantedY, wantedZ, 1.5D);
+        if (timer > 10 && timer <= lorrainosaurus.getGrabTime() && lorrainosaurus.getHeldMobId() != -1 && lorrainosaurus.getNavigation().isDone()) {
+            Vec3 vec3 = this.getPosition();
+            if (vec3 != null) {
+                this.wantedPos = vec3;
             }
         }
-        if (timer > 120 || (timer > 8 && lorrainosaurus.getHeldMobId() == -1)) {
+        if (timer > lorrainosaurus.getGrabTime() || (timer > 11 && lorrainosaurus.getHeldMobId() == -1)) {
             this.timer = 0;
+            this.wantedPos = null;
             this.lorrainosaurus.setAttackState(0);
             this.lorrainosaurus.setPose(Pose.STANDING);
-            this.waterPos = null;
             this.lorrainosaurus.getNavigation().stop();
-            this.lorrainosaurus.grabCooldown = 90 + lorrainosaurus.getRandom().nextInt(90);
+            this.lorrainosaurus.grabCooldown = 150 + lorrainosaurus.getRandom().nextInt(100);
+            this.lorrainosaurus.biteCooldown = 10;
             if (lorrainosaurus.getHeldMobId() != -1) {
                 this.lorrainosaurus.setHeldMobId(-1);
             }
         }
     }
 
-    private void hurtNearbyEntities() {
-        List<LivingEntity> nearbyEntities = lorrainosaurus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), lorrainosaurus, lorrainosaurus.getBoundingBox().inflate(2.0D));
-        if (!nearbyEntities.isEmpty()) {
-            nearbyEntities.stream().filter(entity -> entity != lorrainosaurus).limit(3).forEach(entity -> {
-                entity.hurt(entity.damageSources().mobAttack(lorrainosaurus), (float) lorrainosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                this.lorrainosaurus.strongKnockback(entity, 0.75D, 0.1D);
-                if (entity.isDamageSourceBlocked(lorrainosaurus.damageSources().mobAttack(lorrainosaurus)) && entity instanceof Player player) {
-                    player.disableShield();
+    @Nullable
+    private Vec3 getPosition() {
+        Vec3 vec3 = null;
+        if (lorrainosaurus.isInWaterOrBubble()) {
+            vec3 = BehaviorUtils.getRandomSwimmablePos(lorrainosaurus, 30, 15);
+        } else {
+            BlockPos blockPos = lorrainosaurus.blockPosition();
+            BlockPos.MutableBlockPos mutablePos = blockPos.mutable();
+            for (int i = 0; i < 10; i++) {
+                mutablePos.set(blockPos.getX() + lorrainosaurus.getRandom().nextInt(20) - 10, blockPos.getY() + lorrainosaurus.getRandom().nextInt(20) - 10, blockPos.getZ() + lorrainosaurus.getRandom().nextInt(20) - 10);
+                if (lorrainosaurus.level().getFluidState(mutablePos).is(FluidTags.WATER)) {
+                    vec3 = Vec3.atCenterOf(mutablePos);
+                    break;
                 }
-                this.lorrainosaurus.swing(InteractionHand.MAIN_HAND);
-            });
+            }
+            return vec3;
         }
-    }
-
-    private void findWaterPos() {
-        RandomSource random = lorrainosaurus.getRandom();
-        Level level = lorrainosaurus.level();
-        BlockPos original = lorrainosaurus.blockPosition();
-        BlockPos.MutableBlockPos mutable = original.mutable();
-
-        for (int i = 0; i < 10; i++) {
-            mutable.move(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-            if (level.getFluidState(mutable).is(FluidTags.WATER)) {
-                this.waterPos = mutable.immutable();
-                return;
+        if (vec3 == null) {
+            Vec3 randomPos = DefaultRandomPos.getPos(lorrainosaurus, 10, 7);
+            if (randomPos != null) {
+                vec3 = randomPos;
             }
         }
-    }
-
-    protected boolean findSwimmingPos() {
-        Vec3 vec3 = BehaviorUtils.getRandomSwimmablePos(lorrainosaurus, 10, 7);
-        if (vec3 == null) {
-            return false;
-        } else {
-            this.wantedX = vec3.x;
-            this.wantedY = vec3.y;
-            this.wantedZ = vec3.z;
-            return true;
-        }
-    }
-
-    @Override
-    protected double getAttackReachSqr(LivingEntity target) {
-        return mob.getBbWidth() * 1.6F * mob.getBbWidth() * 1.6F + target.getBbWidth();
+        return vec3;
     }
 }

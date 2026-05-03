@@ -16,25 +16,25 @@ public abstract class EvokerMixin extends SpellcasterIllager implements EvokerAc
 
     @Unique
     @Nullable
-    private LivingEntity unusualPrehistory2$livingWololoTarget;
+    private LivingEntity unusualPrehistory$livingWololoTarget;
 
     protected EvokerMixin(EntityType<? extends SpellcasterIllager> entityType, Level level) {
         super(entityType, level);
     }
 
     @Override
-    public void unusualPrehistory2$setLivingWololoTarget(@Nullable LivingEntity entity) {
-        this.unusualPrehistory2$livingWololoTarget = entity;
+    public void unusualPrehistory$setLivingWololoTarget(@Nullable LivingEntity entity) {
+        this.unusualPrehistory$livingWololoTarget = entity;
     }
 
     @Nullable
     @Override
-    public LivingEntity unusualPrehistory2$getLivingWololoTarget() {
-        return this.unusualPrehistory2$livingWololoTarget;
+    public LivingEntity unusualPrehistory$getLivingWololoTarget() {
+        return this.unusualPrehistory$livingWololoTarget;
     }
 
     @Override
-    public void unusualPrehistory2$setSpellCastingTickCount(int spellCastingTickCount) {
+    public void unusualPrehistory$setSpellCastingTickCount(int spellCastingTickCount) {
         this.spellCastingTickCount = spellCastingTickCount;
     }
 }

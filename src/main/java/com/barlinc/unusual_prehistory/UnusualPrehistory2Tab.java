@@ -26,6 +26,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
+                        output.accept(CONCAVENATOR_SPAWN_EGG.get());
                         output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
                         output.accept(CRYPTOCLIDUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
@@ -166,6 +167,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
+                        output.accept(CONCAVE_FOSSIL.get()); // concavenator
                         output.accept(ROTUND_FOSSIL.get()); // cotylorhynchus
                         output.accept(CRYPTIC_FOSSIL.get()); // cryptoclidus
                         output.accept(FLAT_BACK_FOSSIL.get()); // desmatosuchus
@@ -180,6 +182,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(IMPERATIVE_FOSSIL.get()); // kimmeridgebrachypteraeschnidium
                         output.accept(TRUNK_MOUSE_FOSSIL.get()); // leptictidium
                         output.accept(FISH_FOSSIL.get()); // lobe finned fish
+                        output.accept(CLAMP_JAW_FOSSIL.get()); // lorrainosaurus
                         output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
                         output.accept(MOLAR_FOSSIL.get()); // mammoth
@@ -202,6 +205,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
+                        output.accept(UP2Blocks.CONCAVENATOR_EGG.get());
                         output.accept(CRYPTOCLIDUS_EMBRYO.get());
                         output.accept(UP2Blocks.DESMATOSUCHUS_EGG.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
@@ -215,6 +219,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
                         output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());
+                        output.accept(LORRAINOSAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.LYSTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_EGG.get());
                         output.accept(UP2Blocks.MEGALANIA_EGG.get());

@@ -193,6 +193,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 PACHYCEPHALOSAURUS.get(),
                 ULUGHBEGSAURUS.get(),
                 ANTARCTOPELTA.get(),
+                CONCAVENATOR.get(),
                 ICHTHYOSAURUS.get(),
                 LORRAINOSAURUS.get()
         );
@@ -214,11 +215,15 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         this.tag(UP2EntityTags.LORRAINOSAURUS_TARGETS).add(
+                EntityType.VILLAGER, EntityType.COW, EntityType.GOAT,
                 DUNKLEOSTEUS.get(), STETHACANTHUS.get()
+        );
+        this.tag(UP2EntityTags.LORRAINOSAURUS_CANT_GRAB).add(
+                EntityType.ENDER_DRAGON, EntityType.WITHER, LORRAINOSAURUS.get()
         );
 
         this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
-                EntityType.TURTLE, EntityType.DOLPHIN
+                EntityType.TURTLE, EntityType.DOLPHIN, EntityType.GOAT
         );
         this.tag(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS).add(
                 PROGNATHODON.get()

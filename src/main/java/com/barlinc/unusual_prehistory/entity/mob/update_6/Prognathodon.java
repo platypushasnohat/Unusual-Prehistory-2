@@ -24,7 +24,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -78,7 +77,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(0, new EnterWaterGoal(this, 1.0D, 80, true));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
         this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));

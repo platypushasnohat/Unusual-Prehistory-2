@@ -63,7 +63,7 @@ public class StructureFeature extends Feature<StructureFeatureConfig> {
         placeSettings.clearProcessors();
         Optional<StructureProcessorList> postProcessor = processorLists.getOptional(context.config().postProcessor());
         postProcessor.orElse(emptyProcessor).list().forEach(placeSettings::addProcessor); // add all post processors
-        List<StructureTemplate.StructureBlockInfo> list = placeSettings.getRandomPalette(((StructureTemplateAccessor) template.get()).getBlocks(), mutable).blocks();
+        List<StructureTemplate.StructureBlockInfo> list = placeSettings.getRandomPalette(((StructureTemplateAccessor) template.get()).unusualPrehistory$getBlocks(), mutable).blocks();
         StructureTemplate.processBlockInfos(context.level(), mutable, mutable, placeSettings, list);
 
         return true;

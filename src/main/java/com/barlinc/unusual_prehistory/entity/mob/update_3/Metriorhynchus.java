@@ -1,5 +1,6 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_3;
 
+ import com.barlinc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
@@ -91,7 +92,7 @@
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
-         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000));
+         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000, false));
          this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
          this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -221,10 +222,21 @@
          if (target == null) {
              return false;
          }
+         if (((LivingEntityAccessor) target).unusualPrehistory$isBeingGrabbed()) {
+             return false;
+         }
          if (target.getType().is(UP2EntityTags.METRIORHYNCHUS_CANT_GRAB)) {
              return false;
          }
          return (target.getBbWidth() < this.getBbWidth() && target.getBbHeight() < this.getBbHeight()) || target.getType().is(UP2EntityTags.METRIORHYNCHUS_CAN_GRAB);
+     }
+
+     @Override
+     public void remove(@NotNull RemovalReason removalReason) {
+         super.remove(removalReason);
+         if (this.getHeldMobId() != -1) {
+             this.setHeldMobId(-1);
+         }
      }
 
      @Override
@@ -277,7 +289,20 @@
 
      @Override
      public void setHeldMobId(int id) {
+         int oldId = this.getHeldMobId();
+         if (oldId != -1) {
+             Entity oldEntity = this.level().getEntity(oldId);
+             if (oldEntity instanceof LivingEntity living) {
+                 ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(false);
+             }
+         }
          this.entityData.set(HELD_MOB_ID, id);
+         if (id != -1) {
+             Entity newEntity = this.level().getEntity(id);
+             if (newEntity instanceof LivingEntity living) {
+                 ((LivingEntityAccessor) living).unusualPrehistory$setBeingGrabbed(true);
+             }
+         }
      }
 
      @Override

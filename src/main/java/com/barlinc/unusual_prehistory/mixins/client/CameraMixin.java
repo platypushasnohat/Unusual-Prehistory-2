@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class CameraMixin {
 
     @Inject(method = "getMaxZoom", at = @At("RETURN"), cancellable = true)
-    private void unusualPrehistory2$modifyZoom(float maxZoom, CallbackInfoReturnable<Float> cir) {
+    private void unusualPrehistory$modifyZoom(float maxZoom, CallbackInfoReturnable<Float> cir) {
         if (Minecraft.getInstance().getCameraEntity() instanceof Player player && player.isPassenger()) {
             float zoom = 4.0F;
             if (player.getVehicle() instanceof Ulughbegsaurus) {

@@ -67,6 +67,8 @@ public class UP2BlockTags {
     // Update 6
     public static final TagKey<Block> COTYLORHYNCHUS_FOOD_BLOCKS = modBlockTag("cotylorhynchus_food_blocks");
 
+    public static final TagKey<Block> CONCAVENATOR_SWIMS_ON = modBlockTag("concavenator_swims_on");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);
     }

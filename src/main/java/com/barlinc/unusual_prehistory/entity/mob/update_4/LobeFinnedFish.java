@@ -148,12 +148,12 @@ public class LobeFinnedFish extends SchoolingAquaticMob implements Bucketable, V
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.JAWLESS_FISH_BUCKET.get());
+        return new ItemStack(UP2Items.LOBE_FINNED_FISH_BUCKET.get());
     }
 
     @Override
     public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Override

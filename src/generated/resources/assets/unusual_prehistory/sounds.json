@@ -1159,6 +1159,53 @@
     ],
     "subtitle": "subtitles.living_ooze_squish"
   },
+  "lorrainosaurus_attack": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/prognathodon/attack1",
+        "pitch": 1.13
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/prognathodon/attack2",
+        "pitch": 1.13
+      }
+    ],
+    "subtitle": "subtitles.lorrainosaurus_attack"
+  },
+  "lorrainosaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/lorrainosaurus/death1"
+    ],
+    "subtitle": "subtitles.lorrainosaurus_death"
+  },
+  "lorrainosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/lorrainosaurus/hurt1",
+      "unusual_prehistory:entity/mob/lorrainosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.lorrainosaurus_hurt"
+  },
+  "lorrainosaurus_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/lorrainosaurus/idle1",
+        "volume": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/lorrainosaurus/idle2",
+        "volume": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/lorrainosaurus/idle3",
+        "volume": 0.9
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/lorrainosaurus/idle4",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.lorrainosaurus_idle"
+  },
   "lystrosaurus_chainsmoker": {
     "sounds": [
       "unusual_prehistory:entity/mob/lystrosaurus/cough1",

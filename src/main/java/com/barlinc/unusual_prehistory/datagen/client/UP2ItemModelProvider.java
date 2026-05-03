@@ -176,15 +176,19 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         // Update 6
         this.generatedItem(
                 SNOW_SHOVEL_FOSSIL,
+                CONCAVE_FOSSIL,
                 ROTUND_FOSSIL,
                 CRYPTIC_FOSSIL,
                 FISH_REPTILE_FOSSIL,
+                CLAMP_JAW_FOSSIL,
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
                 ROT_FOSSIL,
 
+                UP2Blocks.CONCAVENATOR_EGG,
                 CRYPTOCLIDUS_EMBRYO,
                 ICHTHYOSAURUS_EMBRYO,
+                LORRAINOSAURUS_EMBRYO,
                 PROGNATHODON_EMBRYO,
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE,
 

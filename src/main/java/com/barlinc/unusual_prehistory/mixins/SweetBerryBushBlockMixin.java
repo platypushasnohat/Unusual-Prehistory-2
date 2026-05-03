@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class SweetBerryBushBlockMixin {
 
     @Redirect(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getType()Lnet/minecraft/world/entity/EntityType;"))
-    private EntityType<?> unusualPrehistory2$redirectBerryBushImmunityCheck(Entity entity) {
+    private EntityType<?> unusualPrehistory$redirectBerryBushImmunityCheck(Entity entity) {
         // If our tag says the entity is immune, return FOX so the original code sees it as immune.
         if (entity.getType().is(UP2EntityTags.SWEET_BERRY_BUSH_IMMUNE)) {
             return EntityType.FOX;

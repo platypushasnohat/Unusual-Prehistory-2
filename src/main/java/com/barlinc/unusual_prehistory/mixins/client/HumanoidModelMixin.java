@@ -24,13 +24,13 @@ public abstract class HumanoidModelMixin extends Model {
 
     @SuppressWarnings("all")
     @Unique
-    private HumanoidModel<LivingEntity> unusualPrehistory2$getHumanoidModel() {
+    private HumanoidModel<LivingEntity> unusualPrehistory$getHumanoidModel() {
         return ((HumanoidModel) (Object) this);
     }
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At("TAIL"), cancellable = true)
-    public void onSetupAnimations(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        PlayerPoseEvent event = new PlayerPoseEvent(entity, this.unusualPrehistory2$getHumanoidModel());
+    public void unusualPrehistory$onSetupAnimations(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
+        PlayerPoseEvent event = new PlayerPoseEvent(entity, this.unusualPrehistory$getHumanoidModel());
         NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) {
             ci.cancel();

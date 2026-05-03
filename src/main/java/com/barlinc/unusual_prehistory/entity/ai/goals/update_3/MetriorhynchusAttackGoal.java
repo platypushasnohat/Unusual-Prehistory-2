@@ -89,6 +89,8 @@ public class MetriorhynchusAttackGoal extends AttackGoal {
                 if (timer % 20 == 0) {
                     entity.hurt(metriorhynchus.damageSources().mobAttack(metriorhynchus), (float) metriorhynchus.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.6F);
                 }
+            } else {
+                this.metriorhynchus.setHeldMobId(-1);
             }
         }
         if (timer > 40) {
