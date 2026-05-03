@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "unusual_prehistory:image",
-      "image": "unusual_prehistory:/textures/gui/paleopedia/images/petrified_tree.png",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/petrified_tree.png",
       "title": "item.unusual_prehistory.paleopedia.entry.petrified_tree.title"
     },
     {
