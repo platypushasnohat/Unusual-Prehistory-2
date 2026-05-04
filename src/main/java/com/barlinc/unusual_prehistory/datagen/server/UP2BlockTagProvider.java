@@ -227,7 +227,21 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.GRASS_BLOCK
         );
 
-        this.tag(UP2BlockTags.CONCAVENATOR_SWIMS_ON).addTags(BlockTags.SAND);
+        this.tag(UP2BlockTags.CONCAVENATOR_SWIMS_ON).addTags(BlockTags.SAND).add(
+                Blocks.SOUL_SAND,
+                Blocks.SOUL_SOIL
+        );
+
+        this.tag(UP2BlockTags.CONCAVENATOR_SAND_ARMOR_BLOCKS).add(
+                Blocks.SAND
+        );
+        this.tag(UP2BlockTags.CONCAVENATOR_RED_SAND_ARMOR_BLOCKS).add(
+                Blocks.RED_SAND
+        );
+        this.tag(UP2BlockTags.CONCAVENATOR_SOUL_SAND_ARMOR_BLOCKS).add(
+                Blocks.SOUL_SAND,
+                Blocks.SOUL_SOIL
+        );
 
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(

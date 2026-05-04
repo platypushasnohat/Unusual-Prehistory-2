@@ -68,6 +68,9 @@ public class UP2BlockTags {
     public static final TagKey<Block> COTYLORHYNCHUS_FOOD_BLOCKS = modBlockTag("cotylorhynchus_food_blocks");
 
     public static final TagKey<Block> CONCAVENATOR_SWIMS_ON = modBlockTag("concavenator_swims_on");
+    public static final TagKey<Block> CONCAVENATOR_SAND_ARMOR_BLOCKS = modBlockTag("concavenator_sand_armor_blocks");
+    public static final TagKey<Block> CONCAVENATOR_RED_SAND_ARMOR_BLOCKS = modBlockTag("concavenator_red_sand_armor_blocks");
+    public static final TagKey<Block> CONCAVENATOR_SOUL_SAND_ARMOR_BLOCKS = modBlockTag("concavenator_soul_sand_armor_blocks");
 
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);

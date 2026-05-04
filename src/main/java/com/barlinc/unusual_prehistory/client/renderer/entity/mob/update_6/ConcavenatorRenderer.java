@@ -2,6 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ConcavenatorModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.ConcavenatorArmorLayer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.ConcavenatorGlowLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Concavenator;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +20,8 @@ public class ConcavenatorRenderer extends MobRenderer<Concavenator, Concavenator
 
     public ConcavenatorRenderer(EntityRendererProvider.Context context) {
         super(context, new ConcavenatorModel(context.bakeLayer(UP2ModelLayers.CONCAVENATOR)), 0.5F);
+        this.addLayer(new ConcavenatorArmorLayer(this));
+        this.addLayer(new ConcavenatorGlowLayer(this));
     }
 
     @Override

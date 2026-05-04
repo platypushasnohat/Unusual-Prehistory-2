@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.ConcavenatorAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Concavenator;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -218,11 +219,15 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
 	public void setupAnim(@NotNull Concavenator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isSwitchingToSandSwim() && !entity.isInWaterOrBubble()) {
+        if (!entity.isSwitchingToSandSwim() && !entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.CHARGING.get()) {
             if (entity.isSandSwimming()) {
                 this.animateWalk(ConcavenatorAnimations.SAND_DIVE, limbSwing, limbSwingAmount, 1.4F, 2.8F);
             } else {
-                this.animateWalk(ConcavenatorAnimations.WALK, limbSwing, limbSwingAmount, 1.4F, 2.8F);
+                if (entity.isRunning()) {
+                    this.animateWalk(ConcavenatorAnimations.RUN, limbSwing, limbSwingAmount, 1.4F, 2.8F);
+                } else {
+                    this.animateWalk(ConcavenatorAnimations.WALK, limbSwing, limbSwingAmount, 1.4F, 2.8F);
+                }
             }
         }
 
@@ -231,6 +236,8 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
         this.animateSmooth(entity.sandSwimStartAnimationState, ConcavenatorAnimations.DIVE_START, ageInTicks);
         this.animateSmooth(entity.sandSwimEndAnimationState, ConcavenatorAnimations.DIVE_END, ageInTicks);
         this.animateSmooth(entity.swimAnimationState, ConcavenatorAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.attackAnimationState, ConcavenatorAnimations.BITE_BLEND, ageInTicks);
+        this.animateSmooth(entity.diveAttackAnimationState, ConcavenatorAnimations.DIVE_ATTACK, ageInTicks);
 
         if (this.young) this.applyStatic(ConcavenatorAnimations.BABY_TRANSFORM);
 

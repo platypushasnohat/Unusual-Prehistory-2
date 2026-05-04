@@ -69,20 +69,6 @@ public class EggBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
-//        this.tryTrample(level, pos, entity, 100);
-        super.stepOn(level, pos, state, entity);
-    }
-
-    @Override
-    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, float fallDistance) {
-//        if (!(entity instanceof Zombie)) {
-//            this.tryTrample(level, pos, entity, 3);
-//        }
-        super.fallOn(level, state, pos, entity, fallDistance);
-    }
-
-    @Override
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return shape;
     }

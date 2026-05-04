@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.events;
 import com.barlinc.unusual_prehistory.entity.accessor.MobAccessor;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.WololoSpellGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.ZombieAttackEggGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.monster.Guardian;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -71,9 +69,6 @@ public class ForgeEvents {
             }
             if (mob instanceof Guardian guardian) {
                 guardian.goalSelector.addGoal(3, new AvoidEntityGoal<>(guardian, Dunkleosteus.class, 12.0F, 1.5D, 1.5D));
-            }
-            if (mob instanceof Zombie zombie) {
-                zombie.goalSelector.addGoal(4, new ZombieAttackEggGoal(zombie));
             }
             if (mob instanceof PathfinderMob pathfinderMob && pathfinderMob.getType().is(EntityTypeTags.ARTHROPOD)) {
                 if (pathfinderMob instanceof PrehistoricMob prehistoricMob) {
