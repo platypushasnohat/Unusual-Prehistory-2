@@ -6,6 +6,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.ConcavenatorGlowLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Concavenator;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +23,14 @@ public class ConcavenatorRenderer extends MobRenderer<Concavenator, Concavenator
         super(context, new ConcavenatorModel(context.bakeLayer(UP2ModelLayers.CONCAVENATOR)), 0.5F);
         this.addLayer(new ConcavenatorArmorLayer(this));
         this.addLayer(new ConcavenatorGlowLayer(this));
+    }
+
+    @Override
+    protected void scale(@NotNull Concavenator entity, @NotNull PoseStack poseStack, float partialTicks) {
+        super.scale(entity, poseStack, partialTicks);
+        if (entity.isPackLeader()) {
+            poseStack.scale(1.1F, 1.1F, 1.1F);
+        }
     }
 
     @Override

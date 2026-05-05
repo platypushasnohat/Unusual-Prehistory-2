@@ -9,6 +9,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 public class ConcavenatorAttackGoal extends AttackGoal {
@@ -48,16 +50,27 @@ public class ConcavenatorAttackGoal extends AttackGoal {
                 this.concavenator.getNavigation().stop();
                 return;
             }
+            else if (attackState == 3) {
+                this.tickSlashAttack(target);
+                this.concavenator.getNavigation().stop();
+                return;
+            }
 
             if (concavenator.isSandSwimming() && attackState == 0 && concavenator.getPose() == Pose.STANDING) {
                 this.tickCircling(target, distance);
-            } else {
+            } else if (attackState == 0) {
                 this.concavenator.lookAt(target, 30F, 30F);
                 this.concavenator.getLookControl().setLookAt(target, 30F, 30F);
-                this.concavenator.getNavigation().moveTo(target, 1.6D);
+                if (distance >= 2.0D) {
+                    this.concavenator.getNavigation().moveTo(target, 1.6D);
+                }
                 this.circlingTime = 0;
-                if (distance < 2.0D && concavenator.attackCooldown == 0 && concavenator.getPose() == Pose.STANDING) {
-                    this.concavenator.setAttackState(1);
+                if (distance < 2.2D && concavenator.getPose() == Pose.STANDING) {
+                    if (concavenator.attackCooldown == 0 && concavenator.slashAttackCooldown > 0) {
+                        this.concavenator.setAttackState(1);
+                    } else if (concavenator.slashAttackCooldown == 0) {
+                        this.concavenator.setAttackState(3);
+                    }
                 }
             }
         }
@@ -78,7 +91,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
                 this.concavenator.setAttackState(1);
                 this.circlingTime = 0;
             }
-            else if (concavenator.diveAttackCooldown == 0 && distance >= 6.5D && distance < 11.0D) {
+            else if (concavenator.diveAttackCooldown == 0 && distance >= 8.0D && distance < 12.0D) {
                 this.concavenator.setAttackState(2);
                 this.circlingTime = 0;
             }
@@ -106,6 +119,53 @@ public class ConcavenatorAttackGoal extends AttackGoal {
         }
     }
 
+    protected void tickSlashAttack(LivingEntity target) {
+        this.timer++;
+        if (timer == 1) concavenator.setPose(UP2Poses.KICKING.get());
+        if (timer < 44) {
+            this.concavenator.lookAt(target, 30F, 30F);
+            this.concavenator.getLookControl().setLookAt(target, 30F, 30F);
+        }
+        if (timer == 40) {
+            this.concavenator.addDeltaMovement(concavenator.getLookAngle().scale(2.0D).multiply(0.5D, 0, 0.5D));
+        }
+        if (timer == 43) {
+            this.concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
+        }
+        if (timer == 45) {
+            if (this.isInAttackRange(target, 2.25D) && target != null) {
+                target.hurt(target.damageSources().mobAttack(concavenator), (float) concavenator.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F);
+                if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
+                    player.disableShield();
+                }
+                this.concavenator.strongKnockback(target, 0.5D, 0.15D);
+                this.concavenator.swing(InteractionHand.MAIN_HAND);
+            }
+        }
+        if (timer == 50) {
+            this.concavenator.addDeltaMovement(concavenator.getLookAngle().scale(2.0D).multiply(0.5D, 0, 0.5D));
+        }
+        if (timer == 53) {
+            this.concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
+        }
+        if (timer == 55) {
+            if (this.isInAttackRange(target, 2.25D) && target != null) {
+                target.hurt(target.damageSources().mobAttack(concavenator), (float) concavenator.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F);
+                if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
+                    player.disableShield();
+                }
+                this.concavenator.strongKnockback(target, 0.5D, 0.15D);
+                this.concavenator.swing(InteractionHand.MAIN_HAND);
+            }
+        }
+        if (timer > 60) {
+            this.timer = 0;
+            this.concavenator.slashAttackCooldown = 100 + concavenator.getRandom().nextInt(50);
+            this.concavenator.setPose(Pose.STANDING);
+            this.concavenator.setAttackState(0);
+        }
+    }
+
     protected void tickDiveAttack(LivingEntity target) {
         this.timer++;
         if (timer < 15) {
@@ -113,20 +173,24 @@ public class ConcavenatorAttackGoal extends AttackGoal {
             this.concavenator.getLookControl().setLookAt(target, 30F, 30F);
         }
         if (timer == 15) concavenator.setPose(UP2Poses.CHARGING.get());
-        if (timer > 15 && timer < 35) {
-            this.chargeAtTarget(target, 0.54F);
+        if (timer > 15 && timer < 33) {
+            this.chargeAtTarget(target, 0.48F);
         }
         if (timer == 35) concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
         if (timer == 38) {
-            if (this.isInAttackRange(target, 2.0D)) {
-                this.concavenator.doHurtTarget(target);
-                this.concavenator.strongKnockback(target, 2.0D, 0.15D);
+            if (this.isInAttackRange(target, 2.25D)) {
+                target.hurt(target.damageSources().mobAttack(concavenator), (float) concavenator.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F);
+                if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
+                    player.disableShield();
+                }
+                this.concavenator.strongKnockback(target, 1.0D, 0.15D);
                 this.concavenator.swing(InteractionHand.MAIN_HAND);
             }
         }
         if (timer > 45) {
             this.timer = 0;
             this.concavenator.setPose(Pose.STANDING);
+            this.maxCirclingTime = 50 + concavenator.getRandom().nextInt(50);
             this.concavenator.diveAttackCooldown = maxCirclingTime + 20;
             this.clockwise = concavenator.getRandom().nextBoolean();
             this.circlingTime = 0;

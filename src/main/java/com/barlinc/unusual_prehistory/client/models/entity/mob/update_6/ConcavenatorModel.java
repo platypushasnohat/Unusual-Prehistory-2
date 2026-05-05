@@ -219,7 +219,7 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
 	public void setupAnim(@NotNull Concavenator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isSwitchingToSandSwim() && !entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.CHARGING.get()) {
+        if (!entity.isSwitchingToSandSwim() && !entity.isEepy() && !entity.isSitting() && !entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.CHARGING.get() && entity.getPose() != UP2Poses.KICKING.get()) {
             if (entity.isSandSwimming()) {
                 this.animateWalk(ConcavenatorAnimations.SAND_DIVE, limbSwing, limbSwingAmount, 1.4F, 2.8F);
             } else {
@@ -238,10 +238,18 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
         this.animateSmooth(entity.swimAnimationState, ConcavenatorAnimations.SWIM, ageInTicks);
         this.animateSmooth(entity.attackAnimationState, ConcavenatorAnimations.BITE_BLEND, ageInTicks);
         this.animateSmooth(entity.diveAttackAnimationState, ConcavenatorAnimations.DIVE_ATTACK, ageInTicks);
+        this.animateSmooth(entity.slashAttackAnimationState, ConcavenatorAnimations.SANDSLASH, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, ConcavenatorAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.sitAnimationState, ConcavenatorAnimations.SIT, ageInTicks);
+        this.animateSmooth(entity.sandSitAnimationState, ConcavenatorAnimations.SAND_IDLE, ageInTicks);
+        this.animateSmooth(entity.scratch1AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND1, ageInTicks);
+        this.animateSmooth(entity.scratch2AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND2, ageInTicks);
+        this.animateSmooth(entity.sandSnortAnimationState, ConcavenatorAnimations.SANDSNORT_BLEND, ageInTicks);
+        this.animate(entity.eatAnimationState, ConcavenatorAnimations.EAT_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(ConcavenatorAnimations.BABY_TRANSFORM);
 
-        this.faceTarget(netHeadYaw, headPitch, 2, neck);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);

@@ -383,6 +383,15 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ItemTags.MEAT
         );
 
+        this.tag(UP2ItemTags.TAMES_CONCAVENATOR).addTags(
+                ItemTags.SAND
+        );
+
+        this.tag(UP2ItemTags.TEMPTS_CONCAVENATOR).addTags(
+                UP2ItemTags.CONCAVENATOR_FOOD,
+                UP2ItemTags.TAMES_CONCAVENATOR
+        );
+
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES
         );

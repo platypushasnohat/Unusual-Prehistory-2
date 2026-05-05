@@ -116,7 +116,7 @@ public class AntarctopeltaModel extends UP2Model<Antarctopelta> {
         this.animateWalk(AntarctopeltaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
 		this.animateIdleSmooth(entity.idleAnimationState, AntarctopeltaAnimations.IDLE, ageInTicks, limbSwingAmount);
         if (this.young) this.applyStatic(AntarctopeltaAnimations.BABY_TRANSFORM);
-        this.faceTarget(netHeadYaw, headPitch, 2, neck, head);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, neck, head);
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.25F);

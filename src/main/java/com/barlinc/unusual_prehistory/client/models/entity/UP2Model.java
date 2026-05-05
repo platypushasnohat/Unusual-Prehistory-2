@@ -103,13 +103,15 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         }
     }
 
-    public void faceTarget(float yaw, float pitch, float rotationDivisor, ModelPart... parts) {
+    public void faceTarget(PrehistoricMob entity, float yaw, float pitch, float rotationDivisor, ModelPart... parts) {
         float actualRotationDivisor = rotationDivisor * parts.length;
         float yawAmount = yaw / (180.0F / (float) Math.PI) / actualRotationDivisor;
         float pitchAmount = pitch / (180.0F / (float) Math.PI) / actualRotationDivisor;
-        for (ModelPart part : parts) {
-            part.yRot += yawAmount;
-            part.xRot += pitchAmount;
+        if (!entity.isEepy() && !entity.isSitting()) {
+            for (ModelPart part : parts) {
+                part.yRot += yawAmount;
+                part.xRot += pitchAmount;
+            }
         }
     }
 }

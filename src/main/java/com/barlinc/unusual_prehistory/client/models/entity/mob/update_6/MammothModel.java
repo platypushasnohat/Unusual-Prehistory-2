@@ -140,7 +140,7 @@ public class MammothModel extends UP2Model<Mammoth> {
         this.animateWalk(MammothAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
 		this.animateIdleSmooth(entity.idleAnimationState, MammothAnimations.IDLE, ageInTicks, limbSwingAmount);
         if (this.young) this.applyStatic(MammothAnimations.BABY_TRANSFORM);
-        this.faceTarget(netHeadYaw, headPitch, 3, head);
+        this.faceTarget(entity, netHeadYaw, headPitch, 3, head);
 	}
 
 	@Override

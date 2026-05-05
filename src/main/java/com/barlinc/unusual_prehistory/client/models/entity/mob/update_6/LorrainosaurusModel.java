@@ -137,7 +137,7 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
             this.swim_control.xRot = headPitch * deg;
         }
 
-        this.faceTarget(netHeadYaw, headPitch, 4, head);
+        this.faceTarget(entity, netHeadYaw, headPitch, 4, head);
     }
 
     @Override

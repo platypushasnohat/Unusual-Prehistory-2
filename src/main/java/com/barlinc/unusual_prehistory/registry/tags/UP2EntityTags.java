@@ -65,10 +65,15 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> CENOZOIC_MOBS = modEntityTag("cenozoic_mobs");
 
     // Update 6
+    public static final TagKey<EntityType<?>> CONCAVENATOR_TARGETS = modEntityTag("concavenator_targets");
+    public static final TagKey<EntityType<?>> MEDIUM_CONCAVENATOR_PACK_TARGETS = modEntityTag("medium_concavenator_pack_targets");
+    public static final TagKey<EntityType<?>> LARGE_CONCAVENATOR_PACK_TARGETS = modEntityTag("large_concavenator_pack_targets");
     public static final TagKey<EntityType<?>> CRYPTOCLIDUS_TARGETS = modEntityTag("cryptoclidus_targets");
     public static final TagKey<EntityType<?>> LORRAINOSAURUS_TARGETS = modEntityTag("lorrainosaurus_targets");
     public static final TagKey<EntityType<?>> PROGNATHODON_TARGETS = modEntityTag("prognathodon_targets");
     public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
+
+    public static final TagKey<EntityType<?>> CONCAVENATOR_AVOIDS = modEntityTag("concavenator_avoids");
 
     public static final TagKey<EntityType<?>> LORRAINOSAURUS_CANT_GRAB = modEntityTag("lorrainosaurus_cant_grab");
     public static final TagKey<EntityType<?>> LORRAINOSAURUS_CAN_GRAB = modEntityTag("lorrainosaurus_can_grab");

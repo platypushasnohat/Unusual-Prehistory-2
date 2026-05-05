@@ -210,6 +210,19 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         // Update 6
+        this.tag(UP2EntityTags.CONCAVENATOR_TARGETS).add(
+                EntityType.COW, EntityType.PIG, EntityType.RABBIT, EntityType.VILLAGER
+        );
+        this.tag(UP2EntityTags.MEDIUM_CONCAVENATOR_PACK_TARGETS).add(
+                EntityType.CAMEL, DESMATOSUCHUS.get()
+        );
+        this.tag(UP2EntityTags.LARGE_CONCAVENATOR_PACK_TARGETS).add(
+                COTYLORHYNCHUS.get()
+        );
+        this.tag(UP2EntityTags.CONCAVENATOR_AVOIDS).add(
+                CARNOTAURUS.get()
+        );
+
         this.tag(UP2EntityTags.CRYPTOCLIDUS_TARGETS).add(
                 EntityType.SQUID, EntityType.GLOW_SQUID, EntityType.COD, EntityType.TROPICAL_FISH
         );

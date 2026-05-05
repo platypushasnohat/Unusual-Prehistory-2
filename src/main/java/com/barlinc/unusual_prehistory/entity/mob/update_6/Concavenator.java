@@ -2,30 +2,39 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_6.ConcavenatorAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.PackAnimal;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,41 +45,66 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 @SuppressWarnings("deprecation")
-public class Concavenator extends PrehistoricMob {
+public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     private static final EntityDataAccessor<Integer> ARMOR_TYPE = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SAND_SWIMMING = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SAND_SWIM_COOLDOWN = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SAND_SWIM_TIME = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> PACK_LEADER = SynchedEntityData.defineId(Concavenator.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDimensions SAND_SWIMMING_DIMENSIONS = EntityDimensions.scalable(1.5F, 1.1F).withEyeHeight(0.7F);
+    private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.5F, 1.4F).withEyeHeight(1.3F);
+    private static final EntityDimensions SAND_SWIMMING_DIMENSIONS = EntityDimensions.scalable(1.5F, 1.1F).withEyeHeight(1.0F);
 
     public boolean isLandNavigator;
 
     public int attackCooldown = 0;
     public int diveAttackCooldown = 0;
+    public int slashAttackCooldown = 0;
+
+    private Concavenator priorPackMember;
+    private Concavenator afterPackMember;
 
     public final SmoothAnimationState sandSwimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sandSwimStartAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sandSwimEndAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState diveAttackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState slashAttackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eatAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState sandSitAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState scratch1AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState scratch2AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState sandSnortAnimationState = new SmoothAnimationState(1.0F);
 
-    private int sandSwimStartTicks;
-    private int sandSwimEndTicks;
+    private final byte EAT = 73;
+
+    private int eatTicks = 0;
+    private int sandSwimStartTicks = 0;
+    private int sandSwimEndTicks = 0;
+
+    private boolean scratchAlt = false;
 
     public Concavenator(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -80,15 +114,33 @@ public class Concavenator extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
-        this.goalSelector.addGoal(2, new ConcavenatorAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CONCAVENATOR_FOOD), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.2D));
-        this.goalSelector.addGoal(5, new SandSwimmingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new ConcavenatorRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new ConcavenatorAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, entity -> entity.getType().is(UP2EntityTags.CONCAVENATOR_AVOIDS)));
+        this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(4, new ConcavenatorAttackGoal(this));
+        this.goalSelector.addGoal(5, new ConcavenatorFollowOwnerGoal(this, 7.0F, 4.0F));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_CONCAVENATOR), false));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.2D));
+        this.goalSelector.addGoal(8, new SandSwimmingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new ConcavenatorRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(11, new SleepingGoal(this));
+        this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPlayIdles) {
+            @Override
+            public void start() {
+                super.start();
+                Concavenator.this.scratchAlt = Concavenator.this.getRandom().nextBoolean();
+            }
+        });
+        this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 30, 2, false, 0.001F, this::canPlayIdles));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers());
+        this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 200, true, true, this::canAttackPlayers));
+        this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 200, true, true, entity -> entity.getType().is(UP2EntityTags.CONCAVENATOR_TARGETS)));
+        this.targetSelector.addGoal(5, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.MEDIUM_CONCAVENATOR_PACK_TARGETS), 2));
+        this.targetSelector.addGoal(6, new PackAnimalNearestAttackableTargetGoal<>(this, LivingEntity.class, 400, true, true, entity -> entity.getType().is(UP2EntityTags.LARGE_CONCAVENATOR_PACK_TARGETS), 4));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -98,7 +150,8 @@ public class Concavenator extends PrehistoricMob {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24F)
                 .add(Attributes.ARMOR, 1.0D)
-                .add(Attributes.STEP_HEIGHT, 1.1D);
+                .add(Attributes.STEP_HEIGHT, 1.1D)
+                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     @Override
@@ -131,8 +184,14 @@ public class Concavenator extends PrehistoricMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        if (this.isSandSwimming()) return SAND_SWIMMING_DIMENSIONS.scale(this.getAgeScale());
+        if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
+        else if (this.isSandSwimming()) return SAND_SWIMMING_DIMENSIONS.scale(this.getAgeScale());
         return super.getDefaultDimensions(pose);
+    }
+
+    @Override
+    public boolean canPacify() {
+        return true;
     }
 
     @Override
@@ -142,12 +201,45 @@ public class Concavenator extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.isSwitchingToSandSwim();
+        return super.refuseToMove() || this.isSwitchingToSandSwim() || this.getIdleState() == 1;
+    }
+
+    private boolean canPlayIdles(Entity entity) {
+        return !entity.isInWaterOrBubble();
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 1000 + this.getRandom().nextInt(1200);
+        }
+        else if (idleState == 2) {
+            return 900 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
     }
 
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource source) {
+        if (this.isSandSwimming()) {
+            return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.CACTUS) || source.is(DamageTypeTags.IS_FIRE);
+        }
         return super.isInvulnerableTo(source) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.CACTUS);
+    }
+
+    @Override
+    public boolean isOnFire() {
+        if (this.isSandSwimming()) {
+            return false;
+        }
+        return super.isOnFire();
+    }
+
+    @Override
+    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+        return super.calculateFallDamage(fallDistance, damageMultiplier) - 6;
     }
 
     @Override
@@ -155,10 +247,155 @@ public class Concavenator extends PrehistoricMob {
         BlockState blockstate = this.level().getBlockState(this.blockPosition());
         float speedFactor = blockstate.getBlock().getSpeedFactor();
         if (blockstate.is(Blocks.SOUL_SAND) && this.isSandSwimming()) {
+            // cancel out soul sand slowdown
             return Mth.lerp((float) this.getAttributeValue(Attributes.MOVEMENT_EFFICIENCY), speedFactor * 2.5F, 1.0F);
         } else {
             return Mth.lerp((float) this.getAttributeValue(Attributes.MOVEMENT_EFFICIENCY), super.getBlockSpeedFactor(), 1.0F);
         }
+    }
+
+    public boolean canAttackPlayers(LivingEntity target) {
+        return this.canAttack(target) && this.isSandSwimming();
+    }
+
+    @Override
+    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+        this.heal(6);
+        return super.killedEntity(level, victim);
+    }
+
+    @Override
+    public boolean canOwnerCommand(Player player) {
+        return true;
+    }
+
+    private void breakArmor(LivingEntity living, ItemStack itemStack) {
+        if (!this.level().isClientSide) {
+            if (this.getArmorType().armorBlock != null) {
+                this.playSound(SoundEvents.SHIELD_BREAK, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+            }
+            if (this.getArmorType().armorBlock != null) {
+                LootTable lootTable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(this.getArmorType().armorBlock.getLootTable());
+                List<ItemStack> items = lootTable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
+                for (int i = 0; i < 4; i++) {
+                    items.forEach(this::spawnAtLocation);
+                }
+            }
+            if (this.isSandSwimming()) {
+                this.setSandSwimming(false);
+                this.setSandSwimCooldown(200 + this.getRandom().nextInt(200));
+                if (this.onGround() && this.getPose() == Pose.STANDING) {
+                    this.setPose(UP2Poses.STOP_SWIMMING.get());
+                }
+            }
+            this.setArmorType(ArmorType.NONE);
+            if (living instanceof Player player) {
+                player.getCooldowns().addCooldown(itemStack.getItem(), player.getAbilities().instabuild ? 0 : 60);
+            }
+        } else {
+            this.spawnArmorBreakParticles();
+        }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getEntity() instanceof LivingEntity living && living.getMainHandItem().is(ItemTags.PICKAXES) && this.hasArmor()) {
+            this.breakArmor(living, living.getMainHandItem());
+        }
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        InteractionResult type = super.mobInteract(player, hand);
+        if (itemStack.is(ItemTags.PICKAXES) && this.hasArmor()) {
+            this.breakArmor(player, itemStack);
+            if (!this.level().isClientSide) {
+                if (this.getOwner() != player && !player.getAbilities().instabuild) {
+                    this.setTarget(player);
+                }
+            }
+            if (this.isEepy()) {
+                this.setEepy(false);
+                this.setEepyCooldown(100);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_CONCAVENATOR) && eatTicks == 0 && this.getTarget() != player) {
+            if (!this.level().isClientSide) {
+                int count = itemStack.getCount();
+                int attempts = this.getTameAttempts();
+                int add = (attempts + count >= 255) ? 1 : count;
+                this.setTameAttempts(attempts + add);
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(add);
+                }
+                this.level().broadcastEntityEvent(this, EAT);
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.playSound(this.getEatingSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+
+                if (this.getNavigation().getPath() != null) {
+                    this.getNavigation().stop();
+                }
+                if (this.getTameAttempts() >= 255 || player.isCreative()) {
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                    this.tame(player);
+                    this.setPacifiedTicks(-1);
+                    this.setTameAttempts(0);
+                    this.heal(this.getMaxHealth());
+                } else {
+                    this.level().broadcastEntityEvent(this, (byte) 6);
+                }
+            } else {
+                this.spawnEatingParticles(itemStack);
+            }
+            this.eatTicks = 30;
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        return type;
+    }
+
+    private void spawnEatingParticles(ItemStack itemStack) {
+        for (int i = 0; i < 8; i++) {
+            Vec3 eatPos = this.getEyePosition().add(this.getViewVector(0.0F).scale(1.8F).add(0, -0.7F, -this.getBbWidth() * 0.5F));
+            Vec3 vec3 = (new Vec3((this.getRandom().nextFloat() - 0.5F) * 0.1F, this.getRandom().nextFloat() * 0.1F + 0.1F, 0.0F)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
+            this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), eatPos.x, eatPos.y, eatPos.z, vec3.x, vec3.y + 0.05, vec3.z);
+        }
+    }
+
+    @Override
+    public boolean isEepyTime() {
+        return this.level().isNight() && !this.isSandSwimming();
+    }
+
+    @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0, 0, -this.getBbWidth() * 1.2F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isSandSwimming();
+    }
+
+    @Override
+    protected void doPush(@NotNull Entity entity) {
+        if (!this.isSandSwimming()) {
+            super.doPush(entity);
+        }
+    }
+
+    @Override
+    protected void pushEntities() {
+        if (!this.isSandSwimming()) {
+            super.pushEntities();
+        }
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        return !effectInstance.is(MobEffects.HUNGER) && !effectInstance.is(MobEffects.POISON) && super.canBeAffected(effectInstance);
     }
 
     @Override
@@ -181,32 +418,50 @@ public class Concavenator extends PrehistoricMob {
 
         if (this.isSandSwimming()) {
             this.setSandSwimTime(this.getSandSwimTime() + 1);
-            if (this.getSandSwimTime() > 400 && !this.hasArmor()) {
+            if (this.getSandSwimTime() > 200 && !this.hasArmor() && this.getDeltaMovement().horizontalDistance() > 0.05D) {
                 ArmorType type = ArmorType.armorTypeFromBlock(this.level().getBlockState(this.blockPosition().below()));
                 if (type != ArmorType.NONE) {
+                    this.setArmorType(type);
                     if (this.level().isClientSide) {
                         this.spawnArmorParticles();
                     }
-                    this.playSound(this.level().getBlockState(this.getOnPos()).getSoundType().getPlaceSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
-                    this.setArmorType(type);
+                    if (this.getArmorType().armorBlock != null) {
+                        this.playSound(this.getArmorType().armorBlock.defaultBlockState().getSoundType().getPlaceSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.25F);
+                    }
                 }
             }
         } else if (this.getSandSwimTime() > 0) {
             this.setSandSwimTime(0);
         }
+
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
+            if (this.isPackLeader()) {
+                PackAnimal leader = this;
+                while (leader.getAfterPackMember() != null) {
+                    leader = leader.getAfterPackMember();
+                    if (!((Concavenator) leader).isAlliedTo(target)) {
+                        ((Concavenator) leader).setTarget(target);
+                    }
+                }
+            }
+        }
     }
 
     private void tickSandSwimming() {
-        if (this.getSandSwimCooldown() > 0) {
+        if (this.getRemainingFireTicks() > 0) {
+            this.setRemainingFireTicks(0);
+        }
+        if (this.getSandSwimCooldown() > 0 && !this.isEepy()) {
             this.setSandSwimCooldown(this.getSandSwimCooldown() - 1);
         }
 
-        if ((this.isSandSwimmingBlockBelow(1) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.CONCAVENATOR_SWIMS_ON)) && !this.isSandSwimming() && this.getPose() == Pose.STANDING && this.getSandSwimCooldown() == 0 && !this.isInWaterOrBubble()) {
+        if ((this.isSandSwimmingBlockBelow(1) || this.level().getBlockState(this.blockPosition()).is(UP2BlockTags.CONCAVENATOR_SWIMS_ON)) && !this.isSandSwimming() && this.getPose() == Pose.STANDING && this.getSandSwimCooldown() == 0 && !this.isInWaterOrBubble() && !this.isEepy()  && !this.isSitting()) {
             this.setSandSwimming(true);
             this.setPose(UP2Poses.START_SWIMMING.get());
         }
 
-        if (this.isSandSwimming() && this.getPose() == Pose.STANDING && (!this.isSandSwimmingBlockBelow(2) || this.isInWaterOrBubble())) {
+        if (this.isSandSwimming() && this.getPose() == Pose.STANDING && (!this.isSandSwimmingBlockBelow(3) || this.isInWaterOrBubble())) {
             this.setSandSwimming(false);
             this.setSandSwimCooldown(200 + this.getRandom().nextInt(200));
             if (this.onGround()) {
@@ -254,30 +509,68 @@ public class Concavenator extends PrehistoricMob {
                     zPos = Mth.clamp(zPos, onPos.getZ(), (double) onPos.getZ() + (double) 1.5F);
                 }
                 this.level().addParticle((new BlockParticleOption(ParticleTypes.BLOCK, blockstate)).setPos(onPos), xPos, this.getY() + 0.1, zPos, deltaMovement.x * (double) -6.0F, 1.5F, deltaMovement.z * (double) -6.0F);
+                this.level().addParticle((new BlockParticleOption(ParticleTypes.FALLING_DUST, blockstate)).setPos(onPos), xPos, this.getY() + 0.1, zPos, deltaMovement.x * (double) -6.0F, 1.5F, deltaMovement.z * (double) -6.0F);
             }
         }
     }
 
+    public void spawnSandDigParticles(BlockPos blockPos) {
+        float radius = 0.75F;
+        for (int i1 = 0; i1 < 3; i1++) {
+            double motionX = this.getRandom().nextGaussian() * 0.07D;
+            double motionY = this.getRandom().nextGaussian() * 0.07D;
+            double motionZ = this.getRandom().nextGaussian() * 0.07D;
+            float angle = (float) ((0.0174532925 * this.yBodyRot) + i1);
+            double extraX = radius * Mth.sin(Mth.PI + angle);
+            double extraY = 0.8F;
+            double extraZ = radius * Mth.cos(angle);
+            BlockState state = this.level().getBlockState(blockPos);
+            ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+            ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), blockPos.getX() + 0.5 + extraX, blockPos.getY() + 0.5 + extraY, blockPos.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+        }
+    }
+
     private void spawnArmorParticles() {
-        BlockPos onPos = this.getOnPos(0.2F);
-        BlockState blockstate = this.level().getBlockState(onPos);
-        for (int i = 0; i < 20; i++) {
-            double xVelocity = this.random.nextGaussian() * 0.1D;
-            double yVelocity = this.random.nextGaussian() * 0.1D;
-            double zVelocity = this.random.nextGaussian() * 0.1D;
-            this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(onPos), this.getRandomX(0.8D), this.getRandomY(), this.getRandomZ(0.8D), xVelocity, yVelocity, zVelocity);
+        if (this.getArmorType().armorBlock != null) {
+            BlockPos onPos = this.getOnPos(0.2F);
+            for (int i = 0; i < 20; i++) {
+                double xVelocity = this.random.nextGaussian() * 0.1D;
+                double yVelocity = this.random.nextGaussian() * 0.1D;
+                double zVelocity = this.random.nextGaussian() * 0.1D;
+                this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, this.getArmorType().armorBlock.defaultBlockState()).setPos(onPos), this.getRandomX(0.8D), this.getRandomY(), this.getRandomZ(0.8D), xVelocity, yVelocity, zVelocity);
+                this.level().addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, this.getArmorType().armorBlock.defaultBlockState()).setPos(onPos), this.getRandomX(0.8D), this.getRandomY(), this.getRandomZ(0.8D), xVelocity, yVelocity, zVelocity);
+            }
+        }
+    }
+
+    private void spawnArmorBreakParticles() {
+        if (this.getArmorType().armorBlock != null) {
+            for (int i = 0; i < 20; i++) {
+                double xVelocity = this.random.nextGaussian() * 0.15D;
+                double yVelocity = this.random.nextGaussian() * 0.15D;
+                double zVelocity = this.random.nextGaussian() * 0.15D;
+                this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, this.getArmorType().armorBlock.defaultBlockState()), this.getRandomX(0.8D), this.getRandomY(), this.getRandomZ(0.8D), xVelocity, yVelocity, zVelocity);
+                this.level().addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, this.getArmorType().armorBlock.defaultBlockState()), this.getRandomX(0.8D), this.getRandomY(), this.getRandomZ(0.8D), xVelocity, yVelocity, zVelocity);
+            }
         }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isEepy() && !this.isSandSwimming() && !this.isInWaterOrBubble() && !(this.getPose() == UP2Poses.ATTACKING.get() && this.isSandSwimming()), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy() && !this.isSitting() && !this.isSandSwimming() && !this.isInWaterOrBubble() && this.getPose() != UP2Poses.KICKING.get(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.sandSwimStartAnimationState.animateWhen(this.getPose() == UP2Poses.START_SWIMMING.get(), this.tickCount);
         this.sandSwimEndAnimationState.animateWhen(this.getPose() == UP2Poses.STOP_SWIMMING.get(), this.tickCount);
-        this.sandSwimIdleAnimationState.animateWhen(this.isSandSwimming() && !this.isSwitchingToSandSwim() && !this.isInWaterOrBubble(), this.tickCount);
+        this.sandSwimIdleAnimationState.animateWhen(this.isSandSwimming() && !this.isSitting() && !this.isSwitchingToSandSwim() && !this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
         this.diveAttackAnimationState.animateWhen(this.getPose() == UP2Poses.CHARGING.get(), this.tickCount);
+        this.slashAttackAnimationState.animateWhen(this.getPose() == UP2Poses.KICKING.get(), this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.sitAnimationState.animateWhen(this.isSitting() && !this.isSandSwimming() && !this.isSwitchingToSandSwim(), this.tickCount);
+        this.sandSitAnimationState.animateWhen(this.isSitting() && this.isSandSwimming() && !this.isSwitchingToSandSwim(), this.tickCount);
+        this.scratch1AnimationState.animateWhen(this.getIdleState() == 1 && !scratchAlt, this.tickCount);
+        this.scratch2AnimationState.animateWhen(this.getIdleState() == 1 && scratchAlt, this.tickCount);
+        this.sandSnortAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }
 
     public boolean isSwitchingToSandSwim() {
@@ -289,14 +582,26 @@ public class Concavenator extends PrehistoricMob {
         super.tickCooldowns();
         if (attackCooldown > 0) attackCooldown--;
         if (diveAttackCooldown > 0) diveAttackCooldown--;
-        if (this.sandSwimStartTicks > 0) sandSwimStartTicks--;
-        if (this.sandSwimEndTicks > 0) sandSwimEndTicks--;
+        if (slashAttackCooldown > 0) slashAttackCooldown--;
+        if (this.sandSwimStartTicks > 0) {
+            this.sandSwimStartTicks--;
+            if (!this.level().isClientSide) {
+                this.spawnSandDigParticles(this.blockPosition().below());
+            }
+        }
+        if (this.sandSwimEndTicks > 0) {
+            this.sandSwimEndTicks--;
+            if (!this.level().isClientSide) {
+                this.spawnSandDigParticles(this.blockPosition().below());
+            }
+        }
         if (this.sandSwimStartTicks == 0 && this.getPose() == UP2Poses.START_SWIMMING.get()) {
             this.setPose(Pose.STANDING);
         }
         if (this.sandSwimEndTicks == 0 && this.getPose() == UP2Poses.STOP_SWIMMING.get()) {
             this.setPose(Pose.STANDING);
         }
+        if (eatTicks > 0) eatTicks--;
     }
 
     @Override
@@ -319,7 +624,20 @@ public class Concavenator extends PrehistoricMob {
                 Objects.requireNonNull(this.getAttribute(Attributes.ARMOR)).setBaseValue(15.0D);
             }
         }
+        if (PACK_LEADER.equals(accessor)) {
+            Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(36.0D);
+            Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(7.0D);
+            this.heal(36.0F);
+        }
         super.onSyncedDataUpdated(accessor);
+    }
+
+    public void handleEntityEvent(byte id) {
+        if (id == EAT) {
+            this.eatAnimationState.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     @Override
@@ -329,18 +647,24 @@ public class Concavenator extends PrehistoricMob {
         builder.define(SAND_SWIMMING, false);
         builder.define(SAND_SWIM_COOLDOWN, 80 + this.getRandom().nextInt(80));
         builder.define(SAND_SWIM_TIME, 0);
+        builder.define(TAME_ATTEMPTS, 0);
+        builder.define(PACK_LEADER, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("ArmorType", this.getArmorType().getId());
+        compoundTag.putInt("TameAttempts", this.getTameAttempts());
+        compoundTag.putBoolean("PackLeader", this.isPackLeader());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setArmorType(ArmorType.byId(compoundTag.getInt("ArmorType")));
+        this.setTameAttempts(compoundTag.getInt("TameAttempts"));
+        this.setPackLeader(compoundTag.getBoolean("PackLeader"));
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -380,10 +704,55 @@ public class Concavenator extends PrehistoricMob {
         this.entityData.set(SAND_SWIM_TIME, time);
     }
 
+    public void setTameAttempts(int tameAttempts) {
+        this.entityData.set(TAME_ATTEMPTS, tameAttempts);
+    }
+
+    public int getTameAttempts() {
+        return this.entityData.get(TAME_ATTEMPTS);
+    }
+
+    public boolean isPackLeader() {
+        return this.entityData.get(PACK_LEADER);
+    }
+
+    public void setPackLeader(boolean packLeader) {
+        this.entityData.set(PACK_LEADER, packLeader);
+    }
+
+    @Override
+    public PackAnimal getPriorPackMember() {
+        return this.priorPackMember;
+    }
+
+    @Override
+    public PackAnimal getAfterPackMember() {
+        return afterPackMember;
+    }
+
+    @Override
+    public void setPriorPackMember(PackAnimal animal) {
+        this.priorPackMember = (Concavenator) animal;
+    }
+
+    @Override
+    public void setAfterPackMember(PackAnimal animal) {
+        this.afterPackMember = (Concavenator) animal;
+    }
+
+    @Override
+    public boolean isValidLeader(PackAnimal packLeader) {
+        return packLeader instanceof Concavenator && ((Concavenator) packLeader).isAlive() && ((Concavenator) packLeader).isPackLeader();
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.CONCAVENATOR.get().create(level);
+        Concavenator concavenator = UP2Entities.CONCAVENATOR.get().create(level);
+        if (concavenator != null) {
+            concavenator.setPackLeader(this.isPackLeader());
+        }
+        return concavenator;
     }
 
     @Nullable
@@ -421,28 +790,24 @@ public class Concavenator extends PrehistoricMob {
 
     public enum ArmorType {
         NONE(0, null, null),
-        ARMOR_SAND(1, UP2BlockTags.CONCAVENATOR_SAND_ARMOR_BLOCKS, Blocks.SANDSTONE.getLootTable()),
-        ARMOR_RED_SAND(2, UP2BlockTags.CONCAVENATOR_RED_SAND_ARMOR_BLOCKS, Blocks.RED_SANDSTONE.getLootTable()),
-        ARMOR_SOUL_SAND(3, UP2BlockTags.CONCAVENATOR_SOUL_SAND_ARMOR_BLOCKS, Blocks.SOUL_SOIL.getLootTable());
+        ARMOR_SAND(1, UP2BlockTags.CONCAVENATOR_SAND_ARMOR_BLOCKS, Blocks.SANDSTONE),
+        ARMOR_RED_SAND(2, UP2BlockTags.CONCAVENATOR_RED_SAND_ARMOR_BLOCKS, Blocks.RED_SANDSTONE),
+        ARMOR_SOUL_SAND(3, UP2BlockTags.CONCAVENATOR_SOUL_SAND_ARMOR_BLOCKS, Blocks.SOUL_SOIL);
 
         private final int id;
         @Nullable
         private final TagKey<Block> blockTag;
         @Nullable
-        private final ResourceKey<LootTable> lootTable;
+        private final Block armorBlock;
 
-        ArmorType(int id, @Nullable TagKey<Block> blockTag, @Nullable ResourceKey<LootTable> lootTable) {
+        ArmorType(int id, @Nullable TagKey<Block> blockTag, @Nullable Block armorBlock) {
             this.id = id;
             this.blockTag = blockTag;
-            this.lootTable = lootTable;
+            this.armorBlock = armorBlock;
         }
 
         public int getId() {
             return id;
-        }
-
-        public ResourceKey<LootTable> getLootTable() {
-            return lootTable;
         }
 
         public static ArmorType armorTypeFromBlock(BlockState state) {
@@ -460,6 +825,14 @@ public class Concavenator extends PrehistoricMob {
             }
             return ArmorType.values()[id];
         }
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        var nearbyConcavenator = level.getEntitiesOfClass(Concavenator.class, this.getBoundingBox().inflate(16.0D));
+        boolean hasPackLeader = nearbyConcavenator.stream().anyMatch(Concavenator::isPackLeader);
+        this.setPackLeader(nearbyConcavenator.size() >= 2 && !hasPackLeader);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
 
     // Goals
@@ -513,6 +886,55 @@ public class Concavenator extends PrehistoricMob {
                 }
             }
             return super.getPosition();
+        }
+    }
+
+    private static class ConcavenatorFollowOwnerGoal extends PrehistoricFollowOwnerGoal {
+
+        private final Concavenator concavenator;
+
+        public ConcavenatorFollowOwnerGoal(Concavenator concavenator, float startDistance, float stopDistance) {
+            super(concavenator, 1.0D, 1.0D, startDistance, stopDistance);
+            this.concavenator = concavenator;
+        }
+
+        @Override
+        public void tick() {
+            this.tamedMob.getLookControl().setLookAt(owner, 10.0F, (float) tamedMob.getMaxHeadXRot());
+            if (--this.timeToRecalcPath <= 0) {
+                this.timeToRecalcPath = this.adjustedTickDelay(10);
+                if (this.tamedMob.distanceToSqr(owner) >= 256.0D) {
+                    this.tamedMob.setRunning(false);
+                    this.teleportToOwner();
+                } else if (this.tamedMob.distanceToSqr(owner) >= 64.0D) {
+                    this.tamedMob.setRunning(true);
+                    this.tamedMob.getNavigation().moveTo(owner, concavenator.isSandSwimming() ? 1.4D : 1.6D);
+                } else {
+                    this.tamedMob.setRunning(false);
+                    this.tamedMob.getNavigation().moveTo(owner, concavenator.isSandSwimming() ? 1.0D : 1.2D);
+                }
+            }
+        }
+    }
+
+    private static class ConcavenatorAvoidEntityGoal<T extends LivingEntity> extends PrehistoricAvoidEntityGoal<T> {
+
+        private final Concavenator concavenator;
+
+        public ConcavenatorAvoidEntityGoal(Concavenator concavenator, Class<T> classToAvoid, float distance, Predicate<LivingEntity> avoidPredicate) {
+            super(concavenator, classToAvoid, distance, 1.0D, false, avoidPredicate);
+            this.concavenator = concavenator;
+        }
+
+        @Override
+        public boolean canUse() {
+            return !concavenator.isTame() && super.canUse();
+        }
+
+        @Override
+        public void start() {
+            this.mob.setRunning(true);
+            this.mob.getNavigation().moveTo(posX, posY, posZ, concavenator.isSandSwimming() ? 1.4D : 1.6D);
         }
     }
 

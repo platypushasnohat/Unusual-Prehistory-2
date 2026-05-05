@@ -174,7 +174,7 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks);
 
 //        this.animateHead(entity, this.neck, netHeadYaw, headPitch);
-        this.faceTarget(netHeadYaw, headPitch, 2, neck);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
 
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);

@@ -137,6 +137,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
     public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
 
+    public static final TagKey<Item> TAMES_CONCAVENATOR = modItemTag("tames_concavenator");
+    public static final TagKey<Item> TEMPTS_CONCAVENATOR = modItemTag("tempts_concavenator");
+
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
 

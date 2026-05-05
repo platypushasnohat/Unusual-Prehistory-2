@@ -109,7 +109,7 @@ public class CotylorhynchusModel extends UP2Model<Cotylorhynchus> {
 
 		if (this.young) this.applyStatic(CotylorhynchusAnimations.BABY_TRANSFORM);
 
-        this.faceTarget(netHeadYaw, headPitch, 2, head);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, head);
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.25F);

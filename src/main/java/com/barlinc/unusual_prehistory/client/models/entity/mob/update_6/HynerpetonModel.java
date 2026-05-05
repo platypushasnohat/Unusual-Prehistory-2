@@ -118,7 +118,7 @@ public class HynerpetonModel extends UP2Model<Hynerpeton> {
         this.animateSmooth(entity.bask2AnimationState, HynerpetonAnimations.BASK2, ageInTicks);
 
         if (this.young) this.applyStatic(HynerpetonAnimations.BABY_TRANSFORM);
-        this.faceTarget(netHeadYaw, headPitch, 2, head);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, head);
 
         if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
