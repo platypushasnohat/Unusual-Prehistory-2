@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.data.TransmogrificationRecipeBuilder;
-import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;

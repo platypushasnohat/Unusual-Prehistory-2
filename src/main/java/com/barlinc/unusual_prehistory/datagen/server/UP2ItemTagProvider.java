@@ -383,13 +383,31 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ItemTags.MEAT
         );
 
-        this.tag(UP2ItemTags.TAMES_CONCAVENATOR).addTags(
-                ItemTags.SAND
+        this.tag(UP2ItemTags.TAMES_CONCAVENATOR).addTags(ItemTags.SAND).add(
+                Items.SOUL_SAND,
+                Items.SOUL_SOIL
         );
 
         this.tag(UP2ItemTags.TEMPTS_CONCAVENATOR).addTags(
                 UP2ItemTags.CONCAVENATOR_FOOD,
                 UP2ItemTags.TAMES_CONCAVENATOR
+        );
+
+        this.tag(UP2ItemTags.CONCAVENATOR_SAND_ARMOR_ITEMS).add(
+                Blocks.SANDSTONE.asItem()
+        );
+        this.tag(UP2ItemTags.CONCAVENATOR_RED_SAND_ARMOR_ITEMS).add(
+                Blocks.RED_SANDSTONE.asItem()
+        );
+        this.tag(UP2ItemTags.CONCAVENATOR_SOUL_SAND_ARMOR_ITEMS).add(
+                Blocks.SOUL_SOIL.asItem(),
+                Blocks.SOUL_SAND.asItem()
+        );
+
+        this.tag(UP2ItemTags.ARMORS_CONCAVENATOR).addTags(
+                UP2ItemTags.CONCAVENATOR_SAND_ARMOR_ITEMS,
+                UP2ItemTags.CONCAVENATOR_RED_SAND_ARMOR_ITEMS,
+                UP2ItemTags.CONCAVENATOR_SOUL_SAND_ARMOR_ITEMS
         );
 
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(

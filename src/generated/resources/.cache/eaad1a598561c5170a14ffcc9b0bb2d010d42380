@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-04T13:56:22.1139329	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-04T23:02:24.4534589	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -18,6 +18,7 @@ db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/item/accel
 ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/item/amber_dyes.json
 551feb34ecad08506006825d2bff75a56a5cf12d data/unusual_prehistory/tags/item/antarctopelta_food.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/item/aqua_dyes.json
+7ce3e5c3cf373eb937f3701a01585e5bf6da3d16 data/unusual_prehistory/tags/item/armors_concavenator.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/item/brachiosaurus_food.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/carnotaurus_food.json
@@ -25,6 +26,9 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/carno
 07fb2e46afa2ceb0841e3d0513becac2f6e7bd32 data/unusual_prehistory/tags/item/cenozoic_fossils.json
 eb1d0ec034e2c5bad4bf308701147794a62a6806 data/unusual_prehistory/tags/item/coelacanthus_food.json
 82edd6d1ec8e7fe75b955b3a41a45d38cc77c262 data/unusual_prehistory/tags/item/concavenator_food.json
+f1d842746156cfa7a5d46fad3732f64054d37607 data/unusual_prehistory/tags/item/concavenator_red_sand_armor_items.json
+cc4eec1bc62b821028f5ff4ed567f0962d99d8bf data/unusual_prehistory/tags/item/concavenator_sand_armor_items.json
+c6fa06c45b6c65107256b37fb7ea6794b11e4bc7 data/unusual_prehistory/tags/item/concavenator_soul_sand_armor_items.json
 f22c81dcc6d03c60668a59e6563c5bcee8440bb4 data/unusual_prehistory/tags/item/coral_dyes.json
 a9dc04e4edd2b49608496b2401c8e5f4260e092e data/unusual_prehistory/tags/item/cotylorhynchus_food.json
 46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/item/cryptoclidus_food.json
@@ -96,7 +100,7 @@ ff07c521dd33e35f38a8521b108c24c6a1140cfa data/unusual_prehistory/tags/item/rose_
 635de4c7559d65c52269150e0f5edf6de7379583 data/unusual_prehistory/tags/item/stops_mob_aging.json
 65a948972be54d0dc9ce5ee6eb59a29341fd6ec0 data/unusual_prehistory/tags/item/sweet_cotylorhynchus_food.json
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/item/talpanas_food.json
-c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/unusual_prehistory/tags/item/tames_concavenator.json
+4d850c9e536882dc6651e44454c6551d739210bd data/unusual_prehistory/tags/item/tames_concavenator.json
 243f2dab6ef46a493d12775f6f28baf7b72922cf data/unusual_prehistory/tags/item/tames_kaprosuchus.json
 ed812d11a070d92ca88d1d889a167aa4dcda4159 data/unusual_prehistory/tags/item/tames_megalania.json
 b197c522c5d1bf863432ab04a9c9b18fa9e8ced7 data/unusual_prehistory/tags/item/tames_metriorhynchus.json
