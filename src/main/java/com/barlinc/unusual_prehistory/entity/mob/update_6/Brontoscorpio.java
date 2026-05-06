@@ -83,7 +83,7 @@
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 1, false, 0.001F));
          this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, true, 0.001F));
-         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 80, 3, true, 0.001F));
+         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canFeed));
          this.targetSelector.addGoal(1, new BrontoscorpioTargetNearbyPlayersGoal(this, this::canAttack));
      }
 
@@ -146,6 +146,10 @@
          this.snip2AnimationState.animateWhen(this.getIdleState() == 1 && snipAlt, this.tickCount);
          this.quirkAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
          this.feedAnimationState.animateWhen(this.getIdleState() == 3, this.tickCount);
+     }
+
+     private boolean canFeed(Entity entity) {
+         return entity.isInWaterOrBubble();
      }
 
      @Override
