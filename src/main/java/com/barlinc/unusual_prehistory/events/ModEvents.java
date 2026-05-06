@@ -74,6 +74,7 @@ public class ModEvents {
         // Update 6
         event.put(UP2Entities.AMPYX.get(), Ampyx.createAttributes().build());
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
+        event.put(UP2Entities.BRONTOSCORPIO.get(), Brontoscorpio.createAttributes().build());
         event.put(UP2Entities.CONCAVENATOR.get(), Concavenator.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
         event.put(UP2Entities.CRYPTOCLIDUS.get(), Cryptoclidus.createAttributes().build());

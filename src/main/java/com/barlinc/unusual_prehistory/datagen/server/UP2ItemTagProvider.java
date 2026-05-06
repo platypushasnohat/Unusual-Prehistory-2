@@ -268,7 +268,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 FISH_FOSSIL.get(),
                 GLUTTONOUS_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
-                ROTUND_FOSSIL.get()
+                ROTUND_FOSSIL.get(),
+                THUNDEROUS_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 SNOW_SHOVEL_FOSSIL.get(),
@@ -333,7 +334,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.LOBE_FINNED_FISH_ROE.get().asItem(),
                 UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
                 UP2Blocks.STETHACANTHUS_SAC.get().asItem(),
-                UP2Blocks.TARTUOSTEUS_ROE.get().asItem()
+                UP2Blocks.TARTUOSTEUS_ROE.get().asItem(),
+                BRONTOSCORPIO_EMBRYO.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
@@ -377,6 +379,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.ANTARCTOPELTA_FOOD).add(
                 Blocks.FERN.asItem(),
                 UP2Blocks.HORSETAIL.asItem()
+        );
+
+        this.tag(UP2ItemTags.BRONTOSCORPIO_FOOD).add(
+                Items.SPIDER_EYE
         );
 
         this.tag(UP2ItemTags.CONCAVENATOR_FOOD).addTags(

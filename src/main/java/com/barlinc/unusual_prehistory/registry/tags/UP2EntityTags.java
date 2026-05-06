@@ -78,6 +78,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> LORRAINOSAURUS_CANT_GRAB = modEntityTag("lorrainosaurus_cant_grab");
     public static final TagKey<EntityType<?>> LORRAINOSAURUS_CAN_GRAB = modEntityTag("lorrainosaurus_can_grab");
 
+    public static final TagKey<EntityType<?>> UNAFFECTED_BY_PARALYSIS = modEntityTag("unaffected_by_paralysis");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

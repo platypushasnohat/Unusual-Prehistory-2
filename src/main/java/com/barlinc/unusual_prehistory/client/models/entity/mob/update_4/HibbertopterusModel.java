@@ -165,8 +165,8 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 	public void setupAnim(@NotNull Hibbertopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);
         this.animateSmooth(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks);
     }

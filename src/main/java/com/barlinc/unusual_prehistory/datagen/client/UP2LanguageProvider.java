@@ -405,6 +405,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ANTARCTOPELTA_IDLE, "Antarctopelta groans");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_STEP, "Antarctopelta steps");
 
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_HURT, "Brontoscorpio hurts");
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_DEATH, "Brontoscorpio dies");
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_IDLE, "Brontoscorpio chatters");
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_STEP, "Brontoscorpio steps");
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_HURT, "Cotylorhynchus hurts");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH, "Cotylorhynchus dies");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_IDLE, "Cotylorhynchus grumbles");
@@ -500,6 +505,7 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
+        this.translateAdvancement("revive_brontoscorpio", "Thunder Claw", "Revive a Brontoscorpio");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");
         this.translateAdvancement("revive_coelacanthus", "Fishy", "Revive a Coelacanthus");
         this.translateAdvancement("revive_cryptoclidus", "Creep of the Deep", "Revive a Cryptoclidus");
@@ -535,6 +541,9 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add(UP2MobEffects.CARNOTAURUS_FURY.get(), "Carnotaurus's Fury");
         this.add(UP2MobEffects.CARNOTAURUS_FURY.get().getDescriptionId() + ".description", "Gain increased speed and attack speed as your health gets lower");
+
+        this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");
+        this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Deals damage slowly and stutters movement");
 
         // Book
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");

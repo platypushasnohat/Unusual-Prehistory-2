@@ -172,7 +172,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 COELACANTHUS.get(),
                 LYSTROSAURUS.get(),
                 COTYLORHYNCHUS.get(),
-                HYNERPETON.get()
+                HYNERPETON.get(),
+                BRONTOSCORPIO.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(

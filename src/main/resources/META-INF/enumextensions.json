@@ -35,6 +35,16 @@
         "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "METASEQUOIA_BOAT_TYPE"
       }
+    },
+
+    {
+      "enum": "net/minecraft/client/gui/Gui$HeartType",
+      "name": "UNUSUAL_PREHISTORY_PARALYSIS",
+      "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "PARALYSIS_HEART_TYPE"
+      }
     }
   ]
 }

@@ -90,6 +90,9 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder ordovicianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PERIOD_ORDOVICIAN.get(), Component.translatable("advancements.unusual_prehistory.ordovician_root.title"), Component.translatable("advancements.unusual_prehistory.ordovician_root.description"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
                 .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("ordovician_root"), helper);
+        AdvancementHolder silurianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PERIOD_SILURIAN.get(), Component.translatable("advancements.unusual_prehistory.silurian_root.title"), Component.translatable("advancements.unusual_prehistory.silurian_root.description"), null, AdvancementType.TASK, false, false, false)
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
+                .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("silurian_root"), helper);
         AdvancementHolder devonianRoot = Advancement.Builder.advancement().parent(paleozoicRoot).display(UP2Items.PERIOD_DEVONIAN.get(), Component.translatable("advancements.unusual_prehistory.devonian_root.title"), Component.translatable("advancements.unusual_prehistory.devonian_root.description"), null, AdvancementType.TASK, false, false, false)
                 .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PALEOZOIC_EGGS).build()))
                 .requirements(AdvancementRequirements.Strategy.OR).save(consumer, UnusualPrehistory2.modPrefix("devonian_root"), helper);
@@ -133,6 +136,9 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Ordovician
         AdvancementHolder reviveAegirocassis = reviveMobAdvancement("revive_aegirocassis", ordovicianRoot, UP2Blocks.AEGIROCASSIS_EGGS.get(), UP2Entities.AEGIROCASSIS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_aegirocassis"), helper);
+
+        // Silurian
+        AdvancementHolder reviveBrontoscorpio = reviveMobAdvancement("revive_brontoscorpio", silurianRoot, UP2Items.BRONTOSCORPIO_EMBRYO, UP2Entities.BRONTOSCORPIO.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_brontoscorpio"), helper);
 
         // Devonian
         AdvancementHolder reviveDunkleosteus = reviveMobAdvancement("revive_dunkleosteus", devonianRoot, UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Entities.DUNKLEOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dunkleosteus"), helper);

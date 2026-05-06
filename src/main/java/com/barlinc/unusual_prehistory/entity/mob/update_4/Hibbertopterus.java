@@ -1,6 +1,7 @@
  package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
- import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
@@ -68,8 +69,10 @@
      public Hibbertopterus(EntityType<? extends AmphibiousMob> entityType, Level level) {
          super(entityType, level);
          this.setPathfindingMalus(PathType.WATER, 0.0F);
+         this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
          PositionSource source = new EntityPositionSource(this, this.getEyeHeight());
          this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(this, source, GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
+         this.moveControl = new PrehistoricSwimmingMoveControl(this, 20, 85, 0.6F, 0.8F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -83,9 +86,9 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 4, true));
+         this.goalSelector.addGoal(1, new AmphibiousPanicGoal(this, 1.8D));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.HIBBERTOPTERUS_FOOD), false));
-         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
      }
@@ -96,26 +99,20 @@
      }
 
      @Override
-     protected float getWaterSlowDown() {
-         return 0.9F;
-     }
-
-     @Override
-     public void travel(@NotNull Vec3 travelVec) {
-         if ((this.refuseToMove() || this.isDancing()) && this.onGround()) {
-             if (this.getNavigation().getPath() != null) {
-                 this.getNavigation().stop();
-             }
-             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-         }
-         if (this.isInWater()) {
+     public void travel(@NotNull Vec3 travelVector) {
+         if (this.isEffectiveAi() && this.isInWater()) {
+             this.moveRelative(this.getSpeed(), travelVector);
+             this.move(MoverType.SELF, this.getDeltaMovement());
+             this.setDeltaMovement(this.getDeltaMovement().scale(0.6F));
              if (this.jumping) {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.42D, 0.0D));
+                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.3D, 0.0D));
              } else {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.05D, 0.0D));
+                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.07D, 0.0D));
              }
+             this.calculateEntityAnimation(false);
+         } else {
+             super.travel(travelVector);
          }
-         super.travel(travelVec);
      }
 
      @Override
@@ -171,8 +168,19 @@
          }
      }
 
+     @Override
      protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
          return new Vec3(0.0D, 0.0D, 1.0D);
+     }
+
+     @Override
+     protected void tickRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
+         super.tickRidden(player, travelVector);
+         if (this.jumping) {
+             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.3D, 0.0D));
+         } else {
+             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.07D, 0.0D));
+         }
      }
 
      @Override

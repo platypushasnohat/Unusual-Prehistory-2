@@ -179,6 +179,91 @@
     ],
     "subtitle": "subtitles.brachiosaurus_step"
   },
+  "brontoscorpio_death": {
+    "sounds": [
+      {
+        "name": "mob/spider/death",
+        "pitch": 1.25,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.brontoscorpio_death"
+  },
+  "brontoscorpio_hurt": {
+    "sounds": [
+      {
+        "name": "mob/spider/say1",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say2",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say3",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say4",
+        "pitch": 1.25,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.brontoscorpio_hurt"
+  },
+  "brontoscorpio_idle": {
+    "sounds": [
+      {
+        "name": "mob/spider/say1",
+        "pitch": 1.3,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say2",
+        "pitch": 1.3,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say3",
+        "pitch": 1.3,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/say4",
+        "pitch": 1.3,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.brontoscorpio_idle"
+  },
+  "brontoscorpio_step": {
+    "sounds": [
+      {
+        "name": "mob/spider/step1",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/step2",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/step3",
+        "pitch": 1.25,
+        "volume": 0.8
+      },
+      {
+        "name": "mob/spider/step4",
+        "pitch": 1.25,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.brontoscorpio_step"
+  },
   "bug_buzz": {
     "sounds": [
       {

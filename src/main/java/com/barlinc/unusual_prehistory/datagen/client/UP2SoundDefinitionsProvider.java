@@ -741,6 +741,29 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step5").pitch(0.86F)
         );
 
+
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_DEATH,
+                sound("mob/spider/death").pitch(1.25F).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_HURT,
+                sound("mob/spider/say1").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/say2").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/say3").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/say4").pitch(1.25F).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_IDLE,
+                sound("mob/spider/say1").pitch(1.3F).volume(0.8F),
+                sound("mob/spider/say2").pitch(1.3F).volume(0.8F),
+                sound("mob/spider/say3").pitch(1.3F).volume(0.8F),
+                sound("mob/spider/say4").pitch(1.3F).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.BRONTOSCORPIO_STEP,
+                sound("mob/spider/step1").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/step2").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/step3").pitch(1.25F).volume(0.8F),
+                sound("mob/spider/step4").pitch(1.25F).volume(0.8F)
+        );
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/death1"))
         );

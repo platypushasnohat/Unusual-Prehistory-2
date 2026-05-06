@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.mixins;
 
 import com.barlinc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
+import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityAccessor {
-
-    // todo: use this to prevent grabbed mobs from being grabbed multiple times?
 
     @Unique
     private static final EntityDataAccessor<Boolean> DATA_GRABBED = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BOOLEAN);
@@ -39,5 +38,13 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
     @Override
     public void unusualPrehistory$setBeingGrabbed(boolean grabbed) {
         this.entityData.set(DATA_GRABBED, grabbed);
+    }
+
+    @Inject(method = "setSprinting", at = @At("HEAD"), cancellable = true)
+    private void unusualPrehistory$paralysisBlockSprint(boolean sprinting, CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (entity.hasEffect(UP2MobEffects.PARALYSIS)) {
+            ci.cancel();
+        }
     }
 }

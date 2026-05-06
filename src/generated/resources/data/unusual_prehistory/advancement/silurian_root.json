@@ -1,0 +1,35 @@
+{
+  "parent": "unusual_prehistory:paleozoic_root",
+  "criteria": {
+    "eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#unusual_prehistory:paleozoic_eggs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.unusual_prehistory.silurian_root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:period_silurian"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.unusual_prehistory.silurian_root.title"
+    }
+  },
+  "requirements": [
+    [
+      "eggs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

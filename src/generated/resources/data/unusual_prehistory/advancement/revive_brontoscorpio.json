@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:silurian_root",
+  "criteria": {
+    "revive_brontoscorpio": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:brontoscorpio"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_brontoscorpio.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:brontoscorpio_embryo"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_brontoscorpio.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_brontoscorpio"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

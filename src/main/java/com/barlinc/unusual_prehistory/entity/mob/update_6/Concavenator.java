@@ -131,13 +131,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(12, new SleepingGoal(this));
-        this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPlayIdles) {
-            @Override
-            public void start() {
-                super.start();
-                Concavenator.this.scratchAlt = Concavenator.this.getRandom().nextBoolean();
-            }
-        });
+        this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 30, 2, true, 0.001F, this::canPlayIdles) {
             @Override
             public void tick() {
@@ -701,6 +695,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(36.0D);
             Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(7.0D);
             this.heal(36.0F);
+        }
+        if (IDLE_STATE.equals(accessor)) {
+            if (this.getIdleState() == 1) {
+                this.scratchAlt = this.getRandom().nextBoolean();
+            }
         }
         super.onSyncedDataUpdated(accessor);
     }

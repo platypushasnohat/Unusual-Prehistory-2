@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-04T23:02:24.4534589	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-05T20:08:26.7848473	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -21,6 +21,7 @@ ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/item/amber
 7ce3e5c3cf373eb937f3701a01585e5bf6da3d16 data/unusual_prehistory/tags/item/armors_concavenator.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/item/brachiosaurus_food.json
+68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/item/brontoscorpio_food.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/carnotaurus_food.json
 5edd16306f8e39ebdeeb555865cf8898b84d8ab5 data/unusual_prehistory/tags/item/cenozoic_eggs.json
 07fb2e46afa2ceb0841e3d0513becac2f6e7bd32 data/unusual_prehistory/tags/item/cenozoic_fossils.json
@@ -82,8 +83,8 @@ eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_f
 70315add23e98c47f6db7088b4b86001fac8ec6d data/unusual_prehistory/tags/item/olive_dyes.json
 368c66a7b6b9d697eca80456999190094afd3ec6 data/unusual_prehistory/tags/item/onchopristis_food.json
 3f8de0b35529bc568180cc093eef809af6d10406 data/unusual_prehistory/tags/item/pachycephalosaurus_food.json
-ed777dd287545d1f1767cdadcb6256fe94cca11a data/unusual_prehistory/tags/item/paleozoic_eggs.json
-6dcd696334f21f31398bc2d354999d216948fe6f data/unusual_prehistory/tags/item/paleozoic_fossils.json
+1f5ca7bb96ad307b2d7c09d9d3cee7dcb2be1b46 data/unusual_prehistory/tags/item/paleozoic_eggs.json
+46f6612d5bb96eeaa9c6f5b9c7823a99ca4d684d data/unusual_prehistory/tags/item/paleozoic_fossils.json
 193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/item/permanently_pacifies_mob.json
 4ceeb58a62abc316ee052dacd214451a9ee8d7aa data/unusual_prehistory/tags/item/plant_fossils.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/item/praepusa_food.json

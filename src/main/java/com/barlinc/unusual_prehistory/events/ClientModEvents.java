@@ -142,6 +142,7 @@ public class ClientModEvents {
         // Update 6
         event.registerEntityRenderer(UP2Entities.AMPYX.get(), AmpyxRenderer::new);
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
+        event.registerEntityRenderer(UP2Entities.BRONTOSCORPIO.get(), BrontoscorpioRenderer::new);
         event.registerEntityRenderer(UP2Entities.CONCAVENATOR.get(), ConcavenatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.CRYPTOCLIDUS.get(), CryptoclidusRenderer::new);
@@ -221,6 +222,7 @@ public class ClientModEvents {
         // Update 6
         event.registerLayerDefinition(UP2ModelLayers.AMPYX, AmpyxModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.BRONTOSCORPIO, BrontoscorpioModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CONCAVENATOR, ConcavenatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CRYPTOCLIDUS, CryptoclidusModel::createBodyLayer);

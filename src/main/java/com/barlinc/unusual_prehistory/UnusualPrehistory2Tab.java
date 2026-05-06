@@ -24,6 +24,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(AEGIROCASSIS_SPAWN_EGG.get());
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
+                        output.accept(BRONTOSCORPIO_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
                         output.accept(CONCAVENATOR_SPAWN_EGG.get());
@@ -165,6 +166,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
+                        output.accept(THUNDEROUS_FOSSIL.get()); // brontoscorpio
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
                         output.accept(CONCAVE_FOSSIL.get()); // concavenator
@@ -203,6 +205,7 @@ public class UnusualPrehistory2Tab {
 
                         output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
+                        output.accept(BRONTOSCORPIO_EMBRYO.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
                         output.accept(UP2Blocks.CONCAVENATOR_EGG.get());

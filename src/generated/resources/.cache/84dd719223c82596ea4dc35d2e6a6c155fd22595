@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-02T14:37:01.0309297	Item Models: unusual_prehistory
+// 1.21.1	2026-05-05T20:08:26.7821738	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -15,6 +15,8 @@ a045bf852e4528544429caefb6b06c4ded8c6b2e assets/unusual_prehistory/models/item/b
 ac50f23a8cd1b76b80513cb843a74e45d3304057 assets/unusual_prehistory/models/item/brachyphyllum.json
 450db0b62564ed8bf0ad3fdaa32e875168ab3ce5 assets/unusual_prehistory/models/item/brachyphyllum_fossil.json
 fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/bristle_fossil.json
+1da91eaf1978aefb2869d10cb884781abbc39511 assets/unusual_prehistory/models/item/brontoscorpio_embryo.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/brontoscorpio_spawn_egg.json
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
 0e5b9d2978b3eb0d3161b1a04d54938637fbfc39 assets/unusual_prehistory/models/item/cenozoic_banner_pattern.json
@@ -185,6 +187,7 @@ a510bd0560ebfd74a42542df95091591660e9cca assets/unusual_prehistory/models/item/t
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/telecrex_spawn_egg.json
 829686c17a3cad3585bbf38c443e5ba4ba809f6e assets/unusual_prehistory/models/item/tempskya.json
 df5da19eb503e954d2e8aad48d373678b74527ff assets/unusual_prehistory/models/item/thermal_fossil.json
+c111c9d0a56413212a7951f94d70ab2158dd9d44 assets/unusual_prehistory/models/item/thunderous_fossil.json
 f084cdf7338944471f771076e5dea4864e33b507 assets/unusual_prehistory/models/item/trunk_mouse_fossil.json
 5c957bce29e335929f3822a551d7fad097278c61 assets/unusual_prehistory/models/item/ulughbegsaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/ulughbegsaurus_spawn_egg.json

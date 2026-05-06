@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_4.Leptictidium;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.component.DataComponents;
@@ -137,6 +138,14 @@ public class ForgeEvents {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.hasEffect(UP2MobEffects.PARALYSIS)) {
+            entity.setDeltaMovement(entity.getDeltaMovement().x(), 0.0D, entity.getDeltaMovement().z());
         }
     }
 }

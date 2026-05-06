@@ -106,7 +106,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
         if (timer == 1) concavenator.setPose(UP2Poses.ATTACKING.get());
         if (timer == 4) concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
         if (timer == 10) {
-            if (this.isInAttackRange(target, 1.6D) && target != null) {
+            if (this.isInAttackRange(target, 1.6D)) {
                 this.concavenator.doHurtTarget(target);
                 this.concavenator.swing(InteractionHand.MAIN_HAND);
             }
@@ -133,7 +133,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
             this.concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
         }
         if (timer == 45) {
-            if (this.isInAttackRange(target, 2.25D) && target != null) {
+            if (this.isInAttackRange(target, 2.25D)) {
                 target.hurt(target.damageSources().mobAttack(concavenator), (float) concavenator.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F);
                 if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
                     player.disableShield();
@@ -149,7 +149,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
             this.concavenator.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + concavenator.getRandom().nextFloat() * 0.2F);
         }
         if (timer == 55) {
-            if (this.isInAttackRange(target, 2.25D) && target != null) {
+            if (this.isInAttackRange(target, 2.25D)) {
                 target.hurt(target.damageSources().mobAttack(concavenator), (float) concavenator.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F);
                 if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
                     player.disableShield();
