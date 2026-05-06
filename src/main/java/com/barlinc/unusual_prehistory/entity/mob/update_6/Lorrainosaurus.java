@@ -284,11 +284,6 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     }
 
     @Override
-    public boolean canPacify() {
-        return true;
-    }
-
-    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(HELD_MOB_ID, -1);

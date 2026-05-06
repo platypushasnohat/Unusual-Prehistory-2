@@ -110,11 +110,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public boolean canPacify() {
-        return true;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.ULUGHBEGSAURUS_FOOD);
     }
@@ -138,7 +133,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
                 if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacifiedTicks(-1);
                     this.heal(this.getMaxHealth());
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);

@@ -157,11 +157,6 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         return this.isBaby() && !entity.isBaby() && !majungasaurus.isCamo();
     }
 
-    @Override
-    public boolean canPacify() {
-        return true;
-    }
-
     public boolean isNightTime() {
         return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000 && !this.level().dimensionType().hasFixedTime();
     }

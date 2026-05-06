@@ -39,8 +39,6 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> GUARDED_BY_KENTROSAURUS = modItemTag("guarded_by_kentrosaurus");
 
-    public static final TagKey<Item> PERMANENTLY_PACIFIES_MOB = modItemTag("permanently_pacifies_mob");
-
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
 
@@ -137,6 +135,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> MAMMOTH_FOOD = modItemTag("mammoth_food");
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
     public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
+    public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
 
     public static final TagKey<Item> TAMES_CONCAVENATOR = modItemTag("tames_concavenator");
     public static final TagKey<Item> TEMPTS_CONCAVENATOR = modItemTag("tempts_concavenator");

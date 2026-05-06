@@ -90,11 +90,6 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
-    public boolean canPacify() {
-        return true;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.DROMAEOSAURUS_FOOD);
     }

@@ -33,6 +33,9 @@
 - Made Living Ooze gestation time always 10 minutes instead of randomized
 - Added Jade compat for some mobs and blocks
 - Removed mob pacify item tags, now just uses their food tag instead
+- Buffed carnotaurus stats
+- Baby carnotaurus can now attack things
+- Removed survival pacification interaction since it trivializes some mob mechanics, a mob can still be pacified with an enchanted golden apple in creative mode
 - Tons of misc tweaks and fixes
 
 ## Version 1.4.3

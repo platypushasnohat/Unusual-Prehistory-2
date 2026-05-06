@@ -944,6 +944,33 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CURE,
                 sound("mob/zombie/remedy").volume(0.8F)
         );
+
+
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/idle3"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/attack3"))
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/roar1")).attenuationDistance(32),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/roar2")).attenuationDistance(32)
+        );
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step1")).volume(0.7F).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step2")).volume(0.7F).pitch(0.9F)
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

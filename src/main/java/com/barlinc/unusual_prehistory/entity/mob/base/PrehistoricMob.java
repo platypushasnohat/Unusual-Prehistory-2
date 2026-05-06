@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,6 +38,7 @@ import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -55,7 +55,6 @@ import java.util.Objects;
 public abstract class PrehistoricMob extends TamableAnimal {
 
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> PACIFIED_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> FROM_EGG = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SHOT_FROM_OOZE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
@@ -68,9 +67,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     protected static final EntityDataAccessor<Boolean> EEPY = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> SITTING_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected int eepyTicks;
-    protected int eatTimer;
+    protected int eatTicks;
 
     private float tailYaw;
     private float prevTailYaw;
@@ -97,13 +97,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public boolean shouldDropExperience() {
         return false;
-    }
-
-    public void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
-        double x = entity.getX() - this.getX();
-        double y = entity.getZ() - this.getZ();
-        double scale = Math.max(x * x + y * y, 0.001D);
-        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
     }
 
     @Override
@@ -189,14 +182,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
         return itemStack.is(UP2ItemTags.STOPS_MOB_AGING);
     }
 
-    public boolean isPacifyItem(ItemStack itemStack) {
-        return this.isFood(itemStack);
-    }
-
-    public boolean isPermanentPacifyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.PERMANENTLY_PACIFIES_MOB);
-    }
-
     private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
         Item item = food.getItem();
         FoodProperties foodproperties = food.getFoodProperties(this);
@@ -228,7 +213,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         }
 
         if (this.isFood(itemstack)) {
-            if (this.getHealth() < this.getMaxHealth() && this.eatTimer <= 0) {
+            if (this.getHealth() < this.getMaxHealth() && this.eatTicks <= 0) {
                 this.feedItemToMob(player, hand, itemstack);
                 FoodProperties foodproperties = itemstack.getFoodProperties(this);
                 float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
@@ -236,24 +221,18 @@ public abstract class PrehistoricMob extends TamableAnimal {
                 this.level().broadcastEntityEvent(this, (byte) 11);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
-            if (this.isBaby()) {
+            else if (this.isBaby()) {
                 this.feedItemToMob(player, hand, itemstack);
                 this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
 
-        if (this.canPacify() && !this.isPacified() && !this.isBaby()) {
-            if (this.isPermanentPacifyItem(itemstack)) {
+        if (player.isCreative() && !this.isPacified()) {
+            if (itemstack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
                 this.feedItemToMob(player, hand, itemstack);
-                this.setPacifiedTicks(-1);
+                this.setPacified(true);
                 this.level().broadcastEntityEvent(this, (byte) 10);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-            if (this.isPacifyItem(itemstack)) {
-                this.feedItemToMob(player, hand, itemstack);
-                this.setPacifiedTicks(this.getPacifiedTicks() + this.pacifiedTicks());
-                this.level().broadcastEntityEvent(this, (byte) 9);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
@@ -292,8 +271,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
     @Override
     public void handleEntityEvent(byte id) {
         switch (id) {
-            case 9 -> this.spawnPacifyParticles(false);
-            case 10 -> this.spawnPacifyParticles(true);
+            case 10 -> this.spawnPacifyParticles();
             case 11 -> this.spawnHeart();
             case 45 -> this.spawnEatParticles();
             default -> super.handleEntityEvent(id);
@@ -304,13 +282,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.level().addParticle(ParticleTypes.HEART, this.getX(), this.getEyeY() + 0.5F, this.getZ(), 0, 0, 0);
     }
 
-    protected void spawnPacifyParticles(boolean permanent) {
-        ParticleOptions particleoptions = permanent ? UP2Particles.GOLDEN_HEART.get() : ParticleTypes.HEART;
+    protected void spawnPacifyParticles() {
         for (int i = 0; i < 7; i++) {
-            double xspeed = this.random.nextGaussian() * 0.02D;
-            double yspeed = this.random.nextGaussian() * 0.08D;
-            double zspeed = this.random.nextGaussian() * 0.02D;
-            this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), xspeed, yspeed, zspeed);
+            double xSpeed = this.random.nextGaussian() * 0.02D;
+            double ySpeed = this.random.nextGaussian() * 0.08D;
+            double zSpeed = this.random.nextGaussian() * 0.02D;
+            this.level().addParticle(UP2Particles.GOLDEN_HEART.get(), this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), xSpeed, ySpeed, zSpeed);
         }
     }
 
@@ -344,13 +321,13 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (this.canHealOverTime()) {
                 this.heal(2);
             }
-            if (eatTimer > 0) {
-                this.eatTimer--;
-            } else if (this.isFood(this.getMainHandItem())) {
+            else if (this.isFood(this.getMainHandItem())) {
                 ItemStack stack = this.getMainHandItem();
                 this.level().broadcastEntityEvent(this, (byte) 45);
                 this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
-                this.heal(stack.getFoodProperties(this).nutrition());
+                FoodProperties foodproperties = stack.getFoodProperties(this);
+                float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
+                this.heal(2.0F * healAmount);
                 stack.shrink(1);
             }
         }
@@ -366,10 +343,6 @@ public abstract class PrehistoricMob extends TamableAnimal {
         if (this.wasShotFromOoze()) {
             if (!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable()) this.resetFallDistance();
             else this.setShotFromOoze(false);
-        }
-
-        if (this.getPacifiedTicks() > 0) {
-            this.setPacifiedTicks(this.getPacifiedTicks() - 1);
         }
     }
 
@@ -387,6 +360,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
             if (idleAnimationCooldown > 0 && !this.isEepy()) {
                 this.idleAnimationCooldown--;
             }
+        }
+
+        if (eatTicks > 0) {
+            this.eatTicks--;
         }
     }
 
@@ -462,7 +439,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         }
         else if (this.isEepy()) {
             this.setEepy(false);
-            this.setEatCooldown(400);
+            this.setEepyCooldown(400);
         }
         super.actuallyHurt(source, amount);
     }
@@ -653,6 +630,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
 
     @Override
+    @SuppressWarnings("all")
     public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
         // Prevent rider from taking fall damage
         float[] livingFall = CommonHooks.onLivingFall(this, fallDistance, multiplier);
@@ -671,6 +649,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         }
     }
 
+    @SuppressWarnings("all")
     private boolean causeInternalFallDamage(float f1, float f2, DamageSource damageSource) {
         float[] livingFall = CommonHooks.onLivingFall(this, f1, f2);
         if (livingFall == null) return false;
@@ -712,10 +691,10 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     @Override
+    @SuppressWarnings("NullableProblems")
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ATTACK_STATE, 0);
-        builder.define(PACIFIED_TICKS, 0);
         builder.define(FROM_EGG, false);
         builder.define(SHOT_FROM_OOZE, false);
         builder.define(RUNNING, false);
@@ -728,12 +707,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
         builder.define(EEPY, false);
         builder.define(SITTING, false);
         builder.define(SITTING_TICKS, 0);
+        builder.define(PACIFIED, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("PacifiedTicks", this.getPacifiedTicks());
         compoundTag.putBoolean("FromEgg", this.isFromEgg());
         compoundTag.putInt("EatCooldown", this.getEatCooldown());
         compoundTag.putBoolean("AgeLocked", this.isAgeLocked());
@@ -743,12 +722,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
         compoundTag.putBoolean("Eepy", this.isEepy());
         compoundTag.putBoolean("Sitting", this.isSitting());
         compoundTag.putInt("SittingTicks", this.getSittingTicks());
+        compoundTag.putBoolean("Pacified", this.isPacified());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
         this.setFromEgg(compoundTag.getBoolean("FromEgg"));
         this.setEatCooldown(compoundTag.getInt("EatCooldown"));
         this.setAgeLocked(compoundTag.getBoolean("AgeLocked"));
@@ -758,6 +737,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
         this.setEepy(compoundTag.getBoolean("Eepy"));
         this.setSitting(compoundTag.getBoolean("Sitting"));
         this.setSittingTicks(compoundTag.getInt("SittingTicks"));
+        this.setPacified(compoundTag.getBoolean("Pacified"));
     }
 
     // Idle and attack states
@@ -778,24 +758,12 @@ public abstract class PrehistoricMob extends TamableAnimal {
     }
 
     // Pacify
-    public boolean canPacify() {
-        return false;
-    }
-
-    public int pacifiedTicks() {
-        return 72000; // 1 hour
-    }
-
     public boolean isPacified() {
-        return this.getPacifiedTicks() > 0 || this.getPacifiedTicks() <= -1;
+        return this.entityData.get(PACIFIED);
     }
 
-    public int getPacifiedTicks() {
-        return this.entityData.get(PACIFIED_TICKS);
-    }
-
-    public void setPacifiedTicks(int ticks) {
-        this.entityData.set(PACIFIED_TICKS, ticks);
+    public void setPacified(boolean pacified) {
+        this.entityData.set(PACIFIED, pacified);
     }
 
     // From egg

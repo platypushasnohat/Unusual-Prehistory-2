@@ -126,7 +126,7 @@ public class KaprosuchusAttackGoal extends AttackGoal {
 
         if (this.isInAttackRange(target, 0.5D) && timer > 20) {
             this.kaprosuchus.doHurtTarget(target);
-            this.kaprosuchus.strongKnockback(target, 0.5D, 0.05D);
+            this.strongKnockback(target, 0.5D, 0.05D);
             this.kaprosuchus.swing(InteractionHand.MAIN_HAND);
             this.kaprosuchus.setLeaping(false);
             this.kaprosuchus.setPose(Pose.STANDING);

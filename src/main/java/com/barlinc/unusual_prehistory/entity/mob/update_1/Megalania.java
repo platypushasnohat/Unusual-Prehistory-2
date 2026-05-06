@@ -196,7 +196,6 @@ public class Megalania extends AmphibiousMob {
                 if (this.getTameAttempts() > 4 && this.getRandom().nextBoolean()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacifiedTicks(-1);
                     this.heal(this.getMaxHealth());
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);
@@ -242,11 +241,6 @@ public class Megalania extends AmphibiousMob {
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
         this.heal(4);
         return super.killedEntity(level, victim);
-    }
-
-    @Override
-    public boolean canPacify() {
-        return true;
     }
 
     @Override

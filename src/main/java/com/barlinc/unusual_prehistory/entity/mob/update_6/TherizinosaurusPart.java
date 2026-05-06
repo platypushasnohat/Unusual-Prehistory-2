@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_4;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,13 +14,13 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
+public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
-    public final Brachiosaurus parent;
+    public final Therizinosaurus parent;
     public final String name;
     private final EntityDimensions dimensions;
 
-    public BrachiosaurusPart(Brachiosaurus parent, String name, float width, float height) {
+    public TherizinosaurusPart(Therizinosaurus parent, String name, float width, float height) {
         super(parent);
         this.parent = parent;
         this.name = name;
@@ -30,7 +30,7 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return parent == null ? dimensions : dimensions.scale(parent.getAgeScale());
+        return parent == null ? dimensions : dimensions.scale(parent.getScale());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class BrachiosaurusPart extends PartEntity<Brachiosaurus> {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 
     @Override

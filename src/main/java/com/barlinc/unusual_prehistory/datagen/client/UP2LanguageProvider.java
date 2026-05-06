@@ -457,6 +457,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CONVERT, "Spike-Toothed Salmon vociferates");
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_INFECT, "Spike-Toothed Salmon infects");
 
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_HURT, "Therizinosaurus hurts");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH, "Therizinosaurus dies");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_IDLE, "Therizinosaurus chatters");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ATTACK, "Therizinosaurus attacks");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR, "Therizinosaurus shrieks");
+        this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
+
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
@@ -539,11 +546,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
 
-        this.add(UP2MobEffects.CARNOTAURUS_FURY.get(), "Carnotaurus's Fury");
-        this.add(UP2MobEffects.CARNOTAURUS_FURY.get().getDescriptionId() + ".description", "Gain increased speed and attack speed as your health gets lower");
-
         this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");
-        this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Deals damage slowly and stutters movement");
+        this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Inflicts non-lethal damage over time; Higher levels do more damage per second. Prevents jumping, sprinting, and decreases walking speed.");
 
         // Book
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");

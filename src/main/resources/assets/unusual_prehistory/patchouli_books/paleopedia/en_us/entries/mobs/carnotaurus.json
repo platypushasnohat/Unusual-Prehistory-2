@@ -36,14 +36,19 @@
       "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:skeleton_skull",
-      "feature_1.tooltip": "Carnotaurus charges at any mob it sees, ramming them with its horns",
+      "feature_1.tooltip": "Carnotaurus charges at anything it attacks, ramming them with its horns",
       "feature_1.title_one_line": "Furious",
       "feature_1.title_two_line": "",
 
-      "feature_2.item": "tag:unusual_prehistory:permanently_pacifies_mob",
-      "feature_2.tooltip": "Carnotaurus will continue to attack monsters, even after being §apacified§7",
+      "feature_2.item": "minecraft:bone",
+      "feature_2.tooltip": "Carnotaurus will attack any monsters it sees on sight",
       "feature_2.title_one_line": "Bodyguard!",
-      "feature_2.title_two_line": ""
+      "feature_2.title_two_line": "",
+
+      "feature_3.item": "minecraft:egg",
+      "feature_3.tooltip": "Baby Carnotaurus are just as aggressive as their adult counterparts",
+      "feature_3.title_one_line": "Born Warrior",
+      "feature_3.title_two_line": ""
     }
   ]
 }

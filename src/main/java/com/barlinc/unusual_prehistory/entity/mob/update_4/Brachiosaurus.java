@@ -61,6 +61,7 @@
      private float neckYRot;
 
      private float fakeYRot = 0;
+     @SuppressWarnings("all")
      private float[] yawBuffer = new float[128];
      private int yawPointer = -1;
 
@@ -86,7 +87,7 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 340.0D)
+                 .add(Attributes.MAX_HEALTH, 400.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
                  .add(Attributes.ATTACK_DAMAGE, 21.0D)
                  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
@@ -228,6 +229,7 @@
          return this.isBaby() ? 0.25F : 1.0F;
      }
 
+     @SuppressWarnings("all")
      private void tickMultipart() {
          if (yawPointer == -1) {
              this.fakeYRot = this.yBodyRot;
@@ -266,11 +268,11 @@
          float neck2AdditionalY = isMoving ? 0.8F : 0.0F;
          float neck2AdditionalZ = isMoving ? -1.0F : 0.0F;
 
-         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headAdditionalY, 7.8F + headAdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
-         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
-         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
+         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headAdditionalY, 7.8F + headAdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(center));
+         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
+         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).scale(this.getAgeScale()).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).scale(this.getAgeScale()).add(this.tailPart1.centeredPosition()));
 
          for (int l = 0; l < this.allParts.length; ++l) {
              this.allParts[l].xo = avector3d[l].x;
@@ -282,6 +284,7 @@
          }
      }
 
+     @SuppressWarnings("all")
      private void tickMultipartBaby() {
          if (yawPointer == -1) {
              for (int i = 0; i < yawBuffer.length; i++) {
@@ -304,11 +307,11 @@
          float headXStep = neckXRot / 4F;
          float headYStep = neckYRot / 4F;
 
-         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 5.1F, 6.8F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(center));
-         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
-         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.0F, -2.0F).scale(this.getScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
+         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 5.1F, 6.8F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(center));
+         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -2.0F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
+         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.0F, -2.0F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).scale(this.getAgeScale()).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).scale(this.getAgeScale()).add(this.tailPart1.centeredPosition()));
 
          for (int l = 0; l < this.allParts.length; ++l) {
              this.allParts[l].xo = avector3d[l].x;
@@ -358,7 +361,7 @@
      }
 
      @Override
-     public PartEntity<?>[] getParts() {
+     public PartEntity<?> @NotNull [] getParts() {
          return allParts;
      }
 
@@ -521,7 +524,7 @@
 
                  if (this.brachiosaurus.getAttackState() == 1) {
                      this.brachiosaurus.getNavigation().stop();
-                     this.tickStomp();
+                     this.tickStomp(target);
                  }
                  else {
                      if (distance > this.getAttackReachSqr(target)) {
@@ -534,9 +537,8 @@
              }
          }
 
-         protected void tickStomp() {
+         protected void tickStomp(LivingEntity target) {
              this.timer++;
-             LivingEntity target = brachiosaurus.getTarget();
              if (timer == 6) brachiosaurus.playSound(UP2SoundEvents.BRACHIOSAURUS_ATTACK.get(), 4.0F, 1.0F);
              if (timer == 10) brachiosaurus.setPose(UP2Poses.STOMPING.get());
              if (timer == 51) {
@@ -545,7 +547,7 @@
                          continue;
                      }
                      entity.hurt(brachiosaurus.damageSources().mobAttack(brachiosaurus), (float) (brachiosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-                     this.brachiosaurus.strongKnockback(entity, 6.0D, 0.6D);
+                     this.strongKnockback(entity, 6.0D, 0.6D);
                  }
                  UnusualPrehistory2.PROXY.screenShake(new ScreenShakeEvent(brachiosaurus.position(), 40, 4.0F, 32, false));
                  this.brachiosaurus.level().broadcastEntityEvent(brachiosaurus, (byte) 40);

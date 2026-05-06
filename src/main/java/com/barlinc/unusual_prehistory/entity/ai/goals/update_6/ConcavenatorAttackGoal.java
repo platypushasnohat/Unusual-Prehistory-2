@@ -138,7 +138,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
                 if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
                     player.disableShield();
                 }
-                this.concavenator.strongKnockback(target, 0.5D, 0.15D);
+                this.strongKnockback(target, 0.5D, 0.15D);
                 this.concavenator.swing(InteractionHand.MAIN_HAND);
             }
         }
@@ -154,7 +154,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
                 if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
                     player.disableShield();
                 }
-                this.concavenator.strongKnockback(target, 0.5D, 0.15D);
+                this.strongKnockback(target, 0.5D, 0.15D);
                 this.concavenator.swing(InteractionHand.MAIN_HAND);
             }
         }
@@ -183,7 +183,7 @@ public class ConcavenatorAttackGoal extends AttackGoal {
                 if (target.isDamageSourceBlocked(concavenator.damageSources().mobAttack(concavenator)) && target instanceof Player player){
                     player.disableShield();
                 }
-                this.concavenator.strongKnockback(target, 0.5D, 0.15D);
+                this.strongKnockback(target, 0.5D, 0.15D);
                 this.concavenator.swing(InteractionHand.MAIN_HAND);
             }
         }

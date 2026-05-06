@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -250,11 +249,10 @@ public class Grug extends PrehistoricMob implements LeapingMob {
                 nearbyEntities.stream().filter(entity -> entity != grug).forEach(entity -> {
                     DamageSource damagesource = UP2DamageTypes.grug(grug.level(), grug, grug);
                     entity.hurt(damagesource, (float) grug.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.grug.strongKnockback(entity, 4.0D, 0.1D);
+                    this.strongKnockback(entity, 4.0D, 0.1D);
                     if (entity.isDamageSourceBlocked(damagesource) && entity instanceof Player player) {
                         player.disableShield();
                     }
-                    this.grug.swing(InteractionHand.MAIN_HAND);
                 });
             }
         }

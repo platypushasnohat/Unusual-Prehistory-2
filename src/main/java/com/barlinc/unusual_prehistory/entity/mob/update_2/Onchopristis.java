@@ -217,11 +217,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
-    public boolean canPacify() {
-        return true;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.ONCHOPRISTIS_FOOD);
     }

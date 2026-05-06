@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.*;
 import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.theme.IThemeHelper;
 
 public class PrehistoricMobProvider implements IEntityComponentProvider {
 
@@ -23,11 +22,7 @@ public class PrehistoricMobProvider implements IEntityComponentProvider {
             tooltip.add(Component.translatable("unusual_prehistory.jade.prehistoric_mob.age_locked"));
         }
         if (prehistoricMob.isPacified()) {
-            if (prehistoricMob.getPacifiedTicks() <= -1) {
-                tooltip.add(Component.translatable("unusual_prehistory.jade.prehistoric_mob.pacified"));
-            } else {
-                tooltip.add(Component.translatable("unusual_prehistory.jade.prehistoric_mob.pacified_time", IThemeHelper.get().seconds(prehistoricMob.getPacifiedTicks(), accessor.tickRate())));
-            }
+            tooltip.add(Component.translatable("unusual_prehistory.jade.prehistoric_mob.pacified"));
         }
     }
 

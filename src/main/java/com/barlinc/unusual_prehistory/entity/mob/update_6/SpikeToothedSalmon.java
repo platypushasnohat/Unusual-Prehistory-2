@@ -112,11 +112,6 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     }
 
     @Override
-    public boolean canPacify() {
-        return true;
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD);
     }

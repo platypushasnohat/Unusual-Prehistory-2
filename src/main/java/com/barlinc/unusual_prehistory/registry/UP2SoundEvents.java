@@ -252,6 +252,13 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_INFECT = registerSoundEvent("spike_toothed_salmon_infect");
     public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_CURE = registerSoundEvent("spike_toothed_salmon_cure");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_HURT = registerSoundEvent("therizinosaurus_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_DEATH = registerSoundEvent("therizinosaurus_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_IDLE = registerSoundEvent("therizinosaurus_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
+    public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));
     }

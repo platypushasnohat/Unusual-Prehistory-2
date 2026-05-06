@@ -125,7 +125,7 @@ public class MegalaniaAttackGoal extends AttackGoal {
         if (!nearbyEntities.isEmpty()) {
             nearbyEntities.stream().filter(entity -> !entity.is(megalania) && !entity.isAlliedTo(megalania)).limit(3).forEach(entity -> {
                 entity.hurt(entity.damageSources().mobAttack(megalania), (float) megalania.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                this.megalania.strongKnockback(entity, 1.3D, 0.2D);
+                this.strongKnockback(entity, 1.3D, 0.2D);
                 if (entity.isDamageSourceBlocked(megalania.damageSources().mobAttack(megalania)) && entity instanceof Player player) {
                     player.disableShield();
                 }

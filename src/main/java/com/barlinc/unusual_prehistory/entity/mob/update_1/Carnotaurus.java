@@ -1,12 +1,14 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
-import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
@@ -31,7 +33,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,12 +45,13 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnotaurus.CarnotaurusVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.BOOLEAN);
 
-    public int chargeCooldown = 200 + this.getRandom().nextInt(200);
+    public int chargeCooldown = 100;
     public int roarCooldown = 100;
     public int biteCooldown = 0;
     public int headbuttCooldown = 0;
@@ -62,19 +64,18 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     public final SmoothAnimationState angryAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState roarAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attackFast1AnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState attackFast2AnimationState = new SmoothAnimationState(1.0F);
-    public final SmoothAnimationState headbuttFastAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
     public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
 
-    public boolean attackAlt = false;
+    private boolean attackAlt = false;
     private boolean sniffAlt = false;
 
     private int startChargeTicks;
     private int stopChargeTicks;
+
+    private final byte ANGRY = 39;
 
     public Carnotaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -83,27 +84,15 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
-        this.goalSelector.addGoal(2, new CarnotaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new SleepingGoal(this) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && !Carnotaurus.this.isAngry();
-            }
-        });
-        this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
-        this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 40, 2, false, 0.001F, this::canPlayIdles));
-        this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {
-            @Override
-            public void start() {
-                super.start();
-                Carnotaurus.this.sniffAlt = Carnotaurus.this.getRandom().nextBoolean();
-            }
-
+        this.goalSelector.addGoal(1, new CarnotaurusAttackGoal(this));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new SleepingGoal(this));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 2, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {
             @Override
             public void tick() {
                 super.tick();
@@ -111,20 +100,20 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
             }
         });
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::canAttack));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, 60, true, true, entity -> !entity.getType().is(UP2EntityTags.CARNOTAURUS_IGNORES)));
-        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.CARNOTAURUS_TARGETS)));
+        this.targetSelector.addGoal(1, new CarnotaurusTargetGoal<>(this, Monster.class, 60, true, true, entity -> !entity.getType().is(UP2EntityTags.CARNOTAURUS_IGNORES)));
+        this.targetSelector.addGoal(2, new CarnotaurusTargetGoal<>(this, Player.class, 100, true, true, this::canAttack));
+        this.targetSelector.addGoal(3, new CarnotaurusTargetGoal<>(this, LivingEntity.class, 200, true, true, entity -> entity.getType().is(UP2EntityTags.CARNOTAURUS_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.MAX_HEALTH, 70.0D)
                 .add(Attributes.ATTACK_DAMAGE, 9.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.18F)
+                .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
                 .add(Attributes.ARMOR, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.STEP_HEIGHT, 1.1D);
+                .add(Attributes.STEP_HEIGHT, 1.5D);
     }
 
     @Override
@@ -140,33 +129,16 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
 
     public void roar() {
         if (this.isAlive()) {
-            this.level().broadcastEntityEvent(this, (byte) 39);
-            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 1));
-            this.addEffect(new MobEffectInstance(UP2MobEffects.CARNOTAURUS_FURY, 300, 0));
+            this.level().broadcastEntityEvent(this, ANGRY);
+            this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 4));
             this.gameEvent(GameEvent.ENTITY_ACTION);
         }
     }
 
-    public boolean isFurious() {
-        return this.hasEffect(UP2MobEffects.CARNOTAURUS_FURY);
-    }
-
     @Override
     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(10);
+        this.heal(14);
         return super.killedEntity(level, victim);
-    }
-
-    public boolean isWithinYRange(LivingEntity target) {
-        if (target == null) {
-            return false;
-        }
-        return Math.abs(target.getY() - this.getY()) < 2;
-    }
-
-    @Override
-    public boolean canPacify() {
-        return true;
     }
 
     @Override
@@ -176,52 +148,33 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getIdleState() == 3;
-    }
-
-    public void chargeCooldown() {
-        this.chargeCooldown = 200 + this.getRandom().nextInt(200);
-    }
-
-    public void roarCooldown() {
-        this.roarCooldown = 600 + this.getRandom().nextInt(400);
+        return super.refuseToMove() || this.getIdleState() == 3 || this.getPose() == UP2Poses.STOP_CHARGING.get();
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (chargeCooldown > 0) chargeCooldown--;
-        if (roarCooldown > 0) roarCooldown--;
-        if (headbuttCooldown > 0) headbuttCooldown--;
-        if (biteCooldown > 0) biteCooldown--;
-        this.setAngry(this.getHealth() < this.getMaxHealth() * 0.5F && !this.isBaby());
+    public boolean refuseToLook() {
+        return super.refuseToLook() || this.getPose() == UP2Poses.STOP_CHARGING.get();
     }
 
     public void setupAnimationStates() {
         this.angryAnimationState.animateWhen(this.canPlayAngryAnimation(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.getPose() != Pose.ROARING && !this.isInWater() && !this.isEepy(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.getPose() != Pose.ROARING && this.isInWater(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ROARING.get() && this.getPose() != UP2Poses.START_CHARGING.get() && this.getPose() != UP2Poses.START_CHARGING.get() && !this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.getPose() != UP2Poses.ROARING.get() && this.isInWaterOrBubble(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
-        this.attackFast1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING_FAST.get() && !attackAlt, this.tickCount);
-        this.attackFast2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING_FAST.get() && attackAlt, this.tickCount);
         this.headbuttAnimationState.animateWhen(this.getPose() == UP2Poses.HEADBUTTING.get(), this.tickCount);
-        this.headbuttFastAnimationState.animateWhen(this.getPose() == UP2Poses.HEADBUTTING_FAST.get(), this.tickCount);
         this.chargeStartAnimationState.animateWhen(this.getPose() == UP2Poses.START_CHARGING.get(), this.tickCount);
         this.chargeEndAnimationState.animateWhen(this.getPose() == UP2Poses.STOP_CHARGING.get(), this.tickCount);
         this.roarAnimationState.animateWhen(this.getPose() == UP2Poses.ROARING.get(), this.tickCount);
-        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.yawnAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.sniff1AnimationState.animateWhen(this.getIdleState() == 3 && !sniffAlt, this.tickCount);
         this.sniff2AnimationState.animateWhen(this.getIdleState() == 3 && sniffAlt, this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
     }
 
     private boolean canPlayAngryAnimation() {
-        if (this.getPose() == UP2Poses.ROARING.get() && this.getPose() == UP2Poses.ATTACKING.get() && this.getPose() == UP2Poses.ATTACKING_FAST.get() && this.getPose() == UP2Poses.HEADBUTTING.get() && this.getPose() == UP2Poses.HEADBUTTING_FAST.get()) {
-            return false;
-        }
-        return this.isAngry();
+        return this.isAggressive() && this.getPose() == Pose.STANDING;
     }
 
     private boolean canPlayIdles(Entity entity) {
@@ -245,27 +198,34 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     }
 
     @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 2.0F : 4.0F;
-    }
-
-    @Override
     public void tickCooldowns() {
         super.tickCooldowns();
-        if (this.startChargeTicks > 0) startChargeTicks--;
-        if (this.stopChargeTicks > 0) stopChargeTicks--;
-        if (this.startChargeTicks == 0 && this.getPose() == UP2Poses.START_CHARGING.get()) this.setPose(UP2Poses.CHARGING.get());
-        if (this.stopChargeTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
+        if (chargeCooldown > 0) chargeCooldown--;
+        if (roarCooldown > 0) roarCooldown--;
+        if (headbuttCooldown > 0) headbuttCooldown--;
+        if (biteCooldown > 0) biteCooldown--;
+        if (startChargeTicks > 0) startChargeTicks--;
+        if (stopChargeTicks > 0) stopChargeTicks--;
+        if (startChargeTicks == 0 && this.getPose() == UP2Poses.START_CHARGING.get()) this.setPose(UP2Poses.CHARGING.get());
+        if (stopChargeTicks == 0 && this.getPose() == UP2Poses.STOP_CHARGING.get()) this.setPose(Pose.STANDING);
     }
 
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.START_CHARGING.get()) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAlt = this.getRandom().nextBoolean();
+            }
+            else if (this.getPose() == UP2Poses.START_CHARGING.get()) {
                 this.startChargeTicks = 30;
             }
             else if (this.getPose() == UP2Poses.STOP_CHARGING.get()) {
                 this.stopChargeTicks = 15;
+            }
+        }
+        if (IDLE_STATE.equals(accessor)) {
+            if (this.getIdleState() == 3) {
+                this.sniffAlt = this.getRandom().nextBoolean();
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -273,7 +233,7 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == 39) {
+        if (id == ANGRY) {
             this.roarEffect();
         } else {
             super.handleEntityEvent(id);
@@ -293,7 +253,6 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(VARIANT, 0);
-        builder.define(ANGRY, false);
     }
 
     @Override
@@ -316,14 +275,6 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     @Override
     public void setVariant(CarnotaurusVariant variant) {
         this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, CarnotaurusVariant.values().length));
-    }
-
-    public boolean isAngry() {
-        return this.entityData.get(ANGRY);
-    }
-
-    public void setAngry(boolean angry) {
-        this.entityData.set(ANGRY, angry);
     }
 
     @Nullable
@@ -393,5 +344,27 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
         }
         else this.setVariant(CarnotaurusVariant.DEMON);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    }
+
+    // Goals
+    private static class CarnotaurusTargetGoal<T extends LivingEntity> extends PrehistoricNearestAttackableTargetGoal<T> {
+
+        public CarnotaurusTargetGoal(PrehistoricMob mob, Class<T> targetClass, int interval, boolean mustSee, boolean mustReach, @Nullable Predicate<LivingEntity> predicate) {
+            super(mob, targetClass, interval, mustSee, mustReach, predicate);
+        }
+
+        @Override
+        public boolean canUse() {
+            if (prehistoricMob.isTame() || prehistoricMob.isPacified() || prehistoricMob.isEepy()) {
+                return false;
+            }
+            else if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) {
+                return false;
+            }
+            else {
+                this.findTarget();
+                return this.target != null;
+            }
+        }
     }
 }

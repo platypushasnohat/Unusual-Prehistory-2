@@ -84,10 +84,17 @@ public class AttackGoal extends Goal {
         int slownessFactor = mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) ? mob.getEffect(MobEffects.MOVEMENT_SLOWDOWN).getAmplifier() + 1 : 0;
         float effectSpeed = 0.1F * (speedFactor - slownessFactor);
         Vec3 chargeDirection = new Vec3(target.getX() - mob.getX(), target.getY() - mob.getY(), target.getZ() - mob.getZ()).normalize();
-        float YRot = Mth.approachDegrees(mob.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 0.5F);
+        float YRot = Mth.approachDegrees(mob.getYRot(), (float) (Mth.atan2(chargeDirection.z, chargeDirection.x) * (180F / Math.PI)) - 90.0F, 0.25F);
         speed = speed + effectSpeed;
         this.mob.setYRot(YRot);
         this.mob.setYBodyRot(YRot);
         this.mob.setDeltaMovement(-Mth.sin(YRot * ((float) Math.PI / 180F)) * speed, mob.getDeltaMovement().y, Mth.cos(YRot * ((float) Math.PI / 180F)) * speed);
+    }
+
+    protected void strongKnockback(Entity entity, double horizontalStrength, double verticalStrength) {
+        double x = entity.getX() - mob.getX();
+        double y = entity.getZ() - mob.getZ();
+        double scale = Math.max(x * x + y * y, 0.001D);
+        entity.push(x / scale * horizontalStrength, verticalStrength, y / scale * horizontalStrength);
     }
 }

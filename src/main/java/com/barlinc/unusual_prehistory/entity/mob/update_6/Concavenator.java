@@ -104,7 +104,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     private final byte EAT = 73;
     private final byte SAND_SNORT = 74;
 
-    private int eatTicks = 0;
     private int sandSwimStartTicks = 0;
     private int sandSwimEndTicks = 0;
 
@@ -203,11 +202,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
         else if (this.isSandSwimming()) return SAND_SWIMMING_DIMENSIONS.scale(this.getAgeScale());
         return super.getDefaultDimensions(pose);
-    }
-
-    @Override
-    public boolean canPacify() {
-        return true;
     }
 
     @Override
@@ -373,7 +367,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
                 if (this.getTameAttempts() >= 256 || player.isCreative()) {
                     this.level().broadcastEntityEvent(this, (byte) 7);
                     this.tame(player);
-                    this.setPacifiedTicks(-1);
                     this.setTameAttempts(0);
                     this.heal(this.getMaxHealth());
                 } else {
@@ -668,7 +661,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         if (this.sandSwimEndTicks == 0 && this.getPose() == UP2Poses.STOP_SWIMMING.get()) {
             this.setPose(Pose.STANDING);
         }
-        if (eatTicks > 0) eatTicks--;
     }
 
     @Override

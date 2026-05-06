@@ -168,11 +168,6 @@ public class Cryptoclidus extends AmphibiousMob {
         return stack.is(UP2ItemTags.CRYPTOCLIDUS_FOOD);
     }
 
-    @Override
-    public boolean canPacify() {
-        return true;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {

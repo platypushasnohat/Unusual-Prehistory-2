@@ -254,11 +254,6 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
         return this.getVariant().dimensions.scale(this.getAgeScale());
     }
 
-    @Override
-    public boolean canPacify() {
-        return true;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
@@ -416,8 +411,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
                 if (this.isInAttackRange(target, 1.5D)) {
                     DamageSource source = UP2DamageTypes.execute(dunkleosteus.level(), dunkleosteus, dunkleosteus);
                     target.hurt(source, (float) dunkleosteus.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.dunkleosteus.strongKnockback(target, 0.2D, 0.01D);
-                    this.dunkleosteus.swing(InteractionHand.MAIN_HAND);
+                    this.strongKnockback(target, 0.2D, 0.01D);
                 }
             }
             if (timer > 10) {

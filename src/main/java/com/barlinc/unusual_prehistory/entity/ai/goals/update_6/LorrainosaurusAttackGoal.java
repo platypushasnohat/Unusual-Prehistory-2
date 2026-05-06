@@ -80,7 +80,7 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
         }
         if (timer == 10 && this.isInAttackRange(target, 2.0D)) {
             this.lorrainosaurus.doHurtTarget(target);
-            this.lorrainosaurus.strongKnockback(target, 0.4D, 0.1D);
+            this.strongKnockback(target, 0.4D, 0.1D);
         }
         if (timer > 20) {
             this.timer = 0;

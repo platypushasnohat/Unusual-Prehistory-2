@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_scythe_fossil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:scythe_fossil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "unusual_prehistory:transmogrification/therizinosaurus_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_scythe_fossil"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "unusual_prehistory:transmogrification/therizinosaurus_egg"
+    ]
+  }
+}

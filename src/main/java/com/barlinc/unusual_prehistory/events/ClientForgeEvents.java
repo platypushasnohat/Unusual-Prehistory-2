@@ -68,7 +68,6 @@ public class ClientForgeEvents {
     @SubscribeEvent
     public void computeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         Minecraft minecraft = Minecraft.getInstance();
-        Entity player = Minecraft.getInstance().getCameraEntity();
         float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);;
         float lerpedShakeAmount = Mth.clamp(prevShakeAmount + (shakeAmount - prevShakeAmount) * partialTicks, 0, 4.0F);
         if (lerpedShakeAmount > 0) {

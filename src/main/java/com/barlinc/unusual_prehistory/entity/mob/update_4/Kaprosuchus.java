@@ -142,11 +142,6 @@
      }
 
      @Override
-     public boolean canPacify() {
-         return true;
-     }
-
-     @Override
      public boolean refuseToMove() {
          return super.refuseToMove();
      }
@@ -183,7 +178,6 @@
                  if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
                      this.level().broadcastEntityEvent(this, (byte) 7);
                      this.tame(player);
-                     this.setPacifiedTicks(-1);
                      this.heal(this.getMaxHealth());
                  } else {
                      this.level().broadcastEntityEvent(this, (byte) 6);

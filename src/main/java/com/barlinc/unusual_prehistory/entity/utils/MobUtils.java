@@ -39,9 +39,9 @@ public class MobUtils {
         Bucketable.saveDefaultDataToBucketTag(mob, bucket);
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> {
             compoundTag.putInt("Age", mob.getAge());
-            compoundTag.putInt("PacifiedTicks", mob.getPacifiedTicks());
             compoundTag.putBoolean("FromEgg", mob.isFromEgg());
             compoundTag.putInt("EatingCooldown", mob.getEatCooldown());
+            compoundTag.putBoolean("Pacified", mob.isPacified());
         });
     }
 
@@ -50,8 +50,8 @@ public class MobUtils {
         if (compoundTag.contains("Age")) {
             mob.setAge(compoundTag.getInt("Age"));
         }
-        if (compoundTag.contains("PacifiedTicks")) {
-            mob.setPacifiedTicks(compoundTag.getInt("PacifiedTicks"));
+        if (compoundTag.contains("Pacified")) {
+            mob.setPacified(compoundTag.getBoolean("Pacified"));
         }
         if (compoundTag.contains("FromEgg")) {
             mob.setFromEgg(compoundTag.getBoolean("FromEgg"));

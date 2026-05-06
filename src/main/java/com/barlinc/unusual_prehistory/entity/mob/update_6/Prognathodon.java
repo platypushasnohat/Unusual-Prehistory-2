@@ -213,11 +213,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         return stack.is(UP2ItemTags.PROGNATHODON_FOOD);
     }
 
-    @Override
-    public boolean canPacify() {
-        return true;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
@@ -319,7 +314,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
             if (!nearbyEntities.isEmpty()) {
                 nearbyEntities.stream().filter(entity -> entity != prognathodon).limit(3).forEach(entity -> {
                     entity.hurt(entity.damageSources().mobAttack(prognathodon), (float) prognathodon.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.prognathodon.strongKnockback(entity, 0.8D, 0.1D);
+                    this.strongKnockback(entity, 0.8D, 0.1D);
                     if (entity.isDamageSourceBlocked(prognathodon.damageSources().mobAttack(prognathodon)) && entity instanceof Player player) {
                         player.disableShield();
                     }

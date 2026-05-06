@@ -137,7 +137,7 @@
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.WARNING.get(), this.tickCount);
+         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.WARNING.get() && this.getPose() != UP2Poses.TAIL_WHIPPING.get(), this.tickCount);
          this.warnAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
          this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
          this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
@@ -263,7 +263,7 @@
                  }
                  else if (distance < 2.2D && brontoscorpio.getPose() == Pose.STANDING) {
                      if (brontoscorpio.attackCooldown == 0) {
-                         if (brontoscorpio.getRandom().nextFloat() < 0.33F) {
+                         if (brontoscorpio.getRandom().nextFloat() < 0.4F) {
                              this.brontoscorpio.setAttackState(2);
                          } else {
                              this.brontoscorpio.setAttackState(1);

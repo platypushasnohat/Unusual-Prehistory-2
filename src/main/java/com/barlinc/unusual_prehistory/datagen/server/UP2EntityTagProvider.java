@@ -236,6 +236,10 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.ENDER_DRAGON, EntityType.WITHER, LORRAINOSAURUS.get()
         );
 
+        this.tag(UP2EntityTags.UNAFFECTED_BY_PARALYSIS).add(
+                EntityType.ENDER_DRAGON, EntityType.WITHER, BRONTOSCORPIO.get()
+        );
+
         this.tag(UP2EntityTags.PROGNATHODON_TARGETS).add(
                 EntityType.TURTLE, EntityType.DOLPHIN, EntityType.GOAT
         );

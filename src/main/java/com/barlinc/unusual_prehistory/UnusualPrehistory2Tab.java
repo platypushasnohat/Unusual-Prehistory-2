@@ -60,6 +60,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TALPANAS_SPAWN_EGG.get());
                         output.accept(TARTUOSTEUS_SPAWN_EGG.get());
                         output.accept(TELECREX_SPAWN_EGG.get());
+                        output.accept(THERIZINOSAURUS_SPAWN_EGG.get());
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         // Ambient
@@ -201,6 +202,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(AGED_FEATHER.get()); // talpanas
                         output.accept(MOSSY_FOSSIL.get()); // tartuosteus
                         output.accept(PLUMAGE_FOSSIL.get()); // telecrex
+                        output.accept(SCYTHE_FOSSIL.get()); // therizinosaurus
                         output.accept(DUBIOUS_FOSSIL.get()); // ulughbegsaurus
 
                         output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
@@ -238,6 +240,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TALPANAS_EGG.get());
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
+                        output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
 
                         output.accept(BRACHYPHYLLUM_FOSSIL.get());

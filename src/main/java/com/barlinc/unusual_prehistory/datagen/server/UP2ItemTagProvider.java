@@ -95,8 +95,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ORGANIC_OOZE.get()
         );
 
-        this.tag(UP2ItemTags.PERMANENTLY_PACIFIES_MOB).add(Items.ENCHANTED_GOLDEN_APPLE);
-
         this.copy(UP2BlockTags.GINKGO_LOGS, UP2ItemTags.GINKGO_LOGS);
         this.copy(UP2BlockTags.LEPIDODENDRON_LOGS, UP2ItemTags.LEPIDODENDRON_LOGS);
 
@@ -291,7 +289,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 FISH_REPTILE_FOSSIL.get(),
                 CLAMP_JAW_FOSSIL.get(),
                 CRYPTIC_FOSSIL.get(),
-                CONCAVE_FOSSIL.get()
+                CONCAVE_FOSSIL.get(),
+                SCYTHE_FOSSIL.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
                 TRUNK_MOUSE_FOSSIL.get(),
@@ -356,7 +355,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ICHTHYOSAURUS_EMBRYO.get(),
                 LORRAINOSAURUS_EMBRYO.get(),
                 CRYPTOCLIDUS_EMBRYO.get(),
-                UP2Blocks.CONCAVENATOR_EGG.asItem()
+                UP2Blocks.CONCAVENATOR_EGG.asItem(),
+                UP2Blocks.THERIZINOSAURUS_EGG.asItem()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
                 LEPTICTIDIUM_EMBRYO.get(),
@@ -454,6 +454,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.CURES_SPIKE_TOOTHED_SALMON).add(
                 Items.GOLDEN_APPLE
         );
+
+        this.tag(UP2ItemTags.THERIZINOSAURUS_FOOD).addTags(ItemTags.LEAVES);
 
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);

@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-05T20:08:26.7848473	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-06T16:42:57.801985	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -71,8 +71,8 @@ c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/majun
 73890942ecf079294735eb9b4e832ab73e298b6c data/unusual_prehistory/tags/item/mammoth_food.json
 35e26ac7c30d0cf81cb7c891fbf1d1b3632de467 data/unusual_prehistory/tags/item/maroon_dyes.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/megalania_food.json
-5564ab3bec5428ce0bd3a80334583d5cff5ca945 data/unusual_prehistory/tags/item/mesozoic_eggs.json
-0b790da3be5bffb022a48d3820462b8bc0776bf5 data/unusual_prehistory/tags/item/mesozoic_fossils.json
+d1860f1950559296891c4d7bed4c5ca2f608b438 data/unusual_prehistory/tags/item/mesozoic_eggs.json
+0bcff6843968365ee6793b9203bb6c9fc4ec72a9 data/unusual_prehistory/tags/item/mesozoic_fossils.json
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/item/metasequoia_logs.json
 368c66a7b6b9d697eca80456999190094afd3ec6 data/unusual_prehistory/tags/item/metriorhynchus_food.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/item/mint_dyes.json
@@ -85,7 +85,6 @@ eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_f
 3f8de0b35529bc568180cc093eef809af6d10406 data/unusual_prehistory/tags/item/pachycephalosaurus_food.json
 1f5ca7bb96ad307b2d7c09d9d3cee7dcb2be1b46 data/unusual_prehistory/tags/item/paleozoic_eggs.json
 46f6612d5bb96eeaa9c6f5b9c7823a99ca4d684d data/unusual_prehistory/tags/item/paleozoic_fossils.json
-193b269670ecf607580d014eb7dc897011bb9d07 data/unusual_prehistory/tags/item/permanently_pacifies_mob.json
 4ceeb58a62abc316ee052dacd214451a9ee8d7aa data/unusual_prehistory/tags/item/plant_fossils.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/item/praepusa_food.json
 52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/item/prevents_egg_hatching.json
@@ -112,6 +111,7 @@ efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/tartu
 65517f45a4d2b94c69defe3ec084e4866c2d9237 data/unusual_prehistory/tags/item/teal_dyes.json
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/item/telecrex_food.json
 88963a4bc77c2a6bc037001e10166fde02efb9a0 data/unusual_prehistory/tags/item/tempts_concavenator.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusual_prehistory/tags/item/therizinosaurus_food.json
 30f1477f8902716e21f1b4679f260a7373960bab data/unusual_prehistory/tags/item/transmogrifier_fuel.json
 66e9297f52a4c8c82094b35f2aabb3ece3a80cb6 data/unusual_prehistory/tags/item/ulughbegsaurus_food.json
 c9209da8f497549d98667704ae353ca0f222cb13 data/unusual_prehistory/tags/item/unicorn_food.json

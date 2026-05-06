@@ -185,6 +185,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
                 ROT_FOSSIL,
+                SCYTHE_FOSSIL,
 
                 BRONTOSCORPIO_EMBRYO,
                 UP2Blocks.CONCAVENATOR_EGG,
@@ -193,6 +194,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 LORRAINOSAURUS_EMBRYO,
                 PROGNATHODON_EMBRYO,
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE,
+                UP2Blocks.THERIZINOSAURUS_EGG,
 
                 SWEET_GROG_BOTTLE,
                 FOUL_GROG_BOTTLE
