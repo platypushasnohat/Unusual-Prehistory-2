@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_therizinosaurus",
+  "parent": "unusual_prehistory:revive_prognathodon",
   "criteria": {
-    "revive_ulughbegsaurus": {
+    "revive_therizinosaurus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:ulughbegsaurus"
+              "type": "unusual_prehistory:therizinosaurus"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.description"
+      "translate": "advancements.unusual_prehistory.revive_therizinosaurus.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:ulughbegsaurus_egg"
+      "id": "unusual_prehistory:therizinosaurus_egg"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.title"
+      "translate": "advancements.unusual_prehistory.revive_therizinosaurus.title"
     }
   },
   "requirements": [
     [
-      "revive_ulughbegsaurus"
+      "revive_therizinosaurus"
     ]
   ],
   "rewards": {

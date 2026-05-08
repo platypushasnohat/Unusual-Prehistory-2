@@ -176,7 +176,8 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder reviveOnchopristis = reviveMobAdvancement("revive_onchopristis", reviveMajungasaurus, UP2Blocks.ONCHOPRISTIS_SAC.get(), UP2Entities.ONCHOPRISTIS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_onchopristis"), helper);
         AdvancementHolder revivePachycephalosaurus = reviveMobAdvancement("revive_pachycephalosaurus", reviveOnchopristis, UP2Blocks.PACHYCEPHALOSAURUS_EGG.get(), UP2Entities.PACHYCEPHALOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_pachycephalosaurus"), helper);
         AdvancementHolder revivePrognathodon = reviveMobAdvancement("revive_prognathodon", revivePachycephalosaurus, UP2Items.PROGNATHODON_EMBRYO.get(), UP2Entities.PROGNATHODON.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_prognathodon"), helper);
-        AdvancementHolder reviveUlughbegsaurus = reviveMobAdvancement("revive_ulughbegsaurus", revivePrognathodon, UP2Blocks.ULUGHBEGSAURUS_EGG.get(), UP2Entities.ULUGHBEGSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_ulughbegsaurus"), helper);
+        AdvancementHolder reviveTherizinosaurus = reviveMobAdvancement("revive_therizinosaurus", revivePrognathodon, UP2Blocks.THERIZINOSAURUS_EGG.get(), UP2Entities.THERIZINOSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_therizinosaurus"), helper);
+        AdvancementHolder reviveUlughbegsaurus = reviveMobAdvancement("revive_ulughbegsaurus", reviveTherizinosaurus, UP2Blocks.ULUGHBEGSAURUS_EGG.get(), UP2Entities.ULUGHBEGSAURUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_ulughbegsaurus"), helper);
 
         // Paleogene
         AdvancementHolder reviveLeptictidium = reviveMobAdvancement("revive_leptictidium", paleogeneRoot, UP2Items.LEPTICTIDIUM_EMBRYO.get(), UP2Entities.LEPTICTIDIUM.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_leptictidium"), helper);

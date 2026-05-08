@@ -30,7 +30,7 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return parent == null ? dimensions : dimensions.scale(parent.getScale());
+        return parent == null ? dimensions : dimensions.scale(parent.getAgeScale());
     }
 
     @Override
@@ -78,12 +78,8 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
         this.setPos(pos.x, pos.y - this.getBbHeight() * 0.5F, pos.z);
     }
 
-    public Vec3 centeredPosition() {
-        return this.position().add(0, this.getBbHeight() * 0.5F, 0);
-    }
-
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
     }
 
     @Override

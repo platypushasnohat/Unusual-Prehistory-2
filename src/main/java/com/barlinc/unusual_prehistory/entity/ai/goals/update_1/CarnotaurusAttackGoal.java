@@ -82,7 +82,7 @@ public class CarnotaurusAttackGoal extends AttackGoal {
             }
             else if (carnotaurus.getPose() == Pose.STANDING && attackState == 0) {
                 this.carnotaurus.getNavigation().moveTo(target, 1.8D);
-                if (distance <= 1.7D) {
+                if (this.isInAttackRange(target, 1.8D)) {
                     if (carnotaurus.getRandom().nextFloat() < 0.75F && carnotaurus.biteCooldown == 0) {
                         this.carnotaurus.setAttackState(1);
                     }

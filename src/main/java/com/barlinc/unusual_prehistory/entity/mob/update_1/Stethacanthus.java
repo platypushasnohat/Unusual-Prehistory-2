@@ -171,7 +171,7 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
                 double distance = stethacanthus.distanceToSqr(target.getX(), target.getY(), target.getZ());
 
                 if (stethacanthus.getAttackState() == 1) {
-                    this.tickAttack();
+                    this.tickAttack(target);
                 } else {
                     if (distance <= 4) {
                         this.stethacanthus.setAttackState(1);
@@ -181,9 +181,8 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
             }
         }
 
-        protected void tickAttack() {
+        protected void tickAttack(LivingEntity target) {
             this.timer++;
-            LivingEntity target = stethacanthus.getTarget();
             if (timer == 1) stethacanthus.setPose(UP2Poses.ATTACKING.get());
             if (timer == 5) stethacanthus.playSound(UP2SoundEvents.STETHACANTHUS_BITE.get(), 0.7F, stethacanthus.getVoicePitch());
             if (timer == 6) {

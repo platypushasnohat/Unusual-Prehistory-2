@@ -544,6 +544,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_talpanas", "Blind as a Duck", "Revive a Talpanas");
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
+        this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
 
         this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");

@@ -3,10 +3,10 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Therizinosaurus;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -164,13 +164,24 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 	@Override
 	public void setupAnim(@NotNull Therizinosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(TherizinosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 3);
+        if (entity.getPose() != UP2Poses.ATTACKING.get() && !entity.isEepy() && !entity.isInWaterOrBubble()) {
+            if (entity.isRunning()) {
+                this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                this.animateWalk(TherizinosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+            }
+        }
 
-        float partialTicks = ageInTicks - entity.tickCount;
+		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 3);
+        this.animateSmooth(entity.attack1AnimationState, TherizinosaurusAnimations.SLASH1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, TherizinosaurusAnimations.SLASH2, ageInTicks);
+        this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
+        this.animateSmooth(entity.eepyAnimationState, TherizinosaurusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks);
+
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head, neck);
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail_adjust.yRot = Mth.lerp(0.2F, this.tail_adjust.yRot, tailYaw * 0.2F);
 	}
 
 	@Override

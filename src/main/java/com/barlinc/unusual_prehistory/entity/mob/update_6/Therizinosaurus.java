@@ -1,36 +1,50 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2GameEventTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Therizinosaurus extends PrehistoricMob {
+import java.util.List;
+import java.util.function.BiConsumer;
+
+public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     private final TherizinosaurusPart[] allParts;
-    public final TherizinosaurusPart headPart;
+    private final TherizinosaurusPart headPart;
 
     @SuppressWarnings("all")
     private float[] yawBuffer = new float[128];
@@ -38,21 +52,42 @@ public class Therizinosaurus extends PrehistoricMob {
 
     private boolean wasPreviouslyBaby;
 
+    private int attackCooldown = 0;
+
+    @SuppressWarnings("FieldMayBeFinal")
+    private VibrationSystem.Data vibrationData;
+    private final VibrationSystem.User vibrationUser;
+    private final DynamicGameEventListener<MovementListener> movementListener;
+
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState roarAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState stretchAnimationState = new SmoothAnimationState(1.0F);
+
+    private int warnTicks = 0;
+    private boolean attackAlt = false;
+
     public Therizinosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
         this.headPart = new TherizinosaurusPart(this, "head", 1.5F, 2.5F);
         this.allParts = new TherizinosaurusPart[]{headPart};
+        this.vibrationUser = new VibrationUser(this);
+        this.vibrationData = new VibrationSystem.Data();
+        this.movementListener = new DynamicGameEventListener<>(new MovementListener(this, vibrationUser.getPositionSource()));
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 5.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new TherizinosaurusAttackGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 100, 2, true, 0.001F, this::canPlayIdles));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
@@ -63,6 +98,14 @@ public class Therizinosaurus extends PrehistoricMob {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.STEP_HEIGHT, 1.5D);
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.allParts.length; i++) {
+            this.allParts[i].setId(id + i + 1);
+        }
     }
 
     @Override
@@ -82,6 +125,44 @@ public class Therizinosaurus extends PrehistoricMob {
     }
 
     @Override
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getPose() == UP2Poses.WARNING.get();
+    }
+
+    private boolean canHearEntity(LivingEntity target) {
+        return !this.isPacified() && !this.isEepy() && !(target instanceof Therizinosaurus) && this.canAttack(target) && !target.isShiftKeyDown() && (target instanceof Mob || target instanceof Player);
+    }
+
+    @Override
+    public boolean isEepyTime() {
+        return this.level().isDay();
+    }
+
+    @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0, 0.5F, -this.getBbWidth() * 1.05F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
+    public boolean isPushable() {
+        return this.isBaby();
+    }
+
+    @Override
+    protected void doPush(@NotNull Entity entity) {
+        if (!this.isPacified() && !this.isBaby() && entity instanceof LivingEntity livingEntity && this.canAttack(livingEntity) && !(livingEntity instanceof Therizinosaurus)) {
+            this.setTarget(livingEntity);
+        }
+        super.doPush(entity);
+    }
+
+    @Override
+    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+        this.heal(28);
+        return super.killedEntity(level, victim);
+    }
+
+    @Override
     public void tick() {
         this.tickMultipart();
         super.tick();
@@ -92,16 +173,55 @@ public class Therizinosaurus extends PrehistoricMob {
                 therizinosaurusPart.refreshDimensions();
             }
         }
+
+        if (!this.isBaby()) {
+            this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 20);
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isEepy(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy() && this.getPose() != UP2Poses.ATTACKING.get() && !this.isInWaterOrBubble(), this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
+        this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
+        this.roarAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
+        this.shakeAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
+        this.stretchAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+    }
+
+    private boolean canPlayIdles(Entity entity) {
+        return !entity.isInWaterOrBubble() && !((Therizinosaurus) entity).isBaby();
     }
 
     @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 6.0F : 10.0F;
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.WARNING.get()) {
+                this.warnTicks = 60;
+            }
+            else if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAlt = this.getRandom().nextBoolean();
+            }
+        }
+    }
+
+    @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (attackCooldown > 0) {
+            this.attackCooldown--;
+        }
+        if (warnTicks > 0) {
+            this.warnTicks--;
+            if (warnTicks == 50) {
+                this.playSound(UP2SoundEvents.THERIZINOSAURUS_ROAR.get(), 2.0F, this.getVoicePitch());
+            }
+        }
+        if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) {
+            this.setPose(Pose.STANDING);
+        }
     }
 
     private void tickMultipart() {
@@ -182,7 +302,166 @@ public class Therizinosaurus extends PrehistoricMob {
     }
 
     @Override
-    public int getAmbientSoundInterval() {
-        return 200;
+    public @NotNull AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(2.0D, 0.5D, 2.0D);
+    }
+
+    @Override
+    public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> biConsumer) {
+        if (this.level() instanceof ServerLevel serverLevel) {
+            biConsumer.accept(this.movementListener, serverLevel);
+        }
+    }
+
+    @Override
+    public @NotNull Data getVibrationData() {
+        return this.vibrationData;
+    }
+
+    @Override
+    public @NotNull User getVibrationUser() {
+        return this.vibrationUser;
+    }
+
+    // Goals
+    private static class TherizinosaurusAttackGoal extends AttackGoal {
+
+        private final Therizinosaurus therizinosaurus;
+
+        public TherizinosaurusAttackGoal(Therizinosaurus therizinosaurus) {
+            super(therizinosaurus);
+            this.therizinosaurus = therizinosaurus;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.mob.setPose(UP2Poses.WARNING.get());
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = therizinosaurus.getTarget();
+            if (target != null) {
+                if (therizinosaurus.getPose() == UP2Poses.WARNING.get()) {
+                    this.therizinosaurus.lookAt(target, 30F, 30F);
+                    this.therizinosaurus.getLookControl().setLookAt(target, 30F, 30F);
+                }
+                if (therizinosaurus.getAttackState() == 1) {
+                    this.tickAttack(target);
+                    this.therizinosaurus.getNavigation().stop();
+                } else if (therizinosaurus.getPose() == Pose.STANDING) {
+                    if (this.isInAttackRange(target, 1.05D)) {
+                        this.therizinosaurus.setAttackState(1);
+                    }
+                    this.therizinosaurus.lookAt(target, 30F, 30F);
+                    this.therizinosaurus.getLookControl().setLookAt(target, 30F, 30F);
+                    this.therizinosaurus.getNavigation().moveTo(target, 2.0D);
+                }
+            }
+        }
+
+        private void tickAttack(LivingEntity target) {
+            this.timer++;
+            if (timer < 5) {
+                this.therizinosaurus.lookAt(target, 30F, 30F);
+                this.therizinosaurus.getLookControl().setLookAt(target, 30F, 30F);
+            }
+            if (timer == 5) {
+                this.therizinosaurus.setPose(UP2Poses.ATTACKING.get());
+            }
+            if (timer == 10) {
+                this.therizinosaurus.playSound(UP2SoundEvents.THERIZINOSAURUS_ATTACK.get(), 1.0F, therizinosaurus.getVoicePitch());
+            }
+            if (timer == 20) {
+                this.attackNearbyEntities();
+            }
+            if (timer > 25) {
+                this.timer = 0;
+                this.therizinosaurus.setPose(Pose.STANDING);
+                this.therizinosaurus.attackCooldown = 10;
+                this.therizinosaurus.setAttackState(0);
+            }
+        }
+
+        private void attackNearbyEntities() {
+            AABB attackBox = therizinosaurus.getBoundingBox().move(therizinosaurus.getLookAngle().normalize().scale(2.0D)).inflate(1.4D);
+            List<LivingEntity> nearbyEntities = therizinosaurus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), therizinosaurus, attackBox);
+            if (!nearbyEntities.isEmpty()) {
+                nearbyEntities.stream().filter(entity -> entity != therizinosaurus).limit(5).forEach(entity -> {
+                    entity.hurt(entity.damageSources().mobAttack(therizinosaurus), (float) therizinosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    this.strongKnockback(entity, 1.0D, 0.1D);
+                    if (entity.isDamageSourceBlocked(therizinosaurus.damageSources().mobAttack(therizinosaurus)) && entity instanceof Player player) {
+                        player.disableShield();
+                    }
+                    this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
+                });
+            }
+        }
+    }
+
+    private static class VibrationUser implements VibrationSystem.User {
+
+        private final Therizinosaurus therizinosaurus;
+        private final PositionSource positionSource;
+
+        private VibrationUser(Therizinosaurus therizinosaurus) {
+            this.therizinosaurus = therizinosaurus;
+            this.positionSource = new EntityPositionSource(therizinosaurus, therizinosaurus.getEyeHeight());
+        }
+
+        @Override
+        public int getListenerRadius() {
+            return 12;
+        }
+
+        @Override
+        public @NotNull PositionSource getPositionSource() {
+            return this.positionSource;
+        }
+
+        @Override
+        public boolean canReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context) {
+            if (therizinosaurus.isNoAi() || therizinosaurus.isPacified() || therizinosaurus.isEepy() || therizinosaurus.isBaby() || !therizinosaurus.isAlive() || therizinosaurus.getTarget() != null) {
+                return false;
+            }
+            else if (context.sourceEntity() == null) {
+                return false;
+            }
+            else {
+                return !(context.sourceEntity() instanceof Therizinosaurus) && context.sourceEntity() instanceof LivingEntity livingEntity && !livingEntity.isShiftKeyDown() && livingEntity.getDeltaMovement().horizontalDistance() > 0.03D;
+            }
+        }
+
+        @Override
+        public void onReceiveVibration(@NotNull ServerLevel level, @NotNull BlockPos blockPos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity1, float f) {
+        }
+
+        public @NotNull TagKey<GameEvent> getListenableEvents() {
+            return UP2GameEventTags.THERIZINOSAURUS_CAN_LISTEN;
+        }
+    }
+
+    private record MovementListener(Therizinosaurus therizinosaurus, PositionSource listenerSource) implements GameEventListener {
+
+        @Override
+        public @NotNull PositionSource getListenerSource() {
+            return this.listenerSource;
+        }
+
+        @Override
+        public int getListenerRadius() {
+            return 12;
+        }
+
+        @Override
+        public boolean handleGameEvent(@NotNull ServerLevel level, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context, @NotNull Vec3 pos) {
+            if (context.sourceEntity() instanceof LivingEntity livingEntity && therizinosaurus.canHearEntity(livingEntity) && gameEvent.is(UP2GameEventTags.THERIZINOSAURUS_CAN_LISTEN)) {
+                this.therizinosaurus.setTarget(livingEntity);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
