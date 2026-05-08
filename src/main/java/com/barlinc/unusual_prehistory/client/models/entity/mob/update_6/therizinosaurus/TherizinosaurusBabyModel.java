@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;

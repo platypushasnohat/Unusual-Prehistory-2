@@ -24,24 +24,26 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
     private final ModelPart body_main;
     private final ModelPart body;
     private final ModelPart breathe;
+    private final ModelPart arm_left;
+    private final ModelPart arm_right;
     private final ModelPart neck;
     private final ModelPart dewlap;
     private final ModelPart head;
-    private final ModelPart upper_jaw;
-    private final ModelPart left_eye;
-    private final ModelPart right_eye;
+    private final ModelPart jaw_upper;
+    private final ModelPart eye_left;
+    private final ModelPart pupil_left;
+    private final ModelPart eye_right;
+    private final ModelPart pupil_right;
     private final ModelPart jaw;
-    private final ModelPart left_arm;
-    private final ModelPart right_arm;
     private final ModelPart tail1;
     private final ModelPart tail2;
     private final ModelPart leg_control;
-    private final ModelPart left_leg1;
-    private final ModelPart left_leg2;
-    private final ModelPart left_leg3;
-    private final ModelPart right_leg1;
-    private final ModelPart right_leg2;
-    private final ModelPart right_leg3;
+    private final ModelPart leg_left1;
+    private final ModelPart leg_left2;
+    private final ModelPart leg_left3;
+    private final ModelPart leg_right1;
+    private final ModelPart leg_right2;
+    private final ModelPart leg_right3;
 
 	public MajungasaurusModel(ModelPart root) {
         super(0.5F, 24);
@@ -49,24 +51,26 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         this.body_main = this.root.getChild("body_main");
         this.body = this.body_main.getChild("body");
         this.breathe = this.body.getChild("breathe");
+        this.arm_left = this.breathe.getChild("arm_left");
+        this.arm_right = this.breathe.getChild("arm_right");
         this.neck = this.body.getChild("neck");
         this.dewlap = this.neck.getChild("dewlap");
         this.head = this.neck.getChild("head");
-        this.upper_jaw = this.head.getChild("upper_jaw");
-        this.left_eye = this.upper_jaw.getChild("left_eye");
-        this.right_eye = this.upper_jaw.getChild("right_eye");
+        this.jaw_upper = this.head.getChild("jaw_upper");
+        this.eye_left = this.jaw_upper.getChild("eye_left");
+        this.pupil_left = this.eye_left.getChild("pupil_left");
+        this.eye_right = this.jaw_upper.getChild("eye_right");
+        this.pupil_right = this.eye_right.getChild("pupil_right");
         this.jaw = this.head.getChild("jaw");
-        this.left_arm = this.body.getChild("left_arm");
-        this.right_arm = this.body.getChild("right_arm");
         this.tail1 = this.body.getChild("tail1");
         this.tail2 = this.tail1.getChild("tail2");
         this.leg_control = this.body_main.getChild("leg_control");
-        this.left_leg1 = this.leg_control.getChild("left_leg1");
-        this.left_leg2 = this.left_leg1.getChild("left_leg2");
-        this.left_leg3 = this.left_leg2.getChild("left_leg3");
-        this.right_leg1 = this.leg_control.getChild("right_leg1");
-        this.right_leg2 = this.right_leg1.getChild("right_leg2");
-        this.right_leg3 = this.right_leg2.getChild("right_leg3");
+        this.leg_left1 = this.leg_control.getChild("leg_left1");
+        this.leg_left2 = this.leg_left1.getChild("leg_left2");
+        this.leg_left3 = this.leg_left2.getChild("leg_left3");
+        this.leg_right1 = this.leg_control.getChild("leg_right1");
+        this.leg_right2 = this.leg_right1.getChild("leg_right2");
+        this.leg_right3 = this.leg_right2.getChild("leg_right3");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -82,6 +86,10 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
         PartDefinition breathe = body.addOrReplaceChild("breathe", CubeListBuilder.create().texOffs(80, 42).addBox(-3.0F, -8.5F, -11.0F, 6.0F, 1.0F, 22.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 80).addBox(-6.5F, -7.5F, -11.0F, 13.0F, 15.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.5F, -4.0F));
 
+        PartDefinition arm_left = breathe.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(66, 123).addBox(-0.99F, 0.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(6.5F, 4.5F, -8.0F));
+
+        PartDefinition arm_right = breathe.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(66, 123).mirror().addBox(-0.01F, 0.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.5F, 4.5F, -8.0F));
+
         PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(104, 85).addBox(-2.5F, -15.0F, -2.0F, 5.0F, 17.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(70, 85).addBox(-3.5F, -14.0F, -5.0F, 7.0F, 18.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, -15.0F));
 
@@ -90,24 +98,24 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 
         PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, -11.0F, -1.0F));
 
-        PartDefinition upper_jaw = head.addOrReplaceChild("upper_jaw", CubeListBuilder.create().texOffs(0, 117).addBox(-4.5F, -6.0F, -5.0F, 9.0F, 6.0F, 5.0F, new CubeDeformation(0.01F))
+        PartDefinition jaw_upper = head.addOrReplaceChild("jaw_upper", CubeListBuilder.create().texOffs(0, 117).addBox(-4.5F, -6.0F, -5.0F, 9.0F, 6.0F, 5.0F, new CubeDeformation(0.01F))
                 .texOffs(104, 110).addBox(-4.5F, -6.0F, -11.0F, 9.0F, 7.0F, 6.0F, new CubeDeformation(0.01F))
                 .texOffs(70, 80).addBox(-1.0F, -9.0F, -4.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(122, 76).addBox(1.5F, -8.0F, -9.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(122, 76).mirror().addBox(-3.5F, -8.0F, -9.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(116, 35).addBox(-4.5F, 1.0F, -11.0F, 9.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
 
-        PartDefinition left_eye = upper_jaw.addOrReplaceChild("left_eye", CubeListBuilder.create().texOffs(120, 25).addBox(-2.5F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -2.5F, -5.5F));
+        PartDefinition eye_left = jaw_upper.addOrReplaceChild("eye_left", CubeListBuilder.create().texOffs(120, 25).addBox(-2.5F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -2.5F, -5.5F));
 
-        PartDefinition right_eye = upper_jaw.addOrReplaceChild("right_eye", CubeListBuilder.create().texOffs(120, 25).mirror().addBox(-2.5F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, -2.5F, -5.5F));
+        PartDefinition pupil_left = eye_left.addOrReplaceChild("pupil_left", CubeListBuilder.create().texOffs(136, 27).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.01F)), PartPose.offset(2.0F, 0.0F, 0.0F));
+
+        PartDefinition eye_right = jaw_upper.addOrReplaceChild("eye_right", CubeListBuilder.create().texOffs(120, 25).mirror().addBox(-2.5F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, -2.5F, -5.5F));
+
+        PartDefinition pupil_right = eye_right.addOrReplaceChild("pupil_right", CubeListBuilder.create().texOffs(136, 27).mirror().addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offset(-2.0F, 0.0F, 0.0F));
 
         PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(28, 117).addBox(-5.0F, 1.0F, -11.0F, 9.0F, 3.0F, 6.0F, new CubeDeformation(0.01F))
                 .texOffs(120, 0).addBox(-5.0F, 0.0F, -5.0F, 9.0F, 4.0F, 5.0F, new CubeDeformation(0.01F))
                 .texOffs(86, 35).addBox(-5.0F, 0.0F, -11.0F, 9.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 2.0F, 0.0F));
-
-        PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(66, 123).addBox(-0.99F, 0.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(6.5F, 2.0F, -12.0F));
-
-        PartDefinition right_arm = body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(66, 123).mirror().addBox(-0.01F, 0.0F, -1.0F, 1.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.5F, 2.0F, -12.0F));
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(80, 65).addBox(-4.5F, -2.5F, 0.0F, 9.0F, 8.0F, 12.0F, new CubeDeformation(0.0F))
                 .texOffs(86, 22).addBox(-2.5F, -3.5F, 0.0F, 5.0F, 1.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.5F, 7.0F));
@@ -117,20 +125,20 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(86, 0).addBox(-4.0F, -4.0F, -5.0F, 7.0F, 12.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(6.5F, 0.0F, 0.0F));
+        PartDefinition leg_left1 = leg_control.addOrReplaceChild("leg_left1", CubeListBuilder.create().texOffs(86, 0).addBox(-4.0F, -4.0F, -5.0F, 7.0F, 12.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(6.5F, 0.0F, 0.0F));
 
-        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(120, 9).addBox(-3.0F, -1.0F, -3.0F, 5.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 7.0F, 4.0F));
+        PartDefinition leg_left2 = leg_left1.addOrReplaceChild("leg_left2", CubeListBuilder.create().texOffs(120, 9).addBox(-3.0F, -1.0F, -3.0F, 5.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 7.0F, 4.0F));
 
-        PartDefinition left_leg3 = left_leg2.addOrReplaceChild("left_leg3", CubeListBuilder.create().texOffs(70, 113).addBox(-3.5F, 0.0F, -4.5F, 7.0F, 2.0F, 8.0F, new CubeDeformation(0.0F))
+        PartDefinition leg_left3 = leg_left2.addOrReplaceChild("leg_left3", CubeListBuilder.create().texOffs(70, 113).addBox(-3.5F, 0.0F, -4.5F, 7.0F, 2.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(82, 123).addBox(2.5F, 0.0F, -6.5F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(74, 123).addBox(-0.5F, 0.0F, -6.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(74, 123).addBox(-3.5F, 0.0F, -6.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 10.0F, -0.5F));
 
-        PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(86, 0).mirror().addBox(-3.0F, -4.0F, -5.0F, 7.0F, 12.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.5F, 0.0F, 0.0F));
+        PartDefinition leg_right1 = leg_control.addOrReplaceChild("leg_right1", CubeListBuilder.create().texOffs(86, 0).mirror().addBox(-3.0F, -4.0F, -5.0F, 7.0F, 12.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.5F, 0.0F, 0.0F));
 
-        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(120, 9).mirror().addBox(-2.0F, -1.0F, -3.0F, 5.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 7.0F, 4.0F));
+        PartDefinition leg_right2 = leg_right1.addOrReplaceChild("leg_right2", CubeListBuilder.create().texOffs(120, 9).mirror().addBox(-2.0F, -1.0F, -3.0F, 5.0F, 11.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 7.0F, 4.0F));
 
-        PartDefinition right_leg3 = right_leg2.addOrReplaceChild("right_leg3", CubeListBuilder.create().texOffs(70, 113).mirror().addBox(-3.5F, 0.0F, -4.5F, 7.0F, 2.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition leg_right3 = leg_right2.addOrReplaceChild("leg_right3", CubeListBuilder.create().texOffs(70, 113).mirror().addBox(-3.5F, 0.0F, -4.5F, 7.0F, 2.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(82, 123).mirror().addBox(-3.5F, 0.0F, -6.5F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(74, 123).mirror().addBox(-1.5F, 0.0F, -6.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(74, 123).mirror().addBox(1.5F, 0.0F, -6.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.5F, 10.0F, -0.5F));
@@ -142,30 +150,38 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	public void setupAnim(Majungasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        if (!entity.isInWater() && !entity.isEepy()) {
-            if (entity.isRunning() && !entity.isCamo()) this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
+        if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
+            if (entity.isCamo()) {
+                this.animateWalk(MajungasaurusAnimations.CAMO_WALK, limbSwing, limbSwingAmount, 2, 4);
+            } else {
+                if (entity.isRunning()) {
+                    this.animateWalk(MajungasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+                } else {
+                    this.animateWalk(MajungasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+                }
+            }
         }
 
 		if (this.young) this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+        this.animateIdleSmooth(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks);
-		this.animateSmooth(entity.attack1AnimationState, MajungasaurusAnimations.ATTACK_BLEND1, ageInTicks);
-		this.animateSmooth(entity.attack2AnimationState, MajungasaurusAnimations.ATTACK_BLEND2, ageInTicks);
-		this.animateSmooth(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_BLEND, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, MajungasaurusAnimations.YAWN_BLEND, ageInTicks);
+		this.animateSmooth(entity.attack1AnimationState, MajungasaurusAnimations.BITE_BLEND1, ageInTicks);
+		this.animateSmooth(entity.attack2AnimationState, MajungasaurusAnimations.BITE_BLEND2, ageInTicks);
+		this.animateSmooth(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_OVERLAY, ageInTicks);
+        this.animateSmooth(entity.yawnAnimationState, MajungasaurusAnimations.IDLE_YAWN_BLEND, ageInTicks);
         this.animateSmooth(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
         this.animateSmooth(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.SHAKE_BLEND, ageInTicks);
+        this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
 
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.3F);
-        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.25F);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);
 	}
 
 	@Override

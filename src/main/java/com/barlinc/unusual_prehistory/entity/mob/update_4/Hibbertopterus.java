@@ -3,7 +3,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.DancingMob;
  import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
@@ -95,7 +95,7 @@
 
      @Override
      public @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new SmoothGroundPathNavigation(this, level);
+         return new SmoothGroundNavigation(this, level);
      }
 
      @Override

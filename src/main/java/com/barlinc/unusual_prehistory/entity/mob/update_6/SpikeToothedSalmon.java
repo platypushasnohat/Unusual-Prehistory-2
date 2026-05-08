@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
@@ -128,7 +128,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
     protected void switchNavigator(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
-            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
+            this.navigation = new SmoothAmphibiousNavigation(this, this.level());
             this.shallowWater = true;
         } else {
             this.navigation = this.createNavigation(this.level());

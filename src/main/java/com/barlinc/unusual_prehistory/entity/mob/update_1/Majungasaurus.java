@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MajungasaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -18,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -43,7 +43,9 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> CAMO_COOLDOWN = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
+
+    private int attackCooldown = 0;
+    private int camoCooldown = 0;
 
     public float prevCamoProgress;
     public float camoProgress;
@@ -51,16 +53,17 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     public float prevAngryProgress;
     public float angryProgress;
 
-    public final SmoothAnimationState eyesAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState camoIdleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eyesAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState sniff1AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState sniff2AnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState shakeAnimationState = new SmoothAnimationState(1.0F);
 
-    public boolean attackAlt = false;
+    private boolean attackAlt = false;
     private boolean sniffAlt = false;
 
     public Majungasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
@@ -76,31 +79,21 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, Majungasaurus.class, this::avoidsParents) {
-            public boolean canUse(){
-                return super.canUse() && Majungasaurus.this.isBaby();
-            }
-        });
+        this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, Majungasaurus.class, this::avoidsParents));
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
         this.goalSelector.addGoal(7, new SleepingGoal(this));
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 80, 2, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {
             @Override
-            public void start() {
-                super.start();
-                Majungasaurus.this.sniffAlt = Majungasaurus.this.getRandom().nextBoolean();
-            }
-
-            @Override
             public void tick() {
                 super.tick();
                 if (timer == 50) Majungasaurus.this.playSound(UP2SoundEvents.MAJUNGASAURUS_SNIFF.get(), 1.0F, Majungasaurus.this.getVoicePitch());
             }
         });
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Majungasaurus.class, 200, true, true, this::canCannibalize));
-        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
-        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::attacksPlayers));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, Majungasaurus.class, 100, true, true, this::canCannibalize));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_TARGETS)));
+        this.targetSelector.addGoal(3, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::attacksPlayers));
         this.targetSelector.addGoal(4, new HurtByTargetGoal(this));
     }
 
@@ -108,7 +101,7 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 32.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.19F)
+                .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
                 .add(Attributes.ARMOR, 4.0D)
@@ -157,12 +150,8 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         return this.isBaby() && !entity.isBaby() && !majungasaurus.isCamo();
     }
 
-    public boolean isNightTime() {
-        return this.level().getDayTime() < 23000 && this.level().getDayTime() > 12000 && !this.level().dimensionType().hasFixedTime();
-    }
-
     protected boolean attacksPlayers(LivingEntity entity) {
-        return this.canAttack(entity) && this.isNightTime();
+        return this.canAttack(entity) && this.level().isNight();
     }
 
     @Override
@@ -195,15 +184,14 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         if (!this.isAggressive() && angryProgress > 0F) {
             this.angryProgress--;
         }
-
-        if (this.getCamoCooldown() > 0) this.setCamoCooldown(this.getCamoCooldown() - 1);
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWater() && !this.isEepy(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isEepy() && !this.isCamo(), this.tickCount);
+        this.camoIdleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isEepy() && this.isCamo(), this.tickCount);
         this.eyesAnimationState.animateWhen(!this.isAggressive() && !this.isEepy(), this.tickCount);
-        this.swimAnimationState.animateWhen(this.isInWater(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.attack1AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && !attackAlt, this.tickCount);
         this.attack2AnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get() && attackAlt, this.tickCount);
@@ -211,11 +199,6 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         this.shakeAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
         this.sniff1AnimationState.animateWhen(this.getIdleState() == 3 && !sniffAlt, this.tickCount);
         this.sniff2AnimationState.animateWhen(this.getIdleState() == 3 && sniffAlt, this.tickCount);
-    }
-
-    @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 2.0F : 4.0F;
     }
 
     private boolean canPlayIdles(Entity entity) {
@@ -239,11 +222,32 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     }
 
     @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAlt = this.getRandom().nextBoolean();
+            }
+        }
+        if (IDLE_STATE.equals(accessor)) {
+            if (this.getIdleState() == 3) {
+                this.sniffAlt = this.getRandom().nextBoolean();
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (camoCooldown > 0) camoCooldown--;
+        if (attackCooldown > 0) attackCooldown--;
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(VARIANT, 0);
         builder.define(CAMO, false);
-        builder.define(CAMO_COOLDOWN, 0);
     }
 
     @Override
@@ -276,16 +280,8 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         this.entityData.set(CAMO, camo);
     }
 
-    public int getCamoCooldown() {
-        return this.entityData.get(CAMO_COOLDOWN);
-    }
-
-    public void setCamoCooldown(int cooldown) {
-        this.entityData.set(CAMO_COOLDOWN, cooldown);
-    }
-
     public void camoCooldown() {
-        this.setCamoCooldown(30 + this.getRandom().nextInt(10));
+        this.camoCooldown = 40 + this.getRandom().nextInt(40);
     }
 
     @Nullable
@@ -366,19 +362,19 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     }
 
     // Goals
-    private static class MajungasaurusAvoidEntityGoal<T extends LivingEntity> extends PrehistoricAvoidEntityGoal<T> {
+    private static class MajungasaurusAttackGoal extends AttackGoal {
 
-        private final Majungasaurus majungasaurus;
+        protected final Majungasaurus majungasaurus;
 
-        public MajungasaurusAvoidEntityGoal(Majungasaurus mob, Class<T> classToAvoid, Predicate<LivingEntity> predicateOnAvoid) {
-            super(mob, classToAvoid, 12.0F, 1.7D, predicateOnAvoid);
-            this.majungasaurus = mob;
+        public MajungasaurusAttackGoal(Majungasaurus majungasaurus) {
+            super(majungasaurus);
+            this.majungasaurus = majungasaurus;
         }
 
         @Override
         public void start() {
             super.start();
-            if (majungasaurus.getCamoCooldown() == 0) majungasaurus.setCamo(true);
+            this.majungasaurus.setCamo(false);
         }
 
         @Override
@@ -390,7 +386,72 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
 
         @Override
         public void tick() {
-            this.mob.getNavigation().setSpeedModifier(majungasaurus.isCamo() ? 0.9D : 2.0D);
+            LivingEntity target = majungasaurus.getTarget();
+            if (target != null) {
+                double distance = majungasaurus.distanceToSqr(target);
+                this.majungasaurus.lookAt(target, 30F, 30F);
+                this.majungasaurus.getLookControl().setLookAt(target, 30F, 30F);
+
+                if (majungasaurus.getAttackState() == 1) {
+                    this.tickAttack(target);
+                    this.majungasaurus.getNavigation().stop();
+                } else {
+                    this.majungasaurus.setCamo(distance > 25 && majungasaurus.camoCooldown == 0);
+                    if (distance <= this.getAttackReachSqr(target) && majungasaurus.attackCooldown == 0) {
+                        this.majungasaurus.setAttackState(1);
+                    }
+                    this.majungasaurus.getNavigation().moveTo(target, majungasaurus.isCamo() ? 1.0D : 2.0D);
+                }
+            }
+        }
+
+        protected void tickAttack(LivingEntity target) {
+            this.timer++;
+            if (timer == 1) {
+                this.majungasaurus.setPose(UP2Poses.ATTACKING.get());
+            }
+            if (timer == 8) {
+                this.majungasaurus.playSound(UP2SoundEvents.MAJUNGASAURUS_ATTACK.get(), 1.0F, 0.9F + majungasaurus.getRandom().nextFloat() * 0.25F);
+            }
+            if (timer == 11) {
+                if (this.isInAttackRange(target, 1.75D)) {
+                    this.majungasaurus.doHurtTarget(target);
+                    this.majungasaurus.swing(InteractionHand.MAIN_HAND);
+                }
+            }
+            if (timer > 17) {
+                this.timer = 0;
+                this.majungasaurus.setPose(Pose.STANDING);
+                this.majungasaurus.attackCooldown = 6;
+                this.majungasaurus.camoCooldown();
+                this.majungasaurus.setAttackState(0);
+            }
+        }
+    }
+
+    private static class MajungasaurusAvoidEntityGoal<T extends LivingEntity> extends PrehistoricAvoidEntityGoal<T> {
+
+        private final Majungasaurus majungasaurus;
+
+        public MajungasaurusAvoidEntityGoal(Majungasaurus mob, Class<T> classToAvoid, Predicate<LivingEntity> predicateOnAvoid) {
+            super(mob, classToAvoid, 12.0F, 1.0D, predicateOnAvoid);
+            this.majungasaurus = mob;
+        }
+
+        @Override
+        public void start() {
+            if (majungasaurus.camoCooldown == 0) {
+                this.majungasaurus.setCamo(true);
+            }
+            this.majungasaurus.setRunning(true);
+            this.majungasaurus.getNavigation().moveTo(posX, posY, posZ, majungasaurus.isCamo() ? 1.0D : 2.0D);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.majungasaurus.setCamo(false);
+            this.majungasaurus.camoCooldown();
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +31,7 @@ public abstract class FlyingAmbientMob extends AmbientMob implements FlyingAnima
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, level){
+        SmoothFlyingNavigation flyingPathNavigation = new SmoothFlyingNavigation(this, level){
             @Override
             public boolean isStableDestination(BlockPos blockPos) {
                 return !level().getBlockState(blockPos.below()).isAir();

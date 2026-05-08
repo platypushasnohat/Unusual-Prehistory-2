@@ -1,6 +1,6 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.brachiosaurus;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.BrachiosaurusBabyAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.BrachiosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Brachiosaurus;
 import net.minecraft.client.model.geom.ModelPart;
@@ -96,9 +96,9 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        if (entity.isRunning()) this.animateWalk(BrachiosaurusBabyAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
-        else this.animateWalk(BrachiosaurusBabyAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusBabyAnimations.IDLE, ageInTicks, limbSwingAmount);
+        if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 2);
+        else this.animateWalk(BrachiosaurusAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.BABY_IDLE, ageInTicks, limbSwingAmount);
 
         this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;

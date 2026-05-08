@@ -2,8 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
@@ -84,7 +83,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricMoveControl(this);
+//        this.moveControl = new PrehistoricMoveControl(this);
         this.lookControl = new PrehistoricLookControl(this);
         this.setPersistenceRequired();
     }
@@ -122,7 +121,7 @@ public abstract class PrehistoricMob extends TamableAnimal {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new SmoothGroundPathNavigation(this, level);
+        return new SmoothGroundNavigation(this, level);
     }
 
     @Override

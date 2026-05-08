@@ -7,8 +7,8 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
@@ -148,10 +148,10 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     protected void switchNavigator(boolean inShallows) {
         this.navigation.stop();
         if (inShallows) {
-            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
+            this.navigation = new SmoothAmphibiousNavigation(this, this.level());
             this.shallowWater = true;
         } else {
-            this.navigation = new AquaticPathNavigation(this, this.level(), true);
+            this.navigation = new SmoothWaterBoundNavigation(this, this.level(), true);
             this.shallowWater = false;
         }
     }

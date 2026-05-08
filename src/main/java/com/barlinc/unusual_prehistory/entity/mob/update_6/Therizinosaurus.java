@@ -14,7 +14,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -174,8 +173,16 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             }
         }
 
-        if (!this.isBaby()) {
-            this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, this.getYRot(), 20);
+        // Lose target when far enough away
+        if (!this.level().isClientSide && tickCount % 2 == 0) {
+            LivingEntity target = this.getTarget();
+            if (target != null) {
+                double followRange = this.getAttributeValue(Attributes.FOLLOW_RANGE);
+                if (!target.isAlive() || this.distanceToSqr(target) > followRange * followRange) {
+                    this.setTarget(null);
+                    this.getNavigation().stop();
+                }
+            }
         }
     }
 
@@ -385,7 +392,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         }
 
         private void attackNearbyEntities() {
-            AABB attackBox = therizinosaurus.getBoundingBox().move(therizinosaurus.getLookAngle().normalize().scale(2.0D)).inflate(1.4D);
+            AABB attackBox = therizinosaurus.getBoundingBox().move(therizinosaurus.getLookAngle().normalize().scale(2.0D)).inflate(2.0D);
             List<LivingEntity> nearbyEntities = therizinosaurus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), therizinosaurus, attackBox);
             if (!nearbyEntities.isEmpty()) {
                 nearbyEntities.stream().filter(entity -> entity != therizinosaurus).limit(5).forEach(entity -> {
@@ -412,7 +419,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public int getListenerRadius() {
-            return 12;
+            return 8;
         }
 
         @Override
@@ -451,7 +458,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
         @Override
         public int getListenerRadius() {
-            return 12;
+            return 8;
         }
 
         @Override

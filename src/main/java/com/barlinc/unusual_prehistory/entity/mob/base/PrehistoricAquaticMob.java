@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
-import com.barlinc.unusual_prehistory.entity.ai.navigation.AquaticPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -31,7 +31,7 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new AquaticPathNavigation(this, level);
+        return new SmoothWaterBoundNavigation(this, level);
     }
 
     @Override

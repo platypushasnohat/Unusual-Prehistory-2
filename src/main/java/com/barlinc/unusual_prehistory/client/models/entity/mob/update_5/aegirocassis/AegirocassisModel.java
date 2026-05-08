@@ -1,7 +1,7 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.aegirocassis;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.AegirocassisAnimations;
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.AegirocassisLeapAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.aegirocassis.AegirocassisAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_5.aegirocassis.AegirocassisLeapAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import net.minecraft.client.model.geom.ModelPart;

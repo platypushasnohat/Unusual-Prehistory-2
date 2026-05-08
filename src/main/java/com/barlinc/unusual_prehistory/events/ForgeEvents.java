@@ -34,16 +34,14 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber()
 public class ForgeEvents {
 
     @SubscribeEvent
+    @SuppressWarnings("DataFlowIssue")
     public static void onBabySpawn(BabyEntitySpawnEvent event) {
         if (event.getParentA() instanceof Cow parent && event.getParentB() instanceof Cow) {
             Level level = parent.getCommandSenderWorld();
@@ -107,7 +105,16 @@ public class ForgeEvents {
         LivingEntity entity = event.getEntity();
         if (event.getLookingEntity() != null) {
             if (entity instanceof Majungasaurus majungasaurus) {
-                if (majungasaurus.isCamo()) event.modifyVisibility(0.3F);
+                if (majungasaurus.isCamo()) event.modifyVisibility(0.25F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void setTargetEvent(LivingChangeTargetEvent event){
+        if (event.getNewAboutToBeSetTarget() != null){
+            if (event.getNewAboutToBeSetTarget() instanceof Majungasaurus majungasaurus && majungasaurus.isCamo()) {
+                event.setCanceled(true);
             }
         }
     }

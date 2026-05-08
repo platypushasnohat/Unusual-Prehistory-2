@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.unicorn;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.UnicornAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;

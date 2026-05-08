@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.unicorn;
 
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

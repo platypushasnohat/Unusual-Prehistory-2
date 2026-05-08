@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,7 +44,7 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
             this.isLandNavigator = true;
         } else {
             this.moveControl = new PrehistoricFlyingMoveControl(this);
-            NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, this.level()){
+            SmoothFlyingNavigation flyingPathNavigation = new SmoothFlyingNavigation(this, this.level()){
                 @Override
                 public boolean isStableDestination(BlockPos blockPos) {
                     return !level().getBlockState(blockPos.below()).isAir();

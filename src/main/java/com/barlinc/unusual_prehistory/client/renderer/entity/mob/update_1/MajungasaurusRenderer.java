@@ -39,14 +39,16 @@ public class MajungasaurusRenderer extends MobRenderer<Majungasaurus, Majungasau
     @Override
     public @NotNull ResourceLocation getTextureLocation(Majungasaurus entity) {
         Majungasaurus.MajungasaurusVariant variant = Majungasaurus.MajungasaurusVariant.byId(entity.getVariant().getId());
-        if (entity.isEepy()) return UnusualPrehistory2.modPrefix("textures/entity/mob/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + "_eepy.png");
         return UnusualPrehistory2.modPrefix("textures/entity/mob/majungasaurus/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 
     @Override
     protected @Nullable RenderType getRenderType(Majungasaurus entity, boolean bodyVisible, boolean translucent, boolean glowing) {
-        if (entity.getCamoProgress(1.0F) > 0.0F) return RenderType.entityTranslucent(this.getTextureLocation(entity));
-        else return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
+        if (entity.getCamoProgress(1.0F) > 0.0F) {
+            return RenderType.entityTranslucent(this.getTextureLocation(entity));
+        } else {
+            return RenderType.entityCutoutNoCull(this.getTextureLocation(entity));
+        }
     }
 
     @Override

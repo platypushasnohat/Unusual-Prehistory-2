@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.KimmeridgebrachypteraeschnidiumNymphModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.kimmeridgebrachypteraeschnidium.KimmeridgebrachypteraeschnidiumNymphModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumBaseLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumPatternLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.layers.KimmeridgebrachypteraeschnidiumWingLayer;

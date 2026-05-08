@@ -6,7 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.KaprosuchusAttackGoal;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -95,7 +95,7 @@
 
      @Override
      protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         return new SmoothAmphibiousPathNavigation(this, level);
+         return new SmoothAmphibiousNavigation(this, level);
      }
 
      protected void switchNavigator(boolean onLand) {

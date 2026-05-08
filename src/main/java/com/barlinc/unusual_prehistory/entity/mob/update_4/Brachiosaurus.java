@@ -2,7 +2,7 @@
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
- import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundPathNavigation;
+ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -129,7 +129,7 @@
 
      @Override
      protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-         SmoothGroundPathNavigation navigation = new SmoothGroundPathNavigation(this, level);
+         SmoothGroundNavigation navigation = new SmoothGroundNavigation(this, level);
          navigation.setCanWalkOverFences(true);
          return navigation;
      }

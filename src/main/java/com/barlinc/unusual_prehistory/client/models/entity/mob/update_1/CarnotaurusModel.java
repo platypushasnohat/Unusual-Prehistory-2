@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_1;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.CarnotaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.carnotaurus.CarnotaurusAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.carnotaurus.CarnotaurusAttackAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Carnotaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -20,6 +21,8 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
     private final ModelPart body_main;
     private final ModelPart body;
     private final ModelPart breathing;
+    private final ModelPart arm_left;
+    private final ModelPart arm_right;
     private final ModelPart neck;
     private final ModelPart head;
     private final ModelPart jaw_upper;
@@ -29,8 +32,6 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
     private final ModelPart horn_right;
     private final ModelPart jaw;
     private final ModelPart dewlap;
-    private final ModelPart arm_left;
-    private final ModelPart arm_right;
     private final ModelPart tail1;
     private final ModelPart tail2;
     private final ModelPart leg_control;
@@ -47,6 +48,8 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.body_main = this.root.getChild("body_main");
         this.body = this.body_main.getChild("body");
         this.breathing = this.body.getChild("breathing");
+        this.arm_left = this.breathing.getChild("arm_left");
+        this.arm_right = this.breathing.getChild("arm_right");
         this.neck = this.body.getChild("neck");
         this.head = this.neck.getChild("head");
         this.jaw_upper = this.head.getChild("jaw_upper");
@@ -56,8 +59,6 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
         this.horn_right = this.jaw_upper.getChild("horn_right");
         this.jaw = this.head.getChild("jaw");
         this.dewlap = this.jaw.getChild("dewlap");
-        this.arm_left = this.body.getChild("arm_left");
-        this.arm_right = this.body.getChild("arm_right");
         this.tail1 = this.body.getChild("tail1");
         this.tail2 = this.tail1.getChild("tail2");
         this.leg_control = this.body_main.getChild("leg_control");
@@ -81,6 +82,12 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 
         PartDefinition breathing = body.addOrReplaceChild("breathing", CubeListBuilder.create().texOffs(127, 130).addBox(-2.5F, -13.0F, -1.0F, 5.0F, 2.0F, 16.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-8.5F, -12.0F, -16.0F, 17.0F, 24.0F, 32.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, -6.0F));
+
+        PartDefinition arm_left = breathing.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(58, 98).addBox(-1.5F, 0.0F, -1.0F, 2.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(58, 119).addBox(-1.5F, 4.0F, -1.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(8.51F, 9.0F, -9.0F));
+
+        PartDefinition arm_right = breathing.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(58, 98).mirror().addBox(-0.5F, 0.0F, -1.0F, 2.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(58, 119).mirror().addBox(-0.5F, 4.0F, -1.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-8.51F, 9.0F, -9.0F));
 
         PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(74, 90).addBox(-3.5F, -19.0F, -10.0F, 7.0F, 24.0F, 19.0F, new CubeDeformation(0.0F))
                 .texOffs(126, 90).addBox(-2.5F, -21.0F, -4.0F, 5.0F, 25.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -14.0F, -18.0F));
@@ -110,12 +117,6 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 
         PartDefinition dewlap = jaw.addOrReplaceChild("dewlap", CubeListBuilder.create().texOffs(126, 148).addBox(-1.0F, 0.0F, -4.0F, 2.0F, 10.0F, 12.0F, new CubeDeformation(-0.01F))
                 .texOffs(148, 56).addBox(0.0F, 0.0F, -7.0F, 0.0F, 11.0F, 15.0F, new CubeDeformation(-0.01F)), PartPose.offset(0.0F, 4.0F, -4.9F));
-
-        PartDefinition arm_left = body.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(58, 98).addBox(-1.5F, 0.0F, -1.0F, 2.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
-                .texOffs(58, 119).addBox(-1.5F, 4.0F, -1.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(8.51F, 3.0F, -15.0F));
-
-        PartDefinition arm_right = body.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(58, 98).mirror().addBox(-0.5F, 0.0F, -1.0F, 2.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(58, 119).mirror().addBox(-0.5F, 4.0F, -1.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-8.51F, 3.0F, -15.0F));
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(0, 98).addBox(-4.5F, -5.0F, 0.0F, 9.0F, 12.0F, 20.0F, new CubeDeformation(0.0F))
                 .texOffs(1, 130).addBox(-2.5F, -7.0F, 0.0F, 5.0F, 2.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -11.0F, 10.0F));
@@ -161,20 +162,20 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
                     this.animateWalk(CarnotaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.8F, 3.6F);
                 }
             } else {
-                this.animateWalk(CarnotaurusAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
+                this.animateWalk(CarnotaurusAttackAnimations.CHARGE, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             }
 		}
 
 		if (this.young) this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
 
 		this.animateIdleSmooth(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks,limbSwingAmount, entity.isRunning() ? 2.5F : 3.6F);
-		this.animateSmooth(entity.attack1AnimationState, CarnotaurusAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, CarnotaurusAnimations.BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.headbuttAnimationState, CarnotaurusAnimations.HEADBUTT_BLEND, ageInTicks);
-        this.animateSmooth(entity.chargeStartAnimationState, CarnotaurusAnimations.CHARGE_START, ageInTicks);
-        this.animateSmooth(entity.chargeEndAnimationState, CarnotaurusAnimations.CHARGE_END, ageInTicks);
-		this.animateSmooth(entity.roarAnimationState, CarnotaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
-		this.animateSmooth(entity.angryAnimationState, CarnotaurusAnimations.AGGRO_BLEND, ageInTicks);
+		this.animateSmooth(entity.attack1AnimationState, CarnotaurusAttackAnimations.BITE_BLEND1, ageInTicks);
+        this.animateSmooth(entity.attack2AnimationState, CarnotaurusAttackAnimations.BITE_BLEND2, ageInTicks);
+        this.animateSmooth(entity.headbuttAnimationState, CarnotaurusAttackAnimations.HEADBUTT_BLEND, ageInTicks);
+        this.animateSmooth(entity.chargeStartAnimationState, CarnotaurusAttackAnimations.CHARGE_START, ageInTicks);
+        this.animateSmooth(entity.chargeEndAnimationState, CarnotaurusAttackAnimations.CHARGE_END, ageInTicks);
+		this.animateSmooth(entity.roarAnimationState, CarnotaurusAttackAnimations.AGGRO_ROAR_BLEND, ageInTicks);
+		this.animateSmooth(entity.angryAnimationState, CarnotaurusAttackAnimations.AGGRO_BLEND, ageInTicks);
         this.animateSmooth(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks);
         this.animateSmooth(entity.sniff1AnimationState, CarnotaurusAnimations.SNIFF_BLEND1, ageInTicks);
         this.animateSmooth(entity.sniff2AnimationState, CarnotaurusAnimations.SNIFF_BLEND2, ageInTicks);
@@ -184,8 +185,8 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.25F);
-        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.2F);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
+        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);
     }
 
 	@Override

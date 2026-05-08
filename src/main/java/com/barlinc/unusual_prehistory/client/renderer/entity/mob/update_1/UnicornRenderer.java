@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.UnicornModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.UnicornSkeletonModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.unicorn.UnicornModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_1.unicorn.UnicornSkeletonModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Unicorn;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

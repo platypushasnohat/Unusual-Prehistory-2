@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.brachiosaurus;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.BrachiosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;

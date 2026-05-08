@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -94,7 +94,7 @@ public class Cryptoclidus extends AmphibiousMob {
         } else {
             this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 6, 0.55F);
             this.lookControl = new PrehistoricSwimmingLookControl(this, 5);
-            this.navigation = new SmoothAmphibiousPathNavigation(this, this.level());
+            this.navigation = new SmoothAmphibiousNavigation(this, this.level());
             this.setPathfindingMalus(PathType.WATER, 0.0F);
             this.isLandNavigator = false;
         }

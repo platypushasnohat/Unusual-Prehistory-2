@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricFlyingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.NoSpinFlyingPathNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.WallAttachingFlyingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -162,7 +162,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     }
 
     private @NotNull PathNavigation getFlyingPathNavigation() {
-        NoSpinFlyingPathNavigation flyingPathNavigation = new NoSpinFlyingPathNavigation(this, this.level()) {
+        SmoothFlyingNavigation flyingPathNavigation = new SmoothFlyingNavigation(this, this.level()) {
             @Override
             public boolean isStableDestination(BlockPos blockPos) {
                 return !level().getBlockState(blockPos.below()).isAir();

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.client.animations.entity.mob.update_1.dunkleosteus;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
