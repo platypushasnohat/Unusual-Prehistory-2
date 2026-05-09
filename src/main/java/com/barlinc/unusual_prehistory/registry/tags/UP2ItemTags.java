@@ -134,6 +134,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> LORRAINOSAURUS_FOOD = modItemTag("lorrainosaurus_food");
     public static final TagKey<Item> MAMMOTH_FOOD = modItemTag("mammoth_food");
     public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
+    public static final TagKey<Item> RHIZODUS_FOOD = modItemTag("rhizodus_food");
     public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
     public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
 

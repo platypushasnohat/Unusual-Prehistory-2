@@ -80,6 +80,9 @@ public class UP2EntityTags {
 
     public static final TagKey<EntityType<?>> UNAFFECTED_BY_PARALYSIS = modEntityTag("unaffected_by_paralysis");
 
+    public static final TagKey<EntityType<?>> RHIZODUS_CANT_ATTACK = modEntityTag("metriorhynchus_cant_attack");
+    public static final TagKey<EntityType<?>> RHIZODUS_CAN_ATTACK = modEntityTag("metriorhynchus_can_attack");
+
     private static TagKey<EntityType<?>> modEntityTag(String name) {
         return entityTag(UnusualPrehistory2.MOD_ID, name);
     }

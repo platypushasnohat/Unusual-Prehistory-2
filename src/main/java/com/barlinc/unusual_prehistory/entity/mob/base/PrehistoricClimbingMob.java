@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.level.Level;
@@ -149,7 +149,7 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
         super.onSyncedDataUpdated(accessor);
     }
 
-    protected static class ClimbingLookControl extends LookControl {
+    protected static class ClimbingLookControl extends PrehistoricLookControl {
 
         protected final PrehistoricClimbingMob mob;
 
@@ -160,7 +160,7 @@ public abstract class PrehistoricClimbingMob extends PrehistoricMob {
 
         @Override
         public void tick() {
-            if (!mob.refuseToMove() && !mob.isClimbing()) super.tick();
+            if (!mob.isClimbing()) super.tick();
         }
     }
 }

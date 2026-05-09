@@ -164,7 +164,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             }
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
-        this.floatWhileRidden(travelVec);
+        this.floatWhileRidden(this, travelVec);
         super.travel(travelVec);
     }
 

@@ -86,9 +86,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         this.switchNavigator(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 1000, 3, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 2);
-        this.headPart = new AegirocassisPart(this, this, 3.5F, 3.9F);
-        this.tailPart1 = new AegirocassisPart(this, this, 3.5F, 3.9F);
-        this.tailPart2 = new AegirocassisPart(this, tailPart1, 3.5F, 3.9F);
+        this.headPart = new AegirocassisPart(this, 3.5F, 3.9F);
+        this.tailPart1 = new AegirocassisPart(this, 3.5F, 3.9F);
+        this.tailPart2 = new AegirocassisPart(this, 3.5F, 3.9F);
         this.allParts = new AegirocassisPart[]{headPart, tailPart1, tailPart2};
         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fakeYRot = this.getYRot();
@@ -275,6 +275,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         this.eatAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isTryingToFly() {
         return this.getPose() == UP2Poses.START_FLYING.get() || this.getPose() == Pose.FALL_FLYING;
     }
@@ -335,9 +336,9 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         }
         this.yawBuffer[this.yawPointer] = this.fakeYRot;
 
-        Vec3[] avector3d = new Vec3[this.allParts.length];
+        Vec3[] vec3s = new Vec3[this.allParts.length];
         for (int j = 0; j < this.allParts.length; ++j) {
-            avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
+            vec3s[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
         }
         Vec3 center = this.position().add(0, this.getBbHeight() * 0.5F, 0);
         float headOffset = this.isBaby() ? 0.8F : 4.0F;
@@ -346,12 +347,12 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -tailOffset), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).add(center));
         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0, -tailOffset), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).add(this.tailPart1.centeredPosition()));
         for (int l = 0; l < this.allParts.length; ++l) {
-            this.allParts[l].xo = avector3d[l].x;
-            this.allParts[l].yo = avector3d[l].y;
-            this.allParts[l].zo = avector3d[l].z;
-            this.allParts[l].xOld = avector3d[l].x;
-            this.allParts[l].yOld = avector3d[l].y;
-            this.allParts[l].zOld = avector3d[l].z;
+            this.allParts[l].xo = vec3s[l].x;
+            this.allParts[l].yo = vec3s[l].y;
+            this.allParts[l].zo = vec3s[l].z;
+            this.allParts[l].xOld = vec3s[l].x;
+            this.allParts[l].yOld = vec3s[l].y;
+            this.allParts[l].zOld = vec3s[l].z;
         }
     }
 

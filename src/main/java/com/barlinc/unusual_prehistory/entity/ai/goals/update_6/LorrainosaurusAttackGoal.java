@@ -74,7 +74,6 @@ public class LorrainosaurusAttackGoal extends AttackGoal {
         LivingEntity target = lorrainosaurus.getTarget();
         this.lorrainosaurus.getNavigation().stop();
         if (timer == 1) {
-            this.lorrainosaurus.attackAlt = lorrainosaurus.getRandom().nextBoolean();
             this.lorrainosaurus.setPose(UP2Poses.ATTACKING.get());
             this.lorrainosaurus.playSound(UP2SoundEvents.LORRAINOSAURUS_ATTACK.get(), 1.0F, 1.0F * lorrainosaurus.getRandom().nextFloat() * 0.2F);
         }

@@ -9,21 +9,23 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+
 public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
     public final Therizinosaurus parent;
-    public final String name;
     private final EntityDimensions dimensions;
 
-    public TherizinosaurusPart(Therizinosaurus parent, String name, float width, float height) {
+    public TherizinosaurusPart(Therizinosaurus parent, float width, float height) {
         super(parent);
         this.parent = parent;
-        this.name = name;
         this.dimensions = EntityDimensions.scalable(width, height);
         this.refreshDimensions();
     }
@@ -52,6 +54,13 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
     @Override
     public boolean isPickable() {
         return parent != null && parent.isPickable();
+    }
+
+    @Nullable
+    @Override
+    public ItemStack getPickResult() {
+        SpawnEggItem item = SpawnEggItem.byId(parent.getType());
+        return item == null ? null : new ItemStack(item);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,27 +18,28 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class AegirocassisPart extends PartEntity<Aegirocassis> {
+public class RhizodusPart extends PartEntity<Rhizodus> {
 
-    public final Aegirocassis parent;
-    private final EntityDimensions dimensions;
+    public final Rhizodus parent;
 
-    public AegirocassisPart(Aegirocassis parent, float width, float height) {
+    public RhizodusPart(Rhizodus parent) {
         super(parent);
         this.parent = parent;
-        this.dimensions = EntityDimensions.scalable(width, height);
         this.refreshDimensions();
     }
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return parent == null ? dimensions : dimensions.scale(parent.getAgeScale());
+        return parent == null ? super.getDimensions(pose) : parent.getDefaultDimensions(pose);
     }
 
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
-        if (parent == null) return InteractionResult.PASS;
-        else return parent.interact(player, interactionHand);
+        if (parent == null) {
+            return InteractionResult.PASS;
+        } else {
+            return parent.interact(player, interactionHand);
+        }
     }
 
     @Override
@@ -92,7 +93,7 @@ public class AegirocassisPart extends PartEntity<Aegirocassis> {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
     }
 
     @Override

@@ -244,6 +244,10 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_ATTACK = registerSoundEvent("prognathodon_attack");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> RHIZODUS_HURT = registerSoundEvent("rhizodus_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RHIZODUS_DEATH = registerSoundEvent("rhizodus_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RHIZODUS_STEP = registerSoundEvent("rhizodus_step");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_HURT = registerSoundEvent("spike_toothed_salmon_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_DEATH = registerSoundEvent("spike_toothed_salmon_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> SPIKE_TOOTHED_SALMON_FLOP = registerSoundEvent("spike_toothed_salmon_flop");

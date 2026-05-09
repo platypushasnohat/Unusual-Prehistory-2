@@ -54,7 +54,7 @@ public interface CustomCollisions {
         if (flag) {
             builder.add(worldborder.getCollisionShape());
         }
-        builder.addAll(new CustomCollisionsBlockCollisions(level, entity, aabb.expandTowards(vec3)));
+        builder.addAll(new CustomBlockCollisions(level, entity, aabb.expandTowards(vec3)));
         return collideWithShapes2(vec3, aabb, builder.build());
     }
 

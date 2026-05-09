@@ -129,11 +129,6 @@
      }
 
      @Override
-     public float getAdditionalStepHeight() {
-         return 0.0F;
-     }
-
-     @Override
      public int getMaxHeadXRot() {
          return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
      }

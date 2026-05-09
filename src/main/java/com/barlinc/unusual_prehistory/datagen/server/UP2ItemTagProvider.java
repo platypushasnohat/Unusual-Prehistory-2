@@ -267,7 +267,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 GLUTTONOUS_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 ROTUND_FOSSIL.get(),
-                THUNDEROUS_FOSSIL.get()
+                THUNDEROUS_FOSSIL.get(),
+                WHISKERED_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 SNOW_SHOVEL_FOSSIL.get(),
@@ -356,6 +357,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 LORRAINOSAURUS_EMBRYO.get(),
                 CRYPTOCLIDUS_EMBRYO.get(),
                 UP2Blocks.CONCAVENATOR_EGG.asItem(),
+                UP2Blocks.RHIZODUS_ROE.asItem(),
                 UP2Blocks.THERIZINOSAURUS_EGG.asItem()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
@@ -448,6 +450,11 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(UP2ItemTags.PROGNATHODON_FOOD).addTags(ItemTags.FISHES);
+
+        this.tag(UP2ItemTags.RHIZODUS_FOOD).addTags(
+                ItemTags.FISHES,
+                ItemTags.MEAT
+        );
 
         this.tag(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD).addTags(ItemTags.FISHES);
 

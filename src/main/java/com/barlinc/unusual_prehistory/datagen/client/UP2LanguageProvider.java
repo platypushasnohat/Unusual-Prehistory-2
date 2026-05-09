@@ -449,6 +449,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");
         this.sound(UP2SoundEvents.PROGNATHODON_ATTACK, "Prognathodon attacks");
 
+        this.sound(UP2SoundEvents.RHIZODUS_HURT, "Rhizodus hurts");
+        this.sound(UP2SoundEvents.RHIZODUS_DEATH, "Rhizodus dies");
+        this.sound(UP2SoundEvents.RHIZODUS_STEP, "Rhizodus steps");
+
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_HURT, "Spike-Toothed Salmon hurts");
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_DEATH, "Spike-Toothed Salmon dies");
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_FLOP, "Spike-Toothed Salmon flops");

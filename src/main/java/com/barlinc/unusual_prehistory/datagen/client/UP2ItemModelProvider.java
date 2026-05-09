@@ -184,11 +184,13 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 CLAMP_JAW_FOSSIL,
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
+                WHISKERED_FOSSIL,
                 ROT_FOSSIL,
                 SCYTHE_FOSSIL,
 
                 BRONTOSCORPIO_EMBRYO,
                 UP2Blocks.CONCAVENATOR_EGG,
+                UP2Blocks.RHIZODUS_ROE,
                 CRYPTOCLIDUS_EMBRYO,
                 ICHTHYOSAURUS_EMBRYO,
                 LORRAINOSAURUS_EMBRYO,

@@ -914,6 +914,25 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack2"))
         );
 
+        this.sound(UP2SoundEvents.RHIZODUS_HURT,
+                sound("entity/fish/hurt1").pitch(0.8F),
+                sound("entity/fish/hurt2").pitch(0.8F),
+                sound("entity/fish/hurt3").pitch(0.8F),
+                sound("entity/fish/hurt4").pitch(0.8F)
+        );
+        this.sound(UP2SoundEvents.RHIZODUS_DEATH,
+                sound("entity/fish/hurt1").pitch(0.75F),
+                sound("entity/fish/hurt2").pitch(0.75F),
+                sound("entity/fish/hurt3").pitch(0.75F),
+                sound("entity/fish/hurt4").pitch(0.75F)
+        );
+        this.sound(UP2SoundEvents.RHIZODUS_STEP,
+                sound("mob/frog/step1").pitch(0.8F),
+                sound("mob/frog/step2").pitch(0.8F),
+                sound("mob/frog/step3").pitch(0.8F),
+                sound("mob/frog/step4").pitch(0.8F)
+        );
+
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_HURT,
                 sound("entity/fish/hurt1").pitch(0.9F),
                 sound("entity/fish/hurt2").pitch(0.9F),
@@ -944,7 +963,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.SPIKE_TOOTHED_SALMON_CURE,
                 sound("mob/zombie/remedy").volume(0.8F)
         );
-
 
         this.sound(UP2SoundEvents.THERIZINOSAURUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/death1"))

@@ -59,7 +59,7 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     public final SmoothAnimationState aggroAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
 
-    public boolean attackAlt = false;
+    private boolean attackAlt = false;
     private boolean nipAlt = false;
 
     private int grabStartTicks;
@@ -90,13 +90,7 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
-        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 2, false, 0.001F, this::canPlayIdles) {
-            @Override
-            public void start() {
-                super.start();
-                Lorrainosaurus.this.nipAlt = Lorrainosaurus.this.getRandom().nextBoolean();
-            }
-        });
+        this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 20, 2, false, 0.001F, this::canPlayIdles));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UP2EntityTags.LORRAINOSAURUS_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::canAttack));
@@ -144,11 +138,6 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     @Override
     public int getMaxHeadYRot() {
         return this.isInWaterOrBubble() ? 1 : super.getMaxHeadYRot();
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return 0.0F;
     }
 
     @Override
@@ -211,6 +200,26 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     }
 
     @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackAlt = this.getRandom().nextBoolean();
+            }
+            else if (this.getPose() == UP2Poses.GRAB_START.get()) {
+                this.grabStartTicks = 20;
+            }
+            else if (this.getPose() == UP2Poses.GRABBING.get()) {
+                this.grabTicks = this.getGrabTime();
+            }
+        }
+        if (IDLE_STATE.equals(accessor)) {
+            if (this.getIdleState() == 2) {
+                this.nipAlt = this.getRandom().nextBoolean();
+            }
+        }
+    }
+
+    @Override
     public void tickCooldowns() {
         super.tickCooldowns();
         if (biteCooldown > 0) biteCooldown--;
@@ -258,19 +267,6 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
         } else {
             this.setHeldMobId(-1);
         }
-    }
-
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
-        if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.GRAB_START.get()) {
-                this.grabStartTicks = 20;
-            }
-            else if (this.getPose() == UP2Poses.GRABBING.get()) {
-                this.grabTicks = this.getGrabTime();
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
     }
 
     @Override
@@ -343,10 +339,5 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     @Nullable
     protected SoundEvent getDeathSound() {
         return UP2SoundEvents.LORRAINOSAURUS_DEATH.get();
-    }
-
-    @Override
-    public int getAmbientSoundInterval() {
-        return 180;
     }
 }

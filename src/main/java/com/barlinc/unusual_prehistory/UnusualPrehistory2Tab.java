@@ -55,6 +55,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
+                        output.accept(RHIZODUS_SPAWN_EGG.get());
                         output.accept(SPIKE_TOOTHED_SALMON_SPAWN_EGG.get());
                         output.accept(STETHACANTHUS_SPAWN_EGG.get());
                         output.accept(TALPANAS_SPAWN_EGG.get());
@@ -197,6 +198,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SURGE_FOSSIL.get()); // prognathodon
                         output.accept(CROOKED_BEAK_FOSSIL.get()); // psilopterus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
+                        output.accept(WHISKERED_FOSSIL.get()); // rhizodus
                         output.accept(ROT_FOSSIL.get()); // spike-toothed salmon
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus
                         output.accept(AGED_FEATHER.get()); // talpanas
@@ -235,6 +237,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PROGNATHODON_EMBRYO.get());
                         output.accept(PSILOPTERUS_EGG.get());
                         output.accept(PTERODACTYLUS_EGG.get());
+                        output.accept(UP2Blocks.RHIZODUS_ROE.get());
                         output.accept(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get());
                         output.accept(UP2Blocks.STETHACANTHUS_SAC.get());
                         output.accept(TALPANAS_EGG.get());

@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.Nullable;
 
-public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape> {
+public class CustomBlockCollisions extends AbstractIterator<VoxelShape> {
 
     private final AABB box;
     private final CollisionContext context;
@@ -29,11 +29,11 @@ public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape
     private BlockGetter cachedBlockGetter;
     private long cachedBlockGetterPos;
 
-    public CustomCollisionsBlockCollisions(CollisionGetter getter, @Nullable Entity entity, AABB aabb) {
+    public CustomBlockCollisions(CollisionGetter getter, @Nullable Entity entity, AABB aabb) {
         this(getter, entity, aabb, false);
     }
 
-    public CustomCollisionsBlockCollisions(CollisionGetter getter, @Nullable Entity entity, AABB aabb, boolean suffocates) {
+    public CustomBlockCollisions(CollisionGetter getter, @Nullable Entity entity, AABB aabb, boolean suffocates) {
         this.context = entity == null ? CollisionContext.empty() : CollisionContext.of(entity);
         this.pos = new BlockPos.MutableBlockPos();
         this.entityShape = Shapes.create(aabb);

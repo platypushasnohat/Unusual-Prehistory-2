@@ -76,11 +76,11 @@
          this.setPathfindingMalus(PathType.WATER, 0.0F);
          this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
          this.setPathfindingMalus(PathType.FENCE, 0.0F);
-         this.headPart = new BrachiosaurusPart(this, "head", 2.5F, 2.5F);
-         this.neckPart1 = new BrachiosaurusPart(this, "neck1", 2.5F, 6.0F);
-         this.neckPart2 = new BrachiosaurusPart(this, "neck2", 2.5F, 6.0F);
-         this.tailPart1 = new BrachiosaurusPart(this, "tail1", 2.5F, 2.5F);
-         this.tailPart2 = new BrachiosaurusPart(this, "tail2", 2.0F, 2.0F);
+         this.headPart = new BrachiosaurusPart(this, 2.5F, 2.5F);
+         this.neckPart1 = new BrachiosaurusPart(this, 2.5F, 6.0F);
+         this.neckPart2 = new BrachiosaurusPart(this, 2.5F, 6.0F);
+         this.tailPart1 = new BrachiosaurusPart(this, 2.5F, 2.5F);
+         this.tailPart2 = new BrachiosaurusPart(this, 2.0F, 2.0F);
          this.allParts = new BrachiosaurusPart[]{headPart, neckPart1, neckPart2, tailPart1, tailPart2};
          this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
      }

@@ -36,26 +36,20 @@ public abstract class AmphibiousMob extends PrehistoricMob {
     }
 
     @Override
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TIME_IN_WATER, 0);
         builder.define(TIME_ON_LAND, 0);
     }
 
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isInWater() ? 0.5F : super.getAdditionalStepHeight();
-    }
-
-    @Override
-    public boolean isPushedByFluid() {
-        return false;
-    }
-
     public int getTimeInWater() {
         return this.entityData.get(TIME_IN_WATER);
     }
-
     public void setTimeInWater(int time) {
         this.entityData.set(TIME_IN_WATER, time);
     }
@@ -63,7 +57,6 @@ public abstract class AmphibiousMob extends PrehistoricMob {
     public int getTimeOnLand() {
         return this.entityData.get(TIME_ON_LAND);
     }
-
     public void setTimeOnLand(int time) {
         this.entityData.set(TIME_ON_LAND, time);
     }

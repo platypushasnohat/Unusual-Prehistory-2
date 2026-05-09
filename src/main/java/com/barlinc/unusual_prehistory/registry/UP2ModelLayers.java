@@ -79,6 +79,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation LORRAINOSAURUS = mainLayer("lorrainosaurus");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
+    public static final ModelLayerLocation RHIZODUS = mainLayer("rhizodus");
     public static final ModelLayerLocation SETAPEDITES = mainLayer("setapedites");
     public static final ModelLayerLocation SPIKE_TOOTHED_SALMON = mainLayer("spike_toothed_salmon");
     public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");

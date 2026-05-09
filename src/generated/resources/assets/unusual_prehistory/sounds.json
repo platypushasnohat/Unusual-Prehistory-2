@@ -1899,6 +1899,69 @@
     ],
     "subtitle": "subtitles.pummel_and_snatch_disc"
   },
+  "rhizodus_death": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.75
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.rhizodus_death"
+  },
+  "rhizodus_hurt": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.rhizodus_hurt"
+  },
+  "rhizodus_step": {
+    "sounds": [
+      {
+        "name": "mob/frog/step1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/frog/step4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.rhizodus_step"
+  },
   "small_dunkleosteus_bite": {
     "sounds": [
       {

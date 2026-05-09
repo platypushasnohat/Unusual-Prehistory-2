@@ -229,6 +229,7 @@ public class UP2Items {
     public static final DeferredItem<Item> LORRAINOSAURUS_SPAWN_EGG = registerSpawnEggItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS, 0x4b3188, 0xcbdedd);
     public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
+    public static final DeferredItem<Item> RHIZODUS_SPAWN_EGG = registerSpawnEggItem("rhizodus", UP2Entities.RHIZODUS, 0x2b4426, 0x54adaa);
     public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xd97ff2, 0xb12797);
     public static final DeferredItem<Item> SPIKE_TOOTHED_SALMON_SPAWN_EGG = registerSpawnEggItemNoLang("spike_toothed_salmon", UP2Entities.SPIKE_TOOTHED_SALMON, 0x69579b, 0xeb915e);
     public static final DeferredItem<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x0f0e0e, 0x514699);
@@ -242,6 +243,7 @@ public class UP2Items {
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // mammoth
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
+    public static final DeferredItem<Item> WHISKERED_FOSSIL = registerFossilItem("whiskered"); // rhizodus
     public static final DeferredItem<Item> ROT_FOSSIL = registerFossilItem("rot"); // spike-toothed salmon
     public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
 

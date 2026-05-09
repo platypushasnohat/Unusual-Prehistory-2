@@ -551,7 +551,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         } else if (this.onGround()) {
             return false;
         }
-        return this.fallDistance > 0.0F && this.fallDistance < 0.2F && this.canStepDownBlock();
+        return this.fallDistance > 0.0F && this.fallDistance < 0.2F && this.canStepDownBlock(this);
     }
 
     private void spawnSandSwimmingParticles() {

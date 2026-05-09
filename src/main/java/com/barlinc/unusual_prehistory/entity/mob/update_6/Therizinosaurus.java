@@ -14,7 +14,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -69,11 +68,12 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     public Therizinosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
-        this.headPart = new TherizinosaurusPart(this, "head", 1.5F, 2.5F);
+        this.headPart = new TherizinosaurusPart(this, 1.5F, 2.5F);
         this.allParts = new TherizinosaurusPart[]{headPart};
         this.vibrationUser = new VibrationUser(this);
         this.vibrationData = new VibrationSystem.Data();
         this.movementListener = new DynamicGameEventListener<>(new MovementListener(this, vibrationUser.getPositionSource()));
+        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
     }
 
     @Override
@@ -401,7 +401,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                     if (entity.isDamageSourceBlocked(therizinosaurus.damageSources().mobAttack(therizinosaurus)) && entity instanceof Player player) {
                         player.disableShield();
                     }
-                    this.therizinosaurus.swing(InteractionHand.MAIN_HAND);
                 });
             }
         }
