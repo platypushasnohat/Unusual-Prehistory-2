@@ -1,7 +1,7 @@
 {
-  "parent": "unusual_prehistory:revive_hynerpeton",
+  "parent": "unusual_prehistory:revive_dunkleosteus",
   "criteria": {
-    "revive_jawless_fish": {
+    "revive_hynerpeton": {
       "conditions": {
         "entity": [
           {
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_jawless_fish.description"
+      "translate": "advancements.unusual_prehistory.revive_hynerpeton.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:jawless_fish_roe"
+      "id": "unusual_prehistory:hynerpeton_eggs"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_jawless_fish.title"
+      "translate": "advancements.unusual_prehistory.revive_hynerpeton.title"
     }
   },
   "requirements": [
     [
-      "revive_jawless_fish"
+      "revive_hynerpeton"
     ]
   ],
   "rewards": {

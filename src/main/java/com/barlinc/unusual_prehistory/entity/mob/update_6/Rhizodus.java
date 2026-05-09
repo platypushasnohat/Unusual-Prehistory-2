@@ -362,7 +362,8 @@ public class Rhizodus extends AmphibiousMob {
         this.entityData.set(SIZE, maxSize);
         this.reapplyPosition();
         this.refreshDimensions();
-        Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(50 + this.getRhizodusSize() * 2.0F);
+        Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(50 + this.getRhizodusSize() * 4.0F);
+        Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(8 + this.getRhizodusSize());
         this.setHealth(this.getMaxHealth());
     }
 
@@ -443,7 +444,7 @@ public class Rhizodus extends AmphibiousMob {
                     if (distance <= this.getAttackReachSqr(target, 1.5D) && rhizodus.attackCooldown == 0) {
                         this.rhizodus.setAttackState(1);
                     }
-                    else if (distance <= this.getAttackReachSqr(target, 3.5D) && rhizodus.suctionCooldown == 0 && target.isInWaterOrBubble() && rhizodus.isInWaterOrBubble()) {
+                    else if (distance <= this.getAttackReachSqr(target, 3.5D) && rhizodus.suctionCooldown == 0 && target.isInWaterOrBubble() && rhizodus.isInWaterOrBubble() && rhizodus.canAttackTarget(target)) {
                         this.rhizodus.setAttackState(2);
                     }
                 }
@@ -505,7 +506,7 @@ public class Rhizodus extends AmphibiousMob {
             AABB attackBox = rhizodus.getBoundingBox().move(rhizodus.getLookAngle().normalize().scale(2.0D)).inflate(4.0D);
             List<LivingEntity> nearbyEntities = rhizodus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), rhizodus, attackBox);
             if (!nearbyEntities.isEmpty()) {
-                nearbyEntities.stream().filter(entity -> entity != rhizodus && entity.isInWaterOrBubble()).limit(3).forEach(entity -> {
+                nearbyEntities.stream().filter(entity -> entity != rhizodus && entity.isInWaterOrBubble() && entity.getBbWidth() < rhizodus.getBbWidth() && entity.getBbHeight() < rhizodus.getBbHeight()).limit(3).forEach(entity -> {
                     Vec3 delta = this.getMouthVec().subtract(entity.position()).normalize().scale(0.08F);
                     entity.setDeltaMovement(entity.getDeltaMovement().add(delta));
                     entity.hurtMarked = true;

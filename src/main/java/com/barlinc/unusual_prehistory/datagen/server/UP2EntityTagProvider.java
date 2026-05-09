@@ -207,7 +207,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 PRAEPUSA.get(),
                 MEGALANIA.get(),
                 TALPANAS.get(),
-                MAMMOTH.get(),
+                WOOLLY_MAMMOTH.get(),
                 SPIKE_TOOTHED_SALMON.get()
         );
 

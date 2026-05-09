@@ -268,7 +268,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERVIOUS_FOSSIL.get(),
                 ROTUND_FOSSIL.get(),
                 THUNDEROUS_FOSSIL.get(),
-                WHISKERED_FOSSIL.get()
+                WHISKERED_FOSSIL.get(),
+                COMBUSTIBLE_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 SNOW_SHOVEL_FOSSIL.get(),
@@ -335,7 +336,9 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.LYSTROSAURUS_EGG.get().asItem(),
                 UP2Blocks.STETHACANTHUS_SAC.get().asItem(),
                 UP2Blocks.TARTUOSTEUS_ROE.get().asItem(),
-                BRONTOSCORPIO_EMBRYO.get()
+                BRONTOSCORPIO_EMBRYO.get(),
+                UP2Blocks.HYNERPETON_EGGS.asItem(),
+                UP2Blocks.RHIZODUS_ROE.asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
@@ -357,7 +360,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 LORRAINOSAURUS_EMBRYO.get(),
                 CRYPTOCLIDUS_EMBRYO.get(),
                 UP2Blocks.CONCAVENATOR_EGG.asItem(),
-                UP2Blocks.RHIZODUS_ROE.asItem(),
                 UP2Blocks.THERIZINOSAURUS_EGG.asItem()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
@@ -367,6 +369,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 PSILOPTERUS_EGG.get(),
                 TALPANAS_EGG.get(),
                 TELECREX_EGG.get(),
+                WOOLLY_MAMMOTH_EMBRYO.get(),
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem()
         );
         this.tag(UP2ItemTags.EGGS)

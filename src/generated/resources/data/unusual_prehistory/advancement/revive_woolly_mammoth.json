@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_hynerpeton",
+  "parent": "unusual_prehistory:revive_megalania",
   "criteria": {
-    "revive_jawless_fish": {
+    "revive_woolly_mammoth": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:jawless_fish"
+              "type": "unusual_prehistory:woolly_mammoth"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_jawless_fish.description"
+      "translate": "advancements.unusual_prehistory.revive_woolly_mammoth.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:jawless_fish_roe"
+      "id": "unusual_prehistory:woolly_mammoth_embryo"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_jawless_fish.title"
+      "translate": "advancements.unusual_prehistory.revive_woolly_mammoth.title"
     }
   },
   "requirements": [
     [
-      "revive_jawless_fish"
+      "revive_woolly_mammoth"
     ]
   ],
   "rewards": {

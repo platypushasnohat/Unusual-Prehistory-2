@@ -46,7 +46,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(LORRAINOSAURUS_SPAWN_EGG.get());
                         output.accept(LYSTROSAURUS_SPAWN_EGG.get());
                         output.accept(MAJUNGASAURUS_SPAWN_EGG.get());
-                        output.accept(MAMMOTH_SPAWN_EGG.get());
                         output.accept(MEGALANIA_SPAWN_EGG.get());
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
@@ -63,6 +62,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TELECREX_SPAWN_EGG.get());
                         output.accept(THERIZINOSAURUS_SPAWN_EGG.get());
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
+                        output.accept(WOOLLY_MAMMOTH_SPAWN_EGG.get());
 
                         // Ambient
                         output.accept(AMPYX_SPAWN_EGG.get());
@@ -179,6 +179,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
                         output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
                         output.accept(PLOW_FOSSIL.get()); // hibbertopterus
+                        output.accept(COMBUSTIBLE_FOSSIL.get()); // hynerpeton
                         output.accept(FISH_REPTILE_FOSSIL.get()); // ichthyosaurus
                         output.accept(JAWLESS_FOSSIL.get()); // jawless fish
                         output.accept(BOAR_TOOTH_FOSSIL.get()); // kaprosuchus
@@ -189,7 +190,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(CLAMP_JAW_FOSSIL.get()); // lorrainosaurus
                         output.accept(IMPERVIOUS_FOSSIL.get()); // lystrosaurus
                         output.accept(RUGOSE_FOSSIL.get()); // majungasaurus
-                        output.accept(MOLAR_FOSSIL.get()); // mammoth
                         output.accept(THERMAL_FOSSIL.get()); // megalania
                         output.accept(MELTDOWN_FOSSIL.get()); // metriorhynchus
                         output.accept(SAW_FOSSIL.get()); // onchopristis
@@ -206,6 +206,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PLUMAGE_FOSSIL.get()); // telecrex
                         output.accept(SCYTHE_FOSSIL.get()); // therizinosaurus
                         output.accept(DUBIOUS_FOSSIL.get()); // ulughbegsaurus
+                        output.accept(MOLAR_FOSSIL.get()); // woolly mammoth
 
                         output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
@@ -219,6 +220,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_EGGS.get());
+                        output.accept(UP2Blocks.HYNERPETON_EGGS.get());
                         output.accept(ICHTHYOSAURUS_EMBRYO.get());
                         output.accept(UP2Blocks.JAWLESS_FISH_ROE.get());
                         output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
@@ -245,6 +247,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TELECREX_EGG.get());
                         output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
+                        output.accept(WOOLLY_MAMMOTH_EMBRYO.get());
 
                         output.accept(BRACHYPHYLLUM_FOSSIL.get());
                         output.accept(QUILLWORT_FOSSIL.get());

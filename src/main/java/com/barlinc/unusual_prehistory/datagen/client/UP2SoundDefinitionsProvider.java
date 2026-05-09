@@ -632,7 +632,8 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_IDLE,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle1")),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle2")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle3"))
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/idle4"))
         );
         this.sound(UP2SoundEvents.ULUGHBEGSAURUS_ATTACK,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ulughbegsaurus/bite1"))
@@ -764,6 +765,29 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/spider/step4").pitch(1.25F).volume(0.8F)
         );
 
+        this.sound(UP2SoundEvents.CONCAVENATOR_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/death1"))
+        );
+        this.sound(UP2SoundEvents.CONCAVENATOR_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/hurt3"))
+        );
+        this.sound(UP2SoundEvents.CONCAVENATOR_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/concavenator/idle5"))
+        );
+        this.sound(UP2SoundEvents.CONCAVENATOR_STEP,
+                sound("mob/pig/step1").pitch(0.85F),
+                sound("mob/pig/step2").pitch(0.85F),
+                sound("mob/pig/step3").pitch(0.85F),
+                sound("mob/pig/step4").pitch(0.85F),
+                sound("mob/pig/step5").pitch(0.85F)
+        );
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/cotylorhynchus/death1"))
         );
@@ -880,22 +904,6 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/attack2")).pitch(1.13F)
         );
 
-        this.sound(UP2SoundEvents.MAMMOTH_DEATH,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/death1"))
-        );
-        this.sound(UP2SoundEvents.MAMMOTH_HURT,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/hurt1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/hurt2"))
-        );
-        this.sound(UP2SoundEvents.MAMMOTH_IDLE,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/idle1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/idle2"))
-        );
-        this.sound(UP2SoundEvents.MAMMOTH_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step1")),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step2"))
-        );
-
         this.sound(UP2SoundEvents.PROGNATHODON_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/prognathodon/death1")).volume(0.5F)
         );
@@ -986,8 +994,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/therizinosaurus/roar2")).attenuationDistance(32)
         );
         this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP,
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step1")).volume(0.7F).pitch(0.9F),
-                sound(UnusualPrehistory2.modPrefix("entity/mob/mammoth/step2")).volume(0.7F).pitch(0.9F)
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step1")).volume(0.7F).pitch(0.9F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2")).volume(0.7F).pitch(0.9F)
+        );
+
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/death1"))
+        );
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/hurt2"))
+        );
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/idle2"))
+        );
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2"))
         );
     }
 

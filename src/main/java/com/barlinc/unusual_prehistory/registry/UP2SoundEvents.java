@@ -205,6 +205,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_IDLE = registerSoundEvent("brontoscorpio_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_STEP = registerSoundEvent("brontoscorpio_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> CONCAVENATOR_HURT = registerSoundEvent("concavenator_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CONCAVENATOR_DEATH = registerSoundEvent("concavenator_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CONCAVENATOR_IDLE = registerSoundEvent("concavenator_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CONCAVENATOR_STEP = registerSoundEvent("concavenator_step");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_HURT = registerSoundEvent("cotylorhynchus_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_DEATH = registerSoundEvent("cotylorhynchus_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> COTYLORHYNCHUS_IDLE = registerSoundEvent("cotylorhynchus_idle");
@@ -234,11 +239,6 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_IDLE = registerSoundEvent("lorrainosaurus_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_ATTACK = registerSoundEvent("lorrainosaurus_attack");
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_HURT = registerSoundEvent("mammoth_hurt");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_DEATH = registerSoundEvent("mammoth_death");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_IDLE = registerSoundEvent("mammoth_idle");
-    public static final DeferredHolder<SoundEvent, SoundEvent> MAMMOTH_STEP = registerSoundEvent("mammoth_step");
-
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_HURT = registerSoundEvent("prognathodon_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_DEATH = registerSoundEvent("prognathodon_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> PROGNATHODON_IDLE = registerSoundEvent("prognathodon_idle");
@@ -262,6 +262,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_STEP = registerSoundEvent("therizinosaurus_step");
     public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
     public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_HURT = registerSoundEvent("woolly_mammoth_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_DEATH = registerSoundEvent("woolly_mammoth_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_IDLE = registerSoundEvent("woolly_mammoth_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_STEP = registerSoundEvent("woolly_mammoth_step");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));

@@ -227,31 +227,33 @@ public class UP2Items {
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);
     public static final DeferredItem<Item> LORRAINOSAURUS_SPAWN_EGG = registerSpawnEggItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS, 0x4b3188, 0xcbdedd);
-    public static final DeferredItem<Item> MAMMOTH_SPAWN_EGG = registerSpawnEggItem("mammoth", UP2Entities.MAMMOTH, 0x66331a, 0x1a0901);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
     public static final DeferredItem<Item> RHIZODUS_SPAWN_EGG = registerSpawnEggItem("rhizodus", UP2Entities.RHIZODUS, 0x2b4426, 0x54adaa);
     public static final DeferredItem<Item> SETAPEDITES_SPAWN_EGG = registerSpawnEggItem("setapedites", UP2Entities.SETAPEDITES, 0xd97ff2, 0xb12797);
     public static final DeferredItem<Item> SPIKE_TOOTHED_SALMON_SPAWN_EGG = registerSpawnEggItemNoLang("spike_toothed_salmon", UP2Entities.SPIKE_TOOTHED_SALMON, 0x69579b, 0xeb915e);
     public static final DeferredItem<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x0f0e0e, 0x514699);
+    public static final DeferredItem<Item> WOOLLY_MAMMOTH_SPAWN_EGG = registerSpawnEggItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH, 0x66331a, 0x1a0901);
 
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
     public static final DeferredItem<Item> CRYPTIC_FOSSIL = registerFossilItem("cryptic"); // cryptoclidus
+    public static final DeferredItem<Item> COMBUSTIBLE_FOSSIL = registerFossilItem("combustible"); // hynerpeton
     public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus
-    public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // mammoth
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
     public static final DeferredItem<Item> WHISKERED_FOSSIL = registerFossilItem("whiskered"); // rhizodus
     public static final DeferredItem<Item> ROT_FOSSIL = registerFossilItem("rot"); // spike-toothed salmon
     public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
+    public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // woolly mammoth
 
     public static final DeferredItem<Item> BRONTOSCORPIO_EMBRYO = registerEmbryoItem("brontoscorpio", UP2Entities.BRONTOSCORPIO);
     public static final DeferredItem<Item> CRYPTOCLIDUS_EMBRYO = registerEmbryoItem("cryptoclidus", UP2Entities.CRYPTOCLIDUS);
     public static final DeferredItem<Item> ICHTHYOSAURUS_EMBRYO = registerEmbryoItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS);
     public static final DeferredItem<Item> LORRAINOSAURUS_EMBRYO = registerEmbryoItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS);
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
+    public static final DeferredItem<Item> WOOLLY_MAMMOTH_EMBRYO = registerEmbryoItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH);
 
     public static final DeferredItem<Item> HYNERPETON_BUCKET = registerItemNoLang("hynerpeton_bucket", () -> new UP2MobBucketItem(UP2Entities.HYNERPETON.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 

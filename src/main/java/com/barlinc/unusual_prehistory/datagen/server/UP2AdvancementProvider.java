@@ -142,7 +142,8 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Devonian
         AdvancementHolder reviveDunkleosteus = reviveMobAdvancement("revive_dunkleosteus", devonianRoot, UP2Blocks.DUNKLEOSTEUS_SAC.get(), UP2Entities.DUNKLEOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_dunkleosteus"), helper);
-        AdvancementHolder reviveJawlessFish = reviveMobAdvancement("revive_jawless_fish", reviveDunkleosteus, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_jawless_fish"), helper);
+        AdvancementHolder reviveHynerpeton = reviveMobAdvancement("revive_hynerpeton", reviveDunkleosteus, UP2Blocks.HYNERPETON_EGGS.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_hynerpeton"), helper);
+        AdvancementHolder reviveJawlessFish = reviveMobAdvancement("revive_jawless_fish", reviveHynerpeton, UP2Blocks.JAWLESS_FISH_ROE.get(), UP2Entities.JAWLESS_FISH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_jawless_fish"), helper);
         AdvancementHolder reviveStethacanthus = reviveMobAdvancement("revive_stethacanthus", reviveJawlessFish, UP2Blocks.STETHACANTHUS_SAC.get(), UP2Entities.STETHACANTHUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_stethacanthus"), helper);
         AdvancementHolder reviveTartuosteus = reviveMobAdvancement("revive_tartuosteus", reviveStethacanthus, UP2Blocks.TARTUOSTEUS_ROE.get(), UP2Entities.TARTUOSTEUS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_tartuosteus"), helper);
 
@@ -190,6 +191,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Quaternary
         AdvancementHolder reviveMegalania = reviveMobAdvancement("revive_megalania", quaternaryRoot, UP2Blocks.MEGALANIA_EGG.get(), UP2Entities.MEGALANIA.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_megalania"), helper);
+        AdvancementHolder reviveWoollyMammoth = reviveMobAdvancement("revive_woolly_mammoth", reviveMegalania, UP2Items.WOOLLY_MAMMOTH_EMBRYO.get(), UP2Entities.WOOLLY_MAMMOTH.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_woolly_mammoth"), helper);
 
         // Holocene
         AdvancementHolder reviveTalpanas = reviveMobAdvancement("revive_talpanas", holoceneRoot, UP2Items.TALPANAS_EGG.get(), UP2Entities.TALPANAS.get()).save(consumer, UnusualPrehistory2.modPrefix("revive_talpanas"), helper);

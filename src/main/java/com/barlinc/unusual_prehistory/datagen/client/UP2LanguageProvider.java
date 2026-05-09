@@ -410,6 +410,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.BRONTOSCORPIO_IDLE, "Brontoscorpio chatters");
         this.sound(UP2SoundEvents.BRONTOSCORPIO_STEP, "Brontoscorpio steps");
 
+        this.sound(UP2SoundEvents.CONCAVENATOR_HURT, "Concavenator hurts");
+        this.sound(UP2SoundEvents.CONCAVENATOR_DEATH, "Concavenator dies");
+        this.sound(UP2SoundEvents.CONCAVENATOR_IDLE, "Concavenator groans");
+        this.sound(UP2SoundEvents.CONCAVENATOR_STEP, "Concavenator steps");
+
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_HURT, "Cotylorhynchus hurts");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_DEATH, "Cotylorhynchus dies");
         this.sound(UP2SoundEvents.COTYLORHYNCHUS_IDLE, "Cotylorhynchus grumbles");
@@ -439,10 +444,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.LORRAINOSAURUS_IDLE, "Lorrainosaurus rumbles");
         this.sound(UP2SoundEvents.LORRAINOSAURUS_ATTACK, "Lorrainosaurus attacks");
 
-        this.sound(UP2SoundEvents.MAMMOTH_HURT, "Mammoth hurts");
-        this.sound(UP2SoundEvents.MAMMOTH_DEATH, "Mammoth dies");
-        this.sound(UP2SoundEvents.MAMMOTH_IDLE, "Mammoth trumpets");
-        this.sound(UP2SoundEvents.MAMMOTH_STEP, "Mammoth steps");
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_HURT, "Woolly Mammoth hurts");
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_DEATH, "Woolly Mammoth dies");
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_IDLE, "Woolly Mammoth trumpets");
+        this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP, "Woolly Mammoth steps");
 
         this.sound(UP2SoundEvents.PROGNATHODON_HURT, "Prognathodon hurts");
         this.sound(UP2SoundEvents.PROGNATHODON_DEATH, "Prognathodon dies");
@@ -525,6 +530,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_dromaeosaurus", "Dino Run", "Revive a Dromaeosaurus");
         this.translateAdvancement("revive_dunkleosteus", "Definitely Not a Shark", "Revive a Dunkleosteus");
         this.translateAdvancement("revive_hibbertopterus", "No Thoughts, Head Empty", "Revive a Hibbertopterus");
+        this.translateAdvancement("revive_hynerpeton", "Blast from the Past", "Revive a Hynerpeton");
         this.translateAdvancement("revive_ichthyosaurus", "Meep Meep!", "Revive an Ichthyosaurus");
         this.translateAdvancement("revive_jawless_fish", "No Chewing For You", "Revive a Jawless Fish");
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
@@ -550,6 +556,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
         this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
+        this.translateAdvancement("revive_woolly_mammoth", "Ice Age", "Revive a Woolly Mammoth");
 
         this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");
         this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Inflicts non-lethal damage over time; Higher levels do more damage per second. Prevents jumping, sprinting, and decreases walking speed.");

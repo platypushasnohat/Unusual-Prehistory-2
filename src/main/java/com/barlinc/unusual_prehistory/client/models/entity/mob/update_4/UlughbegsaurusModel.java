@@ -145,6 +145,7 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
         this.animateSmooth(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
         this.animateSmooth(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks);
         this.animateSmooth(entity.blinkAnimationState, UlughbegsaurusAnimations.BLINK_BLEND, ageInTicks);
+        this.animate(entity.eatAnimationState, UlughbegsaurusAnimations.EAT_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(UlughbegsaurusAnimations.BABY_TRANSFORM);
 
