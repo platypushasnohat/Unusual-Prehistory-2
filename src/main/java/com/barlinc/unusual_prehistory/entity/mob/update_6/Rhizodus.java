@@ -191,12 +191,6 @@ public class Rhizodus extends AmphibiousMob {
         return this.getBoundingBox().inflate(3);
     }
 
-    @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(this.getMaxHealth() * 0.2F);
-        return super.killedEntity(level, victim);
-    }
-
     public boolean canAttackTarget(LivingEntity target) {
         if (target == null) {
             return false;

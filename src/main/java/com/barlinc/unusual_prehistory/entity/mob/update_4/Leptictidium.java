@@ -67,7 +67,8 @@ public class Leptictidium extends PrehistoricMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3F);
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -87,11 +88,6 @@ public class Leptictidium extends PrehistoricMob {
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         super.travel(travelVec);
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override

@@ -120,12 +120,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(8);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
@@ -174,13 +168,15 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!itemStack.is(Tags.Items.DYES) || this.isRainbow()) {
-            return super.interactTameCommands(player, hand);
-        } else {
-            return InteractionResult.CONSUME;
-        }
+        return player.isShiftKeyDown() && (!itemStack.is(Tags.Items.DYES) || this.isRainbow());
+    }
+
+    @Override
+    public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        return !this.isBaby() && (!itemStack.is(Tags.Items.DYES) || this.isRainbow());
     }
 
     private void spawnEatingParticles(ItemStack itemStack) {
@@ -213,16 +209,6 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     @Override
     public boolean canSprint() {
         return true;
-    }
-
-    @Override
-    public boolean canOwnerCommand(Player player) {
-        return player.isShiftKeyDown();
-    }
-
-    @Override
-    public boolean canOwnerMount(Player player) {
-        return !this.isBaby();
     }
 
     @Override

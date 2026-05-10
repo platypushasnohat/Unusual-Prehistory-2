@@ -97,12 +97,6 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(8);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             MobUtils.travelInWater(this, travelVector);

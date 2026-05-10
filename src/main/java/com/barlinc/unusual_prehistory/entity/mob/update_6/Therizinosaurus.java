@@ -156,12 +156,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(28);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public void tick() {
         this.tickMultipart();
         super.tick();

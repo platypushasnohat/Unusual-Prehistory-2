@@ -263,17 +263,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         return this.canAttack(target) && this.isSandSwimming();
     }
 
-    @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(6);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
-    public boolean canOwnerCommand(Player player) {
-        return true;
-    }
-
     private int getSandSwimCooldownTime() {
         return 150 + this.getRandom().nextInt(150);
     }
@@ -404,13 +393,9 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !itemStack.is(ItemTags.PICKAXES) && !itemStack.is(ItemTags.SHOVELS)) {
-            return super.interactTameCommands(player, hand);
-        } else {
-            return InteractionResult.CONSUME;
-        }
+        return !itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !itemStack.is(ItemTags.PICKAXES) && !itemStack.is(ItemTags.SHOVELS);
     }
 
     private void spawnEatingParticles(ItemStack itemStack) {

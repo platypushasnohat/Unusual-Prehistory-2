@@ -4,41 +4,36 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricBodyRotationC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
+import com.barlinc.unusual_prehistory.entity.utils.PrehistoricMobInteractions;
 import com.barlinc.unusual_prehistory.entity.utils.PrehistoricRideableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
@@ -47,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public abstract class PrehistoricMob extends TamableAnimal implements PrehistoricRideableMob {
+public abstract class PrehistoricMob extends TamableAnimal implements PrehistoricRideableMob, PrehistoricMobInteractions {
 
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> IDLE_STATE = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
@@ -79,11 +74,11 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     private float prevTailYaw;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.15F);
-    public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(0.25F);
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.25F);
+    public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(0.25F);
 
-    public int idleAnimationCooldown;
+    protected int idleAnimationCooldown;
 
     protected PrehistoricMob(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -108,13 +103,13 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     @Override
-    public float maxUpStep() {
-        float attribute = (float) this.getAttributeValue(Attributes.STEP_HEIGHT);
-        return this.getControllingPassenger() instanceof Player ? Math.max(attribute, 1.0F) : attribute + this.getAdditionalStepHeight();
+    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
+        this.heal(this.getMaxHealth() * this.getKilledEntityHealMultiplier());
+        return super.killedEntity(level, victim);
     }
 
-    public float getAdditionalStepHeight() {
-        return 0.0F;
+    public float getKilledEntityHealMultiplier() {
+        return 0.2F;
     }
 
     // Navigation
@@ -165,98 +160,47 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     // Mob interactions
-    public SoundEvent getEatingSound() {
-        return SoundEvents.GENERIC_EAT;
-    }
-
-    public boolean isForeverBabyItem(ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.STOPS_MOB_AGING);
-    }
-
-    private void applyFoodEffects(ItemStack food, Level level, LivingEntity livingEntity) {
-        Item item = food.getItem();
-        FoodProperties foodproperties = food.getFoodProperties(this);
-        if (item.components().has(DataComponents.FOOD) && foodproperties != null) {
-            for (FoodProperties.PossibleEffect effect : foodproperties.effects()) {
-                if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
-                    livingEntity.addEffect(new MobEffectInstance(effect.effect()));
-                }
-            }
-        }
-    }
-
-    protected void feedItemToMob(Player player, InteractionHand hand, ItemStack itemstack) {
-        this.usePlayerItem(player, hand, itemstack);
-        this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
-        this.applyFoodEffects(itemstack, this.level(), this);
-        this.gameEvent(GameEvent.EAT);
-    }
-
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
-
-        if (this.isForeverBabyItem(itemstack) && this.isBaby()) {
-            this.feedItemToMob(player, hand, itemstack);
-            this.setAgeLocked(true);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
-
-        if (this.isFood(itemstack)) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        InteractionResult result = super.mobInteract(player, hand);
+        if (this.isFood(itemStack)) {
             if (this.getHealth() < this.getMaxHealth() && this.eatTicks <= 0) {
-                this.feedItemToMob(player, hand, itemstack);
-                FoodProperties foodproperties = itemstack.getFoodProperties(this);
-                float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
-                this.heal(2.0F * healAmount);
-                this.level().broadcastEntityEvent(this, (byte) 11);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                this.healMob(this, player, hand);
+                return InteractionResult.SUCCESS;
             }
             else if (this.isBaby()) {
-                this.feedItemToMob(player, hand, itemstack);
-                this.ageUp(getSpeedUpSecondsWhenFeeding(-this.getAge()), true);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                this.increaseMobAge(this, player, hand);
+                return InteractionResult.SUCCESS;
             }
         }
-
-        if (player.isCreative() && !this.isPacified()) {
-            if (itemstack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
-                this.feedItemToMob(player, hand, itemstack);
-                this.setPacified(true);
-                this.level().broadcastEntityEvent(this, (byte) 10);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+        if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemStack) && !result.consumesAction()) {
+            if (this.canOwnerCommand(player, hand)) {
+                this.cycleMobCommands(this, player);
+                return InteractionResult.SUCCESS;
+            }
+            else if (this.canOwnerMount(player, hand) && !this.level().isClientSide && player.startRiding(this)) {
+                this.ownerStartRidingMob(this, player);
+                return InteractionResult.CONSUME;
             }
         }
-
-        if (!type.consumesAction()) {
-            return this.interactTameCommands(player, hand);
+        if (itemStack.is(UP2ItemTags.STOPS_MOB_AGING) && this.isBaby()) {
+            this.lockMobAge(this, player, hand);
+            return InteractionResult.SUCCESS;
         }
-        return type;
+        if (player.isCreative() && !this.isPacified() && itemStack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
+            this.pacifyMob(this, player, hand);
+            return InteractionResult.SUCCESS;
+        }
+        return result;
     }
 
-    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isTame() && this.isOwnedBy(player) && !this.isFood(itemstack)) {
-            if (this.canOwnerCommand(player)) {
-                this.setCommand(this.getCommand() + 1);
-                if (this.getCommand() == 3) {
-                    this.setCommand(0);
-                }
-                player.displayClientMessage(Component.translatable("entity.unusual_prehistory.all.command_" + this.getCommand(), this.getName()), true);
-                this.setOrderedToSit(this.getCommand() == 1);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-            else if (this.canOwnerMount(player)) {
-                if (!this.level().isClientSide && player.startRiding(this)) {
-                    player.setYRot(this.getYRot());
-                    player.setXRot(this.getXRot());
-                    player.startRiding(this);
-                    return InteractionResult.CONSUME;
-                }
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-        }
-        return InteractionResult.PASS;
+    public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
+        return false;
+    }
+
+    public boolean canOwnerCommand(Player ownerPlayer, @NotNull InteractionHand hand) {
+        return false;
     }
 
     // Entity events
@@ -275,7 +219,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     protected void spawnPacifyParticles() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             double xSpeed = this.random.nextGaussian() * 0.02D;
             double ySpeed = this.random.nextGaussian() * 0.08D;
             double zSpeed = this.random.nextGaussian() * 0.02D;
@@ -390,7 +334,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         return (prevTailYaw + (tailYaw - prevTailYaw) * partialTick);
     }
 
-    // Animation
+    // Animations
     public void setupAnimationStates() {
     }
 
@@ -407,13 +351,14 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     // Healing
     public int getHealCooldown() {
-        return this.isEepy() ? 100 : 200;
+        return this.isEepy() ? 50 : 150;
     }
 
     public boolean canHealOverTime() {
         return this.tickCount % this.getHealCooldown() == 0 && this.getHealth() < this.getMaxHealth() && this.isAlive();
     }
 
+    // Look & Move overrides
     public boolean refuseToMove() {
         return this.isEepy() || this.isSitting();
     }
@@ -463,7 +408,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
             this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - this.getRandom().nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
         }
         if (eepyTicks > 0) {
-            eepyTicks--;
+            this.eepyTicks--;
         }
     }
 
@@ -488,14 +433,6 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
             return this.getOwner().isAlliedTo(entity);
         }
         return super.isAlliedTo(entity);
-    }
-
-    public boolean canOwnerMount(Player player) {
-        return false;
-    }
-
-    public boolean canOwnerCommand(Player ownerPlayer) {
-        return false;
     }
 
     @Override

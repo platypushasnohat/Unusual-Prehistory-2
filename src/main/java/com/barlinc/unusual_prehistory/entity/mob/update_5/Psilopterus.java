@@ -121,7 +121,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.28F);
+                .add(Attributes.MOVEMENT_SPEED, 0.28F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -167,11 +168,6 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
                 this.gameEvent(GameEvent.FLAP);
             }
         }
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override
