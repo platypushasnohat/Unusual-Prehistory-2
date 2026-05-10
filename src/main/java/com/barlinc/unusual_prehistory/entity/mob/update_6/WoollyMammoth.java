@@ -26,9 +26,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Mammoth extends PrehistoricMob {
+public class WoollyMammoth extends PrehistoricMob {
 
-    public Mammoth(EntityType<? extends PrehistoricMob> entityType, Level level) {
+    public WoollyMammoth(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -82,7 +82,7 @@ public class Mammoth extends PrehistoricMob {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.MAMMOTH.get().create(level);
+        return UP2Entities.WOOLLY_MAMMOTH.get().create(level);
     }
 
     @Override
@@ -93,24 +93,24 @@ public class Mammoth extends PrehistoricMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.MAMMOTH_IDLE.get();
+        return UP2SoundEvents.WOOLLY_MAMMOTH_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.MAMMOTH_HURT.get();
+        return UP2SoundEvents.WOOLLY_MAMMOTH_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.MAMMOTH_DEATH.get();
+        return UP2SoundEvents.WOOLLY_MAMMOTH_DEATH.get();
     }
 
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-        this.playSound(UP2SoundEvents.MAMMOTH_STEP.get(), this.isBaby() ? 0.15F : 0.3F, this.isBaby() ? 1.5F : 1.0F);
+        this.playSound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP.get(), this.isBaby() ? 0.15F : 0.3F, this.isBaby() ? 1.5F : 1.0F);
     }
 
     @Override

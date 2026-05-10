@@ -149,8 +149,8 @@
      }
 
      @Override
-     public float getAdditionalStepHeight() {
-         return this.isBaby() ? 0.4F : 2.4F;
+     public float maxUpStep() {
+         return this.isBaby() ? 1.1F : 3.0F;
      }
 
      @Override

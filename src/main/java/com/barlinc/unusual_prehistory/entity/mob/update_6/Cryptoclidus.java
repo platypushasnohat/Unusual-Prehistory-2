@@ -118,17 +118,6 @@ public class Cryptoclidus extends AmphibiousMob {
         return this.isInWaterOrBubble() ? 1 : super.getMaxHeadYRot();
     }
 
-    @Override
-    public float getAdditionalStepHeight() {
-        return 0.0F;
-    }
-
-    @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(4);
-        return super.killedEntity(level, victim);
-    }
-
     public boolean canTargetPlayers(LivingEntity target) {
         return this.canAttack(target) && this.level().isDay();
     }
@@ -198,11 +187,6 @@ public class Cryptoclidus extends AmphibiousMob {
         this.playSound(UP2SoundEvents.CRYPTOCLIDUS_STEP.get(), 0.25F, 1.0F);
     }
 
-    @Override
-    public int getAmbientSoundInterval() {
-        return 200;
-    }
-
     // Goals
     private static class CryptoclidusAttackGoal extends AttackGoal {
 
@@ -226,16 +210,15 @@ public class Cryptoclidus extends AmphibiousMob {
                 this.cryptoclidus.getNavigation().moveTo(target, 1.5D);
 
                 if (attackState == 1) {
-                    this.tickAttack();
+                    this.tickAttack(target);
                 } else if (distance < this.getAttackReachSqr(target) && cryptoclidus.attackCooldown == 0) {
                     this.cryptoclidus.setAttackState(1);
                 }
             }
         }
 
-        protected void tickAttack() {
+        protected void tickAttack(LivingEntity target) {
             this.timer++;
-            LivingEntity target = cryptoclidus.getTarget();
             if (timer == 1) {
                 this.cryptoclidus.setPose(UP2Poses.ATTACKING.get());
                 this.cryptoclidus.playSound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK.get(), 1.0F, 0.9F + cryptoclidus.getRandom().nextFloat() * 0.2F);

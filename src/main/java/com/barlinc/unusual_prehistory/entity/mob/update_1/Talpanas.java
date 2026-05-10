@@ -62,7 +62,8 @@ public class Talpanas extends BreedableMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.24D);
+                .add(Attributes.MOVEMENT_SPEED, 0.24D)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -98,11 +99,6 @@ public class Talpanas extends BreedableMob {
             return 10.0F;
         }
         else return 0.0F;
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override

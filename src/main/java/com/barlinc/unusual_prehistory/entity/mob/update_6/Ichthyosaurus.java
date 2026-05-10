@@ -238,7 +238,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
     }
 
     @Override
-    public boolean canOwnerMount(Player player) {
+    public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
         return !this.isBaby() && this.isInWater();
     }
 

@@ -119,12 +119,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(10);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             MobUtils.travelInWater(this, travelVector);
@@ -151,11 +145,6 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
     @Override
     public int getMaxHeadYRot() {
         return 1;
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return 0.0F;
     }
 
     @Override

@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_megalania",
+  "criteria": {
+    "revive_woolly_mammoth": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:woolly_mammoth"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_woolly_mammoth.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:woolly_mammoth_embryo"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_woolly_mammoth.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_woolly_mammoth"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

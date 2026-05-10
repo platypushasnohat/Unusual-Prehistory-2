@@ -407,6 +407,55 @@
     ],
     "subtitle": "subtitles.coelacanthus_hurt"
   },
+  "concavenator_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/concavenator/death1"
+    ],
+    "subtitle": "subtitles.concavenator_death"
+  },
+  "concavenator_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/concavenator/hurt1",
+      "unusual_prehistory:entity/mob/concavenator/hurt2",
+      "unusual_prehistory:entity/mob/concavenator/hurt3"
+    ],
+    "subtitle": "subtitles.concavenator_hurt"
+  },
+  "concavenator_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/concavenator/idle1",
+      "unusual_prehistory:entity/mob/concavenator/idle2",
+      "unusual_prehistory:entity/mob/concavenator/idle3",
+      "unusual_prehistory:entity/mob/concavenator/idle4",
+      "unusual_prehistory:entity/mob/concavenator/idle5"
+    ],
+    "subtitle": "subtitles.concavenator_idle"
+  },
+  "concavenator_step": {
+    "sounds": [
+      {
+        "name": "mob/pig/step1",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/pig/step2",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/pig/step3",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/pig/step4",
+        "pitch": 0.85
+      },
+      {
+        "name": "mob/pig/step5",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.concavenator_step"
+  },
   "cotylorhynchus_burp": {
     "sounds": [
       {
@@ -1449,33 +1498,6 @@
     ],
     "subtitle": "subtitles.majungasaurus_step"
   },
-  "mammoth_death": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mammoth/death1"
-    ],
-    "subtitle": "subtitles.mammoth_death"
-  },
-  "mammoth_hurt": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mammoth/hurt1",
-      "unusual_prehistory:entity/mob/mammoth/hurt2"
-    ],
-    "subtitle": "subtitles.mammoth_hurt"
-  },
-  "mammoth_idle": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mammoth/idle1",
-      "unusual_prehistory:entity/mob/mammoth/idle2"
-    ],
-    "subtitle": "subtitles.mammoth_idle"
-  },
-  "mammoth_step": {
-    "sounds": [
-      "unusual_prehistory:entity/mob/mammoth/step1",
-      "unusual_prehistory:entity/mob/mammoth/step2"
-    ],
-    "subtitle": "subtitles.mammoth_step"
-  },
   "medium_dunkleosteus_bite": {
     "sounds": [
       {
@@ -2245,12 +2267,12 @@
   "therizinosaurus_step": {
     "sounds": [
       {
-        "name": "unusual_prehistory:entity/mob/mammoth/step1",
+        "name": "unusual_prehistory:entity/mob/woolly_mammoth/step1",
         "pitch": 0.9,
         "volume": 0.7
       },
       {
-        "name": "unusual_prehistory:entity/mob/mammoth/step2",
+        "name": "unusual_prehistory:entity/mob/woolly_mammoth/step2",
         "pitch": 0.9,
         "volume": 0.7
       }
@@ -2289,7 +2311,8 @@
     "sounds": [
       "unusual_prehistory:entity/mob/ulughbegsaurus/idle1",
       "unusual_prehistory:entity/mob/ulughbegsaurus/idle2",
-      "unusual_prehistory:entity/mob/ulughbegsaurus/idle3"
+      "unusual_prehistory:entity/mob/ulughbegsaurus/idle3",
+      "unusual_prehistory:entity/mob/ulughbegsaurus/idle4"
     ],
     "subtitle": "subtitles.ulughbegsaurus_idle"
   },
@@ -2328,5 +2351,32 @@
       "unusual_prehistory:entity/mob/unicorn/idle4"
     ],
     "subtitle": "subtitles.unicorn_idle"
+  },
+  "woolly_mammoth_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/woolly_mammoth/death1"
+    ],
+    "subtitle": "subtitles.woolly_mammoth_death"
+  },
+  "woolly_mammoth_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/woolly_mammoth/hurt1",
+      "unusual_prehistory:entity/mob/woolly_mammoth/hurt2"
+    ],
+    "subtitle": "subtitles.woolly_mammoth_hurt"
+  },
+  "woolly_mammoth_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/woolly_mammoth/idle1",
+      "unusual_prehistory:entity/mob/woolly_mammoth/idle2"
+    ],
+    "subtitle": "subtitles.woolly_mammoth_idle"
+  },
+  "woolly_mammoth_step": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/woolly_mammoth/step1",
+      "unusual_prehistory:entity/mob/woolly_mammoth/step2"
+    ],
+    "subtitle": "subtitles.woolly_mammoth_step"
   }
 }

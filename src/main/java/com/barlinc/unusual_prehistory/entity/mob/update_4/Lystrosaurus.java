@@ -89,12 +89,8 @@ public class Lystrosaurus extends PrehistoricMob {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.ARMOR, 30.0F)
-                .add(Attributes.ARMOR_TOUGHNESS, 20.0F);
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
+                .add(Attributes.ARMOR_TOUGHNESS, 20.0F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override

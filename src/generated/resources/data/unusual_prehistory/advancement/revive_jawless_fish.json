@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_dunkleosteus",
+  "parent": "unusual_prehistory:revive_hynerpeton",
   "criteria": {
     "revive_jawless_fish": {
       "conditions": {

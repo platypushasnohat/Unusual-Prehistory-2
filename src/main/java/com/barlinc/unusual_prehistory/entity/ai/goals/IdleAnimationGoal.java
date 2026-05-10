@@ -38,7 +38,7 @@ public class IdleAnimationGoal extends Goal {
         } else if (stopMoving && !prehistoricMob.getNavigation().isDone()) {
             return false;
         }
-        return canUse.test(prehistoricMob) && prehistoricMob.idleAnimationCooldown == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy();
+        return canUse.test(prehistoricMob) && prehistoricMob.getIdleAnimationCooldown() == 0 && prehistoricMob.getRandom().nextFloat() < chance && prehistoricMob.isAlive() && prehistoricMob.getIdleState() == 0 && !prehistoricMob.isEepy();
     }
 
     @Override

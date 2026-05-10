@@ -70,7 +70,8 @@
                  .add(Attributes.MAX_HEALTH, 20.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.2F)
                  .add(Attributes.ARMOR, 4.0D)
-                 .add(Attributes.ATTACK_DAMAGE, 6.0D);
+                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                 .add(Attributes.STEP_HEIGHT, 1.1D);
      }
 
      @Override
@@ -132,11 +133,6 @@
      }
 
      @Override
-     public float getAdditionalStepHeight() {
-         return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
-     }
-
-     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.KAPROSUCHUS_FOOD);
      }
@@ -160,7 +156,7 @@
      }
 
      @Override
-     public boolean canOwnerCommand(Player player) {
+     public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
          return true;
      }
 

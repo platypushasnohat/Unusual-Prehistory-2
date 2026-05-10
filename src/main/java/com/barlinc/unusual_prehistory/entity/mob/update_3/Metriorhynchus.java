@@ -163,12 +163,6 @@
      }
 
      @Override
-     public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-         this.heal(4);
-         return super.killedEntity(level, victim);
-     }
-
-     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.METRIORHYNCHUS_FOOD);
      }
@@ -198,7 +192,7 @@
      }
 
      @Override
-     public boolean canOwnerCommand(Player player) {
+     public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
          return true;
      }
 

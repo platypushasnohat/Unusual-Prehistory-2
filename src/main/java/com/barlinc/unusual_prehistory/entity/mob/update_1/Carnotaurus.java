@@ -136,12 +136,6 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(14);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.CARNOTAURUS_FOOD);
     }

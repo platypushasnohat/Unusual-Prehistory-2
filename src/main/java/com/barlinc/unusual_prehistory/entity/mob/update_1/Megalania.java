@@ -168,11 +168,6 @@ public class Megalania extends AmphibiousMob {
     }
 
     @Override
-    public float getAdditionalStepHeight() {
-        return 0.0F;
-    }
-
-    @Override
     public int getMaxHeadXRot() {
         return this.isInWaterOrBubble() ? 1 : super.getMaxHeadXRot();
     }
@@ -238,18 +233,12 @@ public class Megalania extends AmphibiousMob {
     }
 
     @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(4);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.MEGALANIA_FOOD);
     }
 
     @Override
-    public boolean canOwnerCommand(Player player) {
+    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
         return true;
     }
 

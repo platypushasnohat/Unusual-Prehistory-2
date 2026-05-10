@@ -73,7 +73,8 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.24F);
+                .add(Attributes.MOVEMENT_SPEED, 0.24F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -106,11 +107,6 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
         } else {
             super.travel(travelVec);
         }
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override

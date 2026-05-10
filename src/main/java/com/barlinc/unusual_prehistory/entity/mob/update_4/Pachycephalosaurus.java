@@ -93,7 +93,8 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
                 .add(Attributes.ATTACK_DAMAGE, 8.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ARMOR, 4.0F);
+                .add(Attributes.ARMOR, 4.0F)
+                .add(Attributes.STEP_HEIGHT, 1.1D);
     }
 
     @Override
@@ -105,11 +106,6 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
             travelVec = travelVec.multiply(0.0, 1.0, 0.0);
         }
         super.travel(travelVec);
-    }
-
-    @Override
-    public float getAdditionalStepHeight() {
-        return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
     }
 
     @Override

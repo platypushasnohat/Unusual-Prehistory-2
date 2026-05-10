@@ -74,7 +74,8 @@
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.22F);
+                 .add(Attributes.MOVEMENT_SPEED, 0.22F)
+                 .add(Attributes.STEP_HEIGHT, 1.1D);
      }
 
      @Override
@@ -146,11 +147,6 @@
          } else {
              super.travel(travelVec);
          }
-     }
-
-     @Override
-     public float getAdditionalStepHeight() {
-         return this.isRunning() || this.isSliding() ? 0.4F : super.getAdditionalStepHeight();
      }
 
      @Override

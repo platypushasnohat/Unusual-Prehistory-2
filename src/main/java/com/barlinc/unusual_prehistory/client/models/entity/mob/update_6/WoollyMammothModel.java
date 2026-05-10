@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.MammothAnimations;
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.WoollyMammothAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Mammoth;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.WoollyMammoth;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MammothModel extends UP2Model<Mammoth> {
+public class WoollyMammothModel extends UP2Model<WoollyMammoth> {
 
     private final ModelPart root;
     private final ModelPart body_main;
@@ -40,7 +40,7 @@ public class MammothModel extends UP2Model<Mammoth> {
     private final ModelPart left_leg;
     private final ModelPart right_leg;
 
-	public MammothModel(ModelPart root) {
+	public WoollyMammothModel(ModelPart root) {
         super(0.25F, 72);
         this.root = root.getChild("root");
         this.body_main = this.root.getChild("body_main");
@@ -135,11 +135,11 @@ public class MammothModel extends UP2Model<Mammoth> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull Mammoth entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull WoollyMammoth entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(MammothAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
-		this.animateIdleSmooth(entity.idleAnimationState, MammothAnimations.IDLE, ageInTicks, limbSwingAmount);
-        if (this.young) this.applyStatic(MammothAnimations.BABY_TRANSFORM);
+        this.animateWalk(WoollyMammothAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
+		this.animateIdleSmooth(entity.idleAnimationState, WoollyMammothAnimations.IDLE, ageInTicks, limbSwingAmount);
+        if (this.young) this.applyStatic(WoollyMammothAnimations.BABY_TRANSFORM);
         this.faceTarget(entity, netHeadYaw, headPitch, 3, head);
 	}
 

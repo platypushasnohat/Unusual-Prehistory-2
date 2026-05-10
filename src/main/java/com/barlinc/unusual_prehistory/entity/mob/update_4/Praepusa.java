@@ -83,7 +83,8 @@
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 10.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.17F)
-                 .add(Attributes.ATTACK_DAMAGE, 3.0D);
+                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                 .add(Attributes.STEP_HEIGHT, 1.1D);
      }
 
      @Override
@@ -157,11 +158,6 @@
      }
 
      @Override
-     public float getAdditionalStepHeight() {
-         return this.isRunning() ? 0.4F : super.getAdditionalStepHeight();
-     }
-
-     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.PRAEPUSA_FOOD);
      }
@@ -173,7 +169,9 @@
 
      @Override
      public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-         if (this.getMitosisCooldown() == 0) this.setPose(UP2Poses.MITOSIS.get());
+         if (this.getMitosisCooldown() == 0) {
+             this.setPose(UP2Poses.MITOSIS.get());
+         }
          return super.killedEntity(level, victim);
      }
 
@@ -373,7 +371,7 @@
      public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          if (this.isFood(itemstack) && !this.isBaby() && this.getMitosisCooldown() == 0 && this.getPose() == Pose.STANDING) {
-             this.feedItemToMob(player, hand, itemstack);
+             this.feedItemToMob(this, player, itemstack);
              this.setPose(UP2Poses.MITOSIS.get());
              return InteractionResult.sidedSuccess(this.level().isClientSide);
          }

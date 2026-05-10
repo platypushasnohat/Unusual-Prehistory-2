@@ -8,7 +8,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class MammothAnimations {
+public class WoollyMammothAnimations {
 
     public static final AnimationDefinition BABY_TRANSFORM = AnimationDefinition.Builder.withLength(0.0F).looping()
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.SCALE,

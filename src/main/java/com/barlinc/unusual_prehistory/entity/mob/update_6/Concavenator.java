@@ -263,17 +263,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         return this.canAttack(target) && this.isSandSwimming();
     }
 
-    @Override
-    public boolean killedEntity(@NotNull ServerLevel level, @NotNull LivingEntity victim) {
-        this.heal(6);
-        return super.killedEntity(level, victim);
-    }
-
-    @Override
-    public boolean canOwnerCommand(Player player) {
-        return true;
-    }
-
     private int getSandSwimCooldownTime() {
         return 150 + this.getRandom().nextInt(150);
     }
@@ -404,13 +393,9 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     @Override
-    public InteractionResult interactTameCommands(Player player, @NotNull InteractionHand hand) {
+    public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !itemStack.is(ItemTags.PICKAXES) && !itemStack.is(ItemTags.SHOVELS)) {
-            return super.interactTameCommands(player, hand);
-        } else {
-            return InteractionResult.CONSUME;
-        }
+        return !itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !itemStack.is(ItemTags.PICKAXES) && !itemStack.is(ItemTags.SHOVELS);
     }
 
     private void spawnEatingParticles(ItemStack itemStack) {
@@ -826,19 +811,19 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.MAJUNGASAURUS_IDLE.get();
+        return UP2SoundEvents.CONCAVENATOR_IDLE.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.MAJUNGASAURUS_HURT.get();
+        return UP2SoundEvents.CONCAVENATOR_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.MAJUNGASAURUS_DEATH.get();
+        return UP2SoundEvents.CONCAVENATOR_DEATH.get();
     }
 
     @Override
@@ -847,7 +832,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             SoundType soundtype = state.getSoundType(this.level(), pos, this);
             this.playSound(soundtype.getHitSound(), soundtype.getVolume() * 0.15F, soundtype.getPitch());
         } else {
-            this.playSound(UP2SoundEvents.MAJUNGASAURUS_STEP.get(), 0.2F, 1.0F);
+            this.playSound(UP2SoundEvents.CONCAVENATOR_STEP.get(), 0.2F, 1.0F);
         }
     }
 
@@ -857,11 +842,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             return (this.getRandom().nextFloat() - this.getRandom().nextFloat()) * 0.2F + 0.925F;
         }
         return super.getVoicePitch();
-    }
-
-    @Override
-    public int getAmbientSoundInterval() {
-        return 180;
     }
 
     public enum ArmorType {
