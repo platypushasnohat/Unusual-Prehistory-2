@@ -70,6 +70,11 @@ public class UP2ModelLayers {
     // Update 6
     public static final ModelLayerLocation AMPYX = mainLayer("ampyx");
     public static final ModelLayerLocation ANTARCTOPELTA = mainLayer("antarctopelta");
+
+    public static final ModelLayerLocation ARTHROPLEURA_HEAD = mainLayer("arthropleura_head");
+    public static final ModelLayerLocation ARTHROPLEURA_BODY = mainLayer("arthropleura_body");
+    public static final ModelLayerLocation ARTHROPLEURA_TAIL = mainLayer("arthropleura_tail");
+
     public static final ModelLayerLocation BRONTOSCORPIO = mainLayer("brontoscorpio");
     public static final ModelLayerLocation CONCAVENATOR = mainLayer("concavenator");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");

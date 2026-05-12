@@ -23,6 +23,9 @@ public class UnusualPrehistory2Tab {
                         // Prehistoric
                         output.accept(AEGIROCASSIS_SPAWN_EGG.get());
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
+
+                        output.accept(ARTHROPLEURA_SPAWN_EGG.get());
+
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(BRONTOSCORPIO_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
@@ -89,9 +92,16 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MESONITE_STAIRS.get());
                         output.accept(UP2Blocks.MESONITE_SLAB.get());
 
-                        output.accept(UP2Blocks.FLORALITE.get());
-                        output.accept(UP2Blocks.FLORALITE_STAIRS.get());
-                        output.accept(UP2Blocks.FLORALITE_SLAB.get());
+//                        output.accept(UP2Blocks.FLORALITE.get());
+//                        output.accept(UP2Blocks.FLORALITE_STAIRS.get());
+//                        output.accept(UP2Blocks.FLORALITE_SLAB.get());
+
+                        output.accept(UP2Blocks.PALEOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.PALEOZOIC_MATRIX_FOSSIL.get());
+                        output.accept(UP2Blocks.MESOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.MESOZOIC_MATRIX_FOSSIL.get());
+                        output.accept(UP2Blocks.CENOZOIC_MATRIX.get());
+                        output.accept(UP2Blocks.CENOZOIC_MATRIX_FOSSIL.get());
 
                         output.accept(UP2Blocks.PETRIFIED_BUSH.get());
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());
