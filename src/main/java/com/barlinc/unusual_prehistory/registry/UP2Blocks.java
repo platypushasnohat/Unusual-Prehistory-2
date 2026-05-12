@@ -212,6 +212,13 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
 
+    public static final DeferredBlock<Block> PALEOZOIC_MATRIX = registerBlock("paleozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> PALEOZOIC_MATRIX_FOSSIL = registerBlock("paleozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> MESOZOIC_MATRIX = registerBlock("mesozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> MESOZOIC_MATRIX_FOSSIL = registerBlock("mesozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> CENOZOIC_MATRIX = registerBlock("cenozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> CENOZOIC_MATRIX_FOSSIL = registerBlock("cenozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

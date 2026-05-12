@@ -16,6 +16,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -74,6 +75,9 @@ public class ModEvents {
         // Update 6
         event.put(UP2Entities.AMPYX.get(), Ampyx.createAttributes().build());
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
+
+        event.put(UP2Entities.ARTHROPLEURA.get(), Arthropleura.createAttributes().build());
+
         event.put(UP2Entities.BRONTOSCORPIO.get(), Brontoscorpio.createAttributes().build());
         event.put(UP2Entities.CONCAVENATOR.get(), Concavenator.createAttributes().build());
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());

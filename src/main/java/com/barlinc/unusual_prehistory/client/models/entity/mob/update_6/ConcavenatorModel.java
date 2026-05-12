@@ -252,7 +252,7 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
         this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
         float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
+        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.15F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.1F);
 	}
 

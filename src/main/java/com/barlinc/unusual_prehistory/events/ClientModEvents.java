@@ -33,6 +33,9 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.AmpyxModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.SetapeditesModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraHeadModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
@@ -51,6 +54,8 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.ambien
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.AmpyxRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.SetapeditesRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraPartRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -154,6 +159,10 @@ public class ClientModEvents {
         // Update 6
         event.registerEntityRenderer(UP2Entities.AMPYX.get(), AmpyxRenderer::new);
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
+
+        event.registerEntityRenderer(UP2Entities.ARTHROPLEURA.get(), ArthropleuraRenderer::new);
+        event.registerEntityRenderer(UP2Entities.ARTHROPLEURA_PART.get(), ArthropleuraPartRenderer::new);
+
         event.registerEntityRenderer(UP2Entities.BRONTOSCORPIO.get(), BrontoscorpioRenderer::new);
         event.registerEntityRenderer(UP2Entities.CONCAVENATOR.get(), ConcavenatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
@@ -236,6 +245,11 @@ public class ClientModEvents {
         // Update 6
         event.registerLayerDefinition(UP2ModelLayers.AMPYX, AmpyxModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
+
+        event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_HEAD, ArthropleuraHeadModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_BODY, ArthropleuraBodyModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_TAIL, ArthropleuraTailModel::createBodyLayer);
+
         event.registerLayerDefinition(UP2ModelLayers.BRONTOSCORPIO, BrontoscorpioModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CONCAVENATOR, ConcavenatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);

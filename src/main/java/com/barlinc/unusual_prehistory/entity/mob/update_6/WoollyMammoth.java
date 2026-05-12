@@ -112,9 +112,4 @@ public class WoollyMammoth extends PrehistoricMob {
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP.get(), this.isBaby() ? 0.15F : 0.3F, this.isBaby() ? 1.5F : 1.0F);
     }
-
-    @Override
-    public int getAmbientSoundInterval() {
-        return 200;
-    }
 }
