@@ -16,8 +16,8 @@ import com.barlinc.unusual_prehistory.entity.mob.update_5.ambient.Zhangsolva;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraBody;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraHead;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
@@ -94,8 +94,8 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Ampyx>> AMPYX = registerEntity("ampyx", Ampyx::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.2F).eyeHeight(0.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Antarctopelta>> ANTARCTOPELTA = registerEntity("antarctopelta", Antarctopelta::new, MobCategory.CREATURE, builder -> builder.sized(1.4F, 1.4F).eyeHeight(1.1F).clientTrackingRange(10));
 
-    public static final DeferredHolder<EntityType<?>, EntityType<Arthropleura>> ARTHROPLEURA = registerEntity("arthropleura", Arthropleura::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 0.8F).eyeHeight(0.4F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<ArthropleuraPart>> ARTHROPLEURA_PART = registerEntity("arthropleura_part", ArthropleuraPart::new, MobCategory.MISC, builder -> builder.sized(1.5F, 0.8F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<ArthropleuraHead>> ARTHROPLEURA_HEAD = registerEntity("arthropleura_head", ArthropleuraHead::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 0.8F).eyeHeight(0.4F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<ArthropleuraBody>> ARTHROPLEURA_BODY = registerEntity("arthropleura_body", ArthropleuraBody::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 0.8F).eyeHeight(0.4F).clientTrackingRange(10).noSave().noSummon());
 
     public static final DeferredHolder<EntityType<?>, EntityType<Brontoscorpio>> BRONTOSCORPIO = registerEntity("brontoscorpio", Brontoscorpio::new, MobCategory.CREATURE, builder -> builder.sized(1.15F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Concavenator>> CONCAVENATOR = registerEntity("concavenator", Concavenator::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 2.3F).eyeHeight(2.2F).clientTrackingRange(10));

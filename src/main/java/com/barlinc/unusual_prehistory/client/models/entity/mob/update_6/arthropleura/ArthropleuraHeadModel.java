@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura;
 
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -11,9 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
+public class ArthropleuraHeadModel<E extends ArthropleuraPart> extends UP2Model<E> {
 
     private final ModelPart root;
+    private final ModelPart rotation_control;
     private final ModelPart leg_control;
     private final ModelPart leg_wiggle;
     private final ModelPart leg_left1;
@@ -35,7 +36,8 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
 	public ArthropleuraHeadModel(ModelPart root) {
         super(0.5F, 24);
         this.root = root.getChild("root");
-        this.leg_control = this.root.getChild("leg_control");
+        this.rotation_control = this.root.getChild("rotation_control");
+        this.leg_control = this.rotation_control.getChild("leg_control");
         this.leg_wiggle = this.leg_control.getChild("leg_wiggle");
         this.leg_left1 = this.leg_wiggle.getChild("leg_left1");
         this.leg_left2 = this.leg_wiggle.getChild("leg_left2");
@@ -45,7 +47,7 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
         this.leg_right2 = this.leg_wiggle.getChild("leg_right2");
         this.leg_right3 = this.leg_wiggle.getChild("leg_right3");
         this.leg_right4 = this.leg_wiggle.getChild("leg_right4");
-        this.body = this.root.getChild("body");
+        this.body = this.rotation_control.getChild("body");
         this.body_jiggle = this.body.getChild("body_jiggle");
         this.head = this.body_jiggle.getChild("head");
         this.mandible_left = this.head.getChild("mandible_left");
@@ -60,7 +62,9 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
 
         PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition leg_control = root.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, 13.0F));
+        PartDefinition rotation_control = root.addOrReplaceChild("rotation_control", CubeListBuilder.create(), PartPose.offset(0.0F, -8.0F, 0.0F));
+
+        PartDefinition leg_control = rotation_control.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 13.0F));
 
         PartDefinition leg_wiggle = leg_control.addOrReplaceChild("leg_wiggle", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -80,7 +84,7 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
 
         PartDefinition leg_right4 = leg_wiggle.addOrReplaceChild("leg_right4", CubeListBuilder.create().texOffs(88, 95).mirror().addBox(-12.0F, -1.0F, 0.0F, 13.0F, 7.0F, 0.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-5.0F, 3.0F, -6.0F, 0.0F, 0.1745F, 0.1745F));
 
-        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, 13.0F));
+        PartDefinition body = rotation_control.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 13.0F));
 
         PartDefinition body_jiggle = body.addOrReplaceChild("body_jiggle", CubeListBuilder.create().texOffs(0, 22).addBox(-14.0F, -4.0F, -24.0F, 28.0F, 7.0F, 22.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-18.0F, 1.0F, -24.0F, 36.0F, 0.0F, 22.0F, new CubeDeformation(0.0025F))
@@ -106,9 +110,11 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull Arthropleura entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull E entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-	}
+        this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
+        this.look(this.head, netHeadYaw, headPitch, 1.0F, 1.0F);
+    }
 
 	@Override
 	public @NotNull ModelPart root() {

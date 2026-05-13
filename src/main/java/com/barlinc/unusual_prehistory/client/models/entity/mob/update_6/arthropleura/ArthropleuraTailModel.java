@@ -11,9 +11,10 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
+public class ArthropleuraTailModel<E extends ArthropleuraPart> extends UP2Model<E> {
 
     private final ModelPart root;
+    private final ModelPart rotation_control;
     private final ModelPart tail1;
     private final ModelPart leg_control;
     private final ModelPart leg_wiggle;
@@ -25,13 +26,14 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
     private final ModelPart leg_right3;
     private final ModelPart segment;
     private final ModelPart segment_jiggle;
+    private final ModelPart tail2;
     private final ModelPart tail3;
-    private final ModelPart tail4;
 
 	public ArthropleuraTailModel(ModelPart root) {
         super(1.0F, 0);
         this.root = root.getChild("root");
-        this.tail1 = this.root.getChild("tail1");
+        this.rotation_control = this.root.getChild("rotation_control");
+        this.tail1 = this.rotation_control.getChild("tail1");
         this.leg_control = this.tail1.getChild("leg_control");
         this.leg_wiggle = this.leg_control.getChild("leg_wiggle");
         this.leg_left1 = this.leg_wiggle.getChild("leg_left1");
@@ -42,8 +44,8 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
         this.leg_right3 = this.leg_wiggle.getChild("leg_right3");
         this.segment = this.tail1.getChild("segment");
         this.segment_jiggle = this.segment.getChild("segment_jiggle");
-        this.tail3 = this.segment_jiggle.getChild("tail3");
-        this.tail4 = this.tail3.getChild("tail4");
+        this.tail2 = this.segment_jiggle.getChild("tail2");
+        this.tail3 = this.tail2.getChild("tail3");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -52,7 +54,9 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
 
         PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition tail1 = root.addOrReplaceChild("tail1", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, -8.25F));
+        PartDefinition rotation_control = root.addOrReplaceChild("rotation_control", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, -1.0F));
+
+        PartDefinition tail1 = rotation_control.addOrReplaceChild("tail1", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -7.25F));
 
         PartDefinition leg_control = tail1.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -77,10 +81,10 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
         PartDefinition segment_jiggle = segment.addOrReplaceChild("segment_jiggle", CubeListBuilder.create().texOffs(0, 64).addBox(-6.0F, -3.0F, -0.75F, 12.0F, 6.0F, 13.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 51).addBox(-14.0F, 1.0F, -0.75F, 28.0F, 0.0F, 13.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition tail3 = segment_jiggle.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(88, 78).addBox(-3.0F, -2.0F, -0.75F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.0F))
+        PartDefinition tail2 = segment_jiggle.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(88, 78).addBox(-3.0F, -2.0F, -0.75F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(82, 59).addBox(-5.0F, 0.0F, 0.25F, 10.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 1.0F, 13.0F));
 
-        PartDefinition tail4 = tail3.addOrReplaceChild("tail4", CubeListBuilder.create().texOffs(-1, 96).addBox(-5.0F, 0.0F, -1.75F, 10.0F, 0.0F, 9.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 6.0F));
+        PartDefinition tail3 = tail2.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(-1, 96).addBox(-5.0F, 0.0F, -1.75F, 10.0F, 0.0F, 9.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 6.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}
@@ -88,6 +92,7 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
 	}
 
 	@Override

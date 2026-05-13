@@ -9,7 +9,9 @@ import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +25,9 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
 
     protected final float youngScaleFactor;
     protected final float bodyYOffset;
+
+    protected float rotationX;
+    protected float rotationY;
 
     public UP2Model(float youngScaleFactor, float youngBodyYoffset) {
         this(youngScaleFactor, youngBodyYoffset, RenderType::entityCutoutNoCull);
@@ -113,5 +118,15 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
                 part.xRot += pitchAmount;
             }
         }
+    }
+
+    public void setBodyRotation(float rotationX, float rotationY) {
+        this.rotationX = rotationX;
+        this.rotationY = rotationY;
+    }
+
+    public void look(ModelPart part, float netHeadYaw, float headPitch, float yawDivisor, float pitchDivisor) {
+        part.yRot += (netHeadYaw * ((float) Math.PI / 180F)) / yawDivisor;
+        part.xRot += (headPitch * ((float) Math.PI / 180F)) / pitchDivisor;
     }
 }

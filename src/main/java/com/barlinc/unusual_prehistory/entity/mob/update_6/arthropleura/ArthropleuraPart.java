@@ -1,323 +1,267 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura;
 
-import net.minecraft.core.BlockPos;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ArthropleuraPart extends Entity {
+public abstract class ArthropleuraPart extends PrehistoricMob {
 
-    private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Integer> PART_INDEX = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> PART_TYPE = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+    public float segmentLength = 1.5F;
+    public List<ArthropleuraBody> behindSegments;
+    public ArthropleuraPart ahead;
+    public ArthropleuraBody behind;
+    int airTime;
+    private static final EntityDataAccessor<Integer> SEGMENT_ID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ORIGINAL_SEGMENT_ID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> BODY_LENGTH = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ORIGINAL_BODY_LENGTH = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
 
-    public boolean renderHurtFlag = false;
+    private static final EntityDataAccessor<Float> X_BODY_ROT = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> Y_BODY_ROT = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.FLOAT);
+    private float bodyRotX;
+    private float bodyRotY;
 
-    private double prevHeight = 0;
-
-    private int lSteps;
-    private double lx;
-    private double ly;
-    private double lz;
-    private double lyr;
-    private double lxr;
-    private double lxd;
-    private double lyd;
-    private double lzd;
-
-    public ArthropleuraPart(EntityType<? extends Entity> entityType, Level level) {
-        super(entityType, level);
-    }
-
-    public ArthropleuraPart(EntityType<? extends Entity> entityType, LivingEntity parent) {
-        super(entityType, parent.level());
-        this.setParent(parent);
+    protected ArthropleuraPart(EntityType<? extends ArthropleuraPart> entity, Level level) {
+        super(entity, level);
+        this.behindSegments = new ArrayList<>();
+        this.airTime = 0;
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return source.is(DamageTypes.IN_WALL)  || super.isInvulnerableTo(source);
+    protected void registerGoals() {
     }
 
     @Override
-    public boolean canUsePortal(boolean allowVehicles) {
-        return false;
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(X_BODY_ROT, 0.0F);
+        builder.define(Y_BODY_ROT, 0.0F);
+        builder.define(SEGMENT_ID, 0);
+        builder.define(ORIGINAL_SEGMENT_ID, 0);
+        builder.define(BODY_LENGTH, 0);
+        builder.define(ORIGINAL_BODY_LENGTH, 0);
     }
 
     @Override
-    public boolean isNoGravity() {
-        return false;
-    }
-
-//    @Override
-//    public boolean isPickable() {
-//        Entity parent = this.getParent();
-//        return parent != null && parent.isPickable();
-//    }
-//
-//    @Nullable
-//    @Override
-//    public ItemStack getPickResult() {
-//        SpawnEggItem item = SpawnEggItem.byId(this.getParent().getType());
-//        if (this.getParent() != null) {
-//            return item == null ? null : new ItemStack(item);
-//        } else {
-//            return ItemStack.EMPTY;
-//        }
-//    }
-//
-//    @Override
-//    public boolean hurt(@NotNull DamageSource source, float amount) {
-//        Entity parent = this.getParent();
-//        if (!this.isInvulnerableTo(source) && parent != null) {
-//            parent.hurt(source, amount);
-//        }
-//        return false;
-//    }
-
-    @Override
-    public void lerpTo(double x, double y, double z, float yr, float xr, int steps) {
-        this.lx = x;
-        this.ly = y;
-        this.lz = z;
-        this.lyr = yr;
-        this.lxr = xr;
-        this.lSteps = steps;
-        this.setDeltaMovement(this.lxd, this.lyd, this.lzd);
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("SegmentID", this.getSegmentID());
+        compoundTag.putInt("OriginalSegmentID", this.getOriginalSegmentID());
+        compoundTag.putInt("BodyLength", this.getBodyLength());
+        compoundTag.putInt("OriginalBodyLength", this.getOriginalBodyLength());
     }
 
     @Override
-    public void lerpMotion(double lerpX, double lerpY, double lerpZ) {
-        this.lxd = lerpX;
-        this.lyd = lerpY;
-        this.lzd = lerpZ;
-        this.setDeltaMovement(this.lxd, this.lyd, this.lzd);
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setSegmentID(compoundTag.getInt("SegmentID"));
+        this.setOriginalSegmentID(compoundTag.getInt("OriginalSegmentID"));
+        this.setBodyLength(compoundTag.getInt("BodyLength"));
+        this.setOriginalBodyLength(compoundTag.getInt("OriginalBodyLength"));
+    }
+
+    public void setSegmentID(int id) {
+        this.entityData.set(SEGMENT_ID, id);
+    }
+    public int getSegmentID() {
+        return this.entityData.get(SEGMENT_ID);
+    }
+    public void setOriginalSegmentID(int id) {
+        this.entityData.set(ORIGINAL_SEGMENT_ID, id);
+    }
+    public int getOriginalSegmentID() {
+        return this.entityData.get(ORIGINAL_SEGMENT_ID);
+    }
+
+    public void setBodyLength(int bodyLength) {
+        this.entityData.set(BODY_LENGTH, bodyLength);
+    }
+    public int getBodyLength() {
+        return this.entityData.get(BODY_LENGTH);
+    }
+    public int getOriginalBodyLength() {
+        return this.entityData.get(ORIGINAL_BODY_LENGTH);
+    }
+    public void setOriginalBodyLength(int bodyLength) {
+        this.entityData.set(ORIGINAL_BODY_LENGTH, bodyLength);
+    }
+
+    public float getBodyRotX(float partialTick) {
+        return Mth.rotLerp(partialTick, bodyRotX, this.entityData.get(X_BODY_ROT));
+    }
+    public void setBodyRotX(float rotation) {
+        this.entityData.set(X_BODY_ROT, rotation);
+    }
+
+    public float getBodyRotY(float partialTick) {
+        return Mth.rotLerp(partialTick, bodyRotY, this.entityData.get(Y_BODY_ROT));
+    }
+    public void setBodyRotY(float rotation) {
+        this.entityData.set(Y_BODY_ROT, rotation);
+    }
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+        this.bodyRotX = this.entityData.get(X_BODY_ROT);
+        this.bodyRotY = this.entityData.get(Y_BODY_ROT);
+        if (!this.onGround() && !this.onClimbable()) {
+            this.airTime++;
+        } else {
+            this.airTime = 0;
+        }
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.setDeltaMovement(Vec3.ZERO);
-        Entity parent = this.getParent();
-        if (this.tickCount > 1) {
-            this.refreshDimensions();
-        }
-        if (this.level().isClientSide) {
-            if (parent instanceof Arthropleura arthropleura) {
-                this.renderHurtFlag = arthropleura.hurtTime > 0 || arthropleura.deathTime > 0;
+
+        if (!this.level().isClientSide) {
+            Vec3 dir1 = Vec3.ZERO;
+            float count = 0.0F;
+            if (ahead != null) {
+                dir1 = this.position().subtract(ahead.position()).reverse();
+                count++;
             }
-            if (this.lSteps > 0) {
-                double d5 = this.getX() + (this.lx - this.getX()) / (double) this.lSteps;
-                double d6 = this.getY() + (this.ly - this.getY()) / (double) this.lSteps;
-                double d7 = this.getZ() + (this.lz - this.getZ()) / (double) this.lSteps;
-                double lerpRot = Mth.wrapDegrees(this.lyr - (double) this.getYRot());
-                this.setYRot(this.getYRot() + (float) lerpRot / (float) this.lSteps);
-                this.setXRot(this.getXRot() + (float) (this.lxr - (double) this.getXRot()) / (float) this.lSteps);
-                this.lSteps--;
-                this.setPos(d5, d6, d7);
-            } else {
-                this.reapplyPosition();
+            Vec3 dir2 = Vec3.ZERO;
+            if (behind != null) {
+                dir2 = this.position().subtract(behind.position());
+                count++;
             }
+            Vec3 average = dir1.add(dir2).scale(1.0F / Math.max(count, 1));
+            this.face(this.position().add(average));
         }
     }
 
-    public Vec3 tickMultipartPosition(ArthropleuraPartIndex parentIndex, Vec3 parentPosition, float parentXRot, float yawForPart, boolean doHeight) {
-        Vec3 parentButt = parentPosition.add(this.calcOffsetVec(-parentIndex.getBackOffset(), parentXRot, yawForPart));
-        Vec3 ourButt = parentButt.add(this.calcOffsetVec((-this.getPartType().getBackOffset() - 0.5F * this.getBbWidth()), this.getXRot(), yawForPart));
-        Vec3 avg = new Vec3((parentButt.x + ourButt.x) / 2.0F, (parentButt.y + ourButt.y) / 2.0F, (parentButt.z + ourButt.z) / 2.0F);
-        double posX = parentButt.x - ourButt.x;
-        double posZ = parentButt.z - ourButt.z;
-        double sqrt = Math.sqrt(posX * posX + posZ * posZ);
-        double height = doHeight ? (this.getLowPartHeight(parentButt.x, parentButt.y, parentButt.z) + this.getHighPartHeight(ourButt.x, ourButt.y, ourButt.z)) : 0.0D;
-        if (Math.abs(height - prevHeight) > 0.2F) {
-            this.prevHeight = height;
+    public void applyRopeConstraints(int iterations) {
+        if (behindSegments == null || behindSegments.isEmpty()) {
+            return;
         }
-        double partY = Mth.clamp(prevHeight, -1.0F, 1.0F);
-        float yRot = (float) (Mth.atan2(posZ, posX) * 57.2957763671875D) - 90.0F;
-        float rawAngle = Mth.wrapDegrees((float) (-(Mth.atan2(partY, sqrt) * Mth.RAD_TO_DEG)));
-        float xRot = this.limitAngle(this.getXRot(), rawAngle, 10.0F);
-        this.setXRot(xRot);
-        this.setYRot(yRot);
-        this.moveTo(avg.x, avg.y, avg.z, yRot, xRot);
-        return avg;
-    }
-
-    public Vec3 calcOffsetVec(float offsetZ, float xRot, float yRot){
-        return new Vec3(0, 0, offsetZ).xRot(xRot * Mth.DEG_TO_RAD).yRot(-yRot * Mth.DEG_TO_RAD);
-    }
-
-    public float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
-        float f = Mth.wrapDegrees(targetAngle - sourceAngle);
-        if (f > maximumChange) {
-            f = maximumChange;
+        Vec3[] desiredPositions = new Vec3[behindSegments.size() + 1];
+        desiredPositions[0] = this.position();
+        for (int i = 0; i < behindSegments.size(); i++) {
+            desiredPositions[i + 1] = behindSegments.get(i).position();
         }
-        if (f < -maximumChange) {
-            f = -maximumChange;
-        }
-        float f1 = sourceAngle + f;
-        if (f1 < 0.0F) {
-            f1 += 360.0F;
-        } else if (f1 > 360.0F) {
-            f1 -= 360.0F;
-        }
-        return f1;
-    }
-
-    public double getLowPartHeight(double x, double y, double z) {
-        if (this.isFluidAt(x, y, z)) {
-            return 0.0D;
-        }
-        double checkAt = 0.0D;
-        while (checkAt > -3.0D && !this.isOpaqueBlockAt(x,y + checkAt, z)) {
-            checkAt -= 0.2D;
-        }
-        return checkAt;
-    }
-
-    public double getHighPartHeight(double x, double y, double z) {
-        if (this.isFluidAt(x, y, z)) {
-            return 0.0D;
-        }
-        double checkAt = 0.0D;
-        while (checkAt <= 3.0D) {
-            if (this.isOpaqueBlockAt(x, y + checkAt, z)) {
-                checkAt += 0.2D;
-            } else {
-                break;
+        for (int iteration = 0; iteration < iterations; iteration++) {
+            desiredPositions[0] = this.position();
+            for (int i = 0; i < behindSegments.size(); i++) {
+                Vec3 parent = desiredPositions[i];
+                Vec3 child = desiredPositions[i + 1];
+                Vec3 delta = child.subtract(parent);
+                double dist = delta.length();
+                if (dist < 1.0E-6) {
+                    continue;
+                }
+                Vec3 correction = delta.normalize().scale(dist - segmentLength);
+                desiredPositions[i + 1] = child.subtract(correction);
             }
         }
-        return checkAt;
+        for (int i = 0; i < behindSegments.size(); i++) {
+            ArthropleuraBody segment = behindSegments.get(i);
+            Vec3 move = desiredPositions[i + 1].subtract(segment.position());
+            segment.moveWithoutClamping(MoverType.SELF, move);
+        }
     }
 
-    public boolean isOpaqueBlockAt(double x, double y, double z) {
-        if (this.noPhysics) {
+    public ArthropleuraPart getSegmentFromIndex(int segmentIndex) {
+        if (segmentIndex < -1 || segmentIndex > behindSegments.size() - 1) {
+            return null;
+        }
+        return segmentIndex == -1 ? this : behindSegments.get(segmentIndex);
+    }
+
+    public void face(Vec3 position) {
+        if (!this.level().isClientSide) {
+            double xDirection = position.x() - this.getX();
+            double yDirection = position.y() - this.getY();
+            double zDirection = position.z() - this.getZ();
+            double magnitude = Math.sqrt(xDirection * xDirection + zDirection * zDirection);
+            double yaw = (Mth.atan2(zDirection, xDirection) * (180F / Math.PI)) - 90.0F;
+            double pitch = -(Mth.atan2(yDirection, magnitude) * (180F / Math.PI));
+            float speed = 0.8F;
+            float currentYaw = this.getBodyRotY(0);
+            float currentPitch = this.getBodyRotX(0);
+            float yawDelta = Mth.wrapDegrees((float) yaw - currentYaw);
+            float pitchDelta = (float) pitch - currentPitch;
+            this.setBodyRotX(currentPitch + pitchDelta * speed);
+            this.setXRot(currentPitch + pitchDelta * speed);
+            this.setYBodyRot(currentYaw + yawDelta * speed);
+            this.setBodyRotY(currentYaw + yawDelta * speed);
+        }
+    }
+
+    @Override
+    public boolean canCollideWith(@NotNull Entity entity) {
+        if (entity instanceof ArthropleuraPart) {
             return false;
         } else {
-            final double d = 1D;
-            final Vec3 vec3 = new Vec3(x, y, z);
-            final AABB axisAlignedBB = AABB.ofSize(vec3, d, 1.0E-6D, d);
-            return this.level().getBlockStates(axisAlignedBB).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((state) -> {
-                BlockPos blockpos = new BlockPos((int) vec3.x, (int) vec3.y, (int) vec3.z);
-                return state.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(state.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisAlignedBB), BooleanOp.AND);
-            });
+            return super.canCollideWith(entity);
         }
     }
 
-    public boolean isFluidAt(double x, double y, double z) {
-        if (this.noPhysics) {
-            return false;
+    @Override
+    public void push(@NotNull Entity entity) {
+        if (!(entity instanceof ArthropleuraPart)) {
+            super.push(entity);
         } else {
-            return !level().getFluidState(this.fromCoords(x, y, z)).isEmpty();
-        }
-    }
-
-    public BlockPos fromCoords(double x, double y, double z){
-        return new BlockPos((int) x, (int) y, (int) z);
-    }
-
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(CHILD_UUID, Optional.empty());
-        builder.define(PARENT_UUID, Optional.empty());
-        builder.define(PART_INDEX, 0);
-        builder.define(PART_TYPE, 0);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-        if (this.getParentId() != null) {
-            compoundTag.putUUID("ParentUUID", this.getParentId());
-        }
-        if (this.getChildId() != null) {
-            compoundTag.putUUID("ChildUUID", this.getChildId());
-        }
-        compoundTag.putInt("PartIndex", this.getIndex());
-        compoundTag.putInt("PartType", getPartType().ordinal());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        if (compoundTag.hasUUID("ParentUUID")) {
-            this.setParentId(compoundTag.getUUID("ParentUUID"));
-        }
-        if (compoundTag.hasUUID("ChildUUID")) {
-            this.setChildId(compoundTag.getUUID("ChildUUID"));
-        }
-        this.setIndex(compoundTag.getInt("PartIndex"));
-        this.setPartType(ArthropleuraPartIndex.fromOrdinal(compoundTag.getInt("PartType")));
-    }
-
-    public Entity getParent() {
-        if (!this.level().isClientSide) {
-            final UUID id = this.getParentId();
-            if (id != null) {
-                return ((ServerLevel) this.level()).getEntity(id);
+            if (this.position().distanceToSqr(entity.position()) < segmentLength * 0.5F) {
+                super.push(entity);
             }
         }
-        return null;
     }
 
-    public void setParent(Entity entity) {
-        this.setParentId(entity.getUUID());
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
     }
 
-    @Nullable
-    public UUID getParentId() {
-        return this.entityData.get(PARENT_UUID).orElse(null);
-    }
-    public void setParentId(@Nullable UUID uniqueId) {
-        this.entityData.set(PARENT_UUID, Optional.ofNullable(uniqueId));
-    }
-
-    public Entity getChild() {
-        if (!this.level().isClientSide) {
-            final UUID id = getChildId();
-            if (id != null) {
-                return ((ServerLevel) level()).getEntity(id);
-            }
+    @Override
+    public void travel(@NotNull Vec3 travelVector) {
+        super.travel(travelVector);
+        if (this.isEffectiveAi() && ((airTime < 10) || this.isInWater() || this.isNoGravity())) {
+            this.moveRelative(0.08F, travelVector);
         }
-        return null;
     }
 
-    @Nullable
-    public UUID getChildId() {
-        return this.entityData.get(CHILD_UUID).orElse(null);
-    }
-    public void setChildId(@Nullable UUID uniqueId) {
-        this.entityData.set(CHILD_UUID, Optional.ofNullable(uniqueId));
+    @Override
+    public void move(@NotNull MoverType moverType, @NotNull Vec3 pos) {
+        if (!this.isDeadOrDying()) {
+            double segLengthSqr = (this.segmentLength * this.segmentLength);
+            Vec3 resultingPos = this.position().add(0.0, pos.y(), 0.0);
+            Vec3 adjustedPos = pos;
+            if (behind != null) {
+                double distToPrevSegmentSqr = resultingPos.distanceToSqr(behind.position());
+                if (distToPrevSegmentSqr > segLengthSqr) {
+                    double distToPrevSegment = Math.sqrt(distToPrevSegmentSqr);
+                    double difference = distToPrevSegment - segmentLength;
+                    adjustedPos = pos.normalize().scale(pos.length() - difference);
+                }
+            } else if (ahead != null) {
+                Vec3 falseBehind = this.position().add(this.position().subtract(ahead.position()).reverse());
+                double distToNextSegmentSqr = resultingPos.distanceToSqr(falseBehind);
+                if (distToNextSegmentSqr > segLengthSqr) {
+                    double distToNextSegment = Math.sqrt(distToNextSegmentSqr);
+                    double difference = distToNextSegment - segmentLength;
+                    adjustedPos = pos.normalize().scale(pos.length() - difference);
+                }
+            }
+            super.move(moverType, new Vec3(pos.x, adjustedPos.y, pos.z));
+        } else {
+            super.move(moverType, pos);
+        }
     }
 
-    public int getIndex() {
-        return this.entityData.get(PART_INDEX);
-    }
-    public void setIndex(int index) {
-        this.entityData.set(PART_INDEX, index);
-    }
-
-    public ArthropleuraPartIndex getPartType() {
-        return ArthropleuraPartIndex.fromOrdinal(this.entityData.get(PART_TYPE));
-    }
-
-    public void setPartType(ArthropleuraPartIndex index) {
-        this.entityData.set(PART_TYPE, index.ordinal());
+    public void moveWithoutClamping(MoverType moverType, Vec3 pos) {
+        super.move(moverType, pos);
     }
 }
