@@ -3,8 +3,8 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura;
 public enum ArthropleuraPartIndex {
 
     HEAD(0.0F),
-    BODY(20.0F),
-    TAIL(20.0F);
+    BODY(2.25F),
+    TAIL(2.25F);
 
     private final float backOffset;
 
@@ -23,7 +23,7 @@ public enum ArthropleuraPartIndex {
     public static ArthropleuraPartIndex sizeAt(int index) {
         return switch (index) {
             case 0 -> HEAD;
-            case 7 -> TAIL;
+            case 3 -> TAIL;
             default -> BODY;
         };
     }

@@ -86,6 +86,8 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.root.yRot += netHeadYaw / 57.295776F;
+        this.root.xRot += Math.min(0, headPitch / 57.295776F);
 	}
 
 	@Override

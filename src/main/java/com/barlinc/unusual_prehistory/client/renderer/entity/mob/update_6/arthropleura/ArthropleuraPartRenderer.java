@@ -17,9 +17,11 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -38,6 +40,24 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
         super(context);
         BODY = new ArthropleuraBodyModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_BODY));
         TAIL = new ArthropleuraTailModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_TAIL));
+    }
+
+    @Override
+    protected int getSkyLightLevel(ArthropleuraPart entity, @NotNull BlockPos pos) {
+        Entity parent = entity.getParent();
+        if (parent instanceof Arthropleura arthropleura) {
+            return arthropleura.level().getBrightness(LightLayer.SKY, pos);
+        }
+        return super.getSkyLightLevel(entity, pos);
+    }
+
+    @Override
+    protected int getBlockLightLevel(ArthropleuraPart entity, @NotNull BlockPos pos) {
+        Entity parent = entity.getParent();
+        if (parent instanceof Arthropleura arthropleura) {
+            return arthropleura.isOnFire() ? 15 : arthropleura.level().getBrightness(LightLayer.BLOCK, pos);
+        }
+        return super.getBlockLightLevel(entity, pos);
     }
 
     @Override
@@ -62,8 +82,8 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
         poseStack.mulPose(Axis.YN.rotationDegrees(yRotLerp));
         poseStack.mulPose(Axis.XP.rotationDegrees(180));
         poseStack.translate(0.0D, -0.5F, 0.0D);
-        Entity head = entity.getParent();
-        if (head instanceof Arthropleura arthropleura) {
+        Entity parent = entity.getParent();
+        if (parent instanceof Arthropleura arthropleura) {
             if (LivingEntityRenderer.isEntityUpsideDown(arthropleura)) {
                 poseStack.translate(0.0F, entity.getBbHeight() + 1.25F, 0.0F);
                 poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));

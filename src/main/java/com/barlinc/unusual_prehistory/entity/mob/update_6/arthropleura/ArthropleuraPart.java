@@ -141,39 +141,24 @@ public class ArthropleuraPart extends Entity {
     }
 
     public Vec3 tickMultipartPosition(ArthropleuraPartIndex parentIndex, Vec3 parentPosition, float parentXRot, float yawForPart, boolean doHeight) {
-        float yDif = doHeight ? 1.0F - 0.95F * (float) Math.min(Math.abs(parentPosition.y - this.getY()), 1.0F) : 1.0F;
-
-        Vec3 forward = this.calcOffsetVec(parentIndex.getBackOffset(), parentXRot, yawForPart);
-        Vec3 parentFront = parentPosition.add(forward);
-
-        Vec3 ourButt = parentPosition.add(this.calcOffsetVec((yDif * -parentIndex.getBackOffset() - 0.5F * this.getBbWidth()), parentXRot, yawForPart));
-
-        double xPos = parentPosition.x - ourButt.x;
-        double zPos = parentPosition.z - ourButt.z;
-        double sqrt = Math.sqrt(xPos * xPos + zPos * zPos);
-
-        double height = doHeight ? (this.getLowPartHeight(parentPosition.x, parentPosition.y, parentPosition.z) + this.getHighPartHeight(ourButt.x, ourButt.y, ourButt.z)) : 0;
-
-        if (Math.abs(prevHeight - height) > 0.2F) {
+        Vec3 parentButt = parentPosition.add(this.calcOffsetVec(-parentIndex.getBackOffset(), parentXRot, yawForPart));
+        Vec3 ourButt = parentButt.add(this.calcOffsetVec((-this.getPartType().getBackOffset() - 0.5F * this.getBbWidth()), this.getXRot(), yawForPart));
+        Vec3 avg = new Vec3((parentButt.x + ourButt.x) / 2.0F, (parentButt.y + ourButt.y) / 2.0F, (parentButt.z + ourButt.z) / 2.0F);
+        double posX = parentButt.x - ourButt.x;
+        double posZ = parentButt.z - ourButt.z;
+        double sqrt = Math.sqrt(posX * posX + posZ * posZ);
+        double height = doHeight ? (this.getLowPartHeight(parentButt.x, parentButt.y, parentButt.z) + this.getHighPartHeight(ourButt.x, ourButt.y, ourButt.z)) : 0.0D;
+        if (Math.abs(height - prevHeight) > 0.2F) {
             this.prevHeight = height;
         }
-
-        if (!this.isOpaqueBlockAt(parentFront.x, parentFront.y + 0.4F, parentFront.z) && Math.abs(prevHeight) > 1) {
-            this.prevHeight = 0;
-        }
-
-        double partY = Mth.clamp(prevHeight, -0.4F, 0.4F);
+        double partY = Mth.clamp(prevHeight, -1.0F, 1.0F);
+        float yRot = (float) (Mth.atan2(posZ, posX) * 57.2957763671875D) - 90.0F;
         float rawAngle = Mth.wrapDegrees((float) (-(Mth.atan2(partY, sqrt) * Mth.RAD_TO_DEG)));
-
-        float yRot = (float) (Mth.atan2(zPos, xPos) * 57.2957763671875D) - 90.0F;
-        float xRot = this.limitAngle(this.getXRot(), rawAngle, 10);
-
+        float xRot = this.limitAngle(this.getXRot(), rawAngle, 10.0F);
         this.setXRot(xRot);
         this.setYRot(yRot);
-
-        this.moveTo(ourButt.x, ourButt.y, ourButt.z, yRot, xRot);
-
-        return ourButt;
+        this.moveTo(avg.x, avg.y, avg.z, yRot, xRot);
+        return avg;
     }
 
     public Vec3 calcOffsetVec(float offsetZ, float xRot, float yRot){
@@ -231,7 +216,7 @@ public class ArthropleuraPart extends Entity {
             final Vec3 vec3 = new Vec3(x, y, z);
             final AABB axisAlignedBB = AABB.ofSize(vec3, d, 1.0E-6D, d);
             return this.level().getBlockStates(axisAlignedBB).filter(Predicate.not(BlockBehaviour.BlockStateBase::isAir)).anyMatch((state) -> {
-                BlockPos blockpos = this.fromVec3(vec3);
+                BlockPos blockpos = new BlockPos((int) vec3.x, (int) vec3.y, (int) vec3.z);
                 return state.isSuffocating(this.level(), blockpos) && Shapes.joinIsNotEmpty(state.getCollisionShape(this.level(), blockpos).move(vec3.x, vec3.y, vec3.z), Shapes.create(axisAlignedBB), BooleanOp.AND);
             });
         }
@@ -247,10 +232,6 @@ public class ArthropleuraPart extends Entity {
 
     public BlockPos fromCoords(double x, double y, double z){
         return new BlockPos((int) x, (int) y, (int) z);
-    }
-
-    public BlockPos fromVec3(Vec3 vec3){
-        return this.fromCoords(vec3.x, vec3.y, vec3.z);
     }
 
     @Override

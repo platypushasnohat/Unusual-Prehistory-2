@@ -95,7 +95,7 @@ public class Arthropleura extends PrehistoricMob {
 
     @Override
     public int getMaxHeadYRot() {
-        return 3;
+        return 1;
     }
 
     public boolean isFood(ItemStack stack) {
@@ -180,7 +180,7 @@ public class Arthropleura extends PrehistoricMob {
         if (parts == null || parts[0] == null) {
             return true;
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < this.getSegmentCount(); i++) {
             if (parts[i] == null) {
                 return true;
             }
@@ -188,15 +188,18 @@ public class Arthropleura extends PrehistoricMob {
         return false;
     }
 
+    private int getSegmentCount() {
+        return 4;
+    }
+
     private void tickParts() {
-        final int segments = 7;
-        final Entity child = this.getChild();
-        if (child == null) {
+        Entity child = this.getChild();
+        if (child == null && this.isAlive()) {
             Entity partParent = this;
-            this.parts = new ArthropleuraPart[segments];
+            this.parts = new ArthropleuraPart[this.getSegmentCount()];
             Vec3 prevPos = this.position();
             ArthropleuraPartIndex partIndex = ArthropleuraPartIndex.HEAD;
-            for (int i = 0; i < segments; i++) {
+            for (int i = 0; i < this.getSegmentCount(); i++) {
                 ArthropleuraPart part = new ArthropleuraPart(UP2Entities.ARTHROPLEURA_PART.get(), this);
                 part.setParent(partParent);
                 part.setIndex(i);
@@ -216,8 +219,8 @@ public class Arthropleura extends PrehistoricMob {
                 prevPos = part.position();
             }
         }
-        if (this.shouldReplaceParts() && this.getChild() instanceof ArthropleuraPart) {
-            this.parts = new ArthropleuraPart[segments];
+        if (this.isAlive() && this.shouldReplaceParts() && this.getChild() instanceof ArthropleuraPart) {
+            this.parts = new ArthropleuraPart[this.getSegmentCount()];
             this.parts[0] = (ArthropleuraPart) this.getChild();
             this.entityData.set(CHILD_ID, parts[0].getId());
             int i = 1;
@@ -229,7 +232,7 @@ public class Arthropleura extends PrehistoricMob {
         Vec3 prev = this.position();
         float xRot = this.getXRot();
         ArthropleuraPartIndex partIndex = ArthropleuraPartIndex.HEAD;
-        for (int i = 0; i < segments; i++) {
+        for (int i = 0; i < this.getSegmentCount(); i++) {
             if (this.parts[i] != null) {
                 prev = parts[i].tickMultipartPosition(partIndex, prev, xRot, this.getYawForPart(i), true);
                 xRot = parts[i].getXRot();
