@@ -4,10 +4,10 @@ import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
-import snownee.jade.api.IWailaClientRegistration;
-import snownee.jade.api.IWailaCommonRegistration;
-import snownee.jade.api.IWailaPlugin;
-import snownee.jade.api.WailaPlugin;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
+import net.minecraft.world.entity.Entity;
+import snownee.jade.api.*;
 
 @WailaPlugin
 public class JadePlugin implements IWailaPlugin {
@@ -15,7 +15,6 @@ public class JadePlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
         registration.registerBlockDataProvider(new TransmogrifierProvider(), TransmogrifierBlockEntity.class);
-
     }
 
     @Override
@@ -23,5 +22,18 @@ public class JadePlugin implements IWailaPlugin {
         registration.registerEntityComponent(new PrehistoricMobProvider(), PrehistoricMob.class);
         registration.registerEntityComponent(new LivingOozeProvider(), LivingOoze.class);
         registration.registerBlockComponent(new TransmogrifierProvider(), TransmogrifierBlock.class);
+
+        registration.addRayTraceCallback((hitResult, accessor, originalAccessor) -> {
+            if (accessor instanceof EntityAccessor entityAccessor) {
+                Entity entity = entityAccessor.getEntity();
+                if (entity instanceof ArthropleuraPart arthropleuraPart) {
+                    Entity headEntity = arthropleuraPart.getHeadEntity();
+                    if (headEntity instanceof Arthropleura arthropleura) {
+                        return registration.entityAccessor().from(entityAccessor).entity(arthropleura).build();
+                    }
+                }
+            }
+            return accessor;
+        });
     }
 }

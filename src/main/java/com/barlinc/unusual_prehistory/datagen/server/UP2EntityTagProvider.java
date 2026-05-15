@@ -174,7 +174,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 COTYLORHYNCHUS.get(),
                 HYNERPETON.get(),
                 BRONTOSCORPIO.get(),
-                RHIZODUS.get()
+                RHIZODUS.get(),
+                ARTHROPLEURA.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(

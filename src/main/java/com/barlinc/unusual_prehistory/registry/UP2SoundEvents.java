@@ -200,6 +200,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_IDLE = registerSoundEvent("antarctopelta_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_STEP = registerSoundEvent("antarctopelta_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_HURT = registerSoundEvent("arthropleura_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_DEATH = registerSoundEvent("arthropleura_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_IDLE = registerSoundEvent("arthropleura_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_STEP = registerSoundEvent("arthropleura_step");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_HURT = registerSoundEvent("brontoscorpio_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_DEATH = registerSoundEvent("brontoscorpio_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_IDLE = registerSoundEvent("brontoscorpio_idle");

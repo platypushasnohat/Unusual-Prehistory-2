@@ -105,6 +105,54 @@
     ],
     "subtitle": "subtitles.antarctopelta_step"
   },
+  "arthropleura_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/arthropleura/death1"
+    ],
+    "subtitle": "subtitles.arthropleura_death"
+  },
+  "arthropleura_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/arthropleura/hurt1",
+      "unusual_prehistory:entity/mob/arthropleura/hurt2",
+      "unusual_prehistory:entity/mob/arthropleura/hurt3"
+    ],
+    "subtitle": "subtitles.arthropleura_hurt"
+  },
+  "arthropleura_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/arthropleura/idle1",
+      "unusual_prehistory:entity/mob/arthropleura/idle2",
+      "unusual_prehistory:entity/mob/arthropleura/idle3",
+      "unusual_prehistory:entity/mob/arthropleura/idle4"
+    ],
+    "subtitle": "subtitles.arthropleura_idle"
+  },
+  "arthropleura_step": {
+    "sounds": [
+      {
+        "name": "mob/spider/step1",
+        "pitch": 0.8,
+        "volume": 0.75
+      },
+      {
+        "name": "mob/spider/step2",
+        "pitch": 0.8,
+        "volume": 0.75
+      },
+      {
+        "name": "mob/spider/step3",
+        "pitch": 0.8,
+        "volume": 0.75
+      },
+      {
+        "name": "mob/spider/step4",
+        "pitch": 0.8,
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitles.arthropleura_step"
+  },
   "brachiosaurus_attack": {
     "sounds": [
       {

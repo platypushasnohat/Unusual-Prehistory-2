@@ -742,6 +742,26 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step5").pitch(0.86F)
         );
 
+        this.sound(UP2SoundEvents.ARTHROPLEURA_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/death1"))
+        );
+        this.sound(UP2SoundEvents.ARTHROPLEURA_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/hurt2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/hurt3"))
+        );
+        this.sound(UP2SoundEvents.ARTHROPLEURA_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/idle4"))
+        );
+        this.sound(UP2SoundEvents.ARTHROPLEURA_STEP,
+                sound("mob/spider/step1").pitch(0.8F).volume(0.75F),
+                sound("mob/spider/step2").pitch(0.8F).volume(0.75F),
+                sound("mob/spider/step3").pitch(0.8F).volume(0.75F),
+                sound("mob/spider/step4").pitch(0.8F).volume(0.75F)
+        );
 
         this.sound(UP2SoundEvents.BRONTOSCORPIO_DEATH,
                 sound("mob/spider/death").pitch(1.25F).volume(0.8F)

@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura;
 
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.ArthropleuraAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class ArthropleuraTailModel<E extends ArthropleuraPart> extends UP2Model<E> {
+public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
 
     private final ModelPart root;
     private final ModelPart rotation_control;
@@ -54,9 +55,9 @@ public class ArthropleuraTailModel<E extends ArthropleuraPart> extends UP2Model<
 
         PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition rotation_control = root.addOrReplaceChild("rotation_control", CubeListBuilder.create(), PartPose.offset(0.0F, -7.0F, -1.0F));
+        PartDefinition rotation_control = root.addOrReplaceChild("rotation_control", CubeListBuilder.create(), PartPose.offset(0.0F, -1.0F, -1.0F));
 
-        PartDefinition tail1 = rotation_control.addOrReplaceChild("tail1", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -7.25F));
+        PartDefinition tail1 = rotation_control.addOrReplaceChild("tail1", CubeListBuilder.create(), PartPose.offset(0.0F, -6.0F, -7.25F));
 
         PartDefinition leg_control = tail1.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -92,6 +93,8 @@ public class ArthropleuraTailModel<E extends ArthropleuraPart> extends UP2Model<
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animateSmooth(entity.idleAnimationState, ArthropleuraAnimations.TAIL_IDLE, ageInTicks);
+        this.animateSmooth(entity.walkAnimationState, ArthropleuraAnimations.TAIL_WALK, ageInTicks);
         this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
 	}
 
