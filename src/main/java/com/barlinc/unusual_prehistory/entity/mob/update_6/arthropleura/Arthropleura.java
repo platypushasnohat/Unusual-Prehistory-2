@@ -42,8 +42,8 @@ public class Arthropleura extends PrehistoricMob {
 
     public Arthropleura(EntityType<? extends PrehistoricMob> type, Level level) {
         super(type, level);
-        this.moveControl = new ArthropleuraMoveControl(this, 10);
-        this.lookControl = new ArthropleuraLookControl(this, 10);
+        this.moveControl = new ArthropleuraMoveControl(this, 5);
+        this.lookControl = new ArthropleuraLookControl(this, 5);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -250,11 +250,10 @@ public class Arthropleura extends PrehistoricMob {
         public void rotateBody() {
             double xDiff = wantedX - mob.getX();
             double zDiff = wantedZ - mob.getZ();
-            float targetYRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
+            float yRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
             float currentYRot = mob.getYRot();
-            float yDelta = Mth.wrapDegrees(targetYRot - currentYRot);
-            float rotationSpeed = 0.15F;
-            this.mob.setYRot(currentYRot + yDelta * rotationSpeed);
+            float yDelta = Mth.wrapDegrees(yRot - mob.getYRot());
+            this.mob.setYRot(currentYRot + yDelta * 0.15F);
             this.mob.yBodyRot = mob.getYRot();
             this.mob.yHeadRot = mob.getYRot();
         }

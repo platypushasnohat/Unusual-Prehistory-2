@@ -145,13 +145,15 @@ public class ArthropleuraPart extends Entity {
     }
 
     public Vec3 getIdealPosition(@Nullable Entity parent) {
+        Entity head = this.getHeadEntity();
         Entity front = parent == null ? this.getFrontEntity() : parent;
         if (front != null) {
             float zOffset = 1.41F;
+            float wiggle = this.isHeadMoving() ? 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex()) : 0.0F;
             if (this.getBackEntity() == null) {
                 zOffset = 1.21F;
             }
-            Vec3 offsetFromParent = new Vec3(0.0F, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
+            Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
             return front.position().add(offsetFromParent);
         } else {
             return this.position();
@@ -182,8 +184,9 @@ public class ArthropleuraPart extends Entity {
         double magnitude = Math.sqrt(xDirection * xDirection + zDirection * zDirection);
         float xRot = Mth.wrapDegrees((float) (-(Mth.atan2(yDirection, magnitude) * (double) (180.0F / (float) Math.PI))));
         float yRot = Mth.wrapDegrees((float) (Mth.atan2(zDirection, xDirection) * (double) (180.0F / (float) Math.PI)) - 90.0F);
-        float yDelta = Mth.wrapDegrees(yRot - this.getYRot());
+        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -40, 40);
         float xDelta = Mth.wrapDegrees(xRot - this.getXRot());
+
         this.setXRot(this.getXRot() + xDelta * speed);
         this.setYRot(this.getYRot() + yDelta * speed);
     }
