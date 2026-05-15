@@ -132,8 +132,8 @@ public class ArthropleuraPart extends Entity {
                 }
             } else {
                 this.tickPartPosition(head, front, back);
-                if (this.isHeadMoving() || firstTick) {
-                    this.tickPartRotation(front, 0.3F);
+                if (this.isHeadMoving()) {
+                    this.tickPartRotation(front, Math.max(0.07F, 0.15F - (this.getIndex() * 0.01F)));
                 }
             }
         }

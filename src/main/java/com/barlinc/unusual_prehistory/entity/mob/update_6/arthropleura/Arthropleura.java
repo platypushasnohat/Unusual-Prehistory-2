@@ -250,8 +250,11 @@ public class Arthropleura extends PrehistoricMob {
         public void rotateBody() {
             double xDiff = wantedX - mob.getX();
             double zDiff = wantedZ - mob.getZ();
-            float movementAngle = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90);
-            this.mob.setYRot(this.rotlerp(mob.getYRot(), movementAngle, maxYRotChange));
+            float targetYRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
+            float currentYRot = mob.getYRot();
+            float yDelta = Mth.wrapDegrees(targetYRot - currentYRot);
+            float rotationSpeed = 0.15F;
+            this.mob.setYRot(currentYRot + yDelta * rotationSpeed);
             this.mob.yBodyRot = mob.getYRot();
             this.mob.yHeadRot = mob.getYRot();
         }
