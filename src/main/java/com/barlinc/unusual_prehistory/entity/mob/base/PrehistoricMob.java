@@ -330,8 +330,12 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         this.tailYaw += (-(yBodyRot - yBodyRotO) - tailYaw) * 0.2F;
     }
 
-    public float getTailYaw(float partialTick) {
-        return (prevTailYaw + (tailYaw - prevTailYaw) * partialTick);
+    public float getTailYaw(float partialTicks) {
+        if (this.isPassenger()) {
+            return 0.0F;
+        } else {
+            return (prevTailYaw + (tailYaw - prevTailYaw) * partialTicks);
+        }
     }
 
     // Animations

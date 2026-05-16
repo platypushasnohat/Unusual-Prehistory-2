@@ -249,7 +249,6 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
                 this.calculateEntityAnimation(false);
             } else {
                 this.reapplyPosition();
-
             }
         }
         this.steering.tickBoost();
