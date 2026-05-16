@@ -178,6 +178,7 @@ public class UnusualPrehistory2Tab {
 
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
+                        output.accept(FORCIPULE_FOSSIL.get()); // arthropleura
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(THUNDEROUS_FOSSIL.get()); // brontoscorpio
                         output.accept(FURY_FOSSIL.get()); // carnotaurus

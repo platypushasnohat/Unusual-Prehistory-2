@@ -268,6 +268,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERVIOUS_FOSSIL.get(),
                 ROTUND_FOSSIL.get(),
                 THUNDEROUS_FOSSIL.get(),
+                FORCIPULE_FOSSIL.get(),
                 WHISKERED_FOSSIL.get(),
                 COMBUSTIBLE_FOSSIL.get()
         );

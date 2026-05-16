@@ -236,6 +236,7 @@ public class UP2Items {
     public static final DeferredItem<Item> WOOLLY_MAMMOTH_SPAWN_EGG = registerSpawnEggItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH, 0x66331a, 0x1a0901);
 
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
+    public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus

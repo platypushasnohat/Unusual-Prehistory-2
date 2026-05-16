@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-14T23:25:46.4140398	Item Models: unusual_prehistory
+// 1.21.1	2026-05-15T22:50:57.6435211	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -60,6 +60,7 @@ a9aabc8e6df8e37a04c42f6871a41d70535df496 assets/unusual_prehistory/models/item/f
 50aed6b11b3aef90986cfe0c60f5e074b368190d assets/unusual_prehistory/models/item/fish_reptile_fossil.json
 7218ed30cae47a9e448e8df798078835be6f7eab assets/unusual_prehistory/models/item/flat_back_fossil.json
 3a3cf0a1bf1931199744e43f4b7419c3479d8165 assets/unusual_prehistory/models/item/flipper_fossil.json
+19c1310b347ca5886167be9334f73725dc298361 assets/unusual_prehistory/models/item/forcipule_fossil.json
 f9034a2dc18e2237d32f2939703af38e15d3db7f assets/unusual_prehistory/models/item/foul_grog_bottle.json
 158b2a9b3ab18df3ff848d0cbdd054aa062df9ea assets/unusual_prehistory/models/item/fury_fossil.json
 015c1fe436e9be4bad96c9ef9114f8be8f04db11 assets/unusual_prehistory/models/item/ginkgo_boat.json
