@@ -32,7 +32,7 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
     private final ModelPart segment_jiggle;
 
 	public ArthropleuraBodyModel(ModelPart root) {
-        super(1.0F, 0);
+        super(0.5F, 24);
         this.root = root.getChild("root");
         this.rotation_control = this.root.getChild("rotation_control");
         this.body = this.rotation_control.getChild("body");
@@ -83,7 +83,8 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
         PartDefinition segment = body.addOrReplaceChild("segment", CubeListBuilder.create(), PartPose.offset(1.0F, 0.0F, 0.0F));
 
         PartDefinition segment_jiggle = segment.addOrReplaceChild("segment_jiggle", CubeListBuilder.create().texOffs(0, 22).addBox(-15.1789F, -4.0F, -23.4839F, 28.0F, 7.0F, 22.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-19.1789F, 1.0F, -23.4839F, 36.0F, 0.0F, 22.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+                .texOffs(0, 0).addBox(-19.1789F, 1.0F, -23.4839F, 36.0F, 0.0F, 22.0F, new CubeDeformation(0.0025F))
+                .texOffs(82, 51).addBox(-8.0F, -2.0F, -27.4775F, 14.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}
@@ -91,8 +92,8 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE, ageInTicks);
-        this.animateSmooth(entity.walkAnimationState, ArthropleuraAnimations.BODY_WALK, ageInTicks);
+        this.animateWalk(ArthropleuraAnimations.BODY_WALK, limbSwing, limbSwingAmount, 2, 4);
+        this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE, ageInTicks, limbSwingAmount, 4);
         this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
 	}
 

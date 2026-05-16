@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthr
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraHeadModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.ArthropleuraRiderLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,6 +21,7 @@ public class ArthropleuraRenderer extends MobRenderer<Arthropleura, Arthropleura
 
     public ArthropleuraRenderer(EntityRendererProvider.Context context) {
         super(context, new ArthropleuraHeadModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_HEAD)), 0.5F);
+        this.addLayer(new ArthropleuraRiderLayer(this));
     }
 
     @Override

@@ -43,6 +43,10 @@ public class SaddlelessItemBasedSteering {
       return this.boosting ? 1.0F + 1.15F * Mth.sin((float) this.boostTime / (float) this.boostTimeTotal() * (float) Math.PI) : 1.0F;
    }
 
+    public float getBoostProgress() {
+        return this.boosting ? (float) this.boostTime / (float) this.boostTimeTotal() : 0.0F;
+    }
+
    private int boostTimeTotal() {
       return this.entityData.get(this.boostTimeAccessor);
    }

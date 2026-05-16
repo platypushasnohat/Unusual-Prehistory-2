@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.mixins.client;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,9 @@ public class CameraMixin {
             }
             if (player.getVehicle() instanceof Ichthyosaurus) {
                 cir.setReturnValue(zoom + 1.1F);
+            }
+            if (player.getVehicle() instanceof Arthropleura) {
+                cir.setReturnValue(zoom + 1.5F);
             }
         }
     }

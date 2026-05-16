@@ -1,10 +1,11 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura;
 
+import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
@@ -23,6 +24,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -33,6 +36,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Optional;
 
 public class Arthropleura extends PrehistoricMob implements ItemSteerable {
 
@@ -50,11 +55,10 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
     private double lyd;
     private double lzd;
 
-    public final SmoothAnimationState walkAnimationState = new SmoothAnimationState();
-
     public Arthropleura(EntityType<? extends PrehistoricMob> type, Level level) {
         super(type, level);
         this.moveControl = new ArthropleuraMoveControl(this, 5);
+        this.lookControl = new ArthropleuraLookControl(this, 5);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -68,7 +72,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new ArthropleuraRandomStrollGoal(this));
     }
 
     @Override
@@ -86,6 +90,26 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
         return this.isAlive();
     }
 
+    @Override
+    public void travel(@NotNull Vec3 travelVec) {
+        if (this.refuseToMove() && this.onGround()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+        }
+        this.floatWhileRidden(this, travelVec);
+        super.travel(travelVec);
+    }
+
+    @Override
+    public double getFluidJumpThreshold() {
+        if (this.isInWater() && this.horizontalCollision) {
+            return super.getFluidJumpThreshold();
+        }
+        return 0.48D * this.getBbHeight();
+    }
+
     @Nullable
     @Override
     public LivingEntity getControllingPassenger() {
@@ -101,7 +125,29 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         boolean flag = this.isFood(player.getItemInHand(hand));
-        if (!flag && !this.isBaby() && !this.isVehicle() && !player.isSecondaryUseActive() && !player.isShiftKeyDown()) {
+        if (player.isShiftKeyDown()) {
+            Entity leashed = this.getLeashed(player).orElse(null);
+            if (leashed instanceof Mob mob) {
+                mob.stopRiding();
+                mob.setLeashedTo(player, true);
+                mob.startRiding(this, true);
+                return InteractionResult.SUCCESS;
+            }
+            else if (leashed == null) {
+                for (Entity entity : this.getAllRidingEntities()) {
+                    entity.stopRiding();
+                    this.yeetPassengers(entity);
+                }
+                for (Entity passenger : this.getPassengers()) {
+                    if (this.getControllingPassenger() != passenger) {
+                        passenger.stopRiding();
+                        this.yeetPassengers(passenger);
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        else if (!flag && !this.isBaby() && !this.isVehicle() && !player.isSecondaryUseActive() && !player.isShiftKeyDown()) {
             if (!this.level().isClientSide) {
                 player.startRiding(this);
             }
@@ -110,8 +156,37 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
         else {
             return super.mobInteract(player, hand);
         }
+        return InteractionResult.PASS;
     }
 
+    @Override
+    public boolean canBeLeashed() {
+        return true;
+    }
+
+    private void yeetPassengers(Entity passenger) {
+        if (!this.level().isClientSide && passenger instanceof LivingEntity living) {
+            double x = (passenger.getRandom().nextDouble() - 0.5D) * 0.5D;
+            double y = 0.25D + passenger.getRandom().nextDouble() * 0.25D;
+            double z = (passenger.getRandom().nextDouble() - 0.5D) * 0.5D;
+            living.setDeltaMovement(living.getDeltaMovement().add(x, y, z));
+            living.hasImpulse = true;
+        }
+    }
+
+    public Optional<Entity> getLeashed(Player player) {
+        List<Entity> entities = player.level().getEntities((Entity) null, player.getBoundingBox().inflate(10), entity -> true);
+        for (Entity entity : entities) {
+            if (entity instanceof Mob mob && mob.getLeashHolder() == player) {
+                return Optional.of(mob);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public List<Entity> getAllRidingEntities() {
+        return this.level().getEntities((Entity) null, this.getBoundingBox().inflate(32), entity -> entity.getVehicle() instanceof ArthropleuraPart part && part.getHeadEntity() == this);
+    }
     @Override
     protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
         return new Vec3(0.0D, 0.0D, 1.0D);
@@ -119,7 +194,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
 
     @Override
     protected float getRiddenSpeed(@NotNull Player player) {
-        return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225D) * this.getBoostFactor();
+        return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.35D) * this.getBoostFactor();
     }
 
     public float getBoostFactor() {
@@ -140,12 +215,21 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
         return this.steering.boost(this.getRandom());
     }
 
+    private float getTurnSpeed() {
+        if (!this.isBoosting()) {
+            return 0.03F;
+        }
+        float factor = 1.0F - Mth.sin(this.steering.getBoostProgress() * (float) Math.PI);
+        factor = Mth.lerp(factor * factor, 0.008F / 0.03F, 1.0F);
+        return 0.03F * factor;
+    }
+
     @Override
     protected void tickRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
         float targetYaw = player.getYRot();
         float currentYaw = this.getYRot();
         float yDelta = Mth.wrapDegrees(targetYaw - currentYaw);
-        this.setYRot(currentYaw + yDelta * 0.03F);
+        this.setYRot(currentYaw + yDelta * this.getTurnSpeed());
     }
 
     @Override
@@ -162,8 +246,10 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
                 this.setXRot(this.getXRot() + (float) (this.lxr - (double) this.getXRot()) / (float) this.lSteps);
                 this.lSteps--;
                 this.setPos(x, y, z);
+                this.calculateEntityAnimation(false);
             } else {
                 this.reapplyPosition();
+
             }
         }
         this.steering.tickBoost();
@@ -171,17 +257,20 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isMoving(), this.tickCount);
-        this.walkAnimationState.animateWhen(this.isMoving(), this.tickCount);
-    }
-
-    public boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override
-    public @Nullable AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        Arthropleura arthropleura = UP2Entities.ARTHROPLEURA.get().create(serverLevel);
+        if (arthropleura != null) {
+            serverLevel.getServer().execute(() -> {
+                if (!arthropleura.isRemoved()) {
+                    ArthropleuraPart.createArthropleuraSegments(arthropleura, 5 + serverLevel.getRandom().nextInt(3));
+                }
+            });
+        }
+        return arthropleura;
     }
 
     @Override
@@ -268,14 +357,36 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        int partCount;
-        if (level.getRandom().nextFloat() < 0.05F) {
-            partCount = 5 + level.getRandom().nextInt(5);
-        } else {
-            partCount = 3 + level.getRandom().nextInt(3);
-        }
-        ArthropleuraPart.createArthropleuraSegments(this, partCount);
+        ArthropleuraPart.createArthropleuraSegments(this, 5 + level.getRandom().nextInt(3));
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    }
+
+    // Goals
+    public static class ArthropleuraRandomStrollGoal extends PrehistoricRandomStrollGoal {
+
+        protected Vec3 wantedPos;
+
+        public ArthropleuraRandomStrollGoal(PathfinderMob mob) {
+            super(mob, 1.0D, 80, true);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
+            return super.canContinueToUse() && !(this.wantedPos.distanceTo(mob.position()) <= mob.getBbWidth() * 4);
+        }
+
+        @Nullable
+        @Override
+        protected Vec3 getPosition() {
+            Vec3 randomPos;
+            if (mob.isInWater()) {
+                randomPos = LandRandomPos.getPos(mob, 30, 8);
+                return randomPos == null ? LandRandomPos.getPos(mob, 20, 7) : randomPos;
+            }
+            randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, 20, 7) : DefaultRandomPos.getPos(mob, 20, 7);
+            return randomPos;
+        }
     }
 
     private static class ArthropleuraMoveControl extends PrehistoricMoveControl {
@@ -286,37 +397,67 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable {
 
         @Override
         public void doMoveTo() {
-            this.operation = Operation.WAIT;
-            float speed = (float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            double x = wantedX - mob.getX();
-            double y = wantedY - mob.getY();
-            double z = wantedZ - mob.getZ();
-            double direction = x * x + y * y + z * z;
-            if (direction < (double) 2.5000003E-7F) {
-                this.mob.setZza(0.0F);
-                return;
+            if (!prehistoricMob.refuseToMove()) {
+                if (this.operation == Operation.MOVE_TO && !mob.getNavigation().isDone()) {
+                    double xDiff = wantedX - mob.getX();
+                    double zDiff = wantedZ - mob.getZ();
+                    double horizontalDist = xDiff * xDiff + zDiff * zDiff;
+                    if (horizontalDist < (double) 2.5000003E-7F) {
+                        this.mob.setZza(0.0F);
+                    } else {
+                        if (horizontalDist > 0.12D) {
+                            float yRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
+                            float currentYRot = mob.getYRot();
+                            float yDelta = Mth.wrapDegrees(yRot - mob.getYRot());
+                            float moveAngle = currentYRot + yDelta * 0.15F;
+                            this.mob.setYRot(this.rotlerp(mob.getYRot(), moveAngle, maxYRotChange));
+                        }
+                        float speed = (float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                        this.mob.setSpeed(speed);
+                        float zza = Mth.cos(mob.getXRot() * ((float) Math.PI / 180F));
+                        float yya = Mth.sin(mob.getXRot() * ((float) Math.PI / 180F));
+                        this.mob.zza = zza * speed;
+                        this.mob.yya = -yya * speed;
+                    }
+                } else {
+                    this.mob.setSpeed(0.0F);
+                    this.mob.setXxa(0.0F);
+                    this.mob.setYya(0.0F);
+                    this.mob.setZza(0.0F);
+                }
             }
-            this.rotateBody();
-            this.mob.setSpeed(speed);
-            if (mob.isInWaterOrBubble()) {
-                this.mob.setSpeed(mob.getSpeed() * 2);
-            }
-            float zza = Mth.cos(mob.getXRot() * ((float) Math.PI / 180F));
-            float yya = Mth.sin(mob.getXRot() * ((float) Math.PI / 180F));
-            this.mob.zza = zza * speed;
-            this.mob.yya = -yya * speed;
-            this.tryJump(x, y, z);
+        }
+    }
+
+    private static class ArthropleuraLookControl extends PrehistoricLookControl {
+
+        private final int maxYRotFromCenter;
+
+        public ArthropleuraLookControl(PrehistoricMob mob, int maxYRotFromCenter) {
+            super(mob);
+            this.maxYRotFromCenter = maxYRotFromCenter;
         }
 
         @Override
-        public void rotateBody() {
-            double xDiff = wantedX - mob.getX();
-            double zDiff = wantedZ - mob.getZ();
-            float yRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
-            float currentYRot = mob.getYRot();
-            float yDelta = Mth.wrapDegrees(yRot - mob.getYRot());
-            float moveAngle = currentYRot + yDelta * 0.15F;
-            this.mob.setYRot(this.rotlerp(mob.getYRot(), moveAngle, maxYRotChange));
+        public void tick() {
+            if (!mob.refuseToLook()) {
+                if (this.resetXRotOnTick()) {
+                    this.mob.setXRot(0.0F);
+                }
+                if (this.lookAtCooldown > 0) {
+                    this.lookAtCooldown--;
+                    this.getYRotD().ifPresent(f -> this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, f + 20.0F, this.yMaxRotSpeed));
+                    this.getXRotD().ifPresent(f -> this.mob.setXRot(this.rotateTowards(this.mob.getXRot(), f + 10.0F, this.xMaxRotAngle)));
+                } else {
+                    this.mob.yHeadRot = this.rotateTowards(this.mob.yHeadRot, this.mob.yBodyRot, this.yMaxRotSpeed);
+                }
+                float f = Mth.wrapDegrees(this.mob.yHeadRot - this.mob.yBodyRot);
+                if (f < (float) (-this.maxYRotFromCenter)) {
+                    this.mob.yBodyRot -= 4.0F;
+                } else if (f > (float) this.maxYRotFromCenter) {
+                    this.mob.yBodyRot += 4.0F;
+                }
+            }
         }
     }
 }

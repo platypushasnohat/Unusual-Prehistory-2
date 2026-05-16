@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthrop
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.ArthropleuraAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -112,12 +113,18 @@ public class ArthropleuraHeadModel extends UP2Model<Arthropleura> {
 	@Override
 	public void setupAnim(@NotNull Arthropleura entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateSmooth(entity.idleAnimationState, ArthropleuraAnimations.HEAD_IDLE, ageInTicks);
-        this.animateSmooth(entity.walkAnimationState, ArthropleuraAnimations.HEAD_WALK, ageInTicks);
+        this.animateWalk(ArthropleuraAnimations.HEAD_WALK, limbSwing, limbSwingAmount, 2, 4);
+        this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.HEAD_IDLE, ageInTicks, limbSwingAmount, 4);
     }
 
 	@Override
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public void translateRiderToBody(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.rotation_control.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+    }
 }

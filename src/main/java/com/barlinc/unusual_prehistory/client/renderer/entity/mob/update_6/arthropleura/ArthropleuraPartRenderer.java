@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -65,6 +66,9 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
         float yRotLerp = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
         float xRotLerp = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
+        float limbSwing = 0;
+        float limbSwingAmount = 0;
+
         Vec3 offset = this.getOffset(entity, front, partialTicks);
 
         poseStack.pushPose();
@@ -78,16 +82,20 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
                 poseStack.translate(0.0F, entity.getBbHeight() + 1.25F, 0.0F);
                 poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
             }
+            limbSwing = arthropleura.walkAnimation.position(partialTicks);
+            limbSwingAmount = arthropleura.walkAnimation.speed(partialTicks);
+            this.bodyModel.young = arthropleura.isBaby();
+            this.tailModel.young = arthropleura.isBaby();
         }
 
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
         if (back == null) {
             this.tailModel.setBodyRotation(xRotLerp, yRotLerp);
-            this.tailModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
+            this.tailModel.setupAnim(entity, limbSwing, limbSwingAmount, entity.tickCount + partialTicks, 0.0F, 0.0F);
             this.tailModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
         } else {
             this.bodyModel.setBodyRotation(xRotLerp, yRotLerp);
-            this.bodyModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
+            this.bodyModel.setupAnim(entity, limbSwing, limbSwingAmount, entity.tickCount + partialTicks, 0.0F, 0.0F);
             this.bodyModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
         }
 
@@ -120,7 +128,8 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
             UnusualPrehistory2.PROXY.releaseRenderingEntity(passenger.getUUID());
             poseStack.pushPose();
             this.bodyModel.translateRiderToBody(poseStack);
-            poseStack.translate(0.0D, 0.3D, -0.75D);
+            double yOffset = passenger instanceof Player ? 0.25D : -0.25D;
+            poseStack.translate(0.0D, yOffset, -0.75D);
             poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
             poseStack.mulPose(Axis.YN.rotationDegrees(360.0F - bodyYaw));
             passenger.setYBodyRot(entity.getYRot());

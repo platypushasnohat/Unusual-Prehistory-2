@@ -31,7 +31,7 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
     private final ModelPart tail3;
 
 	public ArthropleuraTailModel(ModelPart root) {
-        super(1.0F, 0);
+        super(0.5F, 24);
         this.root = root.getChild("root");
         this.rotation_control = this.root.getChild("rotation_control");
         this.tail1 = this.rotation_control.getChild("tail1");
@@ -80,7 +80,8 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
         PartDefinition segment = tail1.addOrReplaceChild("segment", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition segment_jiggle = segment.addOrReplaceChild("segment_jiggle", CubeListBuilder.create().texOffs(0, 64).addBox(-6.0F, -3.0F, -0.75F, 12.0F, 6.0F, 13.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 51).addBox(-14.0F, 1.0F, -0.75F, 28.0F, 0.0F, 13.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+                .texOffs(0, 51).addBox(-14.0F, 1.0F, -0.75F, 28.0F, 0.0F, 13.0F, new CubeDeformation(0.0025F))
+                .texOffs(85, 51).addBox(-4.0F, -2.0F, -4.75F, 8.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition tail2 = segment_jiggle.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(88, 78).addBox(-3.0F, -2.0F, -0.75F, 6.0F, 4.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(82, 59).addBox(-5.0F, 0.0F, 0.25F, 10.0F, 0.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 1.0F, 13.0F));
@@ -93,8 +94,8 @@ public class ArthropleuraTailModel extends UP2Model<ArthropleuraPart> {
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateSmooth(entity.idleAnimationState, ArthropleuraAnimations.TAIL_IDLE, ageInTicks);
-        this.animateSmooth(entity.walkAnimationState, ArthropleuraAnimations.TAIL_WALK, ageInTicks);
+        this.animateWalk(ArthropleuraAnimations.TAIL_WALK, limbSwing, limbSwingAmount, 2, 4);
+        this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.TAIL_IDLE, ageInTicks, limbSwingAmount, 4);
         this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
 	}
 
