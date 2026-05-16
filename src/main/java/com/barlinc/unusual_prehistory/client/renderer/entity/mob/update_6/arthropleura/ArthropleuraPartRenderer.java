@@ -3,12 +3,14 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthr
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.layers.RiderLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -80,14 +82,19 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
 
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
         if (back == null) {
-            tailModel.setBodyRotation(xRotLerp, yRotLerp);
-            tailModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
-            tailModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
+            this.tailModel.setBodyRotation(xRotLerp, yRotLerp);
+            this.tailModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
+            this.tailModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
         } else {
-            bodyModel.setBodyRotation(xRotLerp, yRotLerp);
-            bodyModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
-            bodyModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
+            this.bodyModel.setBodyRotation(xRotLerp, yRotLerp);
+            this.bodyModel.setupAnim(entity, 0.0F, 0.0F, entity.tickCount + partialTicks, 0.0F, 0.0F);
+            this.bodyModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
         }
+
+        if (entity.isVehicle() && back != null) {
+            this.positionPassengers(entity, partialTicks, poseStack, bufferSource, packedLight);
+        }
+
         poseStack.popPose();
 
         super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
@@ -102,6 +109,25 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
             return new Vec3(0.0D, diff.y * 0.5D + yOffset, 0.0D);
         }
         return Vec3.ZERO;
+    }
+
+    private void positionPassengers(ArthropleuraPart entity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        float bodyYaw = entity.yRotO + (entity.getYRot() - entity.yRotO) * partialTicks;
+        for (Entity passenger : entity.getPassengers()) {
+            if (passenger == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
+                continue;
+            }
+            UnusualPrehistory2.PROXY.releaseRenderingEntity(passenger.getUUID());
+            poseStack.pushPose();
+            this.bodyModel.translateRiderToBody(poseStack);
+            poseStack.translate(0.0D, 0.3D, -0.75D);
+            poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+            poseStack.mulPose(Axis.YN.rotationDegrees(360.0F - bodyYaw));
+            passenger.setYBodyRot(entity.getYRot());
+            RiderLayer.renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
+            poseStack.popPose();
+            UnusualPrehistory2.PROXY.blockRenderingEntity(passenger.getUUID());
+        }
     }
 
     @Override

@@ -11,11 +11,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -97,6 +100,24 @@ public class ArthropleuraPart extends Entity {
     }
 
     @Override
+    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
+        InteractionResult result = super.interact(player, hand);
+        if (result != InteractionResult.PASS) {
+            return result;
+        } else if (player.isSecondaryUseActive()) {
+            return InteractionResult.PASS;
+        } else if (this.getBackEntity() != null) {
+            if (!this.level().isClientSide) {
+                return player.startRiding(this) ? InteractionResult.CONSUME : InteractionResult.PASS;
+            } else {
+                return InteractionResult.SUCCESS;
+            }
+        } else {
+            return InteractionResult.PASS;
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
@@ -132,7 +153,7 @@ public class ArthropleuraPart extends Entity {
                 }
             } else {
                 this.tickPartPosition(head, front, back);
-                if (this.isHeadMoving()) {
+                if (this.isHeadMoving() || head.hasControllingPassenger()) {
                     this.tickPartRotation(front, Math.max(0.07F, 0.15F - (this.getIndex() * 0.01F)));
                 }
             }
@@ -144,33 +165,35 @@ public class ArthropleuraPart extends Entity {
         this.walkAnimationState.animateWhen(this.isHeadMoving(), this.tickCount);
     }
 
-    public Vec3 getIdealPosition(@Nullable Entity parent) {
-        Entity head = this.getHeadEntity();
-        Entity front = parent == null ? this.getFrontEntity() : parent;
-        if (front != null) {
-            float zOffset = 1.41F;
-            float wiggle = this.isHeadMoving() ? 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex()) : 0.0F;
-            if (this.getBackEntity() == null) {
-                zOffset = 1.21F;
-            }
-            Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
-            return front.position().add(offsetFromParent);
-        } else {
-            return this.position();
+    public Vec3 getIdealPosition(Entity head, Entity front) {
+        float zOffset = 1.5F;
+        float wiggle = 0.0F;
+        if (this.isHeadMoving() || head.hasControllingPassenger()) {
+            wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
         }
+        if (this.getBackEntity() == null) {
+            zOffset -= 0.2F;
+        }
+        if (this.getIndex() == 0 && head instanceof Arthropleura arthropleura && arthropleura.hasControllingPassenger()) {
+            zOffset -= 0.46F;
+            if (arthropleura.isBoosting()) {
+                zOffset -= (arthropleura.getBoostFactor() - 1.0F) * 0.4F;
+            }
+        }
+        Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
+        return front.position().add(offsetFromParent);
     }
 
     @SuppressWarnings("SameParameterValue")
     private void tickPartPosition(Entity head, Entity front, Entity back) {
-        Vec3 distVec = this.getIdealPosition(front).subtract(this.position());
-        float extraLength = (float) Math.max(distVec.length() - 0.5F, 0.0F);
-        Vec3 distance = distVec.length() > 1.0F ? distVec.normalize().scale(1.0F + extraLength) : distVec;
-        Vec3 nextPos = this.position().add(distance.multiply(0.8F, 1.0F, 0.8F));
+        Vec3 distVec = this.getIdealPosition(head, front).subtract(this.position());
+        Vec3 distance = distVec.length() > 1.0F ? distVec.normalize() : distVec;
+        Vec3 nextPos = this.position().add(distance);
         double y = this.calculateSurfaceY(nextPos, front, back);
         if (head.isInFluidType()) {
-            this.setPos(nextPos.x, nextPos.y, nextPos.z);
+            this.moveTo(nextPos.x, nextPos.y, nextPos.z);
         } else {
-            this.setPos(nextPos.x, y, nextPos.z);
+            this.moveTo(nextPos.x, y, nextPos.z);
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
@@ -186,7 +209,6 @@ public class ArthropleuraPart extends Entity {
         float yRot = Mth.wrapDegrees((float) (Mth.atan2(zDirection, xDirection) * (double) (180.0F / (float) Math.PI)) - 90.0F);
         float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -40, 40);
         float xDelta = Mth.wrapDegrees(xRot - this.getXRot());
-
         this.setXRot(this.getXRot() + xDelta * speed);
         this.setYRot(this.getYRot() + yDelta * speed);
     }
@@ -219,7 +241,7 @@ public class ArthropleuraPart extends Entity {
         double frontY = front.getY();
         double backY = back != null ? back.getY() : frontY;
         double average = (frontY + backY) * 0.5D;
-        double targetY = Mth.lerp(0.5D, average, surfaceY);
+        double targetY = Mth.lerp(0.6D, average, surfaceY);
         double minY = Math.max(frontY - 1.0D, backY - 1.0D);
         double maxY = Math.min(frontY + 1.0D, backY + 1.0D);
         return Mth.clamp(targetY, minY, maxY);
@@ -235,7 +257,7 @@ public class ArthropleuraPart extends Entity {
                 prev.setBackEntityUUID(current.getUUID());
             }
             current.setIndex(i);
-            current.setPos(current.getIdealPosition(prev == null ? arthropleura : prev));
+            current.setPos(current.getIdealPosition(arthropleura, prev == null ? arthropleura : prev));
             current.setYRot(arthropleura.getYRot());
             arthropleura.level().addFreshEntity(current);
             prev = current;
@@ -337,7 +359,7 @@ public class ArthropleuraPart extends Entity {
 
     public Entity getHeadEntity() {
         if (!this.level().isClientSide) {
-            UUID id = getHeadUUID();
+            UUID id = this.getHeadUUID();
             return id == null ? null : ((ServerLevel) this.level()).getEntity(id);
         } else {
             int id = this.entityData.get(HEAD_ENTITY_ID);
@@ -346,7 +368,7 @@ public class ArthropleuraPart extends Entity {
     }
     public Entity getFrontEntity() {
         if (!this.level().isClientSide) {
-            UUID id = getFrontEntityUUID();
+            UUID id = this.getFrontEntityUUID();
             return id == null ? null : ((ServerLevel) this.level()).getEntity(id);
         } else {
             int id = this.entityData.get(FRONT_ENTITY_ID);
@@ -355,7 +377,7 @@ public class ArthropleuraPart extends Entity {
     }
     public Entity getBackEntity() {
         if (!this.level().isClientSide) {
-            UUID id = getBackEntityUUID();
+            UUID id = this.getBackEntityUUID();
             return id == null ? null : ((ServerLevel) this.level()).getEntity(id);
         } else {
             int id = this.entityData.get(BACK_ENTITY_ID);

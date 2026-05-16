@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld_rod",
+  "textures": {
+    "layer0": "unusual_prehistory:item/brown_mushroom_on_a_stick"
+  }
+}

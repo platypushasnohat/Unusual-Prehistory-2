@@ -63,6 +63,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.generatedItem(PALEOPEDIA);
 
         this.handheldRodItem(DIRT_ON_A_STICK);
+        this.handheldRodItem(BROWN_MUSHROOM_ON_A_STICK);
 
         this.generatedItem(UP2Blocks.CYCAD_SEEDLING);
 

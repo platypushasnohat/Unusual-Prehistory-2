@@ -9,6 +9,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.Kentrosaurus;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Leptictidium;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
 import com.barlinc.unusual_prehistory.registry.UP2DamageTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
@@ -18,6 +19,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Cow;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -88,7 +91,7 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    public static void onMobHurt(final LivingDamageEvent.Pre event) {
+    public static void onMobHurt(LivingDamageEvent.Pre event) {
         LivingEntity entity = event.getEntity();
         DamageSource damageSource = event.getSource();
 
@@ -153,6 +156,15 @@ public class ForgeEvents {
         LivingEntity entity = event.getEntity();
         if (entity.hasEffect(UP2MobEffects.PARALYSIS)) {
             entity.setDeltaMovement(entity.getDeltaMovement().x(), 0.0D, entity.getDeltaMovement().z());
+        }
+    }
+
+    @SubscribeEvent
+    public static void entityInvulnerability(EntityInvulnerabilityCheckEvent event) {
+        Entity entity = event.getEntity();
+        DamageSource source = event.getSource();
+        if (entity.getVehicle() instanceof ArthropleuraPart && source.is(DamageTypes.IN_WALL)) {
+            event.setInvulnerable(true);
         }
     }
 }

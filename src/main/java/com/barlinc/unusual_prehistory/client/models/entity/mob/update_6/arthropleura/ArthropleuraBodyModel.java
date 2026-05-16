@@ -3,12 +3,15 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthrop
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.ArthropleuraAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector4f;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -99,4 +102,11 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
 	public @NotNull ModelPart root() {
 		return this.root;
 	}
+
+    public void translateRiderToBody(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.rotation_control.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.segment.translateAndRotate(poseStack);
+    }
 }

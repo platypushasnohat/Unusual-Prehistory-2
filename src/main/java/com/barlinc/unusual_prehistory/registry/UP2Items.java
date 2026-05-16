@@ -261,6 +261,8 @@ public class UP2Items {
     public static final DeferredItem<Item> SWEET_GROG_BOTTLE = registerItem("sweet_grog_bottle", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FOUL_GROG_BOTTLE = registerItem("foul_grog_bottle", () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> BROWN_MUSHROOM_ON_A_STICK = registerItemNoLang("brown_mushroom_on_a_stick", () -> new UP2FoodOnAStickItem((new Item.Properties()).durability(100), 1));
+
     // Future
     public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));

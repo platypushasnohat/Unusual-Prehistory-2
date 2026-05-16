@@ -160,6 +160,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PRAEPUSA_BUCKET.get());
                         output.accept(PTERODACTYLUS_POT.get());
                         output.accept(STETHACANTHUS_BUCKET.get());
+                        output.accept(BROWN_MUSHROOM_ON_A_STICK.get());
                         output.accept(DIRT_ON_A_STICK.get());
 
                         output.accept(SWEET_GROG_BOTTLE.get());

@@ -1,32 +1,44 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Arthropleura extends PrehistoricMob {
+public class Arthropleura extends PrehistoricMob implements ItemSteerable {
+
+    private static final EntityDataAccessor<Integer> BOOST_TIME = SynchedEntityData.defineId(Arthropleura.class, EntityDataSerializers.INT);
+
+    private final SaddlelessItemBasedSteering steering = new SaddlelessItemBasedSteering(this.entityData, BOOST_TIME);
 
     private int lSteps;
     private double lx;
@@ -43,7 +55,6 @@ public class Arthropleura extends PrehistoricMob {
     public Arthropleura(EntityType<? extends PrehistoricMob> type, Level level) {
         super(type, level);
         this.moveControl = new ArthropleuraMoveControl(this, 5);
-        this.lookControl = new ArthropleuraLookControl(this, 5);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -75,6 +86,68 @@ public class Arthropleura extends PrehistoricMob {
         return this.isAlive();
     }
 
+    @Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Player player) {
+            if (player.getMainHandItem().is(UP2Items.BROWN_MUSHROOM_ON_A_STICK.get()) || player.getOffhandItem().is(UP2Items.BROWN_MUSHROOM_ON_A_STICK.get())) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        boolean flag = this.isFood(player.getItemInHand(hand));
+        if (!flag && !this.isBaby() && !this.isVehicle() && !player.isSecondaryUseActive() && !player.isShiftKeyDown()) {
+            if (!this.level().isClientSide) {
+                player.startRiding(this);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+        else {
+            return super.mobInteract(player, hand);
+        }
+    }
+
+    @Override
+    protected @NotNull Vec3 getRiddenInput(Player player, @NotNull Vec3 vec3) {
+        return new Vec3(0.0D, 0.0D, 1.0D);
+    }
+
+    @Override
+    protected float getRiddenSpeed(@NotNull Player player) {
+        return (float) (this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225D) * this.getBoostFactor();
+    }
+
+    public float getBoostFactor() {
+        return this.steering.boostFactor();
+    }
+
+    public boolean isBoosting() {
+        return this.steering.isBoosting();
+    }
+
+    @Override
+    public @NotNull Vec3 getDismountLocationForPassenger(@NotNull LivingEntity passenger) {
+        return new Vec3(this.getX(), this.getBoundingBox().maxY + 0.1F, this.getZ());
+    }
+
+    @Override
+    public boolean boost() {
+        return this.steering.boost(this.getRandom());
+    }
+
+    @Override
+    protected void tickRidden(@NotNull Player player, @NotNull Vec3 travelVector) {
+        float targetYaw = player.getYRot();
+        float currentYaw = this.getYRot();
+        float yDelta = Mth.wrapDegrees(targetYaw - currentYaw);
+        this.setYRot(currentYaw + yDelta * 0.03F);
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -93,6 +166,7 @@ public class Arthropleura extends PrehistoricMob {
                 this.reapplyPosition();
             }
         }
+        this.steering.tickBoost();
     }
 
     @Override
@@ -134,6 +208,20 @@ public class Arthropleura extends PrehistoricMob {
 
     @Override
     protected void checkFallDamage(double y, boolean onGround, @NotNull BlockState state, @NotNull BlockPos pos) {
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (BOOST_TIME.equals(accessor) && this.level().isClientSide) {
+            this.steering.onSynced();
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BOOST_TIME, 0);
     }
 
     @Override
@@ -180,40 +268,14 @@ public class Arthropleura extends PrehistoricMob {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        ArthropleuraPart.createArthropleuraSegments(this, 4 + level.getRandom().nextInt(3));
+        int partCount;
+        if (level.getRandom().nextFloat() < 0.05F) {
+            partCount = 5 + level.getRandom().nextInt(5);
+        } else {
+            partCount = 3 + level.getRandom().nextInt(3);
+        }
+        ArthropleuraPart.createArthropleuraSegments(this, partCount);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-    }
-
-    private static class ArthropleuraLookControl extends PrehistoricLookControl {
-
-        private final int maxYRotFromCenter;
-
-        public ArthropleuraLookControl(PrehistoricMob mob, int maxYRotFromCenter) {
-            super(mob);
-            this.maxYRotFromCenter = maxYRotFromCenter;
-        }
-
-        @Override
-        public void tick() {
-            if (!mob.refuseToLook()) {
-                if (this.resetXRotOnTick()) {
-                    this.mob.setXRot(0.0F);
-                }
-                if (lookAtCooldown > 0) {
-                    this.lookAtCooldown--;
-                    this.getYRotD().ifPresent(yRot0 -> mob.yHeadRot = this.rotateTowards(mob.yHeadRot, yRot0 + 5.0F, yMaxRotSpeed));
-                    this.getXRotD().ifPresent(xRot0 -> mob.setXRot(this.rotateTowards(mob.getXRot(), xRot0 + 5.0F, xMaxRotAngle)));
-                } else {
-                    this.mob.yHeadRot = this.rotateTowards(mob.yHeadRot, mob.yBodyRot, yMaxRotSpeed);
-                }
-                float yRot = Mth.wrapDegrees(mob.yHeadRot - mob.yBodyRot);
-                if (yRot < (float) (-maxYRotFromCenter)) {
-                    this.mob.yBodyRot -= 2.5F;
-                } else if (yRot > (float) maxYRotFromCenter) {
-                    this.mob.yBodyRot += 2.5F;
-                }
-            }
-        }
     }
 
     private static class ArthropleuraMoveControl extends PrehistoricMoveControl {
@@ -253,9 +315,8 @@ public class Arthropleura extends PrehistoricMob {
             float yRot = (float) Mth.wrapDegrees(Mth.atan2(zDiff, xDiff) * Mth.RAD_TO_DEG - 90.0F);
             float currentYRot = mob.getYRot();
             float yDelta = Mth.wrapDegrees(yRot - mob.getYRot());
-            this.mob.setYRot(currentYRot + yDelta * 0.15F);
-            this.mob.yBodyRot = mob.getYRot();
-            this.mob.yHeadRot = mob.getYRot();
+            float moveAngle = currentYRot + yDelta * 0.15F;
+            this.mob.setYRot(this.rotlerp(mob.getYRot(), moveAngle, maxYRotChange));
         }
     }
 }
