@@ -213,6 +213,10 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
 
         // Update 6
+        this.tag(UP2EntityTags.ARTHROPLEURA_CANT_CARRY).add(
+                EntityType.ENDER_DRAGON, EntityType.WITHER, ARTHROPLEURA.get(), ARTHROPLEURA_PART.get()
+        );
+
         this.tag(UP2EntityTags.CONCAVENATOR_TARGETS).add(
                 EntityType.COW, EntityType.PIG, EntityType.RABBIT, EntityType.VILLAGER
         );

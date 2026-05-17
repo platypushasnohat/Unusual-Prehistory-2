@@ -387,6 +387,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.HORSETAIL.asItem()
         );
 
+        this.tag(UP2ItemTags.ARTHROPLEURA_FOOD).addTags(
+                ItemTags.LEAVES,
+                Tags.Items.MUSHROOMS
+        );
+        this.tag(UP2ItemTags.TEMPTS_ARTHROPLEURA).addTags(UP2ItemTags.ARTHROPLEURA_FOOD).add(BROWN_MUSHROOM_ON_A_STICK.get());
+
         this.tag(UP2ItemTags.BRONTOSCORPIO_FOOD).add(
                 Items.SPIDER_EYE
         );

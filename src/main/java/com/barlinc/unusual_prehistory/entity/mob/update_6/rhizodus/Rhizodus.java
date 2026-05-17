@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.entity.mob.update_6.rhizodus;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;

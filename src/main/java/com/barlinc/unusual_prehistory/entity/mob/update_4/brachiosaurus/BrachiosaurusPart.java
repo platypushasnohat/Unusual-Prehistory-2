@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_4;
+package com.barlinc.unusual_prehistory.entity.mob.update_4.brachiosaurus;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;

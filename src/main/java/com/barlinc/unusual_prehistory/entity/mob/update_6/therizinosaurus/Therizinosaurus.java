@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.entity.mob.update_6.therizinosaurus;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;

@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-15T22:50:57.6592814	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-16T23:14:33.793138	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -19,6 +19,7 @@ ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/item/amber
 551feb34ecad08506006825d2bff75a56a5cf12d data/unusual_prehistory/tags/item/antarctopelta_food.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/item/aqua_dyes.json
 7ce3e5c3cf373eb937f3701a01585e5bf6da3d16 data/unusual_prehistory/tags/item/armors_concavenator.json
+a77f72e4c15ff0de6f6f4c40b8d6b3d2c957f53c data/unusual_prehistory/tags/item/arthropleura_food.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/item/brachiosaurus_food.json
 68f246f71ae9f6e70afc3b182652d81a9baf370a data/unusual_prehistory/tags/item/brontoscorpio_food.json
@@ -111,6 +112,7 @@ a12f2a0c35bd8abeb5f356451ca0fa2cd0f6e3b8 data/unusual_prehistory/tags/item/tan_d
 efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/tartuosteus_nibbling_blocks.json
 65517f45a4d2b94c69defe3ec084e4866c2d9237 data/unusual_prehistory/tags/item/teal_dyes.json
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/item/telecrex_food.json
+27991ebdfa7062661af135697af9dc845c3b1dd7 data/unusual_prehistory/tags/item/tempts_arthropleura.json
 88963a4bc77c2a6bc037001e10166fde02efb9a0 data/unusual_prehistory/tags/item/tempts_concavenator.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusual_prehistory/tags/item/therizinosaurus_food.json
 30f1477f8902716e21f1b4679f260a7373960bab data/unusual_prehistory/tags/item/transmogrifier_fuel.json

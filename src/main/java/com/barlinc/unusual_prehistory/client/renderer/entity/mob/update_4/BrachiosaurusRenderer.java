@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.brachiosaurus.BrachiosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.brachiosaurus.BrachiosaurusModel;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Brachiosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.brachiosaurus.Brachiosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

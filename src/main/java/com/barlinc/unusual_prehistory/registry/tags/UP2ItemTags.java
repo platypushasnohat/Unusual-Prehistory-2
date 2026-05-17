@@ -126,6 +126,7 @@ public class UP2ItemTags {
 
     // Update 6
     public static final TagKey<Item> ANTARCTOPELTA_FOOD = modItemTag("antarctopelta_food");
+    public static final TagKey<Item> ARTHROPLEURA_FOOD = modItemTag("arthropleura_food");
     public static final TagKey<Item> BRONTOSCORPIO_FOOD = modItemTag("brontoscorpio_food");
     public static final TagKey<Item> CONCAVENATOR_FOOD = modItemTag("concavenator_food");
     public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
@@ -137,6 +138,8 @@ public class UP2ItemTags {
     public static final TagKey<Item> RHIZODUS_FOOD = modItemTag("rhizodus_food");
     public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
     public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
+
+    public static final TagKey<Item> TEMPTS_ARTHROPLEURA = modItemTag("tempts_arthropleura");
 
     public static final TagKey<Item> TAMES_CONCAVENATOR = modItemTag("tames_concavenator");
     public static final TagKey<Item> TEMPTS_CONCAVENATOR = modItemTag("tempts_concavenator");

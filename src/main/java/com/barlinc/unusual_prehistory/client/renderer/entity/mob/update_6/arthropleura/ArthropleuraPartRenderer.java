@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.RiderLayer;
@@ -28,16 +29,22 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
+import java.util.Locale;
+import java.util.Objects;
+
 @OnlyIn(Dist.CLIENT)
 public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/arthropleura/arthropleura.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/arthropleura/royal.png");
 
+    protected UP2Model<ArthropleuraPart> model;
     private final ArthropleuraBodyModel bodyModel;
     private final ArthropleuraTailModel tailModel;
 
     public ArthropleuraPartRenderer(EntityRendererProvider.Context context) {
         super(context);
+        this.model = new ArthropleuraBodyModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_BODY));
         this.bodyModel = new ArthropleuraBodyModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_BODY));
         this.tailModel = new ArthropleuraTailModel(context.bakeLayer(UP2ModelLayers.ARTHROPLEURA_TAIL));
     }
@@ -58,45 +65,58 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
     }
 
     @Override
-    public void render(ArthropleuraPart entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+    public void render(ArthropleuraPart entity, float entityYaw, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+        poseStack.pushPose();
+
         Entity head = entity.getHeadEntity();
-        Entity front = entity.getFrontEntity();
         Entity back = entity.getBackEntity();
 
-        float yRotLerp = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
-        float xRotLerp = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+        Arthropleura arthropleura = (Arthropleura) head;
 
-        float limbSwing = 0;
-        float limbSwingAmount = 0;
+        float bodyRotationX = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+        float bodyRotationY = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
 
-        Vec3 offset = this.getOffset(entity, front, partialTicks);
+        this.model = entity.getBackEntity() == null ? tailModel : bodyModel;
 
-        poseStack.pushPose();
-        poseStack.translate(0.0D, offset.y, 0.0D);
-        poseStack.translate(0.0F, 1.0F, 0.0F);
-        poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-        poseStack.translate(0.0F, -0.5F, 0.0F);
+        this.model.riding = entity.isPassenger() && (entity.getVehicle() != null && entity.getVehicle().shouldRiderSit());
 
-        if (head instanceof Arthropleura arthropleura) {
-            if (LivingEntityRenderer.isEntityUpsideDown(arthropleura)) {
-                poseStack.translate(0.0F, entity.getBbHeight() + 1.25F, 0.0F);
-                poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
-            }
+        float rotationBob = 0.0F;
+        float scale = 1.0F;
+        float limbSwing = 0.0F;
+        float limbSwingAmount = 0.0F;
+
+        if (arthropleura != null) {
+            this.model.young = arthropleura.isBaby();
+            rotationBob = this.getBob(arthropleura, partialTicks);
+            scale = arthropleura.getScale();
             limbSwing = arthropleura.walkAnimation.position(partialTicks);
             limbSwingAmount = arthropleura.walkAnimation.speed(partialTicks);
-            this.bodyModel.young = arthropleura.isBaby();
-            this.tailModel.young = arthropleura.isBaby();
+            if (LivingEntityRenderer.isEntityUpsideDown(arthropleura)) {
+                bodyRotationX = -bodyRotationX;
+                bodyRotationY = -bodyRotationY;
+            }
         }
+        this.setupRotations(entity, poseStack, scale);
 
-        VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
-        if (back == null) {
-            this.tailModel.setBodyRotation(xRotLerp, yRotLerp);
-            this.tailModel.setupAnim(entity, limbSwing, limbSwingAmount, entity.tickCount + partialTicks, 0.0F, 0.0F);
-            this.tailModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
-        } else {
-            this.bodyModel.setBodyRotation(xRotLerp, yRotLerp);
-            this.bodyModel.setupAnim(entity, limbSwing, limbSwingAmount, entity.tickCount + partialTicks, 0.0F, 0.0F);
-            this.bodyModel.renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), -1);
+        this.model.setBodyRotation(bodyRotationX, bodyRotationY);
+
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        poseStack.translate(0.0D, -1.501F, 0.0D);
+
+        this.model.setupAnim(entity, limbSwing, limbSwingAmount, rotationBob, bodyRotationY, bodyRotationX);
+        this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
+
+        Minecraft minecraft = Minecraft.getInstance();
+
+        boolean isBodyVisible = arthropleura == null || !arthropleura.isInvisible();
+        boolean isSpectator = !isBodyVisible && !entity.isInvisibleTo(Objects.requireNonNull(minecraft.player));
+        boolean isGlowing = minecraft.shouldEntityAppearGlowing(entity);
+
+        RenderType rendertype = this.getRenderType(entity, isBodyVisible, isSpectator, isGlowing);
+        if (rendertype != null) {
+            VertexConsumer vertexconsumer = bufferSource.getBuffer(rendertype);
+            int i = getOverlayCoords(entity, 0.0F);
+            this.model.renderToBuffer(poseStack, vertexconsumer, packedLight, i, -1);
         }
 
         if (entity.isVehicle() && back != null) {
@@ -104,19 +124,22 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
         }
 
         poseStack.popPose();
-
-        super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
     }
 
-    private Vec3 getOffset(ArthropleuraPart entity, Entity front, float partialTicks) {
-        if (front != null) {
-            Vec3 frontPos = front.getPosition(partialTicks);
-            Vec3 pos = entity.getPosition(partialTicks);
-            Vec3 diff = frontPos.subtract(pos);
-            double yOffset = Mth.clamp(Math.max(-diff.y, 0.0D) * 0.5D, 0.0D, 0.75D);
-            return new Vec3(0.0D, diff.y * 0.5D + yOffset, 0.0D);
+    protected float getBob(Arthropleura arthropleura, float partialTick) {
+        return (float) arthropleura.tickCount + partialTick;
+    }
+
+    @Nullable
+    protected RenderType getRenderType(ArthropleuraPart entity, boolean bodyVisible, boolean translucent, boolean glowing) {
+        ResourceLocation resourcelocation = this.getTextureLocation(entity);
+        if (translucent) {
+            return RenderType.itemEntityTranslucentCull(resourcelocation);
+        } else if (bodyVisible) {
+            return this.model.renderType(resourcelocation);
+        } else {
+            return glowing ? RenderType.outline(resourcelocation) : null;
         }
-        return Vec3.ZERO;
     }
 
     private void positionPassengers(ArthropleuraPart entity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
@@ -129,7 +152,7 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
             poseStack.pushPose();
             this.bodyModel.translateRiderToBody(poseStack);
             double yOffset = passenger instanceof Player ? 0.25D : -0.25D;
-            poseStack.translate(0.0D, yOffset, -0.75D);
+            poseStack.translate(0.0D, yOffset, 1.0D);
             poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
             poseStack.mulPose(Axis.YN.rotationDegrees(360.0F - bodyYaw));
             passenger.setYBodyRot(entity.getYRot());
@@ -139,9 +162,22 @@ public class ArthropleuraPartRenderer extends EntityRenderer<ArthropleuraPart> {
         }
     }
 
+    protected void setupRotations(ArthropleuraPart entity, PoseStack poseStack, float scale) {
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+        if (entity.getHeadEntity() instanceof Arthropleura arthropleura && LivingEntityRenderer.isEntityUpsideDown(arthropleura)) {
+            poseStack.translate(0.0F, (entity.getBbHeight() + 0.1F) / scale, 0.0F);
+            poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+        }
+    }
+
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull ArthropleuraPart entity) {
-        return TEXTURE;
+        if (entity.getHeadEntity() instanceof Arthropleura arthropleura) {
+            Arthropleura.ArthropleuraVariant variant = Arthropleura.ArthropleuraVariant.byId(arthropleura.getVariant().getId());
+            return UnusualPrehistory2.modPrefix("textures/entity/mob/arthropleura/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
+        } else {
+            return TEXTURE;
+        }
     }
 
     public static int getOverlayCoords(ArthropleuraPart segmentEntity, float f) {

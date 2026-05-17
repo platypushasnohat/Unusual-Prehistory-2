@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,10 +35,13 @@ public class ArthropleuraPart extends Entity {
 
     private static final EntityDataAccessor<Optional<UUID>> HEAD_ENTITY_UUID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> HEAD_ENTITY_ID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Optional<UUID>> FRONT_ENTITY_UUID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> FRONT_ENTITY_ID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Optional<UUID>> BACK_ENTITY_UUID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> BACK_ENTITY_ID = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Integer> INDEX = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
 
     public boolean renderHurtFlag = false;
@@ -102,11 +106,8 @@ public class ArthropleuraPart extends Entity {
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
         InteractionResult result = super.interact(player, hand);
-        if (result != InteractionResult.PASS) {
-            return result;
-        } else if (player.isSecondaryUseActive()) {
-            return InteractionResult.PASS;
-        } else if (this.getBackEntity() != null && !(this.getHeadEntity() instanceof Arthropleura arthropleura && arthropleura.isBaby())) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (this.getBackEntity() != null && !(this.getHeadEntity() instanceof Arthropleura arthropleura && arthropleura.isBaby() && !arthropleura.isFood(itemStack))) {
             Entity leashed = this.getLeashed(player).orElse(null);
             if (leashed instanceof Mob mob) {
                 mob.stopRiding();
@@ -114,20 +115,39 @@ public class ArthropleuraPart extends Entity {
                 mob.startRiding(this, true);
                 return InteractionResult.SUCCESS;
             }
-            if (!this.level().isClientSide) {
-                return player.startRiding(this) ? InteractionResult.CONSUME : InteractionResult.PASS;
-            } else {
-                return InteractionResult.SUCCESS;
+            if (!this.isVehicle()) {
+                player.startRiding(this);
             }
+            else {
+                for (Entity passenger : this.getPassengers()) {
+                    if (this.getControllingPassenger() != passenger) {
+                        passenger.stopRiding();
+                        if (!this.level().isClientSide) {
+                            Arthropleura.yeetPassengers(passenger);
+                        }
+                    }
+                }
+            }
+            return InteractionResult.SUCCESS;
         } else {
-            return InteractionResult.PASS;
+            return result;
         }
+    }
+
+    public boolean canEntityRide(LivingEntity entity) {
+        if (entity == null) {
+            return false;
+        }
+        if (entity.getType().is(UP2EntityTags.ARTHROPLEURA_CANT_CARRY)) {
+            return false;
+        }
+        return (entity.getBbWidth() < this.getBbWidth() * 2.0F && entity.getBbHeight() < this.getBbHeight() * 4.0F) || entity.getType().is(UP2EntityTags.ARTHROPLEURA_CAN_CARRY);
     }
 
     public Optional<Entity> getLeashed(Player player) {
         List<Entity> entities = player.level().getEntities((Entity) null, player.getBoundingBox().inflate(10), entity -> true);
         for (Entity entity : entities) {
-            if (entity instanceof Mob mob && mob.getLeashHolder() == player) {
+            if (entity instanceof Mob mob && mob.getLeashHolder() == player && this.canEntityRide(mob)) {
                 return Optional.of(mob);
             }
         }
@@ -181,8 +201,8 @@ public class ArthropleuraPart extends Entity {
                 }
             } else {
                 this.tickPartPosition(head, front, back);
-                if (this.isHeadMoving() || head.hasControllingPassenger()) {
-                    this.tickPartRotation(front, Math.max(0.08F, 0.16F - (this.getIndex() * 0.001F)));
+                if (this.isHeadMoving()) {
+                    this.tickPartRotation(front, Math.max(0.1F, 0.18F - (this.getIndex() * 0.001F)));
                 }
             }
         }
@@ -193,44 +213,30 @@ public class ArthropleuraPart extends Entity {
     }
 
     public Vec3 getIdealPosition(Entity head, Entity front) {
-        float zOffset = 1.5F;
+        float zOffset = 1.425F;
         float wiggle = 0.0F;
-        if (this.isHeadMoving() || head.hasControllingPassenger()) {
+        if (this.isHeadMoving()) {
             wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
         }
         if (this.getBackEntity() == null) {
-            zOffset -= 0.2F;
-        }
-        if (this.getIndex() == 0 && head instanceof Arthropleura arthropleura && arthropleura.hasControllingPassenger()) {
-            zOffset -= 0.7F;
-            if (arthropleura.isBoosting() && !arthropleura.isInFluidType()) {
-                zOffset -= (arthropleura.getBoostFactor() - 1.0F) * 0.7F;
-            }
-            if (arthropleura.isInFluidType()) {
-                zOffset += 0.35F;
-            }
-        }
-        if (head instanceof Arthropleura arthropleura && arthropleura.isBaby()) {
-            zOffset -= 0.75F;
+            zOffset -= 0.125F;
         }
         Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
         return front.position().add(offsetFromParent);
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void tickPartPosition(Entity head, Entity front, Entity back) {
-        Vec3 distVec = this.getIdealPosition(head, front).subtract(this.position());
-        Vec3 distance = distVec.length() > 1.0F ? distVec.normalize() : distVec;
-        Vec3 nextPos = this.position().add(distance);
+        Vec3 ideal = this.getIdealPosition(head, front).subtract(this.position());
+        Vec3 distance = ideal.length() > 1.0F ? ideal.normalize() : ideal;
+        Vec3 pos = this.position().add(distance);
         if (head.isInFluidType()) {
-            this.setPos(nextPos.x, nextPos.y, nextPos.z);
+            this.setPos(pos.x, pos.y, pos.z);
         } else {
-            this.setPos(nextPos.x, this.calculateSurfaceY(nextPos, front, back), nextPos.z);
+            this.setPos(pos.x, this.calculateSurfaceY(pos, front, back), pos.z);
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void tickPartRotation(Entity front, float speed) {
         Vec3 frontsBack = front.position().add(new Vec3(0.0F, 0.0F, 1.0F).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
         double xDirection = frontsBack.x - this.getX();
@@ -239,7 +245,7 @@ public class ArthropleuraPart extends Entity {
         double magnitude = Math.sqrt(xDirection * xDirection + zDirection * zDirection);
         float xRot = Mth.wrapDegrees((float) (-(Mth.atan2(yDirection, magnitude) * (double) (180.0F / (float) Math.PI))));
         float yRot = Mth.wrapDegrees((float) (Mth.atan2(zDirection, xDirection) * (double) (180.0F / (float) Math.PI)) - 90.0F);
-        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -40.0F, 40.0F);
+        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -35.0F, 35.0F);
         float xDelta = Mth.wrapDegrees(xRot - this.getXRot());
         this.setXRot(this.getXRot() + xDelta);
         this.setYRot(this.getYRot() + yDelta * speed);
@@ -316,6 +322,7 @@ public class ArthropleuraPart extends Entity {
             current.setIndex(i);
             current.setPos(current.getIdealPosition(arthropleura, prev == null ? arthropleura : prev));
             current.setYRot(arthropleura.getYRot());
+            arthropleura.setSegments(arthropleura.getSegments() + 1);
             arthropleura.level().addFreshEntity(current);
             prev = current;
         }

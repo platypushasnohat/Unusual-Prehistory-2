@@ -34,7 +34,7 @@ public class ArthropleuraRiderLayer extends RiderLayer<Arthropleura, Arthropleur
                 poseStack.pushPose();
                 this.getParentModel().translateRiderToBody(poseStack);
                 double yOffset = passenger instanceof Player ? 0.25D : -0.25D;
-                poseStack.translate(0.0D, yOffset, -0.75D);
+                poseStack.translate(0.0D, yOffset, 0.25D);
                 poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360.0F - bodyYaw));
                 passenger.setYBodyRot(entity.getYRot());

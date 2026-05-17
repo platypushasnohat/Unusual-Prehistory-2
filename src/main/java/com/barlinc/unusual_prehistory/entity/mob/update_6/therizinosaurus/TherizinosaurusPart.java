@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.entity.mob.update_6.therizinosaurus;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,12 +18,12 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class AegirocassisPart extends PartEntity<Aegirocassis> {
+public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
-    public final Aegirocassis parent;
+    public final Therizinosaurus parent;
     private final EntityDimensions dimensions;
 
-    public AegirocassisPart(Aegirocassis parent, float width, float height) {
+    public TherizinosaurusPart(Therizinosaurus parent, float width, float height) {
         super(parent);
         this.parent = parent;
         this.dimensions = EntityDimensions.scalable(width, height);
@@ -75,7 +75,7 @@ public class AegirocassisPart extends PartEntity<Aegirocassis> {
 
     @Override
     public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D);
+        return this.getBoundingBox().inflate(2.0D, 0.5D, 2.0D);
     }
 
     @Override
@@ -87,12 +87,8 @@ public class AegirocassisPart extends PartEntity<Aegirocassis> {
         this.setPos(pos.x, pos.y - this.getBbHeight() * 0.5F, pos.z);
     }
 
-    public Vec3 centeredPosition() {
-        return this.position().add(0, this.getBbHeight() * 0.5F, 0);
-    }
-
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
     }
 
     @Override

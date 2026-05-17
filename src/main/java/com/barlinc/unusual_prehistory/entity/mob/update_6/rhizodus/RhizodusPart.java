@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.entity.mob.update_6.rhizodus;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,27 +18,28 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
+public class RhizodusPart extends PartEntity<Rhizodus> {
 
-    public final Therizinosaurus parent;
-    private final EntityDimensions dimensions;
+    public final Rhizodus parent;
 
-    public TherizinosaurusPart(Therizinosaurus parent, float width, float height) {
+    public RhizodusPart(Rhizodus parent) {
         super(parent);
         this.parent = parent;
-        this.dimensions = EntityDimensions.scalable(width, height);
         this.refreshDimensions();
     }
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return parent == null ? dimensions : dimensions.scale(parent.getAgeScale());
+        return parent == null ? super.getDimensions(pose) : parent.getDefaultDimensions(pose);
     }
 
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
-        if (parent == null) return InteractionResult.PASS;
-        else return parent.interact(player, interactionHand);
+        if (parent == null) {
+            return InteractionResult.PASS;
+        } else {
+            return parent.interact(player, interactionHand);
+        }
     }
 
     @Override
@@ -75,7 +76,7 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
     @Override
     public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2.0D, 0.5D, 2.0D);
+        return this.getBoundingBox().inflate(2.0D, 1.0D, 2.0D);
     }
 
     @Override
@@ -85,6 +86,10 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
     public void setPosCenteredY(Vec3 pos) {
         this.setPos(pos.x, pos.y - this.getBbHeight() * 0.5F, pos.z);
+    }
+
+    public Vec3 centeredPosition() {
+        return this.position().add(0, this.getBbHeight() * 0.5F, 0);
     }
 
     @Override

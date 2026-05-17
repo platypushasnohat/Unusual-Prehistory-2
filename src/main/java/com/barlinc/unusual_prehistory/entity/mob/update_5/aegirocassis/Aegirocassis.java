@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_5;
+package com.barlinc.unusual_prehistory.entity.mob.update_5.aegirocassis;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;

@@ -1,4 +1,4 @@
- package com.barlinc.unusual_prehistory.entity.mob.update_4;
+ package com.barlinc.unusual_prehistory.entity.mob.update_4.brachiosaurus;
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
